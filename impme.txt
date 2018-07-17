@@ -1,0 +1,10 @@
+
+' Thalamus 2018-07-17
+' Added "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed useSolenids=1 and added InitVpmFFlipsSAM
+
+
+' keywords
+
+, AudioFade(BOT(b))
+
