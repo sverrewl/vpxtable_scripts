@@ -148,7 +148,7 @@ End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
 
-  If keycode = PlungerKey Then Plunger.PullBack: PlaySound "plungerpull",0,1,0.25,0.25, AudioPan(Plunger): End if
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySound "plungerpull",0,1,0.25,0.25, AudioFade(Plunger): End if
 
     if keycode = 6 then
       playsound "coin3"
@@ -222,14 +222,14 @@ Sub Table1_KeyDown(ByVal keycode)
 
           If keycode = LeftFlipperKey Then
             LeftFlipper.RotateToEnd
-            PlaySound "FlipperUp",0,1,-0.05,0, AudioPan(LeftFlipper)
-            playsound "buzz",0 ,1,-0.05,0, AudioPan(LeftFlipper)
+            PlaySound "FlipperUp",0,1,-0.05,0, AudioFade(LeftFlipper)
+            playsound "buzz",0 ,1,-0.05,0, AudioFade(LeftFlipper)
           End if
 
           If keycode = RightFlipperKey Then
             RightFlipper.RotateToEnd
-            PlaySound "FlipperUp",0, 1,0.05,0,AudioPan(RightFlipper)
-            playsound "buzz",0, 1,-0.05,0,AudioPan(RightFlipper)
+            PlaySound "FlipperUp",0, 1,0.05,0,AudioFade(RightFlipper)
+            playsound "buzz",0, 1,-0.05,0,AudioFade(RightFlipper)
           End if
 
           If keycode = LeftTiltKey Then
@@ -281,13 +281,13 @@ Sub Table1_KeyUp(ByVal keycode)
   If keycode = LeftFlipperKey Then
     LeftFlipper.RotateToStart
     stopsound "buzz"
-    if state=true and tilt=false then PlaySound "FlipperDown",0,1,-0.05, 0, AudioPan(LeftFlipper)
+    if state=true and tilt=false then PlaySound "FlipperDown",0,1,-0.05, 0, AudioFade(LeftFlipper)
   End if
 
   If keycode = RightFlipperKey Then
     RightFlipper.RotateToStart
     stopsound "buzz"
-    if state=true and tilt=false then PlaySound "FlipperDown",0,1,0.05, 0, AudioPan(RightFlipper)
+    if state=true and tilt=false then PlaySound "FlipperDown",0,1,0.05, 0, AudioFade(RightFlipper)
   End if
 
 End Sub
@@ -945,7 +945,7 @@ End Sub
 
 
 Sub LeftSlingShot_Slingshot
-	PlaySoundAt "left_slingshot",0,1,-0.05,0.05
+	PlaySoundAt "left_slingshot", LeftSlingShot
 	LSling.Visible = 0
 	LSling1.Visible = 1
 	sling2.TransZ = -20
