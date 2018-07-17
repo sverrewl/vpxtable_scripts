@@ -148,7 +148,7 @@ End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
 
-  If keycode = PlungerKey Then Plunger.PullBack: PlaySound "plungerpull",0,1,0.25,0.25: End if
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySound "plungerpull",0,1,0.25,0.25, AudioPan(Plunger): End if
 
     if keycode = 6 then
       playsound "coin3"
@@ -222,14 +222,14 @@ Sub Table1_KeyDown(ByVal keycode)
 
           If keycode = LeftFlipperKey Then
             LeftFlipper.RotateToEnd
-            PlaySound "FlipperUp",0,1,-0.05,0
-            playsound "buzz",0 ,1,-0.05,0
+            PlaySound "FlipperUp",0,1,-0.05,0, AudioPan(LeftFlipper)
+            playsound "buzz",0 ,1,-0.05,0, AudioPan(LeftFlipper)
           End if
 
           If keycode = RightFlipperKey Then
             RightFlipper.RotateToEnd
-            PlaySound "FlipperUp",0, 1,0.05,0
-            playsound "buzz",0, 1,-0.05,0
+            PlaySound "FlipperUp",0, 1,0.05,0,AudioPan(RightFlipper)
+            playsound "buzz",0, 1,-0.05,0,AudioPan(RightFlipper)
           End if
 
           If keycode = LeftTiltKey Then
@@ -275,19 +275,19 @@ Sub Table1_KeyUp(ByVal keycode)
 
   If keycode = PlungerKey Then
     Plunger.Fire
-    playsound "plungerrelease"
+    PlaySoundAt "plungerrelease", Plunger
   End if
 
   If keycode = LeftFlipperKey Then
     LeftFlipper.RotateToStart
     stopsound "buzz"
-    if state=true and tilt=false then PlaySound "FlipperDown",0,1,-0.05, 0
+    if state=true and tilt=false then PlaySound "FlipperDown",0,1,-0.05, 0, AudioPan(LeftFlipper)
   End if
 
   If keycode = RightFlipperKey Then
     RightFlipper.RotateToStart
     stopsound "buzz"
-    if state=true and tilt=false then PlaySound "FlipperDown",0,1,0.05, 0
+    if state=true and tilt=false then PlaySound "FlipperDown",0,1,0.05, 0, AudioPan(RightFlipper)
   End if
 
 End Sub
@@ -767,7 +767,7 @@ sub turnoff
 End Sub
 
 Sub Drain_Hit()
-	playsound "drainshorter"
+	PlaySoundAt "drainshorter", Drain
 	Light50.state=0
 	Light51.state=0
 	wheelcheck
@@ -793,7 +793,7 @@ sub nextball
 	if currpl>playno then
 	ballinplay=ballinplay+1
 	if ballinplay>5 then
-	playsound "motorleer"
+	PlaySoundAt "motorleer", Plunger
 	If B2SOn then Controller.B2SSetBallInPlay 0
 	if B2SOn then Controller.B2SSetPlayerUp 0
 	eg=1
@@ -926,7 +926,7 @@ End Sub
 Dim RStep, Lstep, RStep1, LStep1
 
 Sub RightSlingShot_Slingshot
-	PlaySound "right_slingshot", 0, 1, 0.05, 0.05
+	PlaySoundAt "right_slingshot", RightSlingShot
 	RSling.Visible = 0
 	RSling1.Visible = 1
 	sling1.TransZ = -20
@@ -945,7 +945,7 @@ End Sub
 
 
 Sub LeftSlingShot_Slingshot
-	PlaySound "left_slingshot",0,1,-0.05,0.05
+	PlaySoundAt "left_slingshot",0,1,-0.05,0.05
 	LSling.Visible = 0
 	LSling1.Visible = 1
 	sling2.TransZ = -20
