@@ -324,9 +324,9 @@ End Sub
 
 
 'Bumpers
-Sub Bumper1_Hit : vpmTimer.PulseSw(30) : PlaySoundAt SoundFXDOF("fx_bumper1",104,DofPulse,DOFContactors), Bumper1: End Sub
-Sub Bumper2_Hit : vpmTimer.PulseSw(31) : PlaySoundAt SoundFXDOF("fx_bumper1",105,DofPulse,DOFContactors), Bumper2: End Sub
-Sub Bumper3_Hit : vpmTimer.PulseSw(32) : PlaySoundAt SoundFXDOF("fx_bumper1",106,DOfPulse,DOFContactors), Bumper3: End Sub
+Sub Bumper1_Hit : vpmTimer.PulseSw(30) : PlaySoundAt SoundFXDOF("fx_bumper1",107,DofPulse,DOFContactors), Bumper1: End Sub
+Sub Bumper2_Hit : vpmTimer.PulseSw(31) : PlaySoundAt SoundFXDOF("fx_bumper1",108,DofPulse,DOFContactors), Bumper2: End Sub
+Sub Bumper3_Hit : vpmTimer.PulseSw(32) : PlaySoundAt SoundFXDOF("fx_bumper1",109,DOfPulse,DOFContactors), Bumper3: End Sub
 
 'SuiteCase Lock buttons
 Sub sw43_Hit:Controller.Switch(43)=1:End Sub
