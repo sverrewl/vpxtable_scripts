@@ -289,7 +289,7 @@ sub newball
 End Sub
 
 Sub Drain_Hit()
-	playsound "drainshorter"
+	PlaySoundAt "drainshorter", Drain
 	Drain.DestroyBall
 	flipopen
 	nextball
@@ -678,7 +678,7 @@ End Sub
 
 
 sub bumper1_hit
-    if tilt=false then playsound"jet2"
+  if tilt=false then PlaySoundAt "jet2", bumper1
     if (bumperlight1.state)=1 then
     addscore 100
     else
@@ -687,7 +687,7 @@ sub bumper1_hit
 End Sub
 
 sub bumper2_hit
-    if tilt=false then playsound"jet2"
+    if tilt=false then PlaySoundAt "jet2", bumper2
     if (bumperlight2.state)=1 then
     addscore 100
     else
@@ -696,7 +696,7 @@ sub bumper2_hit
 End Sub
 
 sub bumper3_hit
-    if tilt=false then playsound"jet2"
+    if tilt=false then PlaySoundAt "jet2", bumper3
     if (bumperlight3.state)=1 then
     addscore 100
     else
@@ -705,21 +705,25 @@ sub bumper3_hit
 End Sub
 
 Sub BumperA_Hit()
+	PlaySoundAt "target", BumperA
     Addscore 1000
     If LightA.State=2 then LightCheck
 End Sub
 
 Sub BumperB_Hit()
+	PlaySoundAt "target", BumperB
     Addscore 1000
     If LightB.State=2 then LightCheck
 End Sub
 
 Sub BumperC_Hit()
+	PlaySoundAt "target", BumperC
     Addscore 1000
     If LightC.State=2 then LightCheck
 End Sub
 
 Sub BumperD_Hit()
+	PlaySoundAt "target", BumperD
     Addscore 1000
     If LightD.State=2 then LightCheck
 End Sub
@@ -728,7 +732,7 @@ End Sub
 Sub Kicker1_Hit()
     If Light6.State=1 then LightCheck
     If Light6.State=1 then Addscore 3000 Else Addscore 300
-    playsound "kickerkick"
+    PlaySoundAt "kickerkick", Kicker1
     KickTimer.enabled=True
 End Sub
 
@@ -746,7 +750,7 @@ Sub Kicker2_Hit()
     If hv=0 then Light1.State=0: Light2.State=0: Light3.State=0: Light4.State=0: Light5.State=0
     End If
     flipclose
-    playsound "kickerkick"
+    PlaySoundAt "kickerkick", Kicker2
     KickTimer.enabled=True
 End Sub
 
