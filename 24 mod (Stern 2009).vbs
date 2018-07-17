@@ -2,8 +2,8 @@ Option Explicit
 Randomize
 
 ' Thalamus 2018-07-17
-' Changed useSolenoids=1 to 2, and added InitVpmFFlipsSAM
-'
+' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
+
 
 Const cGameName="twenty4_150",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
@@ -31,42 +31,42 @@ End if
 SolCallback(1) = "solTrough"
 SolCallback(2) = "solAutofire"
 SolCallback(3) = "bsTEject.SolOut" 'safehouse eject
-SolCallback(4) = 	"dtLDrop.SolDropUp" 'Drop Targets
-SolCallback(5) = 	"dtRDrop.SolDropUp" 'Drop Targets
-SolCallback(6) = 	"vpmSolgate GateL,""gate"","
-SolCallback(7)	= 	"vpmSolgate GateR,""gate"","
+SolCallback(4) = "dtLDrop.SolDropUp" 'Drop Targets
+SolCallback(5) = "dtRDrop.SolDropUp" 'Drop Targets
+SolCallback(6) = "vpmSolgate GateL,""gate"","
+SolCallback(7) = "vpmSolgate GateR,""gate"","
 'SolCallback(8) = 'shaker not used
 SolCallback(12) = "SolSafeHouse"
-SolCallback(13) = 	"dtUDrop.SolDropUp" 'Drop Targets
+SolCallback(13) =	"dtUDrop.SolDropUp" 'Drop Targets
 SolCallback(14) = "SolSniper"
 SolCallback(22) = "SolPostUp" 'left ramp post
 SolCallback(28) = "SolSuitCase" 'suitcase lockup
 SolCallback(29) = "sniperpost" 'sniper up post
 
 'Solenoid Controlled Flashers
-SolCallback(19) = 	"SetLamp 119," 'flash safehouse x3
-SolCallback(20) = 	"SetLamp 120," 'flash sniper x2
-SolCallback(26) = 	"SetLamp 126," 'flash pop x3
-SolCallback(27) = 	"SetLamp 127," 'flash right side under jet?
-SolCallback(31) = 	"SetLamp 131," 'Orange Dome Slingshots x2
-SolCallback(32) = 	"SetLamp 132," 'flash left spinner x3
+SolCallback(19) =	"SetLamp 119," 'flash safehouse x3
+SolCallback(20) =	"SetLamp 120," 'flash sniper x2
+SolCallback(26) =	"SetLamp 126," 'flash pop x3
+SolCallback(27) =	"SetLamp 127," 'flash right side under jet?
+SolCallback(31) =	"SetLamp 131," 'Orange Dome Slingshots x2
+SolCallback(32) =	"SetLamp 132," 'flash left spinner x3
 
-SolCallback(15) =   "SolLFlipper"
-SolCallback(16) =   "SolRFlipper"
+SolCallback(15) = "SolLFlipper"
+SolCallback(16) = "SolRFlipper"
 
 Sub SolLFlipper(Enabled)
   If Enabled Then
-    PlaySound SoundFX("fx_Flipperup",DOFFlippers):LeftFlipper.RotateToEnd
+    PlaySoundAt SoundFXDOF("fx_Flipperup",101,DOFOn,DOFFlippers),LeftFlipper:LeftFlipper.RotateToEnd
   Else
-    PlaySound SoundFX("fx_Flipperdown",DOFFlippers):LeftFlipper.RotateToStart
+    PlaySoundAt SoundFXDOF("fx_Flipperdown",101,DOFOff,DOFFlippers),LeftFlipper:LeftFlipper.RotateToStart
   End If
 End Sub
 
 Sub SolRFlipper(Enabled)
   If Enabled Then
-    PlaySound SoundFX("fx_Flipperup",DOFFlippers):RightFlipper.RotateToEnd
+    PlaySoundAt SoundFXDOF("fx_Flipperup",102,DOFOn,DOFFlippers),RightFlipper:RightFlipper.RotateToEnd
   Else
-    PlaySound SoundFX("fx_Flipperdown",DOFFlippers):RightFlipper.RotateToStart
+    PlaySoundAt SoundFXDOF("fx_Flipperdown",102,DOFOff,DOFFlippers),RightFlipper:RightFlipper.RotateToStart
   End If
 End Sub
 
@@ -230,14 +230,14 @@ End Sub
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal Keycode)
-  If keycode = PlungerKey Then Plunger.Pullback:playsound"plungerpull":Controller.Switch(11) = 0
+  If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAt "plungerpull", Plunger:Controller.Switch(11) = 0
   If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
 	If vpmKeyUp(keycode) Then Exit Sub
 	If Keycode = StartGameKey Then Controller.Switch(16) = 0
-	If keycode = PlungerKey Then Plunger.Fire:PlaySound"plunger"
+	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
 End Sub
 
 'Auto Plunger
@@ -260,7 +260,7 @@ End With
 
  ' Drain hole and kickers
 
-Sub Drain_Hit:bsTrough.addball me : playsound"drain" : End Sub
+Sub Drain_Hit:bsTrough.addball me : PlaySoundAt "drain", Drain : End Sub
 Sub sw3_Hit:bsTEject.addball 0 : playsound "popper_ball": End Sub
 
 'Drop Targets
@@ -270,24 +270,24 @@ Sub Sw60_Dropped:dtLDrop.Hit 1 :End Sub
 Sub Sw61_Dropped:dtRDrop.Hit 1 :End Sub
 
 'Wire Triggers
-Sub sw23_Hit:Controller.Switch(23)=1 : playsound"rollover" : End Sub
+Sub sw23_Hit:Controller.Switch(23)=1 : PlaySoundAt "rollover", sw23 : End Sub
 Sub sw23_unHit:Controller.Switch(23)=0:End Sub
-Sub sw24_Hit:Controller.Switch(24)=1 : playsound"rollover" : End Sub
+Sub sw24_Hit:Controller.Switch(24)=1 : PlaySoundAt "rollover", sw24 : End Sub
 Sub sw24_unHit:Controller.Switch(24)=0:End Sub
-Sub sw25_Hit:Controller.Switch(25)=1 : playsound"rollover" : End Sub
+Sub sw25_Hit:Controller.Switch(25)=1 : PlaySoundAt "rollover", sw25 : End Sub
 Sub sw25_unHit:Controller.Switch(25)=0:End Sub
-Sub sw28_Hit:Controller.Switch(28)=1 : playsound"rollover" : End Sub
+Sub sw28_Hit:Controller.Switch(28)=1 : PlaySoundAt "rollover", sw28 : End Sub
 Sub sw28_unHit:Controller.Switch(28)=0:End Sub
-Sub sw29_Hit:Controller.Switch(29)=1 : playsound"rollover" : End Sub
+Sub sw29_Hit:Controller.Switch(29)=1 : PlaySoundAt "rollover", sw29 : End Sub
 Sub sw29_unHit:Controller.Switch(29)=0:End Sub
 
-Sub sw46_Hit:Controller.Switch(46)=1 : playsound"rollover" : End Sub
+Sub sw46_Hit:Controller.Switch(46)=1 : PlaySoundAt "rollover", sw46 : End Sub
 Sub sw46_unHit:Controller.Switch(46)=0:End Sub
-Sub sw55_Hit:Controller.Switch(55)=1 : playsound"rollover" : End Sub
+Sub sw55_Hit:Controller.Switch(55)=1 : PlaySoundAt "rollover", sw55 : End Sub
 Sub sw55_unHit:Controller.Switch(55)=0:End Sub
-Sub sw56_Hit:Controller.Switch(56)=1 : playsound"rollover" : End Sub
+Sub sw56_Hit:Controller.Switch(56)=1 : PlaySoundAt "rollover", sw56 : End Sub
 Sub sw56_unHit:Controller.Switch(56)=0:End Sub
-Sub sw57_Hit:Controller.Switch(57)=1 : playsound"rollover" : End Sub
+Sub sw57_Hit:Controller.Switch(57)=1 : PlaySoundAt "rollover", sw57 : End Sub
 Sub sw57_unHit:Controller.Switch(57)=0:End Sub
 
  'Gate Triggers
@@ -296,7 +296,7 @@ Sub sw54_hit:vpmTimer.pulseSw 54 : End Sub
 Sub sw58_hit:vpmTimer.pulseSw 58 : End Sub
 
 'Spinners
-Sub sw10_Spin:vpmTimer.PulseSw 10 : playsound"fx_spinner" : End Sub
+Sub sw10_Spin:vpmTimer.PulseSw 10 : PlaySoundAt "fx_spinner", sw10 : End Sub
 
  'Stand Up Targets
 Sub sw1_hit:vpmTimer.pulseSw 1 : End Sub
@@ -324,9 +324,9 @@ End Sub
 
 
 'Bumpers
-Sub Bumper1_Hit : vpmTimer.PulseSw(30) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
-Sub Bumper2_Hit : vpmTimer.PulseSw(31) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
-Sub Bumper3_Hit : vpmTimer.PulseSw(32) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
+Sub Bumper1_Hit : vpmTimer.PulseSw(30) : PlaySoundAt SoundFXDOF("fx_bumper1",104,DofPulse,DOFContactors), Bumper1: End Sub
+Sub Bumper2_Hit : vpmTimer.PulseSw(31) : PlaySoundAt SoundFXDOF("fx_bumper1",105,DofPulse,DOFContactors), Bumper2: End Sub
+Sub Bumper3_Hit : vpmTimer.PulseSw(32) : PlaySoundAt SoundFXDOF("fx_bumper1",106,DOfPulse,DOFContactors), Bumper3: End Sub
 
 'SuiteCase Lock buttons
 Sub sw43_Hit:Controller.Switch(43)=1:End Sub
@@ -337,11 +337,11 @@ Sub sw45_Hit:Controller.Switch(45)=1:Post44.IsDropped=False:End Sub 	'suitcase l
 Sub sw45_unHit:Controller.Switch(45)=0:Post44.IsDropped=True:End Sub
 
 'Generic Sounds
-Sub Trigger1_Hit: playsound"fx_ballrampdrop" : End Sub
-Sub Trigger2_Hit: playsound"fx_ballrampdrop" : End Sub
-Sub Trigger3_Hit: playsound"fx_ballrampdrop" : End Sub
+Sub Trigger1_Hit: PlaySoundAt "fx_ballrampdrop", Trigger1 : End Sub
+Sub Trigger2_Hit: PlaySoundAt "fx_ballrampdrop", Trigger2 : End Sub
+Sub Trigger3_Hit: PlaySoundAt "fx_ballrampdrop", Trigger3 : End Sub
 
-Sub Trigger4_Hit: playsound"Wire Ramp" : End Sub
+Sub Trigger4_Hit: PlaySoundAt "Wire Ramp", Trigger4 : End Sub
 
 '*************************************************************
 'Right Post
