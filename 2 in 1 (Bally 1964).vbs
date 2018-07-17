@@ -926,7 +926,7 @@ End Sub
 Dim RStep, Lstep, RStep1, LStep1
 
 Sub RightSlingShot_Slingshot
-	PlaySoundAt "right_slingshot", RightSlingShot
+	PlaySoundAt "right_slingshot", Sling1
 	RSling.Visible = 0
 	RSling1.Visible = 1
 	sling1.TransZ = -20
@@ -945,7 +945,7 @@ End Sub
 
 
 Sub LeftSlingShot_Slingshot
-	PlaySoundAt "left_slingshot", LeftSlingShot
+	PlaySoundAt "left_slingshot", Sling2
 	LSling.Visible = 0
 	LSling1.Visible = 1
 	sling2.TransZ = -20
@@ -964,7 +964,7 @@ End Sub
 
 Sub LeftSlingShot1_Slingshot
     addscore 1
-    PlaySound "left_slingshot",0,1,-0.05,0.05
+    PlaySoundAt "left_slingshot", SLING4
     LSling4.Visible = 0
     LSling5.Visible = 1
     sling4.TransZ = -20
@@ -1249,17 +1249,17 @@ sub loadhs
 End Sub
 
 sub bumper1_hit
-    if tilt=false then playsound "jet1"
+    if tilt=false then PlaySoundAt "jet1", bumper1
     if BumperLight1.state=1 then addscore 10 else addscore 1
 End Sub
 
 sub bumper2_hit
-    if tilt=false then playsound "jet1"
+    if tilt=false then PlaySoundAt "jet1", bumper2
     if BumperLight2.state=1 then addscore 10 else addscore 1
 End Sub
 
 sub bumper3_hit
-    if tilt=false then playsound "jet1"
+    if tilt=false then PlaySoundAt "jet1", bumper3
     if BumperLight3.state=1 then addscore 10 else addscore 1
 End Sub
 
@@ -1349,6 +1349,7 @@ End Sub
 
 Sub Bumper4_Hit()
 	if tilt = false then
+	PlaySoundAt "target", Bumper4
 	If MushroomLight1.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
 	If MushroomLight1.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
 	If B2SOn Then
@@ -1365,6 +1366,7 @@ End Sub
 
 Sub Bumper5_Hit()
 	if tilt = false then
+	PlaySoundAt "target", Bumper5
 	If MushroomLight5.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
 	If MushroomLight5.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
 	If B2SOn Then
@@ -1381,6 +1383,7 @@ End Sub
 
 Sub Bumper6_Hit()
 	If tilt = false then
+	PlaySoundAt "target", Bumper6
 	If MushroomLight4.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
 	If MushroomLight4.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
 	If B2SOn Then
@@ -1397,6 +1400,7 @@ End Sub
 
 Sub Bumper7_Hit()
 	if tilt = false then
+	PlaySoundAt "target", Bumper7
 	If MushroomLight2.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
 	If MushroomLight2.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
 	If B2SOn Then
@@ -1413,6 +1417,7 @@ End Sub
 
 Sub Bumper8_Hit()
 	if tilt = false then
+	PlaySoundAt "target", Bumper8
 	If MushroomLight3.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
 	If MushroomLight3.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
 	If B2SOn Then
