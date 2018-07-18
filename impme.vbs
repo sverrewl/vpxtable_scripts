@@ -85,17 +85,17 @@ Function AudioFade(ball) ' Can this be together with the above function ?
   End If
 End Function
 
-' Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-'   Vol = Csng(BallVel(ball) ^2 / 2000)
-' End Function
-'
-' Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-'   Pitch = BallVel(ball) * 20
-' End Function
-'
-' Function BallVel(ball) 'Calculates the ball speed
-'   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-' End Function
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
 
 ' --------------------------------------------------------------------------------
 
