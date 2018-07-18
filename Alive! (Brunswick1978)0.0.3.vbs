@@ -9,7 +9,7 @@
 
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Just a few SSF tweaks
 
 Option Explicit
 Randomize
