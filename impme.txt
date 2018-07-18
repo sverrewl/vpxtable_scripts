@@ -1,11 +1,12 @@
 
-' Thalamus 2018-07-17
-' Added "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Thalamus 2018-07-18
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
 
 
 ' Const cSingleLFlip = 0
 ' Const cSingleRFlip = 0
+
 
 ' Example for Family Guy and Shrek - mini playfield flippers
 '
@@ -27,8 +28,6 @@
 ' ========
 
 , AudioFade(BOT(b))
-
-
 
 ' DOF
 ' ===
