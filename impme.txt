@@ -1,7 +1,8 @@
 
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
+' Changed UseSolenoids=1 to 2
+' Added InitVpmFFlipsSAM
 
 
 ' Const cSingleLFlip = 0
@@ -26,8 +27,8 @@
 
 ' keywords
 ' ========
-
-, AudioFade(BOT(b))
+' , AudioFade(ActiveBall)
+' , AudioFade(BOT(b))
 
 ' DOF
 ' ===
