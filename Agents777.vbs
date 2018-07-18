@@ -250,7 +250,7 @@ Sub Agents777_KeyDown(ByVal keycode)
     If vpmKeyDown(KeyCode) Then Exit Sub
   If keycode = PlungerKey Then
     Plunger.PullBack
-    PlaySound "plungerpull",0,1,0.25,0.25,AudioFade(ActiveBall)
+    PlaySound "plungerpull",0,1,0.25,0.25
   End If
 
 ' If keycode = LeftFlipperKey Then
@@ -283,7 +283,7 @@ Sub Agents777_KeyUp(ByVal keycode)
 If vpmKeyUp(KeyCode) Then Exit Sub
   If keycode = PlungerKey Then
     Plunger.Fire
-    PlaySound "plunger",0,1,0.25,0.25,AudioFade(ActiveBall)
+    PlaySound "plunger",0,1,0.25,0.25
   End If
 
 ' If keycode = LeftFlipperKey Then
@@ -729,7 +729,7 @@ Sub Rubbers_Hit(idx)
   dim finalspeed
     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
   If finalspeed > 20 then
-    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*40, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
   End if
   If finalspeed >= 6 AND finalspeed <= 20 then
     RandomSoundRubber()
@@ -934,6 +934,20 @@ Function AudioFade(ball) ' Can this be together with the above function ?
     AudioFade = Csng(-((- tmp) ^10) )
   End If
 End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+    Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+    Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+
 
 '*****************************************
 '    JP's VP10 Collision & Rolling Sounds
