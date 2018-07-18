@@ -514,7 +514,7 @@ Sub Spinner2_Spin
 	addscore 500
 	Else
 	addscore 50
-	PlaySoundAt "fx_spinner", Spinnner2
+	PlaySoundAt "fx_spinner", Spinner2
 	if Lightdingwall5.state=1 and LightTGtop.state=1 and LightBumper1.state=1 and Lightdingwall6.state=1 and LightSpinner2.state=1 and LightSpinner3.state=1 and LightSpinner1.state=1 and LightLeftSlingShot.state=1 and LightRightSlingShot.state=1 Then
 	LTxball.state=1
 	end if
