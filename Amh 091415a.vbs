@@ -11653,7 +11653,7 @@ End Sub
 '*********************
 Sub KiDrain_Hit()										'Switch 63
 	If ActiveBall.ID > 20 Then me.destroyball:Exit Sub:End If
-	Playsound "drain"
+	PlaySoundAt "drain", KiDrain
 	Set BallMover3 = ActiveBall							'Set the object so that we can...
 	MoveBall BallMover3, KiMaintrough, me, 58, 8, 0		'Move the ball, to the main trough, coming from the drain
 	BallsInTrough = BallsInTrough + 1					'Increase the number of tracked balls in the main trough
