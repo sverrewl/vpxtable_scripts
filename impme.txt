@@ -6,6 +6,11 @@
 ' Added InitVpmFFlipsSAM
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
+' keywords
+' ========
+' , AudioFade(ActiveBall)
+' , AudioFade(BOT(b))
+
 
 ' Const cSingleLFlip = 0
 ' Const cSingleRFlip = 0
@@ -26,11 +31,6 @@
 ' 	Exit Sub
 ' End If
 
-
-' keywords
-' ========
-' , AudioFade(ActiveBall)
-' , AudioFade(BOT(b))
 
 ' DOF
 ' ===
