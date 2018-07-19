@@ -11,12 +11,19 @@
 'light\((.*)\) - light \1
 'video\('(\w)', '(\w)', '(\w)' (.*)\) - video "\1", "\2", "\3" \4
 '\treturn - \tExit Sub   But watch out for something after Exit Sub as it indicates a function return
+
+' Thalamus 2018-07-19
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
+
 Option Explicit
 Randomize
 
 '---------- UltraDMD Unique Table Color preference -------------
 Dim DMDColor, DMDColorSelect, UseFullColor
-Dim DMDPosition, DMDPosX, DMDPosY, DMDSize, DMDWidth, DMDHeight 
+Dim DMDPosition, DMDPosX, DMDPosY, DMDSize, DMDWidth, DMDHeight
 
 
 UseFullColor = "False" '                           "True" / "False"
@@ -28,9 +35,9 @@ DMDPosY = 0                                     ' Position in Decimal
 
 DMDSize = True                                     ' Use Manual DMD Size, True / False
 DMDWidth = 512                                    ' Width in Decimal
-DMDHeight = 128                                   ' Height in Decimal 
+DMDHeight = 128                                   ' Height in Decimal
 
-'Note open Ultradmd and right click on window to get the various sizes in decimal 
+'Note open Ultradmd and right click on window to get the various sizes in decimal
 
 GetDMDColor
 Sub GetDMDColor
@@ -82,7 +89,7 @@ sub SaveLMEMConfig
 		tempb2s=0
 	end if
 	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	Set LMConfig=FileObj.CreateTextFile(UserDirectory & LMEMTableConfig,True)
@@ -100,7 +107,7 @@ sub LoadLMEMConfig
 	dim tempC
 	dim tempb2s
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	If Not FileObj.FileExists(UserDirectory & LMEMTableConfig) then
@@ -138,8 +145,8 @@ Function SoundFX (sound)
 End Function
 
 'B2S/DOF version
-Sub DOF(dofevent, dofstate)	
-	If B2SOn = True Then		
+Sub DOF(dofevent, dofstate)
+	If B2SOn = True Then
 		If dofstate = 2 Then
 			Controller.B2SSetData dofevent, 1
 			Controller.B2SSetData dofevent, 0
@@ -318,18 +325,18 @@ Sub Table1_KeyDown(ByVal keycode)
 				initials(cursorPos) = 32					'Set that initial back to an empty SPACE
 				playSFX 1, "O", "R", "Z", 255
 			End If
-			if (inChar <> 91) Then							'Set a character, as long as it's not a backspace				
+			if (inChar <> 91) Then							'Set a character, as long as it's not a backspace
 				initials(cursorPos) = inChar				'Set the character
 				If inChar = 92 Then initials(cursorPos) = 32
 				cursorPos = cursorPos + 1
 				if (cursorPos = 3) Then						'Done?
 					playSFX 1, "O", "R", "Y", 255
-					cursorPos = 99							'Set flag to exit			
-				else 
+					cursorPos = 99							'Set flag to exit
+				else
 					playSFX 1, "O", "R", "Y", 255
 				End If
 			End If
-			if (cursorPos <> 3) Then						'Don't bother changing this on last press				
+			if (cursorPos <> 3) Then						'Don't bother changing this on last press
 '				video('Z', whichPlayer + 48, cursorPos + 48, loopVideo, 0, 0)
 				sendInitials inChar, HSPlace
 				NameEntry HSCheck, HSPlace
@@ -755,11 +762,11 @@ Sub NoGame1()
 	LoadHighScores()
 	modeTimer = 0								'Use for Attract Mode
 	houseKeeping()								'Check a few times, so we don't get a false positive on the door open or close state
-'	if (bitRead(cabinet, Door) = 0) Then			'Is door open?	We need to check even if DOOR WARN is disabled	
+'	if (bitRead(cabinet, Door) = 0) Then			'Is door open?	We need to check even if DOOR WARN is disabled
 '		coinDoorState = 1						'Set state to OPEN
 '	Else
-'		coinDoorState = 0						'Set state to CLOSED	
-'	End If	
+'		coinDoorState = 0						'Set state to CLOSED
+'	End If
 	'Serial.println(coinDoorDetect)
 '	switchDebounceClear(16, 63)					'Reset debounces manually just in case
 	drainTries = 0								'We haven't tried to kick the drain yet
@@ -859,7 +866,7 @@ Sub TiZero_Timer()
 			if (tournament) Then					'If Tourney, both flippers do same thing
 				Update(holdTourneyScores)			'Jump to last game's scores and stay there
 			Else									'Normal operation
-				Update(highScoreTable)				'Jump to High Score Table			
+				Update(highScoreTable)				'Jump to High Score Table
 			End If
 		End If
 		if (SwRFlip = 1) Then
@@ -867,10 +874,10 @@ Sub TiZero_Timer()
 				Update(holdTourneyScores)			'Jump to last game's scores and stay there
 			Else									'Normal operation
 				if (showScores) Then
-					Update(lastGameScores)			'Jump to last game's scores	
+					Update(lastGameScores)			'Jump to last game's scores
 				Else								'If there wasn't a last game, jump to High Scores
-					Update(highScoreTable)			'Jump to last game's scores and stay there							
-				End If						
+					Update(highScoreTable)			'Jump to last game's scores and stay there
+				End If
 			End If
 		End If
 	Else
@@ -887,17 +894,17 @@ Sub NoGame2()
 '	LFlipTime = -10								'Make flipper re-triggerable, with debounce
 '	LholdTime = 0								'Disable hold timer.
 '	digitalWrite(LFlipHigh, 0) 					'Turn off high power
-'	digitalWrite(LFlipLow, 0)  					'Switch off hold current	
+'	digitalWrite(LFlipLow, 0)  					'Switch off hold current
 '	rightDebounce = 0
 '	RFlipTime = -10								'Make flipper re-triggerable, with debounce
 '	RholdTime = 0								'Disable hold timer
 '	digitalWrite(RFlipHigh, 0) 					'Turn off high power
-'	digitalWrite(RFlipLow, 0)  					'Switch off hold current			
+'	digitalWrite(RFlipLow, 0)  					'Switch off hold current
 	Timer.Enabled = 0
 	if (menuAbortFlag = 0) Then					'Game ended normally? (we didn't abort by entering the menu?)
-		GameOver()								'Do normal game over stuff	
+		GameOver()								'Do normal game over stuff
 		gamesPlayed = gamesPlayed + numPlayers	'Increment games played
-		saveAudits()							'Save game stats		
+		saveAudits()							'Save game stats
 	End If
 End Sub
 
@@ -934,32 +941,32 @@ Sub Timer_Timer()								'The Main Loop of the Game. We always keep this at the 
 End Sub
 
 Sub TopMenu()									'EP- I'm not even going to think about doing maintenance stuff until I get the rest of this done
-	
+
 End Sub
 
 Sub ShowGameStatus()
-	
+
 End Sub
 
 sub addPlayer()																		'Adds additional players beyond Player 1
 	if (numPlayers < 4) Then														'4 player limit.
 		numPlayers = numPlayers + 1
-		video "K", "P", numPlayers, noExitFlush, 45, 255						'Show new player intro, with NO NUMBERS	
-		if (run <> 3) Then															'Ball still in shooter lane?			
+		video "K", "P", numPlayers, noExitFlush, 45, 255						'Show new player intro, with NO NUMBERS
+		if (run <> 3) Then															'Ball still in shooter lane?
 			customScore "K", player, 64 + skillShot, allowSmall OR loopVideo, 120	'Update Skill Shot display
-';			numbers 10, 2, 44, 27, numPlayers										'Update Number of players indicator			
+';			numbers 10, 2, 44, 27, numPlayers										'Update Number of players indicator
 		End If
 		playSFX 0, "A", numPlayers + 64, 1 + random(4), 255							'ADJUST BASED OFF PLAYER ADDED
-	Else																			'Player subtract only works in free play, and only removes players who haven't started a ball yet	
-		if (freePlay and player < 4) Then											'If player 3 is ready to launch, Player 4 can be removed. But if player 4 is up, you are stuck with 4 players		
+	Else																			'Player subtract only works in free play, and only removes players who haven't started a ball yet
+		if (freePlay and player < 4) Then											'If player 3 is ready to launch, Player 4 can be removed. But if player 4 is up, you are stuck with 4 players
 			numPlayers = player														'Change the total number of players to whichever player is up
 '			video "K", "R", "1" + numPlayers, noExitFlush, 0, 255					'Show message (with offset in filename) EP- I don't have this gif, I have an old gif pack
-			if (run <> 3) Then														'Ball still in shooter lane?			
+			if (run <> 3) Then														'Ball still in shooter lane?
 				customScore "K", player, 64 + skillShot, allowSmall OR loopVideo, 120		'Update Skill Shot display
-';				numbers 10, 2, 44, 27, numPlayers									'Update Number of players indicator			
-			End If			
-			playSFX 0, "P", "9", 65 + random(4), 255								'Random "I'm sitting this one out" quotes from Prison mode		
-		End If	
+';				numbers 10, 2, 44, 27, numPlayers									'Update Number of players indicator
+			End If
+			playSFX 0, "P", "9", 65 + random(4), 255								'Random "I'm sitting this one out" quotes from Prison mode
+		End If
 	End If
 End Sub
 
@@ -975,17 +982,17 @@ sub AttractMode()																	'Runs my slightly less crappy light show
 		if (lightCurrent = 10) Then
 			GIpf(128)
 			setCabModeFade 0, 0, 255, 25
-		End If		
+		End If
 		if (lightCurrent = 15) Then
 			GIpf(208)
 			setCabModeFade 255, 255, 255, 25
-		End If	
+		End If
 		if (lightCurrent = 25) Then
 			GIpf(240)
-		End If	
+		End If
 		lightCurrent = lightCurrent + 1
 		if (lightCurrent > lightEnd) Then			'Loop the animation
-			lightCurrent = lightStart		
+			lightCurrent = lightStart
 		End If
 	End If
 	multiTimer = multiTimer + 1							'Increment the light timer
@@ -1038,14 +1045,14 @@ sub balconyApproach()						'Fresh hit on right orbit? (Didn't roll down from ORB
 		tourGuide 0, 6, 4, 25000, 1									'Check that part of the tour!
 	End If
 	if (hotProgress(player) > 29 and hotProgress(player) < 40) Then	'Fighting the Hotel Ghost? (can't do tour during the Control Box search)
-		tourGuide 1, 5, 4, 25000, 1									'Check that part of the tour!		
+		tourGuide 1, 5, 4, 25000, 1									'Check that part of the tour!
 	End If
 	if (Mode(player) = 4) Then										'War fort?
 		x = random(8)
 		playSFX 0, "W", "5", 65 + x, 210							'Random Army Ghost lines
 		if (tourGuide(0, 4, 4, 25000, 0) = 0) Then
 			video "W", "5", 65 + x, allowSmall, 79, 250				'Synced taunt video
-		End If														'Check that part of the tour (no WHOOSH sound needed)		
+		End If														'Check that part of the tour (no WHOOSH sound needed)
 	End If
 	if (barProgress(player) > 69 and barProgress(player) < 100) Then			'Haunted Bar?
 		tourGuide 0, 3, 4, 25000, 1									'Check that part of the tour!
@@ -1053,14 +1060,14 @@ sub balconyApproach()						'Fresh hit on right orbit? (Didn't roll down from ORB
 	if (Mode(player) = 1) Then										'Hospital?
 		tourGuide 1, 1, 4, 25000, 1									'Check that part of the tour!
 	End If
-	if (skillShot) Then												'On the off chance it somehow gets by the ORB rollovers on a launch...			
+	if (skillShot) Then												'On the off chance it somehow gets by the ORB rollovers on a launch...
 		if (skillShot = 2) Then										'Did we hit the Skill shot?
 			skillShotSuccess 1, 0									'Success!
 			DOF 117, 2
 		Else
 			skillShotSuccess 0, 255									'Failure, so just disable it
 		End If
-	End If	
+	End If
 	if (Advance_Enable) Then										'Are we trying to advance theater?
 		playSFX	0, "T", "9", "Y", 200								'Run and jump sound
 		video "T", "9", "Y", allowSmall, 35, 200					'Run and jump animation
@@ -1074,7 +1081,7 @@ sub balconyApproach()						'Fresh hit on right orbit? (Didn't roll down from ORB
 	if (Mode(player) = 7) Then										'Are we in Ghost Photo Hunt?
 		photoCheck(4)
 	End If
-	if (theProgress(player) > 9 and theProgress(player) < 100) Then			'Theater Ghost?	
+	if (theProgress(player) > 9 and theProgress(player) < 100) Then			'Theater Ghost?
 		'TheaterPlay(0)					'Incorrect shot, ghost will bitch!
 		'Sweet Jumps!
 		playSFX 0, "T", "9", "Y", 200								'Run and jump sound
@@ -1084,7 +1091,7 @@ sub balconyApproach()						'Fresh hit on right orbit? (Didn't roll down from ORB
 		minionJackpotIncrease()
 		lightningStart(Int(50000/CycleAdjuster))
 		MagnetSet(100)
-	End If					
+	End If
 End Sub
 
 sub balconyJump()													'What happens when you successfully make the Balcony Jump
@@ -1103,7 +1110,7 @@ sub balconyJump()													'What happens when you successfully make the Balco
 		sweetJump = sweetJump + 1								'So making shot ALWAYS awards at least 100k, and that increases if you combo shots together
 		if (sweetJump > 12) Then								'Limit the animations/SFX, but no limits of total # of Sweet Jumps and bonus value
 			sweetJump = 12										'You only get 15 seconds per shot in theater mode, so unless you make a jump a second
-		End If													'highly unlikely you'll ever hit the limit of 12			
+		End If													'highly unlikely you'll ever hit the limit of 12
 		playSFX 1, "T", "S", 64 + sweetJump, 255				'Whooshing jump sound FX
 		video "T", "J", 64 + sweetJump, allowSmall, 30, 255		'Jump Complete video
 		showValue sweetJumpBonus, 0, 1
@@ -1114,7 +1121,7 @@ sub balconyJump()													'What happens when you successfully make the Balco
 		sweetJump = sweetJump + 1
 		if (sweetJump > 12) Then								'Limit the animations, but no limits of total # of Sweet Jumps
 			sweetJump = 12										'You only get 15 seconds per shot in theater mode, so unless you make a jump a second
-		End If													'highly unlikely you'll ever hit the limit of 12			
+		End If													'highly unlikely you'll ever hit the limit of 12
 		playSFX 1, "T", "S", 64 + sweetJump, 255				'Whooshing jump sound FX
 		video "T", "J", 64 + sweetJump, allowSmall, 30, 255		'Jump Complete video
 		showValue sweetJumpBonus, 0, 1
@@ -1122,11 +1129,11 @@ sub balconyJump()													'What happens when you successfully make the Balco
 	End If
 	'If in another mode, or Theater is lit but not collected, prompt standard combos
 	comboCheck(4)													'Normal combo check
-	comboVideoFlag = 0												'Nothing active? Reset video combo flag	
+	comboVideoFlag = 0												'Nothing active? Reset video combo flag
 	AddScore(5000)													'Some points
 	'Nothing going on default prompt
-	video "C", "G", "E", allowSmall, 39, 250						'Regular Combo to the Right ->	
-	playSFX 2, "A", "Z", "Z", 255									'Whoosh!		
+	video "C", "G", "E", allowSmall, 39, 250						'Regular Combo to the Right ->
+	playSFX 2, "A", "Z", "Z", 255									'Whoosh!
 End Sub
 
 sub ballElevatorLogic()													'What happens when a ball goes in the Elevator on second floor
@@ -1161,10 +1168,10 @@ sub ballElevatorLogic()													'What happens when a ball goes in the Elevat
 			ElevatorSet hellDown, 150									'Move elevator down (was 175)
 			light 25, 7													'Current state is SOLID
 			blink(24)													'Other state BLINKS
-			light 30, 0													'Lock is NOT lit				
+			light 30, 0													'Lock is NOT lit
 			if (multiBall AND multiballHell) Then							'Minion MB is a MB without hell locks, but if Hell is enabled, we must be in Hell MB, or Hell MB + Minion MB
 				video "Q", "J", "D", 1, 20, 255					'Jackpot!
-				playSFX 0, "Q", "J", "D", 255	
+				playSFX 0, "Q", "J", "D", 255
 				showValue hellJackpot(player), 40, 1
 				flashCab 255, 255, 255, 50
 				strobe 26, 5
@@ -1195,14 +1202,14 @@ sub ballElevatorLogic()													'What happens when a ball goes in the Elevat
 				if (lockCount(player) = 3) Then							'Three balls locked?
 					blink 26
 					blink 27
-					blink 28						
-					multiBallStart(1)						
+					blink 28
+					multiBallStart(1)
 				Else
 					playSFX 0, "Q", "A", lockCount(player), 255	'Ball 1 or 2 LOCKED!
 					animatePF 74, 30, 0									'Vertical lock swoosh
 				End If
-			End If			
-		End If	
+			End If
+		End If
 	End If
 End Sub
 
@@ -1221,35 +1228,35 @@ sub ballExitElevatorLogic()
 						pulse(26)
 						light 27, 0
 						light 28, 0
-						light 29, 0		
+						light 29, 0
 					End If
 					if (hotProgress(player) = 1) Then
 						light 26, 7
 						pulse(27)
 						light 28, 0
-						light 29, 0		
+						light 29, 0
 					End If
 					if (hotProgress(player) = 2) Then
 						light 26, 7
 						light 27, 7
 						pulse(28)
-						light 29, 0		
-					End If		
+						light 29, 0
+					End If
 					if (hotProgress(player) = 3) Then
 						light 26, 7
 						light 27, 7
 						light 28, 7
-						pulse(29)		
-					End If	
+						pulse(29)
+					End If
 				Else													'Hotel complete? No lights. (they didn't leave the light on for ya)
 					light 26, 0
 					light 27, 0
 					light 28, 0
 					light 29, 0
-				End If		
-			End If	
-		End If									
-	End If		
+				End If
+			End If
+		End If
+	End If
 End Sub
 
 sub ballSave()														'Call this to set (enable) Ball Save. Time can vary per player
@@ -1290,7 +1297,7 @@ sub ballSearch()									'Can't find balls? This routine tries to find them
 		'Serial.println("Ball Search KICK")
 '		Coil(Plunger, plungerStrength)				'Kick it out!
 		AutoPlunger.AutoFire
-		DOF 124, 2		
+		DOF 124, 2
 		'Serial.println("Ball SHOOTER LANE")
 	End If
 End Sub
@@ -1304,46 +1311,46 @@ End Sub
 'Functions for Bar Ghost Mode 4........................
 sub BarAdvance()													'X number of pops advances bar
 	AddScore(popScore)
-	areaProgress(player)  = areaProgress(player)  +  1					'Total mode progress	
+	areaProgress(player)  = areaProgress(player)  +  1					'Total mode progress
 	barProgress(player)  = barProgress(player)  +  1					'Increment Bar Progress
 	flashCab 0, 255, 0, 10					'Flash the GHOST BOSS color
 	if (barProgress(player) > 0 and barProgress(player) < 26) Then ' and centerTimer = 0) 				'If we haven't filled it yet, show the progress
 		video "B", "A", BarProgress(player)+64, allowBar OR allowSmall OR preventRestart, 40, 250
 '		showProgressBar(4, 3, 12, 26, barProgress player) * 4, 4
-'		showProgressBar(5, 10, 12, 27, barProgress player) * 4, 2				
+'		showProgressBar(5, 10, 12, 27, barProgress player) * 4, 2
 	End If
 	if (barProgress(player) = 6) Then
-		playSFX 0, "B", "1", random(4) + 65, 250 'Advance sound 1					
-		Exit Sub
-	End If				
-	if (barProgress(player) = 18) Then
-		playSFX 0, "B", "2", random(4) + 65, 250 'Advance sound 2					
+		playSFX 0, "B", "1", random(4) + 65, 250 'Advance sound 1
 		Exit Sub
 	End If
-	if (barProgress(player) = 26) Then			'Did we fill the bar?	
+	if (barProgress(player) = 18) Then
+		playSFX 0, "B", "2", random(4) + 65, 250 'Advance sound 2
+		Exit Sub
+	End If
+	if (barProgress(player) = 26) Then			'Did we fill the bar?
 		killQ()
 		stopVideo(0)
 		video "B", "4", "0", 0, 90, 255		'Prompt for Bar Ghost Lit (can override Center Shot
-		playSFX 0, "B", "3", random(4) + 65, 250 'Advance sound 3	
-		'centerTimer = 25000					'Prevents pop bumper jackpot from overiding prompt video		
-		barProgress(player) = 50				'50 indicates Mode is ready to start.			
+		playSFX 0, "B", "3", random(4) + 65, 250 'Advance sound 3
+		'centerTimer = 25000					'Prevents pop bumper jackpot from overiding prompt video
+		barProgress(player) = 50				'50 indicates Mode is ready to start.
 		popLogic(3)							'Pops won't do anything else until you start the mode
-		spiritGuideEnable(0)	
+		spiritGuideEnable(0)
 		showScoopLights()						'Update the Scoop Lights
 		Exit Sub
 	End If
-	popToggle()	
+	popToggle()
 	stereoSFX 1, "B", "Z", random(3) + 65, 100, leftVolume, rightVolume
 End Sub
 
 sub BarStart()														'What happens when we shoot the scoop to start Bar Mode 3
 	light 45, 0														'Turn off the mode start light in player bank
-	restartKill 3, 1												'In case we got the Restart	
-	comboKill()														'So combo lights don't appear after the mode	
+	restartKill 3, 1												'In case we got the Restart
+	comboKill()														'So combo lights don't appear after the mode
 	storeLamp(player)												'Store the state of the Player's lamps
 	allLamp(0)														'Turn off the lamps
 	spiritGuideEnable(0)											'No spirit guide during Bar
-	modeTotal = 0													'Reset mode points	
+	modeTotal = 0													'Reset mode points
 	AddScore startScore/2
 	minionEnd(0)													'Disable Minion mode, even if it's in progress
 	setGhostModeRGB 0, 0, 255										'Blue mode color
@@ -1367,12 +1374,12 @@ sub BarStart()														'What happens when we shoot the scoop to start Bar M
 	TargetTimerSet 50000, TargetDown, 100							'Put targets down slowly so we notice.
 	killQ()															'Disable any Enqueued videos
 	video "B", "4", "A", 1, 120, 255								'Show the Ghost!
-	playSFX 0, "B", "4", random(3) + 65, 255						'Mode start dialog. Come resist my charms!	
+	playSFX 0, "B", "4", random(3) + 65, 255						'Mode start dialog. Come resist my charms!
 '	playMusic "B", "1"												'Boss battle music!
 	musicplayer "bgout_B1.mp3"
 	customScore "B", "1", "A", allowAll OR loopVideo, 36			'Shoot the Ghost custom score prompt
 ';	numbers 8, numberScore OR 2, 0, 0, player						'Show player's score in upper left corner
-';	numbers 10, 9, 88, 0, 0											'Ball # upper right	
+';	numbers 10, 9, 88, 0, 0											'Ball # upper right
 	ScoopTime = Int(80000/CycleAdjuster)							'Flag to kick the ball back out
 	hellEnable(0)													'We can lock balls during this mode, but not until we trap the ball
 	showProgress 1, player											'Show the progress, Active Mode style
@@ -1384,29 +1391,29 @@ sub BarLogic()														'What happens during Ghost Battle Mode
 	Dim X
 	if (barProgress(player) > 69 and barProgress(player) < 80) Then
 		modeTimer = modeTimer + 1
-		if (modeTimer = Int(80000/CycleAdjuster)) Then				'Random ghost taunt?						
+		if (modeTimer = Int(80000/CycleAdjuster)) Then				'Random ghost taunt?
 			playSFX 0, "B", "8", 65 + random(8), 255				'Will not override advance dialog
-			video "B", "8", "A", allowSmall, 45, 254				'Will not override video		
+			video "B", "8", "A", allowSmall, 45, 254				'Will not override video
 			'MagnetSet(200)
 		End If
 		if (modeTimer > Int(160000/CycleAdjuster)) Then				'Kaminski prompt?
 			modeTimer = 0											'Reset timer
 			playSFX 0, "B", "7", 65 + random(8), 255				'Will not override advance dialog
-			video "B", "7", "A", allowSmall, 65, 254				'Will not override video					
+			video "B", "7", "A", allowSmall, 65, 254				'Will not override video
 			'MagnetSet(200)
 		End If
 	End If
 	if (barProgress(player) > 79 and barProgress(player) < 100) Then		'Battling Ghost whore multiball!
 		modeTimer = modeTimer + 1
 		if (modeTimer = Int(70000/CycleAdjuster)) Then
-			lightningStart(1)			'Do some lightning!		
+			lightningStart(1)			'Do some lightning!
 			x = random(2)
 			if (x) Then
 				playSFX 0, "B", "B", random(10), 255				'Team Leader commanding ghost to leave and stuff
 			Else
-				playSFX 1, "L", "G", random(8), 255					'Random lightning		
-			End If				
-		End If		
+				playSFX 1, "L", "G", random(8), 255					'Random lightning
+			End If
+		End If
 		if (modeTimer > Int(100000/CycleAdjuster)) Then
 			modeTimer = 0											'Reset timer
 		End If
@@ -1416,19 +1423,19 @@ End Sub
 sub BarTrap()														'What happens when you shoot the ghost and she captures your teammate
 	if (restartTimer) Then
 		restartKill 3, 1
-		comboKill()													'So combo lights don't appear after the mode	
+		comboKill()													'So combo lights don't appear after the mode
 		storeLamp(player)											'Store the state of the Player's lamps
 		allLamp(0)													'Turn off the lamps
 		showProgress 1, player										'Show the Main Progress lights
-		spiritGuideEnable(0)										'No spirit guide during Bar			
-		modeTotal = 0												'Reset mode points	
+		spiritGuideEnable(0)										'No spirit guide during Bar
+		modeTotal = 0												'Reset mode points
 		minionEnd(0)												'Disable Minion mode, even if it's in progress
 		setGhostModeRGB 0, 0, 255									'Blue mode color
 		popLogic(3)													'Set pops to EVP
 		Mode(player) = 3											'Ghost whore mode start!
 		Advance_Enable = 0											'Mode has started, others can't
 		DoorSet DoorOpen, 100
-		tourReset(58)										'Reset the Tour bits			
+		tourReset(58)										'Reset the Tour bits
 '		playMusic "B", "1"											'Boss battle music!
 		musicplayer "bgout_B1.mp3"
 	End If
@@ -1448,13 +1455,13 @@ sub BarTrap()														'What happens when you shoot the ghost and she captur
 	hellEnable(1)													'We can lock balls during this mode, but not until we trap the ball
 	customScore "B", "1", "B", allowAll OR loopVideo, 33			'Clear Targets for Multiball custom message
 '	numbers 8, numberScore OR 2, 0, 0, player						'We re-send these in case a quick restart occurred EP- can't discern what these are
-'	numbers(10, 9, 88, 0, 0)										'Ball # upper right	
+'	numbers(10, 9, 88, 0, 0)										'Ball # upper right
 ';	numbers "", Ball, "", ""
 	tourReset(58)													'Tour: Left orbit, door, up middle, right orbit.
 																	'Hotel path: Can lock balls
-																	'Scoop: Steals kegs		
+																	'Scoop: Steals kegs
 	ghostAction = Int(140000/CycleAdjuster)
-	AutoPlunge(70000)												'Set flag to launch second ball	
+	AutoPlunge(70000)												'Set flag to launch second ball
 	skip = 35
 End Sub
 
@@ -1464,8 +1471,8 @@ sub BarTarget(whichTarget)							'Logic for determining which targets in Bar Gho
 	ghostFlash(100)
 	if (gTargets(whichTarget) = 1) Then								'Already hit that one?
 		playSFX 0, "B", "7", 83 + random(8), 255					'Will not override advance dialog
-		video "B", "8", "D", allowSmall, 45, 255					'"Clear Flashing Targets to start Multiball"	
-		AddScore(25000)												'Some points		
+		video "B", "8", "D", allowSmall, 45, 255					'"Clear Flashing Targets to start Multiball"
+		AddScore(25000)												'Some points
 	Else
 		targetsHit = targetsHit + 1									'Increase how many targets we've hit
 		if (targetsHit = 2) Then									'Almost ready?
@@ -1480,7 +1487,7 @@ sub BarTarget(whichTarget)							'Logic for determining which targets in Bar Gho
 		Else
 			playSFX 0, "B", "5", 88 + random(3), 255				'Ghost yelp!
 			video "B", "8", "E", allowSmall, 23, 255				'Ghost whacked! (or maybe life bar?)
-			videoQ "B", "8", 65 + targetsHit, allowSmall, 30, 200	'How many hits are left			
+			videoQ "B", "8", 65 + targetsHit, allowSmall, 30, 200	'How many hits are left
 		End If
 	End If
 End Sub
@@ -1494,7 +1501,7 @@ sub BarMultiball()													'When you free your teammate and multiball to bas
 '	playMusic "G", "S"
 	musicplayer "bgout_GS.mp3"
 	modeTimer = 0													'Reset timer for exorcist quotes
-'	ModeWon(player) |= 1 << 3										'Set BAR WON bit for this player.	
+'	ModeWon(player) |= 1 << 3										'Set BAR WON bit for this player.
 	ModeWon(player) = ModeWon(player) OR 8
 	if (countGhosts() = 6) Then										'This the final Ghost Boss? Light BOSSES solid!
 		light 48, 7
@@ -1508,7 +1515,7 @@ sub BarMultiball()													'When you free your teammate and multiball to bas
 	TargetTimerSet 10, TargetDown, 50								'Put targets down fairly quickly
 	trapTargets = 0													'Ball is no longer trapped
 	activeBalls = activeBalls + 1
-	killQ()															'Disable any Enqueued videos	
+	killQ()															'Disable any Enqueued videos
 	playSFX 0, "B", "9", 65 + random(4), 255						'I'm Free! Let's get her dialog
 	video "B", "9", "A", 1, 121, 255 								'Play Mad Ghost video
 	'videoQ('B', '9', 'B', 2, 0, 255) 								'Jackpot Prompt
@@ -1522,7 +1529,7 @@ sub BarMultiball()													'When you free your teammate and multiball to bas
 	numbers "", Ball, "", ""
 	dirtyPoolMode(1)
 	multipleBalls = 1												'When MB starts, you get ballSave amount of time to loose balls and get them back
-	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost		
+	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost
 End Sub
 
 sub BarWin()														'When down to last ball, mode 3 is won
@@ -1548,7 +1555,7 @@ sub BarWin()														'When down to last ball, mode 3 is won
 	End If
 	light 16, 0														'Turn off "Make Contact"
 	light 17, 0
-	light 18, 0	
+	light 18, 0
 	light 19, 0
 	light 60, 7														'Turn Bar Mode solid because we won!
 	light 45, 0														'Make sure BAR START is off
@@ -1559,20 +1566,20 @@ sub BarWin()														'When down to last ball, mode 3 is won
 	musicplayer "bgout_M2.mp3"
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
 	killCustomScore()
-	killQ()															'Disable any Enqueued videos	
+	killQ()															'Disable any Enqueued videos
 	video "B", "0", "Z", noExitFlush, 59, 255 						'Play Death Video
 ';	numbersPriority(0, numberFlash | 1, 255, 11, modeTotal, 233)	'Load Mode Total Points
 	numbers "", "", ModeTotal, ModeTotal
-	modeTotal = 0													'Reset mode points		
-	videoQ "B", "0", "V", noEntryFlush OR 3, 45, 233		'Mode Total:	
+	modeTotal = 0													'Reset mode points
+	videoQ "B", "0", "V", noEntryFlush OR 3, 45, 233		'Mode Total:
 '	ModeWon(player) |= 1 << 3										'Set BAR WON bit for this player.
 	ModeWon(player) = ModeWon(player) OR 8
 	ghostsDefeated(player) = ghostsDefeated(player) + 1				'For bonuses
 	Advance_Enable = 1
 	if (countGhosts() = 2 or countGhosts() = 5) Then				'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBalllight 2											'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random(2), 255)	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random(2), 255)	'"Extra Ball is Lit!"
+	End If
 	demonQualify()													'See if Demon Mode is ready
 	checkModePost()
 	hellEnable(1)
@@ -1590,7 +1597,7 @@ Function BarFail()													'Returns a 1 if we can try again, 0 if not
 	loadLamp(player)
 	spiritGuideEnable(1)
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	ghostModeRGB(0) = 0
 	ghostModeRGB(1) = 0
 	ghostModeRGB(2) = 0
@@ -1606,14 +1613,14 @@ Function BarFail()													'Returns a 1 if we can try again, 0 if not
 	End If
 	light 16, 0														'Turn off "Make Contact"
 	light 17, 0
-	light 18, 0	
+	light 18, 0
 	light 19, 0
 	ghostLook = 1													'Ghost will now look around again.
 	ghostAction = 0
-	Mode(player) = 0												'Set mode active to None	
-	Advance_Enable = 1	
-	hellEnable(1)	
-	TargetSet(TargetDown)											'Release the ball and let it drain, or be caught by player!	
+	Mode(player) = 0												'Set mode active to None
+	Advance_Enable = 1
+	hellEnable(1)
+	TargetSet(TargetDown)											'Release the ball and let it drain, or be caught by player!
 	trapTargets = 0
 	'BROKEN
 	if (barProgress(player) = 60) Then								'Didn't even hit the ghost to start?
@@ -1633,7 +1640,7 @@ Function BarFail()													'Returns a 1 if we can try again, 0 if not
 				popLogic(1)											'Set pops to advance Fort
 			Else
 				popLogic(2)											'Else, have them re-advance Bar Ghost until we get it
-			End If		
+			End If
 			light 45, 0												'Turn off BAR GHOST start light
 		End If
 		BarFail = 0
@@ -1642,33 +1649,33 @@ Function BarFail()													'Returns a 1 if we can try again, 0 if not
 	'Else, you must have started the Bar Fight!
 '	if (modeRestart(player) & (1 << 3) and tiltFlag = 0) Then		'Able to restart Bar?
 	if (((modeRestart(player) AND 8) = 8) AND tiltFlag = 0) Then
-'		modeRestart(player) &= ~(1 << 3)							'Clear the restart bit	
+'		modeRestart(player) &= ~(1 << 3)							'Clear the restart bit
 		modeRestart(player) = (modeRestart(player) AND 247)
-		restartBegin 3, 11, 25000									'Enable a restart!		
+		restartBegin 3, 11, 25000									'Enable a restart!
 		barProgress(player) = 60									'Waiting for Ghostly Embrace!
-		loopCatch = catchBall										'Flag that we want to catch the ball in the loop	
+		loopCatch = catchBall										'Flag that we want to catch the ball in the loop
 		dirtyPoolMode(0)											'Disable dirty pool, like Ghost Start does
 		doorLogic()													'Since we opened the door, see what we're supposed to do with it if mode ends
 		blink(17)
 		blink(18)
 		blink(19)
-		activeBalls = activeBalls + 1								'Count the ball we just released		
-'		playMusic "H", "2"											'Hurry Up Music!		
+		activeBalls = activeBalls + 1								'Count the ball we just released
+'		playMusic "H", "2"											'Hurry Up Music!
 		musicplayer "bgout_H2.mp3"
-		killQ()														'Disable any Enqueued videos	
+		killQ()														'Disable any Enqueued videos
 		video "B", "0", "Y", 1, 109, 255 							'Mode fail! Shoot door to restart!
 		playSFX 0, "B", "R", 65 + random(6), 255					'You've got 5 seconds to come back honey!
 		BarFail = 1
 		Exit Function													'Flag to prevent a drain!
 	Else															'End mode, and let the ball drain
-		barProgress(player) = 0										'Gotta start over				
+		barProgress(player) = 0										'Gotta start over
 		if (fortProgress(player) < 50) Then							'Haven't completed the Fort yet?
 			popLogic(1)												'Set pops to advance Fort
-		End If		
+		End If
 		dirtyPoolMode(1)											'Don't want to trap balls anymore
 		checkModePost()
 		TargetSet(TargetDown)										'Release the ball...
-		TargetTimerSet 20000, TargetUp, 10							'and put targets back up after a bit				
+		TargetTimerSet 20000, TargetUp, 10							'and put targets back up after a bit
 		showProgress 0, player
 		BarFail = 0
 		Exit Function
@@ -1688,12 +1695,12 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 		Exit Sub
 	End If
 	if (Mode(player) = 1 and patientStage) Then						'In hospital, trying to poison ghosts?
-		AddScore(10000)	
+		AddScore(10000)
 		playSFX 2, "H", "0", "0", 100								'Door clunking sound
 		Exit Sub													'Can't move it
 	End If
 	if (Mode(player) = 7) Then										'Hotel mode uses elevator too much, so no MB with it
-		AddScore(10000)	
+		AddScore(10000)
 		playSFX 2, "H", "0", "0", 100								'Door clunking sound
 		Exit Sub
 	End If
@@ -1703,17 +1710,17 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 		Exit Sub
 	End If
 	if (hotProgress(player) > 2 and hotProgress(player) < 100) Then	'Doing or about to start Hotel mode?
-		AddScore(10000)	
+		AddScore(10000)
 		playSFX 2, "H", "0", "0", 100								'Door clunking sound
 		Exit Sub
-	End If	
+	End If
 	if (deProgress(player) > 0 and deProgress(player) < 100) Then	'In wizard mode?
-		AddScore(10000)	
+		AddScore(10000)
 		playSFX 2, "H", "0", "0", 100								'Door clunking sound
 		Exit Sub
 	End If
 	'If none of those, then you can control it
-	if (HellLocation = hellDown) Then								'If Hell was DOWN, move it UP	
+	if (HellLocation = hellDown) Then								'If Hell was DOWN, move it UP
 		AddScore(25000)
 		if (multiBall AND multiballHell) Then						'Hellavator multiball mode active?
 			video "Q", "J", "A", 1, 42, 200							'Jackpot ready!
@@ -1722,13 +1729,13 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 			strobe 26, 4											'Strobe the first 4 lights
 			blink(30)												'Blink LOCK. Sort of makes sense.
 			light 24, 0												'In MB, once up, Hellavator can't be moved
-			light 25, 0												'So turn off both lights		
+			light 25, 0												'So turn off both lights
 			if (hellMB) Then
 				customScore "Q", "B", "B", allowAll OR loopVideo, 30		'Custom Score: JACKPOT READY!
 			End If
 		Else
 			light 24, 7												'Current state is SOLID
-			blink(25)												'Other state BLINKS		
+			blink(25)												'Other state BLINKS
 			video "Q", "A", "B", 1, 42, 200							'Hellavator Lock is Lit!
 			playSFX 2, "Q", "A", "B", 210
 			pulse(30)												'Elevator UP, Lock is lit! (and so am I!)
@@ -1757,14 +1764,14 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 		if (multiBall) AND (multiballHell) Then						'Hellavator multiball mode active? Don't let button do ANYTHING (keep hellavator UP)
 			video "Q", "A", "6", 1, 30, 200							'Right Ramp Builds value!
 			playSFX 2, "H", "0", "0", 100							'CLUNK!
-			strobe 26, 5											'Strobe first 5 lights	
+			strobe 26, 5											'Strobe first 5 lights
 		Else
 			light 25, 7												'Current state is SOLID
-			blink(24)												'Other state BLINKS					
-			ElevatorSet hellDown, 100 								'Send Hellavator to 1st Floor.		
+			blink(24)												'Other state BLINKS
+			ElevatorSet hellDown, 100 								'Send Hellavator to 1st Floor.
 			light 26, 0												'Turn off lights. We'll rebuild them for Hotel progress
 			light 27, 0
-			light 28, 0	
+			light 28, 0
 			light 29, 0
 			light 30, 0												'Turn off LOCK
 			light 41, 0												'Turn off Hell Flasher
@@ -1775,26 +1782,26 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 						pulse(26)
 						light 27, 0
 						light 28, 0
-						light 29, 0		
+						light 29, 0
 					End If
 					if (hotProgress(player) = 1) Then
 						light 26, 7
 						pulse(27)
 						light 28, 0
-						light 29, 0		
+						light 29, 0
 					End If
 					if (hotProgress(player) = 2) Then
 						light 26, 7
 						light 27, 7
 						pulse(28)
-						light 29, 0		
-					End If		
+						light 29, 0
+					End If
 					if (hotProgress(player) = 3) Then
 						light 26, 7
 						light 27, 7
 						light 28, 7
-						pulse(29)		
-					End If	
+						pulse(29)
+					End If
 					video "Q", "A", "A", 1, 42, 200					'Advance Hotel Open!
 				Else												'Hotel already complete!
 					light 26, 0
@@ -1804,8 +1811,8 @@ sub callButtonLogic()												'What to do when player hits Call Elevator butt
 					video "Q", "A", "C", 1, 42, 200					'Path Open!
 				End If
 			Else
-				video "Q", "A", "C", 1, 42, 200						'Path Open!				
-			End If	
+				video "Q", "A", "C", 1, 42, 200						'Path Open!
+			End If
 		End If
 	End If
 End Sub
@@ -1816,13 +1823,13 @@ sub centerPathCheck()												'When a ball is shot up the middle, and hasn't 
 	if (hellMB and minion(player) < 100) Then
 		tourGuide 1, 8, 2, 50000, 1									'Check for GHOST CATCH
 		Exit Sub
-	End If	
+	End If
 	if (Mode(player) = 6) Then										'Prison?
 		tourGuide 2, 6, 2, 25000, 1									'Check that part of the tour!
 		Exit Sub
 	End If
 	if (hotProgress(player) > 29 and hotProgress(player) < 40) Then	'Fighting the Hotel Ghost? (can't do tour during the Control Box search)
-		tourGuide 2, 5, 2, 25000, 1									'Check that part of the tour!	
+		tourGuide 2, 5, 2, 25000, 1									'Check that part of the tour!
 		Exit Sub
 	End If
 	if (Mode(player) = 4) Then										'War fort?
@@ -1839,7 +1846,7 @@ sub centerPathCheck()												'When a ball is shot up the middle, and hasn't 
 		playSFX 0, "W", "5", 65 + x, 210							'Random Army Ghost lines
 		if (tourGuide(2, 4, 2, 25000, 0) = 0) Then
 			video "W", "5", 65 + x, allowSmall, Y, 250				'Synced taunt video
-		End If														'Check that part of the tour (no WHOOSH sound needed)		
+		End If														'Check that part of the tour (no WHOOSH sound needed)
 		Exit Sub
 	End If
 	if (barProgress(player) > 69 and barProgress(player) < 100) Then		'Haunted Bar?
@@ -1862,20 +1869,20 @@ sub centerPathCheck()												'When a ball is shot up the middle, and hasn't 
 		photoCheck(2)
 		Exit Sub
 	End If
-	if (theProgress(player) > 9 and theProgress(player) < 100) Then		'Theater Ghost?		
+	if (theProgress(player) > 9 and theProgress(player) < 100) Then		'Theater Ghost?
 		TheaterPlay(0)												'Incorrect shot, ghost will bitch!
 		Exit Sub
 	End If
 	AddScore(50000)													'50k points up the center to make shot satisfying!
-	playSFX 2, "E", "Z", 1 + random(3), 225							'Default Thunder sound!	
-	lightningStart(Int(5998/CycleAdjuster)-1)						'Lightning FX	
+	playSFX 2, "E", "Z", 1 + random(3), 225							'Default Thunder sound!
+	lightningStart(Int(5998/CycleAdjuster)-1)						'Lightning FX
 End Sub
 
 sub checkRoll()															'Check GLIR rollovers for completion
 	'Set GLIR lights to what they should be
 	laneChange()
 	'playSFX(0, 'F', '1', 'J', 200)										'Negative rollover sound with BEEPS
-	'playSFX(0, 'F', '1', 'K', 200)										'Negative rollover sound NO BEEPS	
+	'playSFX(0, 'F', '1', 'K', 200)										'Negative rollover sound NO BEEPS
 	if (Mode(player) = 7) Then											'Are we IN a photo hunt?
 '		if (rollOvers(player) = B11111111) Then
 		If ((rollOvers(player) AND 255) = 255) Then
@@ -1896,29 +1903,29 @@ sub checkRoll()															'Check GLIR rollovers for completion
 			GLIR(player) = GLIR(player) - 1								'Decrease spell counter
 			if (GLIR(player) = 0) Then									'Did we spell GLIR enough times?
 				if (GLIRneeded(player) < 9) Then
-					GLIRneeded(player) = GLIRneeded(player) + 1			'Increase target #	needed, max is 9		
+					GLIRneeded(player) = GLIRneeded(player) + 1			'Increase target #	needed, max is 9
 				End If
 				GLIR(player) = GLIRneeded(player)						'Set counter to new target #
-				GLIRlit(player) = 1										'Flag set - can be started!			
+				GLIRlit(player) = 1										'Flag set - can be started!
 				rollOvers(player) = 0									'Clear rollovers
 				blink(52)												'Blink GLIR for a bit
 				blink(53)
 				blink(54)
 				blink(55)
-				displayTimerCheck(89999)								'Check if anything was running, set new value				
+				displayTimerCheck(89999)								'Check if anything was running, set new value
 				AddScore(20000)
 				'Can it be started, or must we wait?
-				if (Mode(player) = 0 and Advance_Enable = 1) Then		'Able to start a mode?		
+				if (Mode(player) = 0 and Advance_Enable = 1) Then		'Able to start a mode?
 					playSFX 0, "F", "1", 65 + random(4), 200			'"Photo Hunt is Lit!" prompt. Higher priority, will override normal rollover sound
-					video "F", "1", "A", 1, 45, 200						'GLIR, photo hunt is lit!							
-					showScoopLights()									'Update scoop lights	
-					animatePF 30, 14, 0									'GLIR whoosh animation	
+					video "F", "1", "A", 1, 45, 200						'GLIR, photo hunt is lit!
+					showScoopLights()									'Update scoop lights
+					animatePF 30, 14, 0									'GLIR whoosh animation
 				Else													'Have to wait until mode is over?
-					playSFX 0, "F", "1", 69 + random(4), 200			'Ghost Locating Infrared Ready!					
-					video "F", "1", "B", allowSmall, 45, 200			'Photo Hunt ready after mode ends					
+					playSFX 0, "F", "1", 69 + random(4), 200			'Ghost Locating Infrared Ready!
+					video "F", "1", "B", allowSmall, 45, 200			'Photo Hunt ready after mode ends
 				End If
 			Else														'Reset GLIR lights, prompt how many more spells to light PHOTO HUNT
-				playSFX 2, "F", "1", "I", 200							'Need to spell it again sound FX		
+				playSFX 2, "F", "1", "I", 200							'Need to spell it again sound FX
 				video "F", "S", GLIR(player), allowSmall, 37, 200		'SPELL GLIR X MORE TIMES TO LIGHT PHOTO HUNT
 				AddScore(20000)
 				rollOvers(player) = 0									'Clear rollovers
@@ -1926,17 +1933,17 @@ sub checkRoll()															'Check GLIR rollovers for completion
 				blink(53)
 				blink(54)
 				blink(55)
-				displayTimerCheck(89999)								'Properly end anything that may already be using the timer	
+				displayTimerCheck(89999)								'Properly end anything that may already be using the timer
 			End If
 		Else															'If we already lit Photo Hunt, just award points
-			playSFX 2, "F", "1", "M", 200								'Modified version of the "X More to Light Photo Hunt" sound	
+			playSFX 2, "F", "1", "M", 200								'Modified version of the "X More to Light Photo Hunt" sound
 			AddScore(20000)
 			rollOvers(player) = 0										'Clear rollovers
 			blink(52)													'Blink GLIR for a bit
 			blink(53)
 			blink(54)
 			blink(55)
-			displayTimerCheck(89999)									'Properly end anything that may already be using the timer	
+			displayTimerCheck(89999)									'Properly end anything that may already be using the timer
 		End If
 	Else
 ';		video "F", "X", 64 + (rollOvers(player) AND 15), allowSmall, 0, 200		'Show what letters we have earned thus far (whenever a rollover is hit, even if hit already)
@@ -1978,7 +1985,7 @@ sub laneChange()									'Changes lighted lanes when flippers pressed
 		light 34, 7
 	Else
 		light 34, 0
-	End If		
+	End If
 End Sub
 
 sub checkModePost()					'After a mode is over, check to see if we need to do anything
@@ -1989,10 +1996,10 @@ sub checkModePost()					'After a mode is over, check to see if we need to do any
 	popLogic(0)								'Figure out what mode the Pops should be in
 End Sub
 
-sub checkOrb(videoYes)												'See if ORB has been completed					
+sub checkOrb(videoYes)												'See if ORB has been completed
 	if ((orb(player) AND 63) <> 63) Then							'Not all ORB lanes complete?
 		if (videoYes) Then
-			playSFX 1, "O", "R", random(2) + 65, 100				'The orb that will repopulate the Earth. Nobody knows how it works. Only that it does.	
+			playSFX 1, "O", "R", random(2) + 65, 100				'The orb that will repopulate the Earth. Nobody knows how it works. Only that it does.
 			video "O", "R", 64 + (orb(player) AND 7), allowSmall, 40, 250		'Play video of what IS lit. Lower than skill shot priority
 		End If
 		laneChange()
@@ -2005,11 +2012,11 @@ sub checkOrb(videoYes)												'See if ORB has been completed
 			bonusMultiplier = 9
 		End If
 		playSFX 1, "O", "R", "C", 110								'Rollover + WIN sound! (Slightly higher priority)
-		video "O", "R", bonusMultiplier, allowSmall, 60, 250 	'Play OR ASCII 48 + multipler (2-9 ASCII)		
+		video "O", "R", bonusMultiplier, allowSmall, 60, 250 	'Play OR ASCII 48 + multipler (2-9 ASCII)
 		blink(32)													'Blink ORB
 		blink(33)
 		blink(34)
-		displayTimerCheck(44999)									'Properly end anything that may already be using the timer			
+		displayTimerCheck(44999)									'Properly end anything that may already be using the timer
 		orb(player) = 0												'Clear player's ORB variable so it can be reset even during the flash
 	End If
 End Sub
@@ -2023,25 +2030,25 @@ sub comboCheck(whichShot)
 				case 0:												'Left orbit, and Prison is complete?
 					if ((ModeWon(player) AND 64) = 64) Then
 						comboVideoFlag = 0
-						video "C", "G", "A", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Left net catch					
+						video "C", "G", "A", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Left net catch
 					End If
 				case 1:
 					if ((ModeWon(player) AND 2) = 2) Then				'Door VUK, and Hospital is complete?
 						comboVideoFlag = 0
-						video "C", "G", "A", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Left net catch					
+						video "C", "G", "A", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Left net catch
 					End If
 				case 2:
 						'comboVideoFlag = 0
-						'video('C', 'G', 'A' + random(2), allowSmall, 0, 255)	'Left or right net catch						
+						'video('C', 'G', 'A' + random(2), allowSmall, 0, 255)	'Left or right net catch
 				case 3:
 					if ((ModeWon(player) AND 32) = 32) Then				'Hotel path, and hotel complete?
 						comboVideoFlag = 0
-						video "C", "G", "B", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Right net catch					
+						video "C", "G", "B", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Right net catch
 					End If
 				case 4:
 					if ((ModeWon(player) AND 4) = 4) Then				'Theater jump, and Theater complete?
 						comboVideoFlag = 0
-						video "C", "G", "B", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Right net catch					
+						video "C", "G", "B", allowSmall OR noEntryFlush OR noExitFlush, 12, 255	'Right net catch
 					End If
 			End Select
 		End If
@@ -2050,16 +2057,16 @@ sub comboCheck(whichShot)
 				comboVideoFlag = 0										'Allow pops video to override Combo indicator
 			End If
 			videoCombo "C", "O", comboCount, allowSmall OR noEntryFlush OR noExitFlush, 10, 255	'Combo Video (1x to 5x)
-			playSFX 1, "C", "O", comboCount, 200					'Combo sound FX	
+			playSFX 1, "C", "O", comboCount, 200					'Combo sound FX
 			if (comboCount = 9) Then										'Max combo? Double points, reset # combos
 				AddScore((comboCount * comboScore) * 2)
 				comboCount = 1
 			Else														'Normal points, increase combos
 				AddScore(comboCount * comboScore)
 				comboCount = comboCount + 1
-			End If						
+			End If
 		Else
-			killQ()			
+			killQ()
 			videoQ "C", "G", comboCount, allowSmall OR noEntryFlush OR noExitFlush, 12, 255		'Enqueue Combo X Indicator (1 to 9) to appear after Net Catch
 			playSFX 1, "C", "C", 65 + random(10), 200					'Net whoosh + scream Combo sound FX
 			if (comboCount = 9) Then										'Max combo? Double points, reset # combos
@@ -2070,7 +2077,7 @@ sub comboCheck(whichShot)
 				comboCount = comboCount + 1
 			End If
 		End If
-		light photoLights(comboShot), 0							'Turn that light off			
+		light photoLights(comboShot), 0							'Turn that light off
 	End If
 End Sub
 
@@ -2078,12 +2085,12 @@ sub comboKill()
 	Dim X
 	if (comboTimer) Then
 		for x=0 To 5
-			light photoLights(x), 0				'Turn off the 6 camera positions	
+			light photoLights(x), 0				'Turn off the 6 camera positions
 		Next
 		light photoLights(comboShot), 0			'Turn off existing light, if any
 		comboCount = 1							'Reset # of combos
 		comboVideoFlag = 0						'Reset video flag
-		comboShot = 99							'Set target shot to out of range	
+		comboShot = 99							'Set target shot to out of range
 		comboTimer = 0
 	End If
 End Sub
@@ -2094,7 +2101,7 @@ sub comboSet(whichShot, howMuchTime)			'Sets the next combo shot, and how much t
 	End If
 	if (comboTimer) Then
 		if (tourLights(comboShot) = 0) Then		'If the previous Combo Icon isn't flashing for a Tour mode...
-			light photoLights(comboShot), 0		'Turn off previous Combo Shot Lamp			
+			light photoLights(comboShot), 0		'Turn off previous Combo Shot Lamp
 		End If
 	End If
 	comboTimer = howMuchTime					'Set timer. Default was 80000 cycles, about 3.5 seconds
@@ -2143,7 +2150,7 @@ sub DemonLock1()											'Wizard Mode Started!
 	allLamp(0)
 	minionEnd(0)
 	DoorSet DoorClosed, 500									'Close the door slowly
-	trapDoor = 1											'Flag that ball should be trapped behind door	
+	trapDoor = 1											'Flag that ball should be trapped behind door
 	TargetTimerSet cycleSecond, TargetDown, 250				'Put the targets down
 	ElevatorSet hellDown, 100				 				'Send Hellavator to 1st Floor.
 	light 41, 0
@@ -2157,26 +2164,26 @@ sub DemonLock1()											'Wizard Mode Started!
 		pulse(1)
 	Else
 		light 1, 7
-	End If	
+	End If
 	if (psychic(player) < 255) Then
 		pulse(51)
 	Else
-		if (scoringTimer) Then								'Double scoring active so the light blinks	
-			blink(51)	
+		if (scoringTimer) Then								'Double scoring active so the light blinks
+			blink(51)
 		Else
-			light 51, 7										'Completed, so it's solid			
-		End If	
+			light 51, 7										'Completed, so it's solid
+		End If
 	End If
-	'comboEnable = 0							'Combos during Control Box search would be confusing, so no	
+	'comboEnable = 0							'Combos during Control Box search would be confusing, so no
 	deProgress(player) = 2						'Starting to lock balls
 	Advance_Enable = 0							'Mode started, disable advancement until we are done
 	minionEnd(0)								'Disable Minion mode, even if it's in progress
-	Mode(player) = 10							'Set DEMON mode ACTIVE for player	
+	Mode(player) = 10							'Set DEMON mode ACTIVE for player
 	spiritGuideEnable(0)						'No spirit guide
 	hellEnable(0)								'No hellavator
 	light 24, 0									'Hellavator Call buttons OFF
 	light 25, 0
-	light 13, 7									'Fight Demon light SOLID!	
+	light 13, 7									'Fight Demon light SOLID!
 	blink(17)									'Flash ghost targets
 	blink(18)
 	blink(19)
@@ -2190,9 +2197,9 @@ sub DemonLock1()											'Wizard Mode Started!
 	'numbers(0, numberScore OR 2, 0, 27, player)	'Put player score
 	'videoQ('D', 'A', 'B', allowSmall OR loopVideo, 0, 255)	'Ghost & Swing Set, looping with Prompt
 	customScore "D", "A", "B", allowSmall OR loopVideo, 130		'Ghost & Swing Set prompt loop
-';	numbers(8, numberScore OR 2, 0, 27, player)					'Put player score	
+';	numbers(8, numberScore OR 2, 0, 27, player)					'Put player score
 	activeBalls = activeBalls - 1				'Remove a ball from being "Active"
-	AutoPlunge(67500)							'Set flag to launch second ball		
+	AutoPlunge(67500)							'Set flag to launch second ball
 	deProgress(player) = 2						'We've locked the first ball. Now shoot for GHOST
 	dirtyPoolMode(0)							'Switching to manual
 	videoModeCheck()
@@ -2204,13 +2211,13 @@ sub DemonLock2()
 	AddScore(advanceScore)
 	dirtyPoolMode(0)							'Disable dirty pool check (since we DO want to trap the ball)
 	comboKill()
-	'MagnetSet(100)							'Hold the ball	
+	'MagnetSet(100)							'Hold the ball
 	'TargetTimerSet(5000, TargetUp, 1)		'Put the targets up quickly
 	trapTargets = 1							'A ball is trapped on purpose!
 	ElevatorSet hellUp, 300					'Send Hellavator UP
 	blink(41)
 	light 16, 0								'Turn off ghost lights
-	light 17, 0	
+	light 17, 0
 	light 18, 0
 	light 19, 0
 	GIpf(32)
@@ -2225,7 +2232,7 @@ sub DemonLock2()
 	customScore "D", "B", "B", allowAll OR loopVideo, 85		'Ghost & Swing Set prompt loop
 ';	numbers(8, numberScore OR 2, 0, 27, player)					'Put player score
 	activeBalls = activeBalls - 1			'Remove a ball from being "Active"
-	AutoPlunge(67500)						'Set flag to launch second ball		
+	AutoPlunge(67500)						'Set flag to launch second ball
 	deProgress(player) = 4					'We've locked the second ball. Now shoot for HELLAVATOR
 	setCabModeFade 64, 0, 0, 500			'Set mode color to MEDIUM red
 End Sub
@@ -2247,13 +2254,13 @@ sub DemonLock3()
 	If x = 0 Then Y = 232
 	If x = 1 Then Y = 255
 	If x = 2 Then Y = 223
-	killQ()									'Disable any Enqueued videos		
+	killQ()									'Disable any Enqueued videos
 '	playMusic "D", "E"						'Until we get final music ready
 	musicplayer "bgout_de.mp3"
 	playSFX 0, "D", "C", 65 + x, 255		'Demon start dialog
 	video "D", "C", 65 + x, allowSmall, Y, 255
 	customScore "D", "D", 76 + random(1), allowSmall OR loopVideo, 120		'Ghost & Swing Set prompt loop
-';	numbers(8, numberScore OR 2, 0, 0, player)				'Put player score	
+';	numbers(8, numberScore OR 2, 0, 0, player)				'Put player score
 	numbers "", Ball, "", ""				'Ball # upper right
 	activeBalls = activeBalls - 1			'Remove a ball from being "Active"
 	deProgress(player) = 8					'Waits for tunnel ball to hit scoop. Then, IT'S ON!
@@ -2267,7 +2274,7 @@ sub DemonStart()
 	for x=57 To 62							'Pulse the MODE LIGHTS to serve as Demon Health Bar
 		pulse(x)
 	Next
-	AutoPlunge(90000)						'Set flag to launch 4th ball		
+	AutoPlunge(90000)						'Set flag to launch 4th ball
 	LeftTimer = Int(85000/CycleAdjuster)	'Kick out the left VUK ball
 	ScoopTime = Int(80000/CycleAdjuster)	'Kick out right scoop ball
 	TargetTimerSet 80000, TargetDown, 1		'Put the targets down to release ball
@@ -2275,11 +2282,11 @@ sub DemonStart()
 	trapDoor = 0
 	dirtyPoolMode(1)						'In case a ball gets up there somehow
 	for x=0 To 5
-		photoLocation(x) = 0				'Clear Control Box locations	
+		photoLocation(x) = 0				'Clear Control Box locations
 		light photoLights(x), 0				'Turn off the 6 camera positions
 		light photoLights(x) - photoStrobe(x), 0		'Turn off the Strobe
 	Next
-	photoCurrent = random(5)				'Random location, but NOT the scoop to start							
+	photoCurrent = random(5)				'Random location, but NOT the scoop to start
 	photoLocation(photoCurrent) = 255																'Set which one has the DEMON SHOT
 	'pulse(photoLights(photoCurrent))
 	strobe photoLights(photoCurrent) - photoStrobe(photoCurrent), photoStrobe(photoCurrent) + 1		'Strobe as many under it as we can
@@ -2296,9 +2303,9 @@ sub DemonStart()
 End Sub
 
 sub DemonState()							'What sort of looping video the demon should be doing
-	if (deProgress(player) = 20) Then				'Jackpots FTW?			
+	if (deProgress(player) = 20) Then				'Jackpots FTW?
 		if (activeBalls = 1) Then
-			customScore "D", "Z", "Y", allowSmall OR loopVideo, 130		'Demon almost dead, Hit to Win!			
+			customScore "D", "Z", "Y", allowSmall OR loopVideo, 130		'Demon almost dead, Hit to Win!
 		Else
 			customScore "D", "J", 5 + random(1), allowSmall OR loopVideo, 150		'Weak demon defense, left or right, Hit for JACKPOTS!
 		End If
@@ -2312,15 +2319,15 @@ sub DemonMove()										'Change the demon's position
 	Dim X
 	x = 0
 	for x=0 To 5
-		photoLocation(x) = 0						'Clear Control Box locations	
+		photoLocation(x) = 0						'Clear Control Box locations
 		light photoLights(x), 0						'Turn off the 6 camera positions
 		light photoLights(x) - photoStrobe(x), 0	'Turn off the Strobe
 	Next
 	x = photoCurrent								'Set x to current location, so WHILE LOOP will execute at least once
 	Do while (x = photoCurrent)						'Don't select same location twice - so it always MOVES
-		x = random(5)								'Don't select scoop			
+		x = random(5)								'Don't select scoop
 	Loop
-	photoCurrent = x									'Update current location		
+	photoCurrent = x									'Update current location
 	photoLocation(photoCurrent) = 255								'Set which one has the DEMON SHOT
 	'pulse(photoLights(photoCurrent))
 	strobe photoLights(photoCurrent) - photoStrobe(photoCurrent), photoStrobe(photoCurrent) + 1	'Strobe the shot!
@@ -2332,17 +2339,17 @@ sub DemonCheck(whichSpot)
 		AddScore(50000)								'Some points
 		if (activeBalls = 1) Then					'Only score jackpots with 2 or more balls
 			video "D", "Z", "X", allowSmall OR loopVideo, 130, 255	'Hit Demon To Win!
-			numbers PlayerScore(player), "", "", ""	'Show small player's score in upper left corner of screen			
+			numbers PlayerScore(player), "", "", ""	'Show small player's score in upper left corner of screen
 		Else
 			video "D", "J", "0", 0, 45, 230			'Hit Demon for Jackpots! (lower priority than Jackpot Advance display)
-			DemonState()			
+			DemonState()
 		End If
 		playSFX 2, "A", "Z", "Z", 255				'Whoosh!
-		Exit Sub									'Don't do this other stuff	
+		Exit Sub									'Don't do this other stuff
 	End If
 	if (photoLocation(whichSpot) = 255) Then		'Did we hit the demon?
 		ghostFlash(50)
-		flashCab 255, 255, 255, 10					'Flash from black to Default Mode Color	
+		flashCab 255, 255, 255, 10					'Flash from black to Default Mode Color
 		AddScore(activeBalls * 1000000)				'The more balls, the more points
 		light demonLife + 56, 0						'Turn OFF the current light
 		demonLife = demonLife - 1					'Decrement
@@ -2362,7 +2369,7 @@ sub DemonCheck(whichSpot)
 			DoctorTimer = DoctorTimer - Int(7000/CycleAdjuster)	'Targets move faster as you collect them
 			modeTimer = DoctorTimer								'Reset timer before next move
 			lightSpeed = lightSpeed + 1							'Increase!
-		End If		
+		End If
 	Else														'Miss!
 		playSFX 0, "G", "T", 65 + random(18), 255				'Taunt player
 		video "D", "D", 69 + random(1), allowSmall OR noExitFlush, 60, 255		'Demon taunt (left or right)
@@ -2381,19 +2388,19 @@ sub DemonJackpot()
 	video "D", "J", activeBalls, noExitFlush, 50, 255			'Bonus based off how many balls we have
 	showValue EVP_Jackpot(player) * jackpotMultiplier, 40, 1	'Show what jackpot value was
 	DemonState()
-	ghostAction = Int(20000/CycleAdjuster)						'Set WHACK routine.	
+	ghostAction = Int(20000/CycleAdjuster)						'Set WHACK routine.
 	lightningStart(Int(100000/CycleAdjuster))										'Demon lightning!
 End Sub
 
 sub DemonDefeated()												'After you hit the 6 strobing shots, Defenses are down and it's JACKPOT time!
 	Dim X
-	TargetTimerSet 10, TargetDown, 1							'Put the targets down to release ball	
+	TargetTimerSet 10, TargetDown, 1							'Put the targets down to release ball
 	for x=0 To 5
-		photoLocation(x) = 0									'Clear Control Box locations	
+		photoLocation(x) = 0									'Clear Control Box locations
 		light photoLights(x), 0									'Turn off the 6 camera positions
 		light photoLights(x) - photoStrobe(x), 0				'Turn off the Strobe
 	Next
-	deProgress(player) = 20										'Now we're in BASH MODE!	
+	deProgress(player) = 20										'Now we're in BASH MODE!
 	strobe 17, 3												'Strobe targets and pulse JACKPOT
 	pulse(16)
 	light 63, 7													'DEMON BATTLE solid
@@ -2402,21 +2409,21 @@ sub DemonDefeated()												'After you hit the 6 strobing shots, Defenses are
 	playSFX 0, "D", "0", 65 + random(3), 255					'Defeat Dialog!
 	video "D", "D", "0", noExitFlush, 60, 255					'Demon sad
 	if (activeBalls = 1) Then
-		'videoQ('D', 'Z', 'X', allowSmall OR loopVideo OR noEntryFlush, 0, 255)	'Demon almost dead, Hit to Win!	
-		'numbers(0, numberScore OR 2, 0, 0, player)				'Show small player's score in upper left corner of screen	
+		'videoQ('D', 'Z', 'X', allowSmall OR loopVideo OR noEntryFlush, 0, 255)	'Demon almost dead, Hit to Win!
+		'numbers(0, numberScore OR 2, 0, 0, player)				'Show small player's score in upper left corner of screen
 		customScore "D", "Z", "X", allowSmall OR loopVideo, 130		'Hit demon to WIN, then Demon on Ropes
 		'DemonState()
 		loopCatch = catchBall													'Set that we're ready to catch the final ball
 		multipleBalls = 0
 	Else
-		'videoQ('D', 'J', '0', noEntryFlush OR noExitFlush, 0, 255)				'Hit Demon for Jackpots!	
+		'videoQ('D', 'J', '0', noEntryFlush OR noExitFlush, 0, 255)				'Hit Demon for Jackpots!
 		DemonState()
 		multipleBalls = 1												'When MB starts, you get ballSave amount of time to loose balls and get them back
-	End If	
-	dirtyPoolMode(0)							'Disable dirty pool check (since we DO want to trap the ball)		
+	End If
+	dirtyPoolMode(0)							'Disable dirty pool check (since we DO want to trap the ball)
 '	playMusic "G", "S"						'One more time!
 	musicplayer "bgout_GS.mp3"
-	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost	
+	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost
 End Sub
 
 sub DemonWin()
@@ -2433,20 +2440,20 @@ sub DemonWin()
 		light 51, 7												'Light Psychic solid (done)
 	End If
 	killScoreNumbers()											'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()		
-	video "D", "0", "1", 0, 513, 255							'Demon Death + End Credits	
+	killCustomScore()
+	video "D", "0", "1", 0, 513, 255							'Demon Death + End Credits
 	allLamp(0)
 	light 63, 7													'All lights off but DEMON BATTLE solid
-	ghostAction = Int(20000/CycleAdjuster)						'Set WHACK routine.	
+	ghostAction = Int(20000/CycleAdjuster)						'Set WHACK routine.
 	musicVolume(0) = 80											'Temp volume increase
 	musicVolume(1) = 80
 	volumeSFX 3, musicVolume(0), musicVolume(1)
-	setCabModeFade defaultR, defaultG, defaultB, 2000			'Reset to default color	
-'	playMusic "T", "E"											'Until we get final music ready	
+	setCabModeFade defaultR, defaultG, defaultB, 2000			'Reset to default color
+'	playMusic "T", "E"											'Until we get final music ready
 	musicplayer "bgout_te.mp3"
 	TargetSet(TargetUp)											'Trap ball using targets
 	deProgress(player) = 50										'Flag that mode is won!
-	animatePF 179, 10, 1										'Center explode!	
+	animatePF 179, 10, 1										'Center explode!
 	modeTimer = Int(300000/CycleAdjuster)
 End Sub
 
@@ -2458,7 +2465,7 @@ sub DemonFailLock()												'What happens if you fail while trying to lock th
 	TargetSet(TargetDown)										'Release Ball 2
 	trapTargets = 0												'No balls are supposed to be trapped now
 	trapDoor = 0
-	DemonFail()	
+	DemonFail()
 End Sub
 
 sub DemonFailBattle()											'What happens if you fail while trying to clear the shots and get to demon
@@ -2484,7 +2491,7 @@ sub DemonFail()													'General fail conditions for Demon Mode
 	light 26, 0													'Turn off the strobing Hellavator lights
 	light 63, 0													'Haven't won it yet, turn it off
 	killScoreNumbers()											'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	ghostMove 90, 10											'Turn ghost back to center
 	ghostLook = 1												'Ghost will now look around again.
 	ghostAction = 0
@@ -2495,7 +2502,7 @@ sub DemonFail()													'General fail conditions for Demon Mode
 	doorLogic()													'Figure out what to do with the door
 	checkRoll()													'See if we enabled GLIR Ghost Photo Hunt during that mode
 	elevatorLogic()												'Did the mode move the elevator? Re-enable it and lock lights
-	popLogic(0)													'Figure out what mode the Pops should be in	
+	popLogic(0)													'Figure out what mode the Pops should be in
 End Sub
 'END DEMON BATTLE FUNCTIONS
 
@@ -2518,7 +2525,7 @@ sub doGhostActions()
 		End If
 		if (ghostAction = 1) Then
 			ghostMove 15, 50
-			ghostAction = Int(10000/CycleAdjuster)			
+			ghostAction = Int(10000/CycleAdjuster)
 		End If
 		Exit Sub
 	End If
@@ -2565,22 +2572,22 @@ sub doGhostActions()
 		End If
 		if (ghostAction = Int(93999/CycleAdjuster)) Then
 			ghostMove 90, 5
-		End If		
+		End If
 		if (ghostAction = Int(76000/CycleAdjuster)) Then
 			ghostMove 170, 20
-		End If		
+		End If
 		if (ghostAction = Int(70000/CycleAdjuster)) Then
 			ghostMove 60, 2
 		End If
 		if (ghostAction = Int(54000/CycleAdjuster)) Then
 			ghostMove 90, 100
-			ghostLook = 1						'Allow ghost to look around again	
+			ghostLook = 1						'Allow ghost to look around again
 			if (goldHits > 9 and goldHits < 100) Then					'Still collecting gold?
 				ghostAction = Int(209999/CycleAdjuster)
 			Else
-				ghostAction = Int(319999/CycleAdjuster)								'Else, normal pose			
+				ghostAction = Int(319999/CycleAdjuster)								'Else, normal pose
 			End If
-		End If		
+		End If
 	End If
 	if (ghostAction > Int(100000/CycleAdjuster) and ghostAction < Int(150001/CycleAdjuster)+1) Then			'Holding Ball?
 		ghostAction = ghostAction - 1
@@ -2589,31 +2596,31 @@ sub doGhostActions()
 		End If
 		if (ghostAction = Int(100010/CycleAdjuster)) Then
 			ghostMove 115, 300
-			ghostAction = Int(150000/CycleAdjuster)			
+			ghostAction = Int(150000/CycleAdjuster)
 		End If
 		Exit Sub
-	End If	
+	End If
 	if (ghostAction > Int(150000/CycleAdjuster) and ghostAction < Int(200000/CycleAdjuster)) Then			'Sexy Dance?
 		ghostAction = ghostAction - 1
 		if (ghostAction = Int(199990/CycleAdjuster)) Then
 			ghostMove 75, 100
 		End If
 		if (ghostAction = Int(180000/CycleAdjuster)) Then
-			ghostMove 105, 50		
+			ghostMove 105, 50
 		End If
 		if (ghostAction = Int(160001/CycleAdjuster)+1) Then
-			ghostMove 90, 100	
+			ghostMove 90, 100
 			ghostAction = 0
-		End If		
+		End If
 		Exit Sub
-	End If	
+	End If
 	if (ghostAction > Int(210000/CycleAdjuster) and ghostAction < Int(230000/CycleAdjuster)) Then			'Ghost hit, leading into Guarding Door?
 		ghostAction = ghostAction - 1
 		Select Case ghostAction									'Turn off the lights when we hit them
 			case Int(229900/CycleAdjuster):
 				ghostMove 140, 2
 			case Int(220000/CycleAdjuster):
-				ghostMove 125, 50	
+				ghostMove 125, 50
 			case Int(218000/CycleAdjuster):
 				ghostMove 120, 50
 			case Int(214000/CycleAdjuster):
@@ -2624,7 +2631,7 @@ sub doGhostActions()
 				ghostMove 115, 50
 		End Select
 		Exit Sub
-	End If	
+	End If
 	if (ghostAction > Int(199999/CycleAdjuster) and ghostAction < Int(210001/CycleAdjuster)+1) Then			'Guarding door?
 		ghostAction = ghostAction - 1
 		if (ghostAction = Int(205000/CycleAdjuster)) Then
@@ -2632,7 +2639,7 @@ sub doGhostActions()
 		End If
 		if (ghostAction = Int(200001/CycleAdjuster)+1) Then
 			ghostMove 15, 50
-			ghostAction = Int(209999/CycleAdjuster)			
+			ghostAction = Int(209999/CycleAdjuster)
 		End If
 		Exit Sub
 	End If
@@ -2643,17 +2650,17 @@ sub doGhostActions()
 		End If
 		if (ghostAction = Int(300001/CycleAdjuster)+1) Then
 			ghostMove 100, 50
-			ghostAction = Int(319999/CycleAdjuster)			
+			ghostAction = Int(319999/CycleAdjuster)
 		End If
 		Exit Sub
-	End If	
+	End If
 	if (ghostAction > Int(320000/CycleAdjuster) and ghostAction < Int(340000/CycleAdjuster)) Then			'Ghost hit, leading into Guarding Front?
 		ghostAction = ghostAction - 1
 		Select Case ghostAction							'Turn off the lights when we hit them
 			case Int(339990/CycleAdjuster)
 				ghostMove 160, 2
 			case Int(334000/CycleAdjuster)
-				ghostMove 150, 50	
+				ghostMove 150, 50
 			case Int(330000/CycleAdjuster)
 				ghostMove 135, 50
 			case Int(328000/CycleAdjuster)
@@ -2666,14 +2673,14 @@ sub doGhostActions()
 				ghostMove 133, 50
 		End Select
 		Exit Sub
-	End If		
+	End If
 	if (ghostAction > Int(399999/CycleAdjuster) and ghostAction < Int(499999/CycleAdjuster)) Then			'Minion animations?
 		ghostAction = ghostAction - 1
 		Select Case (ghostAction)									'Turn off the lights when we hit them
 			case Int(468000/CycleAdjuster)
 				ghostMove 120, 2
 			case Int(466000/CycleAdjuster)
-				ghostMove 60, 2	
+				ghostMove 60, 2
 			case Int(464000/CycleAdjuster)
 				ghostMove 110, 5
 			case Int(462000/CycleAdjuster)
@@ -2682,15 +2689,15 @@ sub doGhostActions()
 				ghostMove 90, 5					'Centers
 				if (minion(player) <> 10 and minion(player) <> 100) Then	'Minion over? End motion
 					ghostAction = 0
-				End If			
+				End If
 			case Int(450000/CycleAdjuster)							'This will lead into ghost guarding the front
 				ghostMove 60, 150
-			case Int(425000/CycleAdjuster)											
+			case Int(425000/CycleAdjuster)
 				ghostMove 120, 150
-			case Int(400000/CycleAdjuster)											
+			case Int(400000/CycleAdjuster)
 				ghostAction = Int(450005/CycleAdjuster)+5
 		End Select
-		Exit Sub	
+		Exit Sub
 	End If
 	if (ghostAction > Int(499999/CycleAdjuster) and ghostAction < Int(510000/CycleAdjuster)) Then
 		ghostAction = ghostAction - 1
@@ -2701,7 +2708,7 @@ sub doGhostActions()
 				ghostMove 90, 150
 				ghostAction = 0				'Cancel motion
 		End Select
-		Exit Sub			
+		Exit Sub
 	End If
 End Sub
 
@@ -2733,21 +2740,21 @@ sub doorDo()												'When ball goes past Door Opto
 	End If
 	if (fortProgress(player) > 59 and fortProgress(player) < 100) Then													'Fighting the War Fort?
 		if (goldHits < 10) Then								'Not already collecting gold (10) or disabled (100)?
-			WarGoldStart()	
+			WarGoldStart()
 		End If
 		if (goldHits = 100) Then							'Already beat it?
-			killQ()											'Disable any Enqueued videos		
+			killQ()											'Disable any Enqueued videos
 			video "W", "G", "I", allowSmall, 60, 255		'No more gold!
-			playSFX 0, "W", "G", random(4), 255				'Ghost lamenting the lack of gold			
+			playSFX 0, "W", "G", random(4), 255				'Ghost lamenting the lack of gold
 '			DoorLocation = DoorClosed - 10					'Put it to be slightly opened
 '			myservo(DoorServo).write(DoorLocation)			'Send that value to the servo
 			PrDoor.ObjRotZ = DoorClosed + 10
-			DoorSet DoorClosed, 1000						'Then make it go back closed			
+			DoorSet DoorClosed, 1000						'Then make it go back closed
 		End If
 		Exit Sub
 	End If
 	if (Advance_Enable = 1 and hosProgress(player) = 0) Then		 ' and deProgress(player) = 0) Then								'Are we elible to advance modes?
-		if (theProgress(player) < 3 or theProgress(player) = 100) Then		'Theater isn't lit, or has been won already? 
+		if (theProgress(player) < 3 or theProgress(player) = 100) Then		'Theater isn't lit, or has been won already?
 			HospitalAdvance()								'Advance Hospital
 			Exit Sub
 		End If
@@ -2765,9 +2772,9 @@ sub doorDo()												'When ball goes past Door Opto
 				playSFX 0, "H", "5", "Z", 255				'Play taunts H5A-H5D
 			Else
 				playSFX 0, "H", "5", random(8) + 65, 255	'Play taunts H5A-H5D
-			End If			
+			End If
 		End If
-		if (DoctorState = 1) Then							'Evil doctor ghost IS distracted?			
+		if (DoctorState = 1) Then							'Evil doctor ghost IS distracted?
 			AddScore(countSeconds * 50000)
 			PrDoor.ObjRotZ = DoorClosed + 20				'Open door slighty
 			modeTimer = Int(8000/CycleAdjuster)				'Set timer to close it back up
@@ -2787,12 +2794,12 @@ sub doorDo()												'When ball goes past Door Opto
 				customScore "H", "7", "F", allowAll OR loopVideo, 30	'Shoot Ghost 2 shots to go!
 			End If
 			hosProgress(player) = hosProgress(player) + 1	'Advance progress. If Hospital Logic section sees this as a "9", we start Multiball Battle!
-			if (hosProgress(player) < 9) Then				'Not the winning hit yet?	
+			if (hosProgress(player) < 9) Then				'Not the winning hit yet?
 				pulse(17)
 				pulse(18)
 				pulse(19)
 				light hosProgress(player) + 1, 7			'Use number to indicate progress
-			End If	
+			End If
 		End If
 		Exit Sub
 	End If
@@ -2829,20 +2836,20 @@ sub doorLogic()														'What to do with the door at the end of a mode
 		Exit Sub
 	End If
 	if (hellMB or minionMB) Then									'Hell MB isn't in progress?
-		DoorSet DoorOpen, 25										'Make sure the door is open		
+		DoorSet DoorOpen, 25										'Make sure the door is open
 		Exit Sub
 	End If
 	if (Mode(player) = 4) Then
 		if (goldHits = 10) Then										'Stealing confederate gold?
-			DoorSet DoorOpen, 5										'Make sure the door is open	
+			DoorSet DoorOpen, 5										'Make sure the door is open
 		End If
 		if (goldHits < 10 or goldHits = 100 or fortProgress(player) = 59) Then							'Trying to open door, or Gold already complete, or mode just started?
 			DoorSet DoorClosed, 5
-		End If	
+		End If
 		Exit Sub
 	End If
 	if (theProgress(player) = 3) Then								'Eligible to start Theater?
-		DoorSet DoorOpen, 5											'Make sure door is open	
+		DoorSet DoorOpen, 5											'Make sure door is open
 		Exit Sub
 	End If
 	if (deProgress(player) = 2) Then								'On second shot of Demon Battle?
@@ -2853,15 +2860,15 @@ sub doorLogic()														'What to do with the door at the end of a mode
 		DoorSet DoorClosed, 5										'Door needs to be closed!
 		Exit Sub
 	End If
-	if (hosProgress(player) > 0 and hosProgress(player) < 4) Then	'Advancing Hospital mode?	
-		DoorSet DoorOpen, 5											'Make sure door is open	
-		if (hosProgress(player) = 3) Then							'Was doctor mode ready?	
-			pulse(11)												'Turn off that light for now	
+	if (hosProgress(player) > 0 and hosProgress(player) < 4) Then	'Advancing Hospital mode?
+		DoorSet DoorOpen, 5											'Make sure door is open
+		if (hosProgress(player) = 3) Then							'Was doctor mode ready?
+			pulse(11)												'Turn off that light for now
 		End If
 	End If
-	if (hosProgress(player) = 99) Then								'Did we FAIL doctor mode?	
+	if (hosProgress(player) = 99) Then								'Did we FAIL doctor mode?
 		pulse(11)													'Re-lite it
-		DoorSet DoorOpen, 500										'Open door SLOWLY		
+		DoorSet DoorOpen, 500										'Open door SLOWLY
 		hosProgress(player) = 3										'Set progress to re-enable state
 		Exit Sub
 	End If
@@ -2916,7 +2923,7 @@ sub dirtyPoolLogic()
 			AddScore(250000)
 			TargetSet(TargetDown)									'Put targets down
 			TargetTimerSet 15000, TargetUp, 5	 					'Set timer to put them back up after ball rolls out. It'll check again once they're up
-			dirtyPoolTimer = Int(100000/CycleAdjuster)				'Set this to Ball Detected Countdown, so Detected only occurs once		
+			dirtyPoolTimer = Int(100000/CycleAdjuster)				'Set this to Ball Detected Countdown, so Detected only occurs once
 		End If
 	End If
 	if (dirtyPoolTimer = Int(20000/CycleAdjuster))	Then			'Enough time to grab ball?
@@ -2929,7 +2936,7 @@ End Sub
 
 sub displayTimerCheck(newTimerValue)								'Call this before using the Display Timer. If something already running, this ends it properly
 	newTimerValue = Int(newTimerValue/CycleAdjuster)
-	if (newTimerValue) Then											'Setting a new value?	
+	if (newTimerValue) Then											'Setting a new value?
 		if (displayTimer > 0 and displayTimer < Int(45000/CycleAdjuster)) Then			'Was ORB flashing?
 '			if (orb(player) & B00100100) Then	'O lit?
 			If ((orb(player) AND 36) = 36) Then
@@ -2948,7 +2955,7 @@ sub displayTimerCheck(newTimerValue)								'Call this before using the Display 
 				light 34, 0
 			End If
 		End If
-		if (displayTimer > Int(45000/CycleAdjuster) and displayTimer < Int(90000/CycleAdjuster)) Then	'Was GLIR flashing as this started?	
+		if (displayTimer > Int(45000/CycleAdjuster) and displayTimer < Int(90000/CycleAdjuster)) Then	'Was GLIR flashing as this started?
 			'Set GLIR lights to what they should be
 			if ((rollOvers(player) And 136) = 136) Then	'G lit?
 				light 52, 7
@@ -2970,8 +2977,8 @@ sub displayTimerCheck(newTimerValue)								'Call this before using the Display 
 			Else
 				light 55, 0
 			End If
-		End If	
-		displayTimer = newTimerValue			
+		End If
+		displayTimer = newTimerValue
 	Else													'we're just updating both ORB and GLIR
 		updateRollovers()
 	End If
@@ -2984,10 +2991,10 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 	if (tiltFlag) Then					'Were we in a Tilt state when ball drained?
 		if (hosProgress(player) > 5 and hosProgress(player) < 90) Then					'Doctor MB, but a Tilt?
 			HospitalFail()																'Mode FAIL! Gotta start over
-		End If	
+		End If
 		if (barProgress(player) > 59 and barProgress(player) < 100) Then					'Bar MB, but a Tilt?
 			BarFail()																	'Mode FAIL! Gotta start over
-		End If			
+		End If
 	Else													'Normal drain?
 		drainSwitch = drainSwitch + 1									'Increment the drain switch #
 		'Serial.print("+Drain Switch = ")
@@ -3003,38 +3010,38 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 			End If
 			if (multiBall = 0 and multipleBalls = 0) Then	'In multiball, ball save doesn't reset on a ball loss, rather there's an overall "grace period" like AFM the best game EVAH
 				saveTimer = 0								'No more ball save for you!
-				light 56, 0								'Turn off Spook Again				
+				light 56, 0								'Turn off Spook Again
 			End If
 			Exit Sub											'Leave this function
-		End If		
+		End If
 		activeBalls = activeBalls - 1				'Decrement # of balls on the playfield
 		if (activeBalls = 1) Then			'Down to our last ball?
 			'These first 3 modes can stack with normal Hellavator MB. If a Hell MB was active, these win conditions will terminate the multiball
-			if (Mode(player) = 1 and hosProgress(player) = 10) Then			'Bashing the Doctor Ghost?		
-				HospitalWin()												'Mode complete, reset stuff.			
+			if (Mode(player) = 1 and hosProgress(player) = 10) Then			'Bashing the Doctor Ghost?
+				HospitalWin()												'Mode complete, reset stuff.
 				Exit Sub
 			End If
-			if (Mode(player) = 1 and hosProgress(player) > 4 and hosProgress(player) < 9 and hosTrapCheck = 1) Then			'Bashing the Doctor Ghost?		
-				HospitalRestart()											'Allow quick restart!			
+			if (Mode(player) = 1 and hosProgress(player) > 4 and hosProgress(player) < 9 and hosTrapCheck = 1) Then			'Bashing the Doctor Ghost?
+				HospitalRestart()											'Allow quick restart!
 				Exit Sub
 			End If
-			if (hotProgress(player) = 30 or hotProgress(player) = 35) Then	'Battling Hotel Ghost?		
-				HotelWin()													'Mode complete, reset stuff.		
+			if (hotProgress(player) = 30 or hotProgress(player) = 35) Then	'Battling Hotel Ghost?
+				HotelWin()													'Mode complete, reset stuff.
 				Exit Sub
 			End If
-			if (barProgress(player) = 80) Then								'Ghost Whore battle?		
-				BarWin()													'Mode complete, reset stuff.		
+			if (barProgress(player) = 80) Then								'Ghost Whore battle?
+				BarWin()													'Mode complete, reset stuff.
 				Exit Sub
-			End If		
+			End If
 			'If none of those modes were active (finishing up) then we end Multiball normally
 			if (multiBall) Then												'If we weren't in a Ghost mode, then end like normal multiball
 				multiBallEnd(0)												'We need to check this first because if stacked with other modes, things might not get cleared properly
 				Exit Sub
 			End If
 			if (priProgress(player) > 9 and priProgress(player) < 20) Then		'Last ball, and you didn't free all 3?
-				PrisonDrainCheck(0)		
+				PrisonDrainCheck(0)
 				Exit Sub
-			End If		
+			End If
 			if (priProgress(player) = 20) Then								'Last ball and you released all 3?
 				PrisonDrainCheck(1)
 				Exit Sub
@@ -3046,19 +3053,19 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 				numbers PlayerScore(player), "", "", ""
 				loopCatch = catchBall										'Set that we're ready to catch the final ball
 			End If
-			playSFX 2, "Q", "Z", "Z", 200									'Else, negative sound!			
+			playSFX 2, "Q", "Z", "Z", 200									'Else, negative sound!
 			Exit Sub														'Return to main loop
 		End If
 		if (activeBalls > 1) Then			'2 or more balls still active?
-			if (Mode(player) = 6) Then	'Saving our friends?		
+			if (Mode(player) = 6) Then	'Saving our friends?
 				PrisonDrainCheck(1)
 				Exit Sub
 			End If
 			if (deProgress(player) > 9 and deProgress(player) < 100) Then			'Prompt with current multiplier
 				killQ()
-				video "P", "7", 67 + activeBalls, noExitFlush, 39, 255	
-				DemonState()				
-			End If		
+				video "P", "7", 67 + activeBalls, noExitFlush, 39, 255
+				DemonState()
+			End If
 			playSFX 2, "Q", "Z", "Z", 200						'Negative sound!
 			Exit Sub						'Return to main loop
 		End If
@@ -3066,12 +3073,12 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 			activeBalls = 0
 		End If
 		'This has to be after the ActiveBalls check else we'll get a false FAIL condition if MB stacked on Ghost Whore and any balls lost
-		if (barProgress(player) > 59 and barProgress(player) < 80) Then	'Haven't saved our friend from Ghost Whore yet?		
+		if (barProgress(player) > 59 and barProgress(player) < 80) Then	'Haven't saved our friend from Ghost Whore yet?
 			if (BarFail() = 1) Then										'One more chance?
 				Exit Sub													'Asub drain!
 			End If 'Else, drain!
 			activeBalls = 0
-		End If	
+		End If
 		if (hosProgress(player) > 4 and hosProgress(player) < 9) Then	'Were we trying to save our friend from Ghost Doctor?
 			if (HospitalFail() = 1) Then										'Able to restart it? (returns a 1)
 				if (hosTrapCheck = 1) Then									'Were we looking for a ball?
@@ -3079,16 +3086,16 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 				Else
 					activeBalls = activeBalls + 1							'Count the ball we've freed
 				End If
-				Exit Sub		
+				Exit Sub
 			End If 'Else, drain!
 			activeBalls = 0
-		End If	
+		End If
 	End If
 	if (restartTimer) Then
 		restartKill 0, 0			'In case one is active
 	End If
 	DrainPre()						'Things to do before we start the drain (mostly end active modes)
-	killQ()						'Disable any Enqueued videos	
+	killQ()						'Disable any Enqueued videos
 	killNumbers()					'Disable Numbers display
 	comboKill()					'Disable any Combos
 	AutoEnable = 0					'Disable flippers
@@ -3099,7 +3106,7 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 	PlaySound SoundFX("FlipperDown"),0,1,0.1,0.25
 	DOF 102, 0
 	run = 1						'Set condition so player can launch the new ball
-	callHits = 0					'How many times you've hit Call this ball (resets per player)	
+	callHits = 0					'How many times you've hit Call this ball (resets per player)
 	'rollOvers(player) = 0			'Clear rollovers
 	light 52, 0
 	light 53, 0
@@ -3114,20 +3121,20 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 	skip = 0
 	drainTries = 0
 	if (tiltFlag = 0) Then										'Don't award bonus, or show video / music if tilt
-		drainTimer = Int(70005/CycleAdjuster)+5				 '160005							'Timer for Drain events. System keeps running.	
+		drainTimer = Int(70005/CycleAdjuster)+5				 '160005							'Timer for Drain events. System keeps running.
 		EOBnumbers 0, areaProgress(player) * 13370			'Send AREA PROGRESS
 		EOBnumbers 1, EVP_Total(player) * 250000						'Send EVPS COLLECTED
 		EOBnumbers 2, photosTaken(player) * 500250			'Send PHOTOS TAKEN
 		EOBnumbers 3, ghostsDefeated(player) * 1000000		'Send GHOSTS DEFEATED
 		bonus = (areaProgress(player) * 13370) + (EVP_Total(player) * 250000) + (photosTaken(player) * 500250) + (ghostsDefeated(player) * 1000000)
-		bonus = bonus * bonusMultiplier								'Multiply it		
-		bonusMultiplier = 1									'Reset multiplier (it's per ball so don't need unique variable per player)		
+		bonus = bonus * bonusMultiplier								'Multiply it
+		bonusMultiplier = 1									'Reset multiplier (it's per ball so don't need unique variable per player)
 		'EOBnumbers(4, bonus)									'Send TOTAL BONUS
-		AddScore(bonus)										'Before switching players, increase score by bonus	
-'		playMusic "B", "F"															'Shorter music	
+		AddScore(bonus)										'Before switching players, increase score by bonus
+'		playMusic "B", "F"															'Shorter music
 		musicplayer "bgout_BF.mp3"
 		VideoEOB "E", "B", 64 + ball, noEntryFlush OR allowLarge, 131, 255					'Play EOB video
-		EOBnumbers 4, bonus										'Send TOTAL BONUS	
+		EOBnumbers 4, bonus										'Send TOTAL BONUS
 		GIpf(192)
 		setCabColor 64, 64, 64, 200
 	Else
@@ -3135,33 +3142,33 @@ sub Drain(drainType)						'What happens when you drain. Check for ball save, ext
 		cabColor 255, 0, 0, 255, 0, 0
 		doRGB()												'Set cab immediately to RED!
 		drainTries = 0											'We haven't tried to kick the drain yet
-	End If	
+	End If
 End Sub
 
 sub DrainLogic()												'DRAIN functions are in-line. This is the logic that executes
 	if (Switch(63) and kickTimer = 0) Then	'Something in the drain, and we didn't just try to kick it?
-		drainClear()						'Unload the drain!		
+		drainClear()						'Unload the drain!
 	End If
 	if (drainTimer = Int(69000/CycleAdjuster)) Then '178500) Then
-		GIpf(128)		
+		GIpf(128)
 		allLamp(0)							'Turn off all lamps after the Fade Animation has a chance to start
-		EOBnumbers 4, bonus					'Send TOTAL BONUS again to make sure EOB numbers are enabled (instead of seeing blank scores)		
-	End If	
+		EOBnumbers 4, bonus					'Send TOTAL BONUS again to make sure EOB numbers are enabled (instead of seeing blank scores)
+	End If
 	if (drainTimer = Int(68000/CycleAdjuster)) Then '177000) Then
-		GIpf(0)		
+		GIpf(0)
 	End If
 	if (drainTimer = Int(65000/CycleAdjuster)) Then '177000) Then
-		playSFX 0, "Y", 66 + random(3), random(10), 150		'Ball drain quote from 3 Team Members (not super high priority so won't override other dialog)		
+		playSFX 0, "Y", 66 + random(3), random(10), 150		'Ball drain quote from 3 Team Members (not super high priority so won't override other dialog)
 	End If
 	if ((SwRFlip=1) or (SwLFlip=1)) Then		'Skipping past?
 		if (countBalls() = 4 and drainTimer > Int(18000/cycleAdjuster) and drainTimer < Int(69000/cycleAdjuster)) Then	'All balls accounted for, and eligible part of sequence?
 			video "E", "C", 64 + ball, 0, 54, 255		'Play ending flash (will also kill EOB numbers))
-			drainTimer = Int(17000/CycleAdjuster)		'Speed this up	
+			drainTimer = Int(17000/CycleAdjuster)		'Speed this up
 '			playMusic "B", "G"							'Ending beat
 			musicplayer "bgout_BG.mp3"
 			'video('E', 'C', '@' + ball, 0, 0, 255)		'Play ending flash
 		End If
-	End If	
+	End If
 	if (drainTimer = Int(10001/CycleAdjuster)+1 and countBalls() < 4) Then 'Don't continue until all balls are accounted for
 		drainTimer = Int(10100/CycleAdjuster)
 	End If
@@ -3180,17 +3187,17 @@ sub DrainLogic()												'DRAIN functions are in-line. This is the logic that
 			Else
 				video "S", "A", "D", 0, 29, 255
 			End If
-			skillShotNew(0)				'Set up a Skill Shot, but show video AFTER the Shoot Again prompt (0)	
+			skillShotNew(0)				'Set up a Skill Shot, but show video AFTER the Shoot Again prompt (0)
 		Else							'No extra balls? Advance balls or player # as normal
 			if (numPlayers > 1) Then		'More than 1 player?
 				player = player + 1				'Advance which player is up
 				if (player > numPlayers) Then  'Past the end?
 					player = 1				'Back to Player 1
 					ball = ball + 1				'Went through all 4 players, increment ball #
-				End If			
+				End If
 				loadLamp(player)			'Load new player's lamps into memory
 			End If
-			if (numPlayers = 1) Then	
+			if (numPlayers = 1) Then
 				ball = ball + 1
 				loadLamp(player)
 			End If
@@ -3205,7 +3212,7 @@ sub DrainLogic()												'DRAIN functions are in-line. This is the logic that
 			NoGame2()							'EP- Had to put this here to manually "continue" the main loop since while loops don't work here.
 		Exit Sub			'Exit routine, since game is over
 		Else
-			Update(0)				'Make sure we're not in Attract Mode.			
+			Update(0)				'Make sure we're not in Attract Mode.
 '			playMusic "L", "1"
 			musicplayer "bgout_L1.mp3"
 		End If
@@ -3213,28 +3220,28 @@ sub DrainLogic()												'DRAIN functions are in-line. This is the logic that
 		popCount = 0					'Pops per ball (takes 10 to get an EVP)
 		GIpf(224)
 		sweetJumpBonus = 0				'Reset score (hitting it adds value)
-		sweetJump = 0					'Reset video/SFX counter		
+		sweetJump = 0					'Reset video/SFX counter
 		Advance_Enable = 1
 		Mode(player) = 0
 		badExit = 0					'Haven't gone in VUK yet
-		tiltCounter = 0				'Reset to zero		
+		tiltCounter = 0				'Reset to zero
 		comboKill()
 		slingCount = 0
-		showProgress 0, player		'Set progress lights		
+		showProgress 0, player		'Set progress lights
 		minionDamage = 1				'Default damage
 		checkModePost()				'Set things on the playfield for the new current player
 		AutoEnable = 255				'Enable flippers
 		ghostLook = 0
-		dirtyPoolMode(1)				'Check for Dirty Pool Balls		
+		dirtyPoolMode(1)				'Check for Dirty Pool Balls
 		spiritGuideEnable(1)			'Mode 0, it can always be lit
 		hellEnable(1)					'Enable the Hellavator on this ball
-		GLIRenable(1)					'In case you tilted with GLIR disabled	
+		GLIRenable(1)					'In case you tilted with GLIR disabled
 		'orb(player) = 0				'Clear player's ORB variable so it can be reset
 		scoreBall = 0					'No points scored on this ball as yet
 		tiltTimer = 0
 		comboEnable = 1												'OK combo all you want
-		loadBall()						'Load a new ball	
-		flashCab 255, 255, 255, 10			'Flash from black to Default Mode Color		
+		loadBall()						'Load a new ball
+		flashCab 255, 255, 255, 10			'Flash from black to Default Mode Color
 	End If
 End Sub
 
@@ -3248,7 +3255,7 @@ sub DrainPre()													'Mode-specific things to do at the start of a drain
 	if (tiltFlag) Then
 		if (multiBall) Then											'We need to do this AFTER photo hunt clear in case they were stacked
 			multiBallEnd(0)
-		End If	
+		End If
 	End If
 	if (hotProgress(player) > 9 and hotProgress(player) < 30) Then		'In hotel mode, but not before multiball? OR, if tilt, also kill it
 		HotelFail()
@@ -3269,8 +3276,8 @@ sub DrainPre()													'Mode-specific things to do at the start of a drain
 		DemonFailBattle()											'Do fail condition for that
 	End If
 	if (priProgress(player) > 9 and priProgress(player) < 99) Then		'Trying to free friends, or bash the Prison Warden?
-		PrisonFail()	
-	End If	
+		PrisonFail()
+	End If
 End Sub
 
 sub drainClear()
@@ -3290,7 +3297,7 @@ End Sub
 sub elevatorLogic()
 	hellEnable(1)								'Losing a mode re-enables the Hellavator Lock
 	if (hotProgress(player) = 3) Then				'Able to start Hotel mode?
-		ElevatorSet hellUp, 200				'Move the elevator into 2nd floor position	
+		ElevatorSet hellUp, 200				'Move the elevator into 2nd floor position
 		blink(41)								'HELL FLASHER
 		light 26, 7							'Re-light advance numbers
 		light 27, 7
@@ -3302,10 +3309,10 @@ sub elevatorLogic()
 	End If
 	'Default state is hellavator down, Lock enabled
 	ElevatorSet hellDown, 100 				'Send Hellavator to 1st Floor.
-	light 41, 0								'Flasher OFF			
-	blink(24)									'Blink the UP button							
+	light 41, 0								'Flasher OFF
+	blink(24)									'Blink the UP button
 	light 25, 7								'DOWN is solid, since elevator is there
-	light 30, 0								'Turn OFF "Lock" light	
+	light 30, 0								'Turn OFF "Lock" light
 End Sub
 
 sub Enable()											'The kernel calls this every cycle to enable the Watchdog Timer on the solenoids
@@ -3341,11 +3348,11 @@ sub evpPops()
 		EVP_Total(player)  = EVP_Total(player)  +  1													'Increase our EVP's this ball
 		EVP_Jackpot(player)  = EVP_Jackpot(player)  +  11110
 		sendJackpot(0)															'Send current jackpot value to score #0
-		AddScore(EVP_Total(player) * 11110)									'Ten times the points for an EVP!	
+		AddScore(EVP_Total(player) * 11110)									'Ten times the points for an EVP!
 		if (EVP_Total(player) < EVP_EBtarget(player)) Then							'haven't gotten enough for an EVP yet?
 ';			video "E", "V", "3", allowSmall, 0, 241										'Higher priority so Score doesn't override
-';			numbersPriority(5, 2, 20, 26, EVP_EBtarget(player) - EVP_Total player), 241 	'A small number to show how many EVP's we've gotten in total										
-			playSFX 1, "E", "V", 65 + random(8), 201										'Higher priority so regular pops don't override EVP voice				
+';			numbersPriority(5, 2, 20, 26, EVP_EBtarget(player) - EVP_Total player), 241 	'A small number to show how many EVP's we've gotten in total
+			playSFX 1, "E", "V", 65 + random(8), 201										'Higher priority so regular pops don't override EVP voice
 		Else																				'Guess we got enough for an Extra Ball!
 			Select Case allowExtraBalls														'Give whatever the settings allow for Extra Ball
 				case 1:														'Allow Extra Balls?
@@ -3388,10 +3395,10 @@ sub extraBallLight(queueYes)
 		DoorSet DoorOpen, 5						'Open the door
 		if (queueYes = 1) Then							'Flag that we should prompt EB is lit?
 			video "S", "A", "A", allowSmall, 45, 255						'Extra Ball is lit
-			playSFX 0, "A", "X", 65 + random(2), 150					'Low priority voice call "Extra Ball is Lit!"	
-		End If	
+			playSFX 0, "A", "X", 65 + random(2), 150					'Low priority voice call "Extra Ball is Lit!"
+		End If
 		if (queueYes = 2) Then
-			videoSFX "S", "A", "A", allowSmall, 45, 255, 0, "A", "X", 65 + random(2), 255	'"Extra Ball is Lit!"				
+			videoSFX "S", "A", "A", allowSmall, 45, 255, 0, "A", "X", 65 + random(2), 255	'"Extra Ball is Lit!"
 		End If
 	End If
 End Sub
@@ -3427,7 +3434,7 @@ sub extraBallCollect()
 	End Select
 	if (extraLit(player) < 1) Then					'No more collects available?
 		light 15, 0							'Turn off collect light
-	End If	
+	End If
 	doorLogic()								'See what the door state should be now that EB was collected
 End Sub
 
@@ -3445,7 +3452,7 @@ sub GameOver()
 	pPos(2) = 3
 	pPos(3) = 4
 	if (numPlayers > 1) Then								'If there is more than 1 player...
-		player = 0										'Set NO active player (so all scores appear same size during score entry)	
+		player = 0										'Set NO active player (so all scores appear same size during score entry)
 	Else
 		player = 1
 	End If
@@ -3453,11 +3460,11 @@ sub GameOver()
 	Update(0)											'Update A/V with this info
 	allLamp(0)											'Turn off all lamps
 	for x=0 To 2									'Bubble sort the scores. It also sorts non-playing scores of 0
-		if (playerScore(pPos(x + 1)) > playerScore(pPos(x + 0))) Then			
+		if (playerScore(pPos(x + 1)) > playerScore(pPos(x + 0))) Then
 			tempSort = pPos(x + 0)
 			pPos(x + 0) = pPos(x + 1)
 			pPos(x + 1) = tempSort
-		End If		
+		End If
 	Next
 	Wall10.TimerEnabled = 1
 End Sub
@@ -3481,7 +3488,7 @@ Sub GameOver0()
 '				playMusic "N", "E"												'Only play the music if a player got a high score
 				musicplayer "bgout_ne.mp3"
 				for z=4 To y+1 Step -1											'Shift scores down one space below new high score
-					highScores(z) = highScores(z - 1)							
+					highScores(z) = highScores(z - 1)
 					topPlayers((z * 3) + 0) = topPlayers(((z - 1) * 3) + 0)
 					topPlayers((z * 3) + 1) = topPlayers(((z - 1) * 3) + 1)
 					topPlayers((z * 3) + 2) = topPlayers(((z - 1) * 3) + 2)
@@ -3506,11 +3513,11 @@ Sub GameOver0()
 	End If
 	If GotHS = 0 Then
 		WaLeftSide1.TimerEnabled = 1
-	End If	
+	End If
 End Sub
 
 Sub GameOver1()
-	
+
 End Sub
 
 Sub WaLeftSide1_Timer()
@@ -3522,7 +3529,7 @@ Dim tempcount:tempcount = 0
 Sub GameOver2()
 	Dim X, XX, Y, Z, ZZ, abortLoop, tempSort
 	animatePF 0, 0, 0								'Turn off PF animations
-	repeatMusic(0)									'Music will play and then terminate (disable auto looping)	
+	repeatMusic(0)									'Music will play and then terminate (disable auto looping)
 	if (allowMatch) Then
 		Dim Match, MatchFlag, divider
 		match = random(10)
@@ -3530,18 +3537,18 @@ Sub GameOver2()
 		for x=1 To (numPlayers)														'Break player's scores down into 2 digit numbers for match
 			SetScore(x)																'Send that player's score one more time before we "rip it up" for match math
 			divider = 1000000000													'Divider starts at 1 billion
-			for xx=0 To 7															'Seven places will get us the last 2 digits of a 10 digit score		
+			for xx=0 To 7															'Seven places will get us the last 2 digits of a 10 digit score
 				if (playerScore(x) >= divider) Then
 					playerScore(x) = playerScore(x) MOD divider
 				End If
-				divider = Divider / 10						
+				divider = Divider / 10
 			Next
-			if (playerScore(x) = (match * 10)) Then	'Did we match?	
+			if (playerScore(x) = (match * 10)) Then	'Did we match?
 				matchFlag  = matchFlag  +  1						'Count it up!
 				matchGet  = matchGet  +  1						'Increase master counter
 			End If
 		Next
-		'numbers 0, 8, 128, 0, 0					'Send numbers with current EVP value, and it will only display on videos matching this priority				
+		'numbers 0, 8, 128, 0, 0					'Send numbers with current EVP value, and it will only display on videos matching this priority
 		video "N", "A", match, allowAll, 75, 255		'Match video of the random number we generated
 ';		numbers 0, 8, 128, 0, 0								'Show all scores for Match animation
 		if (matchFlag) Then										'Does one of the player's scores match?
@@ -3644,7 +3651,7 @@ sub ghostLooking(whereTo)										'Ghost looks at a spot, gets bored, then turn
 		End If
 		Exit Sub
 	End If
-	if (ghostLook = 1 or Advance_Enable = 0) Then			
+	if (ghostLook = 1 or Advance_Enable = 0) Then
 		if (ghostAction = 0) Then								'No ghost action going on?
 			ghostMove whereTo, 10								'Ghost looks wherever.
 			ghostBored = Int(15000/CycleAdjuster) + Int(random(15000)/CycleAdjuster)		'Set bored timer.
@@ -3668,33 +3675,33 @@ End Sub
 sub hellEnable(enableType)									'1 = You can lock balls in the Hellavator and move it 0 = You can't and Hellavator stays down
 	if (enableType) Then									'Enable the Hellavator?
 		hellLock(player) = 1								'Allow locks / stacking Hell MB
-		if (hotProgress(player) <> 3) Then					'Only set these lights if Hotel Mode isn't ready to go (also uses hellavator)		
+		if (hotProgress(player) <> 3) Then					'Only set these lights if Hotel Mode isn't ready to go (also uses hellavator)
 			if (HellSpeed)	Then							'In motion? Base this off where it's headed, not where it IS
-				if (HellTarget = hellDown) Then				'Re-enable elevator call button & lights	
-					blink(24)								'Blink the UP button							
+				if (HellTarget = hellDown) Then				'Re-enable elevator call button & lights
+					blink(24)								'Blink the UP button
 					light 25, 7								'DOWN is solid, since elevator is there
 					light 30, 0								'Turn OFF "Lock" light
 					light 41, 0								'Flasher OFF
 				End If
 				if (HellTarget = hellUp) Then
-					blink(25)								'Blink the DOWN button							
+					blink(25)								'Blink the DOWN button
 					light 24, 7								'UP is solid, since elevator is there
 					pulse(30)								'LOCK is lit!
 					blink(41)								'Turn on HELL FLASHER
-				End If						
+				End If
 			Else											'Not in motion? Normal check
-				if (HellLocation = hellDown) Then			'Re-enable elevator call button & lights	
-					blink(24)								'Blink the UP button							
+				if (HellLocation = hellDown) Then			'Re-enable elevator call button & lights
+					blink(24)								'Blink the UP button
 					light 25, 7								'DOWN is solid, since elevator is there
 					light 30, 0								'Turn OFF "Lock" light
 					light 41, 0								'Flasher OFF
 				End If
 				if (HellLocation = hellUp) Then
-					blink(25)								'Blink the DOWN button							
+					blink(25)								'Blink the DOWN button
 					light 24, 7								'UP is solid, since elevator is there
 					pulse(30)								'LOCK is lit!
 					blink(41)								'Turn on HELL FLASHER
-				End If			
+				End If
 			End If
 		End If
 	Else													'Disable it?
@@ -3703,7 +3710,7 @@ sub hellEnable(enableType)									'1 = You can lock balls in the Hellavator and
 		light 41, 0											'Turn off HELL FLASHER
 		light 24, 0											'Turn off both lights
 		light 25, 0
-		light 30, 0											'Lock is NOT lit			
+		light 30, 0											'Lock is NOT lit
 	End If
 End Sub
 
@@ -3711,16 +3718,16 @@ End Sub
 sub HospitalAdvance()										'Logic that runs as we advance Hospital Mode 1
 	Dim X
 	AddScore(advanceScore)
-	flashCab 0, 255, 0, 100					'Flash the GHOST BOSS color	
+	flashCab 0, 255, 0, 100					'Flash the GHOST BOSS color
 	if (hosProgress(player) > 3) Then									'Has mode already started, or are we waiting for the door to close?
-		Exit Sub														'I'm not even sure how this would happen with the ball lock, but who knows?	
+		Exit Sub														'I'm not even sure how this would happen with the ball lock, but who knows?
 	End If
-	hosProgress(player)  = hosProgress(player)  +  1										'Normal advance		
+	hosProgress(player)  = hosProgress(player)  +  1										'Normal advance
 	areaProgress(player)  = areaProgress(player)  +  1
 	if (hosProgress(player) > 0 and hosProgress(player) < 4) Then				'First 3 advances?
 		playSFX 0, "H", hosProgress(player), random(4) + 65, 255			'Play hxA-hxD.wav files
-		pulse(hosProgress(player) + 8)											'Pulse next one	
-		video "H", hosProgress(player), "A", allowSmall, 75, 200			'Play first 3 videos		
+		pulse(hosProgress(player) + 8)											'Pulse next one
+		video "H", hosProgress(player), "A", allowSmall, 75, 200			'Play first 3 videos
 	End If
 	if (hosProgress(player) < 4) Then											'Always fill lights and set door
 		for x=0 To hosProgress(player)-1										'in case we did a Double Advance
@@ -3744,7 +3751,7 @@ sub HospitalStart()								'What happens when we shoot "Doctor Ghost" when lit
 	storeLamp(player)							'Store the state of the Player's lamps
 	allLamp(0)									'Turn off the lamps
 	spiritGuideEnable(0)						'No spirit guide during Hospital
-	modeTotal = 0								'Reset mode points	
+	modeTotal = 0								'Reset mode points
 	AddScore(startScore)
 	minionEnd(0)								'Disable Minion mode, even if it's in progress
 	setGhostModeRGB 0, 255, 0					'Green mode color
@@ -3755,7 +3762,7 @@ sub HospitalStart()								'What happens when we shoot "Doctor Ghost" when lit
 	LeftTimer = 1								'Set this so it can't re-trigger
 	if (countGhosts() = 5) Then					'Is this the last Boss Ghost to beat?
 		blink(48)								'Blink that progress light
-	End If	
+	End If
 	pulse(17)
 	pulse(18)
 	pulse(19)
@@ -3764,9 +3771,9 @@ sub HospitalStart()								'What happens when we shoot "Doctor Ghost" when lit
 	light 10, 0
 	light 11, 0								'Turn off advance lights
 	blink(57)									'Blink the HOSPITAL mode light
-	tourReset(43)						'Tour: Left orbit, center shot, right orbit, scoop	
+	tourReset(43)						'Tour: Left orbit, center shot, right orbit, scoop
 	hosProgress(player) = 6					'Set flag so mode only "starts" once
-	killQ()													'Disable any Enqueued videos	
+	killQ()													'Disable any Enqueued videos
 	whichClip = random(3) + 65								'Get the number first so they match ASCII A-C
 	video "H", "4", whichClip, allowSmall, 135, 255				'Play hxA-hxD.wav files
 	playSFX 0, "H", "4", whichClip, 255						'Play hxA-hxD.wav files
@@ -3786,7 +3793,7 @@ sub HospitalStart()								'What happens when we shoot "Doctor Ghost" when lit
 '	playMusic "B", "1"											'Boss battle music!
 	musicplayer "bgout_B1.mp3"
 	activeBalls  = activeBalls  -  1												'Remove a ball from being "Active"
-	AutoPlunge(100000)												'Set flag to launch second ball	
+	AutoPlunge(100000)												'Set flag to launch second ball
 	hellEnable(1)
 	showProgress 1, player					'Show the Main Progress lights
 	DoorSet DoorClosed, 1
@@ -3819,7 +3826,7 @@ sub HospitalLogic()									'Stuff that happens during Doctor Ghost Battle
 				ghostMove GhostLocation - 11, 700									'Move ghost back towards door...
 '				ghostMove -(PrGhost.ObjRotZ-90)-10, 700								'EP- I'm not sure why the previous doesn't work
 				countSeconds  = countSeconds  -  1									'Subtract!
-';				numbers 0, numberStay OR 4, 0, 0, countSeconds - 1					'Update the Numbers Timer.	
+';				numbers 0, numberStay OR 4, 0, 0, countSeconds - 1					'Update the Numbers Timer.
 				if (countSeconds > 1 and countSeconds < 7) Then
 					playSFX 2, "A", "M", 47 + countSeconds, 1						'Hurry-Up beep
 				Else
@@ -3841,12 +3848,12 @@ sub HospitalLogic()									'Stuff that happens during Doctor Ghost Battle
 					light 8, 0								'Switch lights back
 					light 9, 0
 					light 10, 0
-					light 11, 0	
+					light 11, 0
 					pulse(17)
 					pulse(18)
 					pulse(19)
 					light hosProgress(player) + 1, 7			'Use number to indicate progress
-				End If					
+				End If
 			End If
 		End If
 	End If
@@ -3857,25 +3864,25 @@ sub HospitalLogic()									'Stuff that happens during Doctor Ghost Battle
 		Dim X
 		modeTimer  = modeTimer  +  1
 		if (modeTimer = Int(120000/CycleAdjuster)) Then
-			lightningStart(1)		
+			lightningStart(1)
 			x = random(10)
 			if (x < 5) Then
 				playSFX 0, "H", "C", random(9), 200					'Team Leader commanding ghost to leave and stuff
 			Else
-				playSFX 0, "L", "G", random(8), 200					'Random lightning		
-			End If				
-		End If		
+				playSFX 0, "L", "G", random(8), 200					'Random lightning
+			End If
+		End If
 		if (modeTimer = Int(150000/CycleAdjuster)) Then
 			modeTimer = 0
-		End If		
+		End If
 	End If
 End Sub
 
-sub HospitalSwitchCheck()											'What happens when you hit the Ghost Targets during the battle 
+sub HospitalSwitchCheck()											'What happens when you hit the Ghost Targets during the battle
 	if (hosProgress(player) < 9) Then								'Still trying to distract the ghost?
 		video "H", "6", "A", allowSmall, 62, 200						'Ghost distracted away from door!
 		doctorHits  = doctorHits  +  1
-		AddScore(50000 * doctorHits)				'Spam the doctor for more points	
+		AddScore(50000 * doctorHits)				'Spam the doctor for more points
 		ghostMove GhostDistracted, 20				'Move the ghost away from door
 		if (doctorHits = 1) Then						'First time we've hit him?
 			playSFX 0, "H", hosProgress(player) + 48, random(3) + 65, 200		'Play the progress + A B or C clips
@@ -3892,14 +3899,14 @@ sub HospitalSwitchCheck()											'What happens when you hit the Ghost Targets
 		light 18, 0
 		light 19, 0
 		strobe 8, 7
-		ghostFlash(100)		
+		ghostFlash(100)
 		ghostAction = 0												'Disable Ghost Jitters
 		countSeconds = 21											'Ghost goes from 120 to 10, 110 degrees, 10 degrees per move, 11 moves, move every other second = 22 seconds
 ';		numbers 0, numberStay OR 4, 0, 0, countSeconds - 1			'Show the Numbers timer
 		DoctorState = 1												'Set flag that ghost is distracted
 		DoctorTimer = 0												'Reset timer
 		DoctorTarget = longSecond * 2								'New target
-	End If	
+	End If
 End Sub
 
 sub HospitalMultiball()												'Ghost defeated, beat the crap out of him
@@ -3912,18 +3919,18 @@ sub HospitalMultiball()												'Ghost defeated, beat the crap out of him
 	light 57, 7														'HOSPITAL solid = Mode Won!
 	blink(16)														'Blink the JACKPOT light
 	strobe 17, 3
-	killTimer(0)													'Turn off numbers	
-	killQ()															'Disable any Enqueued videos	
-'	playMusic "G", "S"												'Play annoying Ghost Squad theme!		
+	killTimer(0)													'Turn off numbers
+	killQ()															'Disable any Enqueued videos
+'	playMusic "G", "S"												'Play annoying Ghost Squad theme!
 	musicplayer "bgout_GS.mp3"
 	playSFX 0, "H", "8", 74 + random(3), 255						'Let's kick his ass quotes
 	video "H", "8", "J", allowSmall, 84, 255							'"Escape" video
-	ghostMove 90, 20	
+	ghostMove 90, 20
 	TargetTimerSet 50, TargetDown, 10
 	'TargetSet(TargetDown)											'Allow Ghost bashing!
 	DoorSet DoorOpen, 1												'Open door fast! We'll close it upon losing second ball
 	KickLeft 16000, vukPower										'Release captured ball!
-	trapDoor = 0													'Flag that ball shouldn't be trapped behind door	
+	trapDoor = 0													'Flag that ball shouldn't be trapped behind door
 	activeBalls  = activeBalls  +  1								'Increase active balls to 2.
 	ballSave()														'Ball save on Multiball
 	customScore "B", "1", "D", allowAll OR loopVideo, 36			'Custom Score: Hit ghost for JACKPOTS!
@@ -3935,13 +3942,13 @@ sub HospitalMultiball()												'Ghost defeated, beat the crap out of him
 	numbers "", Ball, "", ""
 	modeTimer = 0													'Reset timer for exorcist quotes
 	hosProgress(player) = 90										'Set this so the "End Battle" can start only once. It's at 90 until left VUK kicks, then goes to 10
-	ModeWon(player) = ModeWon(player) OR 2							'Set HOSPITAL WON bit for this player.	
+	ModeWon(player) = ModeWon(player) OR 2							'Set HOSPITAL WON bit for this player.
 	if (countGhosts() = 6) Then										'This the final Ghost Boss? Light BOSSES solid!
 		light 48, 7
-	End If	
-	videoModeCheck()	
+	End If
+	videoModeCheck()
 	multipleBalls = 1												'When MB starts, you get ballSave amount of time to loose balls and get them back
-	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost		
+	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost
 End Sub
 
 sub HospitalWin()								'We come here when down to 1 ball in multiball
@@ -3949,7 +3956,7 @@ sub HospitalWin()								'We come here when down to 1 ball in multiball
 	Dim X
 	if (multiBall) Then							'Was a MB stacked?
 		multiBallEnd(1)						'End it, with flag that it's ending along with a mode
-	End If	
+	End If
 	multipleBalls = 0
 	tourClear()								'Clear the tour lights / values
 	loadLamp(player)
@@ -3974,33 +3981,33 @@ sub HospitalWin()								'We come here when down to 1 ball in multiball
 	ghostAction = 0
 	light 16, 0													'Turn off Make Contact
 	light 57, 7													'Make Hospital Mode light solid, since it HAS been won
-	light 31, 0	
+	light 31, 0
 	killTimer(0)													'Turn off numbers
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
 	killCustomScore()
-	playSFX 0, "H", "9", 88 + random(3), 255						'Mode Complete dialog	
+	playSFX 0, "H", "9", 88 + random(3), 255						'Mode Complete dialog
 	killQ()															'Disable any Enqueued videos
 	video "H", "9", "X", noExitFlush, 59, 255						'Mode won, prevent numbers
-';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233	'Load Mode Total Points as Number	
-	modeTotal = 0													'Reset mode points	
-	videoQ "H", "9", "Y", noEntryFlush OR 3, 0, 233					'Mode Total Video	
+';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233	'Load Mode Total Points as Number
+	modeTotal = 0													'Reset mode points
+	videoQ "H", "9", "Y", noEntryFlush OR 3, 0, 233					'Mode Total Video
 '	playMusic "M", "2"												'Normal music
 	musicplayer "bgout_M2.mp3"
 	Mode(player) = 0												'Set mode active to None
 	hosProgress(player) = 100										'Prevents a restart
-	ModeWon(player) = ModeWon(player) OR 2							'Set HOSPITAL WON bit for this player.	
+	ModeWon(player) = ModeWon(player) OR 2							'Set HOSPITAL WON bit for this player.
 	ghostsDefeated(player)  = ghostsDefeated(player)  +  1									'For bonuses
 	Advance_Enable = 1												'Allow other modes to be started
 	if (countGhosts() = 2 or countGhosts() = 5) Then	'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBallLight(2)							'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
+	End If
 	demonQualify()													'See if Demon Mode is ready
 	checkModePost()
 	for x=0 To 5													'Make sure the MB lights are off
 		light 26 + x, 0
 	Next
-	hellEnable(1)		
+	hellEnable(1)
 	showProgress 0, player					'Show the Main Progress lights
 End Sub
 
@@ -4019,8 +4026,8 @@ Function HospitalFail()									'You fail when you lose your second ball before 
 	setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color
 	killTimer(0)
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
-'	swDebounce(23) = 25000											
+	killCustomScore()
+'	swDebounce(23) = 25000
 	light 16, 0														'Turn off Ghost lights
 	light 17, 0
 	light 18, 0
@@ -4032,7 +4039,7 @@ Function HospitalFail()									'You fail when you lose your second ball before 
 	Else
 		light 57, 0													'Haven't won it yet, turn it off
 	End If
-	ghostMove 90, 20												'Turn ghost back to center	
+	ghostMove 90, 20												'Turn ghost back to center
 	ghostLook = 1													'Ghost will now look around again.
 	ghostAction = 0
 	Mode(player) = 0												'Set mode active to None
@@ -4040,25 +4047,25 @@ Function HospitalFail()									'You fail when you lose your second ball before 
 	'checkModePost()
 	hellEnable(1)
 	if ((modeRestart(player) AND 2) = 2 AND tiltFlag = 0) Then		'Able to restart Hospital?
-		modeRestart(player) = modeRestart(player) AND 253			'Clear the restart bit	
+		modeRestart(player) = modeRestart(player) AND 253			'Clear the restart bit
 		if (hosTrapCheck = 0) Then									'Don't kick the ball if we already did that
 			LeftTimer = Int(16000/CycleAdjuster)					'Manually set the kick out.
-			LeftPower = vukPower			
+			LeftPower = vukPower
 		End If
 		modeTimer = Int(25000/CycleAdjuster)
 		DoorSet DoorOpen, 2										'Open door quickly
 		ghostMove 10, 255											'Ghost will slowly turn towards door!
-		restartBegin 1, 11, 25000									'Enable a restart!		
+		restartBegin 1, 11, 25000									'Enable a restart!
 		hosProgress(player) = 3									'Allows you to re-start the mode
-		strobe 8, 3												'Strobe lights under door		
-		light 9, 0		
+		strobe 8, 3												'Strobe lights under door
+		light 9, 0
 		light 10, 0
 		blink(11)													'Blink GHOST DOCTOR
 '		playMusic "H", "2"										'Hurry Up Music!
 		musicplayer "bgout_H2.mp3"
-		killQ()													'Disable any Enqueued videos	
+		killQ()													'Disable any Enqueued videos
 		video "H", "8", "Y", allowSmall, 121, 255 					'Mode fail! Shoot door to restart!
-		playSFX 0, "H", "Z", random(6) + 65, 255						'Mode FAIL dialog		
+		playSFX 0, "H", "Z", random(6) + 65, 255						'Mode FAIL dialog
 		showProgress 0, player									'Show the Main Progress lights
 		HospitalFail = 1
 																	'Flag to prevent a drain!
@@ -4073,7 +4080,7 @@ Function HospitalFail()									'You fail when you lose your second ball before 
 		showProgress 0, player
 		HospitalFail = 0
 	End If
-	comboEnable = 1												'OK combo all you want	
+	comboEnable = 1												'OK combo all you want
 	for x=0 To 5												'Make sure the MB lights are off
 		light 26 + x, 0
 	Next
@@ -4095,7 +4102,7 @@ sub HospitalRestart()											'Allows a quick restart if a Ball Search fucked 
 	setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color
 	killTimer(0)
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	light 16, 0													'Turn off Ghost lights
 	light 17, 0
 	light 18, 0
@@ -4108,17 +4115,17 @@ sub HospitalRestart()											'Allows a quick restart if a Ball Search fucked 
 	'checkModePost()
 	hellEnable(1)
 	DoorSet DoorOpen, 2										'Open door quickly
-	ghostMove 90, 20											'Turn ghost back to center	
+	ghostMove 90, 20											'Turn ghost back to center
 	ghostLook = 0												'Ghost won't look around
 	ghostAction = 0											'Disable its animation
 	hosProgress(player) = 3									'Allows you to re-start the mode
-	strobe 8, 3												'Strobe lights under door		
-	light 9, 0		
+	strobe 8, 3												'Strobe lights under door
+	light 9, 0
 	light 10, 0
-	blink(11)													'Blink GHOST DOCTOR	
-	killQ()													'Disable any Enqueued videos	
+	blink(11)													'Blink GHOST DOCTOR
+	killQ()													'Disable any Enqueued videos
 	video "H", "8", "Y", allowSmall, 121, 255 					'Mode fail! Shoot door to restart!
-	playSFX 0, "H", "Z", random(6) + 65, 255					'Mode FAIL dialog		
+	playSFX 0, "H", "Z", random(6) + 65, 255					'Mode FAIL dialog
 	showProgress 0, player									'Show the Main Progress lights
 '	playMusic "M", "2"										'Normal music
 	musicplayer "bgout_M2.mp3"
@@ -4138,7 +4145,7 @@ Function hotelPathLogic()
 		if (multiBall AND multiballHell) Then						'If MB stacked, first collect Tour. Once collected, it returns a 0 allows Jackpot increase
 			if (tourGuide(1, 4, 3, 0, 0)) = 0 Then					'Already did this part of tour?
 				multiBallJackpotIncrease()
-			End If		
+			End If
 		Else
 			x = random(8)
 			If X=0 Then Y=79
@@ -4165,17 +4172,17 @@ Function hotelPathLogic()
 		End If
 		if (hosProgress(player) = 10) Then							'Hospital, fighting the Ghost Doctor?
 			if (patientStage = 0) Then								'Haven't got the poison yet, and have a MB? Then this advances Jackpot
-				if (multiBall AND multiballHell) Then						
+				if (multiBall AND multiballHell) Then
 					multiBallJackpotIncrease()
 					hotelPathLogic = 1
 					Exit Function
 				Else
-					video "H", "7", "A", allowSmall, 70, 240		'Sick ghost in bed		
+					video "H", "7", "A", allowSmall, 70, 240		'Sick ghost in bed
 					playSFX 0, "I", "P", 65 + random(4), 240		'"Kill.... me...."
-					strobe 8, 7										'Strobe the door for POISON!	
+					strobe 8, 7										'Strobe the door for POISON!
 					hotelPathLogic = 1
 					Exit Function
-				End If			
+				End If
 			Else
 				video "H", "7", "C", allowSmall, 63, 255				'Ghost freed!
 				playSFX 0, "I", "P", 83 + random(8), 255			'"Die!" "Thank you kind sir!"
@@ -4187,20 +4194,20 @@ Function hotelPathLogic()
 				if (multiBall AND multiballHell) Then
 					strobe 26, 5									'If MB active, re-strobe Ramp for Jackpot Increase
 				Else
-					light 26, 0										'Turn off RAMP STROBE			
+					light 26, 0										'Turn off RAMP STROBE
 				End If
 				hotelPathLogic = 1
 				Exit Function
-			End If		
+			End If
 		End If
-	End If		
+	End If
 	if (deProgress(player) > 9 and deProgress(player) < 100) Then		'Trying to weaken demon
 		DemonCheck(3)
 		hotelPathLogic = 1
 		Exit Function
-	End If		
+	End If
 	if (Advance_Enable and hotProgress(player) < 3) Then				'Able to advance modes, and Hotel not started yet?
-		HotelAdvance()	
+		HotelAdvance()
 		hotelPathLogic = 1
 		Exit Function
 	End If
@@ -4210,36 +4217,36 @@ Function hotelPathLogic()
 		Exit Function
 	End If
 	if (Mode(player) = 5) Then										'Hotel ghost?
-		if (hotProgress(player) = 20) Then							'Hotel shot isn't used during control box search	
-			AddScore(10000)											'Some points			
-			EVP_Jackpot(player)  = EVP_Jackpot(player)  +  25000							'Moar points plz!			
+		if (hotProgress(player) = 20) Then							'Hotel shot isn't used during control box search
+			AddScore(10000)											'Some points
+			EVP_Jackpot(player)  = EVP_Jackpot(player)  +  25000							'Moar points plz!
 ';			numbers 3, numberFlash OR 1, 255, 11, EVP_Jackpot(player)	'Load Jackpot value Points as a number
 			numbers "", "", EVP_Jackpot(player), EVP_Jackpot(player)
 			video "Q", "J", "C", noEntryFlush OR 3, 45, 255			'Show new Jackpot value
 			playSFX 2, "A", "Z", "Z", 255							'Generic shot WHOOSH sound
-			strobe 26, 5											'Strobe first 5 lights	to indicate Hotel Path still does something (builds jackpot			
+			strobe 26, 5											'Strobe first 5 lights	to indicate Hotel Path still does something (builds jackpot
 			'video 'L', '5', 'E', allowSmall, 0, 255				'Prompt to shoot flashing camera icons
 			hotelPathLogic = 1
 			Exit Function
-		End If	
-		if (hotProgress(player) = 35) Then								'When fighting ghost, only time you can shoot through Hotel shot is if you've hit Hellavator to light Jackpot	
+		End If
+		if (hotProgress(player) = 35) Then								'When fighting ghost, only time you can shoot through Hotel shot is if you've hit Hellavator to light Jackpot
 			AddScore(100000)											'Some points
 			playSFX 0, "L", "8", 73 + random(8), 255					'Hit the ghost for Jackpot!
 			video "L", "G", jackpotMultiplier, allowSmall, 29, 250		'Show Multiplier
 			hotelPathLogic = 1
 			Exit Function
-		End If	
+		End If
 	End If
-	if (theProgress(player) > 9 and theProgress(player) < 100) Then	'Theater Ghost?		
+	if (theProgress(player) > 9 and theProgress(player) < 100) Then	'Theater Ghost?
 		TheaterPlay(0)												'Incorrect shot, ghost will bitch!
 		hotelPathLogic = 1
 		Exit Function
 	End If
-	if (multiBall AND multiballHell) Then								'If stacked with Ghost Euthanasia, don't advance value if we need to euthanize ghost							
+	if (multiBall AND multiballHell) Then								'If stacked with Ghost Euthanasia, don't advance value if we need to euthanize ghost
 		multiBallJackpotIncrease()
 		hotelPathLogic = 1
 		Exit Function
-	End If	
+	End If
 	comboVideoFlag = 0												'Nothing active? Reset video combo flag
 	AddScore(5000)													'Some points
 	video "C", "G", "D", allowSmall, 39, 250						'Regular Combo to the Left <-
@@ -4281,9 +4288,9 @@ sub HotelStart1()													'Ball goes into Hellavator, heading down...
 	allLamp(0)														'Turn off the lamps
 	spiritGuideEnable(0)											'No spirit guide
 	Advance_Enable = 0												'Mode has started, others can't
-	Mode(player) = 5												'Mode has begun, enable its logic	
+	Mode(player) = 5												'Mode has begun, enable its logic
 	minionEnd(0)													'Disable Minion mode, even if it's in progress
-	modeTotal = 0													'Reset mode points	
+	modeTotal = 0													'Reset mode points
 	AddScore(startScore)
 '	setFadeRGB 200, 140, 0, 1000									'Fade into a kind of brown colored ghost
 	ghostModeRGB(0) = 200											'EP- This is the only place in the code where he calls this sub, so I'm leaving it out
@@ -4293,13 +4300,13 @@ sub HotelStart1()													'Ball goes into Hellavator, heading down...
 	ghostFadeAmount = Int((1000/10)/CycleAdjuster)
 	setCabModeFade 0, 255, 0, 600									'Turn lighting GREEN (with envy
 	popLogic(3)														'Set pops to EVP
-	light 29, 7														'Bellboy ghost SOLID, we found him	
+	light 29, 7														'Bellboy ghost SOLID, we found him
 	blink(61)														'Blink Hotel Mode light
 	hotProgress(player) = 10										'Set flag to "Elevator Dropping"
 	playSFX 0, "L", "4", 65 + random(4), 255						'Play l5A-l5D.wav files
 	killQ()															'Disable any Enqueued videos
 	video "L", "4", "A", allowSmall, 66, 255						'Video of button pushed
-	hellLock(player) = 0											'Since we use the Hellavator for Jackpots, can't stack a MB	
+	hellLock(player) = 0											'Since we use the Hellavator for Jackpots, can't stack a MB
 	HellBall = 10													'Set flag so it won't retrigger
 	ElevatorSet hellStuck, 600										'Send elevator to Stuck position slowly
 	showProgress 1, player											'Show the Main Progress lights
@@ -4319,7 +4326,7 @@ sub HotelStart2()													'Ball gets stuck, gotta find control box!
 	numbers "", Ball, "", ""
 	light 41, 0														'Turn off HELL FLASHER
 	for x=0 To 4
-		ControlBox(x) = 0											'Clear Control Box locations	
+		ControlBox(x) = 0											'Clear Control Box locations
 	Next
 	if (tournament = 0) Then										'Unless we're in tourney mode where 3rd shot always wins...
 		ControlBox(random(5)) = 255									'Randomly select ONE location to have the control box. (255 flag)
@@ -4334,7 +4341,7 @@ sub HotelStart2()													'Ball gets stuck, gotta find control box!
 	pulse(39)
 	pulse(47)
 	'Set STROBING lights to indicate shots. Can't do this until we write the LIGHT SAVE STATE CODE
-	strobe 26, 5													'Strobe first 5 lights	to indicate Hotel Path still does something (builds jackpot	
+	strobe 26, 5													'Strobe first 5 lights	to indicate Hotel Path still does something (builds jackpot
 	modeTimer = 0													'Reset mode timer for prompts
 	photoWhich = 0													'We use this to count the shots. In tourney mode, 3rd shot always finds control box.
 	TargetTimerSet 5000, TargetUp, 100
@@ -4362,7 +4369,7 @@ sub HotelLogic()													'Logic during control box search / ghost battle
 End Sub
 
 sub HotelMultiball()												'What happens when you find the control box
-	jackpotMultiplier = 1											'Starts at 1			
+	jackpotMultiplier = 1											'Starts at 1
 	AddScore(winScore)												'You won, so Point Get
 	light 7, 0														'Turn off all CAMERA LIGHTS
 	light 14, 0
@@ -4384,7 +4391,7 @@ sub HotelMultiball()												'What happens when you find the control box
 	playSFX 0, "L", "7", 65 + random(3), 255						'Yeah! We fuckin' did it!
 	killQ()															'Disable any Enqueued videos
 	video "L", "7", "A", allowSmall, 91, 255						'Pull lever video
-	videoQ "L", "8", "D", allowSmall, 30, 200						'"Ramp lights Jackpot"	
+	videoQ "L", "8", "D", allowSmall, 30, 200						'"Ramp lights Jackpot"
 	sendJackpot(0)													'Send jackpot value to score #0
 	customScore "L", "P", "B", allowAll OR loopVideo, 60			'Prompt for Ramp and Target Multiplier
 '	numbers 8, numberScore OR 2, 0, 0, player						'Put player score upper left
@@ -4395,13 +4402,13 @@ sub HotelMultiball()												'What happens when you find the control box
 	numbers "", Ball, "", ""
 	ghostMove 90, 15
 	if (extraLit(player) = 0) Then									'An EB could be lit, and not collected during Control Box search.
-		DoorSet DoorClosed, 200										'Else, closes the door for GHOST EVICTION!		
+		DoorSet DoorClosed, 200										'Else, closes the door for GHOST EVICTION!
 	End If
 	TargetTimerSet 10, TargetUp, 10									'Put targets UP
 	ElevatorSet hellUp, 100											'Move elevator UP so you can shoot it to Light Jackpot
 	blink(41)														'HELL FLASHER!
 	hotProgress(player) = 30										'Set this so the "End Battle" can start only once.
-	ModeWon(player) = ModeWon(player) OR 32							'Set HOTEL WON bit for this player.	
+	ModeWon(player) = ModeWon(player) OR 32							'Set HOTEL WON bit for this player.
 	if (countGhosts() = 6) Then										'This the final Ghost Boss? Light BOSSES solid!
 		light 48, 7
 	End If
@@ -4409,7 +4416,7 @@ sub HotelMultiball()												'What happens when you find the control box
 	convictsSaved = 0												'Reset How many you've evicted
 	AutoPlunge(autoPlungeFast)										'Set flag to launch second ball
 	multipleBalls = 1												'When MB starts, you get ballSave amount of time to loose balls and get them back
-	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost														
+	ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost
 	comboEnable = 1													'OK combo all you want
 End Sub
 
@@ -4454,7 +4461,7 @@ sub HotelJackpot()
 	playSFX 0, "L", "8", 81 + random(4), 255						'Jackpot sounds!
 	video "L", "J", jackpotMultiplier, allowSmall, 45, 255			'Jackpot animation
 	showValue EVP_Jackpot(player) * jackpotMultiplier, 40, 1		'Show what jackpot value was
-	customScore "L", "P", "B", allowAll OR loopVideo, 60			'Prompt for Ramp and Target Multiplier	
+	customScore "L", "P", "B", allowAll OR loopVideo, 60			'Prompt for Ramp and Target Multiplier
 	hotProgress(player) = 30										'Reset flag, we need to re-enable Jackpot
 	TargetTimerSet 8000, TargetUp, 5								'Put targets back up
 	ghostAction = Int(20000/CycleAdjuster)							'Whack routine
@@ -4465,7 +4472,7 @@ End Sub
 sub HotelWin()														'When down to 1 ball, mode is won!
 	DOF 134, 2
 	multipleBalls = 0
-	tourClear()														'Clear the tour lights / values	
+	tourClear()														'Clear the tour lights / values
 	loadLamp(player)												'Load the original lamp state back in
 	comboKill()
 	light 61, 7														'HOTEL solid = Mode Won!
@@ -4489,28 +4496,28 @@ sub HotelWin()														'When down to 1 ball, mode is won!
 	light 28, 0
 	light 29, 0
 	ghostLook = 1													'Ghost will now look around again.
-	ghostAction = 0	
+	ghostAction = 0
 	if (videoMode(player) = 0) Then
 		TargetTimerSet 5000, TargetUp, 100							'Put targets back up, but not so fast ball is caught
 	End If
-	playSFX 0, "L", "9", 65 + random(4), 255						'Mode Complete dialog	
-	killQ()															'Disable any Enqueued videos	
+	playSFX 0, "L", "9", 65 + random(4), 255						'Mode Complete dialog
+	killQ()															'Disable any Enqueued videos
 	video "L", "9", "A", noExitFlush, 63, 255 						'Play Death Video
 '	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233	'Load Mode Total Points
 	numbers "", "", ModeTotal, ModeTotal
-	modeTotal = 0													'Reset mode points		
-	videoQ "L", "9", "B", noEntryFlush OR 3, 45, 233				'Mode Total:	
+	modeTotal = 0													'Reset mode points
+	videoQ "L", "9", "B", noEntryFlush OR 3, 45, 233				'Mode Total:
 '	playMusic "M", "2"												'Normal music
 	musicplayer "bgout_M2.mp3"
 	Mode(player) = 0												'Set mode active to None
 	hotProgress(player) = 100										'Can't be restarted
-	ModeWon(player) = ModeWon(player) OR 32							'Set HOTEL WON bit for this player.	
+	ModeWon(player) = ModeWon(player) OR 32							'Set HOTEL WON bit for this player.
 	ghostsDefeated(player)  = ghostsDefeated(player)  +  1			'For bonuses
 	Advance_Enable = 1												'Other modes can start now
 	if (countGhosts() = 2 or countGhosts() = 5) Then				'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBallLight(2)							'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
+	End If
 	demonQualify()									'See if Demon Mode is ready
 	checkModePost()
 	hellEnable(1)
@@ -4520,7 +4527,7 @@ End Sub
 
 sub HotelFail()
 	multipleBalls = 0
-	tourClear()								'Clear the tour lights / values	
+	tourClear()								'Clear the tour lights / values
 	loadLamp(player)								'Load the original lamp state back in
 	comboKill()
 	convictState = 0
@@ -4535,7 +4542,7 @@ sub HotelFail()
 	ghostAction = 0
 	killNumbers()
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	light 7, 0	'Turn off all CAMERA LIGHTS
 	light 14, 0
 	light 23, 0
@@ -4555,15 +4562,15 @@ sub HotelFail()
 	blink(24)														'Other state BLINKS
 	light 30, 0														'Lock is NOT lit
 	modeTotal = 0													'Reset mode points
-	Mode(player) = 0												'Set mode active to None	
+	Mode(player) = 0												'Set mode active to None
 	Advance_Enable = 1												'Other modes can start now
 	if ((modeRestart(player) AND 32) = 32) Then						'Able to restart Hotel?
-		modeRestart(player) = ModeRestart(player) AND 223			'Clear the restart bit	
+		modeRestart(player) = ModeRestart(player) AND 223			'Clear the restart bit
 		hotProgress(player) = 3										'Reset this to 2. Shoot the right ramp again will raise elevator and let you try again.
 	Else
 		hotProgress(player) = 0										'Reset this to 2. Shoot the right ramp again will raise elevator and let you try again.
 	End If
-	showProgress 0, player											'Show the Main Progress lights	
+	showProgress 0, player											'Show the Main Progress lights
 	checkModePost()
 	hellEnable(1)
 End Sub
@@ -4577,9 +4584,9 @@ sub BoxCheck(whichSpot)												'Code for looking for control box. Maybe upda
 	End If
 	if (ControlBox(whichSpot) = 1) Then								'Did we already check here?
 		playSFX 0, "L", "6", 85 + random(5), 255					'"You already looked there!"
-		video "L", "6", 85 + random(6), allowSmall, 45, 200			'Video of search		
+		video "L", "6", 85 + random(6), allowSmall, 45, 200			'Video of search
 		'videoQ 'L', '5', 'E', allowSmall, 0, 100					'Prompt to find Camera shot
-	End If	
+	End If
 	if (ControlBox(whichSpot) = 0) Then								'First time we've checked here?
 		photoWhich  = photoWhich  +  1
 		ControlBox(whichSpot) = 1									'Set "Checked Here" flag
@@ -4621,7 +4628,7 @@ sub leftOrbitLogic()
 	if (hellMB and minion(player) < 100) Then
 		tourGuide 3, 8, 0, 50000, 1										'Check for GHOST CATCH, and give default 50k if we've already hit that spot
 		Exit Sub
-	End If	
+	End If
 	if (Mode(player) = 4) Then											'War fort active?
 		x = random(8)
 		If X = 0 Then Y = 79
@@ -4635,7 +4642,7 @@ sub leftOrbitLogic()
 		playSFX 0, "W", "5", 65 + x, 210								'Random Army Ghost lines
 		if tourGuide(3, 4, 0, 25000, 0) = 0 Then
 			video "W", "5", 65 + x, allowSmall, Y, 250					'Synced taunt video
-		End If															'Check that part of the tour (no WHOOSH sound needed)		
+		End If															'Check that part of the tour (no WHOOSH sound needed)
 		Exit Sub
 	End If
 	if (barProgress(player) > 69 and barProgress(player) < 100) Then	'Haunted Bar active?
@@ -4673,7 +4680,7 @@ sub leftOrbitLogic()
 	if (deProgress(player) > 9 and deProgress(player) < 100) Then		'Fighting the Demon?
 		DemonCheck(0)
 		Exit Sub
-	End If		
+	End If
 	if (minionMB > 9) Then												'Minion MB Jackpot Increase?
 		minionJackpotIncrease()
 		MagnetSet(100)
@@ -4682,7 +4689,7 @@ sub leftOrbitLogic()
 	End If
 	comboVideoFlag = 0													'Nothing active? Reset video combo flag
 	AddScore(5000)														'Some points
-	video "C", "G", "E", allowSmall, 39, 250							'Regular Combo to the Right ->	
+	video "C", "G", "E", allowSmall, 39, 250							'Regular Combo to the Right ->
 	playSFX 2, "A", "Z", "Z", 255										'Whoosh!
 	Exit Sub
 End Sub
@@ -4700,7 +4707,7 @@ Function leftVUKlogic()
 		Exit Function
 	End If
 	'OK, normal shot, continue:
-	if (badExit) Then													'Did ball not successfully exit the VUK and roll down the habitrail?	
+	if (badExit) Then													'Did ball not successfully exit the VUK and roll down the habitrail?
 		KickLeft 7000, vukPower											'The default
 		leftVUKLogic = 0
 		Exit Function													'Do nothing
@@ -4715,11 +4722,11 @@ Function leftVUKlogic()
 	if (Advance_Enable and theProgress(player) = 3) Then				'Ready to start Theater mode?
 		TheaterStart()													'If THEATER and DOCTOR are both lit, THEATER starts first.
 		leftVUKLogic = 0
-		Exit Function													'If THEATER is WON, DOCTOR can be started			
+		Exit Function													'If THEATER is WON, DOCTOR can be started
 	End If																'If THEATER fails (time out or drain) THEATER RE-LITES and will start if you shoot there again
 	if (Mode(player) = 1 and hosProgress(player) = 10) Then				'Hospital battle?
 		AddScore(100000)												'Poison Points!
-		video "H", "7", "B", allowSmall, 60, 255						'Poison Grab!		
+		video "H", "7", "B", allowSmall, 60, 255						'Poison Grab!
 		playSFX 0, "I", "P", 69 + random(8), 255
 		if (patientStage < 5) Then
 			patientStage  = patientStage  +  1							'You can get up to 5 extra poisons for extra points. Not sure why. Who cares?
@@ -4741,7 +4748,7 @@ Function leftVUKlogic()
 		light 8, 0														'Turn off strobing
 		pulse(14)														'Blink Camera shot
 		modeTimer = 0													'Reset this so prompt won't happen for a bit
-		KickLeft 7000, vukPower											'The default		
+		KickLeft 7000, vukPower											'The default
 		leftVUKLogic = 1
 		Exit Function
 	End If
@@ -4749,20 +4756,20 @@ Function leftVUKlogic()
 		'Ghost Eviction!
 		convictsSaved  = convictsSaved  +  1
 		video "L", "E", "2", allowSmall, 36, 255						'Ghost Evicted!
-		playSFX 0, "L", "E", 65 + random(9), 255						'Random boot + ghost sound FX	
+		playSFX 0, "L", "E", 65 + random(9), 255						'Random boot + ghost sound FX
 		if (convictsSaved < 10) Then									'Haven't evicted them all yet?
-			showValue convictsSaved * 100000, 40, 1						'Flash what you scored for saving this convict		
+			showValue convictsSaved * 100000, 40, 1						'Flash what you scored for saving this convict
 			convictState = 1											'Go back to Door Closed state
 			DoorSet DoorClosed, 5										'Close door
 			light 8, 0													'Turn off strobing
-			pulse(14)													'Pulse Camera shot			
+			pulse(14)													'Pulse Camera shot
 		Else															'Kick out 10 to win?
 			videoQ "L", "E", "9", 2, 30, 255							'All ghosts evicted!
-			showValue convictsSaved * 250000, 40, 1						'Flash what you scored for evicting this ghost	
+			showValue convictsSaved * 250000, 40, 1						'Flash what you scored for evicting this ghost
 			convictState = 255											'Set this state to asub further triggers
 			DoorSet DoorClosed, 5										'Close door
 			light 8, 0													'Turn off strobing
-			light 14, 0													'Turn off camera light		
+			light 14, 0													'Turn off camera light
 		End If
 		KickLeft 7000, vukPower											'The default
 		leftVUKLogic = 1
@@ -4798,16 +4805,16 @@ Function leftVUKlogic()
 	if (deProgress(player) > 9 and deProgress(player) < 100) Then	'Trying to weaken demon
 		DemonCheck(1)
 		if (activeBalls > 1) Then
-			KickLeft(7000 + ( activeBalls - 1) * 6300), vukPower	'Give player a slight break... the more balls active the longer it is			
+			KickLeft(7000 + ( activeBalls - 1) * 6300), vukPower	'Give player a slight break... the more balls active the longer it is
 		Else
-			KickLeft 7000, vukPower									'The default			
+			KickLeft 7000, vukPower									'The default
 		End If
 		leftVUKLogic = 1
 		Exit Function
 	End If
 	if (Advance_Enable and (hosProgress(player) > 0 and hosProgress(player) < 4)) Then	'IS this this 2nd or 3rd time we've hit this?
 		HospitalAdvance()											'Advance Hospital
-		KickLeft 7000, vukPower										'If both DOCTOR and THEATER are lit, DOCTOR GHOST MODE starts first.			
+		KickLeft 7000, vukPower										'If both DOCTOR and THEATER are lit, DOCTOR GHOST MODE starts first.
 		leftVUKLogic = 1
 		Exit Function
 	End If
@@ -4833,18 +4840,18 @@ Function leftVUKlogic()
 			TheaterPlay(1)											'Advance the play!
 			leftVUKLogic = 0
 			Exit Function											'No combo
-		Else			
+		Else
 			TheaterPlay(0)											'Incorrect shot, ghost will bitch!
 			KickLeft 7000, vukPower									'Kick it out quick
 			leftVUKLogic = 1
 		Exit Function
 		End If
 	End If
-	comboVideoFlag = 0												'Nothing active? Reset video combo flag	
+	comboVideoFlag = 0												'Nothing active? Reset video combo flag
 	AddScore(5000)													'Some points
-	KickLeft 7000, vukPower											'The default	
+	KickLeft 7000, vukPower											'The default
 	'Nothing going on default prompt
-	video "C", "G", "E", allowSmall, 39, 250						'Regular Combo to the Right ->	
+	video "C", "G", "E", allowSmall, 39, 250						'Regular Combo to the Right ->
 	playSFX 2, "A", "Z", "Z", 255									'Whoosh!
 	leftVUKLogic = 1
 	Exit Function													'Can combo
@@ -4858,36 +4865,36 @@ sub lightningFX(lightStage)
 		Select Case (lightStage)
 			case Int(100/CycleAdjuster):
 				if (random(10) < 5) Then
-					cabLeft 0, 0, 0				
+					cabLeft 0, 0, 0
 					BackGlassOff(1)
-				Else	
-					cabRight 0, 0, 0	
+				Else
+					cabRight 0, 0, 0
 					BackGlassOff(3)
-				End If				
-				doRGB()			
+				End If
+				doRGB()
 			case Int(3000/CycleAdjuster):
-				GIpf(192)		
+				GIpf(192)
 			case Int(3500/CycleAdjuster):
 				lightningPWM = 0
 				cabLeft 0, 0, 0
 				cabRight 0, 0, 0
 				BackGlassOff(2)
-				doRGB()		
+				doRGB()
 			case Int(4000/CycleAdjuster):
-				GIpf(128)		
+				GIpf(128)
 			case Int(5000/CycleAdjuster):
-				GIpf(0)		
+				GIpf(0)
 			case Int(19000/CycleAdjuster):
 				cabLeft 0, 0, 20
 				SetBackGlass 1, "blue"
 				cabRight 0, 0, 0
 				BackGlassOff(3)
-				doRGB()	
+				doRGB()
 				GIpf(224)
 				light 40, 1
 				light 41, 1
 				light 42, 1
-				backglass 0, 1			
+				backglass 0, 1
 			case Int(21000/CycleAdjuster):
 				cabLeft 0, 0, 20
 				SetBackGlass 1, "blue"
@@ -4897,72 +4904,72 @@ sub lightningFX(lightStage)
 				GIpf(96)
 				light 40, 1
 				light 41, 1
-				light 42, 0	
-				backglass 1, 0		
+				light 42, 0
+				backglass 1, 0
 			case Int(22000/CycleAdjuster):
 				cabLeft 0, 0, 0
 				BackGlassOff(1)
 				cabRight 0, 0, 10
 				SetBackGlass 2, "blue"
-				doRGB()	
+				doRGB()
 				GIpf(32)
 				light 40, 1
 				light 41, 0
 				light 42, 0
-				backglass 1, 0		
+				backglass 1, 0
 			case Int(24000/CycleAdjuster):
 				cabLeft 0, 0, 10
 				SetBackGlass 1, "blue"
 				cabRight 0, 0, 0
 				BackGlassOff(3)
-				doRGB()	
-				GIpf(0)			
+				doRGB()
+				GIpf(0)
 				light 40, 0
 				light 41, 0
-				light 42, 0	
-				backglass 0, 1			
+				light 42, 0
+				backglass 0, 1
 			case Int(25000/CycleAdjuster):
 				cabLeft 0, 0, 0
 				BackGlassOff(1)
 				cabRight 0, 0, 5
 				SetBackGlass 2, "blue"
 				doRGB()
-				backglass 1, 0		
+				backglass 1, 0
 			case Int(25200/CycleAdjuster):
 				cabLeft 0, 0, 5
 				SetBackGlass 1, "blue"
 				cabRight 0, 0, 0
 				BackGlassOff(3)
 				doRGB()
-				backglass 0, 1		
+				backglass 0, 1
 			case Int(26000/CycleAdjuster):
 				lightningEnd(50)
-		End Select		
+		End Select
 		if (lightStage > Int(6000/CycleAdjuster) and lightStage < Int(19000/CycleAdjuster)) Then					'Turn off both RGB's and flash the inserts all BRIGHT
 			lightningPWM  = lightningPWM  +  1
 			'Serial.println lightningPWM, DEC
-			if (lightningPWM = Int(400/cycleAdjuster)) Then	
+			if (lightningPWM = Int(400/cycleAdjuster)) Then
 				cabLeft 200, 200, 255
 				SetBackGlass 1, "white"
 				cabRight 0, 0, 0
 				BackGlassOff(3)
-				doRGB()			
-				GIpf(160)	
+				doRGB()
+				GIpf(160)
 				light 40, 0
 				'light 41, 1
 				light 42, 0
 			End If
-			if (lightningPWM > Int(800/cycleAdjuster)) Then	
+			if (lightningPWM > Int(800/cycleAdjuster)) Then
 				lightningPWM = 0
 				cabLeft 0, 0, 0
 				BackGlassOff(1)
 				cabRight 200, 200, 255
 				SetBackGlass 2, "white"
-				doRGB()			
-				GIpf(64)			
+				doRGB()
+				GIpf(64)
 				light 40, 1
 				'light 41, 0
-				light 42, 1							
+				light 42, 1
 			End If
 		End If
 	End If
@@ -4972,78 +4979,78 @@ sub lightningFX(lightStage)
 				cabColor 0, 0, 0, 0, 0, 0
 				BackGlassOff(2)
 				GIpf(224)
-				doRGB()						
+				doRGB()
 			case Int(50500/cycleAdjuster):
 				cabColor 0, 0, 64, 0, 0, 64
 				SetBackGlass 2, "blue"
 				SetBackGlass 1, "blue"
 				GIpf(0)
-				doRGB()						
+				doRGB()
 			case Int(51000/cycleAdjuster):
 				cabColor 0, 0, 128, 0, 0, 128
 				SetBackGlass 2, "blue"
 				SetBackGlass 1, "blue"
 				GIpf(224)
-				doRGB()						
+				doRGB()
 			case Int(51500/cycleAdjuster):
 				cabColor 0, 0, 0, 0, 0, 0
 				BackGlassOff(2)
 				GIpf(0)
-				doRGB()						
+				doRGB()
 			case Int(52000/cycleAdjuster):
 				cabColor 0, 0, 64, 0, 0, 64
 				SetBackGlass 2, "blue"
 				SetBackGlass 1, "blue"
 				GIpf(224)
-				doRGB()						
+				doRGB()
 			case Int(52500/cycleAdjuster):
 				cabColor 0, 0, 128, 0, 0, 128
 				SetBackGlass 2, "blue"
 				SetBackGlass 1, "blue"
 				GIpf(0)
-				doRGB()						
+				doRGB()
 			case Int(53000/cycleAdjuster):
 				cabColor 0, 0, 0, 0, 0, 0
 				BackGlassOff(2)
 				GIpf(224)
-				doRGB()						
+				doRGB()
 			case Int(53500/cycleAdjuster):
 				cabColor 0, 0, 64, 0, 0, 64
 				SetBackGlass 2, "blue"
 				SetBackGlass 1, "blue"
 				GIpf(0)
-				doRGB()						
+				doRGB()
 			case Int(55000/cycleAdjuster):
 				cabColor 255, 255, 255, 255, 255, 255
 				SetBackGlass 2, "white"
 				SetBackGlass 1, "white"
-				setCabColor 0, 0, 0, 20				
+				setCabColor 0, 0, 0, 20
 			case Int(57000/cycleAdjuster):
-				lightningEnd(10)						
-		End Select		
+				lightningEnd(10)
+		End Select
 	End If
 if (lightStage > Int(99999/cycleadjuster) and lightStage < Int(120000/CycleAdjuster)) Then
 		lightningPWM  = lightningPWM  +  1
-		if (lightningPWM = Int(300/cycleAdjuster)) Then	
+		if (lightningPWM = Int(300/cycleAdjuster)) Then
 			cabLeft 255, 0, 0
 			SetBackGlass 1, "red"
 			cabRight 0, 0, 0
 			BackGlassOff(3)
-			doRGB()			
+			doRGB()
 			GIpf(160)
 		End If
-		if (lightningPWM > Int(600/CycleAdjuster)) Then	
+		if (lightningPWM > Int(600/CycleAdjuster)) Then
 			lightningPWM = 0
 			cabLeft 0, 0, 0
 			BackGlassOff(1)
 			cabRight 255, 0, 0
 			SetBackGlass 2, "red"
-			doRGB()			
-			GIpf(64)									
+			doRGB()
+			GIpf(64)
 		End If
 		if (lightStage = Int(119999/cycleadjuster)) Then			'Fade to black complete? Fade back up to mode color
-			lightningEnd(25)			
-		End If			
+			lightningEnd(25)
+		End If
 	End If
 End Sub
 
@@ -5087,16 +5094,16 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 		if (deProgress(player) = 2) Then									'Second ball caught?
 			loopCatch = 0													'Clear this
 			DemonLock2()													'Proceed
-		End If	
+		End If
 		if (minionMB = 20) Then												'Minion Multiball, ready to catch ball?
 			loopCatch = 0
-			minionMBtrap()	
+			minionMBtrap()
 		End If
 		if (deProgress(player) = 20) Then									'Final shot to demon, and ball was caught?
 			loopCatch = 0
 			DemonWin()														'You won the game!
 		End If
-		if (videoMode(player) = 1) Then	
+		if (videoMode(player) = 1) Then
 			if (barProgress(player) <> 60 and Advance_Enable = 1 and minion(player) <> 10) Then
 				loopCatch = 0
 ';				runVideoMode()												'EP- disabling for now until I can figure out how to do a video mode
@@ -5128,15 +5135,15 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 			if (Mode(player) = 0) Then										'Not in a mode?
 				showProgress 1, player										'Show the progress, Active Mode style
 			End If
-			minionLights()	
-			popLogic(0)														'Figure out what the pops should be doing		
+			minionLights()
+			popLogic(0)														'Figure out what the pops should be doing
 			'BLINK THE MINION LIGHTS
 			tourReset(58)											'Tour: Left orbit, door VUK, up middle, right orbit (excludes Hotel and Scoop)
-			blink(24)														'Call button light status		
-			light 25, 7														'Current state is HIT TO GO UP	
+			blink(24)														'Call button light status
+			light 25, 7														'Current state is HIT TO GO UP
 			blink(41)														'Blink the hellavator flasher
 			strobe 26, 5													'Strobe all lights on that shot except Camera (since it's used for combos)
-			blink(49)														'Blink the Multiball Progress light				
+			blink(49)														'Blink the Multiball Progress light
 		Else
 			Select Case (modeTimer)
 				case Int(8840/CycleAdjuster):
@@ -5175,8 +5182,8 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 					Exit Sub
 				case Int(48400/CycleAdjuster):
 					allLamp(0)
-					GIpf(0)					
-					Exit Sub				
+					GIpf(0)
+					Exit Sub
 				case Int(53780/CycleAdjuster):
 					cabColor 175, 0, 175, 175, 0, 175
 					setcabColor 0, 0, 0, 50
@@ -5184,13 +5191,13 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 					Exit Sub
 				case Int(55780/CycleAdjuster):
 					allLamp(0)
-					GIpf(0)					
-					Exit Sub				
+					GIpf(0)
+					Exit Sub
 				case Int(57420/CycleAdjuster):
 					cabColor 210, 0, 210, 210, 0, 210
 					setcabColor 0, 0, 0, 50
-					allLamp(5)				
-					Exit Sub			
+					allLamp(5)
+					Exit Sub
 				case Int(59420/CycleAdjuster):
 					cabColor 255, 0, 255, 255, 0, 255
 					doRGB()
@@ -5201,72 +5208,72 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 					strobe 26, 6
 					strobe 36, 4
 					strobe 43, 5
-					strobe 56, 7				
+					strobe 56, 7
 					Exit Sub
 				case Int(60000/CycleAdjuster):
 					cabColor 0, 0, 0, 0, 0, 0
 					doRGB()
-					GIpf(128)					
+					GIpf(128)
 					Exit Sub
 				case Int(60500/CycleAdjuster):
 					cabColor 255, 0, 255, 0, 0, 0
 					doRGB()
-					GIpf(64)					
+					GIpf(64)
 					Exit Sub
 				case Int(61000/CycleAdjuster):
-					cabColor 0, 0, 0, 0, 0, 0	
+					cabColor 0, 0, 0, 0, 0, 0
 					doRGB()
-					GIpf(32)					
-					Exit Sub		
+					GIpf(32)
+					Exit Sub
 				case Int(61500/CycleAdjuster):
 					cabColor 0, 0, 0, 255, 0, 255
-					doRGB()	
-					GIpf(128)					
-					Exit Sub		
+					doRGB()
+					GIpf(128)
+					Exit Sub
 				case Int(62000/CycleAdjuster):
 					cabColor 0, 0, 0, 0, 0, 0
 					doRGB()
-					GIpf(64)					
+					GIpf(64)
 					Exit Sub
 				case Int(62500/CycleAdjuster):
 					cabColor 255, 0, 255, 255, 0, 255
 					doRGB()
-					GIpf(32)					
+					GIpf(32)
 					lightSpeed = 10
 					Exit Sub
 				case Int(63000/CycleAdjuster):
 					cabColor 0, 0, 0, 0, 0, 0
-					doRGB()	
-					GIpf(128)					
+					doRGB()
+					GIpf(128)
 					Exit Sub
 				case Int(64500/CycleAdjuster):
 					cabColor 255, 0, 255, 255, 0, 255
 					doRGB()
-					GIpf(64)					
-					Exit Sub	
+					GIpf(64)
+					Exit Sub
 				case Int(65000/CycleAdjuster):
 					cabColor 0, 0, 0, 0, 0, 0
-					doRGB()	
-					GIpf(32)					
+					doRGB()
+					GIpf(32)
 					Exit Sub
 				case Int(65500/CycleAdjuster):
 					cabColor 255, 0, 255, 255, 0, 255
 					doRGB()
-					GIpf(128)					
+					GIpf(128)
 					Exit Sub
 				case Int(66000/CycleAdjuster):
 					cabColor 0, 0, 0, 0, 0, 0
-					doRGB()	
-					GIpf(192)					
+					doRGB()
+					GIpf(192)
 					Exit Sub
 				case Int(66500/CycleAdjuster):
 					cabColor 255, 0, 255, 255, 0, 255
 					doRGB()
 					GIpf(224)
-					allLamp(0)				
-					Exit Sub											
+					allLamp(0)
+					Exit Sub
 			End Select
-		End If	
+		End If
 	End If
 	if (Mode(player) = 7 or Mode(player) = 99) Then				'In GHOST PHOTO HUNT, or FINAL FLASH?
 		photoLogic()
@@ -5285,7 +5292,7 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 			End If
 		End If
 	End If
-	if (wiki(player) = 255 and tech(player) = 255 and psychic(player) = 255) Then			'All 3 team members SPELLED?	
+	if (wiki(player) = 255 and tech(player) = 255 and psychic(player) = 255) Then			'All 3 team members SPELLED?
 		pulse(0)				'Pulse lights again
 		pulse(1)
 		pulse(51)
@@ -5296,7 +5303,7 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 			if (Advance_Enable and minion(player) < 10) Then	'Modes can be advanced, and a Minion isn't active?
 				videoQ "S", "V", "A", allowSmall, 45, 250		'Video Mode Ready!
 				videoMode(player) = 1							'Ready to collect
-				loopCatch = catchBall							'Flag that we want to catch the ball in the loop	
+				loopCatch = catchBall							'Flag that we want to catch the ball in the loop
 				TargetTimerSet 10, TargetDown, 50				'Put targets down
 				blink(17)
 				blink(18)
@@ -5304,13 +5311,13 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 			Else
 				videoQ "S", "V", "B", allowSmall, 45, 250		'Video Mode Ready After Mode Ends
 				videoMode(player) = 10
-			End If		
+			End If
 		Else
 			AddScore(500000)									'If no VM, just give points
 		End If
 	End If
 	if (Mode(player) = 1) Then									'Hospital Mode active?
-		HospitalLogic()		
+		HospitalLogic()
 	End If
 	if (Mode(player) = 3 or barProgress(player) = 60)	Then	'Bar mode active?
 		BarLogic()
@@ -5319,7 +5326,7 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 		WarLogic()
 	End If
 	if (Mode(player) = 5) Then									'Hotel Mode active?
-		HotelLogic()		
+		HotelLogic()
 	End If
 	if (Mode(player) = 6) Then									'Prison Mode active?
 		PrisonLogic()
@@ -5349,7 +5356,7 @@ sub logic()																	'This doesn't run if we're in a Ball Drain.
 		End If
 	End If
 	if (goldHits = 10 and popsTimer = 0) Then					'Are we stealing gold during the War Fort mode?
-		WarGoldLogic()	
+		WarGoldLogic()
 	End If
 if (restartTimer) Then
 		if (hosProgress(player) = 3 and modeTimer) Then			'Giving the ball back? Make sure players know flipper works!
@@ -5369,9 +5376,9 @@ if (restartTimer) Then
 			if (modeTimer >= Int(4000/CycleAdjuster) and modeTimer <= Int(4100/CycleAdjuster)) Then
 				LeftFlipper.RotateToStart
 				PlaySound SoundFX("FlipperDown"),0,0.5,-0.1,0.25
-			End If		
+			End If
 		End If
-	End If	
+	End If
 End Sub
 
 sub MachineReset()
@@ -5440,16 +5447,16 @@ sub minionStart()
 		video "M", "F", 1 + minionsBeat(player), allowSmall, 29, 250		'Show which level ghost we're fighting
 	End If
 	strobe 17, 3											'Strobe the Ghost Targets
-	if (minionHits <= minionDamage) Then												'Almost defeat? Will next hit kill it?				
+	if (minionHits <= minionDamage) Then												'Almost defeat? Will next hit kill it?
 		if (minionsBeat(player) = minionMB1 or minionsBeat(player) = minionMB2) Then	'Multiball Minion?
 			if (hellMB) Then
 				videoQ "M", "9", "1", 2, 38, 100			'Hit Ghost to STACK multiballs
 			Else
-				videoQ "M", "9", "0", 2, 38, 100			'Hit ghost for Multiball!	
+				videoQ "M", "9", "0", 2, 38, 100			'Hit ghost for Multiball!
 			End If
 		Else
 			videoQ "M", "9", 64 + 1, 2, 30, 100				'1 hit to go!
-		End If		
+		End If
 	Else
 		videoQ "M", "9", 64 + minionHits, 2, 30, 100		'More than a single hit to beat minion? Show how many
 	End If
@@ -5458,8 +5465,8 @@ sub minionStart()
 	Else
 		hellEnable(1)										'Else, enable them
 	End If
-	TargetTimerSet 10, TargetDown, 50						'Put targets back up, but not so fast ball is caught	
-	ghostAction = Int(425005/CycleAdjuster)+5				'Ghost guarding	
+	TargetTimerSet 10, TargetDown, 50						'Put targets back up, but not so fast ball is caught
+	ghostAction = Int(425005/CycleAdjuster)+5				'Ghost guarding
 	GLIRenable(0)											'Fighting a minion, you can't GLIR
 End Sub
 
@@ -5476,28 +5483,28 @@ sub minionHitLogic()
 		video "M", "8", mX, allowSmall, 46, 255				'Ghost hit animation
 		animatePF 104, 15, 0								'Minion hit, stuff flies off
 		if (hellMB = 0) Then
-'			numbers 9, 2, 122, 0, minionHits				'Updated Hits to Go upper right					
+'			numbers 9, 2, 122, 0, minionHits				'Updated Hits to Go upper right
 			numbers "", minionHits, "", ""
-		End If		
-		if (minionHits <= minionDamage) Then				'Almost defeat? Will next hit kill it?				
+		End If
+		if (minionHits <= minionDamage) Then				'Almost defeat? Will next hit kill it?
 			if (minionsBeat(player) = minionMB1 or minionsBeat(player) = minionMB2) Then	'Multiball Minion?
 				playSFX 0, "M", "D", 70 + random(3), 255	'Hit the ghost for Multiball! (has a gap so it plays after Whack Sound. Pre-dates playSFXQ command
 				if (hellMB) Then
 					videoQ "M", "9", "1", 2, 38, 100		'Hit Ghost to STACK multiballs
 				Else
-					videoQ  "M", "9", "0", 2, 38, 100		'Hit ghost for Multiball!	
+					videoQ  "M", "9", "0", 2, 38, 100		'Hit ghost for Multiball!
 				End If
 			Else											'Normal minion
 				videoQ "M", "9", 64 + minionHits, 2, 30, 100		'How many hits to go
 				playSFXQ 1, "M", "D", 65 + random(5), 255	'"Let's finish him off!" same channel as Whack Sound, will play after it's done
 			End If
 		Else
-			videoQ "M", "9", 64 + minionHits, 2, 30, 100		'How many hits to go				
+			videoQ "M", "9", 64 + minionHits, 2, 30, 100		'How many hits to go
 		End If
-		ghostAction = Int(468005/CycleAdjuster)+5			'Minion hit, leading into guarding motion	
+		ghostAction = Int(468005/CycleAdjuster)+5			'Minion hit, leading into guarding motion
 		AddScore(minionTarget(player) * 50000)				'Add score
 		if (minionsBeat(player) > 3) Then					'The more difficult minions? Magnet Fun!
-			x = minionsBeat(player) - 3						'Reduce range	
+			x = minionsBeat(player) - 3						'Reduce range
 			if (x > 9) Then									'Limit it from 1 to 9
 				x = 9
 			End If
@@ -5505,13 +5512,13 @@ sub minionHitLogic()
 			MagnetSet(x*100)
 		End If
 	Else
-		ghostAction = Int(468005/CycleAdjuster)+5			'Minion hit, leading into guarding motion	
+		ghostAction = Int(468005/CycleAdjuster)+5			'Minion hit, leading into guarding motion
 		if (minionsBeat(player) = minionMB1 or minionsBeat(player) = minionMB2) Then	'Multiball Minion?
-			minionMB = 1									'Flag saying Multiball can start						
+			minionMB = 1									'Flag saying Multiball can start
 			if (minionsBeat(player) = minionMB2) Then			'Also, starting the second Minion MB also lights EXTRA BALL
-				extraBallLight(2)							'Light extra ball, no prompt we'll do there	
-			End If		
-		End If				
+				extraBallLight(2)							'Light extra ball, no prompt we'll do there
+			End If
+		End If
 		if (minionMB = 1) Then								'Multiball flag set?
 			minionMultiballStart()
 		Else
@@ -5527,7 +5534,7 @@ sub minionLights()						'Set Minion Lights to whatever they should be
 	if (minion(player) = 10) Then		'Fighting a Ghost Minion?
 		strobe 17, 3				'Strobe his lights
 		light 16, 0				'Make sure JACKPOT is off
-		Exit Sub	
+		Exit Sub
 	End If
 	pulse(17)						'Pulse all 3 by default (they're at least lit)
 	pulse(18)
@@ -5542,9 +5549,9 @@ sub minionLights()						'Set Minion Lights to whatever they should be
 		if (minionHits = 1) Then
 			light 18, 7
 			light 19, 7
-		End If		
+		End If
 	Else								'Otherwise it's a level 4+, meaning targets have to be hit individually
-	
+
 		light 17, 7						'Start with them on (lit then pulse whichever ones we haven't hit it
 		light 18, 7
 		light 19, 7
@@ -5556,7 +5563,7 @@ sub minionLights()						'Set Minion Lights to whatever they should be
 		End If
 		if ((targetBits AND 1)=1) Then
 			pulse(19)
-		End If		
+		End If
 	End If
 End Sub
 
@@ -5590,7 +5597,7 @@ sub minionWin()
 	numbers "", "", modeTotal, modeTotal
 	videoQ "M", "9", "Z", noEntryFlush OR 3, 45, 233			'Minion Mode Total:
 	minionHits = 3												'3 hits to find another minion
-	minionTarget(player)  = minionTarget(player)  +  1			'Increase the hits it takes	
+	minionTarget(player)  = minionTarget(player)  +  1			'Increase the hits it takes
 	if (minionTarget(player) > 9) Then							'At limit?
 		minionTarget(player) = 3								'Reset it
 	End If
@@ -5598,8 +5605,8 @@ sub minionWin()
 	animatePF 44, 30, 0							'Minion kill animation! (one shot
 	if (hellMB = 0) Then
 		killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-		killCustomScore()					
-		modeTotal = 0													'Reset mode points				
+		killCustomScore()
+		modeTotal = 0													'Reset mode points
 	End If
 End Sub
 
@@ -5621,7 +5628,7 @@ sub minionEnd(endType)
 		cabModeRGB(2) = 255
 		flashCab 255, 255, 255, 50												'Go back to Magenta color
 	Else
-		setCabModeFade defaultR, defaultG, defaultB, 200						'Reset cabinet color	
+		setCabModeFade defaultR, defaultG, defaultB, 200						'Reset cabinet color
 	End If
 	targetReset()																'Reset target flags
 	if (endType = 0 and minion(player) = 10) Then								'We are disabling Minions because a different mode started, but we were battling one when mode started?
@@ -5641,34 +5648,34 @@ sub minionEnd(endType)
 		ghostFadeTimer = Int(100/CycleAdjuster)
 		ghostFadeAmount = Int(100/CycleAdjuster)
 		TargetTimerSet 10000, TargetUp, 100										'Put the targets back up
-		minion(player) = 1														'Set flag minion fight can be restarted once the player gets the ball back		
+		minion(player) = 1														'Set flag minion fight can be restarted once the player gets the ball back
 		pulse(17)																'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
 		pulse(19)
 		killScoreNumbers()														'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
 		killCustomScore()
-		Exit Sub	
+		Exit Sub
 	End If
-	minionHits = 3																'First 3 minions, this counts hits. Minions 3+, used to play incrementing target sound		
-	if (endType = 1) Then														'Flag that mode ended with WIN + Reset targets?	
+	minionHits = 3																'First 3 minions, this counts hits. Minions 3+, used to play incrementing target sound
+	if (endType = 1) Then														'Flag that mode ended with WIN + Reset targets?
 		minion(player) = 1														'Set flag minion fight can be restarted once the targets are back up
 		if (videoMode(player) = 10 and hellMB = 0) Then							'If Hell MB not active, and Video Mode paused, re-enable it
 			videoMode(player) = 1
 			loopCatch = catchBall												'Flag that we want to catch the ball in the loop
 		Else
-			TargetTimerSet 9000, TargetUp, 10									'Put the targets back up		
+			TargetTimerSet 9000, TargetUp, 10									'Put the targets back up
 		End If
 		pulse(17)																'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
 		pulse(19)
-		if (Mode(player) = 0) Then												'No main modes active, and 
+		if (Mode(player) = 0) Then												'No main modes active, and
 			if (multiBall = 0) Then												'Hellavator Multiball not active?
-'				playMusic "M", "2"												'Revert to normal music	
+'				playMusic "M", "2"												'Revert to normal music
 				musicplayer "bgout_M2.mp3"												'EP- PlayMusic is the method used to actually play music, so I can't define my own; I'll have to replace every instance
-			End If	
-		End If	
+			End If
+		End If
 		if (Mode(player) = 7) Then
-'			playMusic "H", "2"													'Photo hunt music		
+'			playMusic "H", "2"													'Photo hunt music
 			musicplayer "bgout_H2.mp3"
 		End If
 		Exit Sub
@@ -5677,9 +5684,9 @@ sub minionEnd(endType)
 		minion(player) = 1														'Set flag minion fight can be restarted once the targets are back up
 		pulse(17)																'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
-		pulse(19)		
+		pulse(19)
 		if (Mode(player) = 0) Then
-'			playMusic "M", "2"													'Normal music		
+'			playMusic "M", "2"													'Normal music
 			musicplayer "bgout_M2.mp3"
 		End If
 		if (Mode(player) = 7) Then
@@ -5695,11 +5702,11 @@ sub minionMultiballStart()
 	AddScore(150000)
 	comboKill()									'So combo lights don't appear after the mode
 	if (hellMB = 0) Then						'Hell MB isn't in progress?
-'		playMusic 'M', 'M'						'Only need to switch to MB music if not stacked with Hell MB		
+'		playMusic 'M', 'M'						'Only need to switch to MB music if not stacked with Hell MB
 		musicplayer "bgout_MB.mp3"					'EP- This is exactly the same as MM.mp3... I don't know why there's two
 		storeLamp(player)						'Store the state of the Player's lamps. If HellMB active, this has already been done
-		allLamp(0)								'Turn off the lamps so we can repaint them		
-		modeTotal = 0							'If Hell MB was active it already did this, so we don't want to erase that value unless Hell MB didn't start	
+		allLamp(0)								'Turn off the lamps so we can repaint them
+		modeTotal = 0							'If Hell MB was active it already did this, so we don't want to erase that value unless Hell MB didn't start
 	End If
 	spiritGuideEnable(0)						'No spirit guide during Hospital
 	dirtyPoolMode(0)							'We want to trap balls!
@@ -5709,7 +5716,7 @@ sub minionMultiballStart()
 	pulse(16)									'Pulse JACKPOT
 	light 17, 0									'Turn off lights
 	light 18, 0
-	light 19, 0	
+	light 19, 0
 	blink(2)									'Blink MINION MASTER progress light
 	ghostLook = 0								'Ghost doesn't look around
 	ghostAction = Int(110000/CycleAdjuster)		'Ghost guarding ball
@@ -5725,16 +5732,16 @@ sub minionMultiballStart()
 		numbers PlayerScore(player), "", "", ""
 '		numbers 9, 9, 88, 0, 0					'Ball # upper right
 		numbers "", Ball, "", ""
-'		numbers 10, numberScore OR 2, 68, 27, 5	'Use Score #5 to display the Minion Jackpot Value	
+'		numbers 10, numberScore OR 2, 68, 27, 5	'Use Score #5 to display the Minion Jackpot Value
 ';		EP- Not sure what to put here
 	End If
-	killQ()									'Disable any Enqueued videos	
+	killQ()									'Disable any Enqueued videos
 	video "M", "M", "1", allowSmall, 87, 255	'Minion MB Start!
 	playSFX 0, "M", "M", "D", 255				'Ghost Minion Multiball!
 	MagnetSet(100)								'Hold the ball.
 	TargetSet(TargetUp)						'Trap it using the targets
 	trapTargets = 1							'Ball should be trapped behind targets
-	DoorSet DoorOpen, 25						'Make sure the door is open		
+	DoorSet DoorOpen, 25						'Make sure the door is open
 	'NEEDS IF STILL LOADING CONDITION!
 	if (multiBall) Then												'If a MB is active, it has to be Hellavator MB from Mode 0
 		if (multiBall AND multiballLoading) Then						'It can be in 2 states - active  2 balls or more), or still loading its balls (unlikely BUT POSSIBLE
@@ -5746,9 +5753,9 @@ sub minionMultiballStart()
 			multiCount = (4 - activeBalls)					'Figure out how many balls we can add. 2 balls active = add 2. 3 balls active = add 1
 			if (multiCount <> countBalls()) Then				'If this number doesn't match # of balls in the trough...
 				multiCount = countBalls()	 				'then set the value to how many balls are actually in the trough
-			End If		
+			End If
 		End If
-		tourClear()											'Turn off the Tour Ghost Catch lights		
+		tourClear()											'Turn off the Tour Ghost Catch lights
 		hellEnable(1)											'Enable this so Hell Jackpots can still be collected
 	Else
 		multiBall = multiBall OR (multiballMinion OR multiballLoading)		'Set Minion MB bits, and Ball Loading bit
@@ -5756,7 +5763,7 @@ sub minionMultiballStart()
 		multiCount = 2									'We'll add 2 balls
 		if (countBalls() < multiCount) Then				'If, somehow, there is less than 2 balls in trough...
 			multiCount = countBalls()	 				'then set the value to how many balls are actually in the trough
-		End If	
+		End If
 		hellEnable(0)											'Can't stack the Hell MB on Minion MB (only the other way around)
 	End If
 	popLogic(0)												'Figure out what the pops should be doing
@@ -5768,10 +5775,10 @@ sub minionMBtrap()
 	ghostLook = 0								'Ghost doesn't look around
 	ghostAction = Int(110000/cycleAdjuster)		'Ghost guarding ball
 	setCabModeFade 0, 0, 128, 50				'Medium Blue
-	video "M", "M", "7", 0, 27, 255				'Ghost catches ball (don't show numbers yet...	
+	video "M", "M", "7", 0, 27, 255				'Ghost catches ball (don't show numbers yet...
 	modeTimer = Int(100000/cycleAdjuster)		'Setup timer
 	countSeconds = 13							'10 seconds to collect jackpot
-';	numbers 0, numberStay OR 4, 0, 0, countSeconds - 1				'Update the Numbers Timer.	
+';	numbers 0, numberStay OR 4, 0, 0, countSeconds - 1				'Update the Numbers Timer.
 	videoQ "M", "M", "8", allowSmall OR noEntryFlush, 29, 255	'Can you collect Jackpot in time? Arrows to numbers
 	if (hellMB = 0) Then
 		customScore "M", "M", "X", allowAll OR loopVideo, 60	'Ghost Lites, Orbits Build Jackpot
@@ -5784,14 +5791,14 @@ sub minionMBtrap()
 	pulse(16)									'Pulse JACKPOT
 	light 17, 0								'Turn off lights
 	light 18, 0
-	light 19, 0	
+	light 19, 0
 	'videoQ 'M', 'M', '2', allowSmall, 0, 255)	'Collect Jackpot Countdown! (arrows point at timers
 End Sub
 
 sub minionMBjackpot(timeRelease)
 	killNumbers()								'Kill any numbers that are flashing
 	killTimer(0)								'Kill the timer (either we got jackpot or it timed out doesn't matter)
-	modeTimer = Int(99999/CycleAdjuster)		'Prevents timer from showing until next target trapped	
+	modeTimer = Int(99999/CycleAdjuster)		'Prevents timer from showing until next target trapped
 	ghostLook = 1								'Ghost CAN look around
 	ghostAction = 0							'Ghost guarding ball
 	cabColor 0, 0, 0, 0, 0, 0					'Set cab DARK...
@@ -5801,11 +5808,11 @@ sub minionMBjackpot(timeRelease)
 	End If
 	if (timeRelease = 0) Then
 		video "M", "M", "3", allowSmall, 20, 255		'Minion Jackpot! The really fancy animation
-		playSFX 0, "M", "M", 73 + random(3), 255	'Jackpot!	
-		showValue (minionJackpot +  countSeconds * 50000), 40, 1			'You get jackpot value + seconds remaining bonus		
+		playSFX 0, "M", "M", 73 + random(3), 255	'Jackpot!
+		showValue (minionJackpot +  countSeconds * 50000), 40, 1			'You get jackpot value + seconds remaining bonus
 	Else										'Jackpot timed out - automatic ball release no points
 		playSFX 2, "M", "Z", "Z", 255				'Sizzle sound with laugh
-		video "M", "M", "9", allowSmall, 45, 255	'Minion Jackpot! The really fancy animation	
+		video "M", "M", "9", allowSmall, 45, 255	'Minion Jackpot! The really fancy animation
 	End If
 	minionMB = 20								'Flag that says a Ball has been freed!
 	loopCatch = catchBall						'Set flag that we want to catch the ball
@@ -5814,7 +5821,7 @@ sub minionMBjackpot(timeRelease)
 	light 16, 0								'Turn OFF jackpot
 	pulse(17)									'Strobe target lights
 	pulse(18)
-	pulse(19)	
+	pulse(19)
 End Sub
 
 sub minionJackpotIncrease()
@@ -5822,15 +5829,15 @@ sub minionJackpotIncrease()
 	strobe 36, 4									'Strobe right orbit
 	minionJackpot  = minionJackpot  +  100000						'Increase Jackpot
 	manualScore 5, minionJackpot				'Store jackpot in Score #5
-	playSFX 0, "M", "M", 5 + random(2), 255		'Jackpot increase sound, Male or Female scream	
+	playSFX 0, "M", "M", 5 + random(2), 255		'Jackpot increase sound, Male or Female scream
 	playSFXQ 0, "M", "M", 70 + random(3), 255	'Team leader random compliment
 	if (hellMB) Then									'If stacked, video that explicitly says "Minion Jackpot" As if anyone would be watching DMD
 '		numbers 7, numberFlash OR 1, 255, 11, minionJackpot	'Load Jackpot value Points as a number
 		numbers "", "", minionJackpot, minionJackpot
-		video "M", "M", "6", noEntryFlush OR 3, 30, 255	'Show new Jackpot value		
+		video "M", "M", "6", noEntryFlush OR 3, 30, 255	'Show new Jackpot value
 	Else
 		video "M", "M", "5", allowSmall, 26, 255	'New Jackpot Value display
-		showValue minionJackpot, 40, 0				'Show new value after video (but don't add it to score		
+		showValue minionJackpot, 40, 0				'Show new value after video (but don't add it to score
 	End If
 End Sub
 'FUNCTIONS FOR MINION GHOST............................
@@ -5841,41 +5848,41 @@ sub modeAction()													'If MODETIMER set, check this logic
 		modeTimer = modeTimer - 1
 		if (modeTimer = Int(50000/CycleAdjuster)) Then				'Fade out music
 			fadeMusic 1, 0
-		End If	
+		End If
 		if (modeTimer = Int(10000/CycleAdjuster)) Then				'Release ball
-			TargetSet(TargetDown)	
+			TargetSet(TargetDown)
 			setGhostModeRGB 0, 0, 0									'Turn off Ghost Color
-		End If	
+		End If
 		if (modeTimer = 0) Then										'Restart player's game!
 			stopMusic()
 '			musicVolume(0) = 35										'Set back to normal
 '			musicVolume(1) = 35
-'			volumeSFX(3, musicVolume(0), musicVolume(1))	
-			TargetTimerSet 1000, TargetUp, 1						'Put targets back up right away!			
+'			volumeSFX(3, musicVolume(0), musicVolume(1))
+			TargetTimerSet 1000, TargetUp, 1						'Put targets back up right away!
 			restartPlayer(player)
 			light 63, 7												'DEMON BATTLE solid
 		End If
 	End If
 	if (deProgress(player) = 9) Then								'Waiting for ball to clear targets?
 		modeTimer = modeTimer - 1
-		if (modeTimer = 1) Then		
-			modeTimer = DoctorTimer									'Default time before target moves again			
+		if (modeTimer = 1) Then
+			modeTimer = DoctorTimer									'Default time before target moves again
 			TargetTimerSet 10, TargetUp, 1							'Put targets back up right away!
 			deProgress(player) = 10									'MB officially started
-		End If				
+		End If
 	End If
 	if (deProgress(player) = 10) Then								'Trying to WEAKEN the demon?
 		modeTimer = modeTimer - 1
-		if (modeTimer = 1) Then		
-			modeTimer = DoctorTimer									'Default time before target moves again		
-			playSFX 2, "A", "Z", "Z", 255							'MOVEMENT SOUND		
+		if (modeTimer = 1) Then
+			modeTimer = DoctorTimer									'Default time before target moves again
+			playSFX 2, "A", "Z", "Z", 255							'MOVEMENT SOUND
 			DemonMove()
-		End If		
+		End If
 	End If
 	if (hosProgress(player) > 5 and hosProgress(player) < 9) Then
 		modeTimer = modeTimer - 1
-		if (modeTimer = 1) Then		
-			DoorSet DoorClosed, 5									'Close door back up		
+		if (modeTimer = 1) Then
+			DoorSet DoorClosed, 5									'Close door back up
 		End If
 	End If
 	if (theProgress(player) > 9 and theProgress(player) < 100 and popsTimer = 0) Then									'Doing the THEATER GHOST PLAY?
@@ -5884,17 +5891,17 @@ sub modeAction()													'If MODETIMER set, check this logic
 			modeTimer = longSecond									'Reset timer
 			countSeconds = countSeconds - 1							'Reduce seconds left
 			if (countSeconds = 0) Then								'Out of time?
-				TheaterFail(0)										'Time's up, Fail mode, allow animation and speech		
+				TheaterFail(0)										'Time's up, Fail mode, allow animation and speech
 			Else
 '				numbers 0, numberStay | 4, 0, 0, countSeconds - 1)				'Update the Numbers Timer EP- Can't figure out what these do
-				shotValue = shotValue - 10000 
+				shotValue = shotValue - 10000
 '				numbers(9, 2, 70, 27, shotValue)					'Shot Value
 				numbers "", shotValue, "", ""
 				if (countSeconds > 1 and countSeconds < 7) Then	'Count down 5 4 3 2 1
 					playSFX 2, "A", "M", 47 + countSeconds, 1
 				Else
 					playSFX 2, "Y", "Z", "Z", 1						'Beeps
-				End If				
+				End If
 			End If
 		End If
 	End If
@@ -5915,7 +5922,7 @@ sub multiBallStart(notRandomAward)
 		Advance_Enable = 0							'Can't advance during multiball
 		hellMB = 1									'Set flag that Hellavator MB has started
 		catchValue = 1								'Cycle 1 of the Ghost Catch
-		volumeSFX 3, 80, 80						'Temp higher volume music	
+		volumeSFX 3, 80, 80						'Temp higher volume music
 		modeTimer = 2000							'Let's do some wicked smart lighting!
 		DoorSet DoorOpen, 500						'Open the door so we can shoot through it for Ghost Catch!	 (only if no Main Modes active
 		ghostSet(140)
@@ -5925,17 +5932,17 @@ sub multiBallStart(notRandomAward)
 			loopCatch = 0
 			TargetTimerSet 1000, TargetUp, 50		'Put targets back up manually
 			minionEnd(2)							'Allow minions
-		End If		
+		End If
 		if (minion(player) < 10) Then					'Minion or other mode isn't active?
 			modeTotal = 0							'No other modes active, so reset mode total. If Minion is stacked with MB, the totals combine
 		End If
 		if (notRandomAward) Then
-'			playMusic 'M', 'P'					'Also, only change music if we're not in a mode		
+'			playMusic 'M', 'P'					'Also, only change music if we're not in a mode
 			musicplayer "bgout_MP.mp3"
 		End If
 		comboKill()
 		storeLamp(player)							'Store the state of the Player's lamps
-		allLamp(0)									'Turn off the lamps so we can repaint them		
+		allLamp(0)									'Turn off the lamps so we can repaint them
 		'PAINT LAMPS HERE!!!!!!!!!!
 		blink(49)									'Blink the MB light during mode
 		modeTotal = 0								'Since no mode is active, we can store a value for Hellavator mode
@@ -5950,13 +5957,13 @@ sub multiBallStart(notRandomAward)
 		strobe 26, 5								'Strobe all lights on that shot except Camera (since it's used for combos
 		blink(49)									'Blink the Multiball Progress light
 		if (notRandomAward) Then
-			playSFX 1, "Q", "A", "6", 255 			'Bells, beeps and ghost noises - non music version	
+			playSFX 1, "Q", "A", "6", 255 			'Bells, beeps and ghost noises - non music version
 		End If
 	End If
 	multiBall = multiballLoading OR multiballHell	'Set Multiball loading flag (bit 0) and the flag that says Hell MB is active
 	if (notRandomAward) Then
 		multiTimer = Int(60000/CycleAdjuster)		'Set timer.
-		playSFX 0, "Q", "A", "3", 255				'MULTIBALL!!! (syncs with music FX		
+		playSFX 0, "Q", "A", "3", 255				'MULTIBALL!!! (syncs with music FX
 	Else
 		multiTimer = Int(8000/CycleAdjuster)		'If Spirit Guide award, give next ball right away and don't say MULTIBALL!!!
 	End If
@@ -5970,7 +5977,7 @@ sub multiBallStart(notRandomAward)
 	End If
 	'hellEnable(0)									'Put elevator down, can't lock anymore
 	if (hellMB) Then
-		videoQ "Q", "A", "5", 0, 129, 200			'Ramp builds, Hellavator Collects, Flashing shots catch ghosts	
+		videoQ "Q", "A", "5", 0, 129, 200			'Ramp builds, Hellavator Collects, Flashing shots catch ghosts
 		manualScore 6, hellJackpot(player)		'Current Hell Jackpot Value
 		customScore "Q", "B", "A", allowAll OR loopVideo, 90		'Custom Score: Hit ghost for JACKPOTS!
 '		numbers 8, numberScore OR 2, 0, 0, player					'Put player score upper left
@@ -5986,7 +5993,7 @@ End Sub
 
 sub multiBallJackpotIncrease()
 	AddScore(10710)											'Some points just for making the shot
-	hellJackpot(player)  = hellJackpot(player)  +  250000								'Add 250k to player's jackpot value	
+	hellJackpot(player)  = hellJackpot(player)  +  250000								'Add 250k to player's jackpot value
 	manualScore 6, hellJackpot(player)						'Current Hell Jackpot Value
 	killQ()
 	'numbers 3, numberFlash OR 1, 255, 11, hellJackpot(player)	'Load Jackpot value Points as a number
@@ -5996,7 +6003,7 @@ sub multiBallJackpotIncrease()
 ';	numbers "", "", hellJackpot(player), hellJackpot(player)
 	playSFX 2, "Q", "J", "C", 255								'Whooshing sound
 	flashCab 128, 0, 128, 50
-	strobe 26, 5												'Strobe first 5 lights	
+	strobe 26, 5												'Strobe first 5 lights
 End Sub
 
 sub multiBallEnd( modeStacked)
@@ -6019,7 +6026,7 @@ sub multiBallEnd( modeStacked)
 			if (minion(player) > 9 and minion(player) < 100) Then
 				endState = 5
 			Else
-				endState = 1			
+				endState = 1
 			End If
 		End If
 	End If
@@ -6032,38 +6039,38 @@ sub multiBallEnd( modeStacked)
 	'Serial.print("ENDSTATE: ")
 	'Serial.println(endState)
 	'A/V functions only here (since we suppress those if TILT)
-	if (tiltFlag = 0) Then													'If ended normally (not a tilt) restart lights and music as needed	
+	if (tiltFlag = 0) Then													'If ended normally (not a tilt) restart lights and music as needed
 		if (endState = 1) Then
-			video "Q", "Z", "Z", allowAll, 45, 255							'Multiball Mode Total:		
+			video "Q", "Z", "Z", allowAll, 45, 255							'Multiball Mode Total:
 '			numbers 1, numberFlash OR 1, 255, 11, modeTotal				'Show Hell MB Mode Total Points
 			numbers "", "", modeTotal, modeTotal
-'			playMusic 'M', '2'											'Play the normal music	
+'			playMusic 'M', '2'											'Play the normal music
 			musicplayer "bgout_M2.mp3"
 			setCabModeFade defaultR, defaultG, defaultB, 100			'Reset cabinet color (obviously don't want to do that if mode active
 			killScoreNumbers()											'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-			killCustomScore()				
+			killCustomScore()
 		End If
 		if (endState = 4 or endState = 3) Then
-			AddScore(minionsBeat(player) * 250000)								'If stacked, we end it as Minion MB End		
-			playSFX 0, "M", "I", "W", 255										'Shortened version of Ghost Into Light	
-			video "M", "9", 88 + random(1), noExitFlush, 57, 255				'Ghost sucked into light!  M9X or M9Y, left or right flip	
+			AddScore(minionsBeat(player) * 250000)								'If stacked, we end it as Minion MB End
+			playSFX 0, "M", "I", "W", 255										'Shortened version of Ghost Into Light
+			video "M", "9", 88 + random(1), noExitFlush, 57, 255				'Ghost sucked into light!  M9X or M9Y, left or right flip
 '			numbers 1, numberFlash OR 1, 255, 11, modeTotal					'Flash the total points scored in mode
 ';			numbers "", "", modeTotal, modeTotal
 			videoQ "M", "M", "4" , noEntryFlush OR allowAll, 45, 255			'Minion MB Total:
 			ghostsDefeated(player)  = ghostsDefeated(player)  +  1										'Keep track for bonuses
-			minionsBeat(player)  = minionsBeat(player)  +  1											'Keep track for Multiball		
+			minionsBeat(player)  = minionsBeat(player)  +  1											'Keep track for Multiball
 			minionTarget(player)  = minionTarget(player)  +  1											'Increase the hits it takes
 			if (minionTarget(player) > 9) Then					'At limit?
 				minionTarget(player) = 3					'Reset it
-			End If			
+			End If
 '			playMusic 'M', '2'												'...But if in Minion MB, change music as that mode ends along with multiball
 			musicplayer "bgout_M2.mp3"
 			setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color (obviously don't want to do that if mode active
 			killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-			killCustomScore()				
-		End If	
+			killCustomScore()
+		End If
 		if (endState = 5) Then												'If normal, non-MB minion battle still active, resume Minion Music
-			video "Q", "Z", "Z", allowLarge OR allowSmall, 45, 255			'Multiball Mode Total:		
+			video "Q", "Z", "Z", allowLarge OR allowSmall, 45, 255			'Multiball Mode Total:
 '			numbers 1, numberFlash OR 1, 255, 11, modeTotal				'Show Hell MB Mode Total Points
 			numbers "", "", modeTotal, modeTotal
 '			playMusic 'M', 'I'											'Play the minion music
@@ -6081,14 +6088,14 @@ sub multiBallEnd( modeStacked)
 	if (Mode(player) = 0 and modeStacked = 0) Then				'Not in a mode or just coming out of one?
 		Advance_Enable = 1										'Re-enable advance
 		tourClear() 											'Clear the Ghost Catch lights
-		targetReset()											'Reset Ghost target flags		
+		targetReset()											'Reset Ghost target flags
 		ghostAction = 0										'Clear ghost movements (obviously don't want to do that if mode active)
 		multipleBalls = 0
-		loadLamp(player)										'Not sure if we need this?		
+		loadLamp(player)										'Not sure if we need this?
 		showProgress 0, player								'Show all the Main Progress lights
 		if (minion(player) < 10) Then								'If Minion isn't active, go ahead and reset mode points
 			modeTotal = 0
-		End If			
+		End If
 	End If
 	if (multiBall AND multiballHell) Then							'Hell MB was active? Do stuff to end it.
 		Dim x
@@ -6099,7 +6106,7 @@ sub multiBallEnd( modeStacked)
 		if (Advance_Enable = 0) Then								'No modes active that might have Tour Shots?
 			if (videoMode(player) and minion(player) <> 10) Then	'Video mode ready, and not fighting a minion?
 ';				videoModeLite()
-			End If	
+			End If
 			for x=0 To 4											'Kill the camera lights
 				light 26 + x, 0
 			Next
@@ -6109,7 +6116,7 @@ sub multiBallEnd( modeStacked)
 		minion(player) = 1										'Since we must have been in Mode 0 on entry, re-enable Minion
 		pulse(17)												'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
-		pulse(19)		
+		pulse(19)
 		killTimer(0)											'Kill the Jackpot timer
 		ghostModeRGB(0) = 0
 		ghostModeRGB(1) = 0
@@ -6119,24 +6126,24 @@ sub multiBallEnd( modeStacked)
 		if (videoMode(player)) Then									'Video mode ready? Leave targets down at end
 			videoModeLite()
 		Else
-			if (TargetLocation <> TargetDown or minionMB = 10) Then	'Targets up, or headed that way? A ball might be trapped behind them	
+			if (TargetLocation <> TargetDown or minionMB = 10) Then	'Targets up, or headed that way? A ball might be trapped behind them
 				TargetSet(TargetDown)								'Put them down...
 				TargetTimerSet 10000, TargetUp, 10				'and after a second, put the back up
 			Else
 				TargetTimerSet 1000, TargetUp, 10					'Else, put them up immediately
-			End If		
+			End If
 		End If
 		light 7, 0											'Turn off jackpot lights
 		light 39, 0
-		light 16, 0											'Turn off MAKE CONTACT		
+		light 16, 0											'Turn off MAKE CONTACT
 		light 2, 7											'Light MINION MASTER solid. No matter what you do, you've won the mode!
 		minionMB = 0											'Clear the mode
 		spiritGuideEnable(1)									'Allow Spirit Guide again
 		minionHits = 3											'Set # of hits to 3 (for target sounds)
 		if (barProgress(player) <> 70 and deProgress(player) <> 4 and minion(player) <> 10) Then							'Unless your friend trapped by a ghost, or Demon Advance...
-			dirtyPoolMode(1)										'Don't want to trap balls anymore	
+			dirtyPoolMode(1)										'Don't want to trap balls anymore
 		End If
-	Else	
+	Else
 		if (minion(player) <> 10) Then
 			targetLogic(0)										'Not minion mode? See where the targets should be automatically (unless in a mode)
 		End If
@@ -6161,8 +6168,8 @@ sub multiBallEnd( modeStacked)
 		hellEnable(0)											'DISABLE more MB - Can only start MB once per mode (if mode allows)
 	Else
 		hellEnable(1)											'If not in a mode, eligible again
-		demonQualify()		
-	End If	
+		demonQualify()
+	End If
 End Sub
 
 'FUNCTIONS FOR PHOTO HUNT MODE 7............................
@@ -6180,7 +6187,7 @@ sub photoStart()								'When you shoot scoop with Photo Hunt lit
 	pulse(17)									'Pulse the Ghost Loop Lights
 	pulse(18)
 	pulse(19)
-	modeTotal = 0								'Reset mode points	
+	modeTotal = 0								'Reset mode points
 	if (NOT(minionMB) and minion(player) < 10) Then	'Not in a Minion Mode?
 		setGhostModeRGB 0, 0, 0				'Set Ghost to black. But this way we can make him flash
 	End If
@@ -6210,10 +6217,10 @@ sub photoStart()								'When you shoot scoop with Photo Hunt lit
 	numbers "", photoValue, "", ""
 '	playMusic 'H', '2'							'Hurry-up music
 	musicplayer "bgout_H2.mp3"
-	ScoopTime = Int(55000/CycleAdjuster)		'Kick out the ball	
+	ScoopTime = Int(55000/CycleAdjuster)		'Kick out the ball
 	for x=0 To 5
-		photoLocation(x) = 0					'Clear Control Box locations	
-		light photoLights(x), 0				'Turn off the 6 camera positions	
+		photoLocation(x) = 0					'Clear Control Box locations
+		light photoLights(x), 0				'Turn off the 6 camera positions
 	Next
 	photoCurrent = random(5)						'Select a camera, but not the one on the scoop (since we just came from there
 	if (extraLit(player) and photoCurrent = 1) Then	'If Extra Ball lit and first photo is same shot, make first photo left orbit
@@ -6255,7 +6262,7 @@ sub photoLogic()										'What goes on during Photo Hunt Mode
 		case Int(146000/CycleAdjuster):
 			if (photosToGo) Then							'Not done yet?
 				loadLamp(tempLamp)						'Restore previous lights from temp memory
-				strobe (photoLights(photoCurrent) - photoStrobe(photoCurrent)), photoStrobe(photoCurrent) + 1						'Strobe as many under it as we can					
+				strobe (photoLights(photoCurrent) - photoStrobe(photoCurrent)), photoStrobe(photoCurrent) + 1						'Strobe as many under it as we can
 				photoTimer = longSecond * 2			'A grace period of a few seconds before timer starts to decement again
 			Else
 				photoWin()
@@ -6269,14 +6276,14 @@ sub photoLogic()										'What goes on during Photo Hunt Mode
 '				numbers 9, 2, 70, 27, photoValue		'Update Photo Value
 				numbers "", "", "", photoValue
 				if (countSeconds = 0) Then				'Out of time?
-					photoFail(0)						'Fail blog!		
+					photoFail(0)						'Fail blog!
 				Else
 ';					numbers 0, numberStay OR 4, 0, 0, countSeconds - 1	'Update the Numbers Timer
 				if (countSeconds > 1 and countSeconds < 7) Then	'Count down 5 4 3 2 1
 						playSFX 2, "A", "M", 47 + countSeconds, 1
 					Else
 						playSFX 2, "Y", "Z", "Z", 1				'Beeps
-					End If				
+					End If
 				End If
 			End If
 	End Select
@@ -6289,10 +6296,10 @@ sub photoCheck(whichSpot)									'Checking if your shot has the Ghost Photo
 		photoTimer = Int(150000/CycleAdjuster)				'Reset this, a little higher to trigger LIGHT SHOW
 		AddScore((countSeconds * 10000) + (100000 * (photosNeeded(player) - 2)))		'10 grand per second remaining + ()100k * # Times You've Started Photo Hunt)
 		countSeconds = photoSecondsStart(player)		'Time left to hit shot
-		photoValue = (countSeconds * 10000) + (100000 * (photosNeeded(player) - 2))	'Re-calculate next photo value	
+		photoValue = (countSeconds * 10000) + (100000 * (photosNeeded(player) - 2))	'Re-calculate next photo value
 '		numbers 9, 2, 70, 27, photoValue												'Update display Photo Value
 		numbers "", "", "", photoValue
-';		numbers 0, numberStay OR 4, 0, 0, countSeconds - 1			'Update the Numbers Timer so we see the new number	right away 		
+';		numbers 0, numberStay OR 4, 0, 0, countSeconds - 1			'Update the Numbers Timer so we see the new number	right away
 		photosTaken(player)  = photosTaken(player)  +  1						'Total number for bonus
 		photosToGo  = photosToGo  -  1								'Reduce this
 '		numbers 10, 2, 122, 0, photosToGo				'Update how many photos are left
@@ -6305,7 +6312,7 @@ sub photoCheck(whichSpot)									'Checking if your shot has the Ghost Photo
 			videoQ "F", "9", 64 + photosToGo, allowSmall, 30, 255		'Follow-up video saying how many we have to go
 			photoCurrent = whichSpot								'Set X to be the current shot, so we don't pick 2 in a row
 			Do while (photoCurrent = whichSpot)						'If random camera is same as last, loop continues
-				photoCurrent = random(5)							'Pick from any of the first 5 shots (not the scoop)	
+				photoCurrent = random(5)							'Pick from any of the first 5 shots (not the scoop)
 				if (extraLit(player) and photoCurrent = 1) Then		'If Extra Ball is lit and we choose the door VUK, choose something else
 					photoCurrent = whichSpot
 				End If
@@ -6315,9 +6322,9 @@ sub photoCheck(whichSpot)									'Checking if your shot has the Ghost Photo
 				photoCurrent = photoPath(photoWhich)			'Pre-determined next shot if in Tournament Mode
 			End If
 			photoLocation(photoCurrent) = 255						'Which new location has the camera
-			strobe (photoLights(photoCurrent) - photoStrobe(photoCurrent)), photoStrobe(photoCurrent) + 1	'Strobe the shot!	
+			strobe (photoLights(photoCurrent) - photoStrobe(photoCurrent)), photoStrobe(photoCurrent) + 1	'Strobe the shot!
 			if (photoCurrent = 3) Then									'Make SURE this one sticks!
-				strobe 26, 6			
+				strobe 26, 6
 			End If
 			if (photosToGo = 1) Then
 				lightSpeed = 3									'If last shot, make the lights pulse even faster!
@@ -6326,7 +6333,7 @@ sub photoCheck(whichSpot)									'Checking if your shot has the Ghost Photo
 			comboKill()
 			'AWARD BONUS OF TOTAL PHOTOS * SOMETHING
 			DOF 111, 2
-			killTimer(0)												'Turn off numbers	
+			killTimer(0)												'Turn off numbers
 			AddScore(1000000 * photosNeeded(player))					'1 million for each photo you got! Nice win bonus!
 			killQ()
 			playSFX 0, "F", "4", 65 + random(4), 255					'Win dialog!
@@ -6338,7 +6345,7 @@ sub photoCheck(whichSpot)									'Checking if your shot has the Ghost Photo
 		storeLamp(tempLamp)								'Store the lights in temp slot 5 since we're about to do an animation
 	Else													'Not a photo shot?
 		playSFX 0, "F", "3", 73 + random(8), 255			'Taunt player
-		video "F", "2", "C", allowSmall, 74, 200			'Empty frame + prompt	
+		video "F", "2", "C", allowSmall, 74, 200			'Empty frame + prompt
 		AddScore(5000)										'A few points
 	End If
 End Sub
@@ -6355,7 +6362,7 @@ sub photoWin()										'What happens when you collect X photos in time
 	photoEnd(1)												'Win condition, 1 = request new music
 	if (photosNeeded(player) = 6) Then							'Light EXTRA BALL on 3rd successful Photo Hunt
 		extraBallLight(2)										'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
 	End If
 	if (photosNeeded(player) = 4) Then							'First photo hunt success? Check if Demon Mode is ready
 		demonQualify()
@@ -6369,9 +6376,9 @@ sub photoFail( reasonFail)									'What happens when you DON'T
 		light 50, 0								'Make sure progress light is OFF
 	End If
 	light 43, 0
-	killTimer(0)						'Turn off numbers	
+	killTimer(0)						'Turn off numbers
 	if (reasonFail = 0) Then						'Fail via drain we pass a 1, and thus, don't do the video or speech
-		killQ()								'Disable any Enqueued videos	
+		killQ()								'Disable any Enqueued videos
 		playSFX 0, "F", "5", 65 + random(8), 10	'Fail dialog
 		video "F", "9", "Z", noExitFlush, 57, 255	'Show final photo
 '		numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233			'Load Mode Total Points
@@ -6388,16 +6395,16 @@ sub photoEnd( musicChange)								'What happens after WIN or LOSE, regardless, t
 	lightSpeed = 1									'Normal light speed
 	GLIR(player) = GLIRneeded(player)				'How many times you'll have to spell GLIR to restart
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color
 	for x=0 To 5
-		photoLocation(x) = 0					'Clear Control Box locations	
-		light photoLights(x), 0				'Turn off the 6 camera positions	
+		photoLocation(x) = 0					'Clear Control Box locations
+		light photoLights(x), 0				'Turn off the 6 camera positions
 	Next
 	rollOvers(player) = 0						'Clear bits
 	light 43, 0								'Turn off GLIR MODE LIGHT
 	if (NOT(minionMB) and minion(player) < 10) Then	'Not in a Minion Mode?
-		light 16, 0							'Turn off the Make Contact light that may have been left on the cached Light Data	
+		light 16, 0							'Turn off the Make Contact light that may have been left on the cached Light Data
 	End If
 	if (musicChange) Then
 		if (minionMB = 0 and minion(player) < 10) Then		'Not in Minion Multiball, or fighting a Minion?
@@ -6415,9 +6422,9 @@ sub photoEnd( musicChange)								'What happens after WIN or LOSE, regardless, t
 	End If
 	photoTimer = 0							'Kill this timer
 	Mode(player) = 0						'Set mode to ZERO
-	Advance_Enable = 1						'Can advance	
-	modeTotal = 0								'Reset mode points	
-	checkModePost()	
+	Advance_Enable = 1						'Can advance
+	modeTotal = 0								'Reset mode points
+	checkModePost()
 	hellEnable(1)
 	spiritGuideEnable(1)						'Re-enable spirit guide
 	showProgress 0, player					'Show the Main Progress lights
@@ -6426,7 +6433,7 @@ End Sub
 'FUNCTIONS FOR PHOTO HUNT MODE 7............................
 
 sub popCheck()
-	if (skillShot) Then			
+	if (skillShot) Then
 		if (skillShot = 1) Then						'Did we hit the Skill shot?
 			skillShotSuccess 1, 0					'Success!
 			DOF 117, 2
@@ -6439,18 +6446,18 @@ sub popCheck()
 	if (Advance_Enable = 0) Then					'In a mode of some sort?
 		evpPops()									'Do EVP pops
 	Else
-		if (popMode(player) = 1) Then				'Advancing Fort?		
-			if (fortProgress(player) < 50) Then			
+		if (popMode(player) = 1) Then				'Advancing Fort?
+			if (fortProgress(player) < 50) Then
 				WarAdvance()
-			End If											
-		End If	
+			End If
+		End If
 		if (popMode(player) = 2) Then				'Advancing Bar?
-			if (barProgress(player) < 50) Then			
+			if (barProgress(player) < 50) Then
 				BarAdvance()
-			End If		
-		End If				
+			End If
+		End If
 		if (popMode(player) = 3) Then				'Done advancing Bar and Fort?
-			evpPops()								'Do EVP pops		
+			evpPops()								'Do EVP pops
 		End If
 	End If
 End Sub
@@ -6466,20 +6473,20 @@ sub popLogic(popType)
 			Exit Sub
 		End If
 		if (fortProgress(player) > 99) Then	'Has War Fort already been won?
-				popType = 2				'Then Advance Bar	
+				popType = 2				'Then Advance Bar
 		End If
 		if (barProgress(player) > 79) Then	'Has Bar Ghost already been won?
-				popType = 1				'Then Advance Fort	
+				popType = 1				'Then Advance Fort
 		End If
 		if (fortProgress(player) > 99 and barProgress(player) > 79) Then	'Both have been won?
 			popType = 3					'EVP's from now on
 		End If
-		if (fortProgress(player) < 100 and barProgress(player) < 80) Then	'Neither have been won?						
+		if (fortProgress(player) < 100 and barProgress(player) < 80) Then	'Neither have been won?
 			if (barProgress(player) > fortProgress(player)) Then
 				popType = 2				'If Bar is progressed further, light it
 			Else
 				popType = 1				'Else they're both 0, or Fort is further
-			End If		
+			End If
 		End If
 		if (Advance_Enable = 0) Then			'If in a mode of some kind, always Jackpot Advance / EVP
 			popType = 3
@@ -6497,13 +6504,13 @@ sub popLogic(popType)
 		light 22, 0
 		pulse(22)
 	End If
-	if (popType = 3) Then						'EVP pops?			
+	if (popType = 3) Then						'EVP pops?
 		light 20, 0
 		light 21, 0
 		light 22, 0
 		pulse(20)
 	End If
-	popMode(player) = popType	
+	popMode(player) = popType
 End Sub
 
 sub popToggle()
@@ -6533,9 +6540,9 @@ sub PrisonAdvance()							'The first 3 advances
 		light 4, 7
 		light 5, 7
 		blink(6)														'Blink "Prison Lock"
-		playSFX 0, "P", "3", random(3) + 65, 255						'Play 1 of 3 audio clips	
-		video "P", "3", "A", allowSmall, 90, 254						'Run video	
-	End If	
+		playSFX 0, "P", "3", random(3) + 65, 255						'Play 1 of 3 audio clips
+		video "P", "3", "A", allowSmall, 90, 254						'Run video
+	End If
 	if (priProgress(player) = 4) Then										'Fourth orbit shot to start mode?
 		priProgress(player) = 6										'Set flag so that when it hits basement Prison Mode will start (left orbit won't do anything now)
 	End If
@@ -6548,23 +6555,23 @@ sub PrisonAdvance2()							'Locking the balls
 	AddScore(advanceScore)
 	'flashCab 0, 255, 0, 200					'Flash the GHOST BOSS color
 	priProgress(player)  = priProgress(player)  +  1											'Advance progress. First time here this will be 6. Will get incremented to 7 to start mode 8-22-14 fix
-	if (priProgress(player) < 7) Then										'First 2 balls?		8-22-14 update, this will never occur now	
+	if (priProgress(player) < 7) Then										'First 2 balls?		8-22-14 update, this will never occur now
 		light (priProgress(player) - 2), 7								'Make light solid.
 		video "P", 44 + priProgress(player), "B", allowSmall, 124, 255	'Video of Ball Locked
-		playSFX 0, "P", "4", 60 + priProgress(player), 255			'Ah, I'm trapped! Next person get down there!	
+		playSFX 0, "P", "4", 60 + priProgress(player), 255			'Ah, I'm trapped! Next person get down there!
 	End If
 	if (priProgress(player) = 7) Then										'Locked 3rd Ball? (actually just the 4th shot)
-		PrisonStart()	
+		PrisonStart()
 	End If
 End Sub
 
 sub PrisonStart()							'Prison Ghost Battle
 	Dim x
 	videoModeCheck()
-	modeTotal = 0								'Reset mode points	
+	modeTotal = 0								'Reset mode points
 	AddScore(startScore)
 	comboKill()
-	storeLamp(player)							'Store the state of the Player's lamps	
+	storeLamp(player)							'Store the state of the Player's lamps
 	allLamp(0)									'Turn off the lamps
 	spiritGuideEnable(1)
 	popLogic(3)								'Set pops to EVP
@@ -6581,7 +6588,7 @@ sub PrisonStart()							'Prison Ghost Battle
 	musicplayer "bgout_B1.mp3"
 	x = random(3)							'Video clip must match audio
 	killQ()									'Disable any Enqueued videos
-	video "P", "4", 68 + x, allowSmall, 219, 255	
+	video "P", "4", 68 + x, allowSmall, 219, 255
 	playSFX 0, "P", "4", 68 + x, 255			'Mode start dialog
 	'videoQ 'P', '5', 'G', loopVideo OR allowSmall, 0, 200			'The ghost behind all 3 targets!
 	hellEnable(0)								'Disable the Hellavator Call & Lock
@@ -6589,21 +6596,21 @@ sub PrisonStart()							'Prison Ghost Battle
 ';	numbers 8, numberScore OR 2, 0, 0, player	'Show player's score in upper left corner
 ';	numbers 9, 9, 88, 0, 0					'Ball # upper right
 ';	numbers 10, 2, 2, 27, 3					'Show balls left to add
-';	numbers 11, 2, 116, 27, 1					'Jackpot multiplier	
+';	numbers 11, 2, 116, 27, 1					'Jackpot multiplier
 	convictState = 1							'State of Prison Ghost (Need to open door)
 	convictsSaved = 0							'Reset How many you've saved
 	'DoorSet DoorClosed, 5						'Close the door for this state
 	pulse(14)									'Pulse the door shot
 	if (countGhosts() = 5) Then						'Is this the last Boss Ghost to beat?
 		blink(48)									'Blink that progress light
-	End If	
+	End If
 	TargetTimerSet 10000, TargetUp, 100		'Put the targets back up
 	pulse(17)									'Ghost targets strobe for MINION BATTLE!
 	pulse(18)
-	pulse(19)	
-	targetReset()	
+	pulse(19)
+	targetReset()
 	priProgress(player) = 9					'Set flag to delay scoop when the ball gets there
-	hellEnable(0)								'Can't do multiball since this is a 4 ball mode anyway	
+	hellEnable(0)								'Can't do multiball since this is a 4 ball mode anyway
 	showProgress 1, player					'Show the Main Progress lights
 	doorLogic()
 End Sub
@@ -6611,31 +6618,31 @@ End Sub
 sub PrisonLogic()
 	if (priProgress(player) > 9 and priProgress(player) < 20) Then							'Trying to free your friends?
 		modeTimer  = modeTimer  +  1
-		if (modeTimer > Int(100000/CycleAdjuster)) Then														'Prisoner prompt?					
+		if (modeTimer > Int(100000/CycleAdjuster)) Then														'Prisoner prompt?
 			if (convictState = 1) Then								'Haven't opened the door yet?
 				playSFX 1, "P", "X", 65 + random(4), 255			'Prompt to do that
-				video "P", "8", "X", 3, 38, 254			
+				video "P", "8", "X", 3, 38, 254
 			Else
 				'NEW VIDEO HERE:
 				video "P", "8", "V", allowSmall, 45, 255			'Door is open Prompt to SHOOT VUK
-				playSFX 1, "P", "V", 65 + random(4), 255	
-			End If	
+				playSFX 1, "P", "V", 65 + random(4), 255
+			End If
 			modeTimer = 0
 		End If
 	End If
 	if (priProgress(player) = 20) Then													'Prison multiball?
 		modeTimer  = modeTimer  +  1
-		if (modeTimer = Int(65000/cycleAdjuster)) Then														'Prisoner prompt?					
+		if (modeTimer = Int(65000/cycleAdjuster)) Then														'Prisoner prompt?
 			if (convictState = 1) Then								'Haven't opened the door yet?
 				playSFX 1, "P", "X", 65 + random(4), 255			'Prompt to do that
-				video "P", "8", "X", 3, 38, 254			
+				video "P", "8", "X", 3, 38, 254
 			Else
 				video "P", "8", "V", allowSmall, 45, 255			'Door is open Prompt to SHOOT VUK
-				playSFX 1, "P", "V", 65 + random(4), 255	
-			End If	
+				playSFX 1, "P", "V", 65 + random(4), 255
+			End If
 		End If
 		if (modeTimer = Int(130000/CycleAdjuster)) Then							'Team member prompt?
-			playSFX 0, "P", 65 + random(4), random(10), 255		
+			playSFX 0, "P", 65 + random(4), random(10), 255
 			modeTimer = 0
 		End If
 	End If
@@ -6652,7 +6659,7 @@ sub PrisonDrainCheck( whenDrain)
 			playSFX 0, "P", "9", 68 + random(3), 255			'Misty calls it quits
 			video "P", "9", "Y", allowSmall, 30, 255			'She leaves
 			videoQ "P", "7", "E", allowSmall, 39, 255			'Prompt how many balls are left
-		End If		
+		End If
 		if (activeBalls = 1) Then									'Did we lose third member?
 			PrisonWin()
 		Else
@@ -6668,19 +6675,19 @@ sub PrisonDrainCheck( whenDrain)
 			playSFX 0, "P", "9", 68 + random(3), 255	'Misty calls it quits
 			video "P", "9", "Y", allowSmall, 39, 255			'She leaves
 		End If
-';		numbers 11, 2, 116, 27, activeBalls	'Update Jackpot multiplier - 1		
+';		numbers 11, 2, 116, 27, activeBalls	'Update Jackpot multiplier - 1
 	End If
 End Sub
 
 sub PrisonRelease()
-	priProgress(player)  = priProgress(player)  +  1	
+	priProgress(player)  = priProgress(player)  +  1
 	modeTimer = 0
-	if (priProgress(player) = 11) Then				'First player freed?	
+	if (priProgress(player) = 11) Then				'First player freed?
 		AddScore(startScore * 1)
 		if (ScoopTime and spiritGuide(player)) Then	'If both are YES, the ball is in the scoop doing a Spirit Guide, so ENQUEUE release video
 			videoSFX "P", "7", "A", 2, 71, 200, 0, "P", "5", 88 + random(3), 200
 		Else										'Normal
-			playSFX 0, "P", "5", 88 + random(3), 255	'Heather is free!			
+			playSFX 0, "P", "5", 88 + random(3), 255	'Heather is free!
 			video "P", "7", "A", allowSmall, 71, 255
 			videoQ "P", "7", 67 + activeBalls + 1, allowSmall, 39, 200
 		End If
@@ -6688,11 +6695,11 @@ sub PrisonRelease()
 		AutoPlunge(autoPlungeFast)							'Autolaunch ball!
 		pulse(17)									'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
-		pulse(19)	
+		pulse(19)
 		targetReset()
 		customScore "P", "5", 64 + (targetBits AND 7), allowAll OR loopVideo, 177		'Shoot score with targets in front
 ';		numbers 10, 2, 2, 27, 2					'Show balls left to add
-';		numbers 11, 2, 116, 27, activeBalls + 1)	'Jackpot multiplier (add one since the ball won't be loaded yet		
+';		numbers 11, 2, 116, 27, activeBalls + 1)	'Jackpot multiplier (add one since the ball won't be loaded yet
 	End If
 	if (priProgress(player) = 12) Then				'Second player freed?
 		AddScore(startScore * 2)
@@ -6701,18 +6708,18 @@ sub PrisonRelease()
 		Else										'Normal
 			playSFX 0, "P", "6", 88 + random(3), 255	'Misty is free!
 			video "P", "7", "B", allowSmall, 71, 255
-			videoQ "P", "7", 67 + activeBalls + 1, allowSmall, 39, 255							
+			videoQ "P", "7", 67 + activeBalls + 1, allowSmall, 39, 255
 		End If
 		teamSaved  = teamSaved  +  1
 		AutoPlunge(autoPlungeFast)							'Autolaunch ball!
 		pulse(17)									'Ghost targets strobe for MINION BATTLE!
 		pulse(18)
-		pulse(19)	
+		pulse(19)
 		targetReset()
 		customScore "P", "5", 64 + (targetBits AND 7), allowAll OR loopVideo, 177		'Shoot score with targets in front
 ';		numbers 10, 2, 2, 27, 1					'Show balls left to add
-';		numbers 11, 2, 116, 27, activeBalls + 1)		'Jackpot multiplier (add one since the ball won't be loaded yet	
-	End If	
+';		numbers 11, 2, 116, 27, activeBalls + 1)		'Jackpot multiplier (add one since the ball won't be loaded yet
+	End If
 	if (priProgress(player) = 13) Then				'Third player freed? Start JACKPOT MODE!
 		AddScore(startScore * 3)
 		if (ScoopTime and spiritGuide(player)) Then	'If both are YES, the ball is in the scoop doing a Spirit Guide, so ENQUEUE release video
@@ -6721,17 +6728,17 @@ sub PrisonRelease()
 			playSFX 0, "P", "7", 88 + random(3), 255	'Kaminski is free!
 			video "P", "7", "C", allowSmall, 100, 255
 			videoQ "P", "7", 67 + activeBalls + 1, allowSmall, 39, 255
-		End If	
+		End If
 		teamSaved  = teamSaved  +  1
 		priProgress(player) = 20					'Flag that we're now bashing the hell out of the ghost.
 		AutoPlunge(autoPlungeFast)					'Autolaunch ball!
-		TargetTimerSet 100, TargetDown, 1		'Put the targets down quickly so we can get JACPOTS		
+		TargetTimerSet 100, TargetDown, 1		'Put the targets down quickly so we can get JACPOTS
 		light 62, 7								'Light mode SOLID = Win
 '		playMusic 'G', 'S'						'Amazing Ghost Squad theme!
 		musicplayer "bgout_GS.mp3"
 		'All balls released, so now we ease up a bit and allow a Ball Save time
 		multipleBalls = 1							'When MB starts, you get ballSave amount of time to loose balls and get them back
-		ballSave()									'That is, Ball Save only times out, it isn't disabled via the first ball lost		
+		ballSave()									'That is, Ball Save only times out, it isn't disabled via the first ball lost
 		killScoreNumbers()							'Disable any custom score numbers so we can rebuild them
 		jackpotMultiplier = activeBalls + 1			'Update jackpot value
 		sendJackpot(0)								'Send jackpot value to score #0
@@ -6739,20 +6746,20 @@ sub PrisonRelease()
 ';		numbers 8, numberScore OR 2, 0, 0, player						'Put player score upper left
 ';		numbers 9, numberScore OR 2, 72, 27, 0							'Use Score #0 to display the Jackpot Value bottom off to right
 ';		numbers 10, 9, 88, 0, 0										'Ball # upper right
-'		ModeWon(player) OR= 1 << 6				'Set PRISON WON bit for this player.	
+'		ModeWon(player) OR= 1 << 6				'Set PRISON WON bit for this player.
 		ModeWon(player) = ModeWon(player) OR 64
 		if (countGhosts() = 6) Then										'This the final Ghost Boss? Light BOSSES solid!
 			light 48, 7
 		End If
-	End If	
+	End If
 End Sub
 
 sub PrisonJackpot()
-	MagnetSet(50)											'Catch ball briefly	
+	MagnetSet(50)											'Catch ball briefly
 	video "P", "9", 65 + random(2), allowSmall, 45, 255		'One of two Jackpot Bash videos (left or right
 	playSFX 0, "P", "8", 65 + random(8), 255				'Jackpot Sound!
 	ghostFlash(50)
-	ghostAction = Int(20000/CycleAdjuster)					'Whack routine	
+	ghostAction = Int(20000/CycleAdjuster)					'Whack routine
 	showValue (EVP_Jackpot(player) * activeBalls), 40, 1
 End Sub
 
@@ -6773,7 +6780,7 @@ sub PrisonWin()
 	light 18, 0
 	light 62, 7							'Old Prison solid = Mode Won!
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()		
+	killCustomScore()
 	ghostMove 90, 20
 	ghostModeRGB(0) = 0
 	ghostModeRGB(1) = 0
@@ -6788,18 +6795,18 @@ sub PrisonWin()
 	TargetTimerSet 5000, TargetUp, 100	'Put targets back up, but not so fast ball is caught
 	killQ()													'Disable any Enqueued videos
 	playSFX 0, "P", "9", 88 + random(3), 255					'Ghost dies, We fuckin' did it!
-	video "P", "9", "Z", noExitFlush, 101, 255 					'Play Death Video	
+	video "P", "9", "Z", noExitFlush, 101, 255 					'Play Death Video
 ';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233			'Load Mode Total Points
-	modeTotal = 0							'Reset mode points		
-	videoQ "P", "9", "V", noEntryFlush OR 3, 45, 233	'Prison Mode Total:	
+	modeTotal = 0							'Reset mode points
+	videoQ "P", "9", "V", noEntryFlush OR 3, 45, 233	'Prison Mode Total:
 '	playMusic 'M', '2'							'Normal music
 	musicplayer "bgout_M2.mp3"
 	Mode(player) = 0						'Set mode active to None
 	priProgress(player) = 100				'Reset this for no real reason.
 	if (countGhosts() = 2 or countGhosts() = 5) Then	'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBallLight(2)							'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
+	End If
 	demonQualify()									'See if Demon Mode is ready
 	checkModePost()
 	hellEnable(1)
@@ -6820,7 +6827,7 @@ sub PrisonFail()
 	light 17, 0
 	light 18, 0
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	ghostModeRGB(0) = 0
 	ghostModeRGB(1) = 0
 	ghostModeRGB(2) = 0
@@ -6831,16 +6838,16 @@ sub PrisonFail()
 		light 62, 7												'Make Prison Mode light solid, since it HAS been won
 	Else
 		light 62, 0												'Haven't won it yet, turn it off
-	End If		
+	End If
 	ghostLook = 1													'Ghost will now look around again.
 	ghostAction = 0
 	ghostMove 90, 20
 	Advance_Enable = 1						'Allow other modes to be started
-	modeTotal = 0							'Reset mode points	
+	modeTotal = 0							'Reset mode points
 	'playMusic 'M', '2'					'Normal music
 	Mode(player) = 0						'Set mode active to None
 	if ((modeRestart(player) AND 64)=64) Then							'Able to restart Prison?
-		modeRestart(player) = modeRestart(player) AND 191		'Clear the restart bit	
+		modeRestart(player) = modeRestart(player) AND 191		'Clear the restart bit
 		priProgress(player) = 3									'When you come back, Prison lock will already be lit
 	Else
 		priProgress(player) = 0									'Blew it a second time? Gotta start all over!
@@ -6852,7 +6859,7 @@ End Sub
 
 sub restartPlayer(whichPlayer)
 	Dim X
-	animatePF 0, 0, 0	
+	animatePF 0, 0, 0
 	x = whichPlayer
 	popMode(x) = random(2) + 1					'Starts either 1 = Fort or 2 = Bar (3 = EVP but never starts in that mode)
 	if (popMode(x) = 1) Then					'Start out Advancing Fort?
@@ -6865,13 +6872,13 @@ sub restartPlayer(whichPlayer)
 		light 20, 0
 		light 21, 0
 		light 22, 0
-		pulse(22)	
+		pulse(22)
 	End If
 	Mode(x) = 0
 	SetScore(x)									'Set player's score on DMD
 	ModeWon(x) = 0								'Clear the bits of what modes they've won
 	modeRestart(x) = 126						'At the start each player gets 1 re-start chance per mode
-	tourComplete(x) = 0							'Which tours player has completed	
+	tourComplete(x) = 0							'Which tours player has completed
 	hosProgress(x) = 0
 	theProgress(x) = 0
 	barProgress(x) = spotProgress				'Can be changed in settings
@@ -6880,8 +6887,8 @@ sub restartPlayer(whichPlayer)
 	priProgress(x) = 0
 	deProgress(x) = 100							'You completed Demon Mode!
 	lockCount(x) = 0							'Reset # of locked Hellavator balls
-	spiritProgress(x) = 0						'If tourney mode, players get awards in sequence	
-	spiritGuide(x) = 1							'Spirit guide is always lit to start for each player	
+	spiritProgress(x) = 0						'If tourney mode, players get awards in sequence
+	spiritGuide(x) = 1							'Spirit guide is always lit to start for each player
 	EVP_Jackpot(x) = 1000000					'Reset to 1 million
 	'Don't Reset EVP's!
 	photosTaken(x) = 0							'Total photos a player got.
@@ -6901,22 +6908,22 @@ sub restartPlayer(whichPlayer)
 	'Don't reset ORB or Extra Balls!
 	wiki(x) = 0
 	tech(x) = 0
-	psychic(x) = 0	
+	psychic(x) = 0
 	rollOvers(x) = 0
-	hellLock(x) = 1								'Always start with Hell lock enabled		
+	hellLock(x) = 1								'Always start with Hell lock enabled
 	hellJackpot(x) = 1000000					'Starting MB jackpot value
-	hitsToLight(x) = 1							'How many times you have to press "Call" before hellavator moves / lights for lock	(starts with just 1)						
-	callHits = 0								'How many times you've hit Call this ball (resets per player)	
-	minionEnd(1)								'The default is to enable the Minion Battle	
+	hitsToLight(x) = 1							'How many times you have to press "Call" before hellavator moves / lights for lock	(starts with just 1)
+	callHits = 0								'How many times you've hit Call this ball (resets per player)
+	minionEnd(1)								'The default is to enable the Minion Battle
 	doorLogic()									'Figure out what to do with the door
-	elevatorLogic()								'Can lock balls, Hellavator is Lit		
+	elevatorLogic()								'Can lock balls, Hellavator is Lit
 	scoreMultiplier = 1							'This will almost always be 1
 	trapDoor = 0								'Flags if the ball should be trapped or not
 	trapTargets = 0
-	slingCount = 0	
-	spiritGuideEnable(1)						'Mode 0, it can always be lit		
-	bonusMultiplier = 1							'Reset multiplier (it's per ball so don't need unique variable per player)		
-	modeTimer = 0	
+	slingCount = 0
+	spiritGuideEnable(1)						'Mode 0, it can always be lit
+	bonusMultiplier = 1							'Reset multiplier (it's per ball so don't need unique variable per player)
+	modeTimer = 0
 	HellBall = 0
 	tiltCounter = 0								'Reset to zero
 	sweetJumpBonus = 0							'Reset score (hitting it adds value)
@@ -6929,7 +6936,7 @@ sub restartPlayer(whichPlayer)
 	dirtyPoolMode(1)							'Check for Dirty Pool Balls
 	Update(0)									'Update with the current info
 	comboEnable = 1								'OK combo all you want
-	GLIRenable(1)								
+	GLIRenable(1)
 '	playMusic 'M', '2'							'Normal music
 	musicplayer "bgout_M2.mp3"
 	showProgress 0, player						'Reset progress lights
@@ -6940,7 +6947,7 @@ sub restartBegin(whichMode, startingSeconds, startingTimer)
 	restartMode = whichMode						'If we fail, which mode progress do we reset?
 	restartSeconds = startingSeconds			'How many seconds you get
 	restartTimer = Int(startingTimer/CycleAdjuster)				'Start this above 25k to give player time to get the ball back
-';	numbers 0, numberStay OR 4, 0, 0, restartSeconds - 1	'Update the Numbers Timer.	
+';	numbers 0, numberStay OR 4, 0, 0, restartSeconds - 1	'Update the Numbers Timer.
 End Sub
 
 sub restartKill(whichKill, whatReason)			'Fail to get a restart? Reset whatever mode we were trying to restart.
@@ -6949,7 +6956,7 @@ sub restartKill(whichKill, whatReason)			'Fail to get a restart? Reset whatever 
 	restartSeconds = 0										'Clear the seconds
 	if (whichKill = restartMode and whatReason = 1) Then		'Did we restart the same mode we just failed?
 		restartTimer = 0									'Disable the timer
-		restartSeconds = 0									'Clear the seconds	
+		restartSeconds = 0									'Clear the seconds
 		restartMode = 0									'Clear the mode and return
 		Exit Sub
 	End If
@@ -6974,7 +6981,7 @@ sub restartKill(whichKill, whatReason)			'Fail to get a restart? Reset whatever 
 				showProgress 0, player
 		End Select
 		showProgress 0, player
-		restartMode = 0		
+		restartMode = 0
 		Exit Sub
 	End If
 	'OK, player must have timed out the restart and game is still active
@@ -7044,12 +7051,12 @@ sub scoopDo()														'What to do when the ball is shot into the scoop (a l
 		tourGuide 0, 5, 5, 505010, 1								'Give more points than normal (scoop is harder shot)
 		Exit Sub
 	End If
-	if (Advance_Enable and fortProgress(player) = 50) Then			'Eligible to start War Fort?			
-		WarStart()			
+	if (Advance_Enable and fortProgress(player) = 50) Then			'Eligible to start War Fort?
+		WarStart()
 		Exit Sub
 	End If
-	if (Advance_Enable and barProgress(player) = 50) Then			'Eligible to start Bar?			
-		BarStart()			
+	if (Advance_Enable and barProgress(player) = 50) Then			'Eligible to start Bar?
+		BarStart()
 		Exit Sub													'Return so other modes can't start
 	End If
 	if (hotProgress(player) = 20)	Then							'Searching for the Control Box?
@@ -7065,7 +7072,7 @@ sub scoopDo()														'What to do when the ball is shot into the scoop (a l
 	if (deProgress(player) > 9 and deProgress(player) < 100) Then	'Trying to weaken demon
 		DemonCheck(5)
 		Exit Sub
-	End If	
+	End If
 	if (Mode(player) = 7) Then										'Are we in Ghost Photo Hunt?
 		photoCheck(5)
 		Exit Sub													'Return so other modes can't start
@@ -7075,12 +7082,12 @@ sub scoopDo()														'What to do when the ball is shot into the scoop (a l
 			if (theProgress(player) = 12) Then						'Waiting for Shot 3, in which case this shot is CORRECT?
 				TheaterPlay(1)										'Advance the play!
 				Exit Sub
-			Else			
+			Else
 				TheaterPlay(0)										'Incorrect shot, ghost will bitch!
 				Exit Sub
 			End If
 		End If
-	End If			
+	End If
 	'If none of those things are active, we do Spirit Guide (if lit)
 	if (spiritGuide(player) = 255) Then								'Spirit guide not lit?
 		video "S", "G", "Y", allowSmall, 42, 250					'Spell Team Members prompt
@@ -7092,7 +7099,7 @@ sub scoopDo()														'What to do when the ball is shot into the scoop (a l
 			Exit Sub
 		Else
 			video "S", "G", "X", allowSmall, 30, 250				'Available after mode ends
-			Exit Sub		
+			Exit Sub
 		End If
 	End If
 End Sub
@@ -7101,10 +7108,10 @@ sub sendJackpot(whichNumber)										'Adds any multipliers to jackpot and sends
 	'Most jackpots use a simple multipler. Check if it's a fancy one first.
 	if (barProgress(player) = 80) Then								'Fighting ghost whore? Then it's special. So special.
 		if (whoreJackpot < 10) Then									'Play the normal-ish ones for first 10 hits
-			manualScore 0, EVP_Jackpot(player) + ((whoreJackpot + 1) * 100000)	'Update the value for score display		
+			manualScore 0, EVP_Jackpot(player) + ((whoreJackpot + 1) * 100000)	'Update the value for score display
 		Else
 			manualScore 0, EVP_Jackpot(player) + ((whoreJackpot + 1) * 200000)	'Update the value for score display
-		End If	
+		End If
 		Exit Sub
 	End If
 	if (jackpotMultiplier = 0) Then									'Did we forget to set it?
@@ -7123,110 +7130,110 @@ sub showProgress(modeStatus, whichPlayer)
 			light 41, 0											'Turn OFF Hell Flasher
 		End If
 		if (HellTarget = hellUp) Then
-			blink(41)											'Turn ON Hell Flasher	
-		End If						
+			blink(41)											'Turn ON Hell Flasher
+		End If
 	Else														'Not in motion? Normal check
-		if (HellLocation = hellDown) Then						'State of Hellavator may have changed during mode so update its flasher to match its position. Notice how I used "its" properly both times?			
-			light 41, 0											'Turn OFF Hell Flasher				
-		End If		
-		if (HellLocation = hellUp) Then		
-			blink(41)											'Turn ON Hell Flasher		
-		End If		
-	End If	
+		if (HellLocation = hellDown) Then						'State of Hellavator may have changed during mode so update its flasher to match its position. Notice how I used "its" properly both times?
+			light 41, 0											'Turn OFF Hell Flasher
+		End If
+		if (HellLocation = hellUp) Then
+			blink(41)											'Turn ON Hell Flasher
+		End If
+	End If
 	if (modeStatus = 0 and Advance_Enable = 1) Then				'Show all the mode path progress  1 2 3 indicators, etc
 		if (priProgress(player) < 100) Then						'Able to advance or restart Prison?
 			if (priProgress(player) = 0) Then					'Always fill lights
 				pulse(3)
 				light 4, 0
 				light 5, 0
-				light 6, 0		
+				light 6, 0
 			End If
 			if (priProgress(player) = 1) Then					'Always fill lights
 				light 3, 7
 				pulse(4)
 				light 5, 0
-				light 6, 0		
-			End If	
+				light 6, 0
+			End If
 			if (priProgress(player) = 2) Then					'Always fill lights
 				light 3, 7
 				light 4, 7
 				pulse(5)
-				light 6, 0		
-			End If			
+				light 6, 0
+			End If
 			if (priProgress(player) = 3) Then					'Third advance?
 				pulse(3)										'Pulse the 3 lights
 				pulse(4)										'As player locks balls, lights go from Pulse to Solid
 				pulse(5)
 				blink(6)										'Blink "Prison Lock"
-			End If	
+			End If
 			if (priProgress(player) > 2 and priProgress(player) < 8) Then		'Locking Balls?
 				light 3, 7										'First 3 solid
 				light 4, 7
 				light 5, 7
-				blink(6)										'Blink "Prison Lock"		
-			End If		
+				blink(6)										'Blink "Prison Lock"
+			End If
 		Else
 			light 3, 0
 			light 4, 0
 			light 5, 0
-			light 6, 0			
+			light 6, 0
 		End If
 		if (hosProgress(player) < 90) Then						'Able to advance hospital
 			if (hosProgress(player) = 0) Then
 				pulse(8)
 				light 9, 0
 				light 10, 0
-				light 11, 0		
+				light 11, 0
 			End If
 			if (hosProgress(player) = 1) Then
 				light 8, 7
 				pulse(9)
 				light 10, 0
-				light 11, 0		
+				light 11, 0
 			End If
 			if (hosProgress(player) = 2) Then
 				light 8, 7
 				light 9, 7
 				pulse(10)
-				light 11, 0		
-			End If		
+				light 11, 0
+			End If
 			if (hosProgress(player) = 3) Then
 				light 8, 7
 				light 9, 7
 				light 10, 7
-				pulse(11)		
-			End If	
+				pulse(11)
+			End If
 		Else													'Can't restart it!
 			light 8, 0
 			light 9, 0
 			light 10, 0
-			light 11, 0		
+			light 11, 0
 		End If
 		if (hotProgress(player) < 100) Then						'Able to advance hotel?
 			if (hotProgress(player) = 0) Then
 				pulse(26)
 				light 27, 0
 				light 28, 0
-				light 29, 0		
+				light 29, 0
 			End If
 			if (hotProgress(player) = 1) Then
 				light 26, 7
 				pulse(27)
 				light 28, 0
-				light 29, 0		
+				light 29, 0
 			End If
 			if (hotProgress(player) = 2) Then
 				light 26, 7
 				light 27, 7
 				pulse(28)
-				light 29, 0		
-			End If		
+				light 29, 0
+			End If
 			if (hotProgress(player) = 3) Then
 				light 26, 7
 				light 27, 7
 				light 28, 7
-				pulse(29)		
-			End If	
+				pulse(29)
+			End If
 		Else
 			light 26, 0
 			light 27, 0
@@ -7238,32 +7245,32 @@ sub showProgress(modeStatus, whichPlayer)
 				pulse(36)
 				light 37, 0
 				light 38, 0
-				light 12, 0		
+				light 12, 0
 			End If
 			if (theProgress(player) = 1) Then
 				light 36, 7
 				pulse(37)
 				light 38, 0
-				light 12, 0		
+				light 12, 0
 			End If
 			if (theProgress(player) = 2) Then
 				light 36, 7
 				light 37, 7
 				pulse(38)
-				light 12, 0		
-			End If		
+				light 12, 0
+			End If
 			if (theProgress(player) = 3) Then					'Ready to start?
 				light 36, 7
 				light 37, 7
 				light 38, 7
 				pulse(12)
 				light 11, 0										'If doctor AND theater both ready, Theater gets priority
-			End If	
+			End If
 		Else													'Can't start or re-start, all lights OFF
 			light 36, 0											'Turn them all OFF
 			light 37, 0
 			light 38, 0
-			light 12, 0	
+			light 12, 0
 		End If
 		if (minionMB = 10) Then									'Is that going on as well?
 			light 16, 0											'Turn OFF make contact
@@ -7271,14 +7278,14 @@ sub showProgress(modeStatus, whichPlayer)
 			pulse(18)
 			pulse(19)
 			pulse(39)
-		End If	
+		End If
 		if (minionMB = 20) Then									'Is that going on as well?
 			pulse(16)											'Pulse MAKE CONTACT
 			light 17, 0											'Turn off lights
 			light 18, 0
-			light 19, 0	
+			light 19, 0
 			pulse(7)
-		End If			
+		End If
 	End If
 	laneChange()												'Update ORB and GLIR
 	'updateRollovers()											'Update ORB and GLIR
@@ -7299,7 +7306,7 @@ sub showProgress(modeStatus, whichPlayer)
 	End If
 	if ((ModeWon(whichPlayer) AND 64)=64) Then					'Prison?
 		light 62, 7
-	End If		
+	End If
 	if (deProgress(whichPlayer) = 100) Then						'Already beat it once?
 		light 63, 7												'Light is solid!
 	End If
@@ -7312,32 +7319,32 @@ sub showProgress(modeStatus, whichPlayer)
 		pulse(1)
 	Else
 		light 1, 7
-	End If	
+	End If
 	if (psychic(player) < 255) Then
 		pulse(51)
 	Else
-		if (scoringTimer) Then									'Double scoring active so the light blinks	
-			blink(51)	
+		if (scoringTimer) Then									'Double scoring active so the light blinks
+			blink(51)
 		Else
-			light 51, 7											'Completed, so it's solid			
-		End If	
+			light 51, 7											'Completed, so it's solid
+		End If
 	End If
 	showScoopLights()
 	if (extraLit(player)) Then									'Extra ball lit?
-		pulse(15)												'Pulse the light			
+		pulse(15)												'Pulse the light
 	Else
 		light 15, 0												'If not, that sucker should be OFF
 	End If
 	'Overall Progress Towards Demon Mode
 	if (photosNeeded(player) > 3) Then							'Did you complete at least 1 photo hunt?
-		light 50, 7	
-	End If	
+		light 50, 7
+	End If
 	if (hitsToLight(player) > 1) Then							'Completed a Hellavator Multiball?
 		light 49, 7
 	End If
 	if (ModeWon(whichPlayer) = 126) Then						'Beat all Ghost Bosses?
 		light 48, 7												'Light is solid!
-	End If	
+	End If
 	if (minionsBeat(player) > minionMB1) Then					'Beat 3 or more minions?
 		light 2, 7
 	End If
@@ -7373,28 +7380,28 @@ sub showScoopLights()
 	if (barProgress(player) = 80) Then							'Ghost whore multiball?
 		pulse(47)												'Pulse Scoop Camera for beer stealing
 	End If
-	if (Advance_Enable and fortProgress(player) = 50) Then		'Eligible to start War Fort?			
-		guideBright = 1											
-		glirBright = 1		
+	if (Advance_Enable and fortProgress(player) = 50) Then		'Eligible to start War Fort?
+		guideBright = 1
+		glirBright = 1
 		pulse(44)
 	End If
-	if (Advance_Enable and barProgress(player) = 50) Then		'Eligible to start Bar?			
+	if (Advance_Enable and barProgress(player) = 50) Then		'Eligible to start Bar?
 		guideBright = 1
-		glirBright = 1		
+		glirBright = 1
 		pulse(45)
 	End If
 	light 43, 0													'Default is GLIR off
-	
+
 	if (GLIRlit(player) = 129) Then								'GLIR is lit but has been disabled for this mode (MSB set)
 		light 43, 1												'Light it dimly lest we forget about it
 	End If
 	if (GLIRlit(player) = 1) Then								'OK GLIR is lit and no specific limitation set on it (usually via Minion Mode)
 		if (Advance_Enable) Then								'Modes can be started?
-			pulse(43)											'Pulse that sucker						
+			pulse(43)											'Pulse that sucker
 			guideBright = 1										'... and indicate Spirit Guide is low priority (if it happens to be lit also)
 		Else													'GLIR is dim
 			light 43, 1
-		End If	
+		End If
 	End If
 	if (spiritGuide(player) = 1) Then							'Is it lit / has been earned (EARN THIS!!!)
 		if (spiritGuideActive) Then								'Can it currently be collected?
@@ -7402,10 +7409,10 @@ sub showScoopLights()
 				pulse(46)										'Pulse SPIRIT GUIDE
 			Else
 				light 46, guideBright							'Earned, but not what scoop will award at this time so dim
-			End If			
+			End If
 		Else
 			light 46, 1											'We earned it, but can't collect at this time, so dim
-		End If	
+		End If
 	Else
 		light 46, 0												'Not even lit, so it's off
 	End If
@@ -7415,7 +7422,7 @@ sub skillShotNew(show1st)													'Call this to randomly pick a Skill Shot a
 	skillShot = random(3)													'Pick 1, 2 or 3
 	skillShot = skillShot + 	1											'Pops = 1, ORBS = 2, Basement = 3
 	'videoPriority(0)														'Zero out video priority
-	if (numPlayers = 1) Then												'In single player games, do not indicate Player #	
+	if (numPlayers = 1) Then												'In single player games, do not indicate Player #
 		customScore "K", "0", 64 + skillShot, allowSmall OR loopVideo, 120		'Custom Score for skill shot
 		'video('K', '0', 64 + skillShot, loopVideo | allowSmall, 0, 1)
 		if (ball > 1) Then
@@ -7428,11 +7435,11 @@ sub skillShotNew(show1st)													'Call this to randomly pick a Skill Shot a
 '		numbers(10, 2, 44, 27, numPlayers)									'Number of players, just after Player X current indicator
 ';		numbers "", "", "   "&numPlayers, ""
 		if (ball > 1) Then
-			playSFX 0, "S", skillShot, 65 + random(3), 255					'Psychic skill shot prompt				
+			playSFX 0, "S", skillShot, 65 + random(3), 255					'Psychic skill shot prompt
 		End If
-	End If	
+	End If
 	numbers PlayerScore(player), "", "", ""									'Put player score upper left, using Double Zeros
-	numbers "", Ball, "", ""												'Ball # upper right	
+	numbers "", Ball, "", ""												'Ball # upper right
 End Sub
 
 sub skillShotSuccess(didSucceed, showMiss)					'What happens when you make the skill shot
@@ -7442,7 +7449,7 @@ sub skillShotSuccess(didSucceed, showMiss)					'What happens when you make the s
 	'killQ()												'Disable any queued videos
 	'killNumbers()
 	killScoreNumbers()										'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()		
+	killCustomScore()
 	skillValue = 0
 	if (didSucceed) Then
 		video "K", "0", "0", 0, 55, 255						'Top priority success video!
@@ -7455,12 +7462,12 @@ sub skillShotSuccess(didSucceed, showMiss)					'What happens when you make the s
 			case 3:
 				skillValue = 500000							'Behind hellavator hardest
 		End Select
-		showValue skillValue * ball, 40, 1					'Show the value after video		
-		AddScore skillValue * ball							'500k pops, 1 mil ORB, 1.5 mil Basement X Ball # (so worth more on Ball 3)			
+		showValue skillValue * ball, 40, 1					'Show the value after video
+		AddScore skillValue * ball							'500k pops, 1 mil ORB, 1.5 mil Basement X Ball # (so worth more on Ball 3)
 	Else
 		if (showMiss) Then
 			video "K", "0", "1", 0, 22, showMiss			'Put in a SKILL SHOT MISSED graphic here (very low priority)
-			playSFX 0, "Q", "Z", "Z", 200					'Else, negative sound!	
+			playSFX 0, "Q", "Z", "Z", 200					'Else, negative sound!
 			'playSFX(0, 'S', 'H', '0' + random(8), 255)		'Give player shit
 		Else
 			DMDScore()										'EP- Added to clear up the DMD queue
@@ -7536,7 +7543,7 @@ sub spiritGuideStart()															'When you shoot into the scoop with Spirit 
 	light 46, 0																	'Turn off its light
 	'volumeSFX(3, 100, 100)														'Temp music volume increase
 	if (tournament) Then
-		spiritGuide(player) = spiritProgress(player)							'If in tourney mode, see what award is next	
+		spiritGuide(player) = spiritProgress(player)							'If in tourney mode, see what award is next
 	End If
 	Do while (spiritGuide(player) < 99)											'Repeat this until we give an award that doesn't conflict with anything going on
 		if (tournament = 0) Then
@@ -7607,25 +7614,25 @@ sub spiritGuideStart()															'When you shoot into the scoop with Spirit 
 			spiritProgress(player) = spiritProgress(player) + 1					'Advance our progress as well
 			if (spiritGuide(player) > 17) Then									'Did we somehow get them ALL???
 				spiritGuide(player) = 0											'Reset back to 0
-				spiritProgress(player) = 0		
+				spiritProgress(player) = 0
 			End If
 		End If
 	Loop
 	killQ()																		'Disable an Enqueued videos
 	spiritProgress(player) = spiritProgress(player) + 1							'Advance our progress since we collected that one
-	if (spiritProgress(player) > 17) Then										'Did we somehow get them ALL???											
-		spiritProgress(player) = 0												'Reset back to 0		
+	if (spiritProgress(player) > 17) Then										'Did we somehow get them ALL???
+		spiritProgress(player) = 0												'Reset back to 0
 	End If
 	if (Advance_Enable) Then
 		playMusicOnce "S", "G"													'Switch to Spirit Guide Theme
-		playSFX 2, "S", "G", random(9), 255										'Spirit Guide!	
-		video "S", "G", spiritGuide(player) - 35, 0, 84, 255					'Play video A-R	
-		ScoopTime = Int(60000/CycleAdjuster)									'Award is given as ball is shot out (we'll have to play with the timing)		
+		playSFX 2, "S", "G", random(9), 255										'Spirit Guide!
+		video "S", "G", spiritGuide(player) - 35, 0, 84, 255					'Play video A-R
+		ScoopTime = Int(60000/CycleAdjuster)									'Award is given as ball is shot out (we'll have to play with the timing)
 	Else
-		video "U", "Q", spiritGuide(player) - 35, 0, 32, 255					'Play video A-R	
-		ScoopTime = Int(25000/CycleAdjuster)									'Award is given as ball is shot out (we'll have to play with the timing)	
+		video "U", "Q", spiritGuide(player) - 35, 0, 32, 255					'Play video A-R
+		ScoopTime = Int(25000/CycleAdjuster)									'Award is given as ball is shot out (we'll have to play with the timing)
 		playSFX 2, "S", "G", "B", 255											'Orchestra hits...
-		playSFX 1, "S", "G", random(9), 255										'Spirit Guide!	
+		playSFX 1, "S", "G", random(9), 255										'Spirit Guide!
 	End If
 End Sub
 
@@ -7636,19 +7643,19 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 	Select Case spiritGuide(player)												'Award whatever prize we came up with. It's already approved, so just DO IT
 		case 0: 'Light GLIR
 			if (GLIRneeded(player) < 9) Then									'Getting free GLIR also increases spellings required to get more (to be fair)
-				GLIRneeded(player) = GLIRneeded(player) + 1						'Increase target #	needed, max is 9		
+				GLIRneeded(player) = GLIRneeded(player) + 1						'Increase target #	needed, max is 9
 			End If
-			GLIR(player) = GLIRneeded(player)									'Set counter to new target #				
-			GLIRlit(player) = 1													'Set flag			
+			GLIR(player) = GLIRneeded(player)									'Set counter to new target #
+			GLIRlit(player) = 1													'Set flag
 			rollOvers(player) = 0												'Clear rollovers
 			blink(52)															'Blink GLIR for a bit
 			blink(53)
 			blink(54)
 			blink(55)
-			showScoopLights()													'Update lights		
-			displayTimerCheck(89999)											'Check if anything was running, set new value						
+			showScoopLights()													'Update lights
+			displayTimerCheck(89999)											'Check if anything was running, set new value
 			playSFX 0, "F", "1", 65 + random(4), 200							'"Photo Hunt is Lit!" prompt. Higher priority, will override normal rollover sound
-			video "F", "1", "A", allowSmall, 45, 200							'GLIR, photo hunt is lit!			
+			video "F", "1", "A", allowSmall, 45, 200							'GLIR, photo hunt is lit!
 		case 1: 'Lite HOSPITAL
 			hosProgress(player) = 3
 			for x=0 To hosProgress(player)-1									'in case we did a Double Advance
@@ -7674,7 +7681,7 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 			playSFX 0, "T", "3", random(4) + 65, 255
 			video "T", "3", "A", allowSmall, 90, 255							'Play video
 			light theProgress(player) + 34, 7									'Solid progress light
-			pulse(12)															'Blink light 12 for Theater Start	
+			pulse(12)															'Blink light 12 for Theater Start
 			DoorSet DoorOpen, 50												'Open the door.
 		case 5: '1,000,000 points
 			AddScore(1000000)
@@ -7682,11 +7689,11 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 			orb(player) = 63													'Manually set them to Rolled Over
 			checkOrb(1)
 		case 7: 'Lite War Fort?
-			video "W", "0", "0", 0, 90, 255										'Prompt for Army Ghost Lit		
-			playSFX 0, "W", "3", random(4) + 65, 250 							'Prompt for Mode Start					
-			fortProgress(player) = 50											'50 indicates Mode is ready to start.				
-			popLogic(3)															'EVP pops	
-			spiritGuideEnable(0)		
+			video "W", "0", "0", 0, 90, 255										'Prompt for Army Ghost Lit
+			playSFX 0, "W", "3", random(4) + 65, 250 							'Prompt for Mode Start
+			fortProgress(player) = 50											'50 indicates Mode is ready to start.
+			popLogic(3)															'EVP pops
+			spiritGuideEnable(0)
 			showScoopLights()													'Update the Scoop Lights
 		case 8: '2,000,000
 			AddScore(2000000)
@@ -7695,11 +7702,11 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 			spookCheck()														'See what to do with the light
 			'blink(56)															'Blink the SPOOK AGAIN light
 		case 10: 'Lite Haunted Bar?
-			video "B", "4", "0", 0, 90, 255										'Prompt for Bar Ghost Lit		
-			playSFX 0, "B", "3", random(4) + 65, 255 							'Advance sound 3							
-			barProgress(player) = 50											'50 indicates Mode is ready to start.			
+			video "B", "4", "0", 0, 90, 255										'Prompt for Bar Ghost Lit
+			playSFX 0, "B", "3", random(4) + 65, 255 							'Advance sound 3
+			barProgress(player) = 50											'50 indicates Mode is ready to start.
 			popLogic(3)															'Pops won't do anything else until you start the mode
-			spiritGuideEnable(0)	
+			spiritGuideEnable(0)
 			showScoopLights()													'Update the Scoop Lights
 		case 11: '3,000,000 points
 			AddScore(3000000)
@@ -7707,7 +7714,7 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 			stopMusic()
 			blink(26)															'Need to do a few things manually...
 			blink(27)
-			blink(28)		
+			blink(28)
 			multiBallStart(0)
 			if (hellMB = 1) Then
 				hellMB = 10														'Set flag that music / mode has begun!
@@ -7715,7 +7722,7 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 '				playMusic "M", "B"												'The multiball music!
 				musicplayer "bgout_MB.mp3"
 				multipleBalls = 1												'When MB starts, you get ballSave amount of time to loose balls and get them back
-				ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost							
+				ballSave()														'That is, Ball Save only times out, it isn't disabled via the first ball lost
 			End If
 		case 13: 'Lite Hotel?
 			hotProgress(player) = 3
@@ -7740,8 +7747,8 @@ sub spiritGuideAward()															'It gives you the award and spits out ball
 				light 4, 7														'As player locks balls, lights go from Pulse to Solid
 				light 5, 7
 				blink(6)														'Blink "Prison Lock"
-				playSFX 0, "P", "3", random(3) + 65, 255						'Play 1 of 3 audio clips	
-				video "P", "3", "A", allowSmall, 90, 255							'Run video	
+				playSFX 0, "P", "3", random(3) + 65, 255						'Play 1 of 3 audio clips
+				video "P", "3", "A", allowSmall, 90, 255							'Run video
 		case 17: 'Lite extra ball?
 			extraBalllight 1
 		End Select
@@ -7753,12 +7760,12 @@ sub spiritGuideEnable(enableYesNo)
 	showScoopLights()							'Scoop lights will show updated state
 End Sub
 
-sub spiritGuidelight 
+sub spiritGuidelight
 	if (spiritGuide(player)	= 255) Then											'Needs to be re-lit?
 		spiritGuide(player)	= 1													'Set Spirit Guide as active
 		if (spiritGuideActive) Then												'Can we hit Spirit Guide?
 			pulse(46)
-			videoQ "S", "P", "Z", allowSmall, 0, 10								'Spirit Guide LIT!				
+			videoQ "S", "P", "Z", allowSmall, 0, 10								'Spirit Guide LIT!
 		Else
 			light 46, 0
 			videoQ "S", "P", "Y", allowSmall, 0, 10								'Spirit Guide ready after mode ENDS
@@ -7779,13 +7786,13 @@ sub spookCheck()									'See what the Spook Again light should be doing
 				blink 56
 			Else
 				light 56, 7							'No more save timer? Light SPOOK AGAIN solid (this code will get called when Save Timer finishes)
-			End If		
+			End If
 		Else
 			if (saveTimer <= cycleSecond2) Then		'Save timer either done or just about done?
 				light 56, 0							'Turn it off
 			Else
 				blink 56							'Else it's still active so blink
-			End If	
+			End If
 		End If
 	End If
 End Sub
@@ -7795,19 +7802,19 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 	animatePF 0, 0, 0								'Kill attract mode animations
 	menuAbortFlag = 0								'In case user tries to enter a menu during a game
 	Enable()										'Allow solenoids
-	videoPriority(0)								'Reset video priority	
+	videoPriority(0)								'Reset video priority
 	killNumbers()									'Clear all numbers
 	backglass 1, 1									'Can't remember what this does
 	setGhostModeRGB 0, 0, 0							'Set ghost to off
 '	ballSearchDebounce(0)							'In case the trap debounce was changed during a ball search
 	kickFlag = 0									'Clear flag, ball kick complete
-	drainTries = 0	
+	drainTries = 0
 	GIpf(224)									'All GI on to start
 '	sfxVolume(0) = sfxDefault
 '	sfxVolume(1) = sfxDefault
-'	volumeSFX(0, sfxVolume(0), sfxVolume(1))		
-'	volumeSFX(1, sfxVolume(0), sfxVolume(1))		
-'	volumeSFX(2, sfxVolume(0), sfxVolume(1))	
+'	volumeSFX(0, sfxVolume(0), sfxVolume(1))
+'	volumeSFX(1, sfxVolume(0), sfxVolume(1))
+'	volumeSFX(2, sfxVolume(0), sfxVolume(1))
 '	musicVolume(0) = musicDefault
 '	musicVolume(1) = musicDefault
 '	volumeSFX(3, musicVolume(0), musicVolume(1))
@@ -7854,7 +7861,7 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 		replayPlayer(x) = 0						'Nobody's gotten a replay yet
 		ModeWon(x) = 0							'Clear the bits of what modes they've won
 		modeRestart(x) = 126 			'B01111110				'At the start each player gets 1 re-start chance per mode
-		tourComplete(x) = 0				'B00000000				'Which tours player has completed	
+		tourComplete(x) = 0				'B00000000				'Which tours player has completed
 		hosProgress(x) = 0
 		theProgress(x) = 0
 		barProgress(x) = spotProgress			'Can be changed in settings
@@ -7864,7 +7871,7 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 		deProgress(x) = 0
 		lockCount(x) = 0						'Reset # of locked Hellavator balls
 		spiritProgress(x) = 0					'If tourney mode, players get awards in sequence
-		spiritGuide(x) = 1						'Spirit guide is always lit to start for each player	
+		spiritGuide(x) = 1						'Spirit guide is always lit to start for each player
 		EVP_Jackpot(x) = 1000000				'Starts at 1 million
 		EVP_Total(x) = 0						'How many EVP's each player has collected
 		EVP_EBtarget(x) = EVP_EBsetting			'Load the setting for how many EVP's each player must get to earn Extra Ball
@@ -7885,12 +7892,12 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 		extraLit(x) = 0							'No extra balls lit
 		wiki(x) = 0
 		tech(x) = 0
-		psychic(x) = 0	
+		psychic(x) = 0
 		rollOvers(x) = 0
-		hellLock(x) = 1							'Always start with Hell lock enabled		
+		hellLock(x) = 1							'Always start with Hell lock enabled
 		storeLamp(x)							'Store the status of every lamp in that player's memory
 		hellJackpot(x) = 1000000				'Starting MB jackpot value
-		hitsTolight(x) = 1						'How many times you have to press "Call" before hellavator moves / lights for lock	(starts with just 1						
+		hitsTolight(x) = 1						'How many times you have to press "Call" before hellavator moves / lights for lock	(starts with just 1
 		saveCurrent(x) = saveStart				'Set each player's Ball Save time to the default to start. Spelling TECH can increase it!
 		videoMode(x) = 0						'Video mode not lit to start
 	Next
@@ -7898,21 +7905,21 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 	comboTimerStart = comboSeconds * longSecond	'Compute actual timer setting
 	minionDamage = 1							'Default damage
 	TargetSet(TargetUp)							'Put targets UP by default so we can enagage Minion Battle!
-	callHits = 0								'How many times you've hit Call this ball (resets per player)	
+	callHits = 0								'How many times you've hit Call this ball (resets per player)
 	'deProgress(1) = 1							'TEST DEMON MODE READY TO START
-	'blink(13)									'BLINK LIGHT	
+	'blink(13)									'BLINK LIGHT
 	trapDoor = 0								'Flags if the ball should be trapped or not
 	trapTargets = 0
 	doorLogic()									'Figure out what to do with the door
-	elevatorLogic()								'Can lock balls, Hellavator is Lit		
+	elevatorLogic()								'Can lock balls, Hellavator is Lit
 	targetLogic(1)								'Where the Ghost Targets should be, up or down
 	targetReset()								'Reset state of targets
 	multiTimer = 0								'Used in attract mode, so clear it just in case
 	multiCount = 0
-	slingCount = 0	
-	spiritGuideEnable(1)						'Mode 0, it can always be lit		
-	bonusMultiplier = 1							'Reset multiplier (it's per ball so don't need unique variable per player)		
-	modeTimer = 0	
+	slingCount = 0
+	spiritGuideEnable(1)						'Mode 0, it can always be lit
+	bonusMultiplier = 1							'Reset multiplier (it's per ball so don't need unique variable per player)
+	modeTimer = 0
 	HellBall = 0
 	badExit = 0									'Haven't gone in VUK yet
 	tiltCounter = 0								'Reset to zero
@@ -7921,22 +7928,22 @@ sub StartGame()										'Resets all variables, player progress, sets up initial
 	sweetJump = 0								'Reset video/SFX counter
 	Advance_Enable = 1							'Game starts with all modes eligible for advancement.
 	AutoEnable = 255 							' 255 /enables everything
-	activeBalls = 0								'Starts at ZERO	
+	activeBalls = 0								'Starts at ZERO
 	setCabMode defaultR, defaultG, defaultB		'Set the cab mode to default color
 	comboKill()
 	dirtyPoolMode(1)							'Check for Dirty Pool Balls
 	Update(0)									'Update with the current info
 	video "K", "9", "9", 0, 0.2, 255			'STATIC transition
-	skillShotNew(1)								'Prep a Skill Shot!	
+	skillShotNew(1)								'Prep a Skill Shot!
 	scoreBall = 0								'No points scored on this ball as yet
 	comboEnable = 1								'OK combo all you want
-	GLIRenable(1)	
+	GLIRenable(1)
 '	playMusic "L", "1"
 	musicplayer "bgout_L1.mp3"
 	playSFX 0, "A", "A", 1 + random(4), 255		'Team leader intro lines
 	ballQueue = 0
 	drainSwitch = 63							'Set starting drain switch, just in case
-	loadBall()									'Manually load a ball into shooter lane.	
+	loadBall()									'Manually load a ball into shooter lane.
 	GhostMove 90, 10							'EP- Adding this since I added the ghost turning away at machine reset
 End Sub
 
@@ -7957,10 +7964,10 @@ sub switchDeadCheck()
 				Else
 					TargetSet(TargetJog)				'Put targets up partially
 					TargetTimerSet 8000, TargetDown, 10 'And back down quickly
-				End If					
+				End If
 			Else
 				TargetSet(TargetJog)					'Put targets down partially
-				TargetTimerSet 8000, TargetUp, 10		'After a second, put them back up										
+				TargetTimerSet 8000, TargetUp, 10		'After a second, put them back up
 			End If
 			if (HellLocation = hellUp) Then
 				hellCheck = 10					'Set state 1
@@ -7969,12 +7976,12 @@ sub switchDeadCheck()
 			if (HellLocation = hellDown) Then
 				hellCheck = 20					'Set state 2
 				ElevatorSet hellUp, 100
-			End If			
-		End If		
+			End If
+		End If
 		if (switchDead = deadTop + (searchTimer)) Then
 			if (trapDoor = 0) Then							'Don't kick this if a ball is SUPPOSED to be trapped behind door
 '				Coil LeftVUK, vukPower
-				VUKKicker KiDoor, vukPower	
+				VUKKicker KiDoor, vukPower
 			Else
 				if (hosProgress(player) > 5 and hosProgress(player) < 9 and hosTrapCheck = 0) Then	'Ball trapped for Hospital Mode?
 					Coil LeftVUK, vukPower
@@ -7985,7 +7992,7 @@ sub switchDeadCheck()
 					hosTrapCheck = 1										'Hospital ball search mode
 				End If
 			End If
-		End If	 
+		End If
 		if (switchDead = deadTop + (searchTimer * 2)) Then
 			Coil ScoopKick, scoopPower
 			VUKKicker KiVUK3, scoopPower
@@ -7996,21 +8003,21 @@ sub switchDeadCheck()
 			if (DoorLocation = DoorClosed) Then
 				doorCheck = 10					'Set state 2
 				DoorSet DoorOpen, 1
-			End If			
+			End If
 		End If
 		if (switchDead = deadTop + (searchTimer * 3)) Then
 '			Coil drainKick, drainStrength
-		End If	
+		End If
 		if (switchDead = deadTop + (searchTimer * 4)) Then
-'			Coil Bump0, PopPower		
+'			Coil Bump0, PopPower
 		End If
 		if (switchDead = deadTop + (searchTimer * 5)) Then
-'			Coil Bump1, PopPower		
+'			Coil Bump1, PopPower
 		End If
 		if (switchDead = deadTop + (searchTimer * 6)) Then
-'			Coil Bump2, PopPower	
+'			Coil Bump2, PopPower
 			switchDead = Int(50000/CycleAdjuster)
-		End If	
+		End If
 	Else
 		switchDead = 0											'Ball isn't actually trapped, reset timer
 	End If
@@ -8030,8 +8037,8 @@ sub TargetTimerSet(dDelay, dTarget, dSpeed)
 '	TargetSpeed = 0													'Clear this flag so we don't move until after delay, EP- commenting out because this was causing it not to move when it should
 	TargetDelay = Int(dDelay/cycleadjuster)							'How long before Targets start to move
 	If TargetDelay < 1 Then TargetDelay = 1
-	TargetTarget = dTarget											'Where to move to.	
-	TargetNewSpeed = ((((TargetFast - TargetSlow)/500) * (500 - dSpeed)) + DoorSlow)*2		'What the speed will be when we start	
+	TargetTarget = dTarget											'Where to move to.
+	TargetNewSpeed = ((((TargetFast - TargetSlow)/500) * (500 - dSpeed)) + DoorSlow)*2		'What the speed will be when we start
 	TargetTimer = 0													'Reset cycle timer
 End Sub
 
@@ -8042,13 +8049,13 @@ sub targetLogic(resetMinion)
 		Exit Sub
 	End If
 	if (hosProgress(player) > 5 and hosProgress(player) < 9) Then				'Friend trapped behind door?
-		TargetSet(TargetUp)														'Keep targets UP		
+		TargetSet(TargetUp)														'Keep targets UP
 		Exit Sub
 	End If
 	if (hosProgress(player) = 90) Then											'Bashing Dr. Ghost? (not paging him)
-		TargetSet(TargetDown)													'Keep targets DOWN		
+		TargetSet(TargetDown)													'Keep targets DOWN
 		Exit Sub
-	End If	
+	End If
 	if (barProgress(player) = 60 or barProgress(player) = 80) Then				'Ghost waiting for your embrace, or Bashing Ghost Whore Multiball?
 		TargetSet(TargetDown)													'Put targets down, so player can restart Ghost Whore
 		Exit Sub
@@ -8078,7 +8085,7 @@ sub targetLogic(resetMinion)
 		pulse(18)
 		pulse(19)
 		light 16, 0																'Turn off Jackpot by default
-		minionEnd(1)															'The default is to enable the Minion Battle	
+		minionEnd(1)															'The default is to enable the Minion Battle
 	End If
 End Sub
 
@@ -8093,23 +8100,23 @@ End Sub
 sub Timers()																'Check all game function timers.
 	'SwitchLogic()															'Debounce timers and stuff
 	if (drainTimer) Then													'Are we in a drain?
-		drainTimer = drainTimer - 1		
+		drainTimer = drainTimer - 1
 		DrainLogic()
 		ballClear()															'Make sure locks are clear
 	Else																	'Normal function
 		if (HellSpeed) Then													'Is the elevator supposed to be moving?
 '			MoveElevator()													'Do routine.
-		End If	
+		End If
 '		if (TargetSpeed) Then												'Is the target supposed to be moving?
 '			MoveTarget()
 '		End If
 '		if (DoorSpeed) Then													'Is the door supposed to be moving?
 '			MoveDoor()														'Do routine.
-'		End If	
+'		End If
 	End If
 	if (plungeTimer) Then													'Auto-plunge in progress?
 		plungeTimer = plungeTimer - 1										'Decrement counter
-		if (plungeTimer = Int(25001/CycleAdjuster)+1 and Sw59 = 0) Then	'bitRead(switches(7), 3) = 0) Then		'At first event point, but ball not ready to be loaded?				
+		if (plungeTimer = Int(25001/CycleAdjuster)+1 and Sw59 = 0) Then	'bitRead(switches(7), 3) = 0) Then		'At first event point, but ball not ready to be loaded?
 			'Serial.println("BALL NOT READY")
 			plungeTimer = plungeTimer + Int(10000/CycleAdjuster)			'Give it more time to roll in place
 		End If
@@ -8129,12 +8136,12 @@ sub Timers()																'Check all game function timers.
 				if (run = 1) Then											'Start of game or new ball?
 					run = 2
 					'spookCheck()											'Save timer won't be started until Skill Shot collected. Thus spookCheck won't give proper result
-					blink(56)												'A new game/ball will always have a ball save, so blink it manually here												
+					blink(56)												'A new game/ball will always have a ball save, so blink it manually here
 					launchCounter = 0
 					plungeTimer = 0											'Don't autoplunge it
 					'Serial.println("Start-of-Ball Load Complete")
 				Else
-					plungeTimer = Int(5000/CycleAdjuster)						'Set plunge point. This gives ball a 4000 cycle delay to "settle"				
+					plungeTimer = Int(5000/CycleAdjuster)						'Set plunge point. This gives ball a 4000 cycle delay to "settle"
 				End If
 			End If
 		End If
@@ -8174,13 +8181,13 @@ sub Timers()																'Check all game function timers.
 					light 44, 0
 					light 45, 0
 					light 46, 0
-					light 47, 7				
+					light 47, 7
 				case 670:
 '					GIword &= ~(1 << 4)
 					Light 42, 0
 				case 580:
 					playSFX 2, "S", "G", "W", 100
-'					GIword OR= (1 << 4)		
+'					GIword OR= (1 << 4)
 					Light 42, 7
 					light 46, 7
 				case 500:
@@ -8188,7 +8195,7 @@ sub Timers()																'Check all game function timers.
 					Light 42, 0
 				case 420:
 					playSFX 2, "S", "G", "X", 100
-'					GIword OR= (1 << 4)	
+'					GIword OR= (1 << 4)
 					Light 42, 7
 					light 45, 7
 				case 330:
@@ -8203,14 +8210,14 @@ sub Timers()																'Check all game function timers.
 '					GIword &= ~(1 << 4)
 					Light 42, 0
 				case 130:
-					animatePF 240, 10, 0									'Scoop explode animation		
+					animatePF 240, 10, 0									'Scoop explode animation
 				case 80:
 					playSFX 2, "S", "G", "Z", 100
 '					GIword OR= (1 << 4)
 					Light 42, 7
 					light 43, 7
 				case 1:
-'					GIword &= ~(1 << 4)		
+'					GIword &= ~(1 << 4)
 					Light 42, 0
 					showScoopLights()										'Restore the lights
 			End Select
@@ -8219,10 +8226,10 @@ sub Timers()																'Check all game function timers.
 			if (hellMB = 1) Then
 				hellMB = 10													'Set flag that music / mode has begun!
 				volumeSFX 3, musicVolume(0), musicVolume(1)					'Back to normal
-'				playMusic "M", "B"											'The multiball music!	
+'				playMusic "M", "B"											'The multiball music!
 				musicplayer "bgout_MB.mp3"
 				multipleBalls = 1											'When MB starts, you get ballSave amount of time to loose balls and get them back
-				ballSave()													'That is, Ball Save only times out, it isn't disabled via the first ball lost							
+				ballSave()													'That is, Ball Save only times out, it isn't disabled via the first ball lost
 			End If
 			if (priProgress(player) = 9) Then
 				priProgress(player) = 10	 								'Set mode as started
@@ -8232,7 +8239,7 @@ sub Timers()																'Check all game function timers.
 				fortProgress(player) = 60
 				blink(17)													'Blink the targets for the Soldier.
 				blink(18)
-				blink(19)			
+				blink(19)
 			End If
 '			Coil(ScoopKick, scoopPower)										'Kick out ball
 			KiVUK1.Enabled = 0
@@ -8269,7 +8276,7 @@ sub Timers()																'Check all game function timers.
 		if (fortProgress(player) = 99) Then									'Ending War mode?
 			if (MagnetTimer < 2) Then										'Just about done?
 				WarOver()													'Finish the mode
-			End If			
+			End If
 		End If
 		if (theProgress(player) = 50) Then									'Ending theater mode?
 			if (MagnetTimer < 2) Then										'Just about done?
@@ -8278,14 +8285,14 @@ sub Timers()																'Check all game function timers.
 		End If
 		if (MagnetTimer = 10) Then
 			if (minion(player) = 11) Then
-				magFlag = 0													'Clear the flag so magnet is no longer pulsed (but timing stays the same)							
-				minionEnd(1)												'End the mode, with flag to advance Minion Hits				
-			End If						
+				magFlag = 0													'Clear the flag so magnet is no longer pulsed (but timing stays the same)
+				minionEnd(1)												'End the mode, with flag to advance Minion Hits
+			End If
 		End If
 		if (MagnetTimer = 1) Then											'Just about done?
 			if (minion(player) <> 11) Then
 				magFlag = 0													'Clear the flag so magnet is no longer pulsed (but timing stays the same)
-'				swDebounce(24) = 5000										'Manually enable the ghost switch debounce so if we hit them with our job, won't reactivate				
+'				swDebounce(24) = 5000										'Manually enable the ghost switch debounce so if we hit them with our job, won't reactivate
 			End If
 		End If
 	End If
@@ -8300,19 +8307,19 @@ sub Timers()																'Check all game function timers.
 			End If
 			if (LeftTimer = Int(5000/CycleAdjuster)) Then
 				light 40, 0
-			End If		
+			End If
 			if (LeftTimer = Int(4000/CycleAdjuster)) Then
 				light 40, 7
 			End If
 			if (LeftTimer = Int(3000/CycleAdjuster)) Then
 				light 40, 0
-			End If	
+			End If
 			if (LeftTimer = Int(2000/CycleAdjuster)) Then
 				light 40, 7
 			End If
 			if (LeftTimer = Int(1000/CycleAdjuster)) Then
 				light 40, 0
-			End If	
+			End If
 		End If
 		if (LeftTimer = Int(1000/CycleAdjuster)) Then
 '			switchDebounce(23)												'Set the debounce just in case
@@ -8335,43 +8342,43 @@ sub Timers()																'Check all game function timers.
 	End If
 	if (TargetDelay) Then													'Target set to move after a delay?
 		TargetDelay = TargetDelay - 1										'Decrement
-		if (loopCatch = checkBall) Then										'Trying to catch the ball?		
+		if (loopCatch = checkBall) Then										'Trying to catch the ball?
 			if (TargetDelay = 25) Then										'Almost ready to check?
 				MagnetSet(100)												'Pulse magnet again
 			End If
 			if (TargetDelay < 1) Then										'Timed out? Ball must not be there. Bummer.
 				magFlag = 0													'Clear the pulse flag
 				TargetTimerSet 1, TargetDown, 2								'Keep targets down so you can re-trap
-				loopCatch = catchBall										'Reset state, we still need to catch the ball	
-				killQ()														'Disable any Enqueued videos	
+				loopCatch = catchBall										'Reset state, we still need to catch the ball
+				killQ()														'Disable any Enqueued videos
 				video "D", "Z", "A", allowSmall, 20, 255 					'Speed Demon Bonus!
-				showValue 100000, 40, 1 									'It's a combo value * Ghosts defeated because why not?	
-				playSFX 2, "D", "Z", "X", 255								'Vrooom! Just like a Mustang!				
-			End If			
+				showValue 100000, 40, 1 									'It's a combo value * Ghosts defeated because why not?
+				playSFX 2, "D", "Z", "X", 255								'Vrooom! Just like a Mustang!
+			End If
 			if (TargetDelay < 25 and Sw24 = 1) Then							'After second pulse, we consider a ball in opto to be a good catch
 				MagnetSet(100)												'Pulse it again to make sure it stays there while targets are going up
 				TargetDelay = 0												'Clear this just in case
-				TargetSpeed = TargetNewSpeed								'Allow targets to move up	
+				TargetSpeed = TargetNewSpeed								'Allow targets to move up
 				TargetSet targetTarget
-'				cabDebounce(ghostOpto) = 10000								'Make sure it doesn't re-trigger opto				
+'				cabDebounce(ghostOpto) = 10000								'Make sure it doesn't re-trigger opto
 				loopCatch = ballCaught										'External logic will take it from here. Allow targets to go up
-			End If			
+			End If
 		Else
 			if (TargetDelay < 1) Then										'Ready to move targets?
-				TargetSpeed = TargetNewSpeed								'Set Speed flag to start targets moving	
+				TargetSpeed = TargetNewSpeed								'Set Speed flag to start targets moving
 				TargetSet targetTarget
 				TargetDelay = 0												'Clear this just in case
-			End If			
+			End If
 		End If
 	End If
 	if (loadChecker) Then													'Did we just try to load a ball?
 		loadChecker = loadChecker - 1
 		if (loadChecker = 1) Then											'Timer just about done?
-			if (Sw57 = 0) Then										'bitRead(switches(7), 1) = 0) Then							'Did ball not load into shooter lane properly?				
+			if (Sw57 = 0) Then										'bitRead(switches(7), 1) = 0) Then							'Did ball not load into shooter lane properly?
 				'Serial.println("LOAD FAIL, RE-TRYING...")
 				loadBall()													'Try and re-load it.
 			End If
-		End If		
+		End If
 	End If
 	if (saveTimer > 0 and popsTimer = 0 and kickTimer = 0) Then				'Save timer doesn't decrement during pops action or when a ball is being kicked from drain
 		saveTimer = saveTimer - 1
@@ -8384,19 +8391,19 @@ sub Timers()																'Check all game function timers.
 	End If
 	if (displayTimer) Then
 		displayTimer = displayTimer - 1										'Decrement timer
-		if (displayTimer > 0 and displayTimer < Int(45000/CycleAdjuster)) Then				'Flashing ORB win?		
+		if (displayTimer > 0 and displayTimer < Int(45000/CycleAdjuster)) Then				'Flashing ORB win?
 			if (displayTimer = 1) Then										'Just about done?
 				'orb(player) = 0											'Clear player's ORB variable so it can be reset
 				checkOrb(0)
 				displayTimer = 0
 			End If
 		End If
-		if (displayTimer > Int(45000/CycleAdjuster) and displayTimer < Int(90000/CycleAdjuster)) Then				'Flashing GLIR spelling?		
+		if (displayTimer > Int(45000/CycleAdjuster) and displayTimer < Int(90000/CycleAdjuster)) Then				'Flashing GLIR spelling?
 			if (displayTimer = Int(45001/CycleAdjuster)+1) Then				'Just about done?
 				checkRoll()													'See what status the lights should be and set them to that (just in case they changed during the blinking)
 				displayTimer = 0
 			End If
-		End If			
+		End If
 	End If
 	if (ghostFadeTimer) Then
 		ghostFadeTimer = ghostFadeTimer - GhostFadeSpeed
@@ -8439,7 +8446,7 @@ sub Timers()																'Check all game function timers.
 					bulb.color = RGB(ghostModeRGB(0), ghostModeRGB(1), ghostModeRGB(2))
 				Next
 			End If
-		End If	
+		End If
 	End If
 	if (RGBtimer) Then														'Changing the cabinet lighting?
 		Dim Bulb, tRed, tGreen, tBlue, lRed, lGreen, lBlue, RGBFlag
@@ -8470,7 +8477,7 @@ sub Timers()																'Check all game function timers.
 			tRed = Bi2Dec(Right(Dec2Bi(RGBTarget), 8))						'-EP and again, but looking at the target RGB color
 			tGreen = Bi2Dec(Mid(Dec2Bi(RGBTarget), 9, 8))
 			tBlue = Bi2Dec(Left(Dec2Bi(RGBTarget), 8))
-			If lRed = tRed Then 
+			If lRed = tRed Then
 				RGBFlag = RGBFlag + 1
 			ElseIf lRed > tRed Then											'-EP if the red bits haven't reached their target, then decrease their amount
 				lRed = lRed - rgbfadeamount
@@ -8541,12 +8548,12 @@ sub Timers()																'Check all game function timers.
 		comboTimer = comboTimer - 1
 		if (comboTimer = 0) Then											'Time's up for Combo?
 			if (tourLights(comboShot) = 0) Then								'If camera icon isn't still being used for a Tour shot...
-				light photoLights(comboShot), 0								'Turn off the Combo Shot Lamp			
+				light photoLights(comboShot), 0								'Turn off the Combo Shot Lamp
 			End If
 			if (theProgress(player) = 100) Then								'CASE 3: Theater has been completed? Reset Sweet Jumps score counter
 				sweetJumpBonus = 0											'Reset score (hitting it adds value)
 				sweetJump = 0												'Reset video/SFX counter
-			End If			
+			End If
 			comboCount = 1													'Reset the count for next time
 			comboVideoFlag = 0												'Clear flag
 		End If
@@ -8575,12 +8582,12 @@ sub Timers()																'Check all game function timers.
 	End If
 	if (lightningTimer) Then
 		lightningTimer = lightningTimer + 1
-		lightningFX(lightningTimer)	
+		lightningFX(lightningTimer)
 	End If
 	if (HellSafe) Then
 		HellSafe = HellSafe - 1												'Decrement it
-		if (HellSafe = 1 and HellBall = 10) Then							'Ball didn't hit the middle Subway switch in time?	
-			'Serial.println("BALL MISSING RE-TRYING")			
+		if (HellSafe = 1 and HellBall = 10) Then							'Ball didn't hit the middle Subway switch in time?
+			'Serial.println("BALL MISSING RE-TRYING")
 			hellCheck = 20													'Set state, which means Go Back to Up, then come back down
 			ElevatorSet hellUp, 100											'Send hellavator up
 			'Set timer to Cycles it will take for hell to go back up + Cycles it'll take to come back down
@@ -8591,7 +8598,7 @@ sub Timers()																'Check all game function timers.
 	if (lightStatus) Then
 		animationTimer = animationTimer + 1
 		if (animationTimer > animationTarget) Then
-			animationTimer = 0			
+			animationTimer = 0
 			lightCurrent = lightCurrent + 1
 			if (lightCurrent > lightEnd) Then
 				if (lightStatus) AND (lightLoop) Then
@@ -8601,8 +8608,8 @@ sub Timers()																'Check all game function timers.
 						animatePF 119, 30, 1								'Restart looping Psychic animation
 					Else
 						lightStatus = 0
-					End If				
-				End If							
+					End If
+				End If
 			End If
 		End If
 	End If
@@ -8624,7 +8631,7 @@ sub Timers()																'Check all game function timers.
 End Sub
 
 Sub Tilt()
-	
+
 End Sub
 
 'FUNCTIONS FOR THEATER MODE 2............................
@@ -8639,7 +8646,7 @@ sub TheaterAdvance()							'Logic to advance Theater Mode 2
 		playSFX 0, "T", theProgress(player) + 48, random(4) + 65, 255
 		for x=0 To theProgress(player)-1
 			light 36 + x, 7											'Light all progress, in case we Double Advance
-		Next		
+		Next
 		pulse(theProgress(player) + 36)								'Pulse the next one
 	End If
 	'MAKE SURE THIS DOESN'T COLLIDE WITH DOCTOR GHOST MODE START, BECAUSE RIGHT NOW IT COULD
@@ -8649,10 +8656,10 @@ sub TheaterAdvance()							'Logic to advance Theater Mode 2
 		light 36, 7												'Manually set them solid
 		light 37, 7
 		light 38, 7
-		pulse(12)													'Blink light 12 for Theater Start	
+		pulse(12)													'Blink light 12 for Theater Start
 		DoorSet DoorOpen, 250										'Open the door.
 		if (hosProgress(player) = 3) Then								'Had doctor ready?
-			light 11, 0											'Gonna have to wait!	
+			light 11, 0											'Gonna have to wait!
 		End If
 	End If
 End Sub
@@ -8664,7 +8671,7 @@ sub TheaterStart()								'What happens when we shoot "Theater Ghost" when lit
 	allLamp(0)									'Turn off the lamps
 	spiritGuideEnable(0)						'No spirit guide during Theater
 	hellEnable(0)								'Can't do multiball in this mode
-	modeTotal = 0								'Reset mode points	
+	modeTotal = 0								'Reset mode points
 	AddScore(startScore)
 	popLogic(3)								'Set pops to EVP
 	minionEnd(0)								'Disable Minion mode, even if it's in progress
@@ -8673,7 +8680,7 @@ sub TheaterStart()								'What happens when we shoot "Theater Ghost" when lit
 	jackpotMultiplier = 1						'Reset this just in case
 	if (countGhosts() = 5) Then						'Is this the last Boss Ghost to beat?
 		blink(48)									'Blink that progress light
-	End If	
+	End If
 	pulse(17)									'Pulse Ghost Targets (they add extra time)
 	pulse(18)
 	pulse(19)
@@ -8686,26 +8693,26 @@ sub TheaterStart()								'What happens when we shoot "Theater Ghost" when lit
 	TargetTimerSet 10, TargetUp, 50			'Just in case
 	if (minion(player) = 10) Then					'In a minion battle?
 		minionEnd(0)							'End mode, with flag to NOT re-enable it
-	End If	
+	End If
 	DoorSet DoorClosed, 1						'Shut door fast!
 	light 12, 0								'Turn off THEATER start mode light
 	blink(58)									'Blink the Theater mode light.
 	'VOICE CALL, GHOST APPEARS
 	killQ()									'Disable any Enqueued videos
 	video "T", "4", "A", allowSmall, 170, 255			'Ghost reveal!
-	playSFX 0, "T", "5", 65 + random(4), 255		'Mode start dialog	
-'	playMusic 'B', '1'						'Boss battle music!	
+	playSFX 0, "T", "5", 65 + random(4), 255		'Mode start dialog
+'	playMusic 'B', '1'						'Boss battle music!
 	musicplayer "bgout_B1.mp3"
 	sweetJumpBonus = 0							'Starts at ZERO. Increases with each SWEET JUMP. Resets if you hit the Ghost Targets for more time
 	sweetJump = 0
 	modeTimer = Int(130000/CycleAdjuster)		'Set high so timer doesn't start for an extra second
 	countSeconds = TheaterTime					'How many seconds to get to hit the shot
 ';	numbers 0, numberStay OR 4, 0, 0, countSeconds - 1		'Update the Numbers Timer. We do "-1" so it'll display a zero.
-	shotValue = (10000 * countSeconds) + 500000			'Starting shot value 
+	shotValue = (10000 * countSeconds) + 500000			'Starting shot value
 	customScore "T", "P", "A", allowAll OR loopVideo, 120		'Shoot Ghost custom score prompt
 ';	numbers 8, numberScore OR 2, 0, 0, player				'Show player's score in upper left corner
 ';	numbers 9, 2, 70, 27, shotValue						'Shot Value
-';	numbers 10, 9, 88, 0, 0								'Ball # upper right	
+';	numbers 10, 9, 88, 0, 0								'Ball # upper right
 	strobe 26, 6								'Strobe HOTEL LIGHTS - path 1
 	strobe 36, 4								'Strobe JUMP SHOT - combo on camera appearing or going away won't affect it
 	KickLeft 106000, vukPower						'Kick back ball
@@ -8720,24 +8727,24 @@ sub TheaterPlay(yesNo)							'What happens when you shoot the strobing paths
 		playSFX 0, "T", "8", 65 + random(8), 255			'Ghost gives you shit
 		TheaterStrobe()									'Make sure correct shot is LIT
 		if (theProgress(player) = 13) Then					'Should we prompt to SHOOT GHOST?
-			video "T", "4", "E", allowSmall, 80, 255		'Ghost upset, prompt to SHOOT GHOST TO FINISH	
+			video "T", "4", "E", allowSmall, 80, 255		'Ghost upset, prompt to SHOOT GHOST TO FINISH
 		Else
-			video "T", "4", "C", allowSmall, 80, 255		'Ghost upset, prompt to SHOOT NEXT STROBING	
+			video "T", "4", "C", allowSmall, 80, 255		'Ghost upset, prompt to SHOOT NEXT STROBING
 		End If
 		Exit Sub
 	End If
 	AddScore((10000 * countSeconds) + 500000)		'10k per second left + 250k per correct shot
 	countSeconds = TheaterTime						'Reset timer
-	shotValue = (10000 * countSeconds) + 500000			'Reset shot value 
+	shotValue = (10000 * countSeconds) + 500000			'Reset shot value
 ';	numbers 0, numberStay OR 4, 0, 0, countSeconds - 1		'Update timer
 ';	numbers 9, 2, 70, 27, shotValue						'Update shot value
 	if (theProgress(player) = 10) Then				'First shot?
 		modeTimer = Int(120000/CycleAdjuster)		'Set high so timer doesn't start for an extra second
 		ElevatorSet hellDown, 550					'Move elevator down
 		light 41, 0
-		killQ()									'Disable any Enqueued videos	
+		killQ()									'Disable any Enqueued videos
 		video "T", "7", "A", allowSmall, 182, 255			'Scene 1
-		playSFX 0, "T", "7", "A", 255				'Play dialog 1		
+		playSFX 0, "T", "7", "A", 255				'Play dialog 1
 		light 26, 0								'Turn OFF the HOTEL STROBE
 		strobe 8, 7								'Strobe the SPOOKY DOOR shot!
 		customScore "T", "P", "B", allowAll OR loopVideo, 120		'Shoot DOOR custom score prompt
@@ -8748,9 +8755,9 @@ sub TheaterPlay(yesNo)							'What happens when you shoot the strobing paths
 	End If
 	if (theProgress(player) = 11) Then				'Second shot?
 		modeTimer = Int(100000/CycleAdjuster)			'Set high so timer doesn't start for an extra second
-		killQ()									'Disable any Enqueued videos	
+		killQ()									'Disable any Enqueued videos
 		video "T", "7", "B", allowSmall, 148, 255			'Scene 1
-		playSFX 0, "T", "7", "B", 255				'Play dialog 1		
+		playSFX 0, "T", "7", "B", 255				'Play dialog 1
 		light 8, 0								'Turn OFF the SPOOKY DOOR STROBE
 		strobe 43, 5								'Strobe BASEMENT SCOOP path
 		customScore "T", "P", "C", allowAll OR loopVideo, 120		'Shoot SCOOP custom score prompt
@@ -8762,7 +8769,7 @@ sub TheaterPlay(yesNo)							'What happens when you shoot the strobing paths
 	End If
 	if (theProgress(player) = 12) Then				'Third shot?
 		modeTimer = Int(80000/cycleAdjuster)			'Set high so timer doesn't start for an extra second
-		killQ()									'Disable any Enqueued videos	
+		killQ()									'Disable any Enqueued videos
 		video "T", "7", "C", allowSmall, 133, 255			'Scene 1
 		playSFX 0, "T", "7", "C", 255				'Play dialog 1
 		light 43, 0								'Turn OFF the SPOOKY DOOR STROBE
@@ -8771,7 +8778,7 @@ sub TheaterPlay(yesNo)							'What happens when you shoot the strobing paths
 		blink(18)
 		blink(19)
 		customScore "T", "P", "D", allowAll OR loopVideo, 120		'Shoot Ghost custom score prompt
-		TargetTimerSet 5000, TargetDown, 400		'Put down the Ghost Targets very slowly		
+		TargetTimerSet 5000, TargetDown, 400		'Put down the Ghost Targets very slowly
 		theProgress(player) = 13					'Advance this
 		ScoopTime = Int(62500/CycleAdjuster)		'Kick out scoop, at a slower rate
 		skip = 23									'Fourth skip event
@@ -8810,9 +8817,9 @@ sub TheaterWin()
 	MagnetSet(1200)												'Catch ball and hold for remaining lines
 	light 58, 7													'Set THEATER LIGHT solid!
 	modeTimer = 0													'Disable timer
-	killTimer(0)													'Turn off numbers	
+	killTimer(0)													'Turn off numbers
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	light 36, 0
 	light 37, 0
 	light 38, 0
@@ -8820,13 +8827,13 @@ sub TheaterWin()
 	light 12, 0													'Theater Mode Solid!
 	AddScore(winScore)
 	playSFX 0, "T", "7", "D", 255									'Mode win dialog
-	killQ()														'Disable any Enqueued videos	
+	killQ()														'Disable any Enqueued videos
 	video "T", "7", "D", noExitFlush, 215, 255						'Mode won, prevent numbers
-';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233				'Load Mode Total Points as Number	
-	modeTotal = 0													'Reset mode points		
-	videoQ "T", "7", "E", noEntryFlush OR 3, 45, 233		'Mode Total Video	
+';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233				'Load Mode Total Points as Number
+	modeTotal = 0													'Reset mode points
+	videoQ "T", "7", "E", noEntryFlush OR 3, 45, 233		'Mode Total Video
 	sweetJumpBonus = 0					'Reset score (hitting it adds value)
-	sweetJump = 0						'Reset video/SFX counter	
+	sweetJump = 0						'Reset video/SFX counter
 '	playMusic 'M', '2'											'Normal music
 	musicplayer "bgout_M2.mp3"
 	theProgress(player) = 50										'Sets a flag so when MAGNET finishes and releases the ball, it will totally finish the mode
@@ -8841,19 +8848,19 @@ sub TheaterOver()
 	ghostsDefeated(player)  = ghostsDefeated(player)  +  1									'For bonuses
 	Advance_Enable = 1												'Allow other modes to be started
 	hellEnable(1)
-	theProgress(player) = 100										'Mode done and can't be restarted	
+	theProgress(player) = 100										'Mode done and can't be restarted
 	if (countGhosts() = 2 or countGhosts() = 5) Then	'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBallLight(2)							'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
+	End If
 	if (videoMode(player) > 0) Then									'Video mode is available?
 		videoModeLite()											'Enable it, leave targets down
 	Else
 		TargetTimerSet 10000, TargetUp, 100
-		minionEnd(2)												'Re-enable Minion find but do NOT let it control targets since this mode needs to do that		
+		minionEnd(2)												'Re-enable Minion find but do NOT let it control targets since this mode needs to do that
 	End If
 	demonQualify()													'See if Demon Mode is ready
-	'checkModePost()							'Doing this manually so we can skip the Target Logic (we're handling that!)	
+	'checkModePost()							'Doing this manually so we can skip the Target Logic (we're handling that!)
 	doorLogic()								'Figure out what to do with the door
 	checkRoll()								'See if we enabled GLIR Ghost Photo Hunt during that mode
 	elevatorLogic()							'Did the mode move the elevator? Re-enable it and lock lights
@@ -8873,31 +8880,31 @@ sub TheaterFail( reasonFail)
 	ghostFadeAmount = Int(100/CycleAdjuster)
 	setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	sweetJumpBonus = 0												'Reset score (hitting it adds value)
 	sweetJump = 0													'Reset video/SFX counter
 	modeTimer = 0													'Disable timer
-	killTimer(0)													'Turn off numbers	
+	killTimer(0)													'Turn off numbers
 	if ((ModeWon(player) AND 4)=4) Then								'Did we win this mode before?
 		light 58, 7												'Make Theater Mode light solid, since it HAS been won
 	Else
 		light 58, 0												'Haven't won it yet, turn it off
 	End If
 	if (reasonFail = 0) Then											'Fail via drain we pass a 1, and thus, don't do the video or speech
-		modeTotal = 0												'Reset mode points				
+		modeTotal = 0												'Reset mode points
 		Mode(player) = 0												'Set mode active to None
 		Advance_Enable = 1												'Allow other modes to be started
 		checkModePost()
-		hellEnable(1)		
+		hellEnable(1)
 		if ((modeRestart(player) AND 4)=4) Then							'Able to restart theater?
 			modeRestart(player) = modeRestart(player) AND 251							'Clear the restart bit
 			playSFX 0, "T", "9", 65 + random(4), 255						'A-D fail quotes
-			video "T", "4", "H", allowSmall, 105, 255					'Mode Fail, Shoot door to Restart		
-			DoorSet DoorOpen, 100										'Make sure door is open			
+			video "T", "4", "H", allowSmall, 105, 255					'Mode Fail, Shoot door to Restart
+			DoorSet DoorOpen, 100										'Make sure door is open
 			restartBegin 2, 11, 25000									'Enable a restart!  Mode 2, for 5 seconds, starting timer value
 			theProgress(player) = 3									'Allows you to re-start the mode
 			showProgress 0, player									'Re-load other stuff
-			light 9, 0		
+			light 9, 0
 			light 10, 0
 			light 11, 0
 			strobe 8, 4												'Strobe lights under door
@@ -8916,13 +8923,13 @@ sub TheaterFail( reasonFail)
 			musicplayer "bgout_M2.mp3"
 		End If
 	Else
-		modeTotal = 0												'Reset mode points				
+		modeTotal = 0												'Reset mode points
 		Mode(player) = 0											'Set mode active to None
 		Advance_Enable = 1											'Allow other modes to be started
 		if ((modeRestart(player) AND 4)=4) Then							'Able to restart theater?
 			modeRestart(player) = modeRestart(player) AND 251							'Clear the restart bit
 			theProgress(player) = 3									'Allows you to re-start the mode
-		Else		
+		Else
 			theProgress(player) = 0
 			pulse(36)													'Reset theater advance lights
 			light 37, 0
@@ -8930,7 +8937,7 @@ sub TheaterFail( reasonFail)
 		End If
 		showProgress 0, player
 		checkModePost() 											'Disable for testing
-		hellEnable(1)		
+		hellEnable(1)
 	End If
 				'Show the lights
 End Sub
@@ -8945,12 +8952,12 @@ Function tourGuide(whichBit,  whichMode,  whichLight, nullPoints,  nullSound)
 	if ((tourBits AND (shiftLeft(1, whichBit))) = (shiftLeft(1, whichBit))) Then				'Already hit this one?
 		AddScore(nullPoints)						'A few points so shot logic doesn't have to worry about awarding anything
 		if (nullSound) Then
-			playSFX 2, "A", "Z", "Z", 255			'Generic shot WHOOSH sound		
+			playSFX 2, "A", "Z", "Z", 255			'Generic shot WHOOSH sound
 		End If
 		tourGuide = 0
 		Exit Function									'Return a null
 	End If
-	'OK so we must not have hit this one yet, proceed:	
+	'OK so we must not have hit this one yet, proceed:
 	light photoLights(whichLight), 0				'Turn out that light
 	tourLights(whichLight) = 0						'Clear the tour lights for combo protection
 	tourBits = tourBits OR shiftLeft(whichBit, 1)					'Set the bit
@@ -8961,15 +8968,15 @@ Function tourGuide(whichBit,  whichMode,  whichLight, nullPoints,  nullSound)
 	'CHANGE TO A SOUND EFFECT!!!
 	'playMusicOnce 'T', '0' + tourTotal									'Music for each advance
 	if (whichMode = 8) Then												'Multiball?
-		stopVideo(0)	
+		stopVideo(0)
 		video "C", "G", 65 + random(2), noExitFlush, 12, 255 			'Net catch left or right
 		if (whichLight <> 2) Then										'Don't show number video on center shot since pops will override it
 ';			numbers 7, numberFlash OR 1, 255, 11, catchValue * 100500	'Value multiplies every time you clear all 4
 			numbers "", "", catchValue*100500, catchValue*100500
-			videoQ "C", "G", "C", noEntryFlush OR 3, 30, 255	'Mode Total:		
+			videoQ "C", "G", "C", noEntryFlush OR 3, 30, 255	'Mode Total:
 		End If
-		AddScore(catchValue * 100500)									'And add it to the score	
-		playSFX 0, "Q", "C", 65 + random(5), 250						'Sound + Heather compliment	
+		AddScore(catchValue * 100500)									'And add it to the score
+		playSFX 0, "Q", "C", 65 + random(5), 250						'Sound + Heather compliment
 		if (tourTotal = 4) Then
 			catchValue  = catchValue  +  1
 			if (catchValue > 255) Then									'Could be possible. You never know.
@@ -8977,12 +8984,12 @@ Function tourGuide(whichBit,  whichMode,  whichLight, nullPoints,  nullSound)
 			End If														'Re-light the shots!
 			tourReset(58)												'Tour: Left orbit, door VUK, up middle, right orbit (excludes Hotel and Scoop
 		End If
-	Else	
+	Else
 		if (tourTotal = 4) Then											'Completed this tour?
 			tourComplete(player) = tourComplete(player) OR ShiftRight(whichMode, 1)		'Set flag that we completed the tour
 			playSFX 1, "A", "X", "F", 255								'Tour complete sound
 			if ((tourComplete(player) AND 126) = 126) Then
-				video "R", "7", "A", 0, 45, 255 						'NEED A VIDEO FOR THIS!!!!!!!!!!				
+				video "R", "7", "A", 0, 45, 255 						'NEED A VIDEO FOR THIS!!!!!!!!!!
 				showValue 10000000, 40, 1								'10 MEEEEEELION!
 				TourGuide = 99
 				Exit Function											'Completed all tours!
@@ -8991,14 +8998,14 @@ Function tourGuide(whichBit,  whichMode,  whichLight, nullPoints,  nullSound)
 				showValue 3000000, 40, 1								'Completing tour = 3 million
 				TourGuide = 10
 				Exit Function											'Completed this tours!
-			End If		
+			End If
 		Else
 			video "R", whichMode, 64 + tourTotal, 0, 45, 210 			'Show the correct video
 			playSFX 1, "A", "X", "E", 255								'Tour advance sound
 			showValue 500000 * tourTotal, 40, 1							'500k, 1 mil, 1.5 mil, then 3 million!
 			TourGuide = 1
 			Exit Function												'Return that we got 1
-		End If		
+		End If
 	End If
 End Function
 
@@ -9026,44 +9033,44 @@ sub tourClear()															'Gets rid of the Tour Lights  mode end or fail, ti
 		tourLights(x) = 0												'Clear the value so it won't interfere with combos / scoop light
 	Next
 	tourBits = 0
-	tourTotal = 0	
+	tourTotal = 0
 End Sub
 
 'FUNCTIONS FOR WAR FORT MODE 3............................
 sub WarAdvance()
 	AddScore(popScore)
-	flashCab 0, 255, 0, 10					'Flash the GHOST BOSS color	
-	areaProgress(player)  = areaProgress(player)  +  1	
+	flashCab 0, 255, 0, 10					'Flash the GHOST BOSS color
+	areaProgress(player)  = areaProgress(player)  +  1
 	fortProgress(player)  = fortProgress(player)  +  1
-	if (fortProgress(player) > 0 and fortProgress(player) < 26) Then ' and centerTimer = 0) Then					
+	if (fortProgress(player) > 0 and fortProgress(player) < 26) Then ' and centerTimer = 0) Then
 		video "WA", "Z", fortprogress(player), allowBar OR allowSmall OR preventRestart, 40, 250				'Advance video	EP- Had to adjust since DMD doesn't have a progress bar
 '		showProgressBar(4, 3, 12, 26, fortProgress player) * 4, 4
-'		showProgressBar(5, 10, 12, 27, fortProgress player) * 4, 2	
+'		showProgressBar(5, 10, 12, 27, fortProgress player) * 4, 2
 	End If
 	if (fortProgress(player) = 6) Then
-		playSFX 0, "W", "1", random(4) + 65, 250 'Advance sound 1				
+		playSFX 0, "W", "1", random(4) + 65, 250 'Advance sound 1
 		Exit Sub
 	End If
 	if (fortProgress(player) = 18) Then
-		playSFX 0, "W", "2", random(4) + 65, 250 'Advance sound 2					
+		playSFX 0, "W", "2", random(4) + 65, 250 'Advance sound 2
 		Exit Sub
 	End If
 	if (fortProgress(player) = 26) Then			'Did we fill the bar? Prompt for Mode Start!
 		killQ()
 		stopVideo(0)
-		video "W", "0", "0", 0, 90, 255		'Prompt for Army Ghost Lit		
-		playSFX 0, "W", "3", random(4) + 65, 250 'Prompt for Mode Start		
+		video "W", "0", "0", 0, 90, 255		'Prompt for Army Ghost Lit
+		playSFX 0, "W", "3", random(4) + 65, 250 'Prompt for Mode Start
 		'centerTimer = 25000					'Prevents pop bumper jackpot from overiding prompt video
-		fortProgress(player) = 50				'50 indicates Mode is ready to start.				
-		popLogic(3)							'EVP pops	
-		spiritGuideEnable(0)		
+		fortProgress(player) = 50				'50 indicates Mode is ready to start.
+		popLogic(3)							'EVP pops
+		spiritGuideEnable(0)
 		showScoopLights()						'Update the Scoop Lights
-		'pulse(44)								'Pulse the ARMY GHOST start light			
+		'pulse(44)								'Pulse the ARMY GHOST start light
 		'light 43, 0							'Turn off PHOTO HUNT start. If eligible, it will light after mode over
 		'light 46, 0							'Turn off SPIRIT GUIDE. If eligible, it will re-light during mode
 		Exit Sub
 	End If
-	popToggle()	
+	popToggle()
 	'playSFX(0, 'W', 'Z', random 10) + 65, 100	'Else, play the normal War Advance pop bumper sounds
 	stereoSFX 1, "W", "Z", random(10) + 65, 100, leftVolume, rightVolume
 End Sub
@@ -9071,16 +9078,16 @@ End Sub
 sub WarStart()
 	Dim whichIntro, X
 	light 44, 0								'Turn off blinking ARMY GHOST light before storing lamp state
-	comboKill()	
-	storeLamp(player)							'Store the state of the Player's lamps	
+	comboKill()
+	storeLamp(player)							'Store the state of the Player's lamps
 	allLamp(0)									'Turn off the lamps
 	spiritGuideEnable(1)						'Spirit Guide available during mode. It will turn OFF until you start War Fort, turn ON after you make the shot to start War Fort
-	modeTotal = 0								'Reset mode points		
+	modeTotal = 0								'Reset mode points
 	AddScore(startScore)							'One mil just for starting.
-	comboKill()	
+	comboKill()
 	minionEnd(0)								'Disable Minion mode, even if it's in progress
 	TargetSet(TargetDown)						'Put them down so we'll notice them come UP
-	setGhostModeRGB 255, 0, 255					'Magenta 
+	setGhostModeRGB 255, 0, 255					'Magenta
 	setCabModeFade 0, 255, 0, 200				'cabinet color GREEN
 	popLogic(3)								'Set pops to EVP
 	tourReset(46)						'Tour: Left orbit, up middle, hotel path, right orbit (excludes Door and Scoop
@@ -9089,13 +9096,13 @@ sub WarStart()
 
 	if (countGhosts() = 5) Then						'Is this the last Boss Ghost to beat?
 		blink(48)									'Blink that progress light
-	End If												
+	End If
 	light 44, 7								'Turn WAR FORT start light SOLID
 	blink(59)									'Blink the Mode Light during battle.
 	pulse(14)									'Pulse Door Camera (secret GOLD MODE!)
 	Advance_Enable = 0							'Mode started, disable advancement until we are done
 	modeTimer = 0								'We'll use this if player Goes for the Gold!
-	goldHits = 0	
+	goldHits = 0
 	goldTotal = 0								'Total Gold score
 	Mode(player) = 4							'War Fort Mode officially started!
 	gTargets(0) = 0							'Reset the 3 Ghost target status
@@ -9109,7 +9116,7 @@ sub WarStart()
 	fortProgress(player) = 59					'Flag to BLINK the soldiers lights upon Scoop Kick. Then it switches to 60, mode begun!
 	soldierUp = 7							'Set all soldiers to be up
 	warHits = 0								'How many times we've hit the War ghost
-	ghostLook = 1								'Allow ghost to look around again	
+	ghostLook = 1								'Allow ghost to look around again
 	'VOICE CALL, GHOST APPEARS
 	whichIntro = random(3)
 	If whichIntro = 0 Then X = 154
@@ -9125,7 +9132,7 @@ sub WarStart()
 	ScoopTime = Int(120000/CycleAdjuster)
 	showProgress 1, player					'Show the progress, Active Mode style
 	ghostAction = Int(320000/cycleAdjuster)
-	videoModeCheck()	
+	videoModeCheck()
 	customScore "W", "A", 64 + soldierUp, allowAll OR loopVideo, 150		'Shoot score with targets in front
 ';	numbers 8, numberScore OR 2, 0, 0, player							'Show player's score in upper left corner
 ';	numbers 9, 9, 88, 0, 0											'Ball # upper right
@@ -9143,26 +9150,26 @@ sub WarFight()
 	TargetSet(TargetDown)						'Put down the targets
 '	playMusic 'G', 'S'						'Play annoying Ghost Squad theme!
 	musicplayer "bgout_GS.mp3"
-	jackpotMultiplier = 1						'Reset this just in case	
+	jackpotMultiplier = 1						'Reset this just in case
 End Sub
 
 sub WarLogic()
 	Dim X
 	if (ScoopTime = 0) Then							'Don't count while the ball is in the scoop
-		if (fortProgress(player) = 60) Then			'Trying to knock down soldiers?		
+		if (fortProgress(player) = 60) Then			'Trying to knock down soldiers?
 			modeTimer  = modeTimer  +  1
 			if (modeTimer = Int(120000/cycleAdjuster)) Then
 				x = random(10)
 				if (x < 5) Then
 					playSFX 0, "W", "A", random(10), 200	'Random team leader prompts
 				Else
-					playSFX 2, "L", "G", random(8), 200		'Random lightning	
+					playSFX 2, "L", "G", random(8), 200		'Random lightning
 					lightningStart(Int(50000/CycleAdjuster))
-				End If			
+				End If
 				modeTimer = 0
-			End If		
+			End If
 		End If
-		if (fortProgress(player) > 69 and fortProgress(player) < 100) Then			'Fighting the Army Ghost?		
+		if (fortProgress(player) > 69 and fortProgress(player) < 100) Then			'Fighting the Army Ghost?
 			modeTimer  = modeTimer  +  1
 			if (modeTimer = Int(120000/CycleAdjuster)) Then
 				lightningStart(1)			'Do some lightning!
@@ -9170,9 +9177,9 @@ sub WarLogic()
 				if (x < 5) Then
 					playSFX 0, "W", "B", random(10), 100	'Random team leader prompts
 				Else
-					playSFX 2, "L", "G", random(8), 100	'Random lightning	
+					playSFX 2, "L", "G", random(8), 100	'Random lightning
 					lightningStart(Int(50000/CycleAdjuster))
-				End If				
+				End If
 			End If
 			if (modeTimer = Int(150000/CycleAdjuster)) Then
 				modeTimer = 0
@@ -9194,9 +9201,9 @@ sub WarTrap()
 		video "W", "7", whichBallWhack + 65, allowSmall, 68, 255		'Ghost hit, throws back ball
 		customScore "W", "C", "1", allowAll OR loopVideo, 100		'Shoot score with targets in front
 		'videoQ 'W', 'B', '1', allowSmall, 0, 200						'Ghost ready to fight!
-		MagnetSet(300)											'Catch ball.			
+		MagnetSet(300)											'Catch ball.
 		ghostFlash(50)
-		ghostAction = Int(100000/CycleAdjuster)					'Set WHACK routine, turn back towards front			
+		ghostAction = Int(100000/CycleAdjuster)					'Set WHACK routine, turn back towards front
 	End If
 	if (fortProgress(player) = 72) Then							'Second hit where he throws it back?
 		AddScore(EVP_Jackpot(player))
@@ -9206,13 +9213,13 @@ sub WarTrap()
 		video "W", "7", whichBallWhack + 69, allowSmall, 90, 255		'Ghost hit, throws back ball
 		customScore "W", "C", "2", allowAll OR loopVideo, 100		'Shoot score with targets in front
 		'videoQ 'W', 'B', '2', allowSmall, 0, 200
-		MagnetSet(300)											'Catch ball.			
+		MagnetSet(300)											'Catch ball.
 		ghostFlash(50)
-		ghostAction = Int(100000/CycleAdjuster)					'Set WHACK routine, turn back towards front	
+		ghostAction = Int(100000/CycleAdjuster)					'Set WHACK routine, turn back towards front
 	End If
 	if (fortProgress(player) = 73) Then									'Third hit?
 		if (multiBall AND multiballHell) Then								'If MB active, give points but don't end mode until second ball is gone
-			fortProgress(player) = 72									'Make this loop		
+			fortProgress(player) = 72									'Make this loop
 			AddScore(EVP_Jackpot(player))								'You can get a lot more jackpots this way!
 			light 18, 0												'Turn off Light 2 - his "health bar"
 			whichBallWhack = random(8)								'Taunts 5-8
@@ -9221,20 +9228,20 @@ sub WarTrap()
 			customScore "W", "C", "Z", allowAll OR loopVideo, 100			'Shoot score with targets in front
 			sendJackpot(0)												'Update jackpot value
 ';			numbers 9, numberScore OR 2, 72, 27, 0						'Use Score #0 to display the Jackpot Value bottom off to right
-			MagnetSet(400)												'Catch ball.			
+			MagnetSet(400)												'Catch ball.
 			ghostFlash(50)
 			ghostAction = Int(100000/CycleAdjuster)						'Set WHACK routine, turn back towards front
 		Else															'If we aren't in a stacked MB, third hit wins mode
-			MagnetSet(500)												'Catch ball.	
-			WarWin()	
+			MagnetSet(500)												'Catch ball.
+			WarWin()
 		End If
-	End If			
+	End If
 End Sub
 
 sub WarGoldStart()
 	goldHits  = goldHits  +  1							'Increase # of Gold Hits
 	if (goldHits = 1) Then
-		video "W", "G", "A", allowSmall, 60, 255 			'2 HITS TO GO	
+		video "W", "G", "A", allowSmall, 60, 255 			'2 HITS TO GO
 		playSFX 0, "W", "G", 65 + random(4), 255
 		AddScore(50000)
 '		DoorLocation = DoorClosed - 10				'Put it to be slightly opened
@@ -9245,7 +9252,7 @@ sub WarGoldStart()
 		ghostBored = Int((5000 + random(15000))/cycleAdjuster)			'Set bored timer.
 	End If
 	if (goldHits = 2) Then
-		video "W", "G", "B", allowSmall, 60, 255 			'1 HIT TO GO	
+		video "W", "G", "B", allowSmall, 60, 255 			'1 HIT TO GO
 		playSFX 0, "W", "G", 69 + random(4), 255
 		AddScore(50000)
 '		DoorLocation = DoorClosed + 20				'Put it to be slightly opened
@@ -9253,22 +9260,22 @@ sub WarGoldStart()
 		PrDoor.ObjRotZ = DoorClosed + 20
 		DoorSet DoorClosed, 1000					'Then make it go back closed
 		ghostMove 10, 10							'Ghost looks at door.
-		ghostBored = 5000 + random(15000)			'Set bored timer.		
+		ghostBored = 5000 + random(15000)			'Set bored timer.
 	End If
 	if (goldHits = 3) Then							'Gold Mode Start!
 		AddScore(100000)
-		goldHits = 10								'Set flag that we're collecting gold 
+		goldHits = 10								'Set flag that we're collecting gold
 		video "W", "G", "C", allowSmall, 90, 255 	'Gold Mode Start!
-		playSFX 0, "W", "G", 73 + random(4), 255	'Mode start dialog	
-		DoorSet DoorOpen, 50						'Open the door		
+		playSFX 0, "W", "G", 73 + random(4), 255	'Mode start dialog
+		DoorSet DoorOpen, 50						'Open the door
 		light 14, 0								'Turn off blinking camera
-		strobe 8, 7								'Strobe the DOOR SHOT		
+		strobe 8, 7								'Strobe the DOOR SHOT
 		countSeconds = GoldTime					'You've got 20 seconds to get a lot of gold!
 		goldTotal = 0								'Keep track of score
 		goldTimer = Int(30000/cycleAdjuster)		'Seconds countdown timer. Start a little higher to give player a chance
 		ghostAction = Int(206000/CycleAdjuster)		'Guarding door
 ';		numbers 0, numberStay OR 4, 0, 0, countSeconds - 1		'Update display
-	End If	
+	End If
 End Sub
 
 sub WarGoldLogic()
@@ -9297,8 +9304,8 @@ sub WarGoldEnd()
 	if (goldTotal) Then								'Did player collect some?
 		video "W", "G", "G", allowSmall, 45, 255 	'Gold Mode Win!
 		showValue goldTotal, 40, 0				'Flash the total points scored via Gold (don't add it to score since it has been already!
-		playSFX 0, "W", "G", 85 + random(6), 255	'Mode end dialog		
-		goldHits = 100								'Set flag so mode can't be re-started		
+		playSFX 0, "W", "G", 85 + random(6), 255	'Mode end dialog
+		goldHits = 100								'Set flag so mode can't be re-started
 		light 14, 0								'Camera OFF we're done
 	Else
 		video "W", "G", "H", allowSmall, 60, 255 			'Gold Mode Fail!
@@ -9314,11 +9321,11 @@ sub WarWin()
 	if (multiBall) Then							'Was a MB stacked?
 		multiBallEnd(1)						'End it, with flag that it's ending along with a mode
 	End If
-	tourClear()	
+	tourClear()
 	loadLamp(player)								'Load the original lamp state back in
 	spiritGuideEnable(1)
 	comboKill()
-	killNumbers()							'Turn off numbers	
+	killNumbers()							'Turn off numbers
 	if (goldHits < 100) Then
 		goldHits = 0								'Enable Gold for next time if we didn't get it
 	End If
@@ -9337,33 +9344,33 @@ sub WarWin()
 	light 19, 0
 	ghostLook = 1													'Ghost will now look around again.
 	ghostAction = 0
-	ghostMove 90, 50	
+	ghostMove 90, 50
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()		
-	killQ()													'Disable any Enqueued videos	
+	killCustomScore()
+	killQ()													'Disable any Enqueued videos
 	video "W", "9", "A", noExitFlush, 87, 255 					'Play Death Video
-';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233			'Load Mode Total Points	
-	modeTotal = 0													'Reset mode points		
-	videoQ "W", "9", "B", noEntryFlush OR 3, 45, 233	'Mode Total:	
-	playSFX 0, "W", "8", random(4) + 65, 255	'Mode end dialog	
+';	numbersPriority 0, numberFlash OR 1, 255, 11, modeTotal, 233			'Load Mode Total Points
+	modeTotal = 0													'Reset mode points
+	videoQ "W", "9", "B", noEntryFlush OR 3, 45, 233	'Mode Total:
+	playSFX 0, "W", "8", random(4) + 65, 255	'Mode end dialog
 	fortProgress(player) = 99
 '	playMusic 'M', '2'							'Normal music
 	musicplayer "bgout_M2.mp3"
 	if (videoMode(player) = 0) Then									'Video mode is available?
-		TargetTimerSet 60000, TargetUp, 50	'Put targets back up, but not so fast ball is caught	
-	End If	
+		TargetTimerSet 60000, TargetUp, 50	'Put targets back up, but not so fast ball is caught
+	End If
 End Sub
 
 sub WarFail()
 	Dim X
-	tourClear()	
+	tourClear()
 	loadLamp(player)								'Load the original lamp state back in
 	spiritGuideEnable(1)
 	comboKill()
-	killNumbers()							'Turn off numbers	
+	killNumbers()							'Turn off numbers
 	if (goldHits < 100) Then
 		goldHits = 0								'Enable Gold for next time if we didn't get it
-	End If	
+	End If
 	if ((ModeWon(player) AND 8)=8) Then								'Did we win this mode before?
 		light 59, 7												'Make light solid, since it HAS been won
 	Else
@@ -9376,21 +9383,21 @@ sub WarFail()
 	ghostFadeAmount = Int(100/CycleAdjuster)
 	setCabModeFade defaultR, defaultG, defaultB, 100				'Reset cabinet color
 	killScoreNumbers()												'Disable any custom score numbers (so they won't pop up next time we build a custom score display)
-	killCustomScore()	
+	killCustomScore()
 	light 16, 0							'Turn off "Make Contact"
 	light 17, 0
-	light 18, 0	
+	light 18, 0
 	light 19, 0
 	ghostLook = 1							'Ghost will now look around again.
 	ghostAction = 0
 	ghostMove 90, 50
-	modeTotal = 0							'Reset mode points			
+	modeTotal = 0							'Reset mode points
 	Mode(player) = 0						'Set mode active to None
 	'fortProgress(player) = 50				'50 indicates Mode is ready to start. You can re-start the Ghost Whore fight
 	if ((modeRestart(player) AND 16)=16) Then							'Able to restart War Fort?
-		modeRestart(player) = modeRestart(player) AND 239							'Clear the restart bit	
+		modeRestart(player) = modeRestart(player) AND 239							'Clear the restart bit
 		fortProgress(player) = 50									'Mode start light re-lit
-		pulse(44)													'Pulse the ARMY GHOST start light	
+		pulse(44)													'Pulse the ARMY GHOST start light
 		popLogic(3)												'Set pops to EVP
 		showProgress 0, player
 	Else															'End mode, and let the ball drain
@@ -9403,29 +9410,29 @@ sub WarFail()
 			popLogic(1)											'Else, have them re-advance War Fort until we get it
 		End If
 		showProgress 0, player
-	End If	
+	End If
 	Advance_Enable = 1
 	checkModePost()
 	for x=0 To 5									'Make sure the MB lights are off
 		light 26 + x, 0
 	Next
 	hellEnable(1)
-	showProgress 0, player					'Show the progress, Active Mode style	
+	showProgress 0, player					'Show the progress, Active Mode style
 End Sub
 
 sub WarOver()
 	Dim X
-	Advance_Enable = 1						'Allow other modes to be started			
+	Advance_Enable = 1						'Allow other modes to be started
 	Mode(player) = 0						'Set mode active to None
 	fortProgress(player) = 100				'Flag that reminds us this mode has been won
-	ModeWon(player) = ModeWon(player) OR 16	'Set WAR FORT WON bit for this player.	
+	ModeWon(player) = ModeWon(player) OR 16	'Set WAR FORT WON bit for this player.
 	if (videoMode(player) > 0) Then									'Video mode is available?
 		blink(17)
 		blink(18)
 		blink(19)
 		videoMode(player) = 1										'Set to active
 		loopCatch = catchBall										'Flag that we want to catch the ball in the loop
-	End If	
+	End If
 	if (countGhosts() = 6) Then										'This the final Ghost Boss? Light BOSSES solid!
 		light 48, 7
 	End If
@@ -9436,14 +9443,14 @@ sub WarOver()
 	popLogic(0)								'Figure out what mode pops should be in
 	if (countGhosts() = 2 or countGhosts() = 5) Then	'Defeating 2 or 5 ghosts lights EXTRA BALL
 		extraBallLight(2)							'Light extra ball, no prompt we'll do there
-		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"			
-	End If	
+		'videoSFX('S', 'A', 'A', allowSmall, 0, 255, 0, 'A', 'X', 'A' + random 2), 255	'"Extra Ball is Lit!"
+	End If
 	demonQualify()									'See if Demon Mode is ready
 	for x=0 To 5									'Make sure the MB lights are off
 		light 26 + x, 0
 	Next
 	hellEnable(1)
-	showProgress 0, player						'Show the progress, Active Mode style	
+	showProgress 0, player						'Show the progress, Active Mode style
 End Sub
 
 'END FUNCTIONS FOR WAR FORT MODE 3............................
@@ -9460,7 +9467,7 @@ End Sub
 sub videoModeCheck()								'See if video mode ready and if so, pause it until mode is complete
 	if (videoMode(player) = 1) Then
 		videoMode(player) = 10
-		loopCatch = 0				
+		loopCatch = 0
 	End If
 End Sub
 
@@ -9506,7 +9513,7 @@ Sub SetGhostModeRGB(R, G, B)						'Separate sub to set the ghost color I could p
 '**	If GhostModeRGB(0) = 255 AND GhostModeRGB(1) = 0 AND GhostModeRGB(2) = 255 Then PrGhost.Image = "Ghost5"
 '**	If GhostModeRGB(0) = 255 AND GhostModeRGB(1) = 0 AND GhostModeRGB(2) = 0 Then PrGhost.Image = "Ghost6"
 '**	If GhostModeRGB(0) = 255 AND GhostModeRGB(1) = 255 AND GhostModeRGB(2) = 0 Then PrGhost.Image = "Ghost7"
-'**	If GhostModeRGB(0) = 200 AND GhostModeRGB(1) = 140 AND GhostModeRGB(2) = 0 Then PrGhost.Image = "Ghost8"	
+'**	If GhostModeRGB(0) = 200 AND GhostModeRGB(1) = 140 AND GhostModeRGB(2) = 0 Then PrGhost.Image = "Ghost8"
 End Sub
 
 Sub setCabMode(lR, lG, lB)						'Set the current cabinet mode color, cabinet immediately turns this color (game start, ball end, etc)
@@ -9771,7 +9778,7 @@ sub pulse(whichLamp)
 			lampState(x) = 0
 		Next
 	End If
-	lampState(whichLamp) = 2						 						
+	lampState(whichLamp) = 2
 End Sub
 
 sub light(whichLamp, howBright)
@@ -9789,7 +9796,7 @@ sub light(whichLamp, howBright)
 	End If
 	if (howBright) Then										'Any light at all?
 		if (whichLamp > 39 and whichLamp < 43) Then DOF 200 + whichLamp, 1
-		lampState(whichLamp) = 10							'Normal lamp state, will NOT OR with animation		
+		lampState(whichLamp) = 10							'Normal lamp state, will NOT OR with animation
 	Else
 		if (whichLamp > 39 and whichLamp < 43) Then DOF 200 + whichLamp, 0
 		lampState(whichLamp) = 0							'No light (OK to OR with animation)
@@ -9804,10 +9811,10 @@ End Sub
 
 sub strobe(whichLamp, howMany)
 	Dim X
-	lampState(whichLamp) = 3						 						
-	strobeAmount(whichLamp) = howMany						'Set total number of lights to strobe (includes starting light)			
+	lampState(whichLamp) = 3
+	strobeAmount(whichLamp) = howMany						'Set total number of lights to strobe (includes starting light)
 	for x=whichLamp+1 To (whichLamp + strobeAmount(whichLamp))-1
-		lampState(x) = 33									'Clear lamp states of strobing lights. Example, if one was set to blink, strobe overwrites it.			
+		lampState(x) = 33									'Clear lamp states of strobing lights. Example, if one was set to blink, strobe overwrites it.
 	Next
 End Sub
 
@@ -9818,7 +9825,7 @@ sub storeLamp(whichPlayer)									'Stores current lamp values into specified pl
 		lampPlayers(lampPointer) = light_inserts(x).Intensity
 '**		lampPlayers(lampPointer) = light_inserts(x).OnImage
 		statePlayers(lampPointer) = lampState(x)
-		strobePlayers(lampPointer) = strobeAmount(x)		
+		strobePlayers(lampPointer) = strobeAmount(x)
 		lampPointer = lampPointer + 1
 	Next
 End Sub
@@ -9830,7 +9837,7 @@ sub loadLamp(whichPlayer)									'Load specified player's lamp memory into curr
 		light_inserts(x).Intensity = lampPlayers(lampPointer)
 '**		light_inserts(x).OnImage = lampPlayers(lampPointer)
 		lampState(x) = statePlayers(lampPointer)
-		strobeAmount(x) = strobePlayers(lampPointer)		
+		strobeAmount(x) = strobePlayers(lampPointer)
 		lampPointer = lampPointer + 1
 	Next
 	spookCheck()
@@ -9849,7 +9856,7 @@ sub allLamp(allValue)										'Turns off strobes, blinks, pulses. Sets all lamp
 		Else
 			lampState(x) = 0
 		End If
-		strobeAmount(x) = 0		
+		strobeAmount(x) = 0
 	Next
 	spookCheck()											'See what Spook Again light should be doing
 End Sub
@@ -9959,11 +9966,11 @@ sub houseKeeping() 															'Run this routine all the time. It does lighti
 	Dim X
 	Dim strobeFlag:strobeFlag = 0											'Whether or not we should move the strobing lights on this cycle
 	blinkTimer = blinkTimer + lightSpeed
-	if (blinkTimer > blinkSpeed1) Then	
-		blinkTimer = 0	
+	if (blinkTimer > blinkSpeed1) Then
+		blinkTimer = 0
 	End If
 	strobeTimer = strobeTimer + lightSpeed
-	if (strobeTimer > strobeSpeed) Then	
+	if (strobeTimer > strobeSpeed) Then
 		strobeTimer = 0
 		strobeFlag = 1														'Set strobe flag.
 	End If
@@ -9973,13 +9980,13 @@ sub houseKeeping() 															'Run this routine all the time. It does lighti
 		if (pulseDir = 0) Then
 			pulseLevel = pulseLevel + 1
 			if (pulseLevel > 8) Then
-				pulseDir = 1				
+				pulseDir = 1
 			End If
 		End If
 		if (pulseDir = 1) Then
 			pulseLevel = pulseLevel - 1
 			if (pulseLevel < 1) Then
-				pulseDir = 0				
+				pulseDir = 0
 			End If
 		End If
 	End If
@@ -10001,7 +10008,7 @@ sub houseKeeping() 															'Run this routine all the time. It does lighti
 			End If
 		End If
 		if (lampState(x) = 1)	Then										'Light set to blink?
-			if (blinkTimer < blinkSpeed0) Then			
+			if (blinkTimer < blinkSpeed0) Then
 				light_inserts(x).Intensity = 8
 				If (X >39 and x < 43) Then DOF 300 + x, 1
 '**				light_inserts(x).OnImage = "Playfield-On7-2"
@@ -10009,7 +10016,7 @@ sub houseKeeping() 															'Run this routine all the time. It does lighti
 '**				If x = 41 Then Fl41.alpha = 255
 '**				If x = 42 Then Fl42.alpha = 255
 			End If
-			if (blinkTimer > blinkSpeed0) Then			
+			if (blinkTimer > blinkSpeed0) Then
 				light_inserts(x).Intensity = 0
 				If (X >39 and x < 43) Then DOF 300 + x, 0
 '**				light_inserts(x).OnImage = "Playfield-On0-2"
@@ -10049,12 +10056,12 @@ sub houseKeeping() 															'Run this routine all the time. It does lighti
 				If (X >39 and x < 43) Then DOF 300 + x, 0
 '**				light_inserts(x + (strobePos(x) - 1)).OnImage = "Playfield-On0-2"
 			End If
-		End If	
+		End If
 	Next
 End Sub
 
 Sub EOBNumbers(whichNum, numValue)
-	
+
 End Sub
 
 '''''''''''''''''''''''''''''''''
@@ -10210,7 +10217,7 @@ sub video(v1, v2, v3, vidAttributes, progressBar, vP)
 '	sendData(0x02)
 	'Video Attribute Bit Settings:
 	'0 = No numbers allowed
-	'B00000001 = Small numbers allowed (corners, most allow it for timers)											
+	'B00000001 = Small numbers allowed (corners, most allow it for timers)
 	'B00000010 = Large numbers allowed (most will block these)
 	'B00000011 = All numbers allowed (probably not used much)
 	'B10000000 = Video will loop itself
@@ -10232,7 +10239,7 @@ Sub numbers(uL, uR, bL, bR)
 '******************* Stop removing**************
 '	dataOut(0) = 1							'Which graphic type it is (numbers)
 '	dataOut(1) = whichNumber				'Which number we're setting. 0-7 standard numbers, 8-11 custom score display numbers
-'	dataOut(2) = numType					'Send type of number. Default numbers always terminate with currently playing video	
+'	dataOut(2) = numType					'Send type of number. Default numbers always terminate with currently playing video
 '	dataOut(3) = numX
 '	dataOut(4) = numY
 '	makeLong(5, numValue)
@@ -10262,14 +10269,14 @@ Sub KillNumbers()
 	CustNumbersUL = ""
 	CustNumbersUR = ""
 	CustNumbersBL = ""
-	CustNumbersBR = ""	
+	CustNumbersBR = ""
 End Sub
 
 Sub KillScoreNumbers()
 	CustNumbersUL = ""
 	CustNumbersUR = ""
 	CustNumbersBL = ""
-	CustNumbersBR = ""	
+	CustNumbersBR = ""
 End Sub
 
 Sub KillCustomScore()
@@ -10289,24 +10296,24 @@ sub killTimer(whichNumber)					'Terminate a permanent number (usually a timer nu
 End Sub
 
 sub AddScore(scoreAmount)
-	playerScore(player) = playerScore(player) + (scoreAmount * scoreMultiplier)	
+	playerScore(player) = playerScore(player) + (scoreAmount * scoreMultiplier)
 	scoreBall = 1														'Flag that points were indeed scored this ball (free ball if you don't)
 	SetScore(player)
 	if (Advance_Enable = 0 or minion(player) > 0) Then					'In some sort of mode?
 		modeTotal = modeTotal + (scoreAmount * scoreMultiplier)			'Increase the Mode Score too
 	End If
-	if (playerScore(player) >= replayValue and replayPlayer(player) = 0 and allowReplay > 0) Then					'Enough for a replay, and they're allowed?			
+	if (playerScore(player) >= replayValue and replayPlayer(player) = 0 and allowReplay > 0) Then					'Enough for a replay, and they're allowed?
 		replayPlayer(player) = 1							'Set flag so this can only happen once
-		'video('S', 'R', 'P', 0, 0, 255)					'Replay sound and graphic	
+		'video('S', 'R', 'P', 0, 0, 255)					'Replay sound and graphic
 		'playSFX(0, 'A', 'X', 'Z', 255)
 		replayGet = replayGet + 1
 		if (freePlay = 0) Then								'Only advance this if it's actually in freeplay mode
 			credits = credits + 1
 			DOF 126, 1
 			DOF 111, 2
-		End If	
+		End If
 		Update(255)											'Send current data, and 255 means Set Replay Notice Flag
-	End If	
+	End If
 	If Not UltraDMD.IsRendering Then DMDScore()
 End Sub
 
@@ -10435,12 +10442,12 @@ sub comboKill()
 	Dim X
 	if (comboTimer) Then
 		for x=0 To 5
-			light photoLights(x), 0				'Turn off the 6 camera positions	
+			light photoLights(x), 0				'Turn off the 6 camera positions
 		Next
 		light photoLights(comboShot), 0			'Turn off existing light, if any
 		comboCount = 1							'Reset # of combos
 		comboVideoFlag = 0						'Reset video flag
-		comboShot = 99							'Set target shot to out of range	
+		comboShot = 99							'Set target shot to out of range
 		comboTimer = 0
 	End If
 End Sub
@@ -10491,21 +10498,21 @@ Sub WaSw16_Hit()
 	if (wiki(player) < 4) Then									'Not spelled yet?
 		video "S", "W", 64 + wiki(player), allowSmall, 30, 250	'Advance letters
 		playSFX 2, "S", "A", "X", 250							'Normal WIKI sound
-		AddScore(25000)			
+		AddScore(25000)
 	End If
 	if (wiki(player) = 4) Then
 		minionDamage = minionDamage + 1							'Increase the damage Minion will take, this ball only
 		if (minionDamage > 5) Then								'Top off at 5
-			minionDamage = 5				
+			minionDamage = 5
 		End If
-		AddScore(100000)		
+		AddScore(100000)
 		video "S", "W", "D", 0, 30, 255							'WIKI completed!
 		videoQ "S", "W", 69 + minionDamage, 0, 0, 238			'Show 2-5x Minion Damage (it will never be lower than 2 here)
 		playSFX 0, "S", "A", "X", 255							'WIKI complete sound
 		wiki(player) = 255										'Set TECH to complete (must complete all 3 light restart / re-light)
-		light 0, 7												'Light WIKI solid			
+		light 0, 7												'Light WIKI solid
 		spiritGuidelight 										'If it needs to be re-lit, re-lite it
-	End If	
+	End If
 End Sub
 
 Sub WaSw17_Hit()
@@ -10523,12 +10530,12 @@ Sub WaSw17_Hit()
 		AddScore(25000)
 	End If
 	if (tech(player) = 4) Then
-		AddScore(200000)		
+		AddScore(200000)
 		video "S", "T", 64 + tech(player), allowSmall, 30, 255	'TECH complete, Overclocked!
 		playSFX 0, "S", "B", "Y", 255							'OVERCLOCKED sound
 		tech(player) = 255										'Set TECH to complete (must complete all 3 light restart / re-light)
-		light 1, 7												'Light tech solid	
-		saveCurrent(player) = saveCurrent(player) + 2			'Add 2 seconds to this player's Ball Save timer			
+		light 1, 7												'Light tech solid
+		saveCurrent(player) = saveCurrent(player) + 2			'Add 2 seconds to this player's Ball Save timer
 		spiritGuidelight 										'If it needs to be re-lit, re-lite it
 	End If
 End Sub
@@ -10547,13 +10554,13 @@ Sub WaSw18_Hit()
 				minionHits = minionHits - 1								'Used to set incrementing sound
 				if (minionHits = 2) Then								'Make lights solid to count how many we've hit
 					playSFX 2, "M", "J", "0", 250						'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
 				End If
 				if (minionHits = 1) Then
 					playSFX 2, "M", "J", "1", 250						'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
-				End If	
-				gTargets(0) = 1											'Set the flag that we already hit this				
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
+				End If
+				gTargets(0) = 1											'Set the flag that we already hit this
 				ghostMove 90, 250										'Ghost only reacts if you HAVEN'T hit that target yet
 				AddScore(minionTarget(player) * 10510)					'Increase score
 				flashCab 0, 0, 255, 50									'Brief flash to blue
@@ -10561,9 +10568,9 @@ Sub WaSw18_Hit()
 				playSFX 2, "H", "0", "0", 100							'Clunking sound
 				AddScore(1000)											'Nominal points
 			End If
-			if (targetBits) Then										'Haven't cleared them all yet?				
+			if (targetBits) Then										'Haven't cleared them all yet?
 				killQ()
-				video "M", "I", 64 + targetBits, allowSmall, 30, 210	'Show which blocks are cleared			
+				video "M", "I", 64 + targetBits, allowSmall, 30, 210	'Show which blocks are cleared
 				videoQ "M", "I", "G", allowSmall, 25, 100				'"Clear targets to find minions"
 			Else
 				minionStart()											'Start the battle!
@@ -10579,7 +10586,7 @@ Sub WaSw18_Hit()
 			if (goldHits = 10) Then
 				ghostAction = Int(229999/cycleadjuster)					'Set WHACK routine, turns back towards door
 			Else
-				ghostAction = Int(339999/cycleadjuster)					'Set WHACK routine, turn back towards front			
+				ghostAction = Int(339999/cycleadjuster)					'Set WHACK routine, turn back towards front
 			End If
 			AddScore(250000)
 			soldierUp = soldierUp AND 251							'~B00000100							'Subtract that soldier
@@ -10590,7 +10597,7 @@ Sub WaSw18_Hit()
 			if (soldierUp = 0) Then										'All soldiers down?
 				WarFight()
 			Else
-				playSFX 0, "W", "9", 65 + random(16), 255				'Soldier hit noise!				
+				playSFX 0, "W", "9", 65 + random(16), 255				'Soldier hit noise!
 				customScore "W", "A", 64 + soldierUp, allowAll OR loopVideo, 150		'Shoot score with targets in front
 				'videoQ('W', 'A', 64 + soldierUp, allowSmall, 0, 200)
 			End If
@@ -10598,9 +10605,9 @@ Sub WaSw18_Hit()
 		if (hotProgress(player) = 30) Then								'Are we trying to qualify Hotel Jackpots?
 			if (gTargets(0) = 0) Then									'Target not hit yet
 				playSFX 0, "L", "8", 65 + random(8), 255				'Jackpot multiplier sound + voice
-				jackpotMultiplier = jackpotMultiplier + 1				
-				video "L", "M", jackpotMultiplier, allowSmall, 26, 255	'Show multiplier		
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)				'Ramp re-lights Jackpot					
+				jackpotMultiplier = jackpotMultiplier + 1
+				video "L", "M", jackpotMultiplier, allowSmall, 26, 255	'Show multiplier
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)				'Ramp re-lights Jackpot
 				light 17, 7												'Turn that light SOLID.
 				gTargets(0) = 1											'Set the flag that we already hit this
 				AddScore(100000)
@@ -10609,35 +10616,35 @@ Sub WaSw18_Hit()
 					customScore "L", "P", "C", allowAll OR loopVideo, 30		'Change prompt to only mention Ramp (no more point hitting ghost)
 				End If
 			Else
-				playSFX 0, "L", "W", 65 + random(8), 255				'Oh noes!				
+				playSFX 0, "L", "W", 65 + random(8), 255				'Oh noes!
 				video "L", "8", "A", allowSmall, 20, 240					'Ghost worried!
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)				'Ramp re-lights Jackpot					
-				AddScore(10000)					
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)				'Ramp re-lights Jackpot
+				AddScore(10000)
 			End If
 		End If
 		if (priProgress(player) > 9 and priProgress(player) < 13) Then	'Are we freeing our friends from Ghost Prison?
 			ghostFlash(100)
 			targetBits = targetBits AND 251						'~B00000100									'Clear that bit
 			light 17, 7													'Turn that light SOLID
-			if (targetBits) Then										'Haven't cleared them all yet?				
+			if (targetBits) Then										'Haven't cleared them all yet?
 				if (gTargets(0) = 1) Then
 					AddScore(10)										'Pwned
-					playSFX 2, "H", "0", "0", 100						'CLUNK!	
+					playSFX 2, "H", "0", "0", 100						'CLUNK!
 				Else
 					AddScore(50070)										'Increase score
-					gTargets(0) = 1										'Set the flag that we already hit this						
+					gTargets(0) = 1										'Set the flag that we already hit this
 					playSFX 2, "P", "5", 85 + random(3), 200			'Random chain whack sound
 '						video "P", "A", "Y", 0, 0, 255						'Flash transition EP- Removing because I don't want a flash transition
 					customScore "P", "5", 64 + (targetBits AND 7), allowSmall OR loopVideo, 177		'Shoot score with targets in front
-				End If					
+				End If
 			Else
 				PrisonRelease()											'Release a friend
 			End If
 			modeTimer = 0												'Reset timer so ghost prompt doesn't override audio
-		End If	
-		if (barProgress(player) = 70) Then								'Trying to free our friend from Ghost Whore?				
+		End If
+		if (barProgress(player) = 70) Then								'Trying to free our friend from Ghost Whore?
 			BarTarget(0)
-		End If			
+		End If
 	End If
 End Sub
 
@@ -10655,27 +10662,27 @@ Sub WaSw19_Hit()
 				minionHits = minionHits - 1									'Used to set incrementing sound
 				if (minionHits = 2) Then									'Make lights solid to count how many we've hit
 					playSFX 2, "M", "J", "0", 250							'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
 				End If
 				if (minionHits = 1) Then
 					playSFX 2, "M", "J", "1", 250							'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
-				End If	
-				gTargets(1) = 1												'Set the flag that we already hit this				
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
+				End If
+				gTargets(1) = 1												'Set the flag that we already hit this
 				ghostMove 90, 250											'Ghost only reacts if you HAVEN'T hit that target yet
 				AddScore(minionTarget(player) * 10510)						'Increase score
 				flashCab 0, 0, 255, 50										'Brief flash to blue
 			Else
 				playSFX 2, "H", "0", "0", 100								'Clunking sound
 			End If
-			if (targetBits) Then											'Haven't cleared them all yet?				
+			if (targetBits) Then											'Haven't cleared them all yet?
 				killQ()
-				video "M", "I", 64 + targetBits, allowSmall, 30, 210		'Show which blocks are cleared			
+				video "M", "I", 64 + targetBits, allowSmall, 30, 210		'Show which blocks are cleared
 				videoQ "M", "I", "G", 2, 25, 100							'"Clear targets to find minions"
 			Else
 				minionStart()												'Start the battle!
 			End If
-		End If			
+		End If
 		if (fortProgress(player) = 60 and gTargets(1) = 1) Then				'Ghost already hit?
 			video "W", "B", "I", allowSmall, 32, 255						'Show ball missing him,
 			'videoQ('W', 'A', 64 + soldierUp, 2, 0, 200)					'then back to Soldier View
@@ -10686,18 +10693,18 @@ Sub WaSw19_Hit()
 			if (goldHits = 10) Then
 				ghostAction = Int(229999/cycleadjuster)						'Set WHACK routine, turns back towards door
 			Else
-				ghostAction = Int(339999/cycleadjuster)						'Set WHACK routine, turn back towards front			
+				ghostAction = Int(339999/cycleadjuster)						'Set WHACK routine, turn back towards front
 			End If
 			AddScore(250000)
 			soldierUp = soldierUp AND 253							'~B00000010							'Subtract that soldier
 			'playSFX(0, 'W', '9', 'A' + random(16), 255)					'Soldier hit noise!
-			light 18, 7														'Turn that light SOLID.	
+			light 18, 7														'Turn that light SOLID.
 			video "W", "A", "I", allowSmall, 32, 255 						'Show soldier in middle knocked down
 			gTargets(1) = 1													'Set the flag that we already hit this
 			if (soldierUp = 0) Then
 				WarFight()
 			Else
-				playSFX 0,  "W", "9", 65 + random(16), 255					'Soldier hit noise!				
+				playSFX 0,  "W", "9", 65 + random(16), 255					'Soldier hit noise!
 				customScore "W", "A", 64 + soldierUp, allowAll OR loopVideo, 150	'Shoot score with targets in front
 				'videoQ('W', 'A', 64 + soldierUp, allowSmall, 0, 200)
 			End If
@@ -10705,36 +10712,36 @@ Sub WaSw19_Hit()
 		if (hotProgress(player) = 30) Then									'Are we trying to qualify Hotel Jackpots?
 			if (gTargets(1) = 0) Then										'Target not hit yet
 				playSFX 0, "L", "8", 65 + random(8), 255					'Jackpot multiplier sound + voice
-				jackpotMultiplier = jackpotMultiplier + 1				
+				jackpotMultiplier = jackpotMultiplier + 1
 				video "L", "M", jackpotMultiplier, allowSmall, 26, 255		'Show multiplier
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot					
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot
 				light 18, 7													'Turn that light SOLID.
 				gTargets(1) = 1												'Set the flag that we already hit this
 				AddScore(100000)
 				sendJackpot(0)												'Send updated jackpot value to score #0
 				if (jackpotMultiplier = 3) Then								'Jackpot maxed out?
 					customScore "L", "P", "C", allowAll OR loopVideo, 30	'Change prompt to only mention Ramp (no more point hitting ghost)
-				End If					
+				End If
 			Else
-				playSFX 0, "L", "W", 65 + random(8), 255					'Oh noes!				
+				playSFX 0, "L", "W", 65 + random(8), 255					'Oh noes!
 				video "L", "8", "A", allowSmall, 20, 240					'Ghost worried!
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot					
-				AddScore(10000)					
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot
+				AddScore(10000)
 			End If
 		End If
 		if (priProgress(player) > 9 and priProgress(player) < 13) Then		'Freeing friends from prison?
-			ghostFlash(100)			
+			ghostFlash(100)
 			targetBits = targetBits AND 253							'~B00000010									'Clear that bit
 			light 18, 7														'Turn that light SOLID
-			if (targetBits) Then											'Haven't cleared them all yet?				
+			if (targetBits) Then											'Haven't cleared them all yet?
 				if (gTargets(1) = 1) Then
 					AddScore(10)											'Pwned
-					playSFX 2, "H", "0", "0", 100							'CLUNK!	
+					playSFX 2, "H", "0", "0", 100							'CLUNK!
 				Else
 					AddScore(50070)											'Increase score
-					'video('P', '5', 64 + (targetBits & B00000111), allowSmall | loopVideo, 0, 200)			'Show which blocks are cleared	
-					playSFX 2, "P", "5", 85 + random(3), 200				'Random chain whack sound	
-					gTargets(1) = 1											'Set the flag that we already hit this	
+					'video('P', '5', 64 + (targetBits & B00000111), allowSmall | loopVideo, 0, 200)			'Show which blocks are cleared
+					playSFX 2, "P", "5", 85 + random(3), 200				'Random chain whack sound
+					gTargets(1) = 1											'Set the flag that we already hit this
 '					video "P", "A", "Y", 0, 0, 255							'Flash transition
 					customScore "P", "5", 64 + (targetBits AND 7), allowSmall OR loopVideo, 177		'Shoot score with targets in front
 				End If
@@ -10743,7 +10750,7 @@ Sub WaSw19_Hit()
 			End If
 			modeTimer = 0													'Reset timer so ghost prompt doesn't override audio
 		End If
-		if (barProgress(player) = 70) Then									'Trying to free our friend from Ghost Whore?				
+		if (barProgress(player) = 70) Then									'Trying to free our friend from Ghost Whore?
 			BarTarget(1)
 		End If
 	End If
@@ -10763,27 +10770,27 @@ Sub WaSw20_Hit()
 				minionHits = minionHits - 1									'Used to set incrementing sound
 				if (minionHits = 2) Then									'Make lights solid to count how many we've hit
 					playSFX 2, "M", "J", "0", 250							'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
 				End If
 				if (minionHits = 1) Then
 					playSFX 2, "M", "J", "1", 250							'Minion target SFX (slightly longer)
-					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement	
-				End If	
-				gTargets(2) = 1												'Set the flag that we already hit this				
+					ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
+				End If
+				gTargets(2) = 1												'Set the flag that we already hit this
 				ghostMove 90, 250											'Ghost only reacts if you HAVEN'T hit that target yet
 				AddScore(minionTarget(player) * 10510)						'Increase score
 				flashCab 0, 0, 255, 50										'Brief flash to blue
 			Else
 				playSFX 2, "H", "0", "0", 100								'Clunking sound
 			End If
-			if (targetBits) Then											'Haven't cleared them all yet?				
+			if (targetBits) Then											'Haven't cleared them all yet?
 				killQ()
-				video "M", "I", 64 + targetBits, allowSmall, 30, 210		'Show which blocks are cleared			
+				video "M", "I", 64 + targetBits, allowSmall, 30, 210		'Show which blocks are cleared
 				videoQ "M", "I", "G", allowSmall, 25, 100					'"Clear targets to find minions"
 			Else
 				minionStart()												'Start the battle!
 			End If
-		End If	
+		End If
 			if (fortProgress(player) = 60 and gTargets(2) = 1) Then			'Ghost already hit?
 			video "W", "B", "J", allowSmall, 32, 255						'Show ball missing him,
 			'videoQ('W', 'A', 64 + soldierUp, allowSmall, 0, 200)			'then back to Soldier View
@@ -10794,7 +10801,7 @@ Sub WaSw20_Hit()
 			if (goldHits = 10) Then
 				ghostAction = Int(229999/cycleadjuster)						'Set WHACK routine, turns back towards door
 			Else
-				ghostAction = Int(339999/cycleadjuster)						'Set WHACK routine, turn back towards front			
+				ghostAction = Int(339999/cycleadjuster)						'Set WHACK routine, turn back towards front
 			End If
 			AddScore(250000)
 			soldierUp = soldierUp AND 254							'~B00000001							'Subtract that soldier
@@ -10806,52 +10813,52 @@ Sub WaSw20_Hit()
 				WarFight()
 			Else
 				playSFX 0, "W", "9", 65 + random(16), 255					'Soldier hit noise!
-				customScore "W", "A", 64 + soldierUp, allowAll OR loopVideo, 150		'Shoot score with targets in front		
+				customScore "W", "A", 64 + soldierUp, allowAll OR loopVideo, 150		'Shoot score with targets in front
 				'videoQ('W', 'A', 64 + soldierUp, allowSmall, 0, 200)
 			End If
 		End If
 		if (hotProgress(player) = 30) Then									'Are we trying to qualify Hotel Jackpots?
 			if (gTargets(2) = 0) Then										'Target not hit yet
 				playSFX 0, "L", "8", 65 + random(8), 255					'Jackpot multiplier sound + voice
-				jackpotMultiplier = jackpotMultiplier + 1				
+				jackpotMultiplier = jackpotMultiplier + 1
 				video "L", "M", jackpotMultiplier, allowSmall, 26, 255		'Show multiplier
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot					
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot
 				light 19, 7													'Turn that light SOLID.
 				gTargets(2) = 1												'Set the flag that we already hit this
 				AddScore(100000)
 				sendJackpot(0)												'Send updated jackpot value to score #0
 				if (jackpotMultiplier = 3) Then								'Jackpot maxed out?
 					customScore "L", "P", "C", allowAll OR loopVideo, 30	'Change prompt to only mention Ramp (no more point hitting ghost)
-				End If					
+				End If
 			Else
-				playSFX 0, "L", "W", 65 + random(8), 255					'Oh noes!				
+				playSFX 0, "L", "W", 65 + random(8), 255					'Oh noes!
 				video "L", "8", "A", allowSmall, 20, 240					'Ghost worried!
-				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot					
-				AddScore(10000)					
+				'videoQ('L', '8', 'E', allowSmall, 0, 200)					'Ramp re-lights Jackpot
+				AddScore(10000)
 			End If
 		End If
 		if (priProgress(player) > 9 and priProgress(player) < 13) Then		'Are we trying to Free Friends from Prison?
 			ghostFlash(100)
 			targetBits = targetBits AND 254							'~B00000001									'Clear that bit
 			light 19, 7														'Turn that light SOLID
-			if (targetBits) Then											'Haven't cleared them all yet?				
+			if (targetBits) Then											'Haven't cleared them all yet?
 				if (gTargets(2) = 1) Then
 					AddScore(10)											'Pwned
-					playSFX 2, "H", "0", "0", 100							'CLUNK!	
+					playSFX 2, "H", "0", "0", 100							'CLUNK!
 				Else
 					AddScore(50070)											'Increase score
-					'video('P', '5', 64 + (targetBits & B00000111), allowSmall | loopVideo, 0, 200)			'Show which blocks are cleared	
-					playSFX 2, "P", "5", 85 + random(3), 200				'Random chain whack sound	
+					'video('P', '5', 64 + (targetBits & B00000111), allowSmall | loopVideo, 0, 200)			'Show which blocks are cleared
+					playSFX 2, "P", "5", 85 + random(3), 200				'Random chain whack sound
 					gTargets(2) = 1											'Set the flag that we already hit this
 '					video "P", "A", "Y", 0, 0, 255							'Flash transition
-					customScore "P", "5", 64 + (targetBits AND 7), allowSmall OR loopVideo, 177		'Shoot score with targets in front						
+					customScore "P", "5", 64 + (targetBits AND 7), allowSmall OR loopVideo, 177		'Shoot score with targets in front
 				End If
 			Else
 				PrisonRelease()												'Release a friend
 			End If
 			modeTimer = 0													'Reset timer so ghost prompt doesn't override audio
 		End If
-		if (barProgress(player) = 70) Then									'Trying to free our friend from Ghost Whore?				
+		if (barProgress(player) = 70) Then									'Trying to free our friend from Ghost Whore?
 			BarTarget(2)
 		End If
 	End If
@@ -10868,14 +10875,14 @@ End Sub
 Sub TrSw24_Hit()
 	Sw24 = 1
 	If (MagnetTimer = 0 and TargetLocation = TargetDown) Then							'GHOST HIT? (the loop)
-		switchDead = 0																	'Since it's not a matrix switch, we set this manually	
+		switchDead = 0																	'Since it's not a matrix switch, we set this manually
 		animatePF 179, 10, 0															'Center explode!
 		if (photosToGo) Then
-			killQ()																		'Disable any Enqueued videos		
+			killQ()																		'Disable any Enqueued videos
 			playSFX 2, "A", "Z", "Z", 255												'Whoosh!
 			photoTimer = longSecond * 2													'Reset timer, with a little padding
 			countSeconds = countSeconds + loopSecondsAdd
-			photoValue = (countSeconds * 10000) + (100000 * (photosNeeded(player) - 2))	'Re-calculate next photo value	
+			photoValue = (countSeconds * 10000) + (100000 * (photosNeeded(player) - 2))	'Re-calculate next photo value
 '			numbers(9, 2, 68, 27, photoValue)											'Update display Photo Value
 			numbers "", photoValue, "", ""
 			ghostAction = Int(20000/CycleAdjuster)										'Whack routine
@@ -10895,12 +10902,12 @@ Sub TrSw24_Hit()
 			flashCab 255, 0, 0, 50														'Bright red, brief flash
 		End If
 		if (deProgress(player) = 20 and activeBalls > 1) Then							'Bashing Demon, and not on our last ball?
-			DemonJackpot()			
+			DemonJackpot()
 		End If
 		if (theProgress(player) > 9 and theProgress(player) < 50) Then					'Theater Ghost?
 			TheaterWin()																'Mode complete!
 		End If
-		if (minion(player) = 10) Then													'Are we fighting a Minion?		
+		if (minion(player) = 10) Then													'Are we fighting a Minion?
 			minionHitLogic()
 		End If
 		if (fortProgress(player) > 69 and fortProgress(player) < 100) Then				'Are we fighting the War Ghost?
@@ -10909,20 +10916,20 @@ Sub TrSw24_Hit()
 		if (loopCatch = catchBall) Then													'Trying to catch the ball?
 			loopCatch = checkBall														'Change state that we're checking to see if ball actually caught
 			MagnetSet(255)																'Hold the ball.
-			TargetTimerSet 1000, TargetUp, 2											'Put targets up quickly to catch ball. This is also how much time before we check again if the ball is actually there	
+			TargetTimerSet 1000, TargetUp, 2											'Put targets up quickly to catch ball. This is also how much time before we check again if the ball is actually there
 		End If
 		if (barProgress(player) = 80) Then												'Ghost Whore multiball?
 			Dim X
 			'lightningStart(1)
-			lightningStart(Int(5998/CycleAdjuster)-1)														'Lightning FX	
+			lightningStart(Int(5998/CycleAdjuster)-1)														'Lightning FX
 			ghostFlash(50)
 			ghostAction = Int(20000/CycleAdjuster)										'Ghost whacked
 			whoreJackpot = whoreJackpot + 1												'Increase jackpot number. First hit will make this 1
 			modeTimer = Int(30000/CycleAdjuster)										'Set timer so a quote happens soon after the hit
 			if (whoreJackpot < 10) Then													'Play the normal-ish ones for first 9 hits
 				playSFX 0, "B", "0", 65 + random(9), 255								'Sound depends on jackpot progress
-				video "B", "0", 64 + whoreJackpot, allowSmall, 35, 10					'Gets knocked closer and closer to the well	
-				x = EVP_Jackpot(player) + (whoreJackpot * 75000)						'Calculate Current value of jackpot		
+				video "B", "0", 64 + whoreJackpot, allowSmall, 35, 10					'Gets knocked closer and closer to the well
+				x = EVP_Jackpot(player) + (whoreJackpot * 75000)						'Calculate Current value of jackpot
 				AddScore(x)																'The more you hit her, the more you score!
 				showValue x, 40, 1														'Flash the value onscreen
 				if (whoreJackpot = 9) Then												'Is next one a SUPER JACKPOT?
@@ -10937,12 +10944,12 @@ Sub TrSw24_Hit()
 					playSFX 0, "B", "0", "O", 255										'More tame Super Jackpot callout
 				End If
 				video "B", "0", "J", allowSmall, 35, 10									'At 10+, show SUPER JACPOT
-				x = EVP_Jackpot(player) + (whoreJackpot * 250000)						'Current value				
+				x = EVP_Jackpot(player) + (whoreJackpot * 250000)						'Current value
 				AddScore(x)																'The more you hit her, the more you score!
 				showValue x, 40, 1														'Flash the value onscreen
 				whoreJackpot = 0														'Gotta start over now
 				manualScore 0, EVP_Jackpot(player) + ((whoreJackpot + 1) * 75000)		'Show value for reset "Next Jackpot"
-			End If		
+			End If
 		End If
 		if (hosProgress(player) = 10) Then												'Doctor Ghost Multiball?
 			lightningStart(1)
@@ -10989,11 +10996,11 @@ Sub WaSw29_Hit()
 	End If
 	if (callHits = hitsToLight(player) or multiBall > 0) Then							'Did we hit it enough, or is Multiball active?
 		callHits  = callHits  -  1														'Decrement this so future hits will do this same action
-		callButtonLogic()																'Move hellavator, if we can			
+		callButtonLogic()																'Move hellavator, if we can
 	Else
 		if (hotProgress(player) <> 3) Then
 			AddScore(10000)
-			video "Q", "P", (hitsToLight(player) - callHits), allowSmall, 56, 240		'Pushing button in vain, how many hits are left		
+			video "Q", "P", (hitsToLight(player) - callHits), allowSmall, 56, 240		'Pushing button in vain, how many hits are left
 			playSFX 2, "Q", "P", (hitsToLight(player) - callHits), 200					'Sound effect to match
 		Else
 			AddScore(10000)
@@ -11006,8 +11013,8 @@ Sub WaSw30_Hit()
 	DOF 110, 2
 '	playSFX 2, "S", "A", "Z", 250									'EP- None of the other targets have a sound here
 	if (psychic(player) < 255) Then									'Can be advanced?
-		psychic(player) = psychic(player) + 1		
-	Else			
+		psychic(player) = psychic(player) + 1
+	Else
 		if (scoringTimer) Then										'Double scoring active?
 ';			video "S", "P", "I", allowSmall, 0, 255					'Scoring TIME EXTEND
 			playSFX 2, "S", "A", "Z", 250							'Replace with DOUBLE SCORING time extension prompt
@@ -11016,12 +11023,12 @@ Sub WaSw30_Hit()
 		Else
 			AddScore(5000)											'Some points for hitting inert target
 			playSFX 2, "H", "0", "0", 250							'REJECT sound
-';			video "S", "P", "L", allowSmall, 0, 255					'VIDEO THAT SAYS COMPLETE REST TO RE-LITE PSYCHIC	
+';			video "S", "P", "L", allowSmall, 0, 255					'VIDEO THAT SAYS COMPLETE REST TO RE-LITE PSYCHIC
 		End If
 	End If
 	if (psychic(player) < 7) Then									'Not spelled yet?
 		video "S", "P", 64 + psychic(player), allowSmall, 30, 250
-		playSFX 2, "S", "A", "Z", 250							
+		playSFX 2, "S", "A", "Z", 250
 		AddScore(25000)
 	End If
 	if (psychic(player) = 7) Then									'Psychic Spelled?
@@ -11030,7 +11037,7 @@ Sub WaSw30_Hit()
 		scoringTimer = 20 * longSecond								'Set double scoring timer
 		scoreMultiplier = 2											'Double scoring!
 		animatePF 119, 30, 1										'Psychic Scoring light animation (loops)
-		AddScore(200000)											'Double points for spelling the longer word		
+		AddScore(200000)											'Double points for spelling the longer word
 		psychic(player) = 255										'Reset counter
 		blink(51)													'Blink the Psychic light
 		spiritGuidelight 											'If it needs to be re-lit, re-lite it
@@ -11053,9 +11060,9 @@ End Sub
 sub TrSw33_Hit()
 	If orbTimer=0 Then
 		if (rampTimer = 0) Then								'Ball didn't roll back down from ramp?
-			rampTimer = Int(16000/cycleAdjuster)			'About 1.5 second before the time out			
+			rampTimer = Int(16000/cycleAdjuster)			'About 1.5 second before the time out
 			ghostLooking(165)
-			balconyApproach()	
+			balconyApproach()
 		Else
 			playSFX 1, "T", "9", "V", 200					'Run abort sound
 			video "T", "9", "V", allowSmall, 30, 200			'Run abort animation
@@ -11064,14 +11071,14 @@ sub TrSw33_Hit()
 End Sub
 
 Sub TrSw34_Hit()
-	if (skillShot) Then										'We'll count this as a Pop Skill shot, if somehow ball slipped through the pops  unlikely, but possible			
+	if (skillShot) Then										'We'll count this as a Pop Skill shot, if somehow ball slipped through the pops  unlikely, but possible
 		if (skillShot = 1) Then								'Did we hit the Skill shot?
 			skillShotSuccess 1, 0							'Success!
 			DOF 117, 2
 		Else
 			skillShotSuccess 0, 255							'Failure, so just disable it
-		End If			
-	End If	
+		End If
+	End If
 		if (centerTimer = 0 and popsTimer = 0) Then			'Wasn't a weak shot up the middle, or just came down from the Pops?
 			centerTimer = longSecond						'Set timer. This prevents roll-backs, or Pop Values overriding what center shot triggered
 			if (rampTimer = 0) Then							'Not a jump fail? Normal switch actions below:
@@ -11079,20 +11086,20 @@ Sub TrSw34_Hit()
 			centerPathCheck()								'See what to do. Defaults to hopefully satisfying lighting sound + FX
 			comboSet 2, comboTimerStart
 		Else												'Did a jump fail?
-			'PERSON FALLING + SCREAM	
+			'PERSON FALLING + SCREAM
 			video "T", "9", "Z", allowSmall, 34, 200	'Kaminski falling
 			if (theProgress(player) < 10) Then				'Haven't started theater?
 				playSFX 0, "T", "J", random(9) + 65, 240
 			Else											'Fall but no theater prompt
 				playSFX 0, "T", "H", random(9) + 65, 240
 			End If
-			rampTimer = 0									'Reset timer		
+			rampTimer = 0									'Reset timer
 		End If
 	End If
 End Sub
 
 Sub TrSw35_Hit()
-	if (skillShot) Then			
+	if (skillShot) Then
 		if (skillShot = 3) Then														'Did we hit the Skill shot?
 			skillShotSuccess 1, 0													'Success!
 			DOF 117, 2
@@ -11100,11 +11107,11 @@ Sub TrSw35_Hit()
 			skillShotSuccess 0, 255													'Failure, show message (high priority)
 		End If
 	End If
-	if (ghostLook = 1) Then															'Ghost "watches" ball go down subway	
+	if (ghostLook = 1) Then															'Ghost "watches" ball go down subway
 		ghostLooking(165)
 	End If
 	if (Advance_Enable and priProgress(player) > 3 and priProgress(player) < 7) Then	'We've hit the left orbit a 4th time and are ready to lock ball?
-		PrisonAdvance2()		
+		PrisonAdvance2()
 	End If
 	Tunnel = 2
 End Sub
@@ -11119,9 +11126,9 @@ Sub TrSw36_Hit()
 End Sub
 
 Sub TrSw38_Hit()										'Left orbit UPPER switch hit?
-	if (skillShot) Then									'Going for Skill Shot?			
-		skillShotSuccess 0, 255							'Failure, so disable it		
-	End If 	
+	if (skillShot) Then									'Going for Skill Shot?
+		skillShotSuccess 0, 255							'Failure, so disable it
+	End If
 	if (LeftOrbitTime) Then								'If lower target WAS hit first, we count this as a Left Orbit Shot. Prevents event from activating via launch or pop actions
 		LeftOrbitTime = 0								'Clear it
 		comboCheck(0)
@@ -11132,16 +11139,16 @@ Sub TrSw38_Hit()										'Left orbit UPPER switch hit?
 End Sub
 
 Sub TrSw39_Hit()										'Left orbit LOWER switch hit?
-	if (skillShot) Then									'Going for Skill Shot?			
-		skillShotSuccess 0, 255							'Failure, so disable it		
-	End If 
+	if (skillShot) Then									'Going for Skill Shot?
+		skillShotSuccess 0, 255							'Failure, so disable it
+	End If
 	if (LeftOrbitTime = 0) Then							'Upper orbit was not hit first?
-		LeftOrbitTime = Int(15000/CycleAdjuster)		'Set timer to indicate upper motion (going UP to Zero)				
+		LeftOrbitTime = Int(15000/CycleAdjuster)		'Set timer to indicate upper motion (going UP to Zero)
 	End If
 End Sub
 
 Sub TrSw40_Hit()
-	if (skillShot) Then			
+	if (skillShot) Then
 		if (skillShot = 2) Then							'Did we hit the Skill shot?
 			skillShotSuccess 1, 0						'Success!
 			DOF 117, 2
@@ -11169,7 +11176,7 @@ Sub TrSw41_Hit()						'"R"
 			DOF 117, 2
 		else
 			skillShotSuccess 0, 0		'Failure, so just disable it
-		End If		
+		End If
 	end If
 	orbTimer = Int(40000/CycleAdjuster)
 	if ((orb(player) AND 18) = 18) Then	'Already lit?
@@ -11190,7 +11197,7 @@ Sub TrSw42_Hit()						'"B"
 			DOF 117, 2
 		else
 			skillShotSuccess 0, 0		'Failure, so just disable it
-		End If		
+		End If
 	end If
 	orbTimer = Int(40000/CycleAdjuster)
 	if ((orb(player) AND 9) = 9) Then		'Already lit?
@@ -11228,8 +11235,8 @@ Sub TrSw49_Hit()
 	If ((rollOvers(player) AND 68) = 0) Then
 		playSFX 2, "F", "1", "0", 205		'Low priority sound
 	Else
-		playSFX 2, "F", "1", "L", 205		'Rollover when already lit sound FX (reduced version of normal)						
-	End If		
+		playSFX 2, "F", "1", "L", 205		'Rollover when already lit sound FX (reduced version of normal)
+	End If
 '	rollOvers(player) |= B01000100			Add bit
 	rollOvers(player) = rollOvers(player) OR 68
 	AddScore(5000)
@@ -11242,8 +11249,8 @@ Sub TrSw54_Hit()
 	If (((rollOvers(player) AND 34) = 34)) Then
 		playSFX 2, "F", "1", "0", 205				'Low priority sound
 	Else
-		playSFX 2, "F", "1", "L", 205				'Rollover when already lit sound FX (reduced version of normal)						
-	End If		
+		playSFX 2, "F", "1", "L", 205				'Rollover when already lit sound FX (reduced version of normal)
+	End If
 '	rollOvers(player) |= B00100010					'Add
 	rollOvers(player) = rollOvers(player) OR 34
 	AddScore(5000)
@@ -11267,14 +11274,14 @@ Sub TrSw57_Hit()
 			if (skillShot > 0) Then									'Did it fall back after shitty skill shot attempt? Give player greif!
 				'Serial.println("SKILL FAIL RUN=2")
 				run = 2												'Reset condition
-				if (launchCounter > 1) Then							'A couple failed attempts?				
+				if (launchCounter > 1) Then							'A couple failed attempts?
 					if (numPlayers = 1) Then						'In single player games, do not indicate Player #
 						playSFX 0, "S", "H", random(8), 255			'Give player shit
 					Else											'Multiplayer, show which player is up and has the skill shot
 						playSFX 0, "S", "I", random(8), 255			'Give player shit
 					End If
 					launchCounter = 0
-				End If				
+				End If
 			Else													'Ball was launched, it bounced back here somehow. Kick it out!
 				'Serial.println("On shooter lane during game KICK (Run=3)")
 '				Coil(Plunger, plungerStrength)
@@ -11290,12 +11297,12 @@ End Sub
 
 Sub TargetBankTargetsHit()											'Any of the 3 targets hit?
 	DOF 108, 2
-																	'Some modes don't require you to be specific									
+																	'Some modes don't require you to be specific
 	if (minion(player) = 1 and minionsBeat(player) < 3) Then		'First 3 minions, hit any target 3 times to reveal
 		minionHits = minionHits - 1
 		flashCab 0, 0, 255, 50										'Brief flash to blue
 		if (minionHits > 0) Then									'Haven't made 3 hits yet?
-			AddScore(10000)					
+			AddScore(10000)
 			video "M", "H", minionHits, allowSmall, 40, 210			'Show how many hits we need to find minion
 			if (minionHits = 2) Then								'Make lights solid to count how many we've hit
 				'pulse(17)											'Apparently this was confusing, so just keep pulsing them I guess?
@@ -11308,37 +11315,37 @@ Sub TargetBankTargetsHit()											'Any of the 3 targets hit?
 				'light 18, 7
 				'light 19, 7
 				playSFX 2, "M", "I", "1", 250						'Minion target SFX
-			End If		
-			ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement					
+			End If
+			ghostAction = Int(509998/cycleadjuster)				'Slight ghost movement
 		Else
 			light 17, 7
 			light 18, 7
 			light 19, 7
-			minionStart()				
+			minionStart()
 		End If
 	End If
 	if (hotProgress(player) = 20) Then	'Looking for control box?
 		modeTimer = 0												'Hit ghost for random taunt
 		playSFX 0, "L", "5", 65 + random(22), 200					'Will not override advance dialog
-		video "L", "5", "A", allowSmall, 60, 100					'Will not override video				
+		video "L", "5", "A", allowSmall, 60, 100					'Will not override video
 		AddScore(10000)
 	End If
 	if (Mode(player) = 1) Then										'Are we distracting Ghost Doctor? If so, we don't care which switch was hit.
 		HospitalSwitchCheck()
-	End If	
+	End If
 	if (theProgress(player) > 9 and theProgress(player) < 100) Then	'Doing the Theater Ghost play?
 		countSeconds = countSeconds + 5								'Increase 5 seconds
 		modeTimer = Int(40000/CycleAdjuster)						'Reset seconds countdown timer
-		playSFX 0, "T", "0", 65 + random(8), 250					'Will not override advance dialog				
+		playSFX 0, "T", "0", 65 + random(8), 250					'Will not override advance dialog
 		if (countSeconds > TheaterTime) Then
 			countSeconds = TheaterTime
-			video "T", "4", "F", allowSmall, 54, 255				'Ghost talking TIMER MAXED OUT					
+			video "T", "4", "F", allowSmall, 54, 255				'Ghost talking TIMER MAXED OUT
 		Else
 			video "T", "4", "G", allowSmall, 54, 255				'Ghost talking TIMER ADD 5 SECONDS
 		End If
 ';		numbers(0, numberStay OR 4, 0, 0, countSeconds - 1)			'Update numbers station
 		shotValue = (10000 * countSeconds) + 500000					'Recalculate shot value
-';		numbers(9, 2, 70, 27, shotValue)							'Update Shot Value				
+';		numbers(9, 2, 70, 27, shotValue)							'Update Shot Value
 		AddScore(10000)
 		sweetJumpBonus = 0											'BUT it resets your Sweet Jumps meter!
 		sweetJump = 0
@@ -11350,8 +11357,8 @@ Sub TargetBankTargetsHit()											'Any of the 3 targets hit?
 	if (deProgress(player) = 10) Then								'Haven't weakened the demon yet?
 		playSFX 0, "D", "Z", 65 + random(15), 255					'Prompt that we can't hit demon yet
 		video "D", "D", "I", noExitFlush, 60, 255					'Shoot flashing shots!
-		DemonState()		
-	End If		
+		DemonState()
+	End If
 End Sub
 
 '**************
@@ -11399,7 +11406,7 @@ Sub WaSlingRight_Slingshot()
 		slingCount = 0
 	Else
 		playSFX 2, "C", "A", 65 + random(14), 99				'Low priority ghost wail
-		AddScore(5000)			
+		AddScore(5000)
 	End If
 End Sub
 
@@ -11421,11 +11428,11 @@ End Sub
 '* Bumpers
 '**************
 Sub Bumpers_Hit(X)
-	if X = 1 Then 
+	if X = 1 Then
 		DOF 105, 2
-	elseif X = 0 Then 
+	elseif X = 0 Then
 		DOF 106, 2
-	elseif X = 2 Then 
+	elseif X = 2 Then
 		DOF 107, 2
 	end if
 	popsTimer = longSecond	 			'30000					Set pops timer so ball doesn't trigger center shot if rolls down there
@@ -11702,7 +11709,7 @@ Sub KiVUK3_Hit()												'Switch 22
 	ScoopTime = Int(9010/CycleAdjuster)							'The default. Can be changed by the following:
 		if (Tunnel = 1)	Then			 						'Did ball get to the tunnel from the Hellavator?
 			if (hellMB = 1) Then
-				ScoopTime = Int(32500/CycleAdjuster)			'Sync to music and stuff. Re-test on the real, metal subway at Chuck's			
+				ScoopTime = Int(32500/CycleAdjuster)			'Sync to music and stuff. Re-test on the real, metal subway at Chuck's
 			End If
 			if (theProgress(player) = 11) Then					'If ball rolled down from hellavator, remove that Skip Event
 			 skip = 0
@@ -11729,9 +11736,9 @@ Sub KiVUK3_Hit()												'Switch 22
 				skip = 60										'Allow a skip once the ball is in position
 			End If
 		End If
-		if (Tunnel = 0) Then									'Was ball just shot right into Basement?		
+		if (Tunnel = 0) Then									'Was ball just shot right into Basement?
 			ghostLooking(120)
-			scoopDo()		
+			scoopDo()
 		End If
 End Sub
 
@@ -11743,21 +11750,21 @@ End Sub
 Sub KiDoor_Hit()									'Switch 23
 	Sw23 = 1
 	if (trapDoor = 0) Then							'Ball isn't supposed to be trapped behind door? Then check the switch! (This prevents switch from counting during Ball Search)
-		if (LeftTimer = 0) Then						'ball goes into VUK behind door?		
+		if (LeftTimer = 0) Then						'ball goes into VUK behind door?
 			if (leftVUKlogic() = 1) Then			'Call function. If it returns a 1, we are allowed to set a new combo
 				if (HellLocation = hellDown) Then	'Only light the combo if the Hotel	Path is open
 					comboSet 3, comboTimerStart		'Enable a combo at Hotel Path
 				Else
 					comboSet 4, comboTimerStart		'Else, Theater Path
-				End If				
-			End If				
+				End If
+			End If
 		End If
 	End If
 	if (hosTrapCheck = 1) Then
 		if (activeBalls > 1 and LeftTimer = 0) Then	'Ball back in VUK, and we still have 2+ balls active?
 			activeBalls = activeBalls - 1			'Subtract the ball we just caught
 			hosTrapCheck = 0						'Clear the flag
-			DoorSet DoorClosed, 1					'Close the door and continue as normal			
+			DoorSet DoorClosed, 1					'Close the door and continue as normal
 		End If
 	End If
 End Sub
@@ -11841,7 +11848,7 @@ Sub CoinDoorOpenClose()									'EP- what to do when the user opens the door (i.
 		video "A", "T", "Z", 0, 45, 100					'Play video
 		DMDSceneQ "", MenuItem, 15, "", -1, 14, 16665, 14
 		playSFX 2, "X", "X", "8", 255
-	End If			
+	End If
 	if (CoinDoorstate = -1) Then						'Is door closed?
 		playSFX 2, "X", "X", "9", 255
 		DMDScene "AT0 Rev 2.gif", "", 0, "", 0, 14, 183, 14, 100
@@ -11870,7 +11877,7 @@ End Function
 
 Sub RFlip(dir)
 	if (AutoEnable) Then '& EnableFlippers) Then									'Flippers available? Then allow player to activate them. EP- EnableFlippers is a constant, I don't understand why you have to check if a constant is there... IT'S A CONSTANT
-		if (skip) Then 																'and flipperCheck) Then									'Was either flipper hit during a skippable animation?							
+		if (skip) Then 																'and flipperCheck) Then									'Was either flipper hit during a skippable animation?
 			skippable()																'Check what to skip to!
 		End If
 		If dir = 1 Then
@@ -11885,7 +11892,7 @@ Sub RFlip(dir)
 						skillShot = 1
 					End If
 					video "K", "9", "9", 0, 5, 255									'Static transition shot
-					if (numPlayers = 1) Then										'In single player games, do not indicate Player #	
+					if (numPlayers = 1) Then										'In single player games, do not indicate Player #
 						customScore "K", "0", 64 + skillShot, 5, 999999				'Custom Score for skill shot
 					Else															'Multiplayer, show which player is up and has the skill shot
 						customScore "K", player, 64 + skillShot, 5, 999999			'Custom Score for skill shot
@@ -11925,7 +11932,7 @@ End Sub
 
 Sub LFlip(dir)
 	if (AutoEnable) Then '& EnableFlippers) Then									'Flippers available? Then allow player to activate them. EP- EnableFlippers is a constant, I don't understand why you have to check if a constant is there... IT'S A CONSTANT
-		if (skip) Then 														'and flipperCheck) Then									'Was either flipper hit during a skippable animation?							
+		if (skip) Then 														'and flipperCheck) Then									'Was either flipper hit during a skippable animation?
 			skippable()																'Check what to skip to!
 		End If
 		If dir = 1 Then
@@ -11940,7 +11947,7 @@ Sub LFlip(dir)
 						skillShot = 3
 					End If
 					video "K", "9", "9", 0, 2, 255									'Static transition shot
-					if (numPlayers = 1) Then										'In single player games, do not indicate Player #	
+					if (numPlayers = 1) Then										'In single player games, do not indicate Player #
 						customScore "K", "0", 64 + skillShot, 5, 999999				'Custom Score for skill shot
 					Else															'Multiplayer, show which player is up and has the skill shot
 						customScore "K", player, 64 + skillShot, 5, 999999			'Custom Score for skill shot
@@ -11984,17 +11991,17 @@ Sub CabCoin()												'EP- Broke this out as this is event driven
 	coinsInserted = coinsInserted + 1						'Master counter for moolah!
 	if (coinsIn = coinsPerCredit) Then
 		coinsIn = 0
-		playSFX 0, "C", "B", 65 + random(20), 255			'Ghost wail + Team Dialog			
+		playSFX 0, "C", "B", 65 + random(20), 255			'Ghost wail + Team Dialog
 		credits = credits + 1
 		DOF 126, 1
 		if (credits > 99) Then
 			credits = 99									'Once I would have asked "why would anyone try this?" but now I know better
-		End If			
+		End If
 '		if (runType) Then
-'			Update(0)										'Updates freeplay and coins.		
+'			Update(0)										'Updates freeplay and coins.
 '		Else
 '			Update(1)										'Updates freeplay and coins, attract mode to PRESS START!
-'		End If			
+'		End If
 	Else
 		playSFX 0, "C", "A", 65 + random(12), 255			'Just a ghost wail
 	End If
@@ -12012,7 +12019,7 @@ Sub CabStart(runType)										'EP- Broke this out as this is event driven
 				End If
 			Else											'If on freeplay, go for it!
 				addPlayer()									'Add player will handle past 4 players
-				Update(0)									'Update credits					
+				Update(0)									'Update credits
 			End If
 		End If
 	Else													'Game wasn't running? Start of the game with Player 1
@@ -12029,11 +12036,11 @@ Sub CabStart(runType)										'EP- Broke this out as this is event driven
 				run = 1										'Set condition to advance game
 '				Update(0)									'Turn off attract mode
 				AttractLights = 0
-			End If					
+			End If
 		Else
 			video "A", "B", "0" + (4 - countBalls()), 0, 60, 255		'LOAD 1-4 MORE BALLS
-			playSFX 2, "H", "0", "0", 255							'Door clunking sound					
-		End If	
+			playSFX 2, "H", "0", "0", 255							'Door clunking sound
+		End If
 	End If
 End Sub
 
@@ -12082,10 +12089,10 @@ Const winScore=			1000000
 Const loopSecondsAdd=	3							'How many seconds you gain in Photo Hunt by shooting the loop
 
 'Modify NumberType
-Const numberScore=		64	'"01000000"				'Draws number as Player (Number Value's) score. Use to build custom score displays 
+Const numberScore=		64	'"01000000"				'Draws number as Player (Number Value's) score. Use to build custom score displays
 Const numberFlash=		32	'"00100000"
 Const numberStay=		16	'"00010000"
-Const returnPixels=		32	'"00100000"				'Before drawing this character, place the existing left and rightmost pixels in the Outbuffer data return buffer 
+Const returnPixels=		32	'"00100000"				'Before drawing this character, place the existing left and rightmost pixels in the Outbuffer data return buffer
 
 'Modify Video Type
 Const loopVideo=		128	'"10000000"				'Should video start over after it ends?
@@ -12126,8 +12133,8 @@ dim coinDoorDetect:coinDoorDetect = 1							'Whether or not we care if the door 
 dim skip:skip = 0									'If NOT ZERO, a skippable event is occurring. The value indicates which event is occurring, so the system knows what to do if player chooses to skip
 
 dim tiltTimer:tiltTimer = 0								'If a tilt was detected
-dim tiltSense:tiltSense = 45000							'If second tilt is detected before timer gets lower than this value, game goes dimo TILT	
-dim timerTop:timerTop = 50000							'Starting timer value for tilt			
+dim tiltSense:tiltSense = 45000							'If second tilt is detected before timer gets lower than this value, game goes dimo TILT
+dim timerTop:timerTop = 50000							'Starting timer value for tilt
 dim tiltFlag:tiltFlag = 0								'If a tilt occurred
 dim tiltCounter:tiltCounter = 0								'How many warnings you got
 dim tiltLimit:tiltLimit = 3								'Warning limit
@@ -12144,7 +12151,7 @@ dim dataOut(16)								'What we're sending to the Propeller
 dim freePlay:freePlay = 1							'If the machine is Free Play or not (default = TRUE)
 dim coinsIn:coinsIn = 0								'How many coins you've inserted. Once it equals coinsPerCredit, a credit is awarded!
 dim coinsPerCredit:coinsPerCredit = 2						'Good old 25 cents per game!
-dim credits:credits = 0       						'1 credit per coin event.  
+dim credits:credits = 0       						'1 credit per coin event.
 dim replayValue:replayValue = 50000000					'Free credit if player exceeds this score
 Dim replayPlayer(5)							'Flag if a player has acheived a replay this round
 dim allowReplay:allowReplay = 1							'If game awards replays or not (default is YES)
@@ -12193,7 +12200,7 @@ dim lockCount(5)							'How many balls have been soft locked in the Hellavator
 dim multiCount:multiCount = 0							'How many balls the game should auto-launch for a Multiball
 dim multiTimer:multiTimer = 0
 dim hellJackpot(5)							'Starting MB jackpot value
-dim hitsTolight(5)							'How many times you have to press "Call" before hellavator moves / lights for lock							
+dim hitsTolight(5)							'How many times you have to press "Call" before hellavator moves / lights for lock
 dim callHits:callHits = 0							'How many times you've hit Call this ball (resets per player)
 
 ' Video Mode---------------------
@@ -12246,7 +12253,7 @@ dim EVP_Target:EVP_Target = 10								'How many pops to get an EVP
 dim popCount:popCount = 0									'How many pops we have
 dim EVP_Total(5)											'How many EVP's each player has collected
 dim EVP_EBtarget(5)											'How many EVP's each player must get to earn Extra Ball
-dim EVP_EBsetting:EVP_EBsetting = 10						'Defaults to 10, can be changed in menu if I remember to add it in			
+dim EVP_EBsetting:EVP_EBsetting = 10						'Defaults to 10, can be changed in menu if I remember to add it in
 dim EVP_Jackpot(5)											'Jackpot value per player.
 dim jackpotMultiplier:jackpotMultiplier = 0					'Current multiplier for the mode
 dim photosTaken(5)											'Total photos a player got.
@@ -12304,7 +12311,7 @@ dim kegsStolen:kegsStolen = 0							'How many kegs have been stolen!
 'War Fort - Mode 4
 
 dim fortProgress(5)										'How many pops have advanced in the Fort Mode
-dim soldierUp:soldierUp = 0			
+dim soldierUp:soldierUp = 0
 dim warHits:warHits = 0
 dim goldHits:goldHits = 0								'How many hits on the door
 dim goldTimer:goldTimer = 0								'How long to get the gold!
@@ -12378,7 +12385,7 @@ dim ghostFadeAmount:ghostFadeAmount = 0		'What amount the timer should reset to
 dim GIword:GIword = 0						'The general illumination that will get sent out
 
 dim animationTimer:animationTimer = 0		'How many kernel cycles before animation advances
-dim lightStart:lightStart = 0				'What frame # the PF animation starts on									
+dim lightStart:lightStart = 0				'What frame # the PF animation starts on
 dim lightCurrent:lightCurrent = 0			'What frame # the PF animation is currently on
 dim lightEnd:lightEnd = 0					'Last frame in this animation. When lightCurrent++ > lightEnd, we revert to lightStart
 dim lightStatus:lightStatus = 0				'Control byte for insert light animations
@@ -12466,7 +12473,7 @@ dim extraBalls:extraBalls = 0						'Flag that gives current player an extra ball
 dim allowExtraBalls:allowExtraBalls = 1				'Should game allow extra balls?
 dim extraLit(5)										'If player has an Extra Ball lit or not
 dim scoreBall:scoreBall = 0							'Whetever or not a player scored on a ball or not
-dim playerScore(5)									'Each player's score. Use 1-4, skipping 0   
+dim playerScore(5)									'Each player's score. Use 1-4, skipping 0
 dim numPlayers:numPlayers = 0						'Total # of players in the game
 dim loadChecker:loadChecker = 0						'On first load, makes sure ball fully loaded.
 dim modeTotal:modeTotal = 0							'Total podims you made in a mode
@@ -12478,8 +12485,8 @@ dim player:player = 0								'Player currently playing
 dim run:run = 0          							'What state the machine is in during attract and game start modes
 dim kickTimer:kickTimer = 0							'How long before a ball is kicked out of the drain
 dim kickPulse:kickPulse = 0							'To pulse the kicker coil
-dim kickFlag:kickFlag = 0							'Flag that says ball has been kicked from the drain. Keeps Ball Switch 4 from accidentally triggering a double drain					
-	
+dim kickFlag:kickFlag = 0							'Flag that says ball has been kicked from the drain. Keeps Ball Switch 4 from accidentally triggering a double drain
+
 dim pPos(4)											'Sorts the scores at the end of a game 0:pPos(4)									'Sorts the scores at the end of a game 0 = highest, 3 = lowest
 dim highScores(5)									'Best (0) and 5th (4)
 dim initials(3)										'What has been entered on the initial screen
@@ -12530,16 +12537,16 @@ dim currentMusic(2)						'What music is currently playing
 dim musicDefault:musicDefault = 35		'Default music volume
 dim sfxDefault:sfxDefault = 75			'Default SFX volume
 
-dim leftVolume:leftVolume = 100		
+dim leftVolume:leftVolume = 100
 dim rightVolume:rightVolume = 10
 
 dim SolTimer(24)										'32 bit system-based timer for solenoids
-dim AutoEnable:AutoEnable = 0										'Which solenoids can auto-fire with PC commands  
+dim AutoEnable:AutoEnable = 0										'Which solenoids can auto-fire with PC commands
 
-'dim coilSettings():coilSettings() = {300, 15, 15, 10, 30, 30, 0}		'Flipper, Slings, Pops, Left Vuk, Right Scoop, Autolauncher, etc...	
+'dim coilSettings():coilSettings() = {300, 15, 15, 10, 30, 30, 0}		'Flipper, Slings, Pops, Left Vuk, Right Scoop, Autolauncher, etc...
 
 dim coilDefaults:coilDefaults = Array(9, 9, 9, 8, 3, 9, 8, 4, 0)	'Flipper, Slings, Pops, Left Vuk, Right Scoop, Autolauncher, Load strength, Drain kick strength, null
-dim coilSettings:coilSettings = Array(9, 9, 9, 9, 9, 6, 5, 6, 0)	'Flipper, Slings, Pops, Left Vuk, Right Scoop, Autolauncher, Load strength, Drain kick strength, null					   
+dim coilSettings:coilSettings = Array(9, 9, 9, 9, 9, 6, 5, 6, 0)	'Flipper, Slings, Pops, Left Vuk, Right Scoop, Autolauncher, Load strength, Drain kick strength, null
 
 Const autoPlungeFast=	208								'2084							'What setting gives an "instant" autoplunge
 Const autoPlungeSlow=	292								'2917							'Slower version
@@ -12552,10 +12559,10 @@ dim autoPlungeCheck:autoPlungeCheck = 0									'If an autoplunge should wait fo
 'Variable (User Changeable) Coil Settings------------------------------
 
 dim FlipPower:FlipPower = 300 						'Default flipper high power winding ON time, in cycles
-dim SlingPower:SlingPower = 15						'How hard the slings hit	
+dim SlingPower:SlingPower = 15						'How hard the slings hit
 dim PopPower:PopPower = 15                       	'Default auto power for pop bumpers
 dim vukPower:vukPower = 25							'Power of the left VUK behind door
-dim scoopPower:scoopPower = 45							'Power of the right basement scoop	
+dim scoopPower:scoopPower = 45							'Power of the right basement scoop
 dim plungerStrength:plungerStrength = 30					'How hard the autolauncher kicks it out
 dim loadStrength:loadStrength = 6						'How hard the ball loader is
 dim drainStrength:drainStrength = 12						'15 How hard it gets out of drain
@@ -12568,12 +12575,12 @@ dim drainPWMstart:drainPWMstart = 5850					'When to switch from Drain Kick power
 'Const loadStrength	10						'How hard the ball loader is
 'Const drainStrength	10					'15 How hard it gets out of drain
 Const holdTop=			50 '250				'Used to PWM the hold coil on flippers
-Const holdHalf=			25 '125				'Save a calculation later	
+Const holdHalf=			25 '125				'Save a calculation later
 Const magPWM=			100 '350			'How many cycles between magnet pulses to hold it on
 Const magFlagTime=		2					'How many MS long each magnet cycle pulse is (stay under 10 else it's always on)
 
 
-'Sets the ramp-up per switch. The switch must be on XXX many cycles in order to register a hit	
+'Sets the ramp-up per switch. The switch must be on XXX many cycles in order to register a hit
 'dim cabRampDBTime():cabRampDBTime() = {200, 200, 200, 5, 5, 200, 200, 200, 			'unused, Door, User0, RFlip, LFlip, Menu, Enter, Coin
 '									25, 0, 5, 200, 200, 2, 2, 200,} 				'Tilt, ghostOpto, doorOpto, unused, Start, ghostOpto, doorOpto, unused
 
@@ -12767,41 +12774,41 @@ dim BallInElevator														'EP- is there a ball in the elevator
 '	210, 10			Shot 2 Up Center
 '	220, 10			Shot 3 Up Ramp Hotel
 '	230, 10			Shot 4 Right Orbit Theater
-'	240, 10			Scoop Explode!		
-					
+'	240, 10			Scoop Explode!
+
 Dim lightFrame:lightFrame = 0						'Which lightshow frame we're showing
 Dim lightShow(251)
 
 LightShow(0) =   "0007777700000000000000000000000000000000700000007000000070000000"'Frame0
 LightShow(1) =   "0005555577777777770000000000000011100000070000005707100057000000"'Frame1
-LightShow(2) =   "0002222255555555070077770000000022200000000000002576210025700000"'Frame2	
-LightShow(3) =   "0000000022222222700755550777777733300000700000000255321002570000"'Frame3	
-LightShow(4) =   "0070000000000000000722220755555544407777070000000024432100257000"'Frame4	
+LightShow(2) =   "0002222255555555070077770000000022200000000000002576210025700000"'Frame2
+LightShow(3) =   "0000000022222222700755550777777733300000700000000255321002570000"'Frame3
+LightShow(4) =   "0070000000000000000722220755555544407777070000000024432100257000"'Frame4
 LightShow(5) =   "0050000000000000007000000722222255505555007777770004543200025700"'Frame5
-LightShow(6) =   "0020000000000000007000007000000066602222700555550003654300002570"'Frame6	
+LightShow(6) =   "0020000000000000007000007000000066602222700555550003654300002570"'Frame6
 LightShow(7) =   "0000000000000000070000007000000077700000070222220002765400000257"'Frame7
-LightShow(8) =   "0070000000000000070000007000000066600000000000000001676570000025"'Frame8	
+LightShow(8) =   "0070000000000000070000007000000066600000000000000001676570000025"'Frame8
 LightShow(9) =   "0050000000000000007000000700000055500000700000000070567657000002"'Frame9
-LightShow(10) =  "7027000070000000007070000770000044407000070700000750456725700000"'Frame10	
-LightShow(11) =  "6007700077000000000777000777000033307700000770007520345602570000"'Frame11	
-LightShow(12) =  "5007770077700000000777707077700022207770000777005200234500257000"'Frame12	
+LightShow(10) =  "7027000070000000007070000770000044407000070700000750456725700000"'Frame10
+LightShow(11) =  "6007700077000000000777000777000033307700000770007520345602570000"'Frame11
+LightShow(12) =  "5007770077700000000777707077700022207770000777005200234500257000"'Frame12
 LightShow(13) =  "4007777077770000007077777077770011107777000777700000123400025700"'Frame13
-LightShow(14) =  "3007777777777000007000007077777000000000000777777000012300002570"'Frame14	
-LightShow(15) =  "2000000077777700070077770777777711107777000000005700101200000257"'Frame15	
-LightShow(16) =  "1007777777777770070000000700000022200000000777772570210170000025"'Frame16	
+LightShow(14) =  "3007777777777000007000007077777000000000000777777000012300002570"'Frame14
+LightShow(15) =  "2000000077777700070077770777777711107777000000005700101200000257"'Frame15
+LightShow(16) =  "1007777777777770070000000700000022200000000777772570210170000025"'Frame16
 LightShow(17) =  "0770000077777777000077770777777733307777000000000250321077000002"'Frame17
-LightShow(18) =  "0657777700000000011100007000000044400000000777770020432177700000"'Frame18	
+LightShow(18) =  "0657777700000000011100007000000044400000000777770020432177700000"'Frame18
 LightShow(19) =  "0520000077777777022277777077777755507777000000000000543277770000"'Frame19
 LightShow(20) =  "0407777700000000033300007000000066600000000777770000654377777000"'Frame20
 LightShow(21) =  "0370000077777777044477770077777777707777000000000000765477777700"'Frame21
-LightShow(22) =  "0250000000000000055500000000000066600000000777770070676577777770"'Frame22	
+LightShow(22) =  "0250000000000000055500000000000066600000000777770070676577777770"'Frame22
 LightShow(23) =  "0120000000000000766600000000000055500000000000000750567677777777"'Frame23
 LightShow(24) =  "0000000000000000077700000000000044400000000000007520456700000000"'Frame24
 LightShow(25) =  "0000000000000000766600000000000033300000000000005200345677777777"'Frame25
-LightShow(26) =  "0000000000000000055500000000000022200000000000002000234500000000"'Frame25	
-LightShow(27) =  "0000000000000000744400000000000011100000000000000000123477777777"'Frame26	
-LightShow(28) =  "0000000000000000033300000000000000000000000000000000012300000000"'Frame27	
-LightShow(29) =  "0000000000000000722200000000000000000000000000000000001277777777"'Frame28	
+LightShow(26) =  "0000000000000000055500000000000022200000000000002000234500000000"'Frame25
+LightShow(27) =  "0000000000000000744400000000000011100000000000000000123477777777"'Frame26
+LightShow(28) =  "0000000000000000033300000000000000000000000000000000012300000000"'Frame27
+LightShow(29) =  "0000000000000000722200000000000000000000000000000000001277777777"'Frame28
 LightShow(30) =  "0000000000000000011100000000000000000000000000000000000100000000"'Frame29
 
 LightShow(31) =  "0000007700000000000000000000000000000000700000000000700000000000"
@@ -13037,31 +13044,103 @@ LightShow(248) = "10111100000000000000000000000000000000000000000022003200311100
 LightShow(249) = "1010100000000000000000000000000000000000000000001100210021000000"
 LightShow(250) = "0000000000000000000000000000000000000000000000001100110020000000"
 '********************************************************************************** End Light Show *********************************************************************
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 100)
-End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
+Sub Pins_Hit (idx)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
 
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
+Sub Targets_Hit (idx)
+	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
 
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
+Sub Metals_Thin_Hit (idx)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Medium_Hit (idx)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals2_Hit (idx)
+	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Gates_Hit (idx)
+	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Spinner_Spin
+	PlaySound "fx_spinner",0,.25,0,0.25
+End Sub
+
+Sub Rubbers_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 20 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub Posts_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 16 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub RandomSoundRubber()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub LeftFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RightFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RandomSoundFlipper()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Dim LeftCount:LeftCount = 0
+Sub wirerampleft_hit:playsound "WireRamp":LeftCount = LeftCount + 1:End Sub
+Sub wirerampleftdrop_hit
+	If LeftCount = 1 then
+		playsound "BallDrop"
+	End If
+	LeftCount = 0
+End Sub
+
+Dim RightCount:RightCount = 0
+Sub wirerampright_hit:playsound "WireRamp":RightCount = RightCount + 1:End Sub
+Sub wireramprightdrop_hit
+	If RightCount = 1 then
+		playsound "BallDrop"
+	End If
+	RightCount = 0
+End Sub
+
+Sub TiDebug_Timer()
+	tbdebug.text = HSCheck
+End Sub
 
 '*****************************************
 '    JP's VP10 Collision & Rolling Sounds
@@ -13091,112 +13170,132 @@ Sub RollingTimer_Timer()
 	' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+    ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 AND BOT(b).z > 0 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
-Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
 
-Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
 End Sub
 
-Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
-Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
 End Sub
 
-Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
-Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
-Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
 End Sub
 
-Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
-End Sub
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
 
-Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
-End Sub
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
 
-Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
 
-Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
 
-Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
 
-Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
 
-Dim LeftCount:LeftCount = 0
-Sub wirerampleft_hit:playsound "WireRamp":LeftCount = LeftCount + 1:End Sub
-Sub wirerampleftdrop_hit
-	If LeftCount = 1 then
-		playsound "BallDrop"
-	End If
-	LeftCount = 0
-End Sub
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
 
-Dim RightCount:RightCount = 0
-Sub wirerampright_hit:playsound "WireRamp":RightCount = RightCount + 1:End Sub
-Sub wireramprightdrop_hit
-	If RightCount = 1 then
-		playsound "BallDrop"
-	End If
-	RightCount = 0
-End Sub
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
 
-Sub TiDebug_Timer()
-	tbdebug.text = HSCheck
-End Sub
