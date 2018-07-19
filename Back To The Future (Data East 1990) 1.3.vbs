@@ -3,10 +3,13 @@
 ' VP911 version 1.0 by JPSalas Mars 2011
 ' VPX version 1.0 - cyberpez
 
+' Thalamus 2018-07-19
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
-
 
 Dim InstructionCardsLeft, InstructionCardsRight, FlipperColor, SolidStateSitcker, BallRadius, BallMass, GIColorMod, LeftHillValleyMod, RightHillValleyMod, DeloreanColorMod, PlasticProtectors, BallMod, WobblePlastic, HologramUpdateStep, IsItMultiball, HologramPhoto, BallsLocked, BallsInPlay, enableBallControl, musicsnippet, RubberColor
 Dim DesktopMode: DesktopMode = bttf.ShowDT
@@ -16,7 +19,7 @@ Dim DesktopMode: DesktopMode = bttf.ShowDT
 '								OPTIONS
 '***************************************************************************'
 '***************************************************************************'
-		
+
 
 'Ball Mod
 '0=Normal balls
@@ -29,7 +32,7 @@ BallMod = 0
 
 ''0 = Random
 ''1 = normal
-''2 = Blue / Yellow / 
+''2 = Blue / Yellow /
 ''3 = Blue / Pink /
 
 GIColorMod = 1
@@ -81,7 +84,7 @@ InstructionCardsRight = 1
 HologramPhoto = 0
 
 ''''''''''''''''''''''''''''''
-'  Flipper 
+'  Flipper
 ''''''''''''''''''''''''''''''
 
 'Flipper Colors
@@ -121,7 +124,7 @@ SolidStateSitcker = 2
 MusicSnippet = 0
 
 
-' Wobble Plastic...  
+' Wobble Plastic...
 '0 = no Wobble
 '1 = Wobbles
 
@@ -170,7 +173,7 @@ LoadVPM "01560000", "DE.VBS", 3.26
 '********************
 
 Const cGameName = "bttf_a27"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 1
 Const UseSync = 0
@@ -220,7 +223,7 @@ Sub bttf_Init
 
 
     ' Drop Targets
-   	Set DTBank = New cvpmDropTarget  
+   	Set DTBank = New cvpmDropTarget
    	  With DTBank
   		.InitDrop Array(Array(sw41),Array(sw42),Array(sw43)), Array(41,42,43)
 		.InitSnd SoundFX("_droptarget",DOFDropTargets),SoundFX("resetdrop",DOFContactors)
@@ -232,7 +235,7 @@ Sub bttf_Init
         .InitSaucer sw45, 45, 194, 10
         .KickForceVar = 2
         .KickBalls = 1
-        .InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors) 
+        .InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
     End With
 
 
@@ -255,7 +258,7 @@ Sub bttf_Init
 	vpmInit me
 
 ' ball through system
-	MaxBalls=3	
+	MaxBalls=3
 	InitTime=61
 	EjectTime=0
 	TroughEject=1
@@ -281,10 +284,10 @@ Sub bttf_KeyDown(ByVal Keycode)
     If keycode = LeftTiltKey Then
 		LeftNudge 270, 5
 	End If
-    If keycode = RightTiltKey Then 
+    If keycode = RightTiltKey Then
 		RightNudge 90, 5
 	End If
-    If keycode = CenterTiltKey Then 
+    If keycode = CenterTiltKey Then
 		CenterNudge 0, 5
 	End If
 
@@ -382,7 +385,7 @@ End Sub
 
 Sub StopControl_Hit()
 	contballinplay = false
-End Sub	
+End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
@@ -390,7 +393,7 @@ Dim bcvel, bcyveloffset, bcboostmulti
 bcboost = 1		'Do Not Change - default setting
 bcvel = 4		'Controls the speed of the ball movement
 bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key) 
+bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
 '***********	Ball Control
 
 Dim prevgameover
@@ -418,13 +421,13 @@ Sub Timer_Timer()
 
 
 
-    p_gate4.Rotx = gate4.CurrentAngle' + 90 
+    p_gate4.Rotx = gate4.CurrentAngle' + 90
 
 	pLeftFlipperLogo.Roty = LeftFlipper.Currentangle' + 180
-	pLSS.Roty = LeftFlipper.Currentangle - 90 
+	pLSS.Roty = LeftFlipper.Currentangle - 90
 
 	pRightFlipperLogo.Roty = RightFlipper.Currentangle' + 180
-	pRSS.Roty = RightFlipper.Currentangle - 90 
+	pRSS.Roty = RightFlipper.Currentangle - 90
 
 	pSpinner.RotX = sw28.Currentangle * -1
 
@@ -467,14 +470,14 @@ Sub StartLevel()
 'Y
 	kLevel.Enabled = 1
 	Set lBallY = kLevel.CreateSizedBallWithMass(4, .008)
-	kLevel.kick 0, 0 
+	kLevel.kick 0, 0
 	kLevel.Enabled = 0
 
 
 'X
 	kLevel1.Enabled = 1
 	Set lBallX = kLevel1.CreateSizedBallWithMass(4, .008)
-	kLevel1.kick 0, 0 
+	kLevel1.kick 0, 0
 	kLevel1.Enabled = 0
 
 End Sub
@@ -640,91 +643,91 @@ Else
 End If
 
 If FlipperColorType = 1 Then
-	RightFlipper.Material = "Plastic White" 
+	RightFlipper.Material = "Plastic White"
 	RightFlipper.RubberMaterial = "Rubber Black"
 	pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White" 
+	LeftFlipper.Material = "Plastic White"
 	LeftFlipper.RubberMaterial = "Rubber Black"
 	pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 2 Then
-	RightFlipper.Material = "Plastic White" 
+	RightFlipper.Material = "Plastic White"
 	RightFlipper.RubberMaterial = "Rubber Red"
 	pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White" 
+	LeftFlipper.Material = "Plastic White"
 	LeftFlipper.RubberMaterial = "Rubber Red"
 	pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 3 Then
-	RightFlipper.Material = "Plastic White" 
+	RightFlipper.Material = "Plastic White"
 	RightFlipper.RubberMaterial = "Rubber Yellow"
 	pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White" 
+	LeftFlipper.Material = "Plastic White"
 	LeftFlipper.RubberMaterial = "Rubber Yellow"
 	pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 4 Then
-	RightFlipper.Material = "Plastic Yellow" 
+	RightFlipper.Material = "Plastic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Black"
 	pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow" 
+	LeftFlipper.Material = "Plastic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Black"
 	pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 5 Then
-	RightFlipper.Material = "Plastic Yellow" 
+	RightFlipper.Material = "Plastic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Red"
 	pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow" 
+	LeftFlipper.Material = "Plastic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Red"
 	pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 6 Then
-	RightFlipper.Material = "Plastic Yellow" 
+	RightFlipper.Material = "Plastic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Yellow"
 	pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow" 
+	LeftFlipper.Material = "Plastic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Yellow"
 	pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 7 Then
-	RightFlipper.Material = "Plastic Metalic Yellow" 
+	RightFlipper.Material = "Plastic Metalic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Black"
 	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow" 
+	LeftFlipper.Material = "Plastic Metalic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Black"
 	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
 
 If FlipperColorType = 8 Then
-	RightFlipper.Material = "Plastic Metalic Yellow" 
+	RightFlipper.Material = "Plastic Metalic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Red"
 	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow" 
+	LeftFlipper.Material = "Plastic Metalic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Red"
 	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
 
 If FlipperColorType = 9 Then
-	RightFlipper.Material = "Plastic Metalic Yellow" 
+	RightFlipper.Material = "Plastic Metalic Yellow"
 	RightFlipper.RubberMaterial = "Rubber Yellow"
 	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow" 
+	LeftFlipper.Material = "Plastic Metalic Yellow"
 	LeftFlipper.RubberMaterial = "Rubber Yellow"
 	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
@@ -816,7 +819,7 @@ End Sub
 
 ''''Rubber Color
 
-Dim xxRubberColor 
+Dim xxRubberColor
 
 Sub SetRubberColor()
 
@@ -845,13 +848,13 @@ Dim RedFull, Red, RedI, PinkFull, Pink, PinkI, WhiteFull, White, WhiteI, BlueFul
 Dim GIColorModType
 
 
-RedFull = rgb(255,0,0) 
+RedFull = rgb(255,0,0)
 Red = rgb(255,0,0)
 RedI = 5
 PinkFull = rgb(255,0,128)
 Pink = rgb(255,0,255)
 PinkI = 5
-WhiteFull = rgb(255,255,128) 
+WhiteFull = rgb(255,255,128)
 White = rgb(255,255,255)
 WhiteI = 7
 BlueFull = rgb(0,128,255)
@@ -1144,14 +1147,14 @@ Sub sw39_UnHit:Psw39.rotY = 0:Controller.Switch(39) = 0:End Sub
 Sub sw38_Hit()
 	Psw38.rotY = 20
 	Controller.Switch(38) = 1
-	If WobblePlastic = 1 then 
-		If PlasticWobbling = 1 then 
+	If WobblePlastic = 1 then
+		If PlasticWobbling = 1 then
 		Else
 
 			WobbleCount = 3
 			tWobblePlastic.Enabled = True
 		End If
-	End If	
+	End If
 	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 End Sub
 Sub sw38_UnHit:Psw38.rotY = 0:Controller.Switch(38) = 0:End Sub
@@ -1243,9 +1246,9 @@ Sub IsItMultiballTimer_Timer()
         Case 4:If BallsLocked > 1 then IsItMultiball = 0:HologramUpdateStep = 4:HologramUpdate: Else HologramUpdateStep = 7:HologramUpdate: End If
 		Case 5:IsItMultiballTimer.Enabled = false:IsItMultiballTimerStep = 0
     End Select
- 
+
     IsItMultiballTimerStep = IsItMultiballTimerStep + 1
- 
+
 End Sub
 
 
@@ -1452,7 +1455,7 @@ Sub sw14_Unhit:Controller.Switch(14) = 0:End Sub
 	dim sw41Dir, sw42Dir, sw43Dir
 	dim sw41Pos, sw42Pos, sw43Pos
 	Dim sw41step, sw42step, sw43step
- 
+
 	sw41Dir = 1:sw42Dir = 1:sw43Dir = 1
 	sw41Pos = 0:sw42Pos = 0:sw43Pos = 0
 
@@ -1481,13 +1484,13 @@ End Sub
 '''Target animation
 
 
- Sub sw41a_Timer()	
+ Sub sw41a_Timer()
   Select Case sw41Pos
         Case 0: sw41P.TransZ=0
 				 If sw41Dir = 1 then
 					sw41a.Enabled = 0
 				 else
-			     end if        
+			     end if
         Case 1: sw41P.TransZ=0
         Case 2: sw41P.TransZ=-6
         Case 3: sw41P.TransZ=-8
@@ -1503,7 +1506,7 @@ End Sub
 					sw41a.Enabled = 0
 			     end if
 
- 
+
 End Select
 	If sw41Dir = 1 then
 		If sw41pos>0 then sw41pos=sw41pos-1
@@ -1526,13 +1529,13 @@ Sub sw42_timer()
 End Sub
 
 
- Sub sw42a_Timer()	
+ Sub sw42a_Timer()
   Select Case sw42Pos
         Case 0: sw42P.TransZ=0
 				 If sw42Dir = 1 then
 					sw42a.Enabled = 0
 				 else
-			     end if        
+			     end if
         Case 1: sw42P.TransZ=0
         Case 2: sw42P.TransZ=-6
         Case 3: sw42P.TransZ=-12
@@ -1548,7 +1551,7 @@ End Sub
 					sw42a.Enabled = 0
 			     end if
 
- 
+
 End Select
 	If sw42Dir = 1 then
 		If sw42pos>0 then sw42pos=sw42pos-1
@@ -1570,13 +1573,13 @@ Sub sw43_timer()
 End Sub
 
 
-Sub sw43a_Timer()	
+Sub sw43a_Timer()
 	Select Case sw43Pos
         Case 0: sw43P.TransZ=0
 				 If sw43Dir = 1 then
 					sw43a.Enabled = 0
 				 else
-			     end if        
+			     end if
         Case 1: sw43P.TransZ=0
         Case 2: sw43P.TransZ=-6
         Case 3: sw43P.TransZ=-12
@@ -1615,7 +1618,7 @@ End Sub
 
 Dim Target25Step, Target26Step, Target27Step, Target33Step, Target34Step, Target35Step, Target36Step, Target37Step
 
-Sub sw25_Hit:vpmTimer.PulseSw(25):P_Target25.TransX = -5:Target25Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw25_Hit:vpmTimer.PulseSw(25):P_Target25.TransX = -5:Target25Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw25_timer()
 	Select Case Target25Step
 		Case 1:P_Target25.TransX = 3
@@ -1626,7 +1629,7 @@ Sub sw25_timer()
 	Target25Step = Target25Step + 1
 End Sub
 
-Sub sw26_Hit:vpmTimer.PulseSw(26):P_Target26.TransX = -5:Target26Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw26_Hit:vpmTimer.PulseSw(26):P_Target26.TransX = -5:Target26Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw26_timer()
 	Select Case Target26Step
 		Case 1:P_Target26.TransX = 3
@@ -1637,7 +1640,7 @@ Sub sw26_timer()
 	Target26Step = Target26Step + 1
 End Sub
 
-Sub sw27_Hit:vpmTimer.PulseSw(27):P_Target27.TransX = -5:Target27Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw27_Hit:vpmTimer.PulseSw(27):P_Target27.TransX = -5:Target27Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw27_timer()
 	Select Case Target27Step
 		Case 1:P_Target27.TransX = 3
@@ -1648,7 +1651,7 @@ Sub sw27_timer()
 	Target27Step = Target27Step + 1
 End Sub
 
-Sub sw33_Hit:vpmTimer.PulseSw(33):P_Target33.TransX = -5:Target33Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw33_Hit:vpmTimer.PulseSw(33):P_Target33.TransX = -5:Target33Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw33_timer()
 	Select Case Target33Step
 		Case 1:P_Target33.TransX = 3
@@ -1659,7 +1662,7 @@ Sub sw33_timer()
 	Target33Step = Target33Step + 1
 End Sub
 
-Sub sw34_Hit:vpmTimer.PulseSw(34):P_Target34.TransX = -5:Target34Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw34_Hit:vpmTimer.PulseSw(34):P_Target34.TransX = -5:Target34Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw34_timer()
 	Select Case Target34Step
 		Case 1:P_Target34.TransX = 3
@@ -1670,7 +1673,7 @@ Sub sw34_timer()
 	Target34Step = Target34Step + 1
 End Sub
 
-Sub sw35_Hit:vpmTimer.PulseSw(35):P_Target35.TransX = -5:Target35Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw35_Hit:vpmTimer.PulseSw(35):P_Target35.TransX = -5:Target35Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw35_timer()
 	Select Case Target35Step
 		Case 1:P_Target35.TransX = 3
@@ -1681,7 +1684,7 @@ Sub sw35_timer()
 	Target35Step = Target35Step + 1
 End Sub
 
-Sub sw36_Hit:vpmTimer.PulseSw(36):P_Target36.TransX = -5:Target36Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw36_Hit:vpmTimer.PulseSw(36):P_Target36.TransX = -5:Target36Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw36_timer()
 	Select Case Target36Step
 		Case 1:P_Target36.TransX = 3
@@ -1692,7 +1695,7 @@ Sub sw36_timer()
 	Target36Step = Target36Step + 1
 End Sub
 
-Sub sw37_Hit:vpmTimer.PulseSw(37):P_Target37.TransX = -5:Target37Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub			
+Sub sw37_Hit:vpmTimer.PulseSw(37):P_Target37.TransX = -5:Target37Step = 1:Me.TimerEnabled = 1:PlaySound SoundFX("_spottarget",DOFTargets):End Sub
 Sub sw37_timer()
 	Select Case Target37Step
 		Case 1:P_Target37.TransX = 3
@@ -1701,7 +1704,7 @@ Sub sw37_timer()
         Case 4:P_Target37.TransX = 0:Me.TimerEnabled = 0
      End Select
 	Target37Step = Target37Step + 1
-End Sub		
+End Sub
 
 ' Spinners
 Sub sw28_Spin():vpmTimer.PulseSw 28:PlaySound "spinner":End Sub
@@ -1812,7 +1815,7 @@ Sub CreatBalls()
 	Set cBall3 = Kicker3.CreateSizedballWithMass(BallRadius,Ballmass)
 
 	If BallMod = 1 Then
-		cBall1.Image = "PinballLaserLemon"	
+		cBall1.Image = "PinballLaserLemon"
 		cBall2.Image = "PinballOutrageousOrange"
 		cBall3.Image = "PinballRadicalRed"
 	End If
@@ -1896,19 +1899,19 @@ End Sub
 'Initialize SolModCallbacks: Const UseVPMModSol = 1 at the top of the script, before LoadVPM. vpmInit me in table1_Init()
 'LUT images (optional)
 'Make modifications based on era of game (setlamp / flashc for games without solmodcallback, use bonus GI subs for games with only one GI control)
- 
-Dim LampState(340), FadingLevel(340), CollapseMe   
+
+Dim LampState(340), FadingLevel(340), CollapseMe
 Dim FlashSpeedUp(340), FlashSpeedDown(340), FlashMin(340), FlashMax(340), FlashLevel(340)
 Dim SolModValue(340)    'holds 0-255 modulated solenoid values
- 
+
 'These are used for fading lights and flashers brighter when the GI is darker
 Dim LampsOpacity(340, 2) 'Columns: 0 = intensity / opacity, 1 = fadeup, 2 = FadeDown
 Dim GIscale(4)  '5 gi strings
 Dim TextureArray1: TextureArray1 = Array("Plastic with an image trans", "Plastic with an image1")
 
- 
+
 InitLamps
- 
+
 reDim CollapseMe(1) 'Setlamps and SolModCallBacks   (Click Me to Collapse)
     Sub SetLamp(nr, value)
         If value <> LampState(nr) Then
@@ -1916,7 +1919,7 @@ reDim CollapseMe(1) 'Setlamps and SolModCallBacks   (Click Me to Collapse)
             FadingLevel(nr) = abs(value) + 4
         End If
     End Sub
- 
+
     Sub SetLampm(nr, nr2, value)    'set 2 lamps
         If value <> LampState(nr) Then
             LampState(nr) = abs(value)
@@ -1927,7 +1930,7 @@ reDim CollapseMe(1) 'Setlamps and SolModCallBacks   (Click Me to Collapse)
             FadingLevel(nr2) = abs(value) + 4
         End If
     End Sub
- 
+
     Sub SetModLamp(nr, value)
         If value <> SolModValue(nr) Then
             SolModValue(nr) = value
@@ -1935,7 +1938,7 @@ reDim CollapseMe(1) 'Setlamps and SolModCallBacks   (Click Me to Collapse)
             FadingLevel(nr) = LampState(nr) + 4
         End If
     End Sub
- 
+
     Sub SetModLampM(nr, nr2, value) 'set 2 modulated lamps
         If value <> SolModValue(nr) Then
             SolModValue(nr) = value
@@ -1957,7 +1960,7 @@ reDim CollapseMe(1) 'Setlamps and SolModCallBacks   (Click Me to Collapse)
 '  SolModCallBack(22) = "SetModLamp 122," 'Right Helmet
 '  SolModCallBack(23) = "SetModLamp 123," 'Jets Enter
 '  SolModCallBack(24) = "SetModLamp 124," 'Left Loop
- 
+
 '#end section
 reDim CollapseMe(2) 'InitLamps  (Click Me to Collapse)
     Sub InitLamps() 'set fading speeds and other stuff here
@@ -1968,29 +1971,29 @@ reDim CollapseMe(2) 'InitLamps  (Click Me to Collapse)
             FadingLevel(x) = 4  ' used to track the fading state
             FlashSpeedUp(x) = 0.1   'Fading speeds in opacity per MS I think (Not used with nFadeL or nFadeLM subs!)
             FlashSpeedDown(x) = 0.1
-           
+
             FlashMin(x) = 0.001         ' the minimum value when off, usually 0
             FlashMax(x) = 1             ' the minimum value when off, usually 1
             FlashLevel(x) = 0.001       ' Raw Flasher opacity value. Start this >0 to avoid initial flasher stuttering.
-           
+
             SolModValue(x) = 0          ' Holds SolModCallback values
-           
+
         Next
-       
+
         for x = 0 to uBound(giscale)
             Giscale(x) = 1.625          ' lamp GI compensation multiplier, eg opacity x 1.625 when gi is fully off
         next
-           
+
         for x = 11 to 110 'insert fading levels (only applicable for lamps that use FlashC sub)
             FlashSpeedUp(x) = 0.015
             FlashSpeedDown(x) = 0.009
-        Next       
-       
+        Next
+
         for x = 111 to 186  'Flasher fading speeds 'intensityscale(%) per 10MS
             FlashSpeedUp(x) = 1.1
             FlashSpeedDown(x) = 0.9
         next
-       
+
         for x = 200 to 203      'GI relay on / off  fading speeds
             FlashSpeedUp(x) = 0.01
             FlashSpeedDown(x) = 0.008
@@ -2001,11 +2004,11 @@ reDim CollapseMe(2) 'InitLamps  (Click Me to Collapse)
             FlashSpeedDown(x) = 0.008
             FlashMin(x) = 0
         Next
-       
+
         UpdateGIon 0, 1:UpdateGIon 1, 1: UpdateGIon 2, 1 : UpdateGIon 3, 1:UpdateGIon 4, 1
         UpdateGI 0, 7:UpdateGI 1, 7:UpdateGI 2, 7 : UpdateGI 3, 7:UpdateGI 4, 7
     End Sub
- 
+
     Sub GetOpacity(a)   'Keep lamp/flasher data in an array
         Dim x
         for x = 0 to (a.Count - 1)
@@ -2016,11 +2019,11 @@ reDim CollapseMe(2) 'InitLamps  (Click Me to Collapse)
         Next
         for x = 0 to (a.Count - 1) : LampsOpacity(x, 0) = a(x).UserValue : Next
     End Sub
- 
+
     sub DebugLampsOn(input):Dim x: for x = 10 to 100 : setlamp x, input : next :  end sub
- 
+
 '#end section
- 
+
 reDim CollapseMe(3) 'LampTimer  (Click Me to Collapse)
     LampTimer.Interval = -1 '-1 is ideal, but it will technically work with any timer interval
     Dim FrameTime, InitFadeTime : FrameTime = 10    'Count Frametime
@@ -2034,11 +2037,11 @@ reDim CollapseMe(3) 'LampTimer  (Click Me to Collapse)
                 FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
             Next
         End If
-       
+
         UpdateGIstuff
         UpdateLamps
         UpdateFlashers
- 
+
         InitFadeTime = gametime
     End Sub
 '#end section
@@ -2046,12 +2049,12 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
     Sub UpdateGIstuff()
 
     End Sub
-   
+
     Sub UpdateFlashers()
 
 
     End Sub
-   
+
     Sub UpdateLamps()
 
 
@@ -2062,11 +2065,11 @@ FadeLUTsingle 200, "LUTCont_", 28
 SubtleDL 200, pColorRamp
 
 	If LampState(3) = 1 Then
-		If MusicSnippet = 1 And PrevGameOver = 0 Then	
+		If MusicSnippet = 1 And PrevGameOver = 0 Then
 			PlaySound "intro"
 			PrevGameOver = 1
 		End If
-	else 
+	else
 
 	End If
 
@@ -2167,7 +2170,7 @@ SubtleDL 200, pColorRamp
 	NFadeL 103, f3d
 
 	FadeMaterial2P 104, pWabblePlastic0, TextureArray1
-	FadeDisableLighting 104, Primitive10	
+	FadeDisableLighting 104, Primitive10
 	FadeMaterialP 104, Primitive10, TextureArray1
 	NFadeLm 104, f4a
 	NFadeL 104, f4b
@@ -2189,8 +2192,8 @@ SubtleDL 200, pColorRamp
 	FadeDisableLighting 108, Primitive2
 	FadeMaterialP 108, Primitive2, TextureArray1
 
-	NFadeLm 108, f8ca 
-	NFadeL 108, f8cb 
+	NFadeLm 108, f8ca
+	NFadeL 108, f8cb
 
 	NFadeLm 109, f9d1
 	NFadeLm 109, f9d2
@@ -2200,7 +2203,7 @@ SubtleDL 200, pColorRamp
 	NFadeL 109, f9b
 
 	FadeDisableLighting 112, Primitive1
-	FadeMaterialP 112, Primitive1, TextureArray1	
+	FadeMaterialP 112, Primitive1, TextureArray1
 	NFadeLm 112, f12a
 	NFadeL 112, f12b
 
@@ -2214,9 +2217,9 @@ SubtleDL 200, pColorRamp
 	FadeMaterialP 116, Primitive16, TextureArray1
 	NFadeLm 116, f16a
 	NFadeL 116, f16b
- 
+
     End Sub
-   
+
 '#end section
 
 
@@ -2244,7 +2247,7 @@ Sub SubtleDL(nr, aa)
     End Select
 End Sub
 
-'trxture swap	
+'trxture swap
 dim itemw, itemp, itemp2
 
 Sub FadeMaterialW(nr, itemw, group)
@@ -2295,11 +2298,11 @@ End Sub
 ''''End Of Additions by CP
 
 
- 
+
 reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
     Set GICallback = GetRef("UpdateGIon")       'On/Off GI to NRs 200-203
-    Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub  
-   
+    Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub
+
     Set GICallback2 = GetRef("UpdateGI")
     Sub UpdateGI(no, step)                      '8 step Modulated GI to NRs 300-303
         Dim ii, x', i
@@ -2308,7 +2311,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         LampState((no+300)) = 0
     '   if no = 2 then tb.text = no & vbnewline & step & vbnewline & ScaleGI(step,0) & SolModValue(102)
     End Sub
- 
+
     Function ScaleGI(value, scaletype)  'returns an intensityscale-friendly 0->100% value out of 1>8 'it does go to 8
         Dim i
         Select Case scaletype   'select case because bad at maths
@@ -2320,7 +2323,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         End Select
         ScaleGI = i
     End Function
- 
+
 '   Dim LSstate : LSstate = False   'fading sub handles SFX 'Uncomment to enable
     Sub FadeGI(nr) 'in On/off       'Updates nothing but flashlevel
         Select Case FadingLevel(nr)
@@ -2362,14 +2365,14 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
                 FadingLevel(nr2) = 1
         End Select
     End Sub
- 
+
     Sub UpdateGIobjects(nr, nr2, a) 'Just Update GI
         If FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 Then
             Dim x, Output : Output = FlashLevel(nr2) * FlashLevel(nr)
             for each x in a : x.IntensityScale = Output : next
         End If
     end Sub
-   
+
     Sub GiCompensation(nr, nr2, a, GIscaleOff)  'One NR pairing only fading
     '   tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
     '               "ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -2377,7 +2380,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         if FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 Then
             Dim x, Giscaler, Output : Output = FlashLevel(nr2) * FlashLevel(nr)
             Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1    'fade GIscale the opposite direction
- 
+
             for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
                 On Error Resume Next
                 a(x).Opacity = LampsOpacity(x, 0) * Giscaler
@@ -2391,7 +2394,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         End If
         '       tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
     End Sub
-   
+
     Sub GiCompensationAvg(nr, nr2, nr3, nr4, a, GIscaleOff) 'Two pairs of NRs averaged together
     '   tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
     '               "ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -2399,7 +2402,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         if FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 or FadingLevel(nr3) > 1 or FadingLevel(nr4) > 1 Then
             Dim x, Giscaler, Output : Output = (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4))) /2)
             Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1    'fade GIscale the opposite direction
- 
+
             for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
                 On Error Resume Next
                 a(x).Opacity = LampsOpacity(x, 0) * Giscaler
@@ -2407,8 +2410,8 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
                 a(x).FadeSpeedUp = LampsOpacity(x, 1) * Giscaler
                 a(x).FadeSpeedDown = LampsOpacity(x, 2) * Giscaler
             Next
-       
-               
+
+
         REM tbgi1.text = "Output:" & output & vbnewline & _
                     REM "GIscaler" & giscaler & vbnewline & _
                     REM "..."
@@ -2420,7 +2423,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
                     REM "GI4 " & flashlevel(204) & " " & flashlevel(304) & vbnewline & _
                     REM "..."
     End Sub
-   
+
     Sub GiCompensationAvgM(nr, nr2, nr3, nr4, nr5, nr6, a, GIscaleOff)  'Three pairs of NRs averaged together
     '   tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
     '               "ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -2428,9 +2431,9 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         if FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 Then
             Dim x, Giscaler, Output
             Output = (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)
-           
+
             Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1    'fade GIscale the opposite direction
- 
+
             for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
                 On Error Resume Next
                 a(x).Opacity = LampsOpacity(x, 0) * Giscaler
@@ -2444,7 +2447,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
         End If
         '       tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
     End Sub
- 
+
     Sub FadeLUT(nr, nr2, LutName, LutCount) 'fade lookuptable NOTE- this is a bad idea for darkening your table as
         If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 Then              '-it will strip the whites out of your image
             Dim GoLut
@@ -2453,7 +2456,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
     '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
-   
+
     Sub FadeLUTavg(nr, nr2, nr3, nr4, LutName, LutCount)    'FadeLut for two GI strings (WPC)
         If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 Then
             Dim GoLut
@@ -2462,7 +2465,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
             REM tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
-   
+
     Sub FadeLUTavgM(nr, nr2, nr3, nr4, nr5, nr6, LutName, LutCount) 'FadeLut for three GI strings (WPC)
         If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 or _
         FadingLevel(nr5) >2 or FadingLevel(nr6) > 2 Then
@@ -2472,9 +2475,9 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
     '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
-   
+
 '#end section
- 
+
 reDim CollapseMe(6) 'Fading subs     (Click Me to Collapse)
     Sub nModFlash(nr, object, scaletype, offscale)  'Fading with modulated callbacks
         Dim DesiredFading
@@ -2498,13 +2501,13 @@ reDim CollapseMe(6) 'Fading subs     (Click Me to Collapse)
             Case 6 : FadingLevel(nr) = 1
         End Select
     End Sub
- 
+
     Sub nModFlashM(nr, Object)
         Select Case FadingLevel(nr)
             Case 3, 4, 5, 6 : Object.Intensityscale = ScaleLights(FlashLevel(nr),0 )
         End Select
     End Sub
- 
+
     Sub Flashc(nr, object)  'FrameTime Compensated. Can work with Light Objects (make sure state is 1 though)
         Select Case FadingLevel(nr)
             Case 3 : FadingLevel(nr) = 0
@@ -2525,13 +2528,13 @@ reDim CollapseMe(6) 'Fading subs     (Click Me to Collapse)
             Case 6 : FadingLevel(nr) = 1
         End Select
     End Sub
- 
+
     Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
         select case FadingLevel(nr)
             case 3, 4, 5, 6 : Object.IntensityScale = FlashLevel(nr)
         end select
     End Sub
-   
+
     Sub NFadeL(nr, object)  'Simple VPX light fading using State
    Select Case FadingLevel(nr)
         Case 3:object.state = 0:FadingLevel(nr) = 0
@@ -2540,7 +2543,7 @@ reDim CollapseMe(6) 'Fading subs     (Click Me to Collapse)
         Case 6:object.state = 1:FadingLevel(nr) = 1
     End Select
     End Sub
- 
+
     Sub NFadeLm(nr, object) ' used for multiple lights
         Select Case FadingLevel(nr)
             Case 3:object.state = 0
@@ -2549,9 +2552,9 @@ reDim CollapseMe(6) 'Fading subs     (Click Me to Collapse)
             Case 6:object.state = 1
         End Select
     End Sub
- 
+
 '#End Section
- 
+
 reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
     Function ScaleLights(value, scaletype)  'returns an intensityscale-friendly 0->100% value out of 255
         Dim i
@@ -2570,7 +2573,7 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
         End Select
         ScaleLights = i
     End Function
- 
+
     Function ScaleByte(value, scaletype)    'returns a number between 1 and 255
         Dim i
         Select Case scaletype
@@ -2582,9 +2585,9 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
         End Select
         ScaleByte = i
     End Function
- 
+
 '#end section
- 
+
 reDim CollapseMe(8) 'Bonus GI Subs for games with only simple On/Off GI (Click Me to Collapse)
     Sub UpdateGIobjectsSingle(nr, a)    'An UpdateGI script for simple (Sys11 / Data East or whatever)
         If FadingLevel(nr) > 1 Then
@@ -2592,12 +2595,12 @@ reDim CollapseMe(8) 'Bonus GI Subs for games with only simple On/Off GI (Click M
             for each x in a : x.IntensityScale = Output : next
         End If
     end Sub
-   
+
     Sub GiCompensationSingle(nr, a, GIscaleOff) 'One NR pairing only fading
         if FadingLevel(nr) > 1 Then
             Dim x, Giscaler, Output : Output = FlashLevel(nr)
             Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1    'fade GIscale the opposite direction
- 
+
             for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
                 On Error Resume Next
                 a(x).Opacity = LampsOpacity(x, 0) * Giscaler
@@ -2608,7 +2611,7 @@ reDim CollapseMe(8) 'Bonus GI Subs for games with only simple On/Off GI (Click M
         End If
         '       tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
     End Sub
-   
+
     Sub FadeLUTsingle(nr, LutName, LutCount)    'fade lookuptable NOTE- this is a bad idea for darkening your table as
         If FadingLevel(nr) >2 Then              '-it will strip the whites out of your image
             Dim GoLut
@@ -2617,28 +2620,28 @@ reDim CollapseMe(8) 'Bonus GI Subs for games with only simple On/Off GI (Click M
     '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
-   
+
 '#end section
- 
+
 Sub theend() : End Sub
- 
- 
+
+
 REM Troubleshooting :
 REM Flashers/gi are intermittent or aren't showing up
 REM Ensure flashers start visible, light objects start with state = 1
- 
+
 REM No lamps or no GI
 REM Make sure these constants are set up this way
 REM Const UseSolenoids = 1
 REM Const UseLamps = 0
 REM Const UseGI = 1
- 
+
 REM SolModCallback error
 REM Ensure you have the latest scripts. Clear out any loose scripts in your tables that might be causing conflicts.
- 
+
 REM Table1 Error
 REM Rename the table to Table1 or find/Replace table1 with whatever the table's name is
- 
+
 REM SolModCallbacks aren't sending anything
 REM Two important things to get SolModCallbacks to initialize properly:
 REM Put this at the top of the script, before LoadVPM
@@ -2746,17 +2749,168 @@ Class cvpmVLock2
 End Class
 
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
+'******************************************************
+' 				JP's Sound Routines
+'******************************************************
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 800) * 10
+Sub Pins_Hit (idx)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Targets_Hit (idx)
+	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Hit (idx)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Gates_Hit (idx)
+	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Spinner_Spin
+	PlaySound "fx_spinner",0,.25,0,0.25
+End Sub
+
+Sub aRubbers_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 20 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub Posts_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 16 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub RandomSoundRubber()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub LeftFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RightFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RandomSoundFlipper()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+''Flux Ramp Sounds
+Sub PlasticRampHit1_Hit:PlaySound "PlasticRamp_Hit3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0: End Sub
+Sub PlasticRampHit2_Hit:PlaySound "PlasticRamp_Hit1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If: End Sub
+Sub PlasticRampHit3_Hit:PlaySound "PlasticRamp_Hit4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 2:tWobblePlastic.Enabled = True:End If: End Sub
+Sub PlasticRampHit4_Hit:PlaySound "PlasticRamp_Hit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 3:tWobblePlastic.Enabled = True:End If: End Sub
+Sub PlasticRampHit5_Hit:PlaySound "PlasticRamp_Hit3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0: End Sub
+
+''Color Ramp Sounds
+Sub Sound1_Hit:PlaySound "rail_low_slower", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:End Sub
+Sub Sound2_Hit()
+	PlaySound "rail_low_slower", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:
+	BallsLocked = BallsLocked - 1
+	If HologramPhoto = 1 Then
+		If IsItMultiball = 1 then
+			IsItMultiballTimer.Enabled = true
+		Else
+			HologramUpdateStep = HologramUpdateStep - 2
+			HologramUpdate
+		End If
+	End If
+End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
     Dim tmp
-    tmp = ball.x * 2 / bttf.width-1
+    tmp = ball.x * 2 / table1.width-1
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
@@ -2764,12 +2918,26 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
     End If
 End Function
 
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 
@@ -2801,17 +2969,21 @@ Sub CollisionTimer_Timer()
 	' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+    ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*5, Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
@@ -2820,97 +2992,10 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
 
-'******************************************************
-' 				JP's Sound Routines
-'******************************************************
-
-Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Metals_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
-End Sub
-
-Sub aRubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-''Flux Ramp Sounds
-Sub PlasticRampHit1_Hit:PlaySound "PlasticRamp_Hit3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0: End Sub
-Sub PlasticRampHit2_Hit:PlaySound "PlasticRamp_Hit1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If: End Sub
-Sub PlasticRampHit3_Hit:PlaySound "PlasticRamp_Hit4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 2:tWobblePlastic.Enabled = True:End If: End Sub
-Sub PlasticRampHit4_Hit:PlaySound "PlasticRamp_Hit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 3:tWobblePlastic.Enabled = True:End If: End Sub
-Sub PlasticRampHit5_Hit:PlaySound "PlasticRamp_Hit3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0: End Sub
-
-''Color Ramp Sounds
-Sub Sound1_Hit:PlaySound "rail_low_slower", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:End Sub
-Sub Sound2_Hit()
-	PlaySound "rail_low_slower", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0:
-	BallsLocked = BallsLocked - 1
-	If HologramPhoto = 1 Then
-		If IsItMultiball = 1 then
-			IsItMultiballTimer.Enabled = true
-		Else
-			HologramUpdateStep = HologramUpdateStep - 2
-			HologramUpdate
-		End If
-	End If
-End Sub
