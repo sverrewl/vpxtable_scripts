@@ -4,7 +4,6 @@ Const BallMass = 1.25
 
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
 
@@ -13,7 +12,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="avs_170c",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="avs_170c",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01560000", "sam.VBS", 3.10
 Dim DesktopMode: DesktopMode = Table1.ShowDT
@@ -240,8 +239,7 @@ Sub Table1_Init
 		.ShowDMDOnly=1
 		.ShowFrame=0
 		.ShowTitle=0
-        .hidden = 0
-		 InitVpmFFlipsSAM
+        .hidden = 0		 
          On Error Resume Next
          .Run GetPlayerHWnd
          If Err Then MsgBox Err.Description

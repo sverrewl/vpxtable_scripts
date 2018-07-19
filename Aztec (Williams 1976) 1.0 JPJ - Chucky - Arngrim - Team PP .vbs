@@ -489,7 +489,7 @@ Sub Drain_Hit()
 end sub
 
 sub bonuscount_timer
-    if (dbl.state)=lightstateoff then bonuscount.interval=500
+    if (dbl.state)=lightstateoff then bonuscount.interval=1000
     if bv>0 then
     if (dbl.state)=lightstateon then
     addscore 10000

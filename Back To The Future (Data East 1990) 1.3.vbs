@@ -1896,7 +1896,7 @@ End Sub
 '================================================
 'Short installation
 'Keep all non-GI lamps/Flashers in a big collection called aLampsAll
-'Initialize SolModCallbacks: Const UseVPMModSol = 1 at the top of the script, before LoadVPM. vpmInit me in table1_Init()
+'Initialize SolModCallbacks: Const UseVPMModSol = 1 at the top of the script, before LoadVPM. vpmInit me in bttf_Init()
 'LUT images (optional)
 'Make modifications based on era of game (setlamp / flashc for games without solmodcallback, use bonus GI subs for games with only one GI control)
 
@@ -2453,7 +2453,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
             Dim GoLut
             GoLut = cInt(LutCount * (FlashLevel(nr)*FlashLevel(nr2) )   )
             bttf.ColorGradeImage = LutName & GoLut
-    '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
+    '       tbgi2.text = bttf.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
 
@@ -2462,7 +2462,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
             Dim GoLut
             GoLut = cInt(LutCount * (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4))) /2) )
             bttf.ColorGradeImage = LutName & GoLut
-            REM tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
+            REM tbgi2.text = bttf.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
 
@@ -2472,7 +2472,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
             Dim GoLut
             GoLut = cInt(LutCount * (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)  )   'what a mess
             bttf.ColorGradeImage = LutName & GoLut
-    '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
+    '       tbgi2.text = bttf.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
 
@@ -2617,7 +2617,7 @@ reDim CollapseMe(8) 'Bonus GI Subs for games with only simple On/Off GI (Click M
             Dim GoLut
             GoLut = cInt(LutCount * FlashLevel(nr)  )
             bttf.ColorGradeImage = LutName & GoLut
-    '       tbgi2.text = Table1.ColorGradeImage & vbnewline & golut 'debug
+    '       tbgi2.text = bttf.ColorGradeImage & vbnewline & golut 'debug
         End If
     End Sub
 
@@ -2639,14 +2639,14 @@ REM Const UseGI = 1
 REM SolModCallback error
 REM Ensure you have the latest scripts. Clear out any loose scripts in your tables that might be causing conflicts.
 
-REM Table1 Error
-REM Rename the table to Table1 or find/Replace table1 with whatever the table's name is
+REM bttf Error
+REM Rename the table to bttf or find/Replace bttf with whatever the table's name is
 
 REM SolModCallbacks aren't sending anything
 REM Two important things to get SolModCallbacks to initialize properly:
 REM Put this at the top of the script, before LoadVPM
     REM Const UseVPMModSol = 1
-REM Put this in the table1_Init() section
+REM Put this in the bttf_Init() section
     REM vpmInit me
 
 '***********************
@@ -2888,9 +2888,9 @@ End Sub
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "bttf" is the name of the table
   Dim tmp
-  tmp = tableobj.y * 2 / table1.height-1
+  tmp = tableobj.y * 2 / bttf.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -2898,9 +2898,9 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "bttf" is the name of the table
   Dim tmp
-  tmp = tableobj.x * 2 / table1.width-1
+  tmp = tableobj.x * 2 / bttf.width-1
   If tmp > 0 Then
     AudioPan = Csng(tmp ^10)
   Else
@@ -2908,9 +2908,9 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "bttf" is the name of the table
     Dim tmp
-    tmp = ball.x * 2 / table1.width-1
+    tmp = ball.x * 2 / bttf.width-1
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
@@ -2920,7 +2920,7 @@ End Function
 
 Function AudioFade(ball) ' Can this be together with the above function ?
   Dim tmp
-  tmp = ball.y * 2 / Table1.height-1
+  tmp = ball.y * 2 / bttf.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -2992,7 +2992,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+  If bttf.VersionMinor > 3 OR bttf.VersionMajor > 10 Then
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
