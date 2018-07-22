@@ -2,6 +2,12 @@
 ' VPX version by JPSalas 2017
 ' Uses 7 digits ROM bootleg (dollyptb.zip)
 
+' Thalamus 2018-07-20
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' , AudioFade(ActiveBall)
+
 Option Explicit
 Randomize
 
@@ -661,20 +667,108 @@ End Sub
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+'Bally Dolly Parton 7 digits
+'added by Inkochnito
+Sub editDips
+    Dim vpmDips:Set vpmDips = New cvpmDips
+    With vpmDips
+        .AddForm 700, 400, "Dolly Parton 7 digits - DIP switches"
+        .AddFrame 2, 2, 190, "Hitting 4 drop targets", &H00800000, Array("lites extra ball", 0, "lites extra ball and special", &H00800000)                                                       'dip 24
+        .AddFrame 2, 48, 190, "Hitting drop targets", &H00002000, Array("does not spot a letter", 0, "spots lit saucer letter", &H00002000)                                                       'dip 14
+        .AddFrame 2, 94, 190, "Saucer 5000 && return lanes both on", &H00000080, Array("after making DOLLY PARTON", 0, "at the start of the game", &H00000080)                                    'dip 8
+        .AddFrame 2, 140, 190, "Making DOLLY PARTON lites", 32768, Array("left special", 0, "both specials", 32768)                                                                               'dip 16
+        .AddFrame 2, 186, 190, "2X, 3X or 5X lit bonus will", &H00400000, Array("not be recalled for next ball", 0, "be recalled for next ball", &H00400000)                                      'dip 23
+        .AddFrame 2, 232, 190, "Sound features", &H30000000, Array("chime effects", 0, "noises", &H10000000, "chime effects and some noises", &H20000000, "chime effects and noises", &H30000000) 'dip 29&30
+        .AddFrame 2, 306, 190, "High score feature", &H00000060, Array("no award", 0, "extra Ball", &H00000040, "replay", &H00000060)                                                             'dip 6&7
+        .AddFrame 205, 2, 190, "High score to date", &H00200000, Array("no award", 0, "3 credits", &H00200000)                                                                                    'dip 22
+        .AddFrame 205, 48, 190, "Score version", &H00100000, Array("6 digit scoring", 0, "7 digit scoring", &H00100000)                                                                           'dip 21
+        .AddFrame 205, 94, 190, "Balls per game", &H40000000, Array("3 balls", 0, "5 balls", &H40000000)                                                                                          'dip 31
+        .AddFrame 205, 140, 190, "Outlane special", &H00004000, Array("not in memory", 0, "in memory", &H00004000)                                                                                'dip 15
+        .AddFrame 205, 186, 190, "Outlane special adjustment", &H80000000, Array("making 44000 lites right special", 0, "making 22000 lites left special", &H80000000)                            'dip 32
+        .AddFrame 205, 232, 190, "Maximum credits", &H03000000, Array("10 credits", 0, "15 credits", &H01000000, "25 credits", &H02000000, "free play (40 credits)", &H03000000)                  'dip 25&26
+        .AddChk 205, 320, 180, Array("Match feature", &H08000000)                                                                                                                                 'dip 28
+        .AddChk 205, 340, 115, Array("Credits displayed", &H04000000)                                                                                                                             'dip 27
+        .AddLabel 50, 370, 340, 20, "After hitting OK, press F3 to reset game with new settings."
+        .ViewDips
+    End With
+End Sub
+
+Set vpmShowDips = GetRef("editDips")
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
@@ -683,16 +777,30 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
-        Pan = Csng(-((- tmp) ^10))
+        Pan = Csng(-((- tmp) ^10) )
     End If
 End Function
 
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2)))
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 '*****************************************
@@ -724,16 +832,21 @@ Sub RollingUpdate()
     If UBound(BOT) = -1 Then Exit Sub
 
     ' play the rolling sound for each ball
+
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b)) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), Pan(BOT(b)), 0, Pitch(BOT(b)), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
@@ -742,33 +855,9 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
-
-'Bally Dolly Parton 7 digits
-'added by Inkochnito
-Sub editDips
-    Dim vpmDips:Set vpmDips = New cvpmDips
-    With vpmDips
-        .AddForm 700, 400, "Dolly Parton 7 digits - DIP switches"
-        .AddFrame 2, 2, 190, "Hitting 4 drop targets", &H00800000, Array("lites extra ball", 0, "lites extra ball and special", &H00800000)                                                       'dip 24
-        .AddFrame 2, 48, 190, "Hitting drop targets", &H00002000, Array("does not spot a letter", 0, "spots lit saucer letter", &H00002000)                                                       'dip 14
-        .AddFrame 2, 94, 190, "Saucer 5000 && return lanes both on", &H00000080, Array("after making DOLLY PARTON", 0, "at the start of the game", &H00000080)                                    'dip 8
-        .AddFrame 2, 140, 190, "Making DOLLY PARTON lites", 32768, Array("left special", 0, "both specials", 32768)                                                                               'dip 16
-        .AddFrame 2, 186, 190, "2X, 3X or 5X lit bonus will", &H00400000, Array("not be recalled for next ball", 0, "be recalled for next ball", &H00400000)                                      'dip 23
-        .AddFrame 2, 232, 190, "Sound features", &H30000000, Array("chime effects", 0, "noises", &H10000000, "chime effects and some noises", &H20000000, "chime effects and noises", &H30000000) 'dip 29&30
-        .AddFrame 2, 306, 190, "High score feature", &H00000060, Array("no award", 0, "extra Ball", &H00000040, "replay", &H00000060)                                                             'dip 6&7
-        .AddFrame 205, 2, 190, "High score to date", &H00200000, Array("no award", 0, "3 credits", &H00200000)                                                                                    'dip 22
-        .AddFrame 205, 48, 190, "Score version", &H00100000, Array("6 digit scoring", 0, "7 digit scoring", &H00100000)                                                                           'dip 21
-        .AddFrame 205, 94, 190, "Balls per game", &H40000000, Array("3 balls", 0, "5 balls", &H40000000)                                                                                          'dip 31
-        .AddFrame 205, 140, 190, "Outlane special", &H00004000, Array("not in memory", 0, "in memory", &H00004000)                                                                                'dip 15
-        .AddFrame 205, 186, 190, "Outlane special adjustment", &H80000000, Array("making 44000 lites right special", 0, "making 22000 lites left special", &H80000000)                            'dip 32
-        .AddFrame 205, 232, 190, "Maximum credits", &H03000000, Array("10 credits", 0, "15 credits", &H01000000, "25 credits", &H02000000, "free play (40 credits)", &H03000000)                  'dip 25&26
-        .AddChk 205, 320, 180, Array("Match feature", &H08000000)                                                                                                                                 'dip 28
-        .AddChk 205, 340, 115, Array("Credits displayed", &H04000000)                                                                                                                             'dip 27
-        .AddLabel 50, 370, 340, 20, "After hitting OK, press F3 to reset game with new settings."
-        .ViewDips
-    End With
-End Sub
-
-Set vpmShowDips = GetRef("editDips")

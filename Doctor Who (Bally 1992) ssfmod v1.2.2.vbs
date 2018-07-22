@@ -1,6 +1,3 @@
-
-
-
  '*********************************************************************
  '*                                                                   *
  '*                           Doctor  who                             *
@@ -11,6 +8,12 @@
  '*                         Updated 2017 for VPX By                   *
  '*								Sliderpoint                           *
  '*********************************************************************
+
+' Thalamus 2018-07-20
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+' This table doesn't contain the standard subs I normally add.
  
    Option Explicit
    Randomize
@@ -967,10 +970,6 @@ Sub RandomSoundRubber()
 	End Select
 End Sub
 
-
-
-
-
 Sub LeftFlipper_Collide(parm)
  	RandomSoundFlipper()
 End Sub
@@ -986,7 +985,6 @@ Sub RandomSoundFlipper()
 		Case 3 : PlaySoundAtBall "flip_hit_3"
 	End Select
 End Sub
-
 
 ' *********************************************************************
 '                      Supporting Ball & Sound Functions

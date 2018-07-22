@@ -50,6 +50,9 @@
 ' All rights belong to UEFA and to their European Teams.
 ' All resources and musics have been found online, we hold no rights to any media used.
 
+' Thalamus 2018-07-20
+' This table has already its own version of  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+
 Option Explicit
 Randomize
 
@@ -5519,3 +5522,4 @@ Sub UpdatePlayerStatus
 		End If
 	End If
 End Sub
+
