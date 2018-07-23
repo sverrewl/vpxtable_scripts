@@ -1,54 +1,54 @@
-'                                                    JB@B@                                           
-'                                                 :qEv: .F@                                          
-'                                            ;7r7@Bi      Z@                                         
-'                                         .M@kuY7          5@1YB@                                    
-'                                        GBr                 iuM,                                    
-'                                       @N  ..     :    q:0rrr:                                      
-'                                      @Z  j5      XB.   @@                                          
-'                                     SB   :i.      ..   1@vuLv;:.                                   
-'                                    iB    :B@    B@     :B5X0EGGOZNU7,                              
-'                                   rB     .@,    @B     i@J2U2U51FS0ZOES7.                          
-'                                  NB             .      7BJu2uUu2u1u52SkG8N7.                       
-'                                7@5                      @FJjUuUuUuUuUU1U5k8G5:                     
-'                              .B@              .         Y@YLvYYuuUu2u2u2u22FqMXi                   
-'                             j@@            i@BL          k@qkuJvvvYJUuUuUu2u12qOX,                 
-'                           rGM@                            B@B@B@OXJvvjJuuUuUu2uFXMJ                
-'                          SOu@q                            :B@@@B@B@BZuvLuu2u2uUU5580:              
-'                        :ZE2uP@            ,@B,            .@SEGMB@B@B@BSvYjUuUu2u22POr             
-'                       iOP2UuYB0           UB@L            Ei       :PB@B@5LjUuUuUu2UkOL            
-'                      iOkUUuujJBU           uY            r@           .GB@MuuUu2u2u2UFOJ           
-'                     :OkuUu2JkB@Bq                       7B              r85uUu2uUu2u2uFO7          
-'                     ZPUUuu1@Bv  Ou                     :F            .r2uuJUuUu2u2u2u2uSO:         
-'                    1Z2Uuu8@r                                      :JE8ZS5u2uUu2u2u2u2u2UXE         
-' 0SjSY;.           :O11u2B@                                     ;188ZS522uUu2u2uUuUuUuUu22ZL        
-' @O. .70O0r        XP22M@1                                  .vXOZN5522u2uUu2u2uUuUuUu1u2SM@@F2U@B   
-'  ,2F.   i8@@Y    .0XB@F                                 :JqOEP11U1uUu2u2u2U22F11UuuFNMBMj,    O@   
-'    v@B.    :EB@u v@Mv                                i1ZO0X25U2uUu2u2u2u51PEOqOM@B@MSi      XZ:    
-' .5J. ii       ,EB@Bi                             .7PGOqS22U2u2u2uUu2U15qZOXL.   iL.       P@:      
-'B@r                ..                          :Y0O8XS22u2u2u2uUu2U521qE2r               ,B@O.      
-' ,ri,L@X,                       .i;         iU88ES522u2u2uUuUu225kGEEB.                  B@E@k:,    
-'    .Z  .                   ,uM@Bj.     .7S8G055U2uUu2u2u2u1UFk8O0v. UZ7Z                r   .iu502 
+'                                                    JB@B@
+'                                                 :qEv: .F@
+'                                            ;7r7@Bi      Z@
+'                                         .M@kuY7          5@1YB@
+'                                        GBr                 iuM,
+'                                       @N  ..     :    q:0rrr:
+'                                      @Z  j5      XB.   @@
+'                                     SB   :i.      ..   1@vuLv;:.
+'                                    iB    :B@    B@     :B5X0EGGOZNU7,
+'                                   rB     .@,    @B     i@J2U2U51FS0ZOES7.
+'                                  NB             .      7BJu2uUu2u1u52SkG8N7.
+'                                7@5                      @FJjUuUuUuUuUU1U5k8G5:
+'                              .B@              .         Y@YLvYYuuUu2u2u2u22FqMXi
+'                             j@@            i@BL          k@qkuJvvvYJUuUuUu2u12qOX,
+'                           rGM@                            B@B@B@OXJvvjJuuUuUu2uFXMJ
+'                          SOu@q                            :B@@@B@B@BZuvLuu2u2uUU5580:
+'                        :ZE2uP@            ,@B,            .@SEGMB@B@B@BSvYjUuUu2u22POr
+'                       iOP2UuYB0           UB@L            Ei       :PB@B@5LjUuUuUu2UkOL
+'                      iOkUUuujJBU           uY            r@           .GB@MuuUu2u2u2UFOJ
+'                     :OkuUu2JkB@Bq                       7B              r85uUu2uUu2u2uFO7
+'                     ZPUUuu1@Bv  Ou                     :F            .r2uuJUuUu2u2u2u2uSO:
+'                    1Z2Uuu8@r                                      :JE8ZS5u2uUu2u2u2u2u2UXE
+' 0SjSY;.           :O11u2B@                                     ;188ZS522uUu2u2uUuUuUuUu22ZL
+' @O. .70O0r        XP22M@1                                  .vXOZN5522u2uUu2u2uUuUuUu1u2SM@@F2U@B
+'  ,2F.   i8@@Y    .0XB@F                                 :JqOEP11U1uUu2u2u2U22F11UuuFNMBMj,    O@
+'    v@B.    :EB@u v@Mv                                i1ZO0X25U2uUu2u2u2u51PEOqOM@B@MSi      XZ:
+' .5J. ii       ,EB@Bi                             .7PGOqS22U2u2u2uUu2U15qZOXL.   iL.       P@:
+'B@r                ..                          :Y0O8XS22u2u2u2uUu2U521qE2r               ,B@O.
+' ,ri,L@X,                       .i;         iU88ES522u2u2uUuUu225kGEEB.                  B@E@k:,
+'    .Z  .                   ,uM@Bj.     .7S8G055U2uUu2u2u2u1UFk8O0v. UZ7Z                r   .iu502
 '   M@. r@Mi              :0B@B@B@.   ,YqOZq51U2u2uUu2uUU21SPOZkr.     @k                          UB
 '   rX2Jr iE8u@@r    .@,YO@GuF@B@BG.u0O0P11U2u2u2u2uUU11X0MZ1i       iB                   :@@BSu1JJP@
-'            :vL0@k   @BZkuuJj@MSuu0Pk22uUuUu2uUu2U15PZMqJ:          @.     :LZ@0::75ZqL   ;M@    .  
-'                 @@: MNuuUuuYj7LY2u1U2uUu2uUu2U55NGOS7.             G@OOOO0U20jirvBMEGB@5   .M,     
-'                  :B@8uu2uUuUJuuUu2uUuUuUU22FSE882i                              ,quUuuUMBP: B@     
-'                   vEUuUuUuUu2uUuUuUuUuUu5kG80J:                                 85UuUu2j5OB,,      
-'                    GS1uUu2uUuUuUuUuuuuJuU1r.                                   0P1uUu2u21M,        
-'                    iM52u2u2uUu2u2uuLL7jE,                                     PE1uUuUu22Gj         
-'                     J812u2u2u2u2uuJ2q@@@@8r                                  NE5U2uUuUU0q          
-'                      S822uUuUuUuuu@B@B@B@B@B@87.                           :Oq1U2u2uUUNG           
-'                       kG11U2uUuUujJ8B@B@@u  .LG@BBS7,                     uOS1uUu2u120Z.           
-'                        2O55UUuUuUujvuM@i         .72ZOM80SUY7           vGZ11uUuUu11Z0.            
-'                         vMX1u2u2uUuuLuL                  ..:,        .YOZSUUUUu2u1SM2              
-'                          :GES22u2uUu2j500L:                       .7P8E51uUu2uUUFNOr               
-'                            YOE11U2uUu2u1FE8G5v:.              ,rUEGGkFU2u2uUu12NOF                 
-'                             .2MqSU1u2uUu2255q0O8ZqX1UJjJUUSXEG8Z0S521u2uUu2U5POX:                  
-'                               .2G8k5U1uUuUu2u2UFFkkNP000qqkX5FU1u2u2u2u2U5FE8k:                    
-'                                  7E8ESFU1u2u2u2u2u1u1U2u1U2u2uUu2u2U2U5FE8Zj,                      
-'                                    :L0O8PX5121U2u2U2uUu2uUu2uUU1251SXGGEui                         
-'                                       .r1q8ZEXk5521u2u2U2u2U11SX0Z8ES7:                            
-'                                             ,irvLYLuYujuJjYjvvri,.                                                    
+'            :vL0@k   @BZkuuJj@MSuu0Pk22uUuUu2uUu2U15PZMqJ:          @.     :LZ@0::75ZqL   ;M@    .
+'                 @@: MNuuUuuYj7LY2u1U2uUu2uUu2U55NGOS7.             G@OOOO0U20jirvBMEGB@5   .M,
+'                  :B@8uu2uUuUJuuUu2uUuUuUU22FSE882i                              ,quUuuUMBP: B@
+'                   vEUuUuUuUu2uUuUuUuUuUu5kG80J:                                 85UuUu2j5OB,,
+'                    GS1uUu2uUuUuUuUuuuuJuU1r.                                   0P1uUu2u21M,
+'                    iM52u2u2uUu2u2uuLL7jE,                                     PE1uUuUu22Gj
+'                     J812u2u2u2u2uuJ2q@@@@8r                                  NE5U2uUuUU0q
+'                      S822uUuUuUuuu@B@B@B@B@B@87.                           :Oq1U2u2uUUNG
+'                       kG11U2uUuUujJ8B@B@@u  .LG@BBS7,                     uOS1uUu2u120Z.
+'                        2O55UUuUuUujvuM@i         .72ZOM80SUY7           vGZ11uUuUu11Z0.
+'                         vMX1u2u2uUuuLuL                  ..:,        .YOZSUUUUu2u1SM2
+'                          :GES22u2uUu2j500L:                       .7P8E51uUu2uUUFNOr
+'                            YOE11U2uUu2u1FE8G5v:.              ,rUEGGkFU2u2uUu12NOF
+'                             .2MqSU1u2uUu2255q0O8ZqX1UJjJUUSXEG8Z0S521u2uUu2U5POX:
+'                               .2G8k5U1uUuUu2u2UFFkkNP000qqkX5FU1u2u2u2u2U5FE8k:
+'                                  7E8ESFU1u2u2u2u2u1u1U2u1U2u2uUu2u2U2U5FE8Zj,
+'                                    :L0O8PX5121U2u2U2uUu2uUu2uUU1251SXGGEui
+'                                       .r1q8ZEXk5521u2u2U2u2U11SX0Z8ES7:
+'                                             ,irvLYLuYujuJjYjvvri,.
 '
 '
 '
@@ -61,10 +61,13 @@
 ' Thanks to JPJ, alistaircg and hauntfreaks for playfield reconstruction and cleanup.
 ' Thanks to arngrim for the DOF.
 ' Thanks to the VPDevTeam for the freaking amazing VPX
-' Table runs with VPinSPA.dll, which is based on Jannik Vogel (JayFoxRox)'s research. 
+' Table runs with VPinSPA.dll, which is based on Jannik Vogel (JayFoxRox)'s research.
 ' If you like his project, please consider sending him a donation for his hard work:
 ' https://github.com/JayFoxRox/stern-pba-emu
 
+' Thalamus 2018-07-23
+' This table already has "Positional Sound Playback Functions".
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
@@ -182,8 +185,8 @@ End Sub
 Dim bsTrough, bsLSaucer, bsRPopper, bsLock, dtLeft, dtRight, plungerIM, mLeftSling, mRightSling
 
 Sub Table1_Init
-	vpmInit Me 
-	With Controller      
+	vpmInit Me
+	With Controller
 		.GameName = cGameName
 		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
 		.SplashInfoLine = "Ghostbusters LE (Stern 2016)"
@@ -403,8 +406,8 @@ Sub InitOptions
 		'glowbats
 		LeftFlipperP.visible=0:RightFlipperP.visible=0
 		FlipperLSh.visible = 0 : FlipperRSh.visible = 0
-		glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.state = 1 : GlowBatLightRight.state = 1 
-		glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green" 
+		glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.state = 1 : GlowBatLightRight.state = 1
+		glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green"
 		GlowBatLightLeft.color = RGB(0,255,0) : GlowBatLightLeft.colorfull = RGB(0,255,0)
 		GlowBatLightRight.color = RGB(0,255,0): GlowBatLightRight.colorfull = RGB(0,255,0)
 	End If
@@ -540,7 +543,7 @@ Sub SolTrough(Enabled)
 End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER 
+'						 AUTOPLUNGER
 '************************************************************************
 Sub SolAutoPlungerIM(Enabled)
 	If Enabled Then
@@ -557,7 +560,7 @@ Sub SolFastFlippersEnabled(Enabled)
 	FastFlippersEnabled = Enabled
 	UpdateLeftFlipper
 	UpdateRightFlipper
-End Sub 
+End Sub
 
 
 Sub SolLFlipper(Enabled)
@@ -574,14 +577,14 @@ End Sub
 Sub UpdateRightFlipper
 	dim NewState
 
-	if FastFlippersEnabled then 
+	if FastFlippersEnabled then
 		NewState = RFlipKey
 	Else
 		NewState = RFlipSol
 	End If
 	if NewState = RFlipState then Exit Sub
 	RFlipState = NewState
-		
+
     If RFlipState Then
         PlaySoundAt SoundFXDOFALT("fx_flipperup",102,DOFOn,DOFFlippers), LeftFlipper
         RightFlipper.RotateToEnd
@@ -594,14 +597,14 @@ End Sub
 Sub UpdateLeftFlipper
 	dim NewState
 
-	if FastFlippersEnabled then 
+	if FastFlippersEnabled then
 		NewState = LFlipKey
 	Else
 		NewState = LFlipSol
 	End If
 	if NewState = LFlipState then Exit Sub
 	LFlipState = NewState
-		
+
     If LFlipState Then
         PlaySoundAt SoundFXDOFALT("fx_flipperup",101,DOFOn,DOFFlippers), LeftFlipper
         LeftFlipper.RotateToEnd
@@ -694,7 +697,7 @@ Sub SolLeftEject(enabled)
 End Sub
 
 '************************************************************************
-'					CAPTIVEBALL LOCK POST 
+'					CAPTIVEBALL LOCK POST
 '************************************************************************
 Sub SolLockPost(Enabled)
 	If enabled Then
@@ -717,7 +720,7 @@ Sub SolSubwayLock(Enabled)
 End Sub
 
 '************************************************************************
-'						SPINNER POST 
+'						SPINNER POST
 '************************************************************************
 Sub SolUpPost(Enabled)
 	If enabled Then
@@ -770,7 +773,7 @@ End Sub
 '						 SLIMER MOVE
 '************************************************************************
 
-' 71-72-73  slimer encoder wheel 
+' 71-72-73  slimer encoder wheel
 
 Dim CurSlimerPos:CurSlimerPos = 0
 Const SlimerSpeed = 0.33
@@ -779,19 +782,19 @@ dim lastMotorDirection:lastMotorDirection = 0
 
 sub slimerbracket_timer()
 If LampState(281) <92 Then
-	' Don't move directly to ROM position - move incrementally towards it. 
+	' Don't move directly to ROM position - move incrementally towards it.
 	if CurSlimerPos < (LampState(281)*1.85)-110-SlimerSpeed then
 		CurSlimerPos = CurSlimerPos + SlimerSpeed
 		LastMotorTime = Timer
 		if lastMotorDirection <> -1 Then
 			ChangeSlimerDirection -1
-		end if 
-	Elseif CurSlimerPos > (LampState(281)*1.85)-110 then 
+		end if
+	Elseif CurSlimerPos > (LampState(281)*1.85)-110 then
 		CurSlimerPos = CurSlimerPos - SlimerSpeed
 		LastMotorTime = Timer
 		if lastMotorDirection <> 1 Then
 			ChangeSlimerDirection 1
-		end if 
+		end if
 	Elseif LastMotorTime > 0 and Timer > LastMotorTime + 0.08 then
 		ChangeSlimerDirection 0
 		LastMotorTime = 0
@@ -819,7 +822,7 @@ If LampState(281) <92 Then
 	slimershadow.size_y=abs(slimer.roty*1.2)+10
 
 	SlimerOscUpdate:SlimerPlasticHit
-	
+
 	dim xx : For each xx in SLWalls:xx.IsDropped=1:Next
 	For each xx in SLBack:xx.IsDropped=1:Next
 	Dim WallPos:WallPos = int((CurSlimerPos + 45) / 5.2)
@@ -848,9 +851,9 @@ sub ChangeSlimerDirection(cur)
 		osce=.5:osc=0
 		PlayLoopSoundAtVol SoundFXDOFALT("SlimerMotor",138,DOFOn,DOFGear), slimer, 0.25
 '		debug.print "Start"
-  end if 	
+  end if
    lastMotorDirection = cur
-end sub 
+end sub
 
 '************************************************************************
 '       SLIMER LEFT PLASTIC HIT
@@ -861,7 +864,7 @@ Sub SlimerPlasticHit()
 if lastMotorDirection=-1 and (slimerB.rotz>45 or slimerB.rotz<15) then cdir=-1:slimer.objroty=0
 if lastMotorDirection=1 and (slimerB.rotz>45 or slimerB.rotz<15) then cdir=1:slimer.objroty=0
 
-   if (cdir=-1) and (slimerB.rotz>15 and slimerB.rotz<45) then slimer.objroty=-((slimerB.rotz-15)*2.6) 
+   if (cdir=-1) and (slimerB.rotz>15 and slimerB.rotz<45) then slimer.objroty=-((slimerB.rotz-15)*2.6)
    if (cdir=-1) and (slimerB.rotz>45 and slimerB.rotz<46) then osce=2
 
    if (cdir=1) and (slimerB.rotz>15 and slimerB.rotz<48) then slimer.objroty=((45-(slimerB.rotz))*3.2)
@@ -877,7 +880,7 @@ sub SlimerOscUpdate()
 	if CurSlimerPos > -55 and CurSlimerPos < -53 Then
 		' Ghost "bumps" into play area, also stunts hit shaking
 		osce=2
-		'slbreak=0		
+		'slbreak=0
 	end if
 	dim doupdate:doupdate = false
 	if osce>0 then
@@ -885,7 +888,7 @@ sub SlimerOscUpdate()
 		oscE=osce-0.03
 		doupdate = true
 	end if
-	if slbreak>0 then 
+	if slbreak>0 then
 		slbreak=slbreak-0.02
 		slrotx=slrotx+1
 		doupdate = true
@@ -966,7 +969,7 @@ End Sub
 
 Sub SolLowerLDrop(enabled)
 	If enabled Then dtLeft.SolDropDown True: l112a.visible = False:DOFALT 119, DOFPulse
-End Sub 
+End Sub
 
 Sub SolLowerRDrop(enabled)
 	If enabled Then dtRight.SolDropDown True: l113a.visible = False:DOFALT 119, DOFPulse
@@ -1062,7 +1065,7 @@ Sub sw51_hit:DOFALT 110, DOFPulse:vpmtimer.pulsesw 51:PlaySoundAt SoundFXDOFALT(
 'ECTO Goggles opto
 Sub sw59_hit:vpmtimer.pulsesw 59: End Sub
 
-'Drop Targets 
+'Drop Targets
 Sub sw65_dropped:dtLeft.Hit 1:DOFALT 119, DOFPulse:End Sub
 Sub sw66_dropped:dtRight.Hit 1:DOFALT 119, DOFPulse:End Sub
 
@@ -1075,37 +1078,37 @@ Dim Loop3, Loop4, Loop6, Loop9, Loop11,Loop12,Loop13,StartFrame
 Loop3=0:Loop4=0:Loop6=0:Loop9=0:Loop11=0:Loop12=0:Loop13=0:StartFrame=129
 
 sub changevideo(vidnum)
-'	if (vidnum<=9) then 
+'	if (vidnum<=9) then
 '		ectomovie.imagea = "zcd_nunzioScoleri_hit_" & Right("000" & CStr(vidnum+1), 3)
-'	elseif (vidnum<=47) then 
+'	elseif (vidnum<=47) then
 '		ectomovie.imagea = "zcd_tonyScoleri_hit_" & Right("000" & CStr(vidnum-9), 3)
-'	elseif (vidnum<=66) then 
+'	elseif (vidnum<=66) then
 '		ectomovie.imagea = "zcd_nunzioScoleri_idle_" & Right("000" & CStr(vidnum-47), 3)
-'	elseif (vidnum<=90) then 
+'	elseif (vidnum<=90) then
 '		ectomovie.imagea = "zcd_ghost4_idle_" & Right("000" & CStr(vidnum-66), 3)
 '' I think this is a SPA bug - 029 is the first hit sequence, not 001
 '	elseif (vidnum<=99) Then
 '		ectomovie.imagea = "zcd_ghost4_hit_" & Right("000" & CStr(vidnum-90+28), 3)
 '	elseif (vidnum<=127) Then
 '		ectomovie.imagea = "zcd_ghost4_hit_" & Right("000" & CStr(vidnum-90-9), 3)
-'' end buggy sequence. 
-'	elseif (vidnum<=173) then 
+'' end buggy sequence.
+'	elseif (vidnum<=173) then
 '		ectomovie.imagea = "zcd_SternLogo_" & Right("000" & CStr(vidnum-128), 3)
-'	elseif (vidnum=174) Then	
+'	elseif (vidnum=174) Then
 '		ectomovie.imagea = "zcd_GhostLogo"
-'	elseif (vidnum<=205) then 
+'	elseif (vidnum<=205) then
 '		ectomovie.imagea = "zcd_Jackpot_15fps_" & Right("000" & CStr(vidnum-174), 3)
-'	elseif (vidnum<=236) then 
+'	elseif (vidnum<=236) then
 '		ectomovie.imagea = "zcd_SuperJackpot_15fps_" & Right("000" & CStr(vidnum-205), 3)
-'	elseif (vidnum<=276) then 
+'	elseif (vidnum<=276) then
 '		ectomovie.imagea = "zcd_slimer_idle_" & Right("000" & CStr(vidnum-236), 3)
-'	elseif (vidnum<=294) then 
+'	elseif (vidnum<=294) then
 '		ectomovie.imagea = "zcd_slimer_small_hit_" & Right("000" & CStr(vidnum-276), 3)
-'	elseif (vidnum<=313) then 
+'	elseif (vidnum<=313) then
 '		ectomovie.imagea = "zcd_tonyScoleri_small_idle_" & Right("000" & CStr(vidnum-294), 3)
-'	elseif (vidnum<=418) then 
+'	elseif (vidnum<=418) then
 '		ectomovie.imagea = "zcd_Taxi" & Right("000" & CStr(vidnum-313), 3)
-'	elseif (vidnum<=464) then 
+'	elseif (vidnum<=464) then
 '		ectomovie.imagea = "zcd_Cat" & Right("000" & CStr(vidnum-418), 3)
 '	Else
 '		ectomovie.imagea = "zcd_GhostLogo"
@@ -1153,16 +1156,16 @@ Sub NewScene_Timer
 	Select Case StartFrame
 	Case 0
 		Loop3=0
-		if scene1<10 Then 
-			scene1=scene1+1 	
+		if scene1<10 Then
+			scene1=scene1+1
 			scene2=0:scene3=0:scene4=0:scene5=0:scene6=0:scene7=0:scene8=0:scene9=0:scene10=0:scene11=0:scene12=0:scene13=0:scene14=0:scene15=0
 			Ectomovie.imagea = "zcd_nunzioScoleri_hit_" & Right("000" & CStr(scene1), 3)
 		Else
-			' Switch to Tony's hit sequence, frame 10. 
+			' Switch to Tony's hit sequence, frame 10.
 			StartFrame = 10
 			scene2 = 10
 			NewScene_Timer
-		end if 
+		end if
 	Case 10
 		Loop11=0
 		if scene2<38 Then scene2=scene2+1
@@ -1257,7 +1260,7 @@ Dim FlashSpeedUp(300), FlashSpeedDown(300), FlashMin(300), FlashMax(300), FlashL
 InitLamps()             ' turn off the lights and flashers and reset them to the default parameters
 LampTimer.Interval = -1 'lamp fading speed
 LampTimer.Enabled = 1
- 
+
 Sub LampTimer_Timer()
     Dim chgLamp, num, chg, ii, vid
     vid = false
@@ -1265,7 +1268,7 @@ Sub LampTimer_Timer()
     If Not IsEmpty(chgLamp) Then
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)       'keep the real state in an array
-			'Debug.print "L" & chgLamp(ii, 0) &" -> " & chgLamp(ii, 1) 
+			'Debug.print "L" & chgLamp(ii, 0) &" -> " & chgLamp(ii, 1)
 
 			Select Case chgLamp(ii, 0)
 			Case 199,201,206,207,208,209,210,211,220,223
@@ -1281,7 +1284,7 @@ Sub LampTimer_Timer()
                 DOFALT chgLamp(ii, 0), DOFOff
                 End If
             End Select
-            if chgLamp(ii,0) = 282 or chgLamp(ii,0) = 283 Then 
+            if chgLamp(ii,0) = 282 or chgLamp(ii,0) = 283 Then
                 vid = true
             end if
         Next
@@ -1348,7 +1351,7 @@ Sub UpdateLamps()
 	SingleLamp l71, 71
 	SingleLamp l72, 72
 	SingleLamp l73, 73
-	SingleLamp l75, 75 
+	SingleLamp l75, 75
 	SingleLamp l76, 76
 	SingleLamp l77, 77
 	SingleLamp l78, 78
@@ -1476,19 +1479,19 @@ Sub HideLamp (enabled)
 	Fl128a.visible=NOT enabled
 End Sub
 
-Sub SingleLamp(lampobj, id)   
+Sub SingleLamp(lampobj, id)
 	lampobj.IntensityScale = LampState(id + 81) / 255
-End Sub 
+End Sub
 
-Sub SinglePrimitive(primobj, id, factor)   
+Sub SinglePrimitive(primobj, id, factor)
 	primobj.BlendDisableLighting = factor * (LampState(id + 81) / 255)
 End Sub
 
 Sub RGBLamp(object, AR, AG, AB)		'used for light objects
 	Dim r, g, bl
 	r = LampState(aR+81)
-	g = LampState(aG+81) 
-	bl = LampState(aB+81) 
+	g = LampState(aG+81)
+	bl = LampState(aB+81)
 
 	Object.IntensityScale = (r+g+(bl*2)) / 500
 	Object.ColorFull = RGB(r, g, bl)
@@ -1498,8 +1501,8 @@ end Sub
 Sub RGBLampR(object, aR, aG, aB)	'used for flasher objects
 	Dim r, g, bl
 	r = LampState(aR+81)
-	g = LampState(aG+81) 
-	bl = LampState(aB+81) 
+	g = LampState(aG+81)
+	bl = LampState(aB+81)
 	Object.IntensityScale = (r+g+(bl*2)) / 1000
 	Object.Color = RGB(r, g, bl)
 end Sub
@@ -1518,7 +1521,7 @@ Sub StayPuftColor(AR, AG, AB)
 	g = LampState(aG+81)*1.4 / 2
 	bl = LampState(aB+81) *1.4 / 2
 	staypuft.blenddisablelighting = (r+g+(bl*2)) / 1000
-	comp = (r+g+bl) / 4 ' Boost contrast to make colors more intense as light gets brighter. 
+	comp = (r+g+bl) / 4 ' Boost contrast to make colors more intense as light gets brighter.
 	MaterialColor "Staypuft", RGB(r+128-comp,g+128-comp, bl+128-comp)
 End Sub
 
@@ -1904,7 +1907,7 @@ Sub LoadSPAController()
 	Dim count
 	Dim ISDOF
 	Dim Answer
-	
+
 	B2SOn = False
 	B2SOnALT = False
 	tempC = 0
