@@ -2,7 +2,7 @@
 '                       VISUAL PINBALL X
 ' Author: Allknowing2012 2105/2016
 '
-' Credits to 
+' Credits to
 '   JPSalas - refactored my code/table with his Pokemon table
 '   VANLION on vpinball.com for his Gene Head 3D model
 '   UltraPeepi for Ultradmd
@@ -17,17 +17,21 @@
 '          - save demon lock state
 ' 20161101 - dont stop/reset music on a ball save
 ' 20161102 - New Match Gifs - be sure to download them and put in ultradmd directory.
-' 20161113 - New UDMD Location code from Seraph74, strengthen demon kicker, ballsaver on for start of multiball, random first song 
+' 20161113 - New UDMD Location code from Seraph74, strengthen demon kicker, ballsaver on for start of multiball, random first song
 ' 20161119 - frontrow ball save, turn off super ramps between games, extend pause for DMB
 ' 20161120 - updated the ultradmd code from Seraph74
 ' 20161122 - pf/light update from Aldiode
 ' 20161122 - Bugs: Reset BumperLights, Front Row Save loops endlessly + KISSRules.vbs
 
+' Thalamus 2018-07-23
+' This tables doesn't have any standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
 If Table1.ShowDT then
-  PaulStanleyDesktop.visible=True 
+  PaulStanleyDesktop.visible=True
   PaulStanleyFS.visible=False
 Else
   PaulStanleyDesktop.visible=False
@@ -70,7 +74,7 @@ On Error Goto 0
 
 Const BallSize = 50 ' 50 is the normal size
 Const UseUDMD=True  ' FALSE is only for testing .. not fully functional as FALSE
-Const bgi = "Black.bmp"  ' or just "" if you want the border around the dmd 
+Const bgi = "Black.bmp"  ' or just "" if you want the border around the dmd
 
 
 ' *************************************
@@ -81,7 +85,7 @@ UseFullColor = "True"              '    "True" / "False"
 DMDColorSelect = "OrangeRed"        '     Rightclick on UDMD window to get full list of colours
 
 DMDPosition = False                 '     Use Manual DMD Position, True / False
-DMDPosX = 2303                      '     Position in Decimal,  Set a value here if you want to have a table specific value eg. 2303	
+DMDPosX = 2303                      '     Position in Decimal,  Set a value here if you want to have a table specific value eg. 2303
 DMDPosY = 660                       '     Position in Decimal
 
 ' Rightclick on UDMD window to get full list of colours
@@ -156,7 +160,7 @@ Dim CreditAwarded(4)
 Dim BumperCnt(4),BumperColor(4), ComboCnt(4)
 Dim RampCnt(4)
 Dim LastShot(4)
-Dim TargetCnt(4)  
+Dim TargetCnt(4)
 Dim Instruments(4)
 Dim CurSong(4), CurCity(4)
 Dim SaveSong   ' keep track of track number while in MB
@@ -176,7 +180,7 @@ Sub Table1_Init()
     dd=10 ' just for debugging
     Randomize
     ' initalise the DMD display
-    If UseUDMD then LoadUltraDMD   
+    If UseUDMD then LoadUltraDMD
 
     'Impulse Plunger as autoplunger
     Const IMPowerSetting = 45 ' Plunger Power
@@ -227,7 +231,7 @@ Sub Table1_Init()
 
     if UseUDMD Then  ' wait for the intro video to finish
        do while UltraDMD.isRendering
-       loop     
+       loop
        UltraDMD.clear
     End if
 
@@ -278,7 +282,7 @@ Sub Table1_KeyDown(ByVal Keycode)
           If(Tilted = False) Then
             AttractMode.enabled=False
 			'OnScoreboardChanged()
-            If UseUDMD then 
+            If UseUDMD then
                UltraDMD.CancelRendering:UltraDMD.Clear
                UltraDMD.DisplayScene00 "scene02.gif", "PRESS START", 15, "CREDITS " & credits, -1, UltraDMD_Animation_None, 3500, UltraDMD_Animation_None
             End if
@@ -302,7 +306,7 @@ Sub Table1_KeyDown(ByVal Keycode)
     If keycode = CenterTiltKey Then Nudge 0,   7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
 
 dim xxx,yyy
-if keycode = LeftMagnaSave and 1=2 Then   
+if keycode = LeftMagnaSave and 1=2 Then
    debug.print "Enable debugging stuff"
   'i39.state=LightStateOn   ' ExtraBalls
   'i41.state=LightStateOn ' BackStagePass
@@ -327,18 +331,18 @@ if keycode = LeftMagnaSave and 1=2 Then
     'spinv("5K")
     'SpinV "Spinner Count" &  SpinCnt(CurPlayer)
   '  BV(1)
-    'msgbox "HighCombo=" & HighCombo  
+    'msgbox "HighCombo=" & HighCombo
     'ComboCnt(1)=HighCombo+1
     'DMDGif "frame508.jpg", "", "9" + "0             ", 1000
     'FlashForMs SmallFlasher2, 500, 50, 0
 '    UltraDMD.DisplayScene00  BonusLights1, "", 10, "", 10, UltraDMD_Animation_None, 1100, UltraDMD_Animation_None
-'    UltraDMD.DisplayScene00  "black.bmp", "", 10, "", 10, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None 
+'    UltraDMD.DisplayScene00  "black.bmp", "", 10, "", 10, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
   ' i17.state = LightStateOn
   ' i21.state = LightStateOn
   ' i25.state = LightStateOn
   'i9.state = LightStateOn:i13.state = LightStateOn:I106.state=LightStateOn:i107.state=LightStateOn:I108.state=LightStateOn:I109.state=LightStateOn:CheckBackStage()
   ' for yyy=1 to 4
-   '  for xxx=1 to 15 
+   '  for xxx=1 to 15
     '   debug.print yyy & " " & xxx & "=" & Shots(yyy,xxx)
     ' Next
    'next
@@ -355,14 +359,14 @@ end if
            vpmtimer.addtimer 500, "FlashForMs FlasherExitHole, 1500, 30, 0 '"
         end if
 
-        If keycode = LeftFlipperKey Then 
+        If keycode = LeftFlipperKey Then
            SolLFlipper 1
   		   'Leftflipper.RotateToStart
            Leftflipper.TimerEnabled = 1  ' nFozzy Flipper Code
            Leftflipper.TimerInterval = 16
            Leftflipper.return = returnspeed * 0.5
         End If
-        If keycode = RightFlipperKey Then 
+        If keycode = RightFlipperKey Then
            SolRFlipper 1
   		   'Rightflipper.RotateToStart
            Rightflipper.TimerEnabled = 1  ' nFozzy Flipper Code
@@ -394,12 +398,12 @@ end if
                 OnScoreboardChanged()
             End if
         End If
-        If keycode = LeftFlipperKey and bBallInPlungerLane and BallsOnPlayfield = 1 Then  
+        If keycode = LeftFlipperKey and bBallInPlungerLane and BallsOnPlayfield = 1 Then
             debug.print "Change City"
             DMDFlush():debug.print "Flush 3"
             NextCity
-        End If 
-        If keycode = RightFlipperKey and ((bBallInPlungerLane and BallsOnPlayfield = 1) or ChooseSongMode) Then 
+        End If
+        If keycode = RightFlipperKey and ((bBallInPlungerLane and BallsOnPlayfield = 1) or ChooseSongMode) Then
             debug.print "Change Song"
             DMDFlush():debug.print "Flush 4"
             if AutoPlungeTimer.enabled Then
@@ -654,7 +658,7 @@ End Sub
 
 Sub ResetForNewPlayerBall()
     Dim i
-    
+
     DMDTextPauseI  "PLAYER " & CurPlayer, "", 1000, bgi
     UDMDTimer.interval=500:UDMDTimer.Enabled=True
 
@@ -670,7 +674,7 @@ Sub ResetForNewPlayerBall()
     bBallSaverReady = True
 
     ModeScore=0
-  ' Raise the Targets 
+  ' Raise the Targets
   ' Stop the timers
     ArmyCombo.enabled=False
     KissCombo.enabled=False
@@ -694,7 +698,7 @@ Sub ResetForNewPlayerBall()
     next
 
     ResetBumpers()
-    ModeInProgress=False  
+    ModeInProgress=False
 End Sub
 
 
@@ -716,7 +720,7 @@ Sub CreateNewBall()
     If BallsOnPlayfield > 1 Then
         bMultiBallMode = True
 		bAutoPlunger = True
-    Else  
+    Else
       ' If ballsaver or front row then dont reset song and music
       If MusicFlag=False then
         EndMusic
@@ -733,7 +737,7 @@ End Sub
 
 Sub AutoPlungeTimer_Timer
   debug.print "About to autoplunge"
-  If bBallInPlungerLane Then  
+  If bBallInPlungerLane Then
     PlungerIM.AutoFire
     debug.print "PLUNGE!"
   Else
@@ -793,12 +797,12 @@ Sub EndOfBall()
       if MBScore <> 0 then
         DMDTextPauseI "Demon Total", MBScore, 800, bgi
         BonusDelayTime = BonusDelayTime+1000
-      end If 
+      end If
       if ModeScore <> 0 then
         DMDTextPauseI "Song Total", ModeScore, 800, bgi
         BonusDelayTime = BonusDelayTime+1000
       end if
-  
+
       SoundLoops=0
       AwardPoints = i9.state * 50000 + i10.state * 50000 + i11.state * 50000 + i12.state * 50000
       if AwardPoints <> 0 then
@@ -843,7 +847,7 @@ Sub EndOfBall()
 
       if BonusMultiplier(CurPlayer) <> 1 then
         DMDTextI "Total Bonus X " & BonusMultiplier(CurPlayer), TotalBonus, bgi
-      Else 
+      Else
         DMDTextPauseI "Total Bonus", TotalBonus, 3000, bgi
       end if
       TotalBonus = TotalBonus * BonusMultiplier(CurPlayer)
@@ -862,7 +866,7 @@ Sub EndOfBall()
     End If
     ' start the end of ball timer which allows you to add a delay at this point
     EndMusic
-   
+
     vpmtimer.addtimer BonusDelayTime, "EndOfBall2 '"
 End Sub
 
@@ -979,7 +983,7 @@ Sub EndOfBallComplete()
         ResetForNewPlayerBall()
 
         ' AND create a new ball
-        CreateNewBall()       
+        CreateNewBall()
         OnScoreboardChanged()
     End If
 End Sub
@@ -1023,7 +1027,7 @@ End Function
 ' if more than 1 ball (multi-ball) then kill of the ball but don't create
 ' a new one
 '
-Dim MusicFlag   ' Set this to true if you dont want the music to stop 
+Dim MusicFlag   ' Set this to true if you dont want the music to stop
 MusicFlag=False
 Sub Drain_Hit()
     ' Destroy the ball
@@ -1107,7 +1111,7 @@ Sub swPlungerRest_Hit()
     End If
     ' resync target lights in case we may have chose Hotter Than Hell
     debug.print "swPlungerRest - resetting lights"
-    if cursong(CurPlayer)=4 then ' Hotter Than Hell means they need to flash on Reset 
+    if cursong(CurPlayer)=4 then ' Hotter Than Hell means they need to flash on Reset
       if sw38.isdropped=1 then i35.state=LightStateOn else i35.state=2 end if
       if sw39.isdropped=1 then i36.state=LightStateOn else i36.state=2 end if
       if sw40.isdropped=1 then i37.state=LightStateOn else i37.state=2 end if
@@ -1127,7 +1131,7 @@ Sub swPlungerRest_Hit()
     BallLooping.enabled=False ' dont trigger switches on the plunge
 End Sub
 
-' The ball is released from the plunger turn off some flags 
+' The ball is released from the plunger turn off some flags
 
 Sub swPlungerRest_UnHit()
     bBallInPlungerLane = False
@@ -1167,7 +1171,7 @@ Sub BallSaverTimer_Timer()
     ' clear the flag
     bBallSaverActive = False
     ' if you have a ball saver light then turn it off at this point or turn on if you have ExtraBall earned
-    If(ExtraBallsAwards(CurPlayer) = 0) Then  
+    If(ExtraBallsAwards(CurPlayer) = 0) Then
        LightRockAgain.State = 0
        debug.print "dont relight the extra ball"
     End if
@@ -1190,7 +1194,7 @@ End Sub
 Sub AddScore(points)
     If(Tilted = False) Then
         ' add the points to the current players score variable
-        Score(CurPlayer) = Score(CurPlayer) + points 
+        Score(CurPlayer) = Score(CurPlayer) + points
         If ModeInProgress then
           ModeScore=ModeScore+points
         End if
@@ -1262,15 +1266,15 @@ Sub ResetNewBallLights()
     SetLightColor i97, "orange", 2   ' Instrument
 
     'Grid
-    SetLightColor i9,  "white",0 
-    SetLightColor i10, "white",0 
-    SetLightColor i11, "white",0 
-    SetLightColor i12, "white",0 
-    SetLightColor i13, "yellow",0 
-    SetLightColor i14, "yellow",0 
-    SetLightColor i15, "yellow",0 
-    SetLightColor i16, "yellow",0 
-    SetLightColor i17, "white",0 
+    SetLightColor i9,  "white",0
+    SetLightColor i10, "white",0
+    SetLightColor i11, "white",0
+    SetLightColor i12, "white",0
+    SetLightColor i13, "yellow",0
+    SetLightColor i14, "yellow",0
+    SetLightColor i15, "yellow",0
+    SetLightColor i16, "yellow",0
+    SetLightColor i17, "white",0
     SetLightColor i18, "white",0
     SetLightColor i19, "white",0
     SetLightColor i20, "white",0
@@ -1359,7 +1363,7 @@ Sub RightSlingShot_Timer
     Select Case RStep
         Case 1:RightSLing4.Visible = 0:RightSLing3.Visible = 1
         Case 2:RightSLing3.Visible = 0:RightSLing2.Visible = 1
-        Case 3:RightSLing2.Visible = 0:RightSLing1.Visible = 1:Gi1.State = 1:RightSlingShot.TimerEnabled = False 
+        Case 3:RightSLing2.Visible = 0:RightSLing1.Visible = 1:Gi1.State = 1:RightSlingShot.TimerEnabled = False
     End Select
     RStep = RStep + 1
 End Sub
@@ -1431,7 +1435,7 @@ End Sub
 Sub sw43_Timer
     dBall.Z = dZpos
     dZpos = dZpos-4
-    if dZpos < -30 Then  
+    if dZpos < -30 Then
       sw43.timerenabled = 0
       BallInHole = BallInHole + 1
       sw43.DestroyBall
@@ -1459,16 +1463,16 @@ Sub Spinner_Spin()
     If Tilted Then Exit Sub
     FlashForMs SmallFlasher2, 500, 50, 0
     if NOT i122.state=LightStateOff then ' Super Spinner
-      debug.print "Spinner Cnt is " & SpinCnt(CurPlayer) 
+      debug.print "Spinner Cnt is " & SpinCnt(CurPlayer)
       Spincnt(CurPlayer)=Spincnt(CurPlayer)+1
       AddScore 1000*SpinCnt(CurPlayer)
-      if SpinCnt(CurPlayer) > 50 Then  
+      if SpinCnt(CurPlayer) > 50 Then
         i122.state=LightStateOff
         DisplayI(29) ' Completed
         SpinCnt(CurPlayer) = 0
       else
         SpinV "Spinner Count" &  SpinCnt(CurPlayer)
-      end if   
+      end if
     else
       SpinV "2K"
       AddScore 2000
@@ -1486,19 +1490,19 @@ Sub Bumper1_Hit
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
-      if BumperCnt(CurPlayer)=50 then 
+      if BumperCnt(CurPlayer)=50 then
         DisplayI(28)
         AddScore(200000)
         i61.state=LightStateOff
       else
         if BumperCnt(CurPlayer) < 50 then
           AddScore(200000)
-          if rnd*10 > 4 then 
+          if rnd*10 > 4 then
             UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("200k",INT(RND*8)+3," "), 15, 14, 100, 14
-          Else  
+          Else
             DisplayI(32)
           end if
-        Else  
+        Else
           AddScore(50000)
           UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("50k",INT(RND*8)+3," "), 15, 14, 100, 14
         End If
@@ -1516,19 +1520,19 @@ Sub Bumper2_Hit
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
-      if BumperCnt(CurPlayer)=50 then 
+      if BumperCnt(CurPlayer)=50 then
         DisplayI(28)
         AddScore(200000)
         i61.state=LightStateOff
       else
         if BumperCnt(CurPlayer) < 50 then
           AddScore(200000)
-          if rnd*10 > 4 then 
+          if rnd*10 > 4 then
             UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("200k",INT(RND*8)+3," "), 15, 14, 100, 14
-          Else  
+          Else
             DisplayI(32)
           end if
-        Else  
+        Else
           AddScore(50000)
           UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("50k",INT(RND*8)+3," "), 15, 14, 100, 14
         End If
@@ -1546,19 +1550,19 @@ Sub Bumper3_Hit
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
-      if BumperCnt(CurPlayer)=50 then 
+      if BumperCnt(CurPlayer)=50 then
         DisplayI(28)
         AddScore(200000)
         i61.state=LightStateOff
       else
         if BumperCnt(CurPlayer) < 50 then
           AddScore(200000)
-          if rnd*10 > 4 then 
+          if rnd*10 > 4 then
             UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("200k",INT(RND*8)+3," "), 15, 14, 100, 14
-          Else  
+          Else
             DisplayI(32)
           end if
-        Else  
+        Else
           AddScore(50000)
           UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("50k",INT(RND*8)+3," "), 15, 14, 100, 14
         End If
@@ -1576,19 +1580,19 @@ Sub Bumper4_Hit
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
-      if BumperCnt(CurPlayer)=50 then 
+      if BumperCnt(CurPlayer)=50 then
         DisplayI(28)
         AddScore(200000)
         i61.state=LightStateOff
       else
         if BumperCnt(CurPlayer) < 50 then
           AddScore(200000)
-          if rnd*10 > 4 then 
+          if rnd*10 > 4 then
             UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("200k",INT(RND*8)+3," "), 15, 14, 100, 14
-          Else  
+          Else
             DisplayI(32)
           end if
-        Else  
+        Else
           AddScore(50000)
           UltraDMD.DisplayScene00 "scene19.gif", LPad("",INT(RND*3)," "), 10, Lpad("50k",INT(RND*8)+3," "), 15, 14, 100, 14
         End If
@@ -1637,3 +1641,102 @@ Sub EffectTrigger2_Hit()
     FlashForMs Flasher12, 1000, 50, 0
 End Sub
 '============================
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
