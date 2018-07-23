@@ -5,6 +5,13 @@ Randomize
 '							TABLE OPTIONS
 '************************************************************************
 
+
+' Thalamus 2018-07-23
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Added InitVpmFFlipsSAM
+' No special SSF tweaks yet.
+' , AudioFade(ActiveBall)
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -23,7 +30,7 @@ Scoretext.visible = NOT CustomDMD												'hides the textbox when using the c
 
 LoadVPM "02800000", "Sam.VBS", 3.54
 
- 
+
 '********************
 'Standard definitions
 '********************
@@ -33,7 +40,7 @@ LoadVPM "02800000", "Sam.VBS", 3.54
      Const UseSolenoids = 1
      Const UseLamps = 0
      Const UseSync = 0
-     Const HandleMech = 1 
+     Const HandleMech = 1
      Const SSolenoidOn = "Solenoid"
      Const SSolenoidOff = ""
      Const SCoin = "CoinIn"
@@ -75,20 +82,20 @@ LoadVPM "02800000", "Sam.VBS", 3.54
 
 	Set mag1= New cvpmMagnet
  	With mag1
-		.InitMagnet Magnet1, 22  
-		.GrabCenter = False 
+		.InitMagnet Magnet1, 22
+		.GrabCenter = False
  		.solenoid=3
 		.CreateEvents "mag1"
 	End With
 
 	Set mag2= New cvpmMagnet
  	With mag2
-		.InitMagnet Magnet2, 22  
-		.GrabCenter = False 
+		.InitMagnet Magnet2, 22
+		.GrabCenter = False
  		.solenoid=4
 		.CreateEvents "mag2"
 	End With
-    
+
 
 'Nudging
     	vpmNudge.TiltSwitch=-7
@@ -100,7 +107,7 @@ LoadVPM "02800000", "Sam.VBS", 3.54
       '**Main Timer init
 	PinMAMETimer.Interval = PinMAMEInterval
 	PinMAMETimer.Enabled = 1
- 
+
   'StandUp Init
 	ResetAll
 	GIOff
@@ -111,28 +118,28 @@ LoadVPM "02800000", "Sam.VBS", 3.54
  Sub Table_unPaused:Controller.Pause = 0:End Sub
 
 
- 
+
 '*****Keys
  Sub Table_KeyDown(ByVal keycode)
 
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 	End If
 	If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAtVol "plungerpull",Plunger,.4
 '  	If keycode = LeftTiltKey Then LeftNudge 80, 1, 20
 '    If keycode = RightTiltKey Then RightNudge 280, 1, 20
 '    If keycode = CenterTiltKey Then CenterNudge 0, 1, 25
-    If vpmKeyDown(keycode) Then Exit Sub 
-    
+    If vpmKeyDown(keycode) Then Exit Sub
+
 End Sub
 
 Sub Table_KeyUp(ByVal keycode)
 	If vpmKeyUp(keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		SolLFlipper false
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		SolRFlipper False
 	End If
 	If Keycode = StartGameKey Then Controller.Switch(16) = 0
@@ -240,14 +247,14 @@ Sub WMKick(enabled)
      PlaySoundAt "ballhit", sw10
        sw10.Kick 180, 30
        controller.switch(10) = false
-    End If 
+    End If
 End Sub
- 
+
 '***********************************************
    'Flipper Subs
 
-   
-  
+
+
 Sub SolLFlipper(Enabled)
      If Enabled Then
 		 PlaySoundAt SoundFX("FlipperUpLeft", DOFFlippers),GILight3
@@ -266,7 +273,7 @@ Sub SolRFlipper(Enabled)
 		 PlaySoundAt SoundFX("FlipperDown",DOFFlippers), GILight4
 		 RightFlipper.RotateToStart
      End If
- End Sub   
+ End Sub
 
  'Drains and Kickers
 Dim BallCount:BallCount = 0
@@ -274,12 +281,12 @@ Dim BallCount:BallCount = 0
 	'ClearBallID
 	BallCount = BallCount - 1
 	bsTrough.AddBall Me
-	
+
    End Sub
    Sub BallRelease_UnHit()
 	'NewBallID
 		BallCount = BallCount + 1
-		
+
 	End Sub
 
 
@@ -294,17 +301,17 @@ Sub sw5_Hit:vpmTimer.PulseSw 5:PlaySound "target":End Sub
 '6 monger rt shoulder
 
 Sub sw7_Hit:Controller.Switch(7) = 1:PlaySoundAt "rollover", ActiveBall:End Sub
-Sub sw7_UnHit:Controller.Switch(7) = 0:End Sub 
+Sub sw7_UnHit:Controller.Switch(7) = 0:End Sub
 Sub sw9_Hit:Controller.Switch(9) = 1:PlaySoundAt "rollover", ActiveBall:End Sub
 Sub sw9_UnHit:Controller.Switch(9) = 0:End Sub
-Sub sw10_Hit():controller.switch(10)=true:End Sub 
-Sub sw11_Spin:vpmTimer.PulseSw 11::playsoundat"fx_spinner", sw11:End Sub 
+Sub sw10_Hit():controller.switch(10)=true:End Sub
+Sub sw11_Spin:vpmTimer.PulseSw 11::playsoundat"fx_spinner", sw11:End Sub
 Sub sw12_Hit:Controller.Switch(12) = 1:End Sub
-Sub sw12_UnHit:Controller.Switch(12) = 0:End Sub	
-Sub sw13_Spin:vpmTimer.PulseSw 13::playsoundat "fx_spinner", sw13:End Sub 
-Sub sw14_Spin:vpmTimer.PulseSw 14::playsoundat "fx_spinner", sw14:End Sub 
-Sub sw23_Hit:PlaySoundAt "rollover", ActiveBall:Controller.Switch(23)=1:End Sub 
-Sub sw23_UnHit:PlaySoundat "rollover", ActiveBall:Controller.Switch(23)=0:End Sub 
+Sub sw12_UnHit:Controller.Switch(12) = 0:End Sub
+Sub sw13_Spin:vpmTimer.PulseSw 13::playsoundat "fx_spinner", sw13:End Sub
+Sub sw14_Spin:vpmTimer.PulseSw 14::playsoundat "fx_spinner", sw14:End Sub
+Sub sw23_Hit:PlaySoundAt "rollover", ActiveBall:Controller.Switch(23)=1:End Sub
+Sub sw23_UnHit:PlaySoundat "rollover", ActiveBall:Controller.Switch(23)=0:End Sub
 Sub sw24_Hit:Controller.Switch(24) = 1:PlaySoundat "rollover", ActiveBall:End Sub
 Sub sw24_UnHit:Controller.Switch(24) = 0:End Sub
 Sub sw25_Hit:Controller.Switch(25) = 1:PlaySoundat "rollover", ActiveBall:End Sub
@@ -314,41 +321,41 @@ Sub sw28_UnHit:Controller.Switch(28) = 0:End Sub
 Sub sw29_Hit:Controller.Switch(29) = 1:PlaySoundat "rollover", ActiveBall:End Sub
 Sub sw29_UnHit:Controller.Switch(29) = 0:End Sub
 Sub sw33_Hit:vpmTimer.PulseSw 33:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw33_Timer:sw33.IsDropped = 0:sw33a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw33_Timer:sw33.IsDropped = 0:sw33a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw34_Hit:vpmTimer.PulseSw 34:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw34_Timer:sw34.IsDropped = 0:sw34a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw34_Timer:sw34.IsDropped = 0:sw34a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw35_Hit:vpmTimer.PulseSw 35:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw35_Timer:sw35.IsDropped = 0:sw35a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw35_Timer:sw35.IsDropped = 0:sw35a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw36_Hit:vpmTimer.PulseSw 36:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw36_Timer:sw36.IsDropped = 0:sw36a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw36_Timer:sw36.IsDropped = 0:sw36a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw37_Hit:Controller.Switch(37) = 1:PlaySoundat "gate", ActiveBall:RightCount = RightCount + 1:End Sub
-Sub sw37_UnHit:Controller.Switch(37) = 0:End Sub 
+Sub sw37_UnHit:Controller.Switch(37) = 0:End Sub
 Sub sw38_Hit:Controller.Switch(38) = 1:PlaySoundat "rollover", ActiveBall:End Sub
-Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub 
+Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub
 Sub sw39_Hit:Controller.Switch(39) = 1:PlaySoundat "rollover", ActiveBall:End Sub
-Sub sw39_UnHit:Controller.Switch(39) = 0:End Sub 
+Sub sw39_UnHit:Controller.Switch(39) = 0:End Sub
 Sub sw40_Hit:vpmTimer.PulseSw 40:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw40_Timer:sw40.IsDropped = 0:sw40a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw40_Timer:sw40.IsDropped = 0:sw40a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw41_Hit:vpmTimer.PulseSw 41:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw41_Timer:sw41.IsDropped = 0:sw41a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw41_Timer:sw41.IsDropped = 0:sw41a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw42_Hit:vpmTimer.PulseSw 42:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw42_Timer:sw42.IsDropped = 0:sw42a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw42_Timer:sw42.IsDropped = 0:sw42a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub TargetSw44_Hit:vpmTimer.PulseSw 44:PlaySoundat "target", ActiveBall:End Sub
 Sub sw43_Hit:Controller.Switch(43) = 1:End Sub
-Sub sw43_UnHit:Controller.Switch(43) = 0:End Sub	
-'Sub sw44_Timer:sw44.IsDropped = 0:sw44a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+Sub sw43_UnHit:Controller.Switch(43) = 0:End Sub
+'Sub sw44_Timer:sw44.IsDropped = 0:sw44a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub TargetSw45_Hit:vpmTimer.PulseSw 45:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw45_Timer:sw45.IsDropped = 0:sw45a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw45_Timer:sw45.IsDropped = 0:sw45a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub TargetSw46_Hit:vpmTimer.PulseSw 46:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw46_Timer:sw46.IsDropped = 0:sw46a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw46_Timer:sw46.IsDropped = 0:sw46a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw47_Hit:vpmTimer.PulseSw 47:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw47_Timer:sw47.IsDropped = 0:sw47a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw47_Timer:sw47.IsDropped = 0:sw47a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw48_Hit:vpmTimer.PulseSw 48:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw48_Timer:sw48.IsDropped = 0:sw48a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw48_Timer:sw48.IsDropped = 0:sw48a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 Sub sw49_Hit:Controller.Switch(49) = 1:PlaySoundat "gate", ActiveBall:LeftCount = LeftCount + 1:End Sub
-Sub sw49_UnHit:Controller.Switch(49) = 0:End Sub 
+Sub sw49_UnHit:Controller.Switch(49) = 0:End Sub
 Sub TargetSw50_Hit:vpmTimer.PulseSw 50:PlaySoundat "target", ActiveBall:End Sub
-'Sub sw50_Timer:sw50.IsDropped = 0:sw50a.IsDropped = 1:Me.TimerEnabled = 0:End Sub 
+'Sub sw50_Timer:sw50.IsDropped = 0:sw50a.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 
 Sub ResetAll()
 ClaneUpPost.Isdropped=true:UpPost.Isdropped=true
@@ -363,7 +370,7 @@ Dim RStep, Lstep
 Sub RightSlingShot_Slingshot
 	vpmTimer.PulseSw 27
  	PlaySoundAt SoundFX("right_slingshot", DOFContactors), rightslinglight
-	Me.TimerEnabled = 1    
+	Me.TimerEnabled = 1
 	RubberRightSS1.Visible = 0
     RubberRightSS2.Visible = 1
     RStep = 0
@@ -411,18 +418,18 @@ End Sub
       vpmTimer.PulseSw 31
       PlaySound SoundFX("fx_bumper1", DOFContactors)
     	End Sub
-     
- 
+
+
       Sub Bumper2b_Hit
       vpmTimer.PulseSw 30
       PlaySound SoundFX("fx_bumper1", DOFContactors)
        End Sub
- 
+
       Sub Bumper3b_Hit
       vpmTimer.PulseSw 32
       PlaySound SoundFX("fx_bumper1", DOFContactors)
        End Sub
- 
+
 Dim LampState(200), FadingLevel(200), FadingState(200)
 Dim FlashState(200), FlashLevel(200)
 Dim FlashSpeedUp, FlashSpeedDown
@@ -447,7 +454,7 @@ Sub LampTimer_Timer()
     UpdateLamps
 End Sub
 
- 
+
  Sub UpdateLamps
 NFadeL 3, l3
 NFadeL 4, l4
@@ -520,7 +527,7 @@ if MongerPos < 10 then
 	LampMod 125, f125b
 Else
 	f125b.Visible = False
-end if 
+end if
 
 LampMod 126, f126a
 LampMod 126, f126b
@@ -594,7 +601,7 @@ Sub Flash(nr, object)
 End Sub
 
  Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:FadingLevel(x) = 0:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 
 Sub SetLamp(nr, value)
     If value = 0 AND LampState(nr) = 0 Then Exit Sub
@@ -614,7 +621,7 @@ End Sub
  '************************
  '    monger Animation
  '************************
- 
+
 Dim MongerMax:MongerMax = 240
 Dim MongerSpeed:MongerSpeed = MongerMax / 1000
 Dim monger, mongerPos, mongerDir, mongerFlash
@@ -623,7 +630,7 @@ mongerDir = 0:mongerPos = MongerMax:mongerFlash = 0
 sw5.IsDropped = 1
 switchframe.IsDropped = 1
  'For x = 1 to 9:monger(x).IsDropped = 1:Next
- 
+
  Sub Solmonger(Enabled)
      If Enabled Then
          If mongerDir = 0 Then
@@ -646,7 +653,7 @@ switchframe.IsDropped = 1
 
 
 
- 
+
  Sub mongerClose_Timer()
      mongerPos = mongerPos + MongerSpeed
      If mongerPos> MongerMax Then
@@ -656,7 +663,7 @@ switchframe.IsDropped = 1
      End If
 	 Updatemonger
  End Sub
- 
+
  Sub mongerOpen_Timer()
      mongerPos = mongerPos - MongerSpeed
      If mongerPos <0 Then
@@ -666,11 +673,11 @@ switchframe.IsDropped = 1
      End If
      Updatemonger
  End Sub
- 
+
  Sub Updatemonger
 	 Primitive31.Z = MongerMax-MongerPos
 	 Primitive2.Z = Primitive31.Z - 122
-	 Primitive32.Z = Primitive31.Z 
+	 Primitive32.Z = Primitive31.Z
 	 f125b.Height = Primitive2.Z+170
  End Sub
 
@@ -680,7 +687,7 @@ Sub Trigger1_hit
 
  Sub Trigger2_hit
 	PlaySound "DROP_RIGHT"
- End Sub 
+ End Sub
 
 Sub Table_exit()
 	Controller.Pause = False
@@ -701,10 +708,10 @@ Sub UpdateGI(nr,enabled)
 	Select Case nr
 		Case 0
 		If Enabled Then
-			GIOn		
-		Else	
+			GIOn
+		Else
 			GIOff
-		End If	
+		End If
 	End Select
 End Sub
 
@@ -728,12 +735,12 @@ Sub GIOff
 		bulb.visible = 0
 	Else
 		bulb.state = 0
-	end if 
+	end if
 	next
 End Sub
 
  'Sub RightSlingShot_Timer:Me.TimerEnabled = 0:End Sub
- 
+
 ' *********************************************************************
 '                      Supporting Ball & Sound Functions
 ' *********************************************************************
@@ -790,7 +797,7 @@ Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
 	debug.print finalspeed
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySoundAt "fx_rubber2", activeball
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -802,7 +809,7 @@ Sub Posts_Hit(idx)
  	dim finalspeed
 	debug.print finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySoundAt "fx_rubber2", ActiveBall
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -884,15 +891,15 @@ Sub RollingTimer_Timer()
     For b = 0 to UBound(BOT)
         If BallVel(BOT(b) ) > 1 Then
             rolling(b) = True
-			if BOT(b).z < 30 then 
+			if BOT(b).z < 30 then
 				If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .8 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .8 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .8 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
 				End If
-			Else ' ball in air, probably on plastic.  
+			Else ' ball in air, probably on plastic.
 				If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2 , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0
 				End If

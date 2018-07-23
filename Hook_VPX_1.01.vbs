@@ -6,12 +6,15 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
+' Thalamus 2018-07-23
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Const Ballsize = 52
 Const BallMass = 1.5
 
 LoadVPM "01000200", "DE.VBS", 3.38
 
-      
 '********************
 'Standard definitions
 '********************
@@ -33,10 +36,10 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(1)  = "bsTrough.SolIn"
 SolCallback(2)  = "bsTrough.SolOut"
 SolCallback(3)  = "bsLVuk.SolOut"
-SolCallback(4)  = "SolKickback" 
+SolCallback(4)  = "SolKickback"
 SolCallback(5)  = "dtLDrop.SolDropUp"
 SolCallback(6)  = "bsUpperEject.SolOut"
-SolCallback(8)  = "Solknocker" 
+SolCallback(8)  = "Solknocker"
 SolCallback(11) = "SolGI"
 SolCallBack(15)	= "SolAutoPlunge"
 SolCallback(22)  = "SolRdiv"
@@ -81,14 +84,14 @@ Sub Table1_Init
 
     ' Nudging
     vpmNudge.TiltSwitch = 1
-	vpmNudge.Sensitivity = 2 
+	vpmNudge.Sensitivity = 2
     vpmNudge.tiltobj = Array(LeftSlingShot,RightSlingShot,Bumper1B,Bumper2B,Bumper3B)
 
 	PinMAMETimer.Interval = PinMAMEInterval
 	PinMAMETimer.Enabled = 1
 
 	' Trough
-     Set bsTrough = new cvpmTrough 
+     Set bsTrough = new cvpmTrough
      With bsTrough
 		.Size = 3
 		.InitSwitches Array (13,12,11)
@@ -106,7 +109,7 @@ Sub Table1_Init
 	    .InitKicker Sw51, 51,110, 30, 1.45
 		.InitSounds "fx_sensor", SoundFX(SSolenoidOn,DOFContactors), SoundFX("fx_vukout_LAH",DOFContactors)
 		.CreateEvents "bsLVuk", Sw51
-    End With 
+    End With
 
 
      'PowerScoop
@@ -115,9 +118,9 @@ Sub Table1_Init
 	    .InitKicker Sw48b, 48,230, 30, 1.56
 		.InitSounds "fx_sensor", SoundFX(SSolenoidOn,DOFContactors), SoundFX("salidadebola",DOFContactors)
 		.CreateEvents "bsUpperEject", Sw48b
-    End With 
+    End With
 
-     
+
 '      Drop Targets
   	Set dtLDrop=New cvpmDropTarget
     With dtLDrop
@@ -136,12 +139,12 @@ Sub Table1_Init
 
 
     'Diverter
-    DivOpen.Isdropped = 1 
+    DivOpen.Isdropped = 1
     DivClose.Isdropped = 0
 
 End Sub
 
-Dim BallsOnPlayfield: BallsOnPlayfield = 0 
+Dim BallsOnPlayfield: BallsOnPlayfield = 0
 Sub Trigger1_Hit()
     BallsOnPlayfield = BallsOnPlayfield - 1
     vpmtimer.addtimer 2000, "LEDStopTimer '"
@@ -169,7 +172,7 @@ End Sub
 
 ' Kickback
    Sub SolKickback(enabled)
- 	If Enabled then	
+ 	If Enabled then
 		SkillShotR.ExitSol_On
 	end if
    End Sub
@@ -177,7 +180,7 @@ End Sub
 
 ' LaserKick
 Sub SolAutoPlunge(Enabled)
-	If Enabled Then 
+	If Enabled Then
         Playsound SoundFX("bumper_retro",DOFContactors)
 		LaserKick.Enabled=True
         LaserKickP1.TransY = 90
@@ -197,14 +200,14 @@ End Sub
 
 ' Ramp Diverter
 Sub SolRdiv(Enabled)
-    If Enabled Then 
+    If Enabled Then
        vpmtimer.addtimer 1450, "DiverterTimer.enabled = 1' "
-        DivOpen.Isdropped = 0 
+        DivOpen.Isdropped = 0
         DivClose.Isdropped = 1
         DivP.RotY = -38
         PlaySound "fx_diverter"
     End If
-End Sub       
+End Sub
 
 Sub DiverterTimer_Timer
     DiverterTimer.enabled = 0
@@ -405,44 +408,6 @@ Sub GameTimer
 	RFlogo.RotY = RightFlipper.CurrentAngle
 End Sub
 
-'*********** ROLLING SOUND *********************************
-Const tnob = 5						' total number of balls : 4 (trough) + 1 (fake ball used to animate Austin toy)
-Const fakeballs = 0					' number of balls created on table start (rolling sound will be skipped)
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling:Dim i:For i=0 to (tnob-1):rolling(i) = False:Next:End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-	' stop the sound of deleted balls
-	If UBound(BOT)<(tnob -1) Then
-		For b = (UBound(BOT) + 1) to (tnob-1)
-			rolling(b) = False
-			StopSound("fx_ballrolling" & b)
-		Next
-	End If
-	' exit the Sub if no balls on the table
-    If UBound(BOT) = fakeballs-1 Then Exit Sub
-	' play the rolling sound for each ball
-    For b = fakeballs to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 Then
-           If BOT(b).z < 30 Then
-                ballpitch = Pitch(BOT(b))
-            Else
-                ballpitch = Pitch(BOT(b)) * 100
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), Pan(BOT(b)), 0, ballpitch, 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
 
 '*********** BALL SHADOW *********************************
 Dim BallShadow
@@ -476,21 +441,17 @@ Sub BallShadowUpdate()
 	Next
 End Sub
 
-
-
-
 '******************************
 '		 Sound FX
 '******************************
 
-
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-'Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-'Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+'Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+'Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 
 Function RndNum(min,max)
@@ -500,8 +461,8 @@ End Function
 Sub RubberBands_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR((activeball.velx ^2) + (activeball.vely ^2))
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -511,8 +472,8 @@ End Sub
 Sub RubbersPost_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR((activeball.velx ^2) + (activeball.vely ^2))
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -522,8 +483,8 @@ End Sub
 Sub RubberPostPrimitive_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR((activeball.velx ^2) + (activeball.vely ^2))
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -579,7 +540,7 @@ Sub Oyos123_Hit(idx): vpmtimer.addtimer 800, "BallDropFX' " End Sub
 
 Sub BallDropFX()
     playSound "BallDrop"
-End Sub    
+End Sub
 
 
 '*****************
@@ -677,7 +638,7 @@ Sub Sw24_UnHit():Controller.Switch(24)=0: End Sub
 
 
 
-'Drops Targets 
+'Drops Targets
 Sub sw25_dropped():dtLDrop.Hit 1:End Sub
 Sub sw26_dropped():dtLDrop.Hit 2:End Sub
 Sub sw27_dropped():dtLDrop.Hit 3:End Sub
@@ -697,7 +658,7 @@ Sub Sw31_UnHit():Controller.Switch(31)=0: End Sub
 Sub Sw32_Hit(): SkillShotR.AddBall 0:End Sub
 
 Sub Sw32_UnHit
-    LaserKickP.TransY = 90   
+    LaserKickP.TransY = 90
     vpmtimer.addtimer 500, "PlungerRes '"
 End Sub
 
@@ -707,7 +668,7 @@ End Sub
 
 
 
- 
+
 Sub Sw33_Hit:vpmTimer.PulseSw 33 :MoveTarget33 :PlaySound SoundFX("fx_target",DOFContactors), 0, 1, 0.15, 0.15:End Sub
 Sub Sw34_Hit:vpmTimer.PulseSw 34 :MoveTarget34 :PlaySound SoundFX("fx_target",DOFContactors), 0, 1, 0.15, 0.15:End Sub
 Sub Sw35_Hit:vpmTimer.PulseSw 35 :MoveTarget35 :PlaySound SoundFX("fx_target",DOFContactors), 0, 1, 0.15, 0.15:End Sub
@@ -831,7 +792,7 @@ End Sub
 
 
 ' Left Ramp
-Sub Sw36_Hit():Controller.Switch(36) = 1:End Sub 
+Sub Sw36_Hit():Controller.Switch(36) = 1:End Sub
 Sub Sw36_UnHit()
 	Controller.Switch(36) = 0
 	If ActiveBall.VelY < 0 Then
@@ -884,17 +845,17 @@ Sub Sw51Ta_Hit():Stopsound "fx_metalrolling":vpmtimer.addtimer 400, "BallDropFX 
 ' SetLamp 1 is On
 ' fading for non opacity objects is 4 steps
 '***************************************************
- 
+
 Dim bulb
 Dim LampState(200), FadingLevel(200)
 Dim FlashSpeedUp(200), FlashSpeedDown(200), FlashMin(200), FlashMax(200), FlashLevel(200)
- 
+
 InitLamps()             ' turn off the lights and flashers and reset them to the default parameters
 LampTimer.Interval = 10 'lamp fading speed
 LampTimer.Enabled = 1
- 
+
 ' Lamp & Flasher Timers
- 
+
 Sub LampTimer_Timer()
     Dim chgLamp, num, chg, ii
     chgLamp = Controller.ChangedLamps
@@ -906,7 +867,7 @@ Sub LampTimer_Timer()
     End If
     UpdateLamps
 End Sub
- 
+
 Sub InitLamps()
     Dim x
     For x = 0 to 200
@@ -919,7 +880,7 @@ Sub InitLamps()
         FlashLevel(x) = 0        ' the intensity of the flashers, usually from 0 to 1
     Next
 End Sub
- 
+
 Sub UpdateLamps
 
 	NFadeL 1, Light1
@@ -991,10 +952,10 @@ Sub UpdateLamps
 	NFadeL 63, Light63
 	NFadeL 64, Light64
 
-    'Flashers	
+    'Flashers
 	NFadeL 92, f2b1
 	NFadeLm 92, f2b2
-    
+
  	NFadeL 95, f5b
 
 End Sub
@@ -1007,26 +968,26 @@ Sub SetLamp(nr, value)
         FadingLevel(nr) = abs(value) + 4
     End If
 End Sub
- 
+
 ' Lights: used for VP10 standard lights, the fading is handled by VP itself
- 
+
 Sub NFadeL(nr, object)
     Select Case FadingLevel(nr)
         Case 4:object.state = 0:FadingLevel(nr) = 0
         Case 5:object.state = 1:FadingLevel(nr) = 1
     End Select
 End Sub
- 
+
 Sub NFadeLm(nr, object) ' used for multiple lights
     Select Case FadingLevel(nr)
         Case 4:object.state = 0
         Case 5:object.state = 1
     End Select
 End Sub
- 
+
 'Lights, Ramps & Primitives used as 4 step fading lights
 'a,b,c,d are the images used from on to off
- 
+
 Sub FadeObj(nr, object, a, b, c, d)
     Select Case FadingLevel(nr)
         Case 4:object.image = b:FadingLevel(nr) = 6                   'fading to off...
@@ -1037,7 +998,7 @@ Sub FadeObj(nr, object, a, b, c, d)
         Case 13:object.image = d:FadingLevel(nr) = 0                  'Off
     End Select
 End Sub
- 
+
 Sub FadeObjm(nr, object, a, b, c, d)
     Select Case FadingLevel(nr)
         Case 4:object.image = b
@@ -1046,23 +1007,23 @@ Sub FadeObjm(nr, object, a, b, c, d)
         Case 13:object.image = d
     End Select
 End Sub
- 
+
 Sub NFadeObj(nr, object, a, b)
     Select Case FadingLevel(nr)
         Case 4:object.image = b:FadingLevel(nr) = 0
         Case 5:object.image = a:FadingLevel(nr) = 1
     End Select
 End Sub
- 
+
 Sub NFadeObjm(nr, object, a, b)
     Select Case FadingLevel(nr)
         Case 4:object.image = b
         Case 5:object.image = a
     End Select
 End Sub
- 
+
 ' Flasher objects
- 
+
 Sub Flash(nr, object)
     Select Case FadingLevel(nr)
         Case 4 'off
@@ -1081,13 +1042,13 @@ Sub Flash(nr, object)
             Object.IntensityScale = FlashLevel(nr)
     End Select
 End Sub
- 
+
 Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
     Object.IntensityScale = FlashLevel(nr)
 End Sub
- 
+
 ' RGB Leds
- 
+
 Sub RGBLED (object,red,green,blue)
     If TypeName(object) = "Light" Then
         object.color = RGB(0,0,0)
@@ -1098,9 +1059,9 @@ Sub RGBLED (object,red,green,blue)
         object.IntensityScale = 1
     End If
 End Sub
- 
+
 ' Modulated Flasher and Lights objects
- 
+
 Sub SetLampMod(nr, value)
     If value > 0 Then
         LampState(nr) = 1
@@ -1109,7 +1070,7 @@ Sub SetLampMod(nr, value)
     End If
     FadingLevel(nr) = value
 End Sub
- 
+
 Sub LampMod(nr, object)
     Object.IntensityScale = FadingLevel(nr)/128
     If TypeName(object) = "Light" Then
@@ -1119,8 +1080,8 @@ Sub LampMod(nr, object)
         Object.visible = LampState(nr)
     End If
 End Sub
- 
- 
+
+
 
 
 
@@ -1140,7 +1101,7 @@ Sub CheckWindCoasterLamps (Lamp, State)
 	Select Case Lamp
 		Case 1:
 			If State = 1 then 'Blinking
-				Light1.TimerEnabled=0: Light1.TimerInterval = 500: Light1.TimerEnabled=1: 
+				Light1.TimerEnabled=0: Light1.TimerInterval = 500: Light1.TimerEnabled=1:
 				WindLamp1=1
 			Else
 				Light1.TimerEnabled=0: Light1.TimerInterval = 500: Light1.TimerEnabled=1
@@ -1150,9 +1111,9 @@ End Sub
 
 
 Sub Light1_Timer
-	Light1.TimerEnabled = 0: 
+	Light1.TimerEnabled = 0:
 	WindLamp1 = 0 'Not blinking
-End Sub 
+End Sub
 
 
 
@@ -1208,7 +1169,7 @@ Sub LEDCW
 End Sub
 Sub LEDCCW
 	LEDcount = (LEDcount - 1)
-	If LEDcount < 0 then 
+	If LEDcount < 0 then
 		LEDcount = (LEDcount+3) mod 3
 	Else
 		LEDcount = LEDcount mod 3
@@ -1294,3 +1255,153 @@ Function Light1BlinkingAndBallInPlay
 		Light1BlinkingAndBallInPlay = 1
 	End If
 End Function
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*********** ROLLING SOUND *********************************
+Const tnob = 5						' total number of balls : 4 (trough) + 1 (fake ball used to animate Austin toy)
+Const fakeballs = 0					' number of balls created on table start (rolling sound will be skipped)
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling:Dim i:For i=0 to (tnob-1):rolling(i) = False:Next:End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+	' stop the sound of deleted balls
+	If UBound(BOT)<(tnob -1) Then
+		For b = (UBound(BOT) + 1) to (tnob-1)
+			rolling(b) = False
+			StopSound("fx_ballrolling" & b)
+		Next
+	End If
+	' exit the Sub if no balls on the table
+    If UBound(BOT) = fakeballs-1 Then Exit Sub
+	' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub

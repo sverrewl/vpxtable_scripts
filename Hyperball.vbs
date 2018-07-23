@@ -2,20 +2,18 @@
 option explicit
 Randomize
 
+' Thalamus 2018-07-23
+' This table doesn't have any "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
 
 Const cGameName="hypbl_l6"
 Const UseSolenoids=1,UseLamps=True,UseGI=0,UseSyn=1,SSolenoidOn="SolOn",SSolenoidOff="Soloff"
 Const SCoin="coin3",cCredits="Hyperball"
 
-
-
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
-LoadVPM "01320000","S7.VBS",3.1 
-
-
+LoadVPM "01320000","S7.VBS",3.1
 
 '***************************************************************
 '*   				        Solenoids          	        	   *
@@ -51,13 +49,13 @@ Sub Table1_Init
 		If Err Then MsgBox Err.Description
 	End With
 	On Error Goto 0
-	PinMAMETimer.Interval=PinMAMEInterval  
-	PinMAMETimer.Enabled=1  
+	PinMAMETimer.Interval=PinMAMEInterval
+	PinMAMETimer.Enabled=1
 	vpmNudge.TiltSwitch=1
 	vpmNudge.Sensitivity=5
 '	vpmNudge.TiltObj=Array(Wall1)
 	vpmMapLights AllLights
-End Sub 
+End Sub
 
 '***************************************************************
 '*   				         Cannon          	        	   *
@@ -306,16 +304,16 @@ End If
 	If KeyCode=PlungerKey Then Controller.Switch(32)=1 'Z-Bomb Switch
     If KeyCode=LeftMagnaSave Then Controller.Switch(33)=1 'Left Shooter
     If KeyCode=RightMagnaSave Then Controller.Switch(34)=1 'Right Shooter
-    If vpmKeyDown(KeyCode) Then Exit Sub 
+    If vpmKeyDown(KeyCode) Then Exit Sub
     If keycode = 19 Then DisplayHyperBallRules
-End Sub  
+End Sub
 
 Sub AATimer_Timer
        vpmTimer.PulseSw 33
 End Sub
 
 
-Sub Table1_KeyUp(ByVal KeyCode) 
+Sub Table1_KeyUp(ByVal KeyCode)
 
 If KeyCode=2 Then
 	Controller.Switch(3)=0
@@ -337,7 +335,7 @@ End If
     If KeyCode=LeftMagnaSave Then Controller.Switch(33)=0 'Left Shooter
     If KeyCode=RightMagnaSave Then Controller.Switch(34)=0 'Right Shooter
     If vpmKeyUp(KeyCode) Then Exit Sub
-End Sub 
+End Sub
 
 '***************************************************************
 '*   		   	      Flap Gate Primitives              	   *
@@ -404,7 +402,7 @@ Sub DisplayTimer_Timer
 				Next
 		Next
 	End If
-End Sub 
+End Sub
 
 Dim Digits(29)
 Digits(0)=Array(BLight1,BLight2,BLight3,BLight4,BLight5,BLight6,BLight7,BLight8)

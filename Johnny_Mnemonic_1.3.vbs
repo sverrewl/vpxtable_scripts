@@ -4,17 +4,19 @@ Randomize
 Const BallSize = 51
 Const BallMass = 1.3
 
+' Thalamus 2018-07-23
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-
 Dim DesktopMode:DesktopMode = JM.ShowDT
 Dim UseVPMDMD:UseVPMDMD = DesktopMode
 Const UseVPMModSol = 0
 
- Const cGameName = "jm_12r" 
+ Const cGameName = "jm_12r"
 
 LoadVPM "02000000", "WPC.VBS", 3.50
 
@@ -43,8 +45,8 @@ LoadVPM "02000000", "WPC.VBS", 3.50
 			.SplashInfoLine = "Johnny Mnemonic, Williams 1995" & vbNewLine & "Alessio"
 			.HandleMechanics = 0
 			.HandleKeyboard = False
-			.ShowDMDOnly = True 
-			.ShowFrame = False 
+			.ShowDMDOnly = True
+			.ShowFrame = False
 			.ShowTitle = False
 			.Hidden=DesktopMode
 			.Run GetPlayerHWnd
@@ -62,7 +64,7 @@ LoadVPM "02000000", "WPC.VBS", 3.50
  	vpmNudge.TiltSwitch = 14
  	vpmNudge.Sensitivity = 6
 	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
-	
+
     ' Trough
     Set bsTrough = New cvpmTrough
     With bsTrough
@@ -225,7 +227,7 @@ SolCallback(sLRFlipper)="SolRFlipper"
 '******************************************
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then		 
+	If Enabled Then
 		PlaySoundAt SoundFX ("FlipperL",DOFFlippers), LeftFlipper
 		LeftFlipper.RotateToEnd
 	Else
@@ -256,7 +258,7 @@ Sub SolBallRelease(Enabled)
 End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER 
+'						 AUTOPLUNGER
 '************************************************************************
 
  Sub Auto_Plunger(Enabled)
@@ -272,7 +274,7 @@ End Sub
 Dim thePopBall
 Sub TriggerGloveMag_Hit
 	TriggerGloveMag.DestroyBall
-	GloveMag.DestroyBall ' Paranoia 
+	GloveMag.DestroyBall ' Paranoia
 	GloveMag.Enabled = 1
 	Set thePopBall = GloveMag.CreateBall
 	thePopBall.Y = (450 - MoveGloveY.Position) - 12
@@ -285,41 +287,41 @@ End Sub
 '************************************************************************
 
 Sub CheckPickup(x, y, obj, sw)
-	if (x > obj.x - 25 AND x < obj.x + 25 AND y > obj.y - 25 AND y < obj.y +25) then 
+	if (x > obj.x - 25 AND x < obj.x + 25 AND y > obj.y - 25 AND y < obj.y +25) then
 		obj.DestroyBall
-		GloveMag.DestroyBall ' Paranoia 
+		GloveMag.DestroyBall ' Paranoia
 		GloveMag.Enabled = 1
 		Set thePopBall = GloveMag.CreateBall
 		Controller.Switch(sw)=0
-		PlaySoundAt SoundFX("Magnete",DOFContactors), obj 
+		PlaySoundAt SoundFX("Magnete",DOFContactors), obj
 		thePopBall.x = x
-		thePopBall.y = y 
+		thePopBall.y = y
 		Controller.Switch(115)=1
-	Else	
-		if Controller.Switch(sw) then 
-			Debug.Print "MISS x:" & obj.x & " y:" & obj.y & " objx:" & obj.x & " objy:" & obj.y 
-		end if 
-	end if 
-end sub 
+	Else
+		if Controller.Switch(sw) then
+			Debug.Print "MISS x:" & obj.x & " y:" & obj.y & " objx:" & obj.x & " objy:" & obj.y
+		end if
+	end if
+end sub
 
  Sub DoHandMagnet(enabled)
-	If Enabled and MoveGloveX.Position > 200 Then 
+	If Enabled and MoveGloveX.Position > 200 Then
 		' Are we above the matrix?   If yes, find the kicker with the ball..
 		' Assert: the ROM will only attempt this when there is a ball sitting in the matrix (switch enabled)
 		Dim hx:hx = MoveGloveX.Position + 308
 		dim hy:hy = (450 - MoveGloveY.Position) - 12
-		'debug.print "X:" & hx & " Y:" & hy & " m33x" & Matrix33.x & " m33y " & Matrix33.y 
+		'debug.print "X:" & hx & " Y:" & hy & " m33x" & Matrix33.x & " m33y " & Matrix33.y
 
-		'... These are the drop-at numbers with x = 330 + XPos and y = (450-Pos) 
+		'... These are the drop-at numbers with x = 330 + XPos and y = (450-Pos)
 		'Drop at 797,347
 		'Drop at 716,260 - ' ** Center ** want 694, 248 , so adjusted to +308, - 12
 		'Drop at 634,180
-		'Drop at 787,354  ' Actual 776, 338 ... These are the drop-at numbers with x = 330 + XPos and y = (450-Pos) 
-		'Drop at 708,273  ' Actual 694, 248 ... ROM Spacing is X=79, Y=78-ish (81 to 74?! )  
+		'Drop at 787,354  ' Actual 776, 338 ... These are the drop-at numbers with x = 330 + XPos and y = (450-Pos)
+		'Drop at 708,273  ' Actual 694, 248 ... ROM Spacing is X=79, Y=78-ish (81 to 74?! )
 		'Drop at 628,199  ' Actual 611, 165 .... Table spacing 82, 86
 
 		CheckPickup hx, hy, Matrix32, 63
-		CheckPickup hx, hy, Matrix33, 73		
+		CheckPickup hx, hy, Matrix33, 73
 		CheckPickup hx, hy, Matrix22, 62
 		CheckPickup hx, hy, Matrix23, 72
 		CheckPickup hx, hy, Matrix12, 61
@@ -328,8 +330,8 @@ end sub
 		CheckPickup hx, hy, Matrix21, 52
 		CheckPickup hx, hy, Matrix11, 51
 
-	end if 
-		
+	end if
+
 	If NOT Enabled Then
 		If NOT IsEmpty(thePopBall) Then
 			 Debug.Print "Drop at " & thePopBall.x & ","  &thePopBall.y
@@ -355,10 +357,10 @@ Sub DoClearMatrix(enabled)
 		If Controller.Switch(53) then
 			Matrix31.Kick 180,6
 			Controller.Switch(53)=0
-		End If 
+		End If
 		If Controller.Switch(63) then
 			Matrix32.Kick 180,6
-			Controller.Switch(63)=0	
+			Controller.Switch(63)=0
 		End If
 		If Controller.Switch(73) then
 			Matrix33.Kick 180,6
@@ -371,11 +373,11 @@ Sub DoClearMatrix(enabled)
 
 		If Controller.Switch(52) then
 			Matrix21.Kick 180,6
-			Controller.Switch(52)=0	
+			Controller.Switch(52)=0
 		End If
-		If Controller.Switch(62) Then			
+		If Controller.Switch(62) Then
 			Matrix22.Kick 180,6
-			Controller.Switch(62)=0	
+			Controller.Switch(62)=0
 		End If
 		If Controller.Switch(72) then
 			Matrix23.Kick 180,6
@@ -386,24 +388,24 @@ Sub DoClearMatrix(enabled)
  		Matrix12.Enabled = False
  		Matrix13.Enabled = False
 
-		If Controller.Switch(51) then 
+		If Controller.Switch(51) then
 			Matrix11.Kick 180,6
-			Controller.Switch(51)=0	
+			Controller.Switch(51)=0
 		End If
 		If Controller.Switch(61) then
 			Matrix12.Kick 180,6
-			Controller.Switch(61)=0	
+			Controller.Switch(61)=0
 		End If
 		If Controller.Switch(71) then
 			Matrix13.Kick 180,6
-			Controller.Switch(71)=0	
+			Controller.Switch(71)=0
 		End If
 
 		AlzaMatrix
 		ReEnableMatrix.Enabled = True
  	end if
  End Sub
- 
+
  Sub ReEnableMatrix_Timer()
   	Matrix31.Enabled = True
  	Matrix32.Enabled = True
@@ -516,7 +518,7 @@ Sub MatrixAbbassato_Timer()
 		ScambioDestroChiuso
  	end if
  End Sub
- 
+
  Sub ScambioDestroAperto
 	 RightDiverter.TransX= -113
 	 RightDiverter.TransZ= -168
@@ -581,7 +583,7 @@ Sub sw_38_Hit
 	vpmTimer.PulseSw 38
 End Sub
 
-'**MATRIX 
+'**MATRIX
 
 Sub Matrix11_Hit()
  	Controller.Switch(51)=1
@@ -706,11 +708,11 @@ Sub sw_56_Hit():Controller.Switch(56) = 1:PlaySoundAt "gate", ActiveBall:End Sub
 Sub sw_56_UnHit():Controller.Switch(56) = 0:End Sub
 
 '**Right Loop
-Sub Sw_57a_Hit():Controller.Switch(57) = 1:PlaySoundAt "sensor", ActiveBall:End Sub 
+Sub Sw_57a_Hit():Controller.Switch(57) = 1:PlaySoundAt "sensor", ActiveBall:End Sub
 Sub Sw_57a_UnHit():Controller.Switch(57) = 0:End Sub
 
 '**Inner Loop
-Sub Sw_58a_Hit():Controller.Switch(58) = 1:PlaySoundAt "sensor", ActiveBall:End Sub 
+Sub Sw_58a_Hit():Controller.Switch(58) = 1:PlaySoundAt "sensor", ActiveBall:End Sub
 Sub Sw_58a_UnHit():Controller.Switch(58) = 0:End Sub
 
 '**BALL STOPPER
@@ -723,7 +725,7 @@ Sub DropRampRight_Hit()
 	Playsound "PlasticDrop"
 End Sub
 
-Sub SX_BallStop_Hit()   
+Sub SX_BallStop_Hit()
  	 ActiveBall.VelZ = -2
      ActiveBall.VelY = 0
      ActiveBall.VelX = 0
@@ -764,7 +766,7 @@ Sub RampBlockTrigger_Hit()
 		activeball.VelY=activeball.VelY/2
 		activeball.VelX=activeball.VelX/2
 		activeball.VelZ=activeball.VelZ/2
-	end if	
+	end if
 'msgbox(activeball.VelX & "$" & activeball.VelY & "$" & activeball.VelZ)
 End Sub
 
@@ -774,7 +776,7 @@ End Sub
 
 Sub InitGlove
 	Set MoveGloveX = New cvpmMech
-	With MoveGloveX 
+	With MoveGloveX
 		.Sol1=22
 		.Sol2=-21
 		.MType=vpmMechOneDirSol+vpmMechLinear+vpmMechStopEnd+vpmMechFast+vpmMechLengthSw
@@ -826,7 +828,7 @@ End Sub
 Sub DrawHandY(aCurrPos,aSpeed,aLastPos)
  	If NOT IsEmpty(thePopBall) Then
 		thePopBall.Y = (450 - aCurrPos) - 12
-	End If 
+	End If
 	If aSpeed=0 Then
 		StopSound "motor1":MotorSnd=0
 	Else

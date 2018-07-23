@@ -1,51 +1,54 @@
-'                                                                                     `.:/+osyhhdddddddddhyys+/:.`                                                                                       
-'                                                                                ./oyddhyo+/:-.```     ``.--:+oshddyo/-`                                                                                 
-'                                                                           `:oymhs+:.     `.-:`                  `-/shmho:`                                                                             
-'                                                                        .+ymho:`     .oyhdmmmd/          `+yyys+/-.   `-+ydho-                                                                          
-'                                                                     .+hdy/.         -mms:-.`            smd++syhmo       `:sddo-                                                                       
-'                                                                  `/hmy/` `-          hmy-:/+oo         -mms.`   ``          `:sdh+.                                                                    
-'                                                                .oddo.   `hmy-        /mmmdhyso`        ymmdmmdyo            `  `/hms-                                                                  
-'                                                              .omh/`      .smmo`      `dms``  `.`      -mm/``-/+:         ./ydh.  `:ymy.                                                                
-'                                                              `o/` .+-      :dmh:      +mmysyddm+      ymd`            ./ymmmmm`     -/`                                                                
-'                                                                   ommo`     `smm:      -+oo+/:.`      ./-          .+hmdy/:mm+                                                                         
-'                                                                    :hmh:     `mms          `.-:::::::--.`        :hmdy/.:-ymd`                                                                         
-'                                                                    :hmh:     `mms          `.-:::::::--.`        :hmdy/.:-ymd`                                                                         
-'                                                                     `+mmy:..:ymd.    `-/oyhyyssooooosssyhhyo/-`  `-:`  +hmmm/                                                                          
-'                                                                       -sdmddmh+` `-+yhyo/-```          ``.-/syhy/-      .mmh                                                                           
-'                                                                         `.--.` -ohyo-`                       `.:shh+.   .hm-                                                                           
-'                                                                             `:yho-`                              `:yds-  `:                                                                            
-'                                                                            .hh+.                                    .ods-                                                                              
-'                                                                            `:`                                        .o-                                                                              
-'        ``.....``                                                                                                                                                                                       
-'    `-+yhdddddddho     .-....-.    .-....-.          .....-`           `-....-          -....-`     `...........`         -.....-`          `--:::-.           -......      -.....        `.-://///:-.  
-'  `+hmmmdysooshmmy     .odddd+`    .odddd/`          .sdddmo           `/ddddm+        :ddddd+`     `/dddddddddddhs:      -ydddd:`       .+yddmmmmmdho-        -yddddh-     .+dds.      -shdmdhhhhdmmd- 
-' .hmmmh:`     `-yh      :mmmm-      /mmmm.           .dmmmmm-           .mmmmmm-      `dmmmmm/        dmmmy:--/odmmms`     smmmd       `odmmy/---:odmmms.       smmmmmd/     .mm+      +mmmd:.````./ym: 
-'.dmmmy`         `s      :mmmm-      /mmmm.          `hmm+mmmh`          -mmhmmmd`     smddmmm+        dmmmo     :mmmm:     smmmd      `ymmm+`      .ymmmd.      smm/dmmmo`   .mm+      mmmmy`       `o/ 
-'ommmm.                  :mmmm:......+mmmm.          smm+ hmmm+          :mm/smmms    :mm/smmms        dmmmo     .mmmm:     smmmd      +mmmh         `dmmmy      smm`-hmmmy`  .mm+      hmmmmhs/:-.`  `` 
-'hmmmd                   :mmmmdddddddmmmmm.         /mmy  /mmmm.         /mm/`hmmm+  `dmy ommmh        dmmmo   `.ymmms`     smmmd      hmmmy          ommmm`     smm` `smmmh- .mm+      .sdmmmmmmmdhs+-` 
-'hmmmd                   :mmmmdddddddmmmmm.         /mmy  /mmmm.         /mm/`hmmm+  `dmy ommmh        dmmmo   `.ymmms`     smmmd      hmmmy          ommmm`     smm` `smmmh- .mm+      .sdmmmmmmmdhs+-` 
+'                                                                                     `.:/+osyhhdddddddddhyys+/:.`
+'                                                                                ./oyddhyo+/:-.```     ``.--:+oshddyo/-`
+'                                                                           `:oymhs+:.     `.-:`                  `-/shmho:`
+'                                                                        .+ymho:`     .oyhdmmmd/          `+yyys+/-.   `-+ydho-
+'                                                                     .+hdy/.         -mms:-.`            smd++syhmo       `:sddo-
+'                                                                  `/hmy/` `-          hmy-:/+oo         -mms.`   ``          `:sdh+.
+'                                                                .oddo.   `hmy-        /mmmdhyso`        ymmdmmdyo            `  `/hms-
+'                                                              .omh/`      .smmo`      `dms``  `.`      -mm/``-/+:         ./ydh.  `:ymy.
+'                                                              `o/` .+-      :dmh:      +mmysyddm+      ymd`            ./ymmmmm`     -/`
+'                                                                   ommo`     `smm:      -+oo+/:.`      ./-          .+hmdy/:mm+
+'                                                                    :hmh:     `mms          `.-:::::::--.`        :hmdy/.:-ymd`
+'                                                                    :hmh:     `mms          `.-:::::::--.`        :hmdy/.:-ymd`
+'                                                                     `+mmy:..:ymd.    `-/oyhyyssooooosssyhhyo/-`  `-:`  +hmmm/
+'                                                                       -sdmddmh+` `-+yhyo/-```          ``.-/syhy/-      .mmh
+'                                                                         `.--.` -ohyo-`                       `.:shh+.   .hm-
+'                                                                             `:yho-`                              `:yds-  `:
+'                                                                            .hh+.                                    .ods-
+'                                                                            `:`                                        .o-
+'        ``.....``
+'    `-+yhdddddddho     .-....-.    .-....-.          .....-`           `-....-          -....-`     `...........`         -.....-`          `--:::-.           -......      -.....        `.-://///:-.
+'  `+hmmmdysooshmmy     .odddd+`    .odddd/`          .sdddmo           `/ddddm+        :ddddd+`     `/dddddddddddhs:      -ydddd:`       .+yddmmmmmdho-        -yddddh-     .+dds.      -shdmdhhhhdmmd-
+' .hmmmh:`     `-yh      :mmmm-      /mmmm.           .dmmmmm-           .mmmmmm-      `dmmmmm/        dmmmy:--/odmmms`     smmmd       `odmmy/---:odmmms.       smmmmmd/     .mm+      +mmmd:.````./ym:
+'.dmmmy`         `s      :mmmm-      /mmmm.          `hmm+mmmh`          -mmhmmmd`     smddmmm+        dmmmo     :mmmm:     smmmd      `ymmm+`      .ymmmd.      smm/dmmmo`   .mm+      mmmmy`       `o/
+'ommmm.                  :mmmm:......+mmmm.          smm+ hmmm+          :mm/smmms    :mm/smmms        dmmmo     .mmmm:     smmmd      +mmmh         `dmmmy      smm`-hmmmy`  .mm+      hmmmmhs/:-.`  ``
+'hmmmd                   :mmmmdddddddmmmmm.         /mmy  /mmmm.         /mm/`hmmm+  `dmy ommmh        dmmmo   `.ymmms`     smmmd      hmmmy          ommmm`     smm` `smmmh- .mm+      .sdmmmmmmmdhs+-`
+'hmmmd                   :mmmmdddddddmmmmm.         /mmy  /mmmm.         /mm/`hmmm+  `dmy ommmh        dmmmo   `.ymmms`     smmmd      hmmmy          ommmm`     smm` `smmmh- .mm+      .sdmmmmmmmdhs+-`
 'hmmmm.                  :mmmmo//////smmmm.        -mmm+///mmmmy         +mm: .dmmm- smd. /mmmd        dmmmo/+syddhs:`      smmmd      ymmmd`         /mmmm`     smm`  `+mmmd:.mm+        .:+shddmmmmmmy.
 '/mmmmy`                 :mmmm-      /mmmm.       .dmmyyyyyymmmm/        smm-  /mmmd/mm/  -mmmm`       dmmmo `.-..`         smmmd      :mmmm+         ommmy      smm`    :dmmmsmm+      -.     `-:+hmmmmy
 ' smmmmh:`        `-     :mmmm-      /mmmm.      `ymm+      ommmd.       ymm.   ommmmmy   `mmmm-       dmmmo                smmmd       ommmm+`     `/mmmh.      smm`     .hmmmmm+      /h.        .mmmmh
 '  +dmmmmho:-.-:+shh     :mmmm-      /mmmm.      ommy       `dmmms       hmm.   `hmmmd.    mmmm/       mmmmo                smmmd        /hmmmho/::+ymmdo`       smm`      `smmmm+      :md+-.```.-smmmh-
-'   .+hdmmmmmmmmmdh/    -odddd+.    -odddd+.   .+hdds-     `:hddddo.   ./hddo:   .ddd/   -+dddds:    `/ddddy/.             :ydddh:`       `:shddmmddhy/.        :ydd+-       +ddd+      -hdmmdhhddmddy/` 
-'      .:/+ooo+/:.      ````````    ````````   ```````      .```````   ``````.    ...    ```````.    `.```````             .```````           ..--..`           ``````        ...`       `.--::/::-.`    
-'                                                                                                                                                                                                        
-'                                                                                                                                                                                                        
-'                                                                                                                                                                                                        
-'                                                   .....`         ............         ....`           ``--::-.`      .....`   `.....    `...........                                                   
-'                                                  `/mmmo.         :mmmdhhhhhdh        `smmms         -ohddhyhdmd:     -mmmy.   .ommm/`   -hmmmhhhhhhm.                                                  
-'                                                   .mmm:          `mmm/     `o        .dmdmm:       ommh:`   `-y/      mmmo     /mmm.     ymmy      /.                                                  
-'                                                   .mmm:          `mmm+```.-         `hm+/mmd`     +mmd`       `.      mmmo     /mmm.     ymmy````/                                                     
-'                                                   .mmm:          `mmmdhhhd+         smy``dmmo     hmms     ``````     mmmo     /mmm.     ymmmhhhdh                                                     
-'                                                   .mmm:          `mmmo---//        +mmysshmmm-    ymmd     -oddd/`    mmmo     /mmm.     ymmh...-o                                                     
-'                                                   .mmm:      +   `mmm/      .:    -mm/----smmh`   -mmmo`    :mmm      dmms     /mmm`     ymmy       +                                                  
-'                                                   .mmmo::::/sy   `mmms:::::/h+   .dmo     `mmm+    -hmmh+::/hmmm      /mmm+-.-/dmmo      ymmh:::::/sy                                                  
-'                                                  `+yyyyyyyyyy/  `/yyyyyyyyyyy-  .oss+.    /ssss/     :oyhdhy+./y       .+shhdhhy+-      :syyyyyyyyyy+                                                  
-'                                                                                                                                                                   
+'   .+hdmmmmmmmmmdh/    -odddd+.    -odddd+.   .+hdds-     `:hddddo.   ./hddo:   .ddd/   -+dddds:    `/ddddy/.             :ydddh:`       `:shddmmddhy/.        :ydd+-       +ddd+      -hdmmdhhddmddy/`
+'      .:/+ooo+/:.      ````````    ````````   ```````      .```````   ``````.    ...    ```````.    `.```````             .```````           ..--..`           ``````        ...`       `.--::/::-.`
+'
+'
+'
+'                                                   .....`         ............         ....`           ``--::-.`      .....`   `.....    `...........
+'                                                  `/mmmo.         :mmmdhhhhhdh        `smmms         -ohddhyhdmd:     -mmmy.   .ommm/`   -hmmmhhhhhhm.
+'                                                   .mmm:          `mmm/     `o        .dmdmm:       ommh:`   `-y/      mmmo     /mmm.     ymmy      /.
+'                                                   .mmm:          `mmm+```.-         `hm+/mmd`     +mmd`       `.      mmmo     /mmm.     ymmy````/
+'                                                   .mmm:          `mmmdhhhd+         smy``dmmo     hmms     ``````     mmmo     /mmm.     ymmmhhhdh
+'                                                   .mmm:          `mmmo---//        +mmysshmmm-    ymmd     -oddd/`    mmmo     /mmm.     ymmh...-o
+'                                                   .mmm:      +   `mmm/      .:    -mm/----smmh`   -mmmo`    :mmm      dmms     /mmm`     ymmy       +
+'                                                   .mmmo::::/sy   `mmms:::::/h+   .dmo     `mmm+    -hmmh+::/hmmm      /mmm+-.-/dmmo      ymmh:::::/sy
+'                                                  `+yyyyyyyyyy/  `/yyyyyyyyyyy-  .oss+.    /ssss/     :oyhdhy+./y       .+shhdhhy+-      :syyyyyyyyyy+
+'
 
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-23
+' Tables seems to have non standard "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 
 Const Ballsize=51
 Const BallMass=1.25
@@ -274,7 +277,7 @@ Sub GameInit
 		ballinplay(ii)=1:extraball(ii)=0:extraballmax(ii)=0:maxballs(ii)=0
 		win(ii)=0:defencestate(ii)=0:progress(ii)=0:DefenceLocked(ii)=0:BLhit(ii)=0:BRhit(ii)=0
 		StrikerMode(ii)=0:StrikerModeStart(ii)=0:FKAward(ii)=0:SemiFinalAward(ii)=0:BSMODE(ii)=0:MVPOfTheYear(ii)=0:TDState(ii)=0
-		CLChamp(ii)=0:FKChamp(ii)=0:FKGoal(ii)=0:LockMScoreBest(ii)=0:VMChamp(ii)=0:GKMChamp(ii)=0	
+		CLChamp(ii)=0:FKChamp(ii)=0:FKGoal(ii)=0:LockMScoreBest(ii)=0:VMChamp(ii)=0:GKMChamp(ii)=0
 	next
 	NewPlayer=0:CurrentPlayer=0:TeamSelection=0:SelectedTeams=0
 	LockMultiMode=0:TicketMultiMode=0:SkillMultiMode=0
@@ -445,7 +448,7 @@ Sub TiltRecovery_Timer
 		TiltDelay.Enabled=1
 		If UltraDMD.IsRendering Then UltraDMD.CancelRendering
 		OnScoreboardChanged
-	Else			
+	Else
 		TiltRecovery.Interval=1000
 		TiltRecovery.Enabled=1
 	End If
@@ -478,7 +481,7 @@ End Sub
 '*KEYS*******************************************************************
 '************************************************************************
 Sub Table1_KeyDown(ByVal keycode)
-	If keycode = LeftFlipperKey AND cAttractMode=0 AND GKMM=0 AND VMOn=0 AND Tilted=0 AND cursorPos=40 Then    
+	If keycode = LeftFlipperKey AND cAttractMode=0 AND GKMM=0 AND VMOn=0 AND Tilted=0 AND cursorPos=40 Then
 		LeftFlipper.RotateToEnd
 		leftFlipper1.RotateToEnd
 		PlaySound SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), 0, 1, -0.05, 0.05
@@ -491,7 +494,7 @@ Sub Table1_KeyDown(ByVal keycode)
 	End If
 
 '****CREDITS************************************************************
-    If keycode=AddCreditKey AND Not skipultradmd.Enabled AND Tilted=0 AND Not OptMenuEnabled Then 
+    If keycode=AddCreditKey AND Not skipultradmd.Enabled AND Tilted=0 AND Not OptMenuEnabled Then
 		PlaySound "fx_coin"
 		If creditgame<MaximumCredits AND FreePlay=0 Then creditgame=creditgame+1
 		DOF 150, DOFOn:GiEffect 0
@@ -646,13 +649,13 @@ Sub Table1_KeyDown(ByVal keycode)
 			initials(cursorPos) = 32						'Set that initial back to an empty SPACE
 			Playsound "fx_Esc"
 		End If
-		if (inChar <> 91) Then								'Set a character, as long as it's not a backspace				
+		if (inChar <> 91) Then								'Set a character, as long as it's not a backspace
 			initials(cursorPos) = inChar					'Set the character
 			If inChar = 47 Then initials(cursorPos) = 32	'Set the space character
 			cursorPos = cursorPos + 1
 			Playsound "fx_Enter"
 		End If
-		if (cursorPos < 4) Then								'write the 3 characters				
+		if (cursorPos < 4) Then								'write the 3 characters
 			'NameEntry
 			If cursorPos=3 Then nameEntryStart.Enabled=0:cursorPos=40:ExitHS.Interval=100:ExitHS.Enabled=1
 		End If
@@ -671,7 +674,7 @@ Sub Table1_KeyUp(ByVal keycode)
         LeftFlipper1.RotateToStart
 		PlaySound SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), 0, 1, -0.05, 0.05
 	End If
-    
+
 	If keycode = RightFlipperKey AND GKMM=0 AND cAttractMode=0 AND VMOn=0 AND Tilted=0 Then
 		RightFlipper.RotateToStart
         RightFlipper1.RotateToStart
@@ -696,20 +699,20 @@ Sub Table1_KeyUp(ByVal keycode)
 	End If
 
 '****GKMOVEMODE************************************************************
-	If keycode = LeftFlipperKey AND GKMM=1 AND Tilted=0 Then 
+	If keycode = LeftFlipperKey AND GKMM=1 AND Tilted=0 Then
 		PlaySound SoundFXDOF("fx_DropTargetDOWN",101,DOFOff,DOFFlippers)
 		HEADGK.X=437:bootsGK.X=437:bodyGK.X=437:kitGK.X=437:GKPOST.X=437
 		For each ii in GkWalls:ii.IsDropped=1:Next
 		GKwalls(4).isdropped=0:GKwalls(5).isdropped=0
 	End If
 
-	If keycode = RightFlipperKey AND GKMM=1 AND Tilted=0 Then 
+	If keycode = RightFlipperKey AND GKMM=1 AND Tilted=0 Then
 		PlaySound SoundFXDOF("fx_DropTargetDOWN",102,DOFOff,DOFFlippers)
 		HEADGK.X=437:bootsGK.X=437:bodyGK.X=437:kitGK.X=437:GKPOST.X=437
 		For each ii in GkWalls:ii.IsDropped=1:Next
 		GKwalls(4).isdropped=0:GKwalls(5).isdropped=0
 	End If
-    
+
 '*HEAD MOVE**************************************************************
 	If keycode = LeftFlipperKey AND Tilted=0 AND VMOn=1 Then HEADL.ENABLED=0
 	If keycode = RightFlipperKey AND Tilted=0 AND VMOn=1 Then HEADR.ENABLED=0
@@ -1017,7 +1020,7 @@ If Tilted=0 Then
 			If UltraDMD.IsRendering Then UltraDMD.CancelRendering
 			UDMD_Display "conte.gif", "",14,-1, "",14,-1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None,6
 		End If
-		superjackpot.state=0 
+		superjackpot.state=0
 		lockjackpot.state=0
 		ticketjackpot.state=0
 		skilljackpot.state=0
@@ -1043,18 +1046,18 @@ If Tilted=0 Then
 		ticketjackpot.state=0
 		ticket1.state=2:ticket2.state=2:ticket3.state=2
 		lmultiticket.state=0
-		TicketDiverter True 
+		TicketDiverter True
 		ticket=0:kicked=0:bonus=0
 		TicketMultiMode=0
 		Music
-    End If 
+    End If
 
 '*SKILL MULTIBALL RULES************************************************************
     If GKMM=0 AND BIP<2 AND lmultiskill.state=1 AND Lkag.state=0 Then
 		If skillcomplete.state=0 Then
 			If UltraDMD.IsRendering Then UltraDMD.CancelRendering
 			UDMD_Display "fail.gif", "",14,-1, "",14,-1, UltraDMD_Animation_None, 1850, UltraDMD_Animation_None,6
-		End If 
+		End If
 		superjackpot.state=0
 		skilljackpot.state=0
 		skill1.state=2:skill2.state=2:skill3.state=2
@@ -1182,7 +1185,7 @@ End Sub
 Sub RightInLane_Hit
 PlaySound "fx_sensor"
 DOF 155, DOFPulse
-If Tilted=0 Then  
+If Tilted=0 Then
     If NOT moveGK.Enabled AND NOT (Lmultilock.state=1 OR Lmultiskill.state=1 OR Lmultiticket.state=1) AND HEADGK.Z>0 AND MVPOfTheYear(CurrentPlayer)=0 Then L20.STATE=1
     If GKMM=0 Then scores(CurrentPlayer)=scores(CurrentPlayer)+5000:OnScoreboardChanged
     If  L20.STATE=1 AND L21.STATE=1 AND gkmm=0 AND NOT moveGK.Enabled AND NOT (Lmultilock.state=1 OR Lmultiskill.state=1 OR Lmultiticket.state=1) Then
@@ -1208,7 +1211,7 @@ Sub waitforkick_timer()
 	If TDExit=1 Then
 		If wfk=10 Then tdfcolor=4:OpenTrapDoor True:RightInLane.Enabled=0
 		If wfk=15 Then trapkicker.CreateSizedBallWithMass Ballsize/2,BallMass:trapkicker.Kick 180,25,1.56:TrapKickBall
-		If wfk=20 Then OpenTrapDoor False 
+		If wfk=20 Then OpenTrapDoor False
 		If wfk=60 Then TDExit=0:RightInLane.Enabled=1
 	End If
     If wfk=55 Then corner.Enabled=1
@@ -1288,7 +1291,7 @@ Sub swlx1_hit
 		If lx2.state=1 Then
 			FlashForMs Lx1,1500,100,0
 			FlashForMs Lx2,1500,100,0
-			If bonus<10 Then bonus=bonus+2 
+			If bonus<10 Then bonus=bonus+2
 			PlaySound "bumpmult"
 			UltraDMD.Clear
 			UDMD_Display "bonusX.gif", "BUMPERS", 15,0, "X" & bonus, 15,0 ,UltraDMD_Animation_None, 1500, UltraDMD_Animation_None,3
@@ -1322,10 +1325,10 @@ Sub swlx2_hit
 	If Tilted=0 AND SkillShotMode=0 Then
 		scores(CurrentPlayer)=scores(CurrentPlayer)+520:OnScoreboardChanged
 		Lx2.state=1
-		If lx1.state=1 Then 
+		If lx1.state=1 Then
 			FlashForMs Lx1,1500,100,0
 			FlashForMs Lx2,1500,100,0
-			If bonus<10 Then bonus=bonus+2 
+			If bonus<10 Then bonus=bonus+2
 			PlaySound "bumpmult"
 			UltraDMD.Clear
 			UDMD_Display "bonusX.gif", "BUMPERS", 15,0, "X" & bonus, 15,0, UltraDMD_Animation_None, 1500, UltraDMD_Animation_None,3
@@ -1620,7 +1623,7 @@ If Tilted=0 Then
 	If brhit(CurrentPlayer)=1 Then UDMD_Display "black.bmp", "r. striker", 14,-1,"2 to go",14,-1, UltraDMD_Animation_None, 1500, UltraDMD_Animation_FadeOut,5
 	If brhit(CurrentPlayer)=2 Then UDMD_Display "black.bmp", "r. striker", 14,-1,"1 to go",14,-1, UltraDMD_Animation_None, 1500, UltraDMD_Animation_FadeOut,5
 
-	If brhit(CurrentPlayer)=3 AND DefenceLocked(CurrentPlayer)=0 Then 
+	If brhit(CurrentPlayer)=3 AND DefenceLocked(CurrentPlayer)=0 Then
 		If StrikerMode(CurrentPlayer)=1 Then
 			leb2.state=1
 			If leb1.state= 1 Then
@@ -1850,7 +1853,7 @@ Sub VIDEOMODE_TIMER()
 		If ballprim.z>190 Then ballprim.z=(ballprim.z+3)
 		ballprim.z=ballprim.z-g:g=g+0.1
 		If ballprim.z<197 AND ballprim.x-headp.x<25 AND ballprim.x-headp.x>-25 Then g=0
-		If g>0.1 AND g<0.3 AND ballprim.Z> 185 Then 
+		If g>0.1 AND g<0.3 AND ballprim.Z> 185 Then
 			Remb=Remb+1:VMScore=VMScore+100000
 			If UltraDMDNew = 1 Then
 				UltraDMD.DisplayScoreboard00 1, 1, VMscore, VMscore, VMscore, VMscore, "attempt" & Attempt, "hits" & Remb
@@ -1866,7 +1869,7 @@ Sub VIDEOMODE_TIMER()
 		If ballprim.x<360 Then ballside=ballside*-1
 		If ballprim.x>510 Then ballside=ballside*-1
 
-		If ballprim.z<175 Then 
+		If ballprim.z<175 Then
 			ballrot=0:ballside=0:AttemptPause=AttemptPause+1:Remb=-1:VMBall=0:g=0
 			If VMScore>VMScoreBest Then VMScoreBest=VMScore
 			If Attempt>2 Then
@@ -1888,8 +1891,8 @@ Sub VIDEOMODE_TIMER()
 	End If
 End Sub
 
-Sub HEADR_Timer:If HEADP.X<490 Then HEADP.X=HEADP.X+3:End If:End Sub  
-Sub HEADL_Timer:If HEADP.X>380 Then HEADP.X=HEADP.X-3:End If:End Sub 
+Sub HEADR_Timer:If HEADP.X<490 Then HEADP.X=HEADP.X+3:End If:End Sub
+Sub HEADL_Timer:If HEADP.X>380 Then HEADP.X=HEADP.X-3:End If:End Sub
 
 '************************************************************************
 '*GK MODE ***************************************************************
@@ -1951,7 +1954,7 @@ Sub CPUTIMER_TIMER()
 			If sdir=1 Then wkl1.isdropped=0:wkl2.isdropped=0
 			If sdir=2 Then wkc1.isdropped=0:wkc2.isdropped=0
 			If sdir=3 Then wkr1.isdropped=0:wkr2.isdropped=0
-		End If 
+		End If
 		If  CPUCOUNT>110 AND firstballout=1 Then rpin.isdropped=0
 		If  CPUCOUNT=120 Then OpenTrapDoor False
 		If  CPUCOUNT>300 AND firstballout=1 Then rpin.isdropped=1
@@ -2058,7 +2061,7 @@ Sub GKHOLEout_TIMER()
 		End If
 	End If
 	If GKHOLEup.rotx=-85 Then PlaySound SoundFXDOF("fx_postup",130,DOFPulse,DOFGear)
-End Sub 
+End Sub
 
 '*********************************************************************
 '****GOAL KEEPER BALL UNLOCK *****************************************
@@ -2100,7 +2103,7 @@ Sub Schedule_timer
 		UltraDMD.CancelRendering:ScheduleTS.Enabled=1:TeamSelection=0
 		UltraDMD.SetScoreboardBackgroundImage "BACK" & choiceteam(CurrentPlayer) & ".png", 15, 10:TeamLogos(choiceteam(CurrentPlayer)-1).state=1:StopFlashB2S choiceteam(CurrentPlayer),1
 	Else
-		PlaySound "V.QUALIFY"		
+		PlaySound "V.QUALIFY"
 		UDMD_Display "schedule.gif","qualify match", 14, 0, vs1(CurrentPlayer), 1, 14, UltraDMD_Animation_None, 1400, UltraDMD_Animation_FadeOut,7
 	End If
 End Sub
@@ -2132,7 +2135,7 @@ Sub firstdefenceup_timer()
 		headDEF2.z=headDEF2.z-fuvel:bodyDEF2.z=bodyDEF2.z-fuvel:bootsDEF2.z=bootsDEF2.z-fuvel:kitDEF2.z=kitDEF2.z-fuvel:LdefC.Height=headDEF2.Z+100
 		headDEF3.z=headDEF3.z-fuvel:bodyDEF3.z=bodyDEF1.z-fuvel:bootsDEF3.z=bootsDEF3.z-fuvel:kitDEF3.z=kitDEF3.z-fuvel:LdefR.Height=headDEF3.Z+100
 		If headDEF1.z>-50 Then defenderL.isdropped=0:defenderC.isdropped=0:defenderR.isdropped=0:Wall35.ISDROPPED=0
-		If headDEF1.z>12 Then firstdefenceup.enabled=0:PlaySound "laser":screenprim.visible=0:StopSound "fx_motorD":fuvel=0:dfup=0:DOF 128,DOFOff:exit Sub 
+		If headDEF1.z>12 Then firstdefenceup.enabled=0:PlaySound "laser":screenprim.visible=0:StopSound "fx_motorD":fuvel=0:dfup=0:DOF 128,DOFOff:exit Sub
 	End If
 End Sub
 
@@ -2294,13 +2297,13 @@ Sub StopSoundGKSave:StopSound "V.great hands":StopSound "V.great save":StopSound
 '************************************************************************
 Dim bou,brake,perc,sbou,bou2,brake2,perc2,sbou2
 Sub bouncingR_timer()
-    bou=bou+0.3:brake=brake+0.02 
+    bou=bou+0.3:brake=brake+0.02
     If (perc-(brake*(perc/6)))<0 Then bouncingR.Enabled = 0 :bou=0 :brake=0 :perc=0
     headRD.rotx=sin(bou)*(perc-(brake*(perc/6)))
     bodyRD.rotx=sin(bou)*(perc-(brake*(perc/6)))
     bootsRD.rotx=sin(bou)*(perc-(brake*(perc/6)))
-    kitRD.rotx=sin(bou)*(perc-(brake*(perc/6))) 
-    baseRD.rotx=sin(bou)*(perc-(brake*(perc/6)))  
+    kitRD.rotx=sin(bou)*(perc-(brake*(perc/6)))
+    baseRD.rotx=sin(bou)*(perc-(brake*(perc/6)))
     headRD.roty=cos((bou)*sbou)*(perc-(brake*(perc/6)))
     bodyRD.roty=cos((bou)*sbou)*(perc-(brake*(perc/6)))
     bootsRD.roty=cos((bou)*sbou)*(perc-(brake*(perc/6)))
@@ -2309,13 +2312,13 @@ Sub bouncingR_timer()
 End Sub
 
 Sub bouncingL_timer()
-    bou2=bou2+0.3:brake2=brake2+0.02 
+    bou2=bou2+0.3:brake2=brake2+0.02
     If (perc2-(brake2*(perc2/6)))<0 Then bouncingL.Enabled = 0 :bou2=0 :brake2=0 :perc2=0
 	headLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))
 	bodyLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))
 	bootsLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))
 	kitLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))
-	baseLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))   
+	baseLD.rotx=sin(bou2)*(perc2-(brake2*(perc2/6)))
     headLD.roty=cos((bou2)*sbou2)*(perc2-(brake2*(perc2/6)))
     bodyLD.roty=cos((bou2)*sbou2)*(perc2-(brake2*(perc2/6)))
     bootsLD.roty=cos((bou2)*sbou2)*(perc2-(brake2*(perc2/6)))
@@ -2450,32 +2453,32 @@ End Sub
 
 Dim boudefL,brakedefL,percdefL
 Sub defLbouncing_timer()
-	boudefL=boudefL+0.4:brakedefL=brakedefL+0.02 
+	boudefL=boudefL+0.4:brakedefL=brakedefL+0.02
 	If (percdefL-(brakedefL*(percdefL/6)))<0 Then defLbouncing.Enabled = 0 :boudefL=0 :brakedefL=0 :percdefL=0
 	headDEF1.rotx=sin(boudefL)*(percdefL-(brakedefL*(percdefL/6)))
 	bodyDEF1.rotx=sin(boudefL)*(percdefL-(brakedefL*(percdefL/6)))
 	bootsDEF1.rotx=sin(boudefL)*(percdefL-(brakedefL*(percdefL/6)))
-	kitDEF1.rotx=sin(boudefL)*(percdefL-(brakedefL*(percdefL/6))) 
+	kitDEF1.rotx=sin(boudefL)*(percdefL-(brakedefL*(percdefL/6)))
 End Sub
 
 Dim boudefC,brakedefC,percdefC
 Sub defCbouncing_timer()
-	boudefC=boudefC+0.5:brakedefC=brakedefC+0.02 
+	boudefC=boudefC+0.5:brakedefC=brakedefC+0.02
 	If (percdefC-(brakedefC*(percdefC/6)))<0 Then defCbouncing.Enabled = 0 :boudefC=0 :brakedefC=0 :percdefC=0
 	headDEF2.rotx=sin(boudefC)*(percdefC-(brakedefC*(percdefC/6)))
 	bodyDEF2.rotx=sin(boudefC)*(percdefC-(brakedefC*(percdefC/6)))
 	bootsDEF2.rotx=sin(boudefC)*(percdefC-(brakedefC*(percdefC/6)))
-	kitDEF2.rotx=sin(boudefC)*(percdefC-(brakedefC*(percdefC/6))) 
+	kitDEF2.rotx=sin(boudefC)*(percdefC-(brakedefC*(percdefC/6)))
 End Sub
 
 Dim boudefR,brakedefR,percdefR
 Sub defRbouncing_timer()
-    boudefR=boudefR+0.4:brakedefR=brakedefR+0.02 
+    boudefR=boudefR+0.4:brakedefR=brakedefR+0.02
     If (percdefR-(brakedefR*(percdefR/6)))<0 Then defRbouncing.Enabled = 0 :boudefR=0 :brakedefR=0 :percdefR=0
     headDEF3.rotx=sin(boudefR)*(percdefR-(brakedefR*(percdefR/6)))
     bodyDEF3.rotx=sin(boudefR)*(percdefR-(brakedefR*(percdefR/6)))
     bootsDEF3.rotx=sin(boudefR)*(percdefR-(brakedefR*(percdefR/6)))
-    kitDEF3.rotx=sin(boudefR)*(percdefR-(brakedefR*(percdefR/6))) 
+    kitDEF3.rotx=sin(boudefR)*(percdefR-(brakedefR*(percdefR/6)))
 End Sub
 
 '*********************************************************************
@@ -2514,8 +2517,8 @@ End If
 End Sub
 
 Sub SemiFinalAwardTimer_timer
-    If Not UltraDMD.IsRendering Then				
-        Me.Enabled=0											'When the scene finishes rendering ...	
+    If Not UltraDMD.IsRendering Then
+        Me.Enabled=0											'When the scene finishes rendering ...
 		If TrapDoorP.Z=0 AND headLD.z<0 AND headRD.z<0 Then		'If Snack Bar and bombers are down
 			EBAwardTimer.Enabled=1:EBAw=1						'Start the EB award and opens the Snack Bar
 		Else
@@ -2585,7 +2588,7 @@ Dim LockMScore,ticket,skill,njack,thcc:thcc=0
 Sub triggerlock_hit()
 Me.DestroyBall
 If Tilted=0 Then
-	If Llock3.state=1 AND bip=1 Then PlaySound "V.MISTERMISLIT":PlaySound "PIZZ":UDMD_Display "multiball.gif", "MULTIBALL", 14, 2, "IS LIT", 14,2, UltraDMD_Animation_ScrollOnUp, 3000, UltraDMD_Animation_FadeOut,6 
+	If Llock3.state=1 AND bip=1 Then PlaySound "V.MISTERMISLIT":PlaySound "PIZZ":UDMD_Display "multiball.gif", "MULTIBALL", 14, 2, "IS LIT", 14,2, UltraDMD_Animation_ScrollOnUp, 3000, UltraDMD_Animation_FadeOut,6
 	If Llock2.state=1 AND LLOCK3.state=2 AND GKMM=0 AND Lmultilock.state=0 AND Lmultiticket.state=0 AND lmultiskill.state=0 AND lockjackpot.state=0 AND headLD.z<0 AND headRD.z<0 AND TrapDoorP.Z=0 Then
 		subwall.image = "sub_textSUB3":PlaySound "V.MISTERMISLIT":PlaySound "PIZZ":llock3.state=1
 		lmultilock.state=2:lmultiskill.state=2:lmultiticket.state=2:superjackpot.state=2:LockMultiMode=1:If DiverterP.Z>50 Then TicketDiverter False
@@ -2612,8 +2615,8 @@ End Sub
 
 Sub TrapHole_timer
 	thcc=thcc+1
-	If thcc=15 Then trapkickerLock.Enabled=1:trapkickerLock.CreateSizedBallWithMass Ballsize/2,BallMass								'after 1.5 second(s) create the ball																	
-	If thcc=20 Then	tdfcolor=4:TDExit=2:OpenTrapDoor True:traphole.Enabled=0														'after 2.0 second(s) open the Snack Bar																		
+	If thcc=15 Then trapkickerLock.Enabled=1:trapkickerLock.CreateSizedBallWithMass Ballsize/2,BallMass								'after 1.5 second(s) create the ball
+	If thcc=20 Then	tdfcolor=4:TDExit=2:OpenTrapDoor True:traphole.Enabled=0														'after 2.0 second(s) open the Snack Bar
 	If thcc=21 Then trapkickerLock.Kick 180,25,1.56:TrapKickBall																	'after 2.1 second(s) kick the ball
 	If thcc=22 Then OpenTrapDoor False																								'after 2.2 second(s) close the Snack Bar
 	If thcc=23 Then
@@ -2881,7 +2884,7 @@ Sub triggermultiBall_hit()
 		UltraDMD.DisplayScene00Ex "MVP.gif", "AMAZING!!", 15, 2, "BALON DOR", 15, 2, UltraDMD_Animation_None, 2500, UltraDMD_Animation_FadeOut
 		UltraDMD.DisplayScene00Ex "MVPList.wmv", "", 15, 0, "", 15, 0, UltraDMD_Animation_None, 139000, UltraDMD_Animation_FadeOut
 		dim CrStr:Crstr="ALL RIGHTS BELONG TO|UEFA| | | |IT WAS A LONG EFFORT| | |FOR BOTH YOU| | |AND US CREATORS| | | |WE ENJOYED DURING| |THE DEVELOPING PHASE| | | |WE HOPE THAT| |YOU ENJOYED TOO..| | | |AUTHORS| | | |NINUZZU| | |TOM TOWER| | | | |THANKS TO THE| |VISUAL PINBALL| |DEV TEAM FOR| |THE AMAZING VPX"
-		UltraDMD.ScrollingCredits "credits.png", Crstr, 15, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_FadeOut	
+		UltraDMD.ScrollingCredits "credits.png", Crstr, 15, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_FadeOut
 		MVPwin.Enabled=1:BIP=BIP-1
 		FinalMode.timerInterval=100:FinalMode.timerenabled=1	'wait the MVPList video is complete
 		DisableTable 1:Tilted=1:MVPGI.Enabled=0:mvpgicc=0
@@ -2911,7 +2914,7 @@ If Tilted=0 Then
 		MultiBallStart.timerenabled=1
     End If
 'used after the ball is plunged and and Ticket Multiball is running: this will add a ball
-	If Lmultiticket.state=1 AND BIP=1 Then 
+	If Lmultiticket.state=1 AND BIP=1 Then
 		BIP=BIP+1
 		KGoalExit
 		TicketDiverter True
@@ -2919,7 +2922,7 @@ If Tilted=0 Then
 	End If
 'used after the ball is plunged and Skill Multiball is running: this will add a ball
 	If Lmultiskill.state=1 AND BIP=1 Then
-		BIP=BIP+1 
+		BIP=BIP+1
 		KGoalExit
 		TicketDiverter True
 		skilljackpot.state=2
@@ -2999,7 +3002,7 @@ Sub CLwin_timer()
 	If fcount=100 Then
 		FlashForMs Fl2,100,100,0
 		FlashForMs Fl2a,100,100,0
-		DOF 140, DOFPulse		
+		DOF 140, DOFPulse
 	End If
 	If fcount=150 Then
 		FlashForMs Fl3,100,100,0
@@ -3011,7 +3014,7 @@ Sub CLwin_timer()
 		FlashForMs Fl1a,100,100,0
 		DOF 142, DOFPulse
 	End If
-	If fcount = 400 Then fcount=0 
+	If fcount = 400 Then fcount=0
 End Sub
 
 Dim fcount
@@ -3032,7 +3035,7 @@ Sub MVPwin_timer()
 		FlashForMs Fl1a,100,50,0
 		DOF 142, DOFPulse
 	End If
-	If fcount = 70 Then fcount=10 
+	If fcount = 70 Then fcount=10
 End Sub
 
 Sub LightSeqCLWin_PlayDone()
@@ -3288,7 +3291,7 @@ Sub TRAPKICKER_HIT
 		'starts the mvp mode
 		If MVPOfTheYear(CurrentPlayer)=1 AND finaljackpot.state=0 Then MVPEffectType=3:MVPEffect.Enabled=1:Exit Sub
 	End If
-End Sub 
+End Sub
 
 Sub TRAPKICKER_timer
 	Me.TimerEnabled=0
@@ -3394,7 +3397,7 @@ Sub triggergoal_hit()
 	End If
 End Sub
 
-Sub GoalScene                                                                                                                                                                                                                                                                                                               
+Sub GoalScene
 'first goal
 	If Lgoal1.state=0 AND lgoal2.state=0 AND FK=0 AND GKMM=0 Then
 		Lgoal1.state=1:PlaySound "goal":StopSoundGKSave:PlaySound "V.goal1":scores(CurrentPlayer)=scores(CurrentPlayer)+150000*(progress(CurrentPlayer)+1)
@@ -3451,7 +3454,7 @@ Sub GoalScene
 		exit sub
 	End If
 'GK Mode Goal
-	If GKMM=1 Then GoalType=2:exit sub   
+	If GKMM=1 Then GoalType=2:exit sub
 'free kick goal
 	If FK=1 Then
 		FKGoal(CurrentPlayer)=FKGoal(CurrentPlayer)+1:FKChamp(CurrentPlayer)=FKChamp(CurrentPlayer)+1:GoalType=3
@@ -3558,24 +3561,24 @@ Dim bscount:bscount=1
 
 Sub BREAKSPIN_TIMER()
 	out=out+1
-	If out<800 Then 
+	If out<800 Then
 		If bscount>0 Then BSCOUNT=BSCOUNT+1-(decr)
 		decr=decr+0.001
-		If bscount>0 AND bscount<10 Then 
+		If bscount>0 AND bscount<10 Then
 			If lbreak1.state=0 Then PlaySound "fx_spinner":rndchoice
 			FlashForMs Fl1,100,50,0
 			FlashForMs Fl1a,100,50,0
 			DOF 142, DOFPulse
-			lbreak1.state=1:lbreak2.state=0 
-		End If               
-		If bscount>10 AND bscount<20 Then 
+			lbreak1.state=1:lbreak2.state=0
+		End If
+		If bscount>10 AND bscount<20 Then
 			If lbreak2.state=0 Then PlaySound "fx_spinner":rndchoice
 			FlashForMs Fl2,100,50,0
 			FlashForMs Fl2a,100,50,0
 			DOF 140, DOFPulse
 			lbreak1.state=0:lbreak2.state=1
 		End If
-		If bscount>20 Then bscount=1 
+		If bscount>20 Then bscount=1
 	End If
 
 	If out=805 Then
@@ -3626,7 +3629,7 @@ Sub BREAKSPIN_TIMER()
 			End If
 		End If
 		If rndchoicereal>10 AND rndchoicereal<21 Then UltraDMD.ModifyScene00 "rndch","    500.000    ",""
-		If rndchoicereal=21 Then 
+		If rndchoicereal=21 Then
 			If Lmultilock.state=0 AND Lmultiticket.state=0 AND lmultiskill.state=0 AND headLD.z<0 AND headRD.z<0 AND MVPOfTheYear(CurrentPlayer)=0 Then
 				UltraDMD.ModifyScene00 "rndch"," M.BALL IS LIT ",""
 			Else
@@ -3636,7 +3639,7 @@ Sub BREAKSPIN_TIMER()
 		If rndchoicereal>21 AND rndchoicereal<31 Then UltraDMD.ModifyScene00 "rndch","   BUMPERS X   ",""
 	End If
 
-	If out=1000 Then 
+	If out=1000 Then
 		UltraDMD.CancelRendering
 		PRIZE:out=0
 		DECR=0:BSCOUNT=1
@@ -3718,7 +3721,7 @@ Sub PRIZE
 'Award #7 = ADVANCE LOCK
 	If rndchoicereal>6 AND rndchoicereal<10 Then
 		UltraDMD.CancelRendering
-		If LLOCK.STATE=2 AND LLOCK1.STATE=2 AND LLOCK2.STATE=2 AND LLOCK3.STATE=2 Then 
+		If LLOCK.STATE=2 AND LLOCK1.STATE=2 AND LLOCK2.STATE=2 AND LLOCK3.STATE=2 Then
 			Llock.state=1:subwall.image = "sub_textSUB":scores(CurrentPlayer)=scores(CurrentPlayer)+10000
 			TabletUp
 			UDMD_Display "substitution-rule.png", "", 14, 0, "SUBSTITUTION", 14, 0, UltraDMD_Animation_ScrollOnUp,1500, UltraDMD_Animation_FadeOut,6
@@ -3737,7 +3740,7 @@ Sub PRIZE
 			Llock2.state=1:subwall.image = "sub_textSUB2"
 			UDMD_Display "substitution2.gif", "", -1, -1, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 2200, UltraDMD_Animation_FadeOut,6
 			PlaySound "V.SECONDCHANGE":PlaySound "PIZZ"
-			KGoalExit 
+			KGoalExit
 			exit sub
 		End If
 		If LLOCK2.STATE=1 AND LLOCK3.STATE=2 AND lmultilock.state=0 AND lmultiticket.state=0 AND lmultiskill.state=0 Then
@@ -3775,8 +3778,8 @@ Sub PRIZE
 		exit sub
     End If
 'Award #11 = ADVANCE BUMPERS X
-	If rndchoicereal>21 AND rndchoicereal<31 Then 
-		If bonus<10 Then bonus=bonus + 2 
+	If rndchoicereal>21 AND rndchoicereal<31 Then
+		If bonus<10 Then bonus=bonus + 2
 		PlaySound "bumpmult"
 		UltraDMD.CancelRendering
 		UDMD_Display "bonusX.gif", "BUMPERS", 15,0, "X" & bonus, 15,0, UltraDMD_Animation_ScrollOnUp, 2000, UltraDMD_Animation_FadeOut,3
@@ -3871,7 +3874,7 @@ Sub LightEffect(n)
 		Case 5	'boots
 			LightSeqInserts.UpdateInterval = 4
 			LightSeqInserts.Play SeqMiddleInHorizOn, 10,2
-			If B2SOn Then B2SEffect 5	
+			If B2SOn Then B2SEffect 5
     End Select
 End Sub
 
@@ -3943,7 +3946,7 @@ Select Case n
 		If defencestate(CurrentPlayer)=3 Then LqualifyG.state=2:LgroupG.state=2:LfirstG.state=2:Lwinfirst.state=2
 		If defencestate(CurrentPlayer)=2 Then LqualifyG.state=2:LgroupG.state=2:Lwingroup.state=2
 		If defencestate(CurrentPlayer)=1 Then LqualifyG.state=2
-	Case 1			'everytime you hit the 3 defenders 
+	Case 1			'everytime you hit the 3 defenders
 		If win(CurrentPlayer)=6  Then LqualifyG.state=1:LgroupG.state=1:LfirstG.state=1:LquarterG.state=1:LsemiG.state=1:LfinalG.state=1
 		If win(CurrentPlayer)=5  Then LqualifyG.state=1:LgroupG.state=1:LfirstG.state=1:LquarterG.state=1:LsemiG.state=1
 		If win(CurrentPlayer)=4  Then LqualifyG.state=1:LgroupG.state=1:LfirstG.state=1:LquarterG.state=1
@@ -4347,7 +4350,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	Dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 Then 
+ 	If finalspeed > 20 Then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End If
 	If finalspeed >= 6 AND finalspeed <= 20 Then
@@ -4358,7 +4361,7 @@ End Sub
 Sub Posts_Hit(idx)
  	Dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 Then 
+ 	If finalspeed > 16 Then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End If
 	If finalspeed >= 6 AND finalspeed <= 16 Then
@@ -5187,7 +5190,7 @@ Sub UpdatePlayerStatus
 	screenprim.visible=0:UltraDMD.SetScoreboardBackgroundImage "BACK" & choiceteam(CurrentPlayer) & ".png", 15, 10
 'update b2s, kits and logos
 	UpdateKit:UpdateTeamLogos:ResetGKTimer.enabled=0
-'update Defenders	
+'update Defenders
 	Select Case DefenceLocked(CurrentPlayer)
 		Case 0		'defenders are not locked
 			If win(CurrentPlayer)=defencestate(CurrentPlayer) Then
@@ -5220,7 +5223,7 @@ Sub UpdatePlayerStatus
 		'player was awarded the break spin, but he didn't collect it: snackbar was opened (with break spin mode Lights)
 		If BSMODE(CurrentPlayer)=1 Then tdfcolor=6:OpenTrapDoor True
 	Else
-	'player was playing MVP	
+	'player was playing MVP
 		If finaljackpot.state=0 Then tdfcolor=5:OpenTrapDoor True:GiEffect 4		'player still didn't shot at the snackbar (mvp step 1)open the Snack Bar to start MVP
 		If finaljackpot.state=2 Then												'player already shot at the snackbar (mvp step 2)
 			MVPEffectType=3:MVPEffect.Enabled=1
