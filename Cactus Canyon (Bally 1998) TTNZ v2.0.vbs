@@ -25,6 +25,10 @@
 ' © Eric Priepke 2012 (P-ROC Project)
 ' VPX recreation by ninuzzu/Tom Tower
 
+' Thalamus 2018-07-23
+' This table already has its own 7.1 "Positional Sound Playback Functions" routine
+' No special SSF tweaks yet.
+
  Option Explicit
  Randomize
 
