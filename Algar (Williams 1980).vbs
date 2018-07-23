@@ -21,25 +21,25 @@ LoadVPM "01520000","s4.vbs",3.1
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 If DesktopMode = True Then 'Show Desktop components
-lrail.visible=1
-rrail.visible=1
-SideCab.visible=1
-Backwall.visible=1
-Screw1.visible=1
-Screw2.visible=1
-Screw3.visible=1
-Screw4.visible=1
-Screw5.visible=1
+  lrail.visible=1
+  rrail.visible=1
+  SideCab.visible=1
+  Backwall.visible=1
+  Screw1.visible=1
+  Screw2.visible=1
+  Screw3.visible=1
+  Screw4.visible=1
+  Screw5.visible=1
 Else
-lrail.visible=0
-rrail.visible=0
-SideCab.visible=0
-Backwall.visible=0
-Screw1.visible=0
-Screw2.visible=0
-Screw3.visible=0
-Screw4.visible=0
-Screw5.visible=0
+  lrail.visible=0
+  rrail.visible=0
+  SideCab.visible=0
+  Backwall.visible=0
+  Screw1.visible=0
+  Screw2.visible=0
+  Screw3.visible=0
+  Screw4.visible=0
+  Screw5.visible=0
 End if
 
 Dim bstrough,bslow,bshig
@@ -228,7 +228,7 @@ Sub Table1_Init()
     dtbank5.AllDownSw = 42
 
 ' I wonder why tilt isn't working for bumpers and slings ? Or, now it is when I stole the SolCallBack # from Gorgar - but, I can't find it in the doc ?!
-' Seems using both tiltswitch=51 and 1 is working. Again why ? 
+' Seems using both tiltswitch=51 and 1 is working. Again why ?
 
  	vpmnudge.tiltswitch=51
 '	vpmNudge.TiltSwitch=1
@@ -261,7 +261,7 @@ Sub Table1_Init()
 	Sw35.IsDropped = True
 	Sw37.IsDropped = True
 	Sw44.IsDropped = True
-	
+
 
 ' Create Captive Ball
 
@@ -274,7 +274,7 @@ Sub Table1_Init()
 
  End Sub
 
-' Bumpers 
+' Bumpers
 
 Sub Bumper1_Hit
 	PlaySound SoundFX("fx_bumper1",DOFContactors), 0,1,AudioPan(Bumper1),0,0,0,1,AudioFade(Bumper1)
@@ -312,7 +312,7 @@ Sub Bumper3_Timer
 	Me.Timerenabled = 0
 End Sub
 
- 
+
  Sub solballrelease(enabled)
      bstrough.solexit SoundFX(ssolenoidon,DOFContactors), SoundFX(ssolenoidon,DOFContactors),enabled
  End Sub
@@ -977,7 +977,7 @@ If Not IsEmpty(ChgLED) Then
 			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
 			if (num < 32) then
 				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1 
+					If chg And 1 Then obj.State = stat And 1
 					chg = chg\2 : stat = stat\2
 				Next
 			else
