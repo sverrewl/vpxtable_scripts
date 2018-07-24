@@ -33,7 +33,9 @@
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
  Randomize
@@ -44,16 +46,16 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
  LoadVPM "01560000", "WPC.VBS", 3.36
- 
+
  '********************
  'Standard definitions
  '********************
- 
+
  Const cGameName = "dm_h6"
- Const UseSolenoids = 1
+ Const UseSolenoids = 2
  Const UseLamps = 1
  Const SSolenoidOn = "SolOn"
- Const SSolenoidOff = "SolOff" 
+ Const SSolenoidOff = "SolOff"
  Const SFlipperOn = "FlipperUp"
  Const SFlipperOff = "FlipperDown"
  Const SCoin = "Coin5"
@@ -71,7 +73,7 @@ On Error Goto 0
  '************
  ' Table init.
  '************
- 
+
  Sub Table1_Init
      vpmInit Me
      With Controller
@@ -265,7 +267,7 @@ Sub sw71_UnHit:Controller.Switch(71) = 1: End Sub
  '*********
  'Solenoids
  '*********
- 
+
  SolCallback(1) = "SolRelease"
  SolCallback(2) = "BottomPopper.SolOut"
  SolCallback(3) = "AutoPlunge"
@@ -415,7 +417,7 @@ Sub EyeBallTimer_Timer()
 '	If EyeBallm.VelY = 0 Then EyeballP.Roty = EyeballP.Roty 0
 End Sub
 
-	
+
 
 
 
@@ -484,7 +486,7 @@ End Sub
     If keycode = keyFront Then Controller.Switch(23) = 1
     If vpmKeyDown(keycode) Then Exit Sub
  End Sub
- 
+
  Sub table1_KeyUp(ByVal Keycode)
      If vpmKeyUp(keycode) Then Exit Sub
      If keycode = PlungerKey Then Controller.Switch(11) = 0: Controller.Switch(12) = 0
@@ -498,10 +500,10 @@ End Sub
  '**************
  ' Flipper Subs
  '**************
- 
+
  SolCallback(sLRFlipper) = "SolRFlipper"
  SolCallback(sLLFlipper) = "SolLFlipper"
- 
+
  Sub SolLFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("FlipperUpLeftBoth",DOFContactors):LeftFlipper.RotateToEnd:LeftFlipper1.RotateToEnd
@@ -509,7 +511,7 @@ End Sub
          PlaySound SoundFX("FlipperDown",DOFContactors):LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
      End If
  End Sub
- 
+
  Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("FlipperUpRight",DOFContactors):RightFlipper.RotateToEnd
@@ -815,7 +817,7 @@ End Sub
  ' SetLamp 1 is On
  ' LampState(x) current state
  '****************************************
- 
+
 InitLamps
 
 Sub InitLamps()
@@ -880,7 +882,7 @@ Sub InitLamps()
     Set Lights(85) = l85
 End Sub
 
- 
+
   Sub UpdateMultipleLamps()
 		If l11a.state = 1 then l11b.state = 1: else l11b.state = 0
 		If l36.state = 1 then targetcars.image = "target1on": Else targetcars.image = "target1"
@@ -1254,7 +1256,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1265,7 +1267,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
