@@ -7,8 +7,9 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -21,7 +22,7 @@ Dim bsTrough, dtbank1, dtbank2, dtbank3, dtbank4, dtbank5, bsRightSaucer, bsTopS
 
 Const cGameName = "hawkman"
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
