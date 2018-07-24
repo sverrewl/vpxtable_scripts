@@ -11,8 +11,6 @@
 'This is my first table that was not a conversion, so please take it for what it is.
 'I'm not an artist or very good with blender but I hope you enjoy until someone with a little more artistic ability decides to build it.
 
-
-
 Option Explicit
 Randomize
 
@@ -32,9 +30,9 @@ Const flasher_brightness = 15 '< This is a divisor so a higher number = Duller F
 
 Const Cannon_Walls = 0 'On the real machine, the ball sometimes runs along the edges of the cannon toy in
                        'the middle of the playfield resulting in unpredictable behaviour. Set this to 1 to
-                       'attempt to simulate that effect.  
+                       'attempt to simulate that effect.
 
-Const Flipper_Color = 1 '1 Black and Red Flippers (Authentic) - 2 White and Red Flippers. 
+Const Flipper_Color = 1 '1 Black and Red Flippers (Authentic) - 2 White and Red Flippers.
 
 Const Plastic_Ramp_Sounds = 1 'Play plastic rolling sounds when ball hits plastic ramps.
 '////////////////////////////////
@@ -43,7 +41,7 @@ Const Plastic_Ramp_Sounds = 1 'Play plastic rolling sounds when ball hits plasti
 Const Dozer_Cab = 0
 '////////////////
 
-Const cGameName = "br_l4" ' Black Rose ROM L4  
+Const cGameName = "br_l4" ' Black Rose ROM L4
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -96,7 +94,7 @@ Sub Table1_Init
          If Err Then MsgBox Err.Description
          On Error Goto 0
      End With
-	
+
 	'GI_Init
 
 	Controller.Switch(63) = 0
@@ -335,7 +333,7 @@ Sub RampDown(Enabled)
 debug.print "rampdown"
         Controller.Switch(54) = 1
         DaveyRampDown.Collidable = 1
-        DaveyRampUp.Collidable = 0 
+        DaveyRampUp.Collidable = 0
 		DaveyRampTimer.Enabled = 1 'DaveyRamp.HeightBottom = 0
         playsoundat "fx_diverter", sw61_sub
     End If
@@ -359,7 +357,7 @@ dim temp
 
 	If Controller.Switch(54) = True Then 'Down
 		Temp = DaveyRamp.HeightBottom - RampInc
-		If Temp  <= 0 then 
+		If Temp  <= 0 then
 			DaveyRamp.HeightBottom = 0
 			DaveyRampTimer.Enabled = 0
 		Else
@@ -367,7 +365,7 @@ dim temp
 		End If
 	Else	'Up
 		Temp = DaveyRamp.HeightBottom  + RampInc
-		If Temp >= 80 then 
+		If Temp >= 80 then
 			DaveyRamp.HeightBottom = 80
 			DaveyRampTimer.Enabled = 0
 		Else
@@ -386,7 +384,7 @@ Sub CannonFlashers (Enabled)
 Light75.Intensity = enabled / 25
 End Sub
 
-		
+
 Sub RampSwordKicker (Enabled)
 	If (Enabled and Controller.Switch(55) = True) Then
 		KickerSw55.destroyball
@@ -398,7 +396,7 @@ Sub RampSwordKicker (Enabled)
 	End If
 End Sub
 
-'Cannon	
+'Cannon
 Sub FireCannon(Enabled)
 	if Enabled and Controller.Switch(35) = True then
 'debug.print discangle
@@ -408,7 +406,7 @@ Sub FireCannon(Enabled)
 		cannonKicker.kick -1*discangle, 52
 		Controller.Switch(35) = 0
 	else
-		DiscCannonOnly.visible=0		
+		DiscCannonOnly.visible=0
 	end if
 end sub
 
@@ -455,7 +453,7 @@ C4.isdropped = 1
 	If DiscAngle => 45 then Dir = -1
 	If DiscAngle =< -45 then Dir = 1
 End Sub
-	
+
 
 
 '************************************************
@@ -559,7 +557,7 @@ Sub dr_drop_hit()
 PlaySoundat "fx_ballrampdrop",Kickersw63
 End Sub
 
-Sub Kicker1_Hit: 
+Sub Kicker1_Hit:
 	StopSound "fx_metalrolling"
 	Playsoundat "fx_balldrop", WireGuide1
 	me.destroyball
@@ -575,7 +573,7 @@ Sub PiratesCoveKick (Enabled)
 	If (Enabled) Then
         ukick = 1
         Upper_Kicker.enabled = 1
-		If (Controller.Switch(64) = True) Then 
+		If (Controller.Switch(64) = True) Then
 			KickerSw64.Enabled = 0
 			KickerSW64.kick 345, 15: PlaySoundAt SoundFX("FX_Kicker",DOFContactors),Kickersw64
 			Controller.Switch(64) = 0
@@ -647,8 +645,8 @@ If level = 4 then Controller.B2SSetData 113,1:Controller.B2SSetData 112,0:Contro
 If level = 5 then Controller.B2SSetData 114,1:Controller.B2SSetData 112,0:Controller.B2SSetData 113,0:Controller.B2SSetData 111,0:Controller.B2SSetData 115,0:Controller.B2SSetData 116,0
 If level = 6 then Controller.B2SSetData 115,1:Controller.B2SSetData 112,0:Controller.B2SSetData 113,0:Controller.B2SSetData 114,0:Controller.B2SSetData 111,0:Controller.B2SSetData 116,0
 If level = 8 then Controller.B2SSetData 116,1:Controller.B2SSetData 112,0:Controller.B2SSetData 113,0:Controller.B2SSetData 114,0:Controller.B2SSetData 115,0:Controller.B2SSetData 111,0
-End If		
-		Case 1	'Upper 
+End If
+		Case 1	'Upper
 			if level > 4 Then
 			DOF 201, DOFOn
 			Else
@@ -661,7 +659,7 @@ End If
 
 If Level>=7 Then Table1.ColorGradeImage = "ColorGradeEX_7":Else Table1.ColorGradeImage = "ColorGradeEX_" & (level+1):End If
 
-If Level < 2 Then 
+If Level < 2 Then
 Light61.State = 1
 Light70.State = 1
 Light71.State = 1
@@ -679,7 +677,7 @@ If level = 4 then Controller.B2SSetData 123,1:Controller.B2SSetData 122,0:Contro
 If level = 5 then Controller.B2SSetData 124,1:Controller.B2SSetData 122,0:Controller.B2SSetData 123,0:Controller.B2SSetData 121,0:Controller.B2SSetData 125,0:Controller.B2SSetData 126,0
 If level = 6 then Controller.B2SSetData 125,1:Controller.B2SSetData 122,0:Controller.B2SSetData 123,0:Controller.B2SSetData 124,0:Controller.B2SSetData 121,0:Controller.B2SSetData 126,0
 If level = 8 then Controller.B2SSetData 126,1:Controller.B2SSetData 122,0:Controller.B2SSetData 123,0:Controller.B2SSetData 124,0:Controller.B2SSetData 125,0:Controller.B2SSetData 121,0
-End If	
+End If
 		Case 2	'Bottom (White ?)
 			For Each ii in Bottom_GI
 				ii.intensity = level / 1
@@ -697,7 +695,7 @@ If level = 4 then Controller.B2SSetData 133,1:Controller.B2SSetData 132,0:Contro
 If level = 5 then Controller.B2SSetData 134,1:Controller.B2SSetData 132,0:Controller.B2SSetData 133,0:Controller.B2SSetData 131,0:Controller.B2SSetData 135,0:Controller.B2SSetData 136,0
 If level = 6 then Controller.B2SSetData 135,1:Controller.B2SSetData 132,0:Controller.B2SSetData 133,0:Controller.B2SSetData 134,0:Controller.B2SSetData 131,0:Controller.B2SSetData 136,0
 If level = 8 then Controller.B2SSetData 136,1:Controller.B2SSetData 132,0:Controller.B2SSetData 133,0:Controller.B2SSetData 134,0:Controller.B2SSetData 135,0:Controller.B2SSetData 131,0
-End If		
+End If
 End Select
 End Sub
 
@@ -845,7 +843,7 @@ End Sub
 
 'Sub aTargets_Hit(idx):PlaySoundatBall "fx_target":End Sub
 Sub aTargets_Hit(idx):PlaySoundatBall SoundFX("fx_target",DOFTargets):End Sub
-Sub aBumpers_Hit (idx): PlaySoundatball SoundFX("fx_bumper", DOFContactors) : End Sub 
+Sub aBumpers_Hit (idx): PlaySoundatball SoundFX("fx_bumper", DOFContactors) : End Sub
 Sub aRollovers_Hit(idx):PlaySoundatball "fx_sensor":End Sub
 Sub aGates_Hit(idx):PlaySoundatball "fx_Gate":End Sub
 Sub aMetals_Hit(idx):PlaySoundatball "fx_MetalHit2":End Sub
@@ -896,7 +894,7 @@ Sub LampTimer_Timer()
     UpdateLamps
 
 End Sub
- 
+
 Sub UpdateLamps
 '	nFadeL 1, l1
 '	nFadeL 2, l2
@@ -959,7 +957,7 @@ Sub UpdateLamps
 	nFade 58, l58, h58
 '	nFade 59, l59
 '	nFade 60, l60
-	nFade 61, l61, h61		
+	nFade 61, l61, h61
 	nFade 62, l62, h62
 	nFade 63, l63, h63
 	nFade 64, l64, h64
@@ -983,7 +981,7 @@ Sub UpdateLamps
 End Sub
 
 Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 Sub SetLamp(nr, value)
 	LampState(nr) = abs(value) + 4
 	FadingLevel(nr) = abs(value) + 4
