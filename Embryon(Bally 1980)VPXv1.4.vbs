@@ -1,15 +1,16 @@
 '==============================================================================================='
-'																								' 			  	 
+'																								'
 '        	                 		      EMBRYON	     			                			'
 '          	              		  		Bally (1980)            	 		                   	'
 '		  				  http://www.ipdb.org/machine.cgi?id=783								'
 '																								'
 ' 	  		 	 	  	Created by ICPjuggla, OldSkoolGamer and Herweh							'
-'																								' 			  	 
+'																								'
 '==============================================================================================='
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -28,7 +29,7 @@ On Error Goto 0
 Const cDMDRotation 				= 1					' 0 or 1 for a DMD rotation of 90°
 
 ' VPinMAME ROM name
-Const cGameName 				= "embryon"			' enter string of valid ROM 
+Const cGameName 				= "embryon"			' enter string of valid ROM
 													' "embryond" is the 7-digit ROM
 
 ' flasher and GI on or off option
@@ -48,8 +49,8 @@ Const BallSize 					= 50				' sets the ball size
 ' ===============================================================================================
 ' some general constants and variables
 ' ===============================================================================================
-	
-Const UseSolenoids 		= 1
+
+Const UseSolenoids 		= 2
 Const UseLamps 			= False
 Const UseGI 			= False
 Const UseSync 			= False
@@ -105,7 +106,7 @@ Sub Table1_Init
 		.ShowDMDOnly							= True
 		.ShowFrame								= False
 		.ShowTitle 								= False
-		If B2SOn Then 
+		If B2SOn Then
 			.Hidden 							= True
 		End If
 		.Games(cGameName).Settings.Value("rol")	= cDMDRotation
@@ -113,7 +114,7 @@ Sub Table1_Init
 		If Err Then MsgBox Err.Description
 	End With
 	On Error Goto 0
-		
+
 	' basic pinmame timer
 	PinMAMETimer.Interval	= PinMAMEInterval
 	PinMAMETimer.Enabled	= True
@@ -122,7 +123,7 @@ Sub Table1_Init
 	vpmNudge.TiltSwitch		= 7
 	vpmNudge.Sensitivity	= 3
 	vpmNudge.TiltObj 		= Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot)
- 
+
 	' ball stack for trough
 	Set bsTrough = New cvpmBallStack
 		bsTrough.InitSw 0, 8, 5, 0, 0, 0, 0, 0
@@ -136,7 +137,7 @@ Sub Table1_Init
 	k34.CreateBall
 	k33.CreateBall
 	k17.CreateBall
-	
+
 	' drop targets
 	Set dtCenter = New cvpmDropTarget
 		dtCenter.InitDrop Array(t20,t21,t22),Array(20,21,22)
@@ -158,7 +159,7 @@ Sub Table1_Init
 
 
 End Sub
- 
+
 Sub Table1_Exit()
 	Controller.Stop
 End Sub
@@ -228,7 +229,7 @@ Sub SolRFlipper(Enabled)
 		 RightFlipper.RotateToStart
 		 RightUFlipper.RotateToStart
     End If
- End Sub 
+ End Sub
 
 Sub SolRLFlipper(Enabled)
      If Enabled Then
@@ -238,7 +239,7 @@ Sub SolRLFlipper(Enabled)
 		 PlaySound SoundFX("flipperdown",DOFContactors)
 		 RightLFlipper.RotateToStart
     End If
- End Sub  
+ End Sub
 
 dim MotorCallback
 Set MotorCallback = GetRef("GameTimer")
@@ -261,7 +262,7 @@ Sub UpdateFlipperLogo_Timer
 	for each lamp in MidFlash
 	lamp.State = l11.State
 	Next
-End Sub 
+End Sub
 
 ' ===============================================================================================
 ' slingshots events and slingshot animation scripting from JPSalas
@@ -430,7 +431,7 @@ Sub trig28_Hit()
 End Sub
 Sub trig28_Timer()
 	trig28.TimerEnabled = False
-	k28.Enabled 		= True	
+	k28.Enabled 		= True
 End Sub
 
 Sub trig17_Hit()
@@ -811,7 +812,7 @@ Sub AllFlashOff
         FlashState(i) = 0
     Next
 End Sub
- 
+
 Sub UpdateLamps
 	' standard lamps
 NFadeL 1, l1
@@ -887,7 +888,7 @@ NFadeLm 119, l119
 NFadeL 59, l59 'left apron light
 NFadeL 103, l103 'right apron light
 NFadeL 119, l119f
-		
+
 	' refresh flag
 	Dim refresh
 	refresh = False
@@ -1001,7 +1002,7 @@ Sub Flash(nr, object)
 End Sub
 
  Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:FadingLevel(x) = 4:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 Sub SetLamp(nr, value)
     If value = 0 AND LampState(nr) = 0 Then Exit Sub
     If value = 1 AND LampState(nr) = 1 Then Exit Sub
@@ -1029,11 +1030,11 @@ Sub CreateBallID(aKicker)
 			End If
 			Exit For								' New ball ID assigned, exit loop
 		End If
-   	Next 
+   	Next
 End Sub
 
 'Call this sub from every kicker that destroys a ball, before the ball is destroyed.
-	
+
 Sub ClearBallID
   	On Error Resume Next							' Error handling for debugging purposes
    	iball = ActiveBall.uservalue					' Get the ball ID to be cleared
@@ -1092,7 +1093,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1106,9 +1107,9 @@ End Sub
 '**************************************
 
 ' The Double For loop: This is a double cycle used to check the collision between a ball and the other ones.
-' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking 
-' collision twice. For example, I will never check collision between ball 2 and ball 1, 
-' because I already checked collision between ball 1 and 2. So, if we have 4 balls, 
+' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking
+' collision twice. For example, I will never check collision between ball 2 and ball 1,
+' because I already checked collision between ball 1 and 2. So, if we have 4 balls,
 ' the collision checks will be: ball 1 with 2, 1 with 3, 1 with 4, 2 with 3, 2 with 4 and 3 with 4.
 
 ' Sum first the radius of both balls, and if the height between them is higher then do not calculate anything more,
@@ -1116,10 +1117,10 @@ End Sub
 
 ' The next 3 lines calculates distance between xth and yth balls with the Pytagorean theorem,
 
-' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls, 
+' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls,
 ' and both balls are not already colliding.
 
-' Why are we checking if balls are already in collision? 
+' Why are we checking if balls are already in collision?
 ' Because we do not want the sound repeting when two balls are resting closed to each other.
 
 ' Set the collision property of both balls to True, and we assign the number of the ball colliding
@@ -1161,7 +1162,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1172,7 +1173,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1210,7 +1211,7 @@ End Sub
 ' ===============================================================================================
 
 Dim Digits(27)
- 
+
 Digits(0)  = Array(a_00, a_01, a_02, a_03, a_04, a_05, a_06)
 Digits(1)  = Array(a_10, a_11, a_12, a_13, a_14, a_15, a_16)
 Digits(2)  = Array(a_20, a_21, a_22, a_23, a_24, a_25, a_26)
@@ -1270,9 +1271,9 @@ Sub editDips
     With vpmDips
         .AddForm 500, 600, "Embryon - DIP switches"
         .AddFrame 120, 0, 120, "Maximum credits", &H03000000, Array("10 credits", 0, "15 credits", &H01000000, "25 credits", &H02000000, "40 credits", &H03000000)                    																		'dip 25&26
-		.AddFrame 120, 75, 120, "Balls per game", &H40000000, Array("2 balls", &H40000000+&H80000000, "3 balls", 0, "4 balls", &H80000000,  "5 balls", &H40000000)                                        		                                            'dip 31&32	                          
+		.AddFrame 120, 75, 120, "Balls per game", &H40000000, Array("2 balls", &H40000000+&H80000000, "3 balls", 0, "4 balls", &H80000000,  "5 balls", &H40000000)                                        		                                            'dip 31&32
 		.AddFrame 2, 0, 100,   "Play/Credits Chute 1", &H00000002+&H00000008, Array("1/1Coin", 0, "1/2Coin", &H00000003, "1/2Coin", &H3, "2/5Coin",&H00000009+&H0000006+&H00000010, "14/1Coin",&H00000002+&H00000008) 										'dip 1-5
-		.AddFrame 2, 90, 100, "Play/Credits Chute 2", &H00080000+&H00060000+&H00100000, Array("1/1Coin", 0, "1/1Coin", &H00010000, "2/1Coin", &H00020000, "3/1Coin", &H00030000, "4/1Coin", &H00040000, "14/1Coin",&H00080000+&H00060000+&H00100000) 		'dip 17-20											
+		.AddFrame 2, 90, 100, "Play/Credits Chute 2", &H00080000+&H00060000+&H00100000, Array("1/1Coin", 0, "1/1Coin", &H00010000, "2/1Coin", &H00020000, "3/1Coin", &H00030000, "4/1Coin", &H00040000, "14/1Coin",&H00080000+&H00060000+&H00100000) 		'dip 17-20
 		.AddFrame 2, 195, 100, "Play/Credits Chute 3", &H00001000, Array("1/1Coin", 0, "1/2Coin", &H00000300, "1/2Coin", &H300, "2/5Coin", &H00000900+&H0000600+&H00000100, "14/1Coin", &H00000200+&H00000800)				'dip 9-13
         .AddChk 120, 155, 263,  Array("Attract Mode Voice (Activate Embryon)", &H20000000) 																																			    'dip 30
 		.AddChk 120, 175, 263,  Array("Memory for Bonus and Specials", &H00000040) 																																		    'dip 7
@@ -1287,7 +1288,7 @@ Sub editDips
 		.AddChk 120, 355, 263,  Array("Hitting Center left/right target will light 2 lites", &H00100000)																													'dip 21
 		.AddChk 120, 375, 263,  Array("Replays Earned will be Collected/ off only 1 per play", &H10000000)																												    'dip 29
 		.AddChk 2, 290, 115,  Array("Match feature", &H08000000)                                                                                                                               							    'dip 28
-		.AddChk 2, 310, 115,  Array("Credits displayed", &H04000000) 																																						'dip 27																																																	
+		.AddChk 2, 310, 115,  Array("Credits displayed", &H04000000) 																																						'dip 27
         .AddLabel 50, 395, 350, 20, "After hitting OK, press F3 to reset game with new settings."
         .ViewDips
     End With
