@@ -1,6 +1,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
+
 'DOF by Arngrim
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -102,15 +107,15 @@ End Sub
 
 
 Sub BallSaverAnimT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     BallSaverAnimT.enabled = 0
 End Sub
@@ -120,13 +125,13 @@ Sub BallSaverAnim()
 End sub
 
 Sub JackpotT250_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None 
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     JackpotT250.enabled = 0
 End Sub
 
@@ -135,11 +140,11 @@ Sub Jackpot250()
 End sub
 
 Sub OrbitAninT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     OrbitAninT.enabled = 0
 End Sub
@@ -149,11 +154,11 @@ Sub OrbitAnin()
 End sub
 
 Sub Targets250T_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets250T.enabled = 0
 End Sub
@@ -163,11 +168,11 @@ Sub TargetsAnim250()
 End sub
 
 Sub Targets150T_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets150T.enabled = 0
 End Sub
@@ -177,11 +182,11 @@ Sub TargetsAnim150()
 End sub
 
 Sub Targets50T_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets50T.enabled = 0
 End Sub
@@ -191,11 +196,11 @@ Sub TargetsAnim50()
 End sub
 
 Sub Targets10T_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets10T.enabled = 0
 End Sub
@@ -204,19 +209,19 @@ Sub TargetsAnim10()
     Targets10T.enabled = 1
 End sub
 
-   
+
 
 
 Sub MultiballJackpotAnimT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     MultiballJackpotAnimT.enabled = 0
 End Sub
@@ -238,7 +243,7 @@ Sub TiltT_Timer
     TiltAnim()
   End If
 End Sub
- 
+
 Sub StopAnimUDMD
 Dim iScene
     UltraDMD.CancelRendering
@@ -246,13 +251,13 @@ Dim iScene
          Case 1 :   DMD_DisplaySceneEx "DMD1.png", "JAVIER", 15, 4, "PRESENT", -1, -1, UltraDMD_Animation_ScrollOnLeft, 5000, UltraDMD_Animation_ScrollOffRight
          Case 2 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
          Case 3 :   DMD_DisplaySceneEx "DMDMKII.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 5000, UltraDMD_Animation_ScrollOffDown
-         Case 4 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+         Case 4 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
          Case 5 :   DMD_DisplaySceneEx "DMD1.png", "   Original Table   ", 15, 4, "    By Javier   ", -1, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffRight
-         Case 6 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+         Case 6 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
          Case 7 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "       TILT!", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-         Case 8 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TILT!     ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None 
+         Case 8 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TILT!     ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
   End Select
- 
+
     iScene = (iScene + 1) MOD 8
 
 
@@ -479,14 +484,14 @@ Sub Magnets_Ini
 	RMAG.MagnetOn = 1
 '	PlaySound SoundFX("fx_magnet",DOFShaker)
 	UMAG.MagnetOn = 1
-'	PlaySound SoundFX("fx_magnet",DOFShaker) 
+'	PlaySound SoundFX("fx_magnet",DOFShaker)
 	DOF 121, DOFOn
   Else
     LMAG.MagnetOn = 0
     RMAG.MagnetOn = 0
     UMAG.MagnetOn = 0
 	DOF 121, DOFOff
-  End If 
+  End If
 End Sub
 
 '******
@@ -551,7 +556,7 @@ Sub MortalKombat_KeyDown(ByVal Keycode)
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
- 
+
                     End If
                 End If
             End If
@@ -583,7 +588,7 @@ Sub MortalKombat_KeyDown(ByVal Keycode)
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
- 
+
                     End If
                 End If
             End If
@@ -623,8 +628,8 @@ Sub MortalKombat_Exit():
 	If Not UltraDMD is Nothing Then
 		If UltraDMD.IsRendering Then
 			UltraDMD.CancelRendering
-		End If	
-		UltraDMD = NULL 
+		End If
+		UltraDMD = NULL
 	End If
 End Sub
 
@@ -638,7 +643,7 @@ Sub SolLFlipper(Enabled)
         LeftFlipper.RotateToEnd
         RotateLaneLightsLeft
         RotateLaneLightsLeftUp
-        
+
     Else
         PlaySound SoundFXDOF("fx_flipperdown",101,DOFOff,DOFFlippers), 0, 1, -0.05, 0.15
         LeftFlipper.RotateToStart
@@ -652,7 +657,7 @@ Sub SolRFlipper(Enabled)
         RotateLaneLightsRight
         RotateLaneLightsRightUp
  '       StartSlotmachine()
-       
+
     Else
         PlaySound SoundFXDOF("fx_flipperdown",102,DOFOff,DOFFlippers), 0, 1, 0.05, 0.15
         RightFlipper.RotateToStart
@@ -723,7 +728,7 @@ Sub CheckTilt                                      'Called when table is nudged
     Tilt = Tilt + TiltSensitivity                  'Add to tilt count
     TiltDecreaseTimer.Enabled = True
     If(Tilt > TiltSensitivity) AND(Tilt < 15) Then 'show a warning
-        DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "    CAREFUL    ", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None 
+        DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "    CAREFUL    ", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
         DMD "_", CenterLine(1, "CAREFUL!"), 0, eNone, eBlinkFast, eNone, 500, True, ""
     End if
     If Tilt > 15 Then 'If more that 15 then TILT the table
@@ -795,7 +800,7 @@ Sub ChangeSong
             PlayMusic Song
             Holostep2 = 1
             vpmtimer.AddTimer 3000, "IntroAnim '"
-        
+
         Else
             song = "bgout_MKTrack-" &INT(7 * RND(1) ) + 1& ".mp3"
             PlayMusic Song
@@ -1080,102 +1085,18 @@ Sub BFlashEffectTimer_Timer()
     BEStep = BEStep + 1
 End Sub
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
-
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
-End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / MortalKombat.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10))
-    End If
-End Function
-
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
-
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2)))
-End Function
-
-'*****************************************
-'      JP's VP10 Rolling Sounds
-'*****************************************
-
-Const tnob = 20 ' total number of balls
-Const lob = 1   'number of locked balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
-End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-
-    ' stop the sound of deleted balls
-    For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
-
-    ' exit the sub if no balls on the table
-    If UBound(BOT) = 3 Then Exit Sub 'there are always 4 balls on this table
-
-    ' play the rolling sound for each ball
-    For b = lob to UBound(BOT)
-        If BallVel(BOT(b)) > 1 Then
-            If BOT(b).z < 30 Then
-                ballpitch = Pitch(BOT(b))
-            Else
-                ballpitch = Pitch(BOT(b)) * 100
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), Pan(BOT(b)), 0, ballpitch, 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
-
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
-
 '******************************
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aMaderas_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-
-
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMaderas_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 Sub PlaySoundEffect()
     Dim n
@@ -1301,7 +1222,7 @@ Sub FirstBall
     ' create a new ball in the shooters lane
     CreateNewBall()
 End Sub
- 
+
 ' (Re-)Initialise the Table for a new ball (either a new ball after the player has
 ' lost one or we have moved onto the next player (if multiple are playing))
 
@@ -1402,14 +1323,14 @@ Sub EndOfBall()
         AwardPoints = TargetBonus * 1000
         TotalBonus = TotalBonus + AwardPoints
         DMD CenterLine(0, FormatScore(AwardPoints) ), CenterLine(1, "TARGET BONUS: " & TargetBonus), 0, eBlink, eNone, eNone, 500, False, ""
-        DMD_DisplaySceneEx "DMD1.png", "Target: " &TargetBonus, 15, 4, " Bonus: " &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None  
+        DMD_DisplaySceneEx "DMD1.png", "Target: " &TargetBonus, 15, 4, " Bonus: " &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
 
 
         AwardPoints = CharacterBonus * 15000
         TotalBonus = TotalBonus + AwardPoints
         DMD CenterLine(0, FormatScore(AwardPoints) ), CenterLine(1, "CHARACTER BONUS" & CharacterBonus), 0, eBlink, eNone, eNone, 500, False, ""
-        DMD_DisplaySceneEx "DMD1.png", "Character: " &CharacterBonus, 15, 4, "Bonus:" &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None  
+        DMD_DisplaySceneEx "DMD1.png", "Character: " &CharacterBonus, 15, 4, "Bonus:" &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
 
 '        AwardPoints = PokemonBonus * 50000
@@ -1423,7 +1344,7 @@ Sub EndOfBall()
         AwardPoints = BumperBonus * 100000
         TotalBonus = TotalBonus + AwardPoints
         DMD CenterLine(0, FormatScore(AwardPoints) ), CenterLine(1, "BUMPER BONUS: "), 0, eBlink, eNone, eNone, 500, False, ""
-        DMD_DisplaySceneEx "DMD1.png", "Bumper:" , 15, 4, " Bonus: "  &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None  
+        DMD_DisplaySceneEx "DMD1.png", "Bumper:" , 15, 4, " Bonus: "  &AwardPoints, -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
 
 '        If Balls = BallsPerGame Then 'this is the last ball, add the coins left to the score
@@ -1434,7 +1355,7 @@ Sub EndOfBall()
 
         DMD CenterLine(0, FormatScore(TotalBonus) ), CenterLine(1, "TOTAL BONUS " & " X" & BonusMultiplier(CurrentPlayer) ), 0, eBlinkFast, eNone, eNone, 1000, True, ""
         TotalBonus = TotalBonus * BonusMultiplier(CurrentPlayer)
-        DMD_DisplaySceneEx "DMD1.png", "Multiplier", 15, 4, "X " & BonusMultiplier(CurrentPlayer), -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None  
+        DMD_DisplaySceneEx "DMD1.png", "Multiplier", 15, 4, "X " & BonusMultiplier(CurrentPlayer), -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "TOTAL BONUS", 15, 4, "" &TotalBonus, -1, -1, UltraDMD_Animation_None, 1500, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
         ' add a bit of a delay to allow for the bonus points to be shown & added up
@@ -1621,7 +1542,7 @@ Sub Drain_Hit()
             ' you may wish to put something on a display or play a sound at this point
             BallSaverAnim
             DMD "_", CenterLine(1, "BALL SAVED"), 0, eNone, eBlinkfast, eNone, 800, True, ""
-        Else 
+        Else
 
             ' cancel any multiball if on last ball (ie. lost all other balls)
             If(BallsOnPlayfield = 1) Then
@@ -1748,7 +1669,7 @@ Sub DrainTrigger_hit
      PlaySound "Kahn_2"
    Else
      DMD "_", CenterLine(1, ""), 205, eNone, eNone, eNone, 800, True, ""
-     vpmTimer.AddTimer 1, "DrainFX"  
+     vpmTimer.AddTimer 1, "DrainFX"
   End If
 End Sub
 
@@ -1760,7 +1681,7 @@ Sub DrainFX(dummy)
     PlaySound Ka(a), 0, 1, 0.0
 End Sub
 
- 
+
 
 
 
@@ -2027,7 +1948,7 @@ Sub JackpotUnknownCharacterDefeated()
     DMD_DisplaySceneEx "DMD1.png", "Super Jackpot", 14, 2, "250000" , -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "JADE", 14, 2, "IS DEFEATED" , -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
   End If
- 
+
     AddScore 250000
     LJ1.state = 2
     LJ2.state = 2
@@ -2061,9 +1982,9 @@ Sub ResetJackpotLights()
      LJ3.state = 0
      LJ4.state = 0
      LJ5.state = 0
-     l18.state = 2 
+     l18.state = 2
      CenterRampLight.state = 0
-     RightRampLight.state = 0 
+     RightRampLight.state = 0
      ChangeGi "White"
 End Sub
 
@@ -2382,7 +2303,7 @@ Sub DMDScore()
     End If
     DMD tmp, tmp1, tmp2, eNone, eNone, eNone, 25, True, ""
 End Sub
- 
+
 Sub DMD(Text0, Text1, Text2, Effect0, Effect1, Effect2, TimeOn, bFlush, Sound)
     if(dqTail < dqSize) Then
         if(Text0 = "_") Then
@@ -2639,7 +2560,7 @@ Sub GameTimer_Timer
     KungLaoP.RotY = -(Spinner1.currentangle)
     Sombrero.RotY = -(Spinner1.currentangle)
     KungBase.RotY = -(Spinner1.currentangle)
-  If BallsOnPlayfield > 0 Then 
+  If BallsOnPlayfield > 0 Then
      HologramAnim2.Enabled = 0
   End If
 End Sub
@@ -2653,7 +2574,7 @@ End Sub
 Dim FlashState(100), FadingLevel(100), FlashSpeedUp(100), FlashSpeedDown(100), FlashMin(100), FlashMax(100), FlashLevel(100), FlashRepeat(100)
 
 InitFlashers()
- 
+
 Sub FlashTimer_Timer()
     Flash 1, Flasher1
     Flash 2, Flasher2
@@ -2862,9 +2783,9 @@ Sub ShowTableInfo
      DMD_DisplaySceneEx "DMD1.png", "JAVIER", 15, 4, "PRESENT", -1, -1, UltraDMD_Animation_ScrollOnLeft, 5000, UltraDMD_Animation_ScrollOffRight
      DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
      DMD_DisplaySceneEx "DMDMKII.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 5000, UltraDMD_Animation_ScrollOffDown
-     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
      DMD_DisplaySceneEx "DMD1.png", "   Original Table   ", 15, 4, "    By Javier   ", -1, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffRight
-     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None 
+     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
 
 
     DMD "", "", 3, eNone, eNone, eBlink, 2000, False, ""
@@ -2886,23 +2807,23 @@ Sub ShowTableInfo
         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
-        DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None 
+        DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
     End If
 
 
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnLeft, 800, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnLeft, 800, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "1>"&HighScoreName(0) & " " &HighScore(0) , -2, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "2>"&HighScoreName(1) & " " &HighScore(1) , -2, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffLeft
@@ -3106,14 +3027,14 @@ Sub Game_Init()
     SwSkillShot.enabled = 1
     HologramAnim2.Enabled = 0
     HologramRampF.Visible = 0
-     l1.state = 2 
-     l2.state = 2  
+     l1.state = 2
+     l2.state = 2
      l3.state = 2
-     l4.state = 2 
-     l5.state = 2  
+     l4.state = 2
+     l5.state = 2
      l6.state = 2
-     l7.state = 2 
-     l8.state = 2  
+     l7.state = 2
+     l8.state = 2
      l9.state = 2
      LockLight.state = 0
      LockLight1.state = 2
@@ -3253,7 +3174,7 @@ End Sub
 '********
 
 Dim bumperHits
- 
+
 Sub Bumper1b_Hit
     If Tilted Then Exit Sub
     FlasherB.State = 1
@@ -3322,7 +3243,7 @@ End Sub
 
 Sub ResetBumpersLights(dummy)
     FlasherB.State = 0
-    Bumper1bL.state = 0 
+    Bumper1bL.state = 0
     Bumper2bL.state = 0
     Bumper3bL.state = 0
 End Sub
@@ -3338,12 +3259,12 @@ Sub SwSkillShot_hit()
    LightSkillShot.BlinkInterval = 150
    LightSkillShot.State = 2
    SwSkillShotLightTimer.enabled = 1
-End Sub  
+End Sub
 
 Sub SwSkillShotUpdate(dummy)
 	DOF 130, DOFPulse
     SwSkillShot.kick 0, 55
-    LaserKickP.TransY = 90 
+    LaserKickP.TransY = 90
     Playsound "bumper_retro"
 End Sub
 
@@ -3351,7 +3272,7 @@ End Sub
 Sub SwSkillShot_Unhit()
     LaserKickP.TransY = 0
     PlaySound "ScorpionGetOverHere"
-    LightSkillShot.State = 0  
+    LightSkillShot.State = 0
 End Sub
 
 
@@ -3368,33 +3289,33 @@ bsLocksTargets1 = 0: bsLocksTargets2 = 0: bsLocksTargets3 = 0
 Sub Sw1_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",117,DOFPulse,DOFTargets)
-    AddScore 1000  
+    AddScore 1000
   If bMultiBallMode Then Exit Sub
-    l1.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M" 
-    MKIUpdate() 
+    l1.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M"
+    MKIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw2_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",117,DOFPulse,DOFTargets)
-    AddScore 1000 
-  If bMultiBallMode Then Exit Sub 
-    l2.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K" 
-    MKIUpdate() 
+    AddScore 1000
+  If bMultiBallMode Then Exit Sub
+    l2.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K"
+    MKIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw3_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",117,DOFPulse,DOFTargets)
-    AddScore 1000  
+    AddScore 1000
   If bMultiBallMode Then Exit Sub
-    l3.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " I "), 0, eNone, eBlink, eNone, 500, True, "One" 
-    MKIUpdate() 
+    l3.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " I "), 0, eNone, eBlink, eNone, 500, True, "One"
+    MKIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
@@ -3426,33 +3347,33 @@ End Sub
 Sub Sw4_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",113,DOFPulse,DOFTargets)
-    AddScore 1000 
-  If bMultiBallMode Then Exit Sub 
-    l4.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " III "), 0, eNone, eBlink, eNone, 500, True, "Three" 
-    MKIIIUpdate() 
+    AddScore 1000
+  If bMultiBallMode Then Exit Sub
+    l4.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " III "), 0, eNone, eBlink, eNone, 500, True, "Three"
+    MKIIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw5_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",113,DOFPulse,DOFTargets)
-    AddScore 1000 
-  If bMultiBallMode Then Exit Sub 
-    l5.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K" 
-    MKIIIUpdate() 
+    AddScore 1000
+  If bMultiBallMode Then Exit Sub
+    l5.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K"
+    MKIIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw6_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",113,DOFPulse,DOFTargets)
-    AddScore 1000  
+    AddScore 1000
   If bMultiBallMode Then Exit Sub
-    l6.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M" 
-    MKIIIUpdate() 
+    l6.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M"
+    MKIIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
@@ -3484,33 +3405,33 @@ End Sub
 Sub Sw7_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",114,DOFPulse,DOFTargets)
-    AddScore 1000 
-  If bMultiBallMode Then Exit Sub 
-    l7.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " II "), 0, eNone, eBlink, eNone, 500, True, "Two" 
-    MKIIUpdate() 
+    AddScore 1000
+  If bMultiBallMode Then Exit Sub
+    l7.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " II "), 0, eNone, eBlink, eNone, 500, True, "Two"
+    MKIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw8_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",114,DOFPulse,DOFTargets)
-    AddScore 1000  
+    AddScore 1000
   If bMultiBallMode Then Exit Sub
-    l8.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K" 
-    MKIIUpdate() 
+    l8.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " K "), 0, eNone, eBlink, eNone, 500, True, "K"
+    MKIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
 Sub Sw9_hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_rubber",114,DOFPulse,DOFTargets)
-    AddScore 1000  
+    AddScore 1000
   If bMultiBallMode Then Exit Sub
-    l9.state = 1 
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M" 
-    MKIIUpdate() 
+    l9.state = 1
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " M "), 0, eNone, eBlink, eNone, 500, True, "M"
+    MKIIUpdate()
     TargetBonus = TargetBonus + 1
 End Sub
 
@@ -3524,7 +3445,7 @@ Sub MKIIUpdate
      SetFlash 4, 2
      MKIIReset
      BackFlashEffect 1
-  End If 
+  End If
 End Sub
 
 Dim MKIIC: MKIIC = 0
@@ -3541,11 +3462,11 @@ End Sub
 
 Sub Sw10_hit
    AddScore 2000
-  If LightSkillShot.state = 1 Then 
+  If LightSkillShot.state = 1 Then
     DMDFlush
     DMD RightLine(0, FormatScore(Currentplayer) ), CenterLine(1, " FIGHT "), 0, eNone, eNone, eNone, 600, True, "Fight"
  End If
-  If LightSkillShot.state = 0 Then  
+  If LightSkillShot.state = 0 Then
     DMDFlush
     DMD RightLine(0, ""), CenterLine(1, ""), 24, eNone, eBlink, eNone, 1000, True, "Scorpion"
     LightSkillShot.state = 2
@@ -3572,7 +3493,7 @@ Sub Sw11Update(dummy)
       LJ5.state = 1
       AwardJackpot()
       ChectSuperJackpot()
-   End If 
+   End If
 End Sub
 
 Sub Sw11_Unhit()
@@ -3637,7 +3558,7 @@ End Sub
 Sub Sw13Hole()
 	DOF 129, DOFPulse
 	DOF 125, DOFPulse
-    Sw14.createball 
+    Sw14.createball
     Sw14.kick 0, 38, 1.56
     Playsound "fx_vukout_LAH"
     BackFlashEffect 1
@@ -3661,7 +3582,7 @@ End Sub
 Sub CheckLockMulltiball()
   If LockedBalls = 3 Then
      MKMultiball
-     vpmtimer.addtimer 2500, "Sw13Hole '" 
+     vpmtimer.addtimer 2500, "Sw13Hole '"
    Else
      Post.Isdropped = 0
      LockLight.state = 0
@@ -3670,8 +3591,8 @@ Sub CheckLockMulltiball()
      LockLight3.state = 2
      bLockEnabled = False
      vpmtimer.addtimer 2500, "Sw13Hole '"
-  End If   
-End Sub  
+  End If
+End Sub
 
 '*********************
 ' Inlanes - Outlanes
@@ -3738,10 +3659,10 @@ Sub Sw20_Hit()
 	DOF 207, DOFPulse
     l10.State = 1
 
-    If LightSkillShot.state = 0 Then 
+    If LightSkillShot.state = 0 Then
     PlaySound "Kahn_2", 0, 1, pan(ActiveBall)
     End If
-    If LightSkillShot.state = 1 Then 
+    If LightSkillShot.state = 1 Then
     PlaySound "scorp_spear", 0, 1, pan(ActiveBall)
     End If
 
@@ -3817,12 +3738,12 @@ Sub Sw25_hit()
     PlaySound SoundFXDOF("fx_target",114,DOFPulse,DOFTargets)
     AddScore 2000
     DMDFlush
-    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " RANDOM IS READY "), 0, eNone, eNone, eNone, 800, True, ""   
+    DMD RightLine(0, FormatScore(Score(Currentplayer) ) ), CenterLine(1, " RANDOM IS READY "), 0, eNone, eNone, eNone, 800, True, ""
     l18.state = 2
-End Sub 
+End Sub
 
 Dim ExtraBallCount
-'Left Ramp  
+'Left Ramp
 Sub sw26_Hit
     PlaySound "fx_rampL", 0, 1, pan(ActiveBall)
     If Tilted Then Exit Sub
@@ -3851,7 +3772,7 @@ End If
       ExtraBallLight.State = 2
       DMDFlush
       DMD RightLine(0, ""), CenterLine(1, ""), 4, eNone, eBlink, eBlinkFast, 1000, True, "WellDone"
-    Else 
+    Else
       DMD CenterLine(0, "_" & Credits), CenterLine(1, ExtraBallCount& " COLLECT EXTRABALL "), 0, eNone, eBlink, eNone, 800, True, ""
       DMD_DisplaySceneEx "DMD1.png", "COLLECT FOR", 15, 1, "EXTRABALL: " & ExtraBallCount , -1, -1, UltraDMD_Animation_None, 800, UltraDMD_Animation_None
    End If
@@ -3909,8 +3830,8 @@ End If
       AwardExtraBall()
       ExtraBallLight.State = 2
       DMDFlush
-      DMD RightLine(0, ""), CenterLine(1, ""), 4, eNone, eBlink, eBlinkFast, 1000, True, "WellDone" 
-    Else 
+      DMD RightLine(0, ""), CenterLine(1, ""), 4, eNone, eBlink, eBlinkFast, 1000, True, "WellDone"
+    Else
       DMD CenterLine(0, "_" & Credits), CenterLine(1, ExtraBallCount& " COLLECT EXTRABALL "), 0, eNone, eBlink, eNone, 800, True, ""
       DMD_DisplaySceneEx "DMD1.png", "COLLECT FOR", 15, 1, "EXTRABALL: " & ExtraBallCount , -1, -1, UltraDMD_Animation_None, 800, UltraDMD_Animation_None
    End If
@@ -3948,7 +3869,7 @@ Sub Sw27_hit
   If bMultiBallMode Then Exit Sub
     LockLight1.State = 1
     CheckLock
-End Sub  
+End Sub
 
 Sub Sw28_hit
     PlaySound SoundFXDOF("fx_rubber",114,DOFPulse,DOFTargets), 0, 1, pan(ActiveBall)
@@ -3985,7 +3906,7 @@ Sub Sw30_Spin()
     End If
         LastSwitchHit = "Sw30"
 End Sub
- 
+
 Sub CheckLock()
     If bLockEnabled Then Exit Sub
     If LockLight1.State + LockLight2.State + LockLight3.State = 3 Then
@@ -4050,7 +3971,7 @@ Sub CheckResetMultiball()
      SetFlash 3, 1
    Else
      SetFlash 3, 0
-  End If           
+  End If
 
   If MKIIIC = 1 Then
      SetFlash 5, 1
@@ -4095,13 +4016,13 @@ Sub ChectSuperJackpot()
         PlaySound "Finish_Him"
         LightSeqSuperJackpot.UpdateInterval = 25
         LightSeqSuperJackpot.Play SeqDownOn, 2000, 1
-        bSuperJackpotMode = True  
+        bSuperJackpotMode = True
        If CenterRampLight.state = 2 Or RightRampLight.state = 2 then
           FlashForms FlasherLeftRamp, 1000, 40, 0:DOF 201, DOFPulse
           FlashForms FlasherRightRamp, 1000, 40, 0:DOF 204, DOFPulse
           LJ1.state = 2
           LJ4.state = 2
-       End If 
+       End If
     End If
 End Sub
 
@@ -4142,7 +4063,7 @@ Sub KungLaoTrompo()
 End Sub
 
 Sub KungLao
-    cball.vely = 150 
+    cball.vely = 150
 End Sub
 
 
@@ -4178,7 +4099,7 @@ Case 18:HologramRampF.imageA = "Ramdon18":Holostep = 19
 Case 19:HologramRampF.imageA = "Ramdon19":Holostep = 20
 Case 20:HologramRampF.imageA = "Ramdon20":Holostep = 1
 End Select
- 
+
 end Sub
 Sub HologramRampFOFF()
     HologramRampF.visible = 0
@@ -4404,10 +4325,10 @@ Sub StartSlotmachine() ' uses the HolePos variable
 	DOF 135, DOFOn
     SlotPos = 8
     DMDFlush
-    For i = SlotPos to SlotPos * 2 
+    For i = SlotPos to SlotPos * 2
         DMD "", "", i, eNone, eNone, eNone, 2, False, "fx_spinner"
         CharactersRamdonUltraDMD.enabled = 1
-    Next 
+    Next
     vpmtimer.AddTimer 1500, "GiveSlotAward '"
     GiEffect 1
 End Sub
@@ -4422,10 +4343,10 @@ Sub GiveSlotAward()
     tmp = INT(SlotPos + RND * 16)
     debug.print "slot pos." & tmp
     DMD "", "", tmp, eNone, eNone, eBlinkFast, 800, True, ""
-  
+
     vpmtimer.AddTimer 2000, "HologramRampFOFF '"
     Select Case tmp
-            
+
         Case 18:     If ScorpionD = 0 Then
                      DMDFlush
                      debug.print "slot pos." & tmp
@@ -4433,7 +4354,7 @@ Sub GiveSlotAward()
                      DMD "_", CenterLine(1, "AWARD  " & FormatScore("2500") ), 33, eNone, eBlinkFast, eNone, 500, True, ""
                      DMD_DisplaySceneEx "DMD1.png", "Scorpion" , 15, 4, "AWARD: 2500" , -1, -1, UltraDMD_Animation_None, 1200, UltraDMD_Animation_None
                      HologramRampF.imageA = "RamdonScorpion"
-                     AddScore 2500 
+                     AddScore 2500
                      Light11.state = 0: If B2SOn Then Controller.B2SSetData 11, 0
                      ScorpionD = 1
                      CraractersDefeated()
@@ -4455,7 +4376,7 @@ Sub GiveSlotAward()
                      Else
                      StartSlotmachine
                      End If
-                     
+
         Case 8:     If LiuKangD = 0 Then
                      DMDFlush
                      debug.print "slot pos." & tmp
@@ -4463,7 +4384,7 @@ Sub GiveSlotAward()
                      DMD "_", CenterLine(1, "AWARD  " & FormatScore("2500") ), 33, eNone, eBlinkFast, eNone, 500, True, ""
                      DMD_DisplaySceneEx "DMD1.png", "Liu Kang" , 15, 4, "AWARD: 2500"  , -1, -1, UltraDMD_Animation_None, 1200, UltraDMD_Animation_None
                      HologramRampF.imageA = "RamdonLiu"
-                     AddScore 2500 
+                     AddScore 2500
                      Light1.state = 0: If B2SOn Then Controller.B2SSetData 1, 0
                      LiuKangD = 1
                      CraractersDefeated()
@@ -4479,7 +4400,7 @@ Sub GiveSlotAward()
                      DMD_DisplaySceneEx "DMD1.png", "KUNG LAO" , 15, 4, "AWARD: 2500"  , -1, -1, UltraDMD_Animation_None, 1200, UltraDMD_Animation_None
                      HologramRampF.imageA = "RamdonKung"
                      AddScore 2500
-                     Light2.state = 0: If B2SOn Then Controller.B2SSetData 2, 0 
+                     Light2.state = 0: If B2SOn Then Controller.B2SSetData 2, 0
                      KungLaoD = 1
                      CraractersDefeated()
                      Else
@@ -4634,7 +4555,7 @@ Sub GiveSlotAward()
                      Light10.state = 0: If B2SOn Then Controller.B2SSetData 9, 0
                      AddScore 2500
                      BarakaD = 1
-                     CraractersDefeated()                     
+                     CraractersDefeated()
                      Else
                      StartSlotmachine
                      End If
@@ -4682,7 +4603,7 @@ tmp = INT(SlotPos + RND * 16)
         Case 18:  DMD_DisplaySceneEx "DMD1.png", "Scorpion" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 19:  DMD_DisplaySceneEx "DMD1.png", "RAIDEN" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
-                     
+
         Case 8:   DMD_DisplaySceneEx "DMD1.png", "Liu Kang" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 9:   DMD_DisplaySceneEx "DMD1.png", "KUNG LAO" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
@@ -4707,7 +4628,7 @@ tmp = INT(SlotPos + RND * 16)
 
         Case 17:  DMD_DisplaySceneEx "DMD1.png", "Baraka" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
-        Case 13:  DMD_DisplaySceneEx "DMD1.png", "Shang Tsung" , 15, 4,"_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None              
+        Case 13:  DMD_DisplaySceneEx "DMD1.png", "Shang Tsung" , 15, 4,"_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 21:  DMD_DisplaySceneEx "DMD1.png", "Jade" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
@@ -4724,7 +4645,7 @@ Dim iScene
         Case 18:   DMD_DisplaySceneEx "DMD1.png", "Scorpion" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 19:   DMD_DisplaySceneEx "DMD1.png", "RAIDEN" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
-                     
+
         Case 8:    DMD_DisplaySceneEx "DMD1.png", "Liu Kang" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 9:    DMD_DisplaySceneEx "DMD1.png", "KUNG LAO" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
@@ -4749,7 +4670,7 @@ Dim iScene
 
         Case 17:   DMD_DisplaySceneEx "DMD1.png", "Baraka" , 15, 4, "_" , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
-        Case 13:   DMD_DisplaySceneEx "DMD1.png", "Shang Tsung" , 15, 4,"_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None              
+        Case 13:   DMD_DisplaySceneEx "DMD1.png", "Shang Tsung" , 15, 4,"_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
         Case 21:   DMD_DisplaySceneEx "DMD1.png", "Jade" , 15, 4, "_"  , -1, -1, UltraDMD_Animation_None, 10, UltraDMD_Animation_None
 
@@ -4773,7 +4694,7 @@ Sub CraractersDefeated()
 
 if  ShaoKahnD = 2 Then
     StopAllMusic
-    DefeatedAll = True 
+    DefeatedAll = True
     DMDFlush
      DMD RightLine(1, ""), RightLine(1, ""), 38, eNone, eNone, eBlink, 3800, True, "End"
      DMD RightLine(1, ""), RightLine(1, ""), 39, eNone, eNone, eBlink, 10000, True, ""
@@ -4808,7 +4729,7 @@ End Sub
 Sub CharactersDefeatedMultiball()
      ChangeGi "red"
      AddMultiball 3
-     EnableBallSaver 15 
+     EnableBallSaver 15
      LockLight.State = 0
     'Turn On the Jackpot lights
      LJ1.state = 2
@@ -4870,7 +4791,7 @@ End Sub
 '*******************
 ' Targets Multiball
 '*******************
-Sub MortalKombatTargets 
+Sub MortalKombatTargets
   If bMultiBallMode = True Then Exit Sub
   if bsLocksTargets1 + bsLocksTargets2 + bsLocksTargets3 = 3 Then
      DMDFlush
@@ -4878,7 +4799,7 @@ Sub MortalKombatTargets
      DMD_DisplaySceneEx "DMD1.png", "Targets", 14, 2, "Multiball" , -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
      ChangeGi "amber"
      AddMultiball 3
-     EnableBallSaver 10 
+     EnableBallSaver 10
      LockLight.State = 0
     'Turn On the Jackpot lights
      LJ1.state = 2
@@ -4907,13 +4828,13 @@ end Sub
 '*****************
 ' Locks Multiball
 '*****************
-Sub MKMultiball() 
+Sub MKMultiball()
     EnableBallSaver 10
   '  ChangeSong
      DMDFlush
     DMD RightLine(1, ""), RightLine(1, ""), 29, eNone, eNone, eBlink, 2500, True, "KahnPrepareToDie"
      DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "   Multiball   " , -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
-    AddMultiball 2 
+    AddMultiball 2
     ChangeGi "amber"
     ' turn off the lock lights
     LockedBalls = 0
@@ -4939,7 +4860,7 @@ End Sub
 ' Craracters Multiballs
 '***********************
 
-Dim KinMultiball: KinMultiball = 0 
+Dim KinMultiball: KinMultiball = 0
 Sub KintaroMultiball()
   If bMultiBallMode = True Then Exit Sub
   if KinMultiball = 1 Then
@@ -4948,7 +4869,7 @@ Sub KintaroMultiball()
      DMD_DisplaySceneEx "DMD1.png", "Kintaro", 14, 2, "Multiball" , -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
      ChangeGi "orange"
      AddMultiball 2
-     EnableBallSaver 10 
+     EnableBallSaver 10
      LockLight.State = 0
     'Turn On the Jackpot lights
      LJ1.state = 2
@@ -4983,7 +4904,7 @@ Sub UnknownMultiball()
      DMD RightLine(1, ""), RightLine(1, ""), 35, eNone, eNone, eBlink, 2500, True, "KahnPrepareToDie"
      DMD_DisplaySceneEx "DMD1.png", "?", 15, 6, "Multiball" , -1, -1, UltraDMD_Animation_None, 2000, UltraDMD_Animation_None
      AddMultiball 1
-     EnableBallSaver 10 
+     EnableBallSaver 10
      LockLight.State = 0
     'Turn On the Jackpot lights
      LJ1.state = 2
@@ -5012,7 +4933,7 @@ Sub CharactersDefeated()
           if CenterRampLight.state = 2 Or RightRampLight.state = 2 Then
              RightRampLight.State = 0
              CenterRampLight.State = 0
-             JackpotKintaroDefeated()       
+             JackpotKintaroDefeated()
           End If
    End If
 
@@ -5020,10 +4941,171 @@ Sub CharactersDefeated()
           if CenterRampLight.state = 2 Or RightRampLight.state = 2 Then
              RightRampLight.State = 0
              CenterRampLight.State = 0
-             JackpotUnknownCharacterDefeated()   
+             JackpotUnknownCharacterDefeated()
           End If
    End If
  End If
 End Sub
 
 Sub StopAllMusic:EndMusic:End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 20 ' total number of balls
+Const lob = 1   'number of locked balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = 3 Then Exit Sub 'there are always 4 balls on this table
+
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
+
