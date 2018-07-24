@@ -3,6 +3,7 @@ Randomize
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 On Error Resume Next
@@ -16,7 +17,7 @@ Const cGameName="dracula"
 LoadVPM "01530000","BALLY.VBS",3.1
 'LoadVPM "01530000","STERN.VBS",3.1
 
-Const UseSolenoids=1
+Const UseSolenoids=2
 Const UseLamps=1
 Const UseGI=0
 
@@ -27,7 +28,7 @@ Dim bsTrough,bsSaucer,dtL,dtT,HiddenValue
 
 '*********** Desktop/Cabinet settings ************************
 
-If Table1.ShowDT = true Then 
+If Table1.ShowDT = true Then
 	HiddenValue = 0
 Else
 	HiddenValue = 1
@@ -40,7 +41,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -76,7 +77,7 @@ SolCallback(sLRFlipper)="SolRFlipper"
 'End Sub
 
 Sub bell10(enabled)
-	If enabled Then 
+	If enabled Then
 	PlaySound "fx3_em_bell10"
 	Else
 	StopSound "fx3_em_bell10"
@@ -84,7 +85,7 @@ Sub bell10(enabled)
 End Sub
 
 Sub bell100(enabled)
-	If enabled Then 
+	If enabled Then
 	PlaySound "fx3_em_bell100"
 	Else
 	StopSound "fx3_em_bell100"
@@ -92,7 +93,7 @@ Sub bell100(enabled)
 End Sub
 
 Sub bell1000(enabled)
-	If enabled Then 
+	If enabled Then
 	PlaySound "fx3_em_bell1000"
 	Else
 	StopSound "fx3_em_bell1000"
@@ -128,12 +129,12 @@ Sub Table1_Init
 		.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
 		.Balls=1
 	end with
-	
+
 	Set bsSaucer=New cvpmBallStack
 	with bsSaucer
 		.InitSaucer sw40,40,165,8
 		.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
-		.CreateEvents "bsSaucer", sw40 
+		.CreateEvents "bsSaucer", sw40
  	end with
 
 	Set dtL=New cvpmDropTarget
@@ -150,7 +151,7 @@ Sub Table1_Init
 	For each xx in DTLeftLights: xx.state=0:Next
 	For each xx in DTTopLights: xx.state=0:Next
 
-	GILights 1	
+	GILights 1
 
 	vpmNudge.TiltSwitch=7
 	vpmNudge.Sensitivity=5
@@ -180,7 +181,7 @@ End Sub
 Sub ShooterLane_Hit
 End Sub
 
-Sub BallRelease_UnHit	
+Sub BallRelease_UnHit
 End Sub
 
 Sub Drain_Hit()
@@ -190,12 +191,12 @@ End Sub
 Sub sw40_Hit():PlaySound "fx_hole-enter": Controller.Switch(40) = 1:End Sub 'Left Kicker
 
 'Drop Targets
- Sub Sw12_Dropped:dtT.Hit 1 : TDropA1.state=1 : End Sub  
- Sub Sw20_Dropped:dtT.Hit 2 : TDropA2a.state=1 : TDropA2b.state=1 : End Sub  
+ Sub Sw12_Dropped:dtT.Hit 1 : TDropA1.state=1 : End Sub
+ Sub Sw20_Dropped:dtT.Hit 2 : TDropA2a.state=1 : TDropA2b.state=1 : End Sub
  Sub Sw28_Dropped:dtT.Hit 3 : TDropA3.state=1 : TDropB3.state=1 : End Sub
  Sub Sw36_Dropped:dtT.Hit 4 : TDropB4.state=1 : End Sub
 
- Sub Sw29_Dropped:dtL.Hit 1 : LDrop3.state=1 : End Sub  
+ Sub Sw29_Dropped:dtL.Hit 1 : LDrop3.state=1 : End Sub
  Sub Sw21_Dropped:dtL.Hit 2 : LDrop2.state=1 : End Sub
  Sub Sw37_Dropped:dtL.Hit 3 : LDrop1.state=1 : End Sub
 
@@ -224,15 +225,15 @@ Sub sw35_Hit : vpmTimer.PulseSw 35 : playsound SoundFX("fx2_bumper_3",DOFContact
 
 'Rollovers
 Sub SW17_Hit:Controller.Switch(17)=1 : End Sub
-Sub SW17_unHit:Controller.Switch(17)=0:End Sub	
-Sub SW17a_Hit:Controller.Switch(17)=1 : End Sub 
+Sub SW17_unHit:Controller.Switch(17)=0:End Sub
+Sub SW17a_Hit:Controller.Switch(17)=1 : End Sub
 Sub SW17a_unHit:Controller.Switch(17)=0:End Sub
 Sub SW17b_Hit:Controller.Switch(17)=1 : End Sub
 Sub SW17b_unHit:Controller.Switch(17)=0:End Sub
 Sub SW17c_Hit:Controller.Switch(17)=1 : End Sub
 Sub SW17c_unHit:Controller.Switch(17)=0:End Sub
 Sub SW32_Hit:Controller.Switch(32)=1 : End Sub
-Sub SW32_unHit:Controller.Switch(32)=0:End Sub	
+Sub SW32_unHit:Controller.Switch(32)=0:End Sub
 
 'Wire Triggers
 Sub SW1_Hit:Controller.Switch(1)=1 : End Sub
@@ -283,7 +284,7 @@ Sub RightSlingShot_Timer
     Select Case RStep
         Case 3:RSLing1.Visible = 0:RSLing2.Visible = 1:sling1.TransZ = -10
         Case 4:RSLing2.Visible = 0:RSLing3.Visible = 1:sling1.TransZ = 0
-        Case 5:RSLing3.Visible = 0:RSLing.Visible = 1:RightSlingShot.TimerEnabled = 0 
+        Case 5:RSLing3.Visible = 0:RSLing.Visible = 1:RightSlingShot.TimerEnabled = 0
     End Select
     RStep = RStep + 1
 End Sub
@@ -366,7 +367,7 @@ Sub sw19a_Timer
     End Select
     BStep = BStep + 1
 End Sub
- 
+
 '-------------------------------------
 ' Map lights into array
 ' Set unmapped lamps to Nothing
@@ -434,7 +435,7 @@ Set Lights(60) = l60
 'Set Lights(61) = l61 'LightTilt
 'Set Lights(62) = l62
 'Set Lights(63) = l63
- 
+
 Set vpmShowDips = GetRef("editDips")
 
 '*****************************************
@@ -485,7 +486,7 @@ End Sub
 ' Diverse Collection Hit Sounds
 '******************************
 
-'Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall): End Sub 
+'Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall): End Sub
 Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
