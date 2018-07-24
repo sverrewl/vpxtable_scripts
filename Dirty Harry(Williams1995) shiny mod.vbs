@@ -60,6 +60,7 @@
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' , AudioFade(ActiveBall)
 
@@ -72,20 +73,20 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
  LoadVPM "01560000", "WPC.VBS", 3.36
- 
+
  '********************
  'Standard definitions
  '********************
- 
+
   Const cGameName = "dh_lx2"
  Const UseSolenoids = 1
  Const UseLamps = 1
  Const SSolenoidOn = "SolOn"
- Const SSolenoidOff = "SolOff" 
+ Const SSolenoidOff = "SolOff"
  Const SFlipperOn = "FlipperUp"
  Const SFlipperOff = "FlipperDown"
  Const SCoin = "Coin5"
- 
+
  Set GiCallback2 = GetRef("UpdateGI")
  BSize = 26
 
@@ -97,11 +98,11 @@ On Error Goto 0
 ' Const SCoin = "Coin"
 
 Dim bsTrough, BallInGun, bsSafeHouse, LeftPopper, WareHousePopper, GunPopper, RightMagnet
- 
+
  '************
  ' Table init.
  '************
- 
+
  Sub Table1_Init
      vpmInit Me
      With Controller
@@ -179,7 +180,7 @@ Set RightMagnet = New cvpmMagnet
          .CreateEvents "RightMagnet"
      End With
 
- 
+
  DiverterOn.isDropped = 1
  DiverterOn2.isDropped = 1
  DiverterOff.isDropped = 0
@@ -316,17 +317,17 @@ Sub SolGunMotor(Enabled)
     If Enabled Then
        PlaySound SoundFX("GunMotor",DOFGear)
        GDir = -1
-       UpdateGun.Enabled=1 
+       UpdateGun.Enabled=1
        Controller.switch(77) = 1
      Else
        UpdateGun.Enabled=0
        Controller.switch(77) = 0
 	   StopSound "GunMotor"
   End If
- 
+
 End Sub
 
- 
+
 Dim GPos, GDir
 GPos = -50
 GDir = -50
@@ -357,7 +358,7 @@ End Sub
 
 
 Sub SolMagnetOn(Enabled)
-	If Enabled then 
+	If Enabled then
 		RightMagnet.MagnetOn = True
 	Else
 		RightMagnet.MagnetOn = False
@@ -400,13 +401,13 @@ End Sub
 End Sub
 
 
- 
+
 
 
  '*********
  'Solenoids
  '*********
- 
+
  SolCallback(1) = "SolRelease"
  SolCallback(2) = "AutoPlunge"
  SolCallback(3) = "SolGunLaunch"
@@ -452,7 +453,7 @@ End Sub
     If keycode = keyFront Then Controller.Switch(23) = 1
     If vpmKeyDown(keycode) Then Exit Sub
  End Sub
- 
+
  Sub table1_KeyUp(ByVal Keycode)
      If vpmKeyUp(keycode) Then Exit Sub
      If keycode = PlungerKey Then Controller.Switch(11) = 0
@@ -465,10 +466,10 @@ End Sub
  '**************
  ' Flipper Subs
  '**************
- 
+
  SolCallback(sLRFlipper) = "SolRFlipper"
  SolCallback(sLLFlipper) = "SolLFlipper"
- 
+
  Sub SolLFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("FlipperUpLeft",DOFContactors):LeftFlipper.RotateToEnd
@@ -476,7 +477,7 @@ End Sub
          PlaySound SoundFX("FlipperDown",DOFContactors):LeftFlipper.RotateToStart
      End If
  End Sub
- 
+
  Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("FlipperUpRightBoth",DOFContactors):RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
@@ -491,8 +492,8 @@ LeftFlipperP.RotY = LeftFlipper.CurrentAngle
 RightFlipperP1.RotY = RightFlipper1.CurrentAngle
 RightFlipperP.RotY = RightFlipper.CurrentAngle
 End Sub
- 
- 
+
+
  '*********
  ' Switches
  '*********
@@ -601,7 +602,7 @@ Sub Bumper65_hit:vpmTimer.pulseSw 65:Playsound SoundFX("BumperRight",DOFContacto
 Sub Bumper65_Timer:Me.Timerenabled = 0: End Sub
 
 
- 
+
 
 '**********Sling Shot Animations
 ' Rstep and Lstep  are the variables that increment the animation
@@ -718,7 +719,7 @@ End Sub
  ' SetLamp 1 is On
  ' LampState(x) current state
  '****************************************
- 
+
 
 
  Dim LampState(200), FadingLevel(200), FadingState(200)
@@ -731,7 +732,7 @@ End Sub
 FlashInit()
 FlasherTimer.Interval = 10 'flash fading speed
 FlasherTimer.Enabled = 1
- 
+
 Sub LampTimer_Timer()
     Dim chgLamp, num, chg, ii
     chgLamp = Controller.ChangedLamps
@@ -765,7 +766,7 @@ Sub AllFlashOff
         FlashState(i) = 0
     Next
 End Sub
- 
+
   Sub UpdateLamps()
 '		NFadeLm 1, l1b
 '		NFadeL 1, l1a
@@ -997,9 +998,9 @@ Sub Multi121(Enabled)
 	End If
 End Sub
 
- 
+
  Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:FadingLevel(x) = 4:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 ' Sub SetLamp(nr, value):LampState(nr) = abs(value) + 4:End Sub
 
 Sub SetLamp(nr, value)
@@ -1118,7 +1119,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1129,7 +1130,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
