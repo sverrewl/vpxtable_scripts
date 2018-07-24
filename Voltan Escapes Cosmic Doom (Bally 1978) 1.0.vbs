@@ -1,6 +1,6 @@
 '  Voltan Escapes Cosmic Doom -- Bally, 1978
 '  VPX Release December, 2016
-'  Thanks to the authors of the VP90 version and for permission to mod:  
+'  Thanks to the authors of the VP90 version and for permission to mod:
 
 '    dboyrecords
 '    Design: George Christian
@@ -8,7 +8,9 @@
 '    Script: Joe Entropy (joe_entropy@hotmail.com)
 '    Table: Eala Dubh Sidhe (EalaDubh@btopenworld.com)
 
-
+' Thalamus 2018-07-24
+' Tables doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 
 Option Explicit
 LoadVPM "01000100", "BALLY.VBS", 1.2
@@ -52,18 +54,18 @@ For each xxx in BG:xxx.Visible = 0: Next ' Hide DT service lights
 
 End If
 
-Set LampCallback = GetRef("UpdateMultipleLamps") 
+Set LampCallback = GetRef("UpdateMultipleLamps")
 
 SolCallback(sBallRelease)="bsTrough.SolOut"
 SolCallback(sKnocker)="vpmSolSound ""knocker"","
-SolCallback(sLeftSling)="vpmSolSound ""sling""," 
-SolCallback(sRightSling)="vpmSolSound""sling""," 
-SolCallback(sBumper1)="vpmSolSound ""jet3"","  
-SolCallback(sBumper2)="vpmSolSound ""jet3"","  
-SolCallback(sBumper3)="vpmSolSound ""jet3"","  
+SolCallback(sLeftSling)="vpmSolSound ""sling"","
+SolCallback(sRightSling)="vpmSolSound""sling"","
+SolCallback(sBumper1)="vpmSolSound ""jet3"","
+SolCallback(sBumper2)="vpmSolSound ""jet3"","
+SolCallback(sBumper3)="vpmSolSound ""jet3"","
 SolCallback(sEnable)="vpmNudge.SolGameOn"
-SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,nothing," 
-SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,nothing," 
+SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,nothing,"
+SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,nothing,"
 
 Const sKnocker=6
 Const sBallRelease=7
@@ -94,7 +96,7 @@ Sub Table1_Init()
 	End With
 	On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval  
+	PinMAMETimer.Interval=PinMAMEInterval
 	PinMAMETimer.Enabled=1
 	vpmNudge.TiltSwitch=7
 	vpmNudge.Sensitivity=3
@@ -102,10 +104,10 @@ Sub Table1_Init()
 
 	Set bsTrough=New cvpmBallStack
     bsTrough.InitSw 0,8,0,0,0,0,0,0
-    bsTrough.InitKick BallRelease,80,5.75 
+    bsTrough.InitKick BallRelease,80,5.75
     bsTrough.InitExitSnd "ballrel","solon"
-    bsTrough.Balls=1 
-End Sub 
+    bsTrough.Balls=1
+End Sub
 
 ' Quick Ball Sound V0.3 by STAT                           ADD BLOCK FOR STAT BALL ROLL SOUND
 ' -----------------------
@@ -127,17 +129,17 @@ Sub TriggerS_Hit()
 	TriggerS.TimerEnabled = True
 	PlaySound "Roll 1"
 End Sub
-' ----------------------- 								   End ADD BLOCK FOR STAT BALL ROLL SOUND	
+' ----------------------- 								   End ADD BLOCK FOR STAT BALL ROLL SOUND
 
 Sub Table1_KeyUp(ByVal KeyCode)
-    If vpmKeyUp(KeyCode) Then Exit Sub  
+    If vpmKeyUp(KeyCode) Then Exit Sub
     If KeyCode=PlungerKey Then PlaySound"Plunger":Plunger.Fire
-End Sub  
+End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
-    If vpmKeyDown(KeyCode) Then Exit Sub 
+    If vpmKeyDown(KeyCode) Then Exit Sub
     If KeyCode=PlungerKey Then PlaySound"PullbackPlunger":Plunger.Pullback
-End Sub  
+End Sub
 
 Sub Drain_Hit:bsTrough.AddBall Me:TriggerS.TimerEnabled = False:End Sub     ' ADD TriggerS.TimerEnabled = False in a Drain_Hit Sub - FOR STAT BALL ROLL SOUND
 																			' and ADD a Trigger in Editor above the Plunger and call it "TriggerS"
@@ -185,8 +187,6 @@ Sub LeftSlingshot_Slingshot:vpmTimer.PulseSw 37:End Sub
 Sub Bumper3_Hit:vpmTimer.PulseSw 38:End Sub
 Sub Bumper2_Hit:vpmTimer.PulseSw 39:End Sub
 Sub Bumper1_Hit:vpmTimer.PulseSw 40:End Sub
-
-
 
 '***************************************************
 '       JP's VP10 Fading Lamps & Flashers
@@ -242,7 +242,7 @@ Set Lights(10)=Light10
 Set Lights(11)=Light11  'Shoot Again
 Set Lights(12)=Light12
 Set Lights(13)=Light13 'Ball in Play
-Set Lights(14)=Light14  'Player 1 
+Set Lights(14)=Light14  'Player 1
 Set Lights(15)=Light15  'Player 1 Number
 Set Lights(17)=Light17  'Venus
 Set Lights(18)=Light18  'Saturn
@@ -529,7 +529,7 @@ If Not IsEmpty(ChgLED) Then
 			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
 			if (num < 32) then
 				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1 
+					If chg And 1 Then obj.State = stat And 1
 					chg = chg\2 : stat = stat\2
 				Next
 			else
