@@ -4,6 +4,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -201,7 +202,7 @@ Sub Table1_Init
          On Error Goto 0
      End With
      On Error Goto 0
-
+   InitVpmFFlipsSAM
    PinMAMETimer.Interval=PinMAMEInterval
    PinMAMETimer.Enabled=1
 
