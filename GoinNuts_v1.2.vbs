@@ -3,8 +3,9 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -68,7 +69,7 @@ Sub GN_Init
 		If Err Then MsgBox Err.Description
 	End With
 	On Error Goto 0
-		vpmTimer.AddTimer 10000,"Controller.SolMask(0)=&Hffffffff'"
+		vpmTimer.AddTimer 1000,"Controller.SolMask(0)=&Hffffffff'"
 		Controller.Run
 
 	'Dip switch settings, shown this way for clarity and ease of modification
