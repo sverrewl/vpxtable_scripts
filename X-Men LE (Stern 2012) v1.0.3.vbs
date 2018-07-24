@@ -2,7 +2,11 @@
 '
 ' This table is based on the original FP conversion by Freneticamnesic
 ' Brought to you by: ICPJuggla, HauntFreaks, DJRobX and Arngrim
-' 
+'
+' Thalamus 2018-07-24
+' Table has already its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
   Option Explicit
     Randomize
@@ -16,15 +20,15 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 '***********
-'Preferences 
+'Preferences
 '***********
 
-'Real GI is made from 3 lights - Red, White, and Blue.  This makes some combinations not very different when white is toggled.  
-'7 Color mod changes white to green. 
+'Real GI is made from 3 lights - Red, White, and Blue.  This makes some combinations not very different when white is toggled.
+'7 Color mod changes white to green.
 Const Use7ColorGI = False
 Const EnableFlipperShadows = True
 Const EnableBallShadows = True
-Const EnableIceManShadow = True 
+Const EnableIceManShadow = True
 Const EnableCheats = False
 
 
@@ -35,7 +39,7 @@ If DesktopMode = True Then 'Show Desktop components
 Ramp16.visible=1
 Ramp15.visible=1
 Primitive58.visible=1
-UseVPMDMD = True	
+UseVPMDMD = True
 Else
 Ramp16.visible=0
 Ramp15.visible=0
@@ -52,7 +56,7 @@ Const UseVPMModSol = True
 'Toggle DOF sounds on/off based on cController value
 '*************************************************************
 
-Sub DOF(dofevent, dofstate)	
+Sub DOF(dofevent, dofstate)
 	If cNewController>2 Then
 		If dofstate = 2 Then
 			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
@@ -73,7 +77,7 @@ End Sub
      Const UseSolenoids = 1
      Const UseLamps = 0
      Const UseSync = 1
-     Const HandleMech = 0 
+     Const HandleMech = 0
 
      'Standard Sounds
      Const SSolenoidOn = "Solenoid"
@@ -88,7 +92,7 @@ End Sub
 	Dim GI_State, GI_WhiteOn, GI_RedOn, GI_BlueOn
 	GI_State = 0: GI_WhiteOn = 1: GI_RedOn = 1: GI_BlueOn = 1
 
- 
+
      'Table Init
   Sub Table_Init
 	vpmInit Me
@@ -104,7 +108,7 @@ End Sub
 			.Hidden = 1
 		Else
 			.Hidden = 0
-		end if 
+		end if
 		On Error Resume Next
 		.Run GetPlayerHWnd
 		If Err Then MsgBox Err.Description
@@ -134,16 +138,16 @@ End Sub
 
 	Set mTLMag= New cvpmMagnet
  	With mTLMag
-		.InitMagnet Magnet1, 16  
-		.GrabCenter = False 
-		.solenoid=51   ' LE 
-' 		.solenoid=32   ' Pro 
+		.InitMagnet Magnet1, 16
+		.GrabCenter = False
+		.solenoid=51   ' LE
+' 		.solenoid=32   ' Pro
 		.CreateEvents "mTLMag"
 	End With
 
 	Set mDMag= New cvpmMagnet
  	With mDMag
-		.InitMagnet Magnet3, 16  
+		.InitMagnet Magnet3, 16
 		.GrabCenter = True
 		.CreateEvents "mDMag"
 	End With
@@ -154,16 +158,16 @@ End Sub
 	ttSpinner.SpinDown = 10
 	ttSpinner.CreateEvents "ttSpinner"
 
-	if not EnableFlipperShadows then 
+	if not EnableFlipperShadows then
 		FlipperLSh.visible = 0
 		FlipperRSh.visible = 0
 		FlipperRSh1.visible = 0
 	end if
-	if not EnableIceManShadow Then	
+	if not EnableIceManShadow Then
 		IceManRampShadow.visible =0
 	end if
 
-	if EnableCheats then 
+	if EnableCheats then
 		CheatWall1.Visible = 1
 		CheatWall1.IsDropped = 0
 		CheatWall2.Visible = 1
@@ -177,10 +181,10 @@ End Sub
 		CheatWall2.IsDropped = 1
 		CheatWall3.Visible = 0
 		CheatWall3.IsDropped = 1
-	end if 
-		
-		
-	
+	end if
+
+
+
 	'Wolvie2.isdropped=1
 'wr2.alpha = 0
 
@@ -194,7 +198,7 @@ End Sub
 ' 	Set bsSaucer=New cvpmBallStack
 '	bsSaucer.InitSaucer S37,37,283,15
 '	bsSaucer.InitExitSnd"Popper","SolOn"
- 
+
 'Nudging
     vpmNudge.TiltSwitch=-7
     vpmNudge.Sensitivity=3
@@ -219,30 +223,30 @@ End Sub
 
 End sub
 
- 
+
 '*****Keys
  Sub Table_KeyDown(ByVal keycode)
 
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		'SolLFlipper true
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 '		SolRFlipper true
 	End If
     If keycode = PlungerKey Then Plunger.Pullback: PlaysoundAt "plungerpull",Plunger
 '  	If keycode = LeftTiltKey Then LeftNudge 80, 1, 20
 '    If keycode = RightTiltKey Then RightNudge 280, 1, 20
 '    If keycode = CenterTiltKey Then CenterNudge 0, 1, 25
-    If vpmKeyDown(keycode) Then Exit Sub 
-    
+    If vpmKeyDown(keycode) Then Exit Sub
+
 End Sub
 
 Sub Table_KeyUp(ByVal keycode)
 	If vpmKeyUp(keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		'SolLFlipper false
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		'SolRFlipper False
 	End If
 	If Keycode = StartGameKey Then Controller.Switch(16) = 0
@@ -273,12 +277,12 @@ SolCallback(23) = "solDiscMotor"
 SolModCallback(30) = "SetLampMod 127, "
 SolModCallback(31) = "SetLampMod 131,"   'LE = Bottom Arch
 SolCallback(27) = "solIceManMotor"
-'SolCallback(51) = "solWolverineMagnet" ' cvpmMagnet handles this for us. 
+'SolCallback(51) = "solWolverineMagnet" ' cvpmMagnet handles this for us.
 SolCallback(52) = "solLeftNightcrawler"
 SolCallback(53) = "solRightNightcrawler"
-SolCallback(54) = "solGIWhite"   
+SolCallback(54) = "solGIWhite"
 SolCallback(55) = "solGIRed"
-SolCallback(56) = "solGIBlue" 
+SolCallback(56) = "solGIBlue"
 SolCallback(57) = "solLeftNightcrawlerLatch"
 SolCallback(58) = "solRightNightcrawlerLatch"
 
@@ -302,16 +306,16 @@ Dim IceManMotor:IceManMotor = 0
 Dim IceManDir:IceManDir = -1
 Dim IceManAngle:IceManAngle = 90
 Dim IceManSpeed:IceManSpeed = .08
-Dim IceManHold:IceManHold = 0 
+Dim IceManHold:IceManHold = 0
 Const IceManMaxAngle = 65
-Const IceManMinAngle = 15 
+Const IceManMinAngle = 15
 
 Sub TimerIceManMotor_Timer()
-	' VP doesn't do dynamic collideable objects.   We want to pause the ramp movement if a ball is on the ramp and the ramp is at a destination.  
-	If IceManHold > 0 AND (IceManAngle = IceManMaxAngle OR IceManAngle = IceManMinAngle) Then Exit Sub 
+	' VP doesn't do dynamic collideable objects.   We want to pause the ramp movement if a ball is on the ramp and the ramp is at a destination.
+	If IceManHold > 0 AND (IceManAngle = IceManMaxAngle OR IceManAngle = IceManMinAngle) Then Exit Sub
 	' Reset just in case is less than 0
 	IceManHold = 0
-	IceManAngle = IceManAngle + IceManDir * IceManSpeed	
+	IceManAngle = IceManAngle + IceManDir * IceManSpeed
 	if IceManAngle > IceManMaxAngle Then
 		IceManAngle = IceManMaxAngle
 		IceManDir = -1
@@ -324,7 +328,7 @@ Sub TimerIceManMotor_Timer()
 		Controller.Switch(34) = 1
 		StopSound "RampMotor"
 		me.Enabled = 0
-	Else		
+	Else
 		select case IceManDir
 		case -1:
 			IceManRampA.Collidable = 0
@@ -335,8 +339,8 @@ Sub TimerIceManMotor_Timer()
 		end select
 		Controller.Switch(34) = 0
 		Controller.Switch(35) = 0
-	End If 
-	IceManRamp.RotY = IceManAngle	
+	End If
+	IceManRamp.RotY = IceManAngle
 	if EnableIceManShadow then
 		IceManRampShadow.RotZ = 220 + IceManAngle - IceManminAngle
 	end if
@@ -345,16 +349,16 @@ End Sub
 Sub solIceManMotor(Enabled)
 	TimerIceManMotor.Enabled = Enabled
 	if Enabled then PlaySoundAtVol SoundFX("RampMotor",DOFGear), RampBumpMetal1, 0.7
-End Sub 
+End Sub
 
 Sub solMagnetoMagnet(value)
 	if Value > 0 then
 		mDmag.Strength = 10 * value / 255
 		mDMag.MagnetOn = 1
-	Else		
+	Else
 		mDMag.MagnetOn = 0
-	end If	
-end sub 
+	end If
+end sub
 
 
 
@@ -427,18 +431,18 @@ Sub RightNightCrawlerWall_Timer
 		RightNightCrawler.TransY = RightNightCrawlerShake * Sin(RightNightCrawlerShakeAngle)
 		RightNightCrawlerShakeAngle = RightNightCrawlerShakeAngle + ((NightCrawlerShakeSpeed * RightNightCrawlerShake) / 30)
 		RightNightCrawlerShake = RightNightCrawlerShake * NightCrawlerShakeDecay
-		if RightNightCrawlerShake < 1 Then	
+		if RightNightCrawlerShake < 1 Then
 			RightNightCrawler.TransY = 0
 			Me.TimerEnabled =0
-		end If		
+		end If
 	case NCStateMoveDownShake:
 		RightNightCrawler.TransY = RightNightCrawlerShake * Sin(RightNightCrawlerShakeAngle)
 		RightNightCrawlerShakeAngle = RightNightCrawlerShakeAngle + ((NightCrawlerShakeSpeed * RightNightCrawlerShake) / 30)
 		RightNightCrawlerShake = RightNightCrawlerShake * NightCrawlerShakeDecay
-		if RightNightCrawlerShake < 1 Then	
+		if RightNightCrawlerShake < 1 Then
 			RightNightCrawler.TransY = 0
 			RightNightCrawlerState = NCStateMoveDown
-		end If		
+		end If
 	end Select
 End Sub
 
@@ -466,18 +470,18 @@ Sub LeftNightCrawlerWall_Timer
 		LeftNightCrawler.TransY = LeftNightCrawlerShake * Sin(LeftNightCrawlerShakeAngle)
 		LeftNightCrawlerShakeAngle = LeftNightCrawlerShakeAngle + ((NightCrawlerShakeSpeed * LeftNightCrawlerShake) / 30)
 		LeftNightCrawlerShake = LeftNightCrawlerShake * NightCrawlerShakeDecay
-		if LeftNightCrawlerShake < 1 Then	
+		if LeftNightCrawlerShake < 1 Then
 			LeftNightCrawler.TransY = 0
 			Me.TimerEnabled =0
-		end If		
+		end If
 	case NCStateMoveDownShake:
 		LeftNightCrawler.TransY = LeftNightCrawlerShake * Sin(LeftNightCrawlerShakeAngle)
 		LeftNightCrawlerShakeAngle = LeftNightCrawlerShakeAngle + ((NightCrawlerShakeSpeed * LeftNightCrawlerShake) / 30)
 		LeftNightCrawlerShake = LeftNightCrawlerShake * NightCrawlerShakeDecay
-		if LeftNightCrawlerShake < 1 Then	
+		if LeftNightCrawlerShake < 1 Then
 			LeftNightCrawler.TransY = 0
 			LeftNightCrawlerState = NCStateMoveDown
-		end If		
+		end If
 	end Select
 End Sub
 
@@ -523,12 +527,12 @@ End Sub
 
 
 Sub solDiscMotor(Enabled)
-	if Enabled Then		
+	if Enabled Then
 		ttSpinner.MotorOn = True : Playsound SoundFX("disc_noise",DOFGear),-1,0.04,0,0,-60000,0,0,AudioFade(f120b1)
-	Else	
+	Else
 		ttSpinner.MotorOn = False : Stopsound "disc_noise"
 	end If
-end sub 
+end sub
 
 Sub TurnTable_Hit
 	ttSpinner.AddBall ActiveBall
@@ -562,7 +566,7 @@ Sub LockPin1_Timer
 	'Dozer would be proud...
 	Me.TimerEnabled = 0
 	lockPin1.Isdropped=1:lockPin2.Isdropped=1
-End Sub 
+End Sub
 
 Sub CLockLatch(Enabled)
 	If Enabled Then
@@ -583,7 +587,7 @@ Sub CLockLatch(Enabled)
      Me.TimerInterval = 2
      Me.TimerEnabled = 1
  End Sub
- 
+
  Sub sw4_Timer
      bBall.Z = bZpos
      bZpos = bZpos-4
@@ -623,7 +627,7 @@ Sub sw2_Timer:Me.TimerEnabled = 0:sw2p.TransX = 0:End Sub
 Sub sw7_Hit:Me.TimerEnabled = 1:sw7p.TransX = -2:vpmTimer.PulseSw 7:PlaySoundAt SoundFX("target",DOFTargets), ActiveBall:End Sub
 Sub sw7_Timer:Me.TimerEnabled = 0:sw7p.TransX = 0:End Sub
 Sub sw8_Hit:Me.TimerEnabled = 1:sw8p.TransX = -2:vpmTimer.PulseSw 8:PlaySoundAt SoundFX("target",DOFTargets), ActiveBall:End Sub
-Sub sw8_Timer:Me.TimerEnabled = 0:sw8p.TransX = 0:End Sub 
+Sub sw8_Timer:Me.TimerEnabled = 0:sw8p.TransX = 0:End Sub
 Sub sw11_Hit:Controller.Switch(11) = 1:PlaySoundAt "Gate", ActiveBall:End Sub
 Sub sw11_UnHit:Controller.Switch(11) = 0:End Sub
 Sub sw13_Hit:Controller.Switch(13) = 1:PlaySoundAt "Gate", ActiveBall:End Sub
@@ -643,7 +647,7 @@ Sub sw29_UnHit:Controller.Switch(29) = 0:End Sub
 Sub sw33_Hit:Controller.Switch(33) = 1:PlaySoundAt "fx_sensor", ActiveBall:End Sub
 Sub sw33_UnHit:Controller.Switch(33) = 0:End Sub
 Sub sw36_Hit:VengeanceHit 2:vpmTimer.PulseSw 36:PlaySoundAt SoundFX("target",DOFTargets), ActiveBall:End Sub
-'Sub sw36_Timer:Wolvie1.IsDropped = 0:Wolvie2.IsDropped = 1:wr1.alpha = 1:wr1.triggersingleupdate:wr2.alpha = 0:wr2.triggersingleupdate:Me.TimerEnabled = 0:End Sub 
+'Sub sw36_Timer:Wolvie1.IsDropped = 0:Wolvie2.IsDropped = 1:wr1.alpha = 1:wr1.triggersingleupdate:wr2.alpha = 0:wr2.triggersingleupdate:Me.TimerEnabled = 0:End Sub
 Sub sw38_Hit:PlaySoundAt "rollover", ActiveBall:Controller.Switch(38)=1:End Sub 	'Lock 2
 Sub sw38_unHit:Controller.Switch(38)=0:End Sub
 Sub sw39_Hit:PlaySoundAt "rollover", ActiveBall:Controller.Switch(39)=1:End Sub 	'Lock 3
@@ -651,10 +655,10 @@ Sub sw39_unHit:Controller.Switch(39)=0:End Sub
 Sub sw40_Hit:PlaySoundAt "rollover", ActiveBall:Controller.Switch(40)=1:End Sub 	'Lock 4
 Sub sw40_unHit:Controller.Switch(40)=0:End Sub
 Sub sw41_Hit:Me.TimerEnabled = 1:sw41p.TransX = -2:vpmTimer.PulseSw 41:PlaySoundAt SoundFX("target",DOFTargets), ActiveBall:End Sub
-Sub sw41_Timer:Me.TimerEnabled = 0:sw41p.TransX = 0:End Sub 
+Sub sw41_Timer:Me.TimerEnabled = 0:sw41p.TransX = 0:End Sub
 Sub sw42_Hit:Me.TimerEnabled = 1:sw42p.TransX = -2:vpmTimer.PulseSw 42:PlaySoundAt SoundFX("target",DOFTargets), ActiveBall:End Sub
 Sub sw42_Timer:Me.TimerEnabled = 0:sw42p.TransX = 0:End Sub
-Sub sw47_Spin:vpmTimer.PulseSw 47::playsoundat "spinner", sw47:End Sub 
+Sub sw47_Spin:vpmTimer.PulseSw 47::playsoundat "spinner", sw47:End Sub
 Sub sw48_Hit:Controller.Switch(48) = 1:PlaySoundAt "Gate", ActiveBall:End Sub
 Sub sw48_UnHit:Controller.Switch(48) = 0:End Sub
 Sub sw49_Hit:Controller.Switch(49) = 1:PlaySoundAt "fx_sensor", ActiveBall:End Sub
@@ -663,8 +667,8 @@ Sub sw52_Hit:Controller.Switch(52) = 1:PlaySoundAt "Gate", ActiveBall:IceManHold
 Sub sw52_Timer
 	if IceManDir = -1 then ' Ramp is going across table
 		PlaySoundAtVol "fx_ramp_metal", l30, .2
-	Else	
-		PlaySoundAtVol "fx_ramp_metal", l7, .2 
+	Else
+		PlaySoundAtVol "fx_ramp_metal", l7, .2
 	end If
 	me.TimerEnabled =0
 End Sub
@@ -674,7 +678,7 @@ Sub sw53_UnHit:Controller.Switch(53) = 0:End Sub
 Sub sw54_Hit:Controller.Switch(54) = 1:PlaySoundAt "fx_sensor", ActiveBall:End Sub
 Sub sw54_UnHit:Controller.Switch(54) = 0:End Sub
 Sub sw55a_Hit:ClearBallId:PlaySoundAt "kicker_enter", sw55a:bsL.AddBall Me:End Sub
- 
+
 Sub SolLFlipper(Enabled)
      If Enabled Then
 		 PlaySoundAt SoundFX("FlipperUp",DOFFlippers), f131a
@@ -693,7 +697,7 @@ Sub SolRFlipper(Enabled)
 		 PlaySoundAt SoundFX("FlipperDown",DOFFlippers), f131b
 		RightFlipper.RotateToStart:PlaySound SoundFX("FlipperDownUR",DOFFlippers),0,1,Pan(RightFlipper1),0,6000,0,0,AudioFade(RightFlipper1):RightFlipper1.RotateToStart
      End If
- End Sub   
+ End Sub
 
 
 Dim BallCount:BallCount = 0
@@ -713,7 +717,7 @@ Dim BallCount:BallCount = 0
 	LStep = 0
 	Me.TimerEnabled = 1
   End Sub
- 
+
  Sub LeftSlingShot_Timer
 	Select Case LStep
 		Case 3:LSLing1.Visible = 0:LSLing2.Visible = 1:sling2.TransZ = -10
@@ -721,7 +725,7 @@ Dim BallCount:BallCount = 0
 	End Select
 	LStep = LStep + 1
  End Sub
- 
+
  Sub RightSlingShot_Slingshot
     vpmTimer.PulseSw 27
  	PlaySound SoundFX("right_slingshot", DOFContactors)
@@ -731,7 +735,7 @@ Dim BallCount:BallCount = 0
 	RStep = 0
 	Me.TimerEnabled = 1
   End Sub
- 
+
  Sub RightSlingShot_Timer
 	Select Case RStep
 		Case 3:RSLing1.Visible = 0:RSLing2.Visible = 1:sling1.TransZ = -10
@@ -739,7 +743,7 @@ Dim BallCount:BallCount = 0
 	End Select
 	RStep = RStep + 1
 End Sub
- 
+
 
 
     Const IMPowerSetting = 45
@@ -752,30 +756,30 @@ End Sub
         .CreateEvents "plungerIM"
     End With
 
-  
+
    'Bumpers
       Sub Bumper1b_Hit
 	  vpmTimer.PulseSw 31
 	  PlaySoundAt SoundFX("fx_bumper1",DOFContactors),Bumper1b
 	  End Sub
-    
- 
+
+
       Sub Bumper2b_Hit
 	  vpmTimer.PulseSw 30
 	  PlaySoundAt SoundFX("fx_bumper1",DOFContactors),Bumper2b
 	  End Sub
 
- 
+
       Sub Bumper3b_Hit
 	  vpmTimer.PulseSw 32
 	  PlaySoundAt SoundFX("fx_bumper1",DOFContactors), Bumper3b
 	  End Sub
-     
- 
+
+
 
 '***********************************************
 '                  Lamps
-'*********************************************** 
+'***********************************************
 
 
 
@@ -806,8 +810,8 @@ Sub LampTimer_Timer()
     UpdateLamps
 	if EnableBallShadows then
 		UpdateBallShadow
-	end if 
-	UpdateFlipperLogo	
+	end if
+	UpdateFlipperLogo
 End Sub
 
 Sub FlashInit
@@ -828,7 +832,7 @@ Sub AllFlashOff
         FlashState(i) = 0
     Next
 End Sub
- 
+
 
 Sub UpdateLampsLE()
 	NFadeL 17, l71
@@ -873,9 +877,9 @@ Sub UpdateLampsLE()
 	NFadeL 59, f59
 	NFadeL 60, l28
 	NFadeL 63,  f121 '' !!! ?
-	NFadeL 65, l35 ' Magneto (Green) 
+	NFadeL 65, l35 ' Magneto (Green)
 	NFadeL 66, l34
-	NFadeL 67, l33 ' Magneto (Red) 
+	NFadeL 67, l33 ' Magneto (Red)
 	NFadeL 68, l6
 	NFadeL 69, l7
 	NFadeL 70, l8
@@ -903,7 +907,7 @@ Sub UpdateLamps
 	LampMod 118, f118f
 	LampMod 119, f119
 	LampMod 119, f119b
-	LampMod 120, f120	
+	LampMod 120, f120
 	LampMod 120, f120b
 	LampMod 122, f122a
 	LampMod 122, f122b
@@ -992,7 +996,7 @@ End Sub
 
 Dim x
  Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:FadingLevel(x) = 4:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 
 Sub SetLamp(nr, value)
     If value = 0 AND LampState(nr) = 0 Then Exit Sub
@@ -1055,7 +1059,7 @@ Sub UpdateFlipperLogo
 		FlipperLSh.RotZ = LeftFlipper.currentangle
 		FlipperRSh.RotZ = RightFlipper.currentangle
 		FlipperRSh1.RotZ = RightFlipper1.currentangle
-	end if 
+	end if
 End Sub
 
 '************************************************************************
@@ -1065,7 +1069,7 @@ End Sub
 Sub SolGIWhite(Enabled)
 	if Enabled Then
 		GI_WhiteOn = 0
-	Else	
+	Else
 		GI_WhiteOn = 1
 	end If
 	UpdateGI
@@ -1074,7 +1078,7 @@ end Sub
 Sub SolGIRed(Enabled)
 	if Enabled Then
 		GI_RedOn = 0
-	Else	
+	Else
 		GI_RedOn = 1
 	end If
 	UpdateGI
@@ -1083,7 +1087,7 @@ end Sub
 Sub SolGIBlue(Enabled)
 	if Enabled Then
 		GI_BlueOn = 0
-	Else	
+	Else
 		GI_BlueOn = 1
 	end If
 	UpdateGI
@@ -1096,11 +1100,11 @@ Sub ChangeGI(nr,enabled)
 		Case 0
 		If Enabled Then
 			Table.ColorGradeImage= "ColorGrade_8"
-			GI_State = 1		
-		Else	
+			GI_State = 1
+		Else
 			Table.ColorGradeImage= "ColorGrade_1"
 			GI_State = 0
-		End If	
+		End If
 	End Select
 	UpdateGI
 End Sub
@@ -1111,30 +1115,30 @@ Sub UpdateGI
 
 	for each bulb in GI_Main
 		bulb.state = GI_State
-	next 
+	next
 
 	If Use7ColorGI Then
 		TargColor = RGB(GI_RedOn * 255, GI_WhiteOn * 255, GI_BlueOn * 255)
-	Else 
+	Else
 		TargColor = RGB(GI_WhiteOn * 127 + GI_RedOn * 127, GI_WhiteOn * 127, GI_WhiteOn * 127 + GI_BlueOn * 127)
 		' Tweaks...
 		if GI_RedOn = 1 AND GI_BlueOn = 0 AND GI_WhiteOn = 0 then TargColor = RGB(200,0,0):DOF 200, DOFOn:DOF 201, DOFOff:DOF 202, DOFOff
 		if GI_RedOn = 0 AND GI_BlueOn = 1 AND GI_WhiteOn = 0 then TargColor = RGB(0,0,200):DOF 200, DOFOff:DOF 201, DOFOn:DOF 202, DOFOff
 		if GI_RedOn = 1 AND GI_BlueOn = 1 AND GI_WhiteOn = 1 then TargColor = RGB(255,255,255):DOF 200, DOFOff:DOF 201, DOFOff:DOF 202, DOFOn
-	end If 
-		
+	end If
+
 	for each bulb in GI_Color
 		if TargColor > 0 AND GI_State then
 			bulb.state = 1
 		Else
 			bulb.state = 0
-		end if 
+		end if
 		bulb.color = RGB(0,0,0)
 		bulb.colorfull = TargColor
 	next
 End Sub
 
- 
+
 ' *********************************************************************
 '                      Supporting Ball & Sound Functions
 ' *********************************************************************
@@ -1220,15 +1224,15 @@ End Sub
 ' Switches added to ramps in key bend locations and called from these collections(idx).
 '**********************************************************************************************************
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub Orbit_Wall_Hit
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump .001, -10000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .03 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticRampbumps_Hit(idx)
@@ -1243,7 +1247,7 @@ Sub RandomBump(voladj, freq)
 	dim BumpSnd:BumpSnd= "fx_rampbump" & CStr(Int(Rnd*7)+1)
 	If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
-	Else	
+	Else
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1
 	End If
 End Sub
@@ -1310,13 +1314,13 @@ Sub RollingTimer_Timer()
 			rolling(b) = True
 			if BOT(b).z < 30 Then
 				If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*4 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*4 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*4 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
 				End If
-			Else ' ball in air, probably on plastic.  
+			Else ' ball in air, probably on plastic.
 				If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) )*2 , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0
 				End If
@@ -1382,7 +1386,7 @@ End Sub
 
 ' Dummys used for positionals so timers could be added to balldrops
 Sub BallDropSoundLeft(dummy):PlaySound "balldrop",0,1,-.4,0,0,0,0,.8:End Sub
-Sub BallDropSoundRight(dummy):PlaySound "balldrop",0,1,.4,0,0,0,0,.8:End Sub 
+Sub BallDropSoundRight(dummy):PlaySound "balldrop",0,1,.4,0,0,0,0,.8:End Sub
 
 Sub leftdrop_Hit()
      vpmTimer.AddTimer 150, "BallDropSoundLeft"
@@ -1421,7 +1425,7 @@ Dim Mag1
 	Set mag1= New cvpmMagnet
  	With mag1
 		.InitMagnet vengeanceTrigger, 25
-		.GrabCenter = False 
+		.GrabCenter = False
 		.magnetOn = True
 	End With
 
@@ -1497,5 +1501,5 @@ Sub PlaySoundAtBall(sound)
 End Sub
 
 Sub BallRelease_Hit()
-	
+
 End Sub
