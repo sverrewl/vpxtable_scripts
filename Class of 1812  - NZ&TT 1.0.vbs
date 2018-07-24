@@ -41,8 +41,10 @@
 'VPX recreation by tom tower & ninuzzu
 
 ' Thalamus 2018-07-23
-' This table already has 7.1 sound.Positional Sound Playback Functions.
+' This tables has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -64,7 +66,7 @@ LoadVPM "02800000", "Class1812.VBS", 3.50
 '********************
 'Standard definitions
 '********************
-Const UseSolenoids 	= 1
+Const UseSolenoids 	= 2
 Const UseLamps     	= 1
 Const UseSync		= 1
 Const UseGI			= 0
