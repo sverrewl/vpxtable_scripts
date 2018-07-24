@@ -6,10 +6,14 @@
 'WHITE ELVIS SUIT
 'NEW LIGHTING
 
-
-
 ' Elvis - Stern 2004
 ' VPX 1.0.2 by JPSalas July 2017
+
+' Thalamus 2018-07-24
+' Table has already its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
 Option Explicit
 Randomize
@@ -42,7 +46,7 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
