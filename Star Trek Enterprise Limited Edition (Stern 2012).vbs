@@ -4,6 +4,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
+
 'Table created by nFozzy
 
 'Additional Credits:
@@ -14,7 +19,7 @@ Randomize
 
 'Much thanks to JesperPark for targets, vengeance images and plastic scans
 
-'Version 1.01 Changelog 
+'Version 1.01 Changelog
 'Fixed / Added ball reflections
 'Script cleanup
 'Some redrawn playfield elements courtesy of Neofr45
@@ -58,8 +63,8 @@ Sub DebugF(input)
 	if input > 4 then for each x in aDebugBoxes : x.visible = True : next : Exit Sub
 	debugflippers = cbool(input)
 	destroyer.enabled = cbool(input)
-	for each x in aDebugBoxes : x.visible = cbool(input) : next 
-	for each x in aDebugBoxes : x.TimerEnabled = cbool(input) : next 
+	for each x in aDebugBoxes : x.visible = cbool(input) : next
+	for each x in aDebugBoxes : x.TimerEnabled = cbool(input) : next
 	tb.text = " "
 end sub
 Debugf 5
@@ -71,7 +76,7 @@ Sub GimmeT():KickMe KickerTrough, 0, 0	, ballmass: debugf 1:End Sub 'gimme a bal
 sub KickMe(object, dir,vel,mass) : object.createsizedballwithmass 25, mass : object.kick dir, vel : debugf 1 :end sub
 
 'fix buggy autoplunger
-Sub ShooterHack_Hit() : if activeball.vely > -20 then exit sub end if : if activeball.x < 895 then activeball.x = 895 end if: End Sub	
+Sub ShooterHack_Hit() : if activeball.vely > -20 then exit sub end if : if activeball.x < 895 then activeball.x = 895 end if: End Sub
 
 'EOStimer (just switches elast falloff)
 '============
@@ -113,16 +118,16 @@ Sub eostimer_Timer()	'use -1 timer interval for this?
 	LastAngle1 = LeftFlipper.CurrentAngle
 	LastAngle2 = RightFLipper.CurrentAngle
 	LastAngle3 = RightFlipper1.CurrentAngle
-End Sub	
+End Sub
 
 
 '________________________________________________________
-'    _____                      ______                   
-'    /    '    /    ,             /                      
+'    _____                      ______
+'    /    '    /    ,             /
 '---/__-------/------------__----/--------__----__---_/_-
-'  /         /    /      /   )  /       /___)  (_ `  /   
+'  /         /    /      /   )  /       /___)  (_ `  /
 '_/_________/____/______/___/__/_______(___ __(__)__(_ __
-'                      /                                                         
+'                      /
 'Setup - 			  /
 'Four Kickers named kiL, kL, kR, kiR placed in inlanes and on flippers
 'Primitive FlipStick (make it a flat vertical stick with >1 opacity)
@@ -137,7 +142,7 @@ sub FlipTest(Frames, delay, dir)
 	DebugF 1
 	tb2.text = frames
 	FlipDir = Dir
-	if dir = 2 then 
+	if dir = 2 then
 		kR.CreateSizedBallWithMass 25, ballmass : Kr.Kick -2, 5
 	Else
 		KickerT2.CreateSizedBallWithMass 25, ballmass : KickerT2.Kick 2, 5
@@ -155,7 +160,7 @@ Dim FlipStep : FlipStep = 0
 Sub FlipTimer_Timer()
 	Select Case FlipSTep
 		Case 1 : 	SolBFlipper False : playsound "DropTarget"
-'		case 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29 : 
+'		case 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29 :
 		case FlipType
 			if FlipDelay > 0 then me.Interval = FlipDelay : FlipStep = FlipStep + 1 : Exit Sub
 			SolBFlipper True : playsound "DropTarget"
@@ -195,7 +200,7 @@ Sub FTS(dir, input) 'hopefully more accurate flipper test sub
 		case 5 : Set FTSball = kUF.CreateSizedBallWithMass(25, ballmass) : kUF.Kick 0, 0 : flipdir = 5	'upper flipper
 		case Else : Set FTSball = kir.createsizedballwithmass(25, ballmass) : kir.kick 0, 0 : flipdir = 3' : SolBFlipper True : x = 2000
 	End Select
-	if x > 0 then 
+	if x > 0 then
 		FlipDelayT1.Interval = x
 		FlipDelayT1.Enabled = 1
 	Else
@@ -232,7 +237,7 @@ End Sub
 
 dim FlipTestOn
 Sub FlipTest2_Timer()
-	if FlipTestOn then 
+	if FlipTestOn then
 		SolBflipper True : me.interval = 100 : flipteston = False
 	Else
 		SolBflipper False
@@ -243,12 +248,12 @@ End Sub
 
 
 '====ELASTICITY========================================================
-' _______      ___       __       __        ______    _______  _______ 
+' _______      ___       __       __        ______    _______  _______
 '|   ____|    /   \     |  |     |  |      /  __  \  |   ____||   ____|
-'|  |__      /  ^  \    |  |     |  |     |  |  |  | |  |__   |  |__   
-'|   __|    /  /_\  \   |  |     |  |     |  |  |  | |   __|  |   __|  
-'|  |      /  _____  \  |  `----.|  `----.|  `--'  | |  |     |  |     
-'|__|     /__/     \__\ |_______||_______| \______/  |__|     |__|                                                                           
+'|  |__      /  ^  \    |  |     |  |     |  |  |  | |  |__   |  |__
+'|   __|    /  /_\  \   |  |     |  |     |  |  |  | |   __|  |   __|
+'|  |      /  _____  \  |  `----.|  `----.|  `--'  | |  |     |  |
+'|__|     /__/     \__\ |_______||_______| \______/  |__|     |__|
 '======================================================================
 'This script doesn't track ball angle like Jimmyfinger's script does so it may cause some weird ball movement on glancing shots
 'Usage - Define a falloff line with two points, and then a string for debug purposes
@@ -258,13 +263,13 @@ End Sub
 'Usage: falloffsimple 1,1, 54,0.5, "Targets"
 'TODO might add 3 point and 5 point envelopes
 
-Sub FalloffSimple(X1, Y1, X2, Y2, DebugString)	'Two points	
+Sub FalloffSimple(X1, Y1, X2, Y2, DebugString)	'Two points
 	Dim FinalSpeed : FinalSpeed = BallSpeed(ActiveBall) : if FinalSpeed < X1 then Exit Sub	'Cutoff Low
 	Dim BounceCoef : BounceCoef = SlopeIt(FinalSpeed,X1,Y1,X2,Y2)
 		if BounceCoef < Y2 then BounceCoef = Y2	: DebugString = DebugString & vbnewline & "Clamped" 'Clamp High
 		activeball.velx = activeball.velx * BounceCoef
 		activeball.vely = activeball.vely * BounceCoef
-		
+
 		DebugString = "FalloffSimple " & Debugstring & vbnewline
 		FalloffDebugBox TBbounces, Finalspeed, BallSpeed(ActiveBall), BounceCoef, DebugString
 End Sub
@@ -295,13 +300,13 @@ Sub setiTr(input1, input2, input3, input4)	: n1 = input1 : n2 = input2 : n3 = in
 
 
 '******************************************************************************
-'     _______.  ______    __    __  .__   __.  _______      _______ ___   ___ 
-'    /       | /  __  \  |  |  |  | |  \ |  | |       \    |   ____|\  \ /  / 
-'   |   (----`|  |  |  | |  |  |  | |   \|  | |  .--.  |   |  |__    \  V  /  
-'    \   \    |  |  |  | |  |  |  | |  . `  | |  |  |  |   |   __|    >   <   
-'.----)   |   |  `--'  | |  `--'  | |  |\   | |  '--'  |   |  |      /  .  \  
+'     _______.  ______    __    __  .__   __.  _______      _______ ___   ___
+'    /       | /  __  \  |  |  |  | |  \ |  | |       \    |   ____|\  \ /  /
+'   |   (----`|  |  |  | |  |  |  | |   \|  | |  .--.  |   |  |__    \  V  /
+'    \   \    |  |  |  | |  |  |  | |  . `  | |  |  |  |   |   __|    >   <
+'.----)   |   |  `--'  | |  `--'  | |  |\   | |  '--'  |   |  |      /  .  \ 
 '|_______/     \______/   \______/  |__| \__| |_______/    |__|     /__/ \__\ 
-'                                                                             
+'
 '******************************************************************************
 
 
@@ -309,7 +314,7 @@ Sub setiTr(input1, input2, input3, input4)	: n1 = input1 : n2 = input2 : n3 = in
 
 '****** Targets & Rubbers with falloff *******
 
-Sub SFXtargets_Hit (idx) 
+Sub SFXtargets_Hit (idx)
 	FalloffSimple n1, n2, n3, n4, "Target"
 	PlaySound SoundFX("target",DOFTargets), 0, LVL(0.2), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
 	PlaySound SoundFX("targethit",0), 0, LVL(Vol(ActiveBall)*18 ), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
@@ -337,9 +342,9 @@ sub rrx() : KRightRamp.CreateSizedBallwithMass 	25, BallMass : KRightramp.Kick 1
 
 Sub RampSoundR_Hit()		' - Entry / Reject
 '	tb.text = "1 Right Entry / Reject"
- 	If activeball.vely < -10 then 
+ 	If activeball.vely < -10 then
 		PlaySound "ramp_hit2", 0, LVL(Vol(ActiveBall)/5), Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0, Fade(ActiveBall)
-	Elseif activeball.vely > 3 then 
+	Elseif activeball.vely > 3 then
 		PlaySound "PlayfieldHit", 0, LVL(Vol(ActiveBall) ), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, Fade(ActiveBall)
 	End If
 End Sub
@@ -355,17 +360,17 @@ Sub RampSoundRw_Hit()		' - Wireform Start
 End Sub
 
 Sub Col_RampSoundR_Hit()	' - Drop 'Ramp End SFX using Hit events
-'	tb.text = "4 Right Drop" 
-	if FallSFX2.Enabled = 0 then playsound "balldrop", 0, LVL(0.5), Pan(ActiveBall)/2, 0,0,0,0, Fade(ActiveBall) :FallSFX2.Enabled = 1	: end if 
+'	tb.text = "4 Right Drop"
+	if FallSFX2.Enabled = 0 then playsound "balldrop", 0, LVL(0.5), Pan(ActiveBall)/2, 0,0,0,0, Fade(ActiveBall) :FallSFX2.Enabled = 1	: end if
 End Sub
 Sub FallSFX2_Timer():me.Enabled = 0:end sub
 
 'Left Ramp
 Sub RampSoundL_Hit()		' - Entry / Reject
 '	tb.text = "1 Left Entry / Reject"
- 	If activeball.vely < -10 then 
+ 	If activeball.vely < -10 then
 		PlaySound "ramp_hit2", 0, LVL(Vol(ActiveBall)/5), Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0, Fade(ActiveBall)
-	Elseif activeball.vely > 3 then 
+	Elseif activeball.vely > 3 then
 		PlaySound "PlayfieldHit", 0, LVL(Vol(ActiveBall) ), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, Fade(ActiveBall)
 	End If
 End Sub
@@ -376,8 +381,8 @@ Sub RampSoundLw_Hit()		' - Wireform Start
 End Sub
 
 Sub Col_RampSoundL_Hit()	' - Drop 'Ramp End SFX using Hit events
-'	tb.text = "3 Left Drop" 
-	if FallSFX1.Enabled = 0 then playsound "balldrop", 0, LVL(0.5), Pan(ActiveBall)/2, 0,0,0,0, Fade(ActiveBall) :FallSFX1.Enabled = 1	:end if	
+'	tb.text = "3 Left Drop"
+	if FallSFX1.Enabled = 0 then playsound "balldrop", 0, LVL(0.5), Pan(ActiveBall)/2, 0,0,0,0, Fade(ActiveBall) :FallSFX1.Enabled = 1	:end if
 End Sub
 Sub FallSFX1_Timer():me.Enabled = 0:end sub
 
@@ -385,9 +390,9 @@ Sub FallSFX1_Timer():me.Enabled = 0:end sub
 'Side Ramp
 Sub RampSoundS_Hit()		' - Entry / Reject
 '	tb.text = "1 Side Entry / Reject"
- 	If activeball.velx < -10 then 
+ 	If activeball.velx < -10 then
 		PlaySound "ramp_hit2", 0, LVL(Vol(ActiveBall)), Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0, Fade(ActiveBall)
-	Elseif activeball.velx > 3 then 
+	Elseif activeball.velx > 3 then
 		PlaySound "PlayfieldHit", 0, LVL(Vol(ActiveBall) ), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, Fade(ActiveBall)
 	End If
 End Sub
@@ -418,8 +423,8 @@ Function RandomPost() : RandomPost = "Post" & rndnum(1,5) : End Function
 
 Function RandomBand()
 		dim x : x = rndnum(1,4)
-		if BallVel(activeball) > 30 then 
-			RandomBand = "Rubber" & x & x	'ex. Playsound "Band44" 
+		if BallVel(activeball) > 30 then
+			RandomBand = "Rubber" & x & x	'ex. Playsound "Band44"
 		else
 			RandomBand = "Rubber" & x	'ex. Playsound "Band4"
 		End If
@@ -431,7 +436,7 @@ Sub RandomSoundRubber() : PlaySound RandomPost, 0, LVL(Vol(ActiveBall)*100 ), Pa
 Sub LeftFlipper_Collide(parm) : RandomSoundFlipper() : End Sub
 Sub RightFlipper_Collide(parm) : RandomSoundFlipper() : End Sub
 Sub RandomSoundFlipper()
-	dim x : x = RndNum(1,3) 
+	dim x : x = RndNum(1,3)
 	PlaySound "flip_hit_" & x, 0, LVL(Vol(ActiveBall)*30 ), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0,Fade(ActiveBall)
 End Sub
 
@@ -565,10 +570,10 @@ Sub SolLflipper(Enabled)
 		LeftFlipper.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRflipper(Enabled)
      If Enabled Then
-		If StagedFlippers then 
+		If StagedFlippers then
 			playsound SoundFX("FlipperUpLeft",DOFFlippers), 0, LVL(1), 0.01
 		Else
 			playsound SoundFX("FlipperUpRightBoth",DOFFlippers), 0, LVL(1), 0.01
@@ -652,7 +657,7 @@ Sub Table1_Init
     vpmNudge.TiltObj = Array(bumper1, bumper2, bumper3, LeftSlingshot, RightSlingshot)
 
 	Set BsKickout = New cvpmSaucer
-	With BsKickout	
+	With BsKickout
 		.InitKicker sw10, 10, 85, 38, 100	'object, switch...dir force zforce%
 		.InitAltKick k1, k2, k3 'down	'not tuned for hmlf
 		.InitExitVariance 5, 5	'As with all other odd geometry... mesh it correctly and it will work
@@ -677,7 +682,7 @@ Sub Table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 	Lamptimer.Enabled = 1
-	
+
 	' Init Kickback
     KickBack.Pullback
 	AutoPlunger.Pullback
@@ -692,7 +697,7 @@ Sub Table1_Init
 End Sub
 
 dim K1, k2, k3
-k1 = 190 : k2 = 26 : k3 = 25 
+k1 = 190 : k2 = 26 : k3 = 25
 
 Sub table1_Paused:Controller.Pause = 1 : StopAllRolling :End Sub
 Sub table1_unPaused:Controller.Pause = 0:End Sub
@@ -706,22 +711,22 @@ Sub table1_KeyDown(ByVal Keycode)
 	If keycode = RightTiltKey Then vpmNudge.donudge 270, 3.5:PlaySound "fx_nudge", 0, LVL(1), 0.1, 0.25 : exit sub
 	If keycode = CenterTiltKey Then vpmNudge.doNudge 0, 4:PlaySound "fx_nudge", 0, LVL(1), 0, 0.25 : exit sub
     If keycode = PlungerKey Then PlaySound SoundFx("plungerpull",0),0,LVL(1),0.25,0.25,0,0,0:Plunger.Pullback:End If
-	
+
 	If keycode = LeftMagnaSave then catchinput(0) = True
 	if keycode = RightMagnaSave then Catchinput(1) = True
 
 
-	If StagedFlippers then 
+	If StagedFlippers then
 		If Keycode = UpperFlipperKey then controller.switch(86) = 1
 	End If
 
-	If Keycode = PunchItKey then 
+	If Keycode = PunchItKey then
 		Controller.Switch(71) = 1
-		Playsound "fx_ButtonClick", 0, LVL(1), 0, 0.25 : setlamp 492, 0  
+		Playsound "fx_ButtonClick", 0, LVL(1), 0, 0.25 : setlamp 492, 0
 		if PunchItKey = LockBarKey then Exit Sub 'For when this inevitably gets added to Sam.VBS
 	End If
 
-	if Keycode = KeyRules then 
+	if Keycode = KeyRules then
 		If DesktopMode Then
 			Setlamp 491, 1
 		Else
@@ -732,17 +737,17 @@ Sub table1_KeyDown(ByVal Keycode)
 
 '	if keycode = 31 then bsKickout.ExitSol_On' : light1.state = 1
 '
-	If Keycode = LeftFlipperKey then 
-		if DebugFlippers then 
+	If Keycode = LeftFlipperKey then
+		if DebugFlippers then
 			SolLFlipper true
 			Exit Sub
 		End If
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		If Not StagedFlippers Then
 			controller.switch(86) = 1
 		End If
-		if DebugFlippers then 
+		if DebugFlippers then
 			SolRFlipper true
 			SolURFlipper true
 			Exit Sub
@@ -755,43 +760,43 @@ Sub table1_KeyDown(ByVal Keycode)
 End Sub
 
 'Drops
-Sub k505k(x, y, z) : k505.createsizedballwithmass 25, z : k505.Kick x, y : End Sub 
-Sub k1025k(x, y, z) : k505.createsizedballwithmass 25, z : k505.Kick x, y : End Sub 
+Sub k505k(x, y, z) : k505.createsizedballwithmass 25, z : k505.Kick x, y : End Sub
+Sub k1025k(x, y, z) : k505.createsizedballwithmass 25, z : k505.Kick x, y : End Sub
 
-Sub k1027k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub 
-Sub k1337k(x, y, z) : k1337.createsizedballwithmass 25, z : k1337.Kick x, y : End Sub 
-Sub k1410k(x, y, z) : k1410.createsizedballwithmass 25, z : k1410.Kick x, y : End Sub 
-Sub k1730k(x, y, z) : k1730.createsizedballwithmass 25, z : k1730.Kick x, y : End Sub 
-Sub k1939k(x, y, z) : k1939.createsizedballwithmass 25, z : k1939.Kick x, y : End Sub 
-Sub k2004k(x, y, z) : k2004.createsizedballwithmass 25, z : k2004.Kick x, y : End Sub 
-Sub k2021k(x, y, z) : k2021.createsizedballwithmass 25, z : k2021.Kick x, y : End Sub 
-'Sub k2118k(x, y, z) : k2118.createsizedballwithmass 25, z : k2118.Kick x, y : End Sub 
-Sub k2245k(x, y, z) : k2245.createsizedballwithmass 25, z : k2245.Kick x, y : End Sub 
+Sub k1027k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub
+Sub k1337k(x, y, z) : k1337.createsizedballwithmass 25, z : k1337.Kick x, y : End Sub
+Sub k1410k(x, y, z) : k1410.createsizedballwithmass 25, z : k1410.Kick x, y : End Sub
+Sub k1730k(x, y, z) : k1730.createsizedballwithmass 25, z : k1730.Kick x, y : End Sub
+Sub k1939k(x, y, z) : k1939.createsizedballwithmass 25, z : k1939.Kick x, y : End Sub
+Sub k2004k(x, y, z) : k2004.createsizedballwithmass 25, z : k2004.Kick x, y : End Sub
+Sub k2021k(x, y, z) : k2021.createsizedballwithmass 25, z : k2021.Kick x, y : End Sub
+'Sub k2118k(x, y, z) : k2118.createsizedballwithmass 25, z : k2118.Kick x, y : End Sub
+Sub k2245k(x, y, z) : k2245.createsizedballwithmass 25, z : k2245.Kick x, y : End Sub
 
-Sub k2347k(x, y, z) : k2347.createsizedballwithmass 25, z : k2347.Kick x, y : End Sub 
+Sub k2347k(x, y, z) : k2347.createsizedballwithmass 25, z : k2347.Kick x, y : End Sub
 
 
-'Sub k0242k(x, y, z) : k0242.createsizedballwithmass 25, z : k0242.Kick x, y : End Sub 
-Sub k0242k(x, y, z) : k2021.createsizedballwithmass 25, z : k2021.Kick x, y : End Sub 
-Sub k0254k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub 
-Sub k0358k(x, y, z) : k0358.createsizedballwithmass 25, z : k0358.Kick x, y : End Sub 
-Sub k0458k(x, y, z) : k0458.createsizedballwithmass 25, z : k0458.Kick x, y : End Sub 
-'Sub k0500k(x, y, z) : k0500.createsizedballwithmass 25, z : k0500.Kick x, y : End Sub 
-Sub k0500k(x, y, z) : k0358.createsizedballwithmass 25, z : k0358.Kick x, y : End Sub 
-Sub k0609k(x, y, z) : k0609.createsizedballwithmass 25, z : k0609.Kick x, y : End Sub 
-'Sub k0709k(x, y, z) : k0709.createsizedballwithmass 25, z : k0709.Kick x, y : End Sub 
-'Sub k1007k(x, y, z) : k1007.createsizedballwithmass 25, z : k1007.Kick x, y : End Sub 
-Sub k1013k(x, y, z) : k1730.createsizedballwithmass 25, z : k1730.Kick x, y : End Sub 
-Sub k1121k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub 
-Sub k1449k(x, y, z) : k1449.createsizedballwithmass 25, z : k1449.Kick x, y : End Sub 
-Sub k1634k(x, y, z) : k1634.createsizedballwithmass 25, z : k1634.Kick x, y : End Sub 
-Sub k1846k(x, y, z) : k0609.createsizedballwithmass 25, z : k0609.Kick x, y : End Sub 
-Sub k2016k(x, y, z) : k2016.createsizedballwithmass 25, z : k2016.Kick x, y : End Sub 
-Sub k2203k(x, y, z) : k2016.createsizedballwithmass 25, z : k2016.Kick x, y : End Sub 
+'Sub k0242k(x, y, z) : k0242.createsizedballwithmass 25, z : k0242.Kick x, y : End Sub
+Sub k0242k(x, y, z) : k2021.createsizedballwithmass 25, z : k2021.Kick x, y : End Sub
+Sub k0254k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub
+Sub k0358k(x, y, z) : k0358.createsizedballwithmass 25, z : k0358.Kick x, y : End Sub
+Sub k0458k(x, y, z) : k0458.createsizedballwithmass 25, z : k0458.Kick x, y : End Sub
+'Sub k0500k(x, y, z) : k0500.createsizedballwithmass 25, z : k0500.Kick x, y : End Sub
+Sub k0500k(x, y, z) : k0358.createsizedballwithmass 25, z : k0358.Kick x, y : End Sub
+Sub k0609k(x, y, z) : k0609.createsizedballwithmass 25, z : k0609.Kick x, y : End Sub
+'Sub k0709k(x, y, z) : k0709.createsizedballwithmass 25, z : k0709.Kick x, y : End Sub
+'Sub k1007k(x, y, z) : k1007.createsizedballwithmass 25, z : k1007.Kick x, y : End Sub
+Sub k1013k(x, y, z) : k1730.createsizedballwithmass 25, z : k1730.Kick x, y : End Sub
+Sub k1121k(x, y, z) : k0254.createsizedballwithmass 25, z : k0254.Kick x, y : End Sub
+Sub k1449k(x, y, z) : k1449.createsizedballwithmass 25, z : k1449.Kick x, y : End Sub
+Sub k1634k(x, y, z) : k1634.createsizedballwithmass 25, z : k1634.Kick x, y : End Sub
+Sub k1846k(x, y, z) : k0609.createsizedballwithmass 25, z : k0609.Kick x, y : End Sub
+Sub k2016k(x, y, z) : k2016.createsizedballwithmass 25, z : k2016.Kick x, y : End Sub
+Sub k2203k(x, y, z) : k2016.createsizedballwithmass 25, z : k2016.Kick x, y : End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
-	If Keycode = PunchItKey then 
-		Controller.Switch(71) = 0 
+	If Keycode = PunchItKey then
+		Controller.Switch(71) = 0
 		setlamp 492, 1
 		if PunchItKey = LockBarKey then Exit Sub 'For when this inevitably gets added to Sam.VBS
 	End If
@@ -799,20 +804,20 @@ Sub table1_KeyUp(ByVal Keycode)
 	If keycode = LeftMagnaSave then catchinput(0) = False
 	if keycode = RightMagnaSave then Catchinput(1) = False
 
-	If StagedFlippers then 
+	If StagedFlippers then
 		If Keycode = UpperFlipperKey then controller.switch(86) = 0
 	End If
 
-    If keycode = PlungerKey Then 
+    If keycode = PlungerKey Then
 		Plunger.Fire
-		if bipl.BallCntOver > 0 then 
+		if bipl.BallCntOver > 0 then
 			PlaySound SoundFX("plunger3",0),0,LVL(1),0.05,0.02
 		Else
 			PlaySound SoundFX("plunger",0),0,LVL(0.8),0.05,0.02
 		end if
 	End If
 
-	if Keycode = KeyRules then 
+	if Keycode = KeyRules then
 		If DesktopMode Then
 			Setlamp 491, 0
 		Else
@@ -820,17 +825,17 @@ Sub table1_KeyUp(ByVal Keycode)
 		End If
 		Exit Sub
 	End If
- 	If Keycode = LeftFlipperKey then 
-		if DebugFlippers then 
+ 	If Keycode = LeftFlipperKey then
+		if DebugFlippers then
 			SolLFlipper false	'debug
 			Exit Sub
 		End If
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		If Not StagedFlippers Then
 			controller.switch(86) = 0
 		End If
-		if DebugFlippers then 
+		if DebugFlippers then
 			SolRFlipper false
 			SolURFlipper false
 			Exit Sub
@@ -900,11 +905,11 @@ sub BIPL_Hit() : Activeball.Vely = activeball.vely * 0.625 : End Sub 'autoplunge
 dim PlungerState : PlungerState = False
 Sub Autoplunge(Value)
 '	tbp.text = Value
-	if Value > 0 then 
+	if Value > 0 then
 		AutoPlunger.Fire
 		imAutoplunger.AutoFire
 		If PlungerState = False Then
-			If BIPl.BallCntOver > 0 then 
+			If BIPl.BallCntOver > 0 then
 				PlaySound SoundFX("plunger3",0),0,LVL(1),0.05,0.02
 				playsound SoundFX("TrapDoorHigh",DOFContactors),0,LVL(1),0.05,0.02
 			Else
@@ -1000,7 +1005,7 @@ End Sub
 
 Sub Sw11col1_Hit()
 	setlamp 493, 1	'wiggle
-'	controller.Switch(11)=1 
+'	controller.Switch(11)=1
 	vpmtimer.Pulsesw 11
 '	Playsound SoundFX("DropTarget",DoFContactors), 0, LVL(1)
 
@@ -1011,8 +1016,8 @@ Sub Sw11col1_Hit()
 End Sub
 
 'Sub sw11_Dropped : vpmtimer.Pulsesw 11 : End Sub
-'Sub Sw11p_Dropped 
-'	controller.Switch(11)=1 
+'Sub Sw11p_Dropped
+'	controller.Switch(11)=1
 '	Playsound SoundFX("DropTarget",DoFContactors), 0, LVL(1)
 '	On Error Resume Next
 ''	PopBallZ.VelZ = 25
@@ -1045,12 +1050,12 @@ End Sub
 
 SolCallback(55) = "ScoopR" 	'Rotating Kickout Scoop
 
-Sub ScoopR(enabled) 
-	if Enabled then 
+Sub ScoopR(enabled)
+	if Enabled then
 		SetLamp 498, 1
 '		ScoopTimer.Enabled = 1
 		PlaySound SoundFX("DiverterRight",DOFcontactors),0, LVL(1), -0.012
-	else 
+	else
 		SetLamp 498, 0
 		PlaySound SoundFX("FlipperDown",DOFcontactors),0, LVL(1), -0.012
 	end if
@@ -1126,15 +1131,15 @@ Sub tbScoop_Timer()	'debug
 				"animStep: " & FadingLevel(500) & vbnewline &_
 				"lvl: " & FlashLevel(500) & " " & ScoopballDebug & vbnewline &_
 				"ScoopPos: " & Lampstate(498) & vbnewline &_
-				"..." 
+				"..."
 End Sub
 
 
 SolCallback(7) = "VengeanceKickBack"	'Vengeance Kickout Coil
 
 Sub VengeanceKickBack(aEnabled)
-	If aEnabled then 
-		VengKicker.Enabled = aEnabled 
+	If aEnabled then
+		VengKicker.Enabled = aEnabled
 	Else
 		VengKicker.TimerInterval = 128	'Bit of lag compensation
 		VengKicker.TimerEnabled = 1
@@ -1159,21 +1164,21 @@ Sub LeftGateCoil(aEnabled) : LeftGate.Open = aEnabled : End Sub
 SolCallback(52) = "RightGateCoil"
 Sub RightGateCoil(aEnabled) : RightGate.Open = aEnabled : End Sub
 
-SolCallback(54) = "KickBackCoil" 
+SolCallback(54) = "KickBackCoil"
 Sub KickBackCoil(enabled) : if enabled then kickback.fire : playsound SoundFX("TrapDoorHigh",DOFContactors),0,LVL(1),0.05,-0.02 else : kickback.Pullback : end if : end sub
 
 'Solenoids part 2, Flash Lamps
-		
+
 
 SolCallback(22) = "LaserMotor"
-Sub LaserMotor(enabled) 
-	if Enabled then 
+Sub LaserMotor(enabled)
+	if Enabled then
 		LaserN.visible = 1
 		LaserNt.Enabled = 1
-	Else 
+	Else
 		LaserN.visible = 0
 		LaserNt.Enabled = 0
-	End If 
+	End If
 End Sub
 LaserMotor False
 
@@ -1193,14 +1198,14 @@ Sub FlashSeq(object, imgseq, steps)	'Primitive texture image sequence
 	Laserstep = LaserStep + 1
 	if Laserstep > steps-1 then Laserstep = 0
 End Sub
-	
+
 
 SolCallback(56) = "VengeanceLatch"
 
 Sub VengeanceLatch(Enabled)
 '	Latch = Enabled
 
-	If Enabled then 
+	If Enabled then
 '		If Latch then Latch = False Else Latch = True	'coil toggles latch on and off?
 		If Not Latch then
 			If VengPos = 1 then
@@ -1229,7 +1234,7 @@ Sub VengeanceLatch(Enabled)
 '			ReturnSequence.Enabled = 1 'must sequence properly if the vengeance is mid-animation...
 '		End If
 '	End If
- End Sub 
+ End Sub
 
 
 SolModCallback(53) = "VengeanceAnimCoil"	'Vengeance Animation
@@ -1252,7 +1257,7 @@ Sub VengeanceAnimCoil(Value) 'could def use bool for this
 	'		tbv3.text = "Anim- Dive Down" ': VengPos = 1 'temp simulation
 			Latch = True 'try2 Disables latch, which is automatically engaged when the Vengeance passes over it?
 			VengAnimH 2
-		Elseif VengPos = 1 then 
+		Elseif VengPos = 1 then
 '			If Latch then
 				VengAnimH 101
 	'			tbv3.text = "Anim- Down, Shake"
@@ -1280,11 +1285,11 @@ Sub ReturnSequence_Timer() 'Lag Correction
 
 	If VengPos = 5 then Exit Sub ' Retry, wait for animation to finish...
 	If Latch then Me.Enabled = 0 : Exit Sub ' Cancel if latched
-	If VengPos = 1 then 
+	If VengPos = 1 then
 	'	tbv3.text = "Anim- Return"
 		VengAnimH 201
 	End If
-	
+
 
 
 
@@ -1327,8 +1332,8 @@ Sub VengAnimH(input)
 End Sub
 
 Sub TBvr_Timer()
-	me.text = "vRotZ: " & vRotZ & vbnewline & _ 
-				"RotZ: " & Vengeance.RotZ & vbnewline & _ 
+	me.text = "vRotZ: " & vRotZ & vbnewline & _
+				"RotZ: " & Vengeance.RotZ & vbnewline & _
 			  "vRotZDesired: " & vrotzdesired
 
 End Sub
@@ -1340,22 +1345,22 @@ Sub TbvT_Timer()	'debug timer
 '				"animStep: " & FadingLevel(500) & vbnewline &_
 '				"lvl: " & FlashLevel(500) & " " & ScoopballDebug & vbnewline &_
 '				"ScoopPos: " & Lampstate(498) & vbnewline &_
-'				"..." 
+'				"..."
 End Sub
 
 
 Sub LatchSwitch(enabled)
-	If Enabled then 
+	If Enabled then
 		If Latch then Controller.Switch(53) = True
 	Else
 		Controller.Switch(53) = False
 	End If
-	
 
-'	If Not Enabled then 
+
+'	If Not Enabled then
 '		Controller.Switch(53) = enabled
 '	Else
-'		If Latch then 
+'		If Latch then
 '	If Not Latch then Exit Sub
 
 End Sub
@@ -1388,13 +1393,13 @@ Sub mofo(input)	'test vengeance animations
 '		Case 0
 '			vY = -590.344 : vZ = 269.54: vRotX = 	-4.891
 '		case 1
-'			vY = -653.421 : vZ = 242.367 : vRotX = 24.661	
+'			vY = -653.421 : vZ = 242.367 : vRotX = 24.661
 '	End Select
 '	vY = vY * -1
 '	vRotX = vRotX - 180
 '	vRotX = vRotX * -1
 '	Vengeance.y = vY : Vengeance.z = vZ : Vengeance.RotX = vRotX' : Vengeance.RotZ = vRotZ
-'	VengeanceLamps.y = vY : VengeanceLamps.z = vZ : VengeanceLamps.RotX = vRotX' : VengeanceLamps.RotZ = vRotZ	
+'	VengeanceLamps.y = vY : VengeanceLamps.z = vZ : VengeanceLamps.RotX = vRotX' : VengeanceLamps.RotZ = vRotZ
 End Sub
 'Mofo 0
 
@@ -1532,7 +1537,7 @@ Sub VengT_Timer()
 	Case 151 : vY = -653.136: vZ = 242.499: vRotX = 24.337: Vstep = Vstep + 1' : VengPos = 1 : LatchSwitch  True
 	Case 152 : vY = -653.131: vZ = 242.501: vRotX = 24.332: Vstep = Vstep + 1
 	Case 153 : vY = -653.150: vZ = 242.493: vRotX = 24.353: Vstep = Vstep + 1
-	Case 154 : vY = -653.189: vZ = 242.475: vRotX = 24.397: Vstep = Vstep + 1 	:me.enabled = 0	
+	Case 154 : vY = -653.189: vZ = 242.475: vRotX = 24.397: Vstep = Vstep + 1 	:me.enabled = 0
 
 
 	'200-> 250, Return anim
@@ -1592,7 +1597,7 @@ Sub VengT_Timer()
 	Case 248 : vY = -575.160: vZ = 269.717: vRotX = -0.428: Vstep = Vstep + 1
 	Case 249 : vY = -575.175: vZ = 269.717: vRotX = -0.412: Vstep = Vstep + 1
 
-	Case 250 : vY = -575.191: vZ = 269.717: vRotX = -0.395 	:me.enabled = 0	
+	Case 250 : vY = -575.191: vZ = 269.717: vRotX = -0.395 	:me.enabled = 0
 
 	'300 - 350 - Nudge Left TODO
 
@@ -1601,9 +1606,9 @@ Sub VengT_Timer()
 End Select
 
 
-	If vRotZ < vRotZDesired then 
+	If vRotZ < vRotZDesired then
 		vRotZ = vRotZDesired
-	Elseif vRotZ > 0 then 
+	Elseif vRotZ > 0 then
 		vRotZ = vRotZDesired
 	Else
 		vRotZ = vRotZ + vRotZStep
@@ -1672,7 +1677,7 @@ End Sub
 
 
 
-'Switches 
+'Switches
 
 Sub SW1_Hit():Controller.Switch(1) = 1 :End Sub	'Rollovers
 Sub SW1_UnHit():Controller.Switch(1) = 0 :End Sub
@@ -1874,7 +1879,7 @@ End Sub
 
 
 
-Sub Tweakref(input1, input2) 
+Sub Tweakref(input1, input2)
 	dim x, x2
 	select case Input1
 		case 1
@@ -1906,13 +1911,13 @@ Sub Tweakref(input1, input2)
 
 	tb.text = "tweaked " & x2' & vbnewline & "Opacity:" & L34.Opacity & vbnewline & "Mod:" & l34.ModulatevsAdd & _
 '		vbnewline & "fadeup:" & FLashSpeedUp(34) & vbnewline & "fadeDown:" & FLashSpeedDown(34)
-		
+
 End Sub
 dim lastrgb(5) : lastrgb(0) = 0 : lastrgb(1) = 0 : lastrgb(2) = 0
-InitLamps 0 
+InitLamps 0
 Sub InitLamps(input)
 	dim x
-	if input = 0 then 
+	if input = 0 then
 		For x = 0 to 500
 			LampState(x) = 0         ' current light state, independent of the fading level. 0 is off and 1 is on
 			FadingLevel(x) = 4       ' used to track the fading state
@@ -1950,19 +1955,19 @@ Sub InitLamps(input)
 
 		For x = 490 to 491 'instruction card animations
 			FlashSpeedUp(x) = 0.006
-			FlashSpeedDown(x) = 0.006	
+			FlashSpeedDown(x) = 0.006
 		next
 
 		FlashMin(493) = 180	'drop target hit animation (rotx wiggle)
 		FlashMax(493) = 190
 		FlashSpeedUp(493) = 0.8
 		FlashSpeedDown(493) = 0.7
-		
+
 		FlashMin(494) = -85	'drop target drop animation
 		FlashMax(494) = -35
 		FlashSpeedUp(494) = 1
 		FlashSpeedDown(494) = 1
-		
+
 	end if
 
 	'Keep Flasher Opacity into an array for GI brightness scaling
@@ -2001,7 +2006,7 @@ Sub InitLamps(input)
 '			case 23 : nrr = 423
 '			case 26 : nrr = 426
 '			case 28 : nrr = 428
-			case else : tb.text = "nr error: " & mid(ColFlashersNormalize(x).name, 2, 2) 
+			case else : tb.text = "nr error: " & mid(ColFlashersNormalize(x).name, 2, 2)
 		end Select
 		FlashersOpacityN(x, 1) = nrr
 	next
@@ -2030,7 +2035,7 @@ Sub LampTimer_Timer()
 	FadeGI 105
 	FadeGI 499
 	UpdateGIobjects 105, 499, GIscale, 0.15	'NR1, NR2, Giscale var, ColFlashersNormalize percentage
-	
+
 
 	'Normalize close-together flashers... requires extra configuration. See sub
 '	NormalizeFlashers ColFlashersNormalize, 0.15	'usage: collection, percentage	'disabled, see UpdateGIobjects
@@ -2163,7 +2168,7 @@ Sub UpdateLamps()
 	FlashC 292, L71_1
 	Flashm 292, L71_2
 	Flashm 292, WarpAmbient2
-	
+
 	FlashC 293, L72_1
 	Flashm 293, L72_2
 	Flashm 293, WarpAmbient3
@@ -2358,7 +2363,7 @@ Sub UpdateLamps()
 
 	nModFlash 425, F25, 0, 0, 1
 	nModFlashM 425, F25a, 0, 0
-	
+
 	nModFlash 429, F29, 0, 0, 1
 	nModFlashM 429, F29a, 0, 0
 
@@ -2379,7 +2384,7 @@ Sub UpdateLamps()
 	nModFlash 459, F59, 0, 0, 1	'Right Sling
 	nModFlashM 459, F59a, 0, 0
 '	tb.text = LampState(290)
-	
+
 End Sub
 
 
@@ -2409,9 +2414,9 @@ Sub RGBdebug(object, aR, aG, aB)	'kinda neat, successfully pulls current mode co
 		x.colorfull = RGB(r,g,b)
 		x.color = RGB(r,g,b)
 	Next
-'	tb.text = lampstate(r) & vbnewline & _ 
-'				lampstate(g) & vbnewline & _ 
-'				lampstate(b) & vbnewline & _ 
+'	tb.text = lampstate(r) & vbnewline & _
+'				lampstate(g) & vbnewline & _
+'				lampstate(b) & vbnewline & _
 '				" "
 End Sub
 
@@ -2443,14 +2448,14 @@ Sub FadeAnimationZ(Nr, Object) 'primitive animate Z - Set up start and endpoints
                 FlashLevel(nr) = FlashMin(nr)
                FadingLevel(nr) = 0 'completely off
             End if
-            Object.z = FlashLevel(nr)	
+            Object.z = FlashLevel(nr)
 		Case 5
             FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr) * CGT)
             If FlashLevel(nr) > FlashMax(nr) Then
                 FlashLevel(nr) = FlashMax(nr)
                 FadingLevel(nr) = 1 'completely on
             End if
-            Object.z = FlashLevel(nr)	
+            Object.z = FlashLevel(nr)
 	End Select
 End Sub
 
@@ -2462,18 +2467,18 @@ Sub FadeAnimationRotX(Nr, Object, input) 'primitive animate RotX - Set up start 
                 FlashLevel(nr) = FlashMin(nr)
                FadingLevel(nr) = 0 'completely off
             End if
-            Object.RotX = FlashLevel(nr)	
+            Object.RotX = FlashLevel(nr)
 		Case 5
             FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr) * CGT)
             If FlashLevel(nr) > FlashMax(nr) Then
                 FlashLevel(nr) = FlashMax(nr)
-				if Input = 1 then 
+				if Input = 1 then
 					setlamp nr, 0
 				Else
 					FadingLevel(nr) = 1 'completely on
 				End If
             End if
-            Object.RotX = FlashLevel(nr)	
+            Object.RotX = FlashLevel(nr)
 	End Select
 End Sub
 
@@ -2524,8 +2529,8 @@ End Sub
 '			FadingLevel(nr) = 1
 '    End Select
 ''	tbf.text = "Lampstate: " & Lampstate(nr) & vbnewline & _ 	'debug
-''				"Fading Step" & FadingLevel(nr) & vbnewline & _ 
-''				"Flashlevel" & FlashLevel(nr) & vbnewline & _ 
+''				"Fading Step" & FadingLevel(nr) & vbnewline & _
+''				"Flashlevel" & FlashLevel(nr) & vbnewline & _
 ''				" ... "
 'End Sub
 
@@ -2793,21 +2798,21 @@ dim deleteme : deleteme = f19a.opacity
 
 Sub NormalizeFlashers(col, input, giscaler, updateovrride)	'will update flashers
 	dim flashlevels, x, a
-	dim nrCount : nrCount = 4 	'2 lampnumbers for 4 objects 
+	dim nrCount : nrCount = 4 	'2 lampnumbers for 4 objects
 	'lamp numbers
 	'417, 418, 469, 470, 423, 426, 428
 	a = Array(417, 418, 419, 420)
 
 	flashlevels = ScaleLights(FlashLevel(417),0) + ScaleLights(FlashLevel(418),0) + ScaleLights(FlashLevel(419),0) + ScaleLights(FlashLevel(420),0)
 '	if FlashLevels = 0 then FlashLevels = 1
-	if flashlevels/nrCount > input then 
+	if flashlevels/nrCount > input then
 		for x = 0 to uBound(a)
 			Nmult(a(x)) = input / (flashlevels/nrCount)
 		Next
 		for x = 0 to (col.Count - 1)
 			col(x).Opacity = FlashersOpacityN(x, 0) * Giscaler * Nmult(FlashersOpacityN(x, 1) )
 '			col(x).Opacity = FlashersOpacityN(x, 0) * 1 * 1
-		next	
+		next
 
 '		x = "~~~~~steaming mad~~~~~"
 '		tbn.fontcolor = RGB(255,210,210)
@@ -2823,12 +2828,12 @@ Sub NormalizeFlashers(col, input, giscaler, updateovrride)	'will update flashers
 '		tbn.fontcolor = RGB(255,255,255)
 	end if
 '	tbn.text = "No.objs: " & nrCount & vbnewline & _
-'			"FlashLevels: " & FlashLevels & vbnewline & _ 
-'			"avg flashlevel: " & flashlevels / 7 & vbnewline & _ 
-'			"nmult: " & Nmult(417) & " " & nMult(418) & vbnewline & _ 
-'			"f17w opacity: " & f17w.opacity & " " & f17w.intensityscale & vbnewline & _ 
-'			"f18w.opacity: " & f18w.opacity & " " & f18w.intensityscale  & vbnewline & _ 
-'			"giscaler" & giscaler & vbnewline & _ 
+'			"FlashLevels: " & FlashLevels & vbnewline & _
+'			"avg flashlevel: " & flashlevels / 7 & vbnewline & _
+'			"nmult: " & Nmult(417) & " " & nMult(418) & vbnewline & _
+'			"f17w opacity: " & f17w.opacity & " " & f17w.intensityscale & vbnewline & _
+'			"f18w.opacity: " & f18w.opacity & " " & f18w.intensityscale  & vbnewline & _
+'			"giscaler" & giscaler & vbnewline & _
 '			x
 
 End Sub
@@ -2899,7 +2904,7 @@ End Function
 Sub ModMagnet(nr, Object, InitSize, SizeScale, InitStr, StrScale, offscale)
 	dim DesiredFading, x
 	Select Case FadingLevel(nr)
-		case 3	'workaround - wait a frame to let M sub finish fading 
+		case 3	'workaround - wait a frame to let M sub finish fading
 			FadingLevel(nr) = 0
 '			testlamp.state = 0
 			vMag.MagnetOn = False
@@ -2911,10 +2916,10 @@ Sub ModMagnet(nr, Object, InitSize, SizeScale, InitStr, StrScale, offscale)
 '			testlamp.falloff = InitSize * ScaleLights(FlashLevel(nr),SizeScale)	'debug lamp
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = ScaleByte(SolModValue(nr), 0)
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
 				If FlashLevel(nr) <= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
 			End If
@@ -2933,7 +2938,7 @@ End Sub
 Sub nModFlash(nr, object, offset, scaletype, offscale)	'Fading using intensityscale with modulated callbacks	'gametime compensated
 	dim DesiredFading
 	Select Case FadingLevel(nr)
-		case 3	'workaround - wait a frame to let M sub finish fading 
+		case 3	'workaround - wait a frame to let M sub finish fading
 			FadingLevel(nr) = 0
 		Case 4	'off
 			FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	) * offscale
@@ -3095,7 +3100,7 @@ Sub InitFlashers 'flasher locations (flasher X and Y positions are buggy in the 
 	FlashMin(492) = -5
 	FlashMax(492) = 0
 	FlashSpeedUp(492) = 0.15
-	FlashSpeedDown(492) = 1	
+	FlashSpeedDown(492) = 1
 
 
 	InitScoop	'scoop
@@ -3103,7 +3108,7 @@ Sub InitFlashers 'flasher locations (flasher X and Y positions are buggy in the 
 	dim xx
 	dim yy
 	dim zz
-	if MoveButton = 1 then 
+	if MoveButton = 1 then
 		xx = -49.48
 		yy = -192
 		zz = -25
@@ -3205,7 +3210,7 @@ Sub InitFlashers 'flasher locations (flasher X and Y positions are buggy in the 
 	Next
 
 	'Kickback reflections
-	
+
 	l26r.x = 23.7920184
 	l26r.y = 1614.7636073
 
@@ -3292,20 +3297,20 @@ Sub InitFlashers 'flasher locations (flasher X and Y positions are buggy in the 
 	L50.y = 365'371
 	L50.Height = 284.6
 	L50.RotX = -25
-	
+
 	L50a.x = 183.5
 	L50a.Y = 343.625
 	L50a.Height = 319.3081043
 
 	L52.x = 183.5
 	L52.Y = 343.625
-	
+
 	F27.X = 440
 	F27.Y = 1075
 
 	F30.X = 515
 	F30.Y = 1100
-	
+
 	F26w.x = -5.8
 	F26w.y = 1057.0345
 	F27w.x = -5.8
@@ -3483,8 +3488,8 @@ Sub InitPhasers
 
 	L100_1.y = 495.7971162
 	L100_2.y = 495.7971162
-	L100_1.Height = 353.615725 
-	L100_2.Height = 353.615725 
+	L100_1.Height = 353.615725
+	L100_2.Height = 353.615725
 
 
 	'Side Ramp Phasers
@@ -3525,77 +3530,77 @@ Sub InitPhasers
 	L70_2.y = 604.975
 	L70_2.Height = 106.238
 	l70_2.roty = -96
-	
+
 	L71_1.x = 124.548
 	L71_1.y = 554.177
 	L71_1.Height = 123.257
 	l71_1.roty = -90
-	
+
 	L71_2.x = 127.497
 	L71_2.y = 502.715
 	L71_2.Height = 142.719
 	l71_2.roty = -85
-	
+
 	L72_1.x = 133.88
 	L72_1.y = 451.491
 	L72_1.Height = 161.506
 	l72_1.roty = -81.5
-	
+
 	L72_2.x = 142.943
 	L72_2.y = 399.34
 	L72_2.Height = 178.265
-	l72_2.roty = -79	
+	l72_2.roty = -79
 
 	L73_1.x = 154.389
 	L73_1.y = 348.022
 	L73_1.Height = 194.677
 	l73_1.roty = -74.5
-	
+
 	L73_2.x = 170.564
 	L73_2.y = 297.373
 	L73_2.Height = 206.259
 	l73_2.roty = -68
-	
+
 	L74_1.x = 195.738
 	L74_1.y = 247.988
 	L74_1.Height = 211.327
 	l74_1.roty = -60	'problems	tight
-	
+
 	L74_2.x = 222.427
 	L74_2.y = 202.773
 	L74_2.Height = 210.808
 	l74_2.roty = -56
-	
+
 	L75_1.x = 257.309
 	L75_1.y = 160.71
 	L75_1.Height = 206.347
 	l75_1.roty = -47
-	
+
 	L75_2.x = 298.043
 	L75_2.y = 121
 	L75_2.Height = 199.716
 	l75_2.roty = -41
-	
+
 	L76_1.x = 337
 	L76_1.y = 87
 	L76_1.Height = 190.69
 	l76_1.roty = -37
-	
+
 	L76_2.x = 384
 	L76_2.y = 56
 	L76_2.Height = 179.695
 	l76_2.roty = -29
-	
+
 	L77_1.x = 429
 	L77_1.y = 34
 	L77_1.Height = 167.96
 	l77_1.roty = -21
-	
+
 	L77_2.x = 480
 	L77_2.y = 18
 	L77_2.Height = 158.755
 	l77_2.roty = -12
-	
+
 	dim aLA, aRa
 	aLA = Array(L79_3, L80_3, L81_3, L82_3, L83_3, L84_3, L85_3,_
 		L86_3, L87_3, L88_3, L89_3, L90_3, L91_3, L92_3, L93_3, L94_3,L95_3,L96_3,L97_3,L98_3,L99_3,L100_3)
@@ -3606,14 +3611,14 @@ Sub InitPhasers
 		aLa(x).x = aL(x).x
 		aLa(x).y = aL(x).y
 		aLa(x).height = aL(x).Height
-		
+
 		aLa(x).y = aLa(x).y + 40.3323
 		aLa(x).Height = aLa(x).Height + 46.75885773
 
 		aRa(x).x = aR(x).x
 		aRa(x).y = aR(x).y
 		aRa(x).height = aR(x).Height
-		
+
 		aRa(x).y = aRa(x).y + 40.3323
 		aRa(x).Height = aRa(x).Height + 46.75885773
 
@@ -3656,7 +3661,7 @@ End Sub
 
 
 
-'Setup Flipper End Points 
+'Setup Flipper End Points
 Dim EndPointL, EndPointR
 EndPointL = 376.2168
 EndPointR = 489.7015
@@ -3686,24 +3691,24 @@ EndPointR = 489.7015
 
 
 '==,ggggggggggg,=========================================================================
-'dP"""88""""""Y8,              ,dPYb,                                I8              
-'Yb,  88      `8b              IP'`Yb                                I8              
-' `"  88      ,8P              I8  8I                         gg  88888888           
-'     88aaaad8P"               I8  8'                         ""     I8              
-'     88"""""       ,ggggg,    I8 dP    ,gggg,gg   ,gggggg,   gg     I8    gg     gg 
-'     88           dP"  "Y8ggg I8dP    dP"  "Y8I   dP""""8I   88     I8    I8     8I 
-'     88          i8'    ,8I   I8P    i8'    ,8I  ,8'    8I   88    ,I8,   I8,   ,8I 
-'     88         ,d8,   ,d8'  ,d8b,_ ,d8,   ,d8b,,dP     Y8,_,88,_ ,d88b, ,d8b, ,d8I 
+'dP"""88""""""Y8,              ,dPYb,                                I8
+'Yb,  88      `8b              IP'`Yb                                I8
+' `"  88      ,8P              I8  8I                         gg  88888888
+'     88aaaad8P"               I8  8'                         ""     I8
+'     88"""""       ,ggggg,    I8 dP    ,gggg,gg   ,gggggg,   gg     I8    gg     gg
+'     88           dP"  "Y8ggg I8dP    dP"  "Y8I   dP""""8I   88     I8    I8     8I
+'     88          i8'    ,8I   I8P    i8'    ,8I  ,8'    8I   88    ,I8,   I8,   ,8I
+'     88         ,d8,   ,d8'  ,d8b,_ ,d8,   ,d8b,,dP     Y8,_,88,_ ,d88b, ,d8b, ,d8I
 '     88         P"Y8888P"    8P'"Y88P"Y8888P"`Y88P      `Y88P""Y888P""Y88P""Y88P"888
 '===============================================================================,d8I'====
-'               														      ,dP'8I 
-'Tracks balls, Adjusts ball velocity and adjusts shot angle                  ,8"  8I 
-'Part 1 - Ball velocity Hack                               	                 I8   8I 
-'Part 2 - Polarity and Velocity Adjustments on 3 or 5-point envelopes        `8, ,8I 
-'                                                                             `Y8P"  
-'Setup -                                                             
+'               														      ,dP'8I
+'Tracks balls, Adjusts ball velocity and adjusts shot angle                  ,8"  8I
+'Part 1 - Ball velocity Hack                               	                 I8   8I
+'Part 2 - Polarity and Velocity Adjustments on 3 or 5-point envelopes        `8, ,8I
+'                                                                             `Y8P"
+'Setup -
 'Triggers tight to the flippers TriggerLF and TriggerRF. Timers as low as possible, but > 80ms
-'Debug box TBpl 
+'Debug box TBpl
 'On Flipper Call:
 '	ProcessballsL
 '	...
@@ -3772,7 +3777,7 @@ Sub TriggerRF_Timer(): RFon = False : me.TimerEnabled = 0 : End Sub
 Sub TriggerRF1_Timer(): RF1on = False : me.TimerEnabled = 0 : End Sub
 Sub TriggerRF1_UnHit(): if RF1on then FlipSpeedHack m1, m2, m3, m4, False End If : End Sub
 
-Sub FlipSpeedHack(X1, Y1, X2, Y2, CutoffBool)	'Two points	
+Sub FlipSpeedHack(X1, Y1, X2, Y2, CutoffBool)	'Two points
 	if CutoffBool then if activeball.vely > 0 then exit sub	'if ball is going Down, exit sub (inappropriate for upper flippers)
 	Dim FinalSpeed : FinalSpeed = BallSpeed(ActiveBall) : if FinalSpeed < x1 then Exit Sub
 	Dim VelCoef : VelCoef = SlopeIt(FinalSpeed,X1,Y1,X2,Y2)
@@ -3780,7 +3785,7 @@ Sub FlipSpeedHack(X1, Y1, X2, Y2, CutoffBool)	'Two points
 		if VelCoef > Y2 then VelCoef = Y2	'Clamp High
 		activeball.velx = activeball.velx * VelCoef
 		activeball.vely = activeball.vely * VelCoef
-		
+
 		Dim DebugString : DebugString = "Flip" & vbnewline
 		FalloffDebugBox TBflipper, Finalspeed, BallSpeed(ActiveBall), VelCoef, DebugString
 End Sub
@@ -3788,7 +3793,7 @@ Sub TBflipper_Timer():me.timerenabled = False : me.text = Empty : End Sub
 
 
 '=====================================
-'Part 2 
+'Part 2
 'Ball Tracking Polarity Correction
 '=====================================
 
@@ -3814,7 +3819,7 @@ Sub Initballstacks() : dim x: for x = 0 to 9 : Set Lballstack(x,0) = Nothing : S
 Sub TriggerLF_Hit()	'add a ball to the stack
 '	tb.text = activeball.mass
 	dim x : for x = 0 to 9
-		if Typename(Lballstack(x, 0)) = "Nothing" then 
+		if Typename(Lballstack(x, 0)) = "Nothing" then
 			Set Lballstack(x, 0) = activeball
 			Lballstack(x, 1) = activeball.id
 			exit For
@@ -3825,7 +3830,7 @@ End Sub
 Sub TriggerLF_UnHit() 'proc Polarity Correction, then wipe X coords from column 2
 	if LFon then 	'FalloffNF
 		dim x : for x = 0 to 9	'If X position is set, call Polarity Correction for that object
-			if Lballstack(x, 2) > 0 then 
+			if Lballstack(x, 2) > 0 then
 				PolarityCorrect Lballstack(x, 0), Lballstack(x, 2), Lballstack(x, 3), Lballstack(x, 4), Lballstack(0, 5), 0
 			End If
 		Next
@@ -3833,7 +3838,7 @@ Sub TriggerLF_UnHit() 'proc Polarity Correction, then wipe X coords from column 
 			Lballstack(x, 2) = Empty
 		Next
 		FlipSpeedHack m1, m2, m3, m4, True
-	End If 
+	End If
 	for x = 0 to 9 	'Remove ball from stack...
 		if activeball.id = Lballstack(x, 1) then Set Lballstack(x, 0) = Nothing
 	Next
@@ -3855,7 +3860,7 @@ Sub ProcessballsL()	'note X position of balls in flipper area
 	dim b
 	b = ((LeftFlipper.StartAngle - LeftFlipper.CurrentAngle) / (LeftFlipper.StartAngle - LeftFlipper.EndAngle))
 	b = abs(b-1)	'invert
-	Lballstack(0, 5) = b	'Partial Flip Coefficient 
+	Lballstack(0, 5) = b	'Partial Flip Coefficient
 	'tb.text = LeftFlipper.StartAngle - LeftFlipper.EndAngle & vbnewline & leftflipper.CurrentAngle & vbnewline & b
 end Sub
 
@@ -3863,7 +3868,7 @@ end Sub
 
 Sub TriggerRF_Hit()	'add a ball to the stack
 	dim x : for x = 0 to 9
-		if Typename(Rballstack(x, 0)) = "Nothing" then 
+		if Typename(Rballstack(x, 0)) = "Nothing" then
 			Set Rballstack(x, 0) = activeball
 			Rballstack(x, 1) = activeball.id
 			exit For
@@ -3874,7 +3879,7 @@ End Sub
 Sub TriggerRF_UnHit() 'proc Polarity Correction, then wipe X coords from column 2
 	if RFon then 	'FalloffNF
 		dim x : for x = 0 to 9	'If X position is set, call Polarity Correction for that object
-			if Rballstack(x, 2) > 0 then 
+			if Rballstack(x, 2) > 0 then
 				PolarityCorrect Rballstack(x, 0), Rballstack(x, 2), Rballstack(x, 3) , Rballstack(x, 4), Rballstack(0, 5), 1
 			End If
 		Next
@@ -3882,7 +3887,7 @@ Sub TriggerRF_UnHit() 'proc Polarity Correction, then wipe X coords from column 
 			Rballstack(x, 2) = Empty
 		Next
 		FlipSpeedHack m1, m2, m3, m4, True
-	End If 
+	End If
 	for x = 0 to 9 	'Remove ball from stack...
 		if activeball.id = Rballstack(x, 1) then Set Rballstack(x, 0) = Nothing
 	Next
@@ -3921,25 +3926,25 @@ Sub ProcessballsR()	'note X position of balls in flipper area
 	dim b
 	b = ((RightFlipper.StartAngle - RightFlipper.CurrentAngle) / (RightFlipper.StartAngle - RightFlipper.EndAngle))
 	b = abs(b-1)	'invert
-	Rballstack(0, 5) = b	'Partial Flip Coefficient 
+	Rballstack(0, 5) = b	'Partial Flip Coefficient
 	'tb.text = RightFlipper.StartAngle - RightFlipper.EndAngle & vbnewline & RightFlipper.CurrentAngle & vbnewline & b
 end Sub
 
 
 'Puts an input X through a five-point, four line envelope with flat clamping at the ends
 'Function Procedures: Input X, 2D array, special (if True, inverts first two lines for polarity script)
-'This 2d Array should start at 1 and end at 5. 
+'This 2d Array should start at 1 and end at 5.
 '0,0 is used to hold an identifying string for debug purposes
 'This 2d Array should hold X data in (x, 0) & Y data in (x, 1)
-'Input X, Output Y   
+'Input X, Output Y
 Function FivePointEnvelope(xInput, yArray)', special)
 	dim y, testF
 	If xInput < yArray(2,0) Then	'Setup X Points 	'please keep array X coords sequential!
 		y = SlopeIt(xInput, yArray(1,0), yArray(1,1), yArray(2,0), yArray(2, 1)	)
-		If yArray(1,1) > yArray(2,1) then 
-			if y > yArray(1,1) then y = yArray(1,1) 'Clamp Low End	
+		If yArray(1,1) > yArray(2,1) then
+			if y > yArray(1,1) then y = yArray(1,1) 'Clamp Low End
 		elseif yArray(1,1) <= yArray(2,1) then
-			if y <= yArray(1,1) then y = yArray(1,1) 'Clamp Low End				
+			if y <= yArray(1,1) then y = yArray(1,1) 'Clamp Low End
 		End If
 		testF = yArray(0,0) & " L1 (early1) " & "x= " & xInput & " y= " & y
 	elseif xInput < yArray(3,0) Then	'l2
@@ -3949,12 +3954,12 @@ Function FivePointEnvelope(xInput, yArray)', special)
 		y = SlopeIt(xInput, yArray(3,0), yArray(3,1), yArray(4,0), yArray(4,1)	)
 		testF = yArray(0,0) & " L3 (late3)" & "x= " & xInput & " y= " & y
 	Elseif xInput >= yArray(4,0) Then	'l4
-		y = SlopeIt(xInput, yArray(4,0), yArray(4,1), yArray(5,0), yArray(5,1)	)		
-		If yArray(5,1) > yArray(4,1) then 	 'Clamp High End	
+		y = SlopeIt(xInput, yArray(4,0), yArray(4,1), yArray(5,0), yArray(5,1)	)
+		If yArray(5,1) > yArray(4,1) then 	 'Clamp High End
 			if y > yArray(5,1) then y = yArray(5,1)
-		elseif yArray(5,1) <= yArray(4,1) then 
-			if y <= yArray(5,1) then y = yArray(5,1)		
-		End If		
+		elseif yArray(5,1) <= yArray(4,1) then
+			if y <= yArray(5,1) then y = yArray(5,1)
+		End If
 		testF = yArray(0,0) & " L4 (late4) " & " x= " & xInput & " y= " & y
 	Else
 	debug.print "5error: " & yArray(0,0) & ", xinput = " & xInput : y = 1
@@ -3968,19 +3973,19 @@ Function ThreePointEnvelope(xInput, yArray)
 	dim y, test
 	If xInput < yArray(2,0) Then
 		y = SlopeIt(xInput, yArray(1,0), yArray(1,1), yArray(2,0), yArray(2,1)	)
-		If yArray(1,1) > yArray(2,1) then  'Clamp Low End	
+		If yArray(1,1) > yArray(2,1) then  'Clamp Low End
 			if y > yArray(1,1) then y = yArray(1,1)
 		elseif yArray(1,1) <= yArray(2,1) then
-			if y < yArray(1,1) then y = yArray(1,1)		
+			if y < yArray(1,1) then y = yArray(1,1)
 		End If
 		test = "L1 (earliest) " & yArray(0,0) & " x= " & xInput & " y= " & y
 	Elseif xInput >= yArray(2,0) Then	'l2
 		y = SlopeIt(xInput, yArray(2,0), yArray(2,1), yArray(3,0), yArray(3,1)	)
-		If yArray(3,1) > yArray(2,1) then 	 'Clamp High End	
+		If yArray(3,1) > yArray(2,1) then 	 'Clamp High End
 			if y > yArray(3,1) then y = yArray(3,1)
-		elseif yArray(3,1) <= yArray(2,1) then 
-			if y < yArray(3,1) then y = yArray(3,1)		
-		End If	
+		elseif yArray(3,1) <= yArray(2,1) then
+			if y < yArray(3,1) then y = yArray(3,1)
+		End If
 		test = "L3 (latest) " & yArray(0,0) & " x= " & xInput & " y= " & y
 	Else
 	'debug.print "3error: " & yArray(0,0) & ", xinput = " & xInput
@@ -4004,7 +4009,7 @@ Sub PolarityCorrect(object, xpos, ypos, xvel, PartialFLipCoef, LR)	'Corrects ang
 		case 1 : y = SlopeIt(xpos, RightFlipper.X, 0, EndpointR, 1)	'End flipper -> 1
 	End Select
 	if y > 1.05 then y = 1.05 	'Clamp high End
-	
+
 
 	''''''''''''''declare Polarity Correction + safeties'''''''''''''''
 	dim AddX	'Polarity correction
@@ -4012,21 +4017,21 @@ Sub PolarityCorrect(object, xpos, ypos, xvel, PartialFLipCoef, LR)	'Corrects ang
 	if Y > 0.65 then ycoef = ThreePointEnvelope(ypos, Ydiminish)	'Calculate Safety coef #1- if ball is above the flipper
 	'PartialFLipCoef -  'Safety coef #2 - handled by processballs, another safety coefficient
 
-	
+
 	if not PolarityEnabled then 'If Disabled, Exit Sub Here
 		TBpl.text = "%" & round(y,5) & vbnewline & "PolarityEnabled = " & PolarityEnabled
-		Exit Sub	
+		Exit Sub
 	End If
-	
+
 	''''''''''''''''''''Apply Velocity Correction''''''''''''''
 	dim velcoef 'Overall Velocity coefficient
 	Velcoef = FivePointEnvelope(y, VelMod)	'five point velocity envelope based on Y (% on flipper)
 	Object.Velx = Object.VelX * velcoef
-	Object.Vely = Object.VelY * velcoef	
+	Object.Vely = Object.VelY * velcoef
 
 	''''''''''''''''''''Apply Polarity Correction''''''''''''''
-	AddX = FivePointEnvelope(y, PolarityMod)*lrcoef	'AddX - Find polarity correction	
-	object.VelX = object.VelX + 1*(AddX*ycoef*PartialFlipcoef)	'gogo			
+	AddX = FivePointEnvelope(y, PolarityMod)*lrcoef	'AddX - Find polarity correction
+	object.VelX = object.VelX + 1*(AddX*ycoef*PartialFlipcoef)	'gogo
 
 	'''''''''''''''''''''''Debug Strings''''''''''''''''''''''
 	Select Case LR
@@ -4038,9 +4043,9 @@ Sub PolarityCorrect(object, xpos, ypos, xvel, PartialFLipCoef, LR)	'Corrects ang
 	if ycoef < 1 then d1 = "ycoef: " & round(ycoef,5) & vbnewline
 	if y = 1.05 then d2 = "(MAX)"
 	if PartialFlipcoef < 1 then d3 = "PartialFlipcoef: " & round(PartialFlipcoef,4) & vbnewline
-	TBpl.text =  "%" & round(y,3) & d2 & vbnewline & _ 
+	TBpl.text =  "%" & round(y,3) & d2 & vbnewline & _
 				 TestVar & vbnewline & _
-				 d1 & d3 & vbnewline & _ 
+				 d1 & d3 & vbnewline & _
 				 " "
 End Sub
 
