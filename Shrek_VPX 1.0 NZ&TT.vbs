@@ -31,6 +31,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 Option Explicit
 Randomize
@@ -278,7 +279,7 @@ End With
 '******************************************************
 '******************************************************
 '******************************************************
-
+InitVpmFFlipsSAM
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
