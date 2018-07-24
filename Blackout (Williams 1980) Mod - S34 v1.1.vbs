@@ -1,6 +1,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 '******************* Options *********************
 ' Blackout Mode
 Const BlackoutMode = 0		'0=Authentic mode,  1=Fantasy mode (GI remains off until ball drain)
