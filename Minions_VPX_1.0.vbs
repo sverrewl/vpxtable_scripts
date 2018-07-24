@@ -1,6 +1,10 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -103,15 +107,15 @@ Sub AttractAnimUltraDND_Timer
 End Sub
 
 Sub BallSaverAnimT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     BallSaverAnimT.enabled = 0
 End Sub
@@ -121,13 +125,13 @@ Sub BallSaverAnim()
 End sub
 
 Sub JackpotT250_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "      ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None 
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "JACKPOT 250000", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     JackpotT250.enabled = 0
 End Sub
 
@@ -137,11 +141,11 @@ Sub Jackpot250()
 End sub
 
 Sub OrbitAninT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "ORBIT MAXIMUM", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "    250000    ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     OrbitAninT.enabled = 0
 End Sub
@@ -152,11 +156,11 @@ End sub
 
 Sub Targets250T_Timer
 	DOF 145, DOFPulse
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets250T.enabled = 0
 End Sub
@@ -167,11 +171,11 @@ End sub
 
 Sub Targets150T_Timer
 	DOF 145, DOFPulse
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets150T.enabled = 0
 End Sub
@@ -182,11 +186,11 @@ End sub
 
 Sub Targets50T_Timer
 	DOF 145, DOFPulse
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets50T.enabled = 0
 End Sub
@@ -197,11 +201,11 @@ End sub
 
 Sub Targets10T_Timer
 	DOF 145, DOFPulse
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     Targets10T.enabled = 0
 End Sub
@@ -211,15 +215,15 @@ Sub TargetsAnim10()
 End sub
 
 Sub MultiballJackpotAnimT_Timer
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "MULTIBALL", 14, 2, "SHOOT JACKPOTS", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     MultiballJackpotAnimT.enabled = 0
 End Sub
@@ -240,20 +244,20 @@ Sub TiltT_Timer
     TiltAnim()
   End If
 End Sub
- 
+
 Sub StopAnimUDMD
     Timer2.enabled = 0
 Dim iScene
     UltraDMD.CancelRendering
   Select Case iScene
          Case 1 : 	DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnUp, 5000, UltraDMD_Animation_ScrollOffDown
-         Case 2 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_ScrollOffDown 
+         Case 2 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_ScrollOffDown
          Case 3 :   DMD_DisplaySceneEx "DMD1.png", "CREATED BY", 15, 4, "ROM", -1, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffRight
-         Case 4 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 500, UltraDMD_Animation_ScrollOffDown  
+         Case 4 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 500, UltraDMD_Animation_ScrollOffDown
          Case 5 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "       TILT!", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-         Case 6 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TILT!     ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None 
+         Case 6 :   DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TILT!     ", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
   End Select
- 
+
     iScene = (iScene + 1) MOD 6
 End Sub
 
@@ -455,7 +459,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
-                  
+
                         DMDFlush
                         DMD CenterLine(0, "CREDITS " & Credits), CenterLine(1, "INSERT COIN"), 0, eNone, eBlink, eNone, 500, True, ""
                     End If
@@ -486,7 +490,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, " ", -1, -1, UltraDMD_Animation_None, 50, UltraDMD_Animation_None
                         DMD_DisplaySceneEx "DMD1.png", "CREDITS "& Credits, 15, 4, "INSERT COIN", -1, -1, UltraDMD_Animation_None, 700, UltraDMD_Animation_None
-                     
+
                         DMDFlush
                         DMD CenterLine(0, "CREDITS " & Credits), CenterLine(1, "INSERT COIN"), 0, eNone, eBlink, eNone, 500, True, "Kahn_5"
                         ShowTableInfo:'AttrackModeUDMD
@@ -523,8 +527,8 @@ Sub Table1_Exit():
 	If Not UltraDMD is Nothing Then
 		If UltraDMD.IsRendering Then
 			UltraDMD.CancelRendering
-		End If	
-		UltraDMD = NULL 
+		End If
+		UltraDMD = NULL
 	End If
 End Sub
 
@@ -537,7 +541,7 @@ Sub SolLFlipper(Enabled)
         PlaySound SoundFXDOF("fx_flipperup",101,DOFOn,DOFFlippers), 0, 1, -0.05, 0.15
         LeftFlipper.RotateToEnd
         RotateLaneLightsLeft
-        
+
     Else
         PlaySound SoundFXDOF("fx_flipperdown",101,DOFOff,DOFFlippers), 0, 1, -0.05, 0.15
         LeftFlipper.RotateToStart
@@ -550,7 +554,7 @@ Sub SolRFlipper(Enabled)
         RightFlipper.RotateToEnd
         RightFlipper1.RotateToEnd
         RotateLaneLightsRight
-        
+
     Else
         PlaySound SoundFXDOF("fx_flipperdown",102,DOFOff,DOFFlippers), 0, 1, 0.05, 0.15
         RightFlipper.RotateToStart
@@ -596,7 +600,7 @@ Sub CheckTilt                                      'Called when table is nudged
     Tilt = Tilt + TiltSensitivity                  'Add to tilt count
     TiltDecreaseTimer.Enabled = True
     If(Tilt > TiltSensitivity) AND(Tilt < 15) Then 'show a warning
-        DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "    CAREFUL    ", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None 
+        DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "    CAREFUL    ", -1, -1, UltraDMD_Animation_None, 400, UltraDMD_Animation_None
         DMD "_", CenterLine(1, "CAREFUL!"), 0, eNone, eBlinkFast, eNone, 500, True, ""
     End if
     If Tilt > 15 Then 'If more that 15 then TILT the table
@@ -663,21 +667,21 @@ Sub ChangeSong
         StopSound Song
         If bGameInPLay = False Then
             Song = "bgout_MinionsUniversalFanfare" & ".mp3"
-            PlayMusic Song    
+            PlayMusic Song
         Else
             song = "bgout_MinionsUSA" & ".mp3"
             PlayMusic Song
             If bMultiballMode Then
                 StopAllMusic
                 Song = "bgout_MinionsGRU" & ".mp3"
-                PlayMusic Song 
+                PlayMusic Song
  '           Else
 '                If bCatchemMode Then
 '                    Song = "mu_catch"
                 Else
                     If hsbModeActive Then 'Enter initialls
                        Song = "bgout_MinionsReallygotme" & ".mp3"
-                       PlayMusic Song 
+                       PlayMusic Song
                     Else
                         Song = "bgout_mu_main"
                     End If
@@ -956,101 +960,19 @@ Sub BFlashEffectTimer_Timer()
     BEStep = BEStep + 1
 End Sub
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
-
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
-End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10))
-    End If
-End Function
-
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
-
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2)))
-End Function
-
-'*****************************************
-'      JP's VP10 Rolling Sounds
-'*****************************************
-
-Const tnob = 20 ' total number of balls
-Const lob = 1   'number of locked balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
-End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-
-    ' stop the sound of deleted balls
-    For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
-
-    ' exit the sub if no balls on the table
-    If UBound(BOT) = 3 Then Exit Sub 'there are always 4 balls on this table
-
-    ' play the rolling sound for each ball
-    For b = lob to UBound(BOT)
-        If BallVel(BOT(b)) > 1 Then
-            If BOT(b).z < 30 Then
-                ballpitch = Pitch(BOT(b))
-            Else
-                ballpitch = Pitch(BOT(b)) * 100
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), Pan(BOT(b)), 0, ballpitch, 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
-
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
-
 '******************************
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aCaptiveWalls_Hit(idx):PlaySound "fx_collide", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aCaptiveWalls_Hit(idx):PlaySound "fx_collide", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' Some quotes from the 2 first movies
 
@@ -1254,7 +1176,7 @@ AwardPoints = BonusPoints(CurrentPlayer) * BonusMultiplier(CurrentPlayer)
 AddScore AwardPoints
 'debug.print "Bonus Points = " & AwardPoints
 DMD "", CenterLine(1, "BONUS: " & BonusPoints(CurrentPlayer) & " X" & BonusMultiplier(CurrentPlayer) ), 0, eNone, eBlink, eNone, 1000, True, ""
-DMD_DisplaySceneEx "DMD1.png", "AWARD: " & BonusPoints(CurrentPlayer), 15, 4, "Bonus", -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None  
+DMD_DisplaySceneEx "DMD1.png", "AWARD: " & BonusPoints(CurrentPlayer), 15, 4, "Bonus", -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
 DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
 'this table uses several bonus
 
@@ -1327,7 +1249,7 @@ End Sub
 ' move onto the next player (or the next ball of the same player)
 '
 Sub EndOfBallComplete()
-    
+
     Dim NextPlayer
 
     'debug.print "EndOfBall - Complete"
@@ -1454,7 +1376,7 @@ if ballsOnplayfield = 2 and Tmultiballcomplete.state = 2 then
 Tmultiballcomplete.state = 1
 StopAllMusic
 Song = "bgout_MinionsLONDON" & ".mp3"
-PlayMusic Song 
+PlayMusic Song
 'playSound "MinionsLONDON"
 checkforWIZARD()
 
@@ -2456,22 +2378,22 @@ Sub ShowTableInfo
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
  	DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "CREATED BY", 15, 4, "ROM", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft  
+    DMD_DisplaySceneEx "DMD1.png", "CREATED BY", 15, 4, "ROM", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
 
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnLeft, 800, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnLeft, 800, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
-    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None  
+    DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 5, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "1>"&HighScoreName(0) & " " &HighScore(0) , -2, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "HIGHSCORES", 15, 4, "2>"&HighScoreName(1) & " " &HighScore(1) , -2, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffLeft
@@ -2492,7 +2414,7 @@ Sub ShowTableInfo
     DMD "_", "4> " &HighScoreName(3) & " " &FormatScore(HighScore(3) ), 0, eNone, eScrollLeft, eNone, 2000, False, ""
     DMD Space(dCharsPerLine(0) ), Space(dCharsPerLine(1) ), 0, eScrollLeft, eScrollLeft, eNone, 500, False, ""
 
-  
+
 End Sub
 
 Sub StartAttractMode(dummy)
@@ -2888,7 +2810,7 @@ if SP1.state = 0 and SP2.state = 1 and SP3.state = 1 and SP4.state = 1  and SP5.
 '			' start the timer
 '			BallSaverTimer.Interval = constBallSaverTime
 '			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this 
+'			' if you have a ball saver light you might want to turn it on at this
 '			' point (or make it flash)
 '			LightShootAgain.State = 2
 EnableBallSaver 15
@@ -2917,7 +2839,7 @@ if SP1.state = 1 and SP2.state = 0 and SP3.state = 1 and SP4.state = 1  and SP5.
 '			' start the timer
 '			BallSaverTimer.Interval = constBallSaverTime
 '			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this 
+'			' if you have a ball saver light you might want to turn it on at this
 '			' point (or make it flash)
 '			LightShootAgain.State = 2
 EnableBallSaver 15
@@ -2945,7 +2867,7 @@ if SP1.state = 1 and SP2.state = 1 and SP3.state = 0 and SP4.state = 1  and SP5.
 '			' start the timer
 '			BallSaverTimer.Interval = constBallSaverTime
 '			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this 
+'			' if you have a ball saver light you might want to turn it on at this
 '			' point (or make it flash)
 '			LightShootAgain.State = 2
 EnableBallSaver 15
@@ -2977,7 +2899,7 @@ if SP1.state = 1 and SP2.state = 1 and SP3.state = 1 and SP4.state = 0  and SP5.
 '			' start the timer
 '			BallSaverTimer.Interval = constBallSaverTime
 '			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this 
+'			' if you have a ball saver light you might want to turn it on at this
 '			' point (or make it flash)
 '			LightShootAgain.State = 2
 EnableBallSaver 15
@@ -3261,7 +3183,7 @@ STUART.Z = -35
 DOF 134, DOFPulse
 StuartToy.enabled = 1
 playsound SoundFXDOF("fx_bumper",105,DOFPulse,DOFContactors)
-Addscore 1000 
+Addscore 1000
 if Bumperscore1.state = 1 and Bumperscore2.state = 1 and Bumperscore3.state = 1 and Bumperscore3.state = 1 then
 addscore 5000
 BulbBumper2b.state = 0
@@ -3631,7 +3553,7 @@ FlashForMs TRbulb3b, 100, 10, 0  'off
 TRcomplete.state = 1
 StopAllMusic
 Song = "bgout_MinionsDUNGEON" & ".mp3"
-PlayMusic Song 
+PlayMusic Song
 'playmusic 1, "MinionsDUNGEON", true, 0.7
 checkforWIZARD()
 
@@ -3922,7 +3844,7 @@ J4.state = 2
 Tmultiballcomplete.state = 2
 'StopAllMusic
 'Song = "bgout_MinionsGRU" & ".mp3"
-'PlayMusic Song 
+'PlayMusic Song
 'playsound "MinionsGRU"
 'AddMultiball 3
 'EnableBallSaver 15
@@ -4674,7 +4596,7 @@ if WIZARD.state = 0 then
 StopAllMusic
 Kickercenter.destroyball
 Minion4Timer.enabled = 1
-vpmtimer.addtimer 8000, "UnaBolaMas '"       
+vpmtimer.addtimer 8000, "UnaBolaMas '"
 end if
 
 
@@ -5027,7 +4949,7 @@ DMD CenterLine(0, "SHOOT HIDEOUT"), CenterLine(1, "FOR 50 MILLION "), 0, eNone, 
 '			' start the timer
 '			BallSaverTimer.Interval = constBallSaverTime
 '			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this 
+'			' if you have a ball saver light you might want to turn it on at this
 '			' point (or make it flash)
 '			LightShootAgain.State = 2
 EnableBallSaver 15
@@ -5035,3 +4957,163 @@ end if
 end sub
 
 Sub StopAllMusic:EndMusic:End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 20 ' total number of balls
+Const lob = 1   'number of locked balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = 3 Then Exit Sub 'there are always 4 balls on this table
+
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
+
