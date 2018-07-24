@@ -6,7 +6,13 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="hotdoggn",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
+
+Const cGameName="hotdoggn",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01130100", "BALLY.VBS", 3.21
 
@@ -31,7 +37,7 @@ SolCallback(6)=  "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 SolCallback(7)=		"bsTrough.SolOut"
 SolCallback(14)=	"RightExit"
 SolCallBack(15)=	"bsSaucer.SolOut"
-SolCallback(17)=	"dtC.SolDropUp" 'Drop Targets						
+SolCallback(17)=	"dtC.SolDropUp" 'Drop Targets
 SolCallback(19)=	"vpmNudge.SolGameOn"
 SolCallBack(20)=	"SolRightKicker"
 
@@ -45,7 +51,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
@@ -117,7 +123,7 @@ Sub Table1_Init
           bsTrough.InitSw 0, 8, 0, 0, 0, 0, 0, 0
           bsTrough.InitKick BallRelease, 90, 4
           bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
-          bsTrough.Balls = 1	 
+          bsTrough.Balls = 1
 
 	  Set bsSaucer=New cvpmBallStack
 		  bsSaucer.InitSaucer sw12,12,196,15
@@ -163,10 +169,10 @@ End Sub
 '**********************************************************************************************************
 
  'Kickers, drains, poppers
-	Sub Drain_Hit: bsTrough.Addball Me : PlaySound "Drain" : End Sub 
+	Sub Drain_Hit: bsTrough.Addball Me : PlaySound "Drain" : End Sub
 	Sub sw12_Hit: bsSaucer.AddBall 0 : playsound "popper_ball": End Sub
 
-'Drop Targets	
+'Drop Targets
 Sub sw13_Dropped: dtC.Hit 1 :End Sub
 Sub sw14_Dropped: dtC.Hit 2 :End Sub
 Sub sw15_Dropped: dtC.Hit 3 :End Sub
@@ -310,7 +316,7 @@ End Sub
 	NFadeL 63, l63
 End Sub
 
- 
+
 ' div lamp subs
 
 Sub InitLamps()
@@ -499,7 +505,7 @@ If Not IsEmpty(ChgLED) Then
 			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
 			if (num < 28) then
 				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1 
+					If chg And 1 Then obj.State = stat And 1
 					chg = chg\2 : stat = stat\2
 				Next
 			else
@@ -725,7 +731,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -739,7 +745,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -775,7 +781,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -786,7 +792,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
