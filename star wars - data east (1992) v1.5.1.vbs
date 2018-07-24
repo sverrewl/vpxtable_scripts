@@ -3,8 +3,11 @@
 
 'Authors.
 
-'Dids666 & DJRobX 
+'Dids666 & DJRobX
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 
 '----------------------------------------
 
@@ -72,14 +75,14 @@ Const FlippersAlwaysOn = 0 'Enable Flippers for testing
 ' ===============================================================================================
 ' Load game controller
 ' ===============================================================================================
- 
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
- 
+
 LoadVPM "01550000", "DE.VBS", 3.26
- 
+
 ' ===============================================================================================
 ' General constants and variables
 ' ===============================================================================================
@@ -88,15 +91,15 @@ Const UseLamps = 0
 Const UseGI = 1
 Const UseSync = 1 'set it to 1 if the table runs too fast
 Const HandleMech = 1
- 
- 
+
+
 ' Standard Sounds
 Const SSolenoidOn = "fx_Solenoid"
 Const SSolenoidOff = ""
 Const SFlipperOn    = "fx_Flipperup"
 Const SFlipperOff   = "fx_Flipperdown"
 Const SCoin = "fx_Coin"
- 
+
 'Dim bsTrough, dtbank1, dtbank2, bsLeftSaucer, bsRightSaucer, x
 'Const cGameName = "stwr_a14" ' Patched
 Const cGameName = "stwr_104" ' Patched
@@ -113,7 +116,7 @@ Dim LastMotorMove:LastMotorMove = 0
 
 
 ' Lights
- 
+
  vpmMapLights AllLights
 
 Dim NullFader : set NullFader = new NullFadingObject
@@ -123,13 +126,13 @@ Dim FadeLights : Set FadeLights = New LampFader
 InitLamps
 LampTimer.Interval = 1
 LampTimer.Enabled = 1
- 
- 
- 
+
+
+
 ' ===============================================================================================
 ' Init routines
 ' ===============================================================================================
- 
+
 Sub table1_Init
     vpmInit me
     With Controller
@@ -151,25 +154,25 @@ Sub table1_Init
         On Error Goto 0
     End With
 
-	if DesktopMode Then	
+	if DesktopMode Then
 		CenterRamp.image = "Ramp Desktop View"
 	end if
-		
+
     if CBool(DeathStarBolt) Then
 		DeathStarBoltPrim.visible = True
-	end if 
+	end if
 	if not CBool(PostIt) Then
 		PostItPrim.Visible = False
-	end if 
+	end if
 	if BB8Ball Then
 		Table1.BallFrontDecal = "bb8-texture6"
 		Table1.BallDecalMode = True
 		Table1.BallImage = "Ball_Final"
 		Table1.DefaultBulbIntensityScale = 0.1
-	end if 
+	end if
    	Set bsTrough=New cvpmTrough
  	with bsTrough
-		.Size=4 
+		.Size=4
 		.InitSwitches Array(11,13,12,10)
 		.InitExit BallRelease,90,7
 		.InitEntrySounds "fx_drain", SoundFX("fx_solenoid",DOFContactors), SoundFX("fx_solenoid",DOFContactors)
@@ -254,7 +257,7 @@ Sub table1_Init
 	GILights 1
 	Kickback.PullBack
 	InitBallShadow
-	
+
 
 	'SetLamp 130,1
 End Sub
@@ -282,18 +285,18 @@ End Sub
 
 Sub AddVUK
 	vpmTimer.AddTimer 200, "dsBalls = dsBalls + 1:Controller.Switch(36) = 1'"
-End Sub 
+End Sub
 
 Sub SolLeftPopper(Enabled)
-	if Enabled and DSBalls > 0 then 
-		sw36hole.Enabled = 0 
+	if Enabled and DSBalls > 0 then
+		sw36hole.Enabled = 0
 		sw36.CreateSizedBallWithMass Ballsize/2, BallMass
 		sw36.Kick 0, 45, 1.56
 		PlaySoundAt "fx_popper", sw36
 		DSBalls = DSBalls - 1
 		if DSBalls = 0 Then
 			Controller.Switch(36) = 0
-		end if 
+		end if
 	End If
 End Sub
 
@@ -302,17 +305,17 @@ Sub UpdateDeathStar(pos, speed, prevpos)
 	DeathStar.RotY = pos
     if CBool(DeathStarBolt) Then
 		DeathStarBoltPrim.RotY = pos
-	end if 
+	end if
 	UpdateR2Head
 	if speed > .1 Then
 		if LastMotorMove = 0 then
 			PlaySound"motor", -1, .08, 0, 0, 0, 1, 0, AudioFade(dsIn)
 			LastMotorMove = timer + 1
 		end if
-	Else	
+	Else
 		LastMotorMove = 0
 		StopSound "motor"
-	end if 
+	end if
 End Sub
 
 dim LastDoorMove:LastDoorMove =0
@@ -320,20 +323,20 @@ dim LastDoorMove:LastDoorMove =0
 Sub UpdateDeathStarDoor(pos, speed, prevpos)
 	'debug.print pos
 	DSDoor.Z = -pos + 12
-	if DSDoor.Z <= -52 then 
+	if DSDoor.Z <= -52 then
 		sw40.Collidable = 0
-	Else	
+	Else
 		sw40.Collidable = 1
-	end if 
+	end if
 	if speed > .1 Then
-		if LastDoorMove = 0 Then	
+		if LastDoorMove = 0 Then
 			LastDoorMove = Timer + 1
 			PlaySound"fx_motor", -1, .08, Pan(dsIn), 0, 0, 1, 0, AudioFade(dsIn)
 		end if
-	Else	
+	Else
 		LastDoorMove = 0
 		StopSound "fx_motor"
-	end if 
+	end if
 End Sub
 
 
@@ -360,14 +363,14 @@ Const R2SpeedUp = 2.5
 Sub UpdateR2Light(R2Light)
 	R2Head2.BlendDisableLighting = R2Light
 	MaterialColor "Plastic Blue Transp", RGB(R2Light * 25, R2Light * 30 + 50, R2Light * 50 + 204)
-End Sub 
+End Sub
 
 Sub UpdateR2
-	if R2UpSol<>0 and R2Height < R2Top then 
+	if R2UpSol<>0 and R2Height < R2Top then
 		R2Height = R2Height + R2SpeedUp
 		if R2Height > R2Top then R2Height = R2Top
-	end if 
-	if R2UpSol=0 and R2Height > 0 then 
+	end if
+	if R2UpSol=0 and R2Height > 0 then
 		R2Height = R2Height - R2SpeedDown
 		if R2Height < 0 then R2Height = 0
 	end if
@@ -386,10 +389,10 @@ Sub Table1_KeyDown(ByVal keycode)
 
 
 	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then 
+	If keycode = PlungerKey Then
 		Controller.Switch(50) = 1
-		if not CBool(PostIt) Then Controller.Switch(51)=1 
-	end if 
+		if not CBool(PostIt) Then Controller.Switch(51)=1
+	end if
 '	If FlippersAlwaysOn =1 Then
 '		If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySound SoundFX("fx_flipperup",DOFContactors), 0, .67, -0.05, 0.05
 '		If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySound SoundFX("fx_flipperup",DOFContactors), 0, .67, 0.05, 0.05
@@ -397,7 +400,7 @@ Sub Table1_KeyDown(ByVal keycode)
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then 
+	If keycode = PlungerKey Then
 		Controller.Switch(50) = 0
 		if not CBool(PostIt) Then Controller.Switch(51)=0
 	end if 	'if keycode = RightMagnaSave then Controller.Switch(51) = 1'R2UpSol=0
@@ -488,12 +491,12 @@ SolCallback(1) = 	"bsTrough.SolIn"
 SolCallback(2) = 	"bsTrough.SolOut"
 SolCallback(3) = 	"SolAutoPlungerIM"
 SolCallback(4) = 	"SolLeftEject"
-SolCallback(5) = 	"SolLeftPopper" 
+SolCallback(5) = 	"SolLeftPopper"
 SolCallback(6) =    "PlaySoundAt SoundFX(""fx_droptargetreset"",DOFDropTargets),sw32:dtBank.SolDropUp"
 SolCallback(7) = 	"SolRightEject"
 SolCallback(9) = 	"SolR2"
 SolCallback(11) = 	"GILights Not "
-SolCallback(16) = 	"SolKickback" 
+SolCallback(16) = 	"SolKickback"
 SolCallback(17) = 	"SetLamp 117,"
 SolCallback(18) = 	"SetLamp 118,"
 SolCallback(19) = 	"SetLamp 119,"
@@ -517,10 +520,10 @@ sub SolKickback(enabled)
 	vpmSolAutoPlunger Kickback,10,enabled
 	if enabled then
 		KickbackAnim.RotateToEnd
-	Else		
+	Else
 		KickbackAnim.RotateToStart
-	end if 
-end sub 
+	end if
+end sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
@@ -551,7 +554,7 @@ Sub SolAutoPlungerIM(Enabled)
 		PlaySoundAt SoundFX("fx_autoplunger",DOFContactors), sw14
 		AutoplungerAnim.RotateToEnd
 		PlungerIM.AutoFire
-	Else	
+	Else
 		AutoplungerAnim.RotateToStart
 	End If
 End Sub
@@ -559,8 +562,8 @@ End Sub
 sub SolR2(enabled)
 	R2UpSol=enabled
 	if enabled then PlaySoundAt SoundFX("fx_r2", DOFContactors), sw38
-end sub 
-		
+end sub
+
 
 '************************************************
 ' Switches
@@ -619,7 +622,6 @@ Sub sw45_hit:vpmtimer.pulsesw 45:PlaySoundAt SoundFX("fx_bumper1",DOFContactors)
 Sub sw46_hit:vpmtimer.pulsesw 46:PlaySoundAt SoundFX("fx_bumper2",DOFContactors), ActiveBall:End Sub
 Sub sw47_hit:vpmtimer.pulsesw 47:PlaySoundAt SoundFX("fx_bumper3",DOFContactors), ActiveBall:End Sub
 Sub sw48_hit:vpmtimer.pulsesw 48:PlaySoundAt SoundFX("fx_bumper3",DOFContactors), ActiveBall:End Sub
-
 
 ' *********************************************************************
 '                      Supporting Ball & Sound Functions
@@ -694,10 +696,10 @@ Dim NextOrbitHit:NextOrbitHit = 0
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 10, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticBumps_Hit(idx)
@@ -707,10 +709,10 @@ End Sub
 Sub MetalWallBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 3, 20000 'Increased pitch to simulate metal wall
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub WireRampBumps_Hit(idx)
@@ -718,7 +720,7 @@ Sub WireRampBumps_Hit(idx)
 		dim BumpSnd:BumpSnd= "wirerampbump" & CStr(Int(Rnd*5)+1)
 		PlaySound BumpSnd, 0, Vol(ActiveBall), Pan(ActiveBall), 0, 30000, 0, 1, AudioFade(ActiveBall)
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub RandomBump(voladj, freq)
@@ -737,7 +739,7 @@ Sub LeftRampEnd_Hit(): sw36hole.Enabled = 1 :BumpSTOPWire(): vpmTimer.AddTimer 1
 Sub RightRampEnd_Hit(): BumpSTOPWire(): vpmTimer.AddTimer 100, "PlaySoundAt ""fx_balldrop"",RightRampEnd'":End Sub
 
 Sub REnter_Hit():If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_metalrampenter", REnter, 0.5:End If:End Sub			'
-Sub REnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_metalramprenter":End If:End Sub		
+Sub REnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_metalramprenter":End If:End Sub
 
 ' Stop Bump Sounds
 Sub BumpSTOPMetal ()
@@ -748,60 +750,6 @@ End Sub
 Sub BumpSTOPWire ()
 dim i:for i=1 to 4:StopSound "WireRampBump" & i:next
 NextOrbitHit = Timer + 1
-End Sub
-'*****************************************
-'      JP's VP10 Rolling Sounds
-'*****************************************
-
-Const tnob = 5 ' total number of balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
-End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-
-    ' stop the sound of deleted balls
-    For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
-
-    ' exit the sub if no balls on the table
-    If UBound(BOT) = -1 Then Exit Sub
-
-    ' play the rolling sound for each ball
-    For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 Then
-            If BOT(b).z < 30 Then
-                ballpitch = Pitch(BOT(b) )
-            Else
-                ballpitch = Pitch(BOT(b) ) * 100
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, ballpitch, 1, 0, AudioFade(BOT(b))
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
-
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 1, AudioFade(ball1)
 End Sub
 
 '******************************
@@ -863,12 +811,12 @@ dim BumperScrewBs:BumperScrewBs = array(Bumper1CapScrew2, Bumper2CapScrew2, Bump
 
 Sub Pop(Num, Lvl)
 	dim offset:offset = cInt(Lvl * 10)
-		
+
 	BumperCaps(num).z = 80 - offset
 	BumperRings(num).z = 10 - offset
 	BumperScrewAs(num).z = 100 - offset
 	BumperScrewBs(num).z = 100 - offset
-end sub 
+end sub
 
 sub Jabba(Lvl)
 	DomeLeft2.BlendDisableLighting = lvl / 2
@@ -885,24 +833,24 @@ end sub
 
 
 Sub InitLamps()
-	
+
 	'Adjust fading speeds (1 / full MS fading time)
-	dim x 
+	dim x
 	for x = 0 to 140 : FadeLights.FadeSpeedUp(x) = 1/80 : FadeLights.FadeSpeedDown(x) = 1/100 : next
 	for x = 117 to 120 : FadeLights.FadeSpeedUp(x) = 1/10 : FadeLights.FadeSpeedDown(x) = 1/10 : next
 	FadeLights.FadeSpeedUp(6) = 1/45 : FadeLights.FadeSpeedDown(6) = 1/60
 	FadeLights.FadeSpeedUp(48) = 1/25 : FadeLights.FadeSpeedDown(48) = 1/40
 	FadeLights.FadeSpeedUp(57) = 1/25 : FadeLights.FadeSpeedDown(57) = 1/40
-	
-	FadeLights.obj(127) = array(f127c)	
-	FadeLights.obj(128) = array(f128a, f128b, f128c, f128d, f128e, f128f, f128g, f128h, f128i, f128j, f128k, f128l)	
+
+	FadeLights.obj(127) = array(f127c)
+	FadeLights.obj(128) = array(f128a, f128b, f128c, f128d, f128e, f128f, f128g, f128h, f128i, f128j, f128k, f128l)
 	FadeLights.obj(132) = array(f132a, f132b, F132c, F132d, F132e, F132f, F132g, F132h, F132i)
 	FadeLights.obj(125) = array(f125c, f125d, f125e, f125f, f125g, f125h, f125i)
     FadeLights.obj(130) = array(f130c)
 	FadeLights.obj(126) = array(f126a, f126b, f126c)
 	FadeLights.Callback(6) = "DropTargetLights "
 	FadeLights.Callback(48) = "Jabba "
-	FadeLights.Callback(57) = "UpdateR2Light" 
+	FadeLights.Callback(57) = "UpdateR2Light"
 	FadeLights.Callback(117) = "Pop 0,"
 	FadeLights.Callback(118) = "Pop 1,"
 	FadeLights.Callback(119) = "Pop 2,"
@@ -917,7 +865,7 @@ Sub SetLamp(idx, state)
 	' deal with flashers.
 	If IsArray(Lights(idx)) Then
 		For Each tmp In Lights(idx) : tmp.State =state: Next
-	Elseif not IsEmpty(Lights(idx)) then 
+	Elseif not IsEmpty(Lights(idx)) then
 		Lights(idx).State = state
 	End If
 	FadeLights.state(idx) = state
@@ -937,19 +885,19 @@ Sub FrameTimer_Timer()
 			SetLamp idx, ChgLamp(ii,1)
         Next
     End If
- 	UpdateR2	
+ 	UpdateR2
 	UpperGatePrim.RotX = UpperGate.CurrentAngle
 	KickbackPrim.RotX = KickbackAnim.CurrentAngle
 	AutoplungerPrim.RotX = AutoplungerAnim.CurrentAngle
 	LeftFlipperPrim.RotY = LeftFlipper.CurrentAngle+150
 	RightFlipperPrim.RotY = RightFlipper.CurrentAngle+150-90-30
 	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle	
+	FlipperRSh.RotZ = RightFlipper.currentangle
 	FadeLights.Update
 	BallShadowUpdate
 	RollingUpdate
 End Sub
- 
+
 
 ' *********************************************************************
 '						BALL SHADOW
@@ -993,7 +941,7 @@ Sub BallShadowUpdate()
 End Sub
 
 
-' *** NFozzy's lamp fade routines *** 
+' *** NFozzy's lamp fade routines ***
 
 
 Class NullFadingObject : Public Property Let IntensityScale(input) : : End Property : End Class	'todo do better
@@ -1030,22 +978,22 @@ Class LampFader
 		input = cBool(input)
 		if OnOff(idx) = Input then : Exit Property : End If	'discard redundant updates
 		OnOff(idx) = input
-		Lock(idx) = False 
+		Lock(idx) = False
 		Loaded(idx) = False
 	End Property
 
 	Public Sub TurnOnStates()	'If obj contains any light objects, set their states to 1 (Fading is our job!)
 		dim debugstr
 		dim idx : for idx = 0 to uBound(obj)
-			if IsArray(obj(idx)) then 
+			if IsArray(obj(idx)) then
 				dim x, tmp : tmp = obj(idx) 'set tmp to array in order to access it
 				for x = 0 to uBound(tmp)
 					if typename(tmp(x)) = "Light" then DisableState tmp(x) : debugstr = debugstr & tmp(x).name & " state'd" & vbnewline
-					
+
 				Next
 			Else
 				if typename(obj(idx)) = "Light" then DisableState obj(idx) : debugstr = debugstr & obj(idx).name & " state'd (not array)" & vbnewline
-				
+
 			end if
 		Next
 		debug.print debugstr
@@ -1071,13 +1019,13 @@ Class LampFader
 		dim x,xx : for x = 0 to uBound(OnOff)
 			if not Loaded(x) then
 				if IsArray(obj(x) ) Then	'if array
-					If UseFunction then 
+					If UseFunction then
 						for each xx in obj(x) : xx.IntensityScale = cFilter(Lvl(x)) : Next
 					Else
 						for each xx in obj(x) : xx.IntensityScale = Lvl(x) : Next
 					End If
 				else						'if single lamp or flasher
-					If UseFunction then 
+					If UseFunction then
 						obj(x).Intensityscale = cFilter(Lvl(x))
 					Else
 						obj(x).Intensityscale = Lvl(x)
@@ -1150,9 +1098,65 @@ Class cvpmMyMech
 	End Sub
 
 	Public Sub Reset : Start : End Sub
-	
+
 End Class
 
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
 
+Const tnob = 5 ' total number of balls
+ReDim rolling(tnob)
+InitRolling
 
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub
+
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
 
