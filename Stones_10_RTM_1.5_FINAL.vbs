@@ -4,7 +4,8 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+' Added InitVpmFFlipsSAM
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -126,6 +127,7 @@ Sub Table1_Init
 	MW6a.isdropped = 1
 	MW_PARKa.isdropped = 1
     GI_On
+  InitVpmFFlipsSAM
 End Sub
 
 
