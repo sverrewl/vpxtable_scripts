@@ -5,3 +5,4 @@
 ' Added InitVpmFFlipsSAM
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 ' , AudioFade(ActiveBall)
+
