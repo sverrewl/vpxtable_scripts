@@ -4,8 +4,9 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -14,7 +15,7 @@ On Error Goto 0
 
 LoadVPM "01550000", "Bally.vbs", 3.42
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 1
 Const UseSync = 0
