@@ -1,11 +1,11 @@
-' __    __  __ __  ____  ______    ___      __    __   ____  ______    ___  ____  
+' __    __  __ __  ____  ______    ___      __    __   ____  ______    ___  ____
 '|  |__|  ||  |  ||    ||      |  /  _]    |  |__|  | /    ||      |  /  _]|    \ 
 '|  |  |  ||  |  | |  | |      | /  [_     |  |  |  ||  o  ||      | /  [_ |  D  )
-'|  |  |  ||  _  | |  | |_|  |_||    _]    |  |  |  ||     ||_|  |_||    _]|    / 
+'|  |  |  ||  _  | |  | |_|  |_||    _]    |  |  |  ||     ||_|  |_||    _]|    /
 '|  '  '  ||  |  | |  |   |  |  |   [_     |  '  '  ||  _  |  |  |  |   [_ |    \ 
 ' \      / |  |  | |  |   |  |  |     |     \      / |  |  |  |  |  |     ||  .  |
 '  \_/\_/  |__|__||____|  |__|  |_____|      \_/\_/  |__|__|  |__|  |_____||__|\_|
-                                                                                 
+
 
 ' Williams White Water / IPD No. 2768 / January, 1993 / 4 Players
 ' made for VPX by Flupper
@@ -19,9 +19,14 @@
 ' reference images of darkened table by darquayle
 ' many mechanical sounds by Knorr
 ' sound tuning by DjRobX
-' 
-' Notes (from experience during development): 
+'
+' Notes (from experience during development):
 ' If Bigfoot head gets out of sync or VPM crashes, delete NVRAM
+
+' Thalamus 2018-07-24
+' Table has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 Option Explicit : Randomize
 Dim BallShadow, ForceSiderailsFS, GlobalSoundLevel, HitTheGlass, DisableGI, DesktopVPXDMD
@@ -68,25 +73,25 @@ NoSideWallRelfections = False
 
 ' version 1.0 : initial version
 
-' explanation of standard constants (info by Jpsalas and others on VpForums): 
-' These constants are for the vpinmame emulation, and they tell vpinmame what it is supposed 
+' explanation of standard constants (info by Jpsalas and others on VpForums):
+' These constants are for the vpinmame emulation, and they tell vpinmame what it is supposed
 ' to emulate.
 ' UseSolenoids=1 means the vpinmame will use the solenoids, so in the script there are calls
 ' 				 for a solenoid to do different things (like reset droptargets, kick a ball, etc)
 ' UseLamps=0 	 means the vpinmame won't bother updating the lights, but done in script
-' UseSync=0      (unclear) but probably is to enable or disable the sync in the vpinmame window 
+' UseSync=0      (unclear) but probably is to enable or disable the sync in the vpinmame window
 ' 				 (or dmd). So it syncs with the screen or not.
-' HandleMech=0   means vpinmame won't handle  special animations, they will have to be done 
+' HandleMech=0   means vpinmame won't handle  special animations, they will have to be done
 '				 manually in Scripts
-' UseGI=1        If 1 and used together with "Set GiCallback2 = GetRef("UpdateGI")" where 
-'				 UpdateGI is the sub routine that sets the Global Illumination lights 
+' UseGI=1        If 1 and used together with "Set GiCallback2 = GetRef("UpdateGI")" where
+'				 UpdateGI is the sub routine that sets the Global Illumination lights
 ' 				 only the Williams wpc tables have Gi circuitry support (so you can use GICallback)
 '				 for other tables a solenoid has to be used
 ' SFlipperOn     - Flipper activate sound
 ' SFlipperOff    - Flipper deactivate sound
 ' SSolenoidOn    - Solenoid activate sound
 ' SSolenoidOff   - Solenoid deactivate sound
-' SCoin          - Coin Sound 
+' SCoin          - Coin Sound
 ' UseVPMModSol   When True this allows the ROM to control the intensity level of modulated solenoids
 '				 instead of just on/off.
 ' UseVPMDMD      - Enable VPX rendering of DMD
@@ -157,7 +162,7 @@ Sub whitewater_Init
 	'Controller.Run GetPlayerHWnd
 	'Controller.Switch(22) = 1 'close coin door
 	'Controller.Switch(24) = 1 'and keep it close
-		
+
 	' Nudging
 	vpmNudge.TiltSwitch = 14
 	vpmNudge.Sensitivity = 1
@@ -170,7 +175,7 @@ Sub whitewater_Init
 	CheckMaxBalls 'Allow balls to be created at table start up
 	BigFoot_Init
 	InitLights(Insertlights)
-	If whitewater.ShowDT or ForceSiderailsFS then 
+	If whitewater.ShowDT or ForceSiderailsFS then
 		If NoSideWallRelfections Then
 			Primitive65.visible = 0 : Primitive61.visible = 0 : Primitive111.visible = 1 : Primitive112.visible = 1 : primitive113.visible = 1 : primitive114.visible = 0
 		Else
@@ -183,7 +188,7 @@ Sub whitewater_Init
 			Primitive65.visible = 0 : Primitive61.visible = 1 : Primitive111.visible = 0 : Primitive112.visible = 0 : primitive113.visible = 0 : primitive114.visible = 0
 		End If
 	End If
-	
+
 	For Each obj In IndirectLights
 		obj.FalloffPower = obj.FalloffPower * 2
 		obj.IntensityScale = 3
@@ -231,7 +236,7 @@ Sub whitewater_KeyDown(ByVal Keycode)
 End Sub
 
 Sub whitewater_KeyUp(ByVal Keycode)
-	if keycode = LeftFlipperKey and FlippersEnabled Then SolLFlipper(False) 
+	if keycode = LeftFlipperKey and FlippersEnabled Then SolLFlipper(False)
 	if keycode = RightFlipperKey and FlippersEnabled Then SolRflipper(False)
 	If vpmKeyUp(keycode) Then Exit Sub
 	If keycode = PlungerKey Then PLaySound "fx_plunger", 0, 1, 0.1, 0.25,0,0,1,1:Plunger.Fire  ' SSF fade towards front of cab
@@ -247,15 +252,15 @@ End Sub
 ' *** manual Ball Control ***
 Sub StartControl_Hit() : Set ControlBall = ActiveBall : contballinplay = true : End Sub
 Sub StopControl_Hit() : contballinplay = false : End Sub
- 
+
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
- 
+
 bcboost = 1     		'Do Not Change - default setting
 bcvel = 4       		'Controls the speed of the ball movement
 bcyveloffset = -0.01    'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
 bcboostmulti = 3    	'Boost multiplier to ball veloctiy (toggled with the B key)
- 
+
 Sub BallControl_Timer()
     If Contball and ContBallInPlay then
         If bcright = 1 Then ControlBall.velx = bcvel*bcboost Else If bcleft = 1 Then ControlBall.velx = - bcvel*bcboost Else ControlBall.velx=0 : End If : End If
@@ -294,7 +299,7 @@ End Function
 '            Supporting Surround Sound Feedback (SSF) Functions
 ' *********************************************************************
 
-Function AudioFade(ball) 'Calculates front-rear fade based on Y position on the table.   
+Function AudioFade(ball) 'Calculates front-rear fade based on Y position on the table.
 	Dim tmp
     tmp = ball.y * 2 / whitewater.height-1
     If tmp > 0 Then
@@ -314,7 +319,7 @@ Sub PlaySoundAtVol(sound, tableobj, Vol)
 	PlaySound sound, 1, Vol, Pan(tableobj), 0, 0, 0, 1, AudioFade(tableobj)
 End Sub
 
-'Set position as table object and Vol + RndPitch manually 
+'Set position as table object and Vol + RndPitch manually
 Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
 	PlaySound sound, 1, Vol, Pan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
 End Sub
@@ -339,7 +344,7 @@ End Sub
 ' Switches
 '*********
 
-Sub RollOverSound() : PlaySoundAtVolPitch  "rollover", ActiveBall, GlobalSoundLevel * 0.02, .25 : End Sub  
+Sub RollOverSound() : PlaySoundAtVolPitch  "rollover", ActiveBall, GlobalSoundLevel * 0.02, .25 : End Sub
 Sub Targetsound() : PlaySoundAtVolPitch  "target", ActiveBall, GlobalSoundLevel * 2, .25 : End Sub
 Sub RubberSleevesPins_Hit(idx) : PlaySound "post5", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub RubberBandsRings_Hit(idx):PlaySound "rubber", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
@@ -350,20 +355,20 @@ Sub MetalWalls_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextMetalHit then
 		dim BumpSnd:BumpSnd= "metalhit" & CStr(Int(Rnd*3)+1)
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*metalvolume, Pan(ActiveBall), 0.5, 0, 0, 1, AudioFade(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextMetalHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Dim NextOrbitHit:NextOrbitHit = 0
 Sub ramps_hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 15, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub waverampdrop1_Hit: PlaySoundAt "fx_ballrampdrop", ActiveBall : End Sub
@@ -428,17 +433,17 @@ Sub sw44_Unhit:Controller.Switch(44) = 0:End Sub
 Sub sw45_Hit:Controller.Switch(45) = 1:RollOverSound():End Sub
 Sub sw45_Unhit:Controller.Switch(45) = 0:End Sub
 
-Sub sw46_Hit:Controller.Switch(46) = 1:PlaySoundAt "gate4", ActiveBall:End Sub 
+Sub sw46_Hit:Controller.Switch(46) = 1:PlaySoundAt "gate4", ActiveBall:End Sub
 Sub sw46_Unhit:Controller.Switch(46) = 0:End Sub
 
-Sub sw47_Hit:Controller.Switch(47) = 1:PlaySoundAt "gate4", ActiveBall:End Sub 
+Sub sw47_Hit:Controller.Switch(47) = 1:PlaySoundAt "gate4", ActiveBall:End Sub
 Sub sw47_Unhit:Controller.Switch(47) = 0:End Sub
- 
-Sub sw48_Hit:Controller.Switch(48) = 1  End Sub 
+
+Sub sw48_Hit:Controller.Switch(48) = 1  End Sub
 Sub sw48_Unhit:Controller.Switch(48) = 0 : PlaySoundAt "gate4", ActiveBall : End Sub
 
-Sub swPlunger_Hit:Controller.Switch(53) = 1:End Sub   
-Sub swPlunger_UnHit:Controller.Switch(53) = 0:End Sub 
+Sub swPlunger_Hit:Controller.Switch(53) = 1:End Sub
+Sub swPlunger_UnHit:Controller.Switch(53) = 0:End Sub
 
 Sub sw54_Hit:vpmTimer.PulseSw 54:RubberBand2.visible = 0::RubberBand2a.visible = 1:sw54.timerenabled = 1:End Sub
 Sub sw54_timer:RubberBand2.visible = 1::RubberBand2a.visible = 0: sw54.timerenabled= 0:End Sub
@@ -476,7 +481,7 @@ Sub sw66_Unhit:Controller.Switch(66) = 0:End Sub
 Sub sw68_Hit:Controller.Switch(68) = 1:End Sub
 Sub sw68_Unhit:Controller.Switch(68) = 0:End Sub
 
-Sub sw71_Hit:Controller.Switch(71) = 1:RollOverSound():End Sub 
+Sub sw71_Hit:Controller.Switch(71) = 1:RollOverSound():End Sub
 Sub sw71_Unhit:Controller.Switch(71) = 0: end sub
 
 Sub switch73_Hit : If Primitive15.RotZ = 0 Then Controller.Switch(73) = 1 : Primitive15.RotZ = -4 : Me.TimerEnabled = 1 : Targetsound() : End If : End Sub
@@ -514,7 +519,7 @@ Sub RightSlingShot_Timer
     RStep = RStep + 1
 End Sub
 
-Sub LeftSlingShot_Slingshot 
+Sub LeftSlingShot_Slingshot
 	vpmTimer.PulseSw 51 : PlaySoundAtVolPitch SoundFX("leftslingshot",DOFContactors),GI2, 1,0.05
     LSling.Visible = 0 : LSling1.Visible = 1 : sling2.TransZ = -20 : LStep = 0 : LeftSlingShot.TimerEnabled = 1
 End Sub
@@ -608,7 +613,7 @@ Sub SolRFlipper(Enabled)
   If Enabled Then
 		RightFlipper.RotateToEnd() : URightFlipper.RotateToEnd() : PlaySound SoundFX("FlipperR",DOFFlippers), 0, 1, 0.1, 0.05,0,0,1,1 ' SSF fade all the way towards front of cab
 		if DynamicFlipperFriction Then RightFlipper.Friction = DynamicFlipperFrictionActive : URightFlipper.Friction = DynamicFlipperFrictionActive
-    Else 
+    Else
 		RightFlipper.RotateToStart() : URightFlipper.RotateToStart(): PlaySound SoundFX("FlipperDown",DOFFlippers), 0, 1, 0.1, 0.05,0,0,1,1 ' SSF fade all the way towards front of cab
 		if DynamicFlipperFriction Then RightFlipper.Friction = DynamicFlipperFrictionResting : URightFlipper.Friction = DynamicFlipperFrictionResting
     End If
@@ -628,15 +633,15 @@ Sub URightFlipper_Collide(parm) : PlaySound "flip_hit_1", 0, GlobalSoundLevel * 
 Dim BallShadowArray : BallShadowArray = Array (BallShadow1, BallShadow2, BallShadow3)
 
 Sub GraphicsTimer_Timer()
-	
+
 	' *** move ball shadows ***
-	If BallShadow then 
+	If BallShadow then
 		Dim BOT, b : BOT = GetBalls
 		For b = 0 to UBound(BOT)
 			BallShadowArray(b).X = BOT(b).X + (BOT(b).X - whitewater.Width/2)/8 : BallShadowArray(b).Y = BOT(b).Y + 30 : BallShadowArray(b).Z = BOT(b).Z - 24
 		Next
 	End If
-	
+
 	' *** move primitive bats ***
 	batleft.objrotz = LeftFlipper.CurrentAngle + 1 : batleftshadow.objrotz = batleft.objrotz
 	batright.objrotz = RightFlipper.CurrentAngle - 1 : batrightshadow.objrotz  = batright.objrotz
@@ -654,7 +659,7 @@ Sub BallReflections_timer()
 		If abs(vx) + abs(vy) > 8 and BOT(b).Z > 40 Then
 			mx = (abs(vx) + abs(vy)) / 8 : If mx > 2 Then mx = 2 : End If
 			LightArray(b).intensityscale = mx : LightArray(b).BulbHaloHeight = BOT(b).Z + 26
-			LightArray(b).X = BOT(b).X + rnd * 100 + 20 * vx: LightArray(b).Y = BOT(b).Y + rnd * 100 + 20 * vy 
+			LightArray(b).X = BOT(b).X + rnd * 100 + 20 * vx: LightArray(b).Y = BOT(b).Y + rnd * 100 + 20 * vy
 		else
 			LightArray(b).intensityscale = 0.03
 		end if
@@ -702,31 +707,31 @@ Sub ImageLights_Timer()
 	For Each obj in whirlpoolbulb
 		idx = obj.DepthBias - 71
 		If whirlpoollight(idx) > 0 Then
-			If whirlpoollight(idx) = 8 Then 
+			If whirlpoollight(idx) = 8 Then
 				obj.image = "simplelight7" : obj.blenddisablelighting = 1
-			Else 
+			Else
 				whirlpoollight(idx) = whirlpoollight(idx) - 1 : obj.image = "simplelight" & whirlpoollight(idx) : obj.blenddisablelighting = whirlpoollight(idx) / 7 + 0.3
 			End If
 		End If
 	Next
 	If upf_red_light > 0 Then
-		If upf_red_light = 8 Then 
+		If upf_red_light = 8 Then
 			Primitive100.image = "simplelight7" : Primitive100.blenddisablelighting = 1
-		Else 
+		Else
 			upf_red_light = upf_red_light - 1 : Primitive100.image = "simplelight" & upf_red_light : Primitive100.blenddisablelighting = upf_red_light / 7 + 0.3
 		End If
 	End If
 	If upf_yellow_light > 0 Then
-		If upf_yellow_light = 8 Then 
+		If upf_yellow_light = 8 Then
 			Primitive99.image = "simplelightyellow7" : Primitive99.blenddisablelighting = 2
-		Else 
+		Else
 			upf_yellow_light = upf_yellow_light - 1 : Primitive99.image = "simplelightyellow" & upf_yellow_light : Primitive99.blenddisablelighting = upf_yellow_light/ 20
 		End If
 	End If
 End Sub
 
 ' *************************************************************
-'      Based on JP's VP10 Rolling Sounds 
+'      Based on JP's VP10 Rolling Sounds
 ' *************************************************************
 
 Const tnob = 10 ' total number of balls
@@ -766,12 +771,12 @@ Sub CreatBalls_timer()
 	If BallCount > 0 then
 		If BallCount = 3 Then Set cBall1 = drain.CreateSizedBallWithMass(BallSize, BallMass) : End If
 		If BallCount = 2 Then Set cBall2 = drain.CreateSizedBallWithMass(BallSize, BallMass) : End If
-		If BallCount = 1 Then Set cBall3 = drain.CreateSizedBallWithMass(BallSize, BallMass) : End If		
+		If BallCount = 1 Then Set cBall3 = drain.CreateSizedBallWithMass(BallSize, BallMass) : End If
 		Drain.kick 70,30
 		BallCount = BallCount - 1
 	Else CreatBalls.enabled = false : metalvolume = 1 : End If
-End Sub	
-	
+End Sub
+
 Sub ballrelease_hit() : Controller.Switch(76)=1 : TroughWall1.isDropped = false : End Sub
 Sub sw77_Hit() : Controller.Switch(77)=1 : TroughWall2.isDropped = false : End Sub
 Sub sw77_unHit() : Controller.Switch(77)=0 : TroughWall2.isDropped = true : End Sub
@@ -814,7 +819,7 @@ End Sub
 Sub UpdateGI(no, step)
 	IF step = 1 or DisableGI Then step = 0 : end if
 	Select Case no
-		case 0 : GIUpperFade(step) 
+		case 0 : GIUpperFade(step)
 		case 1 : GIMiddleFade(step)
 		case 2 : GILowerFade(step)
 	End Select
@@ -837,19 +842,19 @@ Sub GIMiddleFade(step)
 	Rock2_Boulder_garden.material = "rockGI"  & step
 	Rock1_Lower_popbumper.material = "rockGI"  & step
 	Rock3_Rightpopbumper.material = "rockGI"  & step
-	If step = 0 Then 
-		Rock2_Boulder_garden.image = "Bouldergarden_LPCompleteMap" 
+	If step = 0 Then
+		Rock2_Boulder_garden.image = "Bouldergarden_LPCompleteMap"
 		Rock1_Lower_popbumper.image = "LowPopRock_LPMap"
-		Rock3_Rightpopbumper.image = "RightPop-LPCompleteMap" 
+		Rock3_Rightpopbumper.image = "RightPop-LPCompleteMap"
 		Primitive57.image = "shooterrampdark"
-	else 
-		Rock2_Boulder_garden.image = "bouldergarden1" 
-		Rock1_Lower_popbumper.image = "lowpop1" 
+	else
+		Rock2_Boulder_garden.image = "bouldergarden1"
+		Rock1_Lower_popbumper.image = "lowpop1"
 		Rock3_Rightpopbumper.image = "rightpop1"
 		Primitive57.image = "shooterramp"
 	End If
 	Primitive5temp7.material = "rampsGI" & step : Primitive5temp2.material = "rampsGI" & step : Primitive_Target3.blenddisablelighting = step/2
-	Primitive_Target4.blenddisablelighting = step/2 : Primitive_Target5.blenddisablelighting = step/2 : Primitive_Target8.blenddisablelighting = step/2 
+	Primitive_Target4.blenddisablelighting = step/2 : Primitive_Target5.blenddisablelighting = step/2 : Primitive_Target8.blenddisablelighting = step/2
 	Primitive_Target2.blenddisablelighting = step/2
 	Primitive57.blenddisablelighting = 0.2 + 0.2 * step / 8
 End Sub
@@ -863,7 +868,7 @@ Sub GIUpperFade(step)
 	For Each obj In GIupperbulbs : Obj.image = "simplelightwhite" & step : Next
 	If Flashlevel20 < 0.01 Then Flasher5.opacity = step * 1000 : Flasher6.opacity = step * 75 : end if
 	Flasher1.opacity = step * 250 : Flasher2.opacity = step * 150
-	Primitive5temp5.material = "rampsGI" & step : Primitive5temp3.material = "rampsGI" & step : Primitive5temp8.material = "rampsGI" & step 
+	Primitive5temp5.material = "rampsGI" & step : Primitive5temp3.material = "rampsGI" & step : Primitive5temp8.material = "rampsGI" & step
 End Sub
 
 ' *****************************************
@@ -877,7 +882,7 @@ FlasherLight20.state = 0 : FlasherLight21.state = 0 : FlasherLight23.state = 0 :
 Sub FlasherClick(oldvalue, newvalue) : If oldvalue < 0 and newvalue > 0.2 Then PlaySound "fx_relay_on",0,0.1: End If : End Sub
 
 ' ********* Bigfoot body flasher **********
-Sub Flasherset17(value) : FlasherClick FlashLevel17, value : If value < 160 Then value = 160 : End If : If value > Flashlevel17 * 255 Then FlashLevel17 = value / 255 : Flasherlight17_Timer : End If : End Sub 
+Sub Flasherset17(value) : FlasherClick FlashLevel17, value : If value < 160 Then value = 160 : End If : If value > Flashlevel17 * 255 Then FlashLevel17 = value / 255 : Flasherlight17_Timer : End If : End Sub
 Sub Flasherlight17_Timer()
 	dim flashx3 : flashx3 = FlashLevel17^2
 	Flasherlight17.IntensityScale = 50 * flashx3 : Flasherlight17b.IntensityScale = 10 * flashx3 : FlasherFlash17.opacity = 5000 * flashx3 : FlashLevel17 = FlashLevel17 * 0.8 - 0.01
@@ -911,7 +916,7 @@ Sub FlasherFlash19_Timer()
 End Sub
 
 ' ****** Upper left playfield flasher ******
-Sub Flasherset20(value) : FlasherClick FlashLevel20, value : If value < 160 Then value = 160 : End If : If value > Flashlevel20 * 255 Then FlashLevel20 = value / 255 : Flasherlight20_Timer : End If : End Sub 
+Sub Flasherset20(value) : FlasherClick FlashLevel20, value : If value < 160 Then value = 160 : End If : If value > Flashlevel20 * 255 Then FlashLevel20 = value / 255 : Flasherlight20_Timer : End If : End Sub
 Sub Flasherlight20_Timer()
 	dim flashx3 : flashx3 = FlashLevel20^3
 	Flasherlight20.IntensityScale = 5 * flashx3: Flasher5.opacity = flashx3 * 100000 + GIUp * 1000 : Flasher6.opacity = flashx3 * 100000 + GIUp * 75
@@ -921,17 +926,17 @@ Sub Flasherlight20_Timer()
 End Sub
 
 ' ******** Insanity Falls flasher **********
-Sub Flasherset21(value) : FlasherClick FlashLevel21, value : If value < 160 Then value = 160 : End If : If value > Flashlevel21 * 255 Then FlashLevel21 = value / 255 : Flasherlight21_Timer : End If : End Sub 
+Sub Flasherset21(value) : FlasherClick FlashLevel21, value : If value < 160 Then value = 160 : End If : If value > Flashlevel21 * 255 Then FlashLevel21 = value / 255 : Flasherlight21_Timer : End If : End Sub
 Sub Flasherlight21_Timer()
 	dim flashx3 : flashx3 = FlashLevel21^3
-	FlasherFlash21.opacity = 1000000 * flashx3 : Flasherlight21.IntensityScale = 20 * flashx3 : Flasher16.opacity = 2000 * FlashLevel21 : 
+	FlasherFlash21.opacity = 1000000 * flashx3 : Flasherlight21.IntensityScale = 20 * flashx3 : Flasher16.opacity = 2000 * FlashLevel21 :
 	FlashLevel21 = FlashLevel21 * 0.8 - 0.01
 	If not Flasherlight21.TimerEnabled Then FlasherFlash21.visible = 1 : Flasher16.visible = 1 : Flasherlight21.state = 1 : Flasherlight21.TimerEnabled = True : End If
 	If FlashLevel21 < 0 Then 				FlasherFlash21.visible = 0 : Flasher16.visible = 0 : Flasherlight21.state = 0 : Flasherlight21.TimerEnabled = False : End If
 End Sub
 
 ' ******* Whirlpool popper flasher *********
-Sub Flasherset22(value) : FlasherClick FlashLevel22, value : If value < 160 Then value = 160 : End If : If value > Flashlevel22 * 255 Then FlashLevel22 = value / 255 : FlasherFlash22_Timer : End If : End Sub 
+Sub Flasherset22(value) : FlasherClick FlashLevel22, value : If value < 160 Then value = 160 : End If : If value > Flashlevel22 * 255 Then FlashLevel22 = value / 255 : FlasherFlash22_Timer : End If : End Sub
 Sub FlasherFlash22_Timer()
 	dim flashx3, matdim : flashx3 = FlashLevel22^3
 	Flasherflash22.opacity = 2000 * flashx3^0.6 :  Flasherlit22.BlendDisableLighting = 2 * FlashLevel22^0.5
@@ -943,7 +948,7 @@ Sub FlasherFlash22_Timer()
 End Sub
 
 ' ******* Enter Whirlpool flasher ***********
-Sub Flasherset23(value) : FlasherClick FlashLevel23, value : If value < 160 Then value = 160 : End If : If value > Flashlevel23 * 255 Then FlashLevel23 = value / 255 : Flasherlight23_Timer : End If : End Sub 
+Sub Flasherset23(value) : FlasherClick FlashLevel23, value : If value < 160 Then value = 160 : End If : If value > Flashlevel23 * 255 Then FlashLevel23 = value / 255 : Flasherlight23_Timer : End If : End Sub
 Sub Flasherlight23_Timer()
 	Flasherlight23.IntensityScale = 5 * FlashLevel23^3 : Primitive77.BlendDisableLighting = 1000 * FlashLevel23^3 : FlashLevel23 = FlashLevel23 * 0.8 - 0.01
 	If not Flasherlight23.TimerEnabled Then Flasherlight23.state = 1 : Flasherlight23.TimerEnabled = True : End If
@@ -951,7 +956,7 @@ Sub Flasherlight23_Timer()
 End Sub
 
 ' ********** Bigfoot cave flasher ***********
-Sub Flasherset24(value) : FlasherClick FlashLevel24, value : If value > Flashlevel24 * 255 Then FlashLevel24 = value / 255 : Flasherlight24_Timer : End If : End Sub 
+Sub Flasherset24(value) : FlasherClick FlashLevel24, value : If value > Flashlevel24 * 255 Then FlashLevel24 = value / 255 : Flasherlight24_Timer : End If : End Sub
 Sub Flasherlight24_Timer()
 	dim flashx3 : flashx3 = FlashLevel24^3^0.8 : Flasherlight24.IntensityScale = 5 * flashx3: FlasherFlash24.opacity = 50000 * flashx3 : FlashLevel24 = FlashLevel24 * 0.8 - 0.01
 	If not Flasherlight24.TimerEnabled Then FlasherFlash24.visible = 1 : Flasherlight24.state = 1 : Flasherlight24.TimerEnabled = True : End If
