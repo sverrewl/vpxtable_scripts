@@ -3,6 +3,11 @@
 ' VP915 v1.0 by JPSalas 2013
 ' based on the tables by Aurich and bmiki75
 
+
+' Thalamus 2018-07-24
+' Thables doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
