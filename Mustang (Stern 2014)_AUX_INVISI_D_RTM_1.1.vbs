@@ -4,7 +4,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-
+' Added InitVpmFFlipsSAM
 
 Const Inteceptor = 0 'Replace yellow Showroom Car with Mad Max Inteceptor
 Const Flasher_Halos = 1 'Rendber Halos around flashers.
@@ -161,7 +161,7 @@ Const UseVPMModSol = 1
 		.Run GetPlayerHWnd
 		If Err Then MsgBox Err.Description
 	End With
-
+  InitVpmFFlipsSAM
     On Error Goto 0
 
 
