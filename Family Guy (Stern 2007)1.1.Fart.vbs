@@ -4,17 +4,18 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Script provided by DjRobX
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
+
 '******************************************************
 '* TABLE OPTIONS **************************************
 '******************************************************
 ' GI color
-Const GIcolor 		= 0    	'0= original, '1= white, 2=fantasy
-Const InstrCardType = 3		'Instruction Cards Type (0= English, 1= German, 2=Italian, 3=Spanish)
-
-' Thalamus 2018-07-23
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
-' Added InitVpmFFlipsSAM
+Const GIcolor = 0    '0= original, '1= white, 2=fantasy
 
 '******************************************************
 '* VPM INIT *******************************************
@@ -48,7 +49,7 @@ Const SCoin = ""
 '* ROM VERSION ****************************************
 '******************************************************
 
-Const cGameName = "fg_1200af" 'patched color rom
+Const cGameName = "fg_1200af"
 
 '******************************************************
 '* VARIABLES ******************************************
@@ -57,6 +58,8 @@ Const cGameName = "fg_1200af" 'patched color rom
 Dim bsTrough, PlungerIM, BIP, TVScoop, DrunkenClam, FARTBank, DeathTarget, CPUPos, CPDPos, MiniPF, MiniRight, MiniLeft
 Dim  CastleGatePos, CastleGatePos2, CGUp, StewiePos, StewiePos2, StewiePos3, StewieDir, StewiePinball, MegPos
 
+'******************************************************
+'* KEYS ***********************************************
 '******************************************************
 
 Sub Table1_KeyDown(ByVal keycode)
@@ -67,29 +70,30 @@ If Keycode = RightFlipperKey then
 Controller.Switch(90)=1
 Controller.Switch(82)=1
 If MiniPF.Balls=0 Then
-PlaySound "Stern_MiniFlipperUp2"
+PlaySound SoundFX("Stern_MiniFlipperUp2",DOFContactors)
 MiniPF_RightFlipper.RotateToEnd
 DOF 101, 1
 MiniRight=1
-Else
-vpmFFlipsSam.FlipR true
 End If
+vpmFFlipsSam.FlipR true
 Exit Sub
 End If
 
 If Keycode = LeftFlipperKey then
 Controller.Switch(84)=1
 If MiniPF.Balls=0 Then
-PlaySound "Stern_MiniFlipperUp1"
+PlaySound SoundFX("Stern_MiniFlipperUp1",DOFContactors)
 MiniPF_LeftFlipper.RotateToEnd
 DOF 102, 1
 MiniLeft=1
-Else
-vpmFFlipsSam.FlipL true
 End If
+vpmFFlipsSam.FlipL true
 Exit Sub
 End If
 
+If keycode = LeftTiltKey Then Nudge 90, 3:End If
+If keycode = RightTiltKey Then Nudge 270, 3:End If
+If keycode = CenterTiltKey Then Nudge 0, 3:End If
 If vpmKeyDown(keycode) Then Exit Sub
 If keycode = PlungerKey Then Plunger.PullBack
 End Sub
@@ -102,33 +106,30 @@ If Keycode = RightFlipperKey then
 Controller.Switch(90)=0
 Controller.Switch(82)=0
 If MiniRight=1 Then
-PlaySound "Stern_MiniFlipperDown2"
+PlaySound SoundFX("Stern_MiniFlipperDown2",DOFContactors)
 MiniPF_RightFlipper.RotateToStart
 DOF 101, 0
 MiniRight=0
-Else
-vpmFFlipsSam.FlipR false
 End If
+vpmFFlipsSam.FlipR false
 Exit Sub
 End If
 
 If Keycode = LeftFlipperKey then
 Controller.Switch(84)=0
 If MiniLeft=1 Then
-PlaySound "Stern_MiniFlipperDown1"
+PlaySound SoundFX("Stern_MiniFlipperDown1",DOFContactors)
 MiniPF_LeftFlipper.RotateToStart
 DOF 102, 0
 MiniLeft=0
-Else
-vpmFFlipsSam.FlipL false
 End If
+vpmFFlipsSam.FlipL false
 Exit Sub
 End If
 
 If vpmKeyUp(keycode) Then Exit Sub
 If keycode = PlungerKey Then Plunger.Fire
 End Sub
-
 
 '******************************************************
 '******************************************************
@@ -151,7 +152,6 @@ With Controller
 .ShowFrame = 0
 .ShowTitle = 0
 .Hidden = DesktopMode
-InitVpmFFlipsSAM
 On Error Resume Next
 .Run
 If Err Then MsgBox Err.Description
@@ -257,7 +257,9 @@ kicker4.enabled = 0
 sw55.createsizedball(14.6875)			'minipinball 5/8"
 MiniPF.AddBall 0
 InitGIColor
-InitInstrCardType
+
+InitVpmFFlipsSAM
+
 '******************************************************
 '******************************************************
 '******************************************************
@@ -1312,16 +1314,6 @@ RollingSoundUpdate
 BallShadowUpdate
 End Sub
 
-'*********** ROLLING SOUND *********************************
-Const tnob = 9						' total number of balls : 4 (trough) + 1 (minipf trough) + 4 (Captive Balls)
-Const fakeballs = 0					' number of balls created on table start (rolling sound will be skipped)
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling:Dim i:For i=0 to (tnob-1):rolling(i) = False:Next:End Sub
-
-
-
 '*********** BALL SHADOW *********************************
 Dim BallShadow:BallShadow = Array (BallShadow1, BallShadow2, BallShadow3,Ballshadow4,Ballshadow5,Ballshadow6,Ballshadow7,Ballshadow8,Ballshadow9)
 
@@ -1362,14 +1354,14 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "fx_gate", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "fx_gate", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 End Sub
 
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
  	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -1380,7 +1372,7 @@ Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
  	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
  		RandomSoundRubber()
@@ -1389,9 +1381,9 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End Select
 End Sub
 
@@ -1407,23 +1399,6 @@ If Ballspeed >5 then Playsound "Stern_Flippercollide1" Else Playsound "Stern_Fli
 
 Sub WirerollSND_Hit:Playsound"Stern_Wireroll":End Sub
 Sub BallDropSound_Hit:Stopsound"Stern_Wireroll":Playsound"Stern_Balldrop":End Sub
-
-' *********************************************************************
-'				       Instruction cards
-' *********************************************************************
-
-Sub InitInstrCardType
-	Select Case InstrCardType
-		Case 0
-			Apron1.image= "3dmesh_Inst_Card_Eng" : Apron2.image= "3dmesh_Coin"
-		Case 1
-			Apron1.image= "3dmesh_Inst_Card_Ger" : Apron2.image= "3dmesh_Coin"
-		Case 2
-			Apron1.image= "3dmesh_Inst_Card_Itn" : Apron2.image= "3dmesh_Coin"
-		Case 3
-			Apron1.image= "3dmesh_Inst_Card_Spn" : Apron2.image= "3dmesh_Coin"
-	End Select
-End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -1524,19 +1499,36 @@ Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
-Sub RollingSoundUpdate()
-    Dim BOT, b
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 20 ' total number of balls
+Const lob = 0   'number of locked balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
     BOT = GetBalls
-	' stop the sound of deleted balls
-	If UBound(BOT)<(tnob - 1) Then
-		For b = (UBound(BOT) + 1) to (tnob-1)
-			rolling(b) = False
-			StopSound("fx_ballrolling" & b)
-		Next
-	End If
-	' exit the Sub if no balls on the table
-    If UBound(BOT) = fakeballs-1 Then Exit Sub
-	' play the rolling sound for each ball
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = lob - 1 Then Exit Sub 'there no extra balls on this table
+
+    ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -1566,4 +1558,3 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
 End Sub
-
