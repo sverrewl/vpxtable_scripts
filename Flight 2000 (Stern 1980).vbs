@@ -6,7 +6,9 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Const cGameName = "flight2k"
 
@@ -24,7 +26,7 @@ Dim DesktopMode: DesktopMode = table1.ShowDT
 '************************************************
 '************************************************
 '************************************************
-Const UseSolenoids = True
+Const UseSolenoids = 2
 Const UseLamps = True
 Const UseGI = False
 Const UseSync = False
