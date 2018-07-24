@@ -14,10 +14,10 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This table doesn't contain the standard subs I normally add.
- 
+
    Option Explicit
    Randomize
- 
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -29,15 +29,15 @@ Sub LoadCoreVBS
  If Err Then MsgBox "Can't open core.vbs"
  On Error Goto 0
 End Sub
-  
+
 Const UseVPMModSol = 1
 
 LoadVPM "01560000", "WPC.VBS", 3.26
- 
+
    '********************
    'Standard definitions
    '********************
-   
+
 	Const UseSolenoids = 2
 	Const UseLamps = 1
 	Const UseSync = 0
@@ -47,16 +47,16 @@ LoadVPM "01560000", "WPC.VBS", 3.26
    Const SSolenoidOn = "Solenoid"
    Const SSolenoidOff = ""
    Const SCoin = "quarter"
-   
+
   'Rom Name
     Const cGameName = "dw_l2"
 
 
-'XXXXXXXXXXXXX - Graphics Variables - XXXXXXXXXXX  
+'XXXXXXXXXXXXX - Graphics Variables - XXXXXXXXXXX
    Const GI_Color = "White" ' Mixed - Red - Blue - White
    Const SideWallFlashers = 1 ' 1 On / 0 Off
    Const GISideWalls = 1 ' 1 On / 0 Off
-'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
+'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
  'Table Init
    Dim bsTrough,bsMiniPFL,bsMiniPFR,bsShooter,mMinipf,plungerIM
@@ -81,12 +81,12 @@ LoadVPM "01560000", "WPC.VBS", 3.26
 		   Controller.Switch(24) = 1 'always closed
 		   Controller.Switch(82) = 1 'pfglass switch
            On Error Resume Next
-           .Run 
- 
+           .Run
+
            If Err Then MsgBox Err.Description
            On Error Goto 0
         End With
-  
+
 ' Impulse Plunger
     Const IMPowerSetting = 45
     Const IMTime = 0.7
@@ -114,7 +114,7 @@ LoadVPM "01560000", "WPC.VBS", 3.26
   		.callback=getref("UpdateMiniPF")
   		.start
   	end with
-  
+
  'Other Init
 	sw71.isDropped = 1
 	sw72.isDropped = 1
@@ -129,14 +129,14 @@ LoadVPM "01560000", "WPC.VBS", 3.26
    Controller.Switch(22) = 1 'close coin door
    Controller.Switch(24) = 1 'always closed
    Controller.Switch(82) = 1 'pfglass switch
- 
+
 	vpmNudge.TiltSwitch = 14
 	vpmNudge.Sensitivity = 4
-	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper4, LeftSling, RightSling)  
+	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper4, LeftSling, RightSling)
 
  'Init Trapdoor
  	tdenter.enabled=true
-		
+
 'Graphic Variables
 If GI_Color = "Mixed" then
 	for each xx in GIG2:xx.Color = RGB(255, 0, 0):next
@@ -185,36 +185,36 @@ If GI_Color = "Blue" then
 End If
 
 End Sub
-	
+
 PFPos=-1
 
 Sub Table1_Paused:Controller.Pause = 1:End Sub
-Sub Table1_unPaused:Controller.Pause = 0:End Sub 
+Sub Table1_unPaused:Controller.Pause = 0:End Sub
 Sub Table1_exit:Controller.Stop: End Sub
- 
+
   '*********************keyboard handlers**************************
- 
+
    Sub Table1_KeyDown(ByVal Keycode)
   	 If keycode = plungerkey then controller.switch(34)=True
  '    If keycode = 3 then SolTrapDoor(1)
     If keycode = LeftTiltKey Then PlaySound "fx_nudge_left"
     If keycode = RightTiltKey Then PlaySound "fx_nudge_right"
-    If keycode = CenterTiltKey Then :PlaySound "fx_nudge_forward"     
-    If vpmKeyDown(keycode) Then Exit Sub 
+    If keycode = CenterTiltKey Then :PlaySound "fx_nudge_forward"
+    If vpmKeyDown(keycode) Then Exit Sub
     End Sub
-   
+
    Sub Table1_KeyUp(ByVal Keycode)
         If vpmKeyUp(keycode) Then Exit Sub
         If keyuphandler(keycode) Then Exit Sub
   	 If keycode = plungerkey then controller.switch(34)=false
 '     If keycode = 3 then SolTrapDoor(0)
    End Sub
- 
+
  'Ball events
 sub Drain_hit():PlaySoundAt "Drain", Drain:bsTrough.AddBall me:end sub
 sub sw77_hit():controller.switch(77) = 1:PlaySoundAt "scoopenter",sw77:BallPrim2.visible = 1:end sub
 Sub sw77_unhit:controller.Switch(77) = 0:end sub
-sub sw76_hit():controller.switch(76) = 1:PlaySoundAt "scoopenter",sw76:BallPrim.visible = 1:end sub 
+sub sw76_hit():controller.switch(76) = 1:PlaySoundAt "scoopenter",sw76:BallPrim.visible = 1:end sub
 Sub sw76_unhit:controller.switch(76) = 0:end Sub
 sub TardisEntrance_hit:Controller.Switch(31) = 1:end sub
 Sub ShooterLane_Hit:Controller.Switch(17)=1:End Sub
@@ -249,7 +249,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySoundAtBall "fx_rubber2"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -260,7 +260,7 @@ End Sub
 Sub RubberPosts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySoundAtBall "fx_rubber2"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -285,14 +285,14 @@ sub sw38s_Hit:PlaysoundAt "scoopenter",sw38s: End Sub
 
  'MiniPF Standup
 Sub sw78_Hit():vpmTimer.PulseSw 78:PlaySound "target":End Sub
- 
+
  'MiniPf Buttons
 Sub sw75_Hit():vpmTimer.PulseSw 75:PlaySound "target":sw75p.Y = 440:TESHake:ButtonPrim.Enabled = 1:End Sub
 Sub sw74_Hit():vpmTimer.PulseSw 74:PlaySound "target":sw74p.Y = 440:TESHake:ButtonPrim.Enabled = 1:End Sub
 Sub sw73_Hit():vpmTimer.PulseSw 73:PlaySound "target":sw73p.Y = 440:TESHake:ButtonPrim.Enabled = 1:End Sub
 Sub sw72_Hit():vpmTimer.PulseSw 72:PlaySound "target":sw72p.Y = 440:TESHake:ButtonPrim.Enabled = 1:End Sub
 Sub sw71_Hit():vpmTimer.PulseSw 71:PlaySound "target":sw71p.Y = 440:TESHake:ButtonPrim.Enabled = 1:End Sub
- 
+
 Sub ButtonPrim_Timer
 	sw75p.Y = 455
 	sw74p.Y = 455
@@ -308,10 +308,10 @@ Sub gate3_Hit:vpmTimer.PulseSw 37:PlaySoundAt "gate",gate3:End Sub
 Sub sw33_Hit:vpmTimer.PulseSw 33:PlaySoundAt "gate",sw33:End Sub
 Sub gate5_Hit:vpmTimer.PulseSw 35:PlaySoundAt "gate",gate5:End Sub
 Sub gate2_Hit:PlaySoundAt "gate",gate2:End Sub
-  
+
  ' Activate transmat
 Sub sw58_Hit:vpmTimer.PulseSw 58:PlaySoundAt "target",sw58:End Sub
- 
+
  ' Escape targets
 Sub sw41_Hit:vpmTimer.PulseSw 41:PlaySoundAt "target",sw41:End Sub
 Sub sw42_Hit:vpmTimer.PulseSw 42:PlaySoundAt "target",sw42:End Sub
@@ -319,7 +319,7 @@ Sub sw43_Hit:vpmTimer.PulseSw 43:PlaySoundAt "target",sw43:End Sub
 Sub sw44_Hit:vpmTimer.PulseSw 44:PlaySoundAt "target",sw44:End Sub
 Sub sw45_Hit:vpmTimer.PulseSw 45:PlaySoundAt "target",sw45:End Sub
 Sub sw46_Hit:vpmTimer.PulseSw 46:PlaySoundAt "target",sw46:End Sub
- 
+
  'repair targets
 Sub sw51_Hit:vpmTimer.PulseSw 51:PlaySoundAt "target",sw51:End Sub
 Sub sw52_Hit:vpmTimer.PulseSw 52:PlaySoundAt "target",sw52:End Sub
@@ -327,7 +327,7 @@ Sub sw53_Hit:vpmTimer.PulseSw 53:PlaySoundAt "target",sw53:End Sub
 Sub sw54_Hit:vpmTimer.PulseSw 54:PlaySoundAt "target",sw54:End Sub
 Sub sw55_Hit:vpmTimer.PulseSw 55:PlaySoundAt "target",sw55:End Sub
 Sub sw56_Hit:vpmTimer.PulseSw 56:PlaySoundAt "target",sw56:End Sub
- 
+
  ' lane rollovers
 Sub RightOutlane_Hit:Controller.Switch(67) = 1:PlaySoundAt "sensor",RightOutlane:End Sub
 Sub RightOutlane_UnHit:Controller.Switch(67) = 0:End Sub
@@ -339,11 +339,11 @@ Sub LeftInlane_Hit:Controller.Switch(65) = 1:PlaySoundAt "sensor",LeftInlane:End
 Sub LeftInlane_UnHit:Controller.Switch(65) = 0:End Sub
 Sub LeftMiddle_Hit:Controller.Switch(47) = 1:PlaySoundAt "sensor",LeftMiddle:End Sub
 Sub LeftMiddle_UnHit:Controller.Switch(47) = 0:End Sub
-   
+
  'hidden rollovers
 Sub sw18_Hit:vpmTimer.PulseSw 18:PlaySoundAt "sensor",sw18:End Sub
 Sub sw48_Hit:vpmTimer.PulseSw 48:PlaySoundAt "sensor",sw48:End Sub
- 
+
 ' slings
 Sub leftsling_Slingshot():vpmTimer.PulseSw 15:PlaySound SoundFX("slingshot_L" ,DOFContactors):End Sub
 Sub rightsling_Slingshot():vpmTimer.PulseSw 16:PlaySound SoundFX("slingshot_R" ,DOFContactors):End Sub
@@ -354,12 +354,12 @@ Dim Bump1,Bump2,Bump3
 Sub Bumper2_Hit():vpmTimer.PulseSw 61:PlaySound SoundFX("" ,DOFContactors):PlaySoundAt "Bumper1",bumper2:End Sub
 Sub Bumper1_Hit():vpmTimer.PulseSw 62:PlaySound SoundFX("" ,DOFContactors):PlaySoundAt "Bumper2",bumper1:End Sub
 Sub Bumper4_Hit():vpmTimer.PulseSw 63:PlaySound SoundFX("" ,DOFContactors):PlaySoundAt "Bumper3",bumper4:End Sub'
- 
+
  'Solenoids
 solcallback(1)="SolTrapDoor"
 solcallback(2)="SolAutoFire"
 solcallback(3)="TardisExit"
-solcallback(4)="solmpfl" 
+solcallback(4)="solmpfl"
 solcallback(5)="solmpfr"
 solModcallback(6)= "Flash06"
 solcallback(7)="vpmsolsound ""knocker"","
@@ -377,7 +377,7 @@ solModcallback(21)="Flash21"
 solModCallback(22)= "who_h"
 solModCallback(23)= "who_o"
 solModcallback(24)="Flash24"
-  
+
 'Solenoid Subs
 sub soltrapdoor(Enabled)
  	if enabled then
@@ -415,7 +415,7 @@ Sub solAutofire(Enabled)
         Playsound SoundFX("Solenoid" ,DOFContactors)
 	End If
 End Sub
-  
+
 Sub TardisExit(enabled)
 	If Enabled Then
 		TardisEntrance.KickZ 180, 35, 92, 0
@@ -431,7 +431,7 @@ Sub solmpfl(enabled)
 		Playsound SoundFX("BallRelease2" ,DOFContactors)
  	End If
 End Sub
- 
+
 Sub solmpfr(enabled)
 	If enabled then
 		BallPrim2.visible = 0
@@ -491,7 +491,7 @@ Sub Flash20(Level)
 end sub
 
 Sub Flash21(Level)
-	If Level > 0 Then	
+	If Level > 0 Then
 		FL21.IntensityScale = (Level / 2.55) / 100
 		FL21b.IntensityScale = (Level / 2.55) / 100
 		FL21.State = 1
@@ -517,7 +517,7 @@ Sub who_h(Level)
 		FL22.State = 0
 	end if
 End Sub
- 
+
 Sub who_o(Level)
 	If Level > 0 Then
 		FL23.IntensityScale = (Level / 2.55) / 100
@@ -542,7 +542,7 @@ End Sub
   '**************
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
-  
+
   Sub SolLFlipper(Enabled)
       If Enabled Then
           PlaySound SoundFX("" ,DOFFlippers),0,1,-.5:LeftFlipper.RotateToEnd:LeftFlipper2.RotateToEnd
@@ -552,7 +552,7 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 		  PlaySoundAt "FlipperDown", LeftFlipper
       End If
   End Sub
-  
+
   Sub SolRFlipper(Enabled)
       If Enabled Then
           PlaySound SoundFX("" ,DOFFLippers),0,1,.5:RightFlipper.RotateToEnd
@@ -562,10 +562,10 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 		  PlaySoundAt "FlipperDown", RightFlipper
       End If
   End Sub
- 
- 
+
+
 '**********************************************************
-'     MiniPF Animation 
+'     MiniPF Animation
  '**********************************************************
 Dim ZPos
 
@@ -573,10 +573,10 @@ Sub UpdateMiniPF(aCurrPos,aSpeed,aLast)
 
 		If aCurrPos > 180 Then
 			ZPos = (((aCurrPos - 180)* -1) +180)
-		Else 
+		Else
 			ZPos = aCurrPos
 		End If
-			
+
 		For Each XX in MiniPF
 			XX.TransZ = (ZPos * .7843)
 			Playsound SoundFX("Motor-Old1" ,DOFGear),0,0.1,0,.1
@@ -603,7 +603,7 @@ Sub UpdateMiniPF(aCurrPos,aSpeed,aLast)
 		If aCurrPos > 135 and aCurrPos < 226 then PFPos = 2
 		If aCurrPos > 225 and aCurrPos < 316 then PFPos = 1
 		If aCurrPos > 315 then PFPos = 0
- 			If OldLevel <> PFPos Then	
+ 			If OldLevel <> PFPos Then
 				Select Case PFPos
 						Case 0:'Ground level
 								Gate68.Collidable = 0
@@ -692,7 +692,7 @@ Dim ii
 
 		Case 2  'String 3,PFa/Inserta in ROM
 		If Status > 0 Then
-			For each xx in GIG2 
+			For each xx in GIG2
 			xx.State = 1
 			xx.IntensityScale = Status * .25: Next
 			If GISideWalls = 1 then
@@ -706,7 +706,7 @@ Dim ii
 
 		Case 3 'String 4,PFb/Insertb in ROM
 		If Status > 0 Then
-			For each xx in GIG3 
+			For each xx in GIG3
 			xx.State = 1
 			xx.IntensityScale = Status * .25: Next
 			If GISideWalls = 1 then
@@ -720,7 +720,7 @@ Dim ii
 
 		Case 4  'String 5,PFc/Insertc in ROM
 		If Status > 0 Then
-			For each xx in GIG4 
+			For each xx in GIG4
 			xx.State = 1
 			xx.IntensityScale = Status * .25: Next
 			If GISideWalls = 1 then
@@ -740,15 +740,15 @@ End Sub
 Dim GILevel
 
 Sub Intensity
-	If DayNight <= 20 Then 
+	If DayNight <= 20 Then
 			GILevel = .5
-	ElseIf DayNight <= 40 Then 
+	ElseIf DayNight <= 40 Then
 			GILevel = .4125
-	ElseIf DayNight <= 60 Then 
+	ElseIf DayNight <= 60 Then
 			GILevel = .325
-	ElseIf DayNight <= 80 Then 
+	ElseIf DayNight <= 80 Then
 			GILevel = .2375
-	Elseif DayNight <= 100  Then 
+	Elseif DayNight <= 100  Then
 			GILevel = .15
 	End If
 
@@ -762,9 +762,9 @@ End Sub
 '*********add lights to the AllLights collection, Create a LampTimer Timer object.
 
 	vpmMapLights AllLights
-'****************************************** 
- 
-' misc 
+'******************************************
+
+' misc
 Sub PrimTimer_Timer
 	gate68p.RotX = Gate68.currentAngle
 	Gate88p.RotX = gate88.CurrentAngle
@@ -776,7 +776,7 @@ Sub PrimTimer_Timer
 			End If
 	Else
 		L67on.visible = 1
-			If SideWallFlashers = 1 then		
+			If SideWallFlashers = 1 then
 			l67onb.visible = 1
 			End If
 	End If
@@ -806,7 +806,7 @@ Sub PrimTimer_Timer
 		Flasher6.visible = 0
 	End If
 'TextBox2.Text = ABS(gi11.Intensity)
-'TextBox1.Text = 
+'TextBox1.Text =
 End Sub
 
 ' *********************************************************************
@@ -943,7 +943,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySoundAtBall "fx_rubber2"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -954,7 +954,7 @@ End Sub
 Sub RubberPosts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySoundAtBall "fx_rubber2"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
