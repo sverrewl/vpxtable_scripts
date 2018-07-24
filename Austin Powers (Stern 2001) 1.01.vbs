@@ -4,6 +4,7 @@ Randomize
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Changed UseSolenoids=1 to 2
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
