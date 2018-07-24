@@ -27,6 +27,7 @@
 
 ' Thalamus 2018-07-23
 ' This table already has its own 7.1 "Positional Sound Playback Functions" routine
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
  Option Explicit
@@ -60,7 +61,7 @@ Else
 End If
 
 ' Standard Options
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps     = 1
 Const UseSync      = 0
 Const HandleMech   = 0
