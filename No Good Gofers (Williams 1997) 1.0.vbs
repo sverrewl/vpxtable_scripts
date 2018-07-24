@@ -3,6 +3,13 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' , AudioFade(ActiveBall)
+
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -33,7 +40,7 @@ end if
 
    LoadVPM"01520000","WPC.VBS",3.1
 
- 
+
 
 '********************
 'Standard definitions
@@ -161,7 +168,7 @@ end if
 				Controller.Switch(48)=0
 				RGofer.IsDropped=0
 				RGoferUp.Enabled = 1
-				RGoferDown.Enabled = 0				
+				RGoferDown.Enabled = 0
 				Rramp.collidable=0
 				Rramp1.collidable=1
 				RightRampUp = 1
@@ -194,7 +201,7 @@ end if
 
 	Sub SolLeftRampDown(Enabled)
 		If Enabled Then
-			RightRampUp = 0			
+			RightRampUp = 0
 			LrampDir = 1
 			Lramp.collidable=1
 			Lramp1.collidable=0
@@ -202,13 +209,13 @@ end if
 			LrampTimer.Enabled = 1
 
 		Else
-			
+
 		End If
 	End Sub
 
 	Sub SolRightRampDown(Enabled)
 		If Enabled Then
-			RightRampUp = 0			
+			RightRampUp = 0
 			RrampDir = 1
 			Rramp.collidable=1
 			Rramp1.collidable=0
@@ -216,7 +223,7 @@ end if
 			RrampTimer.Enabled = 1
 
 		Else
-			
+
 		End If
 	End Sub
 
@@ -232,7 +239,7 @@ end if
 			SlamRampDownTimer.Enabled = 1
 		Else
 
-		End If		
+		End If
 	End Sub
 
 Sub SlamRampDownTimer_Timer()
@@ -348,7 +355,7 @@ End Sub
 	For each xx in extraambient:xx.intensityscale = 1:Next
 	End If
 	If nightday>5 then
-	For each xx in extraambient:xx.intensity = xx.intensity*.9:Next 
+	For each xx in extraambient:xx.intensity = xx.intensity*.9:Next
 	End If
 	If nightday>10 then
 	For each xx in extraambient:xx.intensity = xx.intensity*.7:Next
@@ -373,7 +380,7 @@ End Sub
 
 	Plunger1.PullBack
 	Kickback.PullBack
-	Controller.Switch(22)=1 'close coin door	
+	Controller.Switch(22)=1 'close coin door
 	Controller.Switch(24)=0 'always closed
 	Controller.Switch(41)=1 'drop left gofer
 	Controller.Switch(42)=1 'drop right gofer
@@ -388,7 +395,7 @@ End Sub
 
 		Sub Table_Paused:Controller.Pause = 1:End Sub
 		Sub Table_unPaused:Controller.Pause = 0:End Sub
- 
+
 '**********
 ' Keys
 '**********
@@ -534,9 +541,9 @@ End Sub
 		Sub sw71_Hit:Controller.Switch(71)=1:PlaySound "fx_sensor":End Sub
 		Sub sw71_UnHit:Controller.Switch(71)=0:End Sub
 		Sub sw72_Hit:Controller.Switch(72)=1:PlaySound "fx_sensor":End Sub
-		Sub sw72_UnHit:Controller.Switch(72)=0:End Sub 
+		Sub sw72_UnHit:Controller.Switch(72)=0:End Sub
 		Sub sw86_Hit:Controller.Switch(86)=1:PlaySound "fx_sensor":End Sub
-		Sub sw86_UnHit:Controller.Switch(86)=0:End Sub 
+		Sub sw86_UnHit:Controller.Switch(86)=0:End Sub
 
 '***************
 '  Targets
@@ -619,7 +626,7 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 0: LeftGoferBlock.z=-20
 								LGoferIsUp = 1
 								LGoferUp.Enabled = 0
-								Lramp.HeightBottom=110 
+								Lramp.HeightBottom=110
 					Case 1: LeftGoferBlock.z=-25:Lramp.HeightBottom=104
 					Case 2: LeftGoferBlock.z=-31:Lramp.HeightBottom=102
 					Case 3: LeftGoferBlock.z=-37:Lramp.HeightBottom=100
@@ -629,7 +636,7 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 7: LeftGoferBlock.z=-25:Lramp.HeightBottom=104
 					Case 8: LeftGoferBlock.z=-31:Lramp.HeightBottom=98
 					Case 9: LeftGoferBlock.z=-37:Lramp.HeightBottom=91
-					Case 10: LeftGoferBlock.z=-43:Lramp.HeightBottom=84   
+					Case 10: LeftGoferBlock.z=-43:Lramp.HeightBottom=84
 					Case 11: LeftGoferBlock.z=-49:Lramp.HeightBottom=77
 					Case 12: LeftGoferBlock.z=-55:Lramp.HeightBottom=70
 					Case 13: LeftGoferBlock.z=-61:Lramp.HeightBottom=63
@@ -641,18 +648,18 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 19: LeftGoferBlock.z=-97:Lramp.HeightBottom=21
 					Case 20: LeftGoferBlock.z=-103:Lramp.HeightBottom=14
 					Case 21: LeftGoferBlock.z=-109:Lramp.HeightBottom=7
-					Case 22: LeftGoferBlock.z=-115:Lramp.HeightBottom=0	
+					Case 22: LeftGoferBlock.z=-115:Lramp.HeightBottom=0
 			  End Select
 					If LGpos>0 then LGpos=LGpos-1
 	  End Sub
 
-	  Sub LGoferDown_Timer()	
+	  Sub LGoferDown_Timer()
 	  Select Case LGPos
 			Case 0: LeftGoferBlock.z=-19
 			Case 1: LeftGoferBlock.z=-25
 			Case 2: LeftGoferBlock.z=-31
 			Case 3: LeftGoferBlock.z=-37
-			Case 4: LeftGoferBlock.z=-43        
+			Case 4: LeftGoferBlock.z=-43
 			Case 5: LeftGoferBlock.z=-49
 			Case 6: LeftGoferBlock.z=-55
 			Case 7: LeftGoferBlock.z=-61
@@ -664,9 +671,9 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 			Case 13: LeftGoferBlock.z=-97
 			Case 14: LeftGoferBlock.z=-103
 			Case 15: LeftGoferBlock.z=-109
-			Case 16: LeftGoferBlock.z=-115	
+			Case 16: LeftGoferBlock.z=-115
 						LGoferDown.Enabled = 0
-						LGoferIsUp = 0	 
+						LGoferIsUp = 0
 	  End Select
 			If LGpos<16 then LGpos=LGpos+1
 	  End Sub
@@ -676,7 +683,7 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 0: RightGoferBlock.z=-20
 								RGoferIsUp = 1
 								RGoferUp.Enabled = 0
-								Rramp.HeightBottom=110 
+								Rramp.HeightBottom=110
 					Case 1: RightGoferBlock.z=-25:Rramp.HeightBottom=104
 					Case 2: RightGoferBlock.z=-31:Rramp.HeightBottom=102
 					Case 3: RightGoferBlock.z=-37:Rramp.HeightBottom=100
@@ -686,7 +693,7 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 7: RightGoferBlock.z=-25:Rramp.HeightBottom=104
 					Case 8: RightGoferBlock.z=-31:Rramp.HeightBottom=98
 					Case 9: RightGoferBlock.z=-37:Rramp.HeightBottom=91
-					Case 10: RightGoferBlock.z=-43:Rramp.HeightBottom=84   
+					Case 10: RightGoferBlock.z=-43:Rramp.HeightBottom=84
 					Case 11: RightGoferBlock.z=-49:Rramp.HeightBottom=77
 					Case 12: RightGoferBlock.z=-55:Rramp.HeightBottom=70
 					Case 13: RightGoferBlock.z=-61:Rramp.HeightBottom=63
@@ -698,18 +705,18 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 					Case 19: RightGoferBlock.z=-97:Rramp.HeightBottom=21
 					Case 20: RightGoferBlock.z=-103:Rramp.HeightBottom=14
 					Case 21: RightGoferBlock.z=-109:Rramp.HeightBottom=7
-					Case 22: RightGoferBlock.z=-115:Rramp.HeightBottom=0		
+					Case 22: RightGoferBlock.z=-115:Rramp.HeightBottom=0
 			  End Select
 					If RGpos>0 then RGpos=RGpos-1
 	  End Sub
 
-	  Sub RGoferDown_Timer()	
+	  Sub RGoferDown_Timer()
 	  Select Case RGPos
 			Case 0: RightGoferBlock.z=-19
 			Case 1: RightGoferBlock.z=-25
 			Case 2: RightGoferBlock.z=-31
 			Case 3: RightGoferBlock.z=-37
-			Case 4: RightGoferBlock.z=-43        
+			Case 4: RightGoferBlock.z=-43
 			Case 5: RightGoferBlock.z=-49
 			Case 6: RightGoferBlock.z=-55
 			Case 7: RightGoferBlock.z=-61
@@ -721,9 +728,9 @@ LGofer.TimerEnabled=1:RGofer.TimerEnabled=1:LrampTimer.Enabled=1
 			Case 13: RightGoferBlock.z=-97
 			Case 14: RightGoferBlock.z=-103
 			Case 15: RightGoferBlock.z=-109
-			Case 16: RightGoferBlock.z=-115	
+			Case 16: RightGoferBlock.z=-115
 						RGoferDown.Enabled = 0
-						RGoferIsUp = 0	 
+						RGoferIsUp = 0
 	  End Select
 			If RGpos<16 then RGpos=RGpos+1
 	  End Sub
@@ -741,7 +748,7 @@ Sub LrampTimer_Timer()
 					Case 7: Lramp.HeightBottom=104
 					Case 8: Lramp.HeightBottom=98
 					Case 9: Lramp.HeightBottom=91
-					Case 10: Lramp.HeightBottom=84    
+					Case 10: Lramp.HeightBottom=84
 					Case 11: Lramp.HeightBottom=77
 					Case 12: Lramp.HeightBottom=70
 					Case 13: Lramp.HeightBottom=63
@@ -753,7 +760,7 @@ Sub LrampTimer_Timer()
 					Case 19: Lramp.HeightBottom=21
 					Case 20: Lramp.HeightBottom=14
 					Case 21: Lramp.HeightBottom=7
-					Case 22: Lramp.HeightBottom=0:Controller.Switch(47)=1:LeftRampUp = 0:LrampTimer.Enabled = 0 
+					Case 22: Lramp.HeightBottom=0:Controller.Switch(47)=1:LeftRampUp = 0:LrampTimer.Enabled = 0
 			If Lramppos<22 then Lramppos=Lramppos+1
 		End Select
 		End If
@@ -1198,7 +1205,7 @@ End Sub
 ' Desktop Objects: Reels & texts (you may also use lights on the desktop)
 
 ' Reels
-Dim NewCombiResult, Combifor145and146 
+Dim NewCombiResult, Combifor145and146
 Sub NFadeARmCombi(nr1, nr2, ramp, aOff, a1, a2, aBoth, OldCombiResult)
 	NewCombiResult=LampState(nr1)+(2*LampState(nr2))
 	If OldCombiResult=NewCombiResult Then Exit Sub
@@ -1250,7 +1257,7 @@ End Sub
 '***********
 ' Update GI
 '***********
-Dim gistep, Giswitch 
+Dim gistep, Giswitch
 Giswitch = 0
 
 Sub UpdateGIOn(no, Enabled)
@@ -1275,7 +1282,7 @@ Sub UpdateGIOn(no, Enabled)
 			End If
 	End Select
 End Sub
-			
+
 
 Sub UpdateGI(no, step)
     Dim ii
@@ -1325,7 +1332,7 @@ End Sub
 'Sub centerramphelper_Hit():ActiveBall.Vely=ActiveBall.Vely*1.3:End Sub
 'Sub centerramphelper2_Hit():Activeball.Velx=ActiveBall.Velx-20:End Sub
 'Sub upperhelper_Hit():ActiveBall.Velx=ActiveBall.Velx*1.2:End Sub
-'Sub upperhelper2_Hit():ActiveBall.Vely=ActiveBall.Vely*1.3:End Sub	
+'Sub upperhelper2_Hit():ActiveBall.Vely=ActiveBall.Vely*1.3:End Sub
 'Sub jumpramptrigger_Hit():ActiveBall.Vely=ActiveBall.Vely*1.3:End Sub
 'Sub upperjump_Hit():ActiveBall.Vely=ActiveBall.Vely*1.5:End Sub
 'Sub upperjump_UnHit():ActiveBall.Velz=ActiveBall.Velz=0:End Sub
@@ -1337,19 +1344,161 @@ Sub Game_timer()
 	If LeftRampUp = 0 Then LRampTimer.Enabled = 1
 End Sub
 
+Sub platformdrop_Unhit()
+	If ActiveBall.Vely>0 then PlaySound "ball_bounce"
+End Sub
 
+Sub rightrampdrop_UnHit():PlaySound "ball_bounce":End Sub
+Sub leftrampdrop_UnHit():PlaySound "ball_bounce":End Sub
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
+Sub jumpramptrigger_Hit():PlaySound "metalhit_medium":End Sub
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+Sub Pins_Hit (idx)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Targets_Hit (idx)
+	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Thin_Hit (idx)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Medium_Hit (idx)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals2_Hit (idx)
+	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Gates_Hit (idx)
+	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Rubbers_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 20 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub Posts_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 16 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub RandomSoundRubber()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub LeftFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RightFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub UpperFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RandomSoundFlipper()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub upperjump_UnHit():ActiveBall.Velz=ActiveBall.Velz=0:End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
     Dim tmp
-    tmp = ball.x * 2 / table.width-1
+    tmp = ball.x * 2 / table1.width-1
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
@@ -1357,12 +1506,26 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
     End If
 End Function
 
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 '*****************************************
@@ -1394,16 +1557,21 @@ Sub RollingTimer_Timer()
     If UBound(BOT) = -1 Then Exit Sub
 
     ' play the rolling sound for each ball
+
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
@@ -1412,90 +1580,10 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
 
-Sub platformdrop_Unhit()
-	If ActiveBall.Vely>0 then PlaySound "ball_bounce"
-End Sub
-
-Sub rightrampdrop_UnHit():PlaySound "ball_bounce":End Sub
-Sub leftrampdrop_UnHit():PlaySound "ball_bounce":End Sub
-
-Sub jumpramptrigger_Hit():PlaySound "metalhit_medium":End Sub
-
-Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub UpperFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-Sub upperjump_UnHit():ActiveBall.Velz=ActiveBall.Velz=0:End Sub
