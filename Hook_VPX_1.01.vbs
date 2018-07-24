@@ -8,6 +8,7 @@ On Error Goto 0
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Const Ballsize = 52
@@ -19,7 +20,7 @@ LoadVPM "01000200", "DE.VBS", 3.38
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 1
 Const HandleMech = 0
