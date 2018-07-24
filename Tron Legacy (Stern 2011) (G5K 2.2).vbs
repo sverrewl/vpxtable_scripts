@@ -42,20 +42,23 @@
 ' Hannibal: Lighting and graphical improvements
 
 ' Draifet: Physics and graphical improvements
- 
+
 ' HauntFreaks: Graphical and material improvements
 
 '****** THIS VERSION (2.2) 4K VPX 10.5+ ****
 
-' DJRobX: Updated physics and code to bring table inline with VPX 10.4 routines. 
+' DJRobX: Updated physics and code to bring table inline with VPX 10.4 routines.
 '		  ROM-controlled GI and PWM flasher support.   Merging changes between
-'         existing tables. Fastflips hardcoded.. 
+'         existing tables. Fastflips hardcoded..
 
 ' G5k:	Playfield, plastics, ramps and other graphical improvments, new arcade primitive, modified ramp primitives.
 '		Lighting, material and physics adjustments and general trial and error adjustments.
 '
 ' Hauntfreaks: Adjusted POV
 
+' Thalamus 2018-07-24
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 Option Explicit
 Randomize
@@ -69,12 +72,12 @@ On Error Goto 0
 ' User options
 ' ***************************
 
-Const LensFlares = True ' Hannibal lens flares.  Very large textures, may cause lag 
+Const LensFlares = True ' Hannibal lens flares.  Very large textures, may cause lag
 Const GlowRamps = 10   ' Boost neon tube glow (0 = off, 10 = default 100 = very bright)
 Const Sidewall = True    ' Dozer's sidewall reflections of neon tubes (new artwork created)
 Const SpecialApron = True  ' False = Stern Cards, True = Lovely Tron lady cards
 Const GIBleedOpacity = 25 ' Blue cast over rear of table.   100= max, 0 = off
-Const WhiteGI =  True ' GI LED Color: Blue = 0, Cool White = 1 
+Const WhiteGI =  True ' GI LED Color: Blue = 0, Cool White = 1
 
 
 
@@ -84,7 +87,7 @@ Dim UseVPMDMD: UseVPMDMD = False
 If DesktopMode = True Then 'Show Desktop components
 	Ramp16.visible=1
 	Ramp15.visible=1
-	UseVPMDMD = True   
+	UseVPMDMD = True
 'Reflect2.X = 920
 'Reflect2.Y = 875.8458
 'Reflect2.Height = 145
@@ -103,9 +106,9 @@ if GlowRamps >0 Then
 		bulb.IntensityScale=GlowRamps / 10
 	Next
 	for each bulb in RampGlow2
-		bulb.IntensityScale=GlowRamps / 10 
+		bulb.IntensityScale=GlowRamps / 10
 	Next
-end if 
+end if
 if WhiteGI Then
 	dim bulb
 	for each bulb in GI
@@ -121,8 +124,8 @@ if WhiteGI Then
 	GI_9.BulbModulateVsAdd = 1
 	GI_10.IntensityScale = .5
 	GI_16.IntensityScale = .5
-	
-end if 
+
+end if
 
 LoadVPM "01560000", "sam.VBS", 3.10
 
@@ -135,7 +138,7 @@ Const cGameName = "trn_174h"
 Const UseSolenoids = 1
 Const UseLamps = 0
 Const UseSync = 1
-Const HandleMech = 0 
+Const HandleMech = 0
 Const UseGI=1
 
 'Standard Sounds
@@ -168,7 +171,7 @@ Sub Table_Init
 		.ShowDMDOnly = 1
 		.ShowFrame = 0
 		.HandleMechanics = 1
-		.Hidden = UseVPMDMD  
+		.Hidden = UseVPMDMD
         .Games(cGameName).Settings.Value("sound") = 1
 		On Error Resume Next
 		.Run GetPlayerHWnd
@@ -197,7 +200,7 @@ Sub Table_Init
 
 
  	'DropTargets
-   	Set DTBank4 = New cvpmDropTarget  
+   	Set DTBank4 = New cvpmDropTarget
    	  With DTBank4
    		.InitDrop Array(sw04,sw03,sw02,sw01),Array(4,3,2,1)
         .Initsnd SoundFX("fx_droptarget",DOFContactors), SoundFX("fx_droptargetup",DOFContactors)
@@ -206,10 +209,10 @@ Sub Table_Init
       '**Main Timer init
 	PinMAMETimer.Interval = PinMAMEInterval
 	PinMAMETimer.Enabled = 1
- 
+
 	'Nudging
     	vpmNudge.TiltSwitch=-7
-    	vpmNudge.Sensitivity=3    	
+    	vpmNudge.Sensitivity=3
 		vpmNudge.TiltObj=Array(Bumper1b,Bumper2b,Bumper3b,LeftSlingshot,RightSlingshot)
 
      ' Impulse Plunger
@@ -242,19 +245,20 @@ Sub Table_Init
 	vpmFlipsSam.FlipperSolNumber(1) = 16
 	InitVpmFlipsSAM
 	vpmflipssam.tiltsol True	'make sure this is on for SS flippers
+  InitVpmFFlipsSAM
 End Sub
 
 Sub Table_Paused:Controller.Pause = 1:End Sub
 Sub Table_unPaused:Controller.Pause = 0:End Sub
 
- 
+
 '*****Keys
 Sub Table_KeyDown(ByVal keycode)
 	' Fast flips - once integrated into sam.vbs this won't be necessary
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		vpmFlipsSam.FlipL true
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		vpmFlipsSam.FlipR true
 	End If
 	' end fast flips
@@ -262,15 +266,15 @@ Sub Table_KeyDown(ByVal keycode)
 	If Keycode = LeftTiltKey Then Nudge 90, 8: PlaySound "fx_nudge_left"
 	If Keycode = RightTiltKey Then Nudge 270, 8: PlaySound "fx_nudge_right"
 	If Keycode = CenterTiltKey Then Nudge 0, 8: PlaySound "fx_nudge_forward"
-    If vpmKeyDown(keycode) Then Exit Sub 
+    If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Table_KeyUp(ByVal keycode)
 	' Fast flips - once integrated into sam.vbs this won't be necessary
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		vpmFlipsSam.FlipL false
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		vpmFlipsSam.FlipR false
 	End If
 	' end fast flips
@@ -307,7 +311,7 @@ SolModCallback(21) = "setlampmod 121,"   'LE apron right
 SolCallback(23) = "recogrelay"    'LE recognizer
 
 SolModCallback(19) = "setlampmod 125,"'flash left domes
-SolModCallback(26) = "SetLampMod 126,"'flash disc left 
+SolModCallback(26) = "SetLampMod 126,"'flash disc left
 SolModCallback(27) = "SetLampMod 127,"'flash disc right
 SolModCallback(28) = "SetLampMod 128,"'flash backpanel x2
 SolModCallback(29) = "SetLampMod 129,"'flash recognizer
@@ -338,7 +342,7 @@ Sub RecognizerTimer_Timer
 		Controller.Switch(55) = 1
 	Else
 		Controller.Switch(55) = 0
-	End If 
+	End If
 
 	Select Case recogdir
 	Case 1:
@@ -356,7 +360,7 @@ End Sub
 
 
 Sub recogrelay(Enabled)
-	If Enabled Then 
+	If Enabled Then
 		recogdir = 1:RecognizerTimer.enabled=1
 	Else
 		RecognizerTimer.enabled=0
@@ -483,7 +487,7 @@ Sub sw34_UnHit:Controller.Switch(34) = 0:End Sub
 Sub sw35_Hit:Controller.Switch(35) = 1:PlaySoundAt "Gate",sw35:End Sub
 Sub sw35_UnHit:Controller.Switch(35) = 0:End Sub
 Sub sw36_Spin:vpmTimer.PulseSw 36::PlaySoundAtVol"fx_spinner",sw36,.2:End Sub
-Sub sw37_Hit 
+Sub sw37_Hit
 	Controller.Switch(37) = 1
 	PlaySoundAt "Gate",sw37
 	'RightCount = RightCount + 1
@@ -541,7 +545,7 @@ End Sub
      Me.TimerInterval = 2
      Me.TimerEnabled = 1
  End Sub
- 
+
  Sub sw11_Timer
      bBall.Z = bZpos
      bZpos = bZpos-4
@@ -551,7 +555,7 @@ End Sub
          bsRHole.AddBall Me
      End If
  End Sub
- 
+
 ' ===============================================================================================
 ' spinning discs (New) Taken from Whirlwind written by Herweh
 ' ===============================================================================================
@@ -683,7 +687,7 @@ Class myTurnTable
 			NeedUpdate = mBalls.Count
 		Else
 			Speed = Speed - SpinDown*MaxSpeed/3000 '100
-			If Speed < 0 Then 
+			If Speed < 0 Then
 				Speed = 0
 				'msgbox "off"
 				NeedUpdate = mBalls.Count
@@ -726,7 +730,7 @@ Sub Arcadetimer2_Timer()
 			Case 1 : Monitor.image = "Arcadeframe1"
 			Case 2 : Monitor.image = "Arcadeframe2"
 			Case 3 : Monitor.image = "Arcadeframe3"
-			Case 4 : Monitor.image = "Arcadeframe4" 
+			Case 4 : Monitor.image = "Arcadeframe4"
 			Case 5 : Monitor.image = "Arcadeframe5"
 			Case 6 : Monitor.image = "Arcadeframe6"
 			Case 7 : Monitor.image = "Arcadeframe7"
@@ -759,7 +763,7 @@ Sub Drehtimer_Timer
 	End Select
 End Sub
 
-  
+
 Sub SolLFlipper(Enabled)
      If Enabled Then
 		 PlaySoundAt SoundFX("FlipperUpLeft",DOFContactors),LeftFlipper
@@ -778,7 +782,7 @@ Sub SolRFlipper(Enabled)
 		 PlaySoundAt SoundFX("FlipperDown",DOFContactors),RightFlipper
 		 RightFlipper.RotateToStart
      End If
- End Sub   
+ End Sub
 
 
  'Drains and Kickers
@@ -788,7 +792,7 @@ Sub Drain_Hit()
 	PlaySound "Drain"
 	BallCount = BallCount - 1
 	bsTrough.AddBall Me
-	If BallCount = 0 then Bildschirmaktiv = FALSE : Monitor.image = "Arcadeframe0" 
+	If BallCount = 0 then Bildschirmaktiv = FALSE : Monitor.image = "Arcadeframe0"
 End Sub
 
 Sub BallRelease_UnHit()
@@ -847,8 +851,8 @@ Sub Bumper1b_Hit
 	vpmTimer.PulseSw 31
 	PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper1b,1
 End Sub
-     
- 
+
+
 Sub Bumper2b_Hit
 	vpmTimer.PulseSw 30
 	PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper2b,1
@@ -858,7 +862,7 @@ Sub Bumper3b_Hit
 	vpmTimer.PulseSw 32
 	PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper3b,1
 End Sub
-  
+
 
 Dim LampState(200), FadingLevel(200)
 Dim FlashSpeedUp, FlashSpeedDown
@@ -873,7 +877,7 @@ InitLamps()
 Sub SetLampMod(nr, value)
     If value > 0 Then
 		LampState(nr) = 1
-		FadingLevel(nr) = value  
+		FadingLevel(nr) = value
 	Else
 		LampState(nr) = 0
 	End If
@@ -881,13 +885,13 @@ End Sub
 
 Sub LampMod(nr, object)
 	dim nstate
-	if FadingLevel(nr) > 0 then 
+	if FadingLevel(nr) > 0 then
 		nstate = 1
-	Else	
+	Else
 		nstate = 0
 	end if
 	If TypeName(object) = "Light" Then
-		Object.IntensityScale = FadingLevel(nr)/128		
+		Object.IntensityScale = FadingLevel(nr)/128
 		Object.State = nstate
 	End If
 	If TypeName(object) = "Flasher" Then
@@ -919,22 +923,22 @@ End Sub
 
 Sub UpdateLamps()
 
-' ** TEST** Temporary performance testning code 
+' ** TEST** Temporary performance testning code
 'testx = testx -1
 'if testl= 116 then
-'	if testx > 4 then 
-'		gion 
-'	else 
+'	if testx > 4 then
+'		gion
+'	else
 '		gioff
-'	end if 
+'	end if
 'else
 'if testx > 15 then setlampmod testl, 128 else setlampmod testl,0
-'end if 
+'end if
 'if testx = 0 then testx = 30
 'TESTy = TESTy -1
 'if TESTy = 0 then TESTl=TESTl+1:debug.print TESTl:TESTy= 120:if TESTl=142 then TESTl=116
 
-'' ** END TEST 
+'' ** END TEST
 
 MaterialColor "Linkerstring", RGB(LampState(103), LampState(102), LampState(101))
 MaterialColor "Rechterstring", RGB(LampState(106), LampState(105), LampState(104))
@@ -1005,13 +1009,13 @@ SetRGBLamp Rampenlicht2a26, Lampstate(103),Lampstate(102),Lampstate(101)
 SetRGBLamp Rampenlicht2a27, Lampstate(103),Lampstate(102),Lampstate(101)
 SetRGBLamp Rampenlicht2a28, Lampstate(103),Lampstate(102),Lampstate(101)
 
-end if 
+end if
 
-if Sidewall then 
+if Sidewall then
 Reflect1.Color = RGB(Lampstate(106),Lampstate(105),Lampstate(104))
 Reflect2.Color = RGB(Lampstate(103),Lampstate(102),Lampstate(101))
 Reflect3.Color = RGB(Lampstate(103),Lampstate(102),Lampstate(101))
-end if 
+end if
 
 NFadeLm 1, l1
 NFadeLm 1, l1a
@@ -1153,11 +1157,11 @@ FlashModSol 121
 FlashModSol 125
 FlashModSol 126
 FlashModSol 127
-FlashModSol 128 
+FlashModSol 128
 FlashModSol 129
 FlashModSol 131
 FlashModSol 132
-FlashModSol 139 
+FlashModSol 139
 FlashModSol 140
 FlashModSol 141
 
@@ -1177,7 +1181,7 @@ LampMod 119, Flasher2a1
 LampMod 119, Flasher2a2
 
 LampMod 120, Linkerflasher
-LampMod 121, Lanelight 
+LampMod 121, Lanelight
 LampMod 121, Rechterflasher
 
 LampMod 125, Flasher5
@@ -1187,7 +1191,7 @@ LampMod 125, Flasher6a
 
 LampMod 126, F126
 
-LampMod 127,F127 
+LampMod 127,F127
 
 'LampMod 128, Flasher3
 LampMod 128, Flasher3c
@@ -1196,7 +1200,7 @@ LampMod 128, Flasher3a
 'LampMod 128, Flasher4
 LampMod 128, Flasher4c
 LampMod 128, Flasher4d
-LampMod 128, Flasher4a 
+LampMod 128, Flasher4a
 
 LampMod 129, f129
 LampMod 129, f129a
@@ -1226,10 +1230,10 @@ If LensFlares Then
 	LampMod 128, Flasher4b
     LampMod 129, Flasher129
 	LampMod 131, Flasher131
-	LampMod 139, f9b	
+	LampMod 139, f9b
     LampMod 140, f10b
 	LampMod 141, f11b
-end if 
+end if
 
 
 End Sub
@@ -1248,8 +1252,8 @@ Sub FlashModSol(nr)
             FadingLevel(nr) = FadingLevel(nr) - FlashSpeedDown
             If FadingLevel(nr) < 0 Then
                 FadingLevel(nr) = 0
-            End if           
-        Case 1 			
+            End if
+        Case 1
             '  Cap FlashLevel at 128 here.
             If FadingLevel(nr) > 128 Then
                 FadingLevel(nr) = 128
@@ -1268,9 +1272,9 @@ Sub InitLamps()
 	LampTimer.Interval = 16 'lamp fading speed
 	LampTimer.Enabled = 1
 End Sub
- 
-Sub SetRGBLamp(Lamp, R, G, B)   
-     'dim IntensityValue 
+
+Sub SetRGBLamp(Lamp, R, G, B)
+     'dim IntensityValue
 	 'IntensityValue = .2126 * R + .7152 * G + .0722 * B
 	 Lamp.Color = RGB(R, G, B)
 	 Lamp.ColorFull = RGB(R, G, B)
@@ -1281,9 +1285,9 @@ End Sub
 Sub SetLamp(nr, value)
     If value <> LampState(nr) Then
         LampState(nr) = abs(value)
-		if abs(value) = 1 then 
+		if abs(value) = 1 then
 			FadingLevel(nr) = 128
-		end if 
+		end if
     End If
 End Sub
 
@@ -1357,7 +1361,7 @@ PlaySound SoundFX("TargetBank",DOFContactors)
 End If
 End Sub
 
-Sub TBTimer_Timer()	
+Sub TBTimer_Timer()
 
 
 IF TBPos = 0 Then
@@ -1418,7 +1422,7 @@ Case 28: MotorBank.Z=-76:SW49P.Z=-76:SW50P.Z=-76:SW51P.Z=-76:SW49.isdropped=1:SW
 Case 29: TBTimer.Enabled=0:TBDown=1:Controller.Switch(52) = 1:Controller.Switch(53) = 0
 End Select
 
-If TBDown=0 then TBPos=TBPos+1 
+If TBDown=0 then TBPos=TBPos+1
 If TBDown=1 then TBPos=TBPos-1
 
 TBdif = (-1 + (2*RND))/((TBPos/5)+1)
@@ -1438,7 +1442,7 @@ End Sub
 
 
 
-	
+
 
 
 Sub ShooterLane_Hit()
@@ -1456,7 +1460,7 @@ Dim frame, FinalFrame  'ArcadeTimer
 FinalFrame = 126 'number of frames - 1
 frame = 0
 
- Sub ArcadeTimer_Timer()       
+ Sub ArcadeTimer_Timer()
 	Arcade(frame).isdropped = True
 	frame = frame + 1
 	If frame = FinalFrame Then frame=0
@@ -1469,7 +1473,7 @@ Sub Trigger1_hit
 
  Sub Trigger2_hit
 	PlaySound "DROP_RIGHT"
- End Sub 
+ End Sub
 
 
 Sub Table_exit()
@@ -1486,7 +1490,7 @@ Sub RLS_Timer()
               SpinnerT4.RotZ = -(sw44.currentangle)
               SpinnerT1.RotZ = -(sw36.currentangle)
 End Sub
-  
+
 'primitive flippers!
 Sub UpdateFlipperLogo
     LFLogo.RotY = LeftFlipper.CurrentAngle
@@ -1547,7 +1551,7 @@ Sub GIOff
 End Sub
 
  'Sub RightSlingShot_Timer:Me.TimerEnabled = 0:End Sub
- 
+
 ' *********************************************************************
 '                      Supporting Ball & Sound Functions
 ' *********************************************************************
@@ -1745,15 +1749,15 @@ End Sub
 
 ' Plastic Ramp Sounds
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 ' Requires rampbump1 to 7 in Sound Manager
@@ -1780,8 +1784,8 @@ dim anglehan, dirhan, anglezhan, dirzhan, angleXYoffsethan, lengthhanoffset, han
 
 
     lighthanmovepos(0) = recognizer.x + recognizer.transx
-	lighthanmovepos(1) = recognizer.y +30 
-	lighthanmovepos(2) = recognizer.z +200  
+	lighthanmovepos(1) = recognizer.y +30
+	lighthanmovepos(2) = recognizer.z +200
 	anglehan = - recognizer.transx
 	anglezhan = -recognizer.rotz
     lengthhanoffset = 200
@@ -1812,18 +1816,18 @@ Ship2.Intensity = (2+(1*Rnd))
 
 
 Lightcycle3.Intensity = (5+(2*Rnd))
-Lightcycle4.Intensity =	Lightcycle3.Intensity 
-Lightcycle5.Intensity =	Lightcycle3.Intensity 
+Lightcycle4.Intensity =	Lightcycle3.Intensity
+Lightcycle5.Intensity =	Lightcycle3.Intensity
 
 Schild.Intensity = (35+(10*Rnd))
 
 
 Flasher1a1.Intensity = (150+(30*Rnd))
-Flasher2a1.Intensity = Flasher1a1.Intensity 
+Flasher2a1.Intensity = Flasher1a1.Intensity
 'Flasher3a.Intensity = (150+(30*Rnd))
-'Flasher4a.Intensity = Flasher3a.Intensity 
+'Flasher4a.Intensity = Flasher3a.Intensity
 Flasher5a.Intensity = (60+(30*Rnd))
-Flasher6a.Intensity = Flasher5a.Intensity 
+Flasher6a.Intensity = Flasher5a.Intensity
 
 Flasher7.Intensity = (15+(3*Rnd))
 Flasher7a.Intensity =  (Flasher7.Intensity  *3)
@@ -1866,9 +1870,9 @@ Set GICallback = GetRef("GIUpdate")
 Sub GIUpdate(no, Enabled)
 	If enabled Then
 		GIOn
-    Else 
+    Else
 		GIOff
-	end if 
+	end if
 End Sub
 
 
@@ -1894,7 +1898,7 @@ Sub BallShadowUpdate()
 			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table.Width/2))/7)) '- 10
 		End If
 	    ballShadow(b).Y = BOT(b).Y + 10
- 
+
 		If BOT(b).Z > 20 Then
 			BallShadow(b).visible = 1
 		Else
@@ -1929,18 +1933,18 @@ Sub InitVpmFlipsSAM()
 		err.clear
 		if cSingleRflip or Err then vpmFlipsSAM.CallbackUR=SolCallback(vpmFlipsSAM.FlipperSolNumber(3))
 	On Error Goto 0
-	'msgbox "~Debug-Active Flipper subs~" & vbnewline & vpmFlipsSAM.SubL &vbnewline& vpmFlipsSAM.SubR &vbnewline& vpmFlipsSAM.SubUL &vbnewline& vpmFlipsSAM.SubUR' & 
+	'msgbox "~Debug-Active Flipper subs~" & vbnewline & vpmFlipsSAM.SubL &vbnewline& vpmFlipsSAM.SubR &vbnewline& vpmFlipsSAM.SubUL &vbnewline& vpmFlipsSAM.SubUR' &
 
 End Sub
 
 
 
-'New Command - 
+'New Command -
 'vpmflipsSam.RomControl=True/False 		-	 True for rom controlled flippers, False for FastFlips (Assumes flippers are On)
 
 
 'Debug Stuff ~~~~~~~~~~~~~
-'Sub TestFF_Timer()	'Testing switching back and forth between fastflips and rom controlled flips on a timer 
+'Sub TestFF_Timer()	'Testing switching back and forth between fastflips and rom controlled flips on a timer
 '	me.interval = 500'RndNum(100, 500)
 '	vpmFlipsSAM.RomControl = Not vpmFlipsSAM.RomControl
 'End Sub
@@ -1970,7 +1974,7 @@ Class cvpmFlipsSAM	'test fastflips with support for both Rom and Game-On Solenoi
 	Public Property Let CallBackR(aInput) : if Not IsEmpty(aInput) then SubR  = aInput :SolCallback(FlipperSolNumber(1)) = name & ".RomFlip(1)=":end if :End Property
 	Public Property Let CallBackUL(aInput): if Not IsEmpty(aInput) then SubUL = aInput :SolCallback(FlipperSolNumber(2)) = name & ".RomFlip(2)=":end if :End Property	'this should no op if aInput is empty
 	Public Property Let CallBackUR(aInput): if Not IsEmpty(aInput) then SubUR = aInput :SolCallback(FlipperSolNumber(3)) = name & ".RomFlip(3)=":end if :End Property
-	
+
 	Public Property Let RomFlip(idx, ByVal aEnabled)
 		aEnabled = abs(aEnabled)
 		SolState(idx) = aEnabled
@@ -1982,7 +1986,7 @@ Class cvpmFlipsSAM	'test fastflips with support for both Rom and Game-On Solenoi
 			Case 3 : execute subUR &" " & aEnabled
 		End Select
 	End property
-	
+
 	Public Property Let RomControl(aEnabled) 		'todo improve choreography
 		'MsgBox "Rom Control " & CStr(aEnabled)
 		RomMode = aEnabled
@@ -2004,7 +2008,7 @@ Class cvpmFlipsSAM	'test fastflips with support for both Rom and Game-On Solenoi
 
 	Public Property Let Solenoid(aInput) : if not IsEmpty(aInput) then Sol = aInput : end if : End Property	'set solenoid
 	Public Property Get Solenoid : Solenoid = sol : End Property
-	
+
 	'call callbacks
 	Public Sub FlipL(ByVal aEnabled)
 		aEnabled = abs(aEnabled) 'True / False is not region safe with execute. Convert to 1 or 0 instead.
@@ -2021,13 +2025,13 @@ Class cvpmFlipsSAM	'test fastflips with support for both Rom and Game-On Solenoi
 	Public Sub FlipUL(ByVal aEnabled)
 		aEnabled = abs(aEnabled)  : ButtonState(2) = aEnabled
 		If FlippersEnabled and Not Romcontrol or DebugOn then execute subUL & " " & aEnabled end If
-	End Sub	
+	End Sub
 
 	Public Sub FlipUR(ByVal aEnabled)
 		aEnabled = abs(aEnabled)  : ButtonState(3) = aEnabled
 		If FlippersEnabled and Not Romcontrol or DebugOn then execute subUR & " " & aEnabled end If
-	End Sub	
-	
+	End Sub
+
 	Public Sub TiltSol(aEnabled)	'Handle solenoid / Delay (if delayinit)
 		If delay > 0 and not aEnabled then 	'handle delay
 			vpmtimer.addtimer Delay, Name & ".FireDelay" & "'"
@@ -2037,9 +2041,9 @@ Class cvpmFlipsSAM	'test fastflips with support for both Rom and Game-On Solenoi
 			EnableFlippers(aEnabled)
 		end If
 	End Sub
-	
+
 	Sub FireDelay() : If LagCompensation then EnableFlippers 0 End If : End Sub
-	
+
 	Public Sub EnableFlippers(aEnabled)	'private
 		If aEnabled then execute SubL &" "& ButtonState(0) :execute SubR &" "& ButtonState(1) :execute subUL &" "& ButtonState(2): execute subUR &" "& ButtonState(3)':end if
 		FlippersEnabled = aEnabled
