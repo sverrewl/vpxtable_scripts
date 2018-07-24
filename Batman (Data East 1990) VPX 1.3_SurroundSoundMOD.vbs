@@ -1,6 +1,10 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
