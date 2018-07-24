@@ -8,8 +8,10 @@ Option Explicit
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Replaced the whole Ballrolling routine
+
 
 	Const BallSize = 100 'Its huge!
 
@@ -61,7 +63,7 @@ End Sub
 '==================================================================
 Const cGameName     = "hercules"   ' PinMAME short name
 Const cCredits      = "Hercules Total rebuild in vp10 by randr"
-Const UseSolenoids  = True
+Const UseSolenoids  = 2
 Const UseLamps      = True
 Const UseGI         = False
 
