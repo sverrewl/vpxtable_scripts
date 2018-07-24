@@ -7,6 +7,11 @@
 
 ' VPX version by Dozer and ninuzzu
 
+' Thalamus 2018-07-24
+' Table has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -29,18 +34,18 @@ Const cGameName = "cv_20hc" 'arcade rom with credits
 '-------------------------------------------------
 
 '******** DMD OPTIONS *************
-' 
+'
 'The 3 options below decide how the DMD is going to be rendered.
 '
 'Setting this option to 0 will use the old style DMD which sits in front
-'of the ramps and is not integrated into the table. 
+'of the ramps and is not integrated into the table.
 '
 'Setting this option to 1 will use the new flasher based integrated DMD.
-'By also setting the variable "dmdcolor" below you can change the color 
+'By also setting the variable "dmdcolor" below you can change the color
 'of the DMD to one of the 8 colors listed.
 
 'Setting this option to 2 will use the new flasher based integrated DMD
-'and will also allow you to set the DMD to a special 4 color mode which 
+'and will also allow you to set the DMD to a special 4 color mode which
 'must be enabled via the VPM setup program.  If you use this option the "dmdcolor"
 'variable below will have no effect as the DMD must be set to a base color to render
 'the 4 color option properly.
@@ -54,7 +59,7 @@ Const DMD_Plastic = 0 'Render a plastic cover over the DMD display.
 
 '-------------------------------------------------
 
-Const BackGlassDMD = 0 ' Place a static image on the playfield DMD if you use a 3 screen cab and don't want to use either 
+Const BackGlassDMD = 0 ' Place a static image on the playfield DMD if you use a 3 screen cab and don't want to use either
                        ' the integrated DMD or the normal DMD positioned on the playfield.
 '-------------------------------------------------
 
@@ -119,7 +124,7 @@ Const Plasmamod = 0
 '##########################################
 'THE NEXT TWO VARIABLES CONTROL THE DEFAULT COLORS
 'OF THE NEON TUBE AND CAPTIVE BALL WHEN THE TABLE
-'FIRST STARTS.  THEY CAN BOTH BE CHANGED IN GAME BY 
+'FIRST STARTS.  THEY CAN BOTH BE CHANGED IN GAME BY
 'PRESSING THE EXTRA BALL KEY.
 '##########################################
 
@@ -146,7 +151,7 @@ Dim RampMagBall
 
 '######### END OF TABLE OPTIONS ###########
 
-If IntegratedDMDType = 1 then 
+If IntegratedDMDType = 1 then
 If dmdcolor = 0 then
 dmd.color = RGB(255,128,0)
 dmd1.color = RGB(255,128,0)
@@ -301,7 +306,7 @@ Dim Sound1, Sound2, Sound3, Sound4, Sound5, B2SController
  LoadVPM "01560000", "WPC.VBS", 3.46
 
  Sub LoadVPM(VPMver, VBSfile, VBSver)	'Add new call to InitializeOptions to allow selection of controller through F6 menu
-	On Error Resume Next 
+	On Error Resume Next
 		If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
 			ExecuteGlobal GetTextFile(VBSfile)
 		If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
@@ -309,7 +314,7 @@ Dim Sound1, Sound2, Sound3, Sound4, Sound5, B2SController
 		'InitializeOptions 'Enables New Controller change through F6 menu, so it needs to be placed before Controller selection
 
 		'Select Case cController
-			'Case 1: 
+			'Case 1:
 				Set Controller = CreateObject("VPinMAME.Controller")
 				If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
 				If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
@@ -1203,7 +1208,7 @@ End Sub
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 1
 Const UseSync = 0
 Const HandleMech = 1
@@ -1281,8 +1286,8 @@ End If
 End Sub
 
 
-' ------------------------------------- 
-' Lights Array 
+' -------------------------------------
+' Lights Array
 ' -------------------------------------
 ' lights, map all lights on the playfield to the Lights array
 On Error Resume Next
@@ -1343,8 +1348,8 @@ Sub Table1_Init
         .InitEntrySnd Sound2, Sound2
         .Balls = 4
         .IsTrough = 1
-    End With 
-   
+    End With
+
    'Left saucer
     Set bsLeftSaucer = New cvpmBallStack
     With bsLeftSaucer
@@ -1452,7 +1457,7 @@ Sub Table1_Init
     Plunger1.PullBack
     Controller.Switch(22) = 0
     vpmTimer.AddTimer 100, "StartMotor"
-	
+
     vpmTimer.AddTimer 10, "GIUpdate"
 End Sub
 
@@ -1486,7 +1491,7 @@ End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
 	If keycode = PlungerKey Then Plunger2.Fire:PlaySoundat "plunger",Plunger2
-    If vpmKeyUp(keycode) Then Exit Sub 
+    If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 Sub JugglerMagnet_Hit()
@@ -1575,7 +1580,7 @@ Sub Bumper2_timer()
 End Sub
 
 Sub LBumper1_Timer()
-    
+
 	Boom_Ring.Z = Boom_Ring.Z + (5 * dirRing3)
 	If Boom_Ring.Z <= 0 Then dirRing3 = 1
 	If Boom_Ring.Z >= 35 Then
@@ -1583,7 +1588,7 @@ Sub LBumper1_Timer()
 		Boom_Ring.Z = 35
 		Me.TimerEnabled = 0
 	End If
-    
+
 End Sub
 
 ' Drain holes, vuks & saucers
@@ -1633,7 +1638,7 @@ Controller.Switch(48) = 1
 pstep = 1
 cplas.enabled = 1
 PlaySoundAt "fx_sensor",sw48
-If ActiveBall.VelY <= -35 Then 
+If ActiveBall.VelY <= -35 Then
 ActiveBall.VelY = -30
 End If
 End Sub
@@ -1775,7 +1780,7 @@ Sub sw16_Hit()
 		RMShake
         'If Dozer_Cab = 1 Then
 		DOF 269,2
-		'End If  
+		'End If
 	End If
         Controller.Switch(16)=1
         Eddy.enabled = 1
@@ -1922,7 +1927,7 @@ DOF 64,2
 		'on error goto 0
 		StopBumpSounds
 End If
-	
+
 End Sub
 
 
@@ -2114,7 +2119,7 @@ DOF 21,1
 'next
 'For each nxx in aNeons:nxx.State = 1:Next
 F21.State = 1:F21a.State = 1:F21b.State = 1:F21a1.state = 1':F21R.State = 1
-If masterf = 0 Then 
+If masterf = 0 Then
 Ringmaster.image = "rm_off_ryel"
 else
 DOF 21,0
@@ -2162,7 +2167,7 @@ Prim_LeftWireRamp.material = "metal_yellow"
 Prim_MenagerieGuide.material = "metal_yellow"
 If masterf = 0 Then
 ringmaster.image = "rm_off_lyel"
-else 
+else
 ringmaster.image = "rm_on_lyel"
 End If
 F24F.enabled = 1:f24gstate = 1
@@ -2236,7 +2241,7 @@ End Sub
 
 Dim LFTCount:LFTCount=1
 Dim RFTCount:RFTCount=1
- 
+
 Sub SolLFlipper(Enabled)
 
      If Enabled Then
@@ -2283,7 +2288,7 @@ Sub Auto_Plunger(Enabled)
         Plunger1.Fire
         PlaySoundAt SoundFX("fx_Solenoid"),Plunger1
         DOF 253,2
-Else 
+Else
         Plunger1.PullBack
     End If
 End Sub
@@ -2331,7 +2336,7 @@ End Sub
 '     End If
 '   End If
 ' End Sub
- 
+
 'Sub Cannon_Timer()
 'DOF 15,0
 'DOF 16,0
@@ -2343,7 +2348,7 @@ End Sub
 '           PlaySound "fx_Bell10"
 '       Case 3
 '           Cannon.Enabled=0
-'           CannonFlag=0   
+'           CannonFlag=0
 '     End Select
 'End Sub
 
@@ -2446,7 +2451,7 @@ RMMagBall = Empty
 	End If
  End Sub
 
- Sub UpdateRM(aCurrPos, aSpeed, aLastPos) 
+ Sub UpdateRM(aCurrPos, aSpeed, aLastPos)
     If Ringmaster_Motor = 1 Then
 '    PlaySound SoundFX("bridge2"), , 0.02
     PlaySound SoundFX("bridge2"),0,1,.1,0,0,0,0,-.9
@@ -2457,7 +2462,7 @@ RMMagBall = Empty
 	Ringmaster.z = (RMCurrPos-4) * 265.5/(Ringmaster_Speed-4)- 265.5
     JackpotP.z = (RMCurrPos-4) * 265.5/(Ringmaster_Speed-4)- 265.5
 	RMHitWall.IsDropped = NOT RMCurrPos > 4
-     sw16.enabled = RMCurrPos > 4  
+     sw16.enabled = RMCurrPos > 4
 	If (RMCurrPos >37 And RMCurrPos < 40)  AND RMCurrPos > aLastPos Then cball.vely = cball.vely - 1.5
 	If RMBallInMagnet Then RMMagBall.z = Ringmaster.z + 50 + 265.5
     If aCurrPos >= Ringmaster_Speed * 97 \ 100 Then
@@ -2521,7 +2526,7 @@ End Sub
 	cBall.Vely = cBall.VelY-ngrav					'modifier for slope reversal/cancellation
 	rmmod = (ringmaster.z+265.5)/265*.4				'.4 is a 40% modifier for ratio of ball movement to head movement
     If RMCurrPos >3 Then
-	  PlaySound "fx_spring", 0, (((ringmaster.rotx * 2)  + (ringmaster.roty * 2))/400), (ringmaster.rotx / 1000), ((ringmaster.rotx + ringmaster.roty)/2000) 'Hanibal Spring Sound 
+	  PlaySound "fx_spring", 0, (((ringmaster.rotx * 2)  + (ringmaster.roty * 2))/400), (ringmaster.rotx / 1000), ((ringmaster.rotx + ringmaster.roty)/2000) 'Hanibal Spring Sound
     End If
 	ringmaster.rotx = (ckicker.y - cball.y)*rmmod
 	ringmaster.roty = (cball.x - ckicker.x)*rmmod
@@ -2563,15 +2568,15 @@ End Sub
 Dim WBall
 
 Sub CreateWildBall()
-    
-Set WBall = kicker1.Createsizedball(51):WBall.color = (wbcolor):Wball.image = "powerball4":Wball.id = 666:kicker1.Kick 0, 0   
+
+Set WBall = kicker1.Createsizedball(51):WBall.color = (wbcolor):Wball.image = "powerball4":Wball.id = 666:kicker1.Kick 0, 0
 WBall.mass = 1.5
 End Sub
 
 '***********
 ' Update GI
 '***********
-Dim xx   
+Dim xx
 Dim gistep
 gistep = 1/8
 
@@ -2580,7 +2585,7 @@ Controller.Switch(22) = 1 'fix motor
 If step = 0 OR step = 7 then exit sub
 
     Select Case no
-        
+
         Case 0 'right
 
 For each xx in GIRight:xx.IntensityScale = gistep * step:next
@@ -2625,7 +2630,7 @@ If step = 5 then B2SController.B2SSetData 104,1:B2SController.B2SSetData 102,0:B
 If step = 6 then B2SController.B2SSetData 105,1:B2SController.B2SSetData 102,0:B2SController.B2SSetData 103,0:B2SController.B2SSetData 104,0:B2SController.B2SSetData 101,0:B2SController.B2SSetData 106,0
 If step = 8 then B2SController.B2SSetData 106,1:B2SController.B2SSetData 102,0:B2SController.B2SSetData 103,0:B2SController.B2SSetData 104,0:B2SController.B2SSetData 105,0:B2SController.B2SSetData 101,0
 End If
-   
+
      End Select
 End Sub
 
@@ -2650,7 +2655,7 @@ End Sub
     End If
  End Sub
 
-Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness		
+Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
 	Dim dfRandomness
 	r=cint(r)
 	dfRandomness=INT(RND*(2*r+1))
@@ -2659,7 +2664,7 @@ Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (hig
 	If ABS(activeball.vely) > dt Then activeball.vely=activeball.vely*(1-df*(ABS(activeball.vely)/100))
 End Sub
 
-Sub DampenXY (dtx,dfx,rx, dty, dfy, ry)	 'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness		
+Sub DampenXY (dtx,dfx,rx, dty, dfy, ry)	 'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
 	Dim dfxRandomness
 	Dim dfyRandomness
 	rx=cint(rx)
@@ -2691,7 +2696,7 @@ End Sub
 Dim Xin,Yin,rAngle,Radit,wAngle,Pi
 Pi = csng(4*Atn(1))					'3.1415926535897932384626433832795
 
- Sub GetAngle(Xin, Yin, wAngle)						
+ Sub GetAngle(Xin, Yin, wAngle)
 	If Sgn(Xin) = 0 Then
 		If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
 		If Sgn(Yin) = 0 Then rAngle = 0
@@ -2726,7 +2731,7 @@ End Function
 Function dAtn2(X, Y)
 	If X > 0 Then
 		dAtn2 = dAtn(Y / X)
-	ElseIf X < 0 Then 
+	ElseIf X < 0 Then
 		dAtn2 = dAtn(Y / X) + 180 * Sgn(Y)
 		If Y = 0 Then dAtn2 = dAtn2 + 180
 		If Y < 0 Then dAtn2 = dAtn2 + 360
@@ -2909,7 +2914,7 @@ Sub RollingTimer_Timer()
 			obj.velx = 0
 			obj.vely = 0
 			obj.velz = 0
-		next 
+		next
 	end if
 	on error goto 0
 End Sub
@@ -2919,7 +2924,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-    If ball1.id = 666 OR ball2.id = 666 Then ' 666 is the Menagarie ball 
+    If ball1.id = 666 OR ball2.id = 666 Then ' 666 is the Menagarie ball
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 1000, Pan(ball1), 0, Pitch(ball1) - 10000, 0, 0,AudioFade(ball1)
     else
 	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0,AudioFade(ball1)
@@ -3025,13 +3030,13 @@ f24gstate = 1
 Sub F24F_Timer()
 Select Case f24gstate
 Case 1:
-If f24gscale => 100 Then 
+If f24gscale => 100 Then
 me.enabled = 0
 End If
 f24gscale = f24gscale + 1
 f24c.intensityscale = f24gscale
 Case 2:
-If f24gscale <= 0 Then 
+If f24gscale <= 0 Then
 me.enabled = 0
 Exit Sub
 End If
@@ -3048,13 +3053,13 @@ f21gstate = 1
 Sub F21F_Timer()
 Select Case f21gstate
 Case 1:
-If f21gscale => 100 Then 
+If f21gscale => 100 Then
 me.enabled = 0
 End If
 f21gscale = f21gscale + 1
 f21c.intensityscale = f21gscale
 Case 2:
-If f21gscale <= 0 Then 
+If f21gscale <= 0 Then
 me.enabled = 0
 Exit Sub
 End If
@@ -3071,13 +3076,13 @@ f25gstate = 1
 Sub F25F_Timer()
 Select Case f25gstate
 Case 1:
-If f25gscale => 100 Then 
+If f25gscale => 100 Then
 me.enabled = 0
 End If
 f25gscale = f25gscale + 1
 f25c.intensityscale = f25gscale
 Case 2:
-If f25gscale <= 0 Then 
+If f25gscale <= 0 Then
 me.enabled = 0
 Exit Sub
 End If
@@ -3094,13 +3099,13 @@ f26gstate = 1
 Sub F26F_Timer()
 Select Case f26gstate
 Case 1:
-If f26gscale => 100 Then 
+If f26gscale => 100 Then
 me.enabled = 0
 End If
 f26gscale = f26gscale + 1
 f26c.intensityscale = f26gscale
 Case 2:
-If f26gscale <= 0 Then 
+If f26gscale <= 0 Then
 me.enabled = 0
 Exit Sub
 End If
@@ -3117,13 +3122,13 @@ f37gstate = 1
 Sub F37F_Timer()
 Select Case f37gstate
 Case 1:
-If f37gscale => 100 Then 
+If f37gscale => 100 Then
 me.enabled = 0
 End If
 f37gscale = f37gscale + 1
 f37c.intensityscale = f37gscale
 Case 2:
-If f37gscale <= 0 Then 
+If f37gscale <= 0 Then
 me.enabled = 0
 Exit Sub
 End If
@@ -3154,12 +3159,12 @@ For each bidx in Boom_Bits:bidx.TransX = 0:next
 End If
 Select Case bbpos
 Case 1:
-If Boom_Cap.Transx => 20 Then 
+If Boom_Cap.Transx => 20 Then
 bbpos = 2
 End If
 For each bidx in Boom_Bits:bidx.TransX = bidx.TransX + 1:next
 Case 2:
-If Boom_Cap.Transx <= 0 Then 
+If Boom_Cap.Transx <= 0 Then
 bbpos = 1
 End If
 For each bidx in Boom_Bits:bidx.TransX = bidx.TransX - 1:next
@@ -3178,12 +3183,12 @@ For each bidx2 in Boom_Bits:bidx2.TransX = 0:next
 End If
 Select Case bbpos2
 Case 1:
-If Boom_Cap.Transx => 10 Then 
+If Boom_Cap.Transx => 10 Then
 bbpos2 = 2
 End If
 For each bidx2 in Boom_Bits:bidx2.TransX = bidx2.TransX + 1:next
 Case 2:
-If Boom_Cap.Transx <= 0 Then 
+If Boom_Cap.Transx <= 0 Then
 bbpos2 = 1
 End If
 For each bidx2 in Boom_Bits:bidx2.TransX = bidx2.TransX - 1:next
@@ -3192,9 +3197,9 @@ End Sub
 
 Sub DOF(dofevent, dofstate)
 If B2SOn=1 Then
-If dofstate = 2 Then  
-B2SController.B2SSetData dofevent, 1:B2SController.B2SSetData dofevent, 0 
-Else  B2SController.B2SSetData dofevent, dofstate 
+If dofstate = 2 Then
+B2SController.B2SSetData dofevent, 1:B2SController.B2SSetData dofevent, 0
+Else  B2SController.B2SSetData dofevent, dofstate
 End If
 End If
 End Sub
@@ -3210,39 +3215,39 @@ End Function
 Sub Table1_exit()
 	Controller.Pause = False
 	Controller.Stop
-    If b2sOn = 1 Then 
-	B2SController.Stop 
+    If b2sOn = 1 Then
+	B2SController.Stop
 	End If
 End Sub
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .5 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub WireLaunchRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 1, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
