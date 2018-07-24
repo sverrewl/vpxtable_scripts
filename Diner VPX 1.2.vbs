@@ -63,8 +63,8 @@ AlternateDroptargets = False
 ' *** The settings below together with ContrastSetting determines how the lighting looks **
 ' *** for all values: 1.0 = default, useful range 0.1 - 5 *********************************
 GlowAmountDay = 0.05
-InsertBrightnessDay = 0.8 
-GlowAmountCutoutDay = 0 
+InsertBrightnessDay = 0.8
+GlowAmountCutoutDay = 0
 InsertBrightnessCutoutDay = 0.6
 GlowAmountNight = 0.5
 InsertBrightnessNight = 0.6
@@ -186,25 +186,25 @@ LightsDemo = False
 '				fix for inserts showing only black
 '				potential fix for GI not on (issue similar to black inserts)
 
-' explanation of standard constants (info by Jpsalas and others on VpForums): 
-' These constants are for the vpinmame emulation, and they tell vpinmame what it is supposed 
+' explanation of standard constants (info by Jpsalas and others on VpForums):
+' These constants are for the vpinmame emulation, and they tell vpinmame what it is supposed
 ' to emulate.
 ' UseSolenoids=1 means the vpinmame will use the solenoids, so in the script there are calls
 ' 				 for a solenoid to do different things (like reset droptargets, kick a ball, etc)
 ' UseLamps=0 	 means the vpinmame won't bother updating the lights, but done in script
-' UseSync=0      (unclear) but probably is to enable or disable the sync in the vpinmame window 
+' UseSync=0      (unclear) but probably is to enable or disable the sync in the vpinmame window
 ' 				 (or dmd). So it syncs with the screen or not.
-' HandleMech=0   means vpinmame won't handle  special animations, they will have to be done 
+' HandleMech=0   means vpinmame won't handle  special animations, they will have to be done
 '				 manually in Scripts
-' UseGI=1        If 1 and used together with "Set GiCallback2 = GetRef("UpdateGI")" where 
-'				 UpdateGI is the sub routine that sets the Global Illumination lights 
+' UseGI=1        If 1 and used together with "Set GiCallback2 = GetRef("UpdateGI")" where
+'				 UpdateGI is the sub routine that sets the Global Illumination lights
 ' 				 only the Williams wpc tables have Gi circuitry support (so you can use GICallback)
 '				 for other tables a solenoid has to be used
 ' SFlipperOn     - Flipper activate sound
 ' SFlipperOff    - Flipper deactivate sound
 ' SSolenoidOn    - Solenoid activate sound
 ' SSolenoidOff   - Solenoid deactivate sound
-' SCoin          - Coin Sound 
+' SCoin          - Coin Sound
 
 ' *** Global constants ***
 Const UseSolenoids = 2
@@ -212,7 +212,7 @@ Const UseLamps = 0
 Const UseSync = 0
 Const HandleMech = 0
 Const UseGI=0
-Const cGameName="diner_l4" 
+Const cGameName="diner_l4"
 Const sCoin = "fx_coin"
 Const cCredits="Diner, Williams 1990"
 
@@ -238,7 +238,7 @@ Const swLeftRampExit=36,swLeftOutlane=37,swLeftReturnLane=38,swRightReturnLane=3
 Const swUpperLeftEject=49,swLowerLeftEject=50,swLeftJetBumper=51
 Const swRightJetBumper=52,swLowerJetBumper=53,swBRKicker=54,swBLKicker=55,swSpinner=56,swFlipR=57,swFlipL=58,swClockWheel=59
 Const sOuthole=1,sRampDown=2,sC3BDTReset=3,sRampUp=4,sUpperLeftEject=5,sSubPlfdShooter=6,sKnocker=7,sLowerLeftEject=8
-Const sRightRampFlasher=9,sBackBoxRelay=10,sLeftRampFlasher=11,sL3BDTReset=13,sClockWheel=15 
+Const sRightRampFlasher=9,sBackBoxRelay=10,sLeftRampFlasher=11,sL3BDTReset=13,sClockWheel=15
 Const sACselectrelay=12, sLeftJetBumper=17,sRightJetBumper=19,sLowerJetBumper=21,sShooterLaneFeeder=22,sDineTF=32
 Const sLSling=18,sRSling=20,swLSling=55,swRSling=54
 
@@ -304,22 +304,22 @@ LightType(46)  = 0 : Set LightObjectFirst(46)  = Light46b  : Set LightObjectSeco
 LightType(47)  = 0 : Set LightObjectFirst(47)  = Light47b  : Set LightObjectSecond(47)  = Light47  	' cup scores
 LightType(48)  = 0 : Set LightObjectFirst(48)  = Light48b  : Set LightObjectSecond(48)  = Light48  	' extra ball left
 LightType(49)  = 4 : 																				' 49 - 60 are 1-12 on clock lights
-LightType(50)  = 4 : 
-LightType(51)  = 4 : 
-LightType(52)  = 4 : 
-LightType(53)  = 4 : 
-LightType(54)  = 4 : 
-LightType(55)  = 4 : 
-LightType(56)  = 4 : 
-LightType(57)  = 4 : 
-LightType(58)  = 4 : 
-LightType(59)  = 4 : 
-LightType(60)  = 4 : 
+LightType(50)  = 4 :
+LightType(51)  = 4 :
+LightType(52)  = 4 :
+LightType(53)  = 4 :
+LightType(54)  = 4 :
+LightType(55)  = 4 :
+LightType(56)  = 4 :
+LightType(57)  = 4 :
+LightType(58)  = 4 :
+LightType(59)  = 4 :
+LightType(60)  = 4 :
 LightType(61)  = 0 : Set LightObjectFirst(61)  = Light61b  : Set LightObjectSecond(61)  = Light61  	' TOP 5
 LightType(62)  = 0 : Set LightObjectFirst(62)  = Light62b  : Set LightObjectSecond(62)  = Light62  	' special
 LightType(63)  = 0 : Set LightObjectFirst(63)  = Light63b  : Set LightObjectSecond(63)  = Light63  	' dinetime
 LightType(64)  = 0 : Set LightObjectFirst(64)  = Light64b  : Set LightObjectSecond(64)  = Light64  	' food
-LightType(65)  = 4 : 
+LightType(65)  = 4 :
 
 ' *** prepare the variable with references to three lights for glow ball ***
 
@@ -342,8 +342,8 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 LoadVPM "01560000", "S11.VBS", 3.26
 
-' MotorCallback	 Function called after every update of solenoids and lamps (i.e. as often as 
-'				 possible). Main purpose is to update table based on playfield motors. It can also 
+' MotorCallback	 Function called after every update of solenoids and lamps (i.e. as often as
+'				 possible). Main purpose is to update table based on playfield motors. It can also
 '				 be used to override the standard solenoid callback handler
 Set MotorCallback = GetRef("RollingUpdate") 'realtime updates for rolling sound
 
@@ -386,9 +386,9 @@ Sub Diner_Init
 	Dim Light, Prim
 	vpmInit Me
 	If LightsDemo Then
-		For Each Light in GlowLights : Light.state = 1 : Next 
+		For Each Light in GlowLights : Light.state = 1 : Next
 		For Each Light in InsertLights : Light.state = 1 : Next
-		For Each Light in glowlightscutout : Light.state = 1 : Next 
+		For Each Light in glowlightscutout : Light.state = 1 : Next
 		For Each Light in insertlightscutout : Light.state = 1 : Next
 		For Each Light in LightsGI : Light.State = LightStateOn : Next
 		For Each Prim in primitivesGI : Prim.DisableLighting = 1 : Next
@@ -400,18 +400,18 @@ Sub Diner_Init
 		With Controller
 			' *** explanation of controller properties
 			' .HandleKeyboard	if set to 1, VPinMAME will process the keyboard. Standard MAME
-			'					keys can be used in VPinMAME output window. Also the internal 
-			'					ball simulator is enabled. If set to 0, the scripting language 
+			'					keys can be used in VPinMAME output window. Also the internal
+			'					ball simulator is enabled. If set to 0, the scripting language
 			'					will process the keyboard.
-			' ShowTitle			if set to 1, Show title bar on VPinMAME output window (to move 
-			'					it around) 
+			' ShowTitle			if set to 1, Show title bar on VPinMAME output window (to move
+			'					it around)
 			' ShowDMDOnly		if set to 1, does not show VPinMAME status matrices.
-			' ShowFrame			if set to 1, Enables the window border, only works if ShowTitle 
+			' ShowFrame			if set to 1, Enables the window border, only works if ShowTitle
 			'					is set to 0
 			' SplashInfoLine	Game credits to display in startup splash screen.
-			' Hidden			If set to 1, hides the vpinmame display. This is useful for 
-			'					applications that want to do the display drawing on their own. 
-			' HandleMechanics	If the game has a PinMAME simulator it can be used to simulate 
+			' Hidden			If set to 1, hides the vpinmame display. This is useful for
+			'					applications that want to do the display drawing on their own.
+			' HandleMechanics	If the game has a PinMAME simulator it can be used to simulate
 			'					hardware "toys".
 			.GameName = cGameName
 			If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -432,14 +432,14 @@ Sub Diner_Init
 	End if
 
 	'*** Nudging ***
-    vpmNudge.TiltSwitch = 1 
+    vpmNudge.TiltSwitch = 1
     vpmNudge.Sensitivity = 1
-	vpmNudge.TiltObj = Array(LeftJetBumper,RightJetBumper,LowerJetBumper,LSling,RSling) 
-	    
+	vpmNudge.TiltObj = Array(LeftJetBumper,RightJetBumper,LowerJetBumper,LSling,RSling)
+
 	' *** Main Timer init ***
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
-	
+
 	'*** option settings ***
 	If ContrastSetting=0 or ContrastSetting=2 or ContrastSetting=4 or ContrastSetting=6 Then ChangeGlow(True) Else ChangeGlow(False) End If
 	ChangeBats(ChooseBats)
@@ -453,7 +453,7 @@ Sub Diner_Init
 	End If
 
 	' *** Desktop specific changes for better 3D view ***
-	If Diner.ShowDT then 
+	If Diner.ShowDT then
 		Flasher4light.BulbHaloHeight = 250
 		rampsDT.visible = 1
 		rampsFS.visible = 0
@@ -461,15 +461,15 @@ Sub Diner_Init
 		rampsDT.visible = 0
 		rampsFS.visible = 1
 	end If
-     
+
 	' *** mechanic for clock hand ***
 	Set WheelMech = New cvpmMech
-	With WheelMech : 
-		.MType = vpmMechStepSol + vpmMechCircle + vpmMechLinear + vpmMechFast 
+	With WheelMech :
+		.MType = vpmMechStepSol + vpmMechCircle + vpmMechLinear + vpmMechFast
 		.Sol1 = 15 : .Sol2 = 16 : .Length = 200 : .Steps = 60
 		.CallBack = GetRef("UpdateClockHand")
 		.AddSw 59, 0, 0
-		.Start 
+		.Start
 	End With
 
     ' *** Trough ***
@@ -505,7 +505,7 @@ Sub Diner_Init
 	With bsLowKicker
 		.InitKicker LowKicker, swLowerLeftEject, 45, 6, 0
 		.InitSounds "kicker_enter", SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
-	End With 
+	End With
 
 	' *** upper left saucer ***
 	Set bsUpperEject = New cvpmSaucer
@@ -513,7 +513,7 @@ Sub Diner_Init
 		.InitKicker UpperEject, swUpperLeftEject, 90, 6 , 0
 		.InitExitVariance 0,2
 		.InitSounds "kicker_enter", SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
-	End With 
+	End With
 
 	' *** subway kicker ***
 	Set bsSubWay = New cvpmTrough
@@ -527,7 +527,7 @@ Sub Diner_Init
 		.EntrySw = 0
 		.CreateEvents "bsSubWay", SubWaypopper
     End With
-	
+
 	' *** workaround: on some setups, the GI is not by default on ***
 	SolGIRelay(False)
 
@@ -541,13 +541,13 @@ Sub ChangeGlow(day)
 		For Each Light in GlowLights : Light.IntensityScale = GlowAmountDay: Light.FadeSpeedUp = Light.Intensity * GlowAmountDay / 2: Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next
 		For Each Light in InsertLights : Light.IntensityScale = InsertBrightnessDay : Light.FadeSpeedUp = Light.Intensity * InsertBrightnessDay / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25 : Next
 		For Each Light in glowlightscutout : Light.IntensityScale = GlowAmountCutoutDay : Light.FadeSpeedUp = Light.Intensity /  2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25 : Next
-		For Each Light in insertlightscutout : Light.IntensityScale = InsertBrightnessCutoutDay : Light.FadeSpeedUp = Light.Intensity / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next	
+		For Each Light in insertlightscutout : Light.IntensityScale = InsertBrightnessCutoutDay : Light.FadeSpeedUp = Light.Intensity / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next
 		For Each Light in eaters: Light.FadeSpeedUp = 5000 : Light.FadeSpeedDown = 5000 : Next
 	Else
 		For Each Light in GlowLights : Light.IntensityScale = GlowAmountNight: Light.FadeSpeedUp = Light.Intensity * GlowAmountNight / 2: Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next
 		For Each Light in InsertLights : Light.IntensityScale = InsertBrightnessNight : Light.FadeSpeedUp = Light.Intensity * InsertBrightnessNight / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25 : Next
 		For Each Light in glowlightscutout : Light.IntensityScale = GlowAmountCutoutNight : Light.FadeSpeedUp = Light.Intensity /  2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25 : Next
-		For Each Light in insertlightscutout : Light.IntensityScale = InsertBrightnessCutoutNight : Light.FadeSpeedUp = Light.Intensity / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next	
+		For Each Light in insertlightscutout : Light.IntensityScale = InsertBrightnessCutoutNight : Light.FadeSpeedUp = Light.Intensity / 2 : Light.FadeSpeedDown = Light.FadeSpeedUp / 25: Next
 		For Each Light in eaters: Light.FadeSpeedUp = 5000 : Light.FadeSpeedDown = 5000 : Next
 	End If
 End Sub
@@ -557,30 +557,30 @@ End Sub
 Sub ChangeBats(Bats)
 	Select Case Bats
 		Case 0
-			glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0 
+			glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0
 			batleft.visible = 0 : batright.visible = 0 : LeftFlipper.visible = 1 : RightFlipper.visible = 1
 			batleftshadow.visible = 0 : batrightshadow.visible = 0 : GraphicsTimer.enabled = False
 		Case 1
-			glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0 
+			glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0
 			batleft.visible = 1 : batright.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0
 			batleftshadow.visible = 1 : batrightshadow.visible = 1 : GraphicsTimer.enabled = True
 		Case 2
-			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1 
+			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
 			batleft.visible = 0 : batright.visible = 0 : LeftFlipper.visible = 0 : RightFlipper.visible = 0
-			glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green" 
-			GlowBatLightLeft.color = RGB(0,255,0) : GlowBatLightRight.color = RGB(0,255,0) 
+			glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green"
+			GlowBatLightLeft.color = RGB(0,255,0) : GlowBatLightRight.color = RGB(0,255,0)
 			batleftshadow.visible = 0 : batrightshadow.visible = 0 : GraphicsTimer.enabled = True
 		Case 3
-			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1 
+			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
 			batleft.visible = 0 : batright.visible = 0 : LeftFlipper.visible = 0 : RightFlipper.visible = 0
-			glowbatleft.image = "glowbat blue" : glowbatright.image = "glowbat blue" 
-			GlowBatLightLeft.color = RGB(0,0,255) : GlowBatLightRight.color = RGB(0,0,255) 
+			glowbatleft.image = "glowbat blue" : glowbatright.image = "glowbat blue"
+			GlowBatLightLeft.color = RGB(0,0,255) : GlowBatLightRight.color = RGB(0,0,255)
 			batleftshadow.visible = 0 : batrightshadow.visible = 0 : GraphicsTimer.enabled = True
 		Case 4
-			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1 
+			glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
 			batleft.visible = 0 : batright.visible = 0 : LeftFlipper.visible = 0 : RightFlipper.visible = 0
 			glowbatleft.image = "glowbat orange" : glowbatright.image = "glowbat orange"
-			GlowBatLightLeft.color = RGB(255,0,0) : GlowBatLightRight.color = RGB(255,0,0) 
+			GlowBatLightLeft.color = RGB(255,0,0) : GlowBatLightRight.color = RGB(255,0,0)
 			batleftshadow.visible = 0 : batrightshadow.visible = 0 : GraphicsTimer.enabled = True
 	End Select
 End Sub
@@ -596,7 +596,7 @@ Sub ChangeBall(ballnr)
 	GlowBall = CustomBallGlow(ballnr)
 	For ii = 0 to 2
 		col = RGB(red(ballnr), green(ballnr), Blue(ballnr))
-		Glowing(ii).color = col : Glowing(ii).colorfull = col 
+		Glowing(ii).color = col : Glowing(ii).colorfull = col
 	Next
 End Sub
 
@@ -648,8 +648,8 @@ dim CupEntrySpeed
 
 Sub CupEntry_Hit()
 	vpmTimer.PulseSw swCupEntry
-	Stopsound "plasticrolling" 
-	CupExit.Enabled = 1 : CupCounter = 30 : cupblocker.collidable = False 
+	Stopsound "plasticrolling"
+	CupExit.Enabled = 1 : CupCounter = 30 : cupblocker.collidable = False
 	ActiveBall.VelZ = 0
 	CupEntrySpeed =  sqr(ActiveBall.VelX ^2 + ActiveBall.VelY ^2) * 1.25
 
@@ -703,15 +703,15 @@ end Sub
 
 Sub Sol14Diverter(Enabled)
 	if Enabled then
-		Sol14Closed.collidable = False : DVdir = 1 : divertertimer.enabled = True : playsound SoundFX("TopDiverterOn",DOFContactors) 
+		Sol14Closed.collidable = False : DVdir = 1 : divertertimer.enabled = True : playsound SoundFX("TopDiverterOn",DOFContactors)
 	else
-		Sol14Closed.collidable = True : Dvdir = -1 : divertertimer.enabled = True : playsound SoundFX("TopDiverterOff",DOFContactors) 
+		Sol14Closed.collidable = True : Dvdir = -1 : divertertimer.enabled = True : playsound SoundFX("TopDiverterOff",DOFContactors)
 	end if
 End Sub
 
 Sub divertertimer_timer
 	If DVdir = 0 Then
-		divertertimer.enabled = False 
+		divertertimer.enabled = False
 	Else
 		DVindex = DVindex + DVdir
 		If DVindex < 0 Then DVindex = 0 : DVdir = 0 : end If
@@ -746,7 +746,7 @@ Sub FlashCutout(nr,enabled)
 		GlowCutout = GlowAmountCutoutNight : InsertCutout = InsertBrightnessCutoutNight
 	End If
 	if enabled then
-		LightObjectFirst(nr).IntensityScale = GlowCutout * 4 : LightObjectFirst(nr).state = LightStateOn 
+		LightObjectFirst(nr).IntensityScale = GlowCutout * 4 : LightObjectFirst(nr).state = LightStateOn
 		LightObjectSecond(nr).IntensityScale = InsertCutout * 12 : LightObjectSecond(nr).state = LightStateOn
 	Else
 		LightObjectFirst(nr).IntensityScale = GlowCutout : LightObjectFirst(nr).state = LightState(nr)
@@ -758,10 +758,10 @@ End Sub
 
 Sub solCupF(enabled)
     if enabled then
-		PlaySound "fx_relay_on",0,relaylevel : StopSound "fx_relay_off" 
+		PlaySound "fx_relay_on",0,relaylevel : StopSound "fx_relay_off"
 		Flasher5light.state = LightStateOn : Flasher5lightsec.state = LightStateOn
 	Else
-		PlaySound "fx_relay_off",0,relaylevel : StopSound "fx_relay_on" 
+		PlaySound "fx_relay_off",0,relaylevel : StopSound "fx_relay_on"
 		Flasher5light.state = LightStateOff : Flasher5lightsec.state = LightStateOff
 	End If
 End Sub
@@ -773,18 +773,18 @@ Sub SolFlash9(Enabled)
 	FlashTimerRight.enabled = False
 	if enabled then
 		PlaySound "fx_relay_on",0,relaylevel : StopSound "fx_relay_off": Flasher1.disablelighting = True : Flasher2.disablelighting = True
-		Flasher1light.IntensityScale = 1 : Flasher2light.IntensityScale = 1 : Flasher1lightsec.IntensityScale = 1 : Flasher2lightsec.IntensityScale = 1 
+		Flasher1light.IntensityScale = 1 : Flasher2light.IntensityScale = 1 : Flasher1lightsec.IntensityScale = 1 : Flasher2lightsec.IntensityScale = 1
 		Flasher1light.state = LightStateOn : Flasher2light.state = LightStateOn : Flasher1lightsec.state = LightStateOn : Flasher2lightsec.state = LightStateOn
 		Flasher1.material = "flasherlit" : Flasher1.image = "domelighton" :Flasher2.material = "flasherlit" : Flasher2.image = "domelighton"
 		If Leftflash Then
 			sidewallFS.image = "sidewallsFSbothflash" : backwall.image = "backwallbothflash" : sidewallDT.image = "sidewallsFSbothflash"
-			sidewallFS.material = "sidewallsbothflash" : sidewallDT.material = "sidewallsbothflash" 
+			sidewallFS.material = "sidewallsbothflash" : sidewallDT.material = "sidewallsbothflash"
 			ColorGradeFlash()
 		Else
 			sidewallFS.image = "sidewallsFSrightflash" : backwall.image = "backwallrightflash" : sidewallDT.image = "sidewallsFSrightflash"
-			sidewallFS.material = "sidewallsrightflash" : sidewallDT.material = "sidewallsrightflash" 
+			sidewallFS.material = "sidewallsrightflash" : sidewallDT.material = "sidewallsrightflash"
 			ColorGradeFlash()
-		End If	
+		End If
 	Else
 		PlaySound "fx_relay_off",0,relaylevel : StopSound "fx_relay_on"
 		Flasher1light.IntensityScale = 0.5 : Flasher2light.IntensityScale = 0.5 : Flasher1lightsec.IntensityScale = 0.5 : Flasher2lightsec.IntensityScale = 0.5
@@ -794,14 +794,14 @@ Sub SolFlash9(Enabled)
 		Flasher1.material = "flasherunlit" : Flasher2.material = "flasherunlit" : FlashStepRight = 0 : FlashTimerRight.enabled = True
 		If Leftflash Then
 			sidewallFS.image = "sidewallsFSleftflash" : backwall.image = "backwallleftflash" : sidewallDT.image = "sidewallsFSleftflash"
-			sidewallFS.material = "sidewallsleftflash" : sidewallDT.material = "sidewallsleftflash" 
+			sidewallFS.material = "sidewallsleftflash" : sidewallDT.material = "sidewallsleftflash"
 			ColorGradeFlash()
 		Else
 			sidewallFS.image = "sidewallsFS" : backwall.image = "backwallnoflash" : sidewallDT.image = "sidewallsFS"
-			sidewallFS.material = "sidewallsnoflash" : sidewallDT.material = "sidewallsnoflash" 
+			sidewallFS.material = "sidewallsnoflash" : sidewallDT.material = "sidewallsnoflash"
 			ColorGradeFlash()
 		End If
-		
+
 	End If
 End sub
 
@@ -825,16 +825,16 @@ Sub SolFlash11(Enabled)
 	FlashTimerLeft.enabled = False
 	if enabled then
 		PlaySound "fx_relay_on",0,relaylevel : StopSound "fx_relay_off": Flasher3.disablelighting = True : Flasher4.disablelighting = True
-		Flasher3light.IntensityScale = 1 : Flasher4light.IntensityScale = 1 : Flasher3lightsec.IntensityScale = 1 : Flasher4lightsec.IntensityScale = 1 
+		Flasher3light.IntensityScale = 1 : Flasher4light.IntensityScale = 1 : Flasher3lightsec.IntensityScale = 1 : Flasher4lightsec.IntensityScale = 1
 		Flasher3light.state = LightStateOn : Flasher4light.state = LightStateOn : Flasher3lightsec.state = LightStateOn : Flasher4lightsec.state = LightStateOn
 		Flasher3.material = "flasherlit" : Flasher3.image = "domelighton" :Flasher4.material = "flasherlit" : Flasher4.image = "domelighton"
 		If Rightflash Then
 			sidewallFS.image = "sidewallsFSbothflash" : backwall.image = "backwallbothflash" : sidewallDT.image = "sidewallsFSbothflash"
-			sidewallFS.material = "sidewallsbothflash" : sidewallDT.material = "sidewallsbothflash" 
+			sidewallFS.material = "sidewallsbothflash" : sidewallDT.material = "sidewallsbothflash"
 			ColorGradeFlash()
 		Else
 			sidewallFS.image = "sidewallsFSleftflash" : backwall.image = "backwallleftflash" : sidewallDT.image = "sidewallsFSleftflash"
-			sidewallFS.material = "sidewallsleftflash" : sidewallDT.material = "sidewallsleftflash" 
+			sidewallFS.material = "sidewallsleftflash" : sidewallDT.material = "sidewallsleftflash"
 			ColorGradeFlash()
 		End If
 	Else
@@ -845,11 +845,11 @@ Sub SolFlash11(Enabled)
 		Flasher3.material = "flasherunlit" : Flasher4.material = "flasherunlit" : FlashStepLeft = 0 : FlashTimerLeft.enabled = True
 		If Rightflash Then
 			sidewallFS.image = "sidewallsFSrightflash" : backwall.image = "backwallrightflash" : sidewallDT.image = "sidewallsFSrightflash"
-			sidewallFS.material = "sidewallsrightflash" : sidewallDT.material = "sidewallsrightflash" 
+			sidewallFS.material = "sidewallsrightflash" : sidewallDT.material = "sidewallsrightflash"
 			ColorGradeFlash()
 		Else
 			sidewallFS.image = "sidewallsFS" : backwall.image = "backwallnoflash" : sidewallDT.image = "sidewallsFS"
-			sidewallFS.material = "sidewallsnoflash" : sidewallDT.material = "sidewallsnoflash" 
+			sidewallFS.material = "sidewallsnoflash" : sidewallDT.material = "sidewallsnoflash"
 			ColorGradeFlash()
 		End If
 	End If
@@ -891,14 +891,14 @@ Sub Diner_KeyDown(ByVal keycode)
 	If keycode = LeftTiltKey Then Nudge 90, 3 : PlaySound SoundFX("fx_nudge",0)
 	If keycode = RightTiltKey Then Nudge 270, 3 : PlaySound SoundFX("fx_nudge",0)
 	If keycode = CenterTiltKey Then Nudge 0, 3 : PlaySound SoundFX("fx_nudge",0)
-	If keycode = RightMagnaSave Then 
+	If keycode = RightMagnaSave Then
 		ContrastSetting = ContrastSetting + 1
 		If ContrastSetting > 7 Then ContrastSetting = 7 End If
 		If ContrastSetting=0 or ContrastSetting=2 or ContrastSetting=4 or ContrastSetting=6 Then ChangeGlow(True) Else ChangeGlow(False) End If
 		ColorGradeFlash()
 		OptionPrim.image = "contrastsetting" & ContrastSetting : OptionPrim.visible = 1 : OptionOpacity = 0 : OptionTimer.enabled = True
 	End If
-	If keycode = LeftMagnaSave Then 
+	If keycode = LeftMagnaSave Then
 		ContrastSetting = ContrastSetting - 1
 		If ContrastSetting < 0 Then ContrastSetting = 0 End If
 		If ContrastSetting=0 or ContrastSetting=2 or ContrastSetting=4 or ContrastSetting=6 Then ChangeGlow(True) Else ChangeGlow(False) End If
@@ -910,7 +910,7 @@ Sub Diner_KeyDown(ByVal keycode)
 End Sub
 
 Sub Diner_KeyUp(ByVal keycode)
-	if keycode = LeftFlipperKey and FlippersEnabled Then SolLFlipper(False) 
+	if keycode = LeftFlipperKey and FlippersEnabled Then SolLFlipper(False)
 	if keycode = RightFlipperKey and FlippersEnabled Then SolRflipper(False)
 	If keycode = PlungerKey Then B2SSTAT: PLaySound "fx_plunger", 0, 1, 0.1, 0.25:Plunger.Fire
 	If vpmKeyUp(keycode) Then Exit Sub
@@ -1011,7 +1011,7 @@ Sub SolGIRelay(enabled)
 		If Diner.ShowDT then rampsDT.image = "rampsDT" Else	rampsFS.image = "rampsFS" End If
 		cupprim.image = "cup"
 	End If
-End Sub  
+End Sub
 
 '*** Lighting system (mainly inserts) ***
 
@@ -1106,7 +1106,7 @@ Sub GraphicsTimer_Timer()
 		batleft.objrotz = LeftFlipper.CurrentAngle + 1
 		batleftshadow.objrotz = batleft.objrotz
 		batright.objrotz = RightFlipper.CurrentAngle - 1
-		batrightshadow.objrotz  = batright.objrotz 
+		batrightshadow.objrotz  = batright.objrotz
 	Else
 		If ChooseBats > 1 Then
 			' *** move glowbats ***
@@ -1218,7 +1218,7 @@ Function BallVel(ball) 'Calculates the ball speed
 End Function
 
 ' *************************************************************
-'      JP's VP10 Rolling Sounds 
+'      JP's VP10 Rolling Sounds
 ' *************************************************************
 
 Const tnob = 10 ' total number of balls
@@ -1245,7 +1245,7 @@ Sub RollingUpdate()
 
     ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
-	
+
     ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
