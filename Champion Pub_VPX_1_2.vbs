@@ -13,7 +13,7 @@
 '
 ' Thanks go to:
 ' Fuzzel for the awesome 3D models of the Boxer, Wire Ramps, Jump Ramps, Speedbag/Fists, Rope and Flippers.
-' Dark for the Spot Light models, the ramp triggers, the catapult and the Flasher Sphere 
+' Dark for the Spot Light models, the ramp triggers, the catapult and the Flasher Sphere
 ' Zany for the regular Flasher model
 '
 ' Version 1.1:
@@ -29,10 +29,11 @@
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
- 
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -46,12 +47,12 @@ Const UseVPMModSol=1
 ' Configuration
 '-----------------------------------
 Const DimGI=-2					'set to dim or brighten GI lights (minus is darker, base value is 8)
-Const LeftOutlanePost=0			'0=Easy, 1=Medium, 2=Hard 
-Const DangerZoneMod=1			'0=Mod disabled, 1=Mod installed (the Mod adds a Gate above BEER Targets instead of a Post)	
+Const LeftOutlanePost=0			'0=Easy, 1=Medium, 2=Hard
+Const DangerZoneMod=1			'0=Mod disabled, 1=Mod installed (the Mod adds a Gate above BEER Targets instead of a Post)
 Const RopeLevel=0				'Rope Jump Difficulty: 0=Easy, 1=Medium, 2=Hard
 'Const BallSize = 50 			'default 50, 51 plays ok, with 52 the ball will get stuck
 
-Const UseB2SBG=1				'set to 1, if You are using my B2S Backglass for direct B2S communication 
+Const UseB2SBG=1				'set to 1, if You are using my B2S Backglass for direct B2S communication
 
 Dim cGameName
 cGameName = "cp_16"
@@ -61,26 +62,26 @@ LoadVPM "01560000", "WPC.VBS", 3.26
 'Solenoid Routines
 '-----------------------------------
 'SolCallback --> SolModCallback for Flashers
-SolCallback(1)  = "SolCatapult"				
-SolCallback(2)  = "SolTrough"             
+SolCallback(1)  = "SolCatapult"
+SolCallback(2)  = "SolTrough"
 SolCallback(5)  = "SolCornerKickout"
 SolCallback(8)  = "SolPostDiverter"
-SolCallback(9)  = "SolLeftScoop"  
-SolCallback(10) = "SolRightScoop" 
-SolCallback(12) = "SolPost"  
+SolCallback(9)  = "SolLeftScoop"
+SolCallback(10) = "SolRightScoop"
+SolCallback(12) = "SolPost"
 SolCallback(14) = "SolPopper"
 SolModCallback(17) = "sol17" 				'Flasher
-SolModCallback(18) = "sol18" 				'Flasher				
+SolModCallback(18) = "sol18" 				'Flasher
 SolModCallback(19) = "UpperWhiteFlasher"   	'Flasher
 SolModCallback(20) = "UpperRedFlasher" 		'Flasher
 SolModCallback(21) = "LowerRedFlasher"		'Flasher
 SolModCallback(22) = "sol22" 				'Flasher
 SolModCallback(23) = "SolRopeSpot"			'Flasher
-SolModCallback(24) = "SolSpeedBagSpot"		'Flasher	
-SolCallback(28) = "SolLockPin"   
+SolModCallback(24) = "SolSpeedBagSpot"		'Flasher
+SolCallback(28) = "SolLockPin"
 SolCallback(33) = "SolMagnetPopper"
 SolCallback(34) = "SolRampDiverter"
-SolCallback(35) = "SolLeftSP" 
+SolCallback(35) = "SolLeftSP"
 SolCallback(36) = "SolRightSP"
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
@@ -93,7 +94,7 @@ Sub SolTrough(Enabled)
 		vpmTimer.PulseSw 31
     End If
 End Sub
- 
+
 Sub SolPostDiverter(Enabled)
     If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.15
@@ -103,7 +104,7 @@ Sub SolPostDiverter(Enabled)
         PostDiverter.IsDropped=1
     End If
 End Sub
- 
+
 Sub SolLeftScoop(Enabled)
     If Enabled then
 		playsound SoundFX("solon",DOFContactors),0,0.15,-0.8
@@ -127,7 +128,7 @@ Sub SolLeftScoop(Enabled)
 		LeftScoopBack.isdropped = True
     End if
 End Sub
- 
+
 Sub SolRightScoop(Enabled)
     If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.15,0.8
@@ -151,7 +152,7 @@ Sub SolRightScoop(Enabled)
 		RightScoopBack.isdropped = True
     End if
 End Sub
- 
+
 Sub SolPost(Enabled)
     If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.15
@@ -165,22 +166,22 @@ Sub SolPost(Enabled)
 		ForceField.IsDropped=1
     End If
 End Sub
- 
+
 Sub SolLockPin(Enabled)
     If Enabled then
-		playsound SoundFX("solon",DOFContactors),0,0.15,0.2	
+		playsound SoundFX("solon",DOFContactors),0,0.15,0.2
         LockPin.IsDropped=1
     Else
         LockPin.TimerEnabled=1
     End If
 End Sub
- 
+
 Sub LockPin_Timer
 	playsound SoundFX("soloff",DOFContactors),0,0.5,0.2
     LockPin.IsDropped=0
     LockPin.TimerEnabled=0
 End Sub
- 
+
 Sub SolRampDiverter(Enabled)
     If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.15
@@ -283,7 +284,7 @@ Sub Sol17(Intensity)	'White Boxer light and spots	- max 154
 	end If
 	Prev17Int = Intensity
 End Sub
- 
+
 Sub Sol18(Intensity)   'Danger Zone Bolts
 	if Intensity <> Prev18Int Then
 		if Intensity > 0 then
@@ -388,7 +389,7 @@ Sub UpperWhiteFlasher(Intensity)
 			TopFlasher1_DT.state = Lightstateoff
 			P_TopFlasher.image = "dome3_clear"
 		end if
-	end If	
+	end If
 	if UseB2SBG then
 		if Intensity > 0 then
 			Controller.B2SSetData 219,1
@@ -397,7 +398,7 @@ Sub UpperWhiteFlasher(Intensity)
 		End If
 	End If
 	PrevUWInt = Intensity
-End Sub		
+End Sub
 
 Sub UpperRedFlasher(Intensity)
 	if Intensity <> PrevURInt Then
@@ -424,7 +425,7 @@ Sub UpperRedFlasher(Intensity)
 		End If
 	End If
 	PrevURInt = Intensity
-End Sub		
+End Sub
 
 Sub LowerRedFlasher(Intensity)
 	if Intensity <> PrevLRInt Then
@@ -463,7 +464,7 @@ Sub LowerRedFlasher(Intensity)
 		End If
 	End If
 	PrevLRInt = Intensity
-End Sub		
+End Sub
 
 
 '-----------------------------
@@ -599,7 +600,7 @@ Sub CP_Init
         If Err Then MsgBox Err.Description
         On Error Goto 0
 	End With
- 
+
     On Error Goto 0
 
     PinMAMETimer.Interval=PinMAMEInterval
@@ -607,37 +608,37 @@ Sub CP_Init
     vpmNudge.TiltSwitch=14
     vpmNudge.Sensitivity=2
     vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot)
-     
+
     vpmMapLights AllLights
-	
+
     Set bsTrough=New cvpmBallStack
 		bsTrough.InitSw 0,32,33,34,35,0,0,0
         bsTrough.InitKick BallRelease,40,8
         bsTrough.InitExitSnd SoundFX("BallRel",DOFContactors),SoundFX("Solenoid",DOFContactors)
         bsTrough.Balls=4
- 
+
 	'Plunger lane
     Set bsCatapult = New cvpmSaucer
 		bsCatapult.InitKicker CatapultLaunchKicker,18,0,42,0
 		bsCatapult.InitSounds SoundFX("kicker_enter_center",DOFContactors),SoundFX("solon",DOFContactors),SoundFX("popper_ball",DOFContactors)
-	
+
 	'Left Kicker
-    Set bsCornerKickout=New cvpmBallStack       
-        bsCornerKickout.InitSaucer CornerKickout,37,155,5 
+    Set bsCornerKickout=New cvpmBallStack
+        bsCornerKickout.InitSaucer CornerKickout,37,155,5
         bsCornerKickout.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
 
     Set mRope=New cvpmMech
         mRope.MType=vpmMechOneSol+vpmMechCircle+vpmMechLinear+vpmMechFast
         mRope.Sol1=25
         mRope.Length=300	                     '280-300 duration of one turn in 1/60 seconds
-        mRope.Steps=720                          
+        mRope.Steps=720
         mRope.Callback=GetRef("UpdateRope")
         mRope.Start
- 
+
     Set magRopeMagnet=New cvpmMagnet
         magRopeMagnet.InitMagnet TrigMagnet,39  '35
         magRopeMagnet.Solenoid=7
-		magRopeMagnet.Size=60  
+		magRopeMagnet.Size=60
         magRopeMagnet.GrabCenter=False
         magRopeMagnet.CreateEvents "magRopeMagnet"
 
@@ -672,19 +673,19 @@ Sub CP_Init
 		DangerZoneGate.collidable = 1
 		P_DangerZonePost.visible = 0
 		DangerZonePin.isdropped = 1
-	Else	
+	Else
 		DangerZoneGate.visible = 0
 		DangerZoneGate.collidable = 0
 		P_DangerZonePost.visible = 1
 		DangerZonePin.isdropped = 0
-	End If	
- 	
+	End If
+
 	'Table elements
-	boxer.objRotZ=0 
+	boxer.objRotZ=0
 	leftArm.objRotZ=0
 	rightArm.objRotZ=0
 	BoxerSetPos
-	MDirc=1	
+	MDirc=1
 
 	LockWall1.isdropped = True
 	LockWall2.isdropped = True
@@ -714,15 +715,15 @@ End Sub
 '---------------------------------------------------------------------------
 Const keyBuyInButton=3 ' (2)Specify Keycode for the Buy-In Button
 ExtraKeyHelp=KeyName(keyBuyInButton) & vbTab & "Buy-in Button"
-               
+
 Sub CP_KeyDown(ByVal keycode)
     If keycode=PlungerKey Then Controller.Switch(23)=1
     If KeyDownHandler(keycode) Then Exit Sub
 End Sub
- 
+
 Sub CP_KeyUp(ByVal keycode)
     If keycode=PlungerKey Then Controller.Switch(23)=0
-    If KeyUpHandler(keycode) Then Exit Sub 
+    If KeyUpHandler(keycode) Then Exit Sub
 End Sub
 
 
@@ -733,14 +734,14 @@ dim obj,GI0_status,GI1_status
 Sub UpdateGI(GINo,Status)
 	select case GINo
 		case 0: if status <> GI0_status Then
-					if status > 0 then 
+					if status > 0 then
 						DOF 101, DOFOn
 						GI_PF1.state = Lightstateon
 						for each obj in JumpRampBulbs
 							obj.intensity = 60 / 8 * Status
 							obj.state = lightstateon
 						next
-				
+
 						for each obj in GIString1
 							obj.intensity = Status + DimGI
 							obj.state = lightstateon
@@ -754,11 +755,11 @@ Sub UpdateGI(GINo,Status)
 						for each obj in GIString1
 							obj.state = lightstateoff
 						next
-					end if	
+					end if
 					GI0_status = status
 				End If
 		case 1: if status <> GI1_status Then
-					if status > 0 then 
+					if status > 0 then
 						GI_PF2.state = Lightstateon
 						for each obj in GIString2
 							obj.intensity = Status + DimGI
@@ -769,17 +770,17 @@ Sub UpdateGI(GINo,Status)
 						for each obj in GIString2
 							obj.state = lightstateoff
 						next
-					end if	
+					end if
 					GI1_status = status
 				End If
 ' Backglass
 
 		case 2: if UseB2SBG then
-					if status > 0 then 
+					if status > 0 then
 						'BackGlass On
 						if Status > 4 then
-							Controller.B2SSetData 1,1		'High Intensity 
-							Controller.B2SSetData 2,0		'Low Intensity 
+							Controller.B2SSetData 1,1		'High Intensity
+							Controller.B2SSetData 2,0		'Low Intensity
 						Else
 							Controller.B2SSetData 1,0
 							Controller.B2SSetData 2,1
@@ -788,13 +789,13 @@ Sub UpdateGI(GINo,Status)
 						'BackGlass Off
 						Controller.B2SSetData 1,0
 						Controller.B2SSetData 2,0
-					end if	
+					end if
 				End If
 ' not used
-'		case 3: if status then 
-'				end if	
-'		case 4: if status then 
-'				end if	
+'		case 3: if status then
+'				end if
+'		case 4: if status then
+'				end if
 	end select
 End Sub
 
@@ -812,11 +813,11 @@ Sub UpdateLightsTimer_Timer
 	End If
 End Sub
 
- 
+
 '---------------------------------------------------------------------------
-'   R o p e 
+'   R o p e
 '---------------------------------------------------------------------------
- 
+
 Dim SPos:SPos = 0
 Dim TurnCount,Rope1,Rope2
 
@@ -835,8 +836,8 @@ End If
 Sub UpdateRope(aNewPos,aSpeed,aLastPos)                 'animation for rope
 	playsound SoundFX("motor1",DOFGear), 0, 0.35, -0.8
 	if aNewPos = 0 Then
-		if Turncount < 20 then                   
-			TurnCount = TurnCount + 1.5          
+		if Turncount < 20 then
+			TurnCount = TurnCount + 1.5
 		end If
 	end if
 	PRope.RotY = aNewPos/2 + 40
@@ -845,16 +846,16 @@ Sub UpdateRope(aNewPos,aSpeed,aLastPos)                 'animation for rope
 		controller.switch(64) = 1
 	else
 		controller.switch(64) = 0
-	end if 
+	end if
 
  	If (aNewPos>Rope1) and (aNewPos<Rope2) Then			    'ball hit at 6 'o clock rope time (620-660)
 		if controller.Switch(45) Then
-			playsound "fx_collide",0,1,-0.8,0.25	
+			playsound "fx_collide",0,1,-0.8,0.25
 			Ropepopper.kick int(rnd*70)+190,2+(TurnCount*0.2)
 			Controller.Switch(45) = 0
-		end If	
+		end If
 	End If
- 
+
 	if controller.Switch(45) and ABS(BoxerZrot)<160 Then    'box fight is active - kick ball out
 		if aNewPos > 600 and anewpos < 640 then
 			playsound "fx_collide",0,1,-0.8,0.25
@@ -904,34 +905,34 @@ End Sub
 '---------------------------------------------------------------------------
 '   B o x e r
 '---------------------------------------------------------------------------
- 
+
 Dim MDirc,boxerZRot
 boxerZRot=0
 Mdirc=-1
- 
+
 SolCallback(11)="SolRightArm"
 SolCallback(13)="SolLeftArm"
 SolCallback(26)="SolMotorDirc"	' motor direction
 SolCallback(27)="SolMotor"	    ' boxer motor
- 
+
 Sub SolMotorDirc(Enabled)
-   If Enabled Then 
+   If Enabled Then
      MDirc=-1
    Else
-     MDirc=1 
+     MDirc=1
    End If
 End Sub
 
 Sub SolMotor(Enabled)
 	if Enabled then
-		BoxerTurnTimer.Enabled=False	
+		BoxerTurnTimer.Enabled=False
 		BoxerTurnTimer.Interval=15 '20
 		BoxerTurnTimer.Enabled=True
    else
 		BoxerTurnTimer.Enabled=False
    end if
 End Sub
- 
+
 Sub BoxerTurnTimer_Timer
 	playsound SoundFX("motor1",DOFGear),0,0.15
 	boxerZRot = boxerZRot-MDirc
@@ -945,14 +946,14 @@ dim rArmDir:rArmDir=1.5
 dim leftArmRotx:leftArmRotx=0
 dim lArmDir:lArmDir=1.5
 dim cRad:cRad=3.14159265358979/180
- 
+
 Sub SolRightArm(Enabled)
 	If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.5,-0.25
 		BRTimer.Enabled=1
 	End If
 End Sub
- 
+
 Sub SolLeftArm(Enabled)
 	If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,0.5,0.25
@@ -963,11 +964,11 @@ End Sub
 ' Right arm animation
 Sub BRTimer_Timer
 	rightArmRotx = rightArmRotx + rArmDir
-	if rightArmRotx>75 then 
+	if rightArmRotx>75 then
 		rightArmRotx=75
 		rArmDir = rArmDir * -1
 	end if
-	if rightArmRotx<0 then 
+	if rightArmRotx<0 then
 		BRTimer.Enabled=0
 		rightArmRotx=0
 		rArmDir = rArmDir * -1
@@ -978,15 +979,15 @@ Sub BRTimer_Timer
 		rightArm.rotx=rightArmRotx
 	End If
 End Sub
- 
+
 ' Left arm animation
 Sub BLTimer_Timer
 	leftArmRotx = leftArmRotx + lArmDir
-	if leftArmRotx>75 then 
+	if leftArmRotx>75 then
 		leftArmRotx=75
 		lArmDir = lArmDir * -1
 	end if
-	if leftArmRotx<0 then 
+	if leftArmRotx<0 then
 		leftArmRotx=0
 		lArmDir = lArmDir * -1
 		BLTimer.Enabled=0
@@ -997,7 +998,7 @@ Sub BLTimer_Timer
 		leftArm.rotx=leftArmRotx
 	End If
 End Sub
- 
+
 sub BoxerSetPos
 	if abs(boxerZRot)<=173 then    '<=173    Bag Center = 180
 		Controller.Switch(46) = 1
@@ -1098,7 +1099,7 @@ Sub RegisterBoxerHit(BallObjPar)		'Body hits
 	Else
 		vpmtimer.PulseSw 67
 	End If
-End Sub 
+End Sub
 
 Sub RegisterBagHit(BallObjPar)		'Big Bag hits
 	'SW12 - Boxer Bag
@@ -1109,7 +1110,7 @@ Dim Orientation
 Sub HitBoxer(BallObjPar)
 	if abs(boxerZRot) > 90 then
 		Orientation = 3
-	Else	
+	Else
 		Orientation = -3
 	End If
 
@@ -1149,7 +1150,7 @@ Sub HitBoxer(BallObjPar)
 		end if
 		BoxerHit.enabled = 1
 	end if
-End Sub 
+End Sub
 
 Sub BoxerHit_Timer
 	BoxerHit.enabled = 0
@@ -1165,7 +1166,7 @@ End Sub
 '---------------------------------------------------------------------------
 ' Speed Bag Fists
 '---------------------------------------------------------------------------
- 
+
 Dim LEF,REF 'Direction Flag for speed bag fists
 Const MaxTransY = -40
 Const AnimStep = 2
@@ -1173,14 +1174,14 @@ Const AnimStep = 2
 Sub SpeedBag_Hit											'65
 	vpmTimer.PulseSw 65
 	PSpeedBag.Transy = 8
-	SpeedBagHit.enabled = 1	
-End Sub                
+	SpeedBagHit.enabled = 1
+End Sub
 
 Sub SpeedBagHit_Timer
 	SpeedBagHit.enabled = 0
 	PSpeedBag.Transy = 0
 End Sub
-	
+
 Sub SolLeftSP(Enabled)
     If Enabled Then
         LEF=-AnimStep
@@ -1192,7 +1193,7 @@ Sub SolLeftSP(Enabled)
     End If
     FistL.Enabled=1
 End Sub
- 
+
 Sub SolRightSP(Enabled)
     If Enabled Then
 		playsound SoundFX("solon",DOFContactors),0,1,0.82
@@ -1204,7 +1205,7 @@ Sub SolRightSP(Enabled)
     End If
     FistR.Enabled=1
 End Sub
- 
+
 Sub FistL_Timer
 	LeftPunchHand.transy = LeftPunchHand.transy + LEF
 	LeftPunchPlunger.transy = LeftPunchHand.transy
@@ -1215,7 +1216,7 @@ Sub FistL_Timer
 		FistL.Enabled=0
 	End If
 End Sub
- 
+
 Sub FistR_Timer
 	RightPunchHand.transy = RightPunchHand.transy + REF
 	RightPunchPlunger.transy = RightPunchHand.transy
@@ -1263,7 +1264,7 @@ Sub DiverterClosed_Hit
    DiverterClosed.TimerEnabled=1
   End If
 End Sub
- 
+
 Sub DiverterClosed_Timer
   DiverterClosed.IsDropped=0
   DiverterClosed.TimerEnabled=0
@@ -1392,7 +1393,7 @@ Sub LeftScoopGrab_Hit
 		LKickforce = Int(LScoopVel/6)
 		if LKickforce < 4 then LKickforce = 3
 		LeftScoopRelease.Kick 175,LKickforce
-	end If	
+	end If
 End Sub
 Sub RightScoopGrab_Hit
 	if RScoopVel < 10 Then
@@ -1404,7 +1405,7 @@ Sub RightScoopGrab_Hit
 		RKickforce = Int(RScoopVel/8)
 		if RKickforce < 3 then RKickforce = 3
 		RightScoopRelease.Kick 205,RKickforce
-	end If	
+	end If
 End Sub
 
 Sub LeftJabMade_Hit:Controller.Switch(36)=1:End Sub         '36
@@ -1434,7 +1435,7 @@ Sub DangerZoneGate_Hit:vpmTimer.PulseSw 73:End Sub          '73
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1448,7 +1449,7 @@ Sub DangerZoneGate_Hit:vpmTimer.PulseSw 73:End Sub          '73
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1484,7 +1485,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1495,7 +1496,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
