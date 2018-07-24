@@ -4,6 +4,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Table has already its own  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
@@ -12,7 +17,7 @@ On Error Goto 0
 '**************************************************************
 '						DECLARACIONES
 '**************************************************************
-Const UseSolenoids = True
+Const UseSolenoids = 2
 Const UseLamps = True
 Const UseSync = False
 ' Standard Sounds
