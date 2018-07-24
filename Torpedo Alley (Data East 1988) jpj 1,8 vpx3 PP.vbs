@@ -1,6 +1,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Script uses non standard ball rolling
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -37,7 +42,7 @@ SolCallback(sLeftKick)="bsLeftLock.SolOut"				'Sol26
 SolCallback(sUpKicker)="VUKKick"						'Sol27
 SolCallback(sCenterKicker)="bsRightLock.SolOut"			'Sol28
 'SolCallback(s3BankReset)="dtT.SolDropUp"				'Sol29
-SolCallBack(s3BankReset) = "ResetDrops"					'Sol29 method changed JPJ 
+SolCallBack(s3BankReset) = "ResetDrops"					'Sol29 method changed JPJ
 SolCallback(sKnocker)="vpmSolSound SoundFX(""knocker"",DOFKnocker),"		'Sol30
 SolCallback(sOutHole)="bsTrough.SolIn"					'Sol31
 SolCallback(sSinkingShip)="SinkIt"
@@ -65,7 +70,7 @@ SolCallback(sScope)="ScopeHD"						'Sol7
 'SolCallback(sInsert)="vpmFlasher ,"				'Sol8
 SolCallback(sLeftPair)="SolLeft"					'Sol9
 SolCallback(sCenterPair)="SolCentre"				'Sol14
-SolCallback(sRightPair)="SolRight"					'Sol15	
+SolCallback(sRightPair)="SolRight"					'Sol15
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
@@ -77,7 +82,7 @@ Sub SolLFlipper(Enabled)
 			 PlaySound SoundFX("FlipperDown",DOFFlippers):LeftFlipper.RotateToStart
 		 End If
 	  End Sub
-	  
+
 	Sub SolRFlipper(Enabled)
 		 If Enabled Then
 			 PlaySound SoundFX("FlipperUp",DOFFlippers):RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
@@ -154,8 +159,8 @@ On Error Resume Next
 	bsRightLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
 	bsRightLock.KickBalls=2
 
-    SW37A.isdropped = 1 
-    SW56A.isdropped = 1 
+    SW37A.isdropped = 1
+    SW56A.isdropped = 1
     Plunger1.Pullback
 	Sink5.isdropped = 1
 	Sink4.isdropped = 1
@@ -173,24 +178,24 @@ Sub Table1_KeyDown(ByVal keycode)
 		Plunger.PullBack
 		PlaySound "plungerpull",0,1,0.25,0.25
 	End If
-  
+
 	If keycode = LeftTiltKey Then
 		SbmLR = -1
 		Nudge 90, 2
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		SbmLR = 1
 		Nudge 270, 2
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 	End If
-    
+
     If KeyCode=LeftFlipperKey Then Controller.Switch(15)=1
 	If KeyCode=RightFlipperKey Then Controller.Switch(16)=1
-	If vpmKeyDown(KeyCode) Then Exit Sub    
+	If vpmKeyDown(KeyCode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
@@ -216,7 +221,7 @@ End Sub
 
 
 Sub Bumper1_Hit
-    vpmTimer.PulseSw 50 
+    vpmTimer.PulseSw 50
 	PlaySound SoundFX("fx_bumper4",DOFContactors)
 	'B1L1.State = 1:B1L2. State = 1
 	Me.TimerEnabled = 1
@@ -241,7 +246,7 @@ Sub Bumper2_Timer
 	'B2L1.State = 0:B2L2. State = 0
 	Me.Timerenabled = 0
 	bumper2Flash.state = 0
-End Sub	
+End Sub
 
 Sub Bumper3_Hit
     vpmTimer.PulseSw 49
@@ -407,7 +412,7 @@ Sub SW36_hit():vpmTimer.PulseSw 26:SubDown2.Enabled = 1:End Sub
 
 	dim sw29Dir, sw30Dir, sw31Dir
 	dim sw29Pos, sw30Pos, sw31Pos
- 
+
 	sw29Dir = 1:sw30Dir = 1:sw30Dir = 1
 	sw29Pos = 0:sw30Pos = 0:sw30Pos = 0
 
@@ -422,14 +427,14 @@ Sub SW36_hit():vpmTimer.PulseSw 26:SubDown2.Enabled = 1:End Sub
   Sub sw30_Hit:DTBank.Hit 2:sw30Dir = 0:sw30l=0:sw30a.TimerEnabled = 1:check=0:End Sub
   Sub sw31_Hit:DTBank.Hit 3:sw31Dir = 0:sw31l=0:sw31a.TimerEnabled = 1:check=0:End Sub
 
-   	Set DTBank = New cvpmDropTarget  
+   	Set DTBank = New cvpmDropTarget
    	  With DTBank
    		.InitDrop Array(Array(sw29,sw29a),Array(sw30,sw30a),Array(sw31,sw31a)), Array(29,30,31)
 		.InitSnd SoundFX("target_drop",DOFDropTargets),SoundFX("reset_drop",DOFContactors)
        End With
 
 Sub lightchoice
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then 
+	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
 		Lightcvup1a9.state = 1:Lightcvup3aa9.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
@@ -439,8 +444,8 @@ Sub lightchoice
 		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if   
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
 		Lightcvup1a90.state = 1:Lightcvup3aa90.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
@@ -450,8 +455,8 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
 		Lightcvup1a901.state = 1:Lightcvup3aa901.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
@@ -461,8 +466,8 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
 		Lightcvup1a91.state = 1:Lightcvup3aa91.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
@@ -472,8 +477,8 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
 		Lightcvup1a0.state = 1:Lightcvup3aa0.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
@@ -483,8 +488,8 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
 		Lightcvup3a1.state = 1:Lightcvup1aa1.state=1
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
@@ -494,8 +499,8 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
 		Lightcvup1a01.state = 1:Lightcvup3aa01.state=1
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
 		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
@@ -503,10 +508,10 @@ Sub lightchoice
 		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
 		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets		
+		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
 		Check=0
-	end if 
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
 		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
 		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
 		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
@@ -516,7 +521,7 @@ Sub lightchoice
 		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
 		Lightcvup4.state=1:Lightcvup2.state=1'default light behind Targets
 		check=1
-	end if 
+	end if
 
 if check=1 then Lightcvup4.state=1:Lightcvup2.state=1:end If
 if check=0 then Lightcvup4.state=0:Lightcvup2.state=0:end If
@@ -524,11 +529,11 @@ if check=0 then Lightcvup4.state=0:Lightcvup2.state=0:end If
 
 End Sub
 
- Sub sw29a_Timer()	
+ Sub sw29a_Timer()
 
   Select Case sw29Pos
         Case 0: sw29P.z=0
-				If sw29Dir = 1 then 
+				If sw29Dir = 1 then
 					sw29l = 1
 					sw29a.TimerEnabled = 0
 					lightchoice
@@ -558,7 +563,7 @@ End Sub
 					sw29a.TimerEnabled = 0
 			     end if
 
- 
+
 End Select
 	If sw29Dir = 1 then
 		If sw29pos>0 then sw29pos=sw29pos-1
@@ -571,7 +576,7 @@ End Select
 
 
 
- Sub sw30a_Timer()	
+ Sub sw30a_Timer()
   Select Case sw30Pos
         Case 0: sw30P.z=0
 				 If sw30Dir = 1 then
@@ -584,7 +589,7 @@ End Select
 					Lightcvup4.state=0:Lightcvup2.state=0
 					sw30a.TimerEnabled = 1
 					lightchoice
-			     end if        
+			     end if
         Case 1: sw30P.z=0
         Case 2: sw30P.z=-4
         Case 3: sw30P.z=-8
@@ -604,7 +609,7 @@ End Select
 					sw30a.TimerEnabled = 0
 			     end if
 
- 
+
 End Select
 	If sw30Dir = 1 then
 		If sw30pos>0 then sw30pos=sw30pos-1
@@ -614,7 +619,7 @@ End Select
   End Sub
 
 
- Sub sw31a_Timer()	
+ Sub sw31a_Timer()
   Select Case sw31Pos
         Case 0: sw31P.z=0
 				 If sw31Dir = 1 then
@@ -627,7 +632,7 @@ End Select
 					Lightcvup4.state=0:Lightcvup2.state=0
 					sw31a.TimerEnabled = 1
 					lightchoice
-			     end if        
+			     end if
         Case 1: sw31P.z=0
         Case 2: sw31P.z=-4
         Case 3: sw31P.z=-8
@@ -648,7 +653,7 @@ End Select
 			     end if
 
 
- 
+
 End Select
 	If sw31Dir = 1 then
 		If sw31pos>0 then sw31pos=sw31pos-1
@@ -723,62 +728,62 @@ Sub SW56_Timer():SW56.isdropped = 0:SW56a.isdropped = 1:me.timerenabled = 0:End 
 dim xx
 Sub GIUpdate(enabled)
 
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then 
+	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
 				If enabled Then
 					For each xx in GI9:xx.State = 0:Next
 				else
 					For each xx in GI9:xx.State = 1:Next
 				End If
-	end if   
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
 				If enabled Then
 					For each xx in GI90:xx.State = 0:Next
 				else
 					For each xx in GI90:xx.State = 1:Next
 				End If
-	end if 
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
 				If enabled Then
 					For each xx in GI901:xx.State = 0:Next
 				else
 					For each xx in GI901:xx.State = 1:Next
 				End If
-	end if 
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then 
+	end if
+	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
 				If enabled Then
 					For each xx in GI91:xx.State = 0:Next
 				else
 					For each xx in GI91:xx.State = 1:Next
 				End If
-	end if 
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
 				If enabled Then
 					For each xx in GI0:xx.State = 0:Next
 				else
 					For each xx in GI0:xx.State = 1:Next
 				End If
-	end if 
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
 				If enabled Then
 					For each xx in GI1:xx.State = 0:Next
 				else
 					For each xx in GI1:xx.State = 1:Next
 				End If
-	end if 
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
 				If enabled Then
 					For each xx in GI01:xx.State = 0:Next
 				else
 					For each xx in GI01:xx.State = 1:Next
 				End If
-	end if 
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then 
+	end if
+		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
 				If enabled Then
 					For each xx in GIempty:xx.State = 0:Next
 				else
 					For each xx in GIempty:xx.State = 1:Next
 				End If
-		end if 
+		end if
 LightLeftSlingshot.state =0
 LightRightSlingshot.state =0
 
@@ -940,115 +945,16 @@ end Select
 select case L23.state or L64.state
 	case 0:RockRight.Image = "RocherRoff"
 	case 1:RockRight.Image = "RocherRon"
-end Select	
+end Select
 select case L23A.state
 	case 0:RockCenter.Image = "RocherCoff"
 	case 1:RockCenter.Image = "RocherCon"
-end Select	
+end Select
 End Sub
-
-
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
-
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
-End Function
 
 Function Vol2(ball1, ball2) ' Calculates the Volume of the sound based on the speed of two balls
     Vol2 = (Vol(ball1) + Vol(ball2) ) / 2
 End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp> 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
-
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
-
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
-
-'*****************************************
-'    JP's VP10 Collision & Rolling Sounds
-'*****************************************
-
-Const tnob = 6 ' total number of balls
-ReDim rolling(tnob)
-ReDim collision(tnob)
-Initcollision
-
-Sub Initcollision
-    Dim i
-    For i = 0 to tnob
-        collision(i) = -1
-        rolling(i) = False
-    Next
-End Sub
-
-Sub CollisionTimer_Timer()
-    Dim BOT, B, B1, B2, dx, dy, dz, distance, radii
-    BOT = GetBalls
-
-    ' rolling
-	
-	For B = UBound(BOT) +1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-	Next
-
-    If UBound(BOT) = -1 Then Exit Sub
-
-    For B = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*15, Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-
-    'collision
-
-    If UBound(BOT) < 1 Then Exit Sub
-
-    For B1 = 0 to UBound(BOT)
-        For B2 = B1 + 1 to UBound(BOT)
-            dz = INT(ABS((BOT(b1).z - BOT(b2).z) ) )
-            radii = BOT(b1).radius + BOT(b2).radius
-			If dz <= radii Then
-
-            dx = INT(ABS((BOT(b1).x - BOT(b2).x) ) )
-            dy = INT(ABS((BOT(b1).y - BOT(b2).y) ) )
-            distance = INT(SQR(dx ^2 + dy ^2) )
-
-            If distance <= radii AND (collision(b1) = -1 OR collision(b2) = -1) Then
-                collision(b1) = b2
-                collision(b2) = b1
-                PlaySound("fx_collide"), 0, Vol2(BOT(b1), BOT(b2)), Pan(BOT(b1)), 0, Pitch(BOT(b1)), 0, 0
-            Else
-                If distance > (radii + 10)  Then
-                    If collision(b1) = b2 Then collision(b1) = -1
-                    If collision(b2) = b1 Then collision(b2) = -1
-                End If
-            End If
-			End If
-        Next
-    Next
-End Sub
-
 
 '************************************
 ' What you need to add to your table
@@ -1068,7 +974,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1082,9 +988,9 @@ End Sub
 '**************************************
 
 ' The Double For loop: This is a double cycle used to check the collision between a ball and the other ones.
-' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking 
-' collision twice. For example, I will never check collision between ball 2 and ball 1, 
-' because I already checked collision between ball 1 and 2. So, if we have 4 balls, 
+' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking
+' collision twice. For example, I will never check collision between ball 2 and ball 1,
+' because I already checked collision between ball 1 and 2. So, if we have 4 balls,
 ' the collision checks will be: ball 1 with 2, 1 with 3, 1 with 4, 2 with 3, 2 with 4 and 3 with 4.
 
 ' Sum first the radius of both balls, and if the height between them is higher then do not calculate anything more,
@@ -1092,10 +998,10 @@ End Sub
 
 ' The next 3 lines calculates distance between xth and yth balls with the Pytagorean theorem,
 
-' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls, 
+' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls,
 ' and both balls are not already colliding.
 
-' Why are we checking if balls are already in collision? 
+' Why are we checking if balls are already in collision?
 ' Because we do not want the sound repeting when two balls are resting closed to each other.
 
 ' Set the collision property of both balls to True, and we assign the number of the ball colliding
@@ -1107,7 +1013,7 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
@@ -1115,30 +1021,30 @@ Sub Targets_Hit (idx)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rollovers_Hit (idx)
-	PlaySound "rollover", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySound "rollover", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -1148,8 +1054,8 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
  		RandomSoundRubber()
@@ -1158,9 +1064,9 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -1174,9 +1080,9 @@ End Sub
 
 Sub RandomSoundFlipper()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -1206,11 +1112,11 @@ Dim raiseballsw, raiseball, hasbeenhit
 		'VUK.DestroyBall
  		Set raiseball = VUK.CreateBall
  		raiseballsw = True
- 		Vukraiseballtimer.Enabled = True 
+ 		Vukraiseballtimer.Enabled = True
 		'VUK.Enabled=TRUE
 	end if
 End Sub
- 
+
  Sub Vukraiseballtimer_Timer()
  	If raiseballsw = True then
  		raiseball.z = raiseball.z + 10
@@ -1276,7 +1182,7 @@ Sub SubLR_Timer()
 	if SbmLR= -1 then Rot = 1:debug.print "OK pour le nudge"end if
 	if SbmLR= 1 then Rot = 10:end if
 	UpdateSbmLR
-	
+
   End Sub
 
 
@@ -1335,10 +1241,10 @@ SbmIntensity = 0
 	if SbmDir= -1 then SbmTransX = SbmTransX - 3:SbmIntensity = SbmIntensity + 1:end if
 	if SbmDir= 1 then SbmTransX = SbmTransX + 3:SbmIntensity = SbmIntensity - 1:end If
 	UpdateSbm
-	If SbmTransX >= 0 then 
+	If SbmTransX >= 0 then
 		SbmTransX = 0:SubDown.Enabled = 0: SbmDir=-1
 	end if
-	If SbmTransX <= -39 then 
+	If SbmTransX <= -39 then
 		SbmTransX = -39:SubDown.Enabled = 0: SbmDir=1
 	end if
   End Sub
@@ -1365,10 +1271,10 @@ SbmIntensity2 = 0
 	if SbmDir2= -1 then SbmTransX2 = SbmTransX2 - 3:SbmIntensity2 = SbmIntensity2 + 1:end if
 	if SbmDir2= 1 then SbmTransX2 = SbmTransX2 + 3:SbmIntensity2 = SbmIntensity2 - 1:end If
 	UpdateSbm2
-	If SbmTransX2 >= 0 then 
+	If SbmTransX2 >= 0 then
 		SbmTransX2 = 0:SubDown2.Enabled = 0: SbmDir2=-1
 	end if
-	If SbmTransX2 <= -39 then 
+	If SbmTransX2 <= -39 then
 		SbmTransX2 = -39:SubDown2.Enabled = 0: SbmDir2=1
 	end if
   End Sub
@@ -1395,10 +1301,10 @@ SbmIntensity1 = 0
 	if SbmDir1= -1 then SbmTransX1 = SbmTransX1 - 3:SbmIntensity1 = SbmIntensity1 + 1:end if
 	if SbmDir1= 1 then SbmTransX1 = SbmTransX1 + 3:SbmIntensity1 = SbmIntensity1 - 1:end If
 	UpdateSbm1
-	If SbmTransX1 >= 0 then 
+	If SbmTransX1 >= 0 then
 		SbmTransX1 = 0:SubDown1.Enabled = 0: SbmDir1=-1
 	end if
-	If SbmTransX1 <= -39 then 
+	If SbmTransX1 <= -39 then
 		SbmTransX1 = -39:SubDown1.Enabled = 0: SbmDir1=1
 	end if
   End Sub
@@ -1413,7 +1319,7 @@ SbmIntensity1 = 0
 
 
 
-Sub DOF(dofevent, dofstate)	
+Sub DOF(dofevent, dofstate)
 	'If cController = 3 Then
 		If dofstate = 2 Then
 			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
@@ -1491,3 +1397,174 @@ End Sub
  'End Sub
 
 '*************  End Shake Scripting  ****************
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*****************************************
+'    JP's VP10 Collision & Rolling Sounds
+'*****************************************
+
+Const tnob = 6 ' total number of balls
+ReDim rolling(tnob)
+ReDim collision(tnob)
+Initcollision
+
+Sub Initcollision
+    Dim i
+    For i = 0 to tnob
+        collision(i) = -1
+        rolling(i) = False
+    Next
+End Sub
+
+Sub CollisionTimer_Timer()
+    Dim BOT, B, B1, B2, dx, dy, dz, distance, radii
+    BOT = GetBalls
+
+    ' rolling
+
+	For B = UBound(BOT) +1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+	Next
+
+    If UBound(BOT) = -1 Then Exit Sub
+
+    For B = 0 to UBound(BOT)
+        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
+            rolling(b) = True
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*15, Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
+        Else
+            If rolling(b) = True Then
+                StopSound("fx_ballrolling" & b)
+                rolling(b) = False
+            End If
+        End If
+    Next
+
+    'collision
+
+    If UBound(BOT) < 1 Then Exit Sub
+
+    For B1 = 0 to UBound(BOT)
+        For B2 = B1 + 1 to UBound(BOT)
+            dz = INT(ABS((BOT(b1).z - BOT(b2).z) ) )
+            radii = BOT(b1).radius + BOT(b2).radius
+			If dz <= radii Then
+
+            dx = INT(ABS((BOT(b1).x - BOT(b2).x) ) )
+            dy = INT(ABS((BOT(b1).y - BOT(b2).y) ) )
+            distance = INT(SQR(dx ^2 + dy ^2) )
+
+            If distance <= radii AND (collision(b1) = -1 OR collision(b2) = -1) Then
+                collision(b1) = b2
+                collision(b2) = b1
+                PlaySound("fx_collide"), 0, Vol2(BOT(b1), BOT(b2)), Pan(BOT(b1)), 0, Pitch(BOT(b1)), 0, 0
+            Else
+                If distance > (radii + 10)  Then
+                    If collision(b1) = b2 Then collision(b1) = -1
+                    If collision(b2) = b1 Then collision(b2) = -1
+                End If
+            End If
+			End If
+        Next
+    Next
+End Sub
+
