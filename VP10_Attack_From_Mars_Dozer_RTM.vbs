@@ -2,6 +2,12 @@
 ' Based on the table by Bally/Williams
 ' VP916 3.0 by JPSalas 2013
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Uses a specal ball rolling routine
+' No special SSF tweaks yet.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+
 Option Explicit
 Randomize
 
@@ -57,7 +63,7 @@ Sub LoadVPM(VPMver, VBSfile, VBSver)
 	cNewController = 1
 	If cController = 0 then
 		Set FileObj=CreateObject("Scripting.FileSystemObject")
-		If Not FileObj.FolderExists(UserDirectory) then 
+		If Not FileObj.FolderExists(UserDirectory) then
 			Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
 		ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
 			Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
@@ -449,7 +455,7 @@ Dim aBall
 Sub sw78_Hit
     PlaySound "fx_ballhit",0,1,0.1,0.25
 	Set aBall = ActiveBall:Me.TimerEnabled =1
-    
+
     vpmTimer.PulseSwitch(78), 150, "bsl.addball 0 '"
 End Sub
 
@@ -467,7 +473,7 @@ Dim bBall
 Sub sw37_Hit
     PlaySound "fx_ballhit",0,1,0.1,0.25
 	Set bBall = ActiveBall:Me.TimerEnabled =1
-    
+
     bsR.AddBall 0
 End Sub
 
@@ -1042,10 +1048,10 @@ Sub SolAlien5(Enabled)
     PlaySound "fx_rubber",0,1,0,0.25
     If Enabled Then
     afstep = 1
-    alienf.enabled = 1      
+    alienf.enabled = 1
     Else
     afstep = 2
-    alienf.enabled = 1      
+    alienf.enabled = 1
     End If
 End Sub
 
@@ -1070,10 +1076,10 @@ Sub SolAlien6(Enabled)
     PlaySound "fx_rubber",0,1,0,0.25
     If Enabled Then
     asstep = 1
-    aliens.enabled = 1      
+    aliens.enabled = 1
     Else
     asstep = 2
-    aliens.enabled = 1      
+    aliens.enabled = 1
     End If
 End Sub
 
@@ -1098,10 +1104,10 @@ Sub SolAlien8(Enabled)
     PlaySound "fx_rubber",0,1,0,0.25
     If Enabled Then
     aestep = 1
-    aliene.enabled = 1      
+    aliene.enabled = 1
     Else
     aestep = 2
-    aliene.enabled = 1      
+    aliene.enabled = 1
     End If
 End Sub
 
@@ -1126,10 +1132,10 @@ Sub SolAlien14(Enabled)
     PlaySound "fx_rubber",0,1,0,0.25
     If Enabled Then
     atfstep = 1
-    alientf.enabled = 1      
+    alientf.enabled = 1
     Else
     atfstep = 2
-    alientf.enabled = 1      
+    alientf.enabled = 1
     End If
 End Sub
 
@@ -1363,7 +1369,7 @@ Sub BigUfoInit
 End Sub
 
 Sub UFOLed_Timer()
-	If BlackLights = 1 then 
+	If BlackLights = 1 then
    Select Case UfoLedPos
 			Case 0:ufo1.image = "bigufo3_bl":UfoLedPos = 1
 			Case 1:ufo1.image = "bigufo2_bl":UfoLedPos = 2
@@ -1400,7 +1406,7 @@ Sub BigUfoUpdate
     Ufo1.rotx = -(ckicker.y - cball.y)
     Ufo1.transx = (ckicker.y - cball.y)/2
     Ufo1.roty = cball.x - ckicker.x
-    
+
 	Ufo3.rotx = -(ckicker.y - cball.y)
     Ufo3.transx = (ckicker.y - cball.y)/2
     Ufo3.roty = cball.x - ckicker.x
@@ -1660,7 +1666,7 @@ Sub LampTimer_Timer()
 
     UpdateLamps
 End Sub
- 
+
  Sub UpdateLamps
 	NFadeL 11, l11
 	NFadeL 12, l12
@@ -2279,12 +2285,246 @@ Sub FadeLCo(nr, a, b) 'fading collection of lights
 End Sub
 
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
+'************************************
+' What you need to add to your table
+'************************************
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+' a timer called CollisionTimer. With a fast interval, like from 1 to 10
+' one collision sound, in this script is called fx_collide
+' as many sound files as max number of balls, with names ending with 0, 1, 2, 3, etc
+' for ex. as used in this script: fx_ballrolling0, fx_ballrolling1, fx_ballrolling2, fx_ballrolling3, etc
+
+
+'******************************************
+' Explanation of the rolling sound routine
+'******************************************
+
+' sounds are played based on the ball speed and position
+
+' the routine checks first for deleted balls and stops the rolling sound.
+
+' The For loop goes through all the balls on the table and checks for the ball speed and
+' if the ball is on the table (height lower than 30) then then it plays the sound
+' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
+
+' The sound is played using the VOL, PAN and PITCH functions, so the volume and pitch of the sound
+' will change according to the ball speed, and the PAN function will change the stereo position according
+' to the position of the ball on the table.
+
+
+'**************************************
+' Explanation of the collision routine
+'**************************************
+
+' The Double For loop: This is a double cycle used to check the collision between a ball and the other ones.
+' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking
+' collision twice. For example, I will never check collision between ball 2 and ball 1,
+' because I already checked collision between ball 1 and 2. So, if we have 4 balls,
+' the collision checks will be: ball 1 with 2, 1 with 3, 1 with 4, 2 with 3, 2 with 4 and 3 with 4.
+
+' Sum first the radius of both balls, and if the height between them is higher then do not calculate anything more,
+' since the balls are on different heights so they can't collide.
+
+' The next 3 lines calculates distance between xth and yth balls with the Pytagorean theorem,
+
+' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls,
+' and both balls are not already colliding.
+
+' Why are we checking if balls are already in collision?
+' Because we do not want the sound repeting when two balls are resting closed to each other.
+
+' Set the collision property of both balls to True, and we assign the number of the ball colliding
+
+' Play the collide sound of your choice using the VOL, PAN and PITCH functions
+
+' Last lines: If the distance between 2 balls is more than the radius of a ball,
+' then there is no collision and then set the collision property of the ball to False (-1).
+
+
+Sub Pins_Hit (idx)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Targets_Hit (idx)
+	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Thin_Hit (idx)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Medium_Hit (idx)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals2_Hit (idx)
+	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Gates_Hit (idx)
+	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Spinner_Spin
+	PlaySound "fx_spinner",0,.25,0,0.25
+End Sub
+
+Sub Rubbers_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 20 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub Posts_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 16 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub RandomSoundRubber()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub LeftFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RightFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RandomSoundFlipper()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+' Get angle
+Dim Xin, Yin, rAngle, Radit, wAngle, Pi
+Pi = Round(4 * Atn(1), 6) '3.1415926535897932384626433832795
+
+Sub GetAngle(Xin, Yin, wAngle)
+    If Sgn(Xin) = 0 Then
+        If Sgn(Yin) = 1 Then rAngle = 3 * Pi / 2 Else rAngle = Pi / 2
+        If Sgn(Yin) = 0 Then rAngle = 0
+        Else
+            rAngle = atn(- Yin / Xin)
+    End If
+    If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
+    If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
+    wAngle = round((Radit + rAngle), 4)
+End Sub
+
+'Rotation of the small saucers
+Dim uforotny
+uforotny = 0
+Sub SmallUfoTimer_Timer()
+uforotny = (uforotny +8) MOD 360
+ufo2.RotY = -uforotny
+ufo2d.RotZ = -uforotny
+End Sub
+
+Sub Mars_Hit()
+If Mars_Mod = 1 Then can2.visible = 1:UFO_Mars.enabled = 1:End If
+End Sub
+
+Dim mspin
+Sub UFO_Mars_Timer()
+If mspin = 3000 Then
+mspin = 0
+me.enabled = 0
+can2.visible = 0
+End If
+can2.Rotz = can2.Rotz + 1
+mspin = mspin + 1
+End Sub
+
+Sub Table1_exit()
+	Controller.Pause = False
+	Controller.Stop
+End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
@@ -2297,12 +2537,26 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
     End If
 End Function
 
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 '*****************************************
@@ -2359,177 +2613,3 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     End If
 End Sub
 
-'************************************
-' What you need to add to your table
-'************************************
-
-' a timer called CollisionTimer. With a fast interval, like from 1 to 10
-' one collision sound, in this script is called fx_collide
-' as many sound files as max number of balls, with names ending with 0, 1, 2, 3, etc
-' for ex. as used in this script: fx_ballrolling0, fx_ballrolling1, fx_ballrolling2, fx_ballrolling3, etc
-
-
-'******************************************
-' Explanation of the rolling sound routine
-'******************************************
-
-' sounds are played based on the ball speed and position
-
-' the routine checks first for deleted balls and stops the rolling sound.
-
-' The For loop goes through all the balls on the table and checks for the ball speed and 
-' if the ball is on the table (height lower than 30) then then it plays the sound
-' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
-
-' The sound is played using the VOL, PAN and PITCH functions, so the volume and pitch of the sound
-' will change according to the ball speed, and the PAN function will change the stereo position according
-' to the position of the ball on the table.
-
-
-'**************************************
-' Explanation of the collision routine
-'**************************************
-
-' The Double For loop: This is a double cycle used to check the collision between a ball and the other ones.
-' If you look at the parameters of both cycles, you’ll notice they are designed to avoid checking 
-' collision twice. For example, I will never check collision between ball 2 and ball 1, 
-' because I already checked collision between ball 1 and 2. So, if we have 4 balls, 
-' the collision checks will be: ball 1 with 2, 1 with 3, 1 with 4, 2 with 3, 2 with 4 and 3 with 4.
-
-' Sum first the radius of both balls, and if the height between them is higher then do not calculate anything more,
-' since the balls are on different heights so they can't collide.
-
-' The next 3 lines calculates distance between xth and yth balls with the Pytagorean theorem,
-
-' The first "If": Checking if the distance between the two balls is less than the sum of the radius of both balls, 
-' and both balls are not already colliding.
-
-' Why are we checking if balls are already in collision? 
-' Because we do not want the sound repeting when two balls are resting closed to each other.
-
-' Set the collision property of both balls to True, and we assign the number of the ball colliding
-
-' Play the collide sound of your choice using the VOL, PAN and PITCH functions
-
-' Last lines: If the distance between 2 balls is more than the radius of a ball,
-' then there is no collision and then set the collision property of the ball to False (-1).
-
-
-Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
-End Sub
-
-Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-End Sub
-
-Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
-End Sub
-
-Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
-End Sub
-
-Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
-End Sub
-
-Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
-End Sub
-
-' Get angle
-Dim Xin, Yin, rAngle, Radit, wAngle, Pi
-Pi = Round(4 * Atn(1), 6) '3.1415926535897932384626433832795
-
-Sub GetAngle(Xin, Yin, wAngle)
-    If Sgn(Xin) = 0 Then
-        If Sgn(Yin) = 1 Then rAngle = 3 * Pi / 2 Else rAngle = Pi / 2
-        If Sgn(Yin) = 0 Then rAngle = 0
-        Else
-            rAngle = atn(- Yin / Xin)
-    End If
-    If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
-    If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
-    wAngle = round((Radit + rAngle), 4)
-End Sub
-
-'Rotation of the small saucers
-Dim uforotny
-uforotny = 0
-Sub SmallUfoTimer_Timer()
-uforotny = (uforotny +8) MOD 360
-ufo2.RotY = -uforotny
-ufo2d.RotZ = -uforotny	
-End Sub
-
-Sub Mars_Hit()
-If Mars_Mod = 1 Then can2.visible = 1:UFO_Mars.enabled = 1:End If
-End Sub
-
-Dim mspin
-Sub UFO_Mars_Timer()
-If mspin = 3000 Then
-mspin = 0
-me.enabled = 0
-can2.visible = 0
-End If
-can2.Rotz = can2.Rotz + 1
-mspin = mspin + 1
-End Sub
-
-Sub Table1_exit()
-	Controller.Pause = False
-	Controller.Stop
-End Sub
