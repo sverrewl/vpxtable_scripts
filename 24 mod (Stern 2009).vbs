@@ -5,7 +5,6 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
 
-
 Const cGameName="twenty4_150",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 On Error Resume Next
