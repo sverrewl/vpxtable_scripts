@@ -3,11 +3,15 @@
 'VPX recreation by ninuzzu
 'thanks to DJRobX for the help and to the VPDev Team for the amazing VPX!
 
+' Thalamus 2018-07-24
+' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
 Const FlasherIntensityGIOn = .75
-Const FlasherIntensityGIOff = 1 
+Const FlasherIntensityGIOff = 1
 
 Const BallSize = 51
 Const BallMass = 1.3
@@ -30,7 +34,7 @@ LoadVPM "02000000", "WPC.VBS", 3.50
 Const UseSolenoids = 1
 Const UseLamps = 1
 Const UseSync = 1
-Const HandleMech = 0 
+Const HandleMech = 0
 
 ' Standard Sounds
 Const SSolenoidOn = "fx_Solenoid"
@@ -44,8 +48,8 @@ Const SCoin = "fx_Coin"
 Dim bsTrough, bsLSaucer, bsRBPopper, bsRFPopper, plungerIM
 
 Sub Table1_Init
-	vpmInit Me 
-	With Controller      
+	vpmInit Me
+	With Controller
 		.GameName = cGameName
 		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
 		.SplashInfoLine = "Who Dunnit (Bally 1995)"
@@ -280,7 +284,7 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then		 
+	If Enabled Then
 		PlaySoundAt SoundFX("fx_FlipperUp",DOFFlippers), LeftFlipper
 		LeftFlipper.RotateToEnd
 	Else
@@ -310,7 +314,7 @@ Sub SolTrough(Enabled)
 End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER 
+'						 AUTOPLUNGER
 '************************************************************************
 Sub SolAutoPlungerIM(Enabled)
 	If Enabled Then
@@ -328,7 +332,7 @@ Sub TargetsInit
 	'starts the bank in up position
     TargetBank.z=0
 	sw66.Isdropped = 0:sw67.Isdropped = 0:sw68.Isdropped = 0:sw6X.IsDropped = 0
-	Controller.Switch(11) = 0			
+	Controller.Switch(11) = 0
 	Controller.Switch(73) = 1
 	tdir=-1:tbrake=0:tshake=0
 End Sub
@@ -338,7 +342,7 @@ Dim BankDisableTime: BankDisableTime=0
 Sub SolBank(Enabled)
 	If Enabled then
 		PlayLoopSoundAtVol SoundFX("fx_mine_motor", DOFGear), TargetBank, 0.5
-	else 
+	else
 		StopSound "fx_mine_motor"
 		BankDisableTime = 0
 	End If
@@ -346,7 +350,7 @@ Sub SolBank(Enabled)
 End Sub
 
 Sub BankMove_timer()
-	' Are we waiting for the ROM to disable the movement?  If yes, exit 
+	' Are we waiting for the ROM to disable the movement?  If yes, exit
 	if BankDisableTime > 0 and BankDisableTime > Timer Then Exit Sub
 	TargetBank.z=TargetBank.z+targvel*tdir
 	If TargetBank.z<-60 AND tdir=-1 then
@@ -362,7 +366,7 @@ Sub BankMove_timer()
 End Sub
 
 sub bankshake_timer()
-	if tbrake>0 then			
+	if tbrake>0 then
 		tshake=tshake+30
 		tbrake=tbrake-0.08
 		TargetBank.transy =((sin(tshake)))*tbrake
@@ -432,7 +436,7 @@ Sub UpdateReelSound
 		If ReelSnd=0 Then PlayLoopSoundAtVol SoundFX("Reel Motor",DOFGear), Reel1, 0.25
 		ReelSnd=Timer
 	Else
-		if ReelSnd > 0 and Timer > ReelSnd + .5 then StopSound "Reel Motor":ReelSnd=0 
+		if ReelSnd > 0 and Timer > ReelSnd + .5 then StopSound "Reel Motor":ReelSnd=0
 	End If
 End Sub
 
@@ -505,7 +509,7 @@ Sub sw37_hit:vpmtimer.pulsesw 37: End Sub
 'subway optos
 Dim SubwaySnd:SubwaySnd=0
 Sub sw41_hit:controller.Switch(41)=1:If SubwaySnd=0 Then SubwaySnd=1:PlaySoundAt "fx_subway",ActiveBall:End If: End Sub
-Sub sw41_unhit:controller.Switch(41)=0:End Sub	
+Sub sw41_unhit:controller.Switch(41)=0:End Sub
 Sub sw42_hit:controller.Switch(42)=1:If SubwaySnd=0 Then SubwaySnd=1:PlaySoundAt "fx_subway",ActiveBall:End If: End Sub
 Sub sw42_unhit:controller.Switch(42)=0:End Sub
 Sub sw47_hit:controller.Switch(47)=1:If SubwaySnd=0 Then SubwaySnd=1:PlaySoundAt "fx_subway",ActiveBall:End If: End Sub
@@ -612,7 +616,7 @@ Sub SolBackFlashers(enabled)
 End Sub
 
 Sub SolLowerLeftFlasher(enabled)
-	if Enabled then 
+	if Enabled then
 		Dim Intensity : If Light15.state = 0 then Intensity = FlasherIntensityGIOff else Intensity = FlasherIntensityGIOn
 		FlashLevel3 = Intensity
 		FlasherFlash3_Timer
@@ -620,7 +624,7 @@ Sub SolLowerLeftFlasher(enabled)
 End Sub
 
 Sub SolLowerRightFlasher(enabled)
-	if Enabled then 
+	if Enabled then
 		Dim Intensity : If Light15.state = 0 then Intensity = FlasherIntensityGIOff else Intensity = FlasherIntensityGIOn
 		FlashLevel4 = Intensity
 		FlasherFlash4_Timer
@@ -628,7 +632,7 @@ Sub SolLowerRightFlasher(enabled)
 End Sub
 
 Sub SolSpinnerFlasher(enabled)
-	if Enabled then 
+	if Enabled then
 		Dim Intensity : If Light15.state = 0 then Intensity = FlasherIntensityGIOff else Intensity = FlasherIntensityGIOn
 		FlashLevel5 = Intensity
 		FlasherFlash5_Timer
@@ -682,7 +686,7 @@ End Sub
 
 Sub FlasherFlash3_Timer()
 	dim flashx3, matdim
-	If not Flasherflash3.TimerEnabled Then 
+	If not Flasherflash3.TimerEnabled Then
 		Flasherflash3.TimerEnabled = True
 		Flasherflash3.visible = 1
 		Flasherlit3.visible = 1
@@ -708,7 +712,7 @@ End Sub
 
 Sub FlasherFlash4_Timer()
 	dim flashx3, matdim
-	If not Flasherflash4.TimerEnabled Then 
+	If not Flasherflash4.TimerEnabled Then
 		Flasherflash4.TimerEnabled = True
 		Flasherflash4.visible = 1
 		Flasherlit4.visible = 1
@@ -734,7 +738,7 @@ End Sub
 
 Sub FlasherFlash5_Timer()
 	dim flashx3, matdim
-	If not Flasherflash5.TimerEnabled Then 
+	If not Flasherflash5.TimerEnabled Then
 		Flasherflash5.TimerEnabled = True
 		Flasherflash5.visible = 1
 		Flasherlit5.visible = 1
@@ -760,7 +764,7 @@ End Sub
 
 Sub FlasherFlash6_Timer()
 	dim flashx3
-	If not FlasherFlash6.TimerEnabled Then 
+	If not FlasherFlash6.TimerEnabled Then
 		FlasherFlash6.TimerEnabled = True
 		FlasherFlash6.visible = 1
 	End If
@@ -865,10 +869,10 @@ Dim NextOrbitHit:NextOrbitHit = 0
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 10, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 ' Requires rampbump1 to 7 in Sound Manager
@@ -882,11 +886,11 @@ End Sub
 ' *********************************************************************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	if ball1.z >= 0 then 
+	if ball1.z >= 0 then
 		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 500, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 	Else ' in playfield tunnel, muffled!
 		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 1000, Pan(ball1), 0, -20000, 0, 0, AudioFade(ball1)
-	end if 
+	end if
 End Sub
 
 Sub LeftFlipper_Collide(parm)
@@ -1076,5 +1080,5 @@ Class cvpmMyMech
 	End Sub
 
 	Public Sub Reset : Start : End Sub
-	
+
 End Class
