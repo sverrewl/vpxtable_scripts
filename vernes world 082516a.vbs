@@ -1,5 +1,9 @@
 'table by freneticamnesic
 
+' Thalamus 2018-07-24
+' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
   Option Explicit
    Randomize
 
@@ -35,7 +39,7 @@ end if
      End Sub
 
 
- 
+
 '********************
 'Standard definitions
 '********************
@@ -45,7 +49,7 @@ end if
      Const UseSolenoids = 1
      Const UseLamps = 0
      Const UseSync = 1
-     Const HandleMech = 0 
+     Const HandleMech = 0
 
      'Standard Sounds
      Const SSolenoidOn = "Solenoid"
@@ -60,7 +64,7 @@ end if
 '*******Use DOF 1**, 1 to activate a ledwiz output*******************
 '*******Use DOF 1**, 0 to deactivate a ledwiz output*****************
 '*******Use DOF 1**, 2 to pulse a ledwiz output**********************
-Sub DOF(dofevent, dofstate)	
+Sub DOF(dofevent, dofstate)
 	If DB2SOn=True Then
 		If dofstate = 2 Then
 			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
@@ -151,7 +155,7 @@ End Sub
      With dtRDrop
 	      .Initdrop Array(sw41, sw42, sw43, sw44), Array(41, 42, 43, 44)
 	      .InitSnd "DTResetR","DTR"
-      End With 
+      End With
 
       '**Main Timer init
 	PinMAMETimer.Interval = PinMAMEInterval
@@ -164,30 +168,30 @@ End Sub
 Sub Table_KeyDown(ByVal Keycode)
 dim tt
 tt = 0
-If keycode = 17 then 
+If keycode = 17 then
 	vpmTimer.PulseSw 52: debug.print "52=pulsed" &" lock.  Time(sec)=     " & timer 'w balloon lock
 End if
-If keycode = 18 then 
+If keycode = 18 then
 	vpmTimer.PulseSw 77: debug.print "77=pulsed" &" loop.  Time(sec)=      " & timer 'e left loop
 End if
-If keycode = 19 then 
+If keycode = 19 then
 	vpmTimer.PulseSw 45: debug.print "45=pulsed" &" lower.  Time(sec)=      " & timer 'e left loop
 End if
 
-If keycode = 20 then 
+If keycode = 20 then
 	vpmTimer.PulseSw 85: debug.print "85=pulsed" &" control.  Time(sec)=      " & timer 'e left loop
 '	if Controller.switch(85) = 0 then tt =1
 '	Controller.switch(85) = tt: debug.print "85=" & tt &" control.  Time(sec)=   " & timer 't control
 End if
-If keycode = 21 then 
+If keycode = 21 then
 	if Controller.switch(55) = 0 then tt =1
 	Controller.switch(55) = tt: debug.print "55=" & tt &" middle.  Time(sec)=    " & timer 'y midde
 End if
-If keycode = 22 then 
+If keycode = 22 then
 	if Controller.switch(65) = 0 then tt =1
 	Controller.switch(65) = tt: debug.print "65=" & tt &" upper.  Time(sec)=     " & timer 'u upper
 End if
-If keycode = 23 then 
+If keycode = 23 then
 	vpmTimer.PulseSw 57: debug.print "57=pulsed" &" ramp exit.  Time(sec)=      " & timer 'e left loop
 '	if Controller.switch(57) = 0 then tt =1
 '	Controller.switch(57) = tt: debug.print "57=" & tt &" ramp exit.  Time(sec)= " & timer 'i ramp exit
@@ -196,11 +200,11 @@ End if
 
 	If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
 	if keycode = 3 then bstrough.addball 0: debug.print "drain"
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		'SolLFlipper true
 		Controller.Switch(133)=1
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		'SolRFlipper true
 		Controller.Switch(131)=1
 	End If
@@ -208,21 +212,21 @@ End if
 '  	If keycode = LeftTiltKey Then LeftNudge 80, 1, 20:End If
 '   If keycode = RightTiltKey Then RightNudge 280, 1, 20:End If
 '   If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
-   If vpmKeyDown(keycode) Then Exit Sub 
+   If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 
-    
+
 
 
 Sub Table_KeyUp(ByVal keycode)
 '
 
 	If vpmKeyUp(keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
 		Controller.Switch(133)=0
 	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		Controller.Switch(131)=0
 	End If
 	'If Keycode = StartGameKey Then Controller.Switch(16) = 0
@@ -316,7 +320,7 @@ Sub Trigger1_Hit			'top entrance trigger
 	Kicker1.kick 160, 8		'below top entrance angle, force
 End Sub
 
-Sub catapult_Hit			
+Sub catapult_Hit
     'Trigger2.DestroyBall
 	'bsVUK.AddBall Me
 	'VUK.kick 180, 12
@@ -417,9 +421,9 @@ Sub UpdateFlipperLogo_Timer
     LFLogo.RotY = LeftFlipper.CurrentAngle +90
     RFlogo.RotY = RightFlipper.CurrentAngle +90
     RFlogo2.RotY = UpRightFlipper.CurrentAngle +90
-End Sub 
+End Sub
 
- 
+
 Sub SolLFlipper(Enabled)
      If Enabled Then
 		 PlaySound "flipperupleft"
@@ -440,7 +444,7 @@ Sub SolRFlipper(Enabled)
 		 UpRightFlipper.RotateToStart
 		playsound "flipperdown"
      End If
- End Sub   
+ End Sub
 
    Sub Drain_Hit():PlaySound "Drain":bsTrough.AddBall Me:End Sub
    Sub BallRelease_UnHit():End Sub
@@ -454,10 +458,10 @@ End Sub
 pulpodropwall.isdropped = true
 Dim pulpomove:pulpomove = False
 Sub PulpoT_Timer()
-	If pulpomove = True and pulpo.TransZ >= -51 then 
+	If pulpomove = True and pulpo.TransZ >= -51 then
 		pulpo.TransZ = pulpo.TransZ - 1
 	End If
-	If pulpomove = False and pulpo.TransZ <= 0 then 
+	If pulpomove = False and pulpo.TransZ <= 0 then
 		pulpo.TransZ = pulpo.TransZ + 1
 	End If
 	'If pulpo.TransZ = 0 then pulpomove = True
@@ -470,7 +474,7 @@ End Sub
 
 
 '*************
-' Targets 
+' Targets
 '*************
 
 '***Drop Targets
@@ -512,7 +516,7 @@ Sub sw90_Timer:Me.TimerEnabled = 0:sw90p.TransX = 0:End Sub
 Sub sw91_Hit  : vpmTimer.PulseSw 91:Me.TimerEnabled = 1:sw91p.TransX = 4: playsound "target": End Sub
 Sub sw91_Timer:Me.TimerEnabled = 0:sw91p.TransX = 0:End Sub
 
-Sub sw50_Hit:bsSVUK.AddBall Me:End Sub	
+Sub sw50_Hit:bsSVUK.AddBall Me:End Sub
 
 Sub sw60s_Spin:Controller.Switch(60) = 1:sw60s.TimerEnabled = 1:PlaySound "Gate":End Sub
 Sub sw60s_Timer:Controller.Switch(60) = 0:sw60s.TimerEnabled = 0:End Sub
@@ -676,7 +680,7 @@ Sub MoveBalloonT_Timer
 	End Select
 End Sub
 
- 
+
  Sub LeftSlingShot_Slingshot
 	Leftsling = True
  	PlaySound "slingshotleft"
@@ -712,7 +716,7 @@ End Sub
 '***Bumpers
 
       Sub Bumper1b_Hit:vpmTimer.PulseSw 46:PlaySound "bumper":End Sub
-      
+
       Sub Bumper2b_Hit:vpmTimer.PulseSw 56:PlaySound "bumper":End Sub
 
  Dim LampState(200), FadingLevel(200), FadingState(200)
@@ -880,7 +884,7 @@ Sub Flash(nr, object)
 End Sub
 
  Sub AllLampsOff():For x = 1 to 200:LampState(x) = 4:FadingLevel(x) = 4:Next:UpdateLamps:UpdateLamps:Updatelamps:End Sub
- 
+
 
 Sub SetLamp(nr, value)
     If value = 0 AND LampState(nr) = 0 Then Exit Sub
@@ -897,7 +901,7 @@ Sub FlasherTimer_Timer()
 
  End Sub
 
- 
+
 Sub GIFlashT_Timer 'basic rom controlled gi flash test
 '	f9t.opacity = f9.opacity / 1.3
 '	f9f.opacity = f9.opacity / 1.3
