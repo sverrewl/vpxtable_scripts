@@ -7,6 +7,11 @@
 ' Thank you JPSalas for your continued support of the VP Community
 ' VPX 10.4 is required for this table
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
