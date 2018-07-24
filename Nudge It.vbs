@@ -2,6 +2,9 @@
 option explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Table doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 
 Const BallSize = 90
 Const swStartButton = 3
