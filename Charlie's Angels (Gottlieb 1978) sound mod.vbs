@@ -28,15 +28,12 @@ On Error Goto 0
 
 LoadVPM "01550000", "gts1.vbs", 3.26
 
-
-
-
 Dim bsTrough, dtL, dtR, x
 
 Const cGameName = "charlies"
  '.Games(cGameName).Settings.Value("sound")=1
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast

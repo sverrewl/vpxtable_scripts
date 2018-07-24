@@ -5,8 +5,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' Added InitVpmFFlipsSAM
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+
 
 Option Explicit
 Randomize
@@ -25,7 +25,7 @@ Dim bsTrough, dtL, dtR, x
 
 Const cGameName = "charlies"
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
