@@ -6,6 +6,7 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Const UseVPMModSol = 1
@@ -42,7 +43,7 @@ SideWood.visible=0
 SideWood1.visible=1
 End if
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 1
 
