@@ -1,56 +1,62 @@
-'                                                                                                    
-'                                                                                                    
-'                     .ri                                                                            
-'                  M@@@B@BY7r                                                                        
-'                  uB@B@B@B@B5                  i@@:           .rjuSXOMBM@B@B                        
-'                  r@B@B@B@B@B:               kB@B@U       iNB@B@B@B@B@B@B@B,                        
-'                  ,B@B@B@B@@@B             :@B@B@B     7@@@B@B@B@@@B@B@@@B@B@Oq;.                   
-'                   @B@@@B@@@B@Bi          r@@@B@B   :@B@B@B@B@B@B@@@B@@@B@B@B@B@B7J1                
-'                   B@B@B@B@B@B@Bk        i@B@B@B  2@@B@@@B@ui.      iB@B@B@B@B@B@B@B                
-'                   @B@B@B@B@B@B@B@      N@B@B@8 ,@B@B@@@j             vO@@B@B@@@B@7                 
-'                   @@B@B@@@B@B@B@B@    S@B@B@M 1@@@B@BJ                  L@B@B@B@@                  
-'                   @B@B@B@B@B@B@B@B@. L@B@@@M P@@@B@B,                   S@@B@@@BG                  
-'                   B@B@B@@@B .@B@B@B@5@B@@@B L@B@@@BE                  r@B@@@B@BZ                   
-'                   @B@B@B@B@   MB@@@@@B@B@B: @@@B@B@P                :@@B@@@B@@2                    
-'                   B@B@B@B@@.   0B@@@B@B@B@ .B@B@B@B@              .@B@B@B@B@B:                     
-'                  :@@@B@B@B@     jB@@@B@B@Y  @B@B@B@BP          .u@@B@B@B@B@B                       
-'                  j@@B@B@@27      .B@B@B@B    MB@B@B@B2:,.,:Jq@@@B@B@B@B@@Z,                        
-'                  r@B@@@B          u@@@@Br     r@@B@@@B@B@B@B@B@B@B@B@BM;                           
-'                   P8U.B.           7U.           .ivEOB@B@B@B@B@Z7:                                
-'            777U71E  u7GSNqE8Bi                                                                     
-'          @B@@@B@B@B@B@B@@@B@OMY       :Uvi.        :2NG@B            .:7LFPNPkJr.                  
-'          B@B@B@B@@@B@PUjj7.  8@1rj1u5O@B@B@B@5   N@B@B@B@,     Y@B@B@@@B@@@B@B@B@B@2               
-'          @B@@@@@@@         E@@B@B@B@B@B@B@BX,   B@B@B@B@B .uZ@B@@@B@B@B@B@B@B@@@B@B@M              
-'          B@B@B@B@u        B@@B@B@@@B@B@Pr      k@B@B@B@BU @B@B@B@B@B@B@G57i,::OB@@@BZ              
-'         .@B@B@@@B7  .:.  @B@B@B@@             7@@@B@B@B@B  .:iB@B@B@B         M@B@BS               
-'         ;B@B@@@B@B@B@B@vrB@B@B@@@            r@B@B@B@B@@@i    MB@B@@@      :BB@B@B,                
-'         7@B@B@B@B@B@@@B 1@B@@@B@B@B@B@BOj   7@B@@@@@B@B@B@    .@B@B@BM,.rMB@B@B@,                  
-'         XB@B@@@B@BOSjr. i@@B@B@B@B@B@@@B@  S@B@B@B@B@@@B@@M    X@B@@@B@B@B@B@k                     
-'         E@B@B@B@        ,@B@@@B@B@@@@E7   B@B@B@B@B@B@B@B@BN   .B@B@@@B@@@B@B0                     
-'         @B@B@@@B7        B@B@B@B:        B@B@B@B@B  MB@@@B@B7   @B@B@@@B@B@B@B@M:                  
-'         B@B@B@@@M        FB@B@B@        M@B@B@B@B@JvE@B@B@@@@:  B@B@B@B@B@B@@@B@BE                 
-'         @B@B@B@@@         BB@B@B50GqqSuP@B@B@B@B@B@@@@@@@B@@@Br @@@B@B@G@@@B@B@B@B@L               
-'         B@@@B@B@0          MB@B@@@B@@@B@B@B@B@B@B:;7i :@B@B@B@B r@@@B@B .@B@B@@@B@B@B              
-'         rrBB@@@Bk           @B8M@B@B@@@B@B@B@B@B       i@B@B@B@O.B@B@B@5 ,@B@B@B@B@@@Bv            
-'            @B@B@M                 ,rvjB@B@B@B@B,        7@B@B@B@q@B@B@B@   OB@B@B@B@B@@M           
-'            7MS@B@i                     B@B@OBi           J@B@B@@@B@B@B@@1   iB@B@B@B@B@B@.         
-'                .77                       L                J@@@B@BO@@B@B@B     u@@@B@B@B@@@:        
-'                                                            u@BB1: 8B@B  :       qB@B@B@B@B@        
-'                                                                    ..             u@@@B@B@B@r      
-'                                                                                     vB@BOU@B@S     
-'                                                                                       vG ,iBi      
-'                                                                                        .@Z         
-'                                                                                         :,         
+'
+'
+'                     .ri
+'                  M@@@B@BY7r
+'                  uB@B@B@B@B5                  i@@:           .rjuSXOMBM@B@B
+'                  r@B@B@B@B@B:               kB@B@U       iNB@B@B@B@B@B@B@B,
+'                  ,B@B@B@B@@@B             :@B@B@B     7@@@B@B@B@@@B@B@@@B@B@Oq;.
+'                   @B@@@B@@@B@Bi          r@@@B@B   :@B@B@B@B@B@B@@@B@@@B@B@B@B@B7J1
+'                   B@B@B@B@B@B@Bk        i@B@B@B  2@@B@@@B@ui.      iB@B@B@B@B@B@B@B
+'                   @B@B@B@B@B@B@B@      N@B@B@8 ,@B@B@@@j             vO@@B@B@@@B@7
+'                   @@B@B@@@B@B@B@B@    S@B@B@M 1@@@B@BJ                  L@B@B@B@@
+'                   @B@B@B@B@B@B@B@B@. L@B@@@M P@@@B@B,                   S@@B@@@BG
+'                   B@B@B@@@B .@B@B@B@5@B@@@B L@B@@@BE                  r@B@@@B@BZ
+'                   @B@B@B@B@   MB@@@@@B@B@B: @@@B@B@P                :@@B@@@B@@2
+'                   B@B@B@B@@.   0B@@@B@B@B@ .B@B@B@B@              .@B@B@B@B@B:
+'                  :@@@B@B@B@     jB@@@B@B@Y  @B@B@B@BP          .u@@B@B@B@B@B
+'                  j@@B@B@@27      .B@B@B@B    MB@B@B@B2:,.,:Jq@@@B@B@B@B@@Z,
+'                  r@B@@@B          u@@@@Br     r@@B@@@B@B@B@B@B@B@B@B@BM;
+'                   P8U.B.           7U.           .ivEOB@B@B@B@B@Z7:
+'            777U71E  u7GSNqE8Bi
+'          @B@@@B@B@B@B@B@@@B@OMY       :Uvi.        :2NG@B            .:7LFPNPkJr.
+'          B@B@B@B@@@B@PUjj7.  8@1rj1u5O@B@B@B@5   N@B@B@B@,     Y@B@B@@@B@@@B@B@B@B@2
+'          @B@@@@@@@         E@@B@B@B@B@B@B@BX,   B@B@B@B@B .uZ@B@@@B@B@B@B@B@B@@@B@B@M
+'          B@B@B@B@u        B@@B@B@@@B@B@Pr      k@B@B@B@BU @B@B@B@B@B@B@G57i,::OB@@@BZ
+'         .@B@B@@@B7  .:.  @B@B@B@@             7@@@B@B@B@B  .:iB@B@B@B         M@B@BS
+'         ;B@B@@@B@B@B@B@vrB@B@B@@@            r@B@B@B@B@@@i    MB@B@@@      :BB@B@B,
+'         7@B@B@B@B@B@@@B 1@B@@@B@B@B@B@BOj   7@B@@@@@B@B@B@    .@B@B@BM,.rMB@B@B@,
+'         XB@B@@@B@BOSjr. i@@B@B@B@B@B@@@B@  S@B@B@B@B@@@B@@M    X@B@@@B@B@B@B@k
+'         E@B@B@B@        ,@B@@@B@B@@@@E7   B@B@B@B@B@B@B@B@BN   .B@B@@@B@@@B@B0
+'         @B@B@@@B7        B@B@B@B:        B@B@B@B@B  MB@@@B@B7   @B@B@@@B@B@B@B@M:
+'         B@B@B@@@M        FB@B@B@        M@B@B@B@B@JvE@B@B@@@@:  B@B@B@B@B@B@@@B@BE
+'         @B@B@B@@@         BB@B@B50GqqSuP@B@B@B@B@B@@@@@@@B@@@Br @@@B@B@G@@@B@B@B@B@L
+'         B@@@B@B@0          MB@B@@@B@@@B@B@B@B@B@B:;7i :@B@B@B@B r@@@B@B .@B@B@@@B@B@B
+'         rrBB@@@Bk           @B8M@B@B@@@B@B@B@B@B       i@B@B@B@O.B@B@B@5 ,@B@B@B@B@@@Bv
+'            @B@B@M                 ,rvjB@B@B@B@B,        7@B@B@B@q@B@B@B@   OB@B@B@B@B@@M
+'            7MS@B@i                     B@B@OBi           J@B@B@@@B@B@B@@1   iB@B@B@B@B@B@.
+'                .77                       L                J@@@B@BO@@B@B@B     u@@@B@B@B@@@:
+'                                                            u@BB1: 8B@B  :       qB@B@B@B@B@
+'                                                                    ..             u@@@B@B@B@r
+'                                                                                     vB@BOU@B@S
+'                                                                                       vG ,iBi
+'                                                                                        .@Z
+'                                                                                         :,
 'No Fear - Dangerous Sports - IPDB No. 2852
 '© Williams 1995
 'VPX recreation by ninuzzu
 'Thanks to the VPDev Team for the amazing VPX!
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
+
 Option Explicit
 Randomize
 
 '******************************************************************************************
-'* CUSTOMIZABLE OPTIONS 			
+'* CUSTOMIZABLE OPTIONS
 '******************************************************************************************
 
 '***********	Flippers Type 	('0=yellow/black, 1=yellow/red, 2=glowbats)
@@ -95,8 +101,8 @@ LoadVPM "03000000", "WPC.VBS", 3.50
 Dim bsTrough, bsLSaucer, bsRPopper, dtDropT, plungerIM, kickbackIM, MagnetSpeed
 
 Sub Table1_Init
-	vpmInit Me 
-	With Controller      
+	vpmInit Me
+	With Controller
 		.GameName = cGameName
 		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
 		.SplashInfoLine = "No Fear - Dangerous Sports (Williams 1995)"
@@ -477,11 +483,11 @@ Sub FadeLamp(nr, object)
 	If TypeName(object) = "Flasher" Then
 		Object.IntensityScale = LampState(nr)
 	End If
-End Sub 
+End Sub
 
 Sub FadePrim(nr, object, factor)
 	Object.BlendDisableLighting = factor * LampState(nr)
-End Sub 
+End Sub
 
 ' Modulated lights and flashers
 Sub SetModLamp(nr, value)
@@ -545,7 +551,7 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then		 
+	If Enabled Then
 		PlaySoundAt SoundFX("fx_FlipperUp",DOFFlippers), LeftFlipper
 		LeftFlipper.RotateToEnd
 	Else
@@ -575,7 +581,7 @@ Sub SolTrough(Enabled)
 End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER 
+'						 AUTOPLUNGER
 '************************************************************************
 Sub SolAutoPlungerIM(Enabled)
 	If Enabled Then
@@ -800,7 +806,7 @@ Sub trigger5_hit: PlaysoundAt "fx_mrturn", ActiveBall:End Sub
 Sub JREnter_Hit()
 	If ActiveBall.VelY < 0 Then					'ball is going up
 		PlaySoundAtVol "fx_mrenter", JREnter, 0.5
-	Else										'ball is going down								
+	Else										'ball is going down
 		StopSound "fx_mrenter":PlaySoundAtVol "fx_mrexit",JREnter, 1
 	End If
 End Sub
