@@ -1,6 +1,11 @@
 Option explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Tables doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
+
 '************************************************************************
 '							TABLE OPTIONS
 '************************************************************************
@@ -97,7 +102,7 @@ Sub Table1_Init
     End With
 
 'Targets
-	Set DTBank = New cvpmDropTarget  
+	Set DTBank = New cvpmDropTarget
    	  With DTBank
    		.InitDrop Array(sw39, sw40, sw41), Array(39,40,41)
         .Initsnd SoundFX("TotemDropDown", DOFDropTargets), SoundFX("TotemDropUp", DOFDropTargets)
@@ -127,8 +132,8 @@ Sub Table1_KeyUp(ByVal Keycode)
 '		On Error Resume Next
 '		KickerTEST.CreateBall
 '		KickerTEST.Kick 0, 45.-3
-'		On Error Goto 0 
-'	end if 
+'		On Error Goto 0
+'	end if
 End Sub
 
 Sub Table1_Paused:Controller.Pause = 1:End Sub
@@ -145,22 +150,22 @@ SolCallback(3) = ""
 '4-7 												'Wheel Motor
 SolCallback(8) = "DTBank.SolDropUp"					'Drop Target
 SolCallback(12) = "solLonnie"						'lonnie
-SolCallback(13) = "solMaria"						'Maria 
+SolCallback(13) = "solMaria"						'Maria
 SolCallback(14) = "solKeith"						'Keith
 SolCallback(15)= "SolLFlipper"						'Left Flipper
 SolCallback(16)= "SolRFlipper"						'Right Flipper
-SolModCallback(19) = "SetLampMod 129,"   			'Flasher:Red Contestant         
+SolModCallback(19) = "SetLampMod 129,"   			'Flasher:Red Contestant
 SolModCallback(20) = "SetLampMod 130,"				'Flasher:Yellow Contestant
 SolModCallback(21) = "SetLampMod 131,"				'Flasher:Blue Contestant
 SolCallback(22) = "solBallLock" 					'MiniRamp Down Post
 SolCallback(23) = "solBallLock1" 					'Left Ramp Up Post
-SolCallback(24) = "vpmSolSound SoundFX(""fx_Knocker"",DOFKnocker)," 		'Knocker  
-SolModCallback(25) = "SetLampMod 135,"   			'Flasher:Wheel 
+SolCallback(24) = "vpmSolSound SoundFX(""fx_Knocker"",DOFKnocker)," 		'Knocker
+SolModCallback(25) = "SetLampMod 135,"   			'Flasher:Wheel
 SolModCallBack(26) = "SetLampMod 136,"				'Flasher:Backpanel Left
 SolModCallback(27) = "SetLampMod 137,"				'Flasher:Left Orbit
 SolModCallback(28) = "SetLampMod 138,"				'Flasher:Right Ramp
 SolModCallback(29) = "SetLampMod 139,"				'Flasher:Right Orbit
-SolModCallback(30) = "SetLampMod 132,"				'Flasher:Pop Bumper           
+SolModCallback(30) = "SetLampMod 132,"				'Flasher:Pop Bumper
 SolModCallback(31) = "SetLampMod 133,"				'Flasher:Mini Ramp
 SolModCallBack(32) = "SetLampMod 134,"				'Flasher:Backpanel Right
 
@@ -431,15 +436,15 @@ Sub RollingSoundUpdate()
     For b = 0 to UBound(BOT)
         If BallVel(BOT(b) ) > 1 Then
             rolling(b) = True
-			if BOT(b).z < 30 then 
+			if BOT(b).z < 30 then
 				If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .5 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .5 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .5 , Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
 				End If
-			Else ' ball in air, probably on plastic.  
+			Else ' ball in air, probably on plastic.
 				If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))	
+					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2  , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0, AudioFade(BOT(b))
 				Else
 					PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b) ) * .2 , Pan(BOT(b) ), 0, Pitch(BOT(b) ) + 40000, 1, 0
 				End If
@@ -535,7 +540,7 @@ Sub UpdateMiniDMD
 					LED(jj * 7 + ii)(4-kk).IntensityScale = (FadingLevel(target)/255) ^ 1.5
 					LED(jj * 7 + ii)(4-kk).State = LampState(target)
 				Next
-			Next   
+			Next
 		Next
 	Else
 		Dim ChgLED,num,chg,stat,obj
@@ -544,7 +549,7 @@ Sub UpdateMiniDMD
 			For ii=0 To UBound(chgLED)
 				num=chgLED(ii,0):chg=chgLED(ii,1):stat=chgLED(ii,2)
 				For Each obj In LED(num)
-					If chg And 1 Then 
+					If chg And 1 Then
 						if stat And 1 Then
 							obj.state = 1
 						Else
@@ -557,7 +562,6 @@ Sub UpdateMiniDMD
 		End If
     End If
 End Sub
-
 
 '***************************************************
 '       JP's VP10 Fading Lamps & Flashers
@@ -742,7 +746,7 @@ Sub UpdateLamps
 	Flashm 107,WLed24:Flash 107,WBorder24
 
 'Flashers
-	LampMod 129, FL19			'Flasher:Red Contestant  
+	LampMod 129, FL19			'Flasher:Red Contestant
 	LampMod 130, FL20			'Flasher:Yellow Contestant
 	LampMod 131, FL21			'Flasher:Blue Contestant
 	LampMod 135, FL25a			'Flasher:Wheel #1
@@ -1029,7 +1033,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySoundAtBall "fx_rubber"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1040,7 +1044,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySoundAtBall "fx_rubber"
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1083,14 +1087,14 @@ Sub InitWheelLights
 dim xx
 'Wheel Border LEDs #1
 For xx = 1 to 24
-WheelLEDs(xx-1).X = WheelP.X + LedRadius * Sin((xx-1) * 15 * Pi/180) 
+WheelLEDs(xx-1).X = WheelP.X + LedRadius * Sin((xx-1) * 15 * Pi/180)
 WheelLEDs(xx-1).Y = WheelP.Y - LedRadius * Cos((xx-1) * 15 * Pi/180) * sin (WheelP.objrotx * Pi/180) -5
 WheelLEDs(xx-1).Height = WheelP.Z + LedRadius * Cos((xx-1) * 15 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 WheelLEDs(xx-1).RotX = WheelP.objrotx -90
 Next
 'Wheel Border LEDs #2
 For xx = 1 to 24
-WheelBorder(xx-1).X = WheelP.X + LedRadius * Sin((xx-1) * 15 * Pi/180) 
+WheelBorder(xx-1).X = WheelP.X + LedRadius * Sin((xx-1) * 15 * Pi/180)
 WheelBorder(xx-1).Y = WheelP.Y - LedRadius * Cos((xx-1) * 15 * Pi/180) * sin (WheelP.objrotx * Pi/180)-5
 WheelBorder(xx-1).Height = WheelP.Z + LedRadius * Cos((xx-1) * 15 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 WheelBorder(xx-1).RotX = WheelP.objrotx -90
@@ -1104,32 +1108,32 @@ WLedRedContestant.X = WheelP.X+10:WLedRedContestant.Y=WheelP.Y +15*cos(WheelP.ob
 WLedYellowContestant.X = WheelP.X:WLedYellowContestant.Y=WheelP.Y +15*cos(WheelP.objrotx*Pi/180):WLedYellowContestant.height = WheelP.Z+15*(1+sin(WheelP.objrotx*Pi/180)):WLedYellowContestant.RotX = WheelP.objrotx -90
 WLedBlueContestant.X = WheelP.X-10:WLedBlueContestant.Y=WheelP.Y +15*cos(WheelP.objrotx*Pi/180):WLedBlueContestant.height = WheelP.Z+15*(1+sin(WheelP.objrotx*Pi/180)):WLedBlueContestant.RotX = WheelP.objrotx -90
 'GI:Wheel Left
-WLedGIR.X = WheelP.X + 80 * Sin(150 * Pi/180) 
+WLedGIR.X = WheelP.X + 80 * Sin(150 * Pi/180)
 WLedGIR.Y = WheelP.Y - 80 * Cos(150 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 WLedGIR.Height = WheelP.Z + 90 * Cos(150 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 WLedGIR.RotX = WheelP.objrotx -90
 'GI:Wheel Right
-WLedGIL.X = WheelP.X + 80 * Sin(210 * Pi/180) 
+WLedGIL.X = WheelP.X + 80 * Sin(210 * Pi/180)
 WLedGIL.Y = WheelP.Y - 80 * Cos(210 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 WLedGIL.Height = WheelP.Z + 90 * Cos(210 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 WLedGIL.RotX = WheelP.objrotx -90
 'Flasher:Wheel #1
-FL25a.X = WheelP.X + 90 * Sin(-90 * Pi/180) 
+FL25a.X = WheelP.X + 90 * Sin(-90 * Pi/180)
 FL25a.Y = WheelP.Y - 90 * Cos(-90 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 FL25a.Height = WheelP.Z + 90 * Cos(-90 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 FL25a.RotX = WheelP.objrotx -90
 'Flasher:Wheel #2
-FL25b.X = WheelP.X + 90 * Sin(90 * Pi/180) 
+FL25b.X = WheelP.X + 90 * Sin(90 * Pi/180)
 FL25b.Y = WheelP.Y - 90 * Cos(90 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 FL25b.Height = WheelP.Z + 90 * Cos(90 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 FL25b.RotX = WheelP.objrotx -90
 'Flasher:Wheel #3
-FL25c.X = WheelP.X + 90 * Sin(0 * Pi/180) 
+FL25c.X = WheelP.X + 90 * Sin(0 * Pi/180)
 FL25c.Y = WheelP.Y - 90 * Cos(0 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 FL25c.Height = WheelP.Z + 90 * Cos(0 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 FL25c.RotX = WheelP.objrotx -90
 'Flasher:Wheel #4
-FL25d.X = WheelP.X + 90 * Sin(180 * Pi/180) 
+FL25d.X = WheelP.X + 90 * Sin(180 * Pi/180)
 FL25d.Y = WheelP.Y - 90 * Cos(180 * Pi/180) * sin (WheelP.objrotx * Pi/180) + 5
 FL25d.Height = WheelP.Z + 90 * Cos(180 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 FL25d.RotX = WheelP.objrotx -90
