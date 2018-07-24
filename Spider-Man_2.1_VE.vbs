@@ -15,6 +15,11 @@
 '* LAYER 8 = INSERTS AND SPOTLIGHTS *******************
 '******************************************************
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions"
+' Table doens't seem to have ball rolling sound
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -61,15 +66,15 @@ Const SCoin = "coin"
 ' Table init.
 '************
 
-'Const cGameName = "sman_261" 'ENGLISH VERSION 
+'Const cGameName = "sman_261" 'ENGLISH VERSION
 
 'Const cGameName = "smanve_101" 'ENGLISH VERSION
 
 Const cGameName = "smanve_101c" 'ENGLISH VERSION DMD COLORED
 
- 
-'Const cGameName = "sman_210ai" 'ITALIAN VERSION 
-    
+
+'Const cGameName = "sman_210ai" 'ITALIAN VERSION
+
 'Variables
 Dim bsTrough, bsSandman, bsDocOck, x
 Dim mag1
@@ -119,7 +124,7 @@ Sub Table1_Init
 	bsDocOck.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("ExitDoc",DOFContactors)
 
 	'Doc Ock Magmet
-	Set DocMagnet = New cvpmMagnet 
+	Set DocMagnet = New cvpmMagnet
 	DocMagnet.InitMagnet DocOckMagnet, 50
 	DocMagnet.Solenoid = 3
 	'DocMagnet.GrabCenter = True
@@ -151,8 +156,8 @@ Sub Table1_Init
 	Attendi=1
 	PausaAnimazione.Enabled=1
 	Controller.Switch(50)=1
-	Controller.Switch(53)=1 
-	Controller.Switch(57)=1 
+	Controller.Switch(53)=1
+	Controller.Switch(57)=1
 	BankAlto=1
 	SandmanPronto=0
 	PalleInGioco=0
@@ -161,13 +166,13 @@ Sub Table1_Init
 	PallaBucoSandman=0
 	PallaSuMagnete=0
 	sw16Premuto=0
-	sw17Premuto=0	
+	sw17Premuto=0
 	'AlzaSandman
 	sw36.Enabled=0
 	sw59.Enabled=0
  End Sub
 
-Sub table1_Paused:Controller.Pause = 1:End Sub 
+Sub table1_Paused:Controller.Pause = 1:End Sub
 Sub table1_unPaused:Controller.Pause = 0:End Sub
 Sub table1_exit():Controller.Stop:End Sub
 
@@ -186,12 +191,12 @@ Dim bulb
 Set GICallback = GetRef("UpdateGI")
 
 Sub UpdateGI(nr,enabled)
- DOF 200, enabled*-1	
+ DOF 200, enabled*-1
  Select Case nr
  Case 0
  For each bulb in GI
- bulb.state=enabled	
- GestioneGIWall	
+ bulb.state=enabled
+ GestioneGIWall
  next
  End Select
 End Sub
@@ -199,10 +204,10 @@ End Sub
 Sub GestioneGIWall
 	If LAPiano.state= 0 Then
 	SpegniLuciWall
-	Else	
+	Else
 	AccendiLuciWall
 	End If
-End Sub	
+End Sub
 
 Sub LHP1_UnHit()
 	If ActiveBall.velY < 0  Then		'ball is going up
@@ -275,7 +280,7 @@ Sub MagnetOffTimer_Timer
     Dim ball
     For Each ball In DocMagnet.Balls
         With ball
-		'RilanciaPallaMagnete.Enabled=1	
+		'RilanciaPallaMagnete.Enabled=1
 			.VelX = 15: .VelY = -8: Pausa= 1  'ERA VelX = 15: .VelY = -7
           'If PalleIngioco=1 Then .VelX = 15: .VelY = -15: Pausa= 1 'REGOLARE VELY PER AUMENTARE IL LANCIO DELLA PALLA (NEGATIVO PER ANDARE VERSO L'ALTO)
 		  'If PalleIngioco>1 Then .VelX = 15: .VelY = -15: Pausa= 1 'REGOLARE VELY PER AUMENTARE IL LANCIO DELLA PALLA (NEGATIVO PER ANDARE VERSO L'ALTO)
@@ -285,11 +290,11 @@ Sub MagnetOffTimer_Timer
 End Sub
 
 Sub DocOckMagnet_UnHit()
-	If Pausa=1 Then 
-	DocMagnet.MagnetON= False 
-	DocMagnet.InitMagnet DocOckMagnet, 0 
+	If Pausa=1 Then
+	DocMagnet.MagnetON= False
+	DocMagnet.InitMagnet DocOckMagnet, 0
 	DocOckMagnet.Enabled=0
-	MagneteDisabilitato.Enabled=1	
+	MagneteDisabilitato.Enabled=1
 	End If
 End Sub
 
@@ -309,11 +314,11 @@ Sub Table1_KeyDown(ByVal Keycode)
 	If keycode = PlungerKey Then
 		Plunger.PullBack:Playsound "plungerpull"
 	End If
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
  		Controller.Switch(84)=1
  		Exit Sub
  	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		Controller.Switch(86)=1
  		Controller.Switch(82)=1
  		Exit Sub
@@ -324,17 +329,17 @@ Sub Table1_KeyDown(ByVal Keycode)
 	If keycode = CenterTiltKey Then PlaySound SoundFX("fx_nudge",0)
 	If vpmKeyDown(Keycode) Then Exit Sub
  End Sub
- 
+
 Sub Table1_KeyUp(ByVal Keycode)
 	If keycode = PlungerKey Then
 		Plunger.Fire: Playsound "Plunger"
 	End If
 	If vpmKeyUp(Keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then 
+ 	If Keycode = LeftFlipperKey then
  		Controller.Switch(84)=0
  		Exit Sub
  	End If
- 	If Keycode = RightFlipperKey then 
+ 	If Keycode = RightFlipperKey then
 		Controller.Switch(86)=0
  		Controller.Switch(82)=0
  		Exit Sub
@@ -344,7 +349,7 @@ Sub Table1_KeyUp(ByVal Keycode)
 'Realtime updates
 
 Sub GatesTimer_Timer()
-	GateSWsx.RotZ= -Gate2.currentangle 
+	GateSWsx.RotZ= -Gate2.currentangle
 	GateSWdx.RotZ= -Gate3.currentangle
 	GateP0.RotX = -Gate4.currentangle + 90
 	GateP1.RotX = -Gate5.currentangle + 90
@@ -386,8 +391,8 @@ SolCallback(18) = "solRSling"
 SolCallback(20) = "sol3Bank"
 SolCallback(22) = "solDivert"
 SolCallback(24) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
-SolModCallBack(21) = "SetModLamp 121," 
-SolModCallBack(23) = "SetModLamp 123,"   
+SolModCallBack(21) = "SetModLamp 121,"
+SolModCallBack(23) = "SetModLamp 123,"
 SolModCallBack(25) = "SetModLamp 125,"
 SolModCallBack(26) = "SetModLamp 126,"
 SolModCallBack(27) = "SetModLamp 127,"
@@ -452,7 +457,7 @@ Sub Sol3Bank(Enabled)
 		Controller.Switch(50)=0
 		Controller.Switch(49)=1
 		AbbassaBank
-		End If	
+		End If
 	End If
 End Sub
 
@@ -468,7 +473,7 @@ Sub SolenoideSandmanAbilitato
 	SolenoideSandman.TransZ= -50
 	SolenoideUscitaSandman.enabled=1
 End Sub
-		
+
 Sub SolenoideUscitaSandman_Timer 'GESTIONE PISTONE LANCIO PALLA Octopus
 	SolenoideSandman.TransZ= -59
 	Playsound "SolenoideDentro"
@@ -487,7 +492,7 @@ Sub SolenoideOctopusAbilitato
 	SolenoideOctopus.TransZ= -50
 	SolenoideUscitaOctopus.enabled=1
 End Sub
-		
+
 Sub SolenoideUscitaOctopus_Timer 'GESTIONE PISTONE LANCIO PALLA Octopus
 	SolenoideOctopus.TransZ= -59
 	Playsound "SolenoideDentro"
@@ -513,7 +518,7 @@ Sub drain_Hit()
 	PalleInGioco = PalleInGioco - 1
 	bsTrough.AddBall Me
 	PlaySound "drain"
-	
+
  End Sub
 
 Sub BallRelease_UnHit()
@@ -616,7 +621,7 @@ End Sub
 'Rollovers
 Sub sw23_Hit:Controller.Switch(23) = 1:PlaySound "rollover":End Sub
 Sub sw23_UnHit:Controller.Switch(23) = 0:Playsound "plunger2":End Sub
-	
+
 'Lower Lanes
 Sub sw24_Hit:Controller.Switch(24) = 1:PlaySound "rollover":End Sub
 Sub sw24_UnHit:Controller.Switch(24) = 0:End Sub
@@ -638,7 +643,7 @@ Sub sw34_UnHit:Controller.Switch(34) = 0:End Sub
 Sub sw35_Hit:Controller.Switch(35) = 1:PlaySound "rollover":End Sub
 Sub sw35_UnHit:Controller.Switch(35) = 0:End Sub
 
-'Right 
+'Right
 Sub sw37_Hit:Controller.Switch(37) = 1:PlaySound "rollover":End Sub
 Sub sw37_UnHit:Controller.Switch(37) = 0:End Sub
 Sub sw38_Hit:Controller.Switch(38) = 1:PlaySound "rollover"
@@ -693,11 +698,11 @@ Sub s42_Hit:Controller.Switch(42)=1:End Sub
 Sub s42_unHit:Controller.Switch(42)=0:End Sub
 'Lock Opto
 Sub sw6_Hit:vpmTimer.PulseSw 6
-	sw6p.TransX = -5:sw6.TimerEnabled = 1: PlaySound SoundFX("target",DOFContactors)	
+	sw6p.TransX = -5:sw6.TimerEnabled = 1: PlaySound SoundFX("target",DOFContactors)
 End Sub
 
 Sub sw6_Timer:sw6p.TransX = 0: Me.TimerEnabled = 0: End Sub
-	
+
 Dim SandmanPronto
 
 Sub SandmanOK_Hit
@@ -708,7 +713,7 @@ Sub SandmanOK_Hit
 	sw59.enabled=0
 	End If
 End Sub
-	
+
 Sub OctopusOK_Hit
 	If ActiveBall.velY > 2  Then		'ball is going up
 	sw36.enabled=1
@@ -741,7 +746,7 @@ Sub sw10_Hit
 	BankColpito.Enabled = 1
 End Sub
 
-Sub sw11_Hit 
+Sub sw11_Hit
 	PlaySound SoundFX("target",DOFContactors)
 	If SandmanPronto=0 Then vpmTimer.PulseSw 11
 	Bank.TransX = 5
@@ -751,7 +756,7 @@ End Sub
 Sub BankColpito_Timer()
 	Bank.TransX = -0
 	Me.Enabled = 0
-End Sub	
+End Sub
 
 Sub sw12_Hit:vpmTimer.PulseSw 12
 	sw12p.TransX = -5:sw12.TimerEnabled = 1:PlaySound SoundFX("target",DOFContactors)
@@ -884,30 +889,30 @@ Sub sw36_Hit()  'Buco doc entrata
  Sub SolLFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX (SFlipperOn,DOFContactors):LeftFlipper.RotateToEnd
-         
+
      Else
          PlaySound SoundFX (SFlipperOff,DOFContactors):LeftFlipper.RotateToStart
-         
+
      End If
  End Sub
- 
+
  Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX (SFlipperOn,DOFContactors):RightFlipper.RotateToEnd
-         
+
      Else
          PlaySound SoundFX (SFlipperOff,DOFContactors):RightFlipper.RotateToStart
-    
+
      End If
  End Sub
- 
+
  Sub SolURFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX (SFlipperOn,DOFContactors):RightFlipper2.RotateToEnd
-         
+
      Else
          PlaySound SoundFX (SFlipperOff,DOFContactors):RightFlipper2.RotateToStart
-         
+
      End If
  End Sub
 
@@ -934,7 +939,7 @@ Sub GoblinShakeTimer_Timer
 End Sub
 
 Sub AccendiGoblin
-	If LampState (76) = 0 Then	
+	If LampState (76) = 0 Then
 	IlluminaGoblin.Visible=0
 	Else
 	If LampState (76) > 0 Then
@@ -944,7 +949,7 @@ Sub AccendiGoblin
 End Sub
 
 Sub AccendiVenom
-	If LampState (75) = 0 Then	
+	If LampState (75) = 0 Then
 	IlluminaVenom.Visible=0
 	Else
 	If LampState (75) > 0 Then
@@ -971,13 +976,13 @@ Sub Fotocellula1Disattiva_Hit()
 End Sub
 
 Sub Fotocellula1Disattiva_UnHit()
-	TimerFotocellula1.enabled=1	
+	TimerFotocellula1.enabled=1
 End Sub
 
 Sub TimerFotocellula1_Timer()
 	FotocellulaOctopus.Visible=1
 	Me.Enabled=0
-End Sub	
+End Sub
 
 Sub Fotocellula2Disattiva_Hit()
 	FotocellulaSandmanDx.Visible=0
@@ -985,7 +990,7 @@ Sub Fotocellula2Disattiva_Hit()
 End Sub
 
 Sub Fotocellula2Disattiva_UnHit()
-	TimerFotocellula2.enabled=1	
+	TimerFotocellula2.enabled=1
 End Sub
 
 Sub TimerFotocellula2_Timer()
@@ -999,7 +1004,7 @@ Sub Fotocellula3Disattiva_Hit()
 End Sub
 
 Sub Fotocellula3Disattiva_UnHit()
-	TimerFotocellula3.enabled=1	
+	TimerFotocellula3.enabled=1
 End Sub
 
 Sub TimerFotocellula3_Timer()
@@ -1034,8 +1039,8 @@ Sub OctopusTimer_Timer
 End Sub
 
 
-Sub AccendiOctopus 
-	If LampState (77) = 0  Then	
+Sub AccendiOctopus
+	If LampState (77) = 0  Then
 	IlluminaOctopus.Visible=0
 	Else
 	If LampState (77) > 0 Then
@@ -1080,13 +1085,13 @@ Sub SandmanTimer_Timer
 	Playsound "Motor"
 	Sandman.TransY = SandmanPos
 	BracketSandman.TransY = SandmanPos
-	SandmanPos = SandmanPos + SandmanDir 
+	SandmanPos = SandmanPos + SandmanDir
 	If SandmanPos < 0 Then SandmanPos=0: Me.Enabled = 0
 	If SandmanPos > 50 Then SandmanPos = 50: sw42.IsDropped=1: Me.Enabled = 0
 End Sub
 
 Sub AccendiSandman
-	If LampState (74) = 0 Then	
+	If LampState (74) = 0 Then
 	IlluminaSandman.Visible=0
 	Else
 	If LampState (74) > 0 Then
@@ -1102,18 +1107,18 @@ End Sub
 Dim BankDir, BankPos
 
 Sub AlzaBank
-	BankDir = -1 
+	BankDir = -1
 	BankTimer.Enabled = 1
 End Sub
 
 Sub AbbassaBank
-	BankDir = 1 
+	BankDir = 1
 	BankTimer.Enabled = 1
 End Sub
 
 Sub BankTimer_Timer
-	Bank.TransY = -BankPos   	
-	BankPos = BankPos + BankDir 
+	Bank.TransY = -BankPos
+	BankPos = BankPos + BankDir
 	If BankPos < 0 Then BankPos = 0: Me.Enabled = 0
 	If BankPos > 52 Then BankPos = 52: ParetiBankGiu: Me.Enabled = 0
 End Sub
@@ -1123,7 +1128,7 @@ Dim BankAlto
 Sub PallaBloccata_Hit()
 	If BankAlto=1 AND Attendi=0 Then
 	Controller.Switch(50)=0
-	Controller.Switch(49)=1	
+	Controller.Switch(49)=1
 	AbbassaBank
 	ParetiBankGiu
 	SbloccaPallaBank.Enabled= True
@@ -1224,7 +1229,7 @@ dim LightFallOff(200, 4)	'2d array to hold alt falloff values in different colum
 dim FlashersOpacity(200)
 dim FlashersFalloff(200)	'??? (could use multiply? or some other kind of mixing?...)
 dim GIscale(200)
-InitLamps() 
+InitLamps()
 Sub InitLamps()
 	Dim x
 	For x = 0 to 200
@@ -1298,10 +1303,10 @@ Sub LampTimer_Timer()
 End Sub
 
 sub f127t_timer	'debug
-	me.text = "SolModValue" & SolModValue(127) & vbnewline & _ 
-		"fadinglevel" & FadingLevel(127) & vbnewline & _ 
+	me.text = "SolModValue" & SolModValue(127) & vbnewline & _
+		"fadinglevel" & FadingLevel(127) & vbnewline & _
 		"FlashLevel" & FlashLevel(127) & vbnewline & _
-		"Intensityscale" & FlashGiallo.IntensityScale & vbnewline & _ 
+		"Intensityscale" & FlashGiallo.IntensityScale & vbnewline & _
 		" "
 end sub
 
@@ -1351,7 +1356,7 @@ End Function
 
 Function ScaleGI(value, scaletype)	'returns an intensityscale-friendly 0->100% value out of 1>8 'it does go to 8
 	dim i
-	Select Case scaletype	'select case because bad at maths 
+	Select Case scaletype	'select case because bad at maths
 		case 0
 			i = value * (1/8)	'0 to 1
 		case 25
@@ -1380,7 +1385,7 @@ dim InitFadeTime(200)
 Sub nModLight(nr, object, offset, scaletype, offscale)	'Fading using intensityscale with modulated callbacks
 	dim DesiredFading
 	Select Case FadingLevel(nr)
-		case 3	'workaround - wait a frame to let M sub finish fading 
+		case 3	'workaround - wait a frame to let M sub finish fading
 			FadingLevel(nr) = 0
 		Case 4	'off
 '			FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)*offscale
@@ -1393,12 +1398,12 @@ Sub nModLight(nr, object, offset, scaletype, offscale)	'Fading using intensitysc
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = ScaleByte(SolModValue(nr), scaletype)
 
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 '				tb5.text = "+"
 				'FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 '				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
@@ -1415,7 +1420,7 @@ End Sub
 Sub nModFlash(nr, object, offset, scaletype, offscale)	'Fading using intensityscale with modulated callbacks	'gametime compensated
 	dim DesiredFading
 	Select Case FadingLevel(nr)
-		case 3	'workaround - wait a frame to let M sub finish fading 
+		case 3	'workaround - wait a frame to let M sub finish fading
 			FadingLevel(nr) = 0
 		Case 4	'off
 '			FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)*offscale
@@ -1427,12 +1432,12 @@ Sub nModFlash(nr, object, offset, scaletype, offscale)	'Fading using intensitysc
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = ScaleByte(SolModValue(nr), scaletype)
 '			tb1.text = DesiredFading & " ...5"
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 '				tb5.text = "+"
 				'FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 '				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
@@ -1481,7 +1486,7 @@ Sub Gate2_Hit()
 	Playsound "gate"
 End Sub
 
-Sub Gate3_Hit()	
+Sub Gate3_Hit()
 	Playsound "gate"
 End Sub
 
@@ -1556,7 +1561,7 @@ End Sub
 	NFadeL 46, l46
 	NFadeL 47, l47
 	NFadeL 48, l48
-	NFadeL 49, l49 
+	NFadeL 49, l49
 	NFadeL 50, l50
 	NFadeL 51, l51
 	NFadeLm 52, l52
@@ -1566,7 +1571,7 @@ End Sub
 	NFadeLm 54, l54
 	Flashc 54, l54r
 	NFadeL 57, l57
-	NFadeL 58, l58 
+	NFadeL 58, l58
 	NFadeL 59, l59
 	NFadeLm 60, l60
 	NFadeL 60, l60a
@@ -1574,7 +1579,7 @@ End Sub
 	NFadeL 61, l61a
 	NFadeLm 62, l62
 	NFadeL 62, l62a
-	NFadeL 63, l63 
+	NFadeL 63, l63
 	NFadeL 64, l64
 	NFadeL 65, l65
 	Flashc 66, MissioneVenom3
@@ -1643,7 +1648,7 @@ End Sub
 ' *********************************************************************
 '                JP's Supporting Ball & Sound Functions
 ' *********************************************************************
- 
+
 Sub ShooterEnd_UnHit():If activeball.z > 30  Then vpmTimer.AddTimer 150, "BallHitSound":End If:End Sub
 
 Sub BallHitSound(dummy):PlaySound "ballhit":End Sub
@@ -1676,8 +1681,8 @@ Sub CadutaSuTavolo_Timer()
 	Playsound "ballrampdrop"
 	Me.Enabled=0
 End Sub
-	
-Dim sw16Premuto 
+
+Dim sw16Premuto
 
 Sub sw16_Hit 'Venom da rampa sinistra
 	Playsound "WireRampHit"
@@ -1727,8 +1732,8 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -1738,8 +1743,8 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
  		RandomSoundRubber()
@@ -1748,9 +1753,9 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -1768,14 +1773,77 @@ End Sub
 
 Sub RandomSoundFlipper()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 1)
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
@@ -1788,18 +1856,25 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
     End If
 End Function
 
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
