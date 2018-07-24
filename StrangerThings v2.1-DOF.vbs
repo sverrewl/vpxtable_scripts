@@ -1,21 +1,21 @@
- '   -::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-      
- '    `-/+++//:-.---------.--------.`    ----.  `-----. .--``-::::---  .--------`.-sssssssssss-.       
- '   .oss+-.-:oo/o:/sss:/o.osso-:osso   `ssss/   +ssss+`.s::oss:--:+o` .sss+--:+/ +ssss/:+ssss/      
- '   +sss-    `--` -sss` .-+ss+ `+ss/   /o+sss`  ++:oss+.s/sss-     -` `sss/../ : /sss+  `osss/      
- '   +sssso/:.`    -sss`   +sso/oso.   .s-.sss/  ++ .+ssss/sso   `:///-.oss+:/o`  /sss+ `/sso:`      
- '   `+sssssssso:` -sss`   +ss+:sss+` `ooo+ssss. ++  `:sss/sso    -sso``oss:  .` `/ssso+ssso.        
- '     `-:+osssss/ -sss`   +ss/ -sss+ :s` `:sss+ ++    .os:sss:   -sso``oss:    .:+sss+-ossso.       
- '   --     `/ssso :sss.   +ss+  /sss/s/    +sss-++     -s:.+ss/-.+sso`.sss+..-/o`+sss/ .ossss.      
- '   /o-    `/sss-.-:::-` .:::-. -:::::-`  `-:::---.    -:-` `.-::::::.-::::::::- +sss/  .ossso`     
- '   +sso+++oso/.   ````````.`                                ``..```      ```   `ossso.  /ssss+`    
- '   ````....`      oo/ssso/o/:ooo/``/ooo:`:ooo:`/oooo+`.++.:oss+//os-  `:oo++oo-....... `.......    
- '   :////////////-.-  sss: `:.sss:``:sss. -sss. -s+sss/`++/sso.    -: `oss/  `::://////////////:    
- '                     sss:   .sss+//+sss. -sss. -o.-ossoo++ss:   .----.osss+/-.`                    
- '                     sss:   .sss-  -sss. -sss. -o` `+sss++ss-   `oss: .+ossssso.                   
- '                     sss:   .sss-  -sss. -sss. -o`   -os++ss+    oss:-` ``-/sss+                   
- '                     sss/   .sss-  -sss. -sss. :o`    .s+`+ss/```oss::+-` `-sss-                   
- '                   `-+++/.  -+++:``:+++-`:+++:`/+-    .++.`./////+++/-+++++++:.                    
- '*************************************************************************************************                                                                        ````                              
+ '   -::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-
+ '    `-/+++//:-.---------.--------.`    ----.  `-----. .--``-::::---  .--------`.-sssssssssss-.
+ '   .oss+-.-:oo/o:/sss:/o.osso-:osso   `ssss/   +ssss+`.s::oss:--:+o` .sss+--:+/ +ssss/:+ssss/
+ '   +sss-    `--` -sss` .-+ss+ `+ss/   /o+sss`  ++:oss+.s/sss-     -` `sss/../ : /sss+  `osss/
+ '   +sssso/:.`    -sss`   +sso/oso.   .s-.sss/  ++ .+ssss/sso   `:///-.oss+:/o`  /sss+ `/sso:`
+ '   `+sssssssso:` -sss`   +ss+:sss+` `ooo+ssss. ++  `:sss/sso    -sso``oss:  .` `/ssso+ssso.
+ '     `-:+osssss/ -sss`   +ss/ -sss+ :s` `:sss+ ++    .os:sss:   -sso``oss:    .:+sss+-ossso.
+ '   --     `/ssso :sss.   +ss+  /sss/s/    +sss-++     -s:.+ss/-.+sso`.sss+..-/o`+sss/ .ossss.
+ '   /o-    `/sss-.-:::-` .:::-. -:::::-`  `-:::---.    -:-` `.-::::::.-::::::::- +sss/  .ossso`
+ '   +sso+++oso/.   ````````.`                                ``..```      ```   `ossso.  /ssss+`
+ '   ````....`      oo/ssso/o/:ooo/``/ooo:`:ooo:`/oooo+`.++.:oss+//os-  `:oo++oo-....... `.......
+ '   :////////////-.-  sss: `:.sss:``:sss. -sss. -s+sss/`++/sso.    -: `oss/  `::://////////////:
+ '                     sss:   .sss+//+sss. -sss. -o.-ossoo++ss:   .----.osss+/-.`
+ '                     sss:   .sss-  -sss. -sss. -o` `+sss++ss-   `oss: .+ossssso.
+ '                     sss:   .sss-  -sss. -sss. -o`   -os++ss+    oss:-` ``-/sss+
+ '                     sss/   .sss-  -sss. -sss. :o`    .s+`+ss/```oss::+-` `-sss-
+ '                   `-+++/.  -+++:``:+++-`:+++:`/+-    .++.`./////+++/-+++++++:.
+ '*************************************************************************************************                                                                        ````
  ' Original Pinball Table Created by ScottyWic
  ' Dedicated to my wife, without her consistent disapproval, there's no way I would have finished.
  ' Thanks to JPSalas for all his instruction on the scripting
@@ -25,9 +25,9 @@
  ' Thanks to Netflix and all who worked on making this unbelievable show.
  ' I hope you enjoy, and please kill the demogorgon won't you?
  ' All Art and resources have been sourced online and we hold no rights to any media used.
- '*************************************************************************************************                                                          
+ '*************************************************************************************************
  ' TO-DO's
- ' ************************************************************************************************ 
+ ' ************************************************************************************************
  ' Release Notes
  ' v2.1 - extra ball, 1 per ball and harder, lane drain removed you need to full drain to get your ball save.. sorry.
  ' v2.0 - I've missed some here but I'll try to remember what I can, there was alot.
@@ -38,30 +38,35 @@
  ' v1.91 - Included Arngrim's Dialed in DOF, and fixed the DOF close - also from Arngrim
  ' v1.9
  ' slingshot band color, extra ball rework, upside down left flipper stall fix, right lower rail fix, lowered height of right ramp,
- ' DOF code by Dieter added, many hit flashers added, movement added to hawkins truck, dice and waffles, 
- ' backwall flashers added, center target light effect, lane sound change to bloop, b2s stop controller on table exit, 
+ ' DOF code by Dieter added, many hit flashers added, movement added to hawkins truck, dice and waffles,
+ ' backwall flashers added, center target light effect, lane sound change to bloop, b2s stop controller on table exit,
  ' ramp flashers added,
  ' v1.8 - Optimized/Individualized all rewards for 4 player mode, plunger sounds
  ' v1.7 - increased default high scores, fixed Will Super Jackpot, Fixed Extra balls, moved up drain walls to see wall exiting, sad =(
  ' v1.6 - magnets issue with locks, fixed default material items, fresh waffle bumpers - thanks BorgDog
- ' 
+ '
  ' v1.5 - fixed Multiball restart super jackpot bug & new game lock available bug
  ' v1.4 - added new toys and fixed some dmd text
  ' v1.3 - fixed will escape lights reset after will multiball started, created delay for cinematics,
  '  added in dmd flushers to make sure important scenes aren't blocked
  '  defaulted game to 3 balls. Can adjust in the script if desired
  '  made right ramp extra ball 2 shots less - 7
- '  added in blocker for upside down w/ other multiballs going 
- ' v1.2 - chilled our the orbit sounds, added Basic DOF calls (no flashforms yet), integrated b2s calls, darkened lower playfield & deactivated flippers until ready         
- ' v1.1 - Gate to upsidedown fixed. Was getting locked after multiballs.  
+ '  added in blocker for upside down w/ other multiballs going
+ ' v1.2 - chilled our the orbit sounds, added Basic DOF calls (no flashforms yet), integrated b2s calls, darkened lower playfield & deactivated flippers until ready
+ ' v1.1 - Gate to upsidedown fixed. Was getting locked after multiballs.
  ' v1.0 - Initial Release
-                                     
+
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+' , AudioFade(ActiveBall)
+
 Option Explicit
 Randomize
 
 '---------- UltraDMD Unique Table Color preference -------------
 Dim DMDColor, DMDColorSelect, UseFullColor
-Dim DMDPosition, DMDPosX, DMDPosY, DMDSize, DMDWidth, DMDHeight 
+Dim DMDPosition, DMDPosX, DMDPosY, DMDSize, DMDWidth, DMDHeight
 
 
 UseFullColor = "True" '                           "True" / "False"
@@ -73,9 +78,9 @@ DMDPosY = 40                                     ' Position in Decimal
 
 DMDSize = True                                     ' Use Manual DMD Size, True / False
 DMDWidth = 512                                    ' Width in Decimal
-DMDHeight = 128                                   ' Height in Decimal 
+DMDHeight = 128                                   ' Height in Decimal
 
-'Note open Ultradmd and right click on window to get the various sizes in decimal 
+'Note open Ultradmd and right click on window to get the various sizes in decimal
 
 GetDMDColor
 Sub GetDMDColor
@@ -114,8 +119,8 @@ End Sub
  ' B2S Light Show
  ' cause i mean everyone loves a good light show
  ' 1 = left bike Light
- ' 2 = middle bike light 
- ' 3 = right bike light 
+ ' 2 = middle bike light
+ ' 3 = right bike light
  ' 4 = hazmat suit guide
  ' 5 = top left mom
  ' 6 = top right officer
@@ -161,7 +166,7 @@ Sub b2sflash_timer
 End Sub
 
 ' /////////////////
-' END b2s 
+' END b2s
 ' well that was quick, tacos anyone?
 ' /////////////////
 
@@ -443,7 +448,7 @@ Sub Table1_KeyDown(ByVal Keycode)
 		End If ' If (GameInPlay)
 
 '****************
-' Testing Keys  
+' Testing Keys
 '****************
 if keycode = "3" then
 AddScore 2000000
@@ -476,7 +481,7 @@ Sub Table1_KeyUp(ByVal keycode)
         End If
         If keycode = RightFlipperKey Then
             SolRFlipper 0
-			SolURFlipper 0 
+			SolURFlipper 0
             InstantInfoTimer.Enabled = False
             If bInstantInfo Then
                 DMDScoreNow
@@ -619,7 +624,7 @@ Sub ConfigKey(keycode)
 			vpmtimer.addtimer 2000, "configoptions '"
 			subconfig = False
 			bpg5 = False
-			bpg3 = False 
+			bpg3 = False
 			end If
 
 			if cfg2 = true Then
@@ -629,9 +634,9 @@ Sub ConfigKey(keycode)
 			vpmtimer.addtimer 2000, "configoptions '"
 			subconfig = False
 			bst0 = False
-			bst5 = False 
+			bst5 = False
 			bst10 = False
-			bst15 = False 
+			bst15 = False
 			end If
 
 			if cfg3 = true Then
@@ -641,7 +646,7 @@ Sub ConfigKey(keycode)
 			vpmtimer.addtimer 2000, "configoptions '"
 			subconfig = False
 			gmcurrent = False
-			gmcurrent = False 
+			gmcurrent = False
 			end If
 
 			if cfg4 = true Then
@@ -677,7 +682,7 @@ Sub ConfigKey(keycode)
 			vpmtimer.addtimer 2000, "configoptions '"
 			subconfig = False
 			spd1 = False
-			spd2 = False 
+			spd2 = False
 			spd3 = False
 			end If
 		Else
@@ -913,7 +918,7 @@ Sub bstvalue
 End Sub
 
 
-' cfg 3 free play or coins 
+' cfg 3 free play or coins
     ' freeplay or coins  bFreePlay = True 'we dont want coins
 Dim cfg3
 cfg3 = False
@@ -1469,7 +1474,7 @@ Dim letsflash
 Sub lrflashnow
 	lrflashtime.enabled = 1
 End Sub
-Sub lrflashtime_Timer 
+Sub lrflashtime_Timer
 	letsflash = letsflash + 1
 	Select Case letsflash
 	Case 0
@@ -1497,7 +1502,7 @@ Dim letsflash2
 Sub rrflashnow
 	rrflashtime.enabled = 1
 End Sub
-Sub rrflashtime_Timer 
+Sub rrflashtime_Timer
 	letsflash2 = letsflash2 + 1
 	Select Case letsflash2
 	Case 0
@@ -1532,99 +1537,17 @@ Sub Flashxmas(n)
     End Select
 End Sub
 
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
-
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 1500)
-End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp> 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
-
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
-
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
-
-'*****************************************
-'      JP's VP10 Rolling Sounds
-'*****************************************
-
-Const tnob = 20 ' total number of balls
-Const lob = 0   'number of locked balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
-End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-
-    ' stop the sound of deleted balls
-    For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
-
-    ' exit the sub if no balls on the table
-    If UBound(BOT) = -1 Then Exit Sub 'there no extra balls on this table
-
-    ' play the rolling sound for each ball
-    For b = lob to UBound(BOT)
-        If BallVel(BOT(b) )> 1 Then
-            If BOT(b).z <30 Then
-                ballpitch = Pitch(BOT(b) )
-            Else
-                ballpitch = Pitch(BOT(b) ) * 50
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, ballpitch, 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
-
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
-
 '******************************
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' Random quotes from the game
 
@@ -2040,7 +1963,7 @@ Sub Drain_Hit()
 
 				' you may wish to put something on a display or play a sound at this point
 				If bMultiBallMode = False Then
-				
+
 				Ballsaved
 				End If
         Else
@@ -2064,7 +1987,7 @@ Sub Drain_Hit()
 					If DemoMultiball = True Then
 					EndDemo
 					End If
-                    bMultiBallMode = False		
+                    bMultiBallMode = False
                     ChangeGi "white"
                     ' you may wish to change any music over at this point and
                     ' turn off any multiball specific lights
@@ -2072,7 +1995,7 @@ Sub Drain_Hit()
                     CurrentSong
                 End If
 				CurrentSong
-				bMultiBallMode = False		
+				bMultiBallMode = False
                 ChangeGi "white"
 				CheckKIDSLane
 				CheckGUARDTargets
@@ -2136,7 +2059,7 @@ Sub swPlungerRest_Hit()
         	PlungerIM.Strength = 45
 			PlungerIM.AutoFire
 			PlungerIM.Strength = Plunger.MechStrength
-			DOF 114, DOFPulse		
+			DOF 114, DOFPulse
 		DOF 115, DOFPulse
         bAutoPlunger = False
     End If
@@ -2286,7 +2209,7 @@ End Sub
 Sub AwardSpecial()
     Credits = Credits + 1
     DOF 140, DOFOn
-	PlaySound SoundFXDOF("knocker",136,DOFPulse,DOFKnocker)		
+	PlaySound SoundFXDOF("knocker",136,DOFPulse,DOFKnocker)
 	DOF 115, DOFPulse
     GiEffect 1
     LightEffect 1
@@ -2479,7 +2402,7 @@ Sub HighScoreEntryInit()
     DMD "black.png", "", "",  250
     'DMD "highscore-20.wmv", "", "",  19000
     DMDId "hsc", "hsb.jpg", " Initials:A  ", " ",  999999
-    vpmtimer.addtimer 8000, "HighScoreDisplayName() '"	
+    vpmtimer.addtimer 8000, "HighScoreDisplayName() '"
 End Sub
 
 Sub EnterHighScoreKey(keycode)
@@ -2797,7 +2720,7 @@ Sub ResetAllLightsColor ' Called at a new game
 	SetLightColor llo4, red, -1
 	SetLightColor lro3, yellow, -1
 	SetLightColor lc2, blue, -1
-	'Extra Ball 
+	'Extra Ball
 	SetLightColor llo5, orange, -1
 	SetLightColor lro1, orange, -1
 	' Orbit & Ramp Lights
@@ -3278,7 +3201,7 @@ Sub Game_Init() 'called at the start of a new game
 	CloseGates
 
 	'Init lights
-	'Barb Multiball resets 
+	'Barb Multiball resets
 	barbMultiball = false
 For i = 0 to 10
 	barbHits(i) = 0
@@ -3294,18 +3217,18 @@ Next
 For i = 0 to 4
 	BallsInRunLock(i) = 0
 Next
-	' Will Resets  
+	' Will Resets
 	WillMultiball = False
 For i = 0 to 3
 	WillHits(i) = 0
 Next
 	WillSuperReady = False
-	'Monster Resets  
+	'Monster Resets
 	DemoMultiball = False
 	DemoHits = 0
 	MonsterFinalBlow = False
 	BarbJackpots = False
-	' Reamp Resets  
+	' Reamp Resets
 For i = 0 to 10
 	LRHits(i) = 0
 Next
@@ -3456,14 +3379,14 @@ End Sub
 	Gate8.Open = False
 	Gate7.Open = False
 
-Sub CloseGates 
+Sub CloseGates
 	Gate6.Open = False
 	Gate4.Open = False
 	Gate8.Open = False
 	Gate7.Open = False
 End Sub
 
-Sub OpenGates 
+Sub OpenGates
 	Gate6.Open = True
 	Gate4.Open = True
 	Gate8.Open = True
@@ -3568,7 +3491,7 @@ Sub dicespin
 	DOF 116, DOFOn
 	startB2S(4)
 End Sub
-Sub dicetime_Timer 
+Sub dicetime_Timer
 	dice.ObjRotZ = (dice.ObjRotZ + 1) Mod 360
 	If dice.ObjRotZ = 358 Then
 		dicetime.enabled = 0
@@ -3961,7 +3884,7 @@ Sub BallLockRun_Hit
 				DMD "black.png", "RUN RUN RUN", "Multiball", 1000
 				vpmtimer.addtimer waittime, "StartRun'"
 				vpmtimer.addtimer waittime, "BallLockRunExit '"
-				
+
         End Select
 	End If
     'vpmtimer.addtimer waittime, "BallLockRunExit '"
@@ -4260,7 +4183,7 @@ le5.State = 0
 le6.State = 0
 le7.State = 0
 le8.State = 0
-le9.State = 0	
+le9.State = 0
 le10.State = 0
 le11.State = 0
 le12.State = 0
@@ -4465,20 +4388,20 @@ Sub AwardNancy
 				nancyrandom
 				AddScore 300000
 	Case 6
-				nancyrandom	
+				nancyrandom
 				AddScore 500000
 	Case 9
-				nancyrandom	
+				nancyrandom
 				AddScore 700000
 	Case 12
 				nancyrandom
-				AddScore 900000	
+				AddScore 900000
 	Case 16
 				nancyrandom
-				AddScore 1100000	
+				AddScore 1100000
 	Case 20
 				nancyrandom
-				AddScore 1300000	
+				AddScore 1300000
 	Case 24
 				nancyrandom
 				AddScore 1500000
@@ -4538,19 +4461,19 @@ Sub AwardSteve
 				AddScore 300000
 	Case 6
 				steverandom
-				AddScore 500000	
+				AddScore 500000
 	Case 9
 				steverandom
-				AddScore 700000	
+				AddScore 700000
 	Case 12
-				steverandom	
+				steverandom
 				AddScore 900000
 	Case 16
 				steverandom
-				AddScore 1100000	
+				AddScore 1100000
 	Case 20
 				steverandom
-				AddScore 1300000	
+				AddScore 1300000
 	Case 24
 				steverandom
 				AddScore 1500000
@@ -4605,7 +4528,7 @@ Sub LeftRampDone_Hit
 	LightEffect 12
 	lrflashnow
 	startB2S(5)
-	AwardLR 
+	AwardLR
     PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
 	PlaySound "ping"
     If Tilted Then Exit Sub
@@ -4651,7 +4574,7 @@ Sub RightRampDone_Hit
 	LightEffect 13
 	startB2S(6)
 	rrflashnow
-	AwardRR 
+	AwardRR
     PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
 	PlaySound "portalopen"
     If Tilted Then Exit Sub
@@ -4696,8 +4619,8 @@ End Sub
 '****************
 ' Light all BARB lights to lock Balls
 ' Lock 2 balls to light start multiball
-' During multiball hit orbits to search for Barb - 6 shots 
-' 
+' During multiball hit orbits to search for Barb - 6 shots
+'
 
 Sub StartBarb() 'Multiball
 	DOF 125, DOFPulse
@@ -4720,7 +4643,7 @@ End Sub
 
 Sub BallLockBarbExit()
     BallLockBarb.Kick 90, 7
-		DOF 119, DOFPulse		
+		DOF 119, DOFPulse
 		DOF 115, DOFPulse
 	Gate4.Open = False
 End Sub
@@ -4792,7 +4715,7 @@ Sub BarbSuper
 	lro4.State = 2
 	BarbJackpots = True
 	BallLockBarbExit
-End Sub 
+End Sub
 
 Sub EndBarb()
 	LookForBarb = False
@@ -4815,7 +4738,7 @@ End Sub
 '****************
 ' Light all RUN lights to lock Balls
 ' Lock 3 balls to light start multiball
-' During multiball hit ramps to escape - 6 shots 
+' During multiball hit ramps to escape - 6 shots
 
 Sub StartRun() 'Multiball
 	DOF 125, DOFPulse
@@ -4839,7 +4762,7 @@ End Sub
 
 Sub BallLockRunExit()
     BallLockRun.Kick 90, 7
-		DOF 117, DOFPulse		
+		DOF 117, DOFPulse
 		DOF 115, DOFPulse
 	Gate6.Open = False
 End Sub
@@ -4906,7 +4829,7 @@ Sub RUNSuper
 	llr1.State = 2
 	llo3.State = 0
 	BallLockRunExit
-End Sub 
+End Sub
 
 Sub EndRun()
 	RunAway = False
@@ -4961,19 +4884,19 @@ Sub EnterUpsideDown
 	If le1.State + le2.State + le3.State + le4.State + le5.State + le6.State + le10.State + le11.State + le12.State + le13.State + le14.State + le15.State = 0 Then
 	Dim waittime
     waittime = 14000
-    vpmtimer.addtimer waittime, "UpsideDown'" 
+    vpmtimer.addtimer waittime, "UpsideDown'"
 	PlaySound "monster2"
-	DMD "will_start-14.wmv", "", "",  14000   
+	DMD "will_start-14.wmv", "", "",  14000
 	GiOff
 	GiLowerOn
 	Else
     waittime = 1000
     vpmtimer.addtimer waittime, "UpsideDown'"
 	PlaySound "bell"
-	DMD "black.png", "Entering", "Upside Down",  1000   
+	DMD "black.png", "Entering", "Upside Down",  1000
 	GiOff
 	GiLowerOn
-	End If 
+	End If
 End Sub
 
 Sub UpsideDown
@@ -5010,7 +4933,7 @@ SavedWill
 GiLowerOff
 lowerflippersoff = True
 End Sub
- 
+
 Sub SavedWill() 'Multiball
 	DOF 125, DOFPulse
     startB2S(3)
@@ -5068,7 +4991,7 @@ Sub WillSJ
 	BallLockEscape.DestroyBall
 	BallEscapeExit.CreateBall
 	BallEscapeExit.Kick 90, 7
-	DOF 138, DOFPulse		
+	DOF 138, DOFPulse
 	DOF 115, DOFPulse
 	AddScore 6000000
 	DMDFlush
@@ -5082,7 +5005,7 @@ Sub WillSJ
 	guard2.IsDropped = 0
 	guard3.IsDropped = 0
 	WillSuperReady = False
-End Sub 
+End Sub
 
 Sub EndWill()
     WillMultiball = False
@@ -5144,7 +5067,7 @@ Sub KickerEL_hit
 	waittime4 = 98500
 	waittime5 = 102500
 	lm4.State = 1
-	PlaySong "m_wait" 	
+	PlaySong "m_wait"
 	DMD "demo-end-90.wmv", "", "",  90500   'Jackpot Bro
 	DMD "black.png", "You are", "The Champion",  4000   'Jackpot Bro
 	DMD "black.png", "You will", "all be safe",  4000   'Jackpot Bro
@@ -5155,16 +5078,16 @@ Sub KickerEL_hit
     vpmtimer.addtimer waittime4, "bell '"
     vpmtimer.addtimer waittime5, "bell '"
     vpmtimer.addtimer waittime5, "CurrentSong '"
-    vpmtimer.addtimer waittime, "DemoSuper '" 
+    vpmtimer.addtimer waittime, "DemoSuper '"
     vpmtimer.addtimer waittime5, "kickit2 '"
-    vpmtimer.addtimer waittime, "EndDemo '" 
+    vpmtimer.addtimer waittime, "EndDemo '"
 	demodefeated = True
-	MagnetR.MagnetON = False ' Magnet Off	
+	MagnetR.MagnetON = False ' Magnet Off
 	Else
 	waittime = 23000
 	DMD "demo-start-21.wmv", "","",  22000
-    vpmtimer.addtimer waittime, "kickit '" 
-    vpmtimer.addtimer waittime, "StartMonster '" 
+    vpmtimer.addtimer waittime, "kickit '"
+    vpmtimer.addtimer waittime, "StartMonster '"
 	MagnetR.MagnetON = False ' Magnet Off
 	End If
 	GiOff
@@ -5173,7 +5096,7 @@ End Sub
 Sub kickit
 	finalflips = False
 	KickerEL.Kick -15, 50
-	DOF 118, DOFPulse		
+	DOF 118, DOFPulse
 	DOF 115, DOFPulse
 	KickerEL.enabled = False
 End Sub
@@ -5182,7 +5105,7 @@ Sub kickit2
 	finalflips = False
 	DropTargets
 	KickerEL.Kick 0, 50
-	DOF 118, DOFPulse		
+	DOF 118, DOFPulse
 	DOF 115, DOFPulse
 	KickerEL.enabled = False
 End Sub
@@ -5339,3 +5262,163 @@ Sub EndDemo()
 	lm4.State = 1
 	End If
 End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 20 ' total number of balls
+Const lob = 0   'number of locked balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub 'there no extra balls on this table
+
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
+
