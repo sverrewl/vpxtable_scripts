@@ -9,7 +9,7 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
