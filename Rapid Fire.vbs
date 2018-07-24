@@ -5,18 +5,21 @@
 
 'The game is designed to award Laser Cannons Panic Buttons and Base Stations at each of three score levels.
 'The recommended levels are on the score card in game.
-'Any level from 50,000 to 9,950,000 can be set as desired. It is also possible to reset 00 any or all of 
+'Any level from 50,000 to 9,950,000 can be set as desired. It is also possible to reset 00 any or all of
 'the levels if desired.
 '
-'   1.Push and releas self test button (Key 7 in VP) at one second intervals approximately six times or 
+'   1.Push and releas self test button (Key 7 in VP) at one second intervals approximately six times or
 '     until identification number 01 appears on the base station display.
-'   
+'
 '   2.The number on the player score displays is the score level. It can be increased if desired by holding
 '     the credit button in. To decrease the score level hold the credit button in and depress and release The
 '     self test button. Release the credit button when the desired number appears. Note that the level changes
 '     50,000 points at a time. If the number 00 is left on the displays the high score feature is eliminated.
 'Setting the first level automatically sets the second and third.
-    
+
+' Thalamus 2018-07-24
+' This table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 
 option explicit
 Randomize
@@ -209,14 +212,14 @@ End If
         Controller.Switch(1)=1
 		Exit Sub
 	End If
-    If vpmKeyDown(KeyCode) Then Exit Sub 
-End Sub  
+    If vpmKeyDown(KeyCode) Then Exit Sub
+End Sub
 
 Sub AATimer_Timer
        vpmTimer.PulseSw 1
 End Sub
 
-Sub Table1_KeyUp(ByVal KeyCode) 
+Sub Table1_KeyUp(ByVal KeyCode)
 If KeyCode=LeftMagnaSave Then
 'If KeyCode=LeftTiltKey Then
 	Controller.Switch(7)=0
@@ -250,7 +253,7 @@ End If
 		Exit Sub
 	End If
     If vpmKeyUp(KeyCode) Then Exit Sub
-End Sub  
+End Sub
 
 '*****************************************************
 '*               Flap And Tank Switches              *
@@ -364,7 +367,7 @@ Sub DisplayTimer_Timer
 			Next
 		Next
 	End If
-End Sub 
+End Sub
 
 Dim Digits(20)
 Digits(0)=Array(BLight1,BLight2,BLight3,BLight4,BLight5,BLight6,BLight7,BLight8)
@@ -389,12 +392,12 @@ Digits(18)=Array(Light10,Light11,Light12,Light13,Light14,Light15,Light16)
 Digits(19)=Array(Light26,Light27,Light28,Light29,Light30,Light31,Light32)
 Digits(20)=Array(Light42,Light43,Light44,Light45,Light46,Light47,Light48)
 
-  Set LampCallback=GetRef("UpdateMultipleLamps") 
- 
- Sub UpdateMultipleLamps 
+  Set LampCallback=GetRef("UpdateMultipleLamps")
+
+ Sub UpdateMultipleLamps
  EMReel1.SetValue L61.State
  EMReel2.SetValue L125B.State
- End Sub  
+ End Sub
 
 '***************************************************************
 '*   				       Desktop Mode       	        	   *
