@@ -1,11 +1,15 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-23
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Const BallSize = 50
 Const BallMass = 1.7
 
-Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay 
-Dim GlowAmountNight, InsertBrightnessNight 
+Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay
+Dim GlowAmountNight, InsertBrightnessNight
 
 ' *** Contrast level, possible values are 0 - 7, can be done in game with magnasave keys **
 ' *** 0: bright, good for desktop view, daytime settings in insert lighting below *********
@@ -19,7 +23,7 @@ ContrastSetting = 0
 ' *** The settings below together with ContrastSetting determines how the lighting looks **
 ' *** for all values: 1.0 = default, useful range 0.1 - 5 *********************************
 GlowAmountDay = 0.5
-InsertBrightnessDay = 0.8 
+InsertBrightnessDay = 0.8
 GlowAmountNight = 0.5
 InsertBrightnessNight = 0.6
 
@@ -33,10 +37,10 @@ InsertBrightnessNight = 0.6
 '106 - Right Slingshot Flasher
 '107 - Bumper Left
 '108 - Bumper Left Flasher
-'109 - Bumper Center 
+'109 - Bumper Center
 '110 - Bumper Center Flasher
 '111 - Bumper Right
-'112 - Bumper Right Flasher 
+'112 - Bumper Right Flasher
 '113 - Ballrelease
 '114 - Plunger
 '115 - Drain
@@ -103,8 +107,8 @@ InsertBrightnessNight = 0.6
 '******************************************************
 ' 				VARIABLE DECLARATIONS
 '******************************************************
-			 
-Const cGameName = "madscientist" 
+
+Const cGameName = "madscientist"
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("core.vbs")
@@ -143,7 +147,7 @@ Const movieSpeed= 76 'msecs
 Dim nvcredits: nvcredits = 0
 Dim nvBallsPerGame:nvBallsPerGame = 3
 ' Define any Constants
-Const constMaxPlayers = 1									' Maximum number of players per game - only Single player					 																 																												   																  																			 																	 
+Const constMaxPlayers = 1									' Maximum number of players per game - only Single player
 ' Define Game Control Variables
 Dim BallsOnPlayfield										' number of balls on playfield
 Dim ModeTime
@@ -155,8 +159,8 @@ Dim Score:Score=0
 Dim bFreePlay:bFreePlay = True								' Either in Free Play or Handling Credits
 Dim bBallInPlungerLane										' Is there a ball in the plunger lane ?
 Dim bEnteringAHighScore:bEnteringAHighScore = FALSE			' player is entering their name into the high score table
-Dim CurrentMusicTunePlaying:CurrentMusicTunePlaying = 0 
-Dim nvjackpot:nvjackpot = 0 
+Dim CurrentMusicTunePlaying:CurrentMusicTunePlaying = 0
+Dim nvjackpot:nvjackpot = 0
 
 '******************************************************
 ' 					TABLE INIT
@@ -170,11 +174,11 @@ Sub LoadTable()
 	EndOfGame 1
 
 	wall24.collidable = 0
-	wall7.collidable = 1 
+	wall7.collidable = 1
 	splash1.visible = false
 	splash2.visible = false
 	splash3.visible = false
-	
+
 	If bFreePlay Then DOF 116, DOFOn
 End Sub
 
@@ -182,7 +186,7 @@ End Sub
 Dim AttractVideo
 AttractVideo = Array("intro ", 76)
 
-Sub Table1_Init()			   
+Sub Table1_Init()
 	LoadEM
 	LoadHighScores
 	PlaySound "intro"' INTRO SFX***********************************
@@ -202,7 +206,7 @@ Sub Table1_Exit()
 		If UltraDMD.IsRendering Then UltraDMD.CancelRendering
 		UltraDMD = Null
 		SaveHighScores
-	End If	
+	End If
 End Sub
 
 Sub Animation(name, numframes, loops)
@@ -221,15 +225,15 @@ Sub holotimer_timer()
 	Dim imagename
 	HPos=(HPos+posinc) mod AttractVideo(1)
 	if HPos = 0 then HPos = 1
-	if HPos < 10 then 
+	if HPos < 10 then
 		imagename = Hname & "00" & Hpos
 	elseif HPos < 100 then
 		imagename = Hname & "0" & Hpos
-	else 
+	else
 		imagename = Hname & Hpos
 	end if
 	Moviewall.image = imagename
-end Sub	
+end Sub
 
 Sub VideoIntro_timer()
 	holotimer.enabled = False
@@ -270,7 +274,7 @@ End Sub
 Dim LeftFlipperDown, RightFlipperDown
 
 Sub Table1_KeyDown(ByVal KeyCode)
-    
+
 	If (KeyCode = AddCreditKey) or (KeyCode = AddCreditKey2) Then
 		PlaySound "CoinIn"
 		CreditsTimer.Enabled=True
@@ -278,7 +282,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		DOF 216, DOFOn  'DOF MX - Credits Inserted, Ready To Play
 		End If
 	End if
-    
+
 	If (KeyCode = PlungerKey) and (vpGameInPlay = TRUE) and (bEnteringAHighScore=False) and (BonusTimer.Enabled=False) then
 		PlungerState(1)
 	End if
@@ -287,12 +291,12 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		Nudge 90, 2
 		checktilt
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		Nudge 270, 2
 		checktilt
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		checktilt
@@ -307,15 +311,15 @@ Sub Table1_KeyDown(ByVal KeyCode)
 	End If
 
 
-	If keycode = RightMagnaSave Then 
+	If keycode = RightMagnaSave Then
 		ContrastSetting = ContrastSetting + 1
 		If ContrastSetting > 7 Then ContrastSetting = 7 End If
-		ColorGrade		
+		ColorGrade
 	End If
-	If keycode = LeftMagnaSave Then 
+	If keycode = LeftMagnaSave Then
 		ContrastSetting = ContrastSetting - 1
 		If ContrastSetting < 0 Then ContrastSetting = 0 End If
-		ColorGrade		
+		ColorGrade
 	End If
 
 	If (vpGameInPlay = TRUE) Then
@@ -329,7 +333,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 				if flaskactive = 1 then
 					MixElements()
 				end if
-			Elseif (KeyCode = LeftFlipperKey) and (bEnteringAHighScore=True) And NOT cursorPos=40 Then 
+			Elseif (KeyCode = LeftFlipperKey) and (bEnteringAHighScore=True) And NOT cursorPos=40 Then
 				inChar=inChar-1
 				if inChar<65 AND inChar>57 Then inChar=57
 				if inChar<46 Then inChar=91
@@ -344,11 +348,11 @@ Sub Table1_KeyDown(ByVal KeyCode)
 				if flaskactive=1 then
 					ClearFlask()
 				end if
-			Elseif (KeyCode = RightFlipperKey) and (bEnteringAHighScore=True) And NOT cursorPos=40 Then 
+			Elseif (KeyCode = RightFlipperKey) and (bEnteringAHighScore=True) And NOT cursorPos=40 Then
 				inChar=inChar+1
 				if inChar>91 Then inChar=46
 				if inChar>57 AND inChar<65 Then inChar=65
-				NameEntry:Playsound "fx_Previous"		
+				NameEntry:Playsound "fx_Previous"
 			End If
 
 			If keycode = StartGameKey AND NOT cursorPos=40 Then
@@ -357,15 +361,15 @@ Sub Table1_KeyDown(ByVal KeyCode)
 					initials(cursorPos) = 32						'Set that initial back to an empty SPACE
 					Playsound "fx_Esc"
 				End If
-				if (inChar <> 91) Then								'Set a character, as long as it's not a backspace				
+				if (inChar <> 91) Then								'Set a character, as long as it's not a backspace
 					initials(cursorPos) = inChar					'Set the character
 					If inChar = 47 Then initials(cursorPos) = 32	'Set the space character
 					cursorPos = cursorPos + 1
 					Playsound "fx_Enter"
 				End If
-				if (cursorPos < 4) Then								'write the 3 characters				
+				if (cursorPos < 4) Then								'write the 3 characters
 					NameEntry
-					If cursorPos=3 Then 
+					If cursorPos=3 Then
 						cursorPOS=40
 						ExitHS.Interval=500
 						ExitHS.Enabled=1
@@ -375,26 +379,26 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		End if
 	Else
 		If (KeyCode = (StartGameKey)) Then
-					 
+
 			If (bFreePlay = TRUE) Then
-																			  
-				DOF 216, DOFOff  'DOF MX - Start Game - Credits Off											   
-															 
+
+				DOF 216, DOFOff  'DOF MX - Start Game - Credits Off
+
 				If (BallsOnPlayfield = 0) or (vpTilted=False) Then
 					NewGame()
-					  
+
 				End If
 			Else
-										 
+
 				If (nvCredits > 0)  Then
-																			  
+
 					If (BallsOnPlayfield = 0) or (vpTilted=False) Then
-					   
+
 						nvCredits = nvCredits - 1
-						If nvCredits < 1 Then DOF 116, DOFOff 
+						If nvCredits < 1 Then DOF 116, DOFOff
 						DOF 216, DOFOff  'DOF MX - Start Game - Credits Off
 						NewGame()
-					   
+
 					End if
 				Else
 					DMD_CancelRendering
@@ -408,9 +412,9 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		If (KeyCode = (LeftFlipperKey) OR KeyCode = (RightFlipperKey)) and (bEnteringAHighScore=False) and (BonusTimer.Enabled=False) Then
 			GameoverTimer.interval=(Int((1444)*Rnd+333)):GameoverTimer.enabled=True
 		End If
-																										  
-																		  
-		
+
+
+
 	End if
 
 End Sub
@@ -434,13 +438,13 @@ Sub Table1_KeyUp(ByVal KeyCode)
 
 	if (vpGameInPlay = TRUE) and (vpTilted = FALSE) Then
 		If (KeyCode = (LeftFlipperKey)) Then
-			PlaySound "fx_flipperdown"				 
+			PlaySound "fx_flipperdown"
 			LeftFlipper.RotateToStart
 			Flipper2.RotateToStart
 		End If
 
         If (KeyCode = (RightFlipperKey)) Then
-			PlaySound "fx_flipperdown"				 
+			PlaySound "fx_flipperdown"
 			RightFlipper.RotateToStart
 			Flipper1.RotateToStart
 		End If
@@ -457,7 +461,7 @@ Sub AddScore(points)
 			ScoreSkillShot("Any")
 		Else
 			Score = Score + (points)*TableMultiplier
-							
+
 		End if
 	End If
 	ScoreTimer.enabled = True
@@ -471,25 +475,25 @@ Sub DisplayScore()
 		If einsteinium = 1 then FlaskContents = FlaskContents & "E"
 		If lecithin = 1 then FlaskContents = FlaskContents & "L"
 		If yttrium = 1 then FlaskContents = FlaskContents & "Y"
-	Else	
+	Else
 		FlaskContents = ""
 	End If
-	If BallInPlay = 0 then 
+	If BallInPlay = 0 then
 		BallDisplay = "Game Over"
 	Else
 		BallDisplay = "Ball " & BallInPlay
 	End If
 	'if UltraDMD.GetMinorVersion < 4 then
 		UltraDMD.DisplayScoreboard 2, 1, Score, nvjackpot, 0, 0, BallDisplay, FlaskContents & " IQ:"&IQ
-	'Else	
+	'Else
 	'	UltraDMD.DisplayScoreboard00 2, 1, Score, nvjackpot, 0, 0, BallDisplay, FlaskContents & " IQ:"&IQ
 	'End If
 End Sub
 
 Sub AddJackpot(score)
-	If (vpTilted = False) and (vpGameInPlay=TRUE) Then 
+	If (vpTilted = False) and (vpGameInPlay=TRUE) Then
 		nvJackpot = nvJackpot + score
-																					   
+
 		DisplayJackpot
 	End if
 End Sub
@@ -505,7 +509,7 @@ End Sub
 
 Dim RStep, Lstep
 
-Sub LeftSlingshot_Slingshot()  
+Sub LeftSlingshot_Slingshot()
 	PlaySound SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors),0,1,-0.05,0.05
 	DOF 104, DOFPulse
 	DOF 203, DOFPulse  'DOF MX - Left Slingshot
@@ -520,7 +524,7 @@ Sub LeftSlingshot_Slingshot()
 	AddScore 400
 End Sub
 
-Sub LeftSlingShot_Timer  
+Sub LeftSlingShot_Timer
 	Select Case LStep
 		Case 3:LSLing1.Visible = 0:LSLing2.Visible = 1:sling2.TransZ = -10
 		Case 4:LSLing2.Visible = 0:LSLing.Visible = 1:sling2.TransZ = 0:LeftSlingShot.TimerEnabled = 0
@@ -528,7 +532,7 @@ Sub LeftSlingShot_Timer
 	LStep = LStep + 1
 End Sub
 
-Sub RightSlingshot_Slingshot() 
+Sub RightSlingshot_Slingshot()
 	PlaySound SoundFXDOF("fx_slingshot",105,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
 	DOF 106, DOFPulse
 	DOF 204, DOFPulse  'DOF MX - Right Slingshot
@@ -543,7 +547,7 @@ Sub RightSlingshot_Slingshot()
 	AddScore 400
 End Sub
 
-Sub RightSlingShot_Timer 
+Sub RightSlingShot_Timer
 	Select Case RStep
 		Case 3:RSLing1.Visible = 0:RSLing2.Visible = 1:sling1.TransZ = -10
 		Case 4:RSLing2.Visible = 0:RSLing.Visible = 1:sling1.TransZ = 0:RightSlingShot.TimerEnabled = 0
@@ -583,13 +587,13 @@ Sub Bumper3_Hit()
 		DOF 110, DOFPulse
 		DOF 206, DOFPulse  'DOF MX - Center Bumper
 		FlashForMs LightBumper3, 200, 100, LightStateOff
-		BumperScore	
+		BumperScore
 	end if
 End Sub
 
 Sub BumperScore()
 	BumperHits = BumperHits + 1
-	If BumperHits Mod 10 = 0 and BumperHits < 100 then 
+	If BumperHits Mod 10 = 0 and BumperHits < 100 then
 		playsound "tabd02"
 		if Not UltraDMD.isRendering Then DMD_DisplayScene "Advance Bumper","Multiplier " & (BumperHits/10) + 1 &"X",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 	If BumperHits <= 10 Then AddScore 1000
@@ -602,7 +606,7 @@ Sub BumperScore()
 	Elseif BumperHits <= 80 Then AddScore 8000
 	Elseif BumperHits <= 90 Then AddScore 9000
 	Else AddScore 10000
-												  
+
 	End If
 End Sub
 
@@ -634,7 +638,7 @@ Sub plasma_Dropped()
 	if (vpGameInPlay = TRUE And vpTilted = FALSE) then
 		If Countdown.enabled = true and CurExperiment = "AngryMob" Then
 			Light25.state = LightStateOff:ScoreRedTarget
-		Else	
+		Else
 			Light25.state = LightStateOn
 			AddScore 25000
 			CheckTargetsPlasmafields()
@@ -643,11 +647,11 @@ Sub plasma_Dropped()
 End sub
 
 Sub field_Dropped()
-	DropTargetSound 
+	DropTargetSound
 	if (vpGameInPlay = TRUE And vpTilted = FALSE) then
 		If Countdown.enabled = true and CurExperiment = "AngryMob" Then
 			Light26.state = LightStateOff:ScoreRedTarget
-		Else	
+		Else
 			Light26.state = LightStateOn
 			AddScore 25000
 			CheckTargetsPlasmafields()
@@ -727,7 +731,7 @@ Sub EnablePlasmaField()
 	plasmamiddlecount = 0
 	plasma_effectM.enabled = true
 	If Not UltraDMD.isRendering then DMD_DisplayScene "Plasmafield","Activated!!!", UltraDMD_Animation_ScrollOnRight , UltraDMD_deOn, UltraDMD_Animation_None
-																															
+
 End Sub
 
 Sub PlasmaMiddleTrig_hit()
@@ -739,13 +743,13 @@ Sub PlasmaMiddleTrig_hit()
 		plasma_effectM.enabled = false
 		Flasher_M1.visible=false
 		Flasher_M2.visible=false
-		Flasher_M3.visible=false				   
+		Flasher_M3.visible=false
 		ScorePlasma
 
 		PlasmaRightEnabled=1
 		plasmarightcount = 0
-		plasma_effect.enabled = true 	
-			  
+		plasma_effect.enabled = true
+
 	End If
 End Sub
 
@@ -757,12 +761,12 @@ Sub PlasmaRightTrig_hit()
 		plasma_effect.enabled = false
 		Flasher_R0.visible=false
 		Flasher_R2.visible=false
-		Flasher_R3.visible=false		
+		Flasher_R3.visible=false
 		ScorePlasma
 
 		PlasmaLeftEnabled=1
 		plasmaleftcount = 0
-		plasma_effectL.enabled = true				  
+		plasma_effectL.enabled = true
 	End If
 End Sub
 
@@ -775,7 +779,7 @@ Sub PlasmaLeftTrig_hit()
 		Flasher_L1.visible=false
 		Flasher_L2.visible=false
 		Flasher_L3.visible=false
-						   
+
 		ScorePlasma
 		if PlasmaLeftEnabled = 0 and PlasmaMiddleEnabled = 0 and PlasmaRightEnabled = 0 then
 			ResetPlasmaField
@@ -790,21 +794,21 @@ End Sub
 
 Sub ResetPlasmaField()
 	PlasmaFieldEnabled=0
-	
+
 	PlasmaLeftEnabled=0
 	plasma_effectL.enabled = false
 	Flasher_L1.visible=false
 	Flasher_L2.visible=false
 	Flasher_L3.visible=false
-	
+
 	PlasmaMiddleEnabled=0
 	plasma_effectM.enabled = false
 	Flasher_M1.visible=false
 	Flasher_M2.visible=false
 	Flasher_M3.visible=false
-	
+
 	PlasmaRightEnabled=0
-	plasma_effect.enabled = false 
+	plasma_effect.enabled = false
 	Flasher_R0.visible=false
 	Flasher_R2.visible=false
 	Flasher_R3.visible=false
@@ -849,7 +853,7 @@ End Sub
 
 Sub TargetO_Dropped()
 	DropTargetSound
-	If (vpGameInPlay = TRUE) And (vpTilted = FALSE) Then 
+	If (vpGameInPlay = TRUE) And (vpTilted = FALSE) Then
 		DOF 228, DOFPulse   'DOF MX - Monster Target O
 		If Countdown.enabled = true and CurExperiment = "AngryMob" Then
 			LightO.state = LightStateOff:ScoreRedTarget
@@ -931,7 +935,7 @@ Sub MonsterTargetScore()
 	If TargetM.isDropped and TargetO.isDropped and TargetN.isDropped and TargetS.isDropped and TargetT.isDropped and TargetE.isDropped and TargetR.IsDropped Then
 		ResetTargets=1
 		DOF 250, DOFPulse   'DOF MX - Monster Flash
-	Else 
+	Else
 		ResetTargets=0
 	End If
 
@@ -954,36 +958,36 @@ Sub MonsterTargetScore()
 			towertext.imageA = "a_tower"
 		End If
 		AddScore 100000
-	Else	
-		If TargetResets < 1 Then 
+	Else
+		If TargetResets < 1 Then
 			AddScore 15000
-			If ResetTargets Then 
+			If ResetTargets Then
 				AddScore 150000
 				if Not UltraDMD.isRendering then DMD_DisplayScene "Teleporter Open",150000*TableMultiplier & " Points", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 			End If
-		ElseIf TargetResets < 2 Then 
+		ElseIf TargetResets < 2 Then
 			AddScore 30000
-			If ResetTargets Then 
+			If ResetTargets Then
 				AddScore 300000:
 				if Not UltraDMD.isRendering then DMD_DisplayScene "Teleporter Open",300000*TableMultiplier & " Points", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 			End If
-		ElseIf TargetResets < 3 Then 
+		ElseIf TargetResets < 3 Then
 			AddScore 45000
-			If ResetTargets Then 
+			If ResetTargets Then
 				AddScore 450000
 				if Not UltraDMD.isRendering then DMD_DisplayScene "Teleporter Open",450000*TableMultiplier & " Points", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 			End If
-		Else 
+		Else
 			AddScore 60000
-			If ResetTargets Then 
+			If ResetTargets Then
 				AddScore 600000
 				if Not UltraDMD.isRendering then DMD_DisplayScene "Teleporter Open",600000*TableMultiplier & " Points", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 			End If
-		End If 		
+		End If
 	End If
 
 	If ResetTargets Then
-		TargetResets = TargetResets + 1		
+		TargetResets = TargetResets + 1
 		ResetMonsterTargets
 		OpenTeleporter
 		PlaySound "Tabd05"
@@ -1026,7 +1030,7 @@ End Sub
 
 Sub DropTargetLights()
 	if CurExperiment = "MonsterToLife" and Lning1.state = LightStateOff Then
-		If TargetM.isDropped Then LightM.state = LightStateOff Else LightM.state = LightStateBlinking 	
+		If TargetM.isDropped Then LightM.state = LightStateOff Else LightM.state = LightStateBlinking
 		If TargetO.isDropped Then LightO.state = LightStateOff Else LightO.state = LightStateBlinking
 		If TargetN.isDropped Then LightN.state = LightStateOff Else LightN.state = LightStateBlinking
 		If TargetS.isDropped Then Light_S.state = LightStateOff Else Light_S.state = LightStateBlinking
@@ -1034,7 +1038,7 @@ Sub DropTargetLights()
 		If TargetE.isDropped Then LightE.state = LightStateOff Else LightE.state = LightStateBlinking
 		If TargetR.isDropped Then LightR.state = LightStateOff Else LightR.state = LightStateBlinking
 	Else
-		LightM.state=TargetM.isDropped 	
+		LightM.state=TargetM.isDropped
 		LightO.state=TargetO.isDropped
 		LightN.state=TargetN.isDropped
 		Light_S.state=TargetS.isDropped
@@ -1075,7 +1079,7 @@ Sub ScoreSkillShot(Letter)
 		Case "N": AddScore 500000:SSPoints="500000"
 		Case "S": AddScore 100000:SSPoints="100000"
 		Case "T","E","R": AddScore 50000:SSPoints="50000"
-		Case "Any": AddScore 10000			
+		Case "Any": AddScore 10000
 	End Select
 
 	If NOT (Letter = "Any") Then
@@ -1119,7 +1123,7 @@ Sub RightInlaneTrigger_Hit()
 End Sub
 
 Sub ScoreInlane(side)
-	if (vpGameInPlay = TRUE And vpTilted = FALSE) then	
+	if (vpGameInPlay = TRUE And vpTilted = FALSE) then
 		PlaySound "Tabd09"
 		AddScore 10000
 		if (Light23.state <> LightStateOff) and (Light24.state <> LightStateOff) then
@@ -1128,7 +1132,7 @@ Sub ScoreInlane(side)
 			PlaySound "Tabd19"
 			Light23.state = LightStateOff
 			Light24.state = LightStateOff
-		Elseif side = "L" Then 	
+		Elseif side = "L" Then
 			Light24.state = LightStateOn
 		Elseif side = "R" Then
 			Light23.state = LightStateOn
@@ -1170,7 +1174,7 @@ Sub RightOutlaneTrigger_Unhit()
 End Sub
 
 '******************************************************
-' 						TELEPORTER 
+' 						TELEPORTER
 '******************************************************
 
 Sub OpenTeleporter()
@@ -1183,7 +1187,7 @@ Sub OpenTeleporter()
 	teletext.visible = true
 
 	if Not UltraDMD.isRendering then DMD_DisplayScene "","Teleporter Open",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-																							
+
 End Sub
 
 Sub CloseTeleporter()
@@ -1192,7 +1196,7 @@ Sub CloseTeleporter()
 	Wall7.collidable = 1
 	wall24.collidable = 0
 	poddoor2.visible = True
-	BulbBlue1.state = lightstateoff	
+	BulbBlue1.state = lightstateoff
 	teletext.visible=false
 End Sub
 
@@ -1214,13 +1218,13 @@ Sub Kicker1Timer_Timer()
 	If BallImageCount = 14 then BallImageCount = 1
 
 	Dim Ball
-	Set Ball = Kicker1.CreateSizedballWithMass(Ballsize/2,Ballmass)	
+	Set Ball = Kicker1.CreateSizedballWithMass(Ballsize/2,Ballmass)
 
 	Select Case BallImageCount
 		Case 1: Ball.image = "powerball"
 		Case 2: Ball.image = "ball_eye3"
 		Case 3: Ball.image = "ball_lizardeye"
-	 
+
 		Case 4: Ball.image = "ball_plasma"
 		Case 5: Ball.image = "ball_snakeeye2"
 		Case 6: Ball.image = "ball_greeneye"
@@ -1230,7 +1234,7 @@ Sub Kicker1Timer_Timer()
 		Case 10: Ball.image = "ball_snakeeye"
 		Case 11: Ball.image = "ball_bloodshoteye"
 		Case 12: Ball.image = "ball_snakeeye3"
-		Case 13: Ball.image = "ball_eye2" 
+		Case 13: Ball.image = "ball_eye2"
 	End Select
 	KickerTeleporter.DestroyBall
 	Kicker1.kick 120, 10
@@ -1239,7 +1243,7 @@ Sub Kicker1Timer_Timer()
 	DOF 234, DOFPulse  'DOF MX - Strobe
 	Kicker1Timer.Enabled = false
 	if Not UltraDMD.isRendering then DMD_DisplayScene "Teleportation","Successful???", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-																												
+
 	PlaySound "Tabd11"
 	poddoor.visible=True
 End sub
@@ -1258,7 +1262,7 @@ Sub Trigger1_Hit()
 			DOF 238, DOFPulse   'DOF MX - Left Ramp
 			If Countdown.enabled = false Then
 				If yttrium = 0 then
-					PlaySound "Tabd69"					
+					PlaySound "Tabd69"
 					yttrium = 1
 					if Not UltraDMD.isRendering then DMD_DisplayScene "Yttrium","Collected", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 				End If
@@ -1275,13 +1279,13 @@ Sub Trigger1_Hit()
 					DMD_CancelRendering
 					DMD_DisplayScene "Yttrium","Collected", UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 					yttrium = 1
-					ScoreElixirHit		
+					ScoreElixirHit
 				End If
 			ElseIf CurExperiment = "RaidGraveyard" Then
 				AddBodyPartYT
 			Elseif 	CurExperiment = "BrainAndIQ" And Light5.state <> LightStateOff Then
 				AddIQYttrium
-			Else	
+			Else
 				AddScore 40000
 			end if
 		End If
@@ -1316,7 +1320,7 @@ Sub Trigger2_Hit()
 				If LecithinCount = 1 Then
 					AddScore 50000
 				Else
-					if Not UltraDMD.isRendering then DMD_DisplayScene "Lecithin Combo", 75000*(LecithinCount-1), UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None	
+					if Not UltraDMD.isRendering then DMD_DisplayScene "Lecithin Combo", 75000*(LecithinCount-1), UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 					Addscore 75000*(LecithinCount-1)
 				End If
 			Elseif CurExperiment = "ElixirOfLife" Then
@@ -1324,11 +1328,11 @@ Sub Trigger2_Hit()
 					Lecithin = 1
 					DMD_CancelRendering
 					DMD_DisplayScene "Lecithin","Collected", UltraDMD_Animation_ScrollOnRight, UltraDMD_deOn, UltraDMD_Animation_None
-					ScoreElixirHit		
+					ScoreElixirHit
 				End If
 			Elseif 	CurExperiment = "BrainAndIQ" And Light4.state <> LightStateOff Then
 				AddIQLecithin
-			Else	
+			Else
 				AddScore 50000
 			end if
 		End If
@@ -1344,7 +1348,7 @@ Dim MercuryCount
 
 Sub Trigger3_Hit()
 	If Countdown.enabled = true and CurExperiment = "BrainAndIQ" And Lightmercury.state <> LightStateOff Then
-		If activeball.velx < 0 or activeball.vely < 0  Then 
+		If activeball.velx < 0 or activeball.vely < 0  Then
 			AddIQMercury
 		End if
 	End If
@@ -1367,11 +1371,11 @@ Sub splash_timer()
 End Sub
 
 Sub MercuryBath_Hit()
-								
+
 	PlaySound "tabd30"
 	splashcount = 0
 	splash1.visible = true
-	splash.enabled = true 
+	splash.enabled = true
 
 	if (vpGameInPlay = TRUE) And (vpTilted = FALSE) then
 		'FlashForMs Lightquicksilver, 250, 0, LightStateOff
@@ -1379,7 +1383,7 @@ Sub MercuryBath_Hit()
 
 		CloneImage = ActiveBall.image
 		MercuryBath.destroyball
-				
+
 
 		If LightClon.state <> LightStateOff Then
 			If BallsOnPlayfield < 5 Then
@@ -1396,18 +1400,18 @@ Sub MercuryBath_Hit()
 			If LightMercury.state = LightStateOff Then
 				MercuryCount = 0
 			End If
-			
+
 			If Countdown.enabled = false then
 				FlashForMS LightMercury, 10000, 0, LightStateOff
 				MercuryCount = MercuryCount + 1
 				If MercuryCount > 5 Then MercuryCount = 5
-			Else 
+			Else
 				MercuryCount = 1
 			End If
 			If MercuryCount = 1 Then
 				AddScore 25000
-			Else	
-				if Not UltraDMD.isRendering then DMD_DisplayScene "Mercury Combo", 50000*(MercuryCount-1), UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None	
+			Else
+				if Not UltraDMD.isRendering then DMD_DisplayScene "Mercury Combo", 50000*(MercuryCount-1), UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 				Addscore 50000*(MercuryCount-1)
 			End If
 		End If
@@ -1428,7 +1432,7 @@ Sub ClonTimer_Timer()
 	Ball.image= CloneImage
 	'MercuryBath1.CreateBall.image = CloneImage
 
-	If (CloneBalls Mod 2) = 0 then 
+	If (CloneBalls Mod 2) = 0 then
 		KickAngle = 90 + (4*rnd)
 		MercuryBath1.kick KickAngle, 55
 	Else
@@ -1440,7 +1444,7 @@ Sub ClonTimer_Timer()
 	DOF 118, DOFPulse
 	DOF 234, DOFPulse  'DOF MX - Strobe
 
-	CloneBalls = CloneBalls - 1 
+	CloneBalls = CloneBalls - 1
 	If CloneBalls = 0 Then
 		ClonTimer.enabled = False
 	End If
@@ -1452,7 +1456,7 @@ End Sub
 
 Sub IgorSink_Hit()
 	PlaySound "Scoopenter"
-								
+
 	IgorSink.TimerInterval=1000:IgorSink.TimerEnabled=True
 	FlashForMS Bulb1, 500, 100, LightStateOff
 	If Countdown.enabled=True Then
@@ -1483,7 +1487,7 @@ End Sub
 '******************************************************
 
 Sub kicker_Hit()
-	PlaySound "fx2_kicker_enter_left"								
+	PlaySound "fx2_kicker_enter_left"
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If Countdown.enabled = false Then
 			FlashForMs Light9, 1000,150, LightStateOff
@@ -1506,7 +1510,7 @@ Sub kicker_Hit()
 			End If
 		ElseIf CurExperiment = "RaidGraveyard" Then
 			AddBodyPartBT
-		Else	
+		Else
 			PlaySound "Tabd23"
 			AddScore 75000
 		end if
@@ -1530,14 +1534,14 @@ End Sub
 '******************************************************
 
 Sub KickerEinsteinium_Hit()
-	PlaySound "fx2_kicker_enter_left"								
+	PlaySound "fx2_kicker_enter_left"
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If extraballight.State <> LightStateOff Then
 			extraballight.state=LightStateOff
 			AwardExtraBall
 		End If
 		If Countdown.enabled = false Then
-			FlashForMs Light12, 1000,150, LightStateOff	
+			FlashForMs Light12, 1000,150, LightStateOff
 			If einsteinium = 0 Then
 				einsteinium = 1
 				PlaySound "Tabd69"
@@ -1555,7 +1559,7 @@ Sub KickerEinsteinium_Hit()
 			Else
 				PlaySound "Tabd23"
 			End If
-		Else	
+		Else
 			PlaySound "Tabd23"
 			AddScore 40000
 		End If
@@ -1600,14 +1604,14 @@ End Sub
 
 Sub Tower_Timer()
 	if IgorSink.TimerEnabled = False Then
-		Tower.TimerEnabled = False		
+		Tower.TimerEnabled = False
 		FlashForMS Bulb1, 500, 100, LightStateOff
 
 		Dim Ball
 		Set Ball = IgorSink.CreateSizedballWithMass(Ballsize/2,Ballmass)
 		Ball.image="Ball_Final"
 		'IgorSink.CreateBall.image="Ball_Final"
-		
+
 		IgorSink.TimerEnabled = True
 		Tower.DestroyBall
 		PlaySound "Tabd38"
@@ -1681,12 +1685,12 @@ End Sub
 
 Sub flask_Hit()
 	PlaySound"Tabd36" 'mix elements
-																			  
+
 	If SkipAward = 1 Then
 		playsound "tabd58"
 		AddScore 500000
-		SkipAward = 0 
-	Else 
+		SkipAward = 0
+	Else
 		ElixirAward()
 		PotionBonus = PotionBonus + 1
 	End If
@@ -1720,7 +1724,7 @@ Sub ClearFlask()
 	if einsteinium then AddScore 50000
 	if lecithin then AddScore 50000
 	ResetElixir()
-	PlaySound"Tabd03"																					
+	PlaySound"Tabd03"
 	vuk.kick 185, 10
 	PlaySound "fx_kicker"
 	DOF 126, DOFPulse
@@ -1751,29 +1755,29 @@ Sub ElixirAward()
 				Case 5: AddScore 500000
 		End Select
 		If einsteiniumcount <> 5 Then einsteiniumcount = einsteiniumcount + 1
-	Elseif battongue=0 and Yttrium=0 and einsteinium=0 and lecithin=1 Then 
+	Elseif battongue=0 and Yttrium=0 and einsteinium=0 and lecithin=1 Then
 		DMD_DisplayScene "Add to Jackpot","500000 Points",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 		AddJackpot(500000)
-	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=0 Then  
+	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=0 Then
 		OpenTeleporter
-	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=0 Then  
+	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=0 Then
 		Bumperhits = (INT(Bumperhits/10) + 1)*10
 		DMD_DisplayScene "Advance Bumpers", (BumperHits/10) + 1 &"X",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-	Elseif battongue=0 and Yttrium=0 and einsteinium=1 and lecithin=1 Then  
+	Elseif battongue=0 and Yttrium=0 and einsteinium=1 and lecithin=1 Then
 		BallSaver.Enabled=1
 		BallSaver.interval=25000
 		BallSaverLight.state=LightStateOn
 		DMD_DisplayScene "Ball Saver","Activated",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-	Elseif battongue=0 and Yttrium=1 and einsteinium=1 and lecithin=0 Then  
+	Elseif battongue=0 and Yttrium=1 and einsteinium=1 and lecithin=0 Then
 		LightClon.state = LightStateOn
 		DMD_DisplayScene "Ball Cloning","Activated",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-	Elseif battongue=1 and Yttrium=0 and einsteinium=1 and lecithin=0 Then  
+	Elseif battongue=1 and Yttrium=0 and einsteinium=1 and lecithin=0 Then
 		Bumperhits = 100
 		DMD_DisplayScene "Maximum Bumpers", (BumperHits/10) + 1 &"X",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=1 Then  
+	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=1 Then
 		If TableMultiplier <> 5 Then TableMultiplier = TableMultiplier + 1
 		SetTableMultiplier
-	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=1 Then  
+	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=1 Then
 		EnablePlasmaField
 	Elseif battongue=1 and Yttrium=1 and einsteinium=0 and lecithin=0 Then
 		DMD_DisplayScene "Big Score!",500000*TableMultiplier & " Points",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
@@ -1803,12 +1807,12 @@ Sub ElixirAward()
 				AddJackpot(1000000)
 			Else
 				AllElements = 1
-			End If	
+			End If
 		End If
 	End if
 End Sub
 
-Dim DisplayAward, DisplayElements 
+Dim DisplayAward, DisplayElements
 
 Sub UpdateElixir()
 	If battongue=0 and Yttrium=0 and einsteinium=1 and lecithin=0 Then
@@ -1820,21 +1824,21 @@ Sub UpdateElixir()
 				Case 4: DisplayAward = 250000*TableMultiplier & " Points"
 				Case 5: DisplayAward = 500000*TableMultiplier & " Points"
 		End Select
-	Elseif battongue=0 and Yttrium=0 and einsteinium=0 and lecithin=1 Then 
+	Elseif battongue=0 and Yttrium=0 and einsteinium=0 and lecithin=1 Then
 		DisplayAward = "Jackpot+ 500000"
 	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=0 Then
 		DisplayAward = "Open Teleporter"
 	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=0 Then
-		DisplayAward = "Increment Bumpers"  
-	Elseif battongue=0 and Yttrium=0 and einsteinium=1 and lecithin=1 Then  
+		DisplayAward = "Increment Bumpers"
+	Elseif battongue=0 and Yttrium=0 and einsteinium=1 and lecithin=1 Then
 		DisplayAward = "Ball Saver On"
-	Elseif battongue=0 and Yttrium=1 and einsteinium=1 and lecithin=0 Then  
+	Elseif battongue=0 and Yttrium=1 and einsteinium=1 and lecithin=0 Then
 		DisplayAward = "Enable Cloning"
-	Elseif battongue=1 and Yttrium=0 and einsteinium=1 and lecithin=0 Then  
+	Elseif battongue=1 and Yttrium=0 and einsteinium=1 and lecithin=0 Then
 		DisplayAward = "Maximum Bumpers"
-	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=1 Then  
+	Elseif battongue=0 and Yttrium=1 and einsteinium=0 and lecithin=1 Then
 		DisplayAward = "Adv Table Multiplier"
-	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=1 Then  
+	Elseif battongue=1 and Yttrium=0 and einsteinium=0 and lecithin=1 Then
 		DisplayAward = "Enable Plasma Field"
 	Elseif battongue=1 and Yttrium=1 and einsteinium=0 and lecithin=0 Then
 		DisplayAward = "Score " & 500000*TableMultiplier
@@ -1847,10 +1851,10 @@ Sub UpdateElixir()
 	Elseif battongue=1 and Yttrium=1 and einsteinium=0 and lecithin=1 Then
 		DisplayAward = "5x Table Multiplier"
 	Elseif battongue=1 and Yttrium=1 and einsteinium=1 and lecithin=1 Then
-						 
+
 		DisplayAward = "Ex Ball + " & 1*TableMultiplier &"M Pts"
-	 
-	Else	
+
+	Else
 		DisplayAward = ""
 	End If
 
@@ -1873,13 +1877,13 @@ Sub ScoreElixirHit()
 End Sub
 
 Sub StartMultiball()
-																											 
+
 	WallSinkTimer.interval=750
-	WallSinkTimer.enabled=True	
+	WallSinkTimer.enabled=True
 End Sub
 
 Sub WallSinkTimer_Timer()
-	If BallsOnPlayfield < 5 Then	
+	If BallsOnPlayfield < 5 Then
 		FlashForMs Flasher99, 100, 100, LightStateOff
 
 		Dim Ball
@@ -1912,7 +1916,7 @@ Sub SetTableMultiplier()
 	End Select
 
 	Playsound "Tabd23"
-	
+
 	If TableMultiplier > 1 Then
 		DMD_DisplayScene "Adv Table Multiplier", TableMultiplier & "X",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 	End If
@@ -1920,7 +1924,7 @@ End Sub
 
 Sub LightExtraBall()
 	extraballight.state = LightStateOn
-																						
+
 End Sub
 
 Sub AwardExtraBall()
@@ -1952,7 +1956,7 @@ Sub StartExperiment()
 		Elseif E.state=LightStateBlinking Then
 			MonsterToLifeMode
 		end if
-						  
+
 	Else
 		ModeTime = ModeTime + 10
 		DisplayModeTime
@@ -1968,15 +1972,15 @@ Sub ResetLights()
 	Light5.BlinkInterval=100:Light5.state=LightStateOff
 	Light9.BlinkInterval=100:Light9.state=LightStateOff
 	Light12.BlinkInterval=100:Light12.state=LightStateOff
-	LightIgor.state=LightStateOff	
+	LightIgor.state=LightStateOff
 End Sub
 
 Sub Countdown_Timer()
 	ModeTime = ModeTime - 1
 	If ModeTime < 0 Then ModeTime = 0
-	DisplayModeTime	
+	DisplayModeTime
 	If ModeTime = 0 then
-		ModeTime = 0 
+		ModeTime = 0
 		EndExperiment
 		Countdown.Enabled=False
 	End if
@@ -2066,8 +2070,8 @@ Sub ExperimentFailed()
 End Sub
 
 Sub RandomExperiment()
-			 
-																								
+
+
 	If A.state = LightStateBlinking then A.state = LightStateOff:A1.state = LightStateOff
 	If B.state = LightStateBlinking then B.state = LightStateOff:B1.state = LightStateOff
 	If C.state = LightStateBlinking then C.state = LightStateOff:C1.state = LightStateOff
@@ -2081,7 +2085,7 @@ Sub RandomExperiment()
 			Case 3: If BrainAndIQComplete Then RandomExperiment: Else C.state = LightStateBlinking:C1.state = LightStateBlinking
 			Case 4: If ElixirOfLifeComplete Then RandomExperiment: Else D.state = LightStateBlinking:D1.state = LightStateBlinking
 		End Select
-	End If	
+	End If
 	LightIgor.state = LightStateBlinking
 End Sub
 
@@ -2109,7 +2113,7 @@ Sub FightAngryMobMode()
 	plasmatext.visible = false
 	targetstext.imageA = "a_mobtargets"
 	CurExperiment = "AngryMob"
-	ShowExpUpdate = 0 
+	ShowExpUpdate = 0
 	ModeTime = 40
 	Countdown.enabled=True
 	PlaySound "Tabd45"
@@ -2120,7 +2124,7 @@ Sub FightAngryMobMode()
 	A.state=LightStateOn:A1.state = LightStateOn
 
 	RedTargetsHit = 0
- 
+
 	ResetRedTargets
 
 	myPlayMusicForMode(3)
@@ -2135,7 +2139,7 @@ Sub ScoreRedTarget()
 		Case 2,7: Playsound "Tabd48"
 		Case 3,8: Playsound "Tabd49":
 		Case 4: Playsound "Tabd50"
-	End Select	
+	End Select
 	RedTargetsHit = RedTargetsHit + 1
 	If RedTargetsHit = 5 Then AngryMobComplete = 1
 	If RedTargetsHit > 4 Then MobDefeated = "Mob Defeated"
@@ -2185,10 +2189,10 @@ Sub RaidTheGraveyardMode()
 
 	DMD_DisplayScene "Raid The","Graveyard",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
 	DMD_DisplayScene "Shoot Flashing","Lights",UltraDMD_Animation_ScrollOnLeft, UltraDMD_deOn, UltraDMD_Animation_None
-																									
+
 
 	B.state=LightStateOn:B1.state = LightStateOn
-	
+
 	if leg1.visible = false then Light5.state = LightStateBlinking
 	if leg2.visible = false then Light9.state = LightStateBlinking
 
@@ -2201,7 +2205,7 @@ Sub AddBodyPartBT()
 		AddScore 125000
 		PlaySound "Tabd44"
 		PartsBonus = PartsBonus + 1
-	Else 
+	Else
 		AddScore 75000
 	End If
 
@@ -2225,7 +2229,7 @@ Sub AddBodyPartYT()
 		AddScore 75000
 		PlaySound "Tabd43"
 		PartsBonus = PartsBonus + 1
-	Else 
+	Else
 		AddScore 40000
 	End If
 
@@ -2245,7 +2249,7 @@ End Sub
 
 Sub CheckMonsterParts()
 	If leg1.visible = true and leg2.visible = true Then
-																				   
+
 		RaidGraveyardComplete = 1
 		EndExperiment
 	End If
@@ -2303,7 +2307,7 @@ Sub AddIQMercury()
 
 	if IQ <= 20 then
 		AddScore 2000*IQ
-	Else	
+	Else
 		AddScore 2000*20
 	End If
 End Sub
@@ -2315,7 +2319,7 @@ Sub AddIQLecithin()
 	Lightmercury.state = LightStateOff
 
 	If IQ < 65 then DMD_CancelRendering
-	
+
 	If IQ < 35 Then
 		IQ = 35
 		DMD_DisplayScene "Damaged Brain","IQ = 35",UltraDMD_Animation_ScrollOnDown, UltraDMD_deOn, UltraDMD_Animation_None
@@ -2333,7 +2337,7 @@ Sub AddIQLecithin()
 
 	if IQ <= 65 then
 		AddScore 2000*IQ
-	Else	
+	Else
 		AddScore 2000*65
 	End If
 End Sub
@@ -2344,7 +2348,7 @@ Sub AddIQYttrium()
 	PlaySound "tabd54"
 	Lightmercury.state = LightStateOff
 	Light4.state = LightStateOff
-	
+
 	If IQ < 105 then DMD_CancelRendering
 
 	if IQ < 75 then
@@ -2364,7 +2368,7 @@ Sub AddIQYttrium()
 
 	if IQ <= 105 then
 		AddScore 2000*IQ
-	Else	
+	Else
 		AddScore 2000*105
 	End If
 End Sub
@@ -2425,7 +2429,7 @@ Sub ScoreElixirHit()
 	AddScore 50000 + 50000*ElixirHits
 	PlaySound "tabd57"
 	CheckElements
-End Sub	
+End Sub
 
 Sub CheckElements()
 	If battongue = 1 then light9.state = LightStateOff Else light9.state = LightStateBlinking
@@ -2486,11 +2490,11 @@ End Sub
 
 Sub JackpotTimer_Timer ()
 	myPlayMusicForMode(6)
-	ResetExperiments 
+	ResetExperiments
 	ResetMonsterTargets
 	IQ=0
 	JackpotTimer.Enabled = FALSE
-End Sub	
+End Sub
 
 '******************************************************
 ' 						NEW GAME
@@ -2521,7 +2525,7 @@ Sub NewGame()
 	BulbBlue.state = LightStateOff
 	Lightspot2A.state = LightStateOn
 	Lightspot1.state = LightStateOn
-		
+
 	AllElements = 0
 	ExtraBalls = 0
 	Einsteiniumcount = 0
@@ -2597,12 +2601,12 @@ Sub PlungerState(state)
 		Plunger.Pullback
 		Plunger.timerinterval=300
 		Plunger.timerenabled=1
-		DOF 236, DOFOn  'DOF MX - Plunger Lane - Green flask	
+		DOF 236, DOFOn  'DOF MX - Plunger Lane - Green flask
 		DOF 223, DOFOff 'DOF MX - Turn off - Ready to Shoot
 		if state = 1 Then
 			if bBallInPlungerLane = TRUE Then PlaySound "Tabd64"
-		else 
-			PlaySound "Tabd70"	
+		else
+			PlaySound "Tabd70"
 			autoTimer.Enabled=True
 			CreateSaveBallTimer.Enabled = True
 		end if
@@ -2673,7 +2677,7 @@ Sub CorkTimer_timer()
 			Flame.enabled = false
 			flame1.visible = False
 	End Select
-		
+
 End Sub
 
 Sub BallreleaseTimer_Timer()
@@ -2693,7 +2697,7 @@ End Sub
 
 Sub CreateSaveBall()
 	SaverBalls = SaverBalls + 1
-	SaverTimer.enabled = true	
+	SaverTimer.enabled = true
 End sub
 
 Sub CreateSaveBallTimer_Timer()
@@ -2704,7 +2708,7 @@ Sub CreateSaveBallTimer_Timer()
 	DOF 113, DOFPulse
 	CreateSaveBallTimer.Enabled =False
 End Sub
-				 
+
 Sub SaverTimer_Timer()
 	If SaverBalls = 0 Then
 		SaverTimer.enabled = False
@@ -2726,7 +2730,7 @@ Sub Drain_Hit()
 	DOF 115, DOFPulse
 	Drain.DestroyBall
 	PlaySound "Drain"
-	DOF 210, DOFPulse 'DOF MX - Ball Drained									
+	DOF 210, DOFPulse 'DOF MX - Ball Drained
 	if (Light7blue.state = LightStateOff) and (Ballsaverlight.state = LightStateOff) then
 		BallsOnPlayfield = BallsOnPlayfield - 1
 		if (BallsOnPlayfield=0) then
@@ -2747,7 +2751,7 @@ Sub Drain_Hit()
 		elseif (Ballsaverlight.state <> LightStateOff) Then
 			PlaySound "Drain"
 			If Not UltraDMD.isRendering then DMD_DisplayScene "","Ball Saved", UltraDMD_Animation_ZoomIn, UltraDMD_deOn, UltraDMD_Animation_None
-			CreateSaveBall()						  
+			CreateSaveBall()
 		End If
 	Elseif vpTilted = True then
 		BallsOnPlayfield = BallsOnPlayfield - 1
@@ -2776,9 +2780,9 @@ Sub EndOfBall()
 		ExperimentFailed
 		E.state = LightStateOff:E1.state = LightStateOff
 	End If
-	If INT(rnd*2) = 1 then														 
+	If INT(rnd*2) = 1 then
 		PlaySound "Tabd67"
-	Else	
+	Else
 		Playsound "Tabd65"
 	End If
 	If vpTilted = False Then
@@ -2788,7 +2792,7 @@ Sub EndOfBall()
 		playmusic song
 		EndOfBall2
 	End If
-	
+
 End Sub
 
 Sub EndOfBall2()
@@ -2801,15 +2805,15 @@ Sub EndOfBall2()
 			DMD_DisplayScene "", "Shoot Again",UltraDMD_Animation_ZoomIn, UltraDMD_deOn, UltraDMD_Animation_None
 		End If
         EndOfBallComplete
-	Else 
+	Else
 		BallInPlay = BallInPlay + 1
   		If BallInPlay > nvBallsPerGame Then
 			BallInPlay = 0
 			CheckHS
 			EndOfGameTimer.enabled = True
 		Else
-			EndOfBallComplete							   
-		End if	
+			EndOfBallComplete
+		End if
 	End If
 End Sub
 
@@ -2834,7 +2838,7 @@ Sub CalcBonus()
 	DMD_DisplayScene "Body Part Bonus",PartsBonus & " X 100000",UltraDMD_Animation_ZoomIn, UltraDMD_deOn/2, UltraDMD_Animation_None
 	DMD_DisplayScene "Bonus Held",BonusHeld,UltraDMD_Animation_ZoomIn, UltraDMD_deOn/2, UltraDMD_Animation_None
 	DMD_DisplayScene "Total Bonus",TotalBonus,UltraDMD_Animation_ZoomIn, UltraDMD_deOn/2, UltraDMD_Animation_None
-	
+
 	AddScore TotalBonus
 	ScoreTimer.enabled = False
 
@@ -2843,11 +2847,11 @@ Sub CalcBonus()
 End Sub
 
 Sub BonusTimer_Timer()
-	If LeftFlipperDown = 1 and RightFlipperDown = 1 Then DMD_CancelRendering 
+	If LeftFlipperDown = 1 and RightFlipperDown = 1 Then DMD_CancelRendering
 	if Not UltraDMD.isrendering Then
 		EndOfBall2
 		BonusTimer.enabled = False
-	end if 
+	end if
 End Sub
 
 '******************************************************
@@ -2859,17 +2863,17 @@ Sub EndOfGame(dmd)
 	If dmd = 0 then
 		DMDIntroState = 4
 	Else
-		DMDIntroState = 0 
+		DMDIntroState = 0
 	End If
 	DMDIntro.interval = 4000
 	DMDIntro.Enabled = True
-						 
+
 	myPlayMusicForMode(7)
 
 	Jackpot.Play SeqMiddleInHorizOn, 90, 3
 	Lightwheel.Play SeqArcBottomLeftUpOn, 90,4:Lightwheel1.Play SeqArcBottomLeftUpOn, 90,4
 	Lightwheel.Play SeqArcBottomrightUpOn, 90,4:Lightwheel1.Play SeqArcBottomrightUpOn, 90,4
-	Lightwheel.Play SeqRandom, 90,4:Lightwheel1.Play SeqRandom, 90,4	
+	Lightwheel.Play SeqRandom, 90,4:Lightwheel1.Play SeqRandom, 90,4
 End Sub
 
 Sub EndOfGameTimer_Timer()
@@ -2903,15 +2907,15 @@ End Sub
 Dim TiltSens
 
 Sub CheckTilt
-	If Tilttimer.Enabled = True and vpGameInPlay = TRUE and VPTilted = False Then 
+	If Tilttimer.Enabled = True and vpGameInPlay = TRUE and VPTilted = False Then
 		TiltSens = TiltSens + 1
 		if TiltSens = 3 Then
 			vpTilted = True
-			PlaySound "Tabd67"	   
+			PlaySound "Tabd67"
 			DMD_CancelRendering
 			DMD_DisplayScene "","T I L T", UltraDMD_Animation_ScrollOnUp, UltraDMD_deOn, UltraDMD_Animation_None
 			endmusic
-		Else	
+		Else
 			PlaySound "Tabd52"
 			DOF 221, DOFPulse  'DOF MX - Nudge
 			DMD_CancelRendering
@@ -2922,7 +2926,7 @@ Sub CheckTilt
 			Else
 				DMD_DisplayScene "","Gently ...", UltraDMD_Animation_ScrollOnUp, UltraDMD_deOn, UltraDMD_Animation_None
 			End If
-			Tilttimer.enabled = False	
+			Tilttimer.enabled = False
 			Tilttimer.enabled = True
 		End If
 	Else
@@ -3004,8 +3008,8 @@ FlaskTimer.interval = 30
 
 Sub FlaskTimer_timer()
 	dim quartersfull
-	quartersfull = battongue + yttrium + lecithin + einsteinium	
-	
+	quartersfull = battongue + yttrium + lecithin + einsteinium
+
 	if quartersfull = 1 and flasklevel < 5 then flasklevel = flasklevel + 1
 	if quartersfull = 2 and flasklevel < 10 then flasklevel = flasklevel + 1
 	if quartersfull = 3 and flasklevel < 15 then flasklevel = flasklevel + 1
@@ -3017,14 +3021,14 @@ Sub FlaskTimer_timer()
 	if quartersfull = 3 then prim75.visible=true else prim75.visible=false
 	if quartersfull = 4 then prim100.visible=true else prim100.visible=false
 
-	If flasklevel = 0 then 
+	If flasklevel = 0 then
 		flasklightstate=0
 		LightSeq1.StopPlay
 		Flask21.State = 0
 	Else
 		if flasklightstate = 0 then
 			LightSeq1.UpdateInterval = 5
-			LightSeq1.Play SeqRandom, 340, 100	
+			LightSeq1.Play SeqRandom, 340, 100
 			Flask21.State = 1
 			flasklightstate = 1
 		end if
@@ -3034,7 +3038,7 @@ Sub FlaskTimer_timer()
 	dir3 = -1 * dir3
 
 	anglez3 = anglez3 + 1 * dirz3
-	if anglez3 => 360 then 
+	if anglez3 => 360 then
 		anglez3 = 0
 	end if
 
@@ -3064,7 +3068,7 @@ End sub
 ' *********************************************************
 ' Calculate X, Y and Z from latitude, longitude and radius
 ' *********************************************************
-Sub CalcXYZ (ballname, ballpos, length, angXY, angZ) 
+Sub CalcXYZ (ballname, ballpos, length, angXY, angZ)
 	Dim lat, lon
 
 	lat = angXY *  3.14159265359/180
@@ -3134,7 +3138,7 @@ Sub nameEntry
 	If UltraDMD.IsRendering Then UltraDMD.CancelRendering
 
 	If inChar = 91 Then		'character [
-		tmp = "<" 
+		tmp = "<"
 	Else
 		tmp = Chr(inChar)
 	End If
@@ -3198,7 +3202,7 @@ Sub ExitHs_timer
 	initials(1)=""
 	initials(2)=""
 	inChar = 65
-	SaveValue cGameName, HSNames(HSPlace),HighScoreName(HSPlace)		
+	SaveValue cGameName, HSNames(HSPlace),HighScoreName(HSPlace)
 	UltraDMD.CancelRendering
 	DMD_DisplayScene HSStrings(HSPlace),HighScoreName(HSPlace) & " " & formatnumber(highScore(HSPlace),0), UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
 End Sub
@@ -3268,18 +3272,18 @@ Sub LoadUltraDMD
         MsgBox "Incompatible Version of UltraDMD found."
         Exit Sub
     End If
-										   
+
 
     'A Minor version change indicates new features that are all backward compatible
     If UltraDMD.GetMinorVersion < 1 Then
         MsgBox "Incompatible Version of UltraDMD found.  Please update to version 1.1 or newer."
         Exit Sub
     End If
-				
-	
+
+
     UltraDMD.SetProjectFolder curDir & "\madscientist.UltraDMD"
     UltraDMD.SetVideoStretchMode UltraDMD_VideoMode_Middle
-	
+
 End Sub
 
 Sub DMD_DisplayScene(toptext,bottomtext,animateIn,pauseTime,animateOut)
@@ -3321,12 +3325,12 @@ Sub DMDIntro_Timer()
 		Case 1: DMD_DisplayScene "","MAD Scientist", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
 		Case 2: DMD_DisplayScene "Bring the Monster","To Life", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
 		Case 3: DMD_DisplayScene "","Now Have Fun", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
-		Case 4: if bFreePlay = True Then 
-					DMD_DisplayScene "Press Start","Free Play", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None 
-				elseif (nvcredits = 0) then 
-					DMD_DisplayScene "Insert Coin","Credits " & nvCredits, UltraDMD_Animation_None, 4000, UltraDMD_Animation_None 
-				elseif (nvcredits > 0) then 
-					DMD_DisplayScene "Press Start","Credits " & nvCredits, UltraDMD_Animation_None, 4000, UltraDMD_Animation_None 
+		Case 4: if bFreePlay = True Then
+					DMD_DisplayScene "Press Start","Free Play", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
+				elseif (nvcredits = 0) then
+					DMD_DisplayScene "Insert Coin","Credits " & nvCredits, UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
+				elseif (nvcredits > 0) then
+					DMD_DisplayScene "Press Start","Credits " & nvCredits, UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
 				end if
 		Case 5: DMD_DisplayScene "","Game Over", UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
 		Case 6: DMD_DisplayScene "Grand Champion",HighScoreName(2) & " " & formatnumber(highScore(2),0), UltraDMD_Animation_None, 4000, UltraDMD_Animation_None
@@ -3345,93 +3349,20 @@ Sub ScoreTimer_Timer()
 			IF vpTilted = True Then
 				DMD_DisplayScene "","T I L T", UltraDMD_Animation_ScrollOnUp, UltraDMD_deOn, UltraDMD_Animation_None
 			Else
-				DisplayScore		
+				DisplayScore
 				ScoreTimer.enabled = false
 			End If
 		Else
 			DisplayModeTime
 		end if
-	
+
 	End If
-							   
+
 End Sub
 
 Function NumberFormat(num)
 	NumberFormat = Replace(FormatNumber(num,0,False,False,True), ",", ".")
 End Function
-
-' *********************************************************************
-'                      Supporting Ball & Sound Functions
-' *********************************************************************
-
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
-End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
-
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
-End Function
-
-Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
-
-'*****************************************
-'      JP's VP10 Rolling Sounds
-'*****************************************
-
-Const tnob = 10 ' total number of balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
-End Sub
-
-Sub RollingUpdate()
-    Dim BOT, b, ballpitch
-    BOT = GetBalls
-
-    ' stop the sound of deleted balls
-    For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
-
-    ' exit the sub if no balls on the table
-    If UBound(BOT) = -1 Then Exit Sub
-
-    ' play the rolling sound for each ball
-    For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 Then
-            If BOT(b).z < 30 Then
-                ballpitch = Pitch(BOT(b) )
-            Else
-                ballpitch = Pitch(BOT(b) ) * 100
-            End If
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, ballpitch, 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
-        End If
-    Next
-End Sub
 
 Dim OldIQ
 
@@ -3442,7 +3373,7 @@ Sub RollingTimer_Timer()
 	if oldIQ <> IQ Then
 		dim brainsize: brainsize = 50
 		oldIQ = IQ
-		
+
 		select case (IQ)
 			Case 5: brainsize = 20
 			Case 10: brainsize = 22
@@ -3461,7 +3392,7 @@ Sub RollingTimer_Timer()
 			Case 180: brainsize = 48
 			Case 200: brainsize = 50
 		end select
-	
+
 
 		brain.size_X = brainsize
 		brain.size_Y = brainsize
@@ -3492,7 +3423,7 @@ Sub RollingTimer_Timer()
 		Else
 			clonetext.visible=false
 		End If
-		
+
 		If extraballight.state <> LightStateOff Then
 			extraballtext.visible=True
 		Else
@@ -3520,7 +3451,7 @@ Sub RollingTimer_Timer()
 			Else
 				lecithintext.visible=false
 			End If
-	
+
 			If yttrium = 0 Then
 				yttriumtext.visible=True
 				yttriumtext.ImageA="a_yttrium"
@@ -3624,17 +3555,17 @@ End Sub
 Dim VolumeDial
 VolumeDial=2
 
-Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall): End Sub 
-Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-	Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-	Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-	Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall): End Sub
+Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+	Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+	Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+	Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 Sub DropTargetSound():PlaySound SoundFXDOF("fx_droptarget",120,DOFPulse,DOFDropTargets), 0, 1:End Sub
 
@@ -3675,3 +3606,162 @@ Sub LRHelp_Hit()
     StopSound "fx_metalrolling"
     PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall)
 End Sub
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / table1.width-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioFade(ball) ' Can this be together with the above function ?
+  Dim tmp
+  tmp = ball.y * 2 / Table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 10 ' total number of balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub
+
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
+
