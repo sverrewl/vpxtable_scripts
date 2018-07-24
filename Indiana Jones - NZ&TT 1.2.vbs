@@ -2,11 +2,15 @@
 ' Thanks to destruk for previous code.
 ' Thanks to knorr and clark kent for the help and the resources.
 ' Thanks to flupper for bumper caps, flasher domes models.
-' Thanks to RustyCardores for SSF 
+' Thanks to RustyCardores for SSF
 ' Thanks to VP Dev team for the freaking amazing VPX!
 
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-24
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 '************************************************************************
 '							Table options
@@ -77,13 +81,13 @@ SolCallback(9)="vpmSolSound SoundFX(""LeftJetNOTUSED"",DOFContactors),"			'Left 
 SolCallback(10)="vpmSolSound SoundFX(""RightJetNOTUSED"",DOFContactors),"			'Right Bumper
 SolCallback(11)="vpmSolSound SoundFX(""BottomJetNOTUSED"",DOFContactors),"			'Bottom Bumper
 SolCallback(12)="vpmSolSound SoundFX(""RightSlingShot"",DOFContactors),"	'Right Sling
-SolCallback(13)="vpmSolSound SoundFX(""LeftSlingShot"",DOFContactors),"		'Left Sling	
+SolCallback(13)="vpmSolSound SoundFX(""LeftSlingShot"",DOFContactors),"		'Left Sling
 SolCallback(14)="vpmSolGate LeftGate,SoundFX(""DiverterOn"",DOFContactors),"	'Left ControlGate
 SolCallback(15)="vpmSolGate RightGate,SoundFX(""DiverterOn"",DOFContactors),"	'Right ControlGate
 SolCallback(16)="dtTotem.SolDropDown"										'TotemDropDown
 SolCallback(17)="SetLamp 17,"												'Insert:Eternal Life
 SolModCallback(18)="SetModLamp 18,"											'Flasher:Light JackPot
-SolCallback(19)="SetLamp 19,"												'Insert:Super Jackpot	
+SolCallback(19)="SetLamp 19,"												'Insert:Super Jackpot
 SolModCallback(20)="SetModLamp 20,"												'Flasher:JackPot
 SolModCallback(21)="SetModLamp 21,"												'Flasher:Path of Adventure
 SolCallback(22)="PoAMoveLeft"												'L_PoA (*)
@@ -117,8 +121,8 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 Dim bsTrough, bsLEject, bsSubway, bsPopper, bsIdol, dtTotem, dtBank, PoAMech
 
 Sub Table1_Init
-	vpmInit Me 
-	With Controller      
+	vpmInit Me
+	With Controller
 		.GameName = cGameName
 		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
 		.SplashInfoLine = "Indiana Jones - The Pinball Adventure (Williams 1993)"
@@ -135,6 +139,7 @@ Sub Table1_Init
 		.DIP(0)=&H00	'set dipswitch to USA
 		.Switch(22) = 1 'close coin door
 		.Switch(24) = 0 'always closed
+     InitVpmFFlipsSAM
 	End With
 
     ' Main Timer init
@@ -347,10 +352,10 @@ Sub UpdateIdol_timer
 	totem.rotz= -IdolPos:totem1.rotz = totem.rotz
 	Select Case IdolPos											'91		'92		'93
 		Case 0:Controller.Switch(122)=0:IPos=0			'Pos 1	  1      0       0
-		Case 60:Controller.Switch(123)=1:IPos=1			'Pos 2	  1      0       1    
+		Case 60:Controller.Switch(123)=1:IPos=1			'Pos 2	  1      0       1
 		Case 120:Controller.Switch(121)=0:IPos=2		'Pos 3    0      0       1
 		Case 180:Controller.Switch(122)=1:IPos=3		'Pos 4    0      1       1
-		Case 240:Controller.Switch(123)=0:IPos=4		'Pos 5    0      1       0    
+		Case 240:Controller.Switch(123)=0:IPos=4		'Pos 5    0      1       0
 		Case 300:Controller.Switch(121)=1:IPos=5		'Pos 6    1      1       0
 	End Select
 End Sub
@@ -450,8 +455,8 @@ Sub ExitBridge_hit:myball=empty:EnterPOA.TimerEnabled=0:PlaysoundAt "fx_ramp_tur
 End Sub
 
 Sub SolTopPostHold(Enabled)
-	If Enabled Then 
-		POADropTrack=1	
+	If Enabled Then
+		POADropTrack=1
 		DivHelp.IsDropped=1
 		DropPoA.IsDropped=0
 		TopPost.Z=-30:PlaysoundAt SoundFX("TopPostDown",DOFContactors),TopPost
@@ -580,7 +585,7 @@ Sub Bumper3_Hit():vpmTimer.PulseSw 37:PlaySoundAtBumperVol "BottomJet",Bumper3,2
 Sub Sw38_Hit():vpmTimer.PulseSw 38: PlaysoundAt SoundFX("fx_target",DOFTargets),ActiveBall: End Sub
 
 '*********** Left Ramp
-Sub Sw41_Hit():vpmtimer.pulseSw 41:End Sub 
+Sub Sw41_Hit():vpmtimer.pulseSw 41:End Sub
 Sub Sw118_Hit()
 vpmtimer.pulseSw 118:sw118p.Rotz=-50: Me.TimerEnabled=1:PlaysoundAt "fx_sensor",sw118
 If PropellerMod=1 Then RotatePropeller
@@ -605,7 +610,7 @@ Sub PropellerMove_Timer()
 End Sub
 
 '*********** Right Ramp
-Sub Sw42_Hit():vpmtimer.pulseSw 42:End Sub 
+Sub Sw42_Hit():vpmtimer.pulseSw 42:End Sub
 Sub Sw74_Hit():vpmtimer.pulseSw 74:sw74p.Rotz=-30:Me.TimerEnabled=1:PlaysoundAt "fx_sensor",sw74: End Sub
 Sub Sw74_timer:Me.TimerEnabled=0:sw74p.Rotz=0:End Sub
 
@@ -621,7 +626,7 @@ Sub sw45_hit():vpmtimer.pulseSw 45:SoundHole45:End Sub
 Sub Sw64_Hit():vpmTimer.PulseSw 64: PlaysoundAtBall SoundFX("fx_target",DOFTargets): End Sub
 
 '*********** Captive Ball Opto
-Sub Sw71_Hit:Controller.Switch(71) = 1:End Sub 
+Sub Sw71_Hit:Controller.Switch(71) = 1:End Sub
 Sub Sw71_UnHit:Controller.Switch(71) = 0:End Sub
 
 '*********** Adventure Targets
@@ -930,15 +935,15 @@ End Sub
 
 Sub SoundHole45()
 	PlaySoundAtVol "fx_hole3",sw45,.5
-End Sub 
+End Sub
 
 Sub SoundHole72()
 	PlaySoundAtVol "fx_hole3",sw72,.2
-End Sub 
+End Sub
 
 Sub SoundHole73()
 	PlaySoundAtVol "fx_hole3",sw73,.2
-End Sub 
+End Sub
 
 ' *********************************************************************
 ' 					Ball Drop & Ramp Sounds
@@ -1064,7 +1069,7 @@ Sub MechsUpdate()
 End Sub
 
 ' *********************************************************************
-'					Table Options 
+'					Table Options
 ' *********************************************************************
 Dim InstrChoice, FlipperChoice
 
@@ -1077,7 +1082,7 @@ Sub InitOptions
 		sw38.image="target-slim":sw51.image="target-round":sw52.image="target-round":sw53.image="target-round":sw61.image="target-round":sw62.image="target-round":sw63.image="target-round"
 	Else
 		sw38.image="target_slim":sw51.image="target_U":sw52.image="target_R":sw53.image="target_E":sw61.image="target_A":sw62.image="target_D":sw63.image="target_V"
-	End If		
+	End If
 	If SideCabDecals=0 Then
 		LeftCab.image = "sidecabL":RightCab.image = "sidecabR"
 	Else
@@ -1156,43 +1161,43 @@ Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
 End Sub
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 .3, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
 Sub MetalGuideBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump2 2, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub MetalWallBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, 20000 'Increased pitch to simulate metal wall
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
