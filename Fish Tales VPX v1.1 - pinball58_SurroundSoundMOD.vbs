@@ -10,6 +10,11 @@
 'Thanks to VPDev Team for the freaking amazing VPX
 '*************************************************************************************************************************************************************
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -112,7 +117,7 @@ Set bsVUK=New cvpmSaucer
  		.InitSounds "kicker_enter_center",SoundFX(SSolenoidOn,DOFContactors),SoundFX("vuk_exit",DOFContactors)
         .CreateEvents "bsVUK", Sw47
  	End With
- 
+
 'Catapult
 Set bsCatapult = new cvpmSaucer
  	With bsCatapult
@@ -163,7 +168,7 @@ Set bsReel3 = new cvpmTrough
 	MoveGate=True
 	Ramp15.visible=DesktopMode:Ramp16.visible=DesktopMode
 	f27Fs.Visible = Not DesktopMode
-	If Not DesktopMode Then FsSetup 
+	If Not DesktopMode Then FsSetup
 End Sub
 
 '*************************************************
@@ -198,7 +203,7 @@ Sub SolRFlipper(Enabled)
 '************** Keys *************************
 
 Sub FishTales_KeyDown(ByVal keycode)
-If keycode = PlungerKey Then Controller.Switch(31) = 1 
+If keycode = PlungerKey Then Controller.Switch(31) = 1
 If keycode = LeftTiltKey Then PlaySound SoundFX("fx_nudge",0)
 If keycode = RightTiltKey Then PlaySound SoundFX("fx_nudge",0)
 If keycode = CenterTiltKey Then PlaySound SoundFX("fx_nudge",0)
@@ -213,17 +218,17 @@ End Sub
 '*********************************************
 
 '********* Solenoids ************
-  
+
 SolCallback(1)  =	"Auto_Plunger"
 SolCallback(2)	=	"SolCatapult"
 SolCallback(3)  =	"bsVUK.SolOut"
-SolCallback(6)  =   "vpmSolgate Gate,SoundFX(""diverter"", DOFContactors),"	
+SolCallback(6)  =   "vpmSolgate Gate,SoundFX(""diverter"", DOFContactors),"
 SolCallback(7)  =	"vpmSolSound SoundFX(""knocker"",DOFKnocker),"
 SolCallback(9)  = 	"bsTrough.SolIn"
 SolCallback(10) = 	"bsTrough.SolOut"
 SolCallback(11) = 	"bsFishFinder.SolOut"
-SolCallback(12) =	"dtDrop.SolDropUp"							
-SolCallback(13) =	"dtDrop.SolDropDown"					
+SolCallback(12) =	"dtDrop.SolDropUp"
+SolCallback(13) =	"dtDrop.SolDropDown"
 SolCallback(28) =   "ReelMotor"
 SolCallback(51)	= 	"bsReel1.SolOut"
 SolCallback(52)	= 	"bsReel2.SolOut"
@@ -280,7 +285,7 @@ End Sub
 Dim ReelPosition,PosInitial
 
 Sub ReelMotor(enabled)
- 	If enabled Then 
+ 	If enabled Then
  		ReelRotation
 		PlaySoundAtVol SoundFX("motor_on",DOFGear),ReelEnter,.05
  	Else
@@ -291,10 +296,10 @@ End Sub
 Sub ReelRotation
   	ReelTimer.enabled=1
  	ReelPosition=0
-	PosInitial=Reel.RotX 
+	PosInitial=Reel.RotX
 End Sub
 
-Sub ReelTimer_Timer() 	
+Sub ReelTimer_Timer()
 	Reel.RotX=PosInitial+ReelPosition
  	ReelPosition=ReelPosition+10
  	If ReelPosition>120 Then
@@ -304,7 +309,7 @@ Sub ReelTimer_Timer()
  	End If
 End Sub
 
-Sub ReelEnter_Hit() 	
+Sub ReelEnter_Hit()
   Dim nHole
     Stopsound "metal"
 	PlaySoundAt "hop2",ReelEnter
@@ -321,9 +326,9 @@ Sub ReelEnter_Hit()
 		Case Else
 		     'No hole up, we'll call this method again in 500 ms, and try again!
 		     VPMPulseTimer.AddTimer 500,"ReelEnter_Hit '"
-	End Select	 
+	End Select
 End Sub
- 
+
 '*********************************************************************
 
 '****************** Switches *********************
@@ -361,38 +366,38 @@ Sub sw66_Hit():VPMTimer.PulseSw 66:PlaySound "rollover",0,1,Pan(ActiveBall),0,0,
 '**************************************************
 
 '********** Bumpers **********************************************
-   
+
 Sub Bumper1_Hit
-VPMTimer.PulseSw 51 
-	Dim BumpSound         
+VPMTimer.PulseSw 51
+	Dim BumpSound
 	BumpSound = Int(rnd*3)+1
 	Select Case BumpSound
 	Case 1: PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper1,2
 	Case 2: PlaySoundAtBumperVol SoundFX("fx_bumper2",DOFContactors),Bumper2,2
 	Case 3: PlaySoundAtBumperVol SoundFX("fx_bumper3",DOFContactors),Bumper3,2
-	End Select	  
+	End Select
 End Sub
 
 Sub Bumper2_Hit
-VPMTimer.PulseSw 52           
-	Dim BumpSound         
+VPMTimer.PulseSw 52
+	Dim BumpSound
 	BumpSound = Int(rnd*3)+1
 	Select Case BumpSound
 	Case 1: PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper1,2
 	Case 2: PlaySoundAtBumperVol SoundFX("fx_bumper2",DOFContactors),Bumper2,2
 	Case 3: PlaySoundAtBumperVol SoundFX("fx_bumper3",DOFContactors),Bumper3,2
-	End Select	  
+	End Select
 End Sub
 
 Sub Bumper3_Hit
-VPMTimer.PulseSw 53            
-	Dim BumpSound         
+VPMTimer.PulseSw 53
+	Dim BumpSound
 	BumpSound = Int(rnd*3)+1
 	Select Case BumpSound
 	Case 1: PlaySoundAtBumperVol SoundFX("fx_bumper1",DOFContactors),Bumper1,2
 	Case 2: PlaySoundAtBumperVol SoundFX("fx_bumper2",DOFContactors),Bumper2,2
 	Case 3: PlaySoundAtBumperVol SoundFX("fx_bumper3",DOFContactors),Bumper3,2
-	End Select	  
+	End Select
 End Sub
 
 '*****************************************************************
@@ -448,7 +453,7 @@ Sub IGUpdates_timer()
 		Primitive100.ObjRotY=Gate.CurrentAngle*(-1)
 		If Gate.CurrentAngle>=75 Then Primitive100.ObjRotY=-75 End If
 		If Gate.CurrentAngle<=0 Then Primitive100.ObjRotY=-15 End If
-		If Gate.Open=True Then 
+		If Gate.Open=True Then
 			Wall135.IsDropped=True
 		Else
 			Wall135.IsDropped=False
@@ -475,7 +480,7 @@ Sub GateAnim_timer()
 	GateAnim.enabled=0
 	Primitive100.ObjRotY=-15
 	MoveGate=True
-	End If	
+	End If
 End Sub
 
 Sub Wall135_Hit()
@@ -492,7 +497,7 @@ Sub GateAnim2_timer()
 	GateAnim2.enabled=0
 	Primitive100.ObjRotY=-15
 	MoveGate=True
-	End If	
+	End If
 End Sub
 
 '*****************************************************
@@ -515,7 +520,7 @@ Sub UpdateGI(nr, enabled)
 End Sub
 
 Sub UpdateGI2(no, step)
-    If step=0 Then exit Sub 
+    If step=0 Then exit Sub
     gistep=(step-1)/7
 
 	If gistep = 1 Then
@@ -527,14 +532,14 @@ Sub UpdateGI2(no, step)
     Select Case no
         Case 2	'Top GI
             For each xx in TopGI:xx.IntensityScale=gistep:next
-        Case 4	'Bottom GI		
+        Case 4	'Bottom GI
             For each xx in BottomGI:xx.IntensityScale=gistep:next
     End Select
 	FishTales.ColorGradeImage = "ColorGrade_" & step
 End Sub
 
 '*****************************************************
- 
+
 '***************************************************
 '       JP's VP10 Fading Lamps & Flashers
 '       Based on PD's Fading Light System
@@ -669,7 +674,7 @@ Sub UpdateLamps
 	Flashm 85, l85
 	Flash 85, l85b
 	Flash 86, l86
-	
+
 'Flashers
 	Flash 117, f17
 	Flash 118, f18
@@ -873,16 +878,16 @@ Sub RollingTimer_Timer()
 			if BOT(b).z < 30 Then ' Ball on playfield
 				If FishTales.VersionMinor > 3 OR FishTales.VersionMajor > 10 Then
 						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-				Else		
+				Else
 						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
 				End If
 			Else ' Ball on raised ramp
 				If FishTales.VersionMinor > 3 OR FishTales.VersionMajor > 10 Then
 						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
-				Else		
+				Else
 						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0
 				End If
-			End If 
+			End If
 		Else
             If rolling(b) = True Then
                 StopSound("fx_ballrolling" & b)
@@ -941,7 +946,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 100, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1) 
+		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 100, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 '***********************************************************************************************
@@ -975,7 +980,7 @@ Sub Tock_timer():PlaySound "ballhop",0,1,.2,0,0,0,1,-.4:Tock.enabled=0:End Sub
 'Sub Trigger5_Hit():PlaySound "fx_metalrolling",0,Vol(ActiveBall),Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):End Sub 'Left Boat Ramp Hit
 'Sub Trigger6_Hit():PlaySound "fx_metalrolling",0,Vol(ActiveBall),Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):End Sub 'Right Boat ramp Hit
 Sub Trigger7_Hit():Trigger8.enabled=1:StopSound "fx_metalrolling":End Sub 'Exit Left Boat Ramp Playfield Hit
-Sub Trigger8_Hit():PlaySound "ballhop",0,1,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):Trigger8.enabled=0:End Sub 
+Sub Trigger8_Hit():PlaySound "ballhop",0,1,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):Trigger8.enabled=0:End Sub
 Sub Trigger9_Hit():Trigger10.enabled=1:StopSound "fx_metalrolling":End Sub 'Exit Right Boat Ramp Playfield Hit
 Sub Trigger10_Hit():PlaySound "ballhop",0,1,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):Trigger10.enabled=0:End Sub
 Sub Wall48_Hit():PlaySound "rubber_hit_3",0,0.02,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall):End Sub 'Left Boat Ramp Stopper Hit
@@ -999,7 +1004,7 @@ Sub InitOptions
 	If RampDecals=0 Then Ramp34.visible=0:Ramp35.visible=0:Primitive132.visible=0:Primitive142.visible=1:Primitive133.visible=0:Primitive143.visible=1:End If
 	If FlippersColor=1 Then Primitive109.image="ft_flipper_left_GREEN":Primitive110.image="ft_flipper_right_GREEN":End If
 	If FlippersColor=2 Then Primitive109.image="ft_flipper_left_BLACK":Primitive110.image="ft_flipper_right_BLACK":End If
-	If FlippersColor=3 Then FlipColor=Int(Rnd*3)+1 End If   
+	If FlippersColor=3 Then FlipColor=Int(Rnd*3)+1 End If
 	Select Case FlipColor
 		Case 1 : Primitive109.image="ft_flipper_left":Primitive110.image="ft_flipper_right"
 		Case 2 : Primitive109.image="ft_flipper_left_GREEN":Primitive110.image="ft_flipper_right_GREEN"
@@ -1070,52 +1075,52 @@ End Sub
 '**********************************************************************
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub WireRampBumps2_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 .2, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 4, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .05 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
 Sub MetalGuideBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump2 2, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub MetalWallBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, 20000 'Increased pitch to simulate metal wall
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
