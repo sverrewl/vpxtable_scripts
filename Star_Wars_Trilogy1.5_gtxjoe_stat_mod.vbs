@@ -1,10 +1,11 @@
-
-
-
 ' Star Wars Trilogy / IPD No. 4054 / March 03, 1997 / 6 Players
 ' http://www.ipdb.org/machine.cgi?id=4054
 ' VP915 v1.0 by JPSalas 2013
 ' Thanks to Magnox, Subzero and wtiger for the old table
+
+' Thalamus 2018-07-24
+' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
@@ -280,7 +281,7 @@ End Sub
 Sub DMDLocal
 
 
-'If DMDLocalScreen.Visible = 0 THEN 
+'If DMDLocalScreen.Visible = 0 THEN
 DMDLocalScreen.Visible = 1
 'Else
 'DMDLocalScreen.Visible = 0
@@ -453,10 +454,10 @@ Sub Cannonanimate_Timer
 
     Select case cannonpos
         Case 0:Laser.enabled = True: cannonMuzzle.Y=cannonMuzzle.Y-15:cannonMuzzle.X=cannonMuzzle.X-15
-        Case 1:cannonMuzzle.Y=cannonMuzzle.Y-9:cannonMuzzle.X=cannonMuzzle.X-9:cannonBase.Y=cannonBase.Y-1:cannonBase.X=cannonBase.X-1 
-        Case 2:cannonMuzzle.Y=cannonMuzzle.Y-5:cannonMuzzle.X=cannonMuzzle.X-5:cannonBase.Y=cannonBase.Y-3:cannonBase.X=cannonBase.X-3 
-        Case 3:cannonMuzzle.Y=cannonMuzzle.Y-3:cannonMuzzle.X=cannonMuzzle.X-3:cannonBase.Y=cannonBase.Y-1:cannonBase.X=cannonBase.X-1 
-        Case 4:cannonMuzzle.Y=cannonMuzzle.Y+3:cannonMuzzle.X=cannonMuzzle.X+3:cannonBase.Y=cannonBase.Y+1:cannonBase.X=cannonBase.X+1 
+        Case 1:cannonMuzzle.Y=cannonMuzzle.Y-9:cannonMuzzle.X=cannonMuzzle.X-9:cannonBase.Y=cannonBase.Y-1:cannonBase.X=cannonBase.X-1
+        Case 2:cannonMuzzle.Y=cannonMuzzle.Y-5:cannonMuzzle.X=cannonMuzzle.X-5:cannonBase.Y=cannonBase.Y-3:cannonBase.X=cannonBase.X-3
+        Case 3:cannonMuzzle.Y=cannonMuzzle.Y-3:cannonMuzzle.X=cannonMuzzle.X-3:cannonBase.Y=cannonBase.Y-1:cannonBase.X=cannonBase.X-1
+        Case 4:cannonMuzzle.Y=cannonMuzzle.Y+3:cannonMuzzle.X=cannonMuzzle.X+3:cannonBase.Y=cannonBase.Y+1:cannonBase.X=cannonBase.X+1
         Case 5:cannonMuzzle.Y=cannonMuzzle.Y+5:cannonMuzzle.X=cannonMuzzle.X+5:cannonBase.Y=cannonBase.Y+3:cannonBase.X=cannonBase.X+3
         Case 6:cannonMuzzle.Y=cannonMuzzle.Y+9:cannonMuzzle.X=cannonMuzzle.X+9:cannonBase.Y=cannonBase.Y+1:cannonBase.X=cannonBase.X+1
         Case 7:cannonMuzzle.Y=cannonMuzzle.Y+15:cannonMuzzle.X=cannonMuzzle.X+15
@@ -518,7 +519,7 @@ End Sub
 Sub XWingMotor(Enabled)
 
 
-  If Enabled Then 
+  If Enabled Then
 
 
 
@@ -842,7 +843,7 @@ Sub RollingTimer_Timer()
 
 	' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 Then 'AND BOT(b).z < 30 
+        If BallVel(BOT(b) ) > 1 Then 'AND BOT(b).z < 30
             If BOT(b).z > 30 Then
             Rampy = 2
             Else
@@ -855,7 +856,7 @@ Sub RollingTimer_Timer()
 			'      Hanibal's VP10 Automated Collision Detection Sounds
 			'***********************************************************
 
-			IF Pan(BOT(b) ) > 8 Then 
+			IF Pan(BOT(b) ) > 8 Then
 			PlaySound("fx_rubber2"), 0, Vol(BOT(b)), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
 			End IF
 
@@ -877,8 +878,6 @@ End Sub
 Sub OnBallBallCollision(ball1, ball2, velocity)
 	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
 End Sub
-
-
 
 '**********************************
 '  JP's Fading Lamps v7.0 VP912
@@ -1038,7 +1037,7 @@ Sub FlasherTimer_Timer()
     Flash 54, z54
     Flash 55, z55
     Flash 56, z56
-   
+
 
 
 '**************GI LIGHTS*************
@@ -1118,10 +1117,10 @@ Sub FlasherTimer_Timer()
 
 
 '***************Flashers Hanibal Spezial*************
-  
 
 
- 
+
+
 	FlashHan 3, F3a
     FlashHan 3, F3b
     FlashHan 3, f3c
@@ -1135,8 +1134,8 @@ Sub FlasherTimer_Timer()
     FlashHan 8, F8a
     FlashHan 8, F8b
     FlashHan 8, F8c
-    FlashHan 8, F8d 
-    FlashHan 8, f8e 
+    FlashHan 8, F8d
+    FlashHan 8, f8e
     FlashHan 8, f8f
 
     FlashSoundHan 3, FlashSoundA
@@ -1144,7 +1143,7 @@ Sub FlasherTimer_Timer()
     FlashSoundHan 8, FlashSoundC
 
 
- 
+
 
  End Sub
 
@@ -1190,10 +1189,10 @@ End Sub
 Sub FlashSoundHan(nr, value) ' used for playing sound to Light
 
     Select Case FlashState(nr)
-        
+
         Case 0: value = 1
         Case 1: If value = 1 Then Playsound "Relais", 1, 0.005, 0, 1: value = 0
-  
+
     End Select
 
 End Sub
@@ -1206,7 +1205,7 @@ End Sub
 Sub LightHan(nr, object) ' used for multiple lights and pass playfield
     Select Case FadingLevel(nr)
         Case 4:object.state = 0 : object.image = "lights"
-        Case 5:object.state = 1 : object.image = "lights_on" 
+        Case 5:object.state = 1 : object.image = "lights_on"
     End Select
 End Sub
 
@@ -1272,10 +1271,10 @@ End Sub
 ' Diverse Help/Sounds
 '********************
 
-Sub AllRubbers_Hit(idx):PlaySound "fx_rubber", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1:End Sub
-Sub AllPostRubbers_Hit(idx):PlaySound "fx_rubber", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1:End Sub
-Sub AllMetals_Hit(idx):PlaySound "fx_MetalHit", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1:End Sub
-Sub AllGates_Hit(idx):PlaySound "fx_Gate", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1:End Sub
+Sub AllRubbers_Hit(idx):PlaySound "fx_rubber", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall):End Sub
+Sub AllPostRubbers_Hit(idx):PlaySound "fx_rubber", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall):End Sub
+Sub AllMetals_Hit(idx):PlaySound "fx_MetalHit", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall):End Sub
+Sub AllGates_Hit(idx):PlaySound "fx_Gate", 0, (20 + Vol(ActiveBall)), (20+Pan(ActiveBall)), Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall):End Sub
 Sub RHelp1_hit
     Playsound "fx_ballhit"
 End Sub
