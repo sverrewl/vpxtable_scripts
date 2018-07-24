@@ -12,11 +12,10 @@
 '		use to turn on 'balls in play', 'match', and table settings
 '__________________________________________________
 '
-
-
+' Thalamus 2018-07-24
+' This table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
 
 Option Explicit
-
 
 LoadVPM "01500000","bally.vbs",3.1
 Sub LoadVPM(VPMver,VBSfile,VBSver)
@@ -75,15 +74,15 @@ ExtraKeyHelp = "Left Ctrl" & vbTab & "(unknown cabinet switch)"
 Sub MrMsPacMan_Init
 
 	MrMSPacMan.YieldTime = 1
-	
-	Set PlungerIM = New cvpmImpulseP	
+
+	Set PlungerIM = New cvpmImpulseP
 	PlungerIM.InitImpulseP IMPlunger,66,1.6
 	PlungerIM.CreateEvents "plungerIM"
 	'PlungerIM.InitExitSnd "", "pinhit"
-					
-	Set LampCallback = GetRef("UpdateLamps") 
+
+	Set LampCallback = GetRef("UpdateLamps")
 	Set MotorCallback = GetRef("UpdateSolenoids")
-	With Controller 
+	With Controller
 		.GameName = cGameName
 		.SplashInfoLine = cCredits
 		.HandleKeyboard = False
@@ -133,7 +132,7 @@ Sub MrMsPacMan_Init
 	bsEject.InitExitSnd "Saucer","Saucer"
 
 	GIt.Enabled=True
-	
+
 	sblmatch.isdropped=True
 	sblhighscore.isdropped=False
 
@@ -173,7 +172,7 @@ bumper1.timerenabled=false
 bumper2.timerenabled=false
 
 Sub GIt_Timer
-	If ShowDT=True Then 
+	If ShowDT=True Then
 		Light16.state=1
 		Light32.state=1
 	End If
@@ -200,9 +199,9 @@ Function SoundFX (sound)
 End Function
 
 Const SoundPanning = 1										'1 enables sound panning for VPinball v9.16 and above
-Const TableWidth = 1000                         	        'used for sound panning, enter the value specified in table options "Table Width" 
+Const TableWidth = 1000                         	        'used for sound panning, enter the value specified in table options "Table Width"
 Const PanningFactor = 0.7									'panning factor 0..1, 1 = left speaker off, if ball is rightmost and vice versa, 0 = no panning
-	
+
 Const SoundVel = 4											'sound is played if ball velocity is above this threshold
 
 'Ball-assignment
@@ -230,11 +229,11 @@ Sub SoundTimer_Timer
 
 	If SoundBall.Z > 30 Then	        					'Ball radius is 24, so the ball is definitely above the playfield - must be adjusted, if playfield level is not 0
 		If Flying = 0 Then StopAllSounds
-		Flying = 1	
+		Flying = 1
 		If OnRamp = 0 Then Exit Sub							'no sound if "in the air"
 	Else
 		If Flying = 1 Then 									'Ball is returning to the playfield
-			If OnRamp = 0 Then 									'no sound if the ball returns down a ramp 
+			If OnRamp = 0 Then 									'no sound if the ball returns down a ramp
 				StopAllSounds
 				If soundPanning = 1 Then
 					PlaySound "BallCollision2",1,1,Panning,0
@@ -249,12 +248,12 @@ Sub SoundTimer_Timer
 	End If
 
 	BallVel = SQR((SoundBall.velx^2) + (SoundBall.vely^2))  'calculating the speed vector within the X/Y plane only once per timer call
-	
-	If SoundActive = 0 Then									'play new sounds only after the current sound has ended	  	
-		If BallVel > SoundVel Then							'if velocity exceeds the threshold a sound will be played	
+
+	If SoundActive = 0 Then									'play new sounds only after the current sound has ended
+		If BallVel > SoundVel Then							'if velocity exceeds the threshold a sound will be played
 			SoundActive = 1
 			If OnRamp = 1 Then
-				If WireRamp = 1 Then								'Ball is on a wire ramp	
+				If WireRamp = 1 Then								'Ball is on a wire ramp
 					If soundPanning = 1 Then
 						PlaySound "WireRamp1",1,1,Panning,0.25
 					Else
@@ -262,33 +261,33 @@ Sub SoundTimer_Timer
 					End If
 				Else												'Ball is on a normal ramp
 					If soundPanning = 1 Then
-						PlaySound "Ballroll3",1,1,Panning,0.25			
+						PlaySound "Ballroll3",1,1,Panning,0.25
 					Else
 						PlaySound "Ballroll3"
 					End If
 				End If
 			Else												'Ball is on the playfield, sound will be played as a loop
 				If soundPanning = 1 Then
-					PlaySound "roll1",-1,1,Panning,0.35			
+					PlaySound "roll1",-1,1,Panning,0.35
 				Else
 					PlaySound "roll1",-1,1
 				End If
 			End If
-		End If	
+		End If
 		Exit Sub
 	Else
 		If BallVel < SoundVel Then							'Sound is active and ball velocity drops below the threshold --> stop any sound active
-			StopAllSounds										'sound stopped so a new sound can be started			
-		End If	
+			StopAllSounds										'sound stopped so a new sound can be started
+		End If
 	End If
 End Sub
 
 Sub StopAllSounds()
-	SoundActive = 0	
+	SoundActive = 0
 	StopSound "WireRamp1"
 	StopSound "Ballroll3"
 	StopSound "Ballroll2"
-	StopSound "roll1"	
+	StopSound "roll1"
 End Sub
 
 Hit=0:domaze=0
@@ -298,47 +297,47 @@ Hit=0:domaze=0
 '-------------------
 Sub MrMsPacMan_KeyUp(ByVal keycode)
 	If keycode = 29 Then Controller.Switch(31) = False
-	If vpmKeyUp(keycode) Then		
+	If vpmKeyUp(keycode) Then
 		Exit Sub
 	End If
-	If keycode = PlungerKey Then 
+	If keycode = PlungerKey Then
 		Plunger1.Fire
-		PlungerIM.Fire	
+		PlungerIM.Fire
 		playsound "pinhit"
-	End If	
+	End If
 End Sub
 
 Sub MrMsPacMan_KeyDown(ByVal keycode)
 	If keycode = LeftTiltKey Then
 		playsound "wood2"
 		Nudge 45, 3
-	End If  	
+	End If
 	If keycode = RightTiltKey Then
 		playsound "wood2"
 		Nudge 315, 3
-	End If	    	   
+	End If
 	If keycode = CenterTiltKey Then
-		playsound "wood2"				
+		playsound "wood2"
 		Nudge 0, 3
 	End If
 	If keycode = 29 Then Controller.Switch(31) = True
 	If vpmKeyDown(keycode) Then
 		If keycode=2 Then
 			If sblgameover.isdropped=False And light13.state=1 Then
-				lightsoff 
+				lightsoff
 				wall214.timerenabled=True
 				keycode=0
 			End If
 		End If
 		Exit Sub
 	End If
- 	If keycode = StartGameKey Then 
+ 	If keycode = StartGameKey Then
 		playsound "coin"
 	End If
-	If keycode = PlungerKey Then 		
+	If keycode = PlungerKey Then
 		Plunger1.Pullback
-		PlungerIM.Pullback		
-		IMPlunger.timerenabled=True		
+		PlungerIM.Pullback
+		IMPlunger.timerenabled=True
 	End If
 End Sub
 
@@ -353,7 +352,7 @@ Sub UpdateSolenoids
 			If SolNo >= 9 And SolNo <= 15 And sel Then solNo = solNo + 24 '9->33 etc
 			funcName = SolCallback(solNo)
 			If funcName <> "" Then Execute funcName & " CBool(" & Changed(ii, CHGSTATE) &")"
-		Next		     
+		Next
 	End If
 End Sub
 
@@ -440,7 +439,7 @@ Sub DisplayTimer_Timer
 		light42r.state=1
 	Else
 		light42r.state=0
-	End If	
+	End If
 	If light45.state=1 Then
 		sblgameover.isdropped=False
 	Else
@@ -450,7 +449,7 @@ Sub DisplayTimer_Timer
 		sblhighscore.isdropped=False
 	Else
 		sblhighscore.isdropped=True
-	End If	
+	End If
 	If light59.state=1 Then
 		sblballinplay.isdropped=False
 	Else
@@ -460,14 +459,14 @@ Sub DisplayTimer_Timer
 		sblmatch.isdropped=False
 	Else
 		sblmatch.isdropped=True
-	End If	
+	End If
 	If light61.state=1 Then
 		sbltilt.isdropped=False
 		lightsoff
 	Else
 		sbltilt.isdropped=True
 	End If
-	
+
 End Sub
 
 
@@ -511,12 +510,12 @@ Sub UpdateLamps
 		End If
 	Next
 End Sub
- 
+
 ' Kickers
 Sub Drain_Hit
 	hit=0
 	playsound "drain"
-	bsTrough.AddBall Me	
+	bsTrough.AddBall Me
 End Sub
 
 Sub feed_UnHit
@@ -574,48 +573,48 @@ Sub TopT_timer
 	End If
 End Sub
 
-Const DropTgtMovementDir = "TransY" 
-Const DropTgtMovementMax = 49	
+Const DropTgtMovementDir = "TransY"
+Const DropTgtMovementMax = 49
 Const DropTgtMovementMax2 = 48
-Dim primCnt(100), primDir(100) 
+Dim primCnt(100), primDir(100)
 
-Sub Ghost13_Hit:   PrimDropTgtDown dtLDrop, 1, 1, Ghost13: End Sub 
+Sub Ghost13_Hit:   PrimDropTgtDown dtLDrop, 1, 1, Ghost13: End Sub
 Sub Ghost13_Timer: PrimDropTgtMove 1, Ghost13, Ghost13p: End Sub
-Sub Ghost14_Hit:   PrimDropTgtDown dtLDrop, 2, 2, Ghost14: End Sub 
+Sub Ghost14_Hit:   PrimDropTgtDown dtLDrop, 2, 2, Ghost14: End Sub
 Sub Ghost14_Timer: PrimDropTgtMove 2, Ghost14, Ghost14p: End Sub
-Sub Ghost15_Hit:   PrimDropTgtDown dtLDrop, 3, 3, Ghost15: End Sub 
+Sub Ghost15_Hit:   PrimDropTgtDown dtLDrop, 3, 3, Ghost15: End Sub
 Sub Ghost15_Timer: PrimDropTgtMove 3, Ghost15, Ghost15p: End Sub
-Sub Ghost16_Hit:   PrimDropTgtDown dtLDrop, 4, 4, Ghost16: End Sub 
+Sub Ghost16_Hit:   PrimDropTgtDown dtLDrop, 4, 4, Ghost16: End Sub
 Sub Ghost16_Timer: PrimDropTgtMove 4, Ghost16, Ghost16p: End Sub
 
-Sub Ghost17_Hit:   PrimDropTgtDown dtRDrop, 1, 25, Ghost17: End Sub 
+Sub Ghost17_Hit:   PrimDropTgtDown dtRDrop, 1, 25, Ghost17: End Sub
 Sub Ghost17_Timer: PrimDropTgtMove 25, Ghost17, Ghost17p: End Sub
-Sub Ghost18_Hit:   PrimDropTgtDown dtRDrop, 2, 26, Ghost18: End Sub 
+Sub Ghost18_Hit:   PrimDropTgtDown dtRDrop, 2, 26, Ghost18: End Sub
 Sub Ghost18_Timer: PrimDropTgtMove 26, Ghost18, Ghost18p: End Sub
-Sub Ghost19_Hit:   PrimDropTgtDown dtRDrop, 3, 27, Ghost19: End Sub 
+Sub Ghost19_Hit:   PrimDropTgtDown dtRDrop, 3, 27, Ghost19: End Sub
 Sub Ghost19_Timer: PrimDropTgtMove 27, Ghost19, Ghost19p: End Sub
-Sub Ghost20_Hit:   PrimDropTgtDown dtRDrop, 4, 28, Ghost20: End Sub 
+Sub Ghost20_Hit:   PrimDropTgtDown dtRDrop, 4, 28, Ghost20: End Sub
 Sub Ghost20_Timer: PrimDropTgtMove 28, Ghost20, Ghost20p: End Sub
 
-Sub TopT10_Hit:   PrimDropTgtDown dt3Drop, 1, 22, TopT10: End Sub 
+Sub TopT10_Hit:   PrimDropTgtDown dt3Drop, 1, 22, TopT10: End Sub
 Sub TopT10_Timer: PrimDropTgtMove2 22, TopT10, TopT10p: End Sub
-Sub TopT11_Hit:   PrimDropTgtDown dt3Drop, 2, 23, TopT11: End Sub 
+Sub TopT11_Hit:   PrimDropTgtDown dt3Drop, 2, 23, TopT11: End Sub
 Sub TopT11_Timer: PrimDropTgtMove2 23, TopT11, TopT11p: End Sub
-Sub TopT12_Hit:   PrimDropTgtDown dt3Drop, 3, 24, TopT12: End Sub 
+Sub TopT12_Hit:   PrimDropTgtDown dt3Drop, 3, 24, TopT12: End Sub
 Sub TopT12_Timer: PrimDropTgtMove2 24, TopT12, TopT12p: End Sub
 
-Sub soldtLDropReset (enabled) 
-	If enabled Then 
-		PrimDropTgtUp dtLDrop, 1, 1, Ghost13, 1 
-		PrimDropTgtUp dtLDrop, 2, 2, Ghost14, 0 
+Sub soldtLDropReset (enabled)
+	If enabled Then
+		PrimDropTgtUp dtLDrop, 1, 1, Ghost13, 1
+		PrimDropTgtUp dtLDrop, 2, 2, Ghost14, 0
 		PrimDropTgtUp dtLDrop, 3, 3, Ghost15, 0
 		PrimDropTgtUp dtLDrop, 4, 4, Ghost16, 0
 		PlaySound "TargetReset"
 	End If
 End Sub
 
-Sub soldtRDropReset (enabled) 
-	If enabled Then 
+Sub soldtRDropReset (enabled)
+	If enabled Then
 		PrimDropTgtUp dtRDrop, 1, 25, Ghost17, 1
 		PrimDropTgtUp dtRDrop, 2, 26, Ghost18, 0
 		PrimDropTgtUp dtRDrop, 3, 27, Ghost19, 0
@@ -624,15 +623,15 @@ Sub soldtRDropReset (enabled)
 	End If
 End Sub
 
-Sub soldt3DropReset (enabled) 
-	If enabled Then 
+Sub soldt3DropReset (enabled)
+	If enabled Then
 		PrimDropTgtUp dt3Drop, 1, 22, TopT10, 1
 		PrimDropTgtUp dt3Drop, 2, 23, TopT11, 0
 		PrimDropTgtUp dt3Drop, 3, 24, TopT12, 0
 		PlaySound "TargetReset"
 	End If
 End Sub
-	
+
 Sub soldtLDrop1 (enabled): PrimDropTgtDown dtLDrop, 1, 1, Ghost13: PlaySound "DropTarget":End Sub
 Sub soldtLDrop2 (enabled): PrimDropTgtDown dtLDrop, 2, 2, Ghost14: PlaySound "DropTarget":End Sub
 Sub soldtLDrop3 (enabled): PrimDropTgtDown dtLDrop, 3, 3, Ghost15: PlaySound "DropTarget":End Sub
@@ -652,7 +651,7 @@ Sub PrimDropTgtUp  (targetbankname, targetbanknum, swnum, wallName, resetvpmbank
 	If resetvpmbank = 1 Then targetbankname.DropSol_On
 End Sub
 
-Sub PrimDropTgtMove (swNum, wallName, primName) 'Customize direction as needed	
+Sub PrimDropTgtMove (swNum, wallName, primName) 'Customize direction as needed
 			If primDir(swNum) = 1 Then 'Up
 				Select Case primCnt(swNum)
 					Case 0: 	primName.TransY = -DropTgtMovementMax * .75
@@ -702,10 +701,10 @@ Sub PrimDropTgtAnimate  (swnum, wallName, dir)
 	primCnt(swnum) = 0
 	primDir(swnum) = dir
 	wallName.TimerInterval = 16
-	wallName.TimerEnabled = 1			
+	wallName.TimerEnabled = 1
 End Sub
 
- 
+
 ' Other targets
 Sub Wall22_Hit :Standup4.transx=6:wall22.timerenabled=true: vpmTimer.PulseSwitch 34, 0, 0 : playsound "wood" : End Sub
 Sub Wall24_Hit :Standup5.transx=6:wall24.timerenabled=true: vpmTimer.PulseSwitch 35, 0, 0 : playsound "wood" : End Sub
@@ -811,27 +810,27 @@ Set Matrix(4)  = Light4
 Set Matrix(5)  = Light5
 Set Matrix(6)  = Light6
 
-Set Matrix(17) = Light17  
-Set Matrix(18) = Light18   
-Set Matrix(19) = Light19  
-Set Matrix(20) = Light20  
-Set Matrix(21) = Light21   
-Set Matrix(22) = Light22  
+Set Matrix(17) = Light17
+Set Matrix(18) = Light18
+Set Matrix(19) = Light19
+Set Matrix(20) = Light20
+Set Matrix(21) = Light21
+Set Matrix(22) = Light22
 
-Set Matrix(33) = Light33   
-Set Matrix(34) = Light34  
-Set Matrix(35) = Light35  
-Set Matrix(36) = Light36  
-Set Matrix(37) = Light37  
-Set Matrix(38) = Light38  
+Set Matrix(33) = Light33
+Set Matrix(34) = Light34
+Set Matrix(35) = Light35
+Set Matrix(36) = Light36
+Set Matrix(37) = Light37
+Set Matrix(38) = Light38
 
-Set Matrix(49) = Light49  
-Set Matrix(50) = Light50  
-Set Matrix(51) = Light51  
-Set Matrix(52) = Light52  
-Set Matrix(53) = Light53  
-Set Matrix(54) = Light54  
-Set Matrix(55) = Light55  
+Set Matrix(49) = Light49
+Set Matrix(50) = Light50
+Set Matrix(51) = Light51
+Set Matrix(52) = Light52
+Set Matrix(53) = Light53
+Set Matrix(54) = Light54
+Set Matrix(55) = Light55
 
 ' Matrix Red
 Set Matrix(65) = Light65
@@ -894,40 +893,40 @@ Set Matrix(126) = Light126
 Set Matrix(127) = Light127
 ' Normal lights
 Set Lights(7)  = Light7
-Set Lights(8)  = Light8  
-Set Lights(9)  = Light9   
-Set Lights(10) = Light10  
-Set Lights(11) = Light11  
-Set Lights(12) = Light12  
-Set Lights(13) = Light59  
-Set Lights(14) = Light14  
-Set Lights(15) = Light15  
-Set Lights(23) = Light23  
-Set Lights(24) = Light24  
-Set Lights(25) = Light25  
-Set Lights(26) = Light26  
-Set Lights(27) = Light27  
-Set Lights(28) = Light28  
-Set Lights(29) = Light29  
-Set Lights(30) = Light30  
-Set Lights(31) = Light31  
-Set Lights(39) = Light39  
+Set Lights(8)  = Light8
+Set Lights(9)  = Light9
+Set Lights(10) = Light10
+Set Lights(11) = Light11
+Set Lights(12) = Light12
+Set Lights(13) = Light59
+Set Lights(14) = Light14
+Set Lights(15) = Light15
+Set Lights(23) = Light23
+Set Lights(24) = Light24
+Set Lights(25) = Light25
+Set Lights(26) = Light26
+Set Lights(27) = Light27
+Set Lights(28) = Light28
+Set Lights(29) = Light29
+Set Lights(30) = Light30
+Set Lights(31) = Light31
+Set Lights(39) = Light39
 Set Lights(40) = Light40
-Set Lights(41) = Light41  
-Set Lights(42) = Light42  
-Set Lights(43) = Light43  
-Set Lights(44) = Light44  
-Set Lights(45) = Light45  
-Set Lights(46) = Light46  
-Set Lights(47) = Light47  
-Set Lights(56) = Light56  
-Set Lights(57) = Light57  
-Set Lights(58) = Light58  
-Set Lights(59) = Light13  
-Set Lights(60) = Light60  
-Set Lights(61) = Light61  
-Set Lights(62) = Light62  
-Set Lights(63) = Light63  
+Set Lights(41) = Light41
+Set Lights(42) = Light42
+Set Lights(43) = Light43
+Set Lights(44) = Light44
+Set Lights(45) = Light45
+Set Lights(46) = Light46
+Set Lights(47) = Light47
+Set Lights(56) = Light56
+Set Lights(57) = Light57
+Set Lights(58) = Light58
+Set Lights(59) = Light13
+Set Lights(60) = Light60
+Set Lights(61) = Light61
+Set Lights(62) = Light62
+Set Lights(63) = Light63
 Set Lights(71) = Light71
 Set Lights(103) = Light103
 
@@ -973,7 +972,7 @@ Sub LightsOn()
 	If TopT10.isdropped=true then light10p.state=1
 	If TopT11.isdropped=true then light11p.state=1
 	If TopT12.isdropped=true then light12p.state=1
-	
+
 	If Ghost13.isdropped=true then light13p.state=1
 	If Ghost14.isdropped=true then light14p.state=1
 	If Ghost15.isdropped=true then light15p.state=1
@@ -983,7 +982,7 @@ Sub LightsOn()
 	If Ghost19.isdropped=true then light19p.state=1
 	If Ghost20.isdropped=true then light20p.state=1
 End Sub
- 
+
 
 '**************************************************************************************************************
 '*****GI Lights Off
@@ -1008,8 +1007,8 @@ Sub LightsOff()
 	Light19p.state=0
 	Light20p.state=0
 End Sub
- 
- 
+
+
 '**************************************************************************************************************
 '*****Gates
 
@@ -1065,7 +1064,7 @@ Sub wall229_hit
 	playsound "pins"
 end sub
 
- 
+
 'added by Inkochnito
 Sub editDips
 	Dim vpmDips : Set vpmDips = New cvpmDips
@@ -1102,5 +1101,5 @@ End Sub
 
 Sub Wall87_Timer()
 domaze=0
-wall87.timerenabled=false	
+wall87.timerenabled=false
 End Sub
