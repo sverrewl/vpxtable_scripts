@@ -7,8 +7,8 @@ On Error Goto 0
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 LoadVPM "01300000","S6.VBS",3.1
 
@@ -16,7 +16,7 @@ LoadVPM "01300000","S6.VBS",3.1
 '**     Game Specific Code Starts Here     **
 '********************************************
 
-Const UseSolenoids=1,UseLamps=1,UseSync=1
+Const UseSolenoids=2,UseLamps=1,UseSync=1
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="quarter"
 
 
