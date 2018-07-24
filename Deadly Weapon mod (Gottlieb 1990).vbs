@@ -3,6 +3,7 @@ Randomize
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 On Error Resume Next
@@ -13,34 +14,34 @@ On Error Goto 0
 LoadVPM "01120100", "gts3.vbs", 3.02
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
-Const cGameName="deadweap",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="deadweap",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 '*************************************************************
 'Solenoid Call backs
 '**********************************************************************************************************
-'Solenoids increase by 1 because first solenoid is Zero 
+'Solenoids increase by 1 because first solenoid is Zero
 SolCallback(7)    = "SolKickback"
 SolCallback(8)    = "dtDrop.SolDropUp"
 SolCallback(9)    = "bsL2Kicker.SolOut"
 SolCallback(10)   = "bsL3Kicker.SolOut"
 
 SolCallback(26)   = "GIController"     'lightbox relay / GI controller
-SolCallback(28)	  = "bsTrough.SolOut"    
-SolCallback(29)	  = "bsTrough.SolIn"     
+SolCallback(28)	  = "bsTrough.SolOut"
+SolCallback(29)	  = "bsTrough.SolIn"
 SolCallback(30)   = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 
 'playfield flashers
-SolCallback(11)   = "vpmFlasher array(Flasher11,Flasher11a),"  '"Multi-Ball" 
-SolCallback(12)   = "vpmFlasher Flasher12,"  '"Special" 
-SolCallback(13)   = "vpmFlasher array(Flasher13,Flasher13a),"  '"Gas Station" 
+SolCallback(11)   = "vpmFlasher array(Flasher11,Flasher11a),"  '"Multi-Ball"
+SolCallback(12)   = "vpmFlasher Flasher12,"  '"Special"
+SolCallback(13)   = "vpmFlasher array(Flasher13,Flasher13a),"  '"Gas Station"
 SolCallback(14)   = "vpmFlasher array(Flasher14,Flasher14a),"  '"Alley"
 SolCallback(15)   = "vpmFlasher Flasher15,"  '"Burger Grill"
-SolCallback(16)   = "vpmFlasher Flasher16,"  '"Bank"  
-SolCallback(17)   = "vpmFlasher array(Flasher17,Flasher17a),"  '"Mall" 
-SolCallback(18)   = "vpmFlasher array(Flasher18,Flasher18a),"  '"High School" 
+SolCallback(16)   = "vpmFlasher Flasher16,"  '"Bank"
+SolCallback(17)   = "vpmFlasher array(Flasher17,Flasher17a),"  '"Mall"
+SolCallback(18)   = "vpmFlasher array(Flasher18,Flasher18a),"  '"High School"
 
 'backboard flashers
-'SolCallback(19)   = 
+'SolCallback(19)   =
 'SolCallback(20)   =  '
 'SolCallback(21)   =  '
 'SolCallback(22)   =
@@ -68,7 +69,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -134,12 +135,12 @@ Sub Table1_Init
 	vpmNudge.Sensitivity=5
 	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,Bumper4,RightSlingShot)
 
-	Set bsTrough=new cvpmBallStack 
-	bsTrough.InitSw 16,26,0,0,0,0,0,0 
-	bsTrough.InitKick BallRelease,80,6 
+	Set bsTrough=new cvpmBallStack
+	bsTrough.InitSw 16,26,0,0,0,0,0,0
+	bsTrough.InitKick BallRelease,80,6
 	bsTrough.InitExitSnd SoundFX("Ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
 	bsTrough.Balls=4
-	
+
 	set bsL2Kicker = new cvpmBallStack
 	bsL2Kicker.InitSaucer kicker1,20,180,5
 	bsL2Kicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
@@ -147,11 +148,11 @@ Sub Table1_Init
 	set bsL3Kicker = new cvpmBallStack
 	bsL3Kicker.InitSaucer kicker2,21, 200, 12
 	bsL3Kicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-	
+
 	set dtDrop = new cvpmDropTarget
 	dtDrop.InitDrop Array(sw24,sw34,sw44), Array(24,34,44)
 	dtDrop.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
-   
+
 	plunger1.pullback
 End Sub
 
@@ -189,8 +190,8 @@ Sub Kicker1_Hit():bsL2Kicker.AddBall 0:End Sub
 Sub Kicker2_Hit():bsL3Kicker.AddBall 0:End Sub
 
 'Drop Targets
- Sub Sw24_Hit:dtDrop.Hit 1 :End Sub  
- Sub Sw34_Hit:dtDrop.Hit 2 :End Sub  
+ Sub Sw24_Hit:dtDrop.Hit 1 :End Sub
+ Sub Sw34_Hit:dtDrop.Hit 2 :End Sub
  Sub Sw44_Hit:dtDrop.Hit 3 :End Sub
 
 'Bumpers
@@ -239,7 +240,7 @@ Sub sw14_hit(): vpmTimer.PulseSwitch(14),0,"": End Sub
 
 '**********************************************************************************************************
 
-     Lights(1)=array(Light1,Light1a) 'Top Left Bumper 
+     Lights(1)=array(Light1,Light1a) 'Top Left Bumper
      Set Lights(2)=Light2
      Set Lights(3)=Light3
      Set Lights(4)=Light4
@@ -447,7 +448,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -461,7 +462,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -497,7 +498,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -508,7 +509,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
