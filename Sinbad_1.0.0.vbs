@@ -1,35 +1,35 @@
 '
-'           MMMMMMMM                                            
-'          MMMMMMMMMM                                           
-'        MMMMMMMMMMMM                                           
-'      .MMMMMMM   IMM                                           
-'     .MMMMMMM   . 8                                            
-'    .MMMMMMM.                                          . .     
-'    .MMMMMMM                      ,MMMM. .D+ .      .MMMMM .   
-'    .8MMMMMM.  ..M.              MMMMMMM..OMMMMZ   MMMMMMMMM   
-'      MMMMMM. .$MMM    ... 7$.  MMMMZ.MMM MMMMMM OMMMMMMMMMMM  
-'      :MMMMMM .MMM . . .MMMMMM.MMMM .,MMO.MM8MMM.MMMMM   .MMM. 
-'       MMMMMM$ MM .MM MMMMMMMO MMMM. MMM ,MM..MM.M7MMM~    MMM 
-'   .    MMMMMM$  OMMM  MMMM8M.  MMM DMM  ,MM .MMM   MMM . .MMM 
+'           MMMMMMMM
+'          MMMMMMMMMM
+'        MMMMMMMMMMMM
+'      .MMMMMMM   IMM
+'     .MMMMMMM   . 8
+'    .MMMMMMM.                                          . .
+'    .MMMMMMM                      ,MMMM. .D+ .      .MMMMM .
+'    .8MMMMMM.  ..M.              MMMMMMM..OMMMMZ   MMMMMMMMM
+'      MMMMMM. .$MMM    ... 7$.  MMMMZ.MMM MMMMMM OMMMMMMMMMMM
+'      :MMMMMM .MMM . . .MMMMMM.MMMM .,MMO.MM8MMM.MMMMM   .MMM.
+'       MMMMMM$ MM .MM MMMMMMMO MMMM. MMM ,MM..MM.M7MMM~    MMM
+'   .    MMMMMM$  OMMM  MMMM8M.  MMM DMM  ,MM .MMM   MMM . .MMM
 '    MM . MMMMMM. MMM8  MMM8.M, .7MMDMM   .MMMMMMM. .MMM.  .MMM.
-'    MMM, ..MMMMM .MMM. .MMO M,   MMMMMMMM.MMMMMMMM..8MMM .,MMM 
-'   IMMMMM. .MMMM. MMM.. MMZ.M~   MMMM OMMM,MMMMMMMMO MMM..MMM, 
-'   DMMMMMM  .MMMM.MMM,. MM:7MD.M.IMM+..MMM MM8 MMMMM.MMM MMMM  
-'   DMMMM ..  .MMM MMM. $MM.NMMMMD.MMM..MMM MMM  MMMM.MMM$MMM.. 
-'   ZMMMM?     MMM.MMM. MMM.MMMMM8 MMM MMMM.MMM  .MM..MMMMMM.   
-'    MMMMM .   MMM.MMM$.MMM MMMMM: MMMMMMM. MMM      .MMMM. .   
-'    MMMMMM  .MMMM.MMMM?MMM.MMMMM OMMMMMM  MMM      OMMM$ .     
-'    .MMMMMMMMMMM.?MM:. ...  .. ..MMMMM.   MM .   MMM. .        
-'     ?MMMMMMMMMM MM              .        .                    
-'      .MMMMMMMM                                                
-'        ZMMMM.                                                 
+'    MMM, ..MMMMM .MMM. .MMO M,   MMMMMMMM.MMMMMMMM..8MMM .,MMM
+'   IMMMMM. .MMMM. MMM.. MMZ.M~   MMMM OMMM,MMMMMMMMO MMM..MMM,
+'   DMMMMMM  .MMMM.MMM,. MM:7MD.M.IMM+..MMM MM8 MMMMM.MMM MMMM
+'   DMMMM ..  .MMM MMM. $MM.NMMMMD.MMM..MMM MMM  MMMM.MMM$MMM..
+'   ZMMMM?     MMM.MMM. MMM.MMMMM8 MMM MMMM.MMM  .MM..MMMMMM.
+'    MMMMM .   MMM.MMM$.MMM MMMMM: MMMMMMM. MMM      .MMMM. .
+'    MMMMMM  .MMMM.MMMM?MMM.MMMMM OMMMMMM  MMM      OMMM$ .
+'    .MMMMMMMMMMM.?MM:. ...  .. ..MMMMM.   MM .   MMM. .
+'     ?MMMMMMMMMM MM              .        .
+'      .MMMMMMMM
+'        ZMMMM.
 '                      Sinbad by Gottlieb (1978)
 '
 '               **** Graphics and Sound by Pinuck ****
 '                **** Build and Code by Kruge99 ****
 '        ** Codebase adapted from VP8 Sinbad by Luvthatapex **
 '
-'                    ** VPX conversion notes **           
+'                    ** VPX conversion notes **
 '          ** Thanks to fuzzel, Toxie, mukuste for VPX **
 '
 ' In no particular order thanks goes out to the following people for their
@@ -39,11 +39,11 @@
 '
 'pinDMD3 users who want to enable rainbow mode can change the DMD colours
 'starting on line 211.  Change all three values to 0/zero to enable rainbow mode.
-'
-'
-'
-'
-'
+
+' Thalamus 2018-07-24
+' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -276,14 +276,14 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 14:PlaySound SoundFXDOF("bumper_R",113,DOFPulse
 
 '**top rollover switches
 
-Sub SW70_Hit():Controller.Switch(70)=1:End Sub   
-Sub SW70_UnHit():Controller.Switch(70)=0:End Sub   
-Sub SW71_Hit()::Controller.Switch(71)=1:End Sub    
-Sub SW71_UnHit():Controller.Switch(71)=0:End Sub 
-Sub SW40_Hit():Controller.Switch(40)=1:DOF 101, DOFOn:End Sub    
-Sub SW40_UnHit():Controller.Switch(40)=0:DOF 101, DOFOff:End Sub    
-Sub SW41_Hit():Controller.Switch(41)=1:DOF 105, DOFOn:End Sub    
-Sub SW41_UnHit():Controller.Switch(41)=0:DOF 105, DOFOff:End Sub    
+Sub SW70_Hit():Controller.Switch(70)=1:End Sub
+Sub SW70_UnHit():Controller.Switch(70)=0:End Sub
+Sub SW71_Hit()::Controller.Switch(71)=1:End Sub
+Sub SW71_UnHit():Controller.Switch(71)=0:End Sub
+Sub SW40_Hit():Controller.Switch(40)=1:DOF 101, DOFOn:End Sub
+Sub SW40_UnHit():Controller.Switch(40)=0:DOF 101, DOFOff:End Sub
+Sub SW41_Hit():Controller.Switch(41)=1:DOF 105, DOFOn:End Sub
+Sub SW41_UnHit():Controller.Switch(41)=0:DOF 105, DOFOff:End Sub
 
 '**left green star rollover switches
 Sub SW74d_Hit():LS74d.State = 0:Controller.Switch(74)=1:DOF 111, DOFOn:End Sub
@@ -538,7 +538,7 @@ End Sub
 'End Sub
 
 '****************************************
-'  Ball Rolling 
+'  Ball Rolling
 '****************************************
 dim ballspeed
 
@@ -550,30 +550,30 @@ Sub BallRollSounds_hit(T) 'ball rolling sounds
 			Case 1 : PlaySound "PNK_MH_roll_short_1"
 			Case 2 : PlaySound "PNK_MH_roll_short_2"
 			Case 3 : PlaySound "PNK_MH_roll_short_3"
-		End Select 
+		End Select
 	end if
 End Sub
 
  '======================================================================================
- ' Many thanks go to Randy Davis and to all the multitudes of people who have 
+ ' Many thanks go to Randy Davis and to all the multitudes of people who have
  ' contributed to VP over the years, keeping it alive!!!  Enjoy, Steely & PK
  '======================================================================================
- 
+
  Dim tnopb, nosf
  '
  tnopb = 4	' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
  nosf = 9	' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
- 
+
  Dim currentball(3), ballStatus(3)
  Dim iball, cnt, coff, errMessage
- 
+
  XYdata.interval = 1 			' Timer interval starts at 1 for the highest ball data sample rate
  coff = False				' Collision off set to false
- 
+
  For cnt = 0 to ubound(ballStatus)	' Initialize/clear all ball stats, 1 = active, 0 = non-existant
  	ballStatus(cnt) = 0
  Next
- 
+
  '======================================================
  ' <<<<<<<<<<<<<< Ball Identification >>>>>>>>>>>>>>
  '======================================================
@@ -591,10 +591,10 @@ End Sub
  	End If
  	Exit For					' New ball ID assigned, exit loop
     	End If
-    	Next 
+    	Next
  '  	Debugger 					' For demo only, display stats
  End Sub
- 
+
  ' Call this sub from every kicker that destroys a ball, before the ball is destroyed.
  Sub ClearBallID
    	On Error Resume Next				' Error handling for debugging purposes
@@ -605,21 +605,21 @@ End Sub
     	ballStatus(0) = ballStatus(0)-1 		' Subtract 1 ball from the # of balls in play
     	On Error Goto 0
  End Sub
- 
+
  '=====================================================
  ' <<<<<<<<<<<<<<<<< XYdata_Timer >>>>>>>>>>>>>>>>>
  '=====================================================
  ' Ball data collection and B2B Collision detection.
  ReDim baX(tnopb,4), baY(tnopb,4), bVx(tnopb,4), bVy(tnopb,4), TotalVel(tnopb,4)
  Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
- 
+
  Sub XYdata_Timer()
  	' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
  	' performance, at the end of this timer, if the timer's interval is shorter than the individual
- 	' computer can handle this timer's interval will increment by 1 millisecond. 
+ 	' computer can handle this timer's interval will increment by 1 millisecond.
      xyTime = Timer+(XYdata.interval*.001)	' xyTime is the system timer plus the current interval time
  	' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
- 	' collision, if not zero. So the ball data is sampled and saved for four timer cycles. 
+ 	' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
     	If id2 >= 4 Then id2 = 0						' Loop four times and start over
     	id2 = id2+1								' Increment the ball sampler ID
     	For id = 1 to ubound(ballStatus)					' Loop once for each possible ball
@@ -637,32 +637,32 @@ End Sub
  	' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
  	' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
  	' which is automated with calculations using the balls' velocities.
- 	' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision. 
+ 	' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
  	id3 = id2 : B2 = 2 : B1 = 1						' Set up the counters for looping
  	Do
  	If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then			' If both balls are active...
  		bDistance = int((TotalVel(B1,id3)+TotalVel(B2,id3))^1.04)
- 		If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub		
+ 		If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub
  		End If
  		B1 = B1+1							' Increment ball1
- 		If B1 >= ballStatus(0) Then Exit Do				' Exit loop if all ball combinations checked	
+ 		If B1 >= ballStatus(0) Then Exit Do				' Exit loop if all ball combinations checked
  		If B1 >= B2 then B1 = 1:B2 = B2+1				' If ball1 >= reset ball1 and increment ball2
  	Loop
- 	
+
   	If ballStatus(0) <= 1 Then XYdata.enabled = False 			' Turn off timer if one ball or less
- 
+
  	If XYdata.interval >= 40 Then coff = True : XYdata.enabled = False	' Auto-shut off
  	If Timer > xyTime * 3 Then coff = True : XYdata.enabled = False		' Auto-shut off
     	If Timer > xyTime Then XYdata.interval = XYdata.interval+1		' Increment interval if needed
  End Sub
- 
+
  '=========================================================
  ' <<<<<<<<<<< Collide(ball id1, ball id2) >>>>>>>>>>>
  '=========================================================
  'Calculate the collision force and play sound accordingly.
  Dim cTime, cb1,cb2, avgBallx, cAngle, bAngle1, bAngle2
- 
- Sub Collide(cb1,cb2) 	
+
+ Sub Collide(cb1,cb2)
  ' The Collision Factor(cFactor) uses the maximum total ball velocity and automates the cForce calculation, maximizing the
  ' use of all sound files/volume levels. So all the available B2B sound levels are automatically used by adjusting to a
  ' player's style and the table's characteristics.
@@ -686,15 +686,15 @@ End Sub
    	If cForce > nosf-1 Then cForce = nosf-1		' First sound file 0(zero) minus one from number of sound files
     	PlaySound("collide" & cForce)			' Combines "collide" with the calculated sound level and play sound
  End Sub
- 
+
  '=================================================
  ' <<<<<<<< GetAngle(X, Y, Anglename) >>>>>>>>
  '=================================================
  ' A repeated function which takes any set of coordinates or velocities and calculates an angle in radians.
  Dim Xin,Yin,rAngle,Radit,wAngle,Pi
  Pi = Round(4*Atn(1),6)					'3.1415926535897932384626433832795
- 
- Sub GetAngle(Xin, Yin, wAngle)						
+
+ Sub GetAngle(Xin, Yin, wAngle)
   	If Sgn(Xin) = 0 Then
   		If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
   		If Sgn(Yin) = 0 Then rAngle = 0
@@ -832,7 +832,7 @@ stat = chgLED(ii, 2)
 Next
 	End IF
 End IF
-End Sub 
+End Sub
 
 '**dipswitch menu - press F6 to display it
 
