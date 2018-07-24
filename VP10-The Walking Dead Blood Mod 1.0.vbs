@@ -73,7 +73,6 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
-' , AudioFade(ActiveBall)
 
   Option Explicit
   Randomize
