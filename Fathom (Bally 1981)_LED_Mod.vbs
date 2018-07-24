@@ -4,14 +4,17 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' if UseSolenoids > 1 then if solnum = vpmFlips.Solenoid then vpmFlips.TiltSol cBool(ChgSol(ii, 1)) by DjRobX
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="Fathom",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="Fathom",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01130100", "Bally.VBS", 3.21
 Dim DesktopMode: DesktopMode = Table1.ShowDT
@@ -87,6 +90,7 @@ Sub FlipperTimer_Timer
  			If solnum <= 14 and CBoard Then solnum = solnum + 24
  			tmp = Solcallback(solnum)
 			If tmp <> "" Then Execute tmp & vpmTrueFalse(ChgSol(ii, 1)+1)
+      if UseSolenoids > 1 then if solnum = vpmFlips.Solenoid then vpmFlips.TiltSol cBool(ChgSol(ii, 1))
 		Next
 	End If
    End Sub
