@@ -1,6 +1,9 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added InitVpmFFlipsSAM
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -34,7 +37,7 @@ SolCallBack(6)	  ="SolSpinner"
 SolCallBack(18)   ="bsPOP.SolOut"
 SolCallBack(19)	  ="SolChestExit" 'Chest Kicker
 SolCallBack(21)="SolShipMotor" 'Ship Motor
-SolCallBack(23)   ="SolTortugaPost" 
+SolCallBack(23)   ="SolTortugaPost"
 SolCallBack(27)="SolMotorDir"'SHIP MOTOR RELAY
 SolCallBack(28)="SolSailsDown"'LOWER SAILS LATCH
 SolCallBack(29)   ="SolSHIPPIN"
@@ -55,7 +58,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -63,7 +66,7 @@ Sub SolRFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):RightFlipper.RotateToStart
      End If
 End Sub
-  
+
 '**********************************************************************************************************
 
 'Solenoid Controlled toys
@@ -115,7 +118,7 @@ Sub RotationTimer_Timer
 End Sub
 
 
-'Stern-Sega GI 
+'Stern-Sega GI
 set GICallback = GetRef("UpdateGI")
 
 Sub UpdateGI(no, Enabled)
@@ -151,7 +154,7 @@ Sub Table1_Init
 		.ShowFrame=0
 		.ShowTitle=0
         .hidden = 0
-		 On Error Resume Next 
+		 On Error Resume Next
 			InitVpmFFlipsSAM
 		 On Error Goto 0
          On Error Resume Next
@@ -249,29 +252,29 @@ Sub sw6_Hit:bsCHEST.AddBall Me: playsound "popper_ball": End Sub
 Sub sw56_Hit:bsPOP.AddBall Me: playsound "popper_ball": End Sub
 
 'Wire Triggers
-Sub sw1_Hit:Controller.Switch(1) = 1 : playsound"rollover" : End Sub 
+Sub sw1_Hit:Controller.Switch(1) = 1 : playsound"rollover" : End Sub
 Sub sw1_UnHit:Controller.Switch(1) = 0:End Sub
-Sub sw2_Hit:Controller.Switch(2) = 1 : playsound"rollover" : End Sub 
+Sub sw2_Hit:Controller.Switch(2) = 1 : playsound"rollover" : End Sub
 Sub sw2_UnHit:Controller.Switch(2) = 0:End Sub
-Sub sw23_Hit:Controller.Switch(23) = 1 : playsound"rollover" : End Sub 
+Sub sw23_Hit:Controller.Switch(23) = 1 : playsound"rollover" : End Sub
 Sub sw23_UnHit:Controller.Switch(23) = 0:End Sub
-Sub sw24_Hit:Controller.Switch(24) = 1 : playsound"rollover" : End Sub 
+Sub sw24_Hit:Controller.Switch(24) = 1 : playsound"rollover" : End Sub
 Sub sw24_UnHit:Controller.Switch(24) = 0:End Sub
-Sub sw25_Hit:Controller.Switch(25) = 1 : playsound"rollover" : End Sub 
+Sub sw25_Hit:Controller.Switch(25) = 1 : playsound"rollover" : End Sub
 Sub sw25_UnHit:Controller.Switch(25) = 0:End Sub
-Sub sw28_Hit:Controller.Switch(28) = 1 : playsound"rollover" : End Sub 
+Sub sw28_Hit:Controller.Switch(28) = 1 : playsound"rollover" : End Sub
 Sub sw28_UnHit:Controller.Switch(28) = 0:End Sub
-Sub sw29_Hit:Controller.Switch(29) = 1 : playsound"rollover" : End Sub 
+Sub sw29_Hit:Controller.Switch(29) = 1 : playsound"rollover" : End Sub
 Sub sw29_UnHit:Controller.Switch(29) = 0:End Sub
 
 'Hidden wire Trigges
-Sub sw3_Hit:Controller.Switch(3)=1 : playsound"rollover" : End Sub 
+Sub sw3_Hit:Controller.Switch(3)=1 : playsound"rollover" : End Sub
 Sub sw3_unHit:Controller.Switch(3)=0:End Sub
-Sub sw4_Hit:Controller.Switch(4)=1 : playsound"rollover" : End Sub 			
+Sub sw4_Hit:Controller.Switch(4)=1 : playsound"rollover" : End Sub
 Sub sw4_unHit:Controller.Switch(4)=0:End Sub
-Sub sw57_Hit:Controller.Switch(57)=1 :  playsound"Wire Ramp"  : End Sub 
+Sub sw57_Hit:Controller.Switch(57)=1 :  playsound"Wire Ramp"  : End Sub
 Sub sw57_unHit:Controller.Switch(57)=0:End Sub
-Sub sw61_Hit:Controller.Switch(61)=1 : playsound"rollover" : End Sub 
+Sub sw61_Hit:Controller.Switch(61)=1 : playsound"rollover" : End Sub
 Sub sw61_unHit:Controller.Switch(61)=0:End Sub
 
 'Gate Triggers
@@ -301,11 +304,11 @@ Sub sw53_Hit:vpmTimer.PulseSw 53:End Sub
 Sub sw54_Hit:vpmTimer.PulseSw 54:End Sub
 Sub sw55_Hit:vpmTimer.PulseSw 55:End Sub
 
-'Upper PF 
-Sub sw12_Hit:Controller.Switch(12)=1 : playsound"rollover" : End Sub 
+'Upper PF
+Sub sw12_Hit:Controller.Switch(12)=1 : playsound"rollover" : End Sub
 Sub sw12_unHit:Controller.Switch(12)=0:End Sub
 Sub sw13_Hit:vpmTimer.PulseSw 13:End Sub
-Sub sw14_Hit:Controller.Switch(14)=1 : playsound"rollover" : End Sub 
+Sub sw14_Hit:Controller.Switch(14)=1 : playsound"rollover" : End Sub
 Sub sw14_unHit:Controller.Switch(14)=0:End Sub
 
 'hole
@@ -320,17 +323,17 @@ Sub Trigger4_Hit: playsound"fx_ballrampdrop" : End Sub
 
 
  '***********************************
- 'Vertical Wire ramp Ball animation 
+ 'Vertical Wire ramp Ball animation
  '***********************************
 
- Dim raiseballsw, raiseball 
+ Dim raiseballsw, raiseball
 
- Sub TopVUK_Hit() 
+ Sub TopVUK_Hit()
  	TopVUK.Enabled=FALSE
 	Controller.switch (9) = True
  	PlaySound "popper_ball"
  End Sub
- 
+
  Sub VukTopPop(enabled)
 	if(enabled and Controller.switch (9)) then
 		TopVUK.DestroyBall
@@ -344,12 +347,12 @@ Sub Trigger4_Hit: playsound"fx_ballrampdrop" : End Sub
 
 	end if
 End Sub
- 
+
  Sub TopVukraiseballtimer_Timer()
  	If raiseballsw = True then
  		raiseball.z = raiseball.z + 10
  		If raiseball.z > 175 then
- 			TopVUK.Kick 100, 10 
+ 			TopVUK.Kick 100, 10
  			Set raiseball = Nothing
  			TopVukraiseballtimer.Enabled = False
  			raiseballsw = False
@@ -369,7 +372,7 @@ End Sub
  		bsChest.ExitSol_On
  	End If
  End Sub
- 
+
  Sub SolChest(Enabled)
  	If Enabled Then
  		ChestOpen.IsDropped=0
@@ -380,7 +383,7 @@ End Sub
 Dim ChestO
 
 Sub ChestMon_Timer
-	if chestopen.IsDropped = True then 
+	if chestopen.IsDropped = True then
 		chesto = False
 		f24.height = 0:f32.height = 0:f40.height = 0:f48.height = 0:f56.height = 0
 	else
@@ -451,7 +454,7 @@ End Sub
  		End If
  	End If
  End Sub
- 
+
  Sub SolSailsDown(Enabled)
  	If Enabled Then
  		If ShipPos=0 Then
@@ -537,7 +540,7 @@ Sub LampTimer_Timer()
     End If
     UpdateLamps
 End Sub
- 
+
 Sub UpdateLamps
 
 NFadeL 3, l3
@@ -877,7 +880,7 @@ Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 BCboost = 1				'Do Not Change - default setting
 BCvel = 4				'Controls the speed of the ball movement
 BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key) 
+BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
@@ -888,7 +891,7 @@ End Sub
 
 Sub StopBallControl_Hit()
 	ControlBallInPlay = false
-End Sub	
+End Sub
 
 Sub BallControlTimer_Timer()
 	If EnableBallControl and ControlBallInPlay then
@@ -1031,7 +1034,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1045,7 +1048,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1081,7 +1084,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1092,7 +1095,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
