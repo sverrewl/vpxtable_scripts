@@ -1,6 +1,10 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
+
 Const BallSize =48
 
 On Error Resume Next
@@ -29,7 +33,7 @@ End if
 
 SolCallBack(1)    = "SolTrough"
 SolCallBack(2)    = "SolAutoPlungerIM"
-SolCallback(3)    = "Mag.MagnetOn=  " 
+SolCallback(3)    = "Mag.MagnetOn=  "
 SolCallback(4)	  = "bsLEject.SolOut" 'Left Eject
 SolCallback(5)    = "SolLeftPostDown"	'Left up down Post
 SolCallback(6)	  = "SolCentrifuge" 'Centrifuge Motor
@@ -61,7 +65,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -135,7 +139,7 @@ End Sub
  	End If
  End Sub
 
-'Stern-Sega GI 
+'Stern-Sega GI
 set GICallback = GetRef("UpdateGI")
 
 Sub UpdateGI(no, Enabled)
@@ -199,7 +203,7 @@ Sub Table1_Init
       bsTrough.IsTrough = True
       bsTrough.Balls = 4
 
-  Set Mag= New cvpmMagnet  
+  Set Mag= New cvpmMagnet
       Mag.InitMagnet Magnet, 105
 	  Mag.Solenoid = 3
 	  Mag.GrabCenter = true
@@ -213,7 +217,7 @@ Sub Table1_Init
 	    .InitKicker Sw35, 35, 170, 30, 1.56
 		.InitSounds "fx_sensor", SoundFX(SSolenoidOn,DOFContactors), SoundFX("Popper",DOFContactors)
 		.CreateEvents "bsLEject", Sw35
-    End With 
+    End With
 
 
  ' Set bsLEject = new cvpmBallStack
@@ -239,11 +243,11 @@ Sub Table1_Init
 
     Controller.switch(10) = 1 'Opto switch: inverted logic
     Controller.switch(11) = 1 'Opto switch: inverted logic
-    Controller.switch(12) = 1 'Opto switch: inverted logic 
+    Controller.switch(12) = 1 'Opto switch: inverted logic
 
     BolaPL.Visible = 0
     BolaPR.Visible = 0
-
+    InitVpmFFlipsSAM
 End Sub
 
 '**********************************************************************************************************
@@ -314,7 +318,7 @@ Sub Sw3_Dropped:dtLDrop.Hit 2:End Sub
 Sub Sw4_Dropped:dtLDrop.Hit 3:End Sub
 
 'Mircroscope magnet
-Sub Magnet_Hit:Mag.AddBall ActiveBall:End Sub	
+Sub Magnet_Hit:Mag.AddBall ActiveBall:End Sub
 Sub Magnet_UnHit:Mag.RemoveBall ActiveBall:End Sub
 
 'Stand Up Targets
@@ -381,20 +385,20 @@ Dim mSkull
 
 Sub SolSkullMotor(Enabled)
 	If Enabled Then
-		UpdateSkull.Enabled=1 
-		'debug.print Timer & " SOL:SkullMotor ON" & sDir 
+		UpdateSkull.Enabled=1
+		'debug.print Timer & " SOL:SkullMotor ON" & sDir
 	Else
 		UpdateSkull.Enabled=0
-		'debug.print Timer & " SOL:SkullMotor OFF" & sDir 
+		'debug.print Timer & " SOL:SkullMotor OFF" & sDir
 	End If
- 
+
 End Sub
 
-Dim BallsInPlay 
+Dim BallsInPlay
 Sub SolSkullMotorRelay (enabled)
 	if Enabled Then
 		sDir = - SkullStepSize 'down
-		'debug.print timer & " SOL:SkullMotorDir DOWN" 
+		'debug.print timer & " SOL:SkullMotorDir DOWN"
 	else
 		sDir = SkullStepSize 'Up
 		'debug.print timer & " SOL:SkullMotorDir UP"
@@ -434,8 +438,8 @@ Sub SwLock_Hit
        BolaPR.Visible = 1
        LockBall = LockBall + 1
        'BallsInPlay = BallsInPlay - 1
-    End If      
-   playsound "popper_ball"     
+    End If
+   playsound "popper_ball"
 End Sub
 
 
@@ -447,7 +451,7 @@ sPos = SkullP.Z
 sDir = SkullStepSize
 
 Sub UpdateSkull_Timer()
-    PlaySound "motor"  
+    PlaySound "motor"
     sPos = sPos + sDir
 
 	If sPos <= 80 then  'DOWN position
@@ -460,7 +464,7 @@ Sub UpdateSkull_Timer()
 
 	If sPos >= 139 and sPos <= 142 then  'MIDDLE position
 		'debug.print timer & " middle11 sw 0:" & sPos
-		controller.switch(11) = 0      
+		controller.switch(11) = 0
 	Else
 		'debug.print timer & " middle11 sw 1:" & sPos
 		controller.switch(11) = 1
@@ -989,7 +993,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1003,7 +1007,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1039,7 +1043,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1050,7 +1054,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
