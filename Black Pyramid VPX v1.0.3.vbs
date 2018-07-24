@@ -2,6 +2,11 @@
 ' IPD No. 312 / July, 1984 / 4 Players
 ' VPX - version by JPSalas 2017, version 1.0.3
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -99,7 +104,7 @@ Sub table1_Init
     PinMAMETimer.Enabled = 1
 
 	'Init swing target
-	sw5a.IsDropped = 1:sw5b.IsDropped = 1:sw5c.IsDropped = 1 
+	sw5a.IsDropped = 1:sw5b.IsDropped = 1:sw5c.IsDropped = 1
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -853,9 +858,9 @@ Set vpmShowDips = GetRef("editDips")
 Sub OnBallBallCollision(ball1, ball2, velocity)
 	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
 		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	Else	
+	Else
         PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-	End if 
+	End if
 End Sub
 
 '*******************************************************************************************************************************
