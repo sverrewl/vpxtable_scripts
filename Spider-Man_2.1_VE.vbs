@@ -19,6 +19,7 @@
 ' Added/Updated "Positional Sound Playback Functions"
 ' Table doens't seem to have ball rolling sound
 ' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 Option Explicit
 Randomize
@@ -170,6 +171,7 @@ Sub Table1_Init
 	'AlzaSandman
 	sw36.Enabled=0
 	sw59.Enabled=0
+  InitVpmFFlipsSAM
  End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
