@@ -8,7 +8,9 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -71,7 +73,7 @@ end if
 LoadVPM "01560000", "sys80.vbs", 3.36
 
 Const cGameName = "genesis"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 
 'Standard sounds
