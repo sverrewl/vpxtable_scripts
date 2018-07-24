@@ -1,6 +1,10 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -53,7 +57,7 @@ SolModCallback(21) = "SetLampMod 121,"  ' Link Flasher | Doc as Back Panel Flash
 SolModCallback(22) = "SetLampMod 122,"  ' In front of Jake - fantacy placement | Doc as Link (L) Flash
 SolModCallback(23) = "SetLampMod 123,"  ' Rigth ampsuit flasher | Doc as Link (R) Flash
 SolModCallback(24) = "SetLampMod 124,"  ' Coin ? | Doc as Optional ( eg Coin Meter )
-SolModCallback(25) = "SetLampMod 125,"  ' Bumper flasher 
+SolModCallback(25) = "SetLampMod 125,"  ' Bumper flasher
 
 SolModCallback(26) = "SetLampMod 126,"  ' Ampsuit mb flasher
 'SolCallback(27)   = "N/A"              ' Not Used
@@ -71,7 +75,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -84,7 +88,7 @@ End Sub
 'Solenoid Controlled toys
 '**********************************************************************************************************
 
-'Stern-Sega GI 
+'Stern-Sega GI
 set GICallback = GetRef("UpdateGI")
 
 Sub UpdateGI(no, Enabled)
@@ -621,7 +625,7 @@ Sub UpdateLamps
   LampMod 124, f24 ' Coin ? - lets just make a new fantacy one - I don't know where this would go
   LampMod 125, f25 ' Bumper flasher
   LampMod 126, f26 ' Ampsuit mb flasher
-  
+
   'LampMod 127, f27 ' active ?
 
   LampMod 122, f22a ' More flashing please
@@ -649,7 +653,7 @@ Sub UpdateLamps
   LampMod 130, f30a
   LampMod 130, f2a
   LampMod 130, f2b
-  
+
 '  NFadeObjm 130, f29, "dome3_blueON", "dome3_blue"  'Dome
 '  NFadeL 130, f29a
 '  NFadeObjm 130, f30, "dome3_blueON", "dome3_blue"  'Dome
@@ -1026,7 +1030,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1040,7 +1044,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1076,7 +1080,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1087,7 +1091,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1123,25 +1127,25 @@ End Sub
 ' Thal, while merging changes from Hauntfreaks and 32assassin
 ' This script has been merged with the latest code from 32 as of 5.10.2017 from vpinball.com
 
-Sub SetLampMod(nr, value)		
-	    If value > 0 Then		
-			LampState(nr) = 1		
-		Else		
-			LampState(nr) = 0		
-		End If		
-		FadingLevel(nr) = value		
-End Sub		
-			
-Sub LampMod(nr, object)		
-		If TypeName(object) = "Light" Then		
-			Object.IntensityScale = FadingLevel(nr)/128		
-			Object.State = LampState(nr)		
-		End If		
-		If TypeName(object) = "Flasher" Then		
-			Object.IntensityScale = FadingLevel(nr)/128		
-			Object.visible = LampState(nr)		
-		End If		
-		If TypeName(object) = "Primitive" Then		
-			Object.DisableLighting = LampState(nr)		
-		End If		
+Sub SetLampMod(nr, value)
+	    If value > 0 Then
+			LampState(nr) = 1
+		Else
+			LampState(nr) = 0
+		End If
+		FadingLevel(nr) = value
+End Sub
+
+Sub LampMod(nr, object)
+		If TypeName(object) = "Light" Then
+			Object.IntensityScale = FadingLevel(nr)/128
+			Object.State = LampState(nr)
+		End If
+		If TypeName(object) = "Flasher" Then
+			Object.IntensityScale = FadingLevel(nr)/128
+			Object.visible = LampState(nr)
+		End If
+		If TypeName(object) = "Primitive" Then
+			Object.DisableLighting = LampState(nr)
+		End If
 End Sub

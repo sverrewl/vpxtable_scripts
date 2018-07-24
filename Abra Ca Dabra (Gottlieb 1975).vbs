@@ -8,16 +8,16 @@
 '	-------------------------------------------------
 '	Gottlieb EM 4 player VPX table blank with options menu
 '	-------------------------------------------------
-'	
+'
 '	BorgDog, 2017
 '
 '	High Score sticky routines from mfuegemann's Fast Draw VPX table
 '		- flippers to change letter, Start to Select
 '	Ball control script from rothbauerw
 '		- press C during play to control ball, use arrows to move the ball
-'	Option menu and player up light rotation borrowed from loserman76 and gnance 
+'	Option menu and player up light rotation borrowed from loserman76 and gnance
 '		- hold down left shift during Game Over to bring up menu
-'	Ball shadows from ninuzzu 
+'	Ball shadows from ninuzzu
 '		- set option below to enable or disable
 '	primitives from Dark, zany, sliderpoint, hauntfreaks and I'm sure others
 '
@@ -31,6 +31,9 @@
 '		7 - plastics
 '		8 - insert and bumper lighting
 '
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 
 '
 '	-------------------------------------------------
@@ -136,7 +139,7 @@ sub Abra_Ca_Dabra_init
 	OptionFreeplay.image="OptionsFreeplay"&freeplay
 	bumperlitscore=1000
 	bumperoffscore=100
-	if balls=3 then	
+	if balls=3 then
 		InstCard.image="InstCard3balls"
 	  else
 		InstCard.image="InstCard5balls"
@@ -156,7 +159,7 @@ sub Abra_Ca_Dabra_init
 		BallShadowUpdate.enabled=0
 	end if
 
-	if flippershadows=1 then 
+	if flippershadows=1 then
 		FlipperLSh.visible=1
 		FlipperRSh.visible=1
 	  else
@@ -203,7 +206,7 @@ end Sub
 
 
 Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
-   
+
 	if keycode = 46 then' C Key
 		If contball = 1 Then
 			contball = 0
@@ -233,13 +236,13 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 			PlaySoundAt "coinreturn", Drain
 		  else
 			PlaySoundAt "coinin" , Drain
-			coindelay.enabled=true 
+			coindelay.enabled=true
 		end if
     end if
 
     if keycode=StartGameKey  and (Credit>0 or freeplay=1) And Not HSEnterMode=true then
 	  if state=false then
-		if freeplay=0 then 
+		if freeplay=0 then
 			credit=credit-1
 			creditreel.setvalue(credit)
 			creditnum=creditnum+1
@@ -248,9 +251,9 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 		end if
 		If credit < 1 Then DOF 125, DOFOff
 		playsoundat "click", Drain
-		
+
 		ballinplay=1
-		If B2SOn Then 
+		If B2SOn Then
 			showb2scredit
 			Controller.B2ssetballinplay 32, Ballinplay
 			Controller.B2ssetplayerup 30, 1
@@ -280,7 +283,7 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 		rst=0
 		newgame.enabled=true
 	  else if state=true and players < maxplayers and Ballinplay=1 then
-		if freeplay=0 then 
+		if freeplay=0 then
 			credit=credit-1
 			if credit < 1 then DOF 125, DOFOff
 			players=players+1
@@ -297,7 +300,7 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 			Controller.B2ssetcanplay 31, players
 		End If
 		playsoundat "cluper", soundtrigger
-	   end if 
+	   end if
 	  end if
 	end if
 
@@ -341,14 +344,14 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 				Balls=3
 				InstCard.image="InstCard3balls"
 			end if
-			OptionBalls.image = "OptionsBalls"&Balls 
+			OptionBalls.image = "OptionsBalls"&Balls
 		Case 2:
 			if freeplay=0 Then
 				freeplay=1
 			  Else
 				freeplay=0
 			end if
-			OptionFreeplay.image="OptionsFreeplay"&freeplay    
+			OptionFreeplay.image="OptionsFreeplay"&freeplay
 		Case 3:
 			Replays=Replays+1
 			if Replays>3 then
@@ -373,23 +376,23 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 		PlaySoundAt SoundFXDOF("fx_flipperup",101,DOFOn,DOFContactors), LeftFlipper
 		PlaySound "Buzz", -1, .01, AudioPan(LeftFlipper), .05,0, 0, 1, AudioFade(LeftFlipper)
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToEnd
 		PlaySoundAt SoundFXDOF("fx_flipperup",102,DOFOn,DOFContactors), RightFlipper
 		PlaySound "Buzz1", -1, .01, AudioPan(RightFlipper), .05,0, 0, 1, AudioFade(RightFlipper)
 	End If
-    
+
 	If keycode = LeftTiltKey Then
 		Nudge 90, 2
 		checktilt
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		Nudge 270, 2
 		checktilt
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		checktilt
@@ -399,7 +402,7 @@ Sub Abra_Ca_Dabra_KeyDown(ByVal keycode)
 		gametilted
 	End If
 
-  end if  
+  end if
 End Sub
 
 Sub OperatorMenuTimer_Timer
@@ -452,7 +455,7 @@ Sub Abra_Ca_Dabra_KeyUp(ByVal keycode)
 		PlaySoundAt SoundFXDOF("fx_flipperdown",101,DOFOff,DOFContactors), LeftFlipper
 		StopSound "Buzz"
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToStart
 		PlaySoundAt SoundFXDOF("fx_flipperdown",102,DOFOff,DOFContactors), RightFlipper
@@ -518,7 +521,7 @@ Sub PairedlampTimer_timer
 	l8.state=l3.state
 	l7.state=l4.state
 	l6.state=l5.state
-    LoutL.state=LTop1.state 
+    LoutL.state=LTop1.state
 	LinL.state=LTop2.state
 	LinR.state=LTop3.state
 	LoutR.state=LTop4.state
@@ -531,9 +534,9 @@ sub coindelay_timer
 end sub
 
 Sub addcredit
-  if freeplay=0 then 
+  if freeplay=0 then
       credit=credit+1
-      if credit>9 then 
+      if credit>9 then
 			credit=9
 		Else
 			credithole=credithole+1
@@ -569,7 +572,7 @@ Sub Drain_timer
 '	scorebonus.enabled=true
 	nextball
 	me.timerenabled=0
-End Sub	
+End Sub
 
 sub ballhome_hit
 	ballrenabled=1
@@ -683,21 +686,21 @@ sub ballreltimer_timer
 	  tilttxt.timerenabled=1
 	  canplayreel.setvalue(0)
 	  for i=1 to maxplayers
-		if score(i)>hisc then 
+		if score(i)>hisc then
 			hisc=score(i)
 			hiscstate=1
 		end if
 		EVAL("Pup"&i).state=0
 		EVAL("PupN"&i).state=0
 	  next
-	  if hiscstate=1 then 
+	  if hiscstate=1 then
 			HighScoreEntryInit()
 			HStimer.uservalue = 0
 			HStimer.enabled=1
 	  end if
-	  UpdatePostIt 
+	  UpdatePostIt
 	  savehs
-	  If B2SOn then 
+	  If B2SOn then
         Controller.B2SSetGameOver 35,1
         Controller.B2ssetballinplay 32, 0
 	    Controller.B2SSetScorePlayer 5, hisc
@@ -760,7 +763,7 @@ sub matchnum
 		If B2SOn then Controller.B2SSetMatch 34,Matchnumb
 	end if
 	For i=1 to players
-		if (matchnumb*10)=(score(i) mod 100) then 
+		if (matchnumb*10)=(score(i) mod 100) then
 		  addcredit
 		  PlaySoundAt SoundFXDOF("knock",140,DOFPulse,DOFKnocker), Plunger
 	    end if
@@ -790,7 +793,7 @@ Sub Bumper2_Hit
 		addscore bumperlitscore
 	  else
 		addscore bumperoffscore
-	end if	
+	end if
    end if
 End Sub
 
@@ -816,7 +819,7 @@ Sub RightSlingShot_Slingshot
 	addscore 10
     RSling.Visible = 0
     RSling1.Visible = 1
-	slingR.objroty = -15	
+	slingR.objroty = -15
     RStep = 1
     RightSlingShot.TimerEnabled = 1
 End Sub
@@ -835,7 +838,7 @@ Sub LeftSlingShot_Slingshot
 	addscore 10
     LSling.Visible = 0
     LSling1.Visible = 1
-	slingL.objroty = 15	
+	slingL.objroty = 15
     LStep = 1
     LeftSlingShot.TimerEnabled = 1
 End Sub
@@ -919,20 +922,20 @@ sub dingwalld_timer									'default 50 timer
 	me.uservalue=me.uservalue+1
 end sub
 
-'********** Triggers  
+'********** Triggers
 
 sub TGBonusL_hit
 	DOF 145, DOFPulse
 	scorebonus
 '  addscore 500
-end sub     
+end sub
 
 sub TGoutL_hit	'****** bot 1 rollover
 	DOF 146, DOFPulse
 	addscore 500
 	LTop1.state=0
 	awardcheck
-end sub    
+end sub
 
 sub TGinL_hit	'****** bot 2 rollover
 	DOF 146, DOFPulse
@@ -961,14 +964,14 @@ sub TGBonusR_hit
 	DOF 148, DOFPulse
 	scorebonus
 '	addscore 500
-end sub  
+end sub
 
 sub TGtop1_hit   '***** top 1 rollover
 	DOF 135, DOFPulse
 	addscore 500
     LTop1.state=0
 	awardcheck
-end sub    
+end sub
 
 sub TGtop2_hit   '***** top 2 rollover
 	DOF 136, DOFPulse
@@ -1008,7 +1011,7 @@ Sub Target_hit
 	PlaySoundAt SoundFXDOF("target",103,DOFPulse,DOFTargets), Target
 	if l25.state=1 then
 		addbonus
-		if balls=5 then 
+		if balls=5 then
 			dt1.timerenabled=1
 		  else
 			if DT1.isdropped and DT2.isdropped and DT3.isdropped and DT4.isdropped and DT5.isdropped then dt2.timerenabled=1
@@ -1180,12 +1183,12 @@ end sub
 
 Sub DTcheck
 	if balls=5 then
-		if DT1.isdropped and DT2.isdropped and DT3.isdropped and DT4.isdropped and DT5.isdropped and DT6.isdropped and DT7.isdropped and DT8.isdropped and DT9.isdropped and DT10.isdropped then 
+		if DT1.isdropped and DT2.isdropped and DT3.isdropped and DT4.isdropped and DT5.isdropped and DT6.isdropped and DT7.isdropped and DT8.isdropped and DT9.isdropped and DT10.isdropped then
 			L25.state=1
 			if l5000.state=1 then lspecial.state=1
 		end if
 	  else
-		if (DT1.isdropped and DT2.isdropped and DT3.isdropped and DT4.isdropped and DT5.isdropped) or (DT6.isdropped and DT7.isdropped and DT8.isdropped and DT9.isdropped and DT10.isdropped) then 
+		if (DT1.isdropped and DT2.isdropped and DT3.isdropped and DT4.isdropped and DT5.isdropped) or (DT6.isdropped and DT7.isdropped and DT8.isdropped and DT9.isdropped and DT10.isdropped) then
 			L25.state=1
 			if l5000.state=1 then lspecial.state=1
 		end if
@@ -1210,7 +1213,7 @@ end sub
 sub addscore(points)
   if tilt=false and state=true then
 
-	If points = 10 then 
+	If points = 10 then
 		matchnumb=matchnumb+1
 		if matchnumb>10 then matchnumb=1
 		if balls=5 then
@@ -1232,7 +1235,7 @@ sub addscore(points)
 		ChangeBumperLights
 	end if
 
-	if points=10 or points=100 or points=1000 then 
+	if points=10 or points=100 or points=1000 then
 		addpoints Points
 	  else
 		If Points < 100 and AddScore10Timer.enabled = false Then
@@ -1316,11 +1319,11 @@ Sub AddPoints(Points)
 		PlaySoundAt SoundFXDOF("knock",140,DOFPulse,DOFKnocker), Plunger
 
     end if
-end sub 
+end sub
 
-  
+
 Sub CheckTilt
-	If Tilttimer.Enabled = True Then 
+	If Tilttimer.Enabled = True Then
 	 TiltSens = TiltSens + 1
 	 if TiltSens = 3 Then GameTilted
 	Else
@@ -1354,7 +1357,7 @@ sub turnoff
 	RightFlipper.RotateToStart
 	StopSound "Buzz1"
 	DOF 102, DOFOff
-end sub    
+end sub
 
 '*********************************************************************
 '                 Positional Sound Playback Functions
@@ -1515,7 +1518,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1529,7 +1532,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1574,7 +1577,7 @@ End Sub
 Sub a_Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1585,7 +1588,7 @@ End Sub
 Sub a_Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1705,13 +1708,13 @@ End Sub
 
 Dim HSA1, HSA2, HSA3
 Dim HSEnterMode, hsLetterFlash, hsEnteredDigits(3), hsCurrentDigit, hsCurrentLetter
-Dim HSArray  
+Dim HSArray
 Dim HSScoreM,HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex	'Define 6 different score values for each reel to use
 HSArray = Array("Postit0","postit1","postit2","postit3","postit4","postit5","postit6","postit7","postit8","postit9","postitBL","postitCM","Tape")
 Const hsFlashDelay = 4
 
 ' ***********************************************************
-'  HiScore DISPLAY 
+'  HiScore DISPLAY
 ' ***********************************************************
 
 Sub UpdatePostIt
@@ -1815,7 +1818,7 @@ End Sub
 
 
 ' ***********************************************************
-'  HiScore ENTER INITIALS 
+'  HiScore ENTER INITIALS
 ' ***********************************************************
 
 Sub HighScoreProcessKey(keycode)
@@ -1848,7 +1851,7 @@ Sub HighScoreProcessKey(keycode)
 				UpdatePostIt
 		 End Select
 	End If
-	
+
     If keycode = StartGameKey Then
 		Select Case hsCurrentLetter
 			Case 1:

@@ -9,47 +9,47 @@
 '   Requires VP9, version 9.9.1 or higher
 '
 ' Special Feature: Open the coin door (press the End key) to display the operator
-' menu.  This lets you set up the feature adjustments that were available in the 
+' menu.  This lets you set up the feature adjustments that were available in the
 ' original machine via various switches and plugs.  I think all of the adjustments
 ' that were possible on the original are faithfully implemented.
 '
-' Permissions: Mods and any other re-use are hereby allowed without separate 
-' permission.  Anyone may make further modifications to this version or use it 
+' Permissions: Mods and any other re-use are hereby allowed without separate
+' permission.  Anyone may make further modifications to this version or use it
 ' the basis for other tables.
 '
 ' This version is MJR's revamp of August, 2015, based on Itchigo's version of August,
-' 2014, which was in turn based on an earlier desktop version by Greywolf.  This new 
+' 2014, which was in turn based on an earlier desktop version by Greywolf.  This new
 ' version was created with Itchigo's permission.
 '
 ' Main updates in this version:
-'   
+'
 '   Added option settings for all of the operator adjustments described in the
 '       original Bally manual (balls per game, replay score levels, replay award
 '       as credit or extra ball, special award as credit or extra ball, and
 '	    Aladdin's Alley "liberal" or "conservative" scoring).  Also added a
 '		Free Play option, which allows starting a game (or adding a player)
 '		with 0 credits.
-'   Added an "operator menu" to adjust the new option settings interactively. 
+'   Added an "operator menu" to adjust the new option settings interactively.
 '       Open the coin door (press the End key) to display the menu; navigate it
 '       using the flipper buttons and Start button.
 '   Added high score initials, entered using the standard flipper button UI seen
 '       in alphanumeric and DMD machines.
 '   Changed Aladdin's Alley scoring to match the pattern described in the original
 '       Bally operator's manual (including the Liberal and Conservative variations).
-'   Fixed Aladdin's Alley scoring when lit for Special.  The old script awarded 5000 
-'       points on Special in addition to a credit; the real game doesn't award any 
+'   Fixed Aladdin's Alley scoring when lit for Special.  The old script awarded 5000
+'       points on Special in addition to a credit; the real game doesn't award any
 '       points, just the credit or extra ball.
 '   Reversed the top lane light states to match the authentic behavior.  (On the
-'       original machine, each lane's light is initially ON, and turns OFF when the 
+'       original machine, each lane's light is initially ON, and turns OFF when the
 '       lane is completed.  The corresponding upper and rollover buttons turn on
 '       when a lane is completed; this part was correct in the original script.)
-'   Added DOF event support: custom DOF events fire for all of the key game events, 
+'   Added DOF event support: custom DOF events fire for all of the key game events,
 '       to allow triggering flashers, solenoids, knockers, and other feedback devices
 '       in response to game events.
 '   Suppressed digitized sound effects that are redundant with the usual complement
 '       of DOF effects (for bumpers, flippers, knocker, etc) when DOF is present.
 '       DOF effects for scoring chimes can be enabled and disabled separately.
-'   Added controller selection via Visual Pinball\User\cController.txt.  Since 
+'   Added controller selection via Visual Pinball\User\cController.txt.  Since
 '       Aladdin's Castle isn't a ROM-based table, it doesn't use VPinMAME, so the
 '       controller setting only affects whether DOF is used for audio effects.
 '   Cleaned up graphics for the plastics (higher resolution, added lamp effects)
@@ -66,23 +66,23 @@
 '   Cleaned up "bell" audio samples (noise/hiss reduction)
 '   Marked appropriate audio effects as "backglass output" for dual audio systems
 '   Changed to more authentic "Over The Top" handling, with the backglass light
-'       displayed only temporarily after rolling over the score reels.  (An option 
+'       displayed only temporarily after rolling over the score reels.  (An option
 '       allows enabling the old behavior.)
-'   Reworked the scoring code for several features to use a simulated score motor 
-'       that models the behavior of the real machine's mechanical scoring system.  
+'   Reworked the scoring code for several features to use a simulated score motor
+'       that models the behavior of the real machine's mechanical scoring system.
 '       This is used for Aladdin's Alley and all of the targets and rollovers with
 '       300-point values.  This makes the Aladdin's Alley scoring behavior match
 '       the real machine's behavior more closely in some unusual cases.
 '
 ' The companion B2S backglass also has several improvements:
-'   
+'
 '   Cleaned up the main graphics
 '   Improved the score reel and credit reel geometry
-'   Changed to authentic style and placement of all of the backglass indicator lights 
+'   Changed to authentic style and placement of all of the backglass indicator lights
 '       (ball in play, match numbers, "Same Player Shoots Again", "Tilt", etc)
 '   Added decorative flashing backlight lamps that approximate the original machine's
 '       backglass lighting (in my version they're random, whereas the original probably
-'       had a fixed sequence, but the fixed sequence looked random enough that the 
+'       had a fixed sequence, but the fixed sequence looked random enough that the
 '       random sequencing here seems to look about right)
 '   Added a Bally logo backdrop on the third monitor, in lieu of a DMD
 '   Added a high score display to the third monitor, showing the highest score to date
@@ -125,7 +125,7 @@
 '
 ' The high score indicator uses ten lamps per ID to make up the score, because
 ' there doesn't seem to be any good way in B2S to set a text display directly.
-' Each ID has ten associated lamps, with B2SValue=1 for "1", 2 for "2", ..., 
+' Each ID has ten associated lamps, with B2SValue=1 for "1", 2 for "2", ...,
 ' and 10 for "0".  Value 0 turns the digit off entirely.  The player's initials
 ' work similarly, with 1="A", 2="B", 3="C", ..., 26="Z".
 '
@@ -159,12 +159,12 @@
 'Itchigo's 4 Player EM Template for Visual Pinball With Direct B2s
 '-------------------------------------------------------------------------------------------------------------------------
 '                                                  DO NOT REMOVE!!!!!!!!!!!!!!!
-'This template is for anyone to use to make a table out of. 
-'Do not make another template out of it, use it to build something!! Yes, I had to say that BECAUSE IT'S BEEN DONE BEFORE! 
-'If you use it please give me credit that you used it. Any parts or code can be borrowed for other tables. 
-'Although the code is in for extraball and special- you have to code the event to the light to turn on, I've taken care 
-'of the rest. The basic DB2s code has been added for basic commands. This will not support animations or complex things, 
-'but you can add them. Since they will vary from table to table it's best to leave that to the individual author. However, 
+'This template is for anyone to use to make a table out of.
+'Do not make another template out of it, use it to build something!! Yes, I had to say that BECAUSE IT'S BEEN DONE BEFORE!
+'If you use it please give me credit that you used it. Any parts or code can be borrowed for other tables.
+'Although the code is in for extraball and special- you have to code the event to the light to turn on, I've taken care
+'of the rest. The basic DB2s code has been added for basic commands. This will not support animations or complex things,
+'but you can add them. Since they will vary from table to table it's best to leave that to the individual author. However,
 'ball in play, match, shoootagain,gameover,tilt, playerup, and insert coin are already coded in as they are basic things on most tables.
 
 'Building in Desktop Mode: No modifications neccessary, build as normal.
@@ -186,7 +186,9 @@
 'Author of the original version this is based on: Itchigo.
 'Slings, rubbers, posts, plastics, lane triggers and ball lane guides by Faralos.
 
- 
+' Thalamus 2018-07-24
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize                          'This generates a random number for the match.
 
@@ -211,19 +213,19 @@ Const cGameName = "Aladdins_Castle"   ' this is the ID that B2S uses to save set
 
 
 ' Do you have an accelerometer?  This version is optimized for cabinets, so we'll
-' assume that the answer is yes.  Set this to false if you don't.  
+' assume that the answer is yes.  Set this to false if you don't.
 '
-' The only effect of this option is on how the script handles the "T" key.  If an 
-' accelerometer is present, the "T" key will simply pulse the virtual tilt switch.  
+' The only effect of this option is on how the script handles the "T" key.  If an
+' accelerometer is present, the "T" key will simply pulse the virtual tilt switch.
 ' If no accelerometer is present, the "T" key will ALSO apply a fake physics nudge,
-' in addition to pulsing the virtual tilt switch.  In cabinets with accelerometers, 
+' in addition to pulsing the virtual tilt switch.  In cabinets with accelerometers,
 ' you want all of the nudging to come from the accelerometer, not from keyboard
-' inputs.  The "T" key in an accelerometer-equipped cabinet is usually mapped to 
+' inputs.  The "T" key in an accelerometer-equipped cabinet is usually mapped to
 ' the physical plumb bob switch.  When that triggers, it means that the cabinet has
 ' been given a hard shove, which will already have registered on the accelerometer
 ' and will already have been fed into VP's physics model that way.  So you just
 ' want the "T" key to register a Tilt switch pulse for the purposes of letting the
-' game rules decide if a Tilt penalty is in order.  You *don't* want the physics model 
+' game rules decide if a Tilt penalty is in order.  You *don't* want the physics model
 ' to get another fake shove.  Setting this to true will take care of that.
 Const CabHasAccelerometer = True
 
@@ -231,8 +233,8 @@ Const CabHasAccelerometer = True
 '************************** Game Setup Options *****************************************************************************
 '
 ' Authentic setup options:  These options simulate the adjustable features of the
-' original EM table.  In the real machine, these were set via switches and plugs.  
-' In the virtual version, these can be changed via the Operator Menu, which you can 
+' original EM table.  In the real machine, these were set via switches and plugs.
+' In the virtual version, these can be changed via the Operator Menu, which you can
 ' display by opening the coin door or pressing the End key.
 '
 '  - Aladdin's Alley scoring mode:  The real machine has two possible scoring
@@ -257,10 +259,10 @@ Const CabHasAccelerometer = True
 '
 '  - Free Play: on or off.  When Free Play is on, the Start Game button will work
 '    even if there are 0 credits on the credit reel.  A credit is still deducted
-'    on Start Game if any credits are on the reel.  (This option is only 
-'    semi-authentic.  There's no mention of an official free play option in 
-'    the original operator's manual, but you could still set up a real Aladdin's 
-'    Castle on free play with a little know-how.  Most Williams and Bally EM 
+'    on Start Game if any credits are on the reel.  (This option is only
+'    semi-authentic.  There's no mention of an official free play option in
+'    the original operator's manual, but you could still set up a real Aladdin's
+'    Castle on free play with a little know-how.  Most Williams and Bally EM
 '    games from this generation can be easily converted to free play with a small
 '    tweak to the coin taker wiring.)
 '
@@ -277,16 +279,16 @@ Dim moptions 'Declortaion for desktop options menu.
 
 ' High Score Initials Entry UI style - modern or simpler.
 '
-' If SimplerInitUI is set to true, we use the "simpler" UI.  In this mode, the 
+' If SimplerInitUI is set to true, we use the "simpler" UI.  In this mode, the
 ' entry process ends immediately when the player enters the third letter.  Some
 ' older pinballs and video games used this sort of UI.
 '
 ' If SimplerInitUI is set to false, we use a slightly more complex UI that's more
-' like what most real alphanumeric and DMD pinballs use.  In this mode, after the 
-' player enters the third initial, the UI displays an END symbol.  Selecting the 
-' END symbol commits the entry.  But if the player wishes  to make changes, s/he 
-' can use the flipper buttons to switch to the Backspace symbol instead of the 
-' END symbol.  Selecting the Backspace symbol backs up to the third initial and 
+' like what most real alphanumeric and DMD pinballs use.  In this mode, after the
+' player enters the third initial, the UI displays an END symbol.  Selecting the
+' END symbol commits the entry.  But if the player wishes  to make changes, s/he
+' can use the flipper buttons to switch to the Backspace symbol instead of the
+' END symbol.  Selecting the Backspace symbol backs up to the third initial and
 ' lets the user change that entry or back up further.  So with the modern UI, the
 ' user gets one more chance to makes corrections after entering the third letter.
 Const SimplerInitUI = false
@@ -299,20 +301,20 @@ Const SimplerInitUI = false
 Const AlleyPointsOnSpecial = 0
 
 
-' "Over The Top" style - authentic or modernized.  
+' "Over The Top" style - authentic or modernized.
 
 ' If this is set to True, we use the authentic behavior.  The original feature was
-' the same as in many other Bally machines of the time.  There was a single "Over 
+' the same as in many other Bally machines of the time.  There was a single "Over
 ' The Top" light at the top of the backglass, shared for both players.  This light
-' came on for a few seconds along with a buzzer right after either player's score 
+' came on for a few seconds along with a buzzer right after either player's score
 ' flipped past 99,990.  The light turned off after a few moments; it didn't stay
 ' on through the end of the game or even through the current ball in play.
 '
 ' If this is set to False, we use a modernized version that's not authentic but is
 ' nicer UI-wise.  In this version, we use a separate "Over The Top" light for each
-' player, located above the corresponding score reel.  Once triggered, the light 
+' player, located above the corresponding score reel.  Once triggered, the light
 ' stays on until the start of the next game.  The light in this mode is effectively
-' a limited sixth reel that roughly doubles the maximum displayable score from 
+' a limited sixth reel that roughly doubles the maximum displayable score from
 ' 99,990 to 199,990.
 Const AuthenticOverTheTop = true
 
@@ -334,7 +336,7 @@ Dim Dtoptions_A
 
 ' Dummy controller class - for cases where the user doesn't want B2S to be loaded.
 ' This class provides dummy methods for the interface members that we use in the
-' controller.  This lets us just substitute an instance of this as the Controller 
+' controller.  This lets us just substitute an instance of this as the Controller
 ' object when B2S is turned off, so that we don't have to make every Controller
 ' method call conditional throughout the script.  Calls to the Controller methods
 ' will simply go through these dummy methods, which will be silently ignored.
@@ -354,19 +356,19 @@ class DummyController
 end class
 
 
-Dim object	
- 
+Dim object
+
     If ShowDT = True Then
-		For each object in DT_Stuff 
-		Object.visible = 1 	
+		For each object in DT_Stuff
+		Object.visible = 1
 		Next
         CabinetRailLeft.visible = 1:CabinetRailRight.visible = 1
         LDB.visible = 1
 	End If
-	
+
 	If ShowDt = False Then
-		For each object in DT_Stuff 
-		Object.visible = 0 	
+		For each object in DT_Stuff
+		Object.visible = 0
 		Next
         CabinetRailLeft.visible = 0:CabinetRailRight.visible = 0
         LDB.visible = 0
@@ -414,7 +416,7 @@ End If
 '************************** Initialize Table *******************************************************************************
 
  Sub Table1_Init()                  'Sub - All executable code must reside in a Sub (Function. Method, or Property) block.
-     LoadEM 
+     LoadEM
      Ball=1
      ' TextBox.Text= "Insert Coin"    'When table is first rendered show game over/insert coin.
  	 For Each Obj In Bumperparts:Obj.Isdropped=True:Next
@@ -484,7 +486,7 @@ End If
 End Sub
 
 ' Backglass initializer.  We do this on a timer, since B2S needs a few
-' seconds to initialize itself before it will accept any commands from 
+' seconds to initialize itself before it will accept any commands from
 ' the VP side.  This runs once on a timer, then disables itself.
 Sub BGInitTimer_Timer
 	' Set the backglass display for the player scores, credits, and high score to date.
@@ -518,7 +520,7 @@ End Sub
 '
 ' "Variable Name" is a string giving the name of the script global variable.  We'll
 ' save from and restore to the value of this variable.  "Conversion" is the conversion
-' function to apply to the string value loaded from the persistent store; if the 
+' function to apply to the string value loaded from the persistent store; if the
 ' target variable is a string, this can simply be empty, and for a number, it can
 ' be a function like "CDbl" or "CInt", as appropriate.  "Default Value" is the default
 ' to use on load when the variable isn't defined in the persistent store.
@@ -547,7 +549,7 @@ Dim SavedVars : SavedVars = Array( _
 	"OptBallsPerGame", "CInt", 3, _
 	"OptFreePlay", "CInt", 0 _
 )
-	
+
 
 Sub SaveInfo
 	dim i
@@ -590,7 +592,7 @@ Sub HighScoreReset
 	for i = 0 to ubound(SavedVars)-1 step 3
 		dim name : name = SavedVars(i)
 		dim defval : defval = SavedVars(i+2)
-		if left(name, 9) = "Highscore" then 
+		if left(name, 9) = "Highscore" then
 			Execute name & " = defval"
 		end if
 	next
@@ -608,9 +610,9 @@ End Sub
 ' by simply blinking them at random.
 '
 ' The backglass decoration lights are numbered 200+.  There are 11 of these
-' lamps (200-210), but in videos of the real machine, it appears that only the 
+' lamps (200-210), but in videos of the real machine, it appears that only the
 ' lights behind the "Aladdins' Castle" title graphics flash - the rest appear
-' to be solid on.  The title graphics lamps in our B2S backglass are the first 
+' to be solid on.  The title graphics lamps in our B2S backglass are the first
 ' 6 (200-205), so only include these in the flashing.
 Dim bgFlashers(6), lastBgFlasher
 Sub BgLights_Timer()
@@ -631,11 +633,11 @@ Dim gxx
 
 Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key down.
 	If  Keycode = PlungerKey Then       'JP's plunger stuff.
-		Plunger.PullBack                'Pull back the plunger. 
+		Plunger.PullBack                'Pull back the plunger.
         If Show_Hands = 1 AND ShowDT = True Then
         pld = 1:Plunger_Hand.enabled = 1
         End If
-	End If    
+	End If
 	If  Keycode = LeftFlipperKey And InProgress = True And Tilt=False Then
         If Show_Hands = 1 AND ShowDT=True Then
         hld = 1:hand_left.enabled = 1
@@ -651,7 +653,7 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
         DOF 166,1:DOF 165,0
         gi_bright.enabled = 1
         End If
-	End If    
+	End If
 	If  Keycode = RightFlipperKey And InProgress = True And Tilt=False Then
         If Show_Hands = 1 AND ShowDT = True Then
 		rld = 1:hand_right.enabled = 1
@@ -668,9 +670,9 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
         gi_bright.enabled = 1
         End If
 	End If
-	If  Keycode = AddCreditKey Then 
+	If  Keycode = AddCreditKey Then
 		Credits=credits + 1             'Add a credit.
-		MaxCredits                      'Call the max credits sub to check for maximum credits. 
+		MaxCredits                      'Call the max credits sub to check for maximum credits.
 		PlaySound "credit"              'Play the sound.
 		PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker)        'Play the sound.
         If B2SOn Then
@@ -679,17 +681,17 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
 		' If  InProgress= False Then TextBox.Text = "Press Start"   'If the game is over then show Press Start.
 		PlaySound "coinin"               'I wish I had a quarter for every time I've heard this sound. Amen, Bob!
 	End If
-	If  Keycode = StartGameKey Then 
+	If  Keycode = StartGameKey Then
 		StartGame                       'Call the start game sub.
-	End If   
+	End If
 	If  Keycode = LeftTiltKey Then      'Left shake.
 		Nudge 90, 2                     'Degree of shake and strength.
 		BumpIt                          'Check for tilt
-	End If    
+	End If
 	If  Keycode = RightTiltKey Then     'Right shake.
 		Nudge 270, 2                    'Degree of shake and strength.
 		BumpIt                          'Check for tilt
-	End If    
+	End If
 	If  Keycode = CenterTiltKey Then    'Center shake.
 		Nudge 0, 2                      'Degree of shake and strength.
 		BumpIt                          'Check for tilt
@@ -727,11 +729,11 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
 	if OpMenuActive then OpMenuKey keycode
 
 	if keycode = 30 then BeginHighScoreInits 2, 0
-    
+
     'This is the code for the game's options menu in desktop mode.  Rather than convert MJR's cabinet view to desktop, I have
     'just used a series of text boxes that allowing the same variables to be changed.  This menu is opened in desktop mode by
     'pressing the "2" key which I think is the vpinmamem extra ball default key.  Navigation is accomplished with the magnasave keys.
- 
+
     If keycode = 3 AND ShowDT = True AND Dtoptions_A = 0 Then
     moptions = 1:op1.state = 1:op10.State = 0
     DTOptions_Show
@@ -820,7 +822,7 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
                Else
                OptSpecialVal = 0
                op1mval5.text = "CR"
-            End If 
+            End If
         Case 6:
              If OptReplay1 => 99000 Then
              OptReplay1 = 49000
@@ -835,7 +837,7 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
            	 op1mval7.text = OptReplay2
 		Case 8:
              If OptHSReset = 0 Then
-               OptHSReset = 1         
+               OptHSReset = 1
                op1mval8.text = "Yes"
                Else
                OptHSReset = 0
@@ -843,7 +845,7 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
             End If
 		Case 9:
             Dtoptions_A = 0
-            If OptHSReset then 
+            If OptHSReset then
             HighScoreReset
             OptHSReset  = 0
             op1mval8.text = "No"
@@ -865,12 +867,12 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
              Dtoptions_A = 0
              DTOptions_Hide
 	  End Select
-	End If 
+	End If
 
 End Sub
 
 '*********** Key Up *******************************************************************************************************
- 
+
 Sub Table1_KeyUp(ByVal keycode)     'This is what happens when you release a key.
 	If  keycode = PlungerKey Then       'JP's Plunger stuff.
 		Plunger.Fire                    'Fire the plunger.
@@ -878,22 +880,22 @@ Sub Table1_KeyUp(ByVal keycode)     'This is what happens when you release a key
         If Show_Hands = 1 AND ShowDT = True Then
         pld = 11:Plunger_Hand.enabled = 1
         End If
-	End If   
+	End If
 	If  Keycode = LeftFlipperKey then
 		Stopsound "BuzzL"
 		if InProgress = True And Tilt=False Then
             If Show_Hands = 1 AND ShowDT = True Then
-            hld = 6:hand_left.enabled = 1 
+            hld = 6:hand_left.enabled = 1
             End If
 			LeftFlipper.RotateToStart       'If the above conditions are true the flipper goes down.
              PlaySoundat SoundFXDOF("flipperdown",128,DOFOff,DOFFlippers), LeftFlipper
 		end if
-	End If    
+	End If
 	If  Keycode = RightFlipperKey then
 		Stopsound "BuzzR"
 		if InProgress = True And Tilt=False Then
             If Show_Hands = 1 AND ShowDT = True Then
-            rld = 6:hand_right.enabled = 1 
+            rld = 6:hand_right.enabled = 1
             End If
 			RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
 			RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
@@ -918,11 +920,11 @@ Sub MaxCredits()
         End If
 	End If
 End Sub
- 
+
 Sub Addcredit()
 	Credits=credits + 1             'Add a credit.
-    MaxCredits                      'Call the max credits sub to check for maximum credits. 
-    PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker) 
+    MaxCredits                      'Call the max credits sub to check for maximum credits.
+    PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker)
     If B2SOn Then
     Controller.B2ssetCredits Credits
     End If
@@ -955,7 +957,7 @@ For Each gxx in GI_Lights
 End Sub
 
 '*************************** New Game ************************************************************************************
- 
+
 Sub StartGame
     ' If we're entering high score initials, or the operator menu is running,
 	' the Start button doesn't start a game after all.
@@ -969,14 +971,14 @@ Sub StartGame
 			InProgress = True               'This means a game is in progress.
 			Playsound "Start1"
 			Playsound "Motor"
-		End If  
+		End If
 
 		' now add a player, if we haven't already added all possible players
 		If InProgress = True And Players < 2 And Ball = 1 Then
 			if credits > 0 then Credits = Credits - 1  ' Subtract a credit; if 0 credits, leave it at 0 as we must be on free play
             If B2SOn Then
 			Controller.B2ssetCredits Credits
-            End If  
+            End If
 			Players = Players + 1           'Add a player.
 			Playsound "bally-addplayer"
             If B2SOn Then
@@ -1009,7 +1011,7 @@ Sub NewGame                          ' Start game, kickass I found a quarter!
     Light1k.State=1                  ' Turn on the 1000 bonus light
     Shootagain.State=0               ' Turn off the Shoot Again playfield light
     Light2x.State=0                  ' Turn off the Double Bonus playfield light
-    Light5.State=0                   
+    Light5.State=0
     Player=1                         ' Go to Player1.
     Tilt=0                           ' Reset the Tiltcount.
     Tilt=False                       ' Reset the tilt..
@@ -1039,7 +1041,7 @@ Sub NewGame                          ' Start game, kickass I found a quarter!
     End If
     'Set both desktop score reels to 0.
     SReels(1).setvalue(0)
-    SReels(2).setvalue(0) 
+    SReels(2).setvalue(0)
 	' While a game is in progress, turn off the rotating high scores, and
 	' instead show the lowest high score above the current player's score
 	' at the start of each ball.  This lets the player see the next goal
@@ -1058,7 +1060,7 @@ Sub DelayTimer1_Timer()
     DelayTimer1.Enabled=False
     RandomSoundMetal
 End Sub
- 
+
 Sub Trigger1_Hit()
 	DOF 124, 1
 End Sub
@@ -1067,14 +1069,14 @@ Sub Trigger1_UnHit()
 	Playsoundat "Plunger", Screw60
 	DOF 124, 0
 End Sub
- 
+
 '*********Sound Effects**************************************************************************************************
                                        'Use these for your sound effects like ball rolling, etc.
 
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1085,7 +1087,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1173,29 +1175,29 @@ Sub BumpIt
 		Tiltcount = Tiltcount + 1       ' add 1 to the tiltcount while starting the timer.
 		TiltTimer.Enabled = True
 	End If
-	If  Tiltcount > 2 Then              
+	If  Tiltcount > 2 Then
         ' The tilt count (times you've shaken the game) has reached 3 within too short a
 		' time window.  Tilt the game.
 		Tilt = True
-	End If    
-	If  Tilt= True Then                 ' If you've tilted the game do this.     
+	End If
+	If  Tilt= True Then                 ' If you've tilted the game do this.
 		TiltIt
-	End If 
+	End If
 End Sub
 
 Sub TiltIt
 	if InProgress then
 		LeftFlipper.RotateToStart       'If the game is tilted then reset the flippers.
-        PlaySoundAt SoundFXDOF("FlipperDown",128,DOFOff,DOFFlippers), LeftFlipper 
+        PlaySoundAt SoundFXDOF("FlipperDown",128,DOFOff,DOFFlippers), LeftFlipper
         If Show_Hands = 1 AND ShowDT = True Then
-        hld = 6:hand_left.enabled = 1 
+        hld = 6:hand_left.enabled = 1
         End If
         If Show_Hands = 1 AND ShowDT = True Then
-        rld = 6:Hand_Right.enabled = 1 
+        rld = 6:Hand_Right.enabled = 1
         End If
 		RightFlipper.RotateToStart      'If the game is tilted then reset the flippers.
 		RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
-		PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper 
+		PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper
 		StopSound "BuzzL" : StopSound "BuzzR"
 		BonusCounter=0                  'If the game is tilted then reset the bonus to 0.
 		Playsound "Reset3"
@@ -1207,14 +1209,14 @@ Sub TiltIt
 		For Each Obj In Bonuslights: Obj.State=0:Next
         l_gi2.state = 0:l_gi1.state = 0
 		Alley1.State=0
-		Light1k.State=0 
+		Light1k.State=0
 		Shootagain.State=0
         If B2SOn Then
 		Controller.B2ssetshootagain 36,0
 		End If
         Light2x.State=0
         Tilt_Enable 'Activate the object array which prevents dynamic table objects from interacting with the ball.
-		'For Each Obj In TiltedObjects:Obj.disabled = True: Next'If the game is tilted disable all these objects in this collection.          
+		'For Each Obj In TiltedObjects:Obj.disabled = True: Next'If the game is tilted disable all these objects in this collection.
 		If B2SOn Then
         Controller.B2ssetTilt 33,1
         End If
@@ -1242,16 +1244,16 @@ Bumper3_Wall.isdropped = 1
 LeftSlingShot_Wall.isdropped = 1
 Gotilt.setvalue(2)
 End Sub
-   
+
 Sub TiltTimer_Timer
     TiltTimer.Enabled = False       'Turn off/reset the timer.
 	If  Tiltcount=3 Then                'If the tilt count reches 3 then the game is tilted,
         Tilt = True                     'We have tilted the game.
-	Else                             
+	Else
 		Tiltcount = 0                   'Else tilt count is 0 and reset the tilt timer.
 	End If
 End Sub
- 	 
+
 
 '********************* Scores and scoring *******************************************************************************
 
@@ -1275,7 +1277,7 @@ End Sub
 
 ' Add points to the current player's score.  Counts the points, updates
 ' the backglass reels, and checks for replays.
-Sub AddScore(Points) 
+Sub AddScore(Points)
 	ScorePlayer(Player) = ScorePlayer(Player) + Points
     If InProgress Then
     SReels(Player).addvalue(Points)
@@ -1283,7 +1285,7 @@ Sub AddScore(Points)
     If B2SOn Then
 	Controller.B2Ssetscore Player, ScorePlayer(Player) mod 100000
 	End If
-    CheckReplay 
+    CheckReplay
 End Sub
 
 ' Check all players' current scores for replays and "Over The Top".
@@ -1292,9 +1294,9 @@ Sub CheckReplay
 		OverTheTop(Player) = true
 		Playsound "overthetop"
 		if AuthenticOverTheTop then
-			' Authentic mode - this is the way the original machine worked.  
+			' Authentic mode - this is the way the original machine worked.
 			' In this mode, there's a single Over The Top light that's shared
-			' for all players, and it only comes on for about 5 seconds after 
+			' for all players, and it only comes on for about 5 seconds after
 			' the score rolls over.  The single light has B2S ID 9.
             If B2SOn Then
 			Controller.B2SSetData 9, 1
@@ -1313,18 +1315,18 @@ Sub CheckReplay
 			' effectively serving as a limited sixth reel in the score.
             If B2SOn Then
 			Controller.B2SSetData 9 + Player, 1
-            End If 
+            End If
             Gotilt.SetValue(3) 'Set OTT in the desktop reel.
 		end if
 	End If
 	If OptReplay1 <> 0 And ScorePlayer(Player) >= OptReplay1 And Not Replay1Awarded(Player) Then
 		AwardReplay
 		Replay1Awarded(Player) = True
-	End If 
+	End If
 	If OptReplay2 <> 0 And ScorePlayer(Player) >= OptReplay2 And Not Replay2Awarded(Player) Then
 		AwardReplay
 		Replay2Awarded(Player) = True
-	End If  
+	End If
 End Sub
 
 ' Over The Top timer.  In authentic mode, the Over The Top light goes out
@@ -1345,7 +1347,7 @@ Sub OverTheTopTimer_Timer
 		OverTheTopTimer.Enabled = false
 	end if
 End Sub
- 
+
 ' Award a Special.  This awards either a credit or an extra ball, depending
 ' on the option setting.
 Sub AwardSpecial
@@ -1382,7 +1384,7 @@ End Sub
 
 ' ************************* Score Motor *********************************************************************
 '
-' This simulates the score motor mechanism used on the real machine to award 
+' This simulates the score motor mechanism used on the real machine to award
 ' multiples of 100 and 1000 points.  It's also used to award all scores in
 ' Aladdin's Alley.
 '
@@ -1390,7 +1392,7 @@ End Sub
 ' were used to handle scoring of quantities that couldn't be represented with
 ' a single click of one reel.  For example, if a target scores 300 points,
 ' it's necessary to advance the 100's reel by three clicks.  This requires
-' three separate pulses to the solenoid that drives the reel, spread out 
+' three separate pulses to the solenoid that drives the reel, spread out
 ' enough over time to give the solenoid time to spring back to its starting
 ' position between each pulse.  EM machines didn't have microprocessors for
 ' counting out the pulses - they had to do everything mechanically.  The
@@ -1400,17 +1402,17 @@ End Sub
 ' rotates, it triggers a series of switches in sequence.  Each switch can
 ' be wired to carry out some scoring function when tripped.  So for our
 ' 300-point target, the target's switch would be connected to a set of
-' relays that would latch on, providing power to the score motor and 
-' connecting three of the motor cam switches to the 100's reel.  The 
+' relays that would latch on, providing power to the score motor and
+' connecting three of the motor cam switches to the 100's reel.  The
 ' power connection would set the motor spinning; as it went around, it
-' would trip the cam switches, sending three pulses to the 100's reel 
+' would trip the cam switches, sending three pulses to the 100's reel
 ' through the latched relays.  At the end of the cycle, the last cam
 ' switch would interrupt power to the latching relays, which would reset
 ' the relays, cutting power to the motor.  That would end the cycle and
 ' leave the motor in a position to handle the next target that needs it.
-' 
+'
 ' That's the general score motor mechanism from pinballs of this era.  With
-' VP, we don't really need to simulate the score motor faithfully, since we 
+' VP, we don't really need to simulate the score motor faithfully, since we
 ' have a modern electronic computer at our disposal which can easily handle
 ' the arithmetic that the old score motors carried out mechanically.  However,
 ' emulating the underlying score motor mechanism is still useful for simulating
@@ -1426,7 +1428,7 @@ End Sub
 ' current alley score.  As the ball continues through the alley, when it hits
 ' the second rollover, that rollover will also trigger the same relays as the
 ' first switch - but all of that will have no effect because the score motor
-' is already running.  
+' is already running.
 '
 ' The original version of this virtual table used a single hidden trigger object
 ' to handle each alley score.  For the most part, that worked just fine, in that
@@ -1436,22 +1438,22 @@ End Sub
 ' the original machine's score motor setup only ensured this *most* of the time.
 ' A very slow traversal of the alley could actually collect two separate score
 ' awards on the real machine.  If the ball was moving so slowly that it didn't
-' trigger the second rollover until after the score motor cycle had fully 
+' trigger the second rollover until after the score motor cycle had fully
 ' completed for the first rollover, the second rollover would be able to trigger
 ' another score motor cycle and collect a second award.  This new more faithful
 ' simulation of the score motor will properly simulate that effect, in addition
 ' to correctly awarding only one score value for the typical case where the ball
 ' is moving more quickly.
 
-' Score motor virtual relay circuits.  When set to true, these tell the score 
-' motor to award certain point values at corresponding positions in the motor 
+' Score motor virtual relay circuits.  When set to true, these tell the score
+' motor to award certain point values at corresponding positions in the motor
 ' cycle.  All of these are automatically unlatched (set to false) at the end
 ' of each motor cycle.
 '
-' scmHundred() and scmThousand() are arrays of 5 relays, virtually wired to the 
-' cam switches at the corresponding positions. If scmHundred(N) is true, the 
-' score motor will score 100 points when at position N in the cycle.  So to 
-' award 300 points, we'd set scmHundred(1), scmHundred(2), and scmHundred(3) 
+' scmHundred() and scmThousand() are arrays of 5 relays, virtually wired to the
+' cam switches at the corresponding positions. If scmHundred(N) is true, the
+' score motor will score 100 points when at position N in the cycle.  So to
+' award 300 points, we'd set scmHundred(1), scmHundred(2), and scmHundred(3)
 ' to true and start the score motor.  This will award 100 points apiece at
 ' positions 1, 2, and 3, for a total of 300 points.
 '
@@ -1471,7 +1473,7 @@ Dim scmPos : scmPos = 1
 ' first N hundred and thousand cam switches, then starts the score motor cycle.
 ' If a cycle is already in progress, this latches the relays but doesn't have
 ' any effect on the motor cycle - it just leaves the motor running where it
-' already is. 
+' already is.
 Sub ScoreMotorAdd(points)
 	for i = 1 to 5
 		if points >= 1000 then
@@ -1532,12 +1534,12 @@ Sub ScoreMotorTimer_Timer
 		scmSpecial = false
 		scmAlley = false
 		scmPos = 1
-	end if		
+	end if
 End Sub
 
 
 '******************** Table Objects ****************************************************************************************
- 
+
 Sub Toplanes_Hit(x)                 'Any trigger in the collection has been hit.
         PlaySoundAtBall "fx_Sensor"
 	If  Tilt= False Then                'If the game isn't tilted.
@@ -1581,7 +1583,7 @@ Sub Toptriggers_Hit(x)
 		AddScore100
 		If  Toprolloverlights(x).State=1 Then
 			AdvanceBonus
-		End If 
+		End If
 	End If
 End Sub
 
@@ -1595,7 +1597,7 @@ Sub Bottomtriggers_Hit(x)
 		AddScore100          ' DOF events 109-112 for lower A-D rollovers
 		If  Bottomrolloverlights(x).State=1 Then
 			AdvanceBonus
-		End If 
+		End If
 	End If
 End Sub
 
@@ -1727,7 +1729,7 @@ Sub Spinner1_Spin()                 'If the Spinner is hit...
 		End If
 	End If
 End Sub
- 
+
 Sub LeftInlane_Hit()                ' Inlane has been hit.
 	PlaySoundAtBall "fx_Sensor"
 	If  Tilt= False Then            ' If the game isn't tilted.
@@ -1735,7 +1737,7 @@ Sub LeftInlane_Hit()                ' Inlane has been hit.
 		DOF 115, 1                  ' fire the DOF effect
 		AdvanceBonus
 	End If
-End Sub 
+End Sub
 
 Sub LeftInlane_Unhit()
 	DOF 115, 0
@@ -1766,7 +1768,7 @@ Sub Outlanes_Hit(IDX)                  'Outlane has been hit.
 	If  Tilt=False Then
 		If  Sidelight1.State=1 Then
 			ScoreAladdinsAlley
-		Else 
+		Else
 			AddScore1000
 		End If
 	End If
@@ -1817,7 +1819,7 @@ End Sub
 ' In either case, when reaching the last state, we stay on that state for the
 ' remainder of the ball in play.  Note that SPECIAL awards a credit or extra ball,
 ' according to the Special Value option.
-' 
+'
 ' To handle the progressive scoring, we keep two arrays of score levels, one for each
 ' mode, and use the appropriate array for the current mode.  Each element in each array
 ' is an index into our AlleyScores array.
@@ -1837,7 +1839,7 @@ Dim AlleyScores : AlleyScores = Array( _
 	5000, Alley6, _
 	0, Alley7 _
 )
-	
+
 Sub ScoreAladdinsAlley()
 	If Tilt=False Then
 		' fire the alley DOF effects
@@ -1876,7 +1878,7 @@ Sub AdvanceAladdinsAlley()
 
 	' Move to the next award level.  When we reach the end of the score list,
 	' we stay on the last entry from then on.
-	if AlleyLevel < ubound(sl) then 
+	if AlleyLevel < ubound(sl) then
 		' turn off the alley light for the old level
 		AlleyScores(sl(AlleyLevel)*2 + 1).State = 0
 
@@ -1893,25 +1895,25 @@ End Sub
 
 ' Start a new ball
 Sub AddBall()
-	If Shootagain.State=1 Then         'If the Shoot Again light is on then subtract a player. The Bonus Ended sub will add 
+	If Shootagain.State=1 Then         'If the Shoot Again light is on then subtract a player. The Bonus Ended sub will add
 		Player=Player-1 'a player to go to the next player, subtracting a player counteracts this, keeping the same player.
         If B2SOn Then
 		Controller.B2ssetshootagain 36,0
 		Controller.B2ssetballinplay 32,Ball
         Controller.B2ssetplayerup 30,Player
         End If
-    BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.	
+    BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.
 	End If
 End Sub
 
-' When the ball drains, start the bonus 
+' When the ball drains, start the bonus
 Sub Drain_Hit()                     'Another one bites the dust.
     Drain.DestroyBall               'Destroy the ball when it hits the drain.
     PlaySoundat "Drain5", drain             'Play the sound.
 	DOF 123, 2
 
 	' Start the bonus timer to simulate the mechanical bonus scoring motor.
-	' For regular single bonus, award points in batches of 5.  For the 
+	' For regular single bonus, award points in batches of 5.  For the
 	' double bonus, award the bonus in batches of 2.  Between batches,
 	' we'll introduce a suitable delay for the motor to cycle.
     BonusTimer.Enabled = 1
@@ -1934,8 +1936,8 @@ Sub BonusEnded()
 		Controller.B2ssetballinplay 32,Ball
         End If
 		BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.
-		
-	End If    
+
+	End If
 	If  Ball <= OptBallsPerGame Then   'Is ball played less than total Balls or is the Game Over.
 		DelayTimer2.Enabled=True
 		Playsound "Motor"
@@ -1946,7 +1948,7 @@ Sub BonusEnded()
 		For Each Obj In Toprolloverlights: Obj.State=0:Next
         l_gi2.state = 1:l_gi1.state = 1
 		Alley1.State=1
-		Light1k.State=1 
+		Light1k.State=1
 		Shootagain.State=0
 		Light2x.State=0
 		Light5.State=0
@@ -1978,18 +1980,18 @@ Sub DelayTimer2_Timer()
     DelayTimer2.Enabled=False
     Stopsound "Motor"
 End Sub
- 
+
 '************ Bonus Routine ************************************************************************************************
 
 Dim Obj,BonusCounter,MultiplierCounter,Tens,Ones
- 
+
 Sub AdvanceBonus()
     BonusCounter = BonusCounter + 1000
 	If  Bonuscounter >15000 Then Bonuscounter=15000
 	ShowBonusLights
 End Sub
- 
-' Bonus 1000s and 10000s lights.  Note that Light0K is a hidden off-screen light 
+
+' Bonus 1000s and 10000s lights.  Note that Light0K is a hidden off-screen light
 ' that we use as a placeholder for zero values, so that nothing visible lights.
 ' The bonus on this machine is limited to 15000, so we only need one 10K light.
 Dim BonusOnesLights : BonusOnesLights = Array( _
@@ -2008,8 +2010,8 @@ Sub ShowBonusLights ()
 	BonusOnesLights(Ones).State = 1                ' Turn on the suitable 1000s light
 	BonusTensLights(Tens).State = 1                ' Turn on the suitable 10000s light
 End Sub
-  
-Sub BonusTimer_Timer 
+
+Sub BonusTimer_Timer
 	' if the bonus has reached zero, we're done - signal the end of the bonus
 	' processing and turn off the bonus timer
 	If Bonuscounter = 0 Then
@@ -2035,7 +2037,7 @@ Sub BonusTimer_Timer
 	' the delay timer that simulates the motor resetting, and turn off the
 	' main bonus timer until the delay routine resets things.
 	BonusMotor = BonusMotor - 1
-	If BonusMotor = 0 Then 
+	If BonusMotor = 0 Then
 		DelayTimer3.Enabled = True
 		BonusTimer.Enabled = False
 	End If
@@ -2068,7 +2070,7 @@ End Sub
 
 '******************** Game Over ********************************************************************************************
 
-Sub GameOver 
+Sub GameOver
     StopSound "BuzzL" : StopSound "BuzzR"
 	InProgress=False				 'We always know when the game is active with this variable.
     If B2SOn Then
@@ -2081,17 +2083,17 @@ Sub GameOver
     PlaySoundAt SoundFXDOF("FlipperDown",128,DOFOff,DOFFlippers), LeftFlipper
 	RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
 	RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
-    PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper 
+    PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper
     If Show_Hands = 1 AND ShowDT = True Then
-    hld = 6:hand_left.enabled = 1 
+    hld = 6:hand_left.enabled = 1
     End If
     If Show_Hands = 1 AND ShowDT = True Then
-    rld = 6:Hand_Right.enabled = 1 
+    rld = 6:Hand_Right.enabled = 1
     End If
-    
+
     BallReel.setvalue(0) 'Set the ball count to 0 on the desktop reel.
     Gotilt.setvalue(0) 'Set the game over image on the desktop reel.
-    
+
 	' mark all players in the game for high score checks
 	for i = 1 to ubound(NeedHighScoreCheck)
 		NeedHighScoreCheck(i) = (i <= Players)
@@ -2162,12 +2164,12 @@ Sub SaveTimer_Timer
 	SaveTimer.Enabled = false
 End Sub
 
-' Number of credits to add for a new high score in slot #n.  (Slot 0 is 
+' Number of credits to add for a new high score in slot #n.  (Slot 0 is
 ' high score 1, slot 1 is high score 2, etc).
 Dim HighScoreAwards : HighScoreAwards = Array(2, 1, 1, 1)
 
 ' Check one player's score against the high score list.  If the player's score
-' is higher than (or ties) any high score in the list, we'll insert the player's 
+' is higher than (or ties) any high score in the list, we'll insert the player's
 ' score in the list ahead of the highest existing score lower than or equal to
 ' the player's score, pushing the lowest score off of the list.  We'll also award
 ' free game credits according to the position in the list.
@@ -2322,7 +2324,7 @@ End Sub
 
 ' A B2S lamp value of 0 always means "off", so when we want to light up
 ' a lamp to show a "0" digit, we have to use a non-zero value for the lamp.
-' To deal with this, all of our backglass lamps that represent "0" digits 
+' To deal with this, all of our backglass lamps that represent "0" digits
 ' have lamp value 10.  This routine takes care of converting a digit value
 ' on the VP side from 0 to 10 to match up with the B2S numbering.
 Function ZeroToTen(n)
@@ -2348,7 +2350,7 @@ Dim CreditsToAdd
 Sub AddCredits(n)
 	CreditsToAdd = CreditsToAdd + n
 	CreditsTimer.Enabled = 1
-End Sub		
+End Sub
 
 Sub CreditsTimer_Timer
 	If CreditsToAdd > 0 then
@@ -2360,17 +2362,17 @@ Sub CreditsTimer_Timer
 End Sub
 
 
-' Generate a match number, display it on the backglass, and award credits 
+' Generate a match number, display it on the backglass, and award credits
 ' to matching scores.
-Sub Match()		
+Sub Match()
 	MatchNumber = Int(Rnd(1)*10)*10
     If B2SOn Then
     Controller.B2ssetmatch 34, Matchnumber
     End If
 	If  MatchNumber = 0 Then
-        If B2SOn Then 
+        If B2SOn Then
 		Controller.B2ssetmatch 34, 100
-        End If    
+        End If
       MatchReel.SetValue(0):ML.state = 1 ' Sdet the match number on the desktop match reel and turn on the reel light.
 	Else
 		If B2SOn Then
@@ -2379,7 +2381,7 @@ Sub Match()
      MatchReel.SetValue(Matchnumber):ML.State = 1 ' Sdet the match number on the desktop match reel and turn on the reel light.
 	End If
 	For i = 1 to Players
-		If  MatchNumber = (ScorePlayer(i) Mod 100) Then 
+		If  MatchNumber = (ScorePlayer(i) Mod 100) Then
 			Addcredit
 		End If
 	Next
@@ -2390,7 +2392,7 @@ End Sub
 '
 ' High Score Initial entry
 '
-' We want to keep track of the high score to date, including the initials of the player who 
+' We want to keep track of the high score to date, including the initials of the player who
 ' set the last high score.  More modern pinballs do this with their new-fangled alphanumeric
 ' displays, but Aladdin's Castle was from an older generation that just had mechanical
 ' score reels.  So to provide this feature, we have to invent something out of whole cloth.
@@ -2405,11 +2407,11 @@ End Sub
 ' through the alphabet, so even though it's anachronistic for this particular machine, it
 ' will at least be familiar in a pinball context in general.
 
-' In terms of the concrete implementation, we also have to improvise a bit, since VP 
+' In terms of the concrete implementation, we also have to improvise a bit, since VP
 ' doesn't have any direct way to solicit input like this.  We use an EMReel for the sticky
-' note graphics, and an additional reel for each character position.  The reels are useful 
-' for this because they're drawn in the foreground and we can set arbitrary images.  
-' Furthermore, a reel can show different "digits", which are actually just image cells.  
+' note graphics, and an additional reel for each character position.  The reels are useful
+' for this because they're drawn in the foreground and we can set arbitrary images.
+' Furthermore, a reel can show different "digits", which are actually just image cells.
 ' For the sticky note background, we use two cells for the two different prompts
 ' ("Player One" and "Player Two"), and for each initial slot we use an alphabet reel.
 '
@@ -2445,7 +2447,7 @@ Sub BeginHighScoreInits(player, slot)
     HighScoreDlgDT.SetValue player-1
 	HighScoreDlgDT.Image = "High Score Prompt_DT"
 	HSInit5.Image = "Alphabet Reel DT"
-    End If  
+    End If
 	EnteringHS = true
 	EnteringHSSlot = slot
 
@@ -2458,7 +2460,7 @@ Sub BeginHighScoreInits(player, slot)
 	' flash the cursor
 	HSBlink = 0
 	InitEntryTimerTick = 0
-	HSLeftFlipperDown = 0	
+	HSLeftFlipperDown = 0
 	HSRightFlipperDown = 0
 	InitEntryTimer.Enabled = true
 End Sub
@@ -2498,11 +2500,11 @@ Sub HideHighScoreInitUI
 	hs4_val.text = Highscore(3)
 End Sub
 
-' Blink the current initial, and handle auto-repeat keys.  
+' Blink the current initial, and handle auto-repeat keys.
 Dim InitEntryTimerTick, HSBlink
 Sub InitEntryTimer_Timer
 	' Blink the cursor every 500ms.  The alphabet reel has 60 slots, 30 for
-	' normal and 30 for highlighted.  So simply switch back and forth 
+	' normal and 30 for highlighted.  So simply switch back and forth
 	' between N and N+30.
 	InitEntryTimerTick = (InitEntryTimerTick + 1) mod 10
 	if InitEntryTimerTick = 0 then
@@ -2537,14 +2539,14 @@ Sub HighScoreInitKey(keycode)
 	Elseif Keycode = RightFlipperKey Then
 		HSRightFlipperKey
 		HSRightFlipperDown = 1
-	Elseif Keycode = StartGameKey Then 
+	Elseif Keycode = StartGameKey Then
 		if HSCurInit = 27 and HSPos > 0 then
 			' backspace symbol - delete current position and back up to previous
 			HSInits(HSPos).SetValue 26   ' set value to space to hide initial
 			HSPos = HSPos - 1
 			HSBlink = 0
 			HSCurInit = Asc(Right(HSInitStr, 1))-65
-			HSInitStr = Left(HSInitStr, Len(HSInitStr)-1)			
+			HSInitStr = Left(HSInitStr, Len(HSInitStr)-1)
 		else
 			' any other symbol - move to next position, or commit entry at position 4
 			HSInits(HSPos).SetValue HSCurInit   ' set base value in case we were blinked on
@@ -2564,7 +2566,7 @@ Sub HighScoreInitKey(keycode)
 				HSInits(HSPos).SetValue HSCurInit
 			end if
 		end if
-	End If   
+	End If
 End Sub
 
 Sub HighScoreInitKeyUp(keycode)
@@ -2606,10 +2608,10 @@ HideHighScoreInitUI
 '
 ' Operator Menu
 '
-' Bring up the operator menu by opening the coin door (END key).  This presents a UI for setting 
-' the various game options described in the original Bally instruction manual. 
+' Bring up the operator menu by opening the coin door (END key).  This presents a UI for setting
+' the various game options described in the original Bally instruction manual.
 
-' 
+'
 ' Menu item map
 ' Each map element is an array that describes the menu line.  The first element of that array
 ' is the item type, which specifies the meaning of the rest of the items:
@@ -2863,10 +2865,10 @@ Sub HideOperatorMenu(save)
 	' hide the UI elements
 	for each Obj in OpMenu : Obj.Image = "Transparent Backdrop" : Next
 
-	' If they want to save the new settings, flag a pending save for the timer.  
-	' We do the save in thetimer rather than right now so that the UI disappears 
-	' immediately, which provides a smoother feedback experience.  The save takes 
-	' a couple of seconds, so if we don't remove the UI first, the button push 
+	' If they want to save the new settings, flag a pending save for the timer.
+	' We do the save in thetimer rather than right now so that the UI disappears
+	' immediately, which provides a smoother feedback experience.  The save takes
+	' a couple of seconds, so if we don't remove the UI first, the button push
 	' feels laggy.  If they don't want to save the new settings, simply shut
 	' down the UI immediately.
 	if save then
@@ -2878,7 +2880,7 @@ Sub HideOperatorMenu(save)
 	end if
 End Sub
 
-' Shut down 
+' Shut down
 Sub OpMenuShutdown
 	OpMenuTimer.Enabled = false
 	OpMenuActive = false

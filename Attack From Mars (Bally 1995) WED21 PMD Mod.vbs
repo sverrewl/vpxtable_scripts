@@ -4,8 +4,6 @@
 ' DOF by arngrim
 ' PMD by WED21
 
-
-
 Option Explicit
 Randomize
 

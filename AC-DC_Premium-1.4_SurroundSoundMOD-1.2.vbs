@@ -10,51 +10,51 @@
 '                    *                                                                        *
 '                    **************************************************************************
 '
-'             *                      *                                       *********                      *         
-'            ***                    ***                                     ***********                    ***        
-'           *****                  *****                                   *************                  *****       
-'          *******                *******                                 ***************                *******      
-'         *********              *********                               *****************              *********     
-'        ***********            ***********                             *******************            ***********    
-'       *************          *************                            ********************          *************   
-'      ***************        ***************                            ********************        ***************  
-'     *****************      *****************                            ******** ***********      ***************** 
+'             *                      *                                       *********                      *
+'            ***                    ***                                     ***********                    ***
+'           *****                  *****                                   *************                  *****
+'          *******                *******                                 ***************                *******
+'         *********              *********                               *****************              *********
+'        ***********            ***********                             *******************            ***********
+'       *************          *************                            ********************          *************
+'      ***************        ***************                            ********************        ***************
+'     *****************      *****************                            ******** ***********      *****************
 '    ****** ************    ******* ***********             ********      ********  **********     ******* ***********
 '   *******  ***********    *******  **********             ********      ********   *********     *******  **********
-'   *******   **********    *******   ********             ********       ********    ********     *******   ******** 
-'   *******    *********    *******    ******              ********       ********     *******     *******    ******  
-'   *******     ********    *******     ****              *********       ********     *******     *******     ****   
-'   *******      *******    *******      **               ********        ********     *******     *******      **    
-'   *******      *******    *******                      *********        ********     *******     *******            
-'   *******      *******    *******                      *********        ********     *******     *******            
-'   *******      *******    *******                      ********         ********     *******     *******            
-'   *******      *******    *******                     *********         ********     *******     *******            
-'   *******      *******    *******                     ********          ********     *******     *******            
-'   *******      *******    *******                    *********          ********     *******     *******            
-'   *******      *******    *******                    ***************    ********     *******     *******            
-'   ********************    *******                   ***************     ********     *******     *******            
-'   ********************    *******                   **************      ********     *******     *******            
-'   ********************    *******                   **************      ********     *******     *******            
-'   ********************    *******                  **************       ********     *******     *******            
-'   ********************    *******                  *************        ********     *******     *******            
-'   ********************    *******                 *************         ********     *******     *******            
-'   ********************    *******                       *******         ********     *******     *******            
-'   ********************    *******       *               ******          ********     *******     *******      **    
-'   *******      *******    *******      ***             ******           ********     *******     *******     ****   
-'   *******      *******    *******     *****            ******           ********     *******     *******    ******  
-'   *******      *******    *******    *******           *****            ********     *******     *******   ******** 
+'   *******   **********    *******   ********             ********       ********    ********     *******   ********
+'   *******    *********    *******    ******              ********       ********     *******     *******    ******
+'   *******     ********    *******     ****              *********       ********     *******     *******     ****
+'   *******      *******    *******      **               ********        ********     *******     *******      **
+'   *******      *******    *******                      *********        ********     *******     *******
+'   *******      *******    *******                      *********        ********     *******     *******
+'   *******      *******    *******                      ********         ********     *******     *******
+'   *******      *******    *******                     *********         ********     *******     *******
+'   *******      *******    *******                     ********          ********     *******     *******
+'   *******      *******    *******                    *********          ********     *******     *******
+'   *******      *******    *******                    ***************    ********     *******     *******
+'   ********************    *******                   ***************     ********     *******     *******
+'   ********************    *******                   **************      ********     *******     *******
+'   ********************    *******                   **************      ********     *******     *******
+'   ********************    *******                  **************       ********     *******     *******
+'   ********************    *******                  *************        ********     *******     *******
+'   ********************    *******                 *************         ********     *******     *******
+'   ********************    *******                       *******         ********     *******     *******
+'   ********************    *******       *               ******          ********     *******     *******      **
+'   *******      *******    *******      ***             ******           ********     *******     *******     ****
+'   *******      *******    *******     *****            ******           ********     *******     *******    ******
+'   *******      *******    *******    *******           *****            ********     *******     *******   ********
 '   *******      *******    ********  *********         *****             ********    ********     *******  **********
 '   *******      *******    *******************         ****              ********   *********     *******************
-'  ********     ********    ******************          ****              ********  **********     ****************** 
-' **********   **********    ****************          ****               ********************      ****************  
-'************ ************    **************           ***               ********************        **************   
-' *********** ************     ************            ***              ********************          ************    
-'  *********   **********       **********            ***               *******************            **********     
-'   *******     ********         ********             **                 *****************              ********      
-'    *****       ******           ******              *                   ***************                ******       
-'     ***         ****             ****              **                    *************                  ****        
-'      *           **               **               *                      ***********                    **         
-'                                                   *                                                                 
+'  ********     ********    ******************          ****              ********  **********     ******************
+' **********   **********    ****************          ****               ********************      ****************
+'************ ************    **************           ***               ********************        **************
+' *********** ************     ************            ***              ********************          ************
+'  *********   **********       **********            ***               *******************            **********
+'   *******     ********         ********             **                 *****************              ********
+'    *****       ******           ******              *                   ***************                ******
+'     ***         ****             ****              **                    *************                  ****
+'      *           **               **               *                      ***********                    **
+'                                                   *
 'VPX recreation by ninuzzu
 'thanks to javier for let me continue this table, wich is based on his PRO version
 'Big thanks to DJRobX: without him, this table wouldn't exist.
@@ -69,6 +69,10 @@
 
 'Surround Sound MOD by RustyCardores
 ' This mod includeds a shaker pulse and if ned be it can easily be reomoved in the SOLENOIDS section of this script.
+
+' Thalamus 2018-07-24
+' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 
 Option explicit
@@ -149,7 +153,7 @@ Sub ACDC_Init
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
         On Error Goto 0
-	InitVpmFFlipsSAM	
+	InitVpmFFlipsSAM
     End With
 
 'Main Timer init
@@ -273,14 +277,14 @@ SolCallback(7) = "TNTBank.SolDropUp"				'3-bank Drop Target
 SolCallback(8) = "vpmSolSound SoundFX(""ShakerPulse"",DOFShaker),"	'Shaker Motor
 'SolCallback(8) = "vpmSolSound SoundFX("""",DOFShaker),"	'Shaker Motor - Swap this line with above to remove shaker audio.
 'SolCallback(9) = ""								'Left Bumper
-'SolCallback(10)= ""								'Right Bumper			
+'SolCallback(10)= ""								'Right Bumper
 'SolCallback(11)= ""								'Top Bumper
 SolCallback(12)= "SolTopEject"						'Top Eject
 'SolCallback(13)= ""								'Left Sling
 'SolCallback(14)= ""								'Right Sling
 SolCallback(15)= "SolLFlipper"						'Left Flipper
 SolCallback(16)= "SolRFlipper"						'Right Flipper
-SolModCallBack(17)= "SetLampMod 177,"				'Flasher: Train 
+SolModCallBack(17)= "SetLampMod 177,"				'Flasher: Train
 SolCallback(18)= "SolDetonator"						'Detonator
 SolModCallBack(19)= "SetLampMod 179,"				'Flasher:Bottom Arch (x2)
 SolModCallBack(20)= "SetLampMod 180,"				'Flasher: Left Ramp
@@ -361,7 +365,7 @@ Sub SolTrough(Enabled)
 End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER 
+'						 AUTOPLUNGER
 '************************************************************************
 Sub SolAutoPlungerIM(Enabled)
 	If Enabled Then
@@ -390,12 +394,12 @@ Sub InitDiverters
 End Sub
 
 Sub SolCannonDiv(Enabled)
-    If Enabled Then 
+    If Enabled Then
         Div1.Isdropped = 0
         Div2.Isdropped = 1
         DivP.Z = 142
         PlaySoundAt SoundFX("DiverterOn", DOFContactors),light41
-    Else 
+    Else
         Div1.Isdropped = 1
         Div2.Isdropped = 0
         DivP.Z = 172.5
@@ -404,12 +408,12 @@ Sub SolCannonDiv(Enabled)
 End Sub
 
 Sub SolRampDiv(Enabled)
-    If Enabled Then 
+    If Enabled Then
         Div3.Isdropped = 0
         Div4.Isdropped = 1
         Div1P.Z = 150
         PlaySoundAt SoundFX("DiverterOn", DOFContactors),light5
-    Else 
+    Else
         Div3.Isdropped = 1
         Div4.Isdropped = 0
         Div1P.Z = 180.5
@@ -667,7 +671,7 @@ Sub sw12_dropped:TNTBank.Hit 3:End Sub
 Sub Sw13_Hit:Controller.Switch(13)=1: End Sub
 Sub Sw13_UnHit:Controller.Switch(13)=0: End Sub
 
-Sub Sw14_Hit:Controller.Switch(14) = 1:End Sub 
+Sub Sw14_Hit:Controller.Switch(14) = 1:End Sub
 Sub Sw14_UnHit():Controller.Switch(14) = 0:End Sub
 
 'Bottom Lane Rollovers
@@ -687,7 +691,7 @@ Sub sw29_UnHit:Controller.Switch(29) = 0:End Sub
 Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot()
-    PlaySoundAt SoundFX("LeftSlingShot", DOFContactors),lemk 
+    PlaySoundAt SoundFX("LeftSlingShot", DOFContactors),lemk
     LeftSling4.Visible = 1
     Lemk.TransZ = -20
     LStep = 0
@@ -744,7 +748,7 @@ Sub sw40_Hit:Controller.Switch(40) = 1:PlaySoundAt "rollover",Sw40:End Sub
 Sub sw40_UnHit:Controller.Switch(40) = 0:End Sub
 
 'Right Ramp
-Sub Sw41_Hit:Controller.Switch(41) = 1:End Sub 
+Sub Sw41_Hit:Controller.Switch(41) = 1:End Sub
 Sub Sw41_UnHit:Controller.Switch(41) = 0:End Sub
 
 Sub sw43_Hit:Controller.Switch(43)=1: End Sub
@@ -768,10 +772,10 @@ Sub sw46_hit():vpmTimer.PulseSw 46: PlaySoundAtBallVol SoundFX("fx_target",DOFTa
 'Lower PF target left
 Sub sw50_hit():vpmTimer.PulseSw 50: PlaySoundAtBallVol SoundFX("fx_target",DOFTargets),2: End Sub
 
-'Lower PF target center	
+'Lower PF target center
 Sub sw51_hit():vpmTimer.PulseSw 51: PlaySoundAtBallVol SoundFX("fx_target",DOFTargets),2: End Sub
 
-'Lower PF target right		
+'Lower PF target right
 Sub sw52_hit():vpmTimer.PulseSw 52: PlaySoundAtBallVol SoundFX("fx_target",DOFTargets),2: End Sub
 
 'Lower PF rollover left
@@ -862,7 +866,7 @@ Sub UpdateLamps
     nFadeL 36, l30
     nFadeL 37, l2
     nFadeL 38, l34
- 
+
     nFadeL 40, l27
     nFadeL 41, l64
     nFadeL 42, l6
@@ -881,7 +885,7 @@ Sub UpdateLamps
 'hornet right
 	NFadeObjm 54, l58p, "Horns_on", "Horns_off"
 	Flashm 54, f17b		'Train Horn
-	Flashm 54, l58		
+	Flashm 54, l58
 	Flash 54, l58a
 'Bumpers
     nFadeLm 62, l60
@@ -1241,42 +1245,42 @@ Sub aGates_Hit (idx)
 	PlaySoundAt "fx_gate4",ActiveBall
 End Sub
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 'Sub WireRampBumps_Hit(idx)
 '	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 '		RandomBump3 .5, Pitch(ActiveBall)+5
-'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 '		' Lowering these numbers allow more closely-spaced clunks.
 '		NextOrbitHit = Timer + .2 + (Rnd * .2)
-'	end if 
+'	end if
 'End Sub
 
 'Sub MetalGuideBumps_Hit(idx)
 '	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 '		RandomBump2 2, Pitch(ActiveBall)
-'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 '		' Lowering these numbers allow more closely-spaced clunks.
 '		NextOrbitHit = Timer + .2 + (Rnd * .2)
-'	end if 
+'	end if
 'End Sub
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub MetalWallBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, 20000 'Increased pitch to simulate metal wall
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
@@ -1356,9 +1360,9 @@ Sub RollingSoundUpdate()
 	End If
 	' exit the Sub if no balls on the table
     If UBound(BOT) = fakeballs-1 Then Exit Sub
-	
+
 '**********************************************************
-' Raised Ramp RollingBall Sounds by RustyCardores & DJRobX 
+' Raised Ramp RollingBall Sounds by RustyCardores & DJRobX
 '**********************************************************
 
        ' play the rolling sound for each ball
