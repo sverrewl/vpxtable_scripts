@@ -1,35 +1,38 @@
- 
- 
 Option Explicit
- 
+
+' Thalamus 2018-07-24
+' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
+
+
 Dim DesktopMode: DesktopMode = tablewpc94.ShowDT
-Dim KDBall : KDBall = True 
+Dim KDBall : KDBall = True
 Scoretext.visible = DesktopMode
- 
+
 dim UseVPMDMD:UseVPMDMD = DesktopMode
 dim UseVPMModSol:UseVPMModSol = 1
 dim BrightFlashers: BrightFlashers = True
 
 Dim cController, ROL, Hidden, DefaultOptions
 DefaultOptions = 1*optController + 2*optB2BEnable + 2*optGoalieSpeed
- 
+
 Const cGameName = "wcs_l2"
- 
+
 Dim FeedbackSounds:FeedbackSounds = Array("ballrel","bumper","diverter","flipperup","flipperdown","knocker","popper","popper_ball","solenoid","target","lsling","solon","jet3")
 '*** End Options ***
- 
+
 LoadVPM "01530000", "WPC.VBS", 3.10
- 
- 
+
+
  Sub LoadVPM(VPMver, VBSfile, VBSver)   'Add new call to InitializeOptions to allow selection of controller through F6 menu
     On Error Resume Next
         If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
             ExecuteGlobal GetTextFile(VBSfile)
         If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
         If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
- 
+
         InitializeOptions 'Enables New Controller change through F6 menu, so it needs to be placed before Controller selection
- 
+
         Select Case cController
             Case 1:
                 Set Controller = CreateObject("VPinMAME.Controller")
@@ -46,7 +49,7 @@ LoadVPM "01530000", "WPC.VBS", 3.10
         End If
     On Error Goto 0
  End Sub
- 
+
 Const UseSolenoids = True
 Const UseLamps     = False
 Const UseSync      = True
@@ -64,7 +67,7 @@ Set GICallback = GetRef("UpdateGI")
 Const SFlipperOn    = "FlipperUp"
 Const SFlipperOff   = "FlipperDown"
 Const SCoin="Coin"
- 
+
 '--------------------------------
 ' Init the table, Start VPinMAME
 '--------------------------------
@@ -86,7 +89,7 @@ Sub TableWPC94_Init
             .Run : If Err Then MsgBox Err.Description : Exit Sub
         End With
     On Error Goto 0 'Create Controller Object, and read in options
- 
+
     if DesktopMode Then
         ' Ugh
         F68.x = F68.x - 10
@@ -95,24 +98,24 @@ Sub TableWPC94_Init
         F86.y = F86.y + 50
         F85.x = F85.x - 20
         F85.y = F85.y + 50
-		
+
 		F71A.height = 260.0
 		F76.height = 170
 		F78A.height = 215
-		
+
 		F77.height = 140
 		F78.height = 180
 		F71.height = 225
-   
+
     end if
- 
+
     vpmNudge.TiltSwitch = swTilt
     vpmNudge.Sensitivity = 5
- 
+
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = true
-   
+
     'Impulse Plunger
     '--------------------
     Set plungerIM = New cvpmImpulseP
@@ -123,7 +126,7 @@ Sub TableWPC94_Init
         .InitExitSnd "plunger2", "plunger"
         .CreateEvents "plungerIM"
     End With
- 
+
 '------------------------------
 ' Set Up Ballstacks and init info
 '------------------------------
@@ -132,37 +135,37 @@ Sub TableWPC94_Init
         bsTrough.InitKick BallRelease,40,8
         bsTrough.Balls = 5
         bsTrough.InitExitSnd BallRel,SolOn
- 
+
     Set bsLeft = New cvpmBallStack
         bsLeft.InitSaucer LeftEjectHole, swLeftEjectHole,150,7
         bsLeft.InitExitSnd BallRel,SolOn
- 
+
     Set bsRight = New cvpmBallStack
         bsRight.InitSaucer RightEjectHole, swRightEjectHole,210,8
         bsRight.InitExitSnd BallRel,SolOn
- 
+
     Set bsUpper = New cvpmBallStack
         bsUpper.InitSaucer UpperEjectHole, swUpperEjectHole,10,18
 '       bsupper.kickZ = 3.1415926/4
         bsupper.InitExitSnd BallRel,SolOn
- 
+
     Set bsTV = New cvpmBallStack
         bsTV.InitSw 0,swTVBallPopper,0,0,0,0,0,0
         bsTV.InitKick TVBallPopper, 213, 10
         bsTV.KickBalls = 2
         bsTV.InitExitSnd Popper,SolOn
-   
+
     Set bsGoal = New cvpmBallStack
         bsGoal.InitSw 0,swGoalTrough,0,0,0,0,0,0
         bsGoal.InitExitSnd Popper,SolOn
-   
+
     Set bsVUK = New cvpmBallStack
         bsVUK.InitSw 0,swGoalPopperOpto,0,0,0,0,0,0
         bsVUK.InitKick VUKKicker,146, 30  'ORIGINALE 146, 13
         bsVUK.KickZ = Pi/2
         bsVUK.InitExitSnd Popper,SolOn
-       
-   
+
+
 'Setup magnets
     Set LockMagnetSave = New cvpmMagnet : With LockMagnetSave
         .InitMagnet LockMagnet, 25
@@ -175,34 +178,34 @@ Sub TableWPC94_Init
         .GrabCenter = True
         .CreateEvents "MagnaGoalie"
     End With
- 
+
     ' Visible Lock
     Set vlLock = New cvpmVLock : With vlLock
         .InitVLock Array(LockMechLow, LockMechHigh), Array(LockKickLow, LockKickHigh), Array(swLockMechLow, swLockMechHigh)
         .CreateEvents "vlLock"
     End With
- 
+
     ' Spinning ball
     Set ttBall = New cvpmturnTable : With ttBall
         .InitTurnTable BallTrigger, 100
         .SpinUp = 0 : .SpinDown = 0
         .CreateEvents "ttBall"
     End With
-   
+
     ' Mechs
     Set mGoalie = new cvpmMech : With mGoalie
         .Sol1 = sGoalieDrive
         .MType = vpmMechLinear + vpmMechReverse + vpmMechOneSol' + vpmMechFast
         .Length = GoalieSpeed
-        .Steps = 320   
+        .Steps = 320
         .AddSw swGoalIsLeft, 0, 8
         .AddSw swGoalIsRight, 152,168
         .AddSw swGoalIsLeft, 312, 320
         .Callback = GetRef("DrawGoalie")
         .Start
     End With
-   
-	if not KDBall then 
+
+	if not KDBall then
 		Set mBall = new cvpmMech : With mBall
 			.Sol1 = sBallClockwise : .Sol2 = sBallCounterCW
 			.MType = vpmMechLinear + vpmMechCircle + vpmMechTwoDirSol
@@ -212,10 +215,10 @@ Sub TableWPC94_Init
 			.Callback = GetRef("UpdateBall")
 			.Start
 		End With
-	end if 
-   
+	end if
+
     Set MotorCallback = GetRef("UpdateFlipperLogos")
- 
+
     GWall0.isdropped=1
     GWall1.isdropped=1
     GWall2.isdropped=1
@@ -224,7 +227,7 @@ Sub TableWPC94_Init
     GWall5.isdropped=1
     GWall6.isdropped=1
     GWall7.isdropped=1
-    GWall8.isdropped=1 
+    GWall8.isdropped=1
     GWall9.isdropped=1
     GWall10.isdropped=1
     GWall11.isdropped=1
@@ -239,13 +242,13 @@ Sub TableWPC94_Init
     GWall20.isdropped=1
     Controller.Switch(swCoinDoor) = 1
 End Sub
- 
+
 '-------------------
 ' keyboard routines
 '-------------------
 'ExtraKeyHelp = KeyName(keyFront) & vbTab & "Buy-in Button" & vbNewLine &_
 '               KeyName(keyUpperLeft) & vbTab & "Magna Goalie"
- 
+
 Sub TableWPC94_KeyUp(ByVal keycode)
         If keycode = PlungerKey Then
         Plunger.Fire
@@ -256,7 +259,7 @@ Sub TableWPC94_KeyUp(ByVal keycode)
     If KeyCode = leftmagnasave Then Controller.Switch(swMagGoalieButton) = False
     If KeyUpHandler(keycode) Then Exit Sub
 End Sub
- 
+
 Sub TableWPC94_KeyDown(ByVal keycode)
     If keycode = PlungerKey Then
         Plunger.PullBack
@@ -266,14 +269,14 @@ Sub TableWPC94_KeyDown(ByVal keycode)
     If KeyCode = leftmagnasave Then Controller.Switch(swMagGoalieButton) = True
     If KeyDownHandler(keycode) Then Exit Sub
 End Sub
- 
+
 '        Koadic's Alpha Ramp
 '   Impulse Plunger Scripting v6
 '       single ramp animated
 '        via image switching
 '------------------------------
  Dim PDelay, PCount, PImages, PStart, IMTime, IMPowerSetting, PlFrame, IMScatter
- 
+
  IMPowerSetting = Plunger.MechStrength  ' Plunger Power - Set via Plunger MechStrength
  IMTime = Round(Plunger.PullSpeed/10, 2)' Time in 1/10th seconds for Full Plunge - Set via Plunger Pull Speed...
                                             ' 1 = .1 second, 5 = .5 second, 10 = 1 second, etc.
@@ -282,10 +285,10 @@ End Sub
  PStart = 0             ' Set number of first plunger image, use 1 for legacy "1-12" setup
  PImages = 25           ' Set number of animation frames not including the PStart position, use 11 for legacy "1-12" setup
  PTime.Interval = INT(IMTime*1000/PImages)
- 
+
  PDelay = CINT(Plunger.FireSpeed/Plunger.TimerInterval)
  ReDim PlPos(PDelay)
- 
+
  Sub PTime2_Timer
     Select Case PCount
         Case 0:aPlunger.Image = "p" & PStart : PRefresh.state = ABS(PRefresh.state - 1)
@@ -294,7 +297,7 @@ End Sub
     End Select
     Pcount = Pcount + 1
  End Sub
- 
+
  Sub Plunger_Timer()
     PlPos(PDelay) = Plunger.Position
     PlFrame = PlPos(PDelay)
@@ -310,30 +313,30 @@ End Sub
     End If
     For x = 0 to ubound(PlPos)-1:PlPos(x)=PlPos(x+1):Next
  End Sub
- 
+
 '----------------
 ' Goalie Mech
 '----------------
 Dim GoalieWalls, GIWalls
 GoalieWalls = Array(GWall0, GWall1, GWall2, GWall3, GWall4, GWall5, GWall6, GWall7, GWall8, GWall9, GWall10, GWall11, GWall12, GWall13, GWall14, GWall15, GWall16, GWall17, GWall18, GWall19, GWall20)
- 
- 
- 
+
+
+
 Sub DrawGoalie(aCurrPos,aSpeed,aLast)
     GoalieWalls(Int(160-ABS(aLast-160))/8).IsDropped = True
     GoalieWalls(INT(160-ABS(aCurrPos-160))/8).IsDropped = False
     Goalie.roty = dSin((80 - ABS(160-aCurrPos)) * (9/8)) * 10
 End Sub
- 
+
 Sub UpdateBall(aCurrPos,aSpeed,aLast)
 	if not KDBall then
 		ttBall.MotorOn = aSpeed <> 0
 		ttBall.Speed = aSpeed
 		SoccerBall.rotz = SoccerBall.rotz + aSpeed/1.5
-	end if 
+	end if
     'SoccerBall.TriggerSingleUpdate
 End Sub
- 
+
 
 Const SoccerMaxSpeed = 200
 Const SoccerMaxVisibleSpeed = 30 ' After 30 the ball appears to reverse.
@@ -419,7 +422,7 @@ Sub AnimateBallTimer_Timer()
          SoccerBall.RotZ = SoccerBall.RotZ + ttBall.Speed * (SoccerMaxVisibleSpeed / SoccerMaxSpeed)
         If SoccerBall.RotZ > 360 Then SoccerBall.RotZ = SoccerBall.RotZ - 360
         If SoccerBall.RotZ < -360 Then SoccerBall.RotZ = SoccerBall.RotZ + 360
-	' Experimental blur code.  Reallly need re-textured ball for this. 
+	' Experimental blur code.  Reallly need re-textured ball for this.
 	'	if ttBall.Speed > SoccerMaxSpeed * 0.5 Then
 	'		SoccerBall.Material = "SoccerBlur1"
 	'		SoccerBallBlur.RotZ = SoccerBall.RotZ - 30
@@ -427,10 +430,10 @@ Sub AnimateBallTimer_Timer()
 	'	Else
 	'		SoccerBall.Material = "Plastic with an image"
 	'		SoccerBallBlur.Visible =false
-	'	end if 
+	'	end if
 	End If
 End Sub
- 
+
 Function Min(value1, value2)
     If value1 < value2 Then
         Min = value1
@@ -446,7 +449,7 @@ Function Max(value1, value2)
         Max = value2
     End If
 End Function
- 
+
 '--------------------------
 ' Goal & VUK handling
 '--------------------------
@@ -454,30 +457,30 @@ Sub HandleGoalTrough(swNo)
     bsGoal.AddBall 0
     If bsVUK.Balls = 0 Then vpmTimer.AddTimer 100, "ExitGoal"
 End Sub
- 
+
 Sub ExitGoal(swNo)
     If bsVUK.Balls = 0 And bsGoal.Balls > 0 Then
         bsGoal.SolOut True : bsVUK.AddBall 0
     End If
 End Sub
- 
+
 Sub SolVUK(aEnabled)
     if aEnabled Then bsVUK.SolOut True : ExitGoal 0
 End Sub
- 
+
 '------------------------
 ' Lock
 '------------------------
 Sub MagnaLock_Hit : Me.Enabled = False : End Sub
 Sub SolMagnaLock(aEnabled)
     MagnaLock.Enabled = aEnabled
-    If Not aEnabled Then MagnaLock.Kick 195,1  
+    If Not aEnabled Then MagnaLock.Kick 195,1
 End Sub
- 
+
 Sub Solenoide_Hit
     vpPlay "MagneteL",ActiveBall
 End Sub
- 
+
 '----------------------------
 ' Kicker Switches
 '----------------------------
@@ -504,8 +507,8 @@ Sub BallShooter_Unhit       : Controller.Switch(swBallShooter) = false          
 Sub SkillShotFront_Hit      : vpPlay "DropRampSkillShot", SkillShotFront :vpmTimer.PulseSw swSkillShotFront                 : End Sub
 Sub SkillShotCenter_Hit     : vpPlay "DropRampSkillShot", SkillShotCenter :vpmTimer.PulseSw swSkillShotCenter               : End Sub
 Sub SkillShotRear_Hit       : vpPlay "DropRampSkillShot", SkillShotRear :vpmTimer.PulseSw swSkillShotRear                   : End Sub
- 
- 
+
+
 Sub RightOutLane_Hit() ' Kickback
     'RightOutLane_a.IsDropped = 0
     Controller.Switch(swRightOutLane) = 1
@@ -515,7 +518,7 @@ Sub RightOutLane_Unhit()
     'RightOutLane_a.IsDropped = 1
     Controller.Switch(swRightOutLane) = 0
 End Sub
- 
+
 Sub RightFlipperLane_Hit() ' Kickback
     'RightFlipperLane_a.IsDropped = 0
     Controller.Switch(swRightFlipperLane) = 1
@@ -525,7 +528,7 @@ Sub RightFlipperLane_Unhit()
     'RightFlipperLane_a.IsDropped = 1
     Controller.Switch(swRightFlipperLane) = 0
 End Sub
- 
+
 Sub LeftFlipperLane_Hit() ' Kickback
     'LeftFlipperLane_a.IsDropped = 0
     Controller.Switch(swLeftFlipperLane) = 1
@@ -535,7 +538,7 @@ Sub LeftFlipperLane_Unhit()
     'LeftFlipperLane_a.IsDropped = 1
     Controller.Switch(swLeftFlipperLane) = 0
 End Sub
- 
+
 Sub Kickback_Hit() ' Kickback
     'Kickback_a.IsDropped = 0
     Controller.Switch(swKickback) = 1
@@ -545,8 +548,8 @@ Sub Kickback_UnHit()
     'Kickback_a.IsDropped = 1
     Controller.Switch(swKickback) = 0
 End Sub
- 
- 
+
+
 'Sub Kickback_Hit           : Controller.Switch(swKickback) = true          : End Sub
 'Sub Kickback_Unhit         : Controller.Switch(swKickback) = false         : End Sub
 'Sub LightMagGoalie_Hit:LightMagGoalie.IsDropped = TRUE:LightMagGoaliea.IsDropped = FALSE:Me.TimerEnabled = 1:vpmTimer.PulseSw (swLightMagGoalie):vpPlay "target":End Sub
@@ -574,16 +577,16 @@ Sub UpperLeftLane_Hit() ' Kickback
     Controller.Switch(swUpperLeftLane) = 1
     vpPlay "sensor", UpperLeftLane
 End Sub
- 
+
 '************************************************
 '************Slingshots Animation****************
 '************************************************
- 
+
 Dim RStep, Lstep
- 
+
 'Sub LeftSlingShot_Slingshot: vpmTimer.PulseSw 26: End Sub
 'Sub RightSlingShot_Slingshot: vpmTimer.PulseSw 27: End Sub
- 
+
 Sub solLSling(enabled)
     If enabled then
         'PlaySound SoundFX ("SlingshotSinistro",DOFContactors)
@@ -594,7 +597,7 @@ Sub solLSling(enabled)
         LeftSlingShot.TimerEnabled = 1
     End If
 End Sub
- 
+
 Sub solRSling(enabled)
     If enabled then
         'PlaySound SoundFX ("SlingshotDestro",DOFContactors)
@@ -605,7 +608,7 @@ Sub solRSling(enabled)
         RightSlingShot.TimerEnabled = 1
     End If
 End Sub
- 
+
 Sub LeftSlingShot_Timer
     Select Case LStep
         Case 3:LSLing1.Visible = 0:LSLing2.Visible = 1:sling1.TransZ = -15
@@ -613,7 +616,7 @@ Sub LeftSlingShot_Timer
     End Select
     LStep = LStep + 1
 End Sub
- 
+
 Sub RightSlingShot_Timer
     Select Case RStep
         Case 3:RSLing1.Visible = 0:RSLing2.Visible = 1:sling2.TransZ = -15
@@ -621,19 +624,19 @@ Sub RightSlingShot_Timer
     End Select
     RStep = RStep + 1
 End Sub
- 
- 
 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
 Sub UpperLeftLane_UnHit()
     'UpperLeftLane_a.IsDropped = 1
     Controller.Switch(swUpperLeftLane) = 0
 End Sub
- 
+
 Sub UpperRightLane_Hit() ' Kickback
     'UpperRightLane_a.IsDropped = 0
     Controller.Switch(swUpperRightLane) = 1
@@ -643,7 +646,7 @@ Sub UpperRightLane_UnHit()
     'UpperRightLane_a.IsDropped = 1
     Controller.Switch(swUpperRightLane) = 0
 End Sub
- 
+
 Sub KickbackUpper_Hit() ' Kickback
     'KickbackUpper_a.IsDropped = 0
     Controller.Switch(swKickbackUpper) = 1
@@ -653,8 +656,8 @@ Sub KickbackUpper_UnHit()
     'KickbackUpper_a.IsDropped = 1
     Controller.Switch(swKickbackUpper) = 0
 End Sub
- 
- 
+
+
 Sub Rollover1_Hit           : Controller.Switch(swRollover1) = true             : End Sub
 Sub Rollover1_Unhit         : Controller.Switch(swRollover1) = false            : End Sub
 Sub Rollover2_Hit           : Controller.Switch(swRollover2) = true             : End Sub
@@ -674,10 +677,10 @@ Sub RightRampEntrance_Hit   : Controller.Switch(swRightRampEntrance) = true     
 Sub RightRampEntrance_Unhit : Controller.Switch(swRightRampEntrance) = false    : RampaDestra : End Sub
 Sub RightRampExit_Hit       : Controller.Switch(swRightRampExit) = true         : End Sub
 Sub RightRampExit_Unhit     : Controller.Switch(swRightRampExit) = false        : End Sub
- 
+
 'Sub TravelLaneRolo_Hit         : Controller.Switch(swTravelLaneRolo) = true        : End Sub
 'Sub TravelLaneRolo_Unhit   : Controller.Switch(swTravelLaneRolo) = false       : End Sub
- 
+
 Sub TravelLaneRolo_Hit() ' Kickback
     'TravelLaneRolo_a.IsDropped = 0
     Controller.Switch(swTravelLaneRolo) = 1
@@ -687,7 +690,7 @@ Sub TravelLaneRolo_Unhit()
     'TravelLaneRolo_a.IsDropped = 1
     Controller.Switch(swTravelLaneRolo) = 0
 End Sub
- 
+
 Sub RampaSinistra
     If ActiveBall.velY < 0  Then
         if tablewpc94.VersionMinor > 3 OR tablewpc94.VersionMajor > 10 Then
@@ -702,9 +705,9 @@ Sub RampaSinistra
         StopSound "plasticrolling"
     End If
 End Sub
- 
+
 Sub RampaDestra
-    If ActiveBall.velY < 0  Then   
+    If ActiveBall.velY < 0  Then
         if tablewpc94.VersionMinor > 3 OR tablewpc94.VersionMajor > 10 Then
             PlaySound "EntrataRampa",0,1,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall)
             Playsound "plasticrolling",1,1,Pan(ActiveBall),0,0,1,0,AudioFade(ActiveBall)
@@ -717,17 +720,17 @@ Sub RampaDestra
         StopSound "plasticrolling"
     End If
 End Sub
- 
- 
- 
+
+
+
 Sub TackleSwitch_Hit        : vpmTimer.PulseSw swTackleSwitch                   : End Sub
 Sub LeftRampDiverter_Hit    : Controller.Switch(swLeftRampDiverter) = true      : End Sub
 Sub LeftRampDiverter_Unhit  : Controller.Switch(swLeftRampDiverter) = false     : End Sub
 Sub TroughStack_Hit         : Controller.Switch(swTroughStack) = true           : End Sub
 Sub TroughStack_Unhit       : Controller.Switch(swTroughStack) = false          : Playsound "ballrelease":End Sub
- 
+
 Sub GWalls_hit(idx):vpmTimer.PulseSw swGoalieTarget:vpPlay "target", ActiveBall:Goalie.rotx=1.5:GoalieHit.enabled=1:End Sub
- 
+
 Sub GoalieHit_Timer
     If me.uservalue = "" Then me.uservalue = 0
     Select Case me.uservalue
@@ -736,27 +739,27 @@ Sub GoalieHit_Timer
         Case 2 : Goalie.rotx = 0:Me.uservalue = 0:Me.enabled = 0:Exit Sub
     End Select
 End Sub
- 
+
 Dim SkillVelY
- 
+
 Sub SkillVelTrig_Hit()
     SkillVelY = ActiveBall.VelY
 End Sub
- 
+
 '-----------------------------------
 'Map Solenoid Subroutines
 '-----------------------------------
- 
+
 SolCallback(12) = "solLSling"
 SolCallback(13) = "solRSling"
- 
- 
+
+
 SolCallback(sLRFlipper)       = "SolRFlipper"
 SolCallback(sLLFlipper)       = "SolLFlipper"
 SolCallback(sDiverterHold)    = "SolRampDiverter"
 SolCallback(sLoopGate)        = "vpmSolGate LoopGate1,False,"
 SolCallback(sKickback)        = "SolKickBack"
-SolCallback(sLockRelease)     = "SolLockRelease"   
+SolCallback(sLockRelease)     = "SolLockRelease"
 'SolCallback(sLockMagnet)     = "SolMagnaLock"
 SolCallback(sKnocker)         = "SolKnocker"
 SolCallback(sGoalPopper)      = "SolVUK"
@@ -776,12 +779,12 @@ SolModCallback(sGoalCageTop)     = "SetModLamp 117,"
 SolModCallback(sSkillshot)       = "SetModLamp 119,"
 SolCallback(sBallClockwise)   = "solBallClockwise"
 SolCallback(sBallCounterCW)   = "SolBallCounterCW"
- 
+
 Sub SolKnocker(Enabled)
     If Enabled Then vpPlay "Knocker", L83
 End Sub
- 
- 
+
+
 ' Solenoids                     |   Status
 '-----------------------------------------
 Const sGoalPopper        = 1    'installed
@@ -815,22 +818,22 @@ Const sRampRear          = 28   ' flasher - installed
 Const sMagnaGoalie       = 33   'installed
 Const sLoopGate          = 34   'installed
 Const sLockMagnet        = 35   'installed  - needs a little fine tuning
- 
- 
- 
+
+
+
  '**************
  ' Flipper Subs
  '**************
- 
+
  Sub SolLFlipper(Enabled)
      If Enabled Then
          vpPlay "FlipperSu", LeftFlipper:LeftFlipper.RotateToEnd
-       
+
      Else
          vpPlay "FlipperGiu", LeftFlipper:LeftFlipper.RotateToStart
      End If
  End Sub
- 
+
  Sub SolRFlipper(Enabled)
      If Enabled Then
          vpPlay "FlipperSu2", RightFlipper:RightFlipper.RotateToEnd
@@ -838,13 +841,13 @@ Const sLockMagnet        = 35   'installed  - needs a little fine tuning
          vpPlay "FlipperGiu2", RightFlipper:RightFlipper.RotateToStart
      End If
  End Sub
- 
- 
+
+
 Sub UpdateFlipperLogos
     LFLogo.RotAndTra2 = LeftFlipper.CurrentAngle
     RFlogo.RotAndTra2 = RightFlipper.CurrentAngle
 End Sub
- 
+
 Sub SolRampDiverter(enabled)
     if enabled then
         Playsound "DiverterRamp"
@@ -853,7 +856,7 @@ Sub SolRampDiverter(enabled)
         PrimRampDiv.RotY= -3
         PrimRampDiv.TransX = -45
         PrimRampDiv.TransZ= -55
-    else   
+    else
         Playsound "DiverterRamp"
         RampDiv.RotateToStart
         PrimRampDiv.RotY= 12
@@ -861,7 +864,7 @@ Sub SolRampDiverter(enabled)
         PrimRampDiv.TransZ= 0
     end if
 End Sub
- 
+
 'Sub SolLockRelease(enabled)
 '	If enabled then
 '		PernoLock.TransY= -29
@@ -869,15 +872,15 @@ End Sub
 '		'lockrelease.isdropped = true
 '		vlLock.SolExit enabled
 '		LockReleaseTimer.Enabled = True
-'	End If	
+'	End If
 'End Sub
-'  
+'
 'Sub LockReleaseTimer_Timer()				'Give LockRelease more time to be down
 '	PernoLock.TransY= 0
 '	Playsound "DiverterLock"
 '	'LockRelease.IsDropped = False
 '	LockReleaseTimer.Enabled = False
-'End Sub	 
+'End Sub
 
 'Below was a suggested solution for the commented above
 
@@ -899,12 +902,12 @@ Sub SolKickBack(enabled)
         KickbackDisableTimer.enabled = true
     End if
 End Sub
- 
+
 Sub KickBackDisableTimer_Timer()
     Me.enabled = false
     CornerKicker.enabled = false
 End Sub
- 
+
 Sub CornerKicker_Hit()
 	ClearBallid
 	CornerKicker.DestroyBall
@@ -912,18 +915,18 @@ Sub CornerKicker_Hit()
     CornerKicker.kick 0, 45 'ERA 45
     vpPlay "Rilancio", CornerKicker
 End Sub
- 
+
 Sub LeftVelDamp_Hit()
     Activeball.velY = 2
     Activeball.VelX = -2
 End Sub
- 
+
 '--------------------------------------------------------
 ' Give meaningful name to switches and solenoids
 '--------------------------------------------------------
- 
- 
- 
+
+
+
 ' Switches                    |    Status
 '-------------------------------------------
 'switch 11 unused               'not used
@@ -990,19 +993,19 @@ Const swRightSlingshot   = 85   'installed
 Const swKickback         = 86   'installed
 Const swUpperLeftLane    = 87   'installed
 Const swUpperRightLane   = 88   'installed
- 
- 
+
+
 Sub TopLeftVelCheck_Hit()
     Activeball.VelY = 1
 End Sub
- 
+
  Sub Trigger1_Hit:ActiveBall.VelZ=0:End Sub
  Sub Trigger2_Hit:ActiveBall.VelZ=0:End Sub
- 
+
 Sub LockRelease_Hit : vpPlay "MetalHit", PernoLock : End Sub
- 
- 
- 
+
+
+
 Sub LRHelp_Hit()
     Stopsound "plasticrolling"
     ActiveBall.Velz=0
@@ -1010,22 +1013,22 @@ Sub LRHelp_Hit()
     ActiveBall.Vely=0
     LRHelp.TimerEnabled=1
 End Sub
- 
+
 Sub LRHelp_Timer()
     vpPlay "balldropTopLeft", LRHelp
     LRHelp.TimerEnabled=0
 End Sub
- 
+
 Sub RRHelp_Hit()
     Stopsound "plasticrolling"
     RRHelp.TimerEnabled=1
 End Sub
- 
+
 Sub RRHelp_Timer()
     vpPlay "balldropBottomRight", RRHelp
     RRHelp.TimerEnabled=0
 End Sub
- 
+
 Sub TRHelp_Hit()
     Stopsound "plasticrolling"
     vpPlay "balldropTopLeft", TRHelp
@@ -1033,30 +1036,30 @@ Sub TRHelp_Hit()
     Activeball.Velx=0
     ActiveBall.Vely=0
 End Sub
- 
+
 Sub ExitSkill_Hit()
     vpPlay "balldropBottomRight", ExitSkill
 End Sub
- 
- 
+
+
 Sub railsound_Hit()
     vpPlay "metalrolling", ActiveBall
 End Sub
- 
+
 Sub railend_Hit()
     StopSound "metalrolling"
     vpPlay "WireRampHit", railend
 End Sub
- 
+
 Sub railend1_Hit()
     vpPlay "balldropBottomRight", railend1
 End Sub
- 
+
 Sub exit1_Hit()
     StopSound "metalrolling"
     exit1.TimerEnabled=1
 End Sub
- 
+
 Sub exit1_Timer()
     vpPlay "balldropTOP", exit1
     exit1.TimerEnabled=0
@@ -1065,44 +1068,44 @@ Sub exit2_Hit()
     StopSound "metalrolling"
     exit2.TimerEnabled=1
 End Sub
- 
+
 Sub exit2_Timer()
     vpPlay "balldropTOP", exit2
     exit2.TimerEnabled=0
 End Sub
- 
+
 Sub exit3_Hit()
     StopSound "metalrolling"
     exit3.TimerEnabled=1
 End Sub
- 
+
 Sub exit3_Timer()
     vpPlay "balldropTOP", exit3
     exit3.TimerEnabled=0
 End Sub
- 
- 
+
+
  '***********
 ' Update GI
 '***********
- 
- 
+
+
 Dim bulb
- 
- 
+
+
 Sub UpdateGI(nr,enabled)
- 'DOF 200, enabled*-1  
+ 'DOF 200, enabled*-1
  Select Case nr
  Case 0
  For each bulb in GI
  bulb.state=enabled
-' GestioneGIWall   
+' GestioneGIWall
  next
  End Select
 End Sub
- 
- 
- 
+
+
+
 '**************************************
 ' Fading VPM Lamps VP9 (Reduced/Faster)
 '     Based on PD's Fading Lights
@@ -1111,14 +1114,14 @@ End Sub
 ' LampState(x) current state
 '**************************************
 '**************************************
- 
+
 Dim LampState(200), FadingLevel(200)
 Dim FlashSpeedUp(200), FlashSpeedDown(200), FlashMin(200), FlashMax(200), FlashLevel(200)
- 
+
 InitLamps()             ' turn off the lights and flashers and reset them to the default parameters
 LampTimer.Interval = 10 'lamp fading speed
 LampTimer.Enabled = 1
- 
+
 Sub LampTimer_Timer()
     Dim chgLamp, num, chg, ii
     chgLamp = Controller.ChangedLamps
@@ -1130,7 +1133,7 @@ Sub LampTimer_Timer()
     End If
     UpdateLamps
 End Sub
- 
+
 Sub InitLamps()
     Dim x
     For x = 0 to 200
@@ -1143,7 +1146,7 @@ Sub InitLamps()
         FlashLevel(x) = 0        ' the intensity of the flashers, usually from 0 to 1
     Next
 End Sub
- 
+
  Sub UpdateLamps()
     NFadeL 11,  L11
     NFadeL 12,  L12
@@ -1208,9 +1211,9 @@ End Sub
     NFadeL 83,  L83
     NFadeL 84,  L84
     'NFadeL 85,  F85
- 
+
 'flashers
-   
+
     Flash 48, F48
     Flash 68, F68
     Flashm 71, F71A
@@ -1231,7 +1234,7 @@ End Sub
 	FadeModLamp 128, F128, 1
 	FadeModLamp 128, F128A, 1
 
-	if BrightFlashers then 
+	if BrightFlashers then
 		'FadeModLamp 126, F126B, 1
 		FadeModLamp 117, F117B, 1
 		FadeModLamp 119, F119B, 1
@@ -1239,49 +1242,49 @@ End Sub
 		FadeModLamp 128, F128C, 1
 		FadeModLamp 127, F127C,1
 		FadeModLamp 127, F127B,1
-	End if 
+	End if
 
 '    Flashm 128, F128A
 '    Flash 128, F128
-   
-   
-   
- 
- 
- 
+
+
+
+
+
+
  End Sub
- 
+
 Sub SetLamp(nr, value)
     If value <> LampState(nr) Then
         LampState(nr) = abs(value)
         FadingLevel(nr) = abs(value) + 4
     End If
 End Sub
- 
+
 ' Lights: used for VP10 standard lights, the fading is handled by VP itself
- 
+
 Sub NFadeL(nr, object)
     Select Case FadingLevel(nr)
         Case 4:object.state = 0:FadingLevel(nr) = 0
         Case 5:object.state = 1:FadingLevel(nr) = 1
     End Select
 End Sub
- 
+
 Sub NFadeLm(nr, object) ' used for 2 lights
     Select Case FadingLevel(nr)
         Case 4:object.state = 0
         Case 5:object.state = 1
     End Select
 End Sub
- 
+
 Sub NFadeLn(nr, object) ' used for 3 lights
     Select Case FadingLevel(nr)
         Case 4:object.state = 0
         Case 5:object.state = 1
     End Select
 End Sub
- 
- 
+
+
 Sub FadeObj(nr, object, a, b, c, d)
     Select Case FadingLevel(nr)
         Case 2:object.image = d:FadingLevel(nr) = 0 'Off
@@ -1290,7 +1293,7 @@ Sub FadeObj(nr, object, a, b, c, d)
         Case 5:object.image = a:FadingLevel(nr) = 1 'ON
  End Select
 End Sub
- 
+
 Sub FadeObjm(nr, object, a, b, c, d)
     Select Case FadingLevel(nr)
         Case 2:object.image = d
@@ -1299,21 +1302,21 @@ Sub FadeObjm(nr, object, a, b, c, d)
         Case 5:object.image = d
     End Select
 End Sub
- 
+
 Sub NFadeObj(nr, object, a, b)
     Select Case FadingLevel(nr)
         Case 4:object.image = b:FadingLevel(nr) = 0 'off
         Case 5:object.image = a:FadingLevel(nr) = 1 'on
     End Select
 End Sub
- 
+
 Sub NFadeObjm(nr, object, a, b)
     Select Case FadingLevel(nr)
         Case 4:object.image = b
         Case 5:object.image = a
     End Select
 End Sub
- 
+
 Sub Flash(nr, object)
     Select Case FadingLevel(nr)
         Case 4 'off
@@ -1332,11 +1335,11 @@ Sub Flash(nr, object)
             Object.IntensityScale = FlashLevel(nr)
     End Select
 End Sub
- 
+
 Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
     Object.IntensityScale = FlashLevel(nr)
 End Sub
- 
+
 
 Sub SetModLamp(nr, value)
     If value > 0 Then
@@ -1356,50 +1359,50 @@ Sub FadeModLamp(nr, object, factor)
 		Object.visible = LampState(nr)
 	End If
 End Sub
- 
+
 '******************
 ' RealTime Updates
 '******************
 Set MotorCallback = GetRef("GameTimer")
- 
+
 Sub GameTimer
 '   RollingSound
     UpdateFlipperLogos
     UpdateVisuals
 End Sub
- 
+
 Sub GatesTimer_Timer()
     'UpdateFlipperLogos
 End Sub
- 
+
 Sub UpdateFlipperLogos
     flipperl.RotY = LeftFlipper.CurrentAngle
     flipperr.RotY = RightFlipper.CurrentAngle
     PrimSpinner1.RotZ= -Spinner1.CurrentAngle
 End Sub
- 
- 
+
+
 '****************************************
 ' B2B Collision by Steely & Pinball Ken
 '****************************************
 ' For use with core.vbs 3.37 or greater to grab BSize variable
-   
+
 Dim tnopb, nosf, iball, cnt, errMessage, B2BOn
- 
+
 'B2BOn = 2 '0=Off, 1=On, 2=AutoDetect
 CheckB2B
 XYdata.interval = 10 ' <<<<< ADD timer named XYData to table
 tnopb = 5   ' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
 nosf = 10   ' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
- 
+
 ReDim CurrentBall(tnopb), BallStatus(tnopb)
- 
+
 For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
- 
+
 '****************************************
 ' B2B AutoDisable for XP x64 Added by Koadic
 '****************************************
- 
+
  Sub CheckB2B           ' Added by Koadic for XP x64 handling
   Dim osver, cpuver, check
   On Error Resume Next
@@ -1411,17 +1414,17 @@ For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
     If Err Then B2BOn = 1 'If there is an error in detecting either OS or x32/x64, then default to On
   On Error Goto 0
  End Sub
- 
+
 '======================================================
 ' <<<<<<<<<<<<<< Ball Identification >>>>>>>>>>>>>>
 '======================================================
-   
+
 '******************************
 ' Destruk's alternative vpmCreateBall for use with B2B Enabled tables
 ' Core.vbs calls vpmCreateBall when a ball is created from a ball stack
 '******************************
  If IsEmpty(Eval("vpmCreateBall"))=false Then Set vpmCreateBall = GetRef("B2BvpmCreateBall")    ' Override the core.vbs and redefine vpmCreateBall
- 
+
  Function B2BvpmCreateBall(aKicker)
     Dim bsize2:If IsEmpty(Eval("ballsize"))=true Then bsize2 = 25 Else bsize2 = ballsize/2
     For cnt = 1 to ubound(ballStatus)               ' Loop through all possible ball IDs
@@ -1443,10 +1446,10 @@ For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
         End If
     Next
  End Function
- 
+
 ' Use CreateBallID(kickername) to manually create a ball with a BallID
 ' Can also be used on nonVPM tables (EM or Custom)
- 
+
  Sub CreateBallID(aKicker)
     Dim bsize2:If IsEmpty(Eval("ballsize"))=true Then bsize2 = 25 Else bsize2 = ballsize/2
     For cnt = 1 to ubound(ballStatus)               ' Loop through all possible ball IDs
@@ -1463,10 +1466,10 @@ For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
         End If
     Next
  End Sub
- 
+
 ' Use CreateBallID2(kickername, ballsize) to manually create a custom sized ball with a BallID
 ' Can also be used on nonVPM tables (EM or Custom)
- 
+
  Sub CreateBallID2(aKicker, bsize2)                 ' Use to manually create a ball with a BallID with a custom size
     For cnt = 1 to ubound(ballStatus)               ' Loop through all possible ball IDs
         If ballStatus(cnt) = 0 Then                 ' If ball ID is available...
@@ -1482,9 +1485,9 @@ For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
         End If
     Next
  End Sub
- 
+
 'Call this sub from every kicker that destroys a ball, before the ball is destroyed.
-   
+
  Sub ClearBallid
     On Error Resume Next                            ' Error handling for debugging purposes
     iball = ActiveBall.uservalue                    ' Get the ball ID to be cleared
@@ -1493,16 +1496,16 @@ For cnt = 0 to ubound(BallStatus) : BallStatus(cnt) = 0 : Next
     ballStatus(0) = ballStatus(0)-1                 ' Subtract 1 ball from the # of balls in play
     On Error Goto 0
  End Sub
- 
+
 '=====================================================
 ' <<<<<<<<<<<<<<<<< XYdata_Timer >>>>>>>>>>>>>>>>>
 '=====================================================
- 
+
 'Ball data collection and B2B Collision detection.
-   
+
 ReDim baX(tnopb,4), baY(tnopb,4), baZ(tnopb,4), bVx(tnopb,4), bVy(tnopb,4), TotalVel(tnopb,4)
 Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
- 
+
  Sub XYdata_Timer()
     xyTime = Timer+(XYdata.interval*.001)                       ' xyTime is the system timer plus the current interval time
     If id2 >= 4 Then id2 = 0                                    ' Loop four times and start over
@@ -1523,17 +1526,17 @@ Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
     If Timer > xyTime * 3 Then B2BOn = 0 : XYdata.enabled = False   ' Auto-shut off
     If Timer > xyTime Then XYdata.interval = XYdata.interval+1  ' Increment interval if needed
  End Sub
- 
+
 '=========================================================
 'Ball collision (VPX)
 '=========================================================
- 
+
 Sub OnBallBallCollision(ball1, ball2, velocity)
     if tablewpc94.VersionMinor > 3 OR tablewpc94.VersionMajor > 10 Then
 		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	else 
+	else
 		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-	end if 
+	end if
 End Sub
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1542,7 +1545,7 @@ End Function
 
 Function BallVel(ball) 'Calculates the ball speed
     BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function 
+End Function
 
 '=================================================
 ' <<<<<<<< GetAngle(X, Y, Anglename) >>>>>>>>
@@ -1554,8 +1557,8 @@ Function dSin(degrees)
     if ABS(dSin) < 0.000001 Then dSin = 0
     if ABS(dSin) > 0.999999 Then dSin = 1 * sgn(dSin)
 End Function
- 
- Sub GetAngle(Xin, Yin, wAngle)                    
+
+ Sub GetAngle(Xin, Yin, wAngle)
     If Sgn(Xin) = 0 Then
         If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
         If Sgn(Yin) = 0 Then rAngle = 0
@@ -1566,7 +1569,7 @@ End Function
     If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
     wAngle = round((Radit + rAngle),4)
  End Sub
- 
+
 '********************************JimmyFingers Sound Routines**********************************************
 Sub arubberposts_Hit(idx)
     dim finalspeed
@@ -1582,7 +1585,7 @@ Sub arubberposts_Hit(idx)
     End If
     Dampen 5, .9, 20
 End sub
- 
+
 Sub Rubbers_Hit(idx)
     dim finalspeed
     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
@@ -1594,7 +1597,7 @@ Sub Rubbers_Hit(idx)
     End If
     Dampen 5, .9, 20
 End sub
- 
+
 Sub RandomSoundRubber()
     Select Case Int(Rnd*3)+1
         Case 1 : vpPlay "rubber_hit_1", ActiveBall
@@ -1602,7 +1605,7 @@ Sub RandomSoundRubber()
         Case 3 : vpPlay "rubber_hit_3", ActiveBall
     End Select
 End Sub
- 
+
 Sub RandomSoundRubberLowVolume()
     Select Case Int(Rnd*3)+1
         Case 1 : vpPlay "rubber_hit_1_low", ActiveBall
@@ -1610,8 +1613,8 @@ Sub RandomSoundRubberLowVolume()
         Case 3 : vpPlay "rubber_hit_3_low", ActiveBall
     End Select
 End Sub
- 
-Sub Dampen(dt,df,r)                     'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness    
+
+Sub Dampen(dt,df,r)                     'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
     Dim dfRandomness
     r=cint(r)
     dfRandomness=INT(RND*(2*r+1))
@@ -1635,18 +1638,18 @@ Sub RandomSoundFlipper()
 		Case 3 : PlaySound "flip_hit_3"
 	End Select
 End Sub
- 
- 
+
+
 '*****************************************
 '           FLIPPER SHADOWS
 '*****************************************
- 
+
 sub FlipperTimer_Timer()
     FlipperLSh.RotZ = LeftFlipper.currentangle
     FlipperRSh.RotZ = RightFlipper.currentangle
- 
+
 End Sub
- 
+
 '*****************************************
 '           BALL SHADOW
 '*****************************************
@@ -1680,33 +1683,33 @@ Sub BallShadowUpdate_timer()
         End If
     Next
 End Sub
- 
- 
+
+
 '******************************************
 ' Use RollingSoundTimer to call div subs
 '******************************************
- 
- 
+
+
 Sub RollingSoundTimer_Timer()
-    RollingSound   
+    RollingSound
 End Sub
- 
- 
+
+
 '****************************************
 ' JimmyFingers Enhanced Ball Rolling Script (Extension of Rascal's Original)
 '****************************************
- 
+
 ReDim BRVeloY(tnopb), BRVeloX(tnopb), rolling(tnopb), rollingfast(tnopb)
 Dim b
 b = 0
- 
+
 RollingSoundTimer.Interval = 60/tnopb
- 
+
 Sub RollingSound()
     B = B + 1
     If B > tnopb Then B = 1
     If BallStatus(b) = 0 Then Exit Sub
- 
+
     BRVeloY(b) = Cint(CurrentBall(b).VelY)
     BRVeloX(b) = Cint(CurrentBall(b).VelX)
     If((ABS(BRVeloY(b))> 3 AND (ABS(BRVeloY(b))< 10) or (ABS(BRVeloX(b) )> 3 AND (ABS(BRVeloX(b))< 10)))) Then
@@ -1751,16 +1754,16 @@ Sub RollingSound()
         End If
     End If
 End Sub
- 
+
 Sub StopRollingSound()
     StopSound "JF_roll1"
     StopSound "JF_roll2"
     StopSound "JF_roll3"
     StopSound "JF_rollingfaster"
 End Sub
- 
+
 'REGISTRY LOCATIONS ***************************************************************************************************************************************
- 
+
  Const optOpenAtStart   = &H000001
  Const optDMDRotation   = &H000002
  Const optDMDHidden     = &H000004
@@ -1770,12 +1773,12 @@ End Sub
  Const optGoalieSpeed   = &H001000
  Const optBallImage     = &H010000
  Const optFBSounds      = &H100000
- 
+
 'OPTIONS MENU *********************************************************************************************************************************************
- 
+
  Dim TableOptions, TableName, optReset
  Private vpmShowDips1, vpmDips1
- 
+
  Sub InitializeOptions
     TableName="WCS94"                       'Replace with your descriptive table name, it will be used to save settings in VPReg.stg file
     Set vpmShowDips1 = vpmShowDips                              'Reassigns vpmShowDips to vpmShowDips1 to allow usage of default dips menu
@@ -1793,13 +1796,13 @@ End Sub
     End If
     Set Controller = Nothing                                    'Unload vpm controller so selected controller can be loaded
  End Sub
- 
+
  Private Sub TableShowDips
     vpmShowDips1                                                'Show original Dips menu
     TableShowOptions                                            'Show new options menu
 '   TableShowOptions2                                           'Add more options menus...
  End Sub
- 
+
  Private Sub TableShowOptions                   'New options menu, additional menus can be added as well, just follow similar format and add call to TableShowDips
    Dim oldOptions : oldOptions = TableOptions
     If Not IsObject(vpmDips1) Then              'If creating an additional menus, need to declare additional vpmDips variables above (ex. vpmDips2 and TableOptions2, etc.)
@@ -1811,7 +1814,7 @@ End Sub
             .AddFrameExtra 0,60,105,"DMD Options*",0, Array("Rotate DMD", optDMDRotation, "Hide DMD", optDMDHidden)
             .AddFrameExtra 0,106,105,"B2B Options",3*optB2BEnable, Array("Force Disable", 0*optB2BEnable, "Force Enable", 1*optB2BEnable, "Auto Detect", 2*optB2BEnable)
             .AddLabel 5,166,100,15,"* Requires restart"
- 
+
             .AddFrameExtra 125,0,105,"Goalie Speed*",3*optGoalieSpeed, Array("Fast", 1*optGoalieSpeed, "Normal", 2*optGoalieSpeed,_
                 "Slow", 3*optGoalieSpeed)
             .AddFrameExtra 125,60,105,"Ball Image",3*optBallImage, Array("Black/White", 0*optBallImage, "Teal/White", 1*optBallImage,_
@@ -1825,10 +1828,10 @@ End Sub
     SaveValue TableName,"Options",TableOptions
     TableSetOptions
  End Sub
- 
+
  Dim BallImage, BallType, BallGI, GoalieSpeed
  BallImage = Array("soccerball", "soccerball2", "soccerball3")
- 
+
  Sub TableSetOptions        'define required settings before table is run
     ROL = (TableOptions And optDMDRotation)\optDMDRotation
     HIDDEN = (TableOptions And optDMDHidden)\optDMDHidden
@@ -1855,12 +1858,12 @@ End Sub
         Popper = "Popper"
     End If
  End Sub
- 
+
  Sub UpdateVisuals
     If SoccerBall.image <> BallImage(BallType) Then SoccerBall.image = BallImage(BallType)
     If SoccerBallLight.TopVisible = cbool(BallGI) Then SoccerBallLight.TopVisible = Not cbool(BallGI)
  End Sub
- 
+
  Dim FFBSounds
  Sub vpPlay(sound, tableobj)
   Dim x
@@ -1872,16 +1875,16 @@ End Sub
         Next
     End If 'If sound isn't found, then play sound as normal...
     Debug.print sound & Pan(tableobj) & AudioFade(tableobj)
- 
+
     If tablewpc94.VersionMinor > 3 OR VersionMajor > 10 Then
         PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
     Else
         PlaySound sound, 1, 1, Pan(tableobj)
     End If
     'VPX 10.4 only
-   
+
  End Sub
- 
+
 function AudioFade(ball)
     Dim tmp
     tmp = ball.y * 2 / tablewpc94.height-1
@@ -1891,7 +1894,7 @@ function AudioFade(ball)
         AudioFade = Csng(-((- tmp) ^10) )
     End If
 End Function
- 
+
 Function Pan(tobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
     Dim tmp
     tmp = tobj.x * 2 / tablewpc94.width-1
