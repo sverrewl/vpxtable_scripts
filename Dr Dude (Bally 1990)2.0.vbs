@@ -1,18 +1,18 @@
-'______       ______           _                 _   _ _       _____             _ _            _    ______            
-'|  _  \      |  _  \         | |        ___    | | | (_)     |  ___|           | | |          | |   | ___ \           
-'| | | |_ __  | | | |_   _  __| | ___   ( _ )   | |_| |_ ___  | |____  _____ ___| | | ___ _ __ | |_  | |_/ /__ _ _   _ 
+'______       ______           _                 _   _ _       _____             _ _            _    ______
+'|  _  \      |  _  \         | |        ___    | | | (_)     |  ___|           | | |          | |   | ___ \ 
+'| | | |_ __  | | | |_   _  __| | ___   ( _ )   | |_| |_ ___  | |____  _____ ___| | | ___ _ __ | |_  | |_/ /__ _ _   _
 '| | | | '__| | | | | | | |/ _` |/ _ \  / _ \/\ |  _  | / __| |  __\ \/ / __/ _ \ | |/ _ \ '_ \| __| |    // _` | | | |
 '| |/ /| |_   | |/ /| |_| | (_| |  __/ | (_>  < | | | | \__ \ | |___>  < (_|  __/ | |  __/ | | | |_  | |\ \ (_| | |_| |
 '|___/ |_(_)  |___/  \__,_|\__,_|\___|  \___/\/ \_| |_/_|___/ \____/_/\_\___\___|_|_|\___|_| |_|\__| \_| \_\__,_|\__, |
 '                                                                                                                 __/ |
-'                                                                                                                |___/ 
-'                                   ______       _ _         __   _____  _____  _____                                  
-'                                   | ___ \     | | |       /  | |  _  ||  _  ||  _  |                                 
-'                                   | |_/ / __ _| | |_   _  `| | | |_| || |_| || |/' |                                 
-'                                   | ___ \/ _` | | | | | |  | | \____ |\____ ||  /| |                                 
-'                                   | |_/ / (_| | | | |_| | _| |_.___/ /.___/ /\ |_/ /                                 
-'                                   \____/ \__,_|_|_|\__, | \___/\____/ \____/  \___/                                  
-'                                                     __/ |                                                            
+'                                                                                                                |___/
+'                                   ______       _ _         __   _____  _____  _____
+'                                   | ___ \     | | |       /  | |  _  ||  _  ||  _  |
+'                                   | |_/ / __ _| | |_   _  `| | | |_| || |_| || |/' |
+'                                   | ___ \/ _` | | | | | |  | | \____ |\____ ||  /| |
+'                                   | |_/ / (_| | | | |_| | _| |_.___/ /.___/ /\ |_/ /
+'                                   \____/ \__,_|_|_|\__, | \___/\____/ \____/  \___/
+'                                                     __/ |
 '                                                    |___/                               '
 '
 '
@@ -37,7 +37,10 @@
 'PMD feedback and surround sound mods by "Rusty Cardores"
 'Many thanks to countles others for in the VPF community for helping me learn the table creation process.
 
-
+' Thalamus 2018-07-24
+' Table has already its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
@@ -48,13 +51,13 @@ On Error Goto 0
 
 '***************************************************************************************************************************************************************
 '***************************************************************************************************************************************************************
-' _____     _     _        ___________ _   _                   _   _                
-'|_   _|   | |   | |      |  _  | ___ \ | (_)                 | | | |               
-'  | | __ _| |__ | | ___  | | | | |_/ / |_ _  ___  _ __  ___  | |_| | ___ _ __ ___  
+' _____     _     _        ___________ _   _                   _   _
+'|_   _|   | |   | |      |  _  | ___ \ | (_)                 | | | |
+'  | | __ _| |__ | | ___  | | | | |_/ / |_ _  ___  _ __  ___  | |_| | ___ _ __ ___
 '  | |/ _` | '_ \| |/ _ \ | | | |  __/| __| |/ _ \| '_ \/ __| |  _  |/ _ \ '__/ _ \ 
-'  | | (_| | |_) | |  __/ \ \_/ / |   | |_| | (_) | | | \__ \ | | | |  __/ | |  __/ 
-'  \_/\__,_|_.__/|_|\___|  \___/\_|    \__|_|\___/|_| |_|___/ \_| |_/\___|_|  \___| 
-'                                                                               
+'  | | (_| | |_) | |  __/ \ \_/ / |   | |_| | (_) | | | \__ \ | | | |  __/ | |  __/
+'  \_/\__,_|_.__/|_|\___|  \___/\_|    \__|_|\___/|_| |_|___/ \_| |_/\___|_|  \___|
+'
 '
 'INTRO MUSIC
 '   Add Intro Music Snippet =0
@@ -96,7 +99,7 @@ Raybeam = 1
 
 
 'GI COLOR MOD
-'   White Bulbs = 0 
+'   White Bulbs = 0
 '   Blue Bulbs = 1
 '   Purple Bulbs = 2
 '   Ice-Blue Bulbs = 3
@@ -150,7 +153,7 @@ SetLocale(1033)
 Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 1
-Const HandleMech = 0 
+Const HandleMech = 0
 
 'Standard Sounds
 Const SSolenoidOn = "fx_Solenoid"
@@ -202,7 +205,7 @@ Sub Table1_Init
 			.Balls=3
 			.InitExitSnd SoundFX("fx_ballrel",DOFContactors) , SoundFX("fx_Solenoid",DOFContactors)
 		End With
-	
+
 
  	'DropTargets
 	Set dtrbank1 = New cvpmDropTarget
@@ -369,10 +372,10 @@ Sub Table1_KeyDown(ByVal keycode)
 		ShakeYMax = 1
 		ShakeYMin = -1
 		ShakeYDir = -1
-		ShakeX.Enabled = True 
+		ShakeX.Enabled = True
 		ShakeY.Enabled = True
 
-	End If 
+	End If
 
 '   '************************   Start Ball Control 1/3
 '        if keycode = 46 then                ' C Key
@@ -418,19 +421,19 @@ End Sub
 '    Set ControlBall = ActiveBall
 '    contballinplay = true
 'End Sub
-' 
+'
 'Sub StopControl_Hit()
 '    contballinplay = false
 'End Sub
-' 
+'
 'Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 'Dim bcvel, bcyveloffset, bcboostmulti
-' 
+'
 'bcboost = 1     'Do Not Change - default setting
 'bcvel = 4       'Controls the speed of the ball movement
 'bcyveloffset = -0.01    'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
 'bcboostmulti = 3    'Boost multiplier to ball veloctiy (toggled with the B key)
-' 
+'
 'Sub BallControl_Timer()
 '    If Contball and ContBallInPlay then
 '        If bcright = 1 Then
@@ -440,7 +443,7 @@ End Sub
 '        Else
 '            ControlBall.velx=0
 '        End If
-' 
+'
 '        If bcup = 1 Then
 '            ControlBall.vely = -bcvel*bcboost
 '        ElseIf bcdown = 1 Then
@@ -472,7 +475,7 @@ SolCallBack(27) = "SetLamp 127,"				'Mixer Magnet Flasher
 SolCallBack(28) = "SetLamp 128,"				'Magnet Flasher
 SolCallBack(29) = "SetLamp 129,"				'Gab Flasher
 SolCallBack(30) = "SetLamp 130,"				'Heart Flasher
-SolCallBack(31) = "SetLamp 131,"				'Drop Targets Flasher		
+SolCallBack(31) = "SetLamp 131,"				'Drop Targets Flasher
 SolCallBack(32) = "SetLamp 132,"				'Raygun Flasher
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
@@ -527,13 +530,13 @@ Sub StartLevel()
 	kLevel.Enabled = 1
 	Set lBall1 = kLevel.CreateSizedBallWithMass(4, .005)
 
-	kLevel.kick 0, 0 
+	kLevel.kick 0, 0
 	kLevel.Enabled = 0
 
 	kLevel1.Enabled = 1
 	Set lBall2 = kLevel1.CreateSizedBallWithMass(4, .005)
 
-	kLevel1.kick 0, 0 
+	kLevel1.kick 0, 0
 	kLevel1.Enabled = 0
 
 End Sub
@@ -542,7 +545,7 @@ Dim NudgeStrangthY, NudgeStrangthX
 
 Sub Level_Timer()
 
-	
+
 '	fBubble.y = lBall1.y - 60  'Moves bubble in level
 
 	NudgeStrangthX = ((kLevel.y - lBall1.y) / 2)
@@ -574,7 +577,7 @@ Sub Level_Timer()
 
 		If NudgeStrangthY < -1 then
 			If ShakeYMin < NudgeStrangthY then
-	
+
 			Else
 
 				ShakeYMin = NudgeStrangthY
@@ -639,7 +642,7 @@ Sub SolUfoShake(Enabled)
 		ShakeYMax = 1
 		ShakeYMin = -1
 		ShakeYDir = -1
-		ShakeX.Enabled = True 
+		ShakeX.Enabled = True
 		ShakeY.Enabled = True
 
 	Else
@@ -656,7 +659,7 @@ Dim ShakeYMin, ShakeYMax, ShakeYDir, ShakeYSpeed, ShakeYDamper
 Sub ShakeX_timer()
 
 
-Select Case ShakeXMax 
+Select Case ShakeXMax
 
 	Case 1:ShakeXSpeed = 1
 	Case 2:ShakeXSpeed = 1.1
@@ -711,7 +714,7 @@ End Sub
 Sub ShakeY_timer()
 
 
-Select Case ShakeYMax 
+Select Case ShakeYMax
 
 	Case 1:ShakeYSpeed = 1
 	Case 2:ShakeYSpeed = 1.1
@@ -833,12 +836,12 @@ End Sub
 Sub PrimGuyTimer_Timer: PrimGuyMove: End Sub
 Dim GuyCnt
 Const GuyMoveMax = 20
-Sub PrimGuyHit 	
+Sub PrimGuyHit
 	GuyCnt = 0 					'Reset count
 	PrimGuyTimer.Interval = 20 	'Set timer interval
 	PrimGuyTimer.Enabled = 1 	'Enable timer
 End Sub
-Sub	PrimGuyMove 
+Sub	PrimGuyMove
 	Select Case GuyCnt
 		Case 0: 	primGuy.RotX = GuyMoveMax * .25
 		Case 1: 	primGuy.RotX = GuyMoveMax * .50
@@ -851,7 +854,7 @@ Sub	PrimGuyMove
 		Case else: 	PrimGuyTimer.Enabled = 0
 	End Select
 	GuyCnt = GuyCnt + 1
-End Sub 
+End Sub
 
 
 '***Mixmaster motor***
@@ -896,7 +899,7 @@ End Sub
 '****************
 '  POP BUMPERS
 '****************
- 
+
 Dim Bumper1Cnt,Bumper2Cnt,Bumper3Cnt
 Const BumperMoveMax = 20
 Sub Bumper1_Hit
@@ -905,12 +908,12 @@ Sub Bumper1_Hit
         Bumper1Hit
 End Sub
 Sub Bumper1_Timer: Bumper1Move: End Sub
-Sub Bumper1Hit  
+Sub Bumper1Hit
     Bumper1Cnt = 0                  'Reset count
     Bumper1.TimerInterval = 20  'Set timer interval
     Bumper1.TimerEnabled = 1    'Enable timer
 End Sub
- 
+
 Sub Bumper1Move
     Select Case Bumper1Cnt
         Case 0:     Bumper1Cap.TransY = -BumperMoveMax * .25 :   Bumper1CapS1.TransZ = BumperMoveMax * .25 :Bumper1CapS2.TransZ = BumperMoveMax * .25 :   BR1.TransY = -BumperMoveMax * .25 : BumperSkirt1.RotZ = -BumperMoveMax * .10
@@ -925,20 +928,20 @@ Sub Bumper1Move
     End Select
     Bumper1Cnt = Bumper1Cnt + 1
 End Sub
- 
- 
+
+
 Sub Bumper2_Hit
 	vpmTimer.PulseSw 53
 	PlaysoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper2,.4
 	Bumper2Hit
 End Sub
 Sub Bumper2_Timer: Bumper2Move: End Sub
-Sub Bumper2Hit  
+Sub Bumper2Hit
     Bumper2Cnt = 0                  'Reset count
     Bumper2.TimerInterval = 20  'Set timer interval
     Bumper2.TimerEnabled = 1    'Enable timer
 End Sub
- 
+
 Sub Bumper2Move
     Select Case Bumper2Cnt
         Case 0:     Bumper2Cap.TransY = -BumperMoveMax * .25 :   Bumper2CapS1.TransZ = BumperMoveMax * .25 :Bumper2CapS2.TransZ = BumperMoveMax * .25 :   BR2.TransY = -BumperMoveMax * .25 : BumperSkirt2.RotZ = -BumperMoveMax * .10
@@ -953,20 +956,20 @@ Sub Bumper2Move
     End Select
     Bumper2Cnt = Bumper2Cnt + 1
 End Sub
- 
- 
+
+
 Sub Bumper3_Hit
 		vpmTimer.PulseSw 54
 		PlaysoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper3, .4
 		Bumper3Hit
 End Sub
 Sub Bumper3_Timer: Bumper3Move: End Sub
-Sub Bumper3Hit  
+Sub Bumper3Hit
     Bumper3Cnt = 0                  'Reset count
     Bumper3.TimerInterval = 20  'Set timer interval
     Bumper3.TimerEnabled = 1    'Enable timer
 End Sub
- 
+
 Sub Bumper3Move
     Select Case Bumper3Cnt
         Case 0:     Bumper3Cap.TransY = -BumperMoveMax * .25 :   Bumper3CapS1.TransZ = BumperMoveMax * .25 :Bumper3CapS2.TransZ = BumperMoveMax * .25 :   BR3.TransY = -BumperMoveMax * .25 : BumperSkirt3.RotZ = -BumperMoveMax * .10
@@ -1088,7 +1091,7 @@ End Sub
 '
 '    Flipperbatright.RotAndTra8 = RightFlipper.CurrentAngle + 90
 '	batrightshadow.objrotz = RightFlipper.CurrentAngle
-'End Sub	
+'End Sub
 
 
 Dim primCnt(100), primDir(100), primBmprDir(6)
@@ -1098,12 +1101,12 @@ Dim primCnt(100), primDir(100), primBmprDir(6)
 'USAGE: 	Sub sw1_Hit: 	PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
 'USAGE: 	Sub Sw1_Timer: 	PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
 
-Const StandupTgtMovementDir = "TransX" 
-Const StandupTgtMovementMax = 6	 
+Const StandupTgtMovementDir = "TransX"
+Const StandupTgtMovementMax = 6
 
-Sub PrimStandupTgtHit (swnum, wallName, primName) 	
+Sub PrimStandupTgtHit (swnum, wallName, primName)
 	PlaySoundAtBallVol SoundFx("fx_target",DOFContactors),1
-	vpmTimer.PulseSw swnum	
+	vpmTimer.PulseSw swnum
 	primCnt(swnum) = 0 									'Reset count
 	wallName.TimerInterval = 20 	'Set timer interval
 	wallName.TimerEnabled = 1 	'Enable timer
@@ -1135,10 +1138,10 @@ Sub	PrimStandupTgtMove (swnum, wallName, primName)
 				Case 2: 	primName.TransZ = -StandupTgtMovementMax * .5
 				Case 3: 	primName.TransZ = 0
 				Case else: 	wallName.TimerEnabled = 0
-			End Select			
+			End Select
 	End Select
 	primCnt(swnum) = primCnt(swnum) + 1
-End Sub 
+End Sub
 
 
 ' ************************
@@ -1152,14 +1155,14 @@ Sub Gate9_Hit():PlaySoundAt "fx_gate",Gate9:End Sub
 'Sub GameTimer_Timer()
 '    UpdateGatesSpinners
 'End Sub
- 
+
 Dim Pi, GateSpeed
 Pi = Round(4*Atn(1),6)
 GateSpeed = 0.5
 
 Dim Gate1Open,Gate1Angle:Gate1Open=0:Gate1Angle=0
 Sub Gate1_Hit():Gate1Open=1:Gate1Angle=0:End Sub
-  
+
 Dim Gate2Open,Gate2Angle:Gate2Open=0:Gate2Angle=0
 Sub Gate2_Hit():Gate2Open=1:Gate2Angle=0:End Sub
 
@@ -1167,7 +1170,7 @@ Dim Gate9Open,Gate9Angle:Gate9Open=0:Gate9Angle=0
 Sub Gate9_Hit():Gate9Open=1:Gate9Angle=0: End Sub
 
 Sub UpdateGatesSpinners
- 
+
     If Gate2Open Then
         If Gate2Angle < Gate2.currentangle Then:Gate2Angle=Gate2.currentangle:End If
         If Gate2Angle > 5 and Gate2.currentangle < 5 Then:Gate2Open=0:End If
@@ -1361,13 +1364,13 @@ Sub SortLamps(ByVal aGI, aExclude)	'Sorts remaining light and flashers objects (
 		if TypeName(x) = "Light" or TypeName(x) = "Flasher" Then
 			SkipMe = False
 			for each xx in aGI 'Find duplicates and Skip them
-				if x.Name = xx.Name then 
+				if x.Name = xx.Name then
 					TestStringAll = TestStringAll & x.Name & "found in GI collection, Disregarding & Continuing..." & vbnewline 'debug
 					SkipMe = True'Continue For
 				End If
 			next
 			for each xx in aExclude 'Exclude collection
-				if x.Name = xx.Name then 
+				if x.Name = xx.Name then
 					TestStringAll = TestStringAll & x.Name & "found in exclude collection, Disregarding & Continuing..." & vbnewline 'debug
 					SkipMe = True'Continue For
 				End If
@@ -1410,12 +1413,12 @@ Dim BumperCapGreen: BumperCapGreen = Array("bumpertopunlit", "bumpertopGreen_33"
 Dim BumperCapRed: BumperCapRed = Array("bumpertopunlit", "bumpertopRed_33", "bumpertopRed_66", "bumpertopRedLit")
 Dim TextureArray1: TextureArray1 = Array("bumpertoplit", "bumpertopunlit")
 
-Dim LeftRampArray: LeftRampArray = Array("LeftWireRamp_textureOff", "LeftWireRamp_texture33", "LeftWireRamp_texture33", "LeftWireRamp_texture33") 
-Dim RightRampArray: RightRampArray = Array("RightWireRamp_textureOff", "RightWireRamp_texture33", "RightWireRamp_texture66", "RightWireRamp_textureOn") 
+Dim LeftRampArray: LeftRampArray = Array("LeftWireRamp_textureOff", "LeftWireRamp_texture33", "LeftWireRamp_texture33", "LeftWireRamp_texture33")
+Dim RightRampArray: RightRampArray = Array("RightWireRamp_textureOff", "RightWireRamp_texture33", "RightWireRamp_texture66", "RightWireRamp_textureOn")
 
-Dim GreenDomeArray: GreenDomeArray = Array("DomeGreenOff", "DomeGreenOn", "DomeGreenOn", "DomeGreenOn") 
-Dim RedDomeArray: RedDomeArray = Array("DomeRedOff", "DomeRedOn", "DomeRedOn", "DomeRedOn") 
-Dim YellowDomeArray: YellowDomeArray = Array("DomeYellowOff", "DomeYellow33", "DomeYellow66", "DomeYellow100") 
+Dim GreenDomeArray: GreenDomeArray = Array("DomeGreenOff", "DomeGreenOn", "DomeGreenOn", "DomeGreenOn")
+Dim RedDomeArray: RedDomeArray = Array("DomeRedOff", "DomeRedOn", "DomeRedOn", "DomeRedOn")
+Dim YellowDomeArray: YellowDomeArray = Array("DomeYellowOff", "DomeYellow33", "DomeYellow66", "DomeYellow100")
 
 
 Dim NullFader : set NullFader = new NullFadingObject
@@ -1451,12 +1454,12 @@ End Sub
 Sub InitLamps()
 	'Filtering (comment out to disable)
 	Lampz.Filter = "LampFilter"	'Puts all lamp intensityscale output (no callbacks) through this function before updating
-	
+
 	'Adjust fading speeds (1 / full MS fading time)
 	dim x : for x = 0 to 140 : Lampz.FadeSpeedUp(x) = 1/80 : Lampz.FadeSpeedDown(x) = 1/100 : next
-	
+
 	Lampz.FadeSpeedUp(110) = 1/64 'GI
-	
+
 	'Lamp Assignments
 	Set Lampz.obj(1) = F1
 	Set Lampz.obj(2) = F2
@@ -1479,9 +1482,9 @@ Sub InitLamps()
 
 	Lampz.obj(17) = array(RayLight17a, RayLight17a1, RayLight17c, RayLight17c1, Raylight17w)
 	Lampz.obj(18) = array(RayLight18a, RayLight18a1, RayLight18c, RayLight18c1)
-	Lampz.obj(19) = array(RayLight19a, RayLight19a1, RayLight19c, RayLight19c1, Raylight19w)	
+	Lampz.obj(19) = array(RayLight19a, RayLight19a1, RayLight19c, RayLight19c1, Raylight19w)
 	Lampz.obj(20) = array(RayLight20a, RayLight20a1, RayLight20c, RayLight20c1)
-	Lampz.obj(21) = array(RayLight21a, RayLight21a1, RayLight21c, RayLight21c1, Raylight21w)	
+	Lampz.obj(21) = array(RayLight21a, RayLight21a1, RayLight21c, RayLight21c1, Raylight21w)
 
 	Set Lampz.Obj(22) = l22
 	Set Lampz.Obj(23) = l23
@@ -1501,7 +1504,7 @@ Sub InitLamps()
 	Lampz.Obj(34) = Array(L134, L134a, MMBloom_Green)
 	Lampz.Callback(34) = "FadePrim4 GreenDome, GreenDomeArray, "	'FadePri4m 34, GreenDome, GreenDomeArray
 
-	Lampz.Obj(35) = Array(L135, L135a, L135b, MMBloom_Yellow) 
+	Lampz.Obj(35) = Array(L135, L135a, L135b, MMBloom_Yellow)
 	Lampz.Callback(35) = "UpdateYellowDome"	'Prim_WRampR1, RightRampArray AND 'YellowDome, YellowDomeArray
 
 	Lampz.Obj(36) = Array(L36, F36, F36a)
@@ -1544,7 +1547,7 @@ Sub InitLamps()
 	'GI Assignments
 	Lampz.Obj(110) = ColToArray(GI)
 	lampz.Callback(110) = "GIupdates"
-	
+
 	'Flasher Assignments
 	Lampz.Obj(115) = Array(f101) 'Big Guy Flasher
 
@@ -1557,7 +1560,7 @@ Sub InitLamps()
 	'NFadeObjmBulbSwap 129, GOGModel, F129, "GOGTexOn", "GOGTexOff", "GOGmodel"
 
 	Lampz.obj(130) = Array(F130)					'Heart Flasher
-	Lampz.obj(131) = Array(L131, L131a)					'Drop Targets Flasher	
+	Lampz.obj(131) = Array(L131, L131a)					'Drop Targets Flasher
 	Lampz.obj(132) = Array(Ray132B, Ray132C, RayBloom, RayBloom1, F200, F200a, F200b, F200c)	'Raygun Flasher
 	Lampz.Callback(132) = "FadePrim4 Prim_WRampL, LeftRampArray, "
 
@@ -1580,11 +1583,11 @@ End Function
 Sub PlayMusic(aLvl)
     'Intro Music
 	If aLvl > 0 and PrevGameOver = 0 Then
-		If IntroMusic = 0 Then	
+		If IntroMusic = 0 Then
 			PlaySound "intro"
 			PrevGameOver = 1
 		End If
-	else 
+	else
 '		PrevGameOver = 0
 	End If
 End Sub
@@ -1606,7 +1609,7 @@ End Sub
 
 function FlashLevelToIndex(Input, MaxSize)
 	FlashLevelToIndex = cInt(Input * (MaxSize-1)+.5)+1
-end function 
+end function
 
 Sub FadeDisableLighting1(aObject, ByVal aLvl)
 	if Lampz.UseFunction then aLvl = LampFilter(aLvl)	'Callbacks don't get this filter automatically
@@ -1618,7 +1621,7 @@ Sub FadeMaterialP(itemp, group, ByVal aLvl)	'cp's script
 	Select Case aLvl
 		case 0 : itemp.Material = group(1)
 		case 1 : itemp.Material = group(0)
-	end select 
+	end select
 End Sub
 
 Dim GIoffMult : GIoffMult = 3 'Multiplies all non-GI opacity when the GI is off
@@ -1631,7 +1634,7 @@ Sub GIupdates(ByVal aLvl)
 	Next
 
 '	dim bmprcolor : bmprcolor = Array(BumperCapNormal, BumperCapBlue, BumperCapPurple, BumperCapIceBlue)	'0->3)
-'	if BumperColorType <= 3 then 
+'	if BumperColorType <= 3 then
 '		for idx = 0 to uBound(a)
 '			FadePrim4 a(idx), bmprcolor(BumperColorType), aLvl
 '		next
@@ -1648,7 +1651,7 @@ Sub GIupdates(ByVal aLvl)
 '		End Select
 '	end If
 
-	''Lut fading 	
+	''Lut fading
 	'dim LutName, LutCount, GoLut
 	'''FadeLUT 100, "ColorGradeBOP_", 7
 	'LutName = "ColorGradeBOP_"
@@ -1661,7 +1664,7 @@ Sub GIupdates(ByVal aLvl)
 	'Fade lamps up when GI is off
 	dim GIscale
 	GiScale = (GIoffMult-1) * (ABS(aLvl-1 )  ) + 1	'invert
-	dim x : for x = 0 to uBound(LightsA) 
+	dim x : for x = 0 to uBound(LightsA)
 		On Error Resume Next
 		LightsA(x).Opacity = LightsB(x) * GIscale
 		LightsA(x).Intensity = LightsB(x) * GIscale
@@ -1703,10 +1706,10 @@ End Sub
 Sub SetGI(aOFF)	'Inverted, Solenoid cuts GI circuit on this era of game
 	select case aOFF
 		Case True  	 'GI off
-			PlaysoundAtVol "fx_relay_off",Light66,2 
-			SetLamp 110, 0 
+			PlaysoundAtVol "fx_relay_off",Light66,2
+			SetLamp 110, 0
 		Case False 	   'GI on
-			PlaysoundAtVol "fx_relay_on",Light66,5 
+			PlaysoundAtVol "fx_relay_on",Light66,5
 			SetLamp 110, 1
 	End Select
 End Sub
@@ -1934,35 +1937,35 @@ End Sub
 '***************** Random Real Time Sounds ****************************
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 1, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .4 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 2, Pitch(ActiveBall)
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .05 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
 Sub MetalWallBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 3, 20000 'Increased pitch to simulate metal wall
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
@@ -2040,7 +2043,7 @@ End Sub
 '***Options***
 '**********************************************************************************************************
 '**********************************************************************************************************
-Dim BumperColor, Prevgameover, IntroMusic, xxGIColor, aproncolor, flipperstyle 
+Dim BumperColor, Prevgameover, IntroMusic, xxGIColor, aproncolor, flipperstyle
 Dim cheaterpost, raybeam, MMflashers, GIColorModType, GIColorMod, BumperColorType, Rails
 
 Sub SetOptions()
@@ -2081,7 +2084,7 @@ If GIColorModType = 1 then
 		xxGIColor.Color=BluePlastic
 		xxGIColor.ColorFull=BluePlasticFull
 		xxGIColor.Intensity = BluePlasticI
-		next	
+		next
     for each xxGIColor in GIBulbs
 		xxGIColor.Color=BlueBulbs
 		xxGIColor.ColorFull=BlueBulbsFull
@@ -2126,35 +2129,35 @@ If GIColorModType = 3 then
 
 	End If
 
-	If Aproncolor = 4 then Aproncolor = Int(Rnd*4) End If    
+	If Aproncolor = 4 then Aproncolor = Int(Rnd*4) End If
 	Select Case Aproncolor
-		Case 0 : 
+		Case 0 :
 			pApron.image = "apron_texture_White":
 			pApronOverlay.Visible = False:
 			pCustomWall.visible = false:
 			'pSidewall_DT.visible = false
-		Case 1 : 
+		Case 1 :
 			pApron.image = "apron_texture_Blue":
 			pApronOverlay.Visible = False:
 			pCustomWall.visible = false:
 			'pSidewall_DT.visible = false
-		Case 2 : 
+		Case 2 :
 			pApron.image = "apron_texture_Green":
 			pApronOverlay.Visible = False:
 			pCustomWall.visible = false:
 			'pSidewall_DT.visible = false
-	    Case 3 : 
+	    Case 3 :
 			pApronOverlay.Visible = True:
-			If DesktopMode = True Then 
+			If DesktopMode = True Then
 				'pSidewall_DT.visible = True
 				pCustomWall.visible = true
 			else
-				'pSidewall_DT.visible = true 
+				'pSidewall_DT.visible = true
 				pCustomWall.visible = true
 			End If
 	End Select
 
-	if flipperstyle = 2 then flipperstyle = int(rnd*2) end if  
+	if flipperstyle = 2 then flipperstyle = int(rnd*2) end if
 	select case flipperstyle
 		case 0: flipperl.visible=false: flipperr.visible=False: RightFlipper.visible=True: LeftFlipper.visible=true
 		case 1: flipperl.visible=true: flipperr.visible=True: RightFlipper.visible=False: LeftFlipper.visible=false
@@ -2163,11 +2166,11 @@ If GIColorModType = 3 then
 
     If cheaterpost = 1 then
 		cpost.visible = 1
-		cRubberRubber.collidable = 1 
+		cRubberRubber.collidable = 1
 		cRubberRubber.visible = 1
 	Else
 		cpost.visible = 0
-		cRubberRubber.collidable = 0 
+		cRubberRubber.collidable = 0
 		cRubberRubber.visible = 0
 	End If
 
@@ -2329,7 +2332,7 @@ Dim Digits(32)
  Digits(29)=Array(bd0, bd5, bdc, bdd, bd8, bd1, bd6, bdf, bd2, bd3, bd4, bd7, bdb, bda, bd9, bde)
  Digits(30)=Array(be0, be5, bec, bed, be8, be1, be6, bef, be2, be3, be4, be7, beb, bea, be9, bee)
  Digits(31)=Array(bf0, bf5, bfc, bfd, bf8, bf1, bf6, bff, bf2, bf3, bf4, bf7, bfb, bfa, bf9, bfe)
- 
+
  Sub DisplayTimer_Timer
     Dim ChgLED, ii, jj, num, chg, stat, obj, b, x
     ChgLED=Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
@@ -2348,7 +2351,7 @@ Dim Digits(32)
 	   end if
     End If
  End Sub
- 
+
 
 '**********************************************************************************************************
 '**********************************************************************************************************
@@ -2358,13 +2361,13 @@ Dim Digits(32)
 
 
 Dim White, WhiteFull, WhiteI, WhitePlastic, WhitePlasticFull, WhitePlasticI, WhiteBumper, WhiteBumperFull, WhiteBumperI, WhiteBulbs, WhiteBulbsFull, WhiteBulbsI
-WhiteFull = rgb(255,255,255) 
+WhiteFull = rgb(255,255,255)
 White = rgb(255,255,180)
 WhiteI = 1
-WhitePlasticFull = rgb(255,255,255) 
+WhitePlasticFull = rgb(255,255,255)
 WhitePlastic = rgb(255,255,180)
 WhitePlasticI = 10
-WhiteBumperFull = rgb(255,255,180) 
+WhiteBumperFull = rgb(255,255,180)
 WhiteBumper = rgb(255,255,255)
 WhiteBumperI = 2
 WhiteBulbsFull = rgb(255,255,255)
@@ -2451,22 +2454,22 @@ Class LampFader
 		input = cBool(input)
 		if OnOff(idx) = Input then : Exit Property : End If	'discard redundant updates
 		OnOff(idx) = input
-		Lock(idx) = False 
+		Lock(idx) = False
 		Loaded(idx) = False
 	End Property
 
 	Public Sub TurnOnStates()	'If obj contains any light objects, set their states to 1 (Fading is our job!)
 		dim debugstr
 		dim idx : for idx = 0 to uBound(obj)
-			if IsArray(obj(idx)) then 
+			if IsArray(obj(idx)) then
 				dim x, tmp : tmp = obj(idx) 'set tmp to array in order to access it
 				for x = 0 to uBound(tmp)
 					if typename(tmp(x)) = "Light" then DisableState tmp(x) : debugstr = debugstr & tmp(x).name & " state'd" & vbnewline
-					
+
 				Next
 			Else
 				if typename(obj(idx)) = "Light" then DisableState obj(idx) : debugstr = debugstr & obj(idx).name & " state'd (not array)" & vbnewline
-				
+
 			end if
 		Next
 		debug.print debugstr
@@ -2492,13 +2495,13 @@ Class LampFader
 		dim x,xx : for x = 0 to uBound(OnOff)
 			if not Loaded(x) then
 				if IsArray(obj(x) ) Then	'if array
-					If UseFunction then 
+					If UseFunction then
 						for each xx in obj(x) : xx.IntensityScale = cFilter(Lvl(x)) : Next
 					Else
 						for each xx in obj(x) : xx.IntensityScale = Lvl(x) : Next
 					End If
 				else						'if single lamp or flasher
-					If UseFunction then 
+					If UseFunction then
 						obj(x).Intensityscale = cFilter(Lvl(x))
 					Else
 						obj(x).Intensityscale = Lvl(x)
