@@ -4,6 +4,8 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
+
 
 Dim DesktopMode: DesktopMode = Table.ShowDT
 
@@ -209,6 +211,7 @@ lockPin1.Isdropped=1:lockPin2.Isdropped=1
 '    sw8b.IsDropped = 1
 '    sw41b.IsDropped = 1
 '    sw42b.IsDropped = 1
+InitVpmFFlipsSAM
   End Sub
 
    Sub Table_Paused:Controller.Pause = 1:End Sub
