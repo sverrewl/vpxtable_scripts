@@ -21,6 +21,9 @@ Randomize
 Dim dtxx
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 If DesktopMode = True Then
   Ramp15.visible = 1
   Ramp16.visible = 1
