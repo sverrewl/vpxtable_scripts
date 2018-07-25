@@ -3,7 +3,9 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 'LoadVPM "00990300", "WPC.VBS", 1.0
 LoadVPM "01560000", "WPC.VBS", 3.36
@@ -38,7 +40,7 @@ End Sub
  '******* Standard definitions *******
  '************************************
 
- Const UseSolenoids = 1
+ Const UseSolenoids = 2
  Const UseLamps = 1
  Const UseSync = 0
  Const HandleMech = 0
