@@ -3,7 +3,6 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 On Error Resume Next
@@ -11,7 +10,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="pinchamp",UseSolenoids=2,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="coin"
+Const cGameName="pinchamp",UseSolenoids=1,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="coin"
 
 LoadVPM "01560000","ZAC2.VBS",3.2
 Dim DesktopMode: DesktopMode = Table1.ShowDT
