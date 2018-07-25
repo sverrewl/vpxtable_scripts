@@ -4,8 +4,10 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' Table doesn't used JP standard ball rolling routine
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 
@@ -92,7 +94,7 @@ End Function
 '	On Error Goto 0
 'End Sub
 
-Const UseSolenoids	= 1
+Const UseSolenoids	= 2
 Const UseLamps		= 0
 Const UseSync		= True
 Const UseGI			= False 		'Only WPC games have special GI circuit.
