@@ -5,6 +5,7 @@ Const cGameName="kiko_a10"
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 
@@ -24,7 +25,7 @@ Dim bsRadarEject
 Dim vLock
 Dim bsVuk
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 1
 Const HandleMech = 0
