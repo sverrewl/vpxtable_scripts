@@ -1,19 +1,24 @@
 Option Explicit
 Randomize
- 
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 '********************* Rom Selection ***************************
 Const SCoin="coin"
  'Const cGameName = "kiss"
  'Const cGameName = "kissb" ,UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
  'Const cGameName = "kissp" ' voice prototype currently doesn't work in vpm
- Const cGameName = "kissc" ,UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
+ Const cGameName = "kissc" ,UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
  'Const cGameName = "kissd"
- 
+
 Const Ballmass = 1.65
 Const Ballsize = 49.5
 
@@ -37,15 +42,15 @@ end If
  SolCallback(14) = "DTraised" '"dtbank1.SolDropUp"
  'SolCallback(17) = "vpmSolDiverter Gate,False,Not"
 SolCallback(17) = "SolGateDiverter"
- SolCallback(19) = "vpmNudge.SolGameOn" 
- 
+ SolCallback(19) = "vpmNudge.SolGameOn"
+
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
- 
+
 Sub DTraised(enabled)
 	if enabled then DTreset.enabled=True
 End Sub
- 
+
 Sub DTreset_timer
 	dtbank1.DropSol_On
 	lightdt1.state = 0
@@ -111,7 +116,7 @@ Sub Table1_Init
 		.ShowDMDOnly=1
 		.ShowFrame=0
 		.ShowTitle=0
-        .Hidden = 1		
+        .Hidden = 1
 		If Err Then MsgBox Err.Description
 	End With
 	On Error Goto 0
@@ -120,14 +125,14 @@ Sub Table1_Init
 		Controller.Run
 	If Err Then MsgBox Err.Description
 	On Error Goto 0
- 
+
      PinMAMETimer.Interval = PinMAMEInterval
      PinMAMETimer.Enabled = 1
 
      vpmNudge.TiltSwitch = swTilt
      vpmNudge.Sensitivity = 1
      vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, Bumper4, LeftSlingshot, RightSlingshot)
- 
+
      Set bsTrough = New cvpmBallStack
          bsTrough.InitSw 0, 8, 0, 0, 0, 0, 0, 0
          bsTrough.InitKick BallRelease, 80, 6
@@ -137,7 +142,7 @@ Sub Table1_Init
      set dtbank1 = new cvpmdroptarget
          dtbank1.initdrop array(sw1, sw2, sw3, sw4), array(1, 2, 3, 4)
          dtbank1.initsnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
- 
+
  End Sub
 
 '**********************************************************************************************************
@@ -167,7 +172,7 @@ EOSTorque = 0.9
 Sub GameTimer_Timer()
 	RollingSoundUpdate
 	BallShadowUpdate
-	
+
 	FlipperLSh.RotZ = LeftFlipper.currentangle
 	FlipperRSh.RotZ = RightFlipper.currentangle
 
@@ -183,7 +188,7 @@ Sub GameTimer_Timer()
 		RightFlipper.eostorque = defaultEOS
 	End If
 
-	
+
 
 End Sub
 '*******************************************************
@@ -195,7 +200,7 @@ End Sub
  Sub Sling3_Hit:vpmTimer.PulseSw 25:PlaySoundAt "Rubber",ActiveBall:End Sub
  Sub Sling4_Hit:vpmTimer.PulseSw 25:PlaySoundAt "Rubber",ActiveBall:End Sub
  Sub Sling5_Hit:vpmTimer.PulseSw 25:PlaySoundAt "Rubber",ActiveBall:End Sub
- 
+
  'Bumpers
  Sub Bumper1_Hit:vpmTimer.PulseSw 38: PlaySoundAt SoundFX("fx_bumper1",DOFContactors),Bumper1: End Sub
  Sub Bumper2_Hit:vpmTimer.PulseSw 40: PlaySoundAt SoundFX("fx_bumper2",DOFContactors),Bumper2: End Sub
@@ -221,17 +226,17 @@ End Sub
  Sub sw22_UnHit:Controller.Switch(22) = 0:End Sub
  Sub sw21_Hit:Controller.Switch(21) = 1 : PlaySoundAtVol "rollover",sw21,.5: End Sub
  Sub sw21_UnHit:Controller.Switch(21) = 0:End Sub
- 
+
  'Spinners
  Sub SPinner1_Spin():vpmTimer.PulseSw 31 : PlaySoundAtVol "fx_spinner",Spinner1,2: End Sub
  Sub SPinner2_Spin():vpmTimer.PulseSw 30 : PlaySoundAtVol "fx_spinner2",Spinner2,2 : End Sub
- 
+
  ' Droptargets
  Sub sw1_Hit:dtbank1.Hit 1:lightdt1.state = 1:End Sub
  Sub sw2_Hit:dtbank1.Hit 2:lightdt2.state = 1:lightdt5.state = 1:End Sub
  Sub sw3_Hit:dtbank1.Hit 3:lightdt3.state = 1:lightdt6.state = 1:End Sub
  Sub sw4_Hit:dtbank1.Hit 4:lightdt4.state = 1:End Sub
- 
+
  ' Targets
  Sub sw12_Hit:vpmTimer.PulseSw 12:End Sub
  Sub sw13_Hit:vpmTimer.PulseSw 13:End Sub
@@ -241,7 +246,7 @@ End Sub
  Sub sw18_Hit:vpmTimer.PulseSw 18:End Sub
  Sub sw19_Hit:vpmTimer.PulseSw 19:End Sub
  Sub sw20_Hit:vpmTimer.PulseSw 20:End Sub
- 
+
 'Lights mapped to an array
 Set Lights(1)= l1
 Set Lights(2)= l2
@@ -306,15 +311,15 @@ Set Lights(63)= l63
  LampTimer.Interval = 35
  LampTimer.Enabled = 1
 
- Sub LampTimer_Timer() 
+ Sub LampTimer_Timer()
      UpdateLeds
  End Sub
- 
+
 
  Dim Digits(32)
  Dim Patterns(11)
  Dim Patterns2(11)
- 
+
  Patterns(0) = 0     'empty
  Patterns(1) = 63    '0
  Patterns(2) = 6     '1
@@ -326,7 +331,7 @@ Set Lights(63)= l63
  Patterns(8) = 7     '7
  Patterns(9) = 127   '8
  Patterns(10) = 111  '9
- 
+
  Patterns2(0) = 128  'empty
  Patterns2(1) = 191  '0
  Patterns2(2) = 134  '1
@@ -338,7 +343,7 @@ Set Lights(63)= l63
  Patterns2(8) = 135  '7
  Patterns2(9) = 255  '8
  Patterns2(10) = 239 '9
- 
+
  Set Digits(0) = a0
  Set Digits(1) = a1
  Set Digits(2) = a2
@@ -346,7 +351,7 @@ Set Lights(63)= l63
  Set Digits(4) = a4
  Set Digits(5) = a5
  Set Digits(6) = a6
- 
+
  Set Digits(7) = b0
  Set Digits(8) = b1
  Set Digits(9) = b2
@@ -354,7 +359,7 @@ Set Lights(63)= l63
  Set Digits(11) = b4
  Set Digits(12) = b5
  Set Digits(13) = b6
- 
+
  Set Digits(14) = c0
  Set Digits(15) = c1
  Set Digits(16) = c2
@@ -362,7 +367,7 @@ Set Lights(63)= l63
  Set Digits(18) = c4
  Set Digits(19) = c5
  Set Digits(20) = c6
- 
+
  Set Digits(21) = d0
  Set Digits(22) = d1
  Set Digits(23) = d2
@@ -370,12 +375,12 @@ Set Lights(63)= l63
  Set Digits(25) = d4
  Set Digits(26) = d5
  Set Digits(27) = d6
- 
+
  Set Digits(28) = e0
  Set Digits(29) = e1
  Set Digits(30) = e2
  Set Digits(31) = e3
- 
+
  Sub UpdateLeds
      On Error Resume Next
      Dim ChgLED, ii, jj, chg, stat
@@ -383,7 +388,7 @@ Set Lights(63)= l63
      If Not IsEmpty(ChgLED)Then
          For ii = 0 To UBound(ChgLED)
              chg = chgLED(ii, 1):stat = chgLED(ii, 2)
- 
+
              For jj = 0 to 10
                  If stat = Patterns(jj)OR stat = Patterns2(jj)then Digits(chgLED(ii, 0)).SetValue jj
              Next
@@ -399,9 +404,9 @@ End Sub
 
 dim zz
 If Table1.ShowDT = false then
-    For each zz in DT:zz.Visible = false: Next    
+    For each zz in DT:zz.Visible = false: Next
 else
-    For each zz in DT:zz.Visible = true: Next    
+    For each zz in DT:zz.Visible = true: Next
 End If
 
 
@@ -630,12 +635,12 @@ Sub Trigger1_Hit:PlaySoundAt "gate",Gate2:End Sub
 
 ' Gates
 Sub Gate1_Hit():PlaySoundAt "gate4",Gate1:End Sub
-Sub Gate2_Hit():PlaySoundAt "gate",Gate2:End Sub	
+Sub Gate2_Hit():PlaySoundAt "gate",Gate2:End Sub
 Sub Gate3_Hit():PlaySoundAt "gate4",Gate3:End Sub
 
 
 '***********************
-' Random Rubber Bumps 
+' Random Rubber Bumps
 '***********************
 
 
@@ -649,7 +654,7 @@ End Sub
 
 
 '***********************
-' Random Flipper Hits 
+' Random Flipper Hits
 '***********************
 
 Sub LeftFlipper_Collide(parm)
@@ -691,31 +696,31 @@ Sub BallShadowUpdate_timer()
     Next
 End Sub
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub Wall40_Hit()
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump .2, 50000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .3 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub Metals_Thin_Hit(idx)
 	if BallVel(ActiveBall) > .05 and Timer > NextOrbitHit then
 		RandomBumpMetals_Thin 1, 2000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub RandomBump(voladj, freq)
 	dim BumpSnd:BumpSnd= "fx_rampbump" & CStr(Int(Rnd*7)+1)
 	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
-	Else	
+	Else
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1
 	End If
 End Sub
@@ -724,11 +729,11 @@ Sub RandomBumpMetals_Thin(voladj, freq)
 	dim BumpSnd:BumpSnd= "fx_sensor" & CStr(Int(Rnd*3)+1)
 	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
-	Else	
+	Else
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1
 	End If
 End Sub
 
 Sub Table1_Exit()
-	
+
 End Sub
