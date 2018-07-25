@@ -3,7 +3,12 @@
  ' Turbo Handler Code by Dorsola
 
 'VP10 Conversion / Enchancement Dozer - August 2017.
- 
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
  Option Explicit
  Randomize
  Const UseVPMModSol = 1
@@ -26,8 +31,8 @@ Const Rotating_Track = 1
 Const Track_Type = 3
 ' 1=Original White / 2=Asphalt with line / 3=Asphalt with broken line.
 
-Const Sloppy_Turbo_Vuk = 0 
-' With this on, the VUK hole to feed the turbo will catch balls less precisely. The real                          
+Const Sloppy_Turbo_Vuk = 0
+' With this on, the VUK hole to feed the turbo will catch balls less precisely. The real
 ' game suffers from random ball fails when shot into this VUK. Turn off for precise kicker grabs.
 
 Const Turbo_Reflection = 1
@@ -37,7 +42,7 @@ Const Flipper_Bat_Color = 2
 
 ' 1 = Blue / 2 = Black
 
-Const GridLamp = 1 
+Const GridLamp = 1
 'Change the color of the lamps in the grid light targets on the playfield.
 
 ' 1=Red / 2=Green / 3=Blue / 4 = Yellow / 5=Purple / 6=Cyan / 7=Orange
@@ -206,30 +211,30 @@ End If
 
  'LoadVPM "01560000", "wpc.vbs", 3.26
 LoadVPM "02800000", "WPC.VBS", 3.55
- 
+
  ' Init Table
  Const cGameName = "i500_11r"
- Const UseSolenoids = 1
+ Const UseSolenoids = 2
  Const UseLamps = 1
  Const UseGI = 0
  Const UseSync = 0
  Const FlasherTest = 0
- 
- 
+
+
  Dim x, bsTrough, bsLE, bsUE, bsTBP, bsBBP, bump1, bump2, bump3, BallInShooterLane, TopCarPos, MSpinMagnet, MSpinMagnet1
- 
+
  ' Standard Sounds
  Const SSolenoidOn = "Solenoid"    'Solenoid activates
  Const SSolenoidOff = ""           'Solenoid deactivates
  Const SFlipperOn = "FlipperUp"    'Flipper activated
  Const SFlipperOff = "FlipperDown" 'Flipper deactivated
  Const SCoin = "Coin"              'Coin inserted
- 
+
  '************
  ' Table init.
  '************
- 
- Sub Table1_Init 
+
+ Sub Table1_Init
      Dim i
      With Controller
           vpmInit Me
@@ -249,20 +254,20 @@ LoadVPM "02800000", "WPC.VBS", 3.55
          If Err Then MsgBox Err.Description
          On Error Goto 0
      End With
- 
+
      Controller.Switch(22) = 1 'door closed
      Controller.Switch(24) = 0 'door always closed
- 
+
      ' Main Timer init
      PinMAMETimer.Interval = PinMAMEInterval
      PinMAMETimer.Enabled = 1
      'StopShake 'StartShake
- 
+
      ' Nudging
      vpmNudge.TiltSwitch = 14
      vpmNudge.Sensitivity =5
      vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingshot, RightSlingshot)
- 
+
     Set bsTrough = New cvpmTrough
     With bsTrough
 		.Size = 4
@@ -273,7 +278,7 @@ LoadVPM "02800000", "WPC.VBS", 3.55
 		.Balls = 4
 		'.CreateEvents "bsTrough", Drain
     End With
-  
+
     Set mSpinMagnet = New cvpmMagnet
     With mSpinMagnet
         .InitMagnet SpinMagnet, 70
@@ -288,40 +293,40 @@ LoadVPM "02800000", "WPC.VBS", 3.55
      'bsLE.InitSaucer sw65, 65, 333, 25
      bsLE.InitSaucer sw65, 65, 328+(RND*5), 23+(RND*2)
      'bsLE.InitExitSnd "popper", "Solenoid"
- 
+
      ' Upper Eject
      Set bsUE = New cvpmBallStack
      bsUE.InitSaucer sw64, 64, 50, 19
      'bsUE.InitExitSnd "popper", "Solenoid"
      bsUE.KickAngleVar = 4
      bsUE.KickForceVar = 4
- 
+
      ' Top Ball Popper
      Set bsTBP = New cvpmBallStack
      bsTBP.InitSaucer sw61, 61, 0, 0
      bsTBP.InitKick sw61a, 140, 9
      'bsTBP.InitExitSnd "Popper", "Popper"
- 
+
      ' Bottom Ball Popper
      Set bsBBP = New cvpmBallStack
      bsBBP.InitSaucer sw62, 62, 0, 0
      bsBBP.InitKick sw62a, 330, 16
      'bsBBP.InitExitSnd "Popper", "Popper"
- 
+
        DiverterON.IsDropped = 1':CarOn.alpha = 0
      BallInShooterLane = 0
      TopCarPos = 1
      Plunger1.Pullback
      Init_Turbo
  End Sub
- 
+
  Sub Table1_Paused:Controller.Pause = True:End Sub
  Sub Table1_unPaused:Controller.Pause = False:End Sub
 
  '****
  'Keys
  '****
- 
+
  Sub Table1_KeyDown(ByVal Keycode)
     If keycode = LeftTiltKey Then Nudge 90, 5
     If keycode = RightTiltKey Then Nudge 270, 5
@@ -333,7 +338,7 @@ LoadVPM "02800000", "WPC.VBS", 3.55
          Controller.Switch(11) = 1
          If BallInShooterLane = 1 Then
              'Playsound "plunger2",0,1,1.0,0
-              PlaySoundAt "plunger2",sw25 
+              PlaySoundAt "plunger2",sw25
          Else
              'PlaySound "plunger",0,1,1.0,0
              'PlaySoundAt "plunger",sw25
@@ -341,7 +346,7 @@ LoadVPM "02800000", "WPC.VBS", 3.55
 	 End If
      If keycode = KeyRules Then Rules
  End Sub
- 
+
  Sub Table1_KeyUp(ByVal Keycode)
      If vpmKeyUp(keycode) Then Exit Sub
      If keycode = StartGameKey Then Controller.Switch(13) = 0
@@ -377,7 +382,7 @@ LoadVPM "02800000", "WPC.VBS", 3.55
  SolModCallback(27) = "Sol27"
  SolModCallback(28) = "Sol28"
  SolCallback(36) = "SolDiverterHold"
- 
+
  ' Solenoid Subs
 
 Sub Knocker(Enabled)
@@ -460,7 +465,7 @@ Indy_Shaft3.visible = 0
 End If
 
 F14_Side_Flash1.opacity = Enabled / 2
-If enabled > 1 Then 
+If enabled > 1 Then
 F14_Side_Flash2.visible = 1
 else
 F14_Side_Flash2.visible = 0
@@ -480,7 +485,7 @@ Turbo_Side_Flash3.opacity = Enabled / 2
 Turbo_Side_Flash1.opacity = Enabled / 2
 End If
 
-If enabled > 1 Then 
+If enabled > 1 Then
 F15_Side_Flash3.visible = 1
 else
 F15_Side_Flash3.visible = 0
@@ -546,7 +551,7 @@ F28_Lamp5.Intensity = Enabled / 20
 F28_Flash1.opacity = Enabled / 2
 F28_Side_Flash.opacity = Enabled / 2
 
-If enabled > 1 Then 
+If enabled > 1 Then
 F17s4.visible = 1
 else
 F17s4.visible = 0
@@ -559,7 +564,7 @@ End Sub
  PlaySoundAt SoundFX("solenoid",DOFContactors),sw64
  End If
  End Sub
- 
+
  Sub SolPlungBall(Enabled)
      If Enabled Then
          'sw25.kick 0, 35
@@ -569,17 +574,17 @@ End Sub
          'Plunger1.PullBack
      End If
  End Sub
- 
+
  Sub SolBallRelease(Enabled)
      If Enabled Then
         bsTrough.ExitSol_On
          PlaySoundat SoundFX("ballrel",DOFContactors),BallRelease
          If bsTrough.Balls Then
          vpmTimer.PulseSw 41
-         End If        
+         End If
      End If
  End Sub
- 
+
  Sub SolDiverterHold(Enabled)
      If Enabled Then
          PlaySoundat SoundFX("Solenoid",DOFContactors),diverterhold
@@ -588,7 +593,7 @@ End Sub
          'carr.state=ABS(carr.state-1)
          DiverterOn.IsDropped = 0
          If Dozer_Cab = 1 Then
-         DOF 166,2 
+         DOF 166,2
          End If
      Else
          PlaySoundat SoundFX("Solenoid",DOFContactors),diverterhold
@@ -598,7 +603,7 @@ End Sub
          DiverterOn.IsDropped = 1
          DiverterHold.Kick 180, 3
          If Dozer_Cab = 1 Then
-         DOF 166,2 
+         DOF 166,2
          End If
      End If
  End Sub
@@ -689,10 +694,10 @@ End Sub
  '**************
  ' Flipper Subs
  '**************
- 
+
  SolCallback(sLRFlipper) = "SolRFlipper"
  SolCallback(sLLFlipper) = "SolLFlipper"
- 
+
 
 '******************************************
 ' Use FlipperTimers to call div subs
@@ -703,7 +708,7 @@ Sub SolLFlipper(Enabled)
      If Enabled Then
          PlaySoundatvol SoundFX("left_flipper_up", DOFFlippers),leftflipper, 0.5
 		 LeftFlipper.RotateToEnd
-     Else         
+     Else
 		 PlaySoundatvol SoundFX("left_flipper_down", DOFFlippers),leftflipper, 0.5
          LeftFlipper.RotateToStart
      End If
@@ -721,37 +726,37 @@ Sub SolRFlipper(Enabled)
 		 RightFlipper.RotateToStart:RightFlipper2.RotateToStart
      End If
  End Sub
- 
- ' Lanes 
+
+ ' Lanes
  Sub sw15_Hit:Playsoundatball "sensor":Controller.Switch(15) = 1:End Sub
  Sub sw15_UnHit:Controller.Switch(15) = 0:End Sub
- 
+
  Sub sw16_Hit:Playsoundatball "sensor":Controller.Switch(16) = 1:End Sub
  Sub sw16_UnHit:Controller.Switch(16) = 0:End Sub
- 
+
  Sub sw17_Hit:Playsoundatball "sensor":Controller.Switch(17) = 1:End Sub
  Sub sw17_UnHit:Controller.Switch(17) = 0:End Sub
- 
+
  Sub sw18_Hit:Playsoundatball "sensor":Controller.Switch(18) = 1:End Sub
  Sub sw18_UnHit:Controller.Switch(18) = 0:End Sub
- 
+
  Sub sw37_Hit:Playsoundatball "sensor":Controller.Switch(37) = 1:End Sub
  Sub sw37_UnHit:Controller.Switch(37) = 0:End Sub
- 
+
  Sub sw38_Hit:Playsoundatball "sensor":Controller.Switch(38) = 1:End Sub
  Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub
- 
+
  Sub sw51_Hit:Playsoundatball "sensor":Controller.Switch(51) = 1:End Sub
  Sub sw51_UnHit:Controller.Switch(51) = 0:End Sub
- 
+
  Sub sw52_Hit:Playsoundatball "sensor":Controller.Switch(52) = 1:End Sub
  Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
- 
+
  Sub sw53_Hit:Playsoundatball "sensor":Controller.Switch(53) = 1:End Sub
  Sub sw53_UnHit:Controller.Switch(53) = 0:End Sub
- 
+
  ' Other switches
- 
+
  Sub sw25_Hit:Controller.Switch(25) = 1:BallInShooterLane = 1:PlaySoundatball "sensor":End Sub
  Sub sw25_Unhit:Controller.Switch(25) = 0:BallInShooterLane = 0:End Sub
  Sub sw35_Hit
@@ -780,10 +785,10 @@ Sub SolRFlipper(Enabled)
  Sub sw75_Unhit:Controller.Switch(75) = 0:End Sub
  Sub sw76_Hit:Controller.Switch(76) = 1:PlaySoundat "gateback_low",sw76:End Sub
  Sub sw76_Unhit:Controller.Switch(76) = 0:End Sub
- 
- 
+
+
  'Targets
- 
+
  Sub sw28_Hit:vpmTimer.PulseSw 28:PlaySoundat SoundFX("target",DOFTargets),sw28:End Sub
  Sub sw31_Hit:vpmTimer.PulseSw 31:PlaySoundat SoundFX("target",DOFTargets),sw31:End Sub
  Sub sw32_Hit:vpmTimer.PulseSw 32:PlaySoundat SoundFX("target",DOFTargets),sw32:End Sub
@@ -795,18 +800,18 @@ Sub SolRFlipper(Enabled)
  Sub sw56_Hit:vpmTimer.PulseSw 56:PlaySoundat SoundFX("target",DOFTargets),Primitive29:End Sub
  Sub sw57_Hit:vpmTimer.PulseSw 57:PlaySoundat SoundFX("target",DOFTargets),Primitive28:End Sub
  Sub sw58_Hit:vpmTimer.PulseSw 58:PlaySoundat SoundFX("target",DOFTargets),Primitive28:End Sub
- 
+
  '******
  ' vuks
  '******
- 
+
  Dim popperTBall, popperTZpos
  Dim popperBBall, popperBZpos
- 
+
  Sub sw61_Hit:PlaySoundat "kicker_enter",sw61:sw61a.Enabled=1:bsTBP.AddBall Me:End Sub
- 
+
  Sub sw62_Hit:PlaySoundatvol "warehousehit",sw62, 0.2:sw62a.Enabled=1:bsBBP.AddBall Me:End Sub
- 
+
  Sub SolTopPopper(Enabled)
      If Enabled Then
          If bsTBP.Balls Then
@@ -814,13 +819,13 @@ Sub SolRFlipper(Enabled)
              Set popperTBall = sw61a.Createball
              popperTBall.Z = 0
              popperTZpos = 0
-             PlaySoundat SoundFX("popper",DOFContactors),sw61a 
+             PlaySoundat SoundFX("popper",DOFContactors),sw61a
              sw61a.TimerInterval = 2
              sw61a.TimerEnabled = 1
          End If
      End If
  End Sub
- 
+
  Sub sw61a_Timer
      popperTBall.Z = popperTZpos
      popperTZpos = popperTZpos + 10
@@ -830,7 +835,7 @@ Sub SolRFlipper(Enabled)
          bsTBP.ExitSol_On
      End If
  End Sub
- 
+
  Sub SolBottomPopper(Enabled)
      If Enabled Then
          If bsBBP.Balls Then
@@ -844,7 +849,7 @@ Sub SolRFlipper(Enabled)
          End If
      End If
  End Sub
- 
+
  Sub sw62a_Timer
      popperBBall.Z = popperBZpos
      popperBZpos = popperBZpos + 10
@@ -864,7 +869,7 @@ Sub SolRFlipper(Enabled)
 
 Dim tballcount
 tballcount = 0
- 
+
  Sub sw62b_Hit()
      sw62b.Destroyball
      '''sw62.Enabled = 1
@@ -889,9 +894,9 @@ tballcount = 0
      TREF.image = "disc2db_4"
 	 End If
  End Sub
- 
+
  'Saucers
- 
+
  Sub sw64_Hit:PlaySoundat "kicker_enter",sw64:bsUE.AddBall Me:End Sub
  Sub sw65_Hit:PlaySoundatvol "headquarterhit", sw65, 0.1:bsLE.AddBall Me:End Sub
  Sub Drain1_Hit:Playsoundatvol "drain",drain1,0.5:bsTrough.AddBall Me:End Sub
@@ -899,23 +904,23 @@ tballcount = 0
  'Sub Drain3_Hit:Playsoundatvol "drain",drain3,0.5:bsTrough.AddBall Me:End Sub
  'Sub Drain4_Hit:Playsoundatvol "drain",drain4,0.5:bsTrough.AddBall Me:End Sub
  'Sub Drain5_Hit:Playsoundatvol "drain",drain5,0.5:bsTrough.AddBall Me:End Sub
- 
+
  ' Bumpers
  Sub Bumper1_Hit
  vpmTimer.PulseSw 72
  PlaySoundatvol SoundFX("bumper1",DOFContactors),bumper1, 1.0
  End Sub
- 
+
  Sub Bumper2_Hit
  vpmTimer.PulseSw 73
  PlaySoundatvol SoundFX("bumper2",DOFContactors),bumper1, 1.0
  End Sub
- 
+
  Sub Bumper3_Hit
  vpmTimer.PulseSw 74
  PlaySoundatvol SoundFX("bumper3",DOFContactors),bumper1, 1.0
  End Sub
- 
+
  '************************************************************************
 '					Slingshots Animation
 '************************************************************************
@@ -960,7 +965,7 @@ Sub RightSlingShot_Timer
     End Select
     RStep = RStep + 1
 End Sub
- 
+
  Sub sw54_Slingshot()
  vpmTimer.PulseSw 54
  playsoundat SoundFX("SlingShot",DOFContactors),BR3
@@ -969,14 +974,14 @@ End Sub
  '***********
  ' Update GI
  '***********
- 
+
  Set GiCallback2 = GetRef("UpdateGI")
 
- 
+
  '***********
 ' Update GI
 '***********
-Dim xx   
+Dim xx
 Dim gistep
 gistep = 1/8
 
@@ -1001,7 +1006,7 @@ For each xx in GIF:xx.opacity = step * 30:next
 If step = 0 then
 Table1.ColorGradeImage = "LUT0"
 else
-if step = 1 Then 
+if step = 1 Then
 Table1.ColorGradeImage = "LUT0_1"
 else
 if step = 2 Then
@@ -1041,7 +1046,7 @@ Else
 end if
 
     Select Case no
-        
+
         Case 0 'top left
 
 For each xx in GITL:xx.IntensityScale = gistep * step:next
@@ -1091,12 +1096,12 @@ End If
 
    End Select
 End Sub
- 
+
 
 '**********
  ' TopCar
  '**********
- 
+
  Sub SolTopCar(Enabled)
      If Enabled Then
          PlaySoundat SoundFX("motor",DOFGear),Indy_Top
@@ -1114,10 +1119,10 @@ End Sub
 		 IUFLASH1.visible = 0
          IUFLASH2.visible = 0
 		 Car_Shadow.visible = 1
-         F17s4.visible = 0      
+         F17s4.visible = 0
      End If
  End Sub
- 
+
 Sub Indy_Upper_Timer()
 indy_top.objrotz = indy_top.objrotz + 1
 indy_shaft.objrotz = indy_shaft.objrotz + 1
@@ -1162,8 +1167,8 @@ Car_Shadow.visible = 1
 iupflash = 1
 End Select
 End Sub
- 
- 
+
+
 
  '*********************************************************************************************
  ' Turbo Handler Code by Dorsola - Code Additions for Primitive Objects Turbo (Dozer).
@@ -1177,18 +1182,18 @@ End Sub
  '
  ' Known Issues:
  ' * Turbo lock behavior is not always consistent, but is believed to be accurately simulated
- 
+
  '**********************************************************************************************
- 
+
  Dim BallInTurboIndex(4), TurboSpeed, TurboMotorState, TurboRotatePosition, TurboCounter, TurboTargetCounter
- 
+
  Sub CloseBallSense:Controller.Switch(63) = 1:End Sub
- 
+
  Sub OpenBallSense:Controller.Switch(63) = 0:End Sub
- 
+
 Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
  Sub OpenTurboIndex:Controller.Switch(66) = 0:End Sub
- 
+
  Sub ShowTurboBalls
      ShowTurboPos TurboPos1A, BallInTurboIndex(1) And TurboRotatePosition = 0
      ShowTurboPos TurboPos1B, BallInTurboIndex(1) And TurboRotatePosition = 1
@@ -1207,7 +1212,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
      ShowTurboPos TurboPos4C, BallInTurboIndex(4) And TurboRotatePosition = 2
      ShowTurboPos TurboPos4D, BallInTurboIndex(4) And TurboRotatePosition = 3
  End Sub
- 
+
  Sub ShowTurboWalls
      Select Case TurboRotatePosition
          Case 0:TurboWallA.isdropped = 0:TurboWallB.isdropped = 1:TurboWallC.isdropped = 1:TurboWallD.isdropped = 1
@@ -1216,7 +1221,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
          Case 3:TurboWallA.isdropped = 1:TurboWallB.isdropped = 1:TurboWallC.isdropped = 1:TurboWallD.isdropped = 0
      End Select
  End Sub
- 
+
 'Dozer Code Mod
  Sub ShowTurboPos(kicker, show)
      If show Then
@@ -1232,7 +1237,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
      End If
  End Sub
 'Dozer Code Mod
- 
+
  Sub Init_Turbo()
      Dim count
      for count = 1 to 4:BallInTurboIndex(count) = 0:next
@@ -1245,7 +1250,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
      ShowTurboBalls
      ShowTurboWalls
  End Sub
- 
+
  Sub AdvanceTurboBalls()
      Dim overflow
      overflow = BallInTurboIndex(4)
@@ -1253,10 +1258,10 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
      for count = 3 to 1 step - 1
          BallInTurboIndex(count + 1) = BallInTurboIndex(count)
      next
- 
+
      BallInTurboIndex(1) = overflow
  End Sub
- 
+
  Sub RotateTurbo()
      TurboRotatePosition = (TurboRotatePosition + 1) mod 4
      Select Case TurboRotatePosition
@@ -1268,7 +1273,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
              Else
                  OpenBallSense
              End If
- 
+
              If TurboSpeed> 0 and TurboMotorState = 0 Then TurboSpeed = 0
          Case 1
              CloseTurboIndex
@@ -1293,11 +1298,11 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
              CloseTurboIndex
              CloseBallSense
      End Select
- 
+
      ShowTurboBalls
      ShowTurboWalls
  End Sub
- 
+
  Sub AddBallToTurbo(no)
      Dim index
      index = 1
@@ -1306,7 +1311,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
              index = index + 1
          WEnd
      End If
- 
+
      If index> 4 Then
          sw62b.CreateBall
          sw62b_Hit
@@ -1314,11 +1319,11 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
          BallInTurboIndex(index) = 1
          If index = 2 Then CloseBallSense
      End If
- 
+
      ShowTurboBalls
      ShowTurboWalls
  End Sub
- 
+
  Sub TurboMasterTimer_Timer()
      Dim Temp
      Temp = Controller.GetMech(0)
@@ -1350,7 +1355,7 @@ Sub CloseTurboIndex:Controller.Switch(66) = 1:End Sub
          End If
          'Dozer Code
       End If
- 
+
      Select Case TurboSpeed
          Case 0
              TurboCounter = 0
@@ -1550,20 +1555,20 @@ Lights(81)=Array(L81x,L81x1)
 Lights(82)=Array(L82x,L82x1)
 Lights(83)=Array(L83x,L83x1)
 Lights(84)=Array(L84x,L84x1)
- 
+
 
  '----------------------------
  ' Misc Hitty Stuff
  '----------------------------
- 
+
  Sub TurboErrorCatcher_Hit()
      Me.DestroyBall
 	TurboPopperEject.Enabled = 1
      TurboPopperEject.CreateBall
      TurboPopperEject.Kick 80, 26
-     tballcount = tballcount - 1   
+     tballcount = tballcount - 1
  End Sub
- 
+
 Sub TurboPopperEject_Unhit() : TurboPopperEject.Enabled = 0 : End Sub
 Sub sw61a_UnHit() : PlaySoundat "balldrop",sw61a : xtype = 1:ytype = 0 : sw61a.Enabled=0 : End Sub
 Sub sw62a_UnHit() : sw62a.Enabled=0 : End Sub
@@ -1751,7 +1756,7 @@ Sub RollingTimer_Timer()
 
 	' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False 
+        rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
@@ -1788,7 +1793,7 @@ Sub RollingTimer_Timer()
                 StopSound("rail")
                 yrolling(b) = False
             End If
-        End If     
+        End If
     Next
 End Sub
 
@@ -1808,7 +1813,7 @@ End Sub
 Sub aRubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1819,7 +1824,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1855,7 +1860,7 @@ Sub RandomSoundFlipper()
 	End Select
 End Sub
 
-Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness		
+Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
 	Dim dfRandomness
 	r=cint(r)
 	dfRandomness=INT(RND*(2*r+1))
