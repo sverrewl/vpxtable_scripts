@@ -3,6 +3,7 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 On Error Resume Next
@@ -66,7 +67,7 @@ Dim MaxBalls, InitTime, EjectTime, TroughEject, TroughCount, iBall, fgBall, Ball
 Const SFlipperOn="FlipperUp"
 Const SFlipperOff="FlipperDown"
 Const sCoin="coin"
-Const UseSolenoids 	= true
+Const UseSolenoids 	= 2
 Const UseLamps 		= False
 Const UseGI 		= False
 const sLSaucer		= 1
