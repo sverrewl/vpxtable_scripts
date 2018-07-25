@@ -10,10 +10,9 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' , AudioFade(ActiveBall)
-
 
 Option Explicit
 Randomize
@@ -31,7 +30,7 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
 
  Const cGameName="robo_a34"
 
- Const UseSolenoids=1
+ Const UseSolenoids=2
  Const UseLamps=1
  Const UseGI=0
  Const UseSync=0
