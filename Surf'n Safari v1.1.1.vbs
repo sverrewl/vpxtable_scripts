@@ -9,6 +9,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' , AudioFade(ActiveBall)
 
@@ -51,7 +52,7 @@ LoadVPM "01560000", "gts3.VBS", 3.26
 
 Dim bsTrough, bump1, bump2, bump3, cdtBank, ddtBank, bsUK, bsLK, mHole, mHole1, mHole2, PinPlay
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
