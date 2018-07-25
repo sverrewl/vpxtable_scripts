@@ -29,6 +29,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -54,7 +55,7 @@ Flares = 1			'1 = 0n, 0 = 0ff
 '********************
 
 Const cGameName = "rs_l6"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const SSolenoidOn = "SolOn"
 Const SSolenoidOff = "SolOff"
