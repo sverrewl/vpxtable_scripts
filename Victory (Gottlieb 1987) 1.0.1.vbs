@@ -4,8 +4,9 @@ Dim OptionReset
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
+
 
 'OptionReset = 1  'Uncomment to reset to default options in case of error OR keep all changes temporary
 
@@ -15,7 +16,7 @@ Dim OptionReset
 '***********************************************************************************
 '****            		 Constants and global variables						****
 '***********************************************************************************
-const UseSolenoids	= True
+const UseSolenoids	= 2
 const UseLamps		= False
 const UseGI			= False 								'Only WPC games have special GI circuit.
 Const SCoin        = "Coin"
