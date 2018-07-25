@@ -7,8 +7,10 @@
 '
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' Tables uses a non standard ball rolling routine
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -92,7 +94,7 @@ Sub DOF(dofevent, dofstate)
 	End If
 End Sub
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = true
 Const UseGI = 1
 Const UseSync = 0
