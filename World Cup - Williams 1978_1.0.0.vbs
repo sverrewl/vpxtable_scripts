@@ -4,6 +4,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -23,7 +24,7 @@ chimes = FALSE 'change to true if you prefer the chimes instead of the "new" sou
 
 Const cGameName = "wldcp_l1"
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
