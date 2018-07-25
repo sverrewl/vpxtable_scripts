@@ -3,6 +3,7 @@ Option Explicit
 
 ' Thalamus 2018-07-24
 ' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Supports cfastflips but video mode is uncertain
 ' No special SSF tweaks yet.
 
  Dim Ballsize,BallMass
