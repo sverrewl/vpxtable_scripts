@@ -4,6 +4,7 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions"
+' Changed UseSolenoids=1 to 2
 ' Table has a non standard "Ball rolling function"
 ' No special SSF tweaks yet.
 
@@ -15,7 +16,7 @@ On Error Goto 0
 LoadVPM"01210000","S11.VBS",3.1
 
 'standard definitions
-Const UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="solenoid",SSolenoidOff="solenoidoff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="CoinDrop"
+Const UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="solenoid",SSolenoidOff="solenoidoff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="CoinDrop"
 Const UseSync = 0
 Const HandleMech = 0
 Const sKnocker ="Knocker"
