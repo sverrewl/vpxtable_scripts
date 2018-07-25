@@ -56,7 +56,7 @@ LoadVPM "01120100", "s4.vbs", 3.36
 
 Dim bsTrough, dtBank, PinPlay
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
