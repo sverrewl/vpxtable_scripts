@@ -5,13 +5,18 @@
 '
 '   Credits:
 '
-'      VPX by fuzzel, flupper1, rothbauerw			
-'      Contributors: acronovum, hauntfreaks    	
+'      VPX by fuzzel, flupper1, rothbauerw
+'      Contributors: acronovum, hauntfreaks
 '	   VP9 Authors: ICPjuggla, OldSkoolGamer and Herweh
 '	   Code snippets from Destruk, JPSalas, and Unclewilly
 '
 '************************************************************
 '************************************************************
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
@@ -33,7 +38,7 @@ Dim Ballsize,BallMass
 Ballsize = 50
 Ballmass = 1.7
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 1
@@ -70,7 +75,7 @@ Sub Table1_Init
 		.ShowFrame=0
 		.ShowTitle=0
 		if ShowDT=true then
-			.hidden=1		
+			.hidden=1
 		end if
          On Error Resume Next
          .Run GetPlayerHWnd
@@ -89,13 +94,13 @@ Sub Table1_Init
 	vpmNudge.Sensitivity = 5
 	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingShot, RightSlingShot)
 
- 
+
     '************  Trough	**************************
 	Set SCBall4 = sw35.CreateSizedballWithMass(Ballsize/2,Ballmass)
 	Set SCBall3 = sw34.CreateSizedballWithMass(Ballsize/2,Ballmass)
 	Set SCBall2 = sw33.CreateSizedballWithMass(Ballsize/2,Ballmass)
 	Set SCBall1 = sw32.CreateSizedballWithMass(Ballsize/2,Ballmass)
-	
+
 	Controller.Switch(35) = 1
 	Controller.Switch(34) = 1
 	Controller.Switch(33) = 1
@@ -141,7 +146,7 @@ Sub Table1_KeyDown(ByVal keycode)
 		coinAnimation
 	End If
 
-	
+
 
 	If keycode = LeftTiltKey Then
 		Nudge 90, 2
@@ -387,7 +392,7 @@ Sub Bumper3_Hit()
 End Sub
 
 '******************************************************
-'						TROUGH 
+'						TROUGH
 '******************************************************
 
 Sub sw34_Hit():Controller.Switch(34) = 1:UpdateTrough:End Sub
@@ -428,7 +433,7 @@ Sub sw35_UnHit()  'Drain
 End Sub
 
 Sub ReleaseBall(enabled)
-	If enabled Then 
+	If enabled Then
 		PlaySoundAt SoundFX("ballrelease",DOFContactors), sw32
 		sw32.kick 60, 9
 		vpmTimer.PulseSw 31
@@ -462,7 +467,7 @@ end sub
 ' ball in back and bank kickout
 ' ===============================================================================================
 
-Sub sw77_Hit()	
+Sub sw77_Hit()
 	sw77wall.collidable = true
 	PlaySound "ball_bounce_low"
 	Controller.Switch(77) = 1
@@ -626,7 +631,7 @@ Sub SolLockupRelease(Enabled)
 	lockPinWall.IsDropped = Enabled
 	if enabled=True Then
 		pinStep=10
-	Else	
+	Else
 		pinStep=-13
 	end if
 	lockPinWall.TimerEnabled=True
@@ -658,13 +663,13 @@ Sub sw68_Hit()
 	Set PopperBall 		  		= Activeball
 	Playsound "metalhit2"
 	Controller.Switch(68) 		= 1
-	'mPopperDish.MagnetOn  		= 0		
+	'mPopperDish.MagnetOn  		= 0
 End Sub
 
 Sub SolPopperKickUp(Enabled)
 	If Enabled Then
 		If Controller.Switch(68) Then
-			PlaySoundAt SoundFX("AutoPlunger",DOFContactors), sw68			
+			PlaySoundAt SoundFX("AutoPlunger",DOFContactors), sw68
 			PBStep 			   	= 0
 			sw68.TimerInterval 	= 15
 			sw68.TimerEnabled  	= True
@@ -674,7 +679,7 @@ End Sub
 
 Sub SolPopperEject(Enabled)
 	If Enabled Then
-		If Controller.Switch(68) Then		
+		If Controller.Switch(68) Then
 			sw68.Kick 185 + Rnd() * 10, 9
 			PlaySoundAt SoundFX("popper_ball",DOFContactors), sw68
 			PBStep 				= 99
@@ -689,7 +694,7 @@ Sub sw68_Timer()
 		Case 0
 			PopperBall.z = 50
 		Case 1
-			PopperBall.z = 80 : PopperBall.y = PopperBall.y + 5 : Controller.Switch(68) = 0 
+			PopperBall.z = 80 : PopperBall.y = PopperBall.y + 5 : Controller.Switch(68) = 0
 		Case 2, 3, 4, 5, 6
 			PopperBall.z = PopperBall.z + 25
 		Case 7
@@ -704,7 +709,7 @@ End Sub
 ' 						VARI TARGET
 '******************************************************
 
-Const VariSpring = 0.6  '0.1 - 0.9 with smaller numbers representing a stiffer spring 
+Const VariSpring = 0.6  '0.1 - 0.9 with smaller numbers representing a stiffer spring
 Dim PrevTransY
 
 sub SolResetVariTarget(enabled)
@@ -724,7 +729,7 @@ Sub ResetVariTarget_Timer()
 End Sub
 
 Sub VariTargetTimer_Timer()
-    Dim BOT, b, TransYDist, inLeftKickBack 
+    Dim BOT, b, TransYDist, inLeftKickBack
 	inLeftKickBack = 0
     BOT = GetBalls
     ' exit the Sub if no balls on the table
@@ -734,7 +739,7 @@ Sub VariTargetTimer_Timer()
         If BOT(b).Z < 35 And BOT(b).Z > 20 Then
 			If InRect(BOT(b).x, BOT(b).y,130,415,198,398,254,608,184,625) Then
 				TransYDist = DistancePL(BOT(b).x, BOT(b).y, 148, 434.5, 196.5, 422.5) - (Ballsize/2) - 140
-	
+
 				If TransYDist < pVari.TransY Then
 					pVari.TransY = TransYDist
 					If BOT(b).VelY < 0 Then
@@ -746,17 +751,17 @@ Sub VariTargetTimer_Timer()
 				If pVari.TransY < -140 Then
 					pVari.TransY = -140
 					variTargetKicker.enabled = true
-					BOT(b).VelY = 0					
+					BOT(b).VelY = 0
 				End If
 
 				PrevTransY = pVari.TransY
 			End If
-			
+
 			'Left Kickback
 			If InRect(BOT(b).x, BOT(b).y,50,1005,100,1005,100,1055,50,1055) Then
 				inLeftKickback = 1
-			End If	
-		End If	
+			End If
+		End If
     Next
 
 	if inLeftKickBack then
@@ -838,11 +843,11 @@ Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
 	BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
 	CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
 	DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
- 
+
 	If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
 		InRect = True
 	Else
-		InRect = False       
+		InRect = False
 	End If
 End Function
 
@@ -900,7 +905,7 @@ Sub CoinTimer_Timer
 	end if
 
 	If Table1.ShowDT = False Then
-		If coin.y > 1200 Then	
+		If coin.y > 1200 Then
 			If coin.z > 150 then coin.z = coin.z - 20
 		End If
 	End If
@@ -967,7 +972,7 @@ Sub SpinnerBallTimer_Timer()
 
 
 	spinAngle = PI * (degAngle) / 180
-	
+
 	SpinnerBall.x = discX + (cDiscRadius * Cos(spinAngle))
 	SpinnerBall.y = discY + (cDiscRadius * Sin(spinAngle))
 	SpinnerBall.z = 25
@@ -1075,13 +1080,13 @@ End Sub
 Sub OnBallBallCollision(ball1, ball2, velocity)
 	dim collAngle,bvelx,bvely,hitball
 	If ball1.radius < 23 or ball2.radius < 23 then
-		
+
 		If ball1.radius < 23 Then
 			collAngle = GetCollisionAngle(ball1.x,ball1.y,ball2.x,ball2.y)
 			bvelx = ball2.velx
 			bvely = ball2.vely
 			set hitball = ball2
-		else 
+		else
 			collAngle = GetCollisionAngle(ball2.x,ball2.y,ball1.x,ball1.y)
 			bvelx = ball1.velx
 			bvely = ball1.vely
@@ -1092,7 +1097,7 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 		discAngle = NormAngle(spinAngle)
 
 		Dim mball, mdisc, rdisc, idisc
-		
+
 		discSpinSpeed = discSpinSpeed + sqr(bVelX ^2 + bVelY ^2) * sin(collAngle - discAngle) * cDiscSpeedMult
 
 		PlaySound "rubber_hit_1", 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 1, 0, AudioFade(ball1)
@@ -1118,16 +1123,16 @@ Function NormAngle(angle)
 		NormAngle = NormAngle + 2 * pi
 	Loop
 End Function
- 
+
 Class jVector
      Private m_mag, m_ang, pi
- 
+
      Sub Class_Initialize
          m_mag = CDbl(0)
          m_ang = CDbl(0)
          pi = CDbl(3.14159265358979323846)
      End Sub
- 
+
      Public Function add(anothervector)
          Dim tx, ty, theta
          If TypeName(anothervector) = "jVector" then
@@ -1135,18 +1140,18 @@ Class jVector
              add.SetXY x + anothervector.x, y + anothervector.y
          End If
      End Function
- 
+
      Public Function multiply(scalar)
          Set multiply = new jVector
          multiply.SetXY x * scalar, y * scalar
      End Function
- 
+
      Sub ShiftAxes(theta)
          ang = ang - theta
      end Sub
- 
+
      Sub SetXY(tx, ty)
- 
+
          if tx = 0 And ty = 0 Then
              ang = 0
           elseif tx = 0 And ty <0 then
@@ -1157,18 +1162,18 @@ Class jVector
              ang = atn(ty / tx)
              if tx <0 then ang = ang + pi ' Add 180 deg if in quadrant 2 or 3
          End if
- 
+
          mag = sqr(tx ^2 + ty ^2)
      End Sub
- 
+
      Property Let mag(nmag)
          m_mag = nmag
      End Property
- 
+
      Property Get mag
          mag = m_mag
      End Property
- 
+
      Property Let ang(nang)
          m_ang = nang
          Do While m_ang>2 * pi
@@ -1178,7 +1183,7 @@ Class jVector
              m_ang = m_ang + 2 * pi
          Loop
      End Property
- 
+
      Property Get ang
          Do While m_ang>2 * pi
              m_ang = m_ang - 2 * pi
@@ -1188,15 +1193,15 @@ Class jVector
          Loop
          ang = m_ang
      End Property
- 
+
      Property Get x
          x = m_mag * cos(ang)
      End Property
- 
+
      Property Get y
          y = m_mag * sin(ang)
      End Property
- 
+
      Property Get dump
          dump = "vector "
          Select Case CInt(ang + pi / 8)
@@ -1209,7 +1214,7 @@ Class jVector
              case 6:dump = dump & "\/"
              case 7:dump = dump & "\:"
          End Select
- 
+
          dump = dump & " mag:" & CLng(mag * 10) / 10 & ", ang:" & CLng(ang * 180 / pi) & ", x:" & CLng(x * 10) / 10 & ", y:" & CLng(y * 10) / 10
      End Property
 End Class
@@ -1297,7 +1302,7 @@ End Sub
 
 Sub StopBallControl_Hit()
 	contballinplay = false
-End Sub	
+End Sub
 
 Dim bcup, bcdown, bcleft, bcright
 Dim contball, contballinplay, ControlBall
@@ -1306,7 +1311,7 @@ Dim bcvel, bcyveloffset, bcboostmulti, bcboost
 bcboost = 1		'Do Not Change - default setting
 bcvel = 4		'Controls the speed of the ball movement
 bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key) 
+bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
 
 Sub BallControlTimer_Timer()
 	If Contball and ContBallInPlay and EnableBallControl then
@@ -1438,7 +1443,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1452,7 +1457,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1491,7 +1496,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1502,7 +1507,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1555,7 +1560,7 @@ End Sub
 'LUT images (optional)
 'Make modifications based on era of game (setlamp / flashc for games without solmodcallback, use bonus GI subs for games with only one GI control)
 
-Dim LampState(340), FadingLevel(340), CollapseMe	
+Dim LampState(340), FadingLevel(340), CollapseMe
 Dim FlashSpeedUp(340), FlashSpeedDown(340), FlashMin(340), FlashMax(340), FlashLevel(340)
 Dim SolModValue(340)	'holds 0-255 modulated solenoid values
 
@@ -1609,7 +1614,7 @@ reDim CollapseMe(1)	'Setlamps and SolModCallBacks	(Click Me to Collapse)
 
 '#end section
 reDim CollapseMe(2) 'InitLamps 	(Click Me to Collapse)
-	Sub InitLamps() 'set fading speeds and other stuff here		
+	Sub InitLamps() 'set fading speeds and other stuff here
 		GetOpacity aLampsAll	'All non-GI lamps and flashers go in this object array for compensation script!
 		Dim x
 		for x = 0 to uBound(LampState)
@@ -1617,29 +1622,29 @@ reDim CollapseMe(2) 'InitLamps 	(Click Me to Collapse)
 			FadingLevel(x) = 4	' used to track the fading state
 			FlashSpeedUp(x) = 0.1	'Fading speeds in opacity per MS I think (Not used with nFadeL or nFadeLM subs!)
 			FlashSpeedDown(x) = 0.1
-			
+
 			FlashMin(x) = 0.001			' the minimum value when off, usually 0
 			FlashMax(x) = 1				' the minimum value when off, usually 1
 			FlashLevel(x) = 0.001       ' Raw Flasher opacity value. Start this >0 to avoid initial flasher stuttering.
-			
+
 			SolModValue(x) = 0			' Holds SolModCallback values
-			
+
 		Next
-		
+
 		for x = 0 to uBound(giscale)
 			Giscale(x) = 1.625			' lamp GI compensation multiplier, eg opacity x 1.625 when gi is fully off
 		next
-			
+
 		for x = 11 to 100 'insert fading levels (only applicable for lamps that use FlashC sub)
 			FlashSpeedUp(x) = 0.015
 			FlashSpeedDown(x) = 0.009
-		Next		
-		
+		Next
+
 		for x = 101 to 186	'Flasher fading speeds 'intensityscale(%) per 10MS
 			FlashSpeedUp(x) = 1.1 * 4
 			FlashSpeedDown(x) = 0.9 * 4
 		next
-		
+
 		for x = 200 to 204		'GI relay on / off	fading speeds
 			FlashSpeedUp(x) = 0.01
 			FlashSpeedDown(x) = 0.008
@@ -1696,7 +1701,7 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 
 	Sub UpdateGIstuff()
 		FadeGI 200
-		ModGI  300	
+		ModGI  300
 		UpdateGIObjects 200, 300, GIs, 1	'nr, nr2, array 'Updates GI objects
 		GiCompensation 200, 300, aLampsAll, GiScale(2)	'Averages two lamp strings. Ideal match the avg. Lut fading.
 		FadeLUT 200, 300, "LutCont_", 27	'Lut averages three fading strings
@@ -1767,11 +1772,11 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 	NFadeL 83, l83
 	NBlendLm 84, bankLeftLamp
 	FlashC 84, bankLeftFlasher
-	NBlendLm 85, bankRightLamp 
+	NBlendLm 85, bankRightLamp
 	FlashC 85, bankRightFlasher
-	NBlendLm 86, cellarLamp 
-	FlashC 86, cellarFlasher	
-	NBlendLm 87, roofLamp 
+	NBlendLm 86, cellarLamp
+	FlashC 86, cellarFlasher
+	NBlendLm 87, roofLamp
 	FlashC 87, roofFlasher
 
 	' board game lamps
@@ -1824,13 +1829,13 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 	Flashc 147, l147
 	Flashc 148, l148
 	end sub
-	
+
 '#end section
 
 
 reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 	Set GICallback = GetRef("UpdateGIon")		'On/Off GI to NRs 200-203
-	Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub	
+	Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub
 
 
 	Set GICallback2 = GetRef("UpdateGI")
@@ -1850,7 +1855,7 @@ End Sub
 
 	Function ScaleGI(value, scaletype)	'returns an intensityscale-friendly 0->100% value out of 1>8 'it does go to 8
 		Dim i
-		Select Case scaletype	'select case because bad at maths 
+		Select Case scaletype	'select case because bad at maths
 			case 0  : i = value * (1/8)	'0 to 1
 			case 25 : i = (1/28)*(3*value + 4)
 			case 50 : i = (value+5)/12
@@ -1888,7 +1893,7 @@ End Sub
 	Sub ModGI(nr2) 'in 0->1		'Updates nothing but flashlevel	'never off
 		Dim DesiredFading
 		Select Case FadingLevel(nr2)
-			case 3 : FadingLevel(nr2) = 0	'workaround - wait a frame to let M sub finish fading 
+			case 3 : FadingLevel(nr2) = 0	'workaround - wait a frame to let M sub finish fading
 	'		Case 4 : FadingLevel(nr2) = 3	'off -disabled off, only gicallback1 can turn off GI(?) 'experimental
 			Case 5, 4 ' Fade (Dynamic)
 				DesiredFading = SolModValue(nr2)
@@ -1910,7 +1915,7 @@ End Sub
 			for each x in a : x.IntensityScale = Output : next
 		End If
 	end Sub
-	
+
 	Sub GiCompensation(nr, nr2, a, GIscaleOff)	'One NR pairing only fading
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1932,7 +1937,7 @@ End Sub
 		End If
 		'		tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
 	End Sub
-	
+
 	Sub GiCompensationAvg(nr, nr2, nr3, nr4, a, GIscaleOff)	'Two pairs of NRs averaged together
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1948,8 +1953,8 @@ End Sub
 				a(x).FadeSpeedUp = LampsOpacity(x, 1) * Giscaler
 				a(x).FadeSpeedDown = LampsOpacity(x, 2) * Giscaler
 			Next
-		
-				
+
+
 		REM tbgi1.text = "Output:" & output & vbnewline & _
 					REM "GIscaler" & giscaler & vbnewline & _
 					REM "..."
@@ -1960,8 +1965,8 @@ End Sub
 					REM "GI3 " & flashlevel(203) & " " & flashlevel(303) & vbnewline & _
 					REM "GI4 " & flashlevel(204) & " " & flashlevel(304) & vbnewline & _
 					REM "..."
-	End Sub	
-	
+	End Sub
+
 	Sub GiCompensationAvgM(nr, nr2, nr3, nr4, nr5, nr6, a, GIscaleOff)	'Three pairs of NRs averaged together
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1969,7 +1974,7 @@ End Sub
 		if FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 Then
 			Dim x, Giscaler, Output
 			Output = (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)
-			
+
 			Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1	'fade GIscale the opposite direction
 
 			for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
@@ -1984,7 +1989,7 @@ End Sub
 			'	tbgi1.text = Output & " giscale:" & giscaler	'debug
 		End If
 		'		tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
-	End Sub	
+	End Sub
 
 	Sub FadeLUT(nr, nr2, LutName, LutCount)	'fade lookuptable NOTE- this is a bad idea for darkening your table as
 		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 Then				'-it will strip the whites out of your image
@@ -1994,7 +1999,7 @@ End Sub
 	'		tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-	
+
 	Sub FadeLUTavg(nr, nr2, nr3, nr4, LutName, LutCount)	'FadeLut for two GI strings (WPC)
 		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 Then
 			Dim GoLut
@@ -2003,9 +2008,9 @@ End Sub
 			REM tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-	
+
 	Sub FadeLUTavgM(nr, nr2, nr3, nr4, nr5, nr6, LutName, LutCount)	'FadeLut for three GI strings (WPC)
-		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 or _ 
+		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 or _
 		FadingLevel(nr5) >2 or FadingLevel(nr6) > 2 Then
 			Dim GoLut
 			GoLut = cInt(LutCount * (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)	)	'what a mess
@@ -2013,14 +2018,14 @@ End Sub
 	'		tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-	
+
 '#end section
 
 reDim CollapseMe(6) 'Fading subs 	 (Click Me to Collapse)
 	Sub nModFlash(nr, object, scaletype, offscale)	'Fading with modulated callbacks
 		Dim DesiredFading
 		Select Case FadingLevel(nr)
-			case 3 : FadingLevel(nr) = 0	'workaround - wait a frame to let M sub finish fading 
+			case 3 : FadingLevel(nr) = 0	'workaround - wait a frame to let M sub finish fading
 			Case 4	'off
 				If Offscale = 0 then Offscale = 1
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * FrameTime	) * offscale
@@ -2072,7 +2077,7 @@ reDim CollapseMe(6) 'Fading subs 	 (Click Me to Collapse)
 			case 3, 4, 5, 6 : Object.IntensityScale = FlashLevel(nr)
 		end select
 	End Sub
-	
+
 	Sub NFadeL(nr, object)	'Simple VPX light fading using State
     Select Case FadingLevel(nr)
         Case 3:object.state = 0:FadingLevel(nr) = 0
@@ -2108,7 +2113,7 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
 		Dim i
 		Select Case scaletype	'select case because bad at maths 	'TODO: Simplify these functions. B/c this is absurdly bad.
 			case 0  : i = value * (1 / 255)	'0 to 1
-			case 6  : i = (value + 17)/272  '0.0625 to 1 
+			case 6  : i = (value + 17)/272  '0.0625 to 1
 			case 9  : i = (value + 25)/280  '0.089 to 1
 			case 15 : i = (value / 300) + 0.15
 			case 20 : i = (4 * value)/1275 + (1/5)
@@ -2126,7 +2131,7 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
 		Dim i
 		Select Case scaletype
 			case 0 : i = value * 1	'0 to 1
-			case 9 : i = (5*(200*value + 1887))/1037 'ugh 
+			case 9 : i = (5*(200*value + 1887))/1037 'ugh
 			case 15 : i = (16*value)/17 + 15
 			Case 63 : i = (3*(value + 85))/4
 			case else : i = value * 1	'0 to 1
@@ -2143,7 +2148,7 @@ End Function
 
 
 
-REM Troubleshooting : 
+REM Troubleshooting :
 REM Flashers/gi are intermittent or aren't showing up
 REM Ensure flashers start visible, light objects start with state = 1
 
@@ -2177,9 +2182,9 @@ Dim FlashLevel17, FlashLevel18, FlashLevel18a, FlashLevel19, FlashLevel20, Flash
 
 Sub Flasherset17(value)
 	If value < 160 Then value = 160
-	If value > Flashlevel17 * 255 Then 
+	If value > Flashlevel17 * 255 Then
 		FlashLevel17 = value / 255
-		If not Flasherflash17.TimerEnabled Then 
+		If not Flasherflash17.TimerEnabled Then
 			Flasherflash17.TimerEnabled = True
 			Flasherflash17.visible = 1
 			Flasherlit17.visible = 1
@@ -2192,9 +2197,9 @@ Sub Flasherset17(value)
 Sub Flasherset18(value)
 	FlashLevel18a = value
 	If value < 160 Then value = 160
-	If value > Flashlevel18 * 255 Then 
+	If value > Flashlevel18 * 255 Then
 		FlashLevel18 = value / 255
-		If not Flasherflash18.TimerEnabled Then 
+		If not Flasherflash18.TimerEnabled Then
 			Flasherflash18.TimerEnabled = True
 			Flasherflash18.visible = 1
 			Flasherlit18.visible = 1
@@ -2207,9 +2212,9 @@ Sub Flasherset18(value)
 
 Sub Flasherset19(value)
 	If value < 160 Then value = 160
-	If value > Flashlevel19 * 255 Then 
+	If value > Flashlevel19 * 255 Then
 		FlashLevel19 = value / 255
-		If not Flasherflash19.TimerEnabled Then 
+		If not Flasherflash19.TimerEnabled Then
 			Flasherflash19.TimerEnabled = True
 			Flasherflash19.visible = 1
 			Flasherlit19.visible = 1
@@ -2221,9 +2226,9 @@ Sub Flasherset19(value)
 
 Sub Flasherset20(value)
 	If value < 160 Then value = 160
-	If value > Flashlevel20 * 255 Then 
+	If value > Flashlevel20 * 255 Then
 		FlashLevel20 = value / 255
-		If not Flasherflash20.TimerEnabled Then 
+		If not Flasherflash20.TimerEnabled Then
 			Flasherflash20.TimerEnabled = True
 			Flasherflash20.visible = 1
 			Flasherlit20.visible = 1
@@ -2235,9 +2240,9 @@ Sub Flasherset20(value)
 
 Sub Flasherset21(value)
 	If value < 160 Then value = 160
-	If value > Flashlevel21 * 255 Then 
+	If value > Flashlevel21 * 255 Then
 		FlashLevel21 = value / 255
-		If not Flasherflash21.TimerEnabled Then 
+		If not Flasherflash21.TimerEnabled Then
 			Flasherflash21.TimerEnabled = True
 			Flasherflash21.visible = 1
 			Flasherlit21.visible = 1
@@ -2247,11 +2252,11 @@ Sub Flasherset21(value)
 	End If
  End Sub
 
-Sub Flasherset22(value) 
+Sub Flasherset22(value)
 	If value < 160 Then value = 160
-	If value > Flashlevel22 * 255 Then 
+	If value > Flashlevel22 * 255 Then
 		FlashLevel22 = value / 255
-		If not Flasherflash22.TimerEnabled Then 
+		If not Flasherflash22.TimerEnabled Then
 			Flasherflash22.TimerEnabled = True
 			Flasherflash22.visible = 1
 			Flasherlit22.visible = 1
@@ -2271,7 +2276,7 @@ Sub FlasherFlash17_Timer()
 	matdim = Round(10 * FlashLevel17)
 	Flasherlit17.material = "domelit" & matdim
 	FlashLevel17 = FlashLevel17 * 0.9 - 0.01
-	If FlashLevel17 < 0 Then 
+	If FlashLevel17 < 0 Then
 		Flasherflash17.TimerEnabled = False
 		Flasherflash17.visible = 0
 		Flasherlit17.visible = 0
@@ -2290,7 +2295,7 @@ Sub FlasherFlash18_Timer()
 	matdim = Round(10 * FlashLevel18)
 	Flasherlit18.material = "domelit" & matdim
 	FlashLevel18 = FlashLevel18 * 0.9 - 0.01
-	If FlashLevel18 < 0 Then 
+	If FlashLevel18 < 0 Then
 		Flasherflash18.TimerEnabled = False
 		Flasherflash18.visible = 0
 		Flasherlit18.visible = 0
@@ -2309,7 +2314,7 @@ Sub FlasherFlash19_Timer()
 	matdim = Round(10 * FlashLevel19)
 	Flasherlit19.material = "domelit" & matdim
 	FlashLevel19 = FlashLevel19 * 0.9 - 0.01
-	If FlashLevel19 < 0 Then 
+	If FlashLevel19 < 0 Then
 		Flasherflash19.TimerEnabled = False
 		Flasherflash19.visible = 0
 		Flasherlit19.visible = 0
@@ -2327,7 +2332,7 @@ Sub FlasherFlash20_Timer()
 	matdim = Round(10 * FlashLevel20)
 	Flasherlit20.material = "domelit" & matdim
 	FlashLevel20 = FlashLevel20 * 0.9 - 0.01
-	If FlashLevel20 < 0 Then 
+	If FlashLevel20 < 0 Then
 		Flasherflash20.TimerEnabled = False
 		Flasherflash20.visible = 0
 		Flasherlit20.visible = 0
@@ -2345,7 +2350,7 @@ Sub FlasherFlash21_Timer()
 	matdim = Round(10 * FlashLevel21)
 	Flasherlit21.material = "domelit" & matdim
 	FlashLevel21 = FlashLevel21 * 0.9 - 0.01
-	If FlashLevel21 < 0 Then 
+	If FlashLevel21 < 0 Then
 		Flasherflash21.TimerEnabled = False
 		Flasherflash21.visible = 0
 		Flasherlit21.visible = 0
@@ -2363,7 +2368,7 @@ Sub FlasherFlash22_Timer()
 	matdim = Round(10 * FlashLevel22)
 	Flasherlit22.material = "domelit" & matdim
 	FlashLevel22 = FlashLevel22 * 0.9 - 0.01
-	If FlashLevel22 < 0 Then 
+	If FlashLevel22 < 0 Then
 		Flasherflash22.TimerEnabled = False
 		Flasherflash22.visible = 0
 		Flasherlit22.visible = 0
@@ -2390,7 +2395,7 @@ sub setup_backglass()
 
 	If Not Table1.ShowFSS and Table1.ShowDT Then
 		xoff = xoff + 1000
-		yoff = yoff + 300 
+		yoff = yoff + 300
 		zoff = zoff - 700
 		xrot = -90
 		Flasher3.visible = 0
@@ -2411,7 +2416,7 @@ sub setup_backglass()
 
 		DMD1.opacity = 0
 		scbgFrameGlow.visible = 0
-	
+
 		Flasher20.visible = 0
 		Flasher21.visible = 0
 		Flasher22.visible = 0
@@ -2420,7 +2425,7 @@ sub setup_backglass()
 
 	Elseif Table1.ShowFSS Then
 		scbgframe2.visible = false
-	Else 
+	Else
 		zoff = zoff + 500
 		DMD1.opacity = 0
 		scbgFrameGlow.visible = 0
@@ -2460,12 +2465,12 @@ sub setup_backglass()
 	scbghigh2.rotx = xrot
 
 	scbgframe.x = xoff
-	scbgframe.y = yoff 
+	scbgframe.y = yoff
 	scbgframe.height = zoff
 	scbgframe.rotx = xrot
 
 	scbgframe2.x = xoff + 4
-	scbgframe2.y = yoff 
+	scbgframe2.y = yoff
 	scbgframe2.height = zoff + 4
 	scbgframe2.rotx = xrot
 
@@ -2475,7 +2480,7 @@ sub setup_backglass()
 	DMD.rotx = xrot
 
 	scbgFrameGlow.x = xoff
-	scbgFrameGlow.y = yoff 
+	scbgFrameGlow.y = yoff
 	scbgFrameGlow.height = zoff + 900
 	scbgFrameGlow.rotx = xrot
 
@@ -2491,7 +2496,7 @@ sub setup_backglass()
 end sub
 
 
-Dim BGArr 
+Dim BGArr
 BGArr=Array (l1, l2, l3, l4, l5, l6, l7, l8, l9,l10, l19,l20,l29, l91, l92, l93, l94, l95, l96, l97, l98, l101, l102, l103, l104, l105, l106, l107, l108,_
 l111, l112, l113, l114, l115, l116, l117, l118, l121, l122, l123, l124, l125, l126, l127,_
 l128, l131, l132, l133, l134, l135, l136, l137, l138, l141, l142, l143, l144, l145, l146, l147, l148,_
@@ -2510,19 +2515,19 @@ Sub center_graphix()
 	xfact =15
 
 	For Each xobj In BGArr
-		xx =xobj.x 
-		
+		xx =xobj.x
+
 		xobj.x = (xoff -xcen) + xx +xfact
 		yy = xobj.y ' get the yoffset before it is changed
-		xobj.y =yoff 
+		xobj.y =yoff
 
 		If(yy < 0.) then
 			yy = yy * -1
 		end if
 
-	
+
 		xobj.height =( zoff - ycen) + yy - (yy * zscale) + yfact
-	
+
 		xobj.rotx = xrot
 		'xobj.visible =1 ' for testing
 	Next
@@ -2624,12 +2629,12 @@ Dim CCRed: CCRed = 0.9 * DivClrCor
 Dim FlValues : FlValues=Array (1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0)
 Dim AMTValues: AMTValues=Array (500,3000,4000,8000,16000,32000,64000,128000,128000,128000,128000,128000)
 Dim BiasValues: BiasValues=Array (-100,-90,-80,-70,-60,-50,-40,-30,-20,-10,-9,-8)
-Dim MixBlueChan: MixBlueChan=Array (8.0*BlueDiv, 16.0*BlueDiv, 34.0*BlueDiv, 64.0*BlueDiv, 72.0*BlueDiv, 80.0*BlueDiv, 84.0*BlueDiv, 82.0*BlueDiv, 80.0*BlueDiv, 78.0*BlueDiv, 76.0*BlueDiv)  
-Dim MixRedChan: MixRedChan=Array (16.0 * RedDiv, 16.0* RedDiv, 34.0* RedDiv, 64.0* RedDiv, 72.0* RedDiv, 80.0* RedDiv, 84.0* RedDiv, 82.0* RedDiv, 80.0* RedDiv, 78.0* RedDiv, 76.0* RedDiv)  
-Dim MixRedGreenChan: MixRedGreenChan=Array (8.0*RedGreenDiv, 16.0*RedGreenDiv, 34.0*RedGreenDiv, 64.0*RedGreenDiv, 72.0*RedGreenDiv, 80.0*RedGreenDiv, 84.0*RedGreenDiv, 82.0*RedGreenDiv, 80.0*RedGreenDiv, 78.0*RedGreenDiv, 76.0*RedGreenDiv)  
-Dim MixFullSpectrum: MixFullSpectrum=Array (8.0*FullSpecDiv, 16.0*FullSpecDiv, 34.0*FullSpecDiv, 64.0*FullSpecDiv, 72.0*FullSpecDiv, 73.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv)  
-Dim CCFSValues: CCFSValues=Array (100.0*CCFull, 1.0*CCFull, 0.1*CCFull, 0.01*CCFull, 0.001*CCFull, 0.0001*CCFull, 0.0001*CCFull, 0.0001*CCFull, 0.0001*CCFull,0.0001*CCFull,0.0001*CCFull)  
-Dim CCBlueValues: CCBlueValues=Array (0.9*CCBlue, 1.0*CCBlue, 1.2*CCBlue, 1.4*CCBlue, 1.5*CCBlue, 1.55*CCBlue, 1.56*CCBlue, 1.565*CCBlue, 1.568*CCBlue, 1.569*CCBlue, 1.569*CCBlue)  
+Dim MixBlueChan: MixBlueChan=Array (8.0*BlueDiv, 16.0*BlueDiv, 34.0*BlueDiv, 64.0*BlueDiv, 72.0*BlueDiv, 80.0*BlueDiv, 84.0*BlueDiv, 82.0*BlueDiv, 80.0*BlueDiv, 78.0*BlueDiv, 76.0*BlueDiv)
+Dim MixRedChan: MixRedChan=Array (16.0 * RedDiv, 16.0* RedDiv, 34.0* RedDiv, 64.0* RedDiv, 72.0* RedDiv, 80.0* RedDiv, 84.0* RedDiv, 82.0* RedDiv, 80.0* RedDiv, 78.0* RedDiv, 76.0* RedDiv)
+Dim MixRedGreenChan: MixRedGreenChan=Array (8.0*RedGreenDiv, 16.0*RedGreenDiv, 34.0*RedGreenDiv, 64.0*RedGreenDiv, 72.0*RedGreenDiv, 80.0*RedGreenDiv, 84.0*RedGreenDiv, 82.0*RedGreenDiv, 80.0*RedGreenDiv, 78.0*RedGreenDiv, 76.0*RedGreenDiv)
+Dim MixFullSpectrum: MixFullSpectrum=Array (8.0*FullSpecDiv, 16.0*FullSpecDiv, 34.0*FullSpecDiv, 64.0*FullSpecDiv, 72.0*FullSpecDiv, 73.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv, 74.0*FullSpecDiv)
+Dim CCFSValues: CCFSValues=Array (100.0*CCFull, 1.0*CCFull, 0.1*CCFull, 0.01*CCFull, 0.001*CCFull, 0.0001*CCFull, 0.0001*CCFull, 0.0001*CCFull, 0.0001*CCFull,0.0001*CCFull,0.0001*CCFull)
+Dim CCBlueValues: CCBlueValues=Array (0.9*CCBlue, 1.0*CCBlue, 1.2*CCBlue, 1.4*CCBlue, 1.5*CCBlue, 1.55*CCBlue, 1.56*CCBlue, 1.565*CCBlue, 1.568*CCBlue, 1.569*CCBlue, 1.569*CCBlue)
 
 Dim FlData : FlData=Array (Flasher22,Flasher23,Flasher20,Flasher21,FlMirror,Empty,Empty,Empty)
 
@@ -2708,14 +2713,14 @@ Sub SetSMLiDNS(object, enabled)
 	object.intensity = enabled * SysDNSVal(DNSVal) /DivValues2(DNSVal)
 	Else
 	object.intensity =0
-	end if	
+	end if
 End Sub
 
 Sub SetSMFlDNS(object, enabled)
 
 	If enabled > 0 then
-	object.opacity = enabled / DivValues2(DNSVal) 
-	else 
+	object.opacity = enabled / DivValues2(DNSVal)
+	else
 	object.opacity = 0
 	end if
 End Sub
@@ -2726,14 +2731,14 @@ Sub SetSLiDNS(object, enabled)
 	object.intensity = 1 * SysDNSVal(DNSVal) /DivValues2(DNSVal)
 	Else
 	object.intensity =0
-	end if	
+	end if
 End Sub
 
 Sub SetSFlDNS(object, enabled)
 
 	If enabled then
 	object.opacity = 1 * OPSValues(DNSVal) / DivLevel
-	else 
+	else
 	object.opacity = 0
 	end if
 End Sub
