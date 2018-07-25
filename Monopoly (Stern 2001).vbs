@@ -4,9 +4,10 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-'
+
 'Release Notes
 ' 1.0 - 20170403 - VPX 10.2
 '       -Used JPSalas' WOW Monopoly version 1.2 as base (playfield, plastics and some lighting changed)
@@ -53,7 +54,7 @@ LoadVPM "01120100", "sega.vbs", 3.23
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0
