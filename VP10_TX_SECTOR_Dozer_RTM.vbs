@@ -3,10 +3,12 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' Table uses non stanard ball rolling routine
 ' No special SSF tweaks yet.
 
-Const cGameName="txsector",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
+
+Const cGameName="txsector",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits="Destruk & TAB & MNPG. Dip settings menu added by Inkochnito"
 
 LoadVPM "01210000","sys80.vbs",3.1
