@@ -7,6 +7,7 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -23,7 +24,7 @@ LoadVPM "01000100", "s7.vbs", 2.2
 'Standard Definitions
 '**********************************************************************************************************
 
-Const UseSolenoids  = 1
+Const UseSolenoids  = 2
 Const UseLamps      = 1
 
 Const SSolenoidOn   ="fx_solenoid"
