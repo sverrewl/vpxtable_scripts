@@ -12,6 +12,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Fix for cfastflips by DjRobX
 ' No special SSF tweaks yet.
 ' , AudioFade(ActiveBall)
 
@@ -124,7 +125,9 @@ End Sub
 Dim bsTrough
 
 Sub Tommy_Init
-
+vpminit me
+vpmFlips.CallBackUL = SolCallBack(47)
+SolCallback(47) = Empty
 '* ROM AND DMD ****************************************
 
 With Controller
