@@ -14,7 +14,6 @@
 ' Changed UseSolenoids=1 to 2
 ' Fix for cfastflips by DjRobX
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 Option Explicit
 Randomize

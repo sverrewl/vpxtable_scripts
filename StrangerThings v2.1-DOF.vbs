@@ -59,7 +59,6 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 Option Explicit
 Randomize

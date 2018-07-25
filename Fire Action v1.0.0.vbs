@@ -8,7 +8,6 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' , AudioFade(ActiveBall)
 
 Const BallSize = 50
 Const BallMass = 1.1

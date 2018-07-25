@@ -40,7 +40,6 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 '***An extra special thanks to "cyberpez" and "Rothbauerw" for the hard work and countless hours of development on this table.***
 

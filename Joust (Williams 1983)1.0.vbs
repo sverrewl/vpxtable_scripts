@@ -8,7 +8,6 @@ On Error Goto 0
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 'E101 Left flipper2
 'E102 Right flipper1
