@@ -42,7 +42,9 @@
 
 ' Thalamus 2018-07-24
 ' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -87,7 +89,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
 
-Const cGameName="sinbad",UseSolenoids=1,UseLamps=0,UseGI=0,UseSync=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
+Const cGameName="sinbad",UseSolenoids=2,UseLamps=0,UseGI=0,UseSync=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits=""
 
 LoadVPM "01001100", "gts1.vbs", 3.02
