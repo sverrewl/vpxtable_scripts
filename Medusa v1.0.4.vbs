@@ -5,14 +5,15 @@
 ' Light numbers from the tables by Joe Entropy & RipleYYY and Pacdude.
 ' Uses the Left and Right Magna saves keys to activate the save post (shield)
 
+Option Explicit
+Randomize
+
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Fix applied from DrRobX
 ' Changed UseSolenoids=0 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-
-Option Explicit
-Randomize
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -127,6 +128,10 @@ Sub table1_Init
     post2.IsDropped = 1
     post2rubber.visible = 0
     Post.Pullback
+
+	' Manually init fast flips
+	if not IsEmpty(SolCallback(sLLFlipper)) then vpmFlips.CallBackL = SolCallback(sLLFlipper)
+	if not IsEmpty(SolCallback(sLRFlipper)) then vpmFlips.CallBackR = SolCallback(sLRFlipper)
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -295,6 +300,7 @@ Sub UpdateSolenoids
             If Controller.Lamp(34)Then
                 If SolNo = 1 Or SolNo = 2 Or SolNo = 3 Or SolNo = 4 Or Solno = 5 Or Solno = 6 Or Solno = 8 Then solNo = solNo + 24 '1->25 etc
             End If
+			if solNo = GameOnSolenoid then vpmFlips.TiltSol cbool(Changed(ii, CHGSTATE))
             vpmDoSolCallback solNo, Changed(ii, CHGSTATE)
         Next
     End If
@@ -1024,6 +1030,7 @@ End Function
 Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
+
 
 '*****************************************
 '      JP's VP10 Rolling Sounds
