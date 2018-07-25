@@ -14,6 +14,7 @@
 '
 ' Thalamus 2018-07-24
 ' This table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 
 Option Explicit
 
@@ -151,15 +152,12 @@ Sub MrMsPacMan_Init
 	Next
 End Sub
 
-
-'
-
 '==================================================================
 ' Game Specific code starts here
 '==================================================================
 Const cGameName     = "m_mpac"   ' PinMAME short name
 Const cCredits      = "Mr. & Ms. PacMan Table, Shockman, Script by Gaston - improved by WPCmame, Dip settings menu added by Inkochnito,  btribble-Graphics"
-Const UseSolenoids  = False
+Const UseSolenoids  = 2
 Const UseLamps      = False
 Const UseGI         = True
 ' Standard Sounds
