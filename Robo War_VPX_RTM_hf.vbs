@@ -12,7 +12,6 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
-
 Option Explicit
 
 On Error Resume Next
