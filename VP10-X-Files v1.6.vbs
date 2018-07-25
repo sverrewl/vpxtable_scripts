@@ -26,7 +26,7 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 Const cGameName = "xfiles"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseGI = 0
 Const UseSync = 0
 Const HandleMech = 0
