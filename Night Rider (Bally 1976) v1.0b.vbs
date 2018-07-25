@@ -9,10 +9,9 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' , AudioFade(ActiveBall)
-
 
 Option Explicit
 Randomize
@@ -27,7 +26,7 @@ If Table1.ShowDT = False then ' hide the backglass lights when in FS mode
 End If
 
 Const cGameName="nightrdr"   ' Use nightrdb for Free Play
-Const UseSolenoids=1,UseLamps=True,UseGI=0,UseSyn=1,SSolenoidOn="SolOn",SSolenoidOff="Soloff",SFlipperOn="FlipperUpLeft",SFlipperOff="FlipperDown"
+Const UseSolenoids=2,UseLamps=True,UseGI=0,UseSyn=1,SSolenoidOn="SolOn",SSolenoidOff="Soloff",SFlipperOn="FlipperUpLeft",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits="Night Rider (Bally 1976)"
 
 On Error Resume Next
