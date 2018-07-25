@@ -2,31 +2,31 @@
 '*********************************************************************************************************************************************************************
 '*********************************************************************************************************************************************************************
 '*********************************************************************************************************************************************************************
-'                                                     #####,  #######,  ,#####  ####### ;#####, ####### ######' ##, ###                                                 
-'                                                    ######  :#######   ######  ####### ###### ,######, ###### ,## ###                                                  
-'                                                    ###       .##         ### ;##  ##`        ##' ,## ###     ##'###                                                   
-'                                                    ###:      ###      ;; ##  ##+;###   ;;    ##;;##' ##      #####                                                    
-'                                                     ####     ##      ## `## .######   +##   ####### '###### #####.                                                    
-'                                                       ##,   ###     ##. ### ##+,###   ##.   ##,,##, ######. ##`##                                                     
-'                                                       ##.   ##`    ;#;  ##. ##  ##+  :##   '##  ## .##     '## ##`                                                    
-'                                                 ,#######   :##    .####### ###  ##   ##:   ##. '## ######' ##. ##+                                                    
-'                                                 #######`   ##,    ######## ##` ###  .##   ,##  ##. ###### ,##  ,##                                                    
-'                                                `#####:    .##    ########,;##  ##`  ###   ##; ,## ####### ##;   ##                                                                                                                                                                                                           
-'                                                                                                                                                                       
-'            ###### :##  .## ######'     '######: ######' `##  ###; #######,     ####### :###### #######  ###### `######`  ,#####  #######, ##. ####### '######:        
-'           `###### ##:  ##+ ######      #######, ######   ## #### :#######     ######## ######,`####### +###### #######   ###### :####### :## :####### #######,        
-'                  .##   ## ###              .## ###       #####:    .##                .##     ###  ### ##.     ##  ###      ###   .##    ##: ##;  ##'.##  .##         
-'            :;;   ###;;### ##          ;;:  ### ##        '###:     ###       :;; ;;;; ###     ##   ##`,##     ###;'##    ;; ##    ###   .## `##   ## ##'  ###         
-'            ##,   #######`'######      ##   ## '######    ###:      ##        ##. ###. ###### +##  ;## ######: ######;   ## `##    ##    ### ###  ### ##   ##          
-'           .##   ###,,+## ######.     ###  ### ######.   ####      ###       ,## .### ####### ##.  ##,`###### :##,:##   ##. ###   ###    ##  ##   ## ###  ###          
-'           ##+   ##.  ##,.##          ##   ##`.##       #####:     ##`       ##;  ##; ##`    :##  .## ###     ##: :##  ;#;  ##.   ##`   ### ###  '## ##   ##`          
-'           ##   :##  .## ######'     '##  :## ######' ####.'##    :##       `####### :###### ##;  ##' ###### `##  ##: .#######   :##    ##` #######.+##  :##           
-'          ###   ##:  ##' ######      ##.  ##: ###### ;###.  ##    ##,       ######## ######,.##   ## +###### ### `##  ########   ##,   ;## ,####### ##.  ##:           
-'          ##`  .##   ## #######     ,##  .## ####### ###    ##   .##        '#####' .###### ###  ### ######` ##  ### ########,  .##    ##:  ###### ,##  .##  
-'*********************************************************************************************************************************************************************          
-'*********************************************************************************************************************************************************************          
-'*********************************************************************************************************************************************************************          
-'*********************************************************************************************************************************************************************          
+'                                                     #####,  #######,  ,#####  ####### ;#####, ####### ######' ##, ###
+'                                                    ######  :#######   ######  ####### ###### ,######, ###### ,## ###
+'                                                    ###       .##         ### ;##  ##`        ##' ,## ###     ##'###
+'                                                    ###:      ###      ;; ##  ##+;###   ;;    ##;;##' ##      #####
+'                                                     ####     ##      ## `## .######   +##   ####### '###### #####.
+'                                                       ##,   ###     ##. ### ##+,###   ##.   ##,,##, ######. ##`##
+'                                                       ##.   ##`    ;#;  ##. ##  ##+  :##   '##  ## .##     '## ##`
+'                                                 ,#######   :##    .####### ###  ##   ##:   ##. '## ######' ##. ##+
+'                                                 #######`   ##,    ######## ##` ###  .##   ,##  ##. ###### ,##  ,##
+'                                                `#####:    .##    ########,;##  ##`  ###   ##; ,## ####### ##;   ##
+'
+'            ###### :##  .## ######'     '######: ######' `##  ###; #######,     ####### :###### #######  ###### `######`  ,#####  #######, ##. ####### '######:
+'           `###### ##:  ##+ ######      #######, ######   ## #### :#######     ######## ######,`####### +###### #######   ###### :####### :## :####### #######,
+'                  .##   ## ###              .## ###       #####:    .##                .##     ###  ### ##.     ##  ###      ###   .##    ##: ##;  ##'.##  .##
+'            :;;   ###;;### ##          ;;:  ### ##        '###:     ###       :;; ;;;; ###     ##   ##`,##     ###;'##    ;; ##    ###   .## `##   ## ##'  ###
+'            ##,   #######`'######      ##   ## '######    ###:      ##        ##. ###. ###### +##  ;## ######: ######;   ## `##    ##    ### ###  ### ##   ##
+'           .##   ###,,+## ######.     ###  ### ######.   ####      ###       ,## .### ####### ##.  ##,`###### :##,:##   ##. ###   ###    ##  ##   ## ###  ###
+'           ##+   ##.  ##,.##          ##   ##`.##       #####:     ##`       ##;  ##; ##`    :##  .## ###     ##: :##  ;#;  ##.   ##`   ### ###  '## ##   ##`
+'           ##   :##  .## ######'     '##  :## ######' ####.'##    :##       `####### :###### ##;  ##' ###### `##  ##: .#######   :##    ##` #######.+##  :##
+'          ###   ##:  ##' ######      ##.  ##: ###### ;###.  ##    ##,       ######## ######,.##   ## +###### ### `##  ########   ##,   ;## ,####### ##.  ##:
+'          ##`  .##   ## #######     ,##  .## ####### ###    ##   .##        '#####' .###### ###  ### ######` ##  ### ########,  .##    ##:  ###### ,##  .##
+'*********************************************************************************************************************************************************************
+'*********************************************************************************************************************************************************************
+'*********************************************************************************************************************************************************************
+'*********************************************************************************************************************************************************************
 
 '*********************************************************************
 '*********************************************************************
@@ -53,9 +53,14 @@
 '					added new sounds
 'V1.1				Quick Fix for the SpiralRamp
 'V1.0				First Release for Visual Pinball 10.2
-                                                                                                                                             
+
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -97,7 +102,7 @@ LoadVPM "01560000", "wpc.VBS", 3.36
 Const cGameName = "sttng_l7"
 '***************************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const HandleMech = 0
 Const SSolenoidOn = "SolOn"
@@ -118,7 +123,7 @@ BMass = 1.5
 
 
 '************
-' Table Init 
+' Table Init
 '************
 
 Sub table1_Init
@@ -232,7 +237,7 @@ If BorgMod = 1 then
 	borgshipcustomledoff.visible = 1
 	borgshipcustomwiresplines.visible = 1
 	deltarampendborgcustom.visible = 1
-	
+
 	l78a.Intensity = 30
 	l78b.Intensity = 30
 	l78c.Intensity = 6
@@ -348,7 +353,7 @@ SolModCallBack(28) = "Flash128" 		'CenterBorgFlasher
 SolModCallBack(55) = "Flash141"			'RomulanFlasher
 SolModCallBack(56) = "Flash142"		'RightRampFlasher
 
-		
+
 Sub SolRelease(Enabled)
     If Enabled And bsTrough.Balls> 0 Then
         vpmTimer.PulseSw 67
@@ -1451,7 +1456,7 @@ Dim gistep, xx, obj
    gistep = 1 / 8
 
 Sub UpdateGI(no, step)
-	If step > 1 Then 
+	If step > 1 Then
 		DOF 200, DOFOn
 	Else
 		DOF 200, DOFOff
@@ -1488,7 +1493,7 @@ Sub RealTimeUpdates
     FlipperRP.RotY = FlipperR.CurrentAngle
     FlipperRShadow.RotZ = FlipperR.CurrentAngle
 	FlipperRP1.RotY = FlipperR1.CurrentAngle
-    FlipperR1Shadow.RotZ = FlipperR1.CurrentAngle 
+    FlipperR1Shadow.RotZ = FlipperR1.CurrentAngle
 	diverterp.RotY = diverter.CurrentAngle
 	sw25spinnerp.RotX = sw25spinner.CurrentAngle +90
 	sw87spinnerp.RotX = sw87spinner.CurrentAngle +90
@@ -1815,52 +1820,52 @@ Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
 End Sub
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump3 .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .5 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub WireLaunchRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 Sub PlasticRampBumps_Hit(idx)
 	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 		RandomBump 1, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 		' Lowering these numbers allow more closely-spaced clunks.
 		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+	end if
 End Sub
 
 
 'Sub MetalGuideBumps_Hit(idx)
 '	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 '		RandomBump2 2, Pitch(ActiveBall)
-'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 '		' Lowering these numbers allow more closely-spaced clunks.
 '		NextOrbitHit = Timer + .2 + (Rnd * .2)
-'	end if 
+'	end if
 'End Sub
 
 'Sub MetalWallBumps_Hit(idx)
 '	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
 '		RandomBump 2, 20000 'Increased pitch to simulate metal wall
-'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
+'		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
 '		' Lowering these numbers allow more closely-spaced clunks.
 '		NextOrbitHit = Timer + .2 + (Rnd * .2)
-'	end if 
+'	end if
 'End Sub
 
 
