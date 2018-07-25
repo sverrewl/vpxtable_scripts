@@ -1,6 +1,11 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
@@ -8,7 +13,7 @@ On Error Goto 0
 
 LoadVPM "01560000", "Sega.VBS", 3.02
 
-Const cGameName="simpprty",UseSolenoids=1,UseLamps=0,UseGI=0,UseSync=1,HandleMech=1, SCoin="coin"
+Const cGameName="simpprty",UseSolenoids=2,UseLamps=0,UseGI=0,UseSync=1,HandleMech=1, SCoin="coin"
 
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 If DesktopMode = True Then 'Show Desktop components
