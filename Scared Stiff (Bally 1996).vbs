@@ -12,7 +12,9 @@
 
 ' Thalamus 2018-07-24
 ' Table doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -126,7 +128,7 @@ On Error Goto 0
 const UseVPMModSol=true
 LoadVPM "01530000", "WPC.VBS", 3.56
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
