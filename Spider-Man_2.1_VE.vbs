@@ -16,8 +16,8 @@
 '******************************************************
 
 ' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions"
-' Table doens't seem to have ball rolling sound
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Includeds fix by DjRobX
 ' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
 
@@ -59,8 +59,8 @@ Const HandleMech = 0
 'Standard Sounds
 Const SSolenoidOn = "Solenoid"
 Const SSolenoidOff = ""
-Const SFlipperOn = "FlipperSu"
-Const SFlipperOff = "FlipperGiu"
+Const SFlipperOn = "FlipperUp"
+Const SFlipperOff = "FlipperDown"
 Const SCoin = "coin"
 
 '************
@@ -171,7 +171,9 @@ Sub Table1_Init
 	'AlzaSandman
 	sw36.Enabled=0
 	sw59.Enabled=0
-  InitVpmFFlipsSAM
+
+	InitVpmFFlipsSAM
+
  End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -316,14 +318,9 @@ Sub Table1_KeyDown(ByVal Keycode)
 	If keycode = PlungerKey Then
 		Plunger.PullBack:Playsound "plungerpull"
 	End If
- 	If Keycode = LeftFlipperKey then
- 		Controller.Switch(84)=1
- 		Exit Sub
- 	End If
+
  	If Keycode = RightFlipperKey then
-		Controller.Switch(86)=1
- 		Controller.Switch(82)=1
- 		Exit Sub
+		Controller.Switch(86)=1  ' UR Flipper
  	End If
 
 	If keycode = LeftTiltKey Then PlaySound SoundFX("fx_nudge",0)
@@ -337,14 +334,9 @@ Sub Table1_KeyUp(ByVal Keycode)
 		Plunger.Fire: Playsound "Plunger"
 	End If
 	If vpmKeyUp(Keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then
- 		Controller.Switch(84)=0
- 		Exit Sub
- 	End If
+
  	If Keycode = RightFlipperKey then
-		Controller.Switch(86)=0
- 		Controller.Switch(82)=0
- 		Exit Sub
+		Controller.Switch(86)=0 ' UR flipper
  	End If
  End Sub
 
@@ -901,21 +893,25 @@ Sub sw36_Hit()  'Buco doc entrata
  Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX (SFlipperOn,DOFContactors):RightFlipper.RotateToEnd
+		 RightFlipper2.RotateToEnd ' UR flip
 
      Else
          PlaySound SoundFX (SFlipperOff,DOFContactors):RightFlipper.RotateToStart
+		 RightFlipper2.RotateToStart ' UR Flip
 
      End If
  End Sub
 
  Sub SolURFlipper(Enabled)
-     If Enabled Then
-         PlaySound SoundFX (SFlipperOn,DOFContactors):RightFlipper2.RotateToEnd
+'	If Enabled Then
+'         PlaySound SoundFX (SFlipperOn,DOFContactors):RightFlipper2.RotateToEnd
+'
 
-     Else
-         PlaySound SoundFX (SFlipperOff,DOFContactors):RightFlipper2.RotateToStart
+'     Else
+'         PlaySound SoundFX (SFlipperOff,DOFContactors):
+'
 
-     End If
+'     End If
  End Sub
 
 '*********************************
@@ -1879,4 +1875,64 @@ End Function
 Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
+
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 4 ' total number of balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingTimer_Timer()
+    Dim BOT, b
+    BOT = GetBalls
+
+	' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+	' exit the sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub
+
+	' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
+End Sub
 
