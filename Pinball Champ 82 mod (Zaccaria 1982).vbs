@@ -1,12 +1,17 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="pinchamp",UseSolenoids=1,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="coin"
+Const cGameName="pinchamp",UseSolenoids=2,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="coin"
 
 LoadVPM "01560000","ZAC2.VBS",3.2
 Dim DesktopMode: DesktopMode = Table1.ShowDT
@@ -31,8 +36,8 @@ SolCallback(6)	= "DropTargetBank2.SolDropUp"         	'Sol6 Drop Target Bank 2
 
 SolCallback(9)	= "DropTargetBank.SolDropUp"         	'Sol9 Top Drop Target Bank
 
-SolCallback(11) = "bsSaucer.SolOut"	
-SolCallback(12) = "TopFlipperRelay"	
+SolCallback(11) = "bsSaucer.SolOut"
+SolCallback(12) = "TopFlipperRelay"
 
 SolCallback(24)  = "bsTrough.SolOut"
 
@@ -57,7 +62,7 @@ Sub SolLeftFlipper(Enabled)
 
      End If
   End Sub
-  
+
 Sub SolRightFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -107,17 +112,17 @@ Sub Table1_Init
     PinMAMETimer.Interval=PinMAMEInterval
 	PinMAMETimer.Enabled = true
 
-    vpmNudge.TiltSwitch=10 
+    vpmNudge.TiltSwitch=10
     vpmNudge.Sensitivity=2
 	vpmNudge.TiltObj = Array(Bumper1,Bumper2,LeftslingShot,RightslingShot)
-    
+
     Set bsTrough=New cvpmBallStack
         bsTrough.InitSw 0,16,0,0,0,0,0,0
         bsTrough.InitKick BallRelease,90,5
         bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
         bsTrough.Balls=1
 
-    Set bsSaucer=New cvpmBallStack       
+    Set bsSaucer=New cvpmBallStack
         bsSaucer.InitSaucer sw23,23,0 + Int(rnd(1))*3,21+Int(rnd(1))*5
         bsSaucer.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
@@ -179,21 +184,21 @@ Sub sw43_Dropped:DropTargetBank.Hit 4:End Sub
 Sub sw44_Dropped:DropTargetBank.Hit 5:End Sub
 
 'Star Triggers
-Sub SW17_Hit:Controller.Switch(17)=1 : playsound"rollover" : End Sub 
+Sub SW17_Hit:Controller.Switch(17)=1 : playsound"rollover" : End Sub
 Sub SW17_unHit:Controller.Switch(17)=0:End Sub
-Sub SW18_Hit:Controller.Switch(18)=1 : playsound"rollover" : End Sub 
+Sub SW18_Hit:Controller.Switch(18)=1 : playsound"rollover" : End Sub
 Sub SW18_unHit:Controller.Switch(18)=0:End Sub
-Sub SW21_Hit:Controller.Switch(21)=1 : playsound"rollover" : End Sub 
+Sub SW21_Hit:Controller.Switch(21)=1 : playsound"rollover" : End Sub
 Sub SW21_unHit:Controller.Switch(21)=0:End Sub
-Sub SW22_Hit:Controller.Switch(22)=1 : playsound"rollover" : End Sub 
+Sub SW22_Hit:Controller.Switch(22)=1 : playsound"rollover" : End Sub
 Sub SW22_unHit:Controller.Switch(22)=0:End Sub
 
  'Scoring Rubber
-Sub sw24_hit:vpmTimer.pulseSw 24 : playsound"flip_hit_3" : End Sub 
+Sub sw24_hit:vpmTimer.pulseSw 24 : playsound"flip_hit_3" : End Sub
 
  'Stand Up Targets
-Sub sw29_hit:vpmTimer.pulseSw 29 : End Sub 
-Sub sw30_hit:vpmTimer.pulseSw 30 : End Sub 
+Sub sw29_hit:vpmTimer.pulseSw 29 : End Sub
+Sub sw30_hit:vpmTimer.pulseSw 30 : End Sub
 Sub sw45_Hit:vpmTimer.PulseSw 45 : End Sub
 Sub sw46_Hit:vpmTimer.PulseSw 46 : End Sub
 Sub sw49_Hit:vpmTimer.PulseSw 49 : End Sub
@@ -204,15 +209,15 @@ Sub sw51_Hit:vpmTimer.PulseSw 51 : End Sub
 Sub sw34_Spin:vpmTimer.PulseSw 34 : playsound"fx_spinner" : End Sub
 
 'Star Triggers
-Sub SW35_Hit:Controller.Switch(35)=1 : playsound"rollover" : End Sub 
+Sub SW35_Hit:Controller.Switch(35)=1 : playsound"rollover" : End Sub
 Sub SW35_unHit:Controller.Switch(35)=0:End Sub
-Sub SW36_Hit:Controller.Switch(36)=1 : playsound"rollover" : End Sub 
+Sub SW36_Hit:Controller.Switch(36)=1 : playsound"rollover" : End Sub
 Sub SW36_unHit:Controller.Switch(36)=0:End Sub
-Sub SW37_Hit:Controller.Switch(37)=1 : playsound"rollover" : End Sub 
+Sub SW37_Hit:Controller.Switch(37)=1 : playsound"rollover" : End Sub
 Sub SW37_unHit:Controller.Switch(37)=0:End Sub
-Sub SW38_Hit:Controller.Switch(38)=1 : playsound"rollover" : End Sub 
+Sub SW38_Hit:Controller.Switch(38)=1 : playsound"rollover" : End Sub
 Sub SW38_unHit:Controller.Switch(38)=0:End Sub
-Sub SW39_Hit:Controller.Switch(39)=1 : playsound"rollover" : End Sub 
+Sub SW39_Hit:Controller.Switch(39)=1 : playsound"rollover" : End Sub
 Sub SW39_unHit:Controller.Switch(39)=0:End Sub
 
 'Bumpers
@@ -220,12 +225,12 @@ Sub Bumper1_Hit : vpmTimer.PulseSw(47) : playsound SoundFX("fx_bumper1",DOFConta
 Sub Bumper2_Hit : vpmTimer.PulseSw(48) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
 
  'Gate Trigger
-Sub sw52_hit:vpmTimer.pulseSw 52 : End Sub 
+Sub sw52_hit:vpmTimer.pulseSw 52 : End Sub
 
 Sub Trigger3_Hit : TopFlipperActive = True : End Sub
 Sub Trigger3_unHit : TopFlipperActive = False : End Sub
 
-Sub Trigger2_Hit : playsound"Wire Ramp" : End Sub 
+Sub Trigger2_Hit : playsound"Wire Ramp" : End Sub
 
 '**********************************************************************************************************
 'animated wire ramp
@@ -243,7 +248,7 @@ Sub UPFWireRamp_Exit_Hit
 	WireRamp_Dir = 1
 	UPFWireRampTimer.enabled = False
 	UPFWireRampTimer.enabled = True
-	playsound"fx_ballrampdrop" 
+	playsound"fx_ballrampdrop"
 End Sub
 
 Sub UPFWireRampTimer_Timer
@@ -252,10 +257,10 @@ Sub UPFWireRampTimer_Timer
 		UPFWireRampTimer.enabled = False
 		WireRamp_Dir = 0
 	end if
-	if P_WireRamp.ObjRotX >= 5 then 
+	if P_WireRamp.ObjRotX >= 5 then
 		UPFWireRampTimer.enabled = False
 		P_WireRamp.ObjRotX = 5
-		WireRamp_Dir = 0		
+		WireRamp_Dir = 0
 	end if
 End Sub
 
@@ -283,7 +288,7 @@ Set Lights (23) = Lamp23
 Set Lights (24) = Lamp24
 Set Lights (25) = Lamp25
 Set Lights (26) = Lamp26
-Set Lights (27) = L27 'apron 
+Set Lights (27) = L27 'apron
 Set Lights (28) = Lamp28
 Set Lights (29) = Lamp29
 Set Lights (30) = Lamp30
@@ -382,7 +387,7 @@ If Not IsEmpty(ChgLED) Then
 			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
 			if (num < 40) then
 				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1 
+					If chg And 1 Then obj.State = stat And 1
 					chg = chg\2 : stat = stat\2
 				Next
 			else
@@ -621,7 +626,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -635,7 +640,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -671,7 +676,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -682,7 +687,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
