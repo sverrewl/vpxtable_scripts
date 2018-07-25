@@ -6,8 +6,8 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 Option Explicit
 Randomize
@@ -41,7 +41,7 @@ Const BallMass = 1.5
 LoadVPM "01560000", "S6.VBS", 3.36
 Dim DesktopMode: DesktopMode = Table.ShowDT
 
-Const UseSolenoids=1,UseLamps=1,UseSync=1,UseGI=0
+Const UseSolenoids=2,UseLamps=1,UseSync=1,UseGI=0
 Const SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="coin3"
 
 
