@@ -16,8 +16,10 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' , AudioFade(ActiveBall)
+
 
 'V1.2
 'Rebuild KennyKickers
@@ -50,7 +52,7 @@ LoadVPM "01560000", "sega.VBS", 3.36
 '********************
 
 Const cGameName = "sprk_103"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 1
 Const SSolenoidOn = "SolOn"
 Const SSolenoidOff = "SolOff"
