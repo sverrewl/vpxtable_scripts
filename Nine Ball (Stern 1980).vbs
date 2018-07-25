@@ -3,8 +3,8 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
 
 Const cGameName = "nineball"  'standard rom
 'Const cGameName = "ninebafp"  'free play rom
@@ -19,7 +19,7 @@ LoadVPM "01110000","stern.vbs",3.1  'Nine Ball
 
 Dim DesktopMode: DesktopMode = table1.ShowDT
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseGI = 0
 Const UseLamps = 0
 Const UseSync = 0
