@@ -6,6 +6,7 @@
 
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -20,7 +21,7 @@ On Error Goto 0
 
 LoadVPM "01000100", "sys80.vbs", 2.31
 
-Const UseSolenoids  = 1
+Const UseSolenoids  = 2
 Const UseLamps      = False
 Const UseGI         = False
 

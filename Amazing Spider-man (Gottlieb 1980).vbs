@@ -9,6 +9,7 @@
 
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' BorgDog did have a special collition routine on this table, but since it isn't a mb
 ' table I choose to replace it.
 
@@ -24,7 +25,7 @@ If Err Then MsgBox "Can't open controller.vbs"
 
   LoadVPM "01000100", "sys80.vbs", 2.31
 
-  Const UseSolenoids  = 1
+  Const UseSolenoids  = 2
   Const UseLamps      = 1
   Const UseGI         = 0
 
