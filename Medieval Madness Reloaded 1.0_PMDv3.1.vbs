@@ -7,6 +7,11 @@
 ' Thanks to knorr for some sound effects I borrowed from his tables
 ' Thanks to VPDev Team for the freaking amazing VPX
 
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+
 Option Explicit
 Randomize
 
@@ -36,7 +41,7 @@ dim bsTrough, bsCat, bsMe, bsMo, x
 'Const cGameName="mm_109b" 'unofficial
 Const cGameName="mm_109c" 'unofficial profanity rom
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 1
 Const UseGI = 1
 Const UseSync = 0
