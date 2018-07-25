@@ -7,6 +7,7 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Table used modified JP ball rolling routine
 ' No special SSF tweaks yet.
+' Added InitVpmFFlipsSAM
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -180,7 +181,7 @@ LoadVPM "01560000", "sam.VBS", 3.10
 	PinMAMETimer.Enabled = 1
 
 	If GIOnDuringAttractMode = 1 Then GI_AllOn
-
+  InitVpmFFlipsSAM
   End Sub
 
 'MAP Newballid assignment
