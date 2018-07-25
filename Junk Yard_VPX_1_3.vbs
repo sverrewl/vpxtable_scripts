@@ -33,6 +33,7 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 option Explicit
@@ -56,7 +57,7 @@ Const BallSize = 51				'default 50, 52 plays well, above 55 the ball will get st
 
 ' Standard Sounds and Settings
 Const SSolenoidOn="Solon",SSolenoidOff="Soloff",SFlipperOn="",SFlipperOff=""
-Const UseSolenoids=True,UseLamps=True
+Const UseSolenoids=2,UseLamps=True
 
 InitWreckerBall						'must be called before LoadVPM becaus of B2s caused delay on trigger code
 
