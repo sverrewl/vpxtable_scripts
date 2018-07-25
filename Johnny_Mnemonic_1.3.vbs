@@ -6,6 +6,9 @@ Const BallMass = 1.3
 
 ' Thalamus 2018-07-23
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -20,7 +23,7 @@ Const UseVPMModSol = 0
 
 LoadVPM "02000000", "WPC.VBS", 3.50
 
- Const UseSolenoids = True
+ Const UseSolenoids = 2
  Const UseLamps = True
  Const UseSync = True
  Const HandleMech = False
