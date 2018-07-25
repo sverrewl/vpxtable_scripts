@@ -14,6 +14,11 @@
 '************************************************************
 '************************************************************
 
+' Thalamus 2018-07-24
+' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Table supports useSolenoid=2 but script updates is needed - what are they ?
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -23,14 +28,14 @@ Randomize
 
 Const EnableBallControl = False		'set to false to disable the C key from taking manual control
 Const FlippersOnOff = 1				'0 for always on flippers, 1 to simulate "GameOn" solenoid (DOF 110 for left flipper, DOF 111 for right flipper)
-Const BypassMagnet = 1				'0 for default behavior, 1 to bypass magnet activation for trunk to prevent rom from enabling coil protection (DOF 112 for shaker) 
+Const BypassMagnet = 1				'0 for default behavior, 1 to bypass magnet activation for trunk to prevent rom from enabling coil protection (DOF 112 for shaker)
 Const PlungerOption = 1				'0 for fullscreen plunger, 1 for desktop plunger
 
 Const VolumeDial = 5				'Change bolume of hit events
 Const RollingSoundFactor = 1		'set sound level factor here for Ball Rolling Sound, 1=default level
 
 
-Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay, GlowAmountNight, InsertBrightnessNight 
+Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay, GlowAmountNight, InsertBrightnessNight
 ' *** Contrast level, possible values are 0 - 7, can be done in game with magnasave keys **
 ' *** 0: bright, good for desktop view, daytime settings in insert lighting below *********
 ' *** 1: same as 0, but with nighttime settings in insert lighting below ******************
@@ -43,7 +48,7 @@ ContrastSetting = 3
 ' *** The settings below together with ContrastSetting determines how the lighting looks **
 ' *** for all values: 1.0 = default, useful range 0.1 - 5 *********************************
 GlowAmountDay = 0.05
-InsertBrightnessDay = 0.8 
+InsertBrightnessDay = 0.8
 GlowAmountNight = 0.5
 InsertBrightnessNight = 0.6
 
@@ -59,7 +64,7 @@ Const BallMass = 1.7
 Const UseSolenoids = 1
 Const UseLamps = 0
 Const UseSync = 1
-Const HandleMech = 0 
+Const HandleMech = 0
 
 'Standard Sounds
 Const SSolenoidOn = "Solenoid"
@@ -77,7 +82,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-LoadVPM "01560000", "capcom.VBS", 3.26 
+LoadVPM "01560000", "capcom.VBS", 3.26
 
 Dim DesktopMode, NightDay:DesktopMode = Table1.ShowDT:NightDay = Table1.NightDay
 Dim VarHidden, UseVPMDMD, xx,  ClearBall, eyeBall1, eyeBall2, eyeBall3
@@ -104,7 +109,7 @@ Sub Table1_Init
     vpmNudge.TiltSwitch=10
     vpmNudge.Sensitivity=1
     vpmNudge.TiltObj=Array(Bumper1b,LeftSlingshot,RightSlingshot)
- 
+
 	WandDiv.IsDropped=1:WandDiv1.IsDropped=0
 	StageDiverter3.isDropped=1
 	Kickback.PullBack
@@ -126,7 +131,7 @@ Sub Table1_Init
 	kicker4.kick 180, 10
 	kicker4.enabled = false
 
-    
+
 	'**Main Timer init
 	PinMAMETimer.Interval = PinMAMEInterval
 	PinMAMETimer.Enabled = 1
@@ -188,7 +193,7 @@ End Sub
 Sub Table1_KeyDown(ByVal keycode)
 	If keycode = LeftFlipperKey Then SolLFlipper(True)
 	If keycode = RightFlipperKey Then SolRFlipper(True)
-	If keycode = plungerkey then 
+	If keycode = plungerkey then
 		If PlungerOption = 1 then
 			plunger1.PullBack
 		Else
@@ -201,15 +206,15 @@ Sub Table1_KeyDown(ByVal keycode)
 	If keycode = CenterTiltKey Then Nudge 0, 5
 	If KeyCode = KeyFront then Controller.Switch(11)=1
 
-	If keycode = RightMagnaSave Then 
+	If keycode = RightMagnaSave Then
 		ContrastSetting = ContrastSetting + 1
 		If ContrastSetting > 7 Then ContrastSetting = 7 End If
-		ColorGrade		
+		ColorGrade
 	End If
-	If keycode = LeftMagnaSave Then 
+	If keycode = LeftMagnaSave Then
 		ContrastSetting = ContrastSetting - 1
 		If ContrastSetting < 0 Then ContrastSetting = 0 End If
-		ColorGrade		
+		ColorGrade
 	End If
 
     ' Manual Ball Control
@@ -232,7 +237,7 @@ Sub Table1_KeyDown(ByVal keycode)
 	If keycode = 208 Then BCdown = 1	' Down Arrow
 	If keycode = 205 Then BCright = 1	' Right Arrow
 
-	If vpmKeyDown(keycode) Then Exit Sub 
+	If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
@@ -290,7 +295,7 @@ SolCallback(32)="SetLamp 182,"
 '**************
 
 '***** Flippers *************************
- 
+
 'SolCallback(sLRFlipper) = "SolRFlipper"
 'SolCallback(sLLFlipper) = "SolLFlipper"
 
@@ -347,7 +352,7 @@ Sub SolRFlipper(Enabled)
 			PlaySound SoundFX("fx_flipperup",DOFFlippers), 0, .67, AudioPan(RightFlipper), 0.05,0,0,1,AudioFade(RightFlipper)
 			RightFlipper.RotateToEnd
 			DOF 111, DOFOn
-		Else 
+		Else
 			DisableFlippers
 		End If
 		RightKeyDown = True
@@ -484,7 +489,7 @@ Sub WandT_Timer
 	WandPos = WandPos + (WandDir * 0.1)
 	If WandPos > 42 then WandPos = 42:WandDir = -1
 	If WandPos < -22 then WandPos = -22:WandDir = 1
-	If WandPos >38 then 
+	If WandPos >38 then
 		Controller.Switch(67)=1
 		CriticDiv.IsDropped = 1
 		TrunkDiv.IsDropped = 0
@@ -492,7 +497,7 @@ Sub WandT_Timer
 		DOF 101, DOFOff
 		Controller.Switch(67)=0
 	end If
-	If WandPos < -18 then 
+	If WandPos < -18 then
 		Controller.Switch(68)=1
 		CriticDiv.IsDropped = 0
 		TrunkDiv.IsDropped = 1
@@ -520,19 +525,19 @@ End Sub
 '*******End Wand
 
 Sub SolStageDiverter(enabled)
-	If enabled then 
+	If enabled then
 		PlaySoundAt SoundFX("solenoid",DOFContactors), Stagein
 		StageDiverter.IsDropped = 1
 		StageDiverter3.IsDropped = 0
 	Else
 		PlaySoundAt SoundFX("solenoid",DOFContactors), Stagein
 		StageDiverter.IsDropped = 0
-		StageDiverter3.IsDropped = 1	
+		StageDiverter3.IsDropped = 1
 	end if
 End Sub
 
 Sub SolWandDiverter(enabled)
-	If enabled then 
+	If enabled then
 		PlaySoundAt SoundFX("solenoid",DOFContactors), sw51a
 		WandDiv.IsDropped=0:WandDiv1.IsDropped=1
 	Else
@@ -585,7 +590,7 @@ Sub solElevator(enabled)
 	Else
 		DOF 102, DOFOff
 		EMotor.Enabled = 0
-		If Epos > 250 then 
+		If Epos > 250 then
 			If ElActive = 1 then
 				MyBall.Z=258
 				MyBall.X=785
@@ -621,25 +626,25 @@ Sub Emotor_Timer()
 		LBall.Z = EPos
 		'LBall.visible = False
 		el.z = EPos/2
-		If Epos < 116 Then	
-			EDown = 0	
+		If Epos < 116 Then
+			EDown = 0
 			'emotor.enabled = false
 		End If
-	end if	
+	end if
 	if Epos < 125 then
 		Controller.Switch(59) = 0
 		Controller.Switch(58) = 1
 	elseif EPos > 298 then
 		Controller.Switch(59) = 1
 		Controller.Switch(58) = 0
-	else 
+	else
 		Controller.Switch(59) = 1
 		Controller.Switch(58) = 1
 	end if
 End Sub
 
 Sub SolStageKicker(enabled)
-	If Enabled then 
+	If Enabled then
 		SKick
 	End If
 End Sub
@@ -658,10 +663,10 @@ Sub SolStageDoors(enabled)
 	If enabled then
 		DoorDir = 2
 		DoorT.timerenabled = 1
-		' Power is on keep it open. 
+		' Power is on keep it open.
 		CloseTime = DateAdd("s", 1000, Now)
 		DOF 103,DOFOn
-	Else	
+	Else
 		' Power is off, start to close if we remain in this state for more than 1s.
 		CloseTime = DateAdd("s",1, Now)
 	end if
@@ -675,14 +680,14 @@ Sub DoorT_Timer()
 	if  Now > CloseTime then
 		DoorDir = -2
 		DOF 103,DOFOn
-	end if 
-		
+	end if
+
 	DoorPos = DoorPos + DoorDir
 
-	If DoorPos >= 40 then 
+	If DoorPos >= 40 then
 		DoorPos = 40
-		DOF 103,DOFOff	
-	ElseIf DoorPos < 0 then 
+		DOF 103,DOFOff
+	ElseIf DoorPos < 0 then
 		DoorPos = 0
 		DoorT.timerenabled = 0
 		DOF 103,DOFOff
@@ -735,14 +740,14 @@ Sub Drain_UnHit()
 End Sub
 
 Sub SolTroughIn(enabled)
-	If enabled Then 
+	If enabled Then
 		Drain.kick 90,20
 		PlaySoundAt SoundFX(SSolenoidOn,DOFContactors), drain
 	End If
 End Sub
 
 Sub SolTroughOut(enabled)
-	If enabled Then 
+	If enabled Then
 		PlaySoundAt SoundFX("ballrelease",DOFContactors), Slot1
 		Slot1.kick 90, 9
 		UpdateTrough
@@ -880,7 +885,7 @@ Sub sw49_Hit()
 	PlaySoundAt "gate", sw49
 	vpmTimer.PulseSw 49
 End Sub
-'********Standup Targets 
+'********Standup Targets
 Sub sw34_Hit()
 	vpmTimer.PulseSw 34
     PlaySoundAt SoundFX("target",DOFTargets),sw34
@@ -1122,10 +1127,10 @@ Sub UpdateLamps
 			DisableFlippers
 			TiltCount = 0
 		End If
-	Else	
+	Else
 		TiltCount = 0
 	End If
-	
+
     NFadeL 5, l5
     NFadeL 6, l6
     NFadeL 7, l7
@@ -1348,7 +1353,7 @@ Sub UpdateLamps
 	NFadeLm 179, L179s2
 	NFadeL 179, L179s1
 
-	NFadeL 180, l180a    
+	NFadeL 180, l180a
 
     NFadeLm 181, l181
     NFadeLm 181, F181a
@@ -1356,8 +1361,8 @@ Sub UpdateLamps
     FadeObj 181, F181, "FlasherTestOn", "FlasherTestA", "FlasherTestB", "FlasherTest"
 	NFadeLm 182, L182
 	Flash 	182, L182fa
-	
-	
+
+
 End Sub
 
 Sub InitLamps()
@@ -1676,12 +1681,12 @@ Sub BallShadowUpdate()
 	Else
 		'CheckXLocation(eyeBall1)
 	End If
-	
+
 End Sub
 
 
 Function CheckInPlay(xball)
-	If InRect(xball.x, xball.y, 0, 0, 952, 0, 952, 2096, 0, 2096) and Not (InRect(xball.x, xball.y, 25, 1100, 75, 1100, 75, 1840, 25, 1840) and xball.z > 177) and not InRect(xball.x, xball.y, 378, 2096, 823, 1800, 856, 1868, 536, 2096) Then  
+	If InRect(xball.x, xball.y, 0, 0, 952, 0, 952, 2096, 0, 2096) and Not (InRect(xball.x, xball.y, 25, 1100, 75, 1100, 75, 1840, 25, 1840) and xball.z > 177) and not InRect(xball.x, xball.y, 378, 2096, 823, 1800, 856, 1868, 536, 2096) Then
 		CheckInPlay = True
 	Else
 		CheckInPlay = False
@@ -1783,7 +1788,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1794,7 +1799,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1882,11 +1887,11 @@ Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
 	BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
 	CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
 	DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
- 
+
 	If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
 		InRect = True
 	Else
-		InRect = False       
+		InRect = False
 	End If
 End Function
 
@@ -1901,7 +1906,7 @@ Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 BCboost = 1				'Do Not Change - default setting
 BCvel = 4				'Controls the speed of the ball movement
 BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key) 
+BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
@@ -1912,7 +1917,7 @@ End Sub
 
 Sub StopBallControl_Hit()
 	ControlBallInPlay = false
-End Sub	
+End Sub
 
 Sub BallControlTimer()
 	If contBall and EnableBallControl and ControlBallInPlay then
