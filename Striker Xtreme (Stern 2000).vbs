@@ -2,8 +2,8 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' , AudioFade(ActiveBall)
 
 Option Explicit
 Randomize
@@ -46,7 +46,7 @@ end If
 
 Dim bsTrough, Magnet1,VLLock,dtDrop,mGoalie,Magnet2
 
-Const UseSolenoids=1,UseLamps=1,UseSync=1, SCoin="coin3"
+Const UseSolenoids=2,UseLamps=1,UseSync=1, SCoin="coin3"
 
 Sub Table1_Init
 	Plunger1.Pullback
