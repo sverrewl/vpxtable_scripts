@@ -10,6 +10,12 @@ Option Explicit
 ' Positional sound helper functions by djrobx
 ' Plus a lot of input from the whole community (sorry if we forgot you :/)
 '*****************************************************************************************************
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Randomize
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -18,9 +24,9 @@ On Error Goto 0
 
 LoadVPM "01130100", "Bally.VBS", 3.36
 Dim EnableBallControl,Objekt,bsTrough,bsSaucer,dtRBank
-Const FlippersAlwaysOn 	= 0 
-Const cGameName 		= "playboyb"  
-Const UseSolenoids 		= 1
+Const FlippersAlwaysOn 	= 0
+Const cGameName 		= "playboyb"
+Const UseSolenoids 		= 2
 Const UseLamps 			= 1
 Const UseGI 			= 0
 Const UseSync 			= 0
@@ -36,7 +42,7 @@ SolCallback(8)     		= "bsSaucer.SolOut"
 SolCallback(13) 		= "dtRBank.SolDropUp"
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
-SolCallback(2)     		= "vpmSolSound Soundfx(""Knocker"",DOFKnocker)" 
+SolCallback(2)     		= "vpmSolSound Soundfx(""Knocker"",DOFKnocker)"
 
 Set vpmShowDips 		= GetRef("editDips")
 Set LampCallback		= GetRef("UpdateMultipleLamps")
@@ -67,7 +73,7 @@ Sub Table1_Init
 	vpmNudge.TiltSwitch		= 7
 	vpmNudge.Sensitivity	= 3
 	vpmNudge.TiltObj 		= Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
- 
+
  Set bsTrough=new cvpmBallStack
    With bsTrough
 	.InitSw 0,1,0,0,0,0,0,0
@@ -75,27 +81,27 @@ Sub Table1_Init
 	.InitExitSnd SoundFX("BallRelease",DOFContactors),Soundfx("Solenoid",DOFContactors)
 	.Balls=1
 	End With
- 
+
  Set bsSaucer=new cvpmBallStack
    With bsSaucer
 	.InitSaucer Kicker1, 32, 0, 26
 	.InitExitSnd SoundFX("Popper_Ball",DOFContactors),SoundFX("Popper",DOFContactors)
 	.KickForceVar = 5
 	End With
- 
+
  Set dtRBank = New cvpmDropTarget
 	With dtRBank
 	.InitDrop Array (Target7, Target8, Target9, Target10, Target11), array (1,2,3,4,5)
     .InitSnd SoundFX("Target",DOFDropTargets),SoundFX("fx_resetdrop",DOFContactors)
 	End With
-	
+
 	If Table1.ShowDT = False then
 		for each objekt in Backdropstuff
 		objekt.visible = False
 			Next
-	End If 
+	End If
 End Sub
- 
+
 
 
 
@@ -106,7 +112,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFFlippers):LeftFlipper.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFFlippers):RightFlipper.RotateToEnd
@@ -169,7 +175,7 @@ Sub Table1_KeyDown(ByVal keycode)
 		If keycode = 208 Then BCdown = 1	' Down Arrow
 		If keycode = 205 Then BCright = 1	' Right Arrow
 	End If
-	
+
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
@@ -178,7 +184,7 @@ Sub Table1_KeyUp(ByVal keycode)
 		Plunger.Fire
 		PlaySound "plunger",0,1,AudioPan(Plunger),0.25,0,0,1,AudioFade(Plunger)
 	End If
-	
+
 	If FlippersAlwaysOn = 1 then
 	If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToStart
@@ -249,7 +255,7 @@ Sub Drain_Hit(): vpmTimer.pulseSw 8: PlaySound "Drain",0,1,AudioPan(Drain),0.25,
 'Drop Target Lighting
 '**********************************************
 Sub DropTargetLights_Timer()
-	If Target7.isdropped 	then DTlight.state 	= 1 Else DTLight.state=0 
+	If Target7.isdropped 	then DTlight.state 	= 1 Else DTLight.state=0
 	If Target8.isdropped 	then DTlight1.state = 1 Else DTlight1.state=0
 	If Target9.isdropped 	then DTlight2.state = 1 Else DTlight2.state=0
 	If Target10.isdropped 	then DTlight3.state = 1 Else DTlight3.state=0
@@ -369,7 +375,7 @@ Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 BCboost = 1				'Do Not Change - default setting
 BCvel = 4				'Controls the speed of the ball movement
 BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key) 
+BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
@@ -380,7 +386,7 @@ End Sub
 
 Sub StopBallControl_Hit()
 	ControlBallInPlay = false
-End Sub	
+End Sub
 
 Sub BallControlTimer_Timer()
 	If EnableBallControl and ControlBallInPlay then
@@ -522,7 +528,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -533,7 +539,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -597,7 +603,7 @@ Sub editDips
 	End With
 End Sub
 
-	 
+
 '************************************
 '          LEDs Display
 '     Based on Scapino's LEDs
