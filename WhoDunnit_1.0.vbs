@@ -5,7 +5,9 @@
 
 ' Thalamus 2018-07-24
 ' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -31,7 +33,7 @@ Const cGameName = "wd_12"
 LoadVPM "02000000", "WPC.VBS", 3.50
 
 ' Standard Options
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 1
 Const UseSync = 1
 Const HandleMech = 0
