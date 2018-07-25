@@ -10,6 +10,7 @@
 
 ' Thalamus 2018-07-24
 ' Tables doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -30,7 +31,7 @@ Sub LoadVPM(VPMver, VBSfile, VBSver)
 End Sub
 
 
-Const cGameName="voltan",cCredits="Voltan Escapes Cosmic Doom, Bally 1978",UseSolenoids=1,UseLamps=1,UseGI=0,UseSync=1
+Const cGameName="voltan",cCredits="Voltan Escapes Cosmic Doom, Bally 1978",UseSolenoids=2,UseLamps=1,UseGI=0,UseSync=1
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",sCoin="coin3"
 
 'TURN STUFF ON OR OFF IF PLAYING IN DESKTOP VS FULLSCREEN
