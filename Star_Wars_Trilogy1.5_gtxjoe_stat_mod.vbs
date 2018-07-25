@@ -5,7 +5,9 @@
 
 ' Thalamus 2018-07-24
 ' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+
 
 Option Explicit
 Randomize
@@ -30,7 +32,7 @@ Dim x, bump1, bump2, bump3, bump4
 
 
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
