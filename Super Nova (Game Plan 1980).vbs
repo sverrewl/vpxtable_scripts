@@ -1,7 +1,13 @@
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Const FlippersAlwaysOn = 0 'Enable Flippers for testing
-Const cGameName = "suprnova"  
+Const cGameName = "suprnova"
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
@@ -9,7 +15,7 @@ On Error Goto 0
 LoadVPM "01560000","GamePlan.vbs",3.36
 
 Dim bsTrough,bsSaucer,bsSaucer2,wheel,oldvalue,newvalue,objekt,special
-Const UseSolenoids=1,UseLamps=1,UseGI=1,UseSync=1,SCoin="fx_coin",SFlipperOn="fx_flipperup",SFlipperOff="fx_flipperdown"
+Const UseSolenoids=2,UseLamps=1,UseGI=1,UseSync=1,SCoin="fx_coin",SFlipperOn="fx_flipperup",SFlipperOff="fx_flipperdown"
 Const SSolenoidOn = "fx_solenoid"
 Const SSolenoidOff = "fx_solenoidoff"
 Const sKicker1=15
@@ -53,7 +59,7 @@ Sub Table1_Init
 		.InitSaucer Kicker2,20,210,15
 		.KickAngleVar=2.5
 		.InitExitSnd "fx_kicker","fx_kicker_enter"
-	end with 
+	end with
 
      vpmNudge.TiltSwitch = 8
      vpmNudge.Sensitivity = 1
@@ -61,11 +67,11 @@ Sub Table1_Init
 
 	GILights 1
 	special = 0
-	
+
 	PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 	vpmMapLights aLights
-	
+
 	If Table1.ShowDT = False then
 	for each objekt in backdropstuff:objekt.visible = False:Next
 	End If
@@ -97,7 +103,7 @@ Sub Table1_KeyUp(ByVal keycode)
 End Sub
 
 Sub BallRelease_UnHit
-	SpinWheel	
+	SpinWheel
 End Sub
 
 
@@ -161,17 +167,17 @@ SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper, Nothing,"
 '************************************************
 ' Switches
 '************************************************
-Sub Target1_Hit:vpmTimer.PulseSw 4:SpinWheel:End Sub									
-Sub Target2_Hit:vpmTimer.PulseSw 10:End Sub											
-Sub Target3_Hit:vpmTimer.PulseSw 4:SpinWheel:End Sub								
-Sub Target4_Hit:vpmTimer.PulseSw 12:End Sub												
+Sub Target1_Hit:vpmTimer.PulseSw 4:SpinWheel:End Sub
+Sub Target2_Hit:vpmTimer.PulseSw 10:End Sub
+Sub Target3_Hit:vpmTimer.PulseSw 4:SpinWheel:End Sub
+Sub Target4_Hit:vpmTimer.PulseSw 12:End Sub
 Sub Target5_Hit:vpmTimer.PulseSw 13:End Sub
 
 Sub Target6_Hit:vpmTimer.PulseSw 17
-If Special = 1 then SpinWheel 
-End Sub												
+If Special = 1 then SpinWheel
+End Sub
 
-Sub Wall15_Hit:vpmTimer.PulseSw 9:End Sub												
+Sub Wall15_Hit:vpmTimer.PulseSw 9:End Sub
 Sub Wall16_Hit:vpmTimer.PulseSw 9:End Sub
 Sub Wall17_Hit:vpmTimer.PulseSw 16:End Sub
 Sub Wall18_Hit:vpmTimer.PulseSw 9:End Sub
@@ -179,50 +185,50 @@ Sub Wall19_Hit:vpmTimer.PulseSw 16:End Sub
 Sub Wall20_Hit:vpmTimer.PulseSw 9:End Sub
 Sub Wall21_Hit:vpmTimer.PulseSw 16:End Sub
 
-Sub Drain_Hit:playsound "Drain":bsTrough.AddBall Me:End Sub												
+Sub Drain_Hit:playsound "Drain":bsTrough.AddBall Me:End Sub
 
-Sub LeftOutlane_Hit:Controller.Switch(18)=1:Me.TimerEnabled=1:End Sub	
+Sub LeftOutlane_Hit:Controller.Switch(18)=1:Me.TimerEnabled=1:End Sub
 Sub LeftOutlane_Unhit:Controller.Switch(18)=0:End Sub
 Sub LeftOutlane_Timer:Me.TimerEnabled=0:End Sub
 Sub RightOutlane_Hit:Controller.Switch(18)=1:Me.TimerEnabled=1:End Sub
 Sub RightOutlane_Unhit:Controller.Switch(18)=0:End Sub
 Sub RightOutlane_Timer:Me.TimerEnabled=0:End Sub
 
-Sub LeftInlane_Hit:Controller.Switch(16)=1:Me.TimerEnabled=1:End Sub		
+Sub LeftInlane_Hit:Controller.Switch(16)=1:Me.TimerEnabled=1:End Sub
 Sub LeftInlane_Unhit:Controller.Switch(16)=0:End Sub
 Sub LeftInlane_Timer:Me.TimerEnabled=0:End Sub
 Sub RightInlane_Hit:Controller.Switch(16)=1:Me.TimerEnabled=1:End Sub
 Sub RightInlane_Unhit:Controller.Switch(16)=0:End Sub
 Sub RightInlane_Timer:Me.TimerEnabled=0:End Sub
 
-Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub												
-Sub Kicker2_Hit:bsSaucer2.AddBall 0:End Sub												
+Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub
+Sub Kicker2_Hit:bsSaucer2.AddBall 0:End Sub
 
-Sub Bumper2_Hit:vpmTimer.PulseSw 33:RandomSoundBumper:End Sub							
-Sub Bumper3_Hit:vpmTimer.PulseSw 21:RandomSoundBumper:End Sub							
-Sub Bumper1_Hit:vpmTimer.PulseSw 22:RandomSoundBumper:End Sub							
+Sub Bumper2_Hit:vpmTimer.PulseSw 33:RandomSoundBumper:End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 21:RandomSoundBumper:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 22:RandomSoundBumper:End Sub
 
-Sub Spinner1_Spin:playsound "Spinner":vpmTimer.PulseSw 23:End Sub						
+Sub Spinner1_Spin:playsound "Spinner":vpmTimer.PulseSw 23:End Sub
 
-Sub Trigger8_Hit:Controller.Switch(25)=1:End Sub										
+Sub Trigger8_Hit:Controller.Switch(25)=1:End Sub
 Sub Trigger8_unHit:Controller.Switch(25)=0:End Sub
-Sub Trigger1_Hit:Controller.Switch(27)=1:End Sub										
+Sub Trigger1_Hit:Controller.Switch(27)=1:End Sub
 Sub Trigger1_unHit:Controller.Switch(27)=0:End Sub
-Sub Trigger2_Hit:Controller.Switch(28)=1:End Sub										
+Sub Trigger2_Hit:Controller.Switch(28)=1:End Sub
 Sub Trigger2_unHit:Controller.Switch(28)=0:End Sub
-Sub Trigger3_Hit:Controller.Switch(29)=1:End Sub										
+Sub Trigger3_Hit:Controller.Switch(29)=1:End Sub
 Sub Trigger3_unHit:Controller.Switch(29)=0:End Sub
-Sub Trigger4_Hit:Controller.Switch(30)=1:End Sub										
+Sub Trigger4_Hit:Controller.Switch(30)=1:End Sub
 Sub Trigger4_unHit:Controller.Switch(30)=0:End Sub
-Sub Trigger5_Hit:Controller.Switch(31)=1:End Sub										
+Sub Trigger5_Hit:Controller.Switch(31)=1:End Sub
 Sub Trigger5_unHit:Controller.Switch(31)=0:End Sub
-Sub Trigger7_Hit:Controller.Switch(32)=1:End Sub										
+Sub Trigger7_Hit:Controller.Switch(32)=1:End Sub
 Sub Trigger7_unHit:Controller.Switch(32)=0:End Sub
-Sub Trigger9_Hit:Controller.Switch(14)=1:End Sub										
+Sub Trigger9_Hit:Controller.Switch(14)=1:End Sub
 Sub Trigger9_unHit:Controller.Switch(14)=0:End Sub
-Sub Trigger6_Hit:Controller.Switch(34)=1:End Sub										
+Sub Trigger6_Hit:Controller.Switch(34)=1:End Sub
 Sub Trigger6_unHit:Controller.Switch(34)=0:End Sub
-																						
+
 Sub RandomSoundBumper()
 	Select Case Int(Rnd*3)+1
 		Case 1 : PlaySound "Bumper1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
@@ -271,12 +277,12 @@ Sub WheelTimer_Timer
 	WheelTimer.Enabled=0
 	End If
 End Sub
-		'35 SpinLab Orion X3 	
-		'36 SpinLab Special		
-		'37 SpinLab Extra Ball	
-		'38 SpinLab 50,000 		
-		'39 SpinLab Ursa X3  	
-		'40 SpinLab Comet 500 	
+		'35 SpinLab Orion X3
+		'36 SpinLab Special
+		'37 SpinLab Extra Ball
+		'38 SpinLab 50,000
+		'39 SpinLab Ursa X3
+		'40 SpinLab Comet 500
 
 
 '*********************************************************************
@@ -476,10 +482,10 @@ Patterns(3) = 91    '2
 Patterns(4) = 79    '3
 Patterns(5) = 102   '4
 Patterns(6) = 109   '5
-Patterns(7) = 124   '6 
+Patterns(7) = 124   '6
 Patterns(8) = 7     '7
 Patterns(9) = 127   '8
-Patterns(10) = 103  '9 
+Patterns(10) = 103  '9
 
 Patterns2(0) = 128  'empty
 Patterns2(1) = 191  '0
@@ -488,10 +494,10 @@ Patterns2(3) = 219  '2
 Patterns2(4) = 207  '3
 Patterns2(5) = 230  '4
 Patterns2(6) = 237  '5
-Patterns2(7) = 252  '6 
+Patterns2(7) = 252  '6
 Patterns2(8) = 135  '7
 Patterns2(9) = 255  '8
-Patterns2(10) = 239 '9 
+Patterns2(10) = 239 '9
 
 Set Digits(0) = a0
 Set Digits(1) = a1
