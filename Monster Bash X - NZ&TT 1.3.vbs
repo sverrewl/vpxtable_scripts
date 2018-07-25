@@ -6,10 +6,10 @@
 'thanks to VPDev Team for the freaking amazing VPX
 
 ' Thalamus 2018-07-24
-' Table doesn't use JP standars
 ' Added "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' Table doesn't use JP ball rolling standars
 ' No special SSF tweaks yet.
-
 
 Option Explicit
 Randomize
@@ -32,7 +32,7 @@ Const cGameName = "mb_106b"
 LoadVPM "02000000", "WPC.VBS", 3.50
 
 ' Standard Options
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 1
 Const HandleMech = 0
