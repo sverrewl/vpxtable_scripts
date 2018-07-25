@@ -5,7 +5,8 @@
 
 
 ' Thalamus 2018-07-24
-' Thables doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Table doesn't have standard "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -23,7 +24,7 @@ LoadVPM "01120100", "WPC.VBS", 3.37 'minimum core.vbs version
 Dim bsTrough, bsEject, bsSaucer1, bsSaucer2, bsSaucer3, bsSaucer4, mBallCatch, mDefender
 Dim PlungerIM, x, bump1, bump2, bump3
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 1
 Const UseSync = 0 'set it to 1 if the table runs too fast

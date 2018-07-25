@@ -9,6 +9,11 @@
 ' Surround Sound coding by RustyCardores & DJRoxX. Requires VPX10.4 and a 'PMD' (Poor Man's DOF) equipped cab for directional sound/tactile feedback.
 '   ** Table will play on non-PMD equipped cabs. For PMD info & support go to https://www.facebook.com/groups/PoorMansDOF/
 
+' Thalamus 2018-07-24
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+
 Option Explicit
 Randomize
 
@@ -36,7 +41,7 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0
