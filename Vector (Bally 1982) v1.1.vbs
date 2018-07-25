@@ -3,6 +3,7 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions"
+' Table claims to be able to have useSolenoid=2 - but I've seens reported problems.
 ' Tables uses a special version of JP ball rolling sub
 ' No special SSF tweaks yet.
 
