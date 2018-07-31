@@ -16,7 +16,7 @@
 
 ' Thalamus 2018-07-24
 ' Table has already its own  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2 - reverted as it didn't work
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -48,7 +48,7 @@ Dim Ballsize,BallMass
 Ballsize = 50
 Ballmass = 1.7
 
-Const UseSolenoids = 2
+Const UseSolenoids = 1
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 1
