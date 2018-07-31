@@ -1496,3 +1496,10 @@ Sub InitOptions
 	CrossOverDecal.visible = RampsDecals
 	l63a.visible = FIREButtonLight
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub ACDC_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

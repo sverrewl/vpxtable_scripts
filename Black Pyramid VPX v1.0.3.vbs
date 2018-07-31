@@ -915,3 +915,10 @@ function AudioFade(ball)
         AudioFade = Csng(-((- tmp) ^10) )
     End If
 End Function
+
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

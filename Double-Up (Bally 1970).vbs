@@ -1684,3 +1684,10 @@ Sub HighScoreProcessKey(keycode)
 End Sub
 
 
+
+' Thalamus : Exit in a clean and proper way
+Sub DoubleUp_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -1139,3 +1139,10 @@ FL25d.Height = WheelP.Z + 90 * Cos(180 * Pi/180) * cos (WheelP.objrotx * Pi/180)
 FL25d.RotX = WheelP.objrotx -90
 End Sub
 
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

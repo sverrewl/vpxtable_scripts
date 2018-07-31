@@ -7493,3 +7493,10 @@ Sub LampMod(nr, object)
 			Object.DisableLighting = LampState(nr)		
 		End If		
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub TheWeb_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -1904,3 +1904,10 @@ Function Pan(tobj) ' Calculates the pan for a tableobj based on the X position o
         Pan = Csng(-((- tmp) ^10) )
     End If
 End Function
+
+' Thalamus : Exit in a clean and proper way
+Sub TableWPC94_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -1289,3 +1289,10 @@ Sub Relaissound
 
 Playsound "Relais", 0, 1, 0, 1
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

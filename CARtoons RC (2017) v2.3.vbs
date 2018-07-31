@@ -2607,3 +2607,9 @@ Sub HighRoachProcessKey(keycode)
 		UpdatePostIt2
     End If
 End Sub
+' Thalamus : Exit in a clean and proper way
+Sub CARtoons_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -634,3 +634,10 @@ Sub RandomBump(voladj, freq)
 	dim BumpSnd:BumpSnd= "fx_wallbump" & CStr(Int(Rnd*7)+1)
 		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

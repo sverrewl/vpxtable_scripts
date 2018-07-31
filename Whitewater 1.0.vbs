@@ -962,3 +962,10 @@ Sub Flasherlight24_Timer()
 	If not Flasherlight24.TimerEnabled Then FlasherFlash24.visible = 1 : Flasherlight24.state = 1 : Flasherlight24.TimerEnabled = True : End If
 	If FlashLevel24 < 0 Then 				FlasherFlash24.visible = 0 : Flasherlight24.state = 0 : Flasherlight24.TimerEnabled = False: End If
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub whitewater_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

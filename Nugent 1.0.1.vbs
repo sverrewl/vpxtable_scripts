@@ -686,3 +686,10 @@ Class cFastFlips
     End Sub
 
 End Class
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

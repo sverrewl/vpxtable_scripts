@@ -150,3 +150,10 @@ Sub sw17_UnHit():Controller.Switch(17) = 0:End Sub
 
 
 
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

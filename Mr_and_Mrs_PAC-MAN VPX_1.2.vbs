@@ -1101,3 +1101,10 @@ Sub Wall87_Timer()
 domaze=0
 wall87.timerenabled=false
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub MrMsPacMan_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

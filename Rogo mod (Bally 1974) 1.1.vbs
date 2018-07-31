@@ -1380,3 +1380,10 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
     End If
 End Function
 
+
+' Thalamus : Exit in a clean and proper way
+Sub TableRogo_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

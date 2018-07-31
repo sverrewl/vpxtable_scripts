@@ -1172,3 +1172,10 @@ End Sub
 'SetLamp 119, Enabled
 'SetLamp 120, Enabled
 'End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+
