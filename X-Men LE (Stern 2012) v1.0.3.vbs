@@ -1262,7 +1262,7 @@ Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
     Vol = Csng(BallVel(ball) ^2 / 1)
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "Table" is the name of the table
     Dim tmp
     tmp = ball.x * 2 / table.width-1
     If tmp > 0 Then
