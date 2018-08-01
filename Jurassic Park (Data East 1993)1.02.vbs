@@ -58,6 +58,9 @@
 Option Explicit
 Randomize
 
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 Dim VolumeDial, CollectionVolume, enableBallControl, BallReflection
 Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay
 Dim GlowAmountNight, InsertBrightnessNight
@@ -285,7 +288,7 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 'Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
@@ -2360,7 +2363,7 @@ Sub RollingTimer_Timer()
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
         rolling(b) = True
-        if BOT(b).z < 30 Then ' Ball on playfield
+        if BOT(b).z < 101 Then ' Ball on playfield
           PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
         Else ' Ball on raised ramp
           PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
