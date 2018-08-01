@@ -55,6 +55,8 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
+' This version is broken - T-rex problem - fixed in 1.03 I believe.
+
 Option Explicit
 Randomize
 
