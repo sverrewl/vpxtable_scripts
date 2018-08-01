@@ -66,7 +66,7 @@ Const cGameName = "lw3_208"
 
 Dim plungerIM, bsTrough, bsRScoop, bsLScoop, bsVuk, dtMDrop, dtRDrop, x
 
-Sub Table1_Init
+Sub LastActionHero_Init
     vpmInit Me
     With Controller
         .GameName = cGameName
@@ -158,7 +158,7 @@ Sub Table1_Init
     End With
 
 
-   If Table1.ShowDT = False then
+   If LastActionHero.ShowDT = False then
        Ramp26.visible = 0
        Ramp32.visible = 0
        Ramp33.visible = 0
@@ -384,7 +384,7 @@ End Sub
 'Keys Up and Down
 '*****************
 
-Sub Table1_KeyDown(ByVal Keycode)
+Sub LastActionHero_KeyDown(ByVal Keycode)
     If keycode = plungerkey then controller.switch(9) = 1
     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
@@ -392,7 +392,7 @@ Sub Table1_KeyDown(ByVal Keycode)
     If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
-Sub Table1_KeyUp(ByVal Keycode)
+Sub LastActionHero_KeyUp(ByVal Keycode)
     If keycode = plungerkey then controller.switch(9) = 0
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
@@ -984,9 +984,9 @@ End Sub
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "LastActionHero" is the name of the table
   Dim tmp
-  tmp = tableobj.y * 2 / table1.height-1
+  tmp = tableobj.y * 2 / LastActionHero.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -994,9 +994,9 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "LastActionHero" is the name of the table
   Dim tmp
-  tmp = tableobj.x * 2 / table1.width-1
+  tmp = tableobj.x * 2 / LastActionHero.width-1
   If tmp > 0 Then
     AudioPan = Csng(tmp ^10)
   Else
@@ -1004,9 +1004,9 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "LastActionHero" is the name of the table
     Dim tmp
-    tmp = ball.x * 2 / table1.width-1
+    tmp = ball.x * 2 / LastActionHero.width-1
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
@@ -1016,7 +1016,7 @@ End Function
 
 Function AudioFade(ball) ' Can this be together with the above function ?
   Dim tmp
-  tmp = ball.y * 2 / Table1.height-1
+  tmp = ball.y * 2 / LastActionHero.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -1089,7 +1089,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+  If LastActionHero.VersionMinor > 3 OR LastActionHero.VersionMajor > 10 Then
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
@@ -1097,7 +1097,7 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
+Sub LastActionHero_exit()
   Controller.Pause = False
   Controller.Stop
 End Sub
