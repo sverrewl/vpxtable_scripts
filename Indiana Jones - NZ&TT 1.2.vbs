@@ -140,7 +140,7 @@ Sub Table1_Init
 		.DIP(0)=&H00	'set dipswitch to USA
 		.Switch(22) = 1 'close coin door
 		.Switch(24) = 0 'always closed
-     InitVpmFFlipsSAM
+'     InitVpmFFlipsSAM
 	End With
 
     ' Main Timer init
