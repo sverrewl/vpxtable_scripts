@@ -1655,7 +1655,7 @@ End Sub
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "Gemini" is the name of the table
 	Dim tmp
     tmp = tableobj.y * 2 / Gemini.height-1
     If tmp > 0 Then
@@ -1665,7 +1665,7 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
     End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "Gemini" is the name of the table
     Dim tmp
     tmp = tableobj.x * 2 / Gemini.width-1
     If tmp > 0 Then
