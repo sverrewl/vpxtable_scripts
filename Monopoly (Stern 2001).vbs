@@ -4,7 +4,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2, reverted - didn't work
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
@@ -54,7 +54,7 @@ LoadVPM "01120100", "sega.vbs", 3.23
 'Standard definitions
 '********************
 
-Const UseSolenoids = 2
+Const UseSolenoids = 1
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0
