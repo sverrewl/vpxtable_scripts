@@ -5,15 +5,15 @@
 ' Light numbers from the tables by Joe Entropy & RipleYYY and Pacdude.
 ' Uses the Left and Right Magna saves keys to activate the save post (shield)
 
-Option Explicit
-Randomize
 
-' Thalamus 2018-07-24
+' Thalamus 2018-08-03
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Fix applied from DrRobX
-' Changed UseSolenoids=0 to 2
+' Fix from DJRobX is included
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+
+Option Explicit
+Randomize
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -29,7 +29,7 @@ Dim x
 
 Const cGameName = "medusa"
 
-Const UseSolenoids = 2
+Const UseSolenoids = 0
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
@@ -130,7 +130,7 @@ Sub table1_Init
     Post.Pullback
 
 	' Manually init fast flips
-	if not IsEmpty(SolCallback(sLLFlipper)) then vpmFlips.CallBackL = SolCallback(sLLFlipper)
+	if not IsEmpty(SolCallback(sLLFlipper)) then vpmFlips.CallBackL = SolCallback(sLLFlipper)         
 	if not IsEmpty(SolCallback(sLRFlipper)) then vpmFlips.CallBackR = SolCallback(sLRFlipper)
 End Sub
 
@@ -1091,10 +1091,4 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   End if
 End Sub
 
-
-' Thalamus : Exit in a clean and proper way
-Sub table1_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-
+Sub Table1_Exit():Controller.Stop:End Sub
