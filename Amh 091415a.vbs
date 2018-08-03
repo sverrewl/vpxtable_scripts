@@ -166,8 +166,15 @@ End Sub
 
 'B2S/DOF version
 Sub Table1_exit()
-	SaveLMEMConfig
-	if B2SOn Then Controller.Stop
+  SaveLMEMConfig
+  if B2SOn Then Controller.Stop
+    If Not UltraDMD is Nothing Then
+      If UltraDMD.IsRendering Then
+        UltraDMD.CancelRendering
+      End If
+      UltraDMD = NULL
+    End If
+  End If
 End Sub
 
 Sub SetBackGlass(side, color)

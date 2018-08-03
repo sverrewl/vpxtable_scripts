@@ -384,8 +384,15 @@ Sub table1_unPaused
 End Sub
 
 Sub table1_Exit
-    Savehs
-    if B2SOn Then Controller.stop
+  Savehs
+  if B2SOn Then Controller.stop
+    If Not UltraDMD is Nothing Then
+      If UltraDMD.IsRendering Then
+        UltraDMD.CancelRendering
+      End If
+      UltraDMD = NULL
+    End If
+  End If
 End Sub
 
 '********************
