@@ -7,6 +7,7 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Moved solenoids above table1_init
 ' No special SSF tweaks yet.
 
 
@@ -22,10 +23,7 @@ LoadVPM "01550000", "stern.VBS", 3.26
 Dim DesktopMode: DesktopMode = table1.ShowDT
 
 '************************************************
-'************************************************
-'************************************************
-'************************************************
-'************************************************
+
 Const UseSolenoids = 2
 Const UseLamps = True
 Const UseGI = False
@@ -74,27 +72,6 @@ Sub FlipperTimer_Timer
 	RFLogo1.RotY = RightFlipper.CurrentAngle
 End Sub
 
-Sub Table1_Init
-     With Controller
-         .GameName = cGameName
-         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-         .SplashInfoLine = "Flight 2000 (Stern 1980)"&chr(13)&"by bord"
-         .HandleKeyboard = 0
-         .ShowTitle = 0
-         .ShowDMDOnly = 1
-         .ShowFrame = 0
-         .HandleMechanics = False
-		 .Hidden = hiddenvalue
-         On Error Resume Next
-         .Run GetPlayerHWnd
-         If Err Then MsgBox Err.Description
-         On Error Goto 0
-     End With
-
-    PinMAMETimer.Interval = PinMAMEInterval
-    PinMAMETimer.Enabled = 1
-
-
 '************************************************
 ' Solenoids
 '************************************************
@@ -122,6 +99,26 @@ SolCallback(20) = "SolLane1"
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
+
+Sub Table1_Init
+     With Controller
+         .GameName = cGameName
+         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+         .SplashInfoLine = "Flight 2000 (Stern 1980)"&chr(13)&"by bord"
+         .HandleKeyboard = 0
+         .ShowTitle = 0
+         .ShowDMDOnly = 1
+         .ShowFrame = 0
+         .HandleMechanics = False
+		 .Hidden = hiddenvalue
+         On Error Resume Next
+         .Run GetPlayerHWnd
+         If Err Then MsgBox Err.Description
+         On Error Goto 0
+     End With
+
+    PinMAMETimer.Interval = PinMAMEInterval
+    PinMAMETimer.Enabled = 1
 
 'Trough
    	Set bsTrough=New cvpmBallStack

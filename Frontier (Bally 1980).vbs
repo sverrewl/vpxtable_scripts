@@ -7,6 +7,7 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Moved solenoids above table1_init
 ' No special SSF tweaks yet.
 
 
@@ -75,27 +76,6 @@ Sub FlipperTimer_Timer
 	RFLogo.RotY = RightFlipper.CurrentAngle
 End Sub
 
-
-Sub Table1_Init
-     With Controller
-         .GameName = cGameName
-         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-         .SplashInfoLine = ""
-         .HandleKeyboard = 0
-         .ShowTitle = 0
-         .ShowDMDOnly = 1
-         .ShowFrame = 0
-         .HandleMechanics = False
-		 .Hidden = 1
-         On Error Resume Next
-         .Run GetPlayerHWnd
-         If Err Then MsgBox Err.Description
-         On Error Goto 0
-     End With
-
-    PinMAMETimer.Interval = PinMAMEInterval
-    PinMAMETimer.Enabled = 1
-
 '************************************************
 ' Solenoids
 '************************************************
@@ -122,6 +102,27 @@ SolCallback(19) = 	"vpmNudge.SolGameOn"				'sEnable
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
+
+Sub Table1_Init
+     With Controller
+         .GameName = cGameName
+         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+         .SplashInfoLine = ""
+         .HandleKeyboard = 0
+         .ShowTitle = 0
+         .ShowDMDOnly = 1
+         .ShowFrame = 0
+         .HandleMechanics = False
+		 .Hidden = 1
+         On Error Resume Next
+         .Run GetPlayerHWnd
+         If Err Then MsgBox Err.Description
+         On Error Goto 0
+     End With
+
+    PinMAMETimer.Interval = PinMAMEInterval
+    PinMAMETimer.Enabled = 1
+
 
 	'Trough
 
