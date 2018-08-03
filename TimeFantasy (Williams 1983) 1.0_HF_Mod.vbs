@@ -121,8 +121,6 @@ Dim bsTrough
 
 Sub TimeFantasy_Init
 	vpmInit Me
-  vpmFlips.CallBackUL=SolCallBack(47)
-  SolCallback(47)=Empty
 	On Error Resume Next
 		With Controller
 		.GameName = cGameName
