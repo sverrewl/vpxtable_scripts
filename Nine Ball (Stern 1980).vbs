@@ -4,6 +4,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Moved solenoids above table1_init
 ' No special SSF tweaks yet.
 
 Const cGameName = "nineball"  'standard rom
@@ -71,27 +72,6 @@ Sub FlipperTimer_Timer
 	BallShadowUpdate
 End Sub
 
-Sub Table1_Init
-
-     With Controller
-         .GameName = cGameName
-         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-         .SplashInfoLine = ""
-         .HandleKeyboard = 0
-         .ShowTitle = 0
-         .ShowDMDOnly = 1
-         .ShowFrame = 0
-         .HandleMechanics = False
-         .Hidden = 1
-         On Error Resume Next
-         .Run GetPlayerHWnd
-         If Err Then MsgBox Err.Description
-         On Error Goto 0
-     End With
-
-    PinMAMETimer.Interval = PinMAMEInterval
-    PinMAMETimer.Enabled = 1
-
 '*** SOLENOIDS ***
 
 SolCallback(2)=		"vpmSolSound""fx_slingshot"","				'1 sLSling
@@ -114,6 +94,27 @@ SolCallback(17)=	"SolLeftDropUp"								'17 sLReset
 SolCallback(20)=	"SolLoopDropUp"								'18 sLoop
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
+
+Sub Table1_Init
+     With Controller
+         .GameName = cGameName
+         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+         .SplashInfoLine = ""
+         .HandleKeyboard = 0
+         .ShowTitle = 0
+         .ShowDMDOnly = 1
+         .ShowFrame = 0
+         .HandleMechanics = False
+         .Hidden = 1
+         On Error Resume Next
+         .Run GetPlayerHWnd
+         If Err Then MsgBox Err.Description
+         On Error Goto 0
+     End With
+
+    PinMAMETimer.Interval = PinMAMEInterval
+    PinMAMETimer.Enabled = 1
+
 
    	Set bsTrough=New cvpmBallStack
  	with bsTrough
