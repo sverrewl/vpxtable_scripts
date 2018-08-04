@@ -1744,6 +1744,12 @@ End Function
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
   Controller.Pause = False
-  Controller.Stop
+	Controller.Stop
+	If Not UltraDMD is Nothing Then
+		If UltraDMD.IsRendering Then
+			UltraDMD.CancelRendering
+		End If
+		UltraDMD = NULL
+	End If
 End Sub
 
