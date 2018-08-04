@@ -28,10 +28,10 @@
 '* Other little stuff (lights, model positioning)     *
 '******************************************************
 
-' Thalamus 2018-07-24
+' Thalamus 2018-08-04
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' Added InitVpmFFlipsSAM
+' DjRobX supplied scritp fix for fastflip on this table
 
 Option Explicit
 Randomize
@@ -89,7 +89,8 @@ Dim  CastleGatePos, CastleGatePos2, CGUp, DonkeyPos, DonkeyPos2, DonkeyPos3, Don
 '******************************************************
 
 Sub Table1_KeyDown(ByVal keycode)
-If keycode = PlungerKey Then Plunger.PullBack
+
+If keycode = PlungerKey Then Plunger.PullBack:End If
 
 If Keycode = RightFlipperKey then
 Controller.Switch(90)=1
@@ -100,6 +101,7 @@ MiniPF_RightFlipper.RotateToEnd
 DOF 101, 1
 MiniRight=1
 End If
+vpmFFlipsSam.FlipR true
 Exit Sub
 End If
 
@@ -111,6 +113,7 @@ MiniPF_LeftFlipper.RotateToEnd
 DOF 102, 1
 MiniLeft=1
 End If
+vpmFFlipsSam.FlipL true
 Exit Sub
 End If
 
@@ -134,6 +137,7 @@ MiniPF_RightFlipper.RotateToStart
 DOF 101, 0
 MiniRight=0
 End If
+vpmFFlipsSam.FlipR false
 Exit Sub
 End If
 
@@ -145,6 +149,7 @@ MiniPF_LeftFlipper.RotateToStart
 DOF 102, 0
 MiniLeft=0
 End If
+vpmFFlipsSam.FlipL false
 Exit Sub
 End If
 
@@ -272,6 +277,8 @@ With plungerIM
 .CreateEvents "PlungerIM"
 End With
 
+InitVpmFFlipsSAM
+
 '******************************************************
 '******************************************************
 '******************************************************
@@ -279,7 +286,7 @@ End With
 '******************************************************
 '******************************************************
 '******************************************************
-InitVpmFFlipsSAM
+
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -1471,10 +1478,6 @@ If Ballspeed >5 then Playsound "Stern_Flippercollide1" Else Playsound "Stern_Fli
 Sub WirerollSND_Hit:Playsound"Stern_Wireroll":End Sub
 Sub BallDropSound_Hit:Stopsound"Stern_Wireroll":Playsound"Stern_Balldrop":End Sub
 
-
-
-
-
 ''*************DEDUG*******************************************************
 '
 'Sub Table1_KeyDown(ByVal keycode)
@@ -1709,19 +1712,33 @@ Sub RollingSoundUpdate()
     If UBound(BOT) = -1 Then Exit Sub
 
 	' play the rolling sound for each ball
+
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
+'**********************
+' Ball Collision Sound
+'**********************
+
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
+
