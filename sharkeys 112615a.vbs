@@ -5,7 +5,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' Table doesn't used JP standard ball rolling routine
+' Table didn't used JP standard ball rolling routine - replaced
 ' No special SSF tweaks yet.
 
 
@@ -1484,74 +1484,63 @@ Function BallVel(ball) 'Calculates the ball speed
 End Function
 
 '*****************************************
-'    JP's VP10 Collision & Rolling Sounds
+'      JP's VP10 Rolling Sounds
 '*****************************************
 
 Const tnob = 8 ' total number of balls
+Const lob = 1   'number of locked balls
 ReDim rolling(tnob)
-ReDim collision(tnob)
-Initcollision
+InitRolling
 
-Sub Initcollision
+Sub InitRolling
     Dim i
     For i = 0 to tnob
-        collision(i) = -1
         rolling(i) = False
     Next
 End Sub
 
-Sub CollisionTimer_Timer()
-    Dim BOT, B, B1, B2, dx, dy, dz, distance, radii
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
     BOT = GetBalls
 
-    ' rolling
-
-	For B = UBound(BOT) +1 to tnob
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
-	Next
+    Next
 
-    If UBound(BOT) = -1 Then Exit Sub
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = lob - 1 Then Exit Sub 'there no extra balls on this table
 
-    For B = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(ActiveBall)
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+    ' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
+End Sub
 
-    'collision
+'**********************
+' Ball Collision Sound
+'**********************
 
-    If UBound(BOT) < 1 Then Exit Sub
-
-    For B1 = 0 to UBound(BOT)
-        For B2 = B1 + 1 to UBound(BOT)
-            dz = INT(ABS((BOT(b1).z - BOT(b2).z) ) )
-            radii = BOT(b1).radius + BOT(b2).radius
-			If dz <= radii Then
-
-            dx = INT(ABS((BOT(b1).x - BOT(b2).x) ) )
-            dy = INT(ABS((BOT(b1).y - BOT(b2).y) ) )
-            distance = INT(SQR(dx ^2 + dy ^2) )
-
-            If distance <= radii AND (collision(b1) = -1 OR collision(b2) = -1) Then
-                collision(b1) = b2
-                collision(b2) = b1
-                PlaySound("fx_collide"), 0, Vol2(BOT(b1), BOT(b2)), Pan(BOT(b1)), 0, Pitch(BOT(b1)), 0, 0
-            Else
-                If distance > (radii + 10)  Then
-                    If collision(b1) = b2 Then collision(b1) = -1
-                    If collision(b2) = b1 Then collision(b2) = -1
-                End If
-            End If
-			End If
-        Next
-    Next
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
