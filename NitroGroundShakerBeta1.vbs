@@ -7,16 +7,6 @@ Randomize
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
-
-' Thalamus 2018-08-03
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
-' Added InitVpmFFlipsSAM
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' , AudioFade(ActiveBall)
-
-
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
