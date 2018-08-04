@@ -227,7 +227,9 @@ Sub sw23_Hit:Controller.Switch(23) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBa
 Sub sw23_UnHit:Controller.Switch(23) = 0:End Sub
 
 ' Spinners
-Sub sw25_Spin:vpmTimer.PulseSw 25:PlaySound "fx_spinner", 0, 1, -0.05:End Sub
+Sub sw25_Spin:vpmTimer.PulseSw 25:PlaySound "fx_spinner", 0, 1, -0.05,pan(sw25):End Sub
+
+
 
 'Targets
 Sub sw35_Hit:vpmTimer.PulseSw 35:PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
