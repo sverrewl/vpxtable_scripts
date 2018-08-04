@@ -41,7 +41,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Due to ramp changes Trough1 and Trough2 needs Physics->Hit Threshold set to 0 on both left/right walls.
 
 
 Option Explicit
