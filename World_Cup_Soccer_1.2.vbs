@@ -2,8 +2,8 @@ Option Explicit
 
 ' Thalamus 2018-07-24
 ' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
 
 Dim DesktopMode: DesktopMode = tablewpc94.ShowDT
 Dim KDBall : KDBall = True
@@ -50,7 +50,7 @@ LoadVPM "01530000", "WPC.VBS", 3.10
     On Error Goto 0
  End Sub
 
-Const UseSolenoids = True
+Const UseSolenoids = 2
 Const UseLamps     = False
 Const UseSync      = True
 Const UseGI        = True
