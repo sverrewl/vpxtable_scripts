@@ -828,7 +828,7 @@ Sub RandomSoundFlipper()
 		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
-
+End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
