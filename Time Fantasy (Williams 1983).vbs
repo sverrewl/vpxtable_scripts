@@ -96,6 +96,7 @@ Sub Table1_Init
 		.HandleKeyboard=0
 		.ShowDMDOnly=1
 		.ShowFrame=0
+    .Games(cGameName).Settings.Value("sound") = 1
 		.ShowTitle=0
         .hidden = 1
 		If Err Then MsgBox Err.Description
