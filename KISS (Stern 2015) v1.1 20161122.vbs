@@ -250,7 +250,7 @@ Sub Table1_Init()
     bMultiBallMode = False
     FrontRowSave = False
     bGameInPlay = False
-	bAutoPlunger = False
+  bAutoPlunger = False
     bMusicOn = True
     BallsOnPlayfield = 0
     BallsInLock = 0
@@ -281,7 +281,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         If NOT bGameInPlay then
           If(Tilted = False) Then
             AttractMode.enabled=False
-			'OnScoreboardChanged()
+      'OnScoreboardChanged()
             If UseUDMD then
                UltraDMD.CancelRendering:UltraDMD.Clear
                UltraDMD.DisplayScene00 "scene02.gif", "PRESS START", 15, "CREDITS " & credits, -1, UltraDMD_Animation_None, 3500, UltraDMD_Animation_None
@@ -289,14 +289,14 @@ Sub Table1_KeyDown(ByVal Keycode)
             AttractMode.interval=1500:AttractMode.enabled=True
           End If
         Else
-			OnScoreboardChanged()
+      OnScoreboardChanged()
         End If
     End If
 
     If keycode = PlungerKey Then
 '        PlungerIM.AutoFire
         Plunger.PullBack
-		PlaySound "fx_plungerpull",0,1,0.25,0.2
+    PlaySound "fx_plungerpull",0,1,0.25,0.2
     End If
 
     If bGameInPlay AND NOT Tilted Then
@@ -353,7 +353,7 @@ end if
 
          if (keycode = RightMagnaSave or keycode=LeftMagnaSave) and ChooseSongMode then
            NewTrackTimer.enabled=False
-  	       ChooseSongMode=False
+           ChooseSongMode=False
            ScoopDelay.interval=200
            ScoopDelay.Enabled = True
            vpmtimer.addtimer 500, "FlashForMs FlasherExitHole, 1500, 30, 0 '"
@@ -361,14 +361,14 @@ end if
 
         If keycode = LeftFlipperKey Then
            SolLFlipper 1
-  		   'Leftflipper.RotateToStart
+         'Leftflipper.RotateToStart
            Leftflipper.TimerEnabled = 1  ' nFozzy Flipper Code
            Leftflipper.TimerInterval = 16
            Leftflipper.return = returnspeed * 0.5
         End If
         If keycode = RightFlipperKey Then
            SolRFlipper 1
-  		   'Rightflipper.RotateToStart
+         'Rightflipper.RotateToStart
            Rightflipper.TimerEnabled = 1  ' nFozzy Flipper Code
            Rightflipper.TimerInterval = 16
            Rightflipper.return = returnspeed * 0.5
@@ -447,25 +447,25 @@ lfstep = 1
 rfstep = 1
 
 sub leftflipper_timer()
-	select case lfstep
-		Case 1: Leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
-		Case 2: Leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
-		Case 3: Leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
-		Case 4: Leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
-		Case 5: Leftflipper.return = returnspeed * 1 :lfstep = lfstep + 1
-		Case 6: Leftflipper.timerenabled = 0 : lfstep = 1
-	end select
+  select case lfstep
+    Case 1: Leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
+    Case 2: Leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
+    Case 3: Leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
+    Case 4: Leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
+    Case 5: Leftflipper.return = returnspeed * 1 :lfstep = lfstep + 1
+    Case 6: Leftflipper.timerenabled = 0 : lfstep = 1
+  end select
 end sub
 
 sub rightflipper_timer()
-	select case rfstep
-		Case 1: Rightflipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
-		Case 2: Rightflipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
-		Case 3: Rightflipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
-		Case 4: Rightflipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
-		Case 5: Rightflipper.return = returnspeed * 1 :rfstep = rfstep + 1
-		Case 6: Rightflipper.timerenabled = 0 : rfstep = 1
-	end select
+  select case rfstep
+    Case 1: Rightflipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
+    Case 2: Rightflipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
+    Case 3: Rightflipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
+    Case 4: Rightflipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
+    Case 5: Rightflipper.return = returnspeed * 1 :rfstep = rfstep + 1
+    Case 6: Rightflipper.timerenabled = 0 : rfstep = 1
+  end select
 end sub
 
 Sub SongPause_Timer
@@ -483,10 +483,10 @@ Sub Table1_KeyUp(ByVal keycode)
         If keycode = LeftFlipperKey Then SolLFlipper 0
         If keycode = RightFlipperKey Then SolRFlipper 0
     End If
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySound "fx_plunger",0,1,0.25,0.25
-	End If
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySound "fx_plunger",0,1,0.25,0.25
+  End If
 End Sub
 
 '*********
@@ -716,10 +716,10 @@ Sub CreateNewBall()
     BallRelease.Kick 90, 4
 
     ' if there is 2 or more balls then set the multibal flag (remember to check for locked balls and other balls used for animations)
-	' set the bAutoPlunger flag to kick the ball in play automatically
+  ' set the bAutoPlunger flag to kick the ball in play automatically
     If BallsOnPlayfield > 1 Then
         bMultiBallMode = True
-		bAutoPlunger = True
+    bAutoPlunger = True
     Else
       ' If ballsaver or front row then dont reset song and music
       If MusicFlag=False then
@@ -1057,8 +1057,8 @@ Sub Drain_Hit()
                case 1: PlaySound "audio570"   'Lets do that again
                case 2: PlaySound "audio573"
             End Select
-			' we kick the ball with the autoplunger
-			bAutoPlunger = True
+      ' we kick the ball with the autoplunger
+      bAutoPlunger = True
             ' you may wish to put something on a display or play a sound at this point
             if UseUDMD then UltraDMD.CancelRendering
             DisplayI(26)
@@ -1105,9 +1105,9 @@ Sub swPlungerRest_Hit()
     If bAutoPlunger Then
         debug.print "autofire the ball"
         PlungerIM.AutoFire
-		DOF 124, DOFPulse
-		DOF 121, DOFPulse
-		bAutoPlunger = False
+    DOF 124, DOFPulse
+    DOF 121, DOFPulse
+    bAutoPlunger = False
     End If
     ' resync target lights in case we may have chose Hotter Than Hell
     debug.print "swPlungerRest - resetting lights"
@@ -1135,8 +1135,8 @@ End Sub
 
 Sub swPlungerRest_UnHit()
     bBallInPlungerLane = False
-	DOF 141, DOFPulse
-	DOF 121, DOFPulse
+  DOF 141, DOFPulse
+  DOF 121, DOFPulse
     ' turn off LaunchLight
     LaunchLight.State = 0
     AutoPlungeTimer.enabled=False ' No longer autoplunge after 30s
@@ -1329,7 +1329,7 @@ Dim LStep, RStep
 Sub LeftSlingShot_Slingshot
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_slingshot",103,DOFPulse,DOFcontactors), 0, 1, -0.05, 0.05
-	DOF 105, DOFPulse
+  DOF 105, DOFPulse
     LeftSling4.Visible = 1:LeftSling1.Visible = 0
     LStep = 0
     LeftSlingShot.TimerEnabled = True
@@ -1350,7 +1350,7 @@ End Sub
 Sub RightSlingShot_Slingshot
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_slingshot",104,DOFPulse,DOFcontactors), 0, 1, 0.05, 0.05
-	DOF 106, DOFPulse
+  DOF 106, DOFPulse
     RightSling4.Visible = 1:RightSling1.Visible = 0
     RStep = 0
     RightSlingShot.TimerEnabled = True
@@ -1448,8 +1448,8 @@ End Sub
 
 ' SpinnerRod code from Cyperpez and http://www.vpforums.org/index.php?showtopic=35497
 Sub CheckSpinnerRod_timer()
-	SpinnerRod.TransZ = sin( (spinner.CurrentAngle+180) * (2*PI/360)) * 5
-	SpinnerRod.TransX = -1*(sin( (spinner.CurrentAngle- 90) * (2*PI/360)) * 5)
+  SpinnerRod.TransZ = sin( (spinner.CurrentAngle+180) * (2*PI/360)) * 5
+  SpinnerRod.TransX = -1*(sin( (spinner.CurrentAngle- 90) * (2*PI/360)) * 5)
 End Sub
 
 
@@ -1459,7 +1459,7 @@ End Sub
 
 Sub Spinner_Spin()
     PlaySound "fx_spinner", 0, 1, 0.1
-	DOF 136, DOFPulse
+  DOF 136, DOFPulse
     If Tilted Then Exit Sub
     FlashForMs SmallFlasher2, 500, 50, 0
     if NOT i122.state=LightStateOff then ' Super Spinner
@@ -1486,7 +1486,7 @@ End Sub
 Sub Bumper1_Hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_bumper",109,DOFPulse,DOFContactors), 0, 1, pan(ActiveBall)
-	DOF 138, DOFPulse
+  DOF 138, DOFPulse
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
@@ -1516,7 +1516,7 @@ End Sub
 Sub Bumper2_Hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_bumper",110,DOFPulse,DOFContactors), 0, 1, pan(ActiveBall)
-	DOF 140, DOFPulse
+  DOF 140, DOFPulse
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
@@ -1546,7 +1546,7 @@ End Sub
 Sub Bumper3_Hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_bumper",107,DOFPulse,DOFContactors), 0, 1, pan(ActiveBall)
-	DOF 137, DOFPulse
+  DOF 137, DOFPulse
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
@@ -1576,7 +1576,7 @@ End Sub
 Sub Bumper4_Hit
     If Tilted Then Exit Sub
     PlaySound SoundFXDOF("fx_bumper",108,DOFPulse,DOFContactors), 0, 1, pan(ActiveBall)
-	DOF 139, DOFPulse
+  DOF 139, DOFPulse
     RandomBD() ' If BD then move shot
     if NOT i61.state=LightStateOff then ' Super Bumpers score 200K for upto 50Hits
       BumperCnt(CurPlayer)=BumperCnt(CurPlayer)+1
@@ -1622,7 +1622,7 @@ End Sub
 Sub AwardExtraBall()
   debug.print "AwardExtraBall..."
 '    If NOT bExtraBallWonThisBall Then
-	    DOF 121, DOFPulse
+      DOF 121, DOFPulse
         ExtraBallsAwards(CurPlayer) = ExtraBallsAwards(CurPlayer) + 1
         bExtraBallWonThisBall = True
         DisplayI(15)
@@ -1744,12 +1744,12 @@ End Function
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
   Controller.Pause = False
-	Controller.Stop
-	If Not UltraDMD is Nothing Then
-		If UltraDMD.IsRendering Then
-			UltraDMD.CancelRendering
-		End If
-		UltraDMD = NULL
-	End If
+  Controller.Stop
+  If Not UltraDMD is Nothing Then
+    If UltraDMD.IsRendering Then
+      UltraDMD.CancelRendering
+    End If
+    UltraDMD = NULL
+  End If
 End Sub
 
