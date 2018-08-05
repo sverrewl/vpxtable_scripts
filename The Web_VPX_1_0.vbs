@@ -17,7 +17,7 @@
 ' Pinballwiz45b for continued table testing and rule adjustments
 ' Gigalula for the DMD color setting code
 
-Option Explicit 
+Option Explicit
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -25,18 +25,18 @@ If Err Then MsgBox Err
 On Error Goto 0
 
 '---------------------------
-'-----  Configuration  ----- 
+'-----  Configuration  -----
 '---------------------------
 'ResetHighscore						'enable to manually reset the Highscores
-	
-Const MusicActive = 1             	'set to 1 to enable Music, place the music files into the music folder   
+
+Const MusicActive = 1             	'set to 1 to enable Music, place the music files into the music folder
 Const DimFlashers = 0				'this value is added to the Flasher max. Alpha value, Minus is darker
 Const DimGI = -50					'this value is added to the GI Flasher Alpha value, Minus is darker
 Const BallsperGame = 3				'I added no Buy-In feature, so please use the number of Balls to reduce difficulty
 Const ApplyMods = 1					'1: additional Mods are active (Flasher, UFO shaking,Apron Sphere lights), 0: original table features only
-Const ChangeDMDColor = 0			'changes the DMD color if the default DMD color has been set before - set to 0 if You have problems writing to Your Registry 
+Const ChangeDMDColor = 0			'changes the DMD color if the default DMD color has been set before - set to 0 if You have problems writing to Your Registry
 Const DampeningSpeed = 45			'ball speed at which the dampening kicks in
-Const MaxTopSpeed = 17				'maximum velx at the top loop to make the ramp shot possible 
+Const MaxTopSpeed = 17				'maximum velx at the top loop to make the ramp shot possible
 
 Const cGameName = "theweb"
 
@@ -45,7 +45,7 @@ Sub TheWeb_Exit()
 	If UltraDMD.IsRendering Then
 		UltraDMD.CancelRendering
 	end if
-    UltraDMD = NULL 
+    UltraDMD = NULL
 
 	'------ UltraDMD Replace Default Color preference ------
 	'code provided by Gigalula
@@ -58,7 +58,7 @@ Sub TheWeb_Exit()
 End Sub
 
 '--------------------------
-'-----  The Web Init  ----- 
+'-----  The Web Init  -----
 '--------------------------
 
 '---------- UltraDMD Set Unique Table Color preference -------------
@@ -165,7 +165,7 @@ Sub TheWeb_init
 	randomize
 
 	EjectToRight = int(2*rnd)
-	
+
 	Plunger.Pullback
 	IdleTimer.enabled = True
 	StartAttractmode
@@ -173,7 +173,7 @@ End sub
 
 
 '------------------------
-'-----  Main Timer  ----- 
+'-----  Main Timer  -----
 '------------------------
 Dim i,HideAnimation
 Sub MainTimer_Timer
@@ -198,7 +198,7 @@ Sub MainTimer_Timer
 		if RightInlaneLight.state <> 0 then
 			RightInlaneLight.state = 0
 		end if
-	end if 
+	end if
 
 	'Top Rollover Bonus
 	if BonusLightArray(1) = 1 and BonusLightArray(2) = 1 and BonusLightArray(3) = 1 then
@@ -213,7 +213,7 @@ Sub MainTimer_Timer
 		if BonusLightArray(1) = 1 then:light1.state = lightstateon:else:light1.state = lightstateoff:end if
 		if BonusLightArray(2) = 1 then:light2.state = lightstateon:else:light2.state = lightstateoff:end if
 		if BonusLightArray(3) = 1 then:light3.state = lightstateon:else:light3.state = lightstateoff:end if
-	end if	
+	end if
 	Light1b.state = Light1.state
 	Light2b.state = Light2.state
 	Light3b.state = Light3.state
@@ -234,7 +234,7 @@ Sub MainTimer_Timer
 				BallSaverLight.state = LightstateOff
 			end if
 		end if
-	end if	
+	end if
 
 	'KickBack
 	if EnableKickBackTimer.enabled then
@@ -264,7 +264,7 @@ Sub MainTimer_Timer
 	end if
 
 	'ExtraBalls
-	ShootAgainLight.state = abs(Extraballs > 0)	
+	ShootAgainLight.state = abs(Extraballs > 0)
 
 	'Bumper deactivation
 	if LeftFlipperUp and RightFlipperUp then
@@ -278,7 +278,7 @@ Sub MainTimer_Timer
 	end if
 
 	'Modes
-	if not UltimateShowdownAcitve then	
+	if not UltimateShowdownAcitve then
 		if (QuickShotReady or SuperLauncherReady or ComboManiaReady or UltimateShowdownReady) and not MissionActive then
 			if StartModeLight.state = 0 then
 				StartModeLight.state = Lightstateblinking
@@ -287,7 +287,7 @@ Sub MainTimer_Timer
 			if StartModeLight.state <> 0 then
 				StartModeLight.state = 0
 			end if
-		end if	
+		end if
 
 		if VideoModeReady and (MultiBallBalls < 2) and not MissionActive and not QuickShotActive and not SuperlauncherActive and not ComboManiaActive then
 			if VideoModeLight.state = 0 then
@@ -349,22 +349,22 @@ Sub MainTimer_Timer
 	SetSphereLamp P_Sphere6, 6
 	SetSphereLamp P_Sphere7, 7
 	SetSphereLamp P_Sphere8, 8
-	
+
 end sub
 
 Sub SetSphereLamp(ObjPar,SCountPar)
-	if not UltimateShowdownAcitve then	
+	if not UltimateShowdownAcitve then
 		if ShowdownSpheres >= SCountPar then
 			ObjPar.image = "Bulb_Red_on"
 		else
 			ObjPar.image = "Bulb_Red_off"
-		end if	
+		end if
 	else
 		if ReserveBalls >= SCountPar then
 			ObjPar.image = "Bulb_Red_on"
 		else
 			ObjPar.image = "Bulb_Red_off"
-		end if	
+		end if
 	end if
 End Sub
 
@@ -380,7 +380,7 @@ Sub StartGame
 		GameActive = 1
 		Points = 0
 		Tilt = 0
-		BallsOnPF = 0 
+		BallsOnPF = 0
 		AutoPlungerActive = False
 		MissionActive = False
 		MissionCount = 1
@@ -435,7 +435,7 @@ Sub StartGame
 		DockAdditionalSpaceStationBall = False
 		MultiBallBalls = 0
 		LoopExtraBalls = 0
-		
+
 		VMTimerIntervall = VMTimerStartIntervall
 		VideoModeLock.isdropped = True
 		VideoModeActive = False
@@ -443,8 +443,8 @@ Sub StartGame
 		VMCount = 0
 		PerfectVMCount = 0
 
-		for each obj in GI: obj.state = 1:next			
-		SetB2SLamp 1,1	
+		for each obj in GI: obj.state = 1:next
+		SetB2SLamp 1,1
 
 		FirstBall = True
 		EnableIdleSound = True
@@ -481,7 +481,7 @@ Sub NextBall
 	StartMissionLight.State = Lightstateblinking
 	if BallsLocked > 0 then
 		BallsLocked = 0
-		LockLight.state = 0 
+		LockLight.state = 0
 		FastFrenzyBalls = 0
 	end if
 
@@ -509,7 +509,7 @@ Sub Drain_Hit()
 	Drain.DestroyBall
 	BallsOnPF = BallsOnPF - 1
 	playsound "drain2"
-	
+
 	if GracePeriod2.enabled then
 		BallsSaved = BallsSaved + 1
 		TroughHandler
@@ -535,22 +535,22 @@ Sub Drain_Hit()
 			PlayDrainAnimation
 			for each obj in GI: obj.state = 0:next
 
-			SetB2SLamp 1,0	
+			SetB2SLamp 1,0
 			TroughHandler
 		end if
-	end if	
+	end if
 End Sub
 
 Dim AutoPlungerActive,ShootAgain
 Sub	TroughHandler
 	if MultiBallBalls > 1 then
-		if BallsSaved > 0 then	
+		if BallsSaved > 0 then
 			BallReleaseTimer.enabled = True
 		else
 			'just destroy one of the Multiballs
 		end if
 	else
-		if BallsSaved > 0 then	
+		if BallsSaved > 0 then
 			BallReleaseTimer.enabled = True
 			if not hideanimation then
 				DMDDisplayScene "BS",True,BallSavedback, "", 8,14,"", 5,15, 14, 3000, 1
@@ -559,7 +559,7 @@ Sub	TroughHandler
 			DeactivateMissionsAndModes
 			SkillShot = 1
 			if ExtraBalls <= 0 then
-				BallInPlay = BallInPlay + 1	
+				BallInPlay = BallInPlay + 1
 			else
 				ExtraBalls = ExtraBalls - 1
 				ShootAgain = True
@@ -585,11 +585,11 @@ End Sub
 Sub BallReleaseTimer_Timer
 	Tilt = 0
 
-	if (BallsSaved > 0) then		
+	if (BallsSaved > 0) then
 		BallsSaved = BallsSaved - 1
 		AutoPlungerActive = True
 		GracePeriodActive = True
-		if (MultiBallBalls < 2) then 
+		if (MultiBallBalls < 2) then
 			if int(2*rnd) = 1 then
 				Playsound "W_BallSaved2",0,1,0,0
 			else
@@ -597,7 +597,7 @@ Sub BallReleaseTimer_Timer
 			end if
 		end if
 	end if
-	if BallsSaved = 0 then		
+	if BallsSaved = 0 then
 		BallReleaseTimer.enabled = False
 	end if
 	BallRelease.CreateBall
@@ -606,16 +606,16 @@ Sub BallReleaseTimer_Timer
 	if Shootagain then
 		DMDDisplayScene "Shoot",True,ShootAgainback, "", 8,14,"", 5,15, 14, 3000, 1
 		if int(2*rnd) = 1 then
-			Playsound "W_ShootAgain",0,1,0,0	
+			Playsound "W_ShootAgain",0,1,0,0
 		else
-			Playsound "W_ShootAgain2",0,1,0,0	
+			Playsound "W_ShootAgain2",0,1,0,0
 		end if
 		ShootAgain = False
 	else
 		UpdateDMDScore
 	end if
 	for each obj in GI: obj.state = 1:next
-	
+
 	SetB2SLamp 1,1
 	DOF 131, DOFPulse
 
@@ -638,7 +638,7 @@ Sub AutoPlungerTimer_Timer
 		Plunger.fire
 		Plunger.Timerenabled = True
 		DOF 132, DOFPulse
-	end if	
+	end if
 End Sub
 
 Sub BallLaunched_Hit
@@ -689,14 +689,14 @@ Sub AwardNextBonus
 						DMDDisplayScene "BX10",True,B10back, FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 1500, 1
 					end if
 				end if
-	case else	
+	case else
 		US_BonusLight.state = 1
 		MaxBonuspoints = MaxBonuspoints + 5000000
 		Addpoints(MaxBonuspoints)
 		if not Hideanimation then
 			DMDDisplayScene "BMax",True,BMaxback, FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(FormatPointText(cstr(MaxBonuspoints))), 5,15, 14, 1500, 1
 		end if
-	end select	
+	end select
 End Sub
 
 Dim MaxBonusPoints,BonusMultiplier
@@ -751,13 +751,13 @@ Sub ChangeBonusLight(direction)
 		BonusLightArray(1) = BonusLightArray(3)
 		BonusLightArray(3) = BonusLightArray(2)
 		BonusLightArray(2) = Temp
-	end if		
+	end if
 end sub
 
 
 '--- Skill Shot ---
 Sub SkillShotTrigger_Hit
-	if SkillShot = 1 then 
+	if SkillShot = 1 then
 		SkillShotTimer.enabled = True
 		DockRampSpider.state = Lightstateblinking
 	end if
@@ -776,9 +776,9 @@ End Sub
 
 Dim DiverterOpen
 Sub TopRampMade_Hit
-	JackpotValue = JackpotValue + 1000000	
+	JackpotValue = JackpotValue + 1000000
 	DOF 138, DOFPulse
-	if not HideAnimation then	
+	if not HideAnimation then
 		UpdateDMDText "Main","","JACKPOT  VALUE","",FormatPointText(cstr(JackpotValue))
 	end if
 
@@ -800,7 +800,7 @@ Sub TopRampMade_Hit
 
 	if SuperLauncherActive then
 		TopRampDiverter.rotatetostart
-		AdvanceSuperLauncher		
+		AdvanceSuperLauncher
 	else
 		if SpaceStationFrenzyActive then
 			if UltraJackpotLight.state <> 0 then
@@ -816,13 +816,13 @@ Sub TopRampMade_Hit
 			if Quickshotactive then
 				DiverterOpen = EjectToRight
 			end if
-			
+
 			if DiverterOpen then
 				TopRampDiverter.rotatetoend
-			else	
+			else
 				TopRampDiverter.rotatetostart
-			end if	
-			
+			end if
+
 			if Skillshot = 1 then
 				SkillShotTimer.enabled = False
 				DockRampSpider.state = Lightstateoff
@@ -871,7 +871,7 @@ Sub LeftKicker_Hit()
 	if not FastFrenzyActive and not SpaceStationFrenzyActive then
 		if HuntDownActive and (LeftHolespider.state <> 0) then
 			AdvanceHuntDownScore
-		end if	
+		end if
 
 		if UltimateShowdownActive then
 			AwardUSPoints
@@ -888,7 +888,7 @@ Sub LeftKicker_Hit()
 				else
 					if VideoModeLight.state <> 0 then
 						VideoModeLight.state = 0
-						DeactivateMissionsAndModes	
+						DeactivateMissionsAndModes
 						SkipKick = True
 						StartVideoMode False
 					else
@@ -909,7 +909,7 @@ Sub LeftKicker_Hit()
 										DeactivateMissionsAndModes
 										StartSecretMania
 										SkipKick = True
-									end if						
+									end if
 								else
 									select case BallsLocked
 										case 1: PlayNextsound "W_Ball1Locked"
@@ -921,7 +921,7 @@ Sub LeftKicker_Hit()
 									end if
 								end if
 							end if
-						end if			
+						end if
 					end if
 				end if
 			end if
@@ -944,18 +944,18 @@ End Sub
 Dim PickTime,PickChoice
 Sub TakeYourPick
 	playNextsound "W_TakeYourPick"
-	PickTime = 8	
-	PickChoice = 1	
+	PickTime = 8
+	PickChoice = 1
 	FrenzyPickTimer.enabled = True
 	UpdateDMDText "Main","","Take Your Pick","","(2) 3  4  ? :" & cstr(PickTime)
 End Sub
 
 Sub ChangePick(PickChangeDir)
 	PickChoice = Pickchoice + PickchangeDir
-	if Pickchoice > 4 then 
+	if Pickchoice > 4 then
 		Pickchoice = 1
 	end if
-	if Pickchoice < 1 then 
+	if Pickchoice < 1 then
 		Pickchoice = 4
 	end if
 	select case PickChoice
@@ -963,7 +963,7 @@ Sub ChangePick(PickChangeDir)
 		case 2: UpdateDMDText "Main","","Take Your Pick",""," 2 (3) 4  ? :" & cstr(PickTime)
 		case 3: UpdateDMDText "Main","","Take Your Pick",""," 2  3 (4) ? :" & cstr(PickTime)
 		case 4: UpdateDMDText "Main","","Take Your Pick",""," 2  3  4 (?):" & cstr(PickTime)
-	end select	
+	end select
 End Sub
 
 Sub FrenzyPickTimer_Timer
@@ -973,7 +973,7 @@ Sub FrenzyPickTimer_Timer
 		case 2: UpdateDMDText "Main","","Take Your Pick",""," 2 (3) 4  ? :" & cstr(PickTime)
 		case 3: UpdateDMDText "Main","","Take Your Pick",""," 2  3 (4) ? :" & cstr(PickTime)
 		case 4: UpdateDMDText "Main","","Take Your Pick",""," 2  3  4 (?):" & cstr(PickTime)
-	end select	
+	end select
 	if Picktime <= 0 then
 		FastFrenzyPickMade
 	end if
@@ -984,7 +984,7 @@ Sub FastFrenzyPickMade
 	FrenzyPickTimer.enabled = False
 	select case PickChoice
 		case 1: FastFrenzyBalls = 2
-				BallsLocked = 1	
+				BallsLocked = 1
 				PlayNextsound "W_Ball1Locked"
 				UpdateDMDText "Main","",Text1,"","Ball 1  Locked"
 		case 2: FastFrenzyBalls = 3
@@ -999,14 +999,14 @@ Sub FastFrenzyPickMade
 					DockAdditionalSpaceStationBall = True
 					PlayNextsound "W_Ball1Locked"
 					UpdateDMDText "Main","",Text1,"","MYSTERY"
-					LockLight.state = 0	
+					LockLight.state = 0
 				else
 					FastFrenzyBalls = 5
 					BallsLocked = 1
 					PlayNextsound "W_Ball1Locked"
 					UpdateDMDText "Main","",Text1,"","MYSTERY"
 				end if
-	end select		
+	end select
 	TroughLeftHoleKicker.CreateBall
 	TroughLeftHoleKicker.kick 180, 1
 End Sub
@@ -1041,7 +1041,7 @@ Sub StartFastFrenzy
 
 	if ExplosionFF then
 		ExplosionFF = False
-	else	
+	else
 		TroughLeftHoleKicker.CreateBall
 		TroughLeftHoleKicker.kick 180, 1
 	end if
@@ -1049,7 +1049,7 @@ Sub StartFastFrenzy
 		case 2:	'normal Left VUK
 		case 3: RightRampVUK.CreateBall
 				RightRampVUK.kick 195, 1
-				BallsonPF = BallsonPF + 1	
+				BallsonPF = BallsonPF + 1
 				DOF 135, DOFPulse
 				DOF 136, DOFPulse
 		case 4: RightRampVUK.CreateBall
@@ -1090,27 +1090,27 @@ Sub AwardFFJackpot
 		case 2: playnextsound "W_VeryGood"
 		case 3: playnextsound "W_Lucky"
 	end select
-	if DT1.isdropped then	
+	if DT1.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT2.isdropped then	
+	if DT2.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT3.isdropped then	
+	if DT3.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT4.isdropped then	
+	if DT4.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT5.isdropped then	
+	if DT5.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT6.isdropped then	
+	if DT6.isdropped then
 		DTCount = DTCount + 1
 	end if
 	if DTCount = 6 then
 		DTCount = 10
-	end if	
+	end if
 	FFJackpot = 1000000 * DTCount * FastFrenzyBalls * (BallsonPF + FastFrenzyCount)
 	if FFJackpot < 6000000 then
 		FFJackpot = 6000000
@@ -1145,32 +1145,32 @@ Sub EndFastFrenzy
 	playnextmusic(MainTheme)
 	MultiBallBalls = 0
 	BallsLocked = 0
-	if DT1.isdropped then	
+	if DT1.isdropped then
 		DT1Light.state = 1
 	else
 		DT1Light.state = 0
 	end if
-	if DT2.isdropped then	
+	if DT2.isdropped then
 		DT2Light.state = 1
 	else
 		DT2Light.state = 0
 	end if
-	if DT3.isdropped then	
+	if DT3.isdropped then
 		DT3Light.state = 1
 	else
 		DT3Light.state = 0
 	end if
-	if DT4.isdropped then	
+	if DT4.isdropped then
 		DT4Light.state = 1
 	else
 		DT4Light.state = 0
 	end if
-	if DT5.isdropped then	
+	if DT5.isdropped then
 		DT5Light.state = 1
 	else
 		DT5Light.state = 0
 	end if
-	if DT6.isdropped then	
+	if DT6.isdropped then
 		DT6Light.state = 1
 	else
 		DT6Light.state = 0
@@ -1189,10 +1189,10 @@ End Sub
 
 Dim PrevRow,VMScore,VMLifes,VMText,ItemDestroyed,VMTimerIntervall,VMCount,PerfectVMCount,ErrorMade,ActiveVMImage,VMLoopCount,ItemCount,VideoModeActive,WaitOneFrame,FireExplosionVUK
 Dim Row(100),VM(100)
-Const WaveItems = 78					'77 items, start at 1 
+Const WaveItems = 78					'77 items, start at 1
 Const VMTimerStartIntervall = 80		'Video Mode initial speed
 Const WaveChange = 3					'speed step for each of the 6 waves within one Video Mode
-Const VMChange = 8						'speed step for the next Video Mode 
+Const VMChange = 8						'speed step for the next Video Mode
 
 Sub StartVideoMode(ExplosionVUKPar)
 	SetB2SLamp 1,0
@@ -1221,7 +1221,7 @@ Sub StartVideoMode(ExplosionVUKPar)
 		end Select
 
 		'Atom
-		if (i=12) or (i=24) or (i=36) or (i=48) or (i=60) or (i=73) then	
+		if (i=12) or (i=24) or (i=36) or (i=48) or (i=60) or (i=73) then
 			VM(i) = 2
 		end if
 
@@ -1265,7 +1265,7 @@ Sub VMStartTimer_Timer
 		UltraDMDTimer.Enabled = False
 		UltraDMD.CancelRendering
 	end if
-	UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText 
+	UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText
 End Sub
 
 Sub VMTimer_Timer
@@ -1285,10 +1285,10 @@ Sub VMTimer_Timer
 					case 1: if not ItemDestroyed then			'Mine
 								playsound "W_VMMineHit"
 								UltraDMD.SetScoreboardBackgroundImage "X_1.png", 15, 15
-								UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText 
+								UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText
 								ErrorMade = True
 								VMLifes = VMLifes - 1
-								if VMLifes < 0 then	
+								if VMLifes < 0 then
 									EndVM
 									Exit Sub
 								end if
@@ -1306,14 +1306,14 @@ Sub VMTimer_Timer
 								DOF 123, DOFPulse
 							end if
 				end select
-				if not WaitOneFrame then 
+				if not WaitOneFrame then
 					VMLoopCount = 0
 					if VM(Itemcount) = 2 then								'increase speed after each wave (Atom)
 						VMTimer.Interval = VMTimer.Interval - WaveChange
 						if VMTimer.Interval < 1 then
 							VMTimer.Interval = 1
 						end if
-						VMTimer.enabled = False	
+						VMTimer.enabled = False
 						VMTimer.enabled = True
 					end if
 					ItemCount = Itemcount + 1
@@ -1321,12 +1321,12 @@ Sub VMTimer_Timer
 						EndVM
 						exit sub
 					end if
-					ItemDestroyed = False				
+					ItemDestroyed = False
 				end if
 			end if
 
 			if (ItemCount <= WaveItems) and not WaitOneFrame then
-				select case VMLifes 
+				select case VMLifes
 					case 1: VMText = "              0"
 					case 2: VMText = "             00"
 					case 3: VMText = "            000"
@@ -1372,11 +1372,11 @@ Sub VMTimer_Timer
 											ActiveVMImage = "X_R_8.png"
 										end if
 						end select
-					end if		
+					end if
 				end if
 
 				UltraDMD.SetScoreboardBackgroundImage ActiveVMImage, 15, 15
-				UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText 
+				UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText
 			end if
 			if WaitOneFrame then
 				WaitOneFrame = False
@@ -1387,7 +1387,7 @@ End Sub
 
 Sub ShootVMItem(DirectionPar)
 	if Directionpar = "Right" then
-		RightShotTimer.enabled = True	
+		RightShotTimer.enabled = True
 		playsound "W_VMShotRight"
 	else
 		LeftShotTimer.enabled = True
@@ -1403,16 +1403,16 @@ Sub ShootVMItem(DirectionPar)
 				case 2: ErrorMade = True							'Atom
 						playsound "W_VMMineHit"
 						VMLifes = VMLifes - 1
-						if VMLifes < 0 then	
+						if VMLifes < 0 then
 							EndVM
 						end if
-						select case VMLifes 
+						select case VMLifes
 							case 1: VMText = "              0"
 							case 2: VMText = "             00"
 							case 3: VMText = "            000"
 							case else: VMText = ""
 						end select
-						UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText	
+						UltraDMD.DisplayScoreboard 0, 0, 0, 0, 0, 0, FormatPointText(cstr(points)), VMText
 				case 3: ErrorMade = True							'EB
 			end select
 		end if
@@ -1433,12 +1433,12 @@ Sub EndVM
 		VMTimerIntervall = VMTimerIntervall - VMChange
 	end if
 
-	if VMLifes < 0 then	
+	if VMLifes < 0 then
 		'VM Lost
 		select case int(3*rnd)
 			case 0: playsound "W_VMLost"
 			case 1: playsound "W_VMLost2"
-			case 2: playsound "W_ByeBye"	
+			case 2: playsound "W_ByeBye"
 		end select
 	else
 		'Success
@@ -1478,7 +1478,7 @@ Sub VMRestartGameTimer_Timer
 	if FireExplosionVUK then
 		VUKFire
 	else
-		if LockLight.state <> 0 then 
+		if LockLight.state <> 0 then
 			if BallsLocked = 0 then
 				TakeYourPick
 			else
@@ -1502,7 +1502,7 @@ Sub VMRestartGameTimer_Timer
 		else
 			TroughLeftHoleKicker.CreateBall
 			TroughLeftHoleKicker.kick 180, 1
-		end if			
+		end if
 	end if
 End Sub
 
@@ -1556,10 +1556,10 @@ Sub DockBallLock_Timer
 	if BallsDocked = 3 then		'Start Space Station Frenzy
 		FlashB2SLamp 51,2
 		SpaceStationFrenzyActive = True
-		PrepareUltraJackpot = False	
+		PrepareUltraJackpot = False
 		UltraJackpotready = False
 		SpaceStationJackpots = 0
-		DockBallLock.enabled = False	
+		DockBallLock.enabled = False
 		Docklight.state = 0
 		StartModeLightState = StartModeLight.State
 		StartMissionLightState = StartMissionLight.State
@@ -1596,7 +1596,7 @@ Sub DockBallLock_Timer
 		GracePeriod2.interval = 25000
 		StartBallSaver
 		JPTimer.enabled = True
-		Jackpotlight.state = Lightstateblinking	
+		Jackpotlight.state = Lightstateblinking
 	end if
 	GracePeriod.interval  =  9000
 	GracePeriod1.interval = 12000
@@ -1640,10 +1640,10 @@ Sub AwardSpaceStationJackpot
 		SpaceStationJackpots = 1
 		Addpoints(JackpotValue)
 	end if
-	select case SpaceStationJackpots 
+	select case SpaceStationJackpots
 		case 1:	PlayNextSound "W_Jackpot"
 				AwardedScore = Jackpotvalue
-				DMDDisplayScene "SSJack",True,SSJackback,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 4000, 14	
+				DMDDisplayScene "SSJack",True,SSJackback,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 4000, 14
 		case 2:	PlayNextSound "W_DoubleJackpot"
 				AwardedScore = Jackpotvalue * 2
 				DMDDisplayScene "SSJack",True,SSJack2back,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 4500, 14
@@ -1653,7 +1653,7 @@ Sub AwardSpaceStationJackpot
 	end select
 	SSJackpotTimer.enabled = True
 	if SpaceStationJackpots = 3 then
-		SuperJackpotLight.state = Lightstateblinking	
+		SuperJackpotLight.state = Lightstateblinking
 		PlayNextSound "W_SuperJackpotLit"
 	end if
 End Sub
@@ -1673,7 +1673,7 @@ Sub AwardCowJackpot
 	CowJackpotTimer.enabled = True
 	addpoints(JackpotValue * 3)
 	DOF 139, DOFPulse
-	PlayNextSound "W_CowJackpot"	
+	PlayNextSound "W_CowJackpot"
 End Sub
 
 Sub CowJackpotTimer_Timer
@@ -1697,7 +1697,7 @@ Sub AwardSpaceStationSuperJackpot
 	SuperJackpotLight.state = 0
 	SpaceStationJackpots = 0
 	CowJackpotReady = True
-	Addpoints(JackpotValue * 5) 
+	Addpoints(JackpotValue * 5)
 	DOF 139, DOFPulse
 	DTDropUp 0
 	if PrepareUltraJackpot then
@@ -1745,7 +1745,7 @@ Sub SSSJackpotTimer_Timer
 		PlayNextSound "W_SuperJackpot"
 		UpdateDMDText "SSSJack","","","",FormatPointText(cstr(Jackpotvalue*5))
 	end if
-	
+
 	if SSJP >= 3 then
 		SSSJackpotTimer.enabled = False
 		FlashLeft 1
@@ -1779,7 +1779,7 @@ Sub AwardSpaceStationUltraJackpot
 	SSUJackpotTimer.enabled = True
 	DMDDisplayScene "SSUJack",True,SSUJackback,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 6500, 14
 	UltraJackpotLight.state = 0
-	Addpoints(JackpotValue * 10) 
+	Addpoints(JackpotValue * 10)
 	US_UltraLight.state = 1
 	OverloadLight.state = 0
 	DT1Light.state = 0
@@ -1860,7 +1860,7 @@ Sub AwardNextCombo
 		end if
 		for i = 1 to ActualComboCount
 			TotalComboCount = TotalComboCount + 1
-			if (TotalComboCount mod 15 = 0) and not CombomaniaActive then	
+			if (TotalComboCount mod 15 = 0) and not CombomaniaActive then
 				ComboManiaReady = True
 			end if
 		next
@@ -1905,10 +1905,10 @@ Sub AwardNextCombo
 					case 4:	playsound "W_VeryGood"
 					case 5:	playsound "W_YesYesYes"
 					case 6:	playsound "W_Unbelievable"
-					case 7:	PlaySound "W_Yeehaa"	
+					case 7:	PlaySound "W_Yeehaa"
 				end select
 			end if
-		else	
+		else
 			addpoints(1000000*Actualcombocount)
 			DOF 139, DOFPulse
 			select case ActualComboCount
@@ -1962,7 +1962,7 @@ Sub ComboStatusTimer_Timer
 	ComboStatusTimer.enabled = False
 	if not hideanimation and not CombomaniaActive then
 		if ComboManiaReady then
-			UpdateDMDText "Main","","COMBOMANIA READY","",""	
+			UpdateDMDText "Main","","COMBOMANIA READY","",""
 		else
 			UpdateDMDText "Main","","COMBOMANIA  IN","",cstr(15 - (TotalComboCount mod 15))
 		end if
@@ -1970,7 +1970,7 @@ Sub ComboStatusTimer_Timer
 End Sub
 
 
-Sub RightRampComboTrigger_Hit 
+Sub RightRampComboTrigger_Hit
 	if not SkillShotComboTimer.enabled then
 		ActivateNextComboShots("RightRamp")
 		if ComboTimer.enabled then
@@ -1980,7 +1980,7 @@ Sub RightRampComboTrigger_Hit
 	end if
 End Sub
 
-Sub LeftRampComboTrigger_Hit 
+Sub LeftRampComboTrigger_Hit
 	if not SkillShotComboTimer.enabled then
 		ActivateNextComboShots("LeftRamp")
 		if ComboTimer.enabled then
@@ -1990,14 +1990,14 @@ Sub LeftRampComboTrigger_Hit
 	end if
 End Sub
 
-Sub RightRampComboTrigger1_Hit 
+Sub RightRampComboTrigger1_Hit
 	if ComboTimer.enabled then
 		ComboTimer.enabled = False
 		ComboTimer.enabled = True
 	end if
 End Sub
 
-Sub LeftRampComboTrigger1_Hit 
+Sub LeftRampComboTrigger1_Hit
 	if ComboTimer.enabled then
 		ComboTimer.enabled = False
 		ComboTimer.enabled = True
@@ -2097,7 +2097,7 @@ Sub ActivateNextComboShots(ComboPar)
 	if MultiBallBalls < 2 then
 		if not ComboManiaActive and not HuntDownActive and not ShuttleActive and not BikeRaceActive and not SkyscraperActive and not SecretManiaActive and not UltimateShowdownActive then
 			DeactivateComboShotLights
-			Select case ComboPar 
+			Select case ComboPar
 				case "RightOrbit":
 					LoopSpider.state = Lightstateblinking
 					LoopSpider.UserValue = 1
@@ -2117,9 +2117,9 @@ Sub ActivateNextComboShots(ComboPar)
 					LeftRampSpider.UserValue = 1
 					LeftOrbitSpider.state = Lightstateblinking
 					LeftOrbitSpider.UserValue = 1
-			end select	
+			end select
 		else
-			Select case ComboPar 
+			Select case ComboPar
 				case "RightOrbit":
 					LoopSpider.UserValue = 1
 					DockRampSpider.UserValue = 1
@@ -2132,7 +2132,7 @@ Sub ActivateNextComboShots(ComboPar)
 				case "RightRamp":
 					LeftRampSpider.UserValue = 1
 					LeftOrbitSpider.UserValue = 1
-			end select	
+			end select
 		end if
 	end if
 End Sub
@@ -2173,7 +2173,7 @@ Sub LoopTopTrigger_Hit
 		if MultiBallBalls < 2 then
 			RightPowerLevelTimer.enabled = False
 			RightPowerLevelTimer.enabled = True
-			if not SkyscraperActive and not Quickshotactive then	
+			if not SkyscraperActive and not Quickshotactive then
 				AdvanceRightPowerlevelLight.state = Lightstateblinking
 			end if
 		end if
@@ -2201,7 +2201,7 @@ Sub LoopTopTrigger_Hit
 
 	'Speed Control
 	if abs(Activeball.velx) > MaxTopSpeed then
-		Activeball.velx = MaxTopSpeed * (Activeball.velx)/abs(Activeball.velx) 
+		Activeball.velx = MaxTopSpeed * (Activeball.velx)/abs(Activeball.velx)
 	end if
 
 End Sub
@@ -2257,7 +2257,7 @@ End Sub
 Sub LeftOrbit_hit
 	if LoopTimer.enabled then
 		FlashB2SLamp 50,1
-		TotalLoopCount = TotalLoopCount + 1	
+		TotalLoopCount = TotalLoopCount + 1
 		if NextLoopTimer.enabled then
 			LoopCount = LoopCount + 1
 		else
@@ -2269,7 +2269,7 @@ Sub LeftOrbit_hit
 		end if
 
 		addpoints(5000000 * LoopCount)
-		
+
 		if BikeRaceActive then
 			if LoopSpider.state <> 0 then
 				AdvanceBikeRaceScore(True)
@@ -2359,7 +2359,7 @@ end Sub
 Sub EBLight_Timer
 	EBLight.Timerenabled = False
 	EBLight.state = 0
-End Sub	
+End Sub
 
 '--- Reactor and Drop Targets ---
 Sub DT1_Hit
@@ -2463,7 +2463,7 @@ Sub DT4_Hit
 			DT4Light.state = 1
 			CheckFastFrenzy
 			CheckSpaceStationFrenzy
-		end if	
+		end if
 	end if
 	AdvanceShuttleRampValue
 	AwardUSPoints
@@ -2492,7 +2492,7 @@ Sub DT5_Hit
 			DT5Light.state = 1
 			CheckFastFrenzy
 			CheckSpaceStationFrenzy
-		end if		
+		end if
 	end if
 	AdvanceShuttleRampValue
 	AwardUSPoints
@@ -2521,7 +2521,7 @@ Sub DT6_Hit
 			DT6Light.state = 1
 			CheckFastFrenzy
 			CheckSpaceStationFrenzy
-		end if	
+		end if
 	end if
 	AdvanceShuttleRampValue
 	AwardUSPoints
@@ -2584,10 +2584,10 @@ Sub ReactorHole_Hit()
 		else
 			Playsound "Drain3",0,0.3,0.1,0.25
 			if ReactorCriticalActive = False then
-				if not FastFrenzyActive and not SpaceStationFrenzyActive and not SecretManiaActive then		
+				if not FastFrenzyActive and not SpaceStationFrenzyActive and not SecretManiaActive then
 					if DT3Light.state = 0 then
 						DT3Light.state = 1
-					else	
+					else
 						if DT4Light.state = 0 then
 							DT4Light.state = 1
 						else
@@ -2607,7 +2607,7 @@ Sub ReactorHole_Hit()
 						end if
 					end if
 				end if
-			else	
+			else
 				if Reactorcompletion >= 99 then
 					Reactorcompletion = 100
 					EndReactorCritical
@@ -2626,7 +2626,7 @@ Sub ReactorHole_Hit()
 
 	if HuntDownActive and (ReactorHolespider.state <> 0) then
 		AdvanceHuntDownScore
-	end if	
+	end if
 
 	if SecretManiaActive then
 		AwardSecretManiaScore
@@ -2657,7 +2657,7 @@ End Sub
 Sub CheckDropTargets
 	if not FastFrenzyActive and not SpaceStationFrenzyActive and not ReactorCriticalActive and not SecretManiaActive then
 		if DT1.isdropped and DT2.isdropped and DT3.isdropped then
-			DTDropUp 1	
+			DTDropUp 1
 		end if
 		if DT4.isdropped and DT5.isdropped and DT6.isdropped then
 			DTDropUp 2
@@ -2679,14 +2679,14 @@ Sub CheckDropTargets
 				if DockLight.state = 0 then
 					DMDDisplayScene "DockLit",True,DockLitback, "", 8,14,"", 5,15, 14, 2400, 14
 					DockLight.state = 1
-					PlayNextsound "W_DockIsLit"					
+					PlayNextsound "W_DockIsLit"
 				end if
 			end if
 		end if
-	end if 
+	end if
 End Sub
 
-Sub DTDropUp(BankPar) 
+Sub DTDropUp(BankPar)
 	Playsound "TargetBankReset1",0,0.2,0.05,0.25
 	if (BankPar = 1) or (BankPar = 0) then
 		DT1.isdropped = False
@@ -2773,7 +2773,7 @@ Sub LeftRampMade_Hit
 			else
 				if not missionactive then
 					playsound "W_LeftRamp"
-				end if	
+				end if
 			end if
 		end if
 	end if
@@ -2800,7 +2800,7 @@ End Sub
 
 Sub IncreaseRampCount
 	LeftRampCount = LeftRampCount + 1
-	if (LeftRampCount = 1) or (LeftRampCount mod 5 = 0) then 
+	if (LeftRampCount = 1) or (LeftRampCount mod 5 = 0) then
 		if not FastFrenzyActive and not UltimateShowdownActive then
 			if (LockLight.state = 0) and (LockLightstate = 0) then
 				PlayNextSound "W_LockIsLit"
@@ -2814,7 +2814,7 @@ Sub IncreaseRampCount
 		end if
 	end if
 
-	if (LeftRampCount = 20) or (LeftRampCount mod 50 = 0) then 
+	if (LeftRampCount = 20) or (LeftRampCount mod 50 = 0) then
 		if not HideAnimation then
 			DMDDisplayScene "EBLit",True,EBLitback, "", 8,14,"", 5,15, 14, 2500, 1
 		end if
@@ -2860,7 +2860,7 @@ Sub MissionKicker_Hit()
 	Playsound "Drain3",0,0.3,0,0.25
 	if EBLight.state <> 0 then
 		if EBLight.Timerenabled then
-			EBLight.Timerenabled = False	
+			EBLight.Timerenabled = False
 			LoopExtraBalls = LoopExtraBalls + 1
 		end if
 		EBLight.state = 0
@@ -2915,7 +2915,7 @@ Sub ProcessMissionKicker
 					end if
 				end if
 			else
-				if not QuickshotActive and not SuperLauncherActive and not ComboManiaActive and not MissionActive then 
+				if not QuickshotActive and not SuperLauncherActive and not ComboManiaActive and not MissionActive then
 					if StartModeLight.state <> 0 then
 						if QuickShotReady then
 							StartQuickShot
@@ -2957,9 +2957,9 @@ Sub ProcessMissionKicker
 									MissionCount = MissionCount + 1
 								else
 									PlayNextSound "W_Mission"
-									select case M 
+									select case M
 										case 0:	StartReactorCritical
-										case 1:	StartHuntDown	
+										case 1:	StartHuntDown
 										case 2: StartBikeRace
 										case 3: StartAmmoDump
 										case 4: StartSkyscraper
@@ -2978,7 +2978,7 @@ Sub ProcessMissionKicker
 
 	if not QuickShotActive then
 		EjectToRight = not EjectToRight
-	end if	
+	end if
 
 	if SuperLauncherActive then
 		EjectToRight = False
@@ -3031,7 +3031,7 @@ Sub MysteryTarget_Hit
 		BikeRaceMystery
 	end if
 	if UltimateShowdownActive then
-		UltimateShowdownMystery	
+		UltimateShowdownMystery
 	end if
 End Sub
 
@@ -3048,7 +3048,7 @@ M_Shuttle = 0'1
 MissionLights = Array(MissionLightReactor,MissionLightHuntDown,MissionLightBikeRace,MissionLightAmmoDump,MissionLightSkyScraper,MissionLightShuttle)
 MissionsComplete = Array(M_Reactor,M_HuntDown,M_BikeRace,M_AmmoDump,M_SkyScraper,M_Shuttle)
 Sub AdvanceMission
-	if MissionsComplete(0) and MissionsComplete(1) and MissionsComplete(2) and MissionsComplete(3) and MissionsComplete(4) and MissionsComplete(5) then 	
+	if MissionsComplete(0) and MissionsComplete(1) and MissionsComplete(2) and MissionsComplete(3) and MissionsComplete(4) and MissionsComplete(5) then
 		mission7active = True
 		for each obj in MissionLights
 			obj.state = 0
@@ -3060,13 +3060,13 @@ Sub AdvanceMission
 			MissionLights(M).state = 0
 		end if
 		M = M + 1
-		if M > 5 then 
+		if M > 5 then
 			M = 0
 		end if
 		for i = 1 to 5
 			if MissionsComplete(M) = 1 then
 				M = M + 1
-				if M > 5 then 
+				if M > 5 then
 					M = 0
 				end if
 			end if
@@ -3087,7 +3087,7 @@ Sub ResetMissions
 		MissionsComplete(i) = 0
 	next
 
-	select case AnimM 
+	select case AnimM
 		case 0: M = 0
 		case 1: M = 1
 		case 2: M = 3
@@ -3105,12 +3105,12 @@ Sub Mission7AnimationTimer_Timer
 	for each obj in MissionLights
 		obj.state = 0
 	next
-	
+
 	AnimM= AnimM + 1
-	if AnimM > 5 then 
+	if AnimM > 5 then
 		AnimM = 0
 	end if
-	select case AnimM 
+	select case AnimM
 		case 0: M = 0
 		case 1: M = 1
 		case 2: M = 3
@@ -3139,8 +3139,8 @@ Sub StartReactorCritical
 	DT6Light.state = Lightstateblinking
 	OverloadLight.state = Lightstateblinking
 	MysteryLight.state = Lightstateblinking
-	ReactorHoleSpider.state = 0	
-	ReactorMagnetWasLit = (LightMagnetLight.state = 1)	
+	ReactorHoleSpider.state = 0
+	ReactorMagnetWasLit = (LightMagnetLight.state = 1)
 	ExplosionLightState = ExplosionLight.State
 	LockLightState = LockLight.state
 	if LockLight.state <> 0 and BallsLocked = 0 then
@@ -3148,7 +3148,7 @@ Sub StartReactorCritical
 	end if
 	ExplosionLight.State = 0
 	LightMagnetLight.state = 0
-	ReactorCompletion = 0	
+	ReactorCompletion = 0
 	ReactorTimeCount = 51
 	DMDStartMission "Reactor",51
 	ReactorTimer.enabled = True
@@ -3194,7 +3194,7 @@ Sub AddReactorScore
 		OverloadLight.state = 0
 		MysteryLight.state = 0
 	end if
-	UpdateDMDMission ReactorTimeCount,cstr(ReactorCompletion) 
+	UpdateDMDMission ReactorTimeCount,cstr(ReactorCompletion)
 End Sub
 
 Sub EndReactorCritical
@@ -3213,7 +3213,7 @@ Sub EndReactorCritical
 	else
 		Playsound "W_Explosion"
 	end if
-	DMDEndMission MissionTotal		
+	DMDEndMission MissionTotal
 	OverloadLight.state = 0
 	MysteryLight.state = 0
 	ReactorHoleSpider.state = 0
@@ -3241,12 +3241,12 @@ Sub StartHuntDown
 	SkillShot = 0
 	MissionActive = True
 	HuntDownActive = True
-	HuntDownCompletion = 0	
+	HuntDownCompletion = 0
 	MissionTotal = 0
 	HuntDownTimeCount = 64
 	DMDStartMission "HuntDown",64
 	MysteryLight.state = Lightstateblinking
-	ActiveHole = int(4*rnd)	
+	ActiveHole = int(4*rnd)
 	ReactorHoleSpider.state = 0
 	LeftHoleSpider.state = 0
 	MissionHoleSpider.state = 0
@@ -3318,7 +3318,7 @@ Sub AdvanceHuntDownScore
 		ExplosionHoleSpider.state = 0
 		MysteryLight.state = Lightstateblinking
 	else
-		for i = 1 to int(3*rnd+1)	
+		for i = 1 to int(3*rnd+1)
 			ActiveHole = ActiveHole + 1
 			if ActiveHole > 3 then
 				ActiveHole = 0
@@ -3379,7 +3379,7 @@ Sub StartAmmoDump
 	if LockLight.state <> 0 and BallsLocked = 0 then
 		LockLight.state = 0
 	end if
-	AmmoDumpCompletion = 0	
+	AmmoDumpCompletion = 0
 	AmmoDumpTimeCount = 53
 	MissionTotal = 0
 	DMDStartMission "AmmoDump",53
@@ -3418,7 +3418,7 @@ Sub AdvanceAmmoDumpScore
 	if AmmoDumpCompletion >= 100 then
 		EndAmmoDump
 	else
-		UpdateDMDMission cstr(AmmoDumpTimeCount),cstr(AmmoDumpCompletion)	
+		UpdateDMDMission cstr(AmmoDumpTimeCount),cstr(AmmoDumpCompletion)
 	end if
 End Sub
 
@@ -3455,7 +3455,7 @@ Sub StartShuttle
 	SkillShot = 0
 	MissionActive = True
 	ShuttleActive = True
-	ShuttleCompletion = 0	
+	ShuttleCompletion = 0
 	ShuttleTimeCount = 50
 	MissionTotal = 0
 	DMDStartMission "Shuttle",50
@@ -3561,7 +3561,7 @@ Sub StartBikeRace
 	SkillShot = 0
 	MissionActive = True
 	BikeRaceActive = True
-	BikeRaceCompletion = 0	
+	BikeRaceCompletion = 0
 	BikeRaceTimeCount = 67
 	MissionTotal = 0
 	DMDStartMission "BikeRace",67
@@ -3661,7 +3661,7 @@ Sub AdvanceBikeRaceScore(LoopPar)
 	CurrentLitLane = CurrentLitLane + 1
 	if CurrentLitLane > 3 then
 		CurrentLitLane = 0
-	end if	
+	end if
 	LeftOrbitSpider.state = 0
 	LeftRampSpider.state = 0
 	DockRampSpider.state = 0
@@ -3755,7 +3755,7 @@ Sub SkyscraperAnimationTimer_Timer
 		else
 			S_State = 1
 		end if
-	end if	
+	end if
 	select case S_Step
 		case 1: PowerLevel1Light.state = S_State
 				PowerLevel2Light.state = S_State
@@ -3771,7 +3771,7 @@ Sub SkyscraperAnimationTimer_Timer
 				RightOrbitSpider.state = S_State
 	end select
 End Sub
-	
+
 Sub SkyscraperTimer_Timer
 	SkyscraperTimeCount = SkyscraperTimeCount - 1
 	UpdateDMDMission cstr(SkyscraperTimeCount),cstr(SkyscraperCompletion)
@@ -3790,7 +3790,7 @@ Sub SkyscraperMystery
 		end if
 		Maxlevel = 6
 		MysteryLight.state = 0
-	end if	
+	end if
 End Sub
 
 Sub SkyscraperPauseTimer_Timer
@@ -3802,14 +3802,14 @@ Sub AdvanceSkyscraperScore
 		if not SkyscraperPauseTimer.enabled then
 			if CurrentLevel < MaxLevel then
 				CurrentLevel = CurrentLevel + 1
-				select case CurrentLevel 
+				select case CurrentLevel
 					case 1: PlayNextSound "W_Floor1"
 					case 2: PlayNextSound "W_Floor2"
 					case 3: PlayNextSound "W_Floor3"
 					case 4: PlayNextSound "W_Floor4"
 					case 5: PlayNextSound "W_Floor5"
-				end select	
-				MissionHoleSpider.state = Lightstateblinking				
+				end select
+				MissionHoleSpider.state = Lightstateblinking
 				if CurrentLevel = 5 then
 					MysteryLight.state = Lightstateblinking
 				end if
@@ -3819,7 +3819,7 @@ Sub AdvanceSkyscraperScore
 			end if
 			UpdateDMDMission cstr(SkyscraperTimeCount),cstr(SkyscraperCompletion)
 			SkyscraperPauseTimer.enabled = False
-			SkyscraperPauseTimer.enabled = True		
+			SkyscraperPauseTimer.enabled = True
 		end if
 	end if
 End Sub
@@ -3887,7 +3887,7 @@ Dim QuickShotBaseValue,ActualQuickShotValue
 Sub StartQuickShot
 	ExplosionLightState = ExplosionLight.State
 	ExplosionLight.State = 0
-	PlayNextSound "W_Quickshot"	
+	PlayNextSound "W_Quickshot"
 	QuickShotReady = False
 	QuickShotActive = True
 	PowerLevel1Light.state = 0
@@ -3903,7 +3903,7 @@ Sub StartQuickShot
 	AdvanceRightPowerlevelLight.state = 0
 	RightOrbitSpider.state = 0
 	QuickShotBaseValue = QuickShotBaseValue + 25000000
-	ActualQuickShotValue = QuickShotBaseValue	
+	ActualQuickShotValue = QuickShotBaseValue
 	QuickshotStartTimer.enabled = True
 	QSState = 1
 	Step = 0
@@ -3919,13 +3919,13 @@ End Sub
 
 Dim QSLoop
 Sub QuickshotTimer_Timer
-	QSLoop = QSLoop + 1	
+	QSLoop = QSLoop + 1
 	ActualQuickShotValue = ActualQuickShotValue - (11870 * (QuickShotBaseValue/25000000))		'Timer runs 22 sec
 	if not FrenzyPickTimer.enabled then
 		if ActualQuickShotValue > 5000000 then
 			UpdateDMDText "Main",""," SHOOT ORBIT FOR","",FormatPointText(cstr(ActualQuickShotValue))
 		else
-			UpdateDMDText "Main",""," SHOOT ORBIT FOR","",FormatPointText(cstr(5000000))	
+			UpdateDMDText "Main",""," SHOOT ORBIT FOR","",FormatPointText(cstr(5000000))
 		end if
 	end if
 	if QSLoop = 600 then
@@ -3951,7 +3951,7 @@ Sub QuickShotAnimationTimer_Timer
 		else
 			QSState = 1
 		end if
-	end if	
+	end if
 	if EjectToRight then		'init left
 		select case Step
 			case 1: PowerLevel1Light.state = QSState
@@ -4026,7 +4026,7 @@ Dim MagnetWasLit,SuperLauncherBaseValue,SuperLauncherAddValue,ActualSuperLaunche
 Sub StartSuperLauncher
 	SuperLauncherReady = False
 	SuperLauncherActive = True
-	MagnetWasLit = (ActivateMagnetLight.state = 1)	
+	MagnetWasLit = (ActivateMagnetLight.state = 1)
 	StartModeLightState = StartModeLight.State
 	StartMissionLightState = StartMissionLight.State
 	LockLightState = LockLight.State
@@ -4063,7 +4063,7 @@ Sub SuperLauncherTimer_Timer
 		FlashRight 1
 		FlashLeft 1
 	end if
-	select case SL_Loop 
+	select case SL_Loop
 		case 12: DMDStartMission "SuperLauncher2",12000
 		case 11: playsound "W_SL10"
 		case 10: playsound "W_SL9"
@@ -4075,7 +4075,7 @@ Sub SuperLauncherTimer_Timer
 		case 4:  playsound "W_SL3"
 		case 3:  playsound "W_SL2"
 		case 2:  playsound "W_SL1"
-		case 1:	 DMDDisplayScene "Mission",True,SLDback,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 2000, 1	
+		case 1:	 DMDDisplayScene "Mission",True,SLDback,FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 2000, 1
 		case 0:  playsound "W_SL0"
 	end select
 End Sub
@@ -4087,10 +4087,10 @@ Sub AdvanceSuperLauncher
 	Playsound "W_USIntitBoom"
 	FlashB2SLamp 50,1
 	UpdateDMDText "Mission","","","",FormatPointText(cstr(ActualSuperLauncherValue))
-	SuperLauncherTimer.enabled = False	
+	SuperLauncherTimer.enabled = False
 	if SL_Hits >= 5 then
 		FlashRight 3
-		FlashLeft 3	
+		FlashLeft 3
 		Showdownspheres = Showdownspheres + 1
 		PlayNextSound "W_Sphere"
 		DMDDisplayScene "Sphere",True,Sphereback, "", 8,14,"", 5,15, 14, 3000, 1
@@ -4105,7 +4105,7 @@ End Sub
 Sub EndSuperLauncher
 	SuperLauncherActive = False
 	SuperLauncherTimer.enabled = False
-	ActivateMagnetLight.state = abs(MagnetWasLit)	
+	ActivateMagnetLight.state = abs(MagnetWasLit)
 	StartModeLight.State = StartModeLightState
 	StartMissionLight.State = StartMissionLightState
 	LockLight.State = LockLightState
@@ -4173,7 +4173,7 @@ Sub StartSecretMania
 	DMDDisplayScene "SM",True,SecretManiaback, "", 8,14,"", 5,15, 14, 3500, 14
 	PlayNextSound "W_Cow"
 	PlayNextmusic(FastFrenzyTheme)
-	
+
 	LeftHoleSpider.state = Lightstateblinking
 	LeftOrbitSpider.state = Lightstateblinking
 	LeftRampSpider.state = Lightstateblinking
@@ -4219,22 +4219,22 @@ End Sub
 
 Sub AwardSecretManiaScore
 	DTCount = 0
-	if DT1.isdropped then	
+	if DT1.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT2.isdropped then	
+	if DT2.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT3.isdropped then	
+	if DT3.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT4.isdropped then	
+	if DT4.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT5.isdropped then	
+	if DT5.isdropped then
 		DTCount = DTCount + 1
 	end if
-	if DT6.isdropped then	
+	if DT6.isdropped then
 		DTCount = DTCount + 1
 	end if
 	if DTCount = 6 then
@@ -4245,9 +4245,9 @@ Sub AwardSecretManiaScore
 	else
 		SecretManiaScore = 200000 * DTCount * FastFrenzyBalls * (BallsonPF + FastFrenzyCount)
 	end if
-	
+
 	addpoints(SecretManiaScore)
-	
+
 	FlashRight 2
 	FlashLeft 2
 	FlashB2SLamp 51,1
@@ -4268,7 +4268,7 @@ End Sub
 Sub EndSecretMania
 	SecretManiaActive = False
 	PlayNextmusic(MainTheme)
-	
+
 	LeftHoleSpider.state = 0
 	LeftOrbitSpider.state = 0
 	LeftRampSpider.state = 0
@@ -4283,32 +4283,32 @@ Sub EndSecretMania
 	LockLight.state = 0
 
 	BallsLocked = 0
-	if DT1.isdropped then	
+	if DT1.isdropped then
 		DT1Light.state = 1
 	else
 		DT1Light.state = 0
 	end if
-	if DT2.isdropped then	
+	if DT2.isdropped then
 		DT2Light.state = 1
 	else
 		DT2Light.state = 0
 	end if
-	if DT3.isdropped then	
+	if DT3.isdropped then
 		DT3Light.state = 1
 	else
 		DT3Light.state = 0
 	end if
-	if DT4.isdropped then	
+	if DT4.isdropped then
 		DT4Light.state = 1
 	else
 		DT4Light.state = 0
 	end if
-	if DT5.isdropped then	
+	if DT5.isdropped then
 		DT5Light.state = 1
 	else
 		DT5Light.state = 0
 	end if
-	if DT6.isdropped then	
+	if DT6.isdropped then
 		DT6Light.state = 1
 	else
 		DT6Light.state = 0
@@ -4324,12 +4324,12 @@ Dim USPhase1Active,USPhase2Active,USPhase3Active,USCount,USCompleted,USScoreValu
 Sub StartUltimateShowdown
 	for each obj in GI: obj.state = 0:next
 	SetB2SLamp 1,0
-		
+
 	EndCurrentMusic
 	UltimateShowdownReady = False
 	UltimateShowdownAcitve = True
 	DMDDisplayScene "US",True,"blank.png", FormatDMDTopText("","",""), 8,14,FormatDMDBottomText(""), 5,15, 14, 2000, 14
-	USInitLoop = 0	
+	USInitLoop = 0
 	InitUSTimer.enabled = True
 	LeftFlipper.Rotatetostart
 	ULeftFlipper.Rotatetostart
@@ -4376,7 +4376,7 @@ Sub InitUSTimer_Timer
 				DMDDisplayScene "US",True,"blank.png", FormatDMDTopText("","ALL SWITCHES",""), 8,14,FormatDMDBottomText(FormatPointText(cstr(1000000 * ShowdownSpheres))), 5,15, 14, 2000, 14
 		case 7: InitUSTimer.enabled = False
 				StartPhase1
-	end select			
+	end select
 End Sub
 
 Sub AwardUSPoints
@@ -4424,7 +4424,7 @@ Sub StartPhase1			'150-200 Switch Hits
 
 	DeactivateMissionsAndModes
 	DockBallLock.enabled = False
-	UltimateShowdownReady = False	
+	UltimateShowdownReady = False
 	UltimateShowdownActive = True
 	USScoreValue = 1000000 * ShowdownSpheres
 	ReserveBalls = ShowdownSpheres
@@ -4441,7 +4441,7 @@ Sub StartPhase1			'150-200 Switch Hits
 		SecretManiaActive = False
 		SpaceStationFrenzyActive = False
 	else
-		BallsSaved = 5 
+		BallsSaved = 5
 	end if
 	MultiballBalls = 6
 	GracePeriodActive = True
@@ -4472,7 +4472,7 @@ End Sub
 Sub AddPhase1Hits
 	if USPhase1Active then
 		Phase1Hits = Phase1Hits + 1
-		select case Phase1Hits 
+		select case Phase1Hits
 			case 20:	Playsound "W_Explosion"
 			case 40:	Playsound "W_Explosion"
 						DMDDisplayScene "US1",True,"US_1_2.png","",8,14,"",5,15,14,1000000,14
@@ -4489,7 +4489,7 @@ Sub AddPhase1Hits
 			LeftRampSpider.state = 0
 			DockRampSpider.state = 0
 			StartPhase2
-		end if	
+		end if
 	end if
 End Sub
 
@@ -4533,9 +4533,9 @@ Sub AddPhase2Spins
 		Phase2Spins = Phase2Spins + 1
 		select case Phase2Spins
 			case 1: PlayNextSound "W_Comon"
-					DMDDisplayScene "US2",True,"US_2_1.png","",8,14,"",5,15,14,100000,14	
+					DMDDisplayScene "US2",True,"US_2_1.png","",8,14,"",5,15,14,100000,14
 			case 2: PlayNextSound "W_Stop"
-					DMDDisplayScene "US2",True,"US_2_2.png","",8,14,"",5,15,14,100000,14	
+					DMDDisplayScene "US2",True,"US_2_2.png","",8,14,"",5,15,14,100000,14
 			case 3: PlayNextSound "W_No"
 					DMDDisplayScene "US2",True,"US_2_3.png","",8,14,"",5,15,14,100000,14
 		end select
@@ -4564,7 +4564,7 @@ Sub USPhase3AnimationTimer_Timer
 		Phase3Step = 1
 	end if
 	select case Phase3Step
-		case 1: StartMissionLight.state = abs(Phase3State) 
+		case 1: StartMissionLight.state = abs(Phase3State)
 		case 2: StartModeLight.state = abs(Phase3State)
 		case 3: EBLight.state = abs(Phase3State)
 		case 4: MissionHoleSpider.state = abs(Phase3State)
@@ -4576,7 +4576,7 @@ Sub EndUSPhase3
 	FlashLeft 5
 	USPhase3Active = False
 	USCompleted = True
-	UltimateShowdownActive = False	
+	UltimateShowdownActive = False
 	EndUltimateShowdown
 End Sub
 
@@ -4631,7 +4631,7 @@ Sub USWonTimer_Timer
 	if USWonLoop = 20 then
 		DMDDisplayScene "US",True,"blank.png","1.000.000.000", 8,14,"", 5,15, 14, 7000, 14
 	end if
-	if USWonLoop >= 25 then	
+	if USWonLoop >= 25 then
 		USWonTimer.enabled = False
 		FlashB2SLamp 48,3
 		FlashB2SLamp 49,3
@@ -4715,13 +4715,13 @@ Sub ExplosionHole_Hit()
 
 	if HuntDownActive and (ExplosionHolespider.state <> 0) then
 		AdvanceHuntDownScore
-	end if	
+	end if
 
 	StartMagnet = False
 	StartQuickDock = False
 	if ActivateMagnetLight.state <> 0 then
 		StartMagnet = True
-		if QuickDockTimer.enabled and not SecretManiaActive and not UltimateShowdownActive then 
+		if QuickDockTimer.enabled and not SecretManiaActive and not UltimateShowdownActive then
 			QuickDockTimer.enabled = False
 			if Docklight.state = 0 then
 				StartQuickDock = True
@@ -4746,7 +4746,7 @@ Sub ExplosionHole_Hit()
 					ExplosionHoleSpider.state = 0
 					UltraJackpotLight.state = Lightstateblinking
 					PrepareUltraJackpot = False
-					UltraJackpotready = True			
+					UltraJackpotready = True
 					ActivateMagnetLight.state = 0
 					QuickDockTimer.enabled = False
 					UltraJackpotTimer.enabled = True
@@ -4766,7 +4766,7 @@ Sub ExplosionHole_Hit()
 			end if
 		end if
 	end if
-	
+
 	VUKFire
 End Sub
 
@@ -4794,7 +4794,7 @@ Sub ExplosionAwardTimer_Timer
 		ExplosionAward = Int(16*Rnd)
 		select case ExplosionAward
 			case 0: if LeftOutlaneEBLight.state = 0 then
-						ExText = "OUTLANES LIT"	
+						ExText = "OUTLANES LIT"
 						LeftOutlaneEBLight.state = 1
 						RightOutlaneEBLight.state = 1
 					else
@@ -4810,10 +4810,10 @@ Sub ExplosionAwardTimer_Timer
 						ExText = "EXTRA BALL"
 						ExtraBalls = ExtraBalls + 1
 						PlayNextSound "W_ExtraBall"
-					end if	
+					end if
 			case 2: ExText = "EXTRA BALL"
 					ExtraBalls = ExtraBalls + 1
-					PlayNextSound "W_ExtraBall"	
+					PlayNextSound "W_ExtraBall"
 					DOF 123, DOFPulse
 			case 3:	ExText = "POWERLEVEL"
 					IncreasePowerlevel
@@ -4824,21 +4824,21 @@ Sub ExplosionAwardTimer_Timer
 					else
 						ExText = "POWERLEVEL"
 						IncreasePowerlevel
-					end if	
+					end if
 			case 5: if not SuperJetsHeld then
 						ExText = "SUPERJETS HELD"
 						SuperJetsHeld = True
 					else
 						ExText = "EXPLOSION  LIT"
 						ExplosionLight.state = 1
-					end if	
+					end if
 			case 6: if VideoModeLight.state = 0 then
 						ExText = "VIDEO MODE LIT"
 						VideoModeLight.state = 1
 					else
 						ExText = "VIDEO MODE"
 						StartExplosionVideoMode = True
-					end if	
+					end if
 			case 7: ExText = "VIDEO MODE"
 					StartExplosionVideoMode = True
 			case 8: if not QuickShotReady then
@@ -4847,7 +4847,7 @@ Sub ExplosionAwardTimer_Timer
 					else
 						ExText = "ADD  BONUS X"
 						AwardNextBonus
-					end if	
+					end if
 			case 9: ExText = "ADD  BONUS X"
 					AwardNextBonus
 			case 10: 	if not BonusHeld then
@@ -4856,7 +4856,7 @@ Sub ExplosionAwardTimer_Timer
 						else
 							ExText = "EXPLOSION  LIT"
 							ExplosionLight.state = 1
-						end if	
+						end if
 			case 11:	ExText = "BALL SAVER"
 						GracePeriodActive = True
 						BallSaverLight.BlinkInterval = 160
@@ -4866,18 +4866,18 @@ Sub ExplosionAwardTimer_Timer
 						StartBallSaver
 			case 12: 	if ActivateMagnetLight.state = 0 then
 							ExText = "MAGNET LIT"
-							ActivateMagnetLight.state = 1 
+							ActivateMagnetLight.state = 1
 						else
 							ExText = "EXPLOSION  LIT"
 							ExplosionLight.state = 1
-						end if	
+						end if
 			case 13: 	if not SuperKickbackActive then
 							ExText = "SUPER RESCUE"
 							SuperKickbackActive = True
 						else
 							ExText = "EXPLOSION  LIT"
 							ExplosionLight.state = 1
-						end if	
+						end if
 			case 14:	ExText = "FAST FRENZY"
 						StartExplosionFastFrenzy = True
 			case 15:	ExText = ""
@@ -4891,7 +4891,7 @@ End Sub
 Sub Docklight_Timer
 	Docklight.Timerenabled = False
 	Docklight.state = 0
-	DockBallLock.enabled = False	
+	DockBallLock.enabled = False
 End Sub
 
 '--- PowerLevel ---
@@ -4979,15 +4979,15 @@ Sub RightPauseTimer_Timer
 End Sub
 
 Dim Powerlevel
-Sub IncreasePowerlevel 
+Sub IncreasePowerlevel
 	if not QuickshotActive and (MultiballBalls < 2) then
 		FlashB2SLamp 48,1
 		FlashB2SLamp 49,1
-		select case Powerlevel 
+		select case Powerlevel
 			case 1: AddPoints(5000000)
 					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel1"
-					end if	
+					end if
 					DMDPowerLevel Powerlevel,"SMALL POINTS"
 					PowerLevel1Light.state = 1
 					PowerLevel2Light.state = Lightstateblinking
@@ -4996,7 +4996,7 @@ Sub IncreasePowerlevel
 					else
 						ExplosionLight.state = 1
 					end if
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel2"
 					end if
 					DMDPowerLevel Powerlevel,"EXPLOSION READY"
@@ -5005,53 +5005,53 @@ Sub IncreasePowerlevel
 			case 3: if SuperJets < 3 then
 						SuperJets = SuperJets + 1
 					end if
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel3"
 					end if
-					DMDPowerLevel Powerlevel,"SUPER JETS"	
+					DMDPowerLevel Powerlevel,"SUPER JETS"
 					PowerLevel3Light.state = 1
 					PowerLevel4Light.state = Lightstateblinking
 			case 4: QuickShotReady = True
-					if not SkyscraperActive then	
-						PlayNextSound "W_Powerlevel4"	
+					if not SkyscraperActive then
+						PlayNextSound "W_Powerlevel4"
 					end if
-					DMDPowerLevel Powerlevel,"QUICKSHOT READY"	
+					DMDPowerLevel Powerlevel,"QUICKSHOT READY"
 					PowerLevel4Light.state = 1
 					PowerLevel5Light.state = Lightstateblinking
 			case 5: VideoModeReady = True
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel5"
 					end if
-					DMDPowerLevel Powerlevel,"VIDEOMODE READY"	
+					DMDPowerLevel Powerlevel,"VIDEOMODE READY"
 					PowerLevel5Light.state = 1
 					PowerLevel6Light.state = Lightstateblinking
 			case 6: SuperKickbackActive = True
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel6"
 					end if
-					DMDPowerLevel Powerlevel,"SUPER KICKBACK"	
+					DMDPowerLevel Powerlevel,"SUPER KICKBACK"
 					PowerLevel6Light.state = 1
 					PowerLevel7Light.state = Lightstateblinking
 			case 7: SuperLauncherReady = True
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_Powerlevel7"
 					end if
-					DMDPowerLevel Powerlevel,"SUPERLAUNCHER"	
+					DMDPowerLevel Powerlevel,"SUPERLAUNCHER"
 					PowerLevel7Light.state = 1
 					PowerLevel8Light.state = Lightstateblinking
 			case 8: ShowdownSpheres = ShowdownSpheres + 1
-					if not SkyscraperActive then	
+					if not SkyscraperActive then
 						PlayNextSound "W_SphereSpin"
 					end if
 					DMDPowerLevel Powerlevel,"SHOWDOWNSPHERE"
 					PowerLevel8Light.state = 1
 					US_PowerLight.state = 1
 			case else:
-				if not SkyscraperActive then	
+				if not SkyscraperActive then
 					PlayNextSound "W_Powerlevel_x"
 				end if
 				Addpoints(Powerlevel*1000000)
-				DMDPowerLevel Powerlevel,FormatPointText(Powerlevel*1000000)	
+				DMDPowerLevel Powerlevel,FormatPointText(Powerlevel*1000000)
 		end select
 		Powerlevel = Powerlevel + 1
 		TotalPowerlevelCount = TotalPowerlevelCount + 1
@@ -5083,7 +5083,7 @@ Sub LeftInlane_Hit
 		LeftInlaneLight.timerenabled = True
 		RightPowerLevelTimer.enabled = False
 		RightPowerLevelTimer.enabled = True
-		if not SkyscraperActive then 
+		if not SkyscraperActive then
 			AdvanceRightPowerlevelLight.state = LightstateBlinking
 		end if
 	end if
@@ -5113,7 +5113,7 @@ Sub LeftInlane2_Hit
 	if not KickbackActive and not SuperKickbackActive then
 		EnableKickBackTimer.enabled = False
 		EnableKickBackTimer.enabled = True
-	end if		
+	end if
 	AdvanceShuttleRampValue
 	AwardUSPoints
 End Sub
@@ -5180,7 +5180,7 @@ Sub TopRollover1_Hit
 End Sub
 Sub TopRollover1_Unhit
 	DOF 128, DOFOff
-End Sub	
+End Sub
 
 Sub TopRollover2_Hit
 	DOF 129, DOFOn
@@ -5191,7 +5191,7 @@ Sub TopRollover2_Hit
 End Sub
 Sub TopRollover2_Unhit
 	DOF 129, DOFOff
-End Sub	
+End Sub
 
 Sub TopRollover3_Hit
 	DOF 130, DOFOn
@@ -5202,33 +5202,33 @@ Sub TopRollover3_Hit
 End Sub
 Sub TopRollover3_Unhit
 	DOF 130, DOFOff
-End Sub	
+End Sub
 
 '--- Bumper Mini Lane ---
 Dim SuperJets
 
 Sub BumperLane1_Hit
 	BumperLane1.Timerenabled = True
-End Sub	
+End Sub
 Sub BumperLane1_Timer
 	BumperLane1.Timerenabled = False
-End Sub	
+End Sub
 
 Sub BumperLane_Hit
 	if BumperLane1.Timerenabled and not AmmoDumpActive then
 		BumperLane.Timerenabled = True
-	end if	
+	end if
 End Sub
 Sub BumperLane_Timer
 	BumperLane.Timerenabled = False
-End Sub	
+End Sub
 
 Sub AdvanceSuperJetTimer_Timer
 	AdvanceSuperJetTimer.enabled = False
 	if not AmmoDumpActive then
 		BumperLaneLight.state = 0
 	end if
-end Sub	
+end Sub
 
 Sub CheckBumperHit
 	if BumperLane.Timerenabled and (SuperJets < 3) then
@@ -5237,7 +5237,7 @@ Sub CheckBumperHit
 			BumperLane.Timerenabled = False
 			BumperLane1.Timerenabled = False
 			BumperLaneLight.state = 0
-			PlayNextSound "W_SuperJets2"	
+			PlayNextSound "W_SuperJets2"
 			SuperJets = SuperJets + 1
 		else
 			AdvanceSuperJetTimer.enabled = True
@@ -5283,17 +5283,17 @@ Sub BumperLightTimer_Timer
 
 	if B1L1.state = 0 Then
 		P_BumperCap1.image = "plastic_bumpercap_red"
-	Else	
+	Else
 		P_BumperCap1.image = "plastic_bumpercap_red_lit"
 	end If
 	if b2l1.state = 0 Then
 		P_BumperCap2.image = "plastic_bumpercap_red"
-	Else	
+	Else
 		P_BumperCap2.image = "plastic_bumpercap_red_lit"
 	end If
 	if B3L1.state = 0 Then
 		P_BumperCap3.image = "plastic_bumpercap_red"
-	Else	
+	Else
 		P_BumperCap3.image = "plastic_bumpercap_red_lit"
 	end If
 End Sub
@@ -5301,7 +5301,7 @@ End Sub
 
 Sub Bumper1_Hit
 	CheckBumperHit
-	JackpotValue = JackpotValue + 7130	
+	JackpotValue = JackpotValue + 7130
 	if SuperJets = 0 then
 		AddPoints(1000)
 	else
@@ -5443,19 +5443,19 @@ if MagnetGrabTrigger.enabled then
 	ActiveBall.VelY = 0
 	ActiveBall.VelZ = 0
 	MagnetFieldTimer.enabled = True
-	MagnetTimer.enabled = False	
-	MagnetTimer.enabled = True	
+	MagnetTimer.enabled = False
+	MagnetTimer.enabled = True
 	MCount = 0
 end if
 End Sub
 
 Sub MagnetFieldTimer_Timer
 	MagDistance = SQR(((Magnet.x - MagnetBall.x)^2) + ((Magnet.y - MagnetBall.y)^2))
-	if MagDistance > 20 then 
+	if MagDistance > 20 then
 	  MagnetBall.x = MagnetBall.x + ((Magnet.x - MagnetBall.x) * 0.23)
 	  MagnetBall.y = MagnetBall.y + ((Magnet.y - MagnetBall.y) * 0.23)
 	else
-		if MagDistance > 5 then 
+		if MagDistance > 5 then
 			if MagnetBall.x < Magnet.x then
 				MagnetBall.x = MagnetBall.x + (MagDistance * 1.15)
 			else
@@ -5465,11 +5465,11 @@ Sub MagnetFieldTimer_Timer
 				MagnetBall.y = MagnetBall.y + (MagDistance * 1.15)
 			else
 				MagnetBall.y = MagnetBall.y - (MagDistance * 1.15)
-			end if	
+			end if
 		else
 		  MagnetBall.x = Magnet.x
 	      MagnetBall.y = Magnet.y
-		end if	
+		end if
 	end if
 	MagnetBall.VelX = 0
 	MagnetBall.VelY = 0
@@ -5544,10 +5544,10 @@ End Sub
 '--- Helper Functions ---
 Sub PassLeftFlasherTrigger_Hit
 	FlashLeft 1
-End Sub	
+End Sub
 Sub PassLeftFlasherTrigger2_Hit
 	FlashLeft 1
-End Sub	
+End Sub
 Sub PassRightFlasherTrigger_Hit
 	FlashRight 1
 End Sub
@@ -5556,7 +5556,7 @@ Dim LeftFlashCount
 Sub FlashLeft(FLCount)
 	if ApplyMods = 1 then
 		LeftFlashState = True
-		P_LeftFlasher.image = "dome4_red_lit" 
+		P_LeftFlasher.image = "dome4_red_lit"
 		DOF 141, DOFPulse
 		LeftFlashCount = LeftFlashCount + FLCount
 		FLeft.State = 1
@@ -5570,16 +5570,16 @@ Sub LeftFlashTimer_Timer
 	LeftFlashState = not LeftFlashState
 	if not LeftFlashState then
 		LeftFlashCount = LeftFlashcount - 1
-		P_LeftFlasher.image = "dome4_red" 
+		P_LeftFlasher.image = "dome4_red"
 		FLeft.State = 0
 	else
-		P_LeftFlasher.image = "dome4_red_lit" 
+		P_LeftFlasher.image = "dome4_red_lit"
 		DOF 141, DOFPulse
 		FLeft.State = 1
 	end if
 	if LeftFlashcount <= 0 then
 		LeftFlashTimer.enabled = false
-		P_LeftFlasher.image = "dome4_red" 
+		P_LeftFlasher.image = "dome4_red"
 		FLeft.State = 0
 	end if
 End sub
@@ -5588,7 +5588,7 @@ Dim RightFlashCount
 Sub FlashRight(FLCount)
 	if ApplyMods = 1 then
 		RightFlashState = True
-		P_RightFlasher.image = "dome4_red_lit" 
+		P_RightFlasher.image = "dome4_red_lit"
 		DOF 142, DOFPulse
 		RightFlashCount = RightFlashCount + FLCount
 		FRight.State = 1
@@ -5602,16 +5602,16 @@ Sub RightFlashTimer_Timer
 	RightFlashState = not RightFlashState
 	if not RightFlashState then
 		RightFlashCount = RightFlashcount - 1
-		P_RightFlasher.image = "dome4_red" 
+		P_RightFlasher.image = "dome4_red"
 		FRight.State = 0
 	else
-		P_RightFlasher.image = "dome4_red_lit" 
+		P_RightFlasher.image = "dome4_red_lit"
 		DOF 142, DOFPulse
 		FRight.State = 1
 	end if
 	if RightFlashcount <= 0 then
 		RightFlashTimer.enabled = false
-		P_RightFlasher.image = "dome4_red" 
+		P_RightFlasher.image = "dome4_red"
 		FRight.State = 0
 	end if
 End sub
@@ -5630,9 +5630,9 @@ Sub AddPoints(Count)
 	if Tilt = 0 then
 		Points = Points + Count
 	end if
-	if not HideAnimation then	
+	if not HideAnimation then
 		UpdateDMDScore
-	end if	
+	end if
 End Sub
 
 Dim PointsText,TempText
@@ -5647,7 +5647,7 @@ Function FormatPointText(ScorePar)
 			if len(Temptext) > 0 then
 				PointsText = TempText & Pointstext
 				TempText = ""
-			end if	
+			end if
 		end if
 	next
 	FormatPointText = PointsText
@@ -5655,7 +5655,7 @@ End Function
 
 Dim JPState,SuperJPState,UltraJPState
 Sub JPTimer_Timer
-	select case JackpotLight.state 
+	select case JackpotLight.state
 		case 0:	P_Jackpotlight.image = "Bulb_Yellow_off"
 		case 1: P_Jackpotlight.image = "Bulb_Yellow_on"
 		case Lightstateblinking:
@@ -5666,7 +5666,7 @@ Sub JPTimer_Timer
 				P_Jackpotlight.image = "Bulb_Yellow_off"
 			end if
 	end select
-	select case SuperJackpotLight.state 
+	select case SuperJackpotLight.state
 		case 0:	P_SuperJackpotlight.image = "Bulb_Yellow_off"
 		case 1: P_SuperJackpotlight.image = "Bulb_Yellow_on"
 		case Lightstateblinking:
@@ -5677,7 +5677,7 @@ Sub JPTimer_Timer
 				P_SuperJackpotlight.image = "Bulb_Yellow_off"
 			end if
 	end select
-	select case UltraJackpotLight.state 
+	select case UltraJackpotLight.state
 		case 0:	P_UltraJackpotlight.image = "Bulb_Red_off"
 		case 1: P_UltraJackpotlight.image = "Bulb_Red_on"
 		case Lightstateblinking:
@@ -5705,7 +5705,7 @@ Sub VUKFire
 		if not Hideanimation then
 			DMDDisplayScene "Mag",True,Magnetback, "", 8,14,"", 5,15, 14, 2000, 14
 		end if
-		if StartQuickDock then 
+		if StartQuickDock then
 			Docklight.state = lightstateblinking
 			DockBallLock.enabled = True
 			Docklight.Timerenabled = False
@@ -5739,7 +5739,7 @@ Sub VUKTimer_Timer
 	end select
 End Sub
 
-'Flipper Primitives 
+'Flipper Primitives
 Sub FlipperTimer_Timer
 	P_LeftFlipper.Roty = LeftFlipper.CurrentAngle
 	P_ULeftFlipper.Roty = ULeftFlipper.CurrentAngle
@@ -5772,7 +5772,7 @@ Sub UfoHitTimer_Timer
 	if UFOAnimationCount >= 23 then
 		UfoHitTimer.enabled = False
 		P_Ufo.TransX = 0
-		P_Ufo.TransY = 0	
+		P_Ufo.TransY = 0
 	end if
 End Sub
 
@@ -5794,7 +5794,7 @@ Sub TroughRightVUKKicker_Hit
 End sub
 
 '--- Tilt recognition ---
-Sub CheckNudge 
+Sub CheckNudge
 	if GameActive = 1 then
 		if NudgeTimer1.enabled then
 			if NudgeTimer2.enabled then
@@ -5825,9 +5825,9 @@ Sub CheckNudge
 			NudgeTimer1.enabled = True
 			if Tilt = 0 then
 				UpdateDMDText "Main","","WARNING","",""
-				PlaySound "W_WatchIt"	
+				PlaySound "W_WatchIt"
 			end if
-		end if	
+		end if
 	end if
 End Sub
 
@@ -5849,7 +5849,7 @@ Sub AddBonus
 		Playnextmusic(BonusTheme)
 		BonusCount = 0
 		SkipBonus = 0
-		TotalBonus = (TotalLoopCount * 400000) + (TotalPowerLevelCount * 500000) + (TotalCombocount * 600000) 
+		TotalBonus = (TotalLoopCount * 400000) + (TotalPowerLevelCount * 500000) + (TotalCombocount * 600000)
 		AddBonusTimer.enabled = True
 	else
 		if BallInPlay <= BallsperGame then
@@ -5905,13 +5905,13 @@ Sub EnterInitials
 		else
 			PlayNextSound "W_GreatScore"
 		end if
-		IF points > Highscore(1) then 
+		IF points > Highscore(1) then
 			HighscoreText = "Highscore  1"
 		else
-			IF points > Highscore(2) then 
+			IF points > Highscore(2) then
 				HighscoreText = "Highscore  2"
 			else
-				IF points > Highscore(3) then 
+				IF points > Highscore(3) then
 					HighscoreText = "Highscore  3"
 				else
 					if TotalComboCount > Highscore(4) then
@@ -5925,7 +5925,7 @@ Sub EnterInitials
 			end if
 		end if
 		Chars = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","."," ","<")  '0-38
-		CharIndex = 0	
+		CharIndex = 0
 		C(1) = "A"
 		C(2) = " "
 		C(3) = " "
@@ -5948,7 +5948,7 @@ Sub WriteHS
 		case 1:	playnextsound "W_Outstanding"
 		case 2:	playnextsound "W_VeryGood"
 		case 3:	playnextsound "W_YesYesYes"
-		case 4:	PlaynextSound "W_Yeehaa"	
+		case 4:	PlaynextSound "W_Yeehaa"
 	end select
 	PlaynextSound SoundFXDOF("Knocker",140,DOFPulse,DOFKnocker)
 	DOF 136, DOFPulse
@@ -6020,8 +6020,8 @@ Sub IdleTimer_Timer
 		HSPos = HSPos + 1
 		if HSPos < 1 or HSPos > 9 then HSPos = 1
 		select case HSPos
-			case 1,2: UpdateDMDText "Main","","Pro  Pinball","","The  Web"	
-			case 3: UpdateDMDText "Main","","Pro  Pinball","","Highscores"	
+			case 1,2: UpdateDMDText "Main","","Pro  Pinball","","The  Web"
+			case 3: UpdateDMDText "Main","","Pro  Pinball","","Highscores"
 			case 4: UpdateDMDText "Main","","3. "&HighName(3),"",FormatPointText(cstr(HighScore(3)))
 			case 5:	UpdateDMDText "Main","","2. "&HighName(2),"",FormatPointText(cstr(HighScore(2)))
 			case 6:	UpdateDMDText "Main","","1. "&HighName(1),"",FormatPointText(cstr(HighScore(1)))
@@ -6058,18 +6058,18 @@ Sub TheWeb_KeyDown(ByVal keycode)
 		end if
 		If keycode = LeftFlipperKey Then
 			playsound "W_HSLetter"
-			CharIndex = CharIndex - 1			
-			if CharIndex < 0 then 
+			CharIndex = CharIndex - 1
+			if CharIndex < 0 then
 				Charindex = 38
-			end if	
+			end if
 			C(Initialpos) = Chars(Charindex)
 		end if
 		If keycode = RightFlipperKey Then
 			playsound "W_HSLetter"
 			CharIndex = CharIndex + 1
-			if CharIndex > 38 then 
+			if CharIndex > 38 then
 				Charindex = 0
-			end if	
+			end if
 			C(Initialpos) = Chars(Charindex)
 		end if
 		InitialsText = C(1) + C(2) + C(3)
@@ -6085,12 +6085,12 @@ Sub TheWeb_KeyDown(ByVal keycode)
 		else
 			if DisplayNextBonus.enabled then SkipBonus = 1                         'skip Bonus calculation
 
-			if keycode = StartGameKey then 
+			if keycode = StartGameKey then
 				if not UltraDMDInitTimer.enabled then
 					StartGame
 				end if
-			end if	
-			If keycode = PlungerKey Then 
+			end if
+			If keycode = PlungerKey Then
 				if FrenzyPickTimer.enabled then
 					FastFrenzyPickMade
 				else
@@ -6098,7 +6098,7 @@ Sub TheWeb_KeyDown(ByVal keycode)
 					DOF 132, DOFPulse
 				end if
 			end if
-			if (Tilt = 0) and (GameActive = 1) and not InitUSTimer.enabled and not USWonTimer.enabled then	
+			if (Tilt = 0) and (GameActive = 1) and not InitUSTimer.enabled and not USWonTimer.enabled then
 				If keycode = LeftFlipperKey Then
 					if FrenzyPickTimer.enabled then
 						ChangePick(-1)
@@ -6119,7 +6119,7 @@ Sub TheWeb_KeyDown(ByVal keycode)
 					if FrenzyPickTimer.enabled then
 						ChangePick(1)
 					else
-						RightFlipperUp = True	
+						RightFlipperUp = True
 						RightFlipper.RotateToEnd
 						if EnableIdleSound then
 							PlaySound "W_IdleRight",0,1,0.12,0.25
@@ -6132,7 +6132,7 @@ Sub TheWeb_KeyDown(ByVal keycode)
 			end if
 			If keycode = LeftTiltKey Then:Nudge 90, 2:checkNudge:end if
 			If keycode = RightTiltKey Then:Nudge 270, 2:checkNudge:end if
-			If keycode = CenterTiltKey Then:Nudge 0, 2:checkNudge:end if      
+			If keycode = CenterTiltKey Then:Nudge 0, 2:checkNudge:end if
 		end if
 	end if
 End Sub
@@ -6146,15 +6146,15 @@ Sub TheWeb_KeyUp(ByVal keycode)
 		end if
 		LeftFlipperUp = False
 	End If
-	If keycode = RightFlipperKey Then 
+	If keycode = RightFlipperKey Then
 		if RightFlipperUp then
 			RightFlipper.RotateToStart
 			PlaySound SoundFXDOF("FlipperDown",102,DOFOff,DOFContactors),0,0.75,0.1,0.25
 		end if
-		RightFlipperUp = False	
+		RightFlipperUp = False
 	End If
 	if not enterhs then
-		If keycode = PlungerKey Then 
+		If keycode = PlungerKey Then
 			Plunger.Timerenabled = True
 		end if
 	end if
@@ -6246,44 +6246,44 @@ End Sub
 
 
 '---- Music Functions ----
-Const ComboManiaTheme = "bgout_The Web 01 Combomania.mp3"		
+Const ComboManiaTheme = "bgout_The Web 01 Combomania.mp3"
 Const ComboManiaThemeLen = 100000   				'actually 45500 but it should not be repeated
-Const SuperLauncherTheme = "bgout_The Web 02 Super Launcher.mp3"		
-Const SuperLauncherThemeLen = 69500  
-Const QuickShotTheme = "bgout_The Web 03 Quick Shot.mp3"		
+Const SuperLauncherTheme = "bgout_The Web 02 Super Launcher.mp3"
+Const SuperLauncherThemeLen = 69500
+Const QuickShotTheme = "bgout_The Web 03 Quick Shot.mp3"
 Const QuickShotThemeLen = 100000   					'actually 21000 but it should not be repeated
-Const ShuttleTheme = "bgout_The Web 04 Mission - Shuttle.mp3"		
+Const ShuttleTheme = "bgout_The Web 04 Mission - Shuttle.mp3"
 Const ShuttleThemeLen = 100000						'actually 47000 but it should not be repeated
-Const AmmoDumpTheme = "bgout_The Web 05 Mission - Ammo Dump.mp3"		
+Const AmmoDumpTheme = "bgout_The Web 05 Mission - Ammo Dump.mp3"
 Const AmmoDumpThemeLen = 100000						'actually 50000 but it should not be repeated
-Const HuntDownTheme = "bgout_The Web 06 Mission - Hunt Down.mp3"		
+Const HuntDownTheme = "bgout_The Web 06 Mission - Hunt Down.mp3"
 Const HuntDownThemeLen = 100000						'actually 62000 but it should not be repeated
-Const BikeRaceTheme = "bgout_The Web 07 Mission - Biker.mp3"		
+Const BikeRaceTheme = "bgout_The Web 07 Mission - Biker.mp3"
 Const BikeRaceThemeLen = 100000						'actually 66000 but it should not be repeated
-Const SkyscraperTheme = "bgout_The Web 08 Mission - Sky Scraper.mp3"		
+Const SkyscraperTheme = "bgout_The Web 08 Mission - Sky Scraper.mp3"
 Const SkyscraperThemeLen = 100000					'actually 59500 but it should not be repeated
-Const ReactorTheme = "bgout_The Web 09 Mission - Reactor.mp3"		
+Const ReactorTheme = "bgout_The Web 09 Mission - Reactor.mp3"
 Const ReactorThemeLen = 100000						'actually 50000 but it should not be repeated
-Const MainTheme = "bgout_The Web 10 Main Theme.mp3"		
-Const MainThemeLen = 172500      
-Const FastFrenzyTheme = "bgout_The Web 11 Fast Frenzy.mp3"		
+Const MainTheme = "bgout_The Web 10 Main Theme.mp3"
+Const MainThemeLen = 172500
+Const FastFrenzyTheme = "bgout_The Web 11 Fast Frenzy.mp3"
 Const FastFrenzyThemeLen = 119500
 Const IdleTheme = "bgout_The Web 12 Menu Theme.mp3"		'enter name of the theme
-Const IdleThemeLen = 61000                          'length in ms + 500 for a gap, the active song will be restarted after this time	
-Const SpaceStationTheme = "bgout_The Web 13 Space Station Frenzy.mp3"		
+Const IdleThemeLen = 61000                          'length in ms + 500 for a gap, the active song will be restarted after this time
+Const SpaceStationTheme = "bgout_The Web 13 Space Station Frenzy.mp3"
 Const SpaceStationThemeLen = 125500
 Const SpaceStationTheme2 = "bgout_The Web 14.mp3"
 Const SpaceStationTheme2Len = 12000
 Const VideoModeTheme = "bgout_The Web 15 Video Mode.mp3"
 Const VideoModeThemeLen = 31000
-Const SecretManiaTheme = "bgout_The Web 16 Secret Mania.mp3"		
+Const SecretManiaTheme = "bgout_The Web 16 Secret Mania.mp3"
 Const SecretManiaThemeLen = 71500
-Const BonusTheme = "bgout_The Web 17 Bonus Theme.mp3"		
-Const BonusThemeLen = 100000                        'actually 12000 but it should not be repeated		
-Const HighscoreTheme = "bgout_The Web 18 Highscore.mp3"		
-Const HighscoreThemeLen = 16000	 
-Const UltimateShowdownTheme = "bgout_The Web 19 Ultimate Showdown.mp3"		
-Const UltimateShowdownThemeLen = 163500	 
+Const BonusTheme = "bgout_The Web 17 Bonus Theme.mp3"
+Const BonusThemeLen = 100000                        'actually 12000 but it should not be repeated
+Const HighscoreTheme = "bgout_The Web 18 Highscore.mp3"
+Const HighscoreThemeLen = 16000
+Const UltimateShowdownTheme = "bgout_The Web 19 Ultimate Showdown.mp3"
+Const UltimateShowdownThemeLen = 163500
 Const VideoModeTheme2 = "bgout_The Web 20.mp3"
 Const VideoModeTheme2Len = 31000
 
@@ -6363,7 +6363,7 @@ Sub PlayMusicTimer_Timer
 					select case int(rnd*12)
 						case 0: Playmusic QuickShotTheme:PlayMusicTimer.interval = 21000
 						case 1: Playmusic SpaceStationTheme2:PlayMusicTimer.interval = 12000
-						case 2: Playmusic BonusTheme:PlayMusicTimer.interval = 12000 
+						case 2: Playmusic BonusTheme:PlayMusicTimer.interval = 12000
 						case 3: Playmusic HighscoreTheme:PlayMusicTimer.interval = 16000
 						case 4: Playmusic VideoModeTheme2:PlayMusicTimer.interval = 31000
 						case 5: Playmusic ComboManiaTheme:PlayMusicTimer.interval = 45500
@@ -6376,7 +6376,7 @@ Sub PlayMusicTimer_Timer
 					end select
 				end if
 			end if
-		end if	
+		end if
 	end if
 end sub
 
@@ -6455,7 +6455,7 @@ Sub LoadUltraDMD
     UltraDMD.SetProjectFolder curDir & "\The Web.UltraDMD"
     UltraDMD.SetVideoStretchMode UltraDMD_VideoMode_Middle
 
-	'Init Animations	
+	'Init Animations
     imgList = "Idle1.png,Idle2.png,Idle3.png,Idle4.png"
 	CheckImageList(ImgList)
     backgrnd = UltraDMD.CreateAnimationFromImages(12, true, imgList)
@@ -6733,12 +6733,12 @@ Sub DMDStartMission(MissionID,Duration)
 							DMDDisplayScene "Mission",True,ActiveBackground, Text1, 8,14,Text2, 5,15, 14, Duration*1000, 14
 		case "SuperLauncher1": 	MissionText = FormatDMDTopText("","","")
 							Text1 = MissionText
-							Text2 = FormatDMDBottom2Text("","")	
+							Text2 = FormatDMDBottom2Text("","")
 							DMDDisplayScene "Mission",True,SLAback, Text1, 8,14,Text2, 5,15, 14, 3500, 14
 							ActiveBackground = SLBback
 		case "SuperLauncher2": 	MissionText = FormatDMDTopText("","","")
 							Text1 = MissionText
-							Text2 = FormatDMDBottom2Text("","")	
+							Text2 = FormatDMDBottom2Text("","")
 							DMDDisplayScene "Mission",True,SLBback, Text1, 8,14,Text2, 5,15, 14, 1000, 14
 							ActiveBackground = SLCback
 		case "SpaceStation": 	MissionText = FormatDMDTopText("","","")
@@ -6795,19 +6795,19 @@ Sub UltraDMDTimer_Timer
 				if SuperLauncherActive and (ActiveBackground = SLBback) then
 					DMDDisplayScene "Mission",False,ActiveBackground, MissionText, 8,14,Text2, 5,15, 14, 1000, 1
 					ActiveBackground = SLCback
-					UltraDMDTimer.Enabled = True	
+					UltraDMDTimer.Enabled = True
 				else
 					if SpaceStationFrenzyActive	then
 						Text2 = FormatDMDBottomText("")
 					end if
-					DMDDisplayScene "Mission",False,ActiveBackground, MissionText, 8,14,Text2, 5,15, 14, 100000, 14				
+					DMDDisplayScene "Mission",False,ActiveBackground, MissionText, 8,14,Text2, 5,15, 14, 100000, 14
 				end if
-			else	
+			else
 				UltraDMD.DisplayScene00EXWithID "Main",False,backgrnd, Text1, 8,14,Text2, 5,15, 14, 10000000, 14
 				UpdateDMDScore
 			end if
 		end if
-    End If	
+    End If
 End Sub
 
 Sub UpdateDMDScore
@@ -6827,27 +6827,27 @@ Sub UpdateDMDScore
 				Text2 = FormatDMDBottomText("Ball "&Ballinplay)
 			end if
 		end if
-		UltraDMD.ModifyScene00 "Main", Text1, Text2 
+		UltraDMD.ModifyScene00 "Main", Text1, Text2
 	end if
 End Sub
 
 Sub UpdateDMDText(SceneID,TextALeft,TextAMid,TextARight,TextB)
 	Text1 = FormatDMDTopText(TextALeft,TextAMid,TextARight)
 	Text2 =	FormatDMDBottomText(TextB)
-	UltraDMDTextTimer.enabled = False		
+	UltraDMDTextTimer.enabled = False
 	UltraDMDTextTimer.enabled = True
-	UltraDMD.ModifyScene00 SceneID, Text1, Text2 
+	UltraDMD.ModifyScene00 SceneID, Text1, Text2
 End Sub
 
 Sub UltraDMDTextTimer_Timer
 	UltraDMDTextTimer.enabled = False
-	if not EnterHS and not IdleTimer.enabled then	
+	if not EnterHS and not IdleTimer.enabled then
 		UpdateDMDScore
 	end if
 	if SuperLauncherActive then
 		UpdateDMDText "Mission","","","",""
 	end if
-End Sub	
+End Sub
 
 Sub UpdateDMDMission(TextBLeft,TextBRight)
 	if len(TextBRight) < 2 then
@@ -6855,17 +6855,17 @@ Sub UpdateDMDMission(TextBLeft,TextBRight)
 	end if
 	TextBRight = TextBRight & " "
 	Text2 =	FormatDMDBottom2Text(TextBLeft,cstr(TextBRight))
-	UltraDMDTextTimer.enabled = False		
+	UltraDMDTextTimer.enabled = False
 	UltraDMDTextTimer.enabled = True
-	UltraDMD.ModifyScene00 "Mission", Text1, Text2 
+	UltraDMD.ModifyScene00 "Mission", Text1, Text2
 End Sub
 
 Sub UpdateDMDExplosion(TextB)
 	Text1 = FormatDMDTopText("","EXPLOSION  AWARD","")
 	Text2 =	FormatDMDBottomText(TextB)
-	UltraDMDTextTimer.enabled = False		
+	UltraDMDTextTimer.enabled = False
 	UltraDMDTextTimer.enabled = True
-	UltraDMD.ModifyScene00 "Ex", Text1, Text2 
+	UltraDMD.ModifyScene00 "Ex", Text1, Text2
 End Sub
 
 Const TopTextLen = 16
@@ -6873,7 +6873,7 @@ Const EmptyText = "                    "
 Dim Space1,Space2
 Function FormatDMDTopText(LeftTextPar,MidTextPar,RightTextPar)
 	if len(LeftTextPar + MidTextPar + RightTextPar) >= TopTextLen then
-		FormatDMDTopText = LeftTextPar & MidTextPar & RightTextPar 
+		FormatDMDTopText = LeftTextPar & MidTextPar & RightTextPar
 	else
 		space1 = int((TopTextLen - len(LeftTextPar) - len(MidTextPar) - len(RightTextPar))/2)
 		if (2 * Space1) < (TopTextLen - len(LeftTextPar) - len(MidTextPar) - len(RightTextPar))	then
@@ -6881,14 +6881,14 @@ Function FormatDMDTopText(LeftTextPar,MidTextPar,RightTextPar)
 		else
 			space2 = space1
 		end if
-		FormatDMDTopText = LeftTextPar & Left(EmptyText,space2) & MidTextPar & Left(EmptyText,space1) & RightTextPar 
+		FormatDMDTopText = LeftTextPar & Left(EmptyText,space2) & MidTextPar & Left(EmptyText,space1) & RightTextPar
 	end if
 End Function
 
 Const BottomTextLen = 14
 Function FormatDMDBottomText(TextPar)
 	if len(TextPar) >= BottomTextLen then
-		FormatDMDBottomText = TextPar 
+		FormatDMDBottomText = TextPar
 	else
 		space1 = int((BottomTextLen - len(TextPar))/2)
 		FormatDMDBottomText = Left(EmptyText,BottomTextLen - space1 - Len(TextPar)) & TextPar & Left(EmptyText,space1)
@@ -6899,7 +6899,7 @@ Dim space
 Const TextLen = 14
 Function FormatDMDBottom2Text(TextPar1,TextPar2)
 	if len(TextPar1) + len(TextPar2) >= TextLen then
-		FormatDMDBottom2Text = TextPar1 + TextPar2 
+		FormatDMDBottom2Text = TextPar1 + TextPar2
 	else
 		space = TextLen - len(TextPar1) - len(TextPar2)
 		FormatDMDBottom2Text = TextPar1 & Left(EmptyText,space) & TextPar2
@@ -6975,14 +6975,14 @@ Sub FlashB2SLamp(Lamp,Count)					'Lamp = Flasher No., Count = number of flashes
 				case 49: Flash49.enabled = 1:Count49 = Count:cc49 = 0
 				case 50: Flash50.enabled = 1:Count50 = Count:cc50 = 0
 				case 51: Flash51.enabled = 1:Count51 = Count:cc51 = 0
-			end select	
+			end select
 		next
 	end if
-end sub	
+end sub
 
 Sub Flash48_Timer
 	cc48 = cc48 + 1
-	if cc48 >= count48 then 
+	if cc48 >= count48 then
 		Flash48.enabled = 0
 	end if
 	Controller.B2SSetData 48,1
@@ -6995,7 +6995,7 @@ End Sub
 
 Sub Flash49_Timer
 	cc49 = cc49 + 1
-	if cc49 >= count49 then 
+	if cc49 >= count49 then
 		Flash49.enabled = 0
 	end if
 	Controller.B2SSetData 49,1
@@ -7008,7 +7008,7 @@ End Sub
 
 Sub Flash50_Timer
 	cc50 = cc50 + 1
-	if cc50 >= count50 then 
+	if cc50 >= count50 then
 		Flash50.enabled = 0
 	end if
 	Controller.B2SSetData 50,1
@@ -7021,7 +7021,7 @@ End Sub
 
 Sub Flash51_Timer
 	cc51 = cc51 + 1
-	if cc51 >= count51 then 
+	if cc51 >= count51 then
 		Flash51.enabled = 0
 	end if
 	Controller.B2SSetData 51,1
@@ -7136,7 +7136,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -7150,7 +7150,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -7186,7 +7186,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -7197,7 +7197,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -7374,7 +7374,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -7388,7 +7388,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -7424,7 +7424,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -7435,7 +7435,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -7471,32 +7471,26 @@ End Sub
 ' Thal, while merging changes from Hauntfreaks and 32assassin
 ' This script has been merged with the latest code from 32 as of 5.10.2017 from vpinball.com
 
-Sub SetLampMod(nr, value)		
-	    If value > 0 Then		
-			LampState(nr) = 1		
-		Else		
-			LampState(nr) = 0		
-		End If		
-		FadingLevel(nr) = value		
-End Sub		
-			
-Sub LampMod(nr, object)		
-		If TypeName(object) = "Light" Then		
-			Object.IntensityScale = FadingLevel(nr)/128		
-			Object.State = LampState(nr)		
-		End If		
-		If TypeName(object) = "Flasher" Then		
-			Object.IntensityScale = FadingLevel(nr)/128		
-			Object.visible = LampState(nr)		
-		End If		
-		If TypeName(object) = "Primitive" Then		
-			Object.DisableLighting = LampState(nr)		
-		End If		
+Sub SetLampMod(nr, value)
+	    If value > 0 Then
+			LampState(nr) = 1
+		Else
+			LampState(nr) = 0
+		End If
+		FadingLevel(nr) = value
 End Sub
 
-' Thalamus : Exit in a clean and proper way
-Sub TheWeb_exit()
-  Controller.Pause = False
-  Controller.Stop
+Sub LampMod(nr, object)
+		If TypeName(object) = "Light" Then
+			Object.IntensityScale = FadingLevel(nr)/128
+			Object.State = LampState(nr)
+		End If
+		If TypeName(object) = "Flasher" Then
+			Object.IntensityScale = FadingLevel(nr)/128
+			Object.visible = LampState(nr)
+		End If
+		If TypeName(object) = "Primitive" Then
+			Object.DisableLighting = LampState(nr)
+		End If
 End Sub
 

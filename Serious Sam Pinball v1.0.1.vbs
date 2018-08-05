@@ -3694,16 +3694,6 @@ Sub MachineGunSpeedUpTimer_Timer()
     Light31.State = 2
 End Sub
 
-Sub Table1_Exit():
-  Controller.Stop
-  If Not UltraDMD is Nothing Then
-    If UltraDMD.IsRendering Then
-      UltraDMD.CancelRendering
-    End If
-    UltraDMD = NULL
-  End If
-End Sub
-
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
 ' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
@@ -3861,12 +3851,5 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
-End Sub
-
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
 End Sub
 
