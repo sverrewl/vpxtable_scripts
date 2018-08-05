@@ -168,12 +168,11 @@ End Sub
 Sub Table1_exit()
   SaveLMEMConfig
   if B2SOn Then Controller.Stop
-    If Not UltraDMD is Nothing Then
-      If UltraDMD.IsRendering Then
-        UltraDMD.CancelRendering
-      End If
-      UltraDMD = NULL
+  If Not UltraDMD is Nothing Then
+    If UltraDMD.IsRendering Then
+      UltraDMD.CancelRendering
     End If
+    UltraDMD = NULL
   End If
 End Sub
 
