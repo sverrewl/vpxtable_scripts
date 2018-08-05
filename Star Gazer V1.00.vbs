@@ -1,11 +1,6 @@
 Option Explicit
 Randomize
 
-' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Table didn't used JP standard ball rolling
-' No special SSF tweaks yet.
-
 Dim DmdHidden
 
 If Table1.ShowDT = True Then
@@ -14,7 +9,10 @@ Else
 	DmdHidden = True
 End If
 
-
+' Thalamus 2018-08-04
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Table didn't used JP standard ball rolling
+' No special SSF tweaks yet.
 
 LoadVPM "01560000", "stern.VBS", 3.36
 
@@ -570,6 +568,7 @@ Sub LeftSlingShot_Timer
     LStep = LStep + 1
 End Sub
 
+
 '************************************
 ' What you need to add to your table
 '************************************
@@ -723,7 +722,6 @@ Sub editDips
 		.ViewDips
 	End With
 End Sub
-Set vpmShowDips=GetRef("editDips")
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -855,44 +853,32 @@ Sub CollisionTimer_Timer()
 
     If UBound(BOT) = -1 Then Exit Sub
 
-    For B = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(ActiveBall)
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
+End Sub
 
-    'collision
+'**********************
+' Ball Collision Sound
+'**********************
 
-    If UBound(BOT) < 1 Then Exit Sub
-
-    For B1 = 0 to UBound(BOT)
-        For B2 = B1 + 1 to UBound(BOT)
-            dz = INT(ABS((BOT(b1).z - BOT(b2).z) ) )
-            radii = BOT(b1).radius + BOT(b2).radius
-			If dz <= radii Then
-
-            dx = INT(ABS((BOT(b1).x - BOT(b2).x) ) )
-            dy = INT(ABS((BOT(b1).y - BOT(b2).y) ) )
-            distance = INT(SQR(dx ^2 + dy ^2) )
-
-            If distance <= radii AND (collision(b1) = -1 OR collision(b2) = -1) Then
-                collision(b1) = b2
-                collision(b2) = b1
-                PlaySound("fx_collide"), 0, Vol2(BOT(b1), BOT(b2)), Pan(BOT(b1)), 0, Pitch(BOT(b1)), 0, 0, AudioFade(ActiveBall)
-            Else
-                If distance > (radii + 10)  Then
-                    If collision(b1) = b2 Then collision(b1) = -1
-                    If collision(b2) = b1 Then collision(b2) = -1
-                End If
-            End If
-			End If
-        Next
-    Next
+Sub OnBallBallCollision(ball1, ball2, velocity)
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+  End if
 End Sub
 
