@@ -824,6 +824,35 @@ Sub editDips
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
+BankTargetAnimation
+Dim targetCntr, targetLoopCntr
+Sub BankTargetAnimation  'Drop all 11 targets - one at a time during init
+	sw20.timerinterval = 500: 	sw20.timerEnabled = 1: 	targetCntr = 0: 	targetLoopCntr = 1
+End Sub
+
+Sub Sw20_Timer()  'Add since there is time before vpinmame rom starts
+	Select Case targetCntr
+		Case 0: targetCntr = targetCntr+1:sw20.timerinterval = 400
+		Case 1:	dtbankL.Hit(1): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, -.6
+		Case 2:	dtbankL.Hit(2): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, -.6
+		Case 3: dtbankL.Hit(3): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, -.6
+		Case 4: dtbankL.Hit(4): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, -.6
+		Case 5:	dtbankL.Hit(5): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, -.6
+		Case 6: dtBankT.Hit(1): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, 0
+		Case 7:	dtBankT.Hit(2): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, 0
+		Case 8:	dtBankT.Hit(3): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, 0
+		Case 9:	dtbankM.Hit(1): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, .6
+		Case 10: dtbankM.Hit(2): targetCntr = targetCntr+1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, .6
+		Case 11: dtbankM.Hit(3): targetCntr = targetCntr+1 :PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, .6
+		Case 12: targetCntr = targetCntr+1
+			If targetLoopCntr = 1 then
+				dtbankM.DropSol_On:dtbankT.DropSol_On:dtbankL.DropSol_On:sw20.timerinterval = 200: targetLoopCntr = 2: targetCntr = 1
+			Else
+				sw20.timerEnabled = 0
+			End If
+	End Select
+End Sub
+
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
 ' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
