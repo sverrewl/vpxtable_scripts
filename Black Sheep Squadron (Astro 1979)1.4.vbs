@@ -820,9 +820,9 @@ else
 End If
 
 
-Sub Table1_Exit()
-
-End Sub
+' Sub Table1_Exit()
+'
+' End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX

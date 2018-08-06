@@ -675,9 +675,3 @@ Sub RandomSoundFlipper()
 	End Select
 End Sub
 
-' Thalamus : Exit in a clean and proper way
-Sub Zira_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-

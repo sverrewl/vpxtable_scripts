@@ -1928,9 +1928,4 @@ Sub HighScoreProcessKey(keycode)
         UpdatePostIt
     End If
 End Sub
-' Thalamus : Exit in a clean and proper way
-Sub Jubilee_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
 

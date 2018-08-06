@@ -1279,10 +1279,3 @@ Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-

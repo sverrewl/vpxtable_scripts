@@ -1001,8 +1001,6 @@ Sub GraphicsTimer_Timer()
 	end if
 End Sub
 
-Sub Table1_Exit():Controller.Stop:End Sub
-
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
   Controller.Pause = False

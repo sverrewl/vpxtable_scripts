@@ -1062,10 +1062,3 @@ dim i:for i=1 to 7:StopSound "rampbump" & i:next
 NextOrbitHit = Timer + 1
 End Sub
 
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-

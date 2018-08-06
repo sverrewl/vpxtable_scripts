@@ -1426,10 +1426,3 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   End if
 End Sub
 
-
-' Thalamus : Exit in a clean and proper way
-Sub Victory_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-

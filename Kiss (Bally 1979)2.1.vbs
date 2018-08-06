@@ -734,9 +734,9 @@ Sub RandomBumpMetals_Thin(voladj, freq)
 	End If
 End Sub
 
-Sub Table1_Exit()
-
-End Sub
+' Sub Table1_Exit()
+'
+' End Sub
 
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()

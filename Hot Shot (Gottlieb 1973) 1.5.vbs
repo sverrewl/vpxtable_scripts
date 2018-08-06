@@ -1518,9 +1518,4 @@ End Sub
 Sub Hot_Shot_1973_Exit()
 	If B2SOn Then Controller.Stop
 End Sub
-' Thalamus : Exit in a clean and proper way
-Sub Hot_Shot_1973_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
 

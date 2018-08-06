@@ -1734,9 +1734,3 @@ Sub Lady_Luck_Exit()
 	If B2SOn Then Controller.Stop
 End Sub
 
-' Thalamus : Exit in a clean and proper way
-Sub Lady_Luck_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-

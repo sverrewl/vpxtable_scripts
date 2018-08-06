@@ -2321,11 +2321,11 @@ sub loadhs
     If (temp <> "") then freeplay = CDbl(temp)
 end sub
 
-Sub TargetAlpha_Exit()
-	Savehs
-	turnoff
-	If B2SOn Then Controller.stop
-End Sub
+' Sub TargetAlpha_Exit()
+' 	Savehs
+' 	turnoff
+' 	If B2SOn Then Controller.stop
+' End Sub
 
 '==========================================================================================================================================
 '============================================================= START OF HIGH SCORES ROUTINES =============================================================

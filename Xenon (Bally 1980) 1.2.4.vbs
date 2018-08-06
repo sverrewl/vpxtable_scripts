@@ -9,6 +9,7 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' fast flips is integrated
 
 Option Explicit
 Randomize
@@ -730,7 +731,7 @@ Sub editDips
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
-Sub table1_Exit:Controller.Stop:End Sub
+' Sub table1_Exit:Controller.Stop:End Sub
 
 'cFastFlips by nFozzy
 'Bypasses pinmame callback for faster and more responsive flippers
@@ -1027,12 +1028,5 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
-End Sub
-
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
 End Sub
 
