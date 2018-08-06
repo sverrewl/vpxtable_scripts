@@ -34,10 +34,9 @@ here. If not, why don't we fix them ?
 
 _Future feature ?_
 
-There has been talks about supporting "side-car" table support. If that
-happens - I will make sure that the updated code here will be made available
-for everyone to download as a regular zip file and then you only should
-  have to extract those files into the same folder as your tables.
+There has been talks about supporting "side-car" table support.
+If VP gets this feature you should be able to just download the whole
+archive as a zip and extract it into your tables folder.
 
-  But for now that is not an option unfortunately.
+__But for now that is not an option unfortunately.__
 
