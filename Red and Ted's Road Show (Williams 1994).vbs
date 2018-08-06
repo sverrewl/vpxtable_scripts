@@ -29,7 +29,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2, reverted, upper left flipper is controlled by right flipper
+' Changed UseSolenoids=1 to 2, was a problem - fix by DjRobX applied
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -55,7 +55,10 @@ Flares = 1			'1 = 0n, 0 = 0ff
 '********************
 
 Const cGameName = "rs_l6"
-Const UseSolenoids = 1
+Const UseSolenoids = 2
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const SSolenoidOn = "SolOn"
 Const SSolenoidOff = "SolOff"
@@ -882,8 +885,8 @@ End Sub
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
-SolCallback(34) = "SolLFlipper3" ' Upper Left Flipper
-SolCallback(36) = "SolLFlipper2" ' Middle Left Flipper
+'SolCallback(34) = "SolLFlipper3" ' Upper Left Flipper
+'SolCallback(36) = "SolLFlipper2" ' Middle Left Flipper
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
@@ -891,6 +894,8 @@ Sub SolLFlipper(Enabled)
     Else
         PlaySound SoundFX("FlipperDown", DOFFlippers):FlipperL.RotateToStart
     End If
+    SolLFlipper3 Enabled
+.		SolLFlipper2 Enabled
 End Sub
 
 Sub SolRFlipper(Enabled)
