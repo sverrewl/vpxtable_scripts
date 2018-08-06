@@ -4,13 +4,10 @@
 
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2 - reverted, didn't work.
+' Table doens't need useSolenoid=2, it is included as its own function.
 
 Option Explicit
 Randomize
-
-'Const cSingleLFlip = 0
-'Const cSingleRFlip = 0
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -40,7 +37,7 @@ End if
 '*************************************************************
 'Solenoid Call backs
 '**********************************************************************************************************
- 
+
  SolCallback(6) =  "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
  SolCallback(7) = "Soldtbank3"
  SolCallback(8) = "SolSaucer"
@@ -67,7 +64,7 @@ Sub SolLFlipper(Enabled)
          PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
      End If
   End Sub
-  
+
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
@@ -94,7 +91,7 @@ End Sub
 		End If
 	End If
  End Sub
- 
+
  Sub SolBallRelease(Enable)
      If Controller.Lamp(52) then
          bsTrough.SolOut Enable
@@ -103,7 +100,7 @@ End Sub
 	     'L2DG.state=1:L1DG.state=1
      End If
  End Sub
- 
+
  Sub SolReset(Enable)
      If Controller.Lamp(52) then
          dtbank2.SolDropUp Enable
@@ -129,7 +126,7 @@ For each xx in DT8Lights: xx.state=0:Next
 		BallShadowUpdate.enabled=0
 	end if
 
-	if flippershadows=1 then 
+	if flippershadows=1 then
 		FlipperLSh.visible=1
 		FlipperRSh.visible=1
 	  else
@@ -139,7 +136,7 @@ For each xx in DT8Lights: xx.state=0:Next
 
 'Primitive Flipper Code
 Sub FlipperTimer_Timer
-'	FlipperT1.roty = LeftFlipper.currentangle 
+'	FlipperT1.roty = LeftFlipper.currentangle
 '	FlipperT5.roty = RightFlipper.currentangle
 	if FlipperShadows=1 then
 		FlipperLsh.rotz= LeftFlipper.currentangle
@@ -209,40 +206,40 @@ End Sub
          On Error Goto 0
      End With
      On Error Goto 0
- 
+
      PinMAMETimer.Interval = PinMAMEInterval
      PinMAMETimer.Enabled = 1
 
      vpmNudge.TiltSwitch = swTilt
      vpmNudge.Sensitivity = 1
      vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3, LeftSlingshot, RightSlingshot)
- 
+
      Set bsTrough = New cvpmBallStack
          bsTrough.InitSw 0, 8, 0, 0, 0, 0, 0, 0
          bsTrough.InitKick BallRelease, 80, 6
          bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
          bsTrough.Balls = 1
- 
+
      Set bsTP = New cvpmBallStack
          bsTP.InitSaucer sw34, 34, 315, 8
          bsTP.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
          bsTP.KickAngleVar = 3
          bsTP.KickForceVar = 3
- 
+
      set dtbank1 = new cvpmdroptarget
          dtbank1.initdrop array(sw17, sw18, sw19, sw20, sw21, sw22, sw23), array(17, 18, 19, 20, 21, 22, 23)
          dtbank1.initsnd  SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
- 
+
      set dtbank2 = new cvpmdroptarget
          dtbank2.initdrop array(sw1, sw2, sw3, sw4), array(1, 2, 3, 4)
          dtbank2.initsnd  SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
- 
+
      set dtbank3 = new cvpmdroptarget
          dtbank3.initdrop sw33, 33
          dtbank3.initsnd  SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
- 
+
  End Sub
- 
+
 '**********************************************************************************************************
 'Plunger code
 '**********************************************************************************************************
@@ -274,7 +271,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 	if keycode = 200 then bcup = 1			' Up Arrow
 	if keycode = 208 then bcdown = 1		' Down Arrow
 	if keycode = 205 then bcright = 1		' Right Arrow
-	
+
 '************************   End Ball Control 1/3
 
 End Sub
@@ -302,7 +299,7 @@ End Sub
 
 Sub StopControl_Hit()
 	contballinplay = false
-End Sub	
+End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
@@ -310,7 +307,7 @@ Dim bcvel, bcyveloffset, bcboostmulti
 bcboost = 1		'Do Not Change - default setting
 bcvel = 4		'Controls the speed of the ball movement
 bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key) 
+bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
 
 Sub BallControl_Timer()
 	If Contball and ContBallInPlay then
@@ -335,7 +332,7 @@ End Sub
 
 
 '**********************************************************************************************************
- 
+
  ' Drain hole and kickers
 Sub Drain_Hit:bsTrough.addball me : playsound"drain" : End Sub
 Sub sw34_Hit:bsTP.AddBall 0 : playsound"popper_ball" : End Sub
@@ -420,17 +417,17 @@ Sub Soldtbank3(enabled)
 End Sub
 
 'Rollovers
- Sub sw12_Hit:Controller.Switch(12) = 1 : playsound"rollover" : End Sub 
+ Sub sw12_Hit:Controller.Switch(12) = 1 : playsound"rollover" : End Sub
  Sub sw12_UnHit:Controller.Switch(12) = 0:End Sub
- Sub sw13_Hit:Controller.Switch(13) = 1 : playsound"rollover" : End Sub 
+ Sub sw13_Hit:Controller.Switch(13) = 1 : playsound"rollover" : End Sub
  Sub sw13_UnHit:Controller.Switch(13) = 0:End Sub
- Sub sw14_Hit:Controller.Switch(14) = 1 : playsound"rollover" : End Sub 
+ Sub sw14_Hit:Controller.Switch(14) = 1 : playsound"rollover" : End Sub
  Sub sw14_UnHit:Controller.Switch(14) = 0:End Sub
- Sub sw15_Hit:Controller.Switch(15) = 1 : playsound"rollover" : End Sub 
+ Sub sw15_Hit:Controller.Switch(15) = 1 : playsound"rollover" : End Sub
  Sub sw15_UnHit:Controller.Switch(15) = 0:End Sub
- Sub sw31_Hit:Controller.Switch(31) = 1 : playsound"rollover" : End Sub 
+ Sub sw31_Hit:Controller.Switch(31) = 1 : playsound"rollover" : End Sub
  Sub sw31_UnHit:Controller.Switch(31) = 0:End Sub
- Sub sw32_Hit:Controller.Switch(32) = 1 : playsound"rollover" : End Sub 
+ Sub sw32_Hit:Controller.Switch(32) = 1 : playsound"rollover" : End Sub
  Sub sw32_UnHit:Controller.Switch(32) = 0:End Sub
 
 'Bumpers
@@ -448,7 +445,7 @@ Sub sw29_Hit:vpmTimer.PulseSw 29:End Sub
 Sub sw30_Hit:vpmTimer.PulseSw 30:End Sub
 
 'Star Trigger
- Sub sw35_Hit:Controller.Switch(35) = 1 : playsound"rollover" : End Sub 
+ Sub sw35_Hit:Controller.Switch(35) = 1 : playsound"rollover" : End Sub
  Sub sw35_UnHit:Controller.Switch(35) = 0:End Sub
 
 '***************************************************
@@ -639,7 +636,7 @@ End Sub
 		L101DC.state=0
 	End If
      NFadeL 101, L101c
-		
+
      NFadeLm 117, L117
      NFadeLm 117, L117a
      NFadeLm 117, L117b
@@ -871,7 +868,7 @@ If Not IsEmpty(ChgLED) Then
 			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
 			if (num < 32) then
 				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1 
+					If chg And 1 Then obj.State = stat And 1
 					chg = chg\2 : stat = stat\2
 				Next
 			else
@@ -1147,7 +1144,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1158,7 +1155,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1260,7 +1257,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -1274,7 +1271,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -1282,28 +1279,28 @@ End Sub
 'cFastFlips by nFozzy
 'Bypasses pinmame callback for faster and more responsive flippers
 'Version 1.0
- 
+
 'Flipper / game-on Solenoid # reference (incomplete):
 'Williams System 11: Sol23 or 24
 'Gottlieb System 3: Sol32
 'Data East (pre-whitestar): Sol23 or 24
 'WPC 90', 92', WPC Security: Sol31
- 
+
 '********************Setup*******************:
- 
+
 '...keydown section... (comment out the upper flippers as needed)
 'If KeyCode = LeftFlipperKey then FastFlips.FlipL True :  FastFlips.FlipUL True
 'If KeyCode = RightFlipperKey then FastFlips.FlipR True :  FastFlips.FlipUR True
 '(Do not use Exit Sub, this script does not handle switch handling at all!)
- 
+
 '...keyUp section...
 'If KeyCode = LeftFlipperKey then FastFlips.FlipL False :  FastFlips.FlipUL False
 'If KeyCode = RightFlipperKey then FastFlips.FlipR False :  FastFlips.FlipUR False
- 
+
 '...Flipper Callbacks....
 'if pinmame flipper callbacks are in use, comment them out. For example 'SolCallback(sLRFlipper)
 'But use these subs (they should be the same ones defined in CallBackL / CallBackR) to handle flipper rotation and sounds!
- 
+
 '...Solenoid... set this based on solenoid number
 SolCallBack(19) = "FastFlips.TiltSol"
 SolCallback(sLRFlipper) = ""
@@ -1311,8 +1308,8 @@ SolCallback(sLLFlipper) = ""
 SolCallback(sURFlipper) = ""
 SolCallback(sULFlipper) = ""
 '//////for a reference of solenoid numbers, see top /////
- 
- 
+
+
 'One last note - Because this script is super simple it will call flipper return a lot.
 'It might be a good idea to add extra conditional logic to your flipper return sounds so they don't play every time the game on solenoid turns off
 'Example:
@@ -1337,43 +1334,43 @@ with FastFlips
 '   .InitDelay "FastFlips", 100         'Optional, if > 0 adds some compensation for solenoid jitter (occasional problem on Bram Stoker's Dracula)
 '   .DebugOn = False        'Debug, always-on flippers. Call FastFlips.DebugOn True or False in debugger to enable/disable.
 end with
- 
+
 Class cFastFlips
     Public TiltObjects, DebugOn
     Private SubL, SubUL, SubR, SubUR, FlippersEnabled, Delay, LagCompensation, Name
-   
+
     Private Sub Class_Initialize()
         Delay = 0 : FlippersEnabled = False : DebugOn = False : LagCompensation = False
     End Sub
-   
+
     'set callbacks
     Public Property Let CallBackL(aInput)  : Set SubL  = GetRef(aInput) : End Property
     Public Property Let CallBackUL(aInput) : Set SubUL = GetRef(aInput) : End Property
     Public Property Let CallBackR(aInput)  : Set SubR  = GetRef(aInput) : End Property
     Public Property Let CallBackUR(aInput) : Set SubUR = GetRef(aInput) : End Property
     Public Sub InitDelay(aName, aDelay) : Name = aName : delay = aDelay : End Sub   'Create Delay
-   
+
     'call callbacks
     Public Sub FlipL(aEnabled)
         if not FlippersEnabled and not DebugOn then Exit Sub
         subL aEnabled
     End Sub
-   
+
     Public Sub FlipR(aEnabled)
         if not FlippersEnabled and not DebugOn then Exit Sub
         subR aEnabled
     End Sub
- 
+
     Public Sub FlipUL(aEnabled)
         if not FlippersEnabled and not DebugOn then Exit Sub
         subUL aEnabled
     End Sub
- 
+
     Public Sub FlipUR(aEnabled)
         if not FlippersEnabled and not DebugOn then Exit Sub
         subUR aEnabled
     End Sub
-   
+
     Public Sub TiltSol(aEnabled)    'Handle solenoid / Delay (if delayinit)
         if delay > 0 and not aEnabled then  'handle delay
             vpmtimer.addtimer Delay, Name & ".FireDelay" & "'"
@@ -1383,9 +1380,9 @@ Class cFastFlips
             EnableFlippers(aEnabled)
         end if
     End Sub
-   
+
     Sub FireDelay() : if LagCompensation then EnableFlippers False End If : End Sub
-   
+
     Private Sub EnableFlippers(aEnabled)
         FlippersEnabled = aEnabled
         if TiltObjects then vpmnudge.solgameon aEnabled
@@ -1394,7 +1391,7 @@ Class cFastFlips
             subR False
             if not IsEmpty(subUL) then subUL False
             if not IsEmpty(subUR) then subUR False
-        End If     
+        End If
     End Sub
-   
+
 End Class

@@ -18,6 +18,7 @@
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2, reverted - didn't work
+' Followed suggestion from Wob, changed to system7 and re-applied useSolenoid=2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -28,12 +29,15 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="frpwr_b7",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="frpwr_b7",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 
 Const BallSize = 52
 Const Ballmass = 2
 
-LoadVPM "01560000", "S6.VBS", 3.26
+LoadVPM "01560000", "S7.VBS", 3.26
 
 Dim T1Step,T2Step,T3Step,T4Step,T5Step,T6Step,topPWRStep,midPWRStep,BtmPWRStep,CTStep,DTMod,CenterPost
 Dim trTrough
