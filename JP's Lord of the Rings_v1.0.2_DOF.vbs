@@ -2,14 +2,14 @@
 ' VPX version by jpsalas
 ' DOF commands by arngrim
 
-Option Explicit
-Randomize
-
-' Thalamus 2018-07-23
+' Thalamus 2018-08-05
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2, didn't work - reverted.
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+
+Option Explicit
+Randomize
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -34,7 +34,10 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
@@ -151,8 +154,8 @@ Sub Table1_Init
 
 	Set mRingMagnet = New cvpmMagnet
  	With mRingMagnet
-		.InitMagnet sw47a, 30
-		.GrabCenter = True
+		.InitMagnet sw47a, 30  
+		.GrabCenter = True 
  		.solenoid = 6						'Ring Magnet
         .CreateEvents "mRingMagnet"
 	End With
@@ -973,6 +976,7 @@ Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
+
 '*****************************************
 '      JP's VP10 Rolling Sounds
 '*****************************************
@@ -1030,11 +1034,5 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
-End Sub
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
 End Sub
 
