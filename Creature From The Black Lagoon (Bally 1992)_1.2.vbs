@@ -9,15 +9,10 @@
 '      VPX by 			fuzzel, flupper1
 '      Script by 		flupper, rothbauerw
 '      Primitives by 	fuzzel, flupper1
-'	   Supported by     randr, clarkkent, hauntfreaks
+'	   Supported by     randr, clarkkent, hauntfreaks	
 '
 '************************************************************
 '************************************************************
-
-' Thalamus 2018-07-24
-' Table has already its own  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2 - reverted as it didn't work
-' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
@@ -25,6 +20,11 @@ Randomize
 '******************************************************
 ' 						OPTIONS
 '******************************************************
+
+' Thalamus 2018-08-06
+' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
 
 Const EnableBallControl = true	'set to false to disable the C key from taking manual control
 Const VolumeDial = 5				'Change bolume of hit events
@@ -48,7 +48,10 @@ Dim Ballsize,BallMass
 Ballsize = 50
 Ballmass = 1.7
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 1
@@ -87,15 +90,15 @@ Sub Table1_Init
          On Error Goto 0
      End With
 
-	dim light
+	dim light 
 	If chaselightsbloom = 0 Then
 		chaselightsintensity = chaselightsintensity * 8
-		For Each Light in chaselights: Light.Falloff=20:Light.Falloffpower=8:Light.IntensityScale = chaselightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 20 : Light.FadeSpeedDown = Light.FadeSpeedUp / 3: Next
+		For Each Light in chaselights: Light.Falloff=20:Light.Falloffpower=8:Light.IntensityScale = chaselightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 20 : Light.FadeSpeedDown = Light.FadeSpeedUp / 3: Next 
 	Else
-		For Each Light in chaselights: Light.IntensityScale = chaselightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 20 : Light.FadeSpeedDown = Light.FadeSpeedUp / 3: Next
+		For Each Light in chaselights: Light.IntensityScale = chaselightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 20 : Light.FadeSpeedDown = Light.FadeSpeedUp / 3: Next 
 	End If
 
-	For Each Light in indirectlights: Light.IntensityScale = indirectlightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 60 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next
+	For Each Light in indirectlights: Light.IntensityScale = indirectlightsintensity : Light.FadeSpeedUp = Light.IntensityScale * Light.Intensity / 60 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next 
 
 	Flasher21.opacity = shadowopacity
 
@@ -115,7 +118,7 @@ Sub Table1_Init
 	sw58.CreateSizedballWithMass Ballsize/2,Ballmass
 	sw57.CreateSizedballWithMass Ballsize/2,Ballmass
 	sw56.CreateSizedballWithMass Ballsize/2,Ballmass
-
+	
 	Controller.Switch(58) = 1
 	Controller.Switch(57) = 1
 	Controller.Switch(56) = 1
@@ -199,7 +202,7 @@ SolCallback(12) = 	"SolOuthole"
 
 
 '********Solenoids********
-
+ 
 '  SolCallBack(1) = "TopRightPopper"
 '  SolCallBack(2) = "SetLamp 103,"
 '  SolCallBack(3) = "bsSubway.SolOut"
@@ -223,15 +226,15 @@ SolCallBack(7) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 '  SolCallBack(26) = "DropRDown"
 '  SolCallBack(27) = "CreatureMotorMirror"
 '  SolCallBack(28) = "HoloLamp"
-'
+' 
 ' '******Flipper Subs
-'
+' 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 'does not work properly with rom !!! so I did not use this, but for reference
 
-'dim val1, val2,
+'dim val1, val2, 
 '
 'SolCallBack(20) = "SeqGI1"
 'SolCallBack(24) = "SeqGI2"
@@ -263,8 +266,8 @@ Sub swirlramplight1_Timer()
 		chase1 = 0 : chase2 = 0 : chase3 = 0 : chase4 = 0
 	End if
 	swirlramplight1.state = chase1 : swirlramplight5.state = chase1 : swirlramplight9.state = chase1 : swirlramplight13.state = chase1 : swirlramplight17.state = chase1 : swirlramplight21.state = chase1 : swirlramplight25.state = chase1 : swirlramplight29.state = chase1
-	swirlramplight2.state = chase2 : swirlramplight6.state = chase2 : swirlramplight10.state = chase2 : swirlramplight14.state = chase2 : swirlramplight18.state = chase2 : swirlramplight22.state = chase2 : swirlramplight26.state = chase2 : swirlramplight30.state = chase2
-	swirlramplight3.state = chase3 : swirlramplight7.state = chase3 : swirlramplight11.state = chase3 : swirlramplight15.state = chase3 : swirlramplight19.state = chase3 : swirlramplight23.state = chase3 : swirlramplight27.state = chase3 : swirlramplight31.state = chase3
+	swirlramplight2.state = chase2 : swirlramplight6.state = chase2 : swirlramplight10.state = chase2 : swirlramplight14.state = chase2 : swirlramplight18.state = chase2 : swirlramplight22.state = chase2 : swirlramplight26.state = chase2 : swirlramplight30.state = chase2	
+	swirlramplight3.state = chase3 : swirlramplight7.state = chase3 : swirlramplight11.state = chase3 : swirlramplight15.state = chase3 : swirlramplight19.state = chase3 : swirlramplight23.state = chase3 : swirlramplight27.state = chase3 : swirlramplight31.state = chase3	
 	swirlramplight4.state = chase4 : swirlramplight8.state = chase4 : swirlramplight12.state = chase4 : swirlramplight16.state = chase4 : swirlramplight20.state = chase4 : swirlramplight24.state = chase4 : swirlramplight28.state = chase4 : swirlramplight32.state = chase4
 	if chase2=0 or swirlramplight2.intensityscale < 0.01 Then
 		wflash6.intensityScale=0
@@ -279,7 +282,7 @@ Sub swirlramplight1_Timer()
 End Sub
 
 '******************************************************
-'						TROUGH
+'						TROUGH 
 '******************************************************
 
 Sub sw58_Hit():Controller.Switch(58) = 1:UpdateTrough:End Sub
@@ -325,14 +328,14 @@ Sub sw55_UnHit()  'Drain
 End Sub
 
 Sub SolOuthole(enabled)
-	If enabled Then
+	If enabled Then 
 		sw55.kick 60,20
 		PlaySoundAt SoundFX("solenoid",DOFContactors), sw55
 	End If
 End Sub
 
 Sub ReleaseBall(enabled)
-	If enabled Then
+	If enabled Then 
 		PlaySoundAt SoundFX("ballrelease",DOFContactors), sw56
 		sw56.kick 60, 12
 		UpdateTrough
@@ -379,7 +382,7 @@ End Sub
 sub sw37_hit
 	PlaySoundAt "kicker_enter_center", sw37
 	Controller.Switch(37) = 1
-	Stopsound "SubWay"
+	Stopsound "SubWay" 
 End sub
 
 Sub sw17scoop_hit()
@@ -433,11 +436,11 @@ End Sub
  Sub sw52_Hit():VPMTimer.PulseSw 52:PlaySoundAt "Sensor", sw52: End Sub
  Sub sw53_Hit():VPMTimer.PulseSw 53:PlaySoundAt "Sensor", sw53: End Sub
  Sub sw54_Hit():VPMTimer.PulseSw 54:PlaySoundAt "Sensor", sw54: End Sub
-
+ 
  Sub sw15_Hit():controller.switch(15) = 0 :PlaySoundAt "Sensor", sw15: End Sub
  Sub sw15_Unhit():controller.switch(15) = 1 End Sub
 
-
+ 
  Sub sw25_Hit():VPMTimer.PulseSw 25:PlaySoundAt "Sensor", sw25: End Sub
  Sub sw26_Hit():VPMTimer.PulseSw 26:PlaySoundAt "Sensor", sw26: End Sub
  Sub sw27_Hit():VPMTimer.PulseSw 27:PlaySoundAt "Sensor", sw27: End Sub
@@ -447,7 +450,7 @@ End Sub
  Sub sw42_Hit():VPMTimer.PulseSw 42:PlaySoundAt SoundFX("Target",DOFTargets), sw42: End Sub
  Sub sw43_Hit():VPMTimer.PulseSw 43:PlaySoundAt SoundFX("Target",DOFTargets), sw43: End Sub
  Sub sw44_Hit():VPMTimer.PulseSw 44:PlaySoundAt SoundFX("Target",DOFTargets), sw44: End Sub
-
+ 
  Sub sw63_Hit():VPMTimer.PulseSw 63:PlaySoundAt "Gate", sw63: End Sub
 
  Sub sw35_Hit() 'Right Ramp Enter
@@ -480,9 +483,9 @@ End Sub
  Sub sw65_Hit():VPMTimer.PulseSw 65:End Sub  				 'Pool switch
 
  Sub sw66_Hit()   : controller.switch(66) = 1 :PlaySoundAt "Sensor", sw66: End Sub 'Ball Shooter Lane
- Sub sw66_UnHit() : controller.switch(66) = 0 : End Sub
+ Sub sw66_UnHit() : controller.switch(66) = 0 : End Sub 
 
-
+ 
 '******************************************************
 '					BUMPERS
 '******************************************************
@@ -533,14 +536,14 @@ End sub
 
 Sub UpdateRamp_Timer
     RampAngle = RampAngle + RampDir
-
+	
     If RampAngle> 0 Then   '110
         RampAngle = 0
 		RampDir=-1
         UpdateRamp.Enabled = 0
 		collRamp.collidable=false
     End If
-    If RampAngle < -25 Then
+    If RampAngle < -25 Then    
         RampAngle = -25
 		RampDir=1
         UpdateRamp.Enabled = 0
@@ -608,7 +611,7 @@ dim posinc:posinc=1
 	    creature.visible=0
  	end if
   End Sub
-
+ 
    Sub CreatureFlash(enabled)
  	If enabled then
  		holoState=1
@@ -618,9 +621,9 @@ dim posinc:posinc=1
 	    creature.visible=0
  	end if
  End Sub
-
+ 
  Sub CreatureMotorMirror(enabled)
-	if enabled then
+	if enabled then 
  		Playsound SoundFX("Motor",DOFShaker),-1
   		holoIdx=18
  		posinc = 1
@@ -632,14 +635,14 @@ dim posinc:posinc=1
 		creatureTimer.enabled=0
 	end if
 End Sub
-
+ 
  Sub creatureTimer_timer()
 	holoIdx=holoIdx+posinc
 	creature.visible=holoState
  	If holoIdx<1 then holoIdx=1:posinc=1
  	If holoIdx>46 then holoIdx=46:posinc=-1
-	creature.image = holoIdx
-end Sub
+	creature.image = holoIdx	
+end Sub		
 
 
 
@@ -647,8 +650,8 @@ sub startUpperLeftWireRamp_Hit
 	PlaySoundAtBall "WireRamp"
 end Sub
 
-sub endUpperLeftWireRamp_Hit():
-	StopSound "WireRamp":
+sub endUpperLeftWireRamp_Hit(): 
+	StopSound "WireRamp": 
 	vpmTimer.AddTimer 150, "PlayBallDrop endUpperLeftWireRamp, 0.1'"
 end sub
 
@@ -757,7 +760,7 @@ End Sub
 
 Sub StopBallControl_Hit()
 	contballinplay = false
-End Sub
+End Sub	
 
 Dim bcup, bcdown, bcleft, bcright
 Dim contball, contballinplay, ControlBall
@@ -766,7 +769,7 @@ Dim bcvel, bcyveloffset, bcboostmulti, bcboost
 bcboost = 1		'Do Not Change - default setting
 bcvel = 4		'Controls the speed of the ball movement
 bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
+bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key) 
 
 Sub BallControlTimer_Timer()
 	If Contball and ContBallInPlay and EnableBallControl then
@@ -910,7 +913,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and
+' The For loop goes through all the balls on the table and checks for the ball speed and 
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -924,7 +927,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -963,7 +966,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
+ 	If finalspeed > 20 then 
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -974,7 +977,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
+ 	If finalspeed > 16 then 
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolumeDial, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1022,7 +1025,7 @@ End Sub
 'LUT images (optional)
 'Make modifications based on era of game (setlamp / flashc for games without solmodcallback, use bonus GI subs for games with only one GI control)
 
-Dim LampState(340), FadingLevel(340), CollapseMe
+Dim LampState(340), FadingLevel(340), CollapseMe	
 Dim FlashSpeedUp(340), FlashSpeedDown(340), FlashMin(340), FlashMax(340), FlashLevel(340)
 Dim SolModValue(340)	'holds 0-255 modulated solenoid values
 
@@ -1093,29 +1096,29 @@ reDim CollapseMe(2) 'InitLamps 	(Click Me to Collapse)
 			FadingLevel(x) = 4	' used to track the fading state
 			FlashSpeedUp(x) = 0.1	'Fading speeds in opacity per MS I think (Not used with nFadeL or nFadeLM subs!)
 			FlashSpeedDown(x) = 0.1
-
+			
 			FlashMin(x) = 0.001			' the minimum value when off, usually 0
 			FlashMax(x) = 1				' the minimum value when off, usually 1
 			FlashLevel(x) = 0.001       ' Raw Flasher opacity value. Start this >0 to avoid initial flasher stuttering.
-
+			
 			SolModValue(x) = 0			' Holds SolModCallback values
-
+			
 		Next
-
+		
 		for x = 0 to uBound(giscale)
 			Giscale(x) = 1.625			' lamp GI compensation multiplier, eg opacity x 1.625 when gi is fully off
 		next
-
+			
 		for x = 11 to 100 'insert fading levels (only applicable for lamps that use FlashC sub)
 			FlashSpeedUp(x) = 0.015
 			FlashSpeedDown(x) = 0.009
-		Next
-
+		Next		
+		
 		for x = 101 to 186	'Flasher fading speeds 'intensityscale(%) per 10MS
 			FlashSpeedUp(x) = 1.1 * 4
 			FlashSpeedDown(x) = 0.9 * 4
 		next
-
+		
 		for x = 200 to 204		'GI relay on / off	fading speeds
 			FlashSpeedUp(x) = 0.01
 			FlashSpeedDown(x) = 0.008
@@ -1160,7 +1163,7 @@ reDim CollapseMe(3) 'LampTimer 	(Click Me to Collapse)
 				FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
 			Next
 		End If
-
+		
 		UpdateGIstuff
 		UpdateLamps
 		UpdateFlashers
@@ -1171,19 +1174,19 @@ reDim CollapseMe(3) 'LampTimer 	(Click Me to Collapse)
 reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 	Sub UpdateGIstuff()
 		FadeGI 200	'Chaselights #1
-		ModGI  300
+		ModGI  300	
 		FadeGI 201	'Middle GI
-		ModGI  301
+		ModGI  301		
 		FadeGI 202	'Upper GI
-		ModGI  302
+		ModGI  302	
 		FadeGI 203	'Chaselights #2
-		ModGI  303
+		ModGI  303			
 		FadeGI 204	'Lower GI
-		ModGI  304
+		ModGI  304	
 		UpdateGIObjects 200, 300, Chaselights, 1	'nr, nr2, array 'Updates GI objects
-		UpdateGIObjects 201, 301, GI_Middle, 0	'nr, nr2, array 'Updates GI objects
-		UpdateGIObjects 202, 302, GI_Upper, 0	'nr, nr2, array 'Updates GI objects
-		UpdateGIObjects 204, 304, GI_Lower, 0	'nr, nr2, array 'Updates GI objects
+		UpdateGIObjects 201, 301, GI_Middle, 0	'nr, nr2, array 'Updates GI objects		
+		UpdateGIObjects 202, 302, GI_Upper, 0	'nr, nr2, array 'Updates GI objects		
+		UpdateGIObjects 204, 304, GI_Lower, 0	'nr, nr2, array 'Updates GI objects		
 		If lutfading = 1 Then
 			GiCompensationAvgM 201, 301, 202, 302, 204, 304, aLampsAll, GiScale(2)	'Averages two lamp strings. Ideal match the avg. Lut fading.
 			FadeLUTavgM 201, 301, 202, 302, 204, 304, "LutCont_", 27	'Lut averages three fading strings
@@ -1197,7 +1200,7 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 	Else
 		lutFading = fslutfading
 	End If
-
+	
 	Sub UpdateFlashers()
 		nModFlash 102, fl2, 0, 0	'NR, Object, LowPass(see function ScaleByte) OffScale (multiply fading when callback 0)
 		nModFlash 108, fl8, 0, 0	'Last two arguments will carry through to objects controlled by nModFlashM.
@@ -1232,12 +1235,12 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 
 'flupper
 		If bumperslit = 0 then
-			NFadeLm 15,  l15
-			NFadeLm 15,  light2
-			NFadeLm 16,  l16
-			NFadeLm 16,  light1
-			NFadeLm 17,  l17
-			NFadeLm 17,  light4
+			NFadeLm 15,  l15	
+			NFadeLm 15,  light2	
+			NFadeLm 16,  l16	
+			NFadeLm 16,  light1	
+			NFadeLm 17,  l17	
+			NFadeLm 17,  light4	
 		Else
 			NFadeLm 15, bumper2Light1
 			NFadeLm 15, bumper2Light2
@@ -1305,9 +1308,9 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 		NFadeL 46,  light43
 		NFadeLm 47,  l47
 		NFadeL 47,  light22
-		NFadeLm 48,  l48
+		NFadeLm 48,  l48	
 		NFadeL 48,  light21
-		NFadeLm 54,  l54
+		NFadeLm 54,  l54	
 		NFadeL 54,  light23
 		NFadeLm 53,  l53
 		NFadeL 53,  light24
@@ -1346,12 +1349,12 @@ reDim CollapseMe(4) 'ASSIGNMENTS: Lamps, GI, and Flashers (Click Me to Collapse)
 		NFadeLm 87,  light25
 		NFadeL 87,  light48
 	end sub
-
+	
 '#end section
 
 reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 	Set GICallback = GetRef("UpdateGIon")		'On/Off GI to NRs 200-203
-	Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub
+	Sub UpdateGIOn(no, Enabled) : Setlamp no+200, cInt(enabled) : End Sub	
 
 
 	Set GICallback2 = GetRef("UpdateGI")
@@ -1369,7 +1372,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 
 	Function ScaleGI(value, scaletype)	'returns an intensityscale-friendly 0->100% value out of 1>8 'it does go to 8
 		Dim i
-		Select Case scaletype	'select case because bad at maths
+		Select Case scaletype	'select case because bad at maths 
 			case 0  : i = value * (1/8)	'0 to 1
 			case 25 : i = (1/28)*(3*value + 4)
 			case 50 : i = (value+5)/12
@@ -1407,7 +1410,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 	Sub ModGI(nr2) 'in 0->1		'Updates nothing but flashlevel	'never off
 		Dim DesiredFading
 		Select Case FadingLevel(nr2)
-			case 3 : FadingLevel(nr2) = 0	'workaround - wait a frame to let M sub finish fading
+			case 3 : FadingLevel(nr2) = 0	'workaround - wait a frame to let M sub finish fading 
 	'		Case 4 : FadingLevel(nr2) = 3	'off -disabled off, only gicallback1 can turn off GI(?) 'experimental
 			Case 5, 4 ' Fade (Dynamic)
 				DesiredFading = SolModValue(nr2)
@@ -1430,7 +1433,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 			for each x in a : x.IntensityScale = Output : next
 		End If
 	end Sub
-
+	
 	Sub GiCompensation(nr, nr2, a, GIscaleOff)	'One NR pairing only fading
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1452,7 +1455,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 		End If
 		'		tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
 	End Sub
-
+	
 	Sub GiCompensationAvg(nr, nr2, nr3, nr4, a, GIscaleOff)	'Two pairs of NRs averaged together
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1468,8 +1471,8 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 				a(x).FadeSpeedUp = LampsOpacity(x, 1) * Giscaler
 				a(x).FadeSpeedDown = LampsOpacity(x, 2) * Giscaler
 			Next
-
-
+		
+				
 		REM tbgi1.text = "Output:" & output & vbnewline & _
 					REM "GIscaler" & giscaler & vbnewline & _
 					REM "..."
@@ -1480,8 +1483,8 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 					REM "GI3 " & flashlevel(203) & " " & flashlevel(303) & vbnewline & _
 					REM "GI4 " & flashlevel(204) & " " & flashlevel(304) & vbnewline & _
 					REM "..."
-	End Sub
-
+	End Sub	
+	
 	Sub GiCompensationAvgM(nr, nr2, nr3, nr4, nr5, nr6, a, GIscaleOff)	'Three pairs of NRs averaged together
 	'	tbgi.text = "GI: " & SolModValue(nr) & " " & FlashLevel(nr) & " " & FadingLevel(nr) & vbnewline & _
 	'				"ModGI: " & SolModValue(nr2) & " " & FlashLevel(nr2) & " " & FadingLevel(nr2) & vbnewline & _
@@ -1489,7 +1492,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 		if FadingLevel(nr) > 1 or FadingLevel(nr2) > 1 Then
 			Dim x, Giscaler, Output
 			Output = (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)
-
+			
 			Giscaler = ((Giscaleoff-1) * (ABS(Output-1) )  ) + 1	'fade GIscale the opposite direction
 
 			for x = 0 to (a.Count - 1) 'Handle Compensate Flashers
@@ -1504,7 +1507,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 			'	tbgi1.text = Output & " giscale:" & giscaler	'debug
 		End If
 		'		tbbb1.text = FLashLevel(nr) & vbnewline & FlashLevel(nr2)
-	End Sub
+	End Sub	
 
 	Sub FadeLUT(nr, nr2, LutName, LutCount)	'fade lookuptable NOTE- this is a bad idea for darkening your table as
 		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 Then				'-it will strip the whites out of your image
@@ -1514,7 +1517,7 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 	'		tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-
+	
 	Sub FadeLUTavg(nr, nr2, nr3, nr4, LutName, LutCount)	'FadeLut for two GI strings (WPC)
 		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 Then
 			Dim GoLut
@@ -1523,9 +1526,9 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 			REM tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-
+	
 	Sub FadeLUTavgM(nr, nr2, nr3, nr4, nr5, nr6, LutName, LutCount)	'FadeLut for three GI strings (WPC)
-		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 or _
+		If FadingLevel(nr) >2 or FadingLevel(nr2) > 2 or FadingLevel(nr3) >2 or FadingLevel(nr4) > 2 or _ 
 		FadingLevel(nr5) >2 or FadingLevel(nr6) > 2 Then
 			Dim GoLut
 			GoLut = cInt(LutCount * (((FlashLevel(nr)*FlashLevel(nr2)) + (FlashLevel(nr3)*Flashlevel(nr4)) + (FlashLevel(nr5)*FlashLevel(nr6)))/3)	)	'what a mess
@@ -1533,14 +1536,14 @@ reDim CollapseMe(5) 'Combined GI subs / functions (Click Me to Collapse)
 	'		tbgi2.text = Table1.ColorGradeImage & vbnewline & golut	'debug
 		End If
 	End Sub
-
+	
 '#end section
 
 reDim CollapseMe(6) 'Fading subs 	 (Click Me to Collapse)
 	Sub nModFlash(nr, object, scaletype, offscale)	'Fading with modulated callbacks
 		Dim DesiredFading
 		Select Case FadingLevel(nr)
-			case 3 : FadingLevel(nr) = 0	'workaround - wait a frame to let M sub finish fading
+			case 3 : FadingLevel(nr) = 0	'workaround - wait a frame to let M sub finish fading 
 			Case 4	'off
 				If Offscale = 0 then Offscale = 1
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * FrameTime	) * offscale
@@ -1592,7 +1595,7 @@ reDim CollapseMe(6) 'Fading subs 	 (Click Me to Collapse)
 			case 3, 4, 5, 6 : Object.IntensityScale = FlashLevel(nr)
 		end select
 	End Sub
-
+	
 	Sub NFadeL(nr, object)	'Simple VPX light fading using State
     Select Case FadingLevel(nr)
         Case 3:object.state = 0:FadingLevel(nr) = 0
@@ -1618,7 +1621,7 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
 		Dim i
 		Select Case scaletype	'select case because bad at maths 	'TODO: Simplify these functions. B/c this is absurdly bad.
 			case 0  : i = value * (1 / 255)	'0 to 1
-			case 6  : i = (value + 17)/272  '0.0625 to 1
+			case 6  : i = (value + 17)/272  '0.0625 to 1 
 			case 9  : i = (value + 25)/280  '0.089 to 1
 			case 15 : i = (value / 300) + 0.15
 			case 20 : i = (4 * value)/1275 + (1/5)
@@ -1636,7 +1639,7 @@ reDim CollapseMe(7) 'Fading Functions (Click Me to Collapse)
 		Dim i
 		Select Case scaletype
 			case 0 : i = value * 1	'0 to 1
-			case 9 : i = (5*(200*value + 1887))/1037 'ugh
+			case 9 : i = (5*(200*value + 1887))/1037 'ugh 
 			case 15 : i = (16*value)/17 + 15
 			Case 63 : i = (3*(value + 85))/4
 			case else : i = value * 1	'0 to 1
@@ -1648,7 +1651,7 @@ Sub theend() : End Sub
 
 
 
-REM Troubleshooting :
+REM Troubleshooting : 
 REM Flashers/gi are intermittent or aren't showing up
 REM Ensure flashers start visible, light objects start with state = 1
 
@@ -1676,7 +1679,7 @@ sub trigger1_hit()
 		set shooterball = activeball
 		trigger1.timerenabled = true
 	end if
-End Sub
+End Sub 
 
 Dim counter, shooterball
 
@@ -1690,11 +1693,4 @@ Sub Trigger1_timer()
 		counter = 0
 		trigger1.timerenabled = False
 	end If
-End Sub
-
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
 End Sub
