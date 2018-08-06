@@ -215,6 +215,9 @@ LoadVPM "02800000", "WPC.VBS", 3.55
  ' Init Table
  Const cGameName = "i500_11r"
  Const UseSolenoids = 2
+ ' Thal : Added because of useSolenoid=2
+ Const cSingleLFlip = 0
+ Const cSingleRFlip = 0
  Const UseLamps = 1
  Const UseGI = 0
  Const UseSync = 0
