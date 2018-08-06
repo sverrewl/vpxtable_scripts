@@ -894,9 +894,15 @@ Sub SolLFlipper(Enabled)
     Else
         PlaySound SoundFX("FlipperDown", DOFFlippers):FlipperL.RotateToStart
     End If
-    SolLFlipper3 Enabled
-.		SolLFlipper2 Enabled
+	SolLFlipper3 Enabled
+	SolLFlipper2 Enabled
 End Sub
+
+SolCallback(sLRFlipper) = "SolRFlipper"
+SolCallback(sLLFlipper) = "SolLFlipper"
+'SolCallback(34) = "SolLFlipper3" ' Upper Left Flipper
+'SolCallback(36) = "SolLFlipper2" ' Middle Left Flipper
+
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
