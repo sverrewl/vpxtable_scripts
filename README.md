@@ -1,4 +1,4 @@
-<h1>This repo contains script files of visual pinball tables.
+<h1>This repo contains script files of visual pinball tables.</h1>
 
 I love SSF tables so much that I could not stand playing older tables
 that didn't have updated 7.1 code in them. What I've done is to find
