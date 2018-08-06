@@ -1,28 +1,37 @@
 ' ****************************
 ' MONOPOLY -  Stern 2001
 ' ****************************
-
-' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2, reverted - didn't work
-' No special SSF tweaks yet.
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-
+'
 'Release Notes
-' 1.0 - 20170403 - VPX 10.2
-'       -Used JPSalas' WOW Monopoly version 1.2 as base (playfield, plastics and some lighting changed)
+' 1.2  20170518 - VPX 10.2
+'      - New rotating flipper implementation (single flipper and magnet) intended to correct ball being pushed
+'        through walls, ramps and playfield
+'      - Modified upper right flipper parameters to reduce interactions with rotating flipper
+'      - Adjusted walls around the rotating flipper
+'      - Added playing piece primitives on left ramp, adjusted lighting and minor plunger tweaks
+' 1.1  20170420 - VPX 10.2 
+'      - Fix for ball stuck at Shooter Lane Gate
+' 1.0 - 20170403 - VPX 10.2 
+'       -Used JPSalas' WOW Monopoly version 1.2 as base (playfield, plastics and some lighting changed)  
 '       -JPSalas' WOW Monopoly and this build used the Monopoly table from Pacdude as reference and for the script
-'       -Plastic modifications from photographs found on the internet
+'       -Plastic modifications from photographs found on the internet  
 '       -Desktop background portions from wildman backglass
 '       -DOF by arngrim
 '       -Bumpers from Diner (Flupper, Et al.)
 '       -Script Options for LED Display, Scoop Lights & Pin Blades
 
+' Thalamus 2018-08-06
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Changed UseSolenoids=1 to 2
+' No special SSF tweaks yet.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' , AudioFade(ActiveBall)
+
 Option Explicit
 Randomize
 
 ' ***************
-'  Table Options
+'  Table Options 
 ' ***************
 ' Pin Blades -  Dark Blue (Default) or Money Mod
 Const cMoneyBlades=False
@@ -54,7 +63,10 @@ LoadVPM "01120100", "sega.vbs", 3.23
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0
@@ -72,7 +84,45 @@ Dim bsTrough, bsChance, bsSaucerWW, bsSaucerEC, bsSaucerDE, WaterMech, BankMech,
 '************
 
 ' choose the ROM
-Const cGameName = "monopole"
+Const cGameName = "monopoly"
+
+'***********
+' Solenoids
+'***********
+SolCallback(1) = "bsTrough.SolOut"      ' Trough Up-Kicker
+SolCallback(2) = "Autofire"             ' AutoLaunch
+'SolCallback(3)	= ""					' Lower Left  Pop (handled in the scrip)
+'SolCallback(4)	= ""					' Lower Right Pop (handled in the scrip)
+'SolCallback(5)	= ""					' Lower Bot   Pop (handled in the scrip)
+SolCallback(6) = "BankClose"    		' Bank Close
+SolCallback(7) = "DropReset"    		' DropTargetReset
+SolCallback(8) = "LockKickBack" 		' Lock Kicker
+'SolCallback(9)	= "ULJet"				' Upper Left  Pop (handled in the scrip)
+'SolCallback(10)	= "URJet"			' Upper Right Pop (handled in the scrip)
+'SolCallback(11)	= "UBJet"			' Upper Bot   Pop (handled in the scrip)
+SolCallback(12) = "bsChance.SolOut" 	' Chance Scoop
+SolCallback(13) = "BankOpen"        	' Bank Open
+'SolCallback(17)	= ""				' Left  Slingshot (handled in the scrip)
+'SolCallback(18)	= ""				' Right Slingshot (handled in the scrip)
+SolCallback(19) = "SetLamp 119,"
+SolCallback(20) = "SetLamp 120,"
+SolCallback(21) = "SetLamp 121,"
+SolCallback(22) = "SetLamp 122,"
+SolCallback(23) = "SetLamp 123,"
+SolCallback(25) = "WWMotor"           	' WaterWorks Motor (Handled by Mech Handler)
+SolCallback(26) = "bsSaucerEC.SolOut" 	' Electric Company
+SolCallback(27) = "MRelay"            	' Motor Relay
+SolCallback(28) = "bsSaucerDE.SolOut" 	' Dice Eject
+SolCallback(29) = "SetLamp 129,"
+SolCallback(30) = "DivertLeft"        	' Left  Ramp Diverter
+SolCallback(31) = "DivertRight"       	' Right Ramp Diverter
+SolCallback(32) = "UpDown"            	' Top Lane Up/Down Post
+'SolCallback(33)   = "LeftSave"			' Left   Outlane Post (UK)
+'SolCallback(34)   = "CenterSave"		' Center Outlane Post (UK)
+'SolCallback(35)   = "RightSave"		' Right  Outlane Post (UK)
+' SolCallback()    = "RelayAC"			' AC Relay (currently no way to connect to VPM in Stern games)
+
+Dim mMagnet
 
 Sub Table1_Init
     vpmInit Me
@@ -142,11 +192,21 @@ Sub Table1_Init
     ' Saucer (Water Works)
     Set bsSaucerWW = New cvpmBallStack
     With bsSaucerWW
-        .InitSaucer sw29, 29, 180, 4
-        .InitAltKick 340, 11
+        .InitSaucer kick_29, 29, 180, 15
+        .InitAltKick 340, 18
         .KickForceVar = 3
-        .CreateEvents "bsSaucerWW", sw29
+        .CreateEvents "bsSaucerWW", kick_29
     End With
+
+	' Magnet  (Water Works)
+	Set mMagnet = New cvpmMagnet
+		With mMagnet
+			.InitMagnet magnetTrigger, 3
+			.CreateEvents "mMagnet"
+			.GrabCenter = False
+		End With
+    mMagnet.MagnetOn=True
+
 
     'Impulse Plunger, used as the autoplunger
 
@@ -220,41 +280,6 @@ setlamp 129,0
 End if
 End Sub
 
-'***********
-' Solenoids
-'***********
-SolCallback(1) = "bsTrough.SolOut" ' Trough Up-Kicker
-SolCallback(2) = "Autofire"        ' AutoLaunch
-'SolCallback(3)	= ""							' Lower Left  Pop (handled in the scrip)
-'SolCallback(4)	= ""							' Lower Right Pop (handled in the scrip)
-'SolCallback(5)	= ""							' Lower Bot   Pop (handled in the scrip)
-SolCallback(6) = "BankClose"    ' Bank Close
-SolCallback(7) = "DropReset"    ' DropTargetReset
-SolCallback(8) = "LockKickBack" ' Lock Kicker
-'SolCallback(9)	= "ULJet"						' Upper Left  Pop (handled in the scrip)
-'SolCallback(10)	= "URJet"						' Upper Right Pop (handled in the scrip)
-'SolCallback(11)	= "UBJet"						' Upper Bot   Pop (handled in the scrip)
-SolCallback(12) = "bsChance.SolOut" ' Chance Scoop
-SolCallback(13) = "BankOpen"        ' Bank Open
-'SolCallback(17)	= ""							' Left  Slingshot (handled in the scrip)
-'SolCallback(18)	= ""							' Right Slingshot (handled in the scrip)
-SolCallback(19) = "SetLamp 119,"
-SolCallback(20) = "SetLamp 120,"
-SolCallback(21) = "SetLamp 121,"
-SolCallback(22) = "SetLamp 122,"
-SolCallback(23) = "SetLamp 123,"
-SolCallback(25) = "WWMotor"           ' WaterWorks Motor (Handled by Mech Handler)
-SolCallback(26) = "bsSaucerEC.SolOut" ' Electric Company
-SolCallback(27) = "MRelay"            ' Motor Relay
-SolCallback(28) = "bsSaucerDE.SolOut" ' Dice Eject
-SolCallback(29) = "SetLamp 129,"
-SolCallback(30) = "DivertLeft"        ' Left  Ramp Diverter
-SolCallback(31) = "DivertRight"       ' Right Ramp Diverter
-SolCallback(32) = "UpDown"            ' Top Lane Up/Down Post
-'SolCallback(33)   = "LeftSave"					' Left   Outlane Post (UK)
-'SolCallback(34)   = "CenterSave"					' Center Outlane Post (UK)
-'SolCallback(35)   = "RightSave"					' Right  Outlane Post (UK)
-' SolCallback()    = "RelayAC"				    ' AC Relay (currently no way to connect to VPM in Stern games)
 
 Sub RelayAC(enabled):vpmNudge.SolGameOn enabled:End Sub ' Tie In Nudge to AC Relay
 
@@ -316,7 +341,11 @@ End Sub
 
 '*****************************
 ' WaterWorks Flipper
-' copied from Pacdude's table
+' - parts from Pacdude's pre-VPX table
+' - modified to use a single flipper;
+'   the multiple flipper approach had
+'   balls going through walls, playfield and flipper.
+'   the single flipper still passes through the ball occasionally 
 '*****************************
 'Motor relay - direction
 dim Direction:Direction = 0
@@ -347,8 +376,8 @@ Sub UpdateFlipper_Timer()
     If WWSpeed = 2 Then UpdateFlipper.Interval = 14
     If WWSpeed = 3 Then UpdateFlipper.Interval = 12
     If WWSpeed = 4 Then UpdateFlipper.Interval = 7
-    '
-    If Direction = 1 Then ' Position Counter (direction flag comes from solenoid 27)
+
+    If Direction = 1 Then     ' Position Counter (direction flag comes from solenoid 27)
         WWPos = WWPos + 1
     Else
         WWPos = WWPos - 1
@@ -356,14 +385,49 @@ Sub UpdateFlipper_Timer()
     If WWPos > 71 Then WWPos = 0
     If WWPos < 0 Then WWPos = 71
 
-    If WWPos >= 0 and WWPos <= 3 Then controller.switch(30) = 1:else:controller.switch(30) = 0:end if 'home position
-    WWFlip(WWLastPos).Visible = False:WWFlip(WWLastPos).Enabled = False
-    :WWFlip(WWPos).Visible = True:WWFlip(WWPos).Enabled = True                                        ' visual change
-    If WWPos >= 3 and WWPos <= 20 Then:sw29.enabled = False:else:sw29.enabled = true                  ' saucer disabled while flipper moves over it
-    If WWPos = 4 or WWPos = 5 Then:bsSaucerWW.SolOut 1:End If                                         ' kick ball out at points near flipper movement
-    If WWPos = 18 or WWPos = 17 Then:bsSaucerWW.SolOutAlt 1:End If
+    ' ROM Service Menu and some parts of the manual identify switch 40 as the home position switch (not 30)
+    ' and with switch 40 there are more directional changes 
+    If WWPos >= 0 and WWPos <= 3 Then controller.switch(40) = 1:else:controller.switch(40) = 0:end if 'home position
+'    If WWPos >= 0 and WWPos <= 3 Then controller.switch(30) = 1:else:controller.switch(30) = 0:end if 'home position
+
+    WWFlipper.Visible = False
+
+    ' The Start & End angle setting (and this If statement) is needed to stop visual flipper jump that occurs
+    ' when rotating clockwise and moving from position 71 to 0 (355 to 0 degrees)
+    If Direction = 1 Then
+        WWFlipper.StartAngle = INT(WWLastPos * 5)
+        WWFlipper.EndAngle = INT(WWPos * 5)
+    Else
+        If NOT(WWPos=71 and WWLastPos=0) Then
+            WWFlipper.StartAngle = INT(WWPos * 5)
+            WWFlipper.EndAngle = INT(WWLastPos * 5)
+        End If
+    End If
+    WWFlipper.RotateToEnd
+
+    If WWPos >= 9 and WWPos <= 17 Then:kick_29.enabled = False:else:kick_29.enabled = True    ' saucer disabled while flipper moves over it
+    If (WWPos = 8 or WWPos = 9) and Direction = 1 Then:bsSaucerWW.SolOut 1:End If            ' kick ball out at points near flipper movement
+    If (WWPos = 20 or WWPos = 19) and Direction <> 1 Then:bsSaucerWW.SolOutAlt 1:End If
+
     WWLastPos = WWPos
+    WWFlipper.Visible = True
+
 End Sub
+
+' Introduced magnet to help pull ball into kicker; flipper not reliable
+Sub sw29_Hit
+    mMagnet.MagnetOn=False
+End Sub
+
+Sub sw29_UnHit
+    MagnetCycle.enabled=True
+End Sub
+
+Sub MagnetCycle_Timer
+    me.enabled=False
+    mMagnet.MagnetOn=True
+End Sub
+
 
 '***************
 '  Slingshots
@@ -1184,12 +1248,5 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
-End Sub
-
-
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit()
-  Controller.Pause = False
-  Controller.Stop
 End Sub
 
