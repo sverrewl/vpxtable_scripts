@@ -41,8 +41,7 @@ that they are included here. If not, why don't we fix them ?
 If you want to contribute, then this article might help you if you
 haven't used git before
 
-[The beginners guid to contributing to a GitHub project]
-(https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
+[The beginners guid to contributing to a GitHub project] (https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
 
 Trust me, it looks harder than it is.
 
