@@ -38,6 +38,28 @@ it should actually fix some issues as well. There are a few tables that
 hasn't been updated with the fixes provided by the community and I hope
 that they are included here. If not, why don't we fix them ?
 
+If you want to contribute, then this article might help you if you
+haven't used git before
+
+[The beginners guid to contributing to a GitHub project]
+(https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
+
+Trust me, it looks harder than it is.
+
+If you contribute. Thank you very much. But, please test your changes
+as best you can. We all makes mistakes, and no one is perfect.
+
+_Comments_
+
+You will in many cases find comments like where it says that the table
+is made by JPSalas and that you need to be careful. Some of these tables
+__are__ made by him. This might not always be true though. I started with
+a template and kept that to remind myself that I should take extra care
+when sounds are a walls in combination with PlaySoundAt.
+
+Don't be scared to update the tekst if it makes sense and a short info
+to what you changed if it makes sense.
+
 _Future feature ?_
 
 There has been talks about supporting "side-car" table support.
