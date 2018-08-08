@@ -4,6 +4,9 @@ Randomize
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
+' Wob 2018-08-07
+' Revert to useSolenoids=1 (useSolenoids=2 not needed for SAM tables with InitVpmFFlipsSAM)
+' Added Fix for Extra Ball and 3x Right Side Target Lamps (l58, l14, l15, l16)
 
 Const cGameName="twenty4_150",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
