@@ -5,7 +5,7 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed from useSolenoids=1 and added InitVpmFFlipsSAM
 
-Const cGameName="twenty4_150",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="twenty4_150",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -494,6 +494,9 @@ Sub UpdateLamps()
   NFadeL 11, l11
   NFadeL 12, l12
   NFadeL 13, l13
+  NFadeL 14, l14
+  NFadeL 15, l15
+  NFadeL 16, l16
   NFadeL 17, l17
   NFadeL 18, l18
   NFadeL 19, l19
@@ -535,6 +538,7 @@ Sub UpdateLamps()
   NFadeL 55, l55
   NFadeL 56, l56
   NFadeL 57, l57
+  NFadeL 58, l58
   NFadeL 59, l59
   NFadeObjm 60, P60, "lampbulbON", "lampbulb"
   NFadeL 60, l60 'top left bumper
