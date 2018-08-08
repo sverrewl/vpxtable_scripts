@@ -7,9 +7,14 @@
 ' Changed UseSolenoids=1 to 2
 ' Improved directional sounds
 
-
 Option Explicit
 Randomize
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -946,7 +951,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
