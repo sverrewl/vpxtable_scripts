@@ -12,6 +12,8 @@
 ' Tables doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-08
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 
 Option Explicit
 LoadVPM "01000100", "BALLY.VBS", 1.2
@@ -32,6 +34,9 @@ End Sub
 
 
 Const cGameName="voltan",cCredits="Voltan Escapes Cosmic Doom, Bally 1978",UseSolenoids=2,UseLamps=1,UseGI=0,UseSync=1
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",sCoin="coin3"
 
 'TURN STUFF ON OR OFF IF PLAYING IN DESKTOP VS FULLSCREEN
@@ -81,6 +86,7 @@ Const sEnable=19
 Dim bsTrough
 
 Sub Table1_Init()
+	vpmInit Me
 	On Error Resume Next
 	With Controller
 		.GameName=cGameName
