@@ -32,7 +32,7 @@
 '		8 - insert and bumper lighting
 '
 ' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Table has already its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 
 '
