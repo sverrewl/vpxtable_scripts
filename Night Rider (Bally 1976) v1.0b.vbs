@@ -12,6 +12,8 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Wob 2018-08-08
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 
 Option Explicit
 Randomize
@@ -27,6 +29,9 @@ End If
 
 Const cGameName="nightrdr"   ' Use nightrdb for Free Play
 Const UseSolenoids=2,UseLamps=True,UseGI=0,UseSyn=1,SSolenoidOn="SolOn",SSolenoidOff="Soloff",SFlipperOn="FlipperUpLeft",SFlipperOff="FlipperDown"
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const SCoin="coin3",cCredits="Night Rider (Bally 1976)"
 
 On Error Resume Next
@@ -90,6 +95,7 @@ Sub solballrelease(enabled)
 End sub
 
 Sub Table1_Init
+	vpmInit Me
 	On Error Resume Next
 	With Controller
 		.GameName=cGameName
