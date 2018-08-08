@@ -5,7 +5,8 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-08
+' Added vpmInit Me to table init
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -85,7 +86,7 @@ End Sub
 Dim bsTrough,bsSaucer,dtL,cbCaptive
 
 Sub Table1_Init
-
+	vpmInit Me
 	On Error Resume Next
 		With Controller
 		.GameName = cGameName
