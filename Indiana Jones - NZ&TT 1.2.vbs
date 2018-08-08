@@ -12,11 +12,14 @@ Randomize
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-08
+' Removing commented out InitVpmFFlipsSAM line for housekeeping.
+' Note Re Fast Flips, The Flippers remain active during Video Mode and Path of adventure, hopefully a fix will come for this.
 
 '************************************************************************
 '							Table options
 '************************************************************************
-Const BlimpToy = 0					'Shows a Custom Nazi Blimp Toy
+Const BlimpToy = 0				'Shows a Custom Nazi Blimp Toy
 Const PropellerMod = 0				'Animate Bi-Plane Propeller when making left ramp (0= no, 1= yes)
 Const InstrCardType = 0				'Instruction Cards Type (0= original, 1= custom, 2 = random)
 Const FlipperType = 2				'Flippers Type (0= red rubber, 1= black rubber, 2 = random)
@@ -140,7 +143,6 @@ Sub Table1_Init
 		.DIP(0)=&H00	'set dipswitch to USA
 		.Switch(22) = 1 'close coin door
 		.Switch(24) = 0 'always closed
-'     InitVpmFFlipsSAM
 	End With
 
     ' Main Timer init
