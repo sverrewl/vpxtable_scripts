@@ -68,3 +68,6 @@ the table script has the exact same name. Just like db2s backglasses.
 
 __But for now that is not an option unfortunately.__
 
+__UPDATE__
+
+Thanks to DjRobX, this feature will be available in a future VPX release.

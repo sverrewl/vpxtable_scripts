@@ -9,6 +9,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' Changed UseSolenoids=1 to 2
+' Wob 2018-08-08
+' Added vpmInit Me and cSingleLFlip, cSingleRFlip for FastFlips Support
 
 Option Explicit
 Randomize
@@ -40,6 +42,9 @@ Dim x, i, j, k 'used in loops
 Const cGameName = "ali"
 
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
@@ -55,6 +60,7 @@ Const SCoin = "fx_coin"
 '************
 
 Sub Table1_Init
+	vpmInit Me
     With Controller
         .GameName = cGameName
         .SplashInfoLine = "Ali, Stern 1980" & vbNewLine & "VPX table by JPSalas v1.0.1"

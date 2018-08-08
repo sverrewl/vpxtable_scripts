@@ -5,6 +5,8 @@ Randomize
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-08
+' Added vpmInit Me to table init
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -222,6 +224,7 @@ Dim bsTrough, bsBR, bsTR, bsVuk, dtDrop, capBall
 Set LampCallback = GetRef("UpdateLeds") 'Color TV
 
 Sub Table1_Init
+	vpminit me
 	With Controller
 		.GameName = cGameName
 		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

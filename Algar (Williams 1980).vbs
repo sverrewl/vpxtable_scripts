@@ -12,6 +12,8 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-08
+' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -20,6 +22,9 @@ On Error Goto 0
 
 Const cGameName="algar_l1",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits="Algar"
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 
 LoadVPM "01520000","s4.vbs",3.1
 
@@ -191,6 +196,7 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub Table1_Init()
+    vpmInit Me
     With Controller
        .GameName = cGameName
         If Err Then MsgBox"Can't start Game"&cGameName&vbNewLine&Err.Description:Exit Sub

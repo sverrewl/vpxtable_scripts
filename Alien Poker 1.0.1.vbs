@@ -5,6 +5,8 @@
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Improved directional sounds
+
 
 Option Explicit
 Randomize
@@ -129,7 +131,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
-    If keycode = PlungerKey Then PlaySound "fx_PlungerPull", 0, 1, 0.1, 0.25:Plunger.Pullback
+    If keycode = PlungerKey Then PlaySoundAt "fx_PlungerPull",plunger:Plunger.Pullback
     If KeyCode = RightFlipperKey Then Controller.Switch(43) = 1
     If vpmKeyDown(keycode)Then Exit Sub
 End Sub
@@ -137,7 +139,7 @@ End Sub
 Sub table1_KeyUp(ByVal Keycode)
     If KeyCode = RightFlipperKey Then Controller.Switch(43) = 0
     If vpmKeyUp(keycode)Then Exit Sub
-    If keycode = PlungerKey Then PlaySound "fx_plunger", 0, 1, 0.1, 0.25:Plunger.Fire
+    If keycode = PlungerKey Then PlaySoundAt "fx_plunger", plunger:Plunger.Fire
 End Sub
 
 '*********
@@ -223,10 +225,10 @@ Sub sw28_Timer
 End Sub
 
 ' Bumpers
-Sub Bumper1_Hit:vpmTimer.PulseSw 36:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, -0.05:End Sub
-Sub Bumper2_Hit:vpmTimer.PulseSw 35:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0:End Sub
-Sub Bumper3_Hit:vpmTimer.PulseSw 37:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0.05:End Sub
-Sub Bumper4_Hit:vpmTimer.PulseSw 38:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0.02:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 36:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, -0.05,AudioFade(Bumper1):End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 35:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0,AudioFade(Bumper2):End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 37:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0.05,AudioFade(Bumper3):End Sub
+Sub Bumper4_Hit:vpmTimer.PulseSw 38:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0, 0.02,AudioFade(Bumper4):End Sub
 
 ' Drain & Saucers
 Sub Drain_Hit:PlaysoundAt "fx_drain", Drain:bsTrough.AddBall Me:End Sub
@@ -272,11 +274,11 @@ Sub sw32_Hit:Controller.Switch(32) = 1:PlaySoundAt "fx_sensor", sw32:End Sub
 Sub sw32_UnHit:Controller.Switch(32) = 0:End Sub
 
 ' Droptargets
-Sub sw10_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw18_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw26_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw34_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw42_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
+Sub sw10_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub sw18_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub sw26_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub sw34_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub sw42_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 Sub sw10_Dropped:dtbank.Hit 1:End Sub
 Sub sw18_Dropped:dtbank.Hit 2:End Sub
@@ -287,25 +289,25 @@ Sub sw42_Dropped:dtbank.Hit 5:End Sub
 'Targets
 Sub sw14_Hit
     vpmTimer.PulseSw 14
-    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall)
+    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
     If l33.State Then GiEffect 1
 End Sub
 
 Sub sw16_Hit
     vpmTimer.PulseSw 16
-    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall)
+    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
     If l34.State Then GiEffect 1
 End Sub
 
 Sub sw20_Hit
     vpmTimer.PulseSw 20
-    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall)
+    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
     If l35.State Then GiEffect 1
 End Sub
 
 Sub sw30_Hit
     vpmTimer.PulseSw 30
-    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall)
+    PlaySound SoundFX("fx_target", DOFDropTargets), 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
     If l36.State Then GiEffect 1
 End Sub
 
