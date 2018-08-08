@@ -5,6 +5,8 @@ Randomize
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-08
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 
 Const FlippersAlwaysOn = 0 'Enable Flippers for testing
 Const cGameName = "suprnova"
@@ -16,6 +18,10 @@ LoadVPM "01560000","GamePlan.vbs",3.36
 
 Dim bsTrough,bsSaucer,bsSaucer2,wheel,oldvalue,newvalue,objekt,special
 Const UseSolenoids=2,UseLamps=1,UseGI=1,UseSync=1,SCoin="fx_coin",SFlipperOn="fx_flipperup",SFlipperOff="fx_flipperdown"
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 Const SSolenoidOn = "fx_solenoid"
 Const SSolenoidOff = "fx_solenoidoff"
 Const sKicker1=15
@@ -23,6 +29,7 @@ Const sKicker2=10
 Const sBallrelease=8
 
 Sub Table1_Init
+     vpmInit Me
      With Controller
          .GameName = cGameName
          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
