@@ -6,7 +6,8 @@ Randomize
 ' Changed UseSolenoids=1 to 2
 ' Script uses non standard ball rolling
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-08
+' Added vpmInit Me to table init and cSingleLFlip
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -21,6 +22,8 @@ Public check,ca9,ca90,ca901,ca0,ca1,ca01,ca91
 LoadVPM "01500000","DE.VBS",3.10
 
 Const cGameName="torp_e21",UseSolenoids=2,UseLamps=1,UseSync=0,UseGI=0
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="coin3"
 
 Const sBallRelease=16	'ok
@@ -111,7 +114,7 @@ If Table1.ShowDT = False then
 End If
 
 Sub Table1_Init
-
+vpmInit Me
 On Error Resume Next
 		With Controller
 			.GameName=cGameName
