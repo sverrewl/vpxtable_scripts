@@ -19,7 +19,7 @@ Randomize
 '************************************************************************
 '							Table options
 '************************************************************************
-Const BlimpToy = 0				'Shows a Custom Nazi Blimp Toy
+Const BlimpToy = 0					'Shows a Custom Nazi Blimp Toy
 Const PropellerMod = 0				'Animate Bi-Plane Propeller when making left ramp (0= no, 1= yes)
 Const InstrCardType = 0				'Instruction Cards Type (0= original, 1= custom, 2 = random)
 Const FlipperType = 2				'Flippers Type (0= red rubber, 1= black rubber, 2 = random)
