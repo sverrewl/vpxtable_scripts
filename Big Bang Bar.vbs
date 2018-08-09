@@ -7,7 +7,7 @@
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Had some custom code in this section - hope I didn't break anything.
-' Supports fastflips but needs script updates
+' Supports fastflips but needs script updates, so useSolenoids=1 for now.
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -91,7 +91,7 @@ Sub DOF(dofevent, dofstate)
 End Sub
 
 	Const cGameName = "bbb109"
-	Const UseSolenoids = 2
+	Const UseSolenoids = 1
 	Const UseLamps = 0
 	Const UseSync = 1
 	Const HandleMech = 0
