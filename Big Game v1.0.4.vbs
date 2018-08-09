@@ -7,6 +7,8 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Wob 2018-08-08
+' Added vpmInit Me for FastFlips Support
 
 Option Explicit
 
@@ -46,6 +48,7 @@ Const UseLamps = 0
 Const UseGI = 0
 
 Sub Table1_Init
+	vpmInit Me
     With Controller
         .GameName = cGameName
         If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
