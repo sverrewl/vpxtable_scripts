@@ -1,5 +1,5 @@
 ' Theatre Of Magic - IPDB No. 2845
-' Â© Bally/Midway 1995
+' © Bally/Midway 1995
 ' VPX recreation by ninuzzu & Tom Tower
 ' Thanks to all the authors (JPSalas, Jamin, PacDude, Fuseball, Sacha) who made this table before us.
 ' Thanks to Clark Kent for the pics and the advices
@@ -9,25 +9,21 @@
 ' Thanks to knorr for some sound effects I borrowed from his tables
 ' Thanks to VPDev Team for the freaking amazing VPX
 
-' Thalamus 2018-07-24
+' Wob 2018-08-09
+' Transfered from the Hat Mod Edits by Thalamus
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
-' Wob 2018-08-09
 ' Added vpmInit Me to table init and Moved cSingleLFlip and /cSingleRFlip
+' No special SSF tweaks yet.
 
 Option Explicit
 Randomize
 
-Dim Romset, RollingVol, FlipperType, TDFlasher, TDFlasherColor, TrunkShake, TigerSaw, CenterPost, HatMagic, ColorMod
+Dim RollingVol, FlipperType, TDFlasher, TDFlasherColor, TrunkShake, TigerSaw, CenterPost
 
 '************************************************************************
 '* TABLE OPTIONS ********************************************************
 '************************************************************************
-
-'***********	Choose the ROM	  ***************************************
-
-Romset = 0			'arcade rom with credits,  1 = home rom (free play)
 
 '***********	Ball Rolling Sound Volume	*****************************
 
@@ -54,13 +50,6 @@ TigerSaw = 1				'0 = no , 1 = yes
 
 CenterPost = 0			'0 = no , 1 = yes
 
-'***********	Enable Hat Magic Mod *****************
-
-HatMagic = 1			'0 = no , 1 = yes
-
-'***********	Enable RGB G.I Mod		 ********************************
-
-ColorMod = 0			'0 = no , 1 = yes
 
 '************************************************************************
 '* END OF TABLE OPTIONS *************************************************
@@ -105,6 +94,8 @@ LoadVPM "01560000", "WPC.VBS", 3.50
 '******************************************************
 ' 					TABLE INIT
 '******************************************************
+
+ Const cGameName = "tom_14hb" '1.3x arcade rom - with credits
 
  Sub Table1_Init
      vpmInit Me
@@ -250,7 +241,6 @@ LoadVPM "01560000", "WPC.VBS", 3.50
 	sw85.IsDropped = 0 			' Default start position
 	TrunkBlock.IsDropped = 1
 	CPC.IsDropped = 1
-	InitHatMagicMod
  End Sub
 
 
@@ -259,12 +249,6 @@ LoadVPM "01560000", "WPC.VBS", 3.50
 '******************************************************
 
 Sub Table1_KeyDown(ByVal Keycode)
-	If keycode = StartGameKey AND Controller.Switch(32) AND Controller.Switch(33) AND Controller.Switch(34) AND Controller.Switch(35) AND BlockCard = True Then BlockCard = False
-	If keycode = StartGameKey AND Controller.Switch(32) AND Controller.Switch(33) AND Controller.Switch(34) AND Controller.Switch(35) AND BlockRabbit = True Then BlockRabbit = False
-	If keycode = StartGameKey AND Controller.Switch(32) AND Controller.Switch(33) AND Controller.Switch(34) AND Controller.Switch(35) AND BlockWoman = True Then BlockWoman = False
-	If keycode = StartGameKey AND Controller.Switch(32) AND Controller.Switch(33) AND Controller.Switch(34) AND Controller.Switch(35) AND BlockChain = True Then BlockChain = False
-	If Keycode = 33 then ChainUp.enabled=1:RabbitPopUp.ENABLED=1:rdir=1
-	If Keycode = 34 then ChainDown.enabled=1:RabbitPopUp.ENABLED=1:rdir=-1
 	If Keycode = KeyFront Then Controller.Switch(23) = 1
 	If keycode = PlungerKey Then Plunger.Pullback:Playsound "fx_plungerpull"
 	If keycode = LeftTiltKey Then Nudge 90, 4:PlaySound SoundFX("fx_nudge",0)
@@ -401,7 +385,7 @@ Sub sw33_UnHit():Controller.Switch(33) = 0:UpdateTrough:End Sub
 Sub sw32_Hit():Controller.Switch(32) = 1:End Sub
 Sub sw32_UnHit():Controller.Switch(32) = 0:UpdateTrough:End Sub
 
-Sub sw31_Hit():vpmTimer.PulseSw 31 : BIP = BIP + 1 : set FollowMe= ActiveBall : End Sub
+Sub sw31_Hit():vpmTimer.PulseSw 31 : BIP = BIP + 1:End Sub
 
 Sub UpdateTrough()
 	Subway.TimerInterval = 300
@@ -519,10 +503,9 @@ End Sub
 '******************************************************
 
 Dim BIK: BIK = 0
-Dim locked: locked = 0
 
 Sub sw44_Hit():Controller.Switch(44) = 1: BIK = BIK + 1 : End Sub
-Sub sw44_UnHit():Controller.Switch(44) = 0: BIK = BIK - 1 : If IsEmpty (FollowMe) Then Set FollowMe = Activeball: End If : End Sub
+Sub sw44_UnHit():Controller.Switch(44) = 0: BIK = BIK - 1 : End Sub
 
 Sub sw43_Hit():Controller.Switch(43) = 1:UpdateTrough:End Sub
 Sub sw43_UnHit():Controller.Switch(43) = 0:UpdateTrough:End Sub
@@ -531,7 +514,7 @@ Sub sw42_Hit():Controller.Switch(42) = 1:End Sub
 Sub sw42_UnHit():Controller.Switch(42) = 0:UpdateTrough:End Sub
 
 Sub sw41_Hit():Controller.Switch(41) = 1:PlaySound "fx_kicker_catch":End Sub
-Sub sw41_UnHit():Controller.Switch(41) = 0:UpdateTrough: locked = locked - 1 : End Sub
+Sub sw41_UnHit():Controller.Switch(41) = 0:UpdateTrough:End Sub
 
  Sub SolSubBallRelease(Enabled)
      If Enabled Then
@@ -726,23 +709,19 @@ Sub SpiritH1_Timer()
 	yball = yball + 2.12
 	zball = zball + 3.5
 	bsteps = bsteps + 1
-	If bsteps > 28 then Me.timerenabled = 0 : bsteps = 0 : Me.DestroyBall: SpiritMagnet.CreateSizedBallWithMass Ballsize/2,BallMass: FollowMe= Empty
+	If bsteps > 28 then Me.timerenabled = 0 : bsteps = 0 : Me.DestroyBall: SpiritMagnet.CreateSizedBallWithMass Ballsize/2,BallMass
 End Sub
 
 '******************************************************
 '			PLAYFIELD MAGNETS
 '******************************************************
 
-Dim magnets : magnets = 0
-
 Sub SolLeftMagnet(Enabled)
 	If Enabled Then
 		LeftMagnet.MagnetOn = 1
 		PlaySound SoundFX("fx_magnet_catch",DOFShaker)
-		magnets = 1
 	Else
 		LeftMagnet.MagnetOn = 0
-		magnets = 0
 	End If
 End Sub
 
@@ -750,10 +729,8 @@ Sub SolRightMagnet(Enabled)
 	If Enabled Then
 		RightMagnet.MagnetOn = 1
 		PlaySound SoundFX("fx_magnet_catch",DOFShaker)
-		magnets = 1
 	Else
 		RightMagnet.MagnetOn = 0
-		magnets = 0
 	End If
 End Sub
 
@@ -893,7 +870,6 @@ End Sub
 	TrunkMagnet(idx).DestroyBall
 	Set MagnetBall = MagnetHold.CreateSizedBallWithMass (Ballsize/2,BallMass)
 	TrunkMagnets 0
-	FollowMe=Empty
  End Sub
 
  Sub TrunkMagnets(aEnabled)
@@ -910,7 +886,7 @@ End Sub
 
 Sub sw36_Hit():vpmTimer.PulseSw 36: End Sub							' Opto subway switch
 
-Sub sw47_Hit():vpmTimer.PulseSw 47: locked = locked + 1 : End Sub
+Sub sw47_Hit():vpmTimer.PulseSw 47:End Sub
 
 Sub TrunkEntrance1_Hit():PlaySound "fx_mine_enter":End Sub 			' Enter trunk from front
 Sub TrunkEntrance2_Hit():PlaySound "fx_hole4":End Sub				' Enter trunk from rear
@@ -1122,15 +1098,11 @@ End Sub
 	NFadeL 62,  l62
 	NFadeL 63,  l63
 	NFadeL 64,  l64
-	NFadeLm 65,  l65
-	Flashm 65, l65a
-	Flash 65, l65b
+	NFadeL 65,  l65
 	NFadeL 66,  l66
 	NFadeL 67,  l67
 	NFadeL 68,  l68
-	NFadeLm 71,  l71
-	Flashm 71, l71a
-	Flash 71, l71b
+	NFadeL 71,  l71
 	NFadeL 72,  l72
 	NFadeL 73,  l73
 	NFadeL 74,  l74
@@ -1199,9 +1171,9 @@ End Sub
 	Flashm 128, F28e
 	Flashm 128, F28f
 	Flash 128, F28g
+
 	F23.Height = CenterPostP.TransZ + 1.2
-	If HatMagic Then CheckHatMagicMod
-End Sub
+ End Sub
 
 Sub SetLamp(nr, value)
     If value <> LampState(nr) Then
@@ -1461,7 +1433,7 @@ End Sub
 Sub LRHit1_Hit() : PlaySound "fx_lr1" : End Sub
 Sub LRHit2_Hit() : PlaySound "fx_lr2" : End Sub
 Sub LRHit3_Hit() : PlaySound "fx_lr3" : End Sub
-Sub LRHit4_Hit() : PlaySound "fx_lr4" : If IsEmpty (FollowMe) Then Set FollowMe = Activeball: End If : End Sub
+Sub LRHit4_Hit() : PlaySound "fx_lr4" : End Sub
 Sub LRHit5_Hit() : PlaySound "fx_lr5" : End Sub
 Sub LRHit6_Hit() : PlaySound "fx_lr6" : End Sub
 Sub LRHit7_Hit() : PlaySound "fx_lr7" : End Sub
@@ -1584,14 +1556,6 @@ End Sub
 
 '*******	TABLE OPTIONS		***********************************
 
-Dim bulb, RGBStep, RGBFactor, Red, Green, Blue, cGameName
-
-RGBStep = 0
-RGBFactor = 1
-Red = 255
-Green = 0
-Blue = 0
-
 CenterPostP.visible = CenterPost
 CPC.collidable = CenterPost
 F23.visible = CenterPost
@@ -1618,346 +1582,8 @@ Select Case TDFlasherColor
 	'Magenta
 		Case 4 :	ScoopLight.color = RGB (255,0,255):ScoopLight.colorfull = RGB (255,170,255)
 	'Cyan
-		Case 5 :	ScoopLight.color = RGB (0,255,255):ScoopLight.colorfull = RGB (170,255,255)
+		Case 5 :	ScoopLight.color = RGB (0,255,255):ScoopLight.colorfull = RGB (170,255,255)	
 End Select
-
-Select Case Romset
-			Case 0:	cGameName = "tom_14hb"
-			Case 1:	cGameName = "tom_14h"
-End Select
-
-If ColorMod Then
-	RGBTimer.Enabled = 1
-	For each bulb in GIBumpers : bulb.color = RGB (0,0,0) : Next
-	For each bulb in GIPurple : bulb.color = RGB (128,0,255) : bulb.colorfull = RGB (190,128,255) : bulb.intensity = 50 : Next
-	For each bulb in GIRed : bulb.color = RGB (255,0,0) : bulb.colorfull = RGB (255,170,170) : bulb.intensity = 60 : Next
-	gi36.color = RGB (128,0,255)
-	gi38.color = RGB (128,0,255)
-	gi39.color = RGB (128,0,255)
-	gi45.color = RGB (128,0,255)
-	gi46.color = RGB (128,0,255)
-	Flasher1.color = RGB (255,0,0)
-	Flasher2.color = RGB (255,0,0)
-	Flasher3.color = RGB (255,0,0)
-	Flasher4.color = RGB (255,0,0)
-	Flasher5.color = RGB (255,0,0)
-	Flasher6.color = RGB (255,0,0)
-	Flasher7.color = RGB (255,0,0)
-	Flasher1.opacity = 2000
-	Flasher2.opacity = 2000
-	Flasher3.opacity = 2000
-	Flasher4.opacity = 2000
-	Flasher5.opacity = 2000
-	Flasher6.opacity = 2000
-	Flasher7.opacity = 2000
-End If
-
-Sub RGBTimer_timer 'rainbow light color changing
-    Select Case RGBStep
-        Case 0 'Green
-            Green = Green + RGBFactor
-            If Green > 255 then
-                Green = 255
-                RGBStep = 1
-            End If
-        Case 1 'Red
-            Red = Red - RGBFactor
-            If Red < 0 then
-                Red = 0
-                RGBStep = 2
-            End If
-        Case 2 'Blue
-            Blue = Blue + RGBFactor
-            If Blue > 255 then
-                Blue = 255
-                RGBStep = 3
-            End If
-        Case 3 'Green
-            Green = Green - RGBFactor
-            If Green < 0 then
-                Green = 0
-                RGBStep = 4
-            End If
-        Case 4 'Red
-            Red = Red + RGBFactor
-            If Red > 255 then
-                Red = 255
-                RGBStep = 5
-            End If
-        Case 5 'Blue
-            Blue = Blue - RGBFactor
-            If Blue < 0 then
-                Blue = 0
-                RGBStep = 0
-            End If
-    End Select
-    For each bulb in GIBumpers : bulb.colorfull = RGB(Red, Green, Blue) : Next
-End Sub
-
-'******************************************************
-'					HAT MAGIC MOD
-'******************************************************
-
-Dim zcard : zcard = 0
-Dim zwoman : zwoman = 0
-Dim floating: floating = 0
-Dim levitating: levitating = 0
-Dim cdir, rdir, wdir
-Dim FollowMe, BX, BY, BH, RandomRot, smell, temp
-
-Sub InitHatMagicMod
-l65a.visible = HatMagic
-l65b.visible = HatMagic
-l71a.visible = HatMagic
-L71b.visible = HatMagic
-CardP.visible = HatMagic
-HatMagicP.visible = HatMagic
-Woman.visible = HatMagic
-Rabbit.Size_X = 0 : Rabbit.Size_Y = 0 : Rabbit.Size_Z = 0
-eyes.Size_X = 0 : eyes.Size_Y = 0 : eyes.Size_Z = 0
-body.Size_X = 0 : body.Size_Y = 0 : body.Size_Z = 0
-Woman.Y = 600
-Woman.Z = 560
-End Sub
-
-'********** This routine will check wich mode is ON ****************
-
-Dim lcountoff : lcountoff = 0
-Dim lcounton : lcounton = 0
-Dim rcountoff : rcountoff = 0
-Dim rcounton : rcounton = 0
-Dim wcountoff : wcountoff = 0
-Dim wcounton : wcounton = 0
-Dim ccountoff : ccountoff = 0
-Dim ccounton : ccounton = 0
-Dim BlockCard : BlockCard = False
-Dim BlockRabbit : BlockRabbit = False
-Dim BlockWoman : BlockWoman = False
-Dim BlockChain : BlockChain = False
-Dim StopCard: StopCard=0
-Dim StopRabbit: StopRabbit=0
-Dim StopWoman: StopWoman=0
-Dim StopChain: StopChain=0
-Dim count55: count55 = 0
-Dim count65: count65 = 0
-Dim count71: count71 = 0
-Dim count72: count72 = 0
-Dim count62: count62 = 0
-Dim count35: count35 = 0
-Dim count64: count64 = 0
-Dim count53: count53 = 0
-
-Sub CheckHatMagicMod
-If Controller.Lamp(65) AND Controller.Lamp(71) Then l65a.opacity= 200 : l71a.opacity= 200 : l65b.opacity= 200 : l71b.opacity= 200
-'****	spirit card	****
-If Controller.Lamp(65) Then
-count65 = count65 + 1
-lcountoff = 0
-If bip>0  then lcounton = lcounton + 1
-Else
-count65 = 0
-lcounton = 0
-If bip>0  Then lcountoff = lcountoff + 1
-End If
-
-If Controller.Lamp(72) Then
-count72 = 0
-Else
-count72 = count72 + 1
-End If
-'****	hat magic	****
-If Controller.Lamp(71) Then
-count71 = count71 + 1
-rcountoff = 0
-If bip>0  then rcounton = rcounton + 1
-Else
-count71 = 0
-rcounton = 0
-If bip>0  Then rcountoff = rcountoff + 1
-End If
-
-If Controller.Lamp(55) Then
-count55 = 0
-Else
-count55 = count55 + 1
-End If
-'****	levitating woman	****
-If Controller.Lamp(62) Then
-count62 = count62 + 1
-wcountoff = 0
-If bip>0  then wcounton = wcounton + 1
-Else
-count62 = 0
-wcounton = 0
-If bip>0  Then wcountoff = wcountoff + 1
-End If
-
-If Controller.Lamp(35) Then
-count35 = 0
-Else
-count35 = count35 + 1
-End If
-'****	trunk escape	****
-If Controller.Lamp(64) Then
-count64 = count64 + 1
-ccountoff = 0
-If bip>0  then ccounton = ccounton + 1
-Else
-count64 = 0
-ccounton = 0
-If bip>0  Then ccountoff = ccountoff + 1
-End If
-
-If Controller.Lamp(53) Then
-count53 = 0
-Else
-count53 = count53 + 1
-End If
-
-If CardP.Z <101 then CardP.visible = 0 Else CardP.visible =1
-If Woman.Z < 365 Then Woman_Shadow.visible = 1 Else Woman_Shadow.visible = 0
-If bip>0 and lcounton> 300 Then BlockCard = True
-If bip>0 and lcountoff> 300 Then BlockCard = False
-If bip>0 and rcounton> 300 Then BlockRabbit = True
-If bip>0 and rcountoff> 300 Then BlockRabbit = False
-If bip>0 and wcounton> 300 Then BlockWoman = True
-If bip>0 and wcountoff> 300 Then BlockWoman = False
-If bip>0 and ccounton> 300 Then BlockChain = True
-If bip>0 and ccountoff> 300 Then BlockChain = False
-
-RotateCard.Enabled = Controller.Lamp(65)
-If count65 > 90 AND BIP > 0 AND StopCard=0 AND locked = 0 AND magnets = 0 AND BlockCard = false AND NOT Controller.Switch(56) AND sw85.TimerEnabled = 0 Then CardPopUp.Enabled = 1: cdir= 1
-If count65 > 80 AND count72 > 50 AND StopCard=1 AND Dummy.Z = 280 Then CardPopUp.Enabled = 1: cdir= -1
-
-If count71 > 80 AND BIP > 0 AND StopRabbit=0 AND locked = 0 AND magnets = 0 AND BlockRabbit = false AND NOT Controller.Switch(57) AND sw85.TimerEnabled = 0 Then RabbitPopUp.Enabled = 1 : rdir= 1 : vpmTimer.AddTimer 500, "RabbitT.Enabled=1'"
-If count71 > 80 AND count55 > 50 AND StopRabbit=1 AND Rabbit.Z = 210 Then RabbitT.enabled=0 : RabbitPopUp.Enabled = 1 : rdir= -1
-
-If count62 > 90 AND BIP > 0 AND StopWoman=0 AND locked = 0 AND magnets = 0 AND BlockWoman = false AND NOT Controller.Switch(56) AND sw85.TimerEnabled = 0 Then WomanPopUp.Enabled = 1: wdir= -1 : vpmTimer.AddTimer 500, "Levitate.Enabled=1'"
-If count62 > 80 AND count35 > 50 AND StopWoman=1 AND Dummy1.Z = 285 Then Levitate.Enabled=0 : WomanPopUp.Enabled = 1: wdir= 1
-
-If count64 > 90 AND BIP > 0 AND StopChain=0 AND locked = 0 AND magnets = 0 AND BlockChain = false AND NOT Controller.Switch(58) AND sw85.TimerEnabled = 0 Then ChainUp.Enabled = 1
-If count64 > 50 AND count53 > 50 AND StopChain=1 AND chain_prim.Z = 100 Then ChainDown.Enabled = 1
-End Sub
-
-'*********************** CARD ANIMATION ***********************
-
-Sub CardPopUp_Timer()
-	CardP.Z = CardP.Z + 2* cdir
-	Dummy.Z = Dummy.Z + 2* cdir
-	If Dummy.Z > 280 AND cdir = 1 Then Dummy.Z = 280 : Me.Enabled = 0 : floating = 1 : StopCard= 1
-	If Dummy.Z < 100 AND cdir = -1 Then Dummy.Z = 100 : Me.Enabled = 0 : floating = 0 : StopCard= 0
-End Sub
-
-Sub RotateCard_Timer
-	zcard=zcard+0.001
-	If floating then CardP.TransZ=CardP.TransZ + 1.2 * cos((zcard*180)/pi)
-	CardP.RotZ = CardP.RotZ + 3
-End Sub
-
-'*********************** RABBIT ANIMATION ***********************
-
-Sub RabbitPopUp_Timer()
-	Select Case rdir
-	Case 1
-	Rabbit.Z = Rabbit.Z + 5
-	Eyes.Z = Rabbit.Z
-	Eyes.RotX = Rabbit.RotX
-	rabbit.size_x=rabbit.size_x+1.2^3 : eyes.size_x=eyes.size_x+1.2^3 : body.size_x=body.size_x + 18 * (1.2^3) /70
-	rabbit.size_y=rabbit.size_y+1.2^3 : eyes.size_y=eyes.size_y+1.2^3 : body.size_y=body.size_y + 18 * (1.2^3) /70
-	rabbit.size_z=rabbit.size_z+1.2^3 : eyes.size_z=eyes.size_z+1.2^3 : body.size_z=body.size_z + 20 * (1.2^3) /70
-	If rabbit.size_x = (2* 1.2^3) Then PlaySound "fx_RabbitPopIn"
-	If rabbit.size_x > 70 Then
-	rabbit.size_x=70 : rabbit.size_y=70 : rabbit.size_z=70
-	eyes.size_x=70 : eyes.size_y=70 : eyes.size_z=70
-	body.size_x=18 : body.size_y=18 : body.size_z=20
-	End If
-	If Rabbit.Z > 210 Then Rabbit.Z = 210 : Rabbit.RotX =  Rabbit.RotX - 5
-	If Rabbit.RotX <= 0 then Rabbit.RotX = 0 : Me.Enabled = 0 : StopRabbit=1
-	Case -1
-	rabbit.size_x=rabbit.size_x-1.2^3  : eyes.size_x=eyes.size_x-1.2^3  : body.size_x=body.size_x- 18 * (1.2^3) /70
-	rabbit.size_y=rabbit.size_y-1.2^3  : eyes.size_y=eyes.size_y-1.2^3  : body.size_y=body.size_y- 18 * (1.2^3) /70
-	rabbit.size_z=rabbit.size_z-1.2^3  : eyes.size_z=eyes.size_z-1.2^3  : body.size_z=body.size_z- 20 * (1.2^3) /70
-	If rabbit.size_x < 0 Then
-		rabbit.size_x=0 : rabbit.size_y=0 : rabbit.size_z=0
-		eyes.size_x=0 : eyes.size_y=0 : eyes.size_z=0
-		body.size_x=0 : body.size_y=0 : body.size_z=0
-	End If
-	Rabbit.RotX =  Rabbit.RotX + 5
-	If Rabbit.RotX > 90 then Rabbit.RotX = 90 : Rabbit.Z = Rabbit.Z - 5
-	Eyes.Z = Rabbit.Z
-	Eyes.RotX = Rabbit.RotX
-	If Rabbit.Z = 200 Then PlaySound "fx_RabbitPopOut"
-	If Rabbit.Z < 100 Then Rabbit.Z = 100 :Me.Enabled = 0 : StopRabbit=0
-	End Select
-End Sub
-
-Sub RabbitT_timer
-	If Not IsEmpty(FollowMe) Then
-		BX = FollowMe.x
-		BY = FollowMe.y
-		BH = BY-card2.y
-		RandomRot = RandomRot + (RndNum(1,10))/10000
-		temp=temp+1
-		If temp>150 then smell = smell +3
-		If temp>180 then temp =0
-		Rabbit.rotZ = (((((Bx/20))*-1)+30)-(BH/50))+((cos((RandomRot*180)/pi))*2)*(sin((RandomRot*180)/pi))
-		Rabbit.Rotx = (((BH/160)+(cos((RandomRot*180)/pi))*1.2)+(cos((smell*180)/pi))*2)+12
-		Rabbit.roty = ((Bx/23)-22)+(cos((RandomRot*180)/pi))*1.2
-		eyes.rotZ = Rabbit.rotZ
-		eyes.Rotx = Rabbit.Rotx
-		eyes.roty = Rabbit.roty
-	End If
-End Sub
-
-'*********************** LEVITATING WOMAN ANIMATION ***********************
-
-Sub WomanPopUp_Timer()
-	Woman.Z = Woman.Z + 0.3 * wdir
-	Dummy1.Z = Dummy1.Z + 0.3 * wdir
-	Woman.Y = Woman.Y - 0.368729 * wdir
-	If Dummy1.Z < 285 AND wdir = -1 Then Dummy1.Z = 285 : Me.Enabled = 0 : levitating = 1 : StopWoman= 1
-	If Dummy1.Z > 560 AND wdir = 1 Then Dummy1.Z = 560 : Me.Enabled = 0 : levitating = 0 : StopWoman= 0
-End Sub
-
-Sub Levitate_Timer
-	zwoman=zwoman+0.002
-	If levitating Then
-		Woman.Z= Woman.Z - cos((zwoman*180)/pi)
-		Woman.RotZ = Woman.RotZ + 0.5 : Woman_Shadow.RotZ = Woman_Shadow.RotZ -0.5
-	End If
-End Sub
-
-'*********************** TRUNK CHAIN ANIMATION ***********************
-
-Dim chup:chup=1
-Dim chro:chro=1
-Dim chdown : chdown=0
-
-Sub ChainUp_timer()
-	chain_prim.z=chain_prim.z+5 * chup
-	chain_prim1.z=chain_prim1.z+5* chup
-	chain_prim2.z=chain_prim2.z+5* chup
-	chain_prim3.z=chain_prim3.z+5* chup
-	chain_prim2.rotz=chain_prim2.rotz+10* chup
-	chain_prim3.rotz=chain_prim3.rotz+10* chup
-	If chain_prim.z = -250 then PlaySound "fx_chain"
-    If chain_prim.z>=100 Then chup=0 : chain_prim2.roty=chain_prim2.roty-2 : chain_prim3.roty=chain_prim3.roty+2
-    If chain_prim2.roty <=90 Then chup = 1 : StopSound "fx_chain" : PlaySound "fx_chainStop" : StopChain= 1: Me.Enabled= 0
-End Sub
-
-Sub ChainDown_timer()
-	chain_prim2.roty=chain_prim2.roty+2 * chro: chain_prim3.roty=chain_prim3.roty-2 * chro
-	chain_prim.z=chain_prim.z-5 * chdown
-	chain_prim1.z=chain_prim1.z-5* chdown
-	chain_prim2.z=chain_prim2.z-5* chdown
-	chain_prim3.z=chain_prim3.z-5* chdown
-	chain_prim2.rotz=chain_prim2.rotz+10* chdown
-	chain_prim3.rotz=chain_prim3.rotz+10* chdown
-    If chain_prim2.roty>140 Then chdown=1
-    If chain_prim2.roty>=180 Then chro=0
-	If chain_prim.z = 80 then PlaySound "fx_chain"
-    If chain_prim.z <= -320 Then  chdown=0 : chro=1 : StopSound "fx_chain" : StopChain=0 : Me.Enabled= 0
-End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -2116,4 +1742,3 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
 End Sub
-

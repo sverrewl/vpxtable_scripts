@@ -13,6 +13,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-09
+' Added vpmInit Me to table init and cSingleRFlip
 
 Dim Ballsize,BallMass
 BallSize = 51
@@ -33,6 +35,8 @@ LoadVPM "01560000", "gts3.VBS", 3.26
 '********************
 
  Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+ Const cSingleRFlip = 0
  Const UseLamps = 0
  Const UseSync = 0
 
@@ -49,6 +53,7 @@ Const cGameName= "smb3"
 Dim dtDrop
 
 Sub Table1_Init
+	vpmInit Me
     With Controller
         .GameName = cGameName
         .SplashInfoLine = "Super Mario Bros. (Gottlieb 1994)"

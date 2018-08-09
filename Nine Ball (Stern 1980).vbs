@@ -6,6 +6,8 @@ Randomize
 ' Changed UseSolenoids=1 to 2
 ' Moved solenoids above table1_init
 ' No special SSF tweaks yet.
+' Wob 2018-08-09
+' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
 
 Const cGameName = "nineball"  'standard rom
 'Const cGameName = "ninebafp"  'free play rom
@@ -21,6 +23,9 @@ LoadVPM "01110000","stern.vbs",3.1  'Nine Ball
 Dim DesktopMode: DesktopMode = table1.ShowDT
 
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseGI = 0
 Const UseLamps = 0
 Const UseSync = 0
@@ -96,6 +101,7 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub Table1_Init
+	vpmInit Me
      With Controller
          .GameName = cGameName
          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

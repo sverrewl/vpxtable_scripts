@@ -4,7 +4,8 @@ Option Explicit
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-09
+' Added vpmInit Me to table init and cSingleLFlip
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -31,6 +32,8 @@ Const marson = 1
 '==================================================================
 
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
 Const UseLamps = True
 Const UseSync = True
 ' Standard Sounds used by Driver help code
@@ -207,6 +210,7 @@ Dim dtlDrop, k
 Dim vllock
 
 Sub Table1_Init()
+	vpmInit Me
     Controller.GameName = "rescu911"                ' Use specified ROM set.
     Controller.SplashInfoLine = "Rescue 911"
     Controller.HandleKeyboard = 0

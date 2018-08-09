@@ -13,6 +13,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-09
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -96,6 +98,7 @@ else
 End If
 
  Sub Table1_Init
+	vpmInit Me
     With Controller
        .GameName=cGameName
        If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
