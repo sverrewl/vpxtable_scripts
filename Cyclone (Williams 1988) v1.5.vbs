@@ -8,6 +8,8 @@ Randomize
 ' Table has already its own  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-09
+' Revery UseSolenoids=1 (True) as this table has built in Fast Flips
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -17,7 +19,7 @@ On Error Goto 0
 '**************************************************************
 '						DECLARACIONES
 '**************************************************************
-Const UseSolenoids = 2
+Const UseSolenoids = True
 Const UseLamps = True
 Const UseSync = False
 ' Standard Sounds
