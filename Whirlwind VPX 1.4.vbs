@@ -5,7 +5,7 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Thalamus 2018-08-09 : Improved directional sounds
-' !! NOTE : Table not verified yet !!
+' Consider changing table samples - they are low
 
 ' Options
 ' Volume devided by - lower gets higher sound

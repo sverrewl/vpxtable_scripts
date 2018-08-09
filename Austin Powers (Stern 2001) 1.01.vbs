@@ -5,7 +5,6 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Improved directional positions
 ' Changed UseSolenoids=1 to 2
-' NOTE : Table not tested yet - have to verify some objects.
 
 ' Options
 ' Volume devided by - lower gets higher sound

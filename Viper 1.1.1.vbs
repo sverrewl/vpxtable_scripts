@@ -5,9 +5,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' Thalamus 2018-08-08 : Improved directional sounds
-' !! NOTE : Table not verified yet !!
+' Thalamus 2018-08-09 : Improved directional sounds
 
 Option Explicit
 Randomize

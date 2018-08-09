@@ -30,7 +30,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2, was a problem - fix by DjRobX applied
-' Thalamus 2018-08-08 : Improved directional sounds
+' Thalamus 2018-08-09 : Improved directional sounds
 
 
 Option Explicit

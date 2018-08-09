@@ -5,7 +5,6 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Improved directional sounds.
 ' Added InitVpmFFlipsSAM
-' !! NOTE : Table not verified yet !!
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
