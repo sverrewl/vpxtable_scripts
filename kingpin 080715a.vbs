@@ -5,9 +5,9 @@
 '******************* Options *********************
 ' DMD/BAckglass Controller Setting
 
-' Thalamus 2018-07-23
+' Thalamus 2018-08-09
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2 - reverted back, this table probably needs more script updates to work correctly
 ' Rom name was changed from 1kpv106 to lkpv105 - there where no 1.06 version it seems.
 
 Const cController 				= 3					'Set to 1=VPinMAME, 2=UVP backglass server, 3=B2S backglass server, 4=B2S backglass server with no VP mech sounds
@@ -67,7 +67,7 @@ End Sub
 
 	Const cGameName = "kpv105" 'change the romname here
 
-     Const UseSolenoids = 2
+     Const UseSolenoids = 1
      Const UseLamps = 0
      Const UseSync = 1
      Const HandleMech = 0
