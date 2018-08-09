@@ -16,7 +16,8 @@
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Thalamus 2018-08-08 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 Randomize
@@ -604,9 +605,9 @@ End Sub
 
 Sub ShooterLane_Hit():B2SSTAT: Controller.Switch(swShooterLane)=1:End Sub
 Sub ShooterLane_UnHit():Controller.Switch(swShooterLane)=0:End Sub
-Sub LeftJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swLeftJetBumper), 0, "" : PlaySound SoundFX("Jet1",DOFContactors) : End Sub
-Sub RightJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swRightJetBumper), 0, "" : PlaySound SoundFX("Jet2",DOFContactors) : End Sub
-Sub LowerJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swLowerJetBumper), 0, "" : PlaySound SoundFX("Jet1",DOFContactors) : End Sub
+Sub LeftJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swLeftJetBumper), 0, "" : PlaySoundAt SoundFX("Jet1",DOFContactors),LeftJetBumper : End Sub
+Sub RightJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swRightJetBumper), 0, "" : PlaySoundAt SoundFX("Jet2",DOFContactors),RightJetBumper : End Sub
+Sub LowerJetBumper_Hit():B2SSTAT: vpmTimer.PulseSwitch (swLowerJetBumper), 0, "" : PlaySoundAt SoundFX("Jet1",DOFContactors),LowerJetBumper : End Sub
 Sub LeftReturnLane_Hit():Controller.Switch(swLeftReturnLane)=1:End Sub
 Sub LeftReturnLane_UnHit():Controller.Switch(swLeftReturnLane)=0:End Sub
 Sub RightReturnLane_Hit():Controller.Switch(swRightReturnLane)=1:End Sub
@@ -905,14 +906,14 @@ Sub Diner_KeyDown(ByVal keycode)
 		ColorGradeFlash()
 		OptionPrim.image = "contrastsetting" & ContrastSetting : OptionPrim.visible = 1 : OptionOpacity = 0 : OptionTimer.enabled = True
 	End If
-	If keycode = PlungerKey Then PlaySound "fx_PlungerPull", 0, 1, 0.1, 0.25:Plunger.Pullback
+	If keycode = PlungerKey Then PlaySoundAt "fx_PlungerPull", Plunger:Plunger.Pullback
 	If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Diner_KeyUp(ByVal keycode)
 	if keycode = LeftFlipperKey and FlippersEnabled Then SolLFlipper(False)
 	if keycode = RightFlipperKey and FlippersEnabled Then SolRflipper(False)
-	If keycode = PlungerKey Then B2SSTAT: PLaySound "fx_plunger", 0, 1, 0.1, 0.25:Plunger.Fire
+	If keycode = PlungerKey Then B2SSTAT: PlaySoundAt "fx_plunger", Plunger:Plunger.Fire
 	If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
@@ -939,17 +940,17 @@ End Sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-		LeftFlipper.RotateToEnd : PlaySound SoundFX("FlipperL",DOFFlippers), 0, 1, -0.1, 0.05
+		LeftFlipper.RotateToEnd : PlaySoundAt SoundFX("FlipperL",DOFFlippers), LeftFlipper
     Else
-		LeftFlipper.RotateToStart : PlaySound SoundFX("FlipperDown",DOFFlippers), 0, 1, -0.1, 0.05
+		LeftFlipper.RotateToStart : PlaySoundAt SoundFX("FlipperDown",DOFFlippers), LeftFlipper
     End If
 End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-		RightFlipper.RotateToEnd : PlaySound SoundFX("FlipperR",DOFFlippers), 0, 1, 0.1, 0.05
+		RightFlipper.RotateToEnd : PlaySoundAt SoundFX("FlipperR",DOFFlippers), RightFlipper
     Else
-		RightFlipper.RotateToStart : PlaySound SoundFX("FlipperDown",DOFFlippers), 0, 1, 0.1, 0.05
+		RightFlipper.RotateToStart : PlaySoundAt SoundFX("FlipperDown",DOFFlippers), RightFlipper
     End If
 End Sub
 
@@ -1263,17 +1264,5 @@ Sub RollingUpdate()
         End If
       End If
     Next
-End Sub
-
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Diner.VersionMinor > 3 OR Diner.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
 End Sub
 
