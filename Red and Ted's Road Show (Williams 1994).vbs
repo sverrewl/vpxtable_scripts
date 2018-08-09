@@ -54,7 +54,6 @@ Const VolDiv = 2000
 
 Flares = 1			'1 = 0n, 0 = 0ff
 
-
 '********************
 'Standard definitions
 '********************
@@ -278,7 +277,7 @@ Sub SolRelease(Enabled)
 End Sub
 
 Sub Drain_Hit
-    PlaySound "Balltruhe", 0, 0.5, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    PlaySoundAt "Balltruhe", Drain
     bsTrough.AddBall Me
 End Sub
 
@@ -287,7 +286,7 @@ Sub bsLockAddBall()
 End Sub
 
 Sub Locker_Hit()
-	PlaySound "Lock_Hit2", 0, 0.5, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	PlaySoundAt "Lock_Hit2", Locker
 	bsLock.AddBall Me
 End Sub
 
@@ -295,7 +294,7 @@ Sub LockUpPin(enabled)
     If enabled then
         If bsLock.Balls> 0 Then
             bsLock.SolOut 1
-            PlaySound "SaveHouseKick"
+            PlaySound "SaveHouseKick" ' TODO : improve positional
             bsLockKickout.AddBall 1
         Else
             PlaySound "LockUpPin"
@@ -422,7 +421,7 @@ Sub UpperRightDiverter(Enabled)
 		diverterr1.visible = 0
 		diverterr2.visible = 1
 		diverterrightramp.isDropped = 0
-		PlaySound"DiverterLeft_Close"
+		PlaySound "DiverterLeft_Close"
 	End if
 End Sub
 
@@ -438,7 +437,7 @@ Sub UpperLeftDiverter(Enabled)
 		diverterl2.visible = 1
 		diverterleftramp1.isDropped = 1
 		diverterleftramp2.isDropped = 0
-		PlaySound"DiverterLeft_Close"
+		PlaySound "DiverterLeft_Close"
 	End if
 End Sub
 
@@ -450,7 +449,7 @@ Sub LowerLeftDiverter(enabled)
 	Else
 		diverter1.rotatetostart
 		diverter2.rotatetostart
-		PlaySound"DiverterLeft_Close"
+		PlaySound "DiverterLeft_Close"
 	End If
 End Sub
 
@@ -869,9 +868,9 @@ Sub table1_KeyDown(ByVal Keycode)
         Exit Sub
     End if
 	If keycode = keyFront Then Controller.Switch(23) = True
-	If keycode = PlungerKey And PPL = False Then PlungerR.Pullback:Playsound "plungerpull"
-	If keycode = PlungerKey And PPL = True Then PlungerL.Pullback:Playsound "plungerpull", 0, 1, -1
-	If keycode = LeftMagnaSave Then PlungerL.Pullback:Playsound "plungerpull", 0, 1, -1
+	If keycode = PlungerKey And PPL = False Then PlungerR.Pullback:PlaysoundAt "plungerpull", PlungerR
+	If keycode = PlungerKey And PPL = True Then PlungerL.Pullback:PlaysoundAt "plungerpull", PlungerL
+	If keycode = LeftMagnaSave Then PlungerL.Pullback:PlaysoundAt "plungerpull", PlungerL
 	If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
@@ -895,9 +894,9 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("FlipperUpLeft", DOFFlippers):FlipperL.RotateToEnd
+        PlaySoundAt SoundFX("FlipperUpLeft", DOFFlippers),FlipperL:FlipperL.RotateToEnd
     Else
-        PlaySound SoundFX("FlipperDown", DOFFlippers):FlipperL.RotateToStart
+        PlaySoundAt SoundFX("FlipperDown", DOFFlippers),FlipperL:FlipperL.RotateToStart
     End If
     SolLFlipper3 Enabled
 	SolLFlipper2 Enabled
@@ -905,9 +904,9 @@ End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("FlipperUpRight", DOFFlippers):FlipperR.RotateToEnd
+        PlaySoundAt SoundFX("FlipperUpRight", DOFFlippers),FlipperR:FlipperR.RotateToEnd
     Else
-        PlaySound SoundFX("FlipperDown", DOFFlippers):FlipperR.RotateToStart
+        PlaySoundAt SoundFX("FlipperDown", DOFFlippers),FlipperR:FlipperR.RotateToStart
     End If
 End Sub
 
