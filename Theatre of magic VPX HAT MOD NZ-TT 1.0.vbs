@@ -13,6 +13,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-09
+' Added vpmInit Me to table init and Moved cSingleLFlip and /cSingleRFlip
 
 Option Explicit
 Randomize
@@ -81,9 +83,10 @@ LoadVPM "01560000", "WPC.VBS", 3.50
 '********************
 'Standard definitions
 '********************
-const cSingleLFlip= 0
-const cSingleRFlip= 0
  Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+ Const cSingleLFlip = 0
+ Const cSingleRFlip = 0
  Const UseLamps = 0
  Const UseSync = 0
  Const HandleMech = 1
@@ -104,6 +107,7 @@ const cSingleRFlip= 0
 '******************************************************
 
  Sub Table1_Init
+     vpmInit Me
      With Controller
          .GameName = cGameName
          .SplashInfoLine = "Theatre of Magic - Bally 1995"

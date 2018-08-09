@@ -19,6 +19,8 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Wob 2018-08-09
+' Added vpmInit Me to table init and cSingleLFlip
 
 Option Explicit
 Randomize
@@ -53,6 +55,8 @@ End if
 '==================================================================
 Const cGameName = "meteor" ' Oliver's 7 Digit Roms Are Used
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
 Const UseLamps= 0
 Const UseGI= 0
 Const SSolenoidOn = "Solon"
@@ -109,6 +113,7 @@ For each xx in GI:xx.State = 1: Next
 Dim bsTrough, dtDrop1, dtDrop2, dtDrop3, dtMeteorDrop
 
 Sub Table1_Init
+vpmInit Me
 With Controller
 .GameName = cGameName
 .SplashInfoLine = "Meteor - Stern 1979" & vbNewLine & "DesAngel / Plumb / Eala Dubh" & vbNewLine & "Fullscreen by Vidmouse"

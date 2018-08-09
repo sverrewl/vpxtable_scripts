@@ -49,7 +49,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-09
+' Added vpmInit Me to table init and cSingleLFlip
 
 Option Explicit
 Randomize
@@ -163,6 +164,8 @@ LoadVPM "02000000", "WPC.VBS", 3.49
 '******************************
 
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 1
@@ -238,6 +241,7 @@ End sub
 Dim bsSlot, bsAutoPlunger, bsRocket, mLeftMini, mRightMini, mslot, mLeftMagnet, mLowerRightMagnet, mUpperRightMagnet
 
 Sub Table1_Init
+	vpmInit Me
     With Controller
         .GameName = cGameName
         .SplashInfoLine = "Twilight Zone (Bally 1992)"

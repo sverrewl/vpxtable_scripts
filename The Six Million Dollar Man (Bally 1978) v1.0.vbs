@@ -10,7 +10,8 @@
 ' Changed UseSolenoids=1 to 2
 ' Tables uses a non standard ball rolling routine
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-09
+' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
 
 Option Explicit
 Randomize
@@ -95,6 +96,9 @@ Sub DOF(dofevent, dofstate)
 End Sub
 
 Const UseSolenoids = 2
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = true
 Const UseGI = 1
 Const UseSync = 0
@@ -110,6 +114,7 @@ Const SCoin = "CoinIn"
 
 
  Sub Table1_Init
+	 vpmInit Me
      With Controller
    		      cGameName = "smmanc"
                .GameName = cGameName

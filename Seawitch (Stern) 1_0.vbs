@@ -11,7 +11,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-
+' Wob 2018-08-09
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -62,6 +63,7 @@ On Error Goto 0
 	'************
 
 	Sub Table1_Init
+		vpmInit Me
 		With Controller
 			.GameName = cGameName
 			.SplashInfoLine = "Seawitch, Stern 1980" & vbNewLine & "VPX table by Flash62"
