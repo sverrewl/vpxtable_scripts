@@ -5,12 +5,21 @@
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' Wob 2018-08-08
-' Added vpmInit Me for FastFlips Support
+' Thalamus 2018-08-10 : Improved directional sounds
+' Low sounds ? You might want to get samples from another table.
 
 Option Explicit
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 600
+
+Const VolBump   = 3    ' Bumper Volume - higher value, higher sound
+Const VolRol    = 2    ' Rollover Volume - higher value, higher sound
+Const VolDrop   = 2    ' Droptarget Volume - higher value, higher sound
+Const VolTarget = 2    ' Target Volume - higher value, higher sound
+Const VolFlip   = 2    ' Flipper Volume - higher value, higher sound
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -48,7 +57,6 @@ Const UseLamps = 0
 Const UseGI = 0
 
 Sub Table1_Init
-	vpmInit Me
     With Controller
         .GameName = cGameName
         If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -105,13 +113,13 @@ Sub table1_KeyDown(ByVal keycode)
     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
-    If keycode = PlungerKey Then PlaySound "fx_PlungerPull", 0, 1, 0.1, 0.25:Plunger.Pullback
+    If keycode = PlungerKey Then PlaySoundAt "fx_PlungerPull", Plunger:Plunger.Pullback
     If vpmKeyDown(keycode)Then Exit Sub
 End Sub
 
 Sub table1_KeyUp(ByVal keycode)
     If vpmKeyUp(keycode)Then Exit Sub
-    If keycode = PlungerKey Then PlaySound "fx_plunger", 0, 1, 0.1, 0.25:Plunger.Fire
+    If keycode = PlungerKey Then PlaySoundAt "fx_plunger", Plunger:Plunger.Fire
 End Sub
 
 '**********
@@ -134,11 +142,11 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("fx_flipperup", DOFFlippers), 0, 1, -0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperup", DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
         LeftFlipper1.RotateToEnd
     Else
-        PlaySound SoundFX("fx_flipperdown", DOFFlippers), 0, 1, -0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperdown", DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
         LeftFlipper1.RotateToStart
     End If
@@ -146,11 +154,11 @@ End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("fx_flipperup", DOFFlippers), 0, 1, 0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperup", DOFFlippers),RightFlipper, VolFlip
         RightFlipper.RotateToEnd
         RightFlipper1.RotateToEnd
     Else
-        PlaySound SoundFX("fx_flipperdown", DOFFlippers), 0, 1, 0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperdown", DOFFlippers),RightFlipper, VolFlip
         RightFlipper.RotateToStart
         RightFlipper1.RotateToStart
     End If
@@ -176,20 +184,19 @@ End Sub
 ' Switches
 '**********
 
-Sub sw4_Spin:vpmTimer.PulseSw(4):End Sub
-
-Sub sw5_Spin:vpmTimer.PulseSw(5):End Sub
+Sub sw4_Spin:vpmTimer.PulseSw(4):PlaySoundAt "fx_spinner", sw4:End Sub
+Sub sw5_Spin:vpmTimer.PulseSw(5):PlaySoundAt "fx_spinner", sw5:End Sub
 
 ' Bumpers
 
-Sub Bumper1_Hit:vpmTimer.PulseSw 9:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0.15, 0.15:End Sub
-Sub Bumper2_Hit:vpmTimer.PulseSw 10:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0.15, 0.15:End Sub
-Sub Bumper3_Hit:vpmTimer.PulseSw 11:PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, 0.15, 0.15:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 9 :PlaySoundAtVol SoundFX("fx_bumper", DOFContactors), Bumper1, VolBump:End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 10:PlaySoundAtVol SoundFX("fx_bumper", DOFContactors), Bumper2, VolBump:End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 11:PlaySoundAtVol SoundFX("fx_bumper", DOFContactors), Bumper3, VolBump:End Sub
 
 Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
-    PlaySound SoundFX("fx_slingshot", DOFContactors), 0, 1, -0.05, 0.05
+    PlaySoundAt SoundFX("fx_slingshot", DOFContactors), Lemk
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -207,7 +214,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub RightSlingShot_Slingshot
-    PlaySound SoundFX("fx_slingshot", DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAt SoundFX("fx_slingshot", DOFContactors), Remk
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -228,59 +235,59 @@ Sub sw37_Hit:vpmTimer.PulseSw(37):End Sub
 Sub sw37a_Hit:vpmTimer.PulseSw(37):End Sub
 
 'Droptargets
-Sub sw14_Dropped:dtT.Hit 3:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw15_Dropped:dtT.Hit 2:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw16_Dropped:dtT.Hit 1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw22_Dropped:dtR.Hit 3:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw23_Dropped:dtR.Hit 2:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw24_Dropped:dtR.Hit 1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw30_Dropped:dtR2.Hit 3:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw31_Dropped:dtR2.Hit 2:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw32_Dropped:dtR2.Hit 1:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
+Sub sw14_Dropped: dtT.Hit 3:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw14, VolDrop:End Sub
+Sub sw15_Dropped: dtT.Hit 2:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw15, VolDrop:End Sub
+Sub sw16_Dropped: dtT.Hit 1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw16, VolDrop:End Sub
+Sub sw22_Dropped: dtR.Hit 3:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw22, VolDrop:End Sub
+Sub sw23_Dropped: dtR.Hit 2:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw23, VolDrop:End Sub
+Sub sw24_Dropped: dtR.Hit 1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw24, VolDrop:End Sub
+Sub sw30_Dropped:dtR2.Hit 3:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw30, VolDrop:End Sub
+Sub sw31_Dropped:dtR2.Hit 2:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw31, VolDrop:End Sub
+Sub sw32_Dropped:dtR2.Hit 1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw32, VolDrop:End Sub
 
 ' Rollovers
-Sub sw17_Hit:Controller.Switch(17) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw17_Hit:Controller.Switch(17) = 1:PlaySoundAtVol "fx_sensor", sw17, VolRol:End Sub
 Sub sw17_UnHit:Controller.Switch(17) = 0:End Sub
-Sub sw18_Hit:Controller.Switch(18) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw18_Hit:Controller.Switch(18) = 1:PlaySoundAtVol "fx_sensor", sw18, VolRol:End Sub
 Sub sw18_UnHit:Controller.Switch(18) = 0:End Sub
-Sub sw19_Hit:Controller.Switch(19) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw19_Hit:Controller.Switch(19) = 1:PlaySoundAtVol "fx_sensor", sw19, VolRol:End Sub
 Sub sw19_UnHit:Controller.Switch(19) = 0:End Sub
-Sub sw27_Hit:Controller.Switch(27) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw27_Hit:Controller.Switch(27) = 1:PlaySoundAtVol "fx_sensor", sw27, VolRol:End Sub
 Sub sw27_UnHit:Controller.Switch(27) = 0:End Sub
-Sub RightInlane_Hit:Controller.Switch(28) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub RightInlane_Hit:Controller.Switch(28) = 1:PlaySoundAtVol "fx_sensor", RightInlane, VolRol:End Sub
 Sub RightInlane_UnHit:Controller.Switch(28) = 0:End Sub
-Sub LeftInlane_Hit:Controller.Switch(29) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub LeftInlane_Hit:Controller.Switch(29) = 1:PlaySoundAtVol "fx_sensor", LeftInlane, VolRol:End Sub
 Sub LeftInlane_UnHit:Controller.Switch(29) = 0:End Sub
-Sub RightOutlane_Hit:Controller.Switch(35) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub RightOutlane_Hit:Controller.Switch(35) = 1:PlaySoundAtVol "fx_sensor", RightOUtlane, VolRol:End Sub
 Sub RightOutlane_UnHit:Controller.Switch(35) = 0:End Sub
-Sub LeftOutlane_Hit:Controller.Switch(36) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub LeftOutlane_Hit:Controller.Switch(36) = 1:PlaySoundAtVol "fx_sensor", LeftOutlane, VolRol:End Sub
 Sub LeftOutlane_UnHit:Controller.Switch(36) = 0:End Sub
 
 'targets
-Sub sw20_Hit:vpmTimer.PulseSw(20):PlaySound SoundFX("fx_target", DOFTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw21_Hit:vpmTimer.PulseSw(21):PlaySound SoundFX("fx_target", DOFTargets), 0, 1, pan(ActiveBall):End Sub
+Sub sw20_Hit:vpmTimer.PulseSw(20):PlaySoundAtVol SoundFX("fx_target", DOFTargets), sw20, VolTarget:End Sub
+Sub sw21_Hit:vpmTimer.PulseSw(21):PlaySoundAtVol SoundFX("fx_target", DOFTargets), sw21, VolTarget:End Sub
 
 'Rollovers 2
-Sub sw25_Hit:L16.State = 0:Controller.Switch(25) = 1:Me.TimerEnabled = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw25_Hit:L16.State = 0:Controller.Switch(25) = 1:Me.TimerEnabled = 1:PlaySoundAtVol "fx_sensor", sw25, VolTarget:End Sub
 Sub sw25_UnHit:Controller.Switch(25) = 0:End Sub
 Sub sw25_Timer:Me.TimerEnabled = 0:L16.State = 1:End Sub
-Sub sw26_Hit:L30.State = 0:Controller.Switch(26) = 1:Me.TimerEnabled = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw26_Hit:L30.State = 0:Controller.Switch(26) = 1:Me.TimerEnabled = 1:PlaySoundAtVol "fx_sensor", sw26, VolTarget:End Sub
 Sub sw26_UnHit:Controller.Switch(26) = 0:End Sub
 Sub sw26_Timer:Me.TimerEnabled = 0:L30.State = 1:End Sub
-Sub sw38_Hit:L31.State = 0:Controller.Switch(38) = 1:Me.TimerEnabled = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw38_Hit:L31.State = 0:Controller.Switch(38) = 1:Me.TimerEnabled = 1:PlaySoundAtVol "fx_sensor", sw38, VolTarget:End Sub
 Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub
 Sub sw38_Timer:Me.TimerEnabled = 0:L31.State = 1:End Sub
-Sub sw39_Hit:L15.State = 0:Controller.Switch(39) = 1:Me.TimerEnabled = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw39_Hit:L15.State = 0:Controller.Switch(39) = 1:Me.TimerEnabled = 1:PlaySoundAtVol "fx_sensor", sw39, VolTarget:End Sub
 Sub sw39_UnHit:Controller.Switch(39) = 0:End Sub
 Sub sw39_Timer:Me.TimerEnabled = 0:L15.State = 1:End Sub
-Sub sw40_Hit:L14.State = 0:Controller.Switch(40) = 1:Me.TimerEnabled = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+Sub sw40_Hit:L14.State = 0:Controller.Switch(40) = 1:Me.TimerEnabled = 1:PlaySoundAtVol "fx_sensor", sw40, VolTarget:End Sub
 Sub sw40_UnHit:Controller.Switch(40) = 0:End Sub
 Sub sw40_Timer:Me.TimerEnabled = 0:L14.State = 1:End Sub
 
 ' Drain & saucers
 Sub Drain_Hit:bsTrough.AddBall Me:End Sub
 'Sub Drain_Hit:Me.Destroyball:End Sub 'only for debug
-Sub sw34_Hit:bsSaucer.AddBall 0:PlaySound "fx_kicker-enter":End Sub
+Sub sw34_Hit:bsSaucer.AddBall 0:PlaySoundAtVol "fx_kicker-enter", sw34,2:End Sub
 
 '************************************
 '          LEDs Display
