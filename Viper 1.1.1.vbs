@@ -5,7 +5,9 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' Thalamus 2018-08-09 : Improved directional sounds
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Thalamus 2018-08-08 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 Randomize
@@ -243,7 +245,7 @@ Sub sw22_Hit:vpmTimer.PulseSw 22:PlaySoundAt SoundFX("fx_target", DOFDropTargets
 Sub sw23_Hit:vpmTimer.PulseSw 23:PlaySoundAt SoundFX("fx_target", DOFDropTargets), ActiveBall:End Sub
 
 'Spinner
-Sub sw5_Spin:vpmTimer.PulseSw 5:Playsound "fx_spinner", sw5:End Sub
+Sub sw5_Spin:vpmTimer.PulseSw 5:PlaysoundAt "fx_spinner", sw5:End Sub
 
 ' Drain and kickers
 Sub Drain_Hit:PlaysoundAt "fx_drain", Drain:bsTrough.AddBall Me:End Sub
