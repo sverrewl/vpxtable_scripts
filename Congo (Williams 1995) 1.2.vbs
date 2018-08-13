@@ -7,10 +7,10 @@
 
 'Version 1.2
 
-' Thalamus 2018-07-20
+' Thalamus 2018-08-14
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Improved directional sound locations
 
 Option Explicit
 Randomize
@@ -35,6 +35,9 @@ if SingleScreenFS = 1 then UseVPMColoredDMD = True else UseVPMColoredDMD = Deskt
 
 LoadVPM "01560000", "WPC.VBS", 3.5
 
+' Thal: because of useSolenoids=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 
 '********************
 'Standard definitions
@@ -106,7 +109,7 @@ f17fa.y	=450	'266.398
 f17fa.opacity = 5000
 f17fa.modulatevsadd = 1
 
-'lower gorilla GI 
+'lower gorilla GI
 giflare4.height = -35
 GIflare4.rotx = 5
 GIflare4.roty = 60
@@ -152,9 +155,9 @@ Sub Table1_Init
         .ShowFrame = 0
         .HandleMechanics = 0
 '        .Hidden = DesktopMode
-'       .Hidden = 0		
+'       .Hidden = 0
         If DesktopMode then
-			.Hidden = 1 
+			.Hidden = 1
 		else
 			If SingleScreenFS = 1 then
 				.Hidden = 1
@@ -186,7 +189,7 @@ Sub Table1_Init
 
 	 '   Volcano
 	Set bsVolcano = New cvpmTrough
-	With bsVolcano    
+	With bsVolcano
 		.size = 4
         .initSwitches Array(41, 42, 43)
         .Initexit sw36a, 260, 10
@@ -194,21 +197,21 @@ Sub Table1_Init
         .InitExitVariance 2, 2
 '        .MaxBallsPerKick = 2
     End With
-	
-	
+
+
 	'2-way Popper
 	Set bsAmyVuk = New cvpmSaucer
 	With bsAmyVuk
 		.InitKicker sw53, 53, 330, 30, 65	'up 'switch, direction, force, Zforce
 		.InitAltKick 145, 30, 60 'down
 	End With
-	
+
 	Set BsMystery = New cvpmSaucer
 	With bsMystery
 		.InitKicker sw37, 37, 185, 20, 45
 		.InitExitVariance 2, 1
 	End With
-	
+
 	Set bsMap = New cvpmSaucer
 	With bsMap
 		.InitKicker sw38, 38, 210, 20, 45
@@ -218,7 +221,7 @@ Sub Table1_Init
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
-	
+
 	' Init Kickback
     KickBack.Pullback
 	AutoPlunger.Pullback
@@ -227,7 +230,7 @@ Sub Table1_Init
 	LeftPost.IsDropped = 1:SolTopPost 0
 	TopPost.IsDropped = 0
 	leftpost_invis.IsDropped = 1
-	
+
 	'Lower Playfield Ball
 	CreateLPFball
 	gorillaleft 0
@@ -352,7 +355,7 @@ End Sub
 
 'y = 12x -5
 'x = (y+5)/12
-			
+
 dim gistepm
 Sub UpdateGI(no, step)
     Dim ii, x
@@ -406,11 +409,11 @@ End Sub
 Sub UpdateLightScaling(onoff, gistring)	'onoff: send 0 for GI on/off callback 'gistring: 1 is top, 2 is bottom, 3 is Lpf
 	dim x, ii, GIi, temp1, temp2
 	dim s, i
-	if onoff = 0 then 
+	if onoff = 0 then
 	'	exit sub
-		ii = 0 
+		ii = 0
 		GIi = (9/8) - ii/64
-	elseif onoff = 1 then 
+	elseif onoff = 1 then
 	'	exit sub	'debug
 		ii = gistep	'off behaves as if GIstep at 0, for the GI on/off callback
 		GIi = (9/8) - ii/64
@@ -450,14 +453,14 @@ Sub UpdateLightScaling(onoff, gistring)	'onoff: send 0 for GI on/off callback 'g
 				x.intensityscale = GIi
 				x.fadespeedup = insertfading(i, 1) * x.intensityscale
 				x.fadespeeddown = insertfading(i, 2) * x.intensityscale
-			Next		
+			Next
 			for each x in LampsMIDDLE
 				s = mid(x.name, 2, 2)			'take L off the lamp's name
 				i = cInt(s)						'convert string to integer to get the lampnumber
 				x.intensityscale = (GIi + 1) / 2	'half scaling for middle inserts
 				x.fadespeedup = insertfading(i, 1) * x.intensityscale
 				x.fadespeeddown = insertfading(i, 2) * x.intensityscale
-			Next		
+			Next
 		case 2	'bottom
 			GIscale(120) = GIi
 			GIscale(125) = GIi
@@ -470,14 +473,14 @@ Sub UpdateLightScaling(onoff, gistring)	'onoff: send 0 for GI on/off callback 'g
 				x.intensityscale = GIi
 				x.fadespeedup = insertfading(i, 1) * x.intensityscale
 				x.fadespeeddown = insertfading(i, 2) * x.intensityscale
-			Next		
+			Next
 			for each x in LampsMIDDLE
 				s = mid(x.name, 2, 2)			'take L off the lamp's name
 				i = cInt(s)						'convert string to integer to get the lampnumber
 				x.intensityscale = (GIi + 1) / 2	'half scaling for middle inserts
 				x.fadespeedup = insertfading(i, 1) * x.intensityscale
 				x.fadespeeddown = insertfading(i, 2) * x.intensityscale
-			Next	
+			Next
 	End Select
 
 
@@ -539,8 +542,8 @@ end sub
 
 
 Sub GorillaGI
-	If Giswitch = 1 then 
-	Giswitch = 0 
+	If Giswitch = 1 then
+	Giswitch = 0
 	Gion 1
 	Else
 	Giswitch = 1
@@ -563,7 +566,7 @@ Sub table1_KeyDown(ByVal Keycode)
 	If keycode = LeftTiltKey Then vpmNudge.donudge 90, 3.5:PlaySound "fx_nudge", 0, 1, -0.1, 0.25 : exit sub
 	If keycode = RightTiltKey Then vpmNudge.donudge 270, 3.5:PlaySound "fx_nudge", 0, 1, 0.1, 0.25 : exit sub
 	If keycode = CenterTiltKey Then vpmNudge.doNudge 0, 4:PlaySound "fx_nudge", 0, 1, 0, 0.25 : exit sub
-    If keycode = PlungerKey Then PlaySound SoundFx("PlungerPull",0), 0, 0.05, 0.1, 0.25:Plunger.Pullback:end if
+    If keycode = PlungerKey Then PlaySoundAt SoundFX("plunger3",0), ActiveBall:Plunger.Pullback:end if
 '	If keycode = LeftFlipperKey Then
 '		SolLFlipper 1
 '		SolULFlipper 1
@@ -637,12 +640,12 @@ d1 = 15 : d2 = 20
 
 
 Sub table1_KeyUp(ByVal Keycode)
-    If keycode = PlungerKey Then 
+    If keycode = PlungerKey Then
 		Plunger.Fire
-		if BallInPlunger then 
-			PlaySound SoundFX("plunger3",0),0,0.5,0.05,0.02
+		if BallInPlunger then
+			PlaySoundAt SoundFX("plunger3",0),Plunger
 		Else
-			PlaySound SoundFX("plunger",0),0,0.6,0.05,0.02
+			PlaySoundAt SoundFX("plunger",0),Plunger
 		end if
 	End If
 '	If keycode = LeftFlipperKey Then
@@ -671,7 +674,7 @@ End Sub
 'sub drain_hit:drain.destroyball:end sub	'debug, infinite balls
 sub destroyer_hit
 	bip = bip - 1
-	if bip < 0 then bip = 0 
+	if bip < 0 then bip = 0
 	me.destroyball
 end sub
 
@@ -681,8 +684,7 @@ Dim Lstep, Rstep
 
 Sub LeftSlingShot_Slingshot
 	vpmTimer.PulseSw 61
-'    PlaySound SoundFx("fx_slingshot1",DOFContactors),0,0.7,-0.01,0.05
-	PlaySound SoundFX("LeftSlingshot",DOFContactors), 0, 0.7, -0.01, 0.2	'clark
+	  PlaySoundAt SoundFX("LeftSlingshot",DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -28
@@ -700,8 +702,7 @@ End Sub
 
 Sub RightSlingShot_Slingshot
 	vpmTimer.PulseSw 62
- '   PlaySound SoundFx("fx_slingshot2",DOFContactors), 0, 0.7, 0.01, 0.05
-	PlaySound SoundFX("RightSlingshot",DOFContactors), 0, 0.7, 0.01, 0.2	'clark
+	  PlaySoundAt SoundFX("RightSlingshot",DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -28
@@ -718,12 +719,9 @@ Sub RightSlingShot_Timer
 End Sub
 
 ' Bumpers
-'Sub Bumper1_Hit:vpmTimer.PulseSw 63:PlaySound SoundFx("fx_bumper3",DOFContactors), 0, 1, 0.01, 0.20:End Sub
-'Sub Bumper2_Hit:vpmTimer.PulseSw 64:PlaySound SoundFx("fx_bumper3",DOFContactors), 0, 1, 0.02, 0.20:End Sub
-'Sub Bumper3_Hit:vpmTimer.PulseSw 65:PlaySound SoundFx("fx_bumper3",DOFContactors), 0, 1, 0.01, 0.20:End Sub
-Sub Bumper1_Hit:vpmTimer.PulseSw 63:PlaySound SoundFx("rightbumper_hit",DOFContactors), 0, 0.5, 0.01, 0.10:End Sub	'clark
-Sub Bumper2_Hit:vpmTimer.PulseSw 64:PlaySound SoundFx("topbumper_hit",DOFContactors), 0, 0.5, 0.02, 0.10:End Sub
-Sub Bumper3_Hit:vpmTimer.PulseSw 65:PlaySound SoundFx("leftbumper_hit",DOFContactors), 0, 0.5, 0.01, 0.10:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 63:PlaySoundAt SoundFX("rightbumper_hit",DOFContactors), ActiveBall:End Sub	'clark
+Sub Bumper2_Hit:vpmTimer.PulseSw 64:PlaySoundAt SoundFX("topbumper_hit",DOFContactors), ActiveBall:End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 65:PlaySoundAt SoundFX("leftbumper_hit",DOFContactors), ActiveBall:End Sub
 
 ' Right Eject Rubber
 Sub sw25_Hit:vpmTimer.PulseSw 25:End Sub 'Right Eject Rubber
@@ -820,19 +818,19 @@ SolCallBack(4) = "SolPopDown"
 Sub SolPopUp(Enabled)
 	if bsAmyVuk.hasball then bip = bip + 1
 	If Enabled Then
-		if bsamyVuk.hasball then 
+		if bsamyVuk.hasball then
 			bsAmyVuk.SolOutAlt 0
 			bsAmyVuk.ExitSol_On
-			playsound SoundFX("fx_kicker2",DOFContactors), 0, 0.5, 0
+			playsoundAt SoundFX("fx_kicker2",DOFContactors), KickerUFTEST
 		Else
-			playsound SoundFX("fx_solenoidOn",DOFContactors), 0, 0.5, 0
+			playsoundAt SoundFX("fx_solenoidOn",DOFContactors), KickerUFTEST
 		end If
 	Else
 '		bsAmyVuk.SolOutAlt 1	'Down
-		playsound SoundFX("fx_solenoidOff",0), 0, 0.03, 0
+		playsoundAt SoundFX("fx_solenoidOff",0), KickerUFTEST
 	End If
 End Sub
-'		.InitSounds "scoop_enter", "fx_Solenoidon", SoundFX("fx_kicker2",DOFContactors)	
+'		.InitSounds "scoop_enter", "fx_Solenoidon", SoundFX("fx_kicker2",DOFContactors)
 
 '   (Public) .solOut           - Fire the primary exit kicker.  Ejects ball if one is present.
 '   (Public) .solOutAlt        - Fire the secondary exit kicker.  Ejects ball with alternate forces if present.
@@ -840,20 +838,20 @@ End Sub
 Sub SolPopDown(Enabled)
 	if bsAmyVuk.hasball then bip = bip + 1
 	If Enabled Then
-		if bsamyVuk.hasball then 
+		if bsamyVuk.hasball then
 			bsAmyVuk.SolOutAlt 1'down
 			bsAmyVuk.ExitSol_On
-			playsound SoundFX("fx_kicker2",DOFContactors), 0, 0.5, 0
+			playsoundAt SoundFX("fx_kicker2",DOFContactors), KickerUFTEST
 		Else
-			playsound SoundFX("fx_solenoidOn",DOFContactors), 0, 0.5, 0
+			playsoundAt SoundFX("fx_solenoidOn",DOFContactors), KickerUFTEST
 		end If
 	Else
-		playsound SoundFX("fx_solenoidOff",0), 0, 0.03, 0
+		playsoundAt SoundFX("fx_solenoidOff",0), KickerUFTEST
 	End If
 End Sub
 
-'sw53 (2 way popper) 
-sub sw53_hit:controller.Switch(53) = 1:bsAmyVuk.addball me:bip = bip - 1:playsound "kicker_hit", 0, 0.5, 0.01:End Sub	'clark
+'sw53 (2 way popper)
+sub sw53_hit:controller.Switch(53) = 1:bsAmyVuk.addball me:bip = bip - 1:PlaySoundAt "kicker_hit", ActiveBall:End Sub	'clark
 
 
 'SolCallBack(5) = "vpmSolDiverter Diverter,true,"
@@ -864,18 +862,16 @@ Sub VolcanoKickOut(enabled)
 	If Enabled Then
 		if bsVolcano.balls then
 			bsVolcano.ExitSol_On
-			playsound SoundFX("kicker_release",DOFcontactors), 0, 1, 0.01
+			playsoundat SoundFX("kicker_release",DOFcontactors), KickerUFTEST2
 		Else
-			playsound SoundFX("fx_solenoidOnVar",DOFContactors), 0, 1, 0.01
+			playsoundat SoundFX("fx_solenoidOnVar",DOFContactors), KickerUFTEST2
 		end if
 	Else
-		playsound SoundFX("fx_solenoidOffVar",0), 0, 0.03, 0.01
+		playsoundat SoundFX("fx_solenoidOffVar",0), KickerUFTEST2
 	end if
 End Sub
 
-'Sub Sw36_Hit:vpmTimer.PulseSw(36):bsVolcano.AddBall me:bip = bip - 1:playsound "fx_drain", 1, 0.1, 0.005:End Sub	'name,loopcount,volume,pan,randompitch
-Sub Sw36_Hit:vpmTimer.PulseSw(36):bsVolcano.AddBall me:bip = bip - 1:playsound "Scoop_Enter2", 1, 0.05, 0.002:End Sub	'Clark
-
+Sub Sw36_Hit:vpmTimer.PulseSw(36):bsVolcano.AddBall me:bip = bip - 1:PlaySoundAt "Scoop_Enter2", ActiveBall:End Sub	'Clark
 
 SolCallBack(7) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 SolCallBack(8) = "SolTopPost"
@@ -884,24 +880,24 @@ SolCallBack(9) = "SolRelease"
 Sub SolRelease(Enabled)	'ball tracking
     If Enabled Then
 		if bsTrough.Balls > 0 then
-			Playsound SoundFX("BallRelease",DOFcontactors), 0, 0.25, 0.005	'ClarkKent
+			Playsoundat SoundFX("BallRelease",DOFcontactors), BallRelease	'ClarkKent
 			vpmTimer.PulseSw 31
 			bsTrough.ExitSol_On
 			bip = bip + 1
 		Else
-			playsound SoundFX("fx_solenoidOnVar",DOFContactors), 0, 1, 0
+			playsoundat SoundFX("fx_solenoidOnVar",DOFContactors), BallRelease
 		end if
 	Else
-		playsound SoundFX("fx_solenoidOffVar",0), 0, 0.1, 0
+		playsoundat SoundFX("fx_solenoidOffVar",0), BallRelease
     End If
 End Sub
 
 ' Drain hole
 Sub Drain_Hit
-	playsound "fx_drain", 0, 0.5, 0
+	playsoundAt "fx_drain", Drain
 	bsTrough.AddBall Me
 	bip = bip - 1
-	if bip < 0 then bip = 0 
+	if bip < 0 then bip = 0
 End Sub
 
 'SolCallBack(10)	' Left SLingshot
@@ -921,17 +917,17 @@ SolCallback(22) = "MapKick"
 Sub MapKick(enabled)
 	if bsMap.hasball then bip = bip + 1
 	If Enabled Then
-		if bsMap.hasball then 
-			playsound SoundFX("fx_kicker2",DOFContactors), 0, 1, 0.012
+		if bsMap.hasball then
+			playsoundat SoundFX("fx_kicker2",DOFContactors), sw38
 			bsmap.ExitSol_On
 		Else
-			playsound SoundFX("fx_solenoidOn",DOFContactors), 0, 1, 0.012
+			playsoundat SoundFX("fx_solenoidOn",DOFContactors), sw38
 		end If
 	Else
-		playsound SoundFX("fx_solenoidOff",0), 0, 0.1, 0.012
+		playsoundat SoundFX("fx_solenoidOff",0), sw38
 	End If
 end sub
-Sub Sw38_Hit:controller.Switch(38) = 1:bsMap.addball me:bip = bip - 1:playsound "kicker_hit", 0, 0.5, 0.08:End Sub	'clark
+Sub Sw38_Hit:controller.Switch(38) = 1:bsMap.addball me:bip = bip - 1:PlaySoundAt "kicker_hit", ActiveBall:End Sub	'clark
 
 SolCallBack(23) = "LeftGateOn"
 SolCallBack(24) = "RightGateOn"
@@ -947,27 +943,27 @@ SolCallback(34) = "MysteryKick"
 Sub MysteryKick(enabled)
 	if bsMystery.hasball then bip = bip + 1 end if
 	If Enabled Then
-		if bsMystery.hasball then 
-			playsound SoundFX("fx_kicker2",DOFContactors), 0, 1, 0.002
-			bsmystery.ExitSol_On 
+		if bsMystery.hasball then
+			playsoundat SoundFX("fx_kicker2",DOFContactors), sw37
+			bsmystery.ExitSol_On
 		Else
-			playsound SoundFX("fx_solenoidOn",DOFContactors), 0, 1, 0.002
+			playsoundat SoundFX("fx_solenoidOn",DOFContactors), sw37
 		end If
 	Else
-		playsound SoundFX("fx_solenoidOff",0), 0, 0.1, 0.002
+		playsoundat SoundFX("fx_solenoidOff",0), sw37
 	End If
 end sub
 
-Sub Sw37_Hit:controller.Switch(37) = 1:bsMystery.addball me:bip = bip - 1:playsound "kicker_hit", 0, 0.5, 0.05:End Sub	'clark
+Sub Sw37_Hit:controller.Switch(37) = 1:bsMystery.addball me:bip = bip - 1:PlaySoundAt "kicker_hit", ActiveBall:End Sub	'clark
 '
 DiverterSwoop.isdropped = 1
 Sub RampDiverter(enabled)
 	if Enabled Then
-		playsound SoundFX("fx_solenoidon",DOFcontactors), 0, 0.2, 0.01
+		playsoundat SoundFX("fx_solenoidon",DOFcontactors), Rubber_Ob15
 		Diverter.rotatetoend
 		DiverterSwoop.isdropped = 0
 	else
-		playsound SoundFX("fx_solenoidoff",DOFcontactors), 0, 0.1, 0.01
+		playsoundat SoundFX("fx_solenoidoff",DOFcontactors), Rubber_Ob15
 		Diverter.rotatetostart
 		DiverterSwoop.isdropped = 1
 	End If
@@ -1050,21 +1046,21 @@ End Sub
 
 
 Sub TB3_timer()	'debug
-	me.text = "f20 state:" & f20.state & vbnewline & _ 
-	"solvalue:" & SolModValue(120) & vbnewline & _ 
-	"intens:" & f20.intensity & vbnewline & _ 
-	"intscale:" & f20.intensityscale & vbnewline & _ 
-	"fading:" & FlashLevel(120) & vbnewline & _ 
-	"FallOffconst:" & LightFallOff(120, 0) & vbnewline & _ 
-	"FallOffcurrent:" & f20.falloff & vbnewline & _ 
-	"lampstate:" & LampState(120) & vbnewline & _ 
-	"fadinglvl:" & FadingLevel(120) & vbnewline & vbnewline & _ 
-	"flashlvl:" & FlashLevel(120) & vbnewline & _ 
-	"GIscale" & GIscale(120) & vbnewline & _ 
+	me.text = "f20 state:" & f20.state & vbnewline & _
+	"solvalue:" & SolModValue(120) & vbnewline & _
+	"intens:" & f20.intensity & vbnewline & _
+	"intscale:" & f20.intensityscale & vbnewline & _
+	"fading:" & FlashLevel(120) & vbnewline & _
+	"FallOffconst:" & LightFallOff(120, 0) & vbnewline & _
+	"FallOffcurrent:" & f20.falloff & vbnewline & _
+	"lampstate:" & LampState(120) & vbnewline & _
+	"fadinglvl:" & FadingLevel(120) & vbnewline & vbnewline & _
+	"flashlvl:" & FlashLevel(120) & vbnewline & _
+	"GIscale" & GIscale(120) & vbnewline & _
 	"okay" & vbnewline & _
-	"ls18" & LampState(18) & vbnewline & _ 
-	"fl18" & FadingLevel(18) & vbnewline & _ 
-	"st18" & l18.state & vbnewline & _ 
+	"ls18" & LampState(18) & vbnewline & _
+	"fl18" & FadingLevel(18) & vbnewline & _
+	"st18" & l18.state & vbnewline & _
 	"okay"
 End Sub
 
@@ -1319,7 +1315,7 @@ End Function
 
 Function ScaleGI(value, scaletype)	'returns an intensityscale-friendly 0->100% value out of 1>8 'it does go to 8
 	dim i
-	Select Case scaletype	'select case because bad at maths 
+	Select Case scaletype	'select case because bad at maths
 		case 0
 			i = value * (1/8)	'0 to 1
 		case 25
@@ -1353,7 +1349,7 @@ dim InitFadeTime(200)
 Sub nModLight(nr, object, offset, scaletype, offscale)	'Fading using intensityscale with modulated callbacks
 	dim DesiredFading
 	Select Case FadingLevel(nr)
-		case 3	'workaround - wait a frame to let M sub finish fading 
+		case 3	'workaround - wait a frame to let M sub finish fading
 			FadingLevel(nr) = 0
 		Case 4	'off
 '			FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)*offscale
@@ -1366,12 +1362,12 @@ Sub nModLight(nr, object, offset, scaletype, offscale)	'Fading using intensitysc
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = ScaleByte(SolModValue(nr), scaletype)
 
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 '				tb5.text = "+"
 				'FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 '				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
@@ -1400,12 +1396,12 @@ Sub nModFlash(nr, object, offset, scaletype, offscale)	'Fading using intensitysc
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = ScaleByte(SolModValue(nr), scaletype)
 
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 '				tb5.text = "+"
 				'FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 '				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
@@ -1456,12 +1452,12 @@ Sub nModGI(nr, offscale)
 			If FlashLevel(nr) < 0 then FlashLevel(nr) = 0 : FadingLevel(nr) = 3
 		Case 5 ' Fade (Dynamic)
 			DesiredFading = SolModValue(nr)	'for gi, it's called with scaled value
-			if FlashLevel(nr) < DesiredFading Then 
+			if FlashLevel(nr) < DesiredFading Then
 '				tb5.text = "+"
 				'FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 				FlashLevel(nr) = FlashLevel(nr) + (FlashSpeedUp(nr)	* cgt	)
 				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-			elseif FlashLevel(nr) > DesiredFading Then 
+			elseif FlashLevel(nr) > DesiredFading Then
 '				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 				FlashLevel(nr) = FlashLevel(nr) - (FlashSpeedDown(nr) * cgt	)
@@ -1471,14 +1467,14 @@ Sub nModGI(nr, offscale)
 End Sub
 
 Sub ModGILight(nr)
-'	tb.text = " !!!!" 
+'	tb.text = " !!!!"
 	Select Case FadingLevel(nr)
 		Case 3, 4, 5
 			dim x
 			if nr = 2 then 'gi bottom	'scaling y = (x + 1)/2 and x!=1		'nah y = 1/4 (3 x + 1) and x!=1
 				gi_bulb1.IntensityScale = 1/4 * (3*FlashLevel(nr) + 1)
 				gi_bulb2.IntensityScale = 1/4 * (3*FlashLevel(nr) + 1)
-			elseif nr = 1 then 
+			elseif nr = 1 then
 				GI28.IntensityScale = 1/4 * (3*FlashLevel(nr) + 1)
 				GI29.IntensityScale = 1/4 * (3*FlashLevel(nr) + 1)
 				Gi30.IntensityScale = 1/4 * (3*FlashLevel(nr) + 1)
@@ -1497,7 +1493,7 @@ Sub ModGIflash(nr)
 				Gi_PlasticsBottomLVL2.IntensityScale = FlashLevel(nr)
 				GIflare1.IntensityScale = FlashLevel(nr)
 				GIflare2.IntensityScale = FlashLevel(nr)
-			elseif nr = 1 then 
+			elseif nr = 1 then
 				GI_AmbientTop.IntensityScale = FlashLevel(nr)
 				GI_PlasticsTop.IntensityScale = FlashLevel(nr)
 				Gi_flasher.IntensityScale = FlashLevel(nr)	'spotlight
@@ -1512,7 +1508,7 @@ End Sub
 
 
 
-'sub tb3x_timer():me.text = FadingLevel(120) & vbnewline & f20.intensityscale & vbnewline & FlashLevel(120) & " < " & SolModValue(120): end sub 
+'sub tb3x_timer():me.text = FadingLevel(120) & vbnewline & f20.intensityscale & vbnewline & FlashLevel(120) & " < " & SolModValue(120): end sub
 
 
 'Sub nModLightInsert(nr, object, offset, scaletype)	'Fading using intensityscale with modulated callbacks	'outdated script, not used on this table
@@ -1528,12 +1524,12 @@ End Sub
 '			object.state = 1
 '			DesiredFading = SolModValue(nr)
 '
-'			if FlashLevel(nr) < DesiredFading Then 
+'			if FlashLevel(nr) < DesiredFading Then
 ''				tb5.text = "+"
 '			object.state = 0
 '				FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
 '				If FlashLevel(nr) >= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
-'			elseif FlashLevel(nr) > DesiredFading Then 
+'			elseif FlashLevel(nr) > DesiredFading Then
 ''				tb5.text = "-"
 '				FlashLevel(nr) = FlashLevel(nr) - FlashSpeedDown(nr)
 '				If FlashLevel(nr) <= DesiredFading Then FlashLevel(nr) = DesiredFading : FadingLevel(nr) = 1
@@ -1593,11 +1589,11 @@ End Sub
 Sub Auto_Plunger(Enabled)
     If Enabled Then
 		AutoPlunger.Fire
-		playsound SoundFX("Kicker_release",DOFContactors), 0, 1, 0.02
-		if BallInPlunger then 
-			PlaySound SoundFX("plunger3",0),0,0.5,0.02,0.02
+		playsoundAt SoundFX("Kicker_release",DOFContactors), AutoPlunger
+		if BallInPlunger then
+			PlaySoundAt SoundFX("plunger3",0),AutoPlunger
 		Else
-			PlaySound SoundFX("plunger",0),0,0.6,0.02,0.02
+			PlaySoundAt SoundFX("plunger",0),AutoPlunger
 		end if
     else
        AutoPlunger.Pullback
@@ -1607,7 +1603,7 @@ End Sub
 Sub Kick_Back(Enabled)
     If Enabled Then
        KickBack.Fire
-	   PlaySound SoundFX("fx_solenoid",DOFContactors)
+       PlaySoundAt SoundFX("fx_solenoid",DOFContactors), Kickback
     else
        KickBack.Pullback
 	End If
@@ -1657,7 +1653,7 @@ End Sub
 '-===================
 'RotY, positve values rotate clockwise
 'sub GorillaTimerShutoff_Timer()
-'	gtb.text = "...shutoff... " 
+'	gtb.text = "...shutoff... "
 '	GorillaTimer.enabled = 0
 '	me.enabled = 0
 'end sub
@@ -1711,7 +1707,7 @@ End Sub
 Sub UpdateGorilla
 	Select Case GorDirection
 		Case 2
-			if GorRelease > 0 then 
+			if GorRelease > 0 then
 				Select Case GorRelease
 					Case 1 	'Left return, settle clockwise
 						gordest = -6
@@ -1748,7 +1744,7 @@ Sub UpdateGorilla
 				GorAngle = GorDest
 				GorDirection = 0
 			End If
-			Gorilla.RotY = GorAngle		
+			Gorilla.RotY = GorAngle
 
 		Case 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 : GorDirection = gordirection + 1 'after solenoid fires, wait. (lag compensation) (solenoid bounce-back animation)
 		case 20 : gordirection = 2
@@ -1788,18 +1784,16 @@ end sub
 '********************
 ' Special JP Flippers
 '********************
- 
+
  SolCallback(sLRFlipper) = "SolRFlipper"
  SolCallback(sLLFlipper) = "SolLFlipper"
  SolCallback(sULFlipper) = "SolULFlipper"
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
- '       PlaySound SoundFX("fx_flipperup",DOFFlippers), 0, 0.4, -0.05, 0.11
         PlaySound SoundFX("FlipperUpLeft",DOFFlippers), 0, 0.4, -0.05, 0.0	'clark
         LeftFlipper.RotateToEnd
     Else
-'        PlaySound SoundFX("fx_flipperdown",DOFContactors), 0, 0.4, -0.05, 0.11
         PlaySound SoundFX("flipper_down",0), 0, 1, -0.05, 0.11	'clark
         LeftFlipper.RotateToStart
 		LeftFlipper.EOStorque = DefaultEOS
@@ -1809,12 +1803,10 @@ End Sub
 'SoundFX("fx_flipperup",DOFContactors)
 Sub SolRFlipper(Enabled)
     If Enabled Then
-'		PlaySound SoundFX("fx_flipperup",DOFFlippers), 0, 0.4, 0.05, 0.15
         PlaySound SoundFX("FlipperUpLeft",DOFFlippers), 0, 0.4, 0.05, 0.0	'clark
 
 		RightFlipper.RotateToEnd
     Else
-'		PlaySound SoundFX("fx_flipperdown",DOFFlippers), 0, 0.4, 0.05, 0.15
         PlaySound SoundFX("flipper_down",0), 0, 1, 0.05, 0.11	'clark
 		RightFlipper.RotateToStart
 		RightFlipper.EOStorque = DefaultEOS
@@ -1837,7 +1829,7 @@ End Sub
 Dim LampState(200), FadingLevel(200)
 Dim FlashSpeedUp(200), FlashSpeedDown(200), FlashMin(200), FlashMax(200), FlashLevel(200)
 
-InitLamps() 
+InitLamps()
 
 
 Sub UpdateLamps
@@ -1846,7 +1838,7 @@ Sub UpdateLamps
 	Flashc 13, congoN
 	Flashc 14, congoG
 	Flashc 15, congoO2
-	
+
 	NFadeLwF2 16, L16, l16a, L16F	'A	'was bugged, all inserts need to be in Linserts for the GI scaling thing
 	NFadeLwF2 17, L17, L17a, L17F	'M
 	NFadeLwF2 18, L18, L18a, L18F	'Y
@@ -1884,7 +1876,7 @@ Sub UpdateLamps
 	NFadeL 46, L46
 	NFadeLwF 47, L47, l47f
 	NFadeLwF 48, L48, l48f
-	
+
 	NFadeL 51, L51
 	NFadeL 52, L52
 	NFadeL 53, L53
@@ -1893,25 +1885,25 @@ Sub UpdateLamps
 	NFadeLwF 56, L56, L56F
 	NFadeL 57, L57
 	NFadeLwF 58, L58, L58F
-	
+
 	NFadeLwf 61, L61, l61f
 	NFadeL 62, L62
 	NFadeL 63, L63
 	NFadeL 64, L64
-	NFadeL 65, L65	
-	NFadeL 66, L66	
+	NFadeL 65, L65
+	NFadeL 66, L66
 	NFadeL 67, L67
-	NFadeLwF 68, L68, l68f	
-	
+	NFadeLwF 68, L68, l68f
+
 	NFadeLwF 71, L71, l71f
 	NFadeLwF 72, L72, l72f
 	NFadeLwF 73, L73, l73f
-	NFadeLwF 74, L74, l74f	
-	NFadeL 75, L75	
-	NFadeL 76, L76	
+	NFadeLwF 74, L74, l74f
+	NFadeL 75, L75
+	NFadeL 76, L76
 	NFadeL 77, L77
-	NFadeL 78, L78	
-	
+	NFadeL 78, L78
+
 	NFadeLm 81, L81
 	NFadeL 81, L81l	'H	'ambient near bumpers, this is a hippo target
 	NFadeL 82, L82
@@ -2037,15 +2029,15 @@ Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
 	End Select
 End Sub
 
-Sub AmyDownRampdrop_Hit():playsound "drop_mono", 0, 0.4, 0.1:End Sub 'name,loopcount,volume,pan,randompitch
-'Sub VukRampEnd_Hit():playsound "Ramp_Hit1", 0, 0.2, 0.1:End Sub	'handled by collection instead
-Sub WireRampTrigger1_Hit():playsound "wireramp1", 0, 0.2, Pan(ActiveBall):end sub
+Sub AmyDownRampdrop_Hit():PlaySoundAt "drop_mono", ActiveBall:End Sub 'name,loopcount,volume,pan,randompitch
+'Sub VukRampEnd_Hit():PlaySoundAt "Ramp_Hit1", ActiveBall:End Sub	'handled by collection instead
+Sub WireRampTrigger1_Hit:PlaySoundAt "wireramp1", ActiveBall:end sub
 Sub WireRampTriggerend1_Hit():stopsound "wireramp1":end sub
-Sub WireRampTrigger2_Hit():playsound "wireramp1", 0, 0.2, Pan(ActiveBall):end sub
+Sub WireRampTrigger2_Hit:PlaySoundAt "wireramp1", ActiveBall:end sub
 Sub WireRampTriggerend2_Hit():stopsound "wireramp1":end sub
-Sub WireRampTrigger3_Hit():playsound "wireramp1", 0, 0.4, Pan(ActiveBall):end sub
-	
-	
+Sub WireRampTrigger3_Hit:PlaySoundAt "wireramp1", ActiveBall:end sub
+
+
 Sub AmyDownRampTrigger_Hit()
 	AmyDownRampDrop.Enabled=0
 	me.timerenabled=1
@@ -2056,8 +2048,8 @@ Sub AmyDownRampTrigger_Timer()
 	me.Timerenabled=0
 End Sub
 
-Sub RightRampdrop_Hit():playsound "drop_mono", 0, 0.5, 0.05:End Sub
-'Sub RightRampEnd_Hit():playsound "Ramp_Hit1", 0, 0.3, 0.05:End Sub	'handled by collection instead
+Sub RightRampdrop_Hit():PlaySoundAt "drop_mono", ActiveBall:End Sub
+'Sub RightRampEnd_Hit():PlaySoundAt "Ramp_Hit1", ActiveBall:End Sub	'handled by collection instead
 
 Sub RightRampTrigger_Hit()
 	RightRampDrop.Enabled=0
@@ -2072,23 +2064,23 @@ End Sub
 Sub LeftRampdrop_Hit():playsound "drop_mono", 0, 0.3, -0.03:stopsound "wireramp1":End Sub
 
 Sub RampEntry1_Hit()	'left ramp entry
- 	If activeball.vely < -10 then 
-		PlaySound "ramp_hit2", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0
-	Elseif activeball.vely > 3 then 
-		PlaySound "PlayfieldHit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If activeball.vely < -10 then
+		PlaySound "ramp_hit2", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0, AudioFade(ActiveBall)
+	Elseif activeball.vely > 3 then
+		PlaySound "PlayfieldHit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End If
 End Sub
 
 Sub RampEntry2_Hit()	'right ramp entry
- 	If activeball.vely < -10 then 
-		PlaySound "ramp_hit2", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0
-	Elseif activeball.vely > 3 then 
-		PlaySound "PlayfieldHit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ 	If activeball.vely < -10 then
+		PlaySound "ramp_hit2", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall)*10, 1, 0, AudioFade(ActiveBall)
+	Elseif activeball.vely > 3 then
+		PlaySound "PlayfieldHit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End If
 End Sub
 
 Sub Diverter_Hit()
-	playsound "metalhit_medium", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+	playsound "metalhit_medium", 0, Vol(ActiveBall)/5, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 
@@ -2138,7 +2130,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*10, Pan(ActiveBall)*3, 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -2149,7 +2141,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall)* 10, Pan(ActiveBall) * 3, 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -2191,7 +2183,7 @@ End Sub
 '*******Use DOF 1**, 1 to activate a ledwiz output*******************
 '*******Use DOF 1**, 0 to deactivate a ledwiz output*****************
 '*******Use DOF 1**, 2 to pulse a ledwiz output**********************
-Sub DOF(dofevent, dofstate)	
+Sub DOF(dofevent, dofstate)
 	If cController>2 Then
 		If dofstate = 2 Then
 			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
@@ -2210,7 +2202,7 @@ End Sub
 '--Experimental simple light tweaking UI
 
 dim teststatement: teststatement = "buddy! Press enter to start!" '============CLICK ME TO COLLAPSE============
-	ltbody.text = " " 
+	ltbody.text = " "
 	ltTop.text = "Top bar"
 	ltSide.text = "0" & vbnewline & "1" & vbnewline & "2" & vbnewline & "3"' & vbnewline & "4" & vbnewline & "5"
 	dim testarray(6)
@@ -2232,12 +2224,12 @@ dim teststatement: teststatement = "buddy! Press enter to start!" '============C
 	sub LTcontUpDown(updown)
 		dim x
 		if Updown = 1 Then
-			if LtPropertySelect = 0 then 
+			if LtPropertySelect = 0 then
 				LtPropertyselect = 8
 			else LtpropertySelect = Ltpropertyselect -1
 			end if
 		elseif Updown = 0 Then
-			if LtPropertySelect = 8 then 
+			if LtPropertySelect = 8 then
 				LtPropertyselect = 0
 			else LtpropertySelect = Ltpropertyselect +1
 			end if
@@ -2281,7 +2273,7 @@ dim teststatement: teststatement = "buddy! Press enter to start!" '============C
 				case 0	'name
 					LtTypeSelect = LtTypeSelect + 1 * leftright
 					if LtTypeSelect < 0 then LtTypeSelect = lrarraycount
-					if LtTypeSelect > lrarraycount then LtTypeSelect = 0				
+					if LtTypeSelect > lrarraycount then LtTypeSelect = 0
 				case 1	'opacity
 					for each x in Lcatalog(LTtypeselect)
 						x.opacity = x.opacity + 50 *leftright
@@ -2384,13 +2376,13 @@ dim teststatement: teststatement = "buddy! Press enter to start!" '============C
 			elseif mid(Lcatalogn(LTtypeselect), 1, 1) = "G" Then
 				ltDebug.text = "bulb col."
 				LTdisplayGICats
-			Else	
+			Else
 				LTdebug.text = "error: unknown col."			'for Flashers collections later
 			end if
 	'		x.intensity = 555
 			exit for
 		next
-		s = " " 
+		s = " "
 		ltTop.text = s
 	'	xx = cStr(Lcatalog(LTtypeselect) )	'convert to string for the TextBox	'can't figure this out :(
 	'	xx = Lcatalog(0)	'convert to string for the TextBox
@@ -2493,8 +2485,7 @@ End Sub
 	T1.interval = 780
 Sub KickerUFTEST2_Hit
 	me.destroyball
-	playsound "ramp_hit1"
-End Sub
+	PlaySoundAt "ramp_hit1", ActiveBall:End Sub
 '	KickerUFTEST2.enabled = 1
 '	polltimer.enabled = 0 : discoflips = 1
 
