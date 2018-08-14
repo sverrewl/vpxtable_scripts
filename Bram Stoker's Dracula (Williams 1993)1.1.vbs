@@ -13,6 +13,7 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Thalamus 2018-08-10 : Improved directional sounds
+' Missing outlane sound in table
 ' !! NOTE : Table not verified yet !!
 
 Option Explicit
@@ -369,7 +370,7 @@ Sub sw58_Hit
 End Sub
 
 Sub sw56_Hit
-    PlaySound "hole_enter", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(tableobj)
+    PlaySound "hole_enter", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(sw56)
 	'ClearBallID
     vpmTimer.PulseSwitch 56, 100, 0
     mMagnet.RemoveBall ActiveBall
@@ -377,14 +378,14 @@ Sub sw56_Hit
 End Sub
 
 Sub sw56a_Hit
-    PlaySound "hole_enter", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(s56a)
+    PlaySound "hole_enter", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(sw56a)
 	'ClearBallID
     mMagnet.RemoveBall ActiveBall
     bsCryptPopper.AddBall Me
 End Sub
 
 Sub CastleLock_Hit()
-    PlaysoundAt "metalhit", CastleLock
+    PlaysoundAt "metalhit2", CastleLock
 	'ClearBallID
     bsCastleLock.AddBall Me
 End Sub
@@ -415,7 +416,7 @@ Sub sw16_Hit:Controller.Switch(16) = 1:PlaySoundAt "sensor",sw16:End Sub
 Sub sw16_Unhit:Controller.Switch(16) = 0:End Sub
 
 Sub sw28_Hit:Controller.Switch(28) = 1:PlaySoundAt "gate",sw28:End Sub
-Sub sw28_Unhit:Controller.Switch(28) = 0:PlaySoundAt "metalrolling", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(sw28):End Sub
+Sub sw28_Unhit:Controller.Switch(28) = 0:PlaySound "metalrolling", 0, 0.3, -0.1, 0.25, 0, 1, AudioFade(sw28):End Sub
 
 Sub sw84_Hit:Controller.Switch(84) = 1:PlaySoundAt "gate",sw84:End Sub
 Sub sw84_Unhit:Controller.Switch(84) = 0:PlaySoundAt "metalrolling",sw84:End Sub
@@ -454,7 +455,7 @@ Sub sw67_Timer:sw67.IsDropped = 0:End Sub
 Sub sw68_Hit:vpmTimer.PulseSw 68:PlaySoundAt "target",sw68:End Sub
 Sub sw68_Timer:sw68.IsDropped = 0:End Sub
 
-Sub sw86_Hit:vpmTimer.PulseSw 86:PlaySoundAt "target",86:End Sub
+Sub sw86_Hit:vpmTimer.PulseSw 86:PlaySoundAt "target",sw86:End Sub
 Sub sw86_Timer:sw86.IsDropped = 0:End Sub
 
 Sub sw87_Hit:vpmTimer.PulseSw 87:PlaySoundAt "target",sw87:End Sub
@@ -471,17 +472,17 @@ Sub Gate6_Hit():PlaySoundAt "gate",Gate6:End Sub
 ' Ramps helpers
 Sub RHelp1_Hit()
     StopSound "metalrolling"
-    PlaySoundAt "ballhit", RHelp1
+    PlaySound "ballhit"
 End Sub
 
 Sub RHelp2_Hit()
     StopSound "metalrolling"
-    PlaySoundAt "ballhit", RHelp2
+    PlaySound "ballhit"
 End Sub
 
 Sub RHelp3_Hit()
     StopSound "metalrolling"
-    PlaySoundAt "ballhit", RHelp3
+    PlaySound "ballhit"
 End Sub
 
 '*********
@@ -518,7 +519,7 @@ SolCallback(36) = "SolLGate"
 Sub Auto_Plunger(Enabled)
     If Enabled Then
         Plunger.Fire
-        PlaySound "solenoid", 0, 0.3, 0.1, 0.25, 0, 1, AudioFade(Plunger)
+        PlaySound "solenoid", 0, 0.3, 0.1, 0.25
 Else
         Plunger.PullBack
     End If
@@ -541,7 +542,7 @@ Sub SolRRampUp(Enabled)
         RightRamp.Collidable = False
         UpdateRamp.Enabled = True
         ''SetLamp 116, 1
-        playsound "diverter", 0, 0.3, 0.1, 0.25, 0, 1, AudioFade(RightRamp)
+        playsound "diverter", 0, 0.3, 0.1, 0.25
     End If
 End Sub
 
@@ -552,7 +553,7 @@ Sub SolRRampDown(Enabled)
         RightRamp.Collidable = True
         UpdateRamp.Enabled = True
         ''SetLamp 116, 0
-        playsound "diverter", 0, 0.3, 0.1, 0.25, 0, 1, AudioFade(RightRamp)
+        playsound "diverter", 0, 0.3, 0.1, 0.25
     End If
 End sub
 
@@ -579,11 +580,11 @@ Sub SolShooterRamp(Enabled)
     If Enabled Then
         sramp2.Collidable = 0
         dirsrt = 1:shootramp.enabled = 1
-        Playsound "solenoid", 0, 0.3, 0.1, 0.25, 0, 1, AudioFade(sramp2)
+        Playsound "solenoid", 0, 0.3, 0.1, 0.25
     Else
         sramp2.Collidable = 1
         dirsrt = 2:shootramp.enabled = 1
-        Playsound "solenoid", 0, 0.3, 0.1, 0.25, 0, 1, AudioFade(sramp2)
+        Playsound "solenoid", 0, 0.3, 0.1, 0.25
     End If
 End Sub
 
@@ -1203,7 +1204,7 @@ Sub Gates_Hit (idx)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
+	PlaySoundAt "fx_spinner", Spinner
 End Sub
 
 Sub Rubbers_Hit(idx)
