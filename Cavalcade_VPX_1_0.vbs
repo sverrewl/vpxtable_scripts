@@ -11,7 +11,8 @@
 
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-08-15 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 
@@ -170,7 +171,7 @@ End Sub
 Sub NextBall
 	if BallinPlay < BallsperGame Then
 		BallReleaseLocked = True
-		PlaySound "Plunger_feed",0,0.5,Pan(Plunger),0.25,0,0,1,0
+		PlaySoundAt "Plunger_feed", Plunger
 		BallinPlay = BallinPlay + 1
 		if Ballinplay < 10 then
 			P_BallinPlay.image = CStr(BallinPlay)
@@ -315,7 +316,7 @@ Sub RampGateTrigger_Hit
 	RampGate1.visible = False
 	RampGate2.visible = True
 	RampGateTrigger.timerenabled = True
-	PlaySound "metalhit2",0,0.25,0,0.25
+  PlaySoundAt "metalhit2", RampGateTrigger
 End Sub
 
 Sub RampGateTrigger_Timer
@@ -325,13 +326,13 @@ Sub RampGateTrigger_Timer
 End Sub
 
 Sub Drain_Hit()
-	PlaySound "drain3",0,0.2,0,0.25
+  PlaySoundAt "drain3", Drain
 	DOF 121, DOFPulse
 	Drain.DestroyBall
 End Sub
 
 Sub StarterDrain_Hit()
-	PlaySound "drain3",0,0.2,0,0.25
+  PlaySoundAt "drain3", StarterDrain
 	DOF 121, DOFPulse
 	StarterDrain.DestroyBall
 	BallinPlay = BallinPlay - 1
@@ -414,7 +415,7 @@ Sub HitRightGate_Timer
 End Sub
 
 Sub PostKicker_Hit
-	PlaySound "flip_hit_2",0,0.5,0,0.25
+  PlaySoundAt "flip_hit_2", PostKicker
 End Sub
 
 
@@ -449,7 +450,7 @@ Sub GameTilted
 	Tilt = 1
 	Ballinplay = BallsperGame
 	P_Tiltsign.TransY = 42
-	playsound "Knocker",0,1,0,0.25
+  PlaySound "Knocker"
 	PlayerScore = 0
 	UpdateScoreReel.enabled = True
 End Sub
@@ -524,7 +525,7 @@ Sub PostKicker_Timer
 		P_Kickerarm.objrotz = -30
 		MoveDir = 1
 	end If
-	playsound "solenoid",0,1,0,0.25
+  PlaySound "solenoid"
 	KickerTimer.enabled = True
 End Sub
 
@@ -544,8 +545,8 @@ Sub Kicker_Timer
 	FlashLight3
 	Kicker.Timerenabled = False
 	Kicker.kick 275,10
-	playsound "Popper",0,0.25,0,0.25
-	playsound "1000a",0,1,0,0.25
+  PlaySound "Popper"
+  PlaySound "1000a"
 End Sub
 
 Sub FlashLight1
@@ -611,11 +612,11 @@ End Sub
 
 Sub AddSpecial
 	Credits = Credits + 1
-	playsound "1000a",0,1,0,0.25
+  PlaySound "1000a"
 End Sub
 
 Sub ShooterLaneLaunch_Hit
-	if ActiveBall.vely < -8 then playsound "Launch",0,0.3,0.1,0.25
+	if ActiveBall.vely < -8 then PlaySoundAt "Launch", ShooterLaneLaunch
 	DOF 124, DOFPulse
 End Sub
 
@@ -649,7 +650,7 @@ Sub UpdateScoreReel_Timer
 	Val10000 = ReelValue(Val10000,Score10000,0)
 	Tempscore = Val10 * 10 + Val100 * 100 + Val1000 * 1000 + Val10000 * 10000
 	if Oldscore <> TempScore Then
-		playsound "solon",0,0.3,0.1,0.25
+  PlaySound "solon"
 		Oldscore = TempScore
 		P_Reel1.image = cstr(Val10)
 		P_Reel2.image = cstr(Val100)
@@ -715,7 +716,7 @@ Sub Cavalcade_KeyDown(ByVal keycode)
 
 	If keycode = PlungerKey Then
 		Plunger.PullBack
-		PlaySound "plungerpull",0,1,Pan(Plunger),0.25,0,0,1,0
+		PlaySoundAt "plungerpull", Plunger
 	End If
 
 	If keycode = LeftFlipperKey Then
@@ -748,7 +749,7 @@ End Sub
 Sub Cavalcade_KeyUp(ByVal keycode)
 	If keycode = PlungerKey Then
 		Plunger.Fire
-		PlaySound "plunger",0,1,Pan(Plunger),0.25,0,0,1,0
+		PlaySoundAt "plunger", Plunger
 	End If
 
 	If keycode = LeftFlipperKey Then
@@ -931,7 +932,7 @@ Sub Gates_Hit (idx)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
+  PlaySoundAt "fx_spinner", Spinner
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -1108,6 +1109,7 @@ End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
   Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Vol + RollingSoundFactor
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
