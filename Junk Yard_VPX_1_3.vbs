@@ -34,9 +34,14 @@
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Thalamus 2018-08-15 : Improved directional sounds
 
 option Explicit
+
+' !! NOTE : Table not verified yet !!
+
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -52,8 +57,6 @@ Const OutLanePosts = 1			'1=Easy, 2=Medium, 3=Hard
 Const ApronShopping = True		'Show WindowShopping ontop of the apron
 const RollingSoundFactor = 23	'set sound level factor here for Ball Rolling Sound, 1=default level
 Const BallSize = 51				'default 50, 52 plays well, above 55 the ball will get stuck
-
-
 
 ' Standard Sounds and Settings
 Const SSolenoidOn="Solon",SSolenoidOff="Soloff",SFlipperOn="",SFlipperOff=""
@@ -77,19 +80,19 @@ SolCallBack(9)	= "SolTrough"
 SolCallBack(10)	= "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
 SolCallBack(11)	= "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
 SolCallBack(15)	= "SolHoldCrane"
-SolCallBack(16)	= "SpikeBark"						'Move Dog
-SolCallBack(17)	= "SolFlash17"                      'Dog Face Flasher
+SolCallBack(16)	= "SpikeBark"						     'Move Dog
+SolCallBack(17)	= "SolFlash17"               'Dog Face Flasher
 'SolCallBack(18)	= "SolWindowShopFlasher"
-SolCallBack(19)	= "vpmFlasher Sol19,"				'Autofire Flasher
-SolCallBack(20)	= "SolFlash20"						'Left red flasher
+SolCallBack(19)	= "vpmFlasher Sol19,"		     'Autofire Flasher
+SolCallBack(20)	= "SolFlash20"					     'Left red flasher
 SolCallBack(21)	= "ScoopUp"
-SolCallBack(22)	= "SolFlash22"						'Under Crane Flasher
-SolCallBack(23)	= "SolFlash23"						'Back Left Flasher
-SolCallBack(24)	= "SolFlash24"						'Back Right Flasher
-SolCallBack(25)	= "SolFlash25"						'Shooter Flasher
-SolCallBack(26)	= "SolFlash26"						'Scoop Flasher
-SolCallBack(27)	= "SolFlash27"						'Dog House Flasher
-SolCallBack(28)	= "SolFlash28"						'Car Flashers (2)
+SolCallBack(22)	= "SolFlash22"						   'Under Crane Flasher
+SolCallBack(23)	= "SolFlash23"						   'Back Left Flasher
+SolCallBack(24)	= "SolFlash24"						   'Back Right Flasher
+SolCallBack(25)	= "SolFlash25"						   'Shooter Flasher
+SolCallBack(26)	= "SolFlash26"						   'Scoop Flasher
+SolCallBack(27)	= "SolFlash27"						   'Dog House Flasher
+SolCallBack(28)	= "SolFlash28"						   'Car Flashers (2)
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
 
@@ -98,7 +101,7 @@ Set GICallBack = GetRef("UpdateGI")
 Sub Autoplunger(enabled)
 	if enabled then
 		if controller.switch(18) then
-			PlaySound SoundFX("plunger",DOFContactors),0,1,0.18,0.25
+      PlaySoundAt SoundFX("plunger",DOFContactors), Plunger
 			Auto_Plunger.Pullback
 			Auto_Plunger.Fire
 		end if
@@ -119,17 +122,16 @@ End Sub
 
 Sub BusDiverter(Enabled)
 	If Enabled then
-		playsound SoundFX("Solon",DOFContactors),0,1,0.1,0.25
+    PlaySound SoundFX("Solon",DOFContactors)
 		Sol6.IsDropped = False
-	Else
-		playsound SoundFX("Soloff",DOFContactors),0,1,0.1,0.25
+    PlaySound SoundFX("Soloff",DOFContactors)
 		Sol6.IsDropped = True
 	End If
 End Sub
 
 Sub ScoopDown(Enabled)
 	If Enabled Then
-		playsound SoundFX("Solon",DOFContactors),0,0.7,0.08,0.25
+    PlaySoundAt SoundFX("Solon",DOFContactors), Primitive19
 		Controller.Switch(72) = True
 		P_Fork1.RotX = 17
 		P_Fork2.RotX = 17
@@ -140,7 +142,7 @@ End Sub
 
 Sub ScoopUp(Enabled)
 	If Enabled Then
-		playsound SoundFX("Solon",DOFContactors),0,1,0.08,0.25
+    PlaySoundAt SoundFX("Solon",DOFContactors), Primitive19
 		Controller.Switch(72) = False
 		P_Fork1.RotX = 0
 		P_Fork2.RotX = 0
@@ -159,7 +161,7 @@ Sub SpikeBark(Enabled)
 End Sub
 
 Sub SpikeTimer_Timer()
-	playsound SoundFX("motor",DOFGear),0,1,0.18,0.25
+    PlaySound SoundFX("motor",DOFGear)
 	if spikeOut=1 then
 		spike.transy=spike.transy-8
 		if spike.transy<-50 then
@@ -451,39 +453,39 @@ End Sub
 
 ' Trough Handler
 Sub Drain_Hit()
-	playsound "Drain5",0,1,0,0.2
+  PlaySoundAt "Drain5", Drain
 	bsTrough.AddBall Me
 End Sub
 
 ' Past Spinner
 Sub LaunchHole_Hit
-	playsound "metalhit2",0,1,0.2,0.2
-	playsound "Drain5",0,1,0.2,0.2
-	Me.DestroyBall
-	LaunchEntry.createBall
-	LaunchEntry.kick 220,5
+  PlaySoundAt "metalhit2", LaunchHole
+  PlaySoundAt "Drain5", LaunchHole
+  Me.DestroyBall
+  LaunchEntry.createBall
+  LaunchEntry.kick 220,5
 End Sub
 
 ' Sewer
 Sub Sewer_Hit
-	playsound "metalhit2",0,1,0.15,0.2
-	playsound "Drain5",0,1,0.18,0.2
-	Me.DestroyBall
-	SewerEntry.createBall
-	SewerEntry.kick 260,5
+  PlaySoundAt "metalhit2", Sewer
+  PlaySoundAt "Drain5", Sewer
+  Me.DestroyBall
+  SewerEntry.createBall
+  SewerEntry.kick 260,5
 End Sub
 
 ' Dog Entry
 Sub DogHole_Hit
-	playsound "Drain5",0,1,0.2,0.2
-	Me.DestroyBall
-	DogEntry.createBall
-	DogEntry.kick 220,5
+  PlaySoundAt "Drain5", DogHole
+  Me.DestroyBall
+  DogEntry.createBall
+  DogEntry.kick 220,5
 End Sub
 
 ' Crane Hole
 Sub CraneHole_Hit
-	playsound "Drain5",0,1,-0.2,0.2
+	playsoundAt "Drain5", CraneHole
 	Me.DestroyBall
 	CraneEntry.createBall
 	CraneEntry.kick 180,5
@@ -500,7 +502,7 @@ End Sub
 '-----------------------------------
 Sub Switch12_Hit:vpmTimer.PulseSw 12:End Sub
 Sub Switch12a_Hit:vpmTimer.PulseSw 12:End Sub
-Sub Switch115_Spin:vpmTimer.PulseSw 115:PlaySound "fx_spinner",0,0.25,0.18,0.25:End Sub
+Sub Switch115_Spin:vpmTimer.PulseSw 115:PlaySoundAt "fx_spinner", Switch115:End Sub
 Sub Switch11_Hit:vpmTimer.PulseSw 11:End Sub
 Sub switch15_Hit:vpmTimer.PulseSw 15:End Sub
 Sub switch16_Hit:Controller.Switch(16) = true:End Sub
@@ -546,11 +548,11 @@ Sub Switch45_Timer
 	Primitive_SwitchArm.objrotx = -20
 End Sub
 
-Sub ScoopMade_Hit:playsound "WireRamp1",0,1,0.1,0.25:End Sub
-Sub EnterWireRamp_Hit:playsound "WireRamp1",0,1,0.15,0.25:End Sub
+Sub ScoopMade_Hit:PlaySoundAt "WireRamp1", ScoopMade:End Sub
+Sub EnterWireRamp_Hit:PlaySoundAt "WireRamp1", EnterWireRamp:End Sub
 Sub ToiletBowlSwitch_Hit:ActiveBall.VelY = ActiveBall.VelY * 0.6:End Sub
 
-Sub BusRampEnd_UnHit:playsound "fx_collide",0,0.1,0,0.25:End Sub
+Sub BusRampEnd_UnHit:PlaySoundAt "fx_collide", BusRampEnd:End Sub
 Sub FridgeRampEnd_Hit
 	FridgeRampEnd.timerenabled = True
 End Sub
@@ -567,7 +569,7 @@ End Sub
 Sub RightRampEnd1_Hit
 	if RightRampEnd.timerenabled Then
 		RightRampEnd.timerenabled = False
-		playsound "fx_collide",0,0.1,0.15,0.25
+    PlaySoundAt "fx_collide", RightRampEnd1
 	end If
 End Sub
 
@@ -726,7 +728,7 @@ const CraneUpAngle = -1
 const CraneDownAngle = -11
 
 Sub SolPowerCrane(enabled)
-	PlaySound SoundFX("Crane",DOFShaker)
+  PlaySoundAt SoundFX("Crane",DOFShaker), WreckBallKicker1
 	If  enabled then
 		CraneUpTimer.enabled = True
 		CraneDownTimer.enabled = False
@@ -755,7 +757,7 @@ Sub SolPowerCrane(enabled)
 End Sub
 
 Sub SolHoldCrane(enabled)
-	PlaySound "Crane"
+	PlaySoundAt "Crane", PCraneArm
 	If enabled then
 		HoldCrane = True
 		CraneUpTimer.enabled = True
@@ -895,20 +897,20 @@ end sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-		 PlaySound SoundFX("fx_flipperup",DOFContactors),0,1,-0.1,0.1
+PlaySoundAt SoundFX("fx_flipperup",DOFContactors), LeftFlipper
 		 LeftFlipper.RotateToEnd
     Else
-		 PlaySound SoundFX("fx_flipperdown",DOFContactors),0,1,-0.1,0.1
+PlaySoundAt SoundFX("fx_flipperdown",DOFContactors), LeftFlipper
 		 LeftFlipper.RotateToStart
 	End If
 End Sub
 
 Sub SolRFlipper(Enabled)
 	If Enabled Then
-		 PlaySound SoundFX("fx_flipperup",DOFContactors),0,1,0.1,0.1
+PlaySoundAt SoundFX("fx_flipperup",DOFContactors), RightFlipper
 		 RightFlipper.RotateToEnd
     Else
-		 PlaySound SoundFX("fx_flipperdown",DOFContactors),0,1,0.1,0.1
+PlaySoundAt SoundFX("fx_flipperdown",DOFContactors), RightFlipper
 		 RightFlipper.RotateToStart
     End If
 End Sub
@@ -986,7 +988,7 @@ Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
 	vpmTimer.PulseSwitch 52, 0, 0
-    PlaySound SoundFX("left_slingshot",DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAt SoundFX("left_slingshot",DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -1004,7 +1006,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
 	vpmTimer.PulseSwitch 51, 0, 0
-    PlaySound SoundFX("right_slingshot",DOFContactors),0,1,-0.05,0.05
+    PlaySoundAt SoundFX("right_slingshot",DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -1100,7 +1102,7 @@ Sub Gates_Hit (idx)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner",0,0.25,0,0.25
+  PlaySoundAt "fx_spinner", Spinner
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -1339,6 +1341,7 @@ End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
   Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Vol * RollingSoundFactor
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1408,5 +1411,12 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
+End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub JunkYard_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
