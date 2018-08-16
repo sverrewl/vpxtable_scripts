@@ -13,10 +13,27 @@
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Thallamus 2018-08-16 : Improved directional positions
 
 Option Explicit
 Randomize
+
+Const VolDiv = 2000
+
+Const VolBump   = 2    ' Bumpers multiplier.
+Const VolRol    = 1    ' Rollovers volume multiplier.
+Const VolGates  = 1    ' Gates volume multiplier.
+Const VolMetals = 1    ' Metals volume multiplier.
+Const VolRB     = 1    ' Rubber bands multiplier.
+Const VolRH     = 1    ' Rubber hits multiplier.
+Const VolRPo    = 1    ' Rubber posts multiplier.
+Const VolRPi    = 1    ' Rubber pins multiplier.
+Const VolPlast  = 1    ' Plastics multiplier.
+Const VolTarg   = 1    ' Targets multiplier.
+Const VolWood   = 1    ' Woods multiplier.
+
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 Dim LightningBats, ShowRansom, GlowAmount, InsertBrightness, AmbienceCategory
 Dim GlowBall, ChooseBall, CustomBulbIntensity(10), red(10), green(10), Blue(10)
@@ -378,12 +395,12 @@ Sub BK2K_KeyDown(ByVal keycode)
 	If keycode = RightTiltKey Then Nudge 270, 3 : PlaySound SoundFX("fx_nudge",0)
 	If keycode = CenterTiltKey Then Nudge 0, 3 : PlaySound SoundFX("fx_nudge",0)
 	If keycode = RightMagnaSave Then:Controller.Switch(59) = 1:End If
-	If keycode = PlungerKey Then PlaySound "fx_PlungerPull", 0, 1, 0.1, 0.25:Plunger.Pullback
+	If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", Plunger, 1:Plunger.Pullback
 	If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub BK2K_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then PLaySound "fx_plunger", 0, 1, 0.1, 0.25:Plunger.Fire
+	If keycode = PlungerKey Then PLaySoundAtVol "fx_plunger", plunger, 1:Plunger.Fire
 	If keycode = RightMagnaSave Then:Controller.Switch(59) = False:End If
 	If vpmKeyUp(keycode) Then Exit Sub
 End Sub
@@ -555,7 +572,7 @@ Sub REject_Hit()	    : bsREject.AddBall Me : End Sub
 
 'SWITCH HANDLING (Upper PF)
 'UPF Wire Ramp (Lock)
-Sub URampEntry_Hit()    : Controller.Switch(swURampEntry) = 1 : PlaySound Wirerampsound  : End Sub
+Sub URampEntry_Hit()    : Controller.Switch(swURampEntry) = 1 : PlaySoundAt "Wirerampsound", URampEntry  : End Sub
 Sub URampEntry_UnHit()  : Controller.Switch(swURampEntry) = 0 : End Sub
 Sub URampExit_Hit(): If ActiveBall.VelY > 0 Then StopSound Wirerampsound : vpmtimer.addtimer 500, "BalldropSound'" : End If : End Sub
 
@@ -579,13 +596,13 @@ Sub Loop1_UnHit()       : Controller.Switch(swLoop1) = 0 : End Sub
 Sub Loop2_Hit()         : Controller.Switch(swLoop2) = 1 : If ActiveBall.VelY > 10 Then ActiveBall.VelY = 5 End If:End Sub
 Sub Loop2_UnHit()       : Controller.Switch(swLoop2) = 0 : End Sub
 'Drawbridge Targets
-Sub DBTrgt1_Slingshot() : vpmTimer.PulseSwitch (swBridge1), 0, "" : Playsound SoundFX("fx_target",DOFContactors): End Sub
-Sub DBTrgt2_Slingshot() : vpmTimer.PulseSwitch (swBridge2), 0, "" : Playsound SoundFX("fx_target",DOFContactors): End Sub
-Sub DBTrgt3_Slingshot() : vpmTimer.PulseSwitch (swBridge3), 0, "" : Playsound SoundFX("fx_target",DOFContactors): End Sub
+Sub DBTrgt1_Slingshot() : vpmTimer.PulseSwitch (swBridge1), 0, "" : PlaysoundAtVol SoundFX("fx_target",DOFContactors),backbank,VolTarg: End Sub
+Sub DBTrgt2_Slingshot() : vpmTimer.PulseSwitch (swBridge2), 0, "" : PlaysoundAtVol SoundFX("fx_target",DOFContactors),backbank,VolTarg: End Sub
+Sub DBTrgt3_Slingshot() : vpmTimer.PulseSwitch (swBridge3), 0, "" : PlaysoundAtVol SoundFX("fx_target",DOFContactors),backbank,VolTarg: End Sub
 'Bumpers
-Sub Bumper1_Hit()		: vpmTimer.PulseSwitch (swJet1), 0, "" : PlaySound SoundFX("Jet1",DOFContactors) : End Sub
-Sub Bumper2_Hit()		: vpmTimer.PulseSwitch (swJet2), 0, "" : PlaySound SoundFX("Jet2",DOFContactors) : End Sub
-Sub Bumper3_Hit()		: vpmTimer.PulseSwitch (swJet3), 0, "" : PlaySound SoundFX("Jet1",DOFContactors) : End Sub
+Sub Bumper1_Hit()		: vpmTimer.PulseSwitch (swJet1), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper1, VolBump : End Sub
+Sub Bumper2_Hit()		: vpmTimer.PulseSwitch (swJet2), 0, "" : PlaySoundAtVol SoundFX("Jet2",DOFContactors), Bumper2, VolBump : End Sub
+Sub Bumper3_Hit()		: vpmTimer.PulseSwitch (swJet3), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper3, VolBump : End Sub
 'Drain
 Sub Outhole_Hit()       : vpmTimer.PulseSwitch(swOutHole), 100, "HandleOutHole" : End Sub
 Sub HandleOutHole(swNo) : bsTrough.AddBall Outhole : End Sub
@@ -601,10 +618,10 @@ rfstep = 1
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("fx_flipperup",DOFContactors), 0, 1, -0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
     Else
-        PlaySound SoundFX("fx_flipperdown",DOFContactors), 0, 1, -0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
 		LeftFlipper.TimerEnabled = 1
         LeftFlipper.return = returnspeed * 0.5
@@ -613,11 +630,11 @@ End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("fx_flipperup",DOFContactors), 0, 1, 0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
         RightFlipper.RotateToEnd
 		URightFlipper.RotateToEnd
     Else
-        PlaySound SoundFX("fx_flipperdown",DOFContactors), 0, 1, 0.1, 0.25
+        PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, VolFlip
         RightFlipper.RotateToStart
 		URightFlipper.RotateToStart
 		rightflipper.TimerEnabled = 1
@@ -664,7 +681,7 @@ Dim RStep, Lstep
 
 Sub RSling_Slingshot
 	vpmTimer.PulseSwitch (swRSling), 0, ""
-  	PlaySound SoundFx("SlingshotRight",DOFContactors), 0, 1, 0.05, 0.05
+  	PlaySoundAtVol SoundFx("SlingshotRight",DOFContactors), sling1, 1
     RSling3.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -683,7 +700,7 @@ End Sub
 
 Sub LSling_Slingshot
 	vpmTimer.PulseSwitch (swLSling), 0, ""
-    PlaySound SoundFx("SlingshotLeft",DOFContactors), 0, 1, -0.05, 0.05
+    PlaySoundAtVol SoundFx("SlingshotLeft",DOFContactors), sling2, 1
     LSling3.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -736,7 +753,7 @@ end sub
 Sub SolLockPlunger(enabled) 'currently not used - using vlock instead :)
     if Enabled then
 		LockPlunger.Fire
-		PlaySound SoundFX("autoplung",DOFContactors)
+		PlaySoundAt SoundFX("autoplung",DOFContactors), plunger
 	else
 		LockPlunger.PullBack
 	end If
@@ -939,15 +956,15 @@ End Sub
 '******************************
 
 ' Rubber sounds
-Sub Rubbers_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)+5, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub Rubbers_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' Ramp Sounds
-Sub Trigger1_Hit() : If ActiveBall.VelY > 0 Then PlaySound Wirerampsound : End If : End Sub
+Sub Trigger1_Hit() : If ActiveBall.VelY > 0 Then PlaySoundAt "Wirerampsound", Trigger1 : End If : End Sub
 Sub Trigger2_Hit() : StopSound Wirerampsound : vpmtimer.addtimer 250, "BalldropSound'" :End Sub
 Sub Trigger3_Hit() : StopSound Wirerampsound : vpmtimer.addtimer 250, "BalldropSound'" :End Sub
 Sub Trigger4_Hit() : StopSound Wirerampsound : vpmtimer.addtimer 250, "BalldropSound'" :End Sub
-Sub Trigger5_Hit() : PlaySound Wirerampsound, -1, 32, 0, 0, 1, 0, 0 : End Sub
-Sub BalldropSound: PlaySound "fx_ball_drop" : End Sub
+Sub Trigger5_Hit() : PlaySoundAt "Wirerampsound", Trigger5 : End Sub
+Sub BalldropSound: Playsound "fx_ball_drop" : End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -1121,3 +1138,10 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub BK2K_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+
