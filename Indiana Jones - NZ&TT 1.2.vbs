@@ -12,10 +12,8 @@ Randomize
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' Wob 2018-08-08
-' Removing commented out InitVpmFFlipsSAM line for housekeeping.
-' Note Re Fast Flips, The Flippers remain active during Video Mode and Path of adventure, hopefully a fix will come for this.
-
+' DJRobX  2018-08-18
+' FastFlips 2 support, fixes video mode
 '************************************************************************
 '							Table options
 '************************************************************************
@@ -56,6 +54,8 @@ Const UseSync = 1
 Const HandleMech = 0
 
 ' IJ Specific Option
+NoUpperLeftFlipper
+NoUpperRightFlipper
 Const cSingleLFlip = 0
 Const cSingleRFlip = 0
 
@@ -170,7 +170,7 @@ Sub Table1_Init
     With bsLEject
         .InitKicker Sw31, 31, 170, 12, 0
         .InitSounds "fx_saucerHit", SoundFX("LeftEject",DOFContactors), SoundFX("LeftEject",DOFContactors)
-        .CreateEvents "bsLEject", Sw31
+       ' .CreateEvents "bsLEject", Sw31
     End With
 
 	'Subway Eject
@@ -485,6 +485,16 @@ Sub sw46_Hit()
 End Sub
 
 Sub sw46_UnHit():Controller.Switch(46) = 0:End Sub
+
+Sub sw31_hit()
+	vpmFlips.Enabled = false
+	bsLEject.AddBall Me
+end sub
+
+sub sw31_unhit()
+	vpmFlips.Enabled = true
+	debug.print "sw31unhit"
+end sub
 
 '************************************************************************
 '						Switches
