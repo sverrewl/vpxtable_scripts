@@ -36,7 +36,6 @@ if SingleScreenFS = 1 then UseVPMColoredDMD = True else UseVPMColoredDMD = Deskt
 LoadVPM "01560000", "WPC.VBS", 3.5
 
 ' Thal: because of useSolenoids=2
-Const cSingleLFlip = 0
 Const cSingleRFlip = 0
 
 '********************
