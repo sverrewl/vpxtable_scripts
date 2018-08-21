@@ -29,6 +29,8 @@
 ' This table already has its own 7.1 "Positional Sound Playback Functions" routine
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-21
+' Added Fast Flips v2 Support
 
  Option Explicit
  Randomize
@@ -53,6 +55,9 @@ Const B2ScGameName = "Proc_CC"
 Const UseVPMModSol = True
 
 LoadVBSFiles "02800000", "WPC.VBS", 3.52
+
+' Wob: Needed for Fast Flips
+NoUpperLeftFlipper
 
 If PROC = 1 Then
 	LoadController("PROC")

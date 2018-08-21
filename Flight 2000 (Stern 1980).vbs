@@ -10,7 +10,7 @@ Randomize
 ' Moved solenoids above table1_init
 ' No special SSF tweaks yet.
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init
 
 Const cGameName = "flight2k"
 
@@ -26,9 +26,6 @@ Dim DesktopMode: DesktopMode = table1.ShowDT
 '************************************************
 
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = True
 Const UseGI = False
 Const UseSync = False

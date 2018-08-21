@@ -212,12 +212,12 @@ End If
  'LoadVPM "01560000", "wpc.vbs", 3.26
 LoadVPM "02800000", "WPC.VBS", 3.55
 
+ ' Wob: Needed for Fast Flips
+ NoUpperLeftFlipper
+
  ' Init Table
  Const cGameName = "i500_11r"
  Const UseSolenoids = 2
- ' Thal : Added because of useSolenoid=2
- Const cSingleLFlip = 0
- ' Const cSingleRFlip = 0
  Const UseLamps = 1
  Const UseGI = 0
  Const UseSync = 0

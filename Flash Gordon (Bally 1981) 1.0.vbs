@@ -9,7 +9,7 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-08
-' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init
 Option Explicit
 Randomize
 
@@ -75,9 +75,6 @@ LoadVPM "01510000", "Bally.VBS", 3.1
 '********************
 
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 1
 Const UseGI = 0
 Const UseSync = 0

@@ -40,7 +40,7 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0

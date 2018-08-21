@@ -13,7 +13,7 @@ Randomize
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-08
-' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -22,9 +22,6 @@ On Error Goto 0
 
 Const cGameName="algar_l1",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits="Algar"
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 
 LoadVPM "01520000","s4.vbs",3.1
 
@@ -273,7 +270,6 @@ Sub Table1_Init()
 	Sw37.IsDropped = True
 	Sw44.IsDropped = True
 
-
 ' Create Captive Ball
 
 	RCaptKicker1.CreateBall
@@ -323,10 +319,9 @@ Sub Bumper3_Timer
 	Me.Timerenabled = 0
 End Sub
 
-
- Sub solballrelease(enabled)
+Sub solballrelease(enabled)
      bstrough.solexit SoundFX(ssolenoidon,DOFContactors), SoundFX(ssolenoidon,DOFContactors),enabled
- End Sub
+End Sub
 
 Sub DrainSound_Hit()
 	PlaySound "drain",0,1,AudioPan(Drain),0.25,0,0,1,AudioFade(Drain)
@@ -639,7 +634,6 @@ End Sub
 Sub PlaySoundAtBall(soundname)
     PlaySoundAt soundname, ActiveBall
 End Sub
-
 
 '*****************************************
 '   rothbauerw's Manual Ball Control
