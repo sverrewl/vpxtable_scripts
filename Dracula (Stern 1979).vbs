@@ -4,6 +4,8 @@ Randomize
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Make extra copies of fx2_droptarget and fx2_DTReset and import them as fx2_droptarget2/fx2_DTReset2
+' Set dtl sounds approx. -0.9/0.35 and dtt 0.67/-0.75
 
 Const VolDiv = 2000    ' Lower numper louder ballrolling sound
 Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
@@ -13,7 +15,7 @@ Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
 '  .5 = lower volume
 ' 1.5 = higher volume
 
-Const VolBump   = 2    ' Bumpers volume.
+Const VolBump   = 3    ' Bumpers volume.
 Const VolRol    = 1    ' Rollovers volume.
 Const VolGates  = 1    ' Gates volume.
 Const VolMetal  = 1    ' Metals volume.
@@ -167,7 +169,7 @@ Sub Table1_Init
 
 	Set dtT=New cvpmDropTarget
 	dtT.InitDrop Array(sw12,sw20,sw28,sw36),Array(12,20,28,36)
-	dtT.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
+	dtT.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset2",DOFContactors)
 
 '*****Drop Lights Off
 	dim xx
@@ -212,7 +214,7 @@ Sub Drain_Hit()
 	PlaySoundAt "fx2_drain2", Drain : bstrough.addball me
 End Sub
 
-Sub sw40_Hit():PlaySoundAt "fx_hole-enter", sw40: Controller.Switch(40) = 1:End Sub 'Left Kicker
+Sub sw40_Hit():PlaySoundAtVol "fx_hole-enter", sw40, 3: Controller.Switch(40) = 1:End Sub 'Left Kicker
 
 'Drop Targets
  Sub Sw12_Dropped:dtT.Hit 1 : TDropA1.state=1 : End Sub
@@ -286,7 +288,7 @@ Sub sw23_Hit:vpmTimer.PulseSw (23):End Sub
 Sub sw24_Hit:vpmTimer.PulseSw (24):End Sub
 
 Sub SolKnocker(Enabled)
-	If Enabled Then PlaySound SoundFX("Knocker",DOFKnocker)
+	If Enabled Then PlaySound SoundFX("Fx2_Knocker",DOFKnocker)
 End Sub
 
 '**********Sling Shot Animations
