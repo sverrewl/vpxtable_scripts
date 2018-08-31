@@ -43,6 +43,10 @@ On Error Goto 0
 
 LoadVPM "01560000", "wpc.VBS", 3.36
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 ' Options
 ' Volume devided by - lower gets higher sound
 
@@ -60,9 +64,6 @@ Flares = 1			'1 = 0n, 0 = 0ff
 
 Const cGameName = "rs_l6"
 Const UseSolenoids = 2
-' Thal : Added because of useSolenoids=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 0
 Const SSolenoidOn = "SolOn"
 Const SSolenoidOff = "SolOff"

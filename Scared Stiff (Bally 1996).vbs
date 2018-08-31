@@ -128,6 +128,9 @@ On Error Goto 0
 const UseVPMModSol=true
 LoadVPM "01530000", "WPC.VBS", 3.56
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+
 Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0

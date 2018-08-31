@@ -13,7 +13,7 @@
 ' Transfered from the Hat Mod Edits by Thalamus
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' Added vpmInit Me to table init and Moved cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init and NoUpperRightFlipper, NoUpperLeftFlipper
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -69,13 +69,14 @@ Dim UseVPMDMD:UseVPMDMD = DesktopMode
 
 LoadVPM "01560000", "WPC.VBS", 3.50
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 '********************
 'Standard definitions
 '********************
  Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
- Const cSingleLFlip = 0
- Const cSingleRFlip = 0
  Const UseLamps = 0
  Const UseSync = 0
  Const HandleMech = 1

@@ -59,6 +59,9 @@ On Error Goto 0
 LoadVPM "01560000", "WPC.VBS", 3.50
 keyStagedFlipperL = ""
 
+' Wob: Needed for Fast Flips
+NoUpperLeftFlipper
+
 Const cGameName="sc_18"
 
 dim mPopperDish, bsBank, SCBall1, SCBall2, SCBall3, SCBall4, SpinnerBall

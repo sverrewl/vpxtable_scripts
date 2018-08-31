@@ -40,6 +40,10 @@ UseVPMColoredDMD = DesktopMode
 
 LoadVPM "01560000", "WPC.VBS", 3.46
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 '********************
 'Standard definitions
 '********************

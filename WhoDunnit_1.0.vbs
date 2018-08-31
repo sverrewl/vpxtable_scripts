@@ -32,6 +32,9 @@ Const cGameName = "wd_12"
 
 LoadVPM "02000000", "WPC.VBS", 3.50
 
+' Wob: Needed for Fast Flips
+NoUpperLeftFlipper
+
 ' Standard Options
 Const UseSolenoids = 2
 Const UseLamps = 1

@@ -31,6 +31,9 @@ UseVPMDMD = DesktopMode
 
 LoadVPM "01520000","Sega.VBS",3.02
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+
 Dim toggleModSounds
 Function ModSound(sound)
 	If toggleModSounds = 0 Then

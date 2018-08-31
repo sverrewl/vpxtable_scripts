@@ -85,11 +85,14 @@ Dim UseVPMDMD:UseVPMDMD = DesktopMode
 
 LoadVPM "01560000", "WPC.VBS", 3.50
 
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 '********************
 'Standard definitions
 '********************
-const cSingleLFlip= 0
-const cSingleRFlip= 0
+
  Const UseSolenoids = 2
  Const UseLamps = 0
  Const UseSync = 0
@@ -111,6 +114,7 @@ const cSingleRFlip= 0
 '******************************************************
 
  Sub Table1_Init
+	vpmInit Me
      With Controller
          .GameName = cGameName
          .SplashInfoLine = "Theatre of Magic - Bally 1995"

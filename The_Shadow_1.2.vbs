@@ -22,7 +22,10 @@ Option Explicit
 
  LoadVPM "01560000", "WPC.VBS", 3.50
 
- Const cGameName = "ts_lx5"
+ ' Wob: Needed for Fast Flips
+ NoUpperLeftFlipper
+
+ Const cGameName = "ts_lx5" 
 
  'STANDARD DEFINITIONS *************************************************************************************************************************************
 
