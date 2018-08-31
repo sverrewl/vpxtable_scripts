@@ -15,7 +15,7 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' Fixed unreferenced switches sw50, sw52, sw60 and sw62
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
 
 Option Explicit
@@ -306,10 +306,10 @@ End Sub
  Sub sw41_Dropped:dtRBank.hit 1 :End Sub
 
  ' Targets
- Sub sw60a_Hit:vpmTimer.PulseSw 60:End Sub
- Sub sw50a_Hit:vpmTimer.PulseSw 50:End Sub
- Sub sw62a_Hit:vpmTimer.PulseSw 62:End Sub
- Sub sw52a_Hit:vpmTimer.PulseSw 52:End Sub
+ Sub sw60_Hit:vpmTimer.PulseSw 60:End Sub
+ Sub sw50_Hit:vpmTimer.PulseSw 50:End Sub
+ Sub sw62_Hit:vpmTimer.PulseSw 62:End Sub
+ Sub sw52_Hit:vpmTimer.PulseSw 52:End Sub
 
 
   '************************

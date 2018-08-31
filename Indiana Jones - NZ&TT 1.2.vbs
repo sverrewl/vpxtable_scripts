@@ -54,6 +54,8 @@ Const UseSync = 1
 Const HandleMech = 0
 
 ' IJ Specific Option
+NoUpperLeftFlipper
+NoUpperRightFlipper
 Const cSingleLFlip = 0
 Const cSingleRFlip = 0
 
@@ -485,12 +487,13 @@ End Sub
 Sub sw46_UnHit():Controller.Switch(46) = 0:End Sub
 
 Sub sw31_hit()
-	if VPinMAMEDriverVer > 3.56 then vpmFlips.Enabled = false
+	vpmFlips.Enabled = false
 	bsLEject.AddBall Me
 end sub
 
 sub sw31_unhit()
-	if VPinMAMEDriverVer > 3.56 then vpmFlips.Enabled = true
+	vpmFlips.Enabled = true
+	debug.print "sw31unhit"
 end sub
 
 '************************************************************************

@@ -41,7 +41,7 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2 - reverted, it is included ... silly me.
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -55,7 +55,7 @@ On Error Goto 0
 Const BallSize = 51
 Const BallMass = 1.2
 
-Const cGameName="gw_l5", UseSolenoids=1, UseLamps=0, UseGI=0, SSolenoidOn="SolOn", SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="gw_l5", UseSolenoids=2, UseLamps=0, UseGI=0, SSolenoidOn="SolOn", SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01560000", "WPC.VBS", 3.46
 

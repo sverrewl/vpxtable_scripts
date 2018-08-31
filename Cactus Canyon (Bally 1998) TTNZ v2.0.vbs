@@ -21,16 +21,16 @@
 
 
 ' Cactus Canyon - IPDB No. 4445
-' � Bally/Midway 1998
-' � Eric Priepke 2012 (P-ROC Project)
+' © Bally/Midway 1998
+' © Eric Priepke 2012 (P-ROC Project)
 ' VPX recreation by ninuzzu/Tom Tower
 
 ' Thalamus 2018-07-23
 ' This table already has its own 7.1 "Positional Sound Playback Functions" routine
-' Changed UseSolenoids=1 to 2 for no-proc
+' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' Support CCC, please see P-Roc updates in cactuscanyoncontinued_PROC folder
-' FastFlips 2.0 required for CCC drunk flips.
+' Wob 2018-08-21
+' Added Fast Flips v2 Support
 
  Option Explicit
  Randomize
@@ -49,7 +49,6 @@ Const BallMass = 1.7
 
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 Dim UseVPMDMD:UseVPMDMD = DesktopMode
-Dim UseSolenoids
 
 Const cGameName = "cc_13"
 Const B2ScGameName = "Proc_CC"
@@ -61,14 +60,13 @@ LoadVBSFiles "02800000", "WPC.VBS", 3.52
 NoUpperLeftFlipper
 
 If PROC = 1 Then
-    UseSolenoids = 39
 	LoadController("PROC")
 Else
-	UseSolenoids = 2
 	LoadController("VPM")
 End If
 
 ' Standard Options
+Const UseSolenoids = 2
 Const UseLamps     = 1
 Const UseSync      = 0
 Const HandleMech   = 0
