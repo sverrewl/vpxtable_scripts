@@ -11,6 +11,8 @@ Randomize
 ' Thalamus 2018-08-11 : Improved directional sounds
 ' Options
 ' Volume devided by - lower gets higher sound
+' Wob 2018-08-21
+' Added vpmInit Me
 
 Const VolDiv = 2000
 
@@ -122,6 +124,7 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub Table1_Init
+	vpmInit Me
      With Controller
          .GameName = cGameName
          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

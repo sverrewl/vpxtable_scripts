@@ -21,8 +21,8 @@
 
 
 ' Cactus Canyon - IPDB No. 4445
-' © Bally/Midway 1998
-' © Eric Priepke 2012 (P-ROC Project)
+' ï¿½ Bally/Midway 1998
+' ï¿½ Eric Priepke 2012 (P-ROC Project)
 ' VPX recreation by ninuzzu/Tom Tower
 
 ' Thalamus 2018-07-23
@@ -56,6 +56,9 @@ Const B2ScGameName = "Proc_CC"
 Const UseVPMModSol = True
 
 LoadVBSFiles "02800000", "WPC.VBS", 3.52
+
+' Wob: Needed for Fast Flips
+NoUpperLeftFlipper
 
 If PROC = 1 Then
     UseSolenoids = 39

@@ -77,8 +77,8 @@ On Error Goto 0
  'Standard definitions
  '********************
 
-  Const cGameName = "dh_lx2"
- Const UseSolenoids = 1
+ Const cGameName = "dh_lx2"
+ Const UseSolenoids = 2
  Const UseLamps = 1
  Const SSolenoidOn = "SolOn"
  Const SSolenoidOff = "SolOff"

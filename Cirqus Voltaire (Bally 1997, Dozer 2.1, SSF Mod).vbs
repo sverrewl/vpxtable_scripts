@@ -11,6 +11,8 @@
 ' Table has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
+' Wob 2018-08-21
+' Added Fast Flips v2 Support
 
 Option Explicit
 Randomize
@@ -304,6 +306,10 @@ End If
 Dim Sound1, Sound2, Sound3, Sound4, Sound5, B2SController
 
  LoadVPM "01560000", "WPC.VBS", 3.46
+
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
  Sub LoadVPM(VPMver, VBSfile, VBSver)	'Add new call to InitializeOptions to allow selection of controller through F6 menu
 	On Error Resume Next

@@ -57,6 +57,7 @@ Const UseLamps = 0
 Const UseGI = 0
 
 Sub Table1_Init
+	vpmInit Me
     With Controller
         .GameName = cGameName
         If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub

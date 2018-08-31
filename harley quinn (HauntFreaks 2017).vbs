@@ -31,6 +31,8 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' Wob 2018-0821
+' Added	vpmInit Me
 
 Option Explicit
 Randomize
@@ -47,7 +49,7 @@ LoadVPM "01210000", "sys80.vbs", 3.1
 Dim bsTrough, dtLBank, dtRBank, dtMBank, dtCBank, bsTop, kickbackIM
 Dim DesktopMode:DesktopMode=Table1.ShowDT
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
@@ -64,6 +66,7 @@ Const SCoin = "fx_coin"
 Const cGameName = "diamond"
 
 Sub table1_Init
+	vpmInit Me
 	Dim xx
     For each xx in aReels:xx.Visible = DesktopMode:Next
     lrail.Visible = DesktopMode

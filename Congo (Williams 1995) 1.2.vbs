@@ -11,6 +11,8 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Improved directional sound locations
+' Wob 2018-08-21
+' Changed to Fast Flips v2 Support
 
 Option Explicit
 Randomize
@@ -35,8 +37,8 @@ if SingleScreenFS = 1 then UseVPMColoredDMD = True else UseVPMColoredDMD = Deskt
 
 LoadVPM "01560000", "WPC.VBS", 3.5
 
-' Thal: because of useSolenoids=2
-Const cSingleRFlip = 0
+' Wob: Needed for Fast Flips
+NoUpperRightFlipper
 
 '********************
 'Standard definitions

@@ -49,9 +49,6 @@ Ballsize = 50
 Ballmass = 1.7
 
 Const UseSolenoids = 2
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 1
@@ -70,6 +67,7 @@ On Error Goto 0
 
 LoadVPM "01560000", "WPC.VBS", 3.50
 Const cGameName="cftbl_l4"
+
 
 dim bsSubway
 Sub Table1_Init

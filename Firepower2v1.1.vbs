@@ -13,7 +13,7 @@ On Error Goto 0
 
 Const BallsSize = 50
 
-Const cGameName="fpwr2_l2",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="fpwr2_l2",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01560000", "S7.VBS", 3.26
 Dim DeskTopEnabled: DeskTopEnabled = FirePower2.showDT

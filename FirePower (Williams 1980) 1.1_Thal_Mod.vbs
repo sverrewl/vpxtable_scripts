@@ -38,9 +38,6 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 Const cGameName="frpwr_c7",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 
 Const BallSize = 52
 Const Ballmass = 2
