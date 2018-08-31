@@ -52,10 +52,6 @@ Randomize
 Const BallSize = 52
 Const BallMass = 1.2
 
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
-
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"

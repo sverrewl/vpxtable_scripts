@@ -14,7 +14,7 @@
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 ' Wob 2018-08-08
-' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -33,9 +33,6 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
  Const cGameName="robo_a34"
 
  Const UseSolenoids=2
- ' Wob: Added for Fast Flips (No upper Flippers)
- Const cSingleLFlip = 0
- Const cSingleRFlip = 0
  Const UseLamps=1
  Const UseGI=0
  Const UseSync=0

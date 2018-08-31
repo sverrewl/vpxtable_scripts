@@ -91,8 +91,6 @@ End Sub
 LoadVPM "01520000", "juegos.vbs", 3.1
 
 Const UseSolenoids = 2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 1
 Const UseGI = 0
 Const UseSync = 1 'set it to 1 if the table runs too fast

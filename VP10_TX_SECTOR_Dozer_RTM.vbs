@@ -7,11 +7,9 @@ Randomize
 ' Table uses non stanard ball rolling routine
 ' No special SSF tweaks yet.
 ' Wob 2018-08-08
-' Added vpmInit Me to table init and cSingleRFlip
+' Added vpmInit Me to table init
 
 Const cGameName="txsector",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleRFlip = 0
 Const SCoin="coin3",cCredits="Destruk & TAB & MNPG. Dip settings menu added by Inkochnito"
 
 LoadVPM "01210000","sys80.vbs",3.1

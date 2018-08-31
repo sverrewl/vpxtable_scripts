@@ -14,7 +14,7 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and cSingleRFlip
+' Added vpmInit Me to table init
 
 Dim Ballsize,BallMass
 BallSize = 51
@@ -35,8 +35,6 @@ LoadVPM "01560000", "gts3.VBS", 3.26
 '********************
 
  Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
- Const cSingleRFlip = 0
  Const UseLamps = 0
  Const UseSync = 0
 

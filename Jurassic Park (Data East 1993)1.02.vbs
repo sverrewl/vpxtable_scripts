@@ -60,9 +60,6 @@
 Option Explicit
 Randomize
 
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
-
 Dim VolumeDial, CollectionVolume, enableBallControl, BallReflection
 Dim ContrastSetting, GlowAmountDay, InsertBrightnessDay
 Dim GlowAmountNight, InsertBrightnessNight

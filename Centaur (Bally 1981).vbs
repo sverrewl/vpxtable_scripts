@@ -11,9 +11,6 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
 
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
-
 Const cGameName="Centaur",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
 Const SCoin="coin"
 

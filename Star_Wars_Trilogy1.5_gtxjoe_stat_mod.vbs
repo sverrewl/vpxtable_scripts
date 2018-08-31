@@ -8,7 +8,7 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -34,9 +34,6 @@ Dim x, bump1, bump2, bump3, bump4
 
 
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast

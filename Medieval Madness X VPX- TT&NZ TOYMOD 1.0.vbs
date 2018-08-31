@@ -43,9 +43,9 @@ dim bsTrough, bsCat, bsMe, bsMo, x
 Const cGameName="mm_109c" 'unofficial profanity rom
 
 Const UseSolenoids = 2
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
+NoUpperLeftFlipper
+NoUpperRightFlipper
+
 Const UseLamps = 1
 Const UseGI = 1
 Const UseSync = 0

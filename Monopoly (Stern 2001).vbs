@@ -64,9 +64,6 @@ LoadVPM "01120100", "sega.vbs", 3.23
 '********************
 
 Const UseSolenoids = 2
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0

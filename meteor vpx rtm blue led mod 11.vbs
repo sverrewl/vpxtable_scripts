@@ -20,7 +20,7 @@
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and cSingleLFlip
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -55,8 +55,6 @@ End if
 '==================================================================
 Const cGameName = "meteor" ' Oliver's 7 Digit Roms Are Used
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
 Const UseLamps= 0
 Const UseGI= 0
 Const SSolenoidOn = "Solon"

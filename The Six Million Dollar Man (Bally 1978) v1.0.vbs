@@ -11,7 +11,7 @@
 ' Tables uses a non standard ball rolling routine
 ' No special SSF tweaks yet.
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and both cSingleLFlip and /cSingleRFlip
+' Added vpmInit Me to table init
 
 Option Explicit
 Randomize
@@ -96,9 +96,6 @@ Sub DOF(dofevent, dofstate)
 End Sub
 
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Const UseLamps = true
 Const UseGI = 1
 Const UseSync = 0

@@ -5,7 +5,7 @@ Option Explicit
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-09
-' Added vpmInit Me to table init and cSingleLFlip
+' Added vpmInit Me to table init
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -32,8 +32,6 @@ Const marson = 1
 '==================================================================
 
 Const UseSolenoids = 2
-' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
 Const UseLamps = True
 Const UseSync = True
 ' Standard Sounds used by Driver help code
