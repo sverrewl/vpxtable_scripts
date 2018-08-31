@@ -12,6 +12,7 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Changed useSolenois=1 to 2, thanks for reporting Brer Frog
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
 On Error Resume Next
@@ -27,7 +28,7 @@ Dim bump1, bump2, bump3
 'Const cGameName = "hglbtrtr" ' normal 6 digits rom
 Const cGameName = "hglbtrtb" ' bootleg 7 digits rom
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 1
 Const UseGI = 0
 Const UseSync = 0
