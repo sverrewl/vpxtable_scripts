@@ -16,7 +16,8 @@
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' Thalamus 2018-08-09 : Improved directional sounds
+' Thalamus 2018-08-08 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 Randomize
@@ -960,7 +961,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub RSling_Slingshot
-	vpmTimer.PulseSwitch (swRSling), 0, "" : PlaySound SoundFx("SlingshotRight",DOFContactors), 0, 1, 0.05, 0.05
+	vpmTimer.PulseSwitch (swRSling), 0, "" : PlaySoundAt SoundFx("SlingshotRight",DOFContactors), sling1
     RSling3.Visible = 0 : RSling1.Visible = 1 : sling1.TransZ = -20 : RStep = 0 : RSling.TimerEnabled = 1
 End Sub
 
@@ -973,7 +974,7 @@ Sub RSling_Timer
 End Sub
 
 Sub LSling_Slingshot
-	vpmTimer.PulseSwitch (swLSling), 0, "" : PlaySound SoundFx("SlingshotLeft",DOFContactors), 0, 1, -0.05, 0.05
+	vpmTimer.PulseSwitch (swLSling), 0, "" : PlaySoundAt SoundFx("SlingshotLeft",DOFContactors), sling2
     LSling3.Visible = 0 : LSling1.Visible = 1 : sling2.TransZ = -20 : LStep = 0 : LSling.TimerEnabled = 1
 End Sub
 

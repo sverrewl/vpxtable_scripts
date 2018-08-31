@@ -1,4 +1,4 @@
-'****************************************************************************************
+'*****************s***********************************************************************
 ' WIZARD!
 ' Bally 1975
 ' version 1.03
@@ -6,13 +6,33 @@
 ' Thanks to Ninuzzu for the help
 ' Thanks to Tom Tower for the monsterbashpincab site
 '****************************************************************************************
+Option Explicit
+Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-08-18 : Improved directional sounds
 
-Option Explicit
-Randomize
+' ********************************************************************************
+' Sound Options - !!! Do not use zero value or you may get devision by zero !!!
+
+Const VolDiv = 2000    ' Lower numper louder ballrolling sound
+Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolTarg   = 1    ' Targets volume
+Const VolKick   = 1    ' Kicker volume
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 Const cGameName = "Wizard_1975"
 
@@ -304,15 +324,15 @@ End If
 '**** Chimes Sound Score based ***
 
 If points = 10 And (Score(x) MOD 100)\10 = 0 Then
-	PlaySound SoundFXDOF("Chimes100",142,DOFPulse,DOFChimes)
+	PlaySoundAt SoundFXDOF("Chimes100",142,DOFPulse,DOFChimes), Primitive22
     ElseIf points = 100 And(Score(x) MOD 1000)\10 = 0 Then
-	PlaySound SoundFXDOF("Chimes1000",143,DOFPulse,DOFChimes)
+	PlaySoundAt SoundFXDOF("Chimes1000",143,DOFPulse,DOFChimes), Primitive22
     ElseIf points = 1000 Then
-	PlaySound SoundFXDOF("Chimes1000",143,DOFPulse,DOFChimes)
+	PlaySoundAt SoundFXDOF("Chimes1000",143,DOFPulse,DOFChimes), Primitive22
 	ElseIf points = 100 Then
-	PlaySound SoundFXDOF("Chimes100",142,DOFPulse,DOFChimes)
+	PlaySoundAt SoundFXDOF("Chimes100",142,DOFPulse,DOFChimes), Primitive22
 	ElseIf points = 10 Then
-	PlaySound SoundFXDOF("Chimes10",141,DOFPulse,DOFChimes)
+	PlaySoundAt SoundFXDOF("Chimes10",141,DOFPulse,DOFChimes), Primitive22
 End If
 
 '*********************************
@@ -618,7 +638,7 @@ End Sub
 Sub Wizard_KeyDown(ByVal keycode)
 
 	If keycode = AddCreditKey And Credit<25 Then
-	PlaySound "CoinIn"
+	PlaySoundAt "CoinIn", Drain
 	Credit = Credit+1
 	DOF 119, DOFOn
 	LightCredit.state = 1
@@ -628,7 +648,7 @@ Sub Wizard_KeyDown(ByVal keycode)
 	End If
 	End If
 	If keycode = AddCreditKey And Credit >=25 Then
-	PlaySound "CoinIn"
+	PlaySoundAt "CoinIn", Drain
 	End If
 
 	If keycode = StartGameKey And Credit>0 And BallsNumber <2 And PlayerN <4 And AllowStart = 1 Then
@@ -641,7 +661,7 @@ Sub Wizard_KeyDown(ByVal keycode)
 	FirstStartTimer.enabled = 1
 	StartupTimer.enabled = 1
 	End If
-	PlaySound "start"
+	PlaySoundAt "start", Drain
 	CreditCount.text= (Credit)
 	Game = 1
 	BallN= BNumber
@@ -746,13 +766,13 @@ Sub Wizard_KeyDown(ByVal keycode)
 
 	If keycode = PlungerKey Then
 		Plunger.PullBack
-		PlaySound "plungerpull",0,1,0.25,0.25
+		PlaySoundAt "plungerpull", Plunger
 	End If
 
 	If keycode = LeftFlipperKey And Game = 1 And Tilt = False Then
 		LeftFlipper.RotateToEnd
-		PlaySound SoundFXDOF("flup",101,DOFOn,DOFFlippers), 0, .67, -0.05, 0.05
-		PlaySound "buzz", -1 , .60, -1
+		PlaySoundAtVol SoundFXDOF("flup",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
+		PlaySoundAtVol "buzz", LeftFlipper, VolFlip
 		If LightMod = 1 Then
 		Light3.state = 2
 		Light3.blinkpattern = 10
@@ -765,8 +785,8 @@ Sub Wizard_KeyDown(ByVal keycode)
 
 	If keycode = RightFlipperKey And Game = 1 And Tilt = False  Then
 		RightFlipper.RotateToEnd
-		PlaySound SoundFXDOF("flup",102,DOFOn,DOFFlippers), 0, .67, 0.05, 0.05
-		Playsound "buzz1", -1 , .60, 1
+		PlaySoundAtVol SoundFXDOF("flup",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
+		PlaysoundAtVol "buzz1", RightFlipper, VolFlip
 		If LightMod = 1 Then
 		Light3.state = 2
 		Light3.blinkpattern = 10
@@ -801,13 +821,13 @@ Sub Wizard_KeyUp(ByVal keycode)
 
 	If keycode = PlungerKey Then
 		Plunger.Fire
-		PlaySound "fx_plunger",0,1,0.25,0.25
+		PlaySoundAt "fx_plunger", Plunger
 
 	End If
 
 	If keycode = LeftFlipperKey And Game = 1 Then
 		LeftFlipper.RotateToStart
-		PlaySound SoundFXDOF("fldown",101,DOFOff,DOFFlippers), 0, 0.10, -0.05, 0.05
+		PlaySoundAtVol SoundFXDOF("fldown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
 		StopSound "buzz"
 		If Tilt = true Then
 		FlipOff
@@ -824,7 +844,7 @@ Sub Wizard_KeyUp(ByVal keycode)
 
 	If keycode = RightFlipperKey And Game = 1 Then
 		RightFlipper.RotateToStart
-		PlaySound SoundFXDOF("fldown",102,DOFOff,DOFFlippers), 0, 0.10, 0.05, 0.05
+		PlaySoundAtVol SoundFXDOF("fldown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
 		StopSound "buzz1"
 		If Tilt = true Then
 		FlipOff
@@ -852,7 +872,7 @@ Sub Drain_Hit()
 	If Player = 4 Then BallN4 = BallN4 -1 End If
 	BallsNTot = BallsNTot - 1
 	DOF 121, DOFPulse
-	PlaySound "drain",0,1,0,0.25
+	PlaySoundAt "drain", Drain
 	Drain.DestroyBall
 	AllowStart = 0
 	EB = EB - 1
@@ -889,7 +909,7 @@ End Sub
 '*************** Start & Drain Sequential Events *******************
 
 Sub FirstStartTimer_timer()
-	PlaySound "wiz_init"
+	PlaySoundAt "wiz_init", Drain
 	FirstStartTimer.enabled = 0
 End Sub
 
@@ -1010,7 +1030,7 @@ Sub Flag1RTimer_timer()
 	Flag1.RotZ = 0
 	Flag1RTimer.enabled = 0
 	End If
-	PlaySound SoundFXDOF("flag",127,DOFPulse,DOFContactors)
+	PlaySoundAt SoundFXDOF("flag",127,DOFPulse,DOFContactors), Flag1
 End Sub
 
 Sub Flag2RTimer_timer()
@@ -1020,7 +1040,7 @@ Sub Flag2RTimer_timer()
 	Flag2.RotZ = 0
 	Flag2RTimer.enabled = 0
 	End If
-	PlaySound SoundFXDOF("flag",127,DOFPulse,DOFContactors)
+	PlaySoundAt SoundFXDOF("flag",127,DOFPulse,DOFContactors), Flag2
 End Sub
 
 Sub Flag3RTimer_timer()
@@ -1030,7 +1050,7 @@ Sub Flag3RTimer_timer()
 	Flag3.RotZ = 0
 	Flag3RTimer.enabled = 0
 	End If
-	PlaySound SoundFXDOF("flag",127,DOFPulse,DOFContactors)
+	PlaySoundAt SoundFXDOF("flag",127,DOFPulse,DOFContactors), Flag3
 End Sub
 
 Sub Flag4RTimer_timer()
@@ -1040,7 +1060,7 @@ Sub Flag4RTimer_timer()
 	Flag4.RotZ = 0
 	Flag4RTimer.enabled = 0
 	End If
-	PlaySound SoundFXDOF("flag",127,DOFPulse,DOFContactors)
+	PlaySoundAt SoundFXDOF("flag",127,DOFPulse,DOFContactors), Flag4
 End Sub
 
 Sub Sequence2Timer_timer()
@@ -1064,7 +1084,7 @@ End Sub
 Sub Sequence3Timer_timer()
 	BallRelease.CreateBall
 	BallRelease.Kick 90, 7
-	PlaySound SoundFXDOF("ballrelease",120,DOFPulse,DOFContactors)
+	PlaySoundAt SoundFXDOF("ballrelease",120,DOFPulse,DOFContactors), BallRelease
 	Bumper1.force = 12
 	Bumper2.force = 12
 	Bumper3.force = 12
@@ -1195,7 +1215,7 @@ Sub DBTimer_timer()
 End Sub
 
 Sub L1Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L1.state = 0 : L1Timer.enabled = 0
@@ -1205,126 +1225,126 @@ Sub L1Timer_timer()
 End Sub
 
 Sub L2Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L2.state = 0 : L1.state = 1 : L2Timer.enabled = 0 : L1Timer.enabled = 1
 End Sub
 
 Sub L3Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L3.state = 0 : L2.state = 1 : L3Timer.enabled = 0 : L2Timer.enabled = 1
 End Sub
 
 Sub L4Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
     L4.state = 0 : L3.state = 1 : L4Timer.enabled = 0 : L3Timer.enabled = 1
 End Sub
 
 Sub L5Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L5.state = 0 : L4.state = 1 : L5Timer.enabled = 0 : L4Timer.enabled = 1
 End Sub
 
 Sub L6Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L6.state = 0 : L5.state = 1 : L6Timer.enabled = 0 : L5Timer.enabled = 1
 End Sub
 
 Sub L7Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L7.state = 0 : L6.state = 1 : L7Timer.enabled = 0 : L6Timer.enabled = 1
 End Sub
 
 Sub L8Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L8.state = 0 : L7.state = 1 : L8Timer.enabled = 0 : L7Timer.enabled = 1
 End Sub
 
 Sub L9Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L9.state = 0 : L8.state = 1 : L9Timer.enabled = 0 : L8Timer.enabled = 1
 End Sub
 
 Sub L10Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L10.state = 0 : L9.state = 1 : L10Timer.enabled = 0 : L9Timer.enabled = 1
 End Sub
 
 Sub L11Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L1.state = 0  : L11Timer.enabled = 0 : L10Timer.enabled = 1
 End Sub
 
 Sub L12Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L2.state = 0 : L1.state = 1 :L12Timer.enabled = 0 : L11Timer.enabled = 1
 End Sub
 
 Sub L13Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L3.state = 0 : L2.state = 1 : L13Timer.enabled = 0 : L12Timer.enabled = 1
 End Sub
 
 Sub L14Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L4.state = 0 : L3.state = 1 : L14Timer.enabled = 0 : L13Timer.enabled = 1
 End Sub
 
 Sub L15Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L5.state = 0 : L4.state = 1 : L15Timer.enabled = 0 : L14Timer.enabled = 1
 End Sub
 
 Sub L16Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L6.state = 0 : L5.state = 1 : L16Timer.enabled = 0 : L15Timer.enabled = 1
 End Sub
 
 Sub L17Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L7.state = 0 : L6.state = 1 : L17Timer.enabled = 0 : L16Timer.enabled = 1
 End Sub
 
 Sub L18Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L8.state = 0 : L7.state = 1 : L18Timer.enabled = 0 : L17Timer.enabled = 1
 End Sub
 
 Sub L19Timer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	AddScore (1000)
 	If LightDoubleBonus.state = 1 Then DBTimer.enabled = 1 End If
 	L9.state = 0 : L8.state = 1 : L19Timer.enabled = 0 : L18Timer.enabled = 1
@@ -1354,7 +1374,7 @@ Sub ResetBonusTimer_timer()
 End Sub
 
 Sub L1rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L1.state = 0 : L1rTimer.enabled = 0
 	If BallsNTot > 0 Then DrainTimer.enabled = 1 End If
 	If Game = 0.5 And Special = 1 Then MatchTimer.enabled = 1
@@ -1362,92 +1382,92 @@ Sub L1rTimer_timer()
 End Sub
 
 Sub L2rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L2.state = 0 : L1.state = 1 : L2rTimer.enabled = 0 : L1rTimer.enabled = 1
 End Sub
 
 Sub L3rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L3.state = 0 : L2.state = 1 : L3rTimer.enabled = 0 : L2rTimer.enabled = 1
 End Sub
 
 Sub L4rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
     L4.state = 0 : L3.state = 1 : L4rTimer.enabled = 0 : L3rTimer.enabled = 1
 End Sub
 
 Sub L5rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L5.state = 0 : L4.state = 1 : L5rTimer.enabled = 0 : L4rTimer.enabled = 1
 End Sub
 
 Sub L6rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L6.state = 0 : L5.state = 1 : L6rTimer.enabled = 0 : L5rTimer.enabled = 1
 End Sub
 
 Sub L7rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L7.state = 0 : L6.state = 1 : L7rTimer.enabled = 0 : L6rTimer.enabled = 1
 End Sub
 
 Sub L8rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L8.state = 0 : L7.state = 1 : L8rTimer.enabled = 0 : L7rTimer.enabled = 1
 End Sub
 
 Sub L9rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L9.state = 0 : L8.state = 1 : L9rTimer.enabled = 0 : L8rTimer.enabled = 1
 End Sub
 
 Sub L10rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L10.state = 0 : L9.state = 1 : L10rTimer.enabled = 0 : L9rTimer.enabled = 1
 End Sub
 
 Sub L11rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L1.state = 0  : L11rTimer.enabled = 0 : L10rTimer.enabled = 1
 End Sub
 
 Sub L12rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L2.state = 0 : L1.state = 1 :L12rTimer.enabled = 0 : L11rTimer.enabled = 1
 End Sub
 
 Sub L13rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L3.state = 0 : L2.state = 1 : L13rTimer.enabled = 0 : L12rTimer.enabled = 1
 End Sub
 
 Sub L14rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L4.state = 0 : L3.state = 1 : L14rTimer.enabled = 0 : L13rTimer.enabled = 1
 End Sub
 
 Sub L15rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L5.state = 0 : L4.state = 1 : L15rTimer.enabled = 0 : L14rTimer.enabled = 1
 End Sub
 
 Sub L16rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L6.state = 0 : L5.state = 1 : L16rTimer.enabled = 0 : L15rTimer.enabled = 1
 End Sub
 
 Sub L17rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L7.state = 0 : L6.state = 1 : L17rTimer.enabled = 0 : L16rTimer.enabled = 1
 End Sub
 
 Sub L18rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L8.state = 0 : L7.state = 1 : L18rTimer.enabled = 0 : L17rTimer.enabled = 1
 End Sub
 
 Sub L19rTimer_timer()
-	PlaySound "bonus"
+	PlaySoundAt "bonus", Primitive53
 	L9.state = 0 : L8.state = 1 : L19rTimer.enabled = 0 : L18rTimer.enabled = 1
 End Sub
 
@@ -1467,7 +1487,7 @@ Sub CheckTilt
 	Bumper2.force = 0
 	Bumper3.force = 0
 	Tilt = True
-	PlaySound "tilt"
+	PlaySound "tilt", Primitive22
 	FlipOff
 	Tilttb.text= "TILT"
 	If B2SOn Then
@@ -1498,7 +1518,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-    PlaySound SoundFXDOF("slingR",104,DOFPulse,DOFContactors), 0, 0.70, 0.05, 0.05
+    PlaySoundAt SoundFXDOF("slingR",104,DOFPulse,DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -1519,7 +1539,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-    PlaySound SoundFXDOF("slingL",103,DOFPulse,DOFContactors),0,0.70,-0.05,0.05
+    PlaySoundAt SoundFXDOF("slingL",103,DOFPulse,DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -1551,7 +1571,7 @@ Dim dirRing3 : dirRing3 = -1
 Sub Bumper1_Hit
 If Tilt = false Then
 Me.TimerEnabled = 1
-	PlaySound SoundFXDOF("fx_bumper2",106,DOFPulse,DOFContactors),0,0.70
+	PlaySoundAtVol SoundFXDOF("fx_bumper2",106,DOFPulse,DOFContactors), Bumper1, VolBump
 	AddScore (100)
 End If
 
@@ -1573,7 +1593,7 @@ End Sub
 Sub Bumper2_Hit
 If Tilt = false Then
 Me.TimerEnabled = 1
-	PlaySound SoundFXDOF("fx_bumper2",105,DOFPulse,DOFContactors),0,0.70
+	PlaySoundAtVol SoundFXDOF("fx_bumper2",105,DOFPulse,DOFContactors), Bumper2, VolBump
 	If Light21.state = 0 Then
 	Addscore (10)
 	End If
@@ -1600,7 +1620,7 @@ End Sub
 Sub Bumper3_Hit
 If Tilt = false Then
 Me.TimerEnabled = 1
-	PlaySound SoundFXDOF("fx_bumper2",107,DOFPulse,DOFContactors),0,0.70
+	PlaySoundAtVol SoundFXDOF("fx_bumper2",107,DOFPulse,DOFContactors), Bumper3, VolBump
 	If Light22.state = 0 Then
 	Addscore (10)
 	End If
@@ -1630,7 +1650,7 @@ End Sub
 
 Sub Kicker1_hit
 	me.timerenabled=1
-	PlaySound "kicker_enter_center"
+	PlaySoundAtVol "kicker_enter_center", Kicker1, VolKick
 	SaucerTimer.enabled = 1
 End Sub
 
@@ -1647,7 +1667,7 @@ Sub SaucerTimer_timer()
 End Sub
 
 Sub Kicker1_timer
-	PlaySound SoundFXDOF("popper_ball",112,DOFPulse,DOFContactors)
+	PlaySoundAtVol SoundFXDOF("popper_ball",112,DOFPulse,DOFContactors), Kicker1, VolKick
 	Kicker1.kick 120,15
 	Kicker1.timerenabled=0
 End Sub
@@ -1673,7 +1693,7 @@ End Sub
 
 Sub LeftOutlane_Hit
 	DOF 114, DOFPulse
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", ActiveBall
 	If Tilt = false Then
 	Addscore (1000)
 	End If
@@ -1681,7 +1701,7 @@ End Sub
 
 Sub RightOutlane_Hit
 	DOF 117, DOFPulse
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", ActiveBall
 	If Tilt = false Then
 	Addscore (1000)
 	End If
@@ -1689,7 +1709,7 @@ End Sub
 
 Sub Leftlane_Hit
 	DOF 115, DOFPulse
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", ActiveBall
 	If Tilt = false Then
 	If Bonus <19 Then AddBonus (+1) End If
 	Addscore (100) '500 points
@@ -1699,7 +1719,7 @@ End Sub
 
 Sub Rightlane_Hit
 	DOF 116, DOFPulse
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", ActiveBall
 	If Tilt = false Then
 	If Bonus <19 Then AddBonus (+1) End If
 	Addscore (100) '500 points
@@ -1708,15 +1728,15 @@ Sub Rightlane_Hit
 End Sub
 
 Sub Gate1_Hit
-	PlaySound "gate"
+	PlaySoundAtVol "gate", Gate1, VolGates
 End Sub
 
 Sub Gate3_Hit
-	PlaySound "gate"
+	PlaySoundAtVol "gate", Gate3, VolGates
 End Sub
 
 Sub TargetF1_Hit
-	PlaySound SoundFXDOF("target",108,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",108,DOFPulse,DOFTargets), TargetF1, VolTarg
 	If Tilt = false Then
 	If Light47.state = 1 Then
 	If Bonus <19 Then AddBonus (+1) End If
@@ -1731,7 +1751,7 @@ Sub TargetF1_Hit
 End Sub
 
 Sub TargetF2_Hit
-	PlaySound SoundFXDOF("target",108,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",108,DOFPulse,DOFTargets), TargetF2, VolTarg
 	If Tilt = false Then
 	If Light46.state = 1 Then
 	If Bonus <19 Then AddBonus (+1) End If
@@ -1745,7 +1765,7 @@ Sub TargetF2_Hit
 End Sub
 
 Sub TargetF3_Hit
-	PlaySound SoundFXDOF("target",108,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",108,DOFPulse,DOFTargets), TargetF3, VolTarg
 	If Tilt = false Then
 	If Light45.state = 1 Then
 	If Bonus <19 Then AddBonus (+1) End If
@@ -1759,7 +1779,7 @@ Sub TargetF3_Hit
 End Sub
 
 Sub TargetF4_Hit
-	PlaySound SoundFXDOF("target",109,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",109,DOFPulse,DOFTargets), TargetF4, VolTarg
 	If Tilt = false Then
 	If Light48.state = 1 Then
 	If Bonus <19 Then AddBonus (+1) End If
@@ -1775,13 +1795,13 @@ Sub TargetF4_Hit
 End Sub
 
 Sub TargetSpecial_Hit
-	PlaySound SoundFXDOF("target",109,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",109,DOFPulse,DOFTargets), TargetSpecial, VolTarg
 	If LightSpecial.state=0 And Tilt = False Then
 	Addscore (1000) '5000 points
 	P5000.enabled = 1
 	End If
 	If LightSpecial.state=1 And Tilt = False Then
-	PlaySound "target"
+	PlaySoundAt "target", TargetSpecial
 	Addscore (1000) '5000 points
 	P5000.enabled = 1
 	If Special = 1 Then
@@ -1819,7 +1839,7 @@ Sub TargetSpecial_Hit
 End Sub
 
 Sub Target300_Hit
-	PlaySound SoundFXDOF("target",110,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",110,DOFPulse,DOFTargets), Target300, VolTarg
 	If Tilt = false Then
 	If Bonus <19 Then
 	AddBonus (+1)
@@ -1836,7 +1856,7 @@ Sub Target300_Hit
 End Sub
 
 Sub Target1000d_Hit
-	PlaySound SoundFXDOF("target",111,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",111,DOFPulse,DOFTargets), Target1000d, VolTarg
 	If Tilt = false Then
 	If Bonus <19 Then AddBonus (+1) End If
 	Addscore (1000)
@@ -1844,7 +1864,7 @@ Sub Target1000d_Hit
 End Sub
 
 Sub Target1000u_Hit
-	PlaySound SoundFXDOF("target",111,DOFPulse,DOFTargets)
+	PlaySoundAtVol SoundFXDOF("target",111,DOFPulse,DOFTargets), Target1000u, VolTarg
 	If Tilt = false Then
 	If Bonus <19 Then AddBonus (+1) End If
 	Addscore (1000)
@@ -1852,12 +1872,12 @@ Sub Target1000u_Hit
 End Sub
 
 Sub Gate2_Hit
-	PlaySound "gate"
+	PlaySoundAtVol "gate", Gate2, VolGates
 End Sub
 
 Sub Spinner1_Spin()
 	DOF 113, DOFPulse
-	PlaySound "fx_spinner"
+	PlaySoundAtVol "fx_spinner", Spinner1, VolSpin
 	If Tilt = false Then
 	If Light31.state = 0 Then
 	Addscore (10)
@@ -1869,21 +1889,21 @@ End If
 End Sub
 
 Sub Trigger2_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", Trigger2
 	If Tilt = false Then
 	Addscore (10)
 	End If
 End Sub
 
 Sub Trigger3_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", Trigger3
 	If Tilt = false Then
 	Addscore (10)
 	End If
 End Sub
 
 Sub Trigger4_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", Trigger4
 	If Tilt = false Then
 	If Light51.state = 1 Then
 	If Bonus <19 Then AddBonus (+1)	End If
@@ -1898,7 +1918,7 @@ Sub Trigger4_Hit
 End Sub
 
 Sub Trigger5_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", Trigger5
 	If Tilt = false Then
 	If Light52.state = 1 Then
 	If Bonus <19 Then AddBonus (+1) End If
@@ -1913,7 +1933,7 @@ Sub Trigger5_Hit
 End Sub
 
 Sub TriggerF1_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", TriggerF1
 	DOF 126, DOFPulse
 	If Tilt = false Then
 	If Light28.state = 1 Then
@@ -1939,7 +1959,7 @@ Sub TriggerF1_Hit
 End Sub
 
 Sub TriggerF2_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", TriggerF2
 	DOF 125, DOFPulse
 	If Tilt = false Then
 	If Light27.state = 1 Then
@@ -1959,7 +1979,7 @@ Sub TriggerF2_Hit
 End Sub
 
 Sub TriggerF3_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", TriggerF3
 	DOF 124, DOFPulse
 	If Tilt = false Then
 	If Light26.state = 1 Then
@@ -1979,7 +1999,7 @@ Sub TriggerF3_Hit
 End Sub
 
 Sub TriggerF4_Hit
-	PlaySound "fx_trigger"
+	PlaySoundAt "fx_trigger", TriggerF4
 	DOF 123, DOFPulse
 	If Tilt = false Then
 	If Light25.state = 1 Then
@@ -2134,21 +2154,21 @@ End Select
 
 '************** Others Table Sounds *****************
 
-Sub Rubbers_Hit(idx):PlaySound "rubber_hit_1", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+Sub Rubbers_Hit(idx):PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Rubberpegs_Hit (idx):PlaySound "rubber_hit_3", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+Sub Rubberpegs_Hit (idx):PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Wireguides_Hit (idx):PlaySound "metalhit_thin", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+Sub Wireguides_Hit (idx):PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Flatmetalguides_Hit (idx):PlaySound "metalhit_medium", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+Sub Flatmetalguides_Hit (idx):PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Trigger6_Hit:PlaySound "metalhit_medium" End Sub
-Sub Trigger7_Hit:PlaySound "metalhit_medium" End Sub
-Sub Trigger8_Hit:PlaySound "metalhit_medium" End Sub
+Sub Trigger6_Hit:PlaySoundAtVol "metalhit_medium", Trigger6, VolMetal: End Sub
+Sub Trigger7_Hit:PlaySoundAtVol "metalhit_medium", Trigger7, VolMetal: End Sub
+Sub Trigger8_Hit:PlaySoundAtVol "metalhit_medium", Trigger8, VolMetal: End Sub
 
 Sub LeftFlipper_Collide(parm)
     PlaySound "fx_rubber2", 0, parm / 10, -0.1, 0.15
@@ -2159,65 +2179,65 @@ Sub RightFlipper_Collide(parm)
 End Sub
 
 Sub Wall6_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall7_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall35_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall75_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall27_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall67_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall58_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall70_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall71_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall31_Hit
-PlaySound "metalhit_medium"
+  PlaySoundAtVol "metalhit_medium", ActiveBall, VolMetal
 End Sub
 
 Sub Wall1_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Wall59_Hit
-PlaySound "metalhit_thin"
+  PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal
 End Sub
 
 Sub Trigger9_Hit
-If BallsNTot = 1 Then
-FlipOff
-End If
+  If BallsNTot = 1 Then
+    FlipOff
+  End If
 End Sub
 
 Sub Wall72_Hit
-PlaySound "rubber_hit_1"
+  PlaySoundAtVol "rubber_hit_1", ActiveBall, VolRB
 End Sub
 
 Sub Wall73_Hit
-PlaySound "rubber_hit_1"
+  PlaySoundAtVol "rubber_hit_1", ActiveBall, VolRB
 End Sub
 
 ' *******************************************************************************************************
@@ -2308,7 +2328,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -2372,9 +2392,9 @@ End Sub
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
   If Wizard.VersionMinor > 3 OR Wizard.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
   Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
 End Sub
 
