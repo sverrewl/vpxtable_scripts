@@ -27,6 +27,9 @@ Const VolDiv = 400
 Dim dtxx
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 If DesktopMode = True Then
   Ramp15.visible = 1
   Ramp16.visible = 1
@@ -57,10 +60,6 @@ else
 end if
 
 LoadVPM "01560000", "WPC.VBS", 3.26
-
-' Wob: Needed for Fast Flips
-NoUpperRightFlipper
-NoUpperLeftFlipper
 
 Sub LoadVPM(VPMver, VBSfile, VBSver)
     On Error Resume Next

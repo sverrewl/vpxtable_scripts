@@ -20,7 +20,7 @@ Randomize
 ' Changed UseSolenoids=1 to 2
 ' Thalamus 2018-08-26 : Improved directional sounds
 ' Wob 2018-08-08
-' Added vpmInit Me to table init
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 
 ' Set dtrop/dtreset to approx .75/-.7
 
@@ -54,6 +54,9 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 Const cGameName="hulk",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SCoin="coin"
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 
 LoadVPM"01120100","GTS1.VBS",3.02
 Dim DesktopMode: DesktopMode = HULK.ShowDT

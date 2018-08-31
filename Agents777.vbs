@@ -30,7 +30,7 @@ Option Explicit
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed useSolenoids=1 to 2
 ' Wob 2018-08-08
-' Added vpmInit Me for FastFlips Support
+' Added vpmInit Me and cSingleLFlip for FastFlips Support
 
 '**************************************
 '**************************************
@@ -50,6 +50,8 @@ LoadVPM "01200000","GamePlan.vbs",3.1
 Dim cCredits
 cCredits="Agents 7-7-7, GamePlan 1984"
 Const cGameName="agent777",UseSolenoids=2,UseLamps=1,UseGI=0,UseSync=1,SFlipperOn="fx_FlipperUp",SFlipperOff="fx_FlipperDown",SCoin="coin3",HandleMech=0
+' Wob: Added for Fast Flips
+Const cSingleLFlip = 0
 
 Sub LoadVPM(VPMver, VBSfile, VBSver)
   On Error goto 0

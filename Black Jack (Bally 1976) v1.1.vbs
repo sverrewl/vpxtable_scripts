@@ -14,7 +14,7 @@
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
 ' Wob 2018-08-08
-' Added vpmInit Me to table init
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 
 Option Explicit
 Randomize
@@ -28,6 +28,9 @@ End If
 
 Const cGameName="blackjck"   ' rom blackjcb for freeplay
 Const UseSolenoids=2,UseLamps=True,UseGI=0,UseSync=1,SSolenoidOn="SolOn",SSolenoidOff="Soloff",SFlipperOn="FlipperUpLeft",SFlipperOff="FlipperDown"
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const SCoin="coin3",cCredits="Black Jack (Bally 1976)"
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")

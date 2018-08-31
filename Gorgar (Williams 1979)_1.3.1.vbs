@@ -9,7 +9,7 @@ On Error Goto 0
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Wob 2018-08-08
-' Added vpmInit Me to table init
+' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 ' Thalamus 2018-08-27 : Improved directional sounds
 
 ' Add droptargetdown2/droptargetreset2 -0.78/-0.78 orig to -0.16/-0.42
@@ -31,7 +31,6 @@ Const VolPi     = 1    ' Rubber pins volume.
 Const VolTarg   = 1    ' Targets volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
-=======
 
 LoadVPM "01300000","S6.VBS",3.1
 
@@ -40,6 +39,9 @@ LoadVPM "01300000","S6.VBS",3.1
 '********************************************
 
 Const UseSolenoids=2,UseLamps=1,UseSync=1
+' Wob: Added for Fast Flips (No upper Flippers)
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="quarter"
 
 

@@ -98,7 +98,7 @@ End Sub
  Dim RipStones
  RipStones = Array(rip, rip1, rip2, rip3, rip4, rip5, rip6, rip7, rip8, rip9, rip10, rip11, rip12, rip13, rip14, rip15, rip16)
 
- Const UseSolenoids = 2
+ Const UseSolenoids = 1
  Const UseLamps = 0
  Const UseGI = 0
  Const UseSync = 0

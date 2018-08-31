@@ -26,7 +26,7 @@ Option Explicit
 
  'STANDARD DEFINITIONS *************************************************************************************************************************************
 
- Const UseSolenoids = 2
+ Const UseSolenoids = 1
  Const UseLamps = 0
  Const UseSync = 0
  Const HandleMech = 1

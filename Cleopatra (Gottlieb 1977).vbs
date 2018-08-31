@@ -8,10 +8,9 @@ Dim DesktopMode: DesktopMode = Table1.ShowDT
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' , AudioFade(ActiveBall)
-' Wob 2018-08-21
-' Changed UseSolenoids=1 to 2
 
-Const cGameName="cleoptra",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
+
+Const cGameName="cleoptra",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
 Const SCoin="coin",cCredits=""
 
 '******************* Options *********************

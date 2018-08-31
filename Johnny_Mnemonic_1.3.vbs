@@ -23,10 +23,6 @@ Const UseVPMModSol = 0
 
 LoadVPM "02000000", "WPC.VBS", 3.50
 
-' Wob: Needed for Fast Flips
-NoUpperRightFlipper
-NoUpperLeftFlipper
-
  Const UseSolenoids = 2
  Const UseLamps = True
  Const UseSync = True

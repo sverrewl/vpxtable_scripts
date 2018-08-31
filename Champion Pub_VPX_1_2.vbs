@@ -31,8 +31,6 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' No special SSF tweaks yet.
-' Wob 2018-08-21
-' Added Fast Flips v2 Support
 
 Option Explicit
 
@@ -41,7 +39,11 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const UseSolenoids=2,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff"
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
+Const UseSolenoids=1,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff"
 Const SCoin="coin3"
 Const UseVPMModSol=1
 
@@ -59,10 +61,6 @@ Const UseB2SBG=1				'set to 1, if You are using my B2S Backglass for direct B2S 
 Dim cGameName
 cGameName = "cp_16"
 LoadVPM "01560000", "WPC.VBS", 3.26
-
-' Wob: Needed for Fast Flips
-NoUpperRightFlipper
-NoUpperLeftFlipper
 
 '-----------------------------------
 'Solenoid Routines

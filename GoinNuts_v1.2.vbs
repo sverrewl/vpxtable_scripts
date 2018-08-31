@@ -12,7 +12,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="goinnuts",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
+Const cGameName="goinnuts",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
 Const SCoin="coin3",cCredits=""
 
 LoadVPM "01120100","sys80.vbs",3.02
@@ -54,7 +54,6 @@ End Sub
 Dim dtGreen,dtRed,dtYellow,dtBlue,dtWhite,bsTrough,cbCaptive
 
 Sub GN_Init
-	vpmInit Me
 	On Error Resume Next
 	With Controller
 		.GameName=cGameName

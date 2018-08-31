@@ -8,8 +8,6 @@
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-' Wob 2018-08-16
-' Added vpmInit Me and NoUpperLeftFlipper, NoUpperRightFlipper for FastFlips Support
 
 Option Explicit
 Randomize
@@ -29,15 +27,11 @@ UseVPMColoredDMD = DesktopMode
 
 LoadVPM "01560000", "WPC.VBS", 3.26
 
-' Wob: Needed for Fast Flips
-NoUpperRightFlipper
-NoUpperLeftFlipper
-
 '********************
 'Standard definitions
 '********************
 
-Const UseSolenoids = 2
+Const UseSolenoids = 1
 Const UseLamps = 0
 Const UseSync = 0
 Const HandleMech = 0
