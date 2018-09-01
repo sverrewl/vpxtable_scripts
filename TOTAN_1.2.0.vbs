@@ -45,6 +45,8 @@ LoadVPM "01560000", "WPC.VBS", 3.46
 '********************
 
 Const UseSolenoids = 2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 0
 Const HandleMech = 0
