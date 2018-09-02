@@ -41,7 +41,7 @@ Const UseVPMModSol = 1
 
 UseVPMDMD = DesktopMode
 
-Const BallMass = 1.7
+' Const BallMass = 1.7
 
 LoadVPM "01120100", "WPC.VBS", 3.26
 
