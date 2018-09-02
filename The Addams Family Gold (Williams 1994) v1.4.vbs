@@ -41,7 +41,7 @@ Dim UseVPMDMD
 Dim Incline
 Const UseVPMModSol = 1
 
-BallMass = 1.7
+' BallMass = 1.7
 
 UseVPMDMD = DesktopMode
 
