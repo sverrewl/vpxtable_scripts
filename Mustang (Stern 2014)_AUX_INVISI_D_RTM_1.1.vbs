@@ -3,8 +3,9 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
-' Thalamus 2018-08-18 : Improved directional sounds
+
 
 Const VolDiv = 2000
 
@@ -1457,9 +1458,9 @@ End Sub
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "Table" is the name of the table
   Dim tmp
-  tmp = tableobj.y * 2 / table1.height-1
+  tmp = tableobj.y * 2 / Table.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -1467,9 +1468,9 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "Table" is the name of the table
   Dim tmp
-  tmp = tableobj.x * 2 / table1.width-1
+  tmp = tableobj.x * 2 / Table.width-1
   If tmp > 0 Then
     AudioPan = Csng(tmp ^10)
   Else
@@ -1477,9 +1478,9 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "Table" is the name of the table
     Dim tmp
-    tmp = ball.x * 2 / table1.width-1
+    tmp = ball.x * 2 / Table.width-1
     If tmp > 0 Then
         Pan = Csng(tmp ^10)
     Else
@@ -1489,7 +1490,7 @@ End Function
 
 Function AudioFade(ball) ' Can this be together with the above function ?
   Dim tmp
-  tmp = ball.y * 2 / Table1.height-1
+  tmp = ball.y * 2 / Table.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -1562,7 +1563,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+  If Table.VersionMinor > 3 OR Table.VersionMajor > 10 Then
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
