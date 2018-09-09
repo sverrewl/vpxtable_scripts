@@ -21,9 +21,9 @@ Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
 '  .5 = lower volume
 ' 1.5 = higher volume
 
-Const VolBump   = 2    ' Bumpers volume.
-Const VolTarg   = 1    ' Targets volume.
-Const VolSpin   = 1.5  ' Spinners volume.
+Const VolBump   = 3    ' Bumpers volume.
+Const VolTarg   = 2    ' Targets volume.
+Const VolSpin   = 3    ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 
 
@@ -43,7 +43,7 @@ BallReflection = 1				'0 - Off, 1 - On (simulated reflection since playfield is 
 
 MusicSnippet = 1				' 0 - off, 1 - On: Play music snippet on game load and game over
 
-VolumeDial = 0.5				'Added Sound Volume Dial (ramps, balldrop, kickers, etc)
+VolumeDial = 0.8				'Added Sound Volume Dial (ramps, balldrop, kickers, etc)
 CollectionVolume = 10 			'Standard Sound Amplifier (targets, gates, rubbers, metals, etc) use 1 for standard setup
 
 ' *** Contrast level, possible values are 0 - 7, can be done in game with magnasave keys **
@@ -339,9 +339,9 @@ End Sub
 Sub TwoWayKicker_Up(enabled)
 	If enabled Then
 		If Controller.Switch(30) = True then
-			Playsound SoundFX("FG SaucerKick",DOFContactors), TwoWayKicker, 2*VolumeDial
+			PlaysoundAtVol SoundFX("FG SaucerKick",DOFContactors), TwoWayKicker, 2*VolumeDial
 		Else
-			Playsound SoundFX("solenoid",DOFContactors), TwoWayKicker, 2*VolumeDial
+			PlaysoundAtVol SoundFX("solenoid",DOFContactors), TwoWayKicker, 2*VolumeDial
 		End If
 		Controller.Switch(30) = 0
 		TwoWayKicker.Kick 31,25.5,30
@@ -613,7 +613,7 @@ Sub Bumper3_Hit:vpmTimer.PulseSw 37:PlaySoundAtVol SoundFX("fx_bumper3",DOFConta
 ' 10 point rebound
 Sub Wall10Pts1_hit()
 	vpmTimer.PulseSwitch (29), 100, 0
-	PlaySound "sensor",0,2*VolumeDial ' TODO
+	PlaySoundAtVol "sensor",screw28,2*VolumeDial
     Rubber9.Visible = 0
     Rubber9a.Visible = 1
     Tenpts1 = 0
@@ -622,7 +622,7 @@ End Sub
 
 Sub Wall10Pts2_hit()
 	vpmTimer.PulseSwitch (29), 100, 0
-	PlaySound "sensor",0,2*VolumeDial ' TODO
+	PlaySoundAtVol "sensor",Nut19,2*VolumeDial
     Rubber2.Visible = 0
     Rubber2a.Visible = 1
     Tenpts2 = 0
@@ -632,7 +632,7 @@ End Sub
 ' Drop target rebound
 Sub Wall50Pts1_hit()
 	vpmTimer.PulseSwitch (5), 100, 0
-	PlaySound "sensor",0,2*VolumeDial ' TODO
+	PlaySound "sensor",Nut22,2*VolumeDial
     Rubber18.Visible = 0
     Rubber18a.Visible = 1
     Fiftypts1 = 0
@@ -641,7 +641,7 @@ End Sub
 
 Sub Wall50Pts2_hit()
 	vpmTimer.PulseSwitch (5), 100, 0
-	PlaySound "sensor",0,2*VolumeDial ' TODO
+	PlaySoundAtVol "sensor",Nut9,2*VolumeDial 
     Rubber8.Visible = 0
     Rubber8a.Visible = 1
     Fiftypts2 = 0
