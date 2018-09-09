@@ -632,7 +632,7 @@ End Sub
 ' Drop target rebound
 Sub Wall50Pts1_hit()
 	vpmTimer.PulseSwitch (5), 100, 0
-	PlaySound "sensor",Nut22,2*VolumeDial
+	PlaySoundAtVol "sensor",Nut22,2*VolumeDial
     Rubber18.Visible = 0
     Rubber18a.Visible = 1
     Fiftypts1 = 0
@@ -641,7 +641,7 @@ End Sub
 
 Sub Wall50Pts2_hit()
 	vpmTimer.PulseSwitch (5), 100, 0
-	PlaySoundAtVol "sensor",Nut9,2*VolumeDial 
+	PlaySoundAtVol "sensor",Nut9,2*VolumeDial
     Rubber8.Visible = 0
     Rubber8a.Visible = 1
     Fiftypts2 = 0
