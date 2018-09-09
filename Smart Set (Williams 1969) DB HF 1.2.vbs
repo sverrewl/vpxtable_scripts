@@ -588,8 +588,8 @@ sub wheelcheck
     If wv=1 and Light10.State=0 then Addscore 30
     If wv=1 then Light11.State=1
 
-    If wv=0 and Light10.State=1 then Light3.State=1: Addscore 200
-    If wv=0 and Light10.State=0 then Light3.State=1: Addscore 20
+    If wv=0 and Light10.State=1 then Light3.State=1: Addscore 200: if B2SOn then Controller.B2SSetShootAgain 1
+    If wv=0 and Light10.State=0 then Light3.State=1: Addscore 20: if B2SOn then Controller.B2SSetShootAgain 1
     If wv=0 then Light14.State=1
     Playsound "motorshort1s"
 end sub
@@ -728,7 +728,7 @@ sub nextball
 	if (Light3.state)=1 then
 	playsound "kickerkick"
 	ballreltimer.enabled=true
-	Light3.state=0
+	Light3.state=0 : if B2SOn then Controller.B2SSetShootAgain 0
 	else
 	currpl=currpl+1
 	If B2SOn Then
@@ -1419,5 +1419,12 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
+End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
