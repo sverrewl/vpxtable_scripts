@@ -581,7 +581,7 @@ sub ballreltimer_timer
 	  End If
 	  For each light in GIlights:light.state=0:next
   else
-	Drain.kick 60,28,0
+	Drain.kick 60,38,0
 	biptext.text=ballinplay
     If B2SOn then Controller.B2ssetballinplay 32, Ballinplay
     ballreltimer.enabled=false
@@ -1627,5 +1627,11 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
+End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub Buccaneer_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
