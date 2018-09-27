@@ -200,7 +200,7 @@ Sub Table1_Init
 
 	set bsRightCannon = new cvpmBallStack
 	bsRightCannon.InitSw 0,38,0,0,0,0,0,0
-	bsRightCannon.InitKick Kicker8,-35,20
+	bsRightCannon.InitKick Kicker8,-35,25
 	bsRightCannon.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
 	set bsLeftEject = new cvpmBallStack
