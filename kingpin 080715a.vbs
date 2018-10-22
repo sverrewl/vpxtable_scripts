@@ -65,7 +65,7 @@ End Sub
 'Standard definitions
 '********************
 
-	Const cGameName = "kpv105" 'change the romname here
+	Const cGameName = "kpb105" 'change the romname here
 
      Const UseSolenoids = 1
      Const UseLamps = 0
