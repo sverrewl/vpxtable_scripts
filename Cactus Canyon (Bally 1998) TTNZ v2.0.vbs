@@ -55,13 +55,15 @@ Const cGameName = "cc_13"
 Const B2ScGameName = "Proc_CC"
 Const UseVPMModSol = True
 
+' Needed or the bad guy's hat and dof shaker will be triggered.
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 LoadVBSFiles "02800000", "WPC.VBS", 3.52
 
 If PROC = 1 Then
     UseSolenoids = 39
 	LoadController("PROC")
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
 Else
 	UseSolenoids = 2
 	LoadController("VPM")
