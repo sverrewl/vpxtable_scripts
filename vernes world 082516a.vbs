@@ -197,9 +197,12 @@ If keycode = 23 then
 '	Controller.switch(57) = tt: debug.print "57=" & tt &" ramp exit.  Time(sec)= " & timer 'i ramp exit
 End if
 
+' https://vpinball.com/forums/topic/vernes-world-spinball-1996/page/4/#post-103175
+
+If keycode = RightMagnaSave then Controller.Switch(75) = 1
 
 	If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
-	if keycode = 3 then bstrough.addball 0: debug.print "drain"
+	if keycode = LeftMagnaSave then bstrough.addball 0: debug.print "drain"
  	If Keycode = LeftFlipperKey then
 		'SolLFlipper true
 		Controller.Switch(133)=1
