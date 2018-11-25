@@ -1213,6 +1213,10 @@ Const UseLamps = 1
 Const UseSync = 0
 Const HandleMech = 1
 
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
+
 ' Standard Sounds
 Const SSolenoidOn = ""
 Const SSolenoidOff = ""
