@@ -3,7 +3,26 @@ Const ReflectionMod=True			'enable JPJ reflection mod
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-08-09 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRH     = 1    ' Rubber hits volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 Dim Score(4)
 dim truesc(4)
@@ -41,7 +60,7 @@ dim rt
 dim rt1
 dim tt
 dim rsv 'Rotor initial score value without multiply
-dim ylv 
+dim ylv
 dim rstep, rstepb, rstepc, rstepd, rstepe, lstep, lstepb, lstepc, lstepd, lstepe
 dim BallRadius, BallMass, cball1
 dim LaunchBall
@@ -108,7 +127,7 @@ sub table1_init
 	set EMR(2)=score2
 	set EMR(3)=score3
 	set EMR(4)=score4
-	if credit="" then 
+	if credit="" then
 		credit=0
 	end If
     credittxt.text=credit
@@ -119,7 +138,7 @@ If credit > 0 Then DOF 119, DOFOn
 
 	BallRadius = 25
 	BallMass = 2.5
-	bouton01.z=2.5	
+	bouton01.z=2.5
 	bouton01f.z=2.5
 	bouton02.z=2.5
 	bouton02f.z=2.5
@@ -143,20 +162,20 @@ If credit > 0 Then DOF 119, DOFOn
     obj.isdropped=true
     next
 
-    loadhs 
+    loadhs
 
     if hisc="" then hisc=1000
     hstxt.text=hisc
-    if credit="" then credit=0 
+    if credit="" then credit=0
     credittxt.text=credit
-	if B2SOn then 
-	Scoreb2s.enabled =1 
+	if B2SOn then
+	Scoreb2s.enabled =1
 	end If
     if matchnumb="" then matchnumb=int(rnd(1)*9)
-    match(matchnumb).text=matchnumb 
+    match(matchnumb).text=matchnumb
     for i=0 to 3
     currpl=i
-    reel(i).setvalue(score(i)) 
+    reel(i).setvalue(score(i))
     if score(i)>9999 then threel(i).setvalue(1)
     next
     currpl=0
@@ -174,7 +193,7 @@ If credit > 0 Then DOF 119, DOFOn
 '************************************************************
 '***             B2S                                      ***
 '************************************************************
-	If B2SOn Then 
+	If B2SOn Then
 	for i=0 to 3
 			Controller.B2SSetScore i, Score(i)
 	next
@@ -193,7 +212,7 @@ b2sSunR=1
 
  if motion=0 and tilt=false and c=0 then
     rt=(int(rnd(1)*8)+4)
-    motion=1	
+    motion=1
 	c=1
 	a=int((rnd*6)+1)
     rotort.enabled=true
@@ -207,17 +226,17 @@ Sub Table1_KeyDown(ByVal keycode)
 		Plunger.PullBack
 	End If
 
-	
+
     if keycode = AddCreditKey then
-	playsound "coin3"
-	coindelay.enabled=true 
+	playsoundAtVol "coin3", drain, 1
+	coindelay.enabled=true
 	end if
-    
+
     if keycode = StartGameKey and credit>0 and state=false and playno=0 then
 	credit=credit-1
 If credit < 1 Then DOF 119, DOFOff
 	credittxt.text=credit
-	
+
 	eg=0
     playno=1
     currpl=0
@@ -233,62 +252,64 @@ If credit < 1 Then DOF 119, DOFOff
     obj.text=" "
     next
 
-  
+
     gamov.text="GAME OVER"
-    playup(currpl).setvalue(1)  
+    playup(currpl).setvalue(1)
     player.setvalue(1)
     playsound "click"
     rst=0
     playsound "initialize"
     resettimer.enabled=true
-	if B2SOn then Scoreb2s.enabled =1 
-    end if 
-    
+	if B2SOn then Scoreb2s.enabled =1
+    end if
+
     if keycode = StartGameKey and credit>0 and state=true and playno>0 and playno<4 and ballinplay<2 then
     credit=credit-1
 If credit < 1 Then DOF 119, DOFOff
     credittxt.text=credit
-    player.addvalue(1) 
+    player.addvalue(1)
     playno=playno+1
     playsound "click"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
 	End If
 
 
     if automatic = 0 and keycode = RightMagnaSave and activeballs=0 and state=true and ballinplay<6 then
     activeballs=activeballs+1
-	nb.CreateSizedballWithMass BallRadius,BallMass 'old nb.createball 
+	nb.CreateSizedballWithMass BallRadius,BallMass 'old nb.createball
     nb.kick 270,10
-playsound SoundFXDOF("ballout",115,DOFPulse,DOFContactors)
+playsoundAtVol SoundFXDOF("ballout",115,DOFPulse,DOFContactors), nb, VolKick
     end if
 
-    if tilt=false and state=true then  
-        
+    if tilt=false and state=true then
+
     If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToEnd
 		Flipper1.RotateToEnd
-PlaySound SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers)
-		playsound "buzz"
+PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
+PlaySoundAtVol "FlipperUp", Flipper1, VolFlip
+		playsoundAtVol "buzz", LeftFlipper, VolFlip
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToEnd
         Flipper2.RotateToEnd
-PlaySound SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers)
-		playsound "buzz1"
+PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
+PlaySoundAtVol "FlipperUp", Flipper2, VolFlip
+		playsoundAtVol "buzz1", RightFlipper, VolFlip
 	End If
 	End If
-    
+
 	If keycode = LeftTiltKey Then
 		Nudge 90, 2
 		checktilt
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		Nudge 270, 2
 		checktilt
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		checktilt
@@ -306,20 +327,22 @@ Sub Table1_KeyUp(ByVal keycode)
 
 	If keycode = PlungerKey Then
 		Plunger.Fire
-		playsound "plunger"
+		playsoundAtVol "plunger", plunger, 1
 	End If
-    
+
 	If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToStart
 		Flipper1.RotateToStart
-if state=true and tilt=false then PlaySound SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers)
+if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
+if state=true and tilt=false then PlaySoundAtVol "FlipperDown", Flipper1, VolFlip
 		stopsound "buzz"
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToStart
         Flipper2.RotateToStart
-if state=true and tilt=false then PlaySound SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers)
+if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
+if state=true and tilt=false then PlaySoundAtVol "FlipperDown", Flipper2, VolFlip
 		stopsound "buzz1"
 	End If
 
@@ -335,24 +358,24 @@ DOF 115, DOFPulse
 End Sub
 
 sub coindelay_timer
-    playsound "click" 
+    playsound "click"
     credit=credit+1
 DOF 119, DOFOn
-	credittxt.text=credit 
+	credittxt.text=credit
     coindelay.enabled=false
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
 end sub
 
 sub resettimer_timer
     rst=rst+1
-    if rst=6 or rst=12 or rst=1 then 
+    if rst=6 or rst=12 or rst=1 then
     tiltseq.play seqalloff
     playsound "clerker"
     for each obj in plast
     obj.isdropped=true
     next
     end if
-    if rst=7 or rst=13 or rst=2 then 
+    if rst=7 or rst=13 or rst=2 then
     tiltseq.stopplay
     playsound "relay"
     ylv=ylv+1
@@ -380,84 +403,84 @@ end sub
 sub addscore(points)
     if tilt=false then
     bell=0
-    if points=10 or points=1 then 
+    if points=10 or points=1 then
     matchnumb=matchnumb+1
     if matchnumb=10 then matchnumb=0
     end if
-    if points = 100 then 
+    if points = 100 then
     reel(currpl).addvalue(100)
 playsound SoundFXDOF("gigibump4loud",142,DOFPulse,DOFChimes)
     end if
-    if points = 10 then 
+    if points = 10 then
     reel(currpl).addvalue(10)
 playsound SoundFXDOF("gigibump3loud",141,DOFPulse,DOFChimes)
     end if
-    if points = 1 then 
+    if points = 1 then
     reel(currpl).addvalue(1)
     ylv=ylv+1
     if ylv>4 then ylv=0
     ylupdate
     end if
-    if points = 5 then 
+    if points = 5 then
     playsound "motorshort1s"
     reel(currpl).addvalue(5)
     end if
-    if points = 20 then 
+    if points = 20 then
     reel(currpl).addvalue(20)
     scn=2
     scn1=0
     playsound "motorshort1s"
     scntimer.enabled=true
     end if
-    if points = 30 then 
+    if points = 30 then
     reel(currpl).addvalue(30)
     scn=3
     scn1=0
     playsound "motorshort1s"
     scntimer.enabled=true
     end if
-    if points = 40 then 
+    if points = 40 then
     reel(currpl).addvalue(40)
     scn=4
     scn1=0
     playsound "motorshort1s"
     scntimer.enabled=true
     end if
-    if points = 50 then 
+    if points = 50 then
     reel(currpl).addvalue(50)
     scn=5
     scn1=0
     playsound "motorshort1s"
     scntimer.enabled=true
     end if
-    if points = 200 then 
+    if points = 200 then
     reel(currpl).addvalue(200)
     scn2=2
     scn3=0
     playsound "motorshort1s"
     scntimer1.enabled=true
     end if
-    if points = 300 then 
+    if points = 300 then
     reel(currpl).addvalue(300)
     scn2=3
     scn3=0
     playsound "motorshort1s"
-    scntimer1.enabled=true 
+    scntimer1.enabled=true
     end if
-    if points = 400 then 
+    if points = 400 then
     reel(currpl).addvalue(400)
     scn2=4
     scn3=0
     playsound "motorshort1s"
     scntimer1.enabled=true
     end if
-    if points = 500 then 
+    if points = 500 then
     reel(currpl).addvalue(500)
     scn2=5
     scn3=0
     playsound "motorshort1s"
     scntimer1.enabled=true
-    end if 
+    end if
     score(currpl)=score(currpl)+points
     truesc(currpl)=truesc(currpl)+points
     'if truesc(currpl)>1999 then exsc(currpl).text=truesc(currpl)
@@ -466,7 +489,7 @@ playsound SoundFXDOF("gigibump3loud",141,DOFPulse,DOFChimes)
 '    score(currpl)=score(currpl)-1000
 '    rep(currpl)=0
 '    end if
-    if score(currpl)=>replay1 and rep(currpl)=0 then 
+    if score(currpl)=>replay1 and rep(currpl)=0 then
     credit=credit+1
 DOF 119, DOFOn
 playsound SoundFXDOF("knocke",117,DOFPulse,DOFKnocker)
@@ -474,7 +497,7 @@ DOF 118, DOFPulse
     credittxt.text=credit
     rep(currpl)=1
     playsound "click"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
     end if
     if score(currpl)=>replay2 and rep(currpl)=1 then
     credit=credit+1
@@ -484,7 +507,7 @@ DOF 118, DOFPulse
     credittxt.text=credit
     rep(currpl)=2
     playsound "click"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
 	End if
     if score(currpl)=>replay3 and rep(currpl)=2 then
     credit=credit+1
@@ -494,7 +517,7 @@ DOF 118, DOFPulse
     credittxt.text=credit
     rep(currpl)=3
     playsound "click"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
     end if
     if score(currpl)=>replay4 and rep(currpl)=3 then
     credit=credit+1
@@ -504,10 +527,10 @@ DOF 118, DOFPulse
     credittxt.text=credit
     rep(currpl)=4
     playsound "click"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
     end if
     end if
-end sub  
+end sub
 
 sub scntimer_timer
     scn1=scn1 + 1
@@ -532,7 +555,7 @@ DOF 118, DOFPulse
     credittxt.text= credit
     playsound "click"
     end if
-    next 
+    next
     playno=0
 end sub
 
@@ -546,7 +569,7 @@ Sub CheckTilt
 	pltilt(currpl)=1
 	indtilt(currpl).text="TILT"
 	playsound "tilt"
-	turnoff 
+	turnoff
 	End If
 	Else
 	TiltSens = 0
@@ -561,9 +584,9 @@ Sub MechCheckTilt
 	pltilt(currpl)=1
 	indtilt(currpl).text="TILT"
 	playsound "tilt"
-	turnoff 
+	turnoff
 	LeftFlipper.RotateToStart
-	RightFlipper.RotateToStart	
+	RightFlipper.RotateToStart
 End Sub
 
 Sub Tilttimer_Timer()
@@ -573,7 +596,7 @@ End Sub
 sub turnoff
     bumper1.force=0
     bumper2.force=0
-    tiltseq.play seqalloff 
+    tiltseq.play seqalloff
     for each obj in match
     obj.text=" "
     next
@@ -608,7 +631,7 @@ sub newgame
     threel(i).setvalue(0)
     next
     bumper1.force=5
-    bumper2.force=5 
+    bumper2.force=5
 for each obj in GIGEN
 	obj.state=1
 Next
@@ -628,28 +651,28 @@ Next
     motion=1
     rotort.enabled=true
     end if
-    bip5.text=" " 
+    bip5.text=" "
     bip1.text="1"
     for i=0 to 9
     match(i).text=" "
     next
-    tilttxt.text=" "  
-    gamov.text=" " 
+    tilttxt.text=" "
+    gamov.text=" "
     tilt=false
     tiltsens=0
     ballinplay=1
     playsound "reset1"
-	if B2SOn then Scoreb2s.enabled =1 
+	if B2SOn then Scoreb2s.enabled =1
 end sub
 
 Sub Drain_Hit()
-    playsound "drainshort"
+    playsoundAtVol "drainshort", drain, 1
 DOF 116, DOFPulse
 	Drain.DestroyBall
 	if ballinplay<5 then playsound "motorshort"
     activeballs=activeballs-1
-	if activeballs=0 then tt=0:nextball 
-	if B2SOn then Scoreb2s.enabled =1 
+	if activeballs=0 then tt=0:nextball
+	if B2SOn then Scoreb2s.enabled =1
 End Sub
 
 sub nextball
@@ -673,8 +696,8 @@ Next
 	playno=0
 	'ballreltimer.enabled=true
 	exit sub
-	end if	
-	if tilt=true then 
+	end if
+	if tilt=true then
 	tilt=false
 	tilttxt.text=" "
 	bumper1.force=6
@@ -696,10 +719,10 @@ Next
 	currpl=0
 	playup(currpl).setvalue(1)
 	playsound "relay"
-	tilttxt.text=" " 
+	tilttxt.text=" "
 	end if
 	select case ballinplay
-	case 0: 
+	case 0:
 	bip1.text=" "
 	bip2.text=" "
 	bip3.text=" "
@@ -711,7 +734,7 @@ Next
 	bip3.text=" "
 	bip4.text=" "
 	bip5.text=" "
-	case 2: 
+	case 2:
 	bip1.text=" "
 	bip2.text="2"
 	bip3.text=" "
@@ -744,7 +767,7 @@ Next
 	playup(currpl-1).setvalue(0)
 	playup(currpl).setvalue(1)
 	playsound "relay"
-	tilttxt.text=" "  
+	tilttxt.text=" "
 	end if
 	end if
 	if pltilt(currpl)=1 then tilttxt.text="TILT":tt=0:nextball
@@ -755,7 +778,7 @@ sub ballreltimer_timer
 	bip5.text=" "
 	state=false
 	for i=0 to 3
-	if truesc(i)>hisc then 
+	if truesc(i)>hisc then
 	hisc=truesc(i)
 	hstxt.text=hisc
 	end if
@@ -782,7 +805,7 @@ playsound SoundFXDOF("lightmotor",120,DOFOn,DOFGear)
 
    rt1=rt1+1
 '   rotoradv mis à la fin
-   if rt1=rt*2 then 
+   if rt1=rt*2 then
    rt1=0
    motion=0
    ylupdate
@@ -790,7 +813,7 @@ playsound SoundFXDOF("lightmotor",120,DOFOn,DOFGear)
    if rsv<40 then
    l400.state=0:l400z.state=0
    l500.state=0:l500z.state=0
-   end if  
+   end if
 
 end sub
 
@@ -799,48 +822,48 @@ end sub
 
 sub rotationW_timer
 		select case c
-			case 1 : 
+			case 1 :
 				Wheel.objroty = Wheel.objroty + 9
 				if wheel.objroty = 360 then wheel.objroty = 0:end If
 				c=2
-			case 2 : 
+			case 2 :
 				Wheel.objroty = Wheel.objroty + 9
 				if wheel.objroty = 360 then wheel.objroty = 0:end If
 				c=3
-			case 3 : 
+			case 3 :
 				Wheel.objroty = Wheel.objroty + 9
 				if wheel.objroty = 360 then wheel.objroty = 0:end If
 				c=4
-			case 4 : 
+			case 4 :
 				Wheel.objroty = Wheel.objroty + 9
 				if wheel.objroty = 360 then wheel.objroty = 0:end If
 				a=a-1
-				if a >0 then 
-					c=1 
-				Else 
+				if a >0 then
+					c=1
+				Else
 				if a=0 then c=5
 				rotoradv
 				end If
 
-			case 5 : 
+			case 5 :
 				Wheel.objroty = Wheel.objroty + 25
 				c=6
-			case 6 : 
+			case 6 :
 				Wheel.objroty = Wheel.objroty + 10
 				c=7
-			case 7 : 
+			case 7 :
 				Wheel.objroty = Wheel.objroty + 5
 				c=8
-			case 8 : 
+			case 8 :
 				Wheel.objroty = Wheel.objroty +2
 				c=9
-			case 9 : 
+			case 9 :
 				Wheel.objroty = Wheel.objroty - 7
 				c=10
-			case 10 : 
+			case 10 :
 				Wheel.objroty = Wheel.objroty -46
 				c=11
-			case 11 : 
+			case 11 :
 				Wheel.objroty = Wheel.objroty +11
 c=0:rotationW.enabled=false:DOF 120, DOFOff
 		end Select
@@ -857,21 +880,21 @@ end Sub
 '************** Slingshots ***********************
 
 Sub RightSlingShot_Slingshot
-	playsound SoundFXDOF("rightslingshot",104,DOFPulse,DOFContactors)
+	playsoundAtVol SoundFXDOF("rightslingshot",104,DOFPulse,DOFContactors), slingR, 1
 	DOF 106, DOFPulse
 	if GI1.state=1 then
 	addscore 10
-	else 
+	else
 	addscore 1
 	end if
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     RSling.Visible = 0
     RSling1.Visible = 1
-	slingR.objroty = -15	
+	slingR.objroty = -15
 	RStep = 2
     RightSlingShot.TimerEnabled = 1
 End Sub
@@ -885,21 +908,21 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	playsound SoundFXDOF("leftslingshot",103,DOFPulse,DOFContactors)
+	playsoundAtVol SoundFXDOF("leftslingshot",103,DOFPulse,DOFContactors), slingL, 1
 	DOF 105, DOFPulse
 	if GI01.state=1 then
 	addscore 10
-	else 
+	else
 	addscore 1
 	end if
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     LSling.Visible = 0
     LSling1.Visible = 1
-	slingL.objroty = 15	
+	slingL.objroty = 15
     LStep = 2
     LeftSlingShot.TimerEnabled = 1
 End Sub
@@ -913,17 +936,17 @@ Sub LeftSlingShot_Timer()
 End Sub
 
 Sub LeftSlingShotb_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors), slingLb, 1
 	DOF 124, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     LSlingb.Visible = 0
     LSlingb1.Visible = 1
-	slingLb.objroty = 15	
+	slingLb.objroty = 15
     LStepb = 2
     LeftSlingShotb.TimerEnabled = 1
 End Sub
@@ -937,24 +960,24 @@ Sub LeftSlingShotb_Timer()
 End Sub
 
 Sub LeftSlingShotc_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors), slingLc, 1
 	DOF 122, DOFPulse
     addscore 5
     if motion=0 and tilt=false and c=0 then
 		rt=(int(rnd(1)*8)+4)
-		motion=1	
+		motion=1
 		c=1
 		a=int((rnd*6)+1)
 		rotort.enabled=true
 	end if
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     LSlingc.Visible = 0
     LSlingc1.Visible = 1
-	slingLc.objroty = 15	
+	slingLc.objroty = 15
     LStepc = 2
     LeftSlingShotc.TimerEnabled = 1
 End Sub
@@ -968,17 +991,17 @@ Sub LeftSlingShotc_Timer()
 End Sub
 
 Sub LeftSlingShotd_Slingshot
-	playsound SoundFX("leftslingshot",DOFContactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFContactors), slingLd, 1
 	DOF 120, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     LSlingc.Visible = 0
     LSlingd1.Visible = 1
-	slingLd.objroty = 15	
+	slingLd.objroty = 15
     LStepd = 2
     LeftSlingShotd.TimerEnabled = 1
 End Sub
@@ -992,17 +1015,17 @@ Sub LeftSlingShotd_Timer()
 End Sub
 
 Sub LeftSlingShote_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors), slingLe, 1
 	DOF 126, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     CentralSling.Visible = 0
     CentralSlingLe1.Visible = 1
-	slingLe.objroty = 15	
+	slingLe.objroty = 15
     LStepe = 2
     LeftSlingShote.TimerEnabled = 1
 End Sub
@@ -1016,17 +1039,17 @@ Sub LeftSlingShote_Timer()
 End Sub
 
 Sub RightSlingShotb_Slingshot
-	playsound SoundFX("leftslingshot",DOFContactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFContactors), slingRb, 1
 	DOF 125, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     RSlingb.Visible = 0
     RSlingb1.Visible = 1
-	slingRb.objroty = -15	
+	slingRb.objroty = -15
     RStepb = 2
     RightSlingShotb.TimerEnabled = 1
 End Sub
@@ -1040,24 +1063,24 @@ Sub RightSlingShotb_Timer()
 End Sub
 
 Sub RightSlingShotc_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors), slingRc, 1
 	DOF 123, DOFPulse
     addscore 5
     if motion=0 and tilt=false and c=0 then
 		rt=(int(rnd(1)*8)+4)
-		motion=1	
+		motion=1
 		c=1
 		a=int((rnd*6)+1)
 		rotort.enabled=true
 	end if
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     RSlingc.Visible = 0
     RSlingc1.Visible = 1
-	slingRc.objroty = -15	
+	slingRc.objroty = -15
     RStepc = 2
     RightSlingShotc.TimerEnabled = 1
 End Sub
@@ -1071,17 +1094,17 @@ Sub RightSlingShotc_Timer()
 End Sub
 
 Sub RightSlingShotd_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors),slingRd, 1
 	DOF 121, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     RSlingc.Visible = 0
     RSlingd1.Visible = 1
-	slingRd.objroty = -15	
+	slingRd.objroty = -15
     RStepd = 2
     RightSlingShotd.TimerEnabled = 1
 End Sub
@@ -1095,17 +1118,17 @@ Sub RightSlingShotd_Timer()
 End Sub
 
 Sub RightSlingShote_Slingshot
-	playsound SoundFX("leftslingshot",DOFcontactors)
+	playsoundAtVol SoundFX("leftslingshot",DOFcontactors), slingRe, 1
 	DOF 126, DOFPulse
 	addscore 1
-	if GL = "L" then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L" then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
     CentralSling.Visible = 0
     CentralSlingRe1.Visible = 1
-	slingRe.objroty = 15	
+	slingRe.objroty = 15
     RStepe = 2
     RightSlingShote.TimerEnabled = 1
 End Sub
@@ -1128,12 +1151,12 @@ sub bumper1_hit
 		addscore 1
 	end if
     if tilt=false then
-playsound SoundFXDOF("jet1",107,DOFPulse,DOFContactors)
+playsoundAtVol SoundFXDOF("jet1",107,DOFPulse,DOFContactors), bumper1, VolBump
 DOF 109, DOFPulse
     ring1.isdropped=false
     end if
 b2sSunL=b2sSunL+1
-end sub    
+end sub
 
 sub bumper2_hit
 	if GI11.state=1 then
@@ -1142,7 +1165,7 @@ sub bumper2_hit
 		addscore 1
 	end if
     if tilt=false then
-playsound SoundFXDOF("jet1",108,DOFPulse,DOFContactors)
+playsoundAtVol SoundFXDOF("jet1",108,DOFPulse,DOFContactors), bumper2, VolBump
 DOF 110, DOFPulse
     ring2.isdropped=false
     end if
@@ -1153,13 +1176,13 @@ sub bumper3_hit
     addscore 5
     if motion=0 and tilt=false and c=0 then
     rt=(int(rnd(1)*8)+4)
-    motion=1	
+    motion=1
 	c=1
 	a=int((rnd*6)+1)
     rotort.enabled=true
     end if
 b2sSunL=b2sSunL+1
-end sub  
+end sub
 
 sub bumper4_hit
     addscore 5
@@ -1208,7 +1231,7 @@ sub lbt_unhit
 	bouton01.z=2.5
 	bouton01f.z=2.5
 end sub
-'**************************** 
+'****************************
 
 '****** Outlanes points *****
 sub lout_hit
@@ -1227,8 +1250,8 @@ DOF 122, DOFPulse
     else
 		addscore 10
     end if
-end sub       
-'**************************** 
+end sub
+'****************************
 
 
 '********* Triggers between targets *************
@@ -1245,10 +1268,10 @@ sub lru_hit
  end if
 
 	if HZ=0 Then
-	if GL = "L"  then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L"  then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
 	end If
 
@@ -1271,10 +1294,10 @@ sub rru_hit
     end if
 
 	if HZ=0 Then
-	if GL = "L"  then 
-		GL = "R" 
-	Else 
-		GL = "L"	
+	if GL = "L"  then
+		GL = "R"
+	Else
+		GL = "L"
 	end if
 	end If
 
@@ -1286,15 +1309,15 @@ HZ = 0
 end Sub
 
 sub gate_hit
-playsound "gate"
+playsoundAtVol "gate", gate, VolGates
 end Sub
 
 sub gate1_hit
-playsound "gate"
+playsoundAtVol "gate", gate1,VolGates
 end Sub
 
 sub gate2_hit
-playsound "gate"
+playsoundAtVol "gate", gate2,VolGates
 end Sub
 
 '******************************************************
@@ -1308,26 +1331,26 @@ sub ctarga
     addscore 100
 end sub
 
-Sub SW24_hit():sw24p.transx = -10:Me.TimerEnabled = 1:playsound "metal4":ltarga:DOF 111, DOFPulse:End Sub
+Sub SW24_hit():sw24p.transx = -10:Me.TimerEnabled = 1:playsoundAtVol "metal4", ActiveBall, 1:ltarga:DOF 111, DOFPulse:End Sub
 Sub SW24_Timer():sw24p.transx = 0:Me.TimerEnabled = 0:End Sub
 
-Sub SW25_hit():sw25p.transx = -10:Me.TimerEnabled = 1:playsound "metal4":ctarga:DOF 112, DOFPulse:End Sub
+Sub SW25_hit():sw25p.transx = -10:Me.TimerEnabled = 1:playsoundAtVol "metal4", ActiveBall, 1:ctarga:DOF 112, DOFPulse:End Sub
 Sub SW25_Timer():sw25p.transx = 0:Me.TimerEnabled = 0:End Sub
 
-Sub SW26_hit():sw26p.transx = -10:Me.TimerEnabled = 1:playsound "metal4":rtarga:DOF 113, DOFPulse:End Sub
+Sub SW26_hit():sw26p.transx = -10:Me.TimerEnabled = 1:playsoundAtVol "metal4", ActiveBall, 1:rtarga:DOF 113, DOFPulse:End Sub
 Sub SW26_Timer():sw26p.transx = 0:Me.TimerEnabled = 0:End Sub
 
 sub rtarga
     if urtlb.state=0 and urtlf.state=0 then addscore 1
     if urtlb.state=1 and urtlf.state=0 then addscore 10
     if urtlf.state=1 then addscore (rsv*10)
-end sub 
+end sub
 
 sub ltarga
     if ultlb.state=0 and ultlf.state=0 then addscore 1
     if ultlb.state=1 and ultlf.state=0 then addscore 10
     if ultlf.state=1 then addscore (rsv*10)
-end sub                        
+end sub
 
 '*******************************************************
 
@@ -1335,24 +1358,24 @@ end sub
 '******         Wheel price et score            *******
 '******************************************************
 
-Sub SWheelPrice_hit():Wheel.transx = 10:Me.TimerEnabled = 1:playsound "metal4":swheelscore:DOF 114, DOFPulse:End Sub
+Sub SWheelPrice_hit():Wheel.transx = 10:Me.TimerEnabled = 1:playsoundAtVol "metal4", Wheel, 1:swheelscore:DOF 114, DOFPulse:End Sub
 Sub SWheelPrice_Timer():Wheel.transx = 0:Me.TimerEnabled = 0:End Sub
 
 sub swheelscore
-	If l400.state = 1 then 
+	If l400.state = 1 then
 		addscore 400
 	end if
 
 	If l500.state = 1 then
 		addscore 500
 	end if
-	
+
     if rl.state=1 and l400.state=0 and l500.state = 0 then
 		addscore (rsv*10)
     end if
 
     if rl.state=0 and l400.state=0 and l500.state = 0 then
-		addscore (rsv) 
+		addscore (rsv)
 	end if
 end Sub
 
@@ -1360,12 +1383,12 @@ end Sub
 '****               	Holes		         ****
 '************************************************
 sub lgob_hit
-    playsound "drain"
+    playsoundAtVol "drain", drain, 1
     if lgl.state=1 then addscore (rsv*10) else addscore (rsv) end if
-end sub    
+end sub
 
 sub rgob_hit
-    playsound "drain"
+    playsoundAtVol "drain", rgob, 1
     if rgl.state=1 then addscore (rsv*10) else addscore (rsv) end if
 end sub
 
@@ -1397,7 +1420,7 @@ sub rotoradv
     rv=rv+1
     if rv>9 then rv=0:end If
     playsound "lightmotor"
-end sub    
+end sub
 
 '*************************************************
 '*********          Scoring lights        ********
@@ -1414,12 +1437,12 @@ sub ylupdate
 '    l400.state=0:l400z.state=0
 '    l500.state=0:l500z.state=0
 '    end if
-end sub    
+end sub
 '*************************************************
 
-sub credtimer_timer 
+sub credtimer_timer
     cred=cred+1
-    if cred=1 then credtxt.text="Ported To VPX By JPJ, from a Leon Spalding's Table" 
+    if cred=1 then credtxt.text="Ported To VPX By JPJ, from a Leon Spalding's Table"
     if cred=2 then credtxt.text="'5'Coin:'S'Start:'Right magnet or automatic 'Load Ball"
     if cred=3 then credtxt.text="Thanx Go To:"
     if cred=4 then credtxt.text="Randy Davis & Black (VP GODS)"
@@ -1471,7 +1494,7 @@ end sub
 
 sub ballrel_hit
     if ballrelenabled=1 then
-    playsound "launchball"
+    playsoundAtVol "launchball", ballrel, 1
     ballrelenabled=0
     end if
 end sub
@@ -1503,32 +1526,32 @@ Controller.B2SSetPlayerUp playno
 
 '********** active PLayer's light in game ************
 if currpl=0 Then
-	if ballinplay>0 and ballinplay<6 then 
-		Controller.B2SSetData 25, 1 
+	if ballinplay>0 and ballinplay<6 then
+		Controller.B2SSetData 25, 1
 	end if
-	else 
-		Controller.B2SSetData 25, 0 
+	else
+		Controller.B2SSetData 25, 0
 end If
 if currpl=1 Then
-	if ballinplay>0 and ballinplay<6 then 
-		Controller.B2SSetData 26, 1 
+	if ballinplay>0 and ballinplay<6 then
+		Controller.B2SSetData 26, 1
 	end if
-	else 
-		Controller.B2SSetData 26, 0 
+	else
+		Controller.B2SSetData 26, 0
 end If
 if currpl=2 Then
-	if ballinplay>0 and ballinplay<6 then 
-		Controller.B2SSetData 27, 1 
+	if ballinplay>0 and ballinplay<6 then
+		Controller.B2SSetData 27, 1
 	end if
-	else 
-		Controller.B2SSetData 27, 0 
+	else
+		Controller.B2SSetData 27, 0
 end If
 if currpl=3 Then
-	if ballinplay>0 and ballinplay<6 then 
-		Controller.B2SSetData 28, 1 
+	if ballinplay>0 and ballinplay<6 then
+		Controller.B2SSetData 28, 1
 	end if
-	else 
-		Controller.B2SSetData 28, 0 
+	else
+		Controller.B2SSetData 28, 0
 end If
 
 '********** Tilt ************
@@ -1539,7 +1562,7 @@ Controller.B2SSetTilt 33, pltilt(2)
 Controller.B2SSetTilt 33, pltilt(3)
 End If
 '********** Game Over ************
-If ballinplay<1 or ballinplay>5 and b2svarlightA=0 then 
+If ballinplay<1 or ballinplay>5 and b2svarlightA=0 then
 	If B2SOn Then Controller.B2SSetData 35, 1: Controller.B2SSetPlayerUp 0
 	b2svar1.enabled=1
 	b2svar2.enabled=0
@@ -1550,7 +1573,7 @@ Else
 	If B2SOn Then
 		Controller.B2SSetData 35, 0
 		Controller.B2SSetData 10, 0
-		Controller.B2SSetData 11, 0	
+		Controller.B2SSetData 11, 0
 	End If
 	b2svarlightA=0
 	b2svar1.enabled=0
@@ -1558,7 +1581,7 @@ Else
 	sunL.enabled=1
 	sunR.enabled=1
 end If
-If ballinplay<1 or ballinplay>5 and b2svarlightA<>0 then 
+If ballinplay<1 or ballinplay>5 and b2svarlightA<>0 then
 	If B2SOn Then Controller.B2SSetData 35, 1
 	b2svar1.enabled=1
 	b2svar2.enabled=0
@@ -1566,10 +1589,10 @@ If ballinplay<1 or ballinplay>5 and b2svarlightA<>0 then
 	sunL.enabled=0
 	sunR.enabled=0
 Else
-	If B2SOn Then 
+	If B2SOn Then
 		Controller.B2SSetData 35, 0
 		Controller.B2SSetData 10, 0
-		Controller.B2SSetData 11, 0	
+		Controller.B2SSetData 11, 0
 	End If
 	b2svarlightA=0
 	b2svar1.enabled=0
@@ -1585,21 +1608,21 @@ if b2svarlightA=0 then b2svar1.enabled = 0:end If
 	If B2SOn Then
 	select case b2svarlightA
 		case 1:Controller.B2SSetData 10, 0
-		Controller.B2SSetData 11, 0	
+		Controller.B2SSetData 11, 0
 		case 2:Controller.B2SSetData 10, 1
-		Controller.B2SSetData 11, 1	
+		Controller.B2SSetData 11, 1
 		case 3:
 		Controller.B2SSetData 10, 1
-		Controller.B2SSetData 11, 0	
+		Controller.B2SSetData 11, 0
 		case 4:
 		Controller.B2SSetData 10, 0
-		Controller.B2SSetData 11, 1	
+		Controller.B2SSetData 11, 1
 		case 5:
 		Controller.B2SSetData 10, 0
-		Controller.B2SSetData 11, 0	
+		Controller.B2SSetData 11, 0
 		case 6:
 		Controller.B2SSetData 10, 1
-		Controller.B2SSetData 11, 1	
+		Controller.B2SSetData 11, 1
 	end Select
 	End If
 
@@ -1613,40 +1636,40 @@ if b2svarlightB=0 then b2svar2.enabled = 0:end If
 	select case b2svarlightB
 		case 1:
 		Controller.B2SSetData 8, 1
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 2:
 		Controller.B2SSetData 8, 1
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 3:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 1	
+		Controller.B2SSetData 9, 1
 		case 4:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 1	
+		Controller.B2SSetData 9, 1
 		case 5:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 6:
 		Controller.B2SSetData 8, 1
 		Controller.B2SSetData 9, 1
 		case 7:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 8:
 		Controller.B2SSetData 8, 1
-		Controller.B2SSetData 9, 1	
+		Controller.B2SSetData 9, 1
 		case 9:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 10:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 1	
+		Controller.B2SSetData 9, 1
 		case 11:
 		Controller.B2SSetData 8, 1
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 		case 12:
 		Controller.B2SSetData 8, 0
-		Controller.B2SSetData 9, 0	
+		Controller.B2SSetData 9, 0
 	end Select
 	End If
 	b2svarlightB=b2svarlightB+1
@@ -1658,34 +1681,34 @@ sub sunL_Timer
 	select case b2sSunL
 		case 1:
 		Controller.B2SSetData 40, 1
-		Controller.B2SSetData 41, 0	
-		Controller.B2SSetData 42, 0	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 41, 0
+		Controller.B2SSetData 42, 0
+		Controller.B2SSetData 43, 0
 		case 2:
 		Controller.B2SSetData 40, 0
-		Controller.B2SSetData 41, 1	
-		Controller.B2SSetData 42, 0	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 41, 1
+		Controller.B2SSetData 42, 0
+		Controller.B2SSetData 43, 0
 		case 3:
 		Controller.B2SSetData 40, 0
-		Controller.B2SSetData 41, 0	
-		Controller.B2SSetData 42, 1	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 41, 0
+		Controller.B2SSetData 42, 1
+		Controller.B2SSetData 43, 0
 		case 4:
 		Controller.B2SSetData 40, 0
-		Controller.B2SSetData 41, 0	
-		Controller.B2SSetData 42, 0	
-		Controller.B2SSetData 43, 1	
+		Controller.B2SSetData 41, 0
+		Controller.B2SSetData 42, 0
+		Controller.B2SSetData 43, 1
 		case 5:
 		Controller.B2SSetData 40, 0
-		Controller.B2SSetData 41, 0	
-		Controller.B2SSetData 42, 1	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 41, 0
+		Controller.B2SSetData 42, 1
+		Controller.B2SSetData 43, 0
 		case 6:
 		Controller.B2SSetData 40, 0
-		Controller.B2SSetData 41, 1	
-		Controller.B2SSetData 42, 0	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 41, 1
+		Controller.B2SSetData 42, 0
+		Controller.B2SSetData 43, 0
 	end Select
 	End If
 '	b2sSunL=b2sSunL+1
@@ -1698,34 +1721,34 @@ Sub sunR_Timer
 	select case b2sSunR
 		case 1:
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 0	
-		Controller.B2SSetData 46, 0	
-		Controller.B2SSetData 47, 1	
+		Controller.B2SSetData 45, 0
+		Controller.B2SSetData 46, 0
+		Controller.B2SSetData 47, 1
 		case 2:
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 0	
-		Controller.B2SSetData 46, 1	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 0
+		Controller.B2SSetData 46, 1
+		Controller.B2SSetData 47, 0
 		case 3:
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 1	
-		Controller.B2SSetData 46, 0	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 1
+		Controller.B2SSetData 46, 0
+		Controller.B2SSetData 47, 0
 		case 4:
 		Controller.B2SSetData 44, 1
-		Controller.B2SSetData 45, 0	
-		Controller.B2SSetData 46, 0	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 0
+		Controller.B2SSetData 46, 0
+		Controller.B2SSetData 47, 0
 		case 5:
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 1	
-		Controller.B2SSetData 46, 0	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 1
+		Controller.B2SSetData 46, 0
+		Controller.B2SSetData 47, 0
 		case 6:
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 0	
-		Controller.B2SSetData 46, 1	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 0
+		Controller.B2SSetData 46, 1
+		Controller.B2SSetData 47, 0
 	end Select
 	End If
 '	b2sSunR=b2sSunR+1
@@ -1736,12 +1759,12 @@ Sub sunzero
 	If B2SOn Then
 		Controller.B2SSetData 40, 0
 		Controller.B2SSetData 41, 0
-		Controller.B2SSetData 42, 0	
-		Controller.B2SSetData 43, 0	
+		Controller.B2SSetData 42, 0
+		Controller.B2SSetData 43, 0
 		Controller.B2SSetData 44, 0
-		Controller.B2SSetData 45, 0	
-		Controller.B2SSetData 46, 0	
-		Controller.B2SSetData 47, 0	
+		Controller.B2SSetData 45, 0
+		Controller.B2SSetData 46, 0
+		Controller.B2SSetData 47, 0
 	End If
 end Sub
 
@@ -1833,7 +1856,7 @@ for each obj in GIL
 Next
 '********** bottom clouds in B2S ************
 If B2SOn Then
-if ballinplay>0 and ballinplay<6 then 
+if ballinplay>0 and ballinplay<6 then
 	Controller.B2SSetData 12, 0
 	Controller.B2SSetData 14, 1
 	Else
@@ -1883,8 +1906,8 @@ end Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+ 	If finalspeed > 20 then
+		PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*10*VolRH , AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 1 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -1893,20 +1916,20 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*10*VolRH , AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*10*VolRH , AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*10*VolRH , AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
 'Metals Collision
 Sub MetalsThin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*GlobalSoundLevel, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 'Post Collision
 Sub wood_hit(idx)
-PlaySound "Post1", 0, Vol(ActiveBall)*10*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+PlaySound "Post1", 0, Vol(ActiveBall)*10*VolWood , AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 'Flippers Collision
@@ -1915,9 +1938,9 @@ Sub RightFlipper_Collide(parm) : RandomSoundFlipper() : End Sub
 
 Sub RandomSoundFlipper()
 	Select Case Int(Rnd*3)+1
-		Case 1 :PlaySound "flip_hit_1", 0, GlobalSoundLevel * ballvel(ActiveBall) / 50, -0.1, 0.25
-		Case 2 :PlaySound "flip_hit_2", 0, GlobalSoundLevel * ballvel(ActiveBall) / 50, -0.1, 0.25
-		Case 3 :PlaySound "flip_hit_3", 0, GlobalSoundLevel * ballvel(ActiveBall) / 50, -0.1, 0.25
+		Case 1 :PlaySound "flip_hit_1", 0, VolRH * ballvel(ActiveBall) / 50, -0.1, 0.25
+		Case 2 :PlaySound "flip_hit_2", 0, VolRH * ballvel(ActiveBall) / 50, -0.1, 0.25
+		Case 3 :PlaySound "flip_hit_3", 0, VolRH * ballvel(ActiveBall) / 50, -0.1, 0.25
 	End Select
 End Sub
 
@@ -1997,15 +2020,15 @@ if routl.state = 1 then routlz.state = 1 else routlz.state = 0:end If
 if lgl.state = 1 then
 		lgl2.state = 1
 		lglz.state = 1
-	else 
+	else
 		lglz.state = 0
 		lgl2.state = 0
 end If
 if rl.state = 1 then rlz.state = 1 else rlz.state = 0:end If
-if rgl.state = 1 then 
+if rgl.state = 1 then
 		rgl2.state = 1
 		rglz.state = 1
-	else 
+	else
 		rglz.state = 0
 		rgl2.state = 0
 end If
@@ -2021,10 +2044,10 @@ End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 ' *******************************************************************************************************
 
-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo AudioPanning only)
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
 
@@ -2046,20 +2069,20 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volume)
+  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 'Set position as bumperX and Vol manually.
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************
@@ -2076,7 +2099,7 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+Function AudioPan(tableobj) ' Calculates the AudioPan for a tableobj based on the X position on the table. "table1" is the name of the table
   Dim tmp
   tmp = tableobj.x * 2 / table1.width-1
   If tmp > 0 Then
@@ -2086,28 +2109,8 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
-
-Function AudioFade(ball) ' Can this be together with the above function ?
-  Dim tmp
-  tmp = ball.y * 2 / Table1.height-1
-  If tmp > 0 Then
-    AudioFade = Csng(tmp ^10)
-  Else
-    AudioFade = Csng(-((- tmp) ^10) )
-  End If
-End Function
-
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -2142,9 +2145,9 @@ Sub RollingSoundUpdate
       If BallVel(BOT(b) ) > 1 Then
         rolling(b) = True
         if BOT(b).z < 30 Then ' Ball on playfield
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
         Else ' Ball on raised ramp
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
       Else
         If rolling(b) = True Then
@@ -2160,11 +2163,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
