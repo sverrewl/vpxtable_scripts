@@ -4,19 +4,44 @@
  ' El Dorado and Sheriff and Dakota
  ' VPM version by JPSalas 2009
  ' Uses the ROM from El Dorado City of Gold
- 
-' Thalamus 2018-07-20
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-
  Option Explicit
  Randomize
- 
+
+' Thalamus 2018-07-20
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolRol    = 1    ' Rollovers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber bands volume.
+Const VolRH     = 1    ' Rubber hits volume.
+Const VolPo     = 1    ' Rubber posts volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolPlast  = 1    ' Plastics volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolWood   = 1    ' Woods volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
+
  LoadVPM "01120100", "sys80.vbs", 3.02
 
 Dim DesktopMode:DesktopMode = Table1.ShowDT
- 
+
  Sub LoadVPM(VPMver, VBSfile, VBSver)
     On Error Resume Next
     If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
@@ -28,28 +53,28 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
     If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
     On Error Goto 0
  End Sub
- 
+
  Dim bsTrough, dtRBank, dtTBank, x
- 
+
  Const cGameName = "eldorado"
- 
+
  Const UseSolenoids = 1
  Const UseLamps = 0
  Const UseGI = 0
  Const UseSync = 0
  Const HandleMech = 0
- 
+
  ' Standard Sounds
  Const SSolenoidOn = "Solenoid"
  Const SSolenoidOff = ""
  Const SFlipperOn = "FlipperUp"
  Const SFlipperOff = "FlipperDown"
  Const SCoin = "coin"
- 
+
  '************
  ' Table init.
  '************
- 
+
  Sub Table1_Init
 	Dim ii
     With Controller
@@ -68,12 +93,12 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
     Controller.SolMask(0) = 0
     vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
     Controller.Run
- 
+
     ' Nudging
     vpmNudge.TiltSwitch = 57
     vpmNudge.Sensitivity = 5
     vpmNudge.TiltObj = Array(Bumper1, Bumper2, LeftSlingshot, RightSlingshot)
- 
+
 	Set bsTrough = New cvpmTrough
 	With bsTrough
 	.size = 1
@@ -83,25 +108,25 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
 	.InitExitSounds "fx_ballrel", "fx_ballrel"
 	.Balls = 1
 	End With
- 
+
     ' Top Drop targets
     set dtTBank = new cvpmdroptarget
     With dtTBank
        .InitDrop Array(sw0, sw10, sw20, sw30, sw40, sw1, sw11, sw21, sw31, sw41), Array(0, 10, 20, 30, 40, 1, 11, 21, 31, 41)
        .Initsnd "fx_droptarget", "fx_resetdrop"
     End With
- 
+
     ' Right Drop targets
     set dtRBank = new cvpmdroptarget
     With dtRBank
        .InitDrop Array(sw2, sw12, sw22, sw32, sw42), Array(2, 12, 22, 32, 42)
        .Initsnd "fx_droptarget", "fx_resetdrop"
     End With
- 
+
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
- 
+
     ' Start the music from Fast Draw table
     MusicOn
 
@@ -116,10 +141,10 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
 		Next
 	End If
  End Sub
- 
+
  Sub Table1_Paused:Controller.Pause = 1:End Sub
  Sub Table1_unPaused:Controller.Pause = 0:End Sub
- 
+
  Sub MusicOn
     Dim x
     x = INT(5 * RND(1) )
@@ -131,15 +156,15 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
        Case 4:PlayMusic "FD_5.mp3"
     End Select
  End Sub
- 
+
  Sub Table1_MusicDone()
     MusicOn
  End Sub
- 
+
  '**********
  ' Keys
  '**********
- 
+
  Sub table1_KeyDown(ByVal Keycode)
     If vpmKeyDown(keycode) Then Exit Sub
     If keyCode = LeftFlipperKey Then Controller.Switch(6) = 1
@@ -149,23 +174,23 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
     If keycode = RightTiltKey Then Nudge 270, 4:PlaySound "fx_nudge", 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then Nudge 0, 5:PlaySound "fx_nudge", 0, 1, 0, 0.25
  End Sub
- 
+
  Sub table1_KeyUp(ByVal Keycode)
     If vpmKeyUp(keycode) Then Exit Sub
     If keyCode = LeftFlipperKey Then Controller.Switch(6) = 0
     If keyCode = RightFlipperKey Then Controller.Switch(16) = 0
     If keycode = PlungerKey Then Plunger.Fire
  End Sub
- 
+
  '*********
  ' Switches
  '*********
- 
+
  ' Slingsshots
  Dim LStep, RStep
- 
+
 Sub LeftSlingShot_Slingshot
-    PlaySound "fx_slingshot", 0, 1, -0.05, 0.05
+    PlaySoundAtVol "fx_slingshot", lemk, 1
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -182,9 +207,9 @@ Sub LeftSlingShot_Timer
 
     LStep = LStep + 1
 End Sub
- 
+
 Sub RightSlingShot_Slingshot
-    PlaySound "fx_slingshot", 0, 1, 0.05, 0.05
+    PlaySoundAtVol "fx_slingshot", remk, 1
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -201,18 +226,17 @@ Sub RightSlingShot_Timer
 
     RStep = RStep + 1
 End Sub
- 
- ' Bumpers
-Sub Bumper1_Hit:vpmTimer.PulseSw 55:PlaySound "fx_bumper", 0, 1, 0.01, 0.25:End Sub
 
-Sub Bumper2_Hit:vpmTimer.PulseSw 55:PlaySound "fx_bumper", 0, 1, -0.01, 0.25:End Sub
- 
+ ' Bumpers
+Sub Bumper1_Hit:vpmTimer.PulseSw 55:PlaySoundAtVol "fx_bumper", Bumper1, VolBump:End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 55:PlaySoundAtVol "fx_bumper", Bumper2, VolBump:End Sub
+
  ' Drain & holes
- Sub Drain_Hit:Playsound "drain":bsTrough.AddBall Me:Gate.RotateToStart:PlayBonus.Enabled = 1:End Sub
- 
+ Sub Drain_Hit:PlaysoundAtVol "drain", drain ,1:bsTrough.AddBall Me:Gate.RotateToStart:PlayBonus.Enabled = 1:End Sub
+
  ' Rollovers
- Sub sw53_Hit:Controller.Switch(53) = 1:PlaySound "fx_sensor"
-If l33.State Then 
+ Sub sw53_Hit:Controller.Switch(53) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l33.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
@@ -220,240 +244,240 @@ End If
 End Sub
 
  Sub sw53_UnHit:Controller.Switch(53) = 0:End Sub
- 
- Sub sw63_Hit:Controller.Switch(63) = 1:PlaySound "fx_sensor"
-If l34.State Then 
+
+ Sub sw63_Hit:Controller.Switch(63) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l34.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw63_UnHit:Controller.Switch(63) = 0:End Sub
- 
- Sub sw54_Hit:Controller.Switch(54) = 1:PlaySound "fx_sensor"
-If l35.State Then 
+
+ Sub sw54_Hit:Controller.Switch(54) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l35.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw54_UnHit:Controller.Switch(54) = 0:End Sub
- 
- Sub sw64_Hit:Controller.Switch(64) = 1:PlaySound "fx_sensor"
-If l36.State Then 
+
+ Sub sw64_Hit:Controller.Switch(64) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l36.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw64_UnHit:Controller.Switch(64) = 0:End Sub
- 
- Sub sw52_Hit:Controller.Switch(52) = 1:PlaySound "fx_sensor"
-If l31.State Then 
+
+ Sub sw52_Hit:Controller.Switch(52) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l31.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
- 
- Sub sw62_Hit:Controller.Switch(62) = 1:PlaySound "fx_sensor"
-If l32.State Then 
+
+ Sub sw62_Hit:Controller.Switch(62) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l32.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw62_UnHit:Controller.Switch(62) = 0:End Sub
- 
- Sub sw61_Hit:Controller.Switch(61) = 1:PlaySound "fx_sensor"
-If l30.State Then 
+
+ Sub sw61_Hit:Controller.Switch(61) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l30.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw61_UnHit:Controller.Switch(61) = 0:End Sub
- 
-  Sub sw61a_Hit:Controller.Switch(61) = 1:PlaySound "fx_sensor"
-If l30b.State Then 
+
+  Sub sw61a_Hit:Controller.Switch(61) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l30b.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw61a_UnHit:Controller.Switch(61) = 0:End Sub
- 
- Sub sw50_Hit:Controller.Switch(50) = 1:PlaySound "fx_sensor"
-If l27.State Then 
+
+ Sub sw50_Hit:Controller.Switch(50) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l27.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw50_UnHit:Controller.Switch(50) = 0:End Sub
- 
- Sub sw50a_Hit:Controller.Switch(50) = 1:PlaySound "fx_sensor"
-If l27b.State Then 
+
+ Sub sw50a_Hit:Controller.Switch(50) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l27b.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw50a_UnHit:Controller.Switch(50) = 0:End Sub
- 
- Sub sw60_Hit:Controller.Switch(60) = 1:PlaySound "fx_sensor"
-If l28.State Then 
+
+ Sub sw60_Hit:Controller.Switch(60) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l28.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw60_UnHit:Controller.Switch(60) = 0:End Sub
- 
-  Sub sw60a_Hit:Controller.Switch(60) = 1:PlaySound "fx_sensor"
-If l28b.State Then 
+
+  Sub sw60a_Hit:Controller.Switch(60) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l28b.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw60a_UnHit:Controller.Switch(60) = 0:End Sub
- 
- Sub sw51_Hit:Controller.Switch(51) = 1:PlaySound "fx_sensor"
-If l29.State Then 
+
+ Sub sw51_Hit:Controller.Switch(51) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l29.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw51_UnHit:Controller.Switch(51) = 0:End Sub
- 
-  Sub sw51a_Hit:Controller.Switch(51) = 1:PlaySound "fx_sensor"
-If l29b.State Then 
+
+  Sub sw51a_Hit:Controller.Switch(51) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
+If l29b.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
  Sub sw51a_UnHit:Controller.Switch(51) = 0:End Sub
- 
+
  ' Targets
- Sub sw65_Hit:vpmTimer.PulseSw 65:sw65p.X=sw65p.X+3:sw65p.Y=sw65p.Y-3:Me.TimerEnabled = 1:PlaySound "fx_target", 0, 1, 0.1, 0.25:Gate.RotateToStart:End Sub
+ Sub sw65_Hit:vpmTimer.PulseSw 65:sw65p.X=sw65p.X+3:sw65p.Y=sw65p.Y-3:Me.TimerEnabled = 1:PlaySoundAtVol "fx_target", ActiveBall, 1:Gate.RotateToStart:End Sub
  Sub sw65_Timer:sw65p.X=sw65p.X-3:sw65p.Y=sw65p.Y+3:PlaySound "Gun2":Me.TimerEnabled = 0:End Sub
- Sub sw65b_Hit:vpmTimer.PulseSw 65:sw65bp.X=sw65bp.X+3:sw65bp.Y=sw65bp.Y-3:Me.TimerEnabled = 1:PlaySound "fx_target", 0, 1, 0.1, 0.25:Gate.RotateToEnd:End Sub
+ Sub sw65b_Hit:vpmTimer.PulseSw 65:sw65bp.X=sw65bp.X+3:sw65bp.Y=sw65bp.Y-3:Me.TimerEnabled = 1:PlaySoundAtVol "fx_target", ActiveBall, 1:Gate.RotateToEnd:End Sub
  Sub sw65b_Timer:sw65bp.X=sw65bp.X-3:sw65bp.Y=sw65bp.Y+3:PlaySound "Gun1":Me.TimerEnabled = 0:End Sub
-  Sub sw65d_Hit:vpmTimer.PulseSw 65:sw65dp.X=sw65dp.X+3:sw65dp.Y=sw65dp.Y-3:Me.TimerEnabled = 1:PlaySound "fx_target", 0, 1, 0.1, 0.25:Gate.RotateToStart:End Sub
+  Sub sw65d_Hit:vpmTimer.PulseSw 65:sw65dp.X=sw65dp.X+3:sw65dp.Y=sw65dp.Y-3:Me.TimerEnabled = 1:PlaySoundAtVol "fx_target", ActiveBall, 1:Gate.RotateToStart:End Sub
  Sub sw65d_Timer:sw65dp.X=sw65dp.X-3:sw65dp.Y=sw65dp.Y+3:PlaySound "Gun2":Me.TimerEnabled = 0:End Sub
- 
+
  ' Droptargets
- Sub sw0_Hit:dtTBank.hit 1:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l12.State Then 
+ Sub sw0_Hit:dtTBank.hit 1:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l12.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw10_Hit:dtTBank.hit 2:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l13.State Then 
+ Sub sw10_Hit:dtTBank.hit 2:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l13.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw20_Hit:dtTBank.hit 3:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l14.State Then 
+ Sub sw20_Hit:dtTBank.hit 3:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l14.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw30_Hit:dtTBank.hit 4:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l15.State Then 
+ Sub sw30_Hit:dtTBank.hit 4:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l15.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw40_Hit:dtTBank.hit 5:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l16.State Then 
+ Sub sw40_Hit:dtTBank.hit 5:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l16.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw1_Hit:dtTBank.hit 6:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l17.State Then 
+ Sub sw1_Hit:dtTBank.hit 6:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l17.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw11_Hit:dtTBank.hit 7:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l18.State Then 
+ Sub sw11_Hit:dtTBank.hit 7:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l18.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw21_Hit:dtTBank.hit 8:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l19.State Then 
+ Sub sw21_Hit:dtTBank.hit 8:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l19.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw31_Hit:dtTBank.hit 9:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l20.State Then 
+ Sub sw31_Hit:dtTBank.hit 9:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l20.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw41_Hit:dtTBank.hit 10:PlaySound "fx_droptarget", 0, 1, -0.1, 0.25
-If l21.State Then 
+ Sub sw41_Hit:dtTBank.hit 10:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l21.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw2_Hit:dtRBank.hit 1:PlaySound "fx_droptarget"
-If l22.State Then 
+ Sub sw2_Hit:dtRBank.hit 1:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l22.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw12_Hit:dtRBank.hit 2:PlaySound "fx_droptarget"
-If l23.State Then 
+ Sub sw12_Hit:dtRBank.hit 2:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l23.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw22_Hit:dtRBank.hit 3:PlaySound "fx_droptarget"
-If l24.State Then 
+ Sub sw22_Hit:dtRBank.hit 3:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l24.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw32_Hit:dtRBank.hit 4:PlaySound "fx_droptarget"
-If l25.State Then 
+ Sub sw32_Hit:dtRBank.hit 4:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l25.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- Sub sw42_Hit:dtRBank.hit 5:PlaySound "fx_droptarget"
-If l26.State Then 
+ Sub sw42_Hit:dtRBank.hit 5:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
+If l26.State Then
 	PlaySound "fx_5000"
 Else
 	PlaySound "fx_500"
 End If
 End Sub
- 
- 
+
+
  '*********
  'Solenoids
  '*********
@@ -461,30 +485,30 @@ End Sub
  SolCallback(6) = "dtTbank.SolDropUp"
  solcallback(8) = "vpmsolsound ""fx_knocker"","
  solcallback(9) = "bsTrough.SolOut"
- 
+
  '**************
  ' Flipper Subs
  '**************
- 
+
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound "fx_flipperup", 0, 1, -0.1, 0.25
+        PlaySoundAtVol "fx_flipperup", LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
     Else
-        PlaySound "fx_flipperdown", 0, 1, -0.1, 0.25
+        PlaySoundAtVol "fx_flipperdown", LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
     End If
 End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound "fx_flipperup", 0, 1, 0.1, 0.25
+        PlaySoundAtVol "fx_flipperup", RightFlipper, VolFlip
         RightFlipper.RotateToEnd
     Else
-        PlaySound "fx_flipperdown", 0, 1, 0.1, 0.25
+        PlaySoundAtVol "fx_flipperdown", RightFlipper, VolFlip
         RightFlipper.RotateToStart
     End If
 End Sub
@@ -496,46 +520,46 @@ End Sub
 Sub RightFlipper_Collide(parm)
     PlaySound "fx_rubber_flipper", 0, parm / 10, 0.1, 0.25
 End Sub
- 
+
   '**************
  ' Extra sounds
  '**************
 
-Sub aRubbers_Hit(idx):vpmTimer.PulseSw 66: PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aPostRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
- 
+Sub aRubbers_Hit(idx):vpmTimer.PulseSw 66: PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPostRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPo, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolPlast, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+
   '************************
  '      Check Bonus
  '************************
- 
+
  Dim BonusLamps, OldState
  BonusLamps = Array(37, 38, 39, 40, 41, 42, 43, 44, 45, 46) 'bonus lights
  PlayBonus.Enabled = 0
- 
+
  Sub PlayBonus_Timer()
     Dim lamp, ii, state
     ii = 0
     state = 0
     For each lamp in BonusLamps
        If LampState(lamp) Then state = state + 2 ^ii
- 
+
        ii = ii + 1
     Next
     If(OldState <> state) Then PlaySound "fx_Bonus"
     OldState = state
     If(state = 1 and LampState(47) = 0) Or LampState(11) = 1 Then PlayBonus.Enabled = 0
  End Sub
- 
+
  '************************************
  '          LEDs Display
  '************************************
- 
+
  Dim Digits(32)
- 
+
  Set Digits(0) = a0
  Set Digits(1) = a1
  Set Digits(2) = a2
@@ -543,7 +567,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
  Set Digits(4) = a4
  Set Digits(5) = a5
  Set Digits(6) = a6
- 
+
  Set Digits(7) = b0
  Set Digits(8) = b1
  Set Digits(9) = b2
@@ -551,7 +575,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
  Set Digits(11) = b4
  Set Digits(12) = b5
  Set Digits(13) = b6
- 
+
  Set Digits(14) = c0
  Set Digits(15) = c1
  Set Digits(16) = c2
@@ -559,7 +583,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
  Set Digits(18) = c4
  Set Digits(19) = c5
  Set Digits(20) = c6
- 
+
  Set Digits(21) = d0
  Set Digits(22) = d1
  Set Digits(23) = d2
@@ -567,12 +591,12 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
  Set Digits(25) = d4
  Set Digits(26) = d5
  Set Digits(27) = d6
- 
+
  Set Digits(28) = e0
  Set Digits(29) = e1
  Set Digits(30) = e2
  Set Digits(31) = e3
- 
+
  Sub LEDs_Timer
     On Error Resume Next
     Dim ChgLED, ii, jj, chg, stat
@@ -580,7 +604,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
     If Not IsEmpty(ChgLED) Then
        For ii = 0 To UBound(ChgLED)
           chg = chgLED(ii, 1):stat = chgLED(ii, 2)
- 
+
           Select Case stat
              Case 0:Digits(chgLED(ii, 0) ).SetValue 0    'empty
              Case 63:Digits(chgLED(ii, 0) ).SetValue 1   '0
@@ -615,7 +639,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
        Next
     End IF
  End Sub
- 
+
 '***************************************************
 '       JP's VP10 Fading Lamps & Flashers
 '       Based on PD's Fading Light System
@@ -646,7 +670,7 @@ Sub LampTimer_Timer()
 
     UpdateLamps
 End Sub
- 
+
  Sub UpdateLamps()
 
      NFadeL 3, l3
@@ -702,7 +726,7 @@ End Sub
      NFadeLm 91, bumper2light 'bumper 22
      NFadeL 91, bumper2light1 'bumper 22
   End Sub
- 
+
 Sub InitLamps()
     Dim x
     For x = 0 to 200
@@ -847,7 +871,7 @@ Sub NFadeTm(nr, object, b)
         Case 5:object.Text = message
     End Select
 End Sub
- 
+
 '******************
 '   GI effects
 ' independent routine
@@ -951,8 +975,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -1012,7 +1036,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1076,9 +1100,13 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+
+
