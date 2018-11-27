@@ -62,7 +62,7 @@ On Error Goto 0
 Const cSingleLFlip = 0
 Const cSingleRFlip = 0
 
-Const UseSolenoids=1,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff"
+Const UseSolenoids=2,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff"
 Const SCoin="coin3"
 Const UseVPMModSol=1
 
