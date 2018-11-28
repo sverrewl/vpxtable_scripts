@@ -70,4 +70,4 @@ __But for now that is not an option unfortunately.__
 
 __UPDATE__
 
-Thanks to DjRobX, this feature will be available in a future VPX release.
+Thanks to DjRobX, this feature is available from 10.6 onward.
