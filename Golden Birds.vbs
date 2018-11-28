@@ -9,7 +9,23 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 DIM jump1,jump2,jump3, jump4, jump5
@@ -75,7 +91,7 @@ Dim Flip
  Sub LoadController()
 	If DesktopMode = False Then
 	  Set Controller = CreateObject("B2S.Server")
-	  Controller.B2SName = "Golden Birds" 
+	  Controller.B2SName = "Golden Birds"
 	  Controller.Run()
 	End if
  End Sub
@@ -114,7 +130,7 @@ sub table1_init
 	player=1
     replay1=120000
     replay2=140000
-    replay3=160000 
+    replay3=160000
     bumper1light.state=lightstateoff
     bumper2light.state=lightstateoff
     bumper3light.state=lightstateoff
@@ -164,7 +180,7 @@ sub table1_init
 'Set MaxBalls value from 1 to 6 to configure trough to handle
 'required number of balls. No other script change is needed.
 
-	MaxBalls=5	
+	MaxBalls=5
 	InitTime=91
 	EjectTime=0
 	TroughEject=0
@@ -176,7 +192,7 @@ sub table1_init
 '//////////////////////////
 
 playsound "gameover"
-end sub    
+end sub
 
 
 '////////////////////////////////////Mike Add
@@ -195,7 +211,7 @@ Sub cBallInit
 	set cBall3 = captiveBall3.createsizedball(15)
 	cBall3.FrontDecal = "pigball"
 	captiveball3.kick 90,12
-end Sub	
+end Sub
 '///////////////////////////
 
 
@@ -211,17 +227,17 @@ end sub
 
 
 Sub Table1_KeyDown(ByVal keycode)
-    
+
     if keycode=AddCreditKey then
-		playsound "coin3" 
+		playsound "coin3"
 		if state=false then
 			If DesktopMode = False Then Controller.B2sStartAnimation "Creditss"
 			 credittxt.text=credit
 		end if
 		If DesktopMode = False Then Controller.B2SSetScore 4, hisc
-		coindelay.enabled=true 
+		coindelay.enabled=true
     end if
- 
+
 
     if keycode=StartGameKey and credit>0 then
 	  If DesktopMode = False then Controller.B2SSetScore 4, hisc
@@ -242,7 +258,7 @@ Sub Table1_KeyDown(ByVal keycode)
 		rst=0
 		ballinplay=1
 		CanPlay.Text="One Player"
-		playsound "initialize" 
+		playsound "initialize"
 		resettimer.enabled=true
 		players=1
 		If FlipWall.transz=-80 then
@@ -262,44 +278,44 @@ Sub Table1_KeyDown(ByVal keycode)
 			Controller.B2ssetcanplay 31, 2
 		End If
 		CanPlay.Text="Two Players"
-		playsound "click" 
+		playsound "click"
 		InitTimerB.Enabled = True
 '		flipwall.transz=-80
 		Flip = 1
 		FlipWallTimer.Enabled = 1
-	   end if 
+	   end if
 	  end if
 	end if
-                
+
 	If keycode = PlungerKey Then
 if birdjump.enabled=false then birdcount=0: birdjump.enabled=true  '*********test jumping
 		Plunger.PullBack
-		PlaySound "slingshot"
+		PlaySoundAtVol "slingshot", Plunger, 1
 	End If
 
     if tilt=false and state=true then
 	  If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToEnd
-		PlaySound "FlipperUp"
-		PlaySound "Buzz",-1,.1
+		PlaySoundAtVol "FlipperUp", LeftFlipper, VolFlip
+		PlaySoundAtVol "Buzz", LeftFlipper, VolFlip
 	  End If
-    
+
 	  If keycode = RightFlipperKey Then
 		RightFlipper.RotateToEnd
-        PlaySound "FlipperUp"
-		PlaySound "Buzz1",-1,.1
+        PlaySoundAtVol "FlipperUp", RightFlipper, VolFlip
+		PlaySoundAtVol "Buzz1", RightFlipper, VolFlip
 	  End If
-    
+
 	  If keycode = LeftTiltKey Then
 		Nudge 90, 2
 		checktilt
 	  End If
-    
+
 	  If keycode = RightTiltKey Then
 		Nudge 270, 2
 		checktilt
 	  End If
-    
+
 	  If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		checktilt
@@ -310,28 +326,28 @@ if birdjump.enabled=false then birdcount=0: birdjump.enabled=true  '*********tes
 	End If
 
     end if
-    
+
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-       
+
 	If keycode = PlungerKey Then
 		Plunger.Fire
 
 	End If
-    
+
 	If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToStart
-		if tilt= false and state=true then 
-			PlaySound "FlipperDown"
+		if tilt= false and state=true then
+			PlaySoundAtVol "FlipperDown", LeftFlipper, Volflip
 			StopSound "Buzz"
 		end if
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToStart
-          if tilt= false and state=true then 
-			PlaySound "FlipperDown"
+          if tilt= false and state=true then
+			PlaySoundAtVol "FlipperDown", RightFlipper, VolFlip
 			StopSound "Buzz1"
 		end if
 	End If
@@ -353,7 +369,7 @@ Sub PairedlampTimer_timer
 	n10b.state = n10a.state
 	rtl.state = ltl.state
 end sub
- 
+
 
 sub coindelay_timer
 	addcredit
@@ -362,8 +378,8 @@ end sub
 
 sub resettimer_timer
     rst=rst+1
-    scorereel1.resettozero 
-    scorereel2.resettozero 
+    scorereel1.resettozero
+    scorereel2.resettozero
     If DesktopMode = False then
 		Controller.B2SSetScore 1, score(1)
 		Controller.B2SSetScore 2, score(2)
@@ -387,7 +403,7 @@ Sub InitTimer_Timer()
 	If InitTime>0 then
 		InitTime=InitTime-1
 		If (InitTime/10 = Int(InitTime/10)) and InitTime>0 then
-			TroughTime=TroughTime+8	
+			TroughTime=TroughTime+8
 			If TroughCount<MaxBalls then
 				If TroughCount=0 then Drain.createsizedball(26).FrontDecal = "redbirdball"
 				If TroughCount=1 then Drain.createsizedball(26).FrontDecal = "yellowbirdball"
@@ -405,7 +421,7 @@ Sub InitTimerB_Timer()	'\\\\\\BSET FOR PLAYER 2
 	If InitTimeB>0 then
 		InitTimeB=InitTimeB-1
 		If (InitTimeB/10 = Int(InitTimeB/10)) and InitTimeB>0 then
-			TroughTimeB=TroughTimeB+8	
+			TroughTimeB=TroughTimeB+8
 			If TroughCountB<MaxBalls then
 				If TroughCountB=0 then nb.createsizedball(26).FrontDecal = "redbirdball"
 				If TroughCountB=1 then nb.createsizedball(26).FrontDecal = "yellowbirdball"
@@ -420,7 +436,7 @@ End Sub
 
 Sub TroughTimer_Timer()
 
-'Timer-based bubble-sort routine checks each six-ball array position 
+'Timer-based bubble-sort routine checks each six-ball array position
 'in turn from right to left. TroughEject variable tells script when
 'to eject new ball in play to the shooter lane. Note that drain hit
 'subroutine must be part of this section.
@@ -447,7 +463,7 @@ Sub TroughTimer_Timer()
 			End If
 		End If
 	End If
-	
+
 	If TroughTime>0 then
 		TroughTime=TroughTime-1
 		g=(Int(TroughTime/8))*8
@@ -481,7 +497,7 @@ End Sub
 Sub Trough1_Hit()
 	TroughBall(1)=1
 	If InitTime>0 then
-		Set Ball(TroughCount)=ActiveBall		
+		Set Ball(TroughCount)=ActiveBall
 	End If
 End Sub
 
@@ -509,7 +525,7 @@ End Sub
 '////////////////////////////BSET Trough FOR PLAYER 2
 Sub TroughTimerB_Timer()
 
-'Timer-based bubble-sort routine checks each six-ball array position 
+'Timer-based bubble-sort routine checks each six-ball array position
 'in turn from right to left. TroughEject variable tells script when
 'to eject new ball in play to the shooter lane. Note that drain hit
 'subroutine must be part of this section.
@@ -536,7 +552,7 @@ Sub TroughTimerB_Timer()
 			End If
 		End If
 	End If
-	
+
 	If TroughTimeB>0 then
 		TroughTimeB=TroughTimeB-1
 		gB=(Int(TroughTimeB/8))*8
@@ -570,7 +586,7 @@ End Sub
 Sub TroughB1_Hit()
 	TroughBallB(1)=1
 	If InitTimeB>0 then
-		Set BallB(TroughCount)=ActiveBall		
+		Set BallB(TroughCount)=ActiveBall
 	End If
 End Sub
 
@@ -687,7 +703,7 @@ sub newball
 '      sa(player)=0
 	 else
 		for i=1 to 10
-			if numbstate(player,i)=1 then 
+			if numbstate(player,i)=1 then
 			    numb(i).state=lightstateon
 			  else
 				numb(i).state=lightstateoff
@@ -727,7 +743,7 @@ Sub Drain_Hit()
 		shootagain.state=0
 	else
 
-		playsound "drainshorter"
+		playsoundAtVol "drainshorter", drain, 1
 	'////////////Mike Add
 		If players=1 or player=2 then
 			TroughBall(7)=1
@@ -742,8 +758,8 @@ Sub Drain_Hit()
 		End if
 	'///////////
 		Drain.DestroyBall
-			playsound "kickerkick"
-			if players=1 or player=2 then 
+			playsoundAtVol "kickerkick", drain, 1
+			if players=1 or player=2 then
 				player=1
 				If DesktopMode = False then Controller.B2ssetplayerup 30, 1
 				shoot1.text="Player 1"
@@ -787,7 +803,7 @@ sub nextball
 	    select case (ballinplay)
 	  	  case 1:
 		  bip1.text="1"
-		  case 2: 
+		  case 2:
 		  bip1.text=" "
 		  bip2.text="2"
 		  case 3:
@@ -814,8 +830,8 @@ sub ballreltimer_timer
 	  shoot2.text=" "
 	  if score(1)>hisc then hisc=score(1)
 	  if score(2)>hisc then hisc=score(2)
-	  hstxt.text=hisc 
-	If DesktopMode = False then 
+	  hstxt.text=hisc
+	If DesktopMode = False then
       Controller.B2SSetGameOver 35,1
       Controller.B2ssetballinplay 32, 0
 	  Controller.B2sStartAnimation "EOGame"
@@ -829,14 +845,14 @@ sub ballreltimer_timer
 		playsound "levelfailed"
 	  end if
 '//////////Mike Add
-		
+
 		InitTimer.Enabled = False
 		TroughCount=0
 		InitTime=91
 		InitTimerB.Enabled = False
 		TroughCountB=0
 		InitTimeB=91
-		
+
 '///////////
       bumper1light.state=lightstateoff
       bumper2light.state=lightstateoff
@@ -1016,7 +1032,7 @@ Sub addcredit
 End sub
 
 Sub CheckTilt
-	If Tilttimer.Enabled = True Then 
+	If Tilttimer.Enabled = True Then
 	 TiltSens = TiltSens + 1
 	 if TiltSens = 2 Then
 	   Tilt = True
@@ -1054,10 +1070,10 @@ sub turnoff
     bumper2.force=0
     bumper3.force=0
     tiltseq.play seqalloff
-end sub    
+end sub
 
 Sub RightSlingShot_Slingshot
-    PlaySound "left_slingshot", 0, 1, 0.05, 0.05
+    PlaySoundAtVol "left_slingshot", sling1, 1
 	addscore 10
 '//////Mike Add
 	cball.velx = 10 + 2*RND(1)
@@ -1081,7 +1097,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-    PlaySound "right_slingshot",0,1,-0.05,0.05
+    PlaySoundAtVol "right_slingshot", sling2, 1
 	addscore 10
 '///////////Mike add
 	cball2.velx = 10 + 2*RND(1)
@@ -1105,9 +1121,9 @@ Sub LeftSlingShot_Timer
 End Sub
 
 sub bumper1_hit
-    if tilt=false then playsound "jet2"
+    if tilt=false then playsoundAtVol "jet2", bumper1, VolBump
     addscore 100
-	If FlashB.Enabled = False then 
+	If FlashB.Enabled = False then
 		Bumper1Light.State = 0
 		Me.TimerEnabled = 1
 	End if
@@ -1119,27 +1135,27 @@ sub Bumper1_Timer
 End Sub
 
 sub bumper3_hit
-    if tilt=false then playsound "jet2"
+    if tilt=false then playsoundAtVol "jet2", bumper3, VolBump
     addscore 100
-	If FlashB.Enabled = False then 
+	If FlashB.Enabled = False then
 		Bumper3Light.State = 0
 		Me.TimerEnabled = 1
 	End if
-	end sub      
+	end sub
 
 sub Bumper3_Timer
 	Bumper3Light.State = 1
 	Me.Timerenabled = 0
-End Sub  
+End Sub
 
 sub bumper2_hit
-    if tilt=false then playsound "jet2"
+    if tilt=false then playsoundAtVol "jet2", Bumper2, VolBump
 	if (bumper2light.state)=lightstateon then
-		addscore 1000 
+		addscore 1000
 	else
 		addscore 100
     end if
-	If FlashB.Enabled = False then 
+	If FlashB.Enabled = False then
 		Bumper2Light.State = 0
 		Me.TimerEnabled = 1
 	End if
@@ -1148,7 +1164,7 @@ end sub
 sub Bumper2_Timer
 	Bumper2Light.State = 1
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub ctrig_hit
     movearrow
@@ -1163,7 +1179,7 @@ end sub
 sub spinner2_spin
     movearrow
     addscore 100
-end sub                      
+end sub
 
 sub tlt_hit
     if tilt=false then
@@ -1185,7 +1201,7 @@ sub tlt_Timer
 	PlightLU.State=lightstateon
 	TlightLU.state=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub trt_hit
     if tilt=false then
@@ -1207,7 +1223,7 @@ sub trt_Timer
 	PlightRU.State=lightstateon
 	TlightRU.state=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub tlt1_hit
     if tilt=false then
@@ -1220,7 +1236,7 @@ sub tlt1_hit
 		  else
 			addscore 500
 		end if
-		if apos(player)=1 then 
+		if apos(player)=1 then
 			if spstate(player)=1 then
 				playsound "knocke"
 				addcredit
@@ -1230,7 +1246,7 @@ sub tlt1_hit
 			end if
 		end if
     end if
-end sub 
+end sub
 
 sub tlt2_hit
     if tilt=false then
@@ -1243,7 +1259,7 @@ sub tlt2_hit
 		else
 			addscore 500
 		end if
-		if apos(player)=2 then 
+		if apos(player)=2 then
 			if spstate(player)=1 then
 				playsound "knocke"
 				addcredit
@@ -1253,7 +1269,7 @@ sub tlt2_hit
 			end if
 		end if
     end if
-end sub        
+end sub
 
 sub trt2_hit
     if tilt=false then
@@ -1266,7 +1282,7 @@ sub trt2_hit
     else
     addscore 500
     end if
-    if apos(player)=3 then 
+    if apos(player)=3 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1289,7 +1305,7 @@ sub trt1_hit
 	else
     addscore 500
     end if
-    if apos(player)=4 then 
+    if apos(player)=4 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1312,7 +1328,7 @@ sub mlt1_hit
     else
 		addscore 500
     end if
-    if apos(player)=5 then 
+    if apos(player)=5 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1335,7 +1351,7 @@ sub mlt2_hit
     else
     addscore 500
    end if
-    if apos(player)=6 then 
+    if apos(player)=6 then
       if spstate(player)=1 then
         playsound "knocke"
 		addcredit
@@ -1363,7 +1379,7 @@ sub mlt_hit
     else
 		addscore 500
     end if
-    if apos(player)=4 then 
+    if apos(player)=4 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1379,7 +1395,7 @@ sub mlt_Timer
 	PlightML.State=lightstateon
 	TlightML.state=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub mrt_hit
     if tilt=false then
@@ -1397,7 +1413,7 @@ sub mrt_hit
     else
 		addscore 500
     end if
-    if apos(player)=1 then 
+    if apos(player)=1 then
     if spstate(player)=1 then
 		playsound "knocke"
 		addcredit
@@ -1413,7 +1429,7 @@ sub mrt_Timer
 	PlightMR.State=lightstateon
 	TlightMR.state=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub mrt1_hit
     if tilt=false then
@@ -1426,7 +1442,7 @@ sub mrt1_hit
     else
     addscore 500
     end if
-    if apos(player)=9 then 
+    if apos(player)=9 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1449,7 +1465,7 @@ sub mrt2_hit
     else
     addscore 500
     end if
-    if apos(player)=10 then 
+    if apos(player)=10 then
 		if spstate(player)=1 then
 			playsound "knocke"
 			addcredit
@@ -1477,7 +1493,7 @@ sub llt_hit
     else
     addscore 500
     end if
-    if apos(player)=8 then 
+    if apos(player)=8 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1488,12 +1504,12 @@ sub llt_hit
     end if
     end if
 end sub
-	
+
 sub llt_Timer
 	PlightLM.State=lightstateon
 	TlightLM.State=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub lrt_hit
     if tilt=false then
@@ -1503,7 +1519,7 @@ sub lrt_hit
 		PlightRM.state=lightstateoff
 		TlightRM.state=lightstateoff
 		Me.TimerEnabled = 1
-		if (n7.state)=lightstateon then 
+		if (n7.state)=lightstateon then
 			n7.state=lightstateoff
 			numbstate(player,7)=0
 			addscore 5000
@@ -1511,7 +1527,7 @@ sub lrt_hit
 			else
 			addscore 500
 		end if
-		if apos(player)=7 then 
+		if apos(player)=7 then
 			if spstate(player)=1 then
 				playsound "knocke"
 				addcredit
@@ -1527,7 +1543,7 @@ sub lrt_Timer
 	PlightRM.State=lightstateon
 	TlightRM.State=lightstateon
 	Me.Timerenabled = 0
-End Sub 
+End Sub
 
 sub lout_hit
     if tilt=false then
@@ -1540,7 +1556,7 @@ sub lout_hit
     else
     addscore 500
     end if
-    if apos(player)=10 then 
+    if apos(player)=10 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1563,7 +1579,7 @@ sub lin_hit
     else
     addscore 500
     end if
-    if apos(player)=9 then 
+    if apos(player)=9 then
     if spstate(player)=1 then
     playsound "knocke"
 	addcredit
@@ -1586,7 +1602,7 @@ sub rin_hit
     else
     addscore 500
     end if
-    if apos(player)=6 then 
+    if apos(player)=6 then
     if spstate(player)=1 then
     playsound "knocke"
     addcredit
@@ -1606,13 +1622,13 @@ sub rout_hit
 		numbstate(player,5)=0
 		addscore 5000
 		checkaward
-		if apos(player)=5 then 
+		if apos(player)=5 then
 			addscore 5000
 		end if
 	else
 		addscore 500
     end if
-    if apos(player)=5 then 
+    if apos(player)=5 then
     if spstate(player)=1 then
 		playsound "knocke"
 		addcredit
@@ -1644,7 +1660,7 @@ sub fivekdelay_timer
 	playsound "bonuscheer"
 	birdjump.enabled=true
     fivekdelay.enabled=false
-end sub    
+end sub
 
 sub birdjump_timer
   if toy1timer.enabled + toy1down.enabled + toy2timer.enabled + toy2down.enabled + toy3timer.enabled + toy3down.enabled + toy4timer.enabled + toy4down.enabled + toy5timer.enabled + toy5down.enabled = 0 then
@@ -1787,7 +1803,7 @@ sub movearrow
       if apos(player)>10 then apos(player)=1
 	  arrow(apos(player)).state=lightstateon
 	end if
-end sub  
+end sub
 
 sub checkaward
     ac(player)=0
@@ -1796,7 +1812,7 @@ sub checkaward
     next
 	if ac(player)>2 then Star1L.state=1
 	if ac(player)>5 then Star2L.state=1
-    if ac(player)=10 then 
+    if ac(player)=10 then
 	  Star3L.state=1
       sp.state=lightstateon
 	  spstate(player)=1
@@ -1811,10 +1827,10 @@ sub checkaward
 		addscore 10000
 		playsound "bonuscheer"
 	end if
-end sub   
+end sub
 
 sub Star1_hit
-	if star1l.state=1 then 
+	if star1l.state=1 then
 		addscore 2000
 	  else
 		addscore 10
@@ -1822,7 +1838,7 @@ sub Star1_hit
 end sub
 
 sub Star2_hit
-	if star2l.state=1 then 
+	if star2l.state=1 then
 		addscore 2000
 	  else
 		addscore 10
@@ -1837,7 +1853,7 @@ sub Star2_hit
 end sub
 
 sub Star3_hit
-	if star3l.state=1 then 
+	if star3l.state=1 then
 		star3l.state=2
 		playsound "StarWizard"
 		me.timerenabled=1
@@ -1946,8 +1962,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -2007,7 +2023,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -2070,10 +2086,12 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
