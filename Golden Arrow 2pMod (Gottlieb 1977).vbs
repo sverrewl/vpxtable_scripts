@@ -18,7 +18,23 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 dim ballinplay
@@ -171,7 +187,7 @@ end sub
 Sub Table1_KeyDown(ByVal keycode)
 
     if keycode=AddCreditKey then
-		playsound "coin3"
+		playsoundAtVol "coin3", drain, 1
 		if state=false then
 			credittxt.text=credit
 		end if
@@ -225,14 +241,14 @@ Sub Table1_KeyDown(ByVal keycode)
     if tilt=false and state=true then
 	  If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToEnd
-		PlaySound "FlipperUp"
-		PlaySound "Buzz",-1,.1
+		PlaySoundAtVol "FlipperUp", LeftFlipper, VolFlip
+		PlaySoundAtVol "Buzz", LeftFlipper, VolFlip
 	  End If
 
 	  If keycode = RightFlipperKey Then
 		RightFlipper.RotateToEnd
-        PlaySound "FlipperUp"
-		PlaySound "Buzz",-1,.1
+        PlaySoundAtVol "FlipperUp", RightFlipper, VolFlip
+		PlaySoundAtVol "Buzz", RightFlipper, VolFlip
 	  End If
 
 	  If keycode = LeftTiltKey Then
@@ -262,13 +278,13 @@ Sub Table1_KeyUp(ByVal keycode)
 
 	If keycode = PlungerKey Then
 		Plunger.Fire
-		playsound "plunger"
+		playsoundAtVol "plunger", Plunger, 1
 	End If
 
 	If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToStart
 		if tilt= false and state=true then
-			PlaySound "FlipperDown"
+			PlaySoundAtVol "FlipperDown", LeftFlipper, VolFlip
 			StopSound "Buzz"
 		end if
 	End If
@@ -276,7 +292,7 @@ Sub Table1_KeyUp(ByVal keycode)
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToStart
         if tilt= false and state=true then
-			PlaySound "FlipperDown"
+			PlaySoundAtVol "FlipperDown", RightFlipper, VolFlip
 			StopSound "Buzz"
 		end if
 	End If
@@ -425,7 +441,7 @@ sub newball
 end sub
 
 Sub Drain_Hit()
-	playsound "drainshorter"
+	playsoundAtVol "drainshorter", drain, 1
 	Drain.DestroyBall
 		if players=1 or player=2 then
 			player=1
@@ -672,7 +688,7 @@ sub turnoff
 end sub
 
 Sub RightSlingShot_Slingshot
-    PlaySound "left_slingshot", 0, 1, 0.05, 0.05
+    PlaySoundAtVol "left_slingshot", sling1, 1
 	addscore 10
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -692,7 +708,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-    PlaySound "right_slingshot",0,1,-0.05,0.05
+    PlaySoundAtVol "right_slingshot", sling2, 1
 	addscore 10
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -741,7 +757,7 @@ End Sub
 
 sub bumper1_hit
     if tilt=false then
-	  playsound "jet2"
+	  playsoundAtVol "jet2", bumper1, VolBump
 	  addscore 100
 	  If FlashB.Enabled = False then
 		Bumper1Light.State = 0
@@ -767,7 +783,7 @@ sub Bumper1_Timer
 End Sub
 
 sub bumper2_hit
-    if tilt=false then playsound "jet2"
+    if tilt=false then playsoundAtVol "jet2", bumper2, VolBump
 	if (bumper2light.state)=lightstateon then
 		addscore 1000
 	else
@@ -788,7 +804,7 @@ End Sub
 
 sub bumper3_hit
     if tilt=false then
-	  playsound "jet2"
+	  playsoundAtVol "jet2", Bumper3, VolBump
       addscore 100
 	  If FlashB.Enabled = false then
 		Bumper3Light.State = 0
@@ -1383,7 +1399,7 @@ end sub
 
 sub ballrel_hit
 	if ballrenabled=1 then
-		playsound "ballrelease"
+		playsoundAtVol "ballrelease", ballrel, 1
 		ballrenabled=0
 	end if
 end sub
@@ -1415,8 +1431,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -1476,7 +1492,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1536,11 +1552,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
