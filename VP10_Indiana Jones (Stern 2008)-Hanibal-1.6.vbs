@@ -6,8 +6,25 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Table used modified JP ball rolling routine
-' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -222,7 +239,7 @@ Sub Table_KeyDown(ByVal Keycode)
 		'SolURFlipper true
 	End If
 '    If keycode = PlungerKey Then Plunger.Pullback:PNewPos = 0:PTime.Enabled = 1
-    If keycode = PlungerKey Then Plunger.Pullback:PlaySound "PlungerPull", 0, 40 / (15*Rnd), 0.05, 0.15
+    If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAtVol "PlungerPull", plunger, 1
   	If keycode = LeftTiltKey Then LeftNudge 80, 1, 20:nudgebobble(keycode):End If
    If keycode = RightTiltKey Then RightNudge 280, 1, 20:nudgebobble(keycode):End If
    If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
@@ -231,7 +248,7 @@ End Sub
 
 
 Sub table_KeyUp(ByVal Keycode)
-	If keycode = PlungerKey Then Plunger.Fire:PlaySound "Plunger", 0, 40 / (15*Rnd), 0.05, 0.15
+	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "Plunger", plunger, 1
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
@@ -251,9 +268,9 @@ Sub Table_KeyUp(ByVal keycode)
     If keycode = PlungerKey Then
 		PTime.Enabled = 0:PTime2.Enabled = 1:Plunger.Fire
         If(BallinPlunger = 1) then 'the ball is in the plunger lane
-            PlaySound "Plunger2", 0, 40 / (15*Rnd), 0.05, 0.15
+            PlaySoundAtVol "Plunger2", plunger, 1
         else
-            PlaySound "Plunger", 0, 40 / (15*Rnd), 0.05, 0.15
+            PlaySoundAtVol "Plunger", plunger, 1
         end if
 	End If
 End Sub
@@ -623,17 +640,17 @@ End Sub
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-         LeftFlipper.RotateToEnd: PlaySound "Flipper-oben-Links"
+         LeftFlipper.RotateToEnd: PlaySoundAtVol "Flipper-oben-Links", LeftFlipper,VolFlip
      Else
-         LeftFlipper.RotateToStart: PlaySound "Flipper-unten-Links"
+         LeftFlipper.RotateToStart: PlaySoundAtVol "Flipper-unten-Links", LeftFlipper,VolFlip
      End If
   End Sub
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
-         RightFlipper.RotateToEnd : PlaySound "Flipper-oben-Rechts"
+         RightFlipper.RotateToEnd : PlaySoundAtVol "Flipper-oben-Rechts", RightFlipper, VolFlip
      Else
-         RightFlipper.RotateToStart : PlaySound "Flipper-unten-Rechts"
+         RightFlipper.RotateToStart : PlaySoundAtVol "Flipper-unten-Rechts", RightFlipper, VolFlip
      End If
 End Sub
 
@@ -643,7 +660,7 @@ End Sub
 
  'Drains and Kickers
 Sub Drain_Hit
-	PlaySound "Drain"
+	PlaySoundAtVol "Drain", drain, 1
 '	ClearBallID
 	bsTrough.AddBall Me
 	Drain.TimerInterval = 200
@@ -725,24 +742,24 @@ Sub sw11d_Hit:
 	'GI_AllOff 1000
 '	ClearBallID
 	bsVUK.AddBall Me
-	PlaySound "scoopenter", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1
+	PlaySound "scoopenter", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall)
 End Sub
 Sub sw11_UnHit: NewBallId: End Sub
 
 
-Sub TOD_Hit: bsVUK.AddBall Me:vpmTimer.PulseSw 12:	PlaySound "scoopenter", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub 'ClearBallID
+Sub TOD_Hit: bsVUK.AddBall Me:vpmTimer.PulseSw 12:	PlaySound "scoopenter", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall):End Sub 'ClearBallID
 
 Sub sw45_Hit:
 	'GI_AllOff 1000
 '	ClearBallID
 	bsMapVUK.AddBall Me:
-    PlaySound "kicker_enter_center", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1
+    PlaySound "kicker_enter_center", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall)
 End Sub
 Sub sw45_UnHit: NewBallId: End Sub
 
 
 
-Sub TempleWall2_Hit  : vpmTimer.PulseSw 59:Me.TimerEnabled = 1:templeball2.TransZ = 15:sw59p.TransZ = 4: playsound "fx_chapa", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: Frei = 0: End Sub
+Sub TempleWall2_Hit  : vpmTimer.PulseSw 59:Me.TimerEnabled = 1:templeball2.TransZ = 15:sw59p.TransZ = 4: playsound "fx_chapa", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1, AudioFade(ActiveBall): Frei = 0: End Sub
 Sub TempleWall2_Timer:Me.TimerEnabled = 0:templeball2.TransZ = 0:sw59p.TransZ = 0:End Sub
 
 ' Hanibals Pulser Script for cinectic impuls transfer
@@ -768,18 +785,18 @@ Sub TestMag_Hit:mLockMagnet.Magneton = 1:End Sub
 Sub TestMag_UnHit:mLockMagnet.Magneton = 0:End Sub
 
 
-Sub sw54_Hit  : vpmTimer.PulseSw(54): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
+Sub sw54_Hit  : vpmTimer.PulseSw(54): PlaysoundAtVol "rollover" ,ActiveBall, 1:End Sub
 
-Sub sw38_Hit  : vpmTimer.PulseSw(38): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
+Sub sw38_Hit  : vpmTimer.PulseSw(38): PlaysoundAtVol "rollover", ActiveBall, 1 :End Sub
 
-Sub sw58_Hit  : vpmTimer.PulseSw(58): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
+Sub sw58_Hit  : vpmTimer.PulseSw(58): PlaysoundAtVol "rollover", ActiveBall, 1 :End Sub
 
-Sub sw13_Hit  : vpmTimer.PulseSw(13): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
+Sub sw13_Hit  : vpmTimer.PulseSw(13): PlaysoundAtVol "rollover", ActiveBall, 1 :End Sub
 
 
-Sub sw24_Hit  : vpmTimer.PulseSw(24): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:sw24p.TransZ = -18: End Sub ' left outlane
+Sub sw24_Hit  : vpmTimer.PulseSw(24): PlaysoundAtVol "rollover", ActiveBall, 1 :sw24p.TransZ = -18: End Sub ' left outlane
 Sub sw24_UnHit: sw24p.TransZ = 0: End Sub
-Sub sw25_Hit  : vpmTimer.PulseSw(25): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:sw25p.TransZ = -18: End Sub ' left inlane
+Sub sw25_Hit  : vpmTimer.PulseSw(25): PlaysoundAtVol "rollover", ActiveBall, 1 :sw25p.TransZ = -18: End Sub ' left inlane
 Sub sw25_UnHit: sw25p.TransZ = 0: End Sub
 
 Sub sw26_Hit  : vpmTimer.PulseSw(26): Flasher21c.state = 1 : End Sub
@@ -787,9 +804,9 @@ Sub sw26_UnHit  : Flasher21c.state = 0 : End Sub
 Sub sw27_Hit  : vpmTimer.PulseSw(27): Flasher21d.state = 1 : End Sub
 Sub sw27_UnHit  : Flasher21d.state = 0 : End Sub
 
-Sub sw28_Hit  : vpmTimer.PulseSw(28): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:sw28p.TransZ = -18: End Sub ' right inlane
+Sub sw28_Hit  : vpmTimer.PulseSw(28): PlaysoundAtVol "rollover", ActiveBall, 1 :sw28p.TransZ = -18: End Sub ' right inlane
 Sub sw28_UnHit: sw28p.TransZ = 0: End Sub
-Sub sw29_Hit  : vpmTimer.PulseSw(29): Playsound "rollover", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:sw29p.TransZ = -18: End Sub ' right outlane
+Sub sw29_Hit  : vpmTimer.PulseSw(29): PlaysoundAtVol "rollover", ActiveBall, 1 :sw29p.TransZ = -18: End Sub ' right outlane
 Sub sw29_UnHit: sw29p.TransZ = 0: End Sub
 
 Sub sw61_Hit  : vpmTimer.PulseSw(61): End Sub
@@ -804,64 +821,64 @@ Sub sw48_Hit  : vpmTimer.PulseSw(48): End Sub
 Sub TriggerSW60_Hit: vpmTimer.PulseSw 60: FlasherAkator2.State =1  End Sub
 Sub TriggerSW60_UnHit: FlasherAkator2.State =0  End Sub
 
-Sub sw40_Hit  : Controller.Switch(40) = 1: 	PlaySound "metalhit_medium": End Sub 'ark hit opto
+Sub sw40_Hit  : Controller.Switch(40) = 1: 	PlaySoundAtVol "metalhit_medium",sw40,1: End Sub 'ark hit opto
 Sub sw40_UnHit: Controller.Switch(40) = 0: End Sub
 
-Sub sw35_Hit  : vpmTimer.PulseSw 35:Me.TimerEnabled = 1:sw35p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw35_Hit  : vpmTimer.PulseSw 35:Me.TimerEnabled = 1:sw35p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw35_Timer:Me.TimerEnabled = 0:sw35p.TransX = 0:End Sub
-Sub sw36_Hit  : vpmTimer.PulseSw 36:Me.TimerEnabled = 1:sw36p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw36_Hit  : vpmTimer.PulseSw 36:Me.TimerEnabled = 1:sw36p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw36_Timer:Me.TimerEnabled = 0:sw36p.TransX = 0:End Sub
-Sub sw37_Hit  : vpmTimer.PulseSw 37:Me.TimerEnabled = 1:sw37p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw37_Hit  : vpmTimer.PulseSw 37:Me.TimerEnabled = 1:sw37p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw37_Timer:Me.TimerEnabled = 0:sw37p.TransX = 0:End Sub
-Sub sw41_Hit  : vpmTimer.PulseSw 41:Me.TimerEnabled = 1:sw41p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw41_Hit  : vpmTimer.PulseSw 41:Me.TimerEnabled = 1:sw41p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw41_Timer:Me.TimerEnabled = 0:sw41p.TransX = 0:End Sub
-Sub sw42_Hit  : vpmTimer.PulseSw 42:Me.TimerEnabled = 1:sw42p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw42_Hit  : vpmTimer.PulseSw 42:Me.TimerEnabled = 1:sw42p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw42_Timer:Me.TimerEnabled = 0:sw42p.TransX = 0:End Sub
-Sub sw43_Hit  : vpmTimer.PulseSw 43:Me.TimerEnabled = 1:sw43p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw43_Hit  : vpmTimer.PulseSw 43:Me.TimerEnabled = 1:sw43p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw43_Timer:Me.TimerEnabled = 0:sw43p.TransX = 0:End Sub
-Sub sw44_Hit  : vpmTimer.PulseSw 44:Me.TimerEnabled = 1:sw44p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw44_Hit  : vpmTimer.PulseSw 44:Me.TimerEnabled = 1:sw44p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw44_Timer:Me.TimerEnabled = 0:sw44p.TransX = 0:End Sub
-Sub sw55_Hit  : vpmTimer.PulseSw 55:Me.TimerEnabled = 1:sw55p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw55_Hit  : vpmTimer.PulseSw 55:Me.TimerEnabled = 1:sw55p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw55_Timer:Me.TimerEnabled = 0:sw55p.TransX = 0:End Sub
-Sub sw56_Hit  : vpmTimer.PulseSw 56:Me.TimerEnabled = 1:sw56p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw56_Hit  : vpmTimer.PulseSw 56:Me.TimerEnabled = 1:sw56p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw56_Timer:Me.TimerEnabled = 0:sw56p.TransX = 0:End Sub
-Sub sw57_Hit  : vpmTimer.PulseSw 57:Me.TimerEnabled = 1:sw57p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw57_Hit  : vpmTimer.PulseSw 57:Me.TimerEnabled = 1:sw57p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw57_Timer:Me.TimerEnabled = 0:sw57p.TransX = 0:End Sub
-Sub sw1_Hit  : vpmTimer.PulseSw 1:Me.TimerEnabled = 1:sw1p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw1_Hit  : vpmTimer.PulseSw 1:Me.TimerEnabled = 1:sw1p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw1_Timer:Me.TimerEnabled = 0:sw1p.TransX = 0:End Sub
-Sub sw2_Hit  : vpmTimer.PulseSw 2:Me.TimerEnabled = 1:sw2p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw2_Hit  : vpmTimer.PulseSw 2:Me.TimerEnabled = 1:sw2p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw2_Timer:Me.TimerEnabled = 0:sw2p.TransX = 0:End Sub
-Sub sw3_Hit  : vpmTimer.PulseSw 3:Me.TimerEnabled = 1:sw3p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw3_Hit  : vpmTimer.PulseSw 3:Me.TimerEnabled = 1:sw3p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw3_Timer:Me.TimerEnabled = 0:sw3p.TransX = 0:End Sub
-Sub sw4_Hit  : vpmTimer.PulseSw 4:Me.TimerEnabled = 1:sw4p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw4_Hit  : vpmTimer.PulseSw 4:Me.TimerEnabled = 1:sw4p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw4_Timer:Me.TimerEnabled = 0:sw4p.TransX = 0:End Sub
-Sub sw5_Hit  : vpmTimer.PulseSw 5:Me.TimerEnabled = 1:sw5p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw5_Hit  : vpmTimer.PulseSw 5:Me.TimerEnabled = 1:sw5p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw5_Timer:Me.TimerEnabled = 0:sw5p.TransX = 0:End Sub
-Sub sw7_Hit  : vpmTimer.PulseSw 7:Me.TimerEnabled = 1:sw7p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw7_Hit  : vpmTimer.PulseSw 7:Me.TimerEnabled = 1:sw7p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw7_Timer:Me.TimerEnabled = 0:sw7p.TransX = 0:End Sub
-Sub sw8_Hit  : vpmTimer.PulseSw 8:Me.TimerEnabled = 1:sw8p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw8_Hit  : vpmTimer.PulseSw 8:Me.TimerEnabled = 1:sw8p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw8_Timer:Me.TimerEnabled = 0:sw8p.TransX = 0:End Sub
-Sub sw9_Hit  : vpmTimer.PulseSw 9:Me.TimerEnabled = 1:sw9p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw9_Hit  : vpmTimer.PulseSw 9:Me.TimerEnabled = 1:sw9p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw9_Timer:Me.TimerEnabled = 0:sw9p.TransX = 0:End Sub
-Sub sw10_Hit  : vpmTimer.PulseSw 10:Me.TimerEnabled = 1:sw10p.TransX = -4: playsound "target", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1: End Sub
+Sub sw10_Hit  : vpmTimer.PulseSw 10:Me.TimerEnabled = 1:sw10p.TransX = -4: playsoundAtVol "target", ActiveBall, VolTarg : End Sub
 Sub sw10_Timer:Me.TimerEnabled = 0:sw10p.TransX = 0:End Sub
 
-Sub sw6_Spin:vpmTimer.PulseSw 6: playsound "spinner" , 0, 40 / (15*Rnd), 0.10, 0.15: End Sub
-Sub sw14_Spin:vpmTimer.PulseSw 14:playsound "spinner" , 0, 40 / (15*Rnd), -0.10, 0.15:End Sub
+Sub sw6_Spin:vpmTimer.PulseSw 6: playsoundAtVol "spinner" , sw6,VolSpin: End Sub
+Sub sw14_Spin:vpmTimer.PulseSw 14:playsoundAtVol "spinner" , sw14,VolSpin:End Sub
 
 
 
 
-Sub sw48s_Spin:Me.TimerEnabled = 1:playsound "spinner" , 0, 40 / (15*Rnd), 0.7, 0.15:End Sub
+Sub sw48s_Spin:Me.TimerEnabled = 1:playsoundAtVol "spinner" , sw48s,VolSpin:End Sub
 'Sub sw48s_Spin:Me.TimerEnabled = 1:SkullFlash.Alpha = 255:vpmTimer.PulseSw 48:End Sub
 Sub sw48s_Timer:Me.TimerEnabled = 0:End Sub
 Sub Spinner1_Hit:Test.State = 1:End Sub
-Sub Spinner1_Spin:Me.TimerEnabled = 1:playsound "spinner" , 0, 40 / (15*Rnd), -0.10, 0.15:End Sub
+Sub Spinner1_Spin:Me.TimerEnabled = 1:playsoundAtVol "spinner" , Spinner1,VolSpin:End Sub
 'Sub Spinner1_Spin:Me.TimerEnabled = 1:SkullFlash.Alpha = 255:vpmTimer.PulseSw 60:End Sub
 Sub Spinner1_Timer:Me.TimerEnabled = 0:End Sub
 
-Sub Spinner2_Hit: playsound "spinner" , 0, 40 / (15*Rnd), 0.10, 0.15: End Sub
-Sub Spinner2_Spin: playsound "spinner" , 0, 40 / (15*Rnd), 0.10, 0.15: End Sub
+Sub Spinner2_Hit: playsoundAtVol "spinner" , Spinner2,VolSpin: End Sub
+Sub Spinner2_Spin: playsoundAtVol "spinner" , Spinner2,VolSpin: End Sub
 
 
 
@@ -876,7 +893,7 @@ Sub Spinner2_Spin: playsound "spinner" , 0, 40 / (15*Rnd), 0.10, 0.15: End Sub
 	Leftsling2 = True
 	Leftsling3 = True
 	Controller.Switch(26) = 1
- 	PlaySound "slingshot", 0, 40 / (15*Rnd), -0.05, 0.15:LeftSlingshot.TimerEnabled = 1
+ 	PlaySoundAtVol "slingshot",ActiveBall, 1:LeftSlingshot.TimerEnabled = 1
   End Sub
 
 Dim Leftsling1:Leftsling1 = False
@@ -934,14 +951,14 @@ End Sub
 	Rightsling2 = True
 	Rightsling3 = True
 	Controller.Switch(27) = 1
- 	PlaySound "slingshot", 0, 40 / (15*Rnd), 0.05, 0.15:RightSlingshot.TimerEnabled = 1
+ 	PlaySoundAtVol "slingshot" ,ActiveBall, 1:RightSlingshot.TimerEnabled = 1
   End Sub
 
  Sub RightSlingShot_Timer:Me.TimerEnabled = 0:Controller.Switch(27) = 0:End Sub
 
  Sub sw46_Slingshot
 	Controller.Switch(46) = 1
- 	PlaySound "slingshot", 0, 40 / (15*Rnd), 0.07, 0.15
+ 	PlaySoundAtVol "slingshot", ActiveBall, 1
 	sw46.TimerEnabled = 1
   End Sub
 
@@ -949,7 +966,7 @@ Sub sw46_Timer:Me.TimerEnabled = 0:Controller.Switch(46) = 0:End Sub
 
  Sub sw47_Slingshot
 	Controller.Switch(47) = 1
- 	PlaySound "slingshot", 0, 40 / (15*Rnd), 0.07, 0.15
+ 	PlaySoundAtVol "slingshot", ActiveBall, 1
 	sw47.TimerEnabled = 1
   End Sub
 
@@ -970,13 +987,13 @@ Sub sw47_Timer:Me.TimerEnabled = 0:Controller.Switch(47) = 0:End Sub
 Sub sw23_unhit :GI_TroughCheck: End Sub
 '
 'Hanibals Bumper Script with Light
-      Sub Bumper1b_Hit:vpmTimer.PulseSw 30: BumperL1.State = 1 :PlaySound "bumper", 0, (18 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:B1Drop = True:End Sub
+      Sub Bumper1b_Hit:vpmTimer.PulseSw 30: BumperL1.State = 1 :PlaySoundAtVol "bumper", Bumper1b,VolBump :B1Drop = True:End Sub
 
-      Sub Bumper2b_Hit:vpmTimer.PulseSw 31: BumperL2.State = 1 :PlaySound "bumper", 0, (18 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:B2Drop = True: End Sub
+      Sub Bumper2b_Hit:vpmTimer.PulseSw 31: BumperL2.State = 1 :PlaySoundAtVol "bumper", Bumper2b,VolBump:B2Drop = True: End Sub
 
-      Sub Bumper3b_Hit:vpmTimer.PulseSw 32: BumperL3.State = 1 :PlaySound "bumper", 0, (18 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:B3Drop = True:End Sub
+      Sub Bumper3b_Hit:vpmTimer.PulseSw 32: BumperL3.State = 1 :PlaySoundAtVol "bumper", Bumper3b,VolBump:B3Drop = True:End Sub
 
-      Sub Bumper4b_Hit:vpmTimer.PulseSw 33: BumperL4.State = 1 :PlaySound "bumper", 0, (18 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:B4Drop = True:End Sub
+      Sub Bumper4b_Hit:vpmTimer.PulseSw 33: BumperL4.State = 1 :PlaySoundAtVol "bumper", Bumper4b,VolBump:B4Drop = True:End Sub
 
 Dim B1Drop:B1Drop = False
 
@@ -1259,8 +1276,8 @@ Sub FlasherTimer_Timer()
 
 'SOUNDS
 
-Sub BallstopL_Hit: PlaySound "drop_left", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
-Sub arkdrop_Hit: PlaySound "drop_right", 0, (8 +Vol(ActiveBall)),  Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 1:End Sub
+Sub BallstopL_Hit: PlaySoundAtVol "drop_left", ActiveBall,1:End Sub
+Sub arkdrop_Hit: PlaySoundAtVol "drop_right", ActiveBall,1:End Sub
 'Sub BallstopR_Hit: PlaySound "drop_Right": End Sub
 'Sub Gate3_Hit: PlaySound "Gate": End Sub
 
@@ -1945,7 +1962,7 @@ Sub DT_Timer
 
 
 If TempMotorUp = 1 AND TempSoundTrigger1 = 1 Then
-        PlaySound "E_Motorlift2", 0, 40 / (25*Rnd), -0.05, 0.15
+        PlaySound "E_Motorlift2", 0, 40 / (25*Rnd), -0.05, 0.15 ' TODO
         TempSoundTrigger1 = 0
 
 End If
@@ -2323,8 +2340,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -2384,7 +2401,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -2458,5 +2475,6 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
 End Sub
+
