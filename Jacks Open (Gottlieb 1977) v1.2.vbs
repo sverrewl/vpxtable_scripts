@@ -14,12 +14,30 @@
 '   NEW -  New High Score Sticky and additional photo resources from GNance
 '   NEW -  Score routine fixes by BorgDog
 
+Option Explicit
+Randomize
+
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
-Option Explicit
-Randomize
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 Const cGameName = "jacksopen"
 
@@ -136,14 +154,14 @@ End Sub
 Sub JacksOpen_KeyDown(ByVal keycode)
 	If Gamestarted AND(NOT Tilted) Then
 		If keycode = LeftFlipperKey Then
-			PlaySound SoundFXDOF("PNK_MH_Flip_L_up",101,DOFOn,DOFContactors)
+			PlaySoundAtVol SoundFXDOF("PNK_MH_Flip_L_up",101,DOFOn,DOFContactors), LeftFlipper, VolFlip
 			LeftFlipper.RotateToEnd
-			PlaySound "Buzz1",-1,1,.1
+			PlaySoundAtVol "Buzz1", LeftFlipper, VolFlip
 		end if
 		If keycode = RightFlipperKey Then
-			PlaySound SoundFXDOF("PNK_MH_Flip_R_up",102,DOFOn,DOFContactors)
+			PlaySoundAtVol SoundFXDOF("PNK_MH_Flip_R_up",102,DOFOn,DOFContactors), RightFlipper, VolFlip
 			RightFlipper.RotateToEnd
-			PlaySound "Buzz",-1,1,.1
+			PlaySoundAtVol "Buzz", RightFlipper, VolFlip
 		end if
 	End If
 	If keycode = LeftTiltKey Then
@@ -174,12 +192,12 @@ Sub JacksOpen_KeyUp(ByVal keycode)
 	If Gamestarted AND(NOT Tilted) Then
 		If keycode = LeftFlipperKey Then
 			LeftFlipper.RotateToStart
-			PlaySound SoundFXDOF("PNK_MH_Flip_L_down",101,DOFOff,DOFContactors)
+			PlaySoundAtVol SoundFXDOF("PNK_MH_Flip_L_down",101,DOFOff,DOFContactors), LeftFlipper, VolFlip
 			StopSound "Buzz1"
 		end if
 		If keycode = RightFlipperKey Then
 			RightFlipper.RotateToStart
-			PlaySound SoundFXDOF("PNK_MH_Flip_R_down",102,DOFOff,DOFContactors)
+			PlaySoundAtVol SoundFXDOF("PNK_MH_Flip_R_down",102,DOFOff,DOFContactors), RightFlipper, VolFlip
 			StopSound "Buzz"
 		end if
 	End If
@@ -249,7 +267,7 @@ End Sub
 Sub AddCredit
 	Credits = Credits + 1
 	DOF 142, DOFOn
-	PlaySound "coin"
+	PlaySoundAtVol "coin", drain ,1
 	If Credits > 15 Then Credits = 15
 	If B2SOn then Controller.B2SSetCredits credits
 	EMReelCredits.setvalue(Credits)
@@ -281,7 +299,7 @@ Sub DelayTimer_Timer
 				If B2SOn then Controller.B2ssetballinplay 32, CurrentBall
 				EMReelBall.SetValue(CurrentBall)
 				Drain.Kick 65, 15
-			    PlaySound SoundFXDOF("ballrel",109,DOFPulse,DOFContactors)
+			    PlaySoundAtVol SoundFXDOF("ballrel",109,DOFPulse,DOFContactors), Drain, 1
 			End If
 		End If
 	End If
@@ -289,7 +307,7 @@ Sub DelayTimer_Timer
 	If DropResetPause > 0 Then
 		DropResetPause = DropResetPause  - 1
 		If DropResetPause = 0 Then
-			PlaySound "dropResetCenter"
+			PlaySoundAtVol "dropResetCenter", Target5, VolTarg
 			For each obj in Drops
 				obj.IsDropped=false
 			Next
@@ -299,7 +317,7 @@ Sub DelayTimer_Timer
 	If RedResetPause > 0 Then
 		RedResetPause = RedResetPause  - 1
 		If RedResetPause = 0 Then
-			PlaySound "dropResetCenter"
+			PlaySoundAtVol "dropResetCenter", Target5, VolTarg
 			Target2.IsDropped = True:Target4.IsDropped = True:Target6.IsDropped = True:Target8.IsDropped = True
 		End If
 	End If
@@ -530,7 +548,7 @@ End Sub
 '  OBJECT HANDLERS
 '****************************************
 
-Sub Gate_Hit():Playsound "PNK_MH_gate":End Sub
+Sub Gate_Hit():PlaysoundAtVol "PNK_MH_gate", Gate, 1:End Sub
 Sub LeftFlipper_Collide(parm):RandomSoundFlipper():End Sub
 Sub RightFlipper_Collide(parm):RandomSoundFlipper():End Sub
 
@@ -694,7 +712,7 @@ Sub Target1_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target1Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets), Target1, VolTarg
 		AddScore (1000)
 		if targetscore.enabled=false then
 			TSCount=1
@@ -707,7 +725,7 @@ Sub Target2_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target2Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets), Target2, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -720,7 +738,7 @@ Sub Target3_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target3Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropLeft",111,DOFPulse,DOFDropTargets), Target3, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -733,7 +751,7 @@ Sub Target4_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target4Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets), Target4, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -746,7 +764,7 @@ Sub Target5_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target5Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets), Target5, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -759,7 +777,7 @@ Sub Target6_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target6Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropCenter",112,DOFPulse,DOFDropTargets), Target6, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -772,7 +790,7 @@ Sub Target7_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target7Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets), Target7, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -785,7 +803,7 @@ Sub Target8_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target8Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets), Target8, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -798,7 +816,7 @@ Sub Target9_Hit()
 	If Gamestarted AND(NOT Tilted) Then
 		Target9Down=True
 		SMFadePause=SMFadeResetValue
-		playsound SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets)
+		playsoundAtVol SoundFXDOF("dropRight",113,DOFPulse,DOFDropTargets), Target9, VolTarg
 		AddScore (1000)
 			if targetscore.enabled=false then
 				TSCount=1
@@ -814,7 +832,7 @@ End Sub
 '****************************************
 
 Sub SwTop1_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 120, DOFPulse
 	If Gamestarted AND(NOT Tilted) Then
 		If LightTRO1.state=1 Then
@@ -833,7 +851,7 @@ Sub SwTop1_Hit()
 End Sub
 
 Sub SwTop2_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 103, DOFPulse
 	If Gamestarted AND(NOT Tilted) Then
 		If LightTRO2.state=1 Then
@@ -852,7 +870,7 @@ Sub SwTop2_Hit()
 End Sub
 
 Sub SwTop3_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 104, DOFPulse
 	If Gamestarted AND(NOT Tilted) Then
 		If LightTRO3.state=1 Then
@@ -871,7 +889,7 @@ Sub SwTop3_Hit()
 End Sub
 
 Sub SwTop4_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 105, DOFPulse
 	If Gamestarted AND(NOT Tilted) Then
 		If LightTRO4.state=1 Then
@@ -908,7 +926,7 @@ End Sub
 '****************************************
 
 Sub SwLRO_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 131, DOFPulse
 	If LightLROb.state=1 Then
 		AddScore(1000)
@@ -918,7 +936,7 @@ Sub SwLRO_Hit()
 End Sub
 
 Sub SwRRO_Hit()
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 134, DOFPulse
 	If LightRROb.state=1 Then
 		AddScore(1000)
@@ -929,7 +947,7 @@ End Sub
 
 Sub SwLIL_Hit()
 	SwLILPrim.RotX = 135
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 132, DOFPulse
 	If LightLILb.state=1 Then
 		AddScore(1000)
@@ -944,7 +962,7 @@ End Sub
 
 Sub SwRIL_Hit()
 	SwRILPrim.RotX = 135
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 133, DOFPulse
 	If LightRILb.state=1 Then
 		AddScore(1000)
@@ -959,7 +977,7 @@ End Sub
 
 Sub SwLOL_Hit()
 	SwLOLPrim.RotX = 135
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 131, DOFPulse
 	If LightLOLb.state=1 Then
 		AddScore(5000)
@@ -974,7 +992,7 @@ End Sub
 
 Sub SwROL_Hit()
 	SwROLPrim.RotX = 135
-	PlaySound "RollOver"
+	PlaySoundAtVol "RollOver", ActiveBall, 1
 	DOF 134, DOFPulse
 	If LightROLb.state=1 Then
 		AddScore(5000)
@@ -992,17 +1010,17 @@ End Sub
 '****************************************
 
 Sub Bumper1_Hit()
-    PlaySound SoundFXDOF("bumperLeft",103, DOFPulse,DOFContactors)
+    PlaySoundAtVol SoundFXDOF("bumperLeft",103, DOFPulse,DOFContactors), Bumper1, VolBump
 	If B1Lit=1 Then:AddScore(100):Else:AddScore(10):End If
 End Sub
 
 Sub Bumper2_Hit()
-    PlaySound SoundFXDOF("bumperCenter",104, DOFPulse,DOFContactors)
+    PlaySoundAtVol SoundFXDOF("bumperCenter",104, DOFPulse,DOFContactors), Bumper2, VolBump
 	If B2Lit=1 Then:AddScore(1000):Else:AddScore(100):End If
 End Sub
 
 Sub Bumper3_Hit()
-    PlaySound SoundFXDOF("bumperRight",105, DOFPulse,DOFContactors)
+    PlaySoundAtVol SoundFXDOF("bumperRight",105, DOFPulse,DOFContactors), Bumper3, VolBump
 	If B3Lit=1 Then:AddScore(100):Else:AddScore(10):End If
 End Sub
 
@@ -1033,9 +1051,9 @@ End Sub
 Sub Drain_Hit:EndOfBall:End Sub 'RollingSoundsOff:SoundTimer.enabled=0:EndOfBall:End Sub
 
 Sub EndOfBall()
-	PlaySound "drain"
+	PlaySoundAtVol "drain", drain, 1
 	DOF 141, DOFPulse
-	SMFadePause=SMFadeResetValue:PlaySound "MekSound"
+	SMFadePause=SMFadeResetValue:PlaySoundAtVol "MekSound", drain, 1
 	'Enable again if Tilted
 	If Tilted Then
 		EMReelTILT.SetValue 0
@@ -1443,8 +1461,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -1504,7 +1522,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1567,9 +1585,5 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If JacksOpen.VersionMinor > 3 OR JacksOpen.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
