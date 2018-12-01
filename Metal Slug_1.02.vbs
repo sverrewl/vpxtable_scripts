@@ -10,9 +10,6 @@
 ' **                                                                 **
 ' *********************************************************************
 
-' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
 
 ' *** WHAT'S NEW IN 2.0 BETA ? ***
 '
@@ -50,11 +47,37 @@
 ' **                                                                 **
 ' *********************************************************************
 
-
-
-
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Its a original - move sounds not directional referenced to backglass !
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber bands volume.
+Const VolPo     = 1    ' Rubber posts volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolPlast  = 1    ' Plastics volume.
+Const VolWood   = 1    ' Woods volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 '---------- UltraDMD Unique Table Color preference -------------
 Dim DMDColor, DMDColorSelect, UseFullColor
@@ -528,7 +551,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         Credits = Credits + 1
 		DOF 128, DOFOn
         If(Tilted = False) Then
-            PlaySound "fx_coin"
+            PlaySoundAtVol "fx_coin", drain, 1
             DisplayB2SText " CREDITS " &credits
             D1.Text = " CREDITS " &credits
             PlaySound "go"
@@ -664,12 +687,12 @@ End Sub
 Sub SolLFlipper(Enabled)
 	startB2S(4)
     If Enabled Then
-        PlaySound SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), 0, 1, -0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
             RotateLaneLightsLeft
 
     Else
-        PlaySound SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), 0, 1, -0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
     End If
 End Sub
@@ -677,13 +700,13 @@ End Sub
 Sub SolRFlipper(Enabled)
 	startB2S(4)
     If Enabled Then
-        PlaySound SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), 0, 1, 0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), RightFlipper, VolFlip
         RightFlipper.RotateToEnd
         RightFlipper1.RotateToEnd
             RotateLaneLightsRight
 
     Else
-        PlaySound SoundFXDOF("fx_flipperdown", 102, DOFOff, DOFFlippers), 0, 1, 0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperdown", 102, DOFOff, DOFFlippers), RightFlipper, VolFlip
         RightFlipper.RotateToStart
         RightFlipper1.RotateToStart
     End If
@@ -955,13 +978,13 @@ End Sub
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_plastichit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPo, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_plastichit", 0, Vol(ActiveBall)*VolPlast, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' *********************************************************************
 '                        User Defined Script Events
@@ -1082,7 +1105,7 @@ Sub CreateNewBall()
     BallsOnPlayfield = BallsOnPlayfield + 1
 
     ' kick it out..
-    PlaySound SoundFXDOF("fx_Ballrel", 121, DOFPulse, DOFContactors), 0, 1, 0.1, 0.1
+    PlaySoundAtVol SoundFXDOF("fx_Ballrel", 121, DOFPulse, DOFContactors), Ballrelease, 1
     BallRelease.Kick 95, 4
 
 'PlungerKickerSolenoidPulse()
@@ -1375,7 +1398,7 @@ Sub swPlungerRest_Hit()
 	DOF 129, DOFOn
     'debug.print "ball in plunger lane"
     ' some sound according to the ball position
-    PlaySound "fx_sensor", 0, 1, 0.15, 0.25
+    PlaySoundAtVol "fx_sensor", Primitive34, 1
     bBallInPlungerLane = TRUE
     ' turn on Launch light is there is one
     'LaunchLight.State = 2
@@ -2506,7 +2529,7 @@ Sub POWLane1_Hit()
 	startB2S(3)
 	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
 	AddScore(100)
-	PlaySound "Lane1"
+	PlaySoundAtVol "Lane1", ActiveBall, 1
 	' Turn on "P" letter light.
 	POWLaneLight1.State = 1
 	' Check if all POW letters are completed.
@@ -2523,7 +2546,7 @@ Sub POWLane2_Hit()
 	startB2S(2)
 	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
 	AddScore(100)
-	PlaySound "Lane1"
+	PlaySoundAtVol "Lane1", ActiveBall, 1
 	' Turn on "O" letter light.
 	POWLaneLight2.State = 1
 	' Check if all POW letters are completed.
@@ -2540,7 +2563,7 @@ Sub POWLane3_Hit()
 	startB2S(1)
 	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
 	AddScore(100)
-	PlaySound "Lane1"
+	PlaySoundAtVol "Lane1", ActiveBall, 1
 	' Turn on "W" letter light.
 	POWLaneLight3.State = 1
 	' Check if all POW letters are completed.
@@ -2721,7 +2744,7 @@ Sub LeftSlingshotRubber_Slingshot()
 	startB2S(4)
 	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
 
-    PlaySound SoundFXDOF("LeftSlingShot", 103, DOFPulse, DOFContactors), 0, 1, -0.05, 0.05
+    PlaySoundAtVol SoundFXDOF("LeftSlingShot", 103, DOFPulse, DOFContactors), lemk, 1
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -2756,7 +2779,7 @@ Sub RightSlingshotRubber_Slingshot()
 	startB2S(4)
 	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
 
-    PlaySound SoundFXDOF("RightSlingShot", 104, DOFPulse, DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAtVol SoundFXDOF("RightSlingShot", 104, DOFPulse, DOFContactors), remk, 1
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -3422,7 +3445,7 @@ Sub Drain_Hit()
 	Drain.DestroyBall()
 	BallsOnPlayfield = BallsOnPlayfield - 1
 	' Pretend to knock the ball into the ball storage mechanism.
-	PlaySound "Drain"
+	PlaySoundAtVol "Drain", drain, 1
    If fpTilted Then FixWeapon()
 	' If there is a game in progress and not tilted.
 	If bGameInPlay And Not(fpTilted) Then
@@ -3528,7 +3551,7 @@ End Sub
 
 Sub Kicker1SolenoidPulse()
     Kicker1.kick 170, 15
-    Playsound "fx_kicker"
+    PlaysoundAtVol "fx_kicker", kicker1, VolKick
 End Sub
 
 
@@ -3570,7 +3593,7 @@ End Sub
 
 Sub Kicker2SolenoidPulse()
     Kicker2.kick 220, 15
-    Playsound "fx_kicker"
+    PlaysoundAtVol "fx_kicker", kicker2, VolKick
 End Sub
 
 ' The kicker 3 (center) has been hit.
@@ -3610,7 +3633,7 @@ End Sub
 
 Sub Kicker3SolenoidPulse()
     Kicker3.kick 165, 15
-    Playsound "fx_kicker"
+    PlaysoundAtVol "fx_kicker", kicker3, VolKick
 End Sub
 
 ' The kicker 4 (top of the table) has been hit.
@@ -3662,7 +3685,7 @@ End Sub
 
 Sub Kicker4SolenoidPulse()
     Kicker4.kick 270, 25
-    Playsound "fx_kicker"
+    PlaysoundAtVol "fx_kicker", kicker4, VolKick
 End Sub
 
 ' *********************************************************************
@@ -3686,7 +3709,7 @@ Sub Bumper1_Hit()
 			CheckJets()
 		Else
 			'Playsound "gun9"
-            playsound SoundFXDOF("gun9",106,DOFPulse,DOFContactors)
+            playsoundAtVol SoundFXDOF("gun9",106,DOFPulse,DOFContactors), Bumper1, VolBump
 		End If
    Else
 		FlashForMs F9, 100, 50, 0
@@ -3713,7 +3736,7 @@ Sub Bumper2_Hit()
 			CheckJets()
 		Else
 			'Playsound "gun8"
-            playsound SoundFXDOF("gun8",105,DOFPulse,DOFContactors)
+            playsoundAtVol SoundFXDOF("gun8",105,DOFPulse,DOFContactors), Bumper2, VolBump
 		End If
    Else
 		FlashForMs F10, 100, 50, 0
@@ -3740,7 +3763,7 @@ Sub Bumper3_Hit()
 			CheckJets()
 		Else
 			'Playsound "gun9"
-            playsound SoundFXDOF("gun9",107,DOFPulse,DOFContactors)
+            playsoundAtVol SoundFXDOF("gun9",107,DOFPulse,DOFContactors), Bumper3, VolBump
 		End If
    Else
 		FlashForMs F6, 100, 50, 0
@@ -7326,8 +7349,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -7387,7 +7410,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -7452,10 +7475,13 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
