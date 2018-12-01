@@ -3,7 +3,26 @@ Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+' TODO need to go throug again - don't really know where the objects are located.
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolGates  = 1    ' Gates volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 Const BallSize = 50
 Const BallMass = 1.7
@@ -276,7 +295,7 @@ Dim LeftFlipperDown, RightFlipperDown
 Sub Table1_KeyDown(ByVal KeyCode)
 
 	If (KeyCode = AddCreditKey) or (KeyCode = AddCreditKey2) Then
-		PlaySound "CoinIn"
+		PlaySoundAtVol "CoinIn", Drain, 1
 		CreditsTimer.Enabled=True
 		If (vpGameInPlay = False) Then
 		DOF 216, DOFOn  'DOF MX - Credits Inserted, Ready To Play
@@ -326,7 +345,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		If (vpTilted = FALSE) Then
 
 			If (KeyCode = LeftFlipperKey) and (bEnteringAHighScore=False) and (BonusTimer.Enabled=False) Then
-				PlaySound SoundFXDOF("fx_flipperup",101,DOFOn,DOFFlippers)
+				PlaySoundAtVol SoundFXDOF("fx_flipperup",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
 				DOF 201, DOFPulse  'DOF MX - Left Flipper
 				LeftFlipper.RotateToEnd
 				Flipper2.RotateToEnd
@@ -341,7 +360,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 			End If
 
 			If (KeyCode = RightFlipperKey) and (bEnteringAHighScore=False) and (BonusTimer.Enabled=False) Then
-				PlaySound SoundFXDOF("fx_flipperup",102,DOFOn,DOFFlippers)
+				PlaySoundAtVol SoundFXDOF("fx_flipperup",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
 				DOF 202, DOFPulse  'DOF MX - Right Flipper
 				RightFlipper.RotateToEnd
 				Flipper1.RotateToEnd
@@ -438,13 +457,13 @@ Sub Table1_KeyUp(ByVal KeyCode)
 
 	if (vpGameInPlay = TRUE) and (vpTilted = FALSE) Then
 		If (KeyCode = (LeftFlipperKey)) Then
-			PlaySound "fx_flipperdown"
+			PlaySoundAtVol "fx_flipperdown", LeftFlipper, VolFlip
 			LeftFlipper.RotateToStart
 			Flipper2.RotateToStart
 		End If
 
         If (KeyCode = (RightFlipperKey)) Then
-			PlaySound "fx_flipperdown"
+			PlaySoundAtVol "fx_flipperdown", RightFlipper, VolFlip
 			RightFlipper.RotateToStart
 			Flipper1.RotateToStart
 		End If
@@ -510,7 +529,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub LeftSlingshot_Slingshot()
-	PlaySound SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors),0,1,-0.05,0.05
+	PlaySoundAtVol SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors), sling2, 1
 	DOF 104, DOFPulse
 	DOF 203, DOFPulse  'DOF MX - Left Slingshot
 	LSling.Visible = 0
@@ -533,7 +552,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub RightSlingshot_Slingshot()
-	PlaySound SoundFXDOF("fx_slingshot",105,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
+	PlaySoundAtVol SoundFXDOF("fx_slingshot",105,DOFPulse,DOFContactors), sling1, 1
 	DOF 106, DOFPulse
 	DOF 204, DOFPulse  'DOF MX - Right Slingshot
 	RSling.Visible = 0
@@ -825,7 +844,7 @@ Sub ResetPlasmaTargets()
 			plasmatext.visible=true
 		End If
 	Else
-		Playsound SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors)
+		Playsound SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors) ' TODO
 		field.IsDropped = 1:Light26.State = LightStateOn
 		plasma.IsDropped = 1:Light25.State = LightStateOn
 	End If
@@ -998,7 +1017,7 @@ End Sub
 Sub ResetMonsterTargets()
 	targetstext.visible = true
 	targetstext.imageA = "a_targets"
-	Playsound SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors)
+	PlaysoundAtVol SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors), Switch4, VolTarg
 	TargetM.isDropped = 0:Switch1.rotx=90
 	TargetO.isDropped = 0:Switch2.rotx=90
 	TargetN.isDropped = 0:Switch3.rotx=90
@@ -1090,14 +1109,14 @@ Sub ScoreSkillShot(Letter)
 End Sub
 
 Sub TeleporterGate1_hit()
-	PlaySound "fx_Gate"
+	PlaySoundAtVol "fx_Gate", TeleporterGate1, VolGates
 	If SkillshotEnabled = 1 Then
 		EnableBallSaver
 	End If
 End Sub
 
 Sub TeleporterGate_hit()
-	PlaySound "fx_Gate"
+	PlaySoundAtVol "fx_Gate", TeleporterGate, VolGates
 End Sub
 
 Sub EnableBallSaver()
@@ -1150,7 +1169,7 @@ End Sub
 Sub LeftOutLaneTrigger_Hit ()
 	if (vpGameInPlay = TRUE And vpTilted = FALSE) then
 		AddScore 25000
-		PlaySound "Tabd19"
+		PlaySoundAtVol "Tabd19", LeftOutLaneTrigger, 1
 		DOF 217, DOFPulse  'DOF MX - Left Outlane - Green
 		if (KickbackLight.state <> LightStateOff) then
 			Light7blue.State = LightStateOn
@@ -1165,7 +1184,7 @@ Sub RightOutlaneTrigger_Hit()
 		DOF 220, DOFPulse  'DOF MX - Right Outlane - Blue
 		Lightblue.state = LightStateOn
 		AddScore 25000
-		PlaySound "Tabd19"
+		PlaySoundAtVol "Tabd19", RightOutlaneTrigger, 1
 	end if
 End Sub
 
@@ -1179,7 +1198,7 @@ End Sub
 
 Sub OpenTeleporter()
 	TechpointDiverterp.roty = -30
-	playsound SoundFXDOF("fx_diverter",121,DOFPulse,DOFContactors)
+	playsoundAtVol SoundFXDOF("fx_diverter",121,DOFPulse,DOFContactors), TechpointDiverterp, 1
 	Wall7.collidable = 0
 	wall24.collidable = 1
 	poddoor2.visible = False
@@ -1192,7 +1211,7 @@ End Sub
 
 Sub CloseTeleporter()
 	TechpointDiverterp.roty = 22
-	playsound SoundFXDOF("fx_diverter",121,DOFPulse,DOFContactors)
+	playsoundAtVol SoundFXDOF("fx_diverter",121,DOFPulse,DOFContactors), TechpointDiverterp, 1
 	Wall7.collidable = 1
 	wall24.collidable = 0
 	poddoor2.visible = True
@@ -1206,7 +1225,7 @@ Sub KickerTeleporter_Hit()
 	BulbBlue.state = LightStateOn
 	LightClon.state = LightStateOn
 	poddoor.visible = False
-	PlaySound "Tabd16"
+	PlaySoundAtVol "Tabd16", KickerTeleporter, 1
 	AddScore 150000
 End Sub
 
@@ -1257,7 +1276,7 @@ Dim YttriumCount:YttriumCount=0
 Sub Trigger1_Hit()
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If activeball.velx > 0 or activeball.vely < 0  Then
-			PlaySound "Tabd24"
+			PlaySoundAtVol "Tabd24", Trigger1, 1
 			DOF 128, DOFPulse
 			DOF 238, DOFPulse   'DOF MX - Left Ramp
 			If Countdown.enabled = false Then
@@ -1302,7 +1321,7 @@ Dim LecithinCount:LecithinCount=0
 Sub Trigger2_Hit()
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If activeball.velx > 0 or activeball.vely < 0  Then
-			PlaySound "Tabd24"
+			PlaySoundAtVol "Tabd24", Trigger2, 1
 			DOF 128, DOFPulse
 			DOF 239, DOFPulse   'DOF MX - Right Ramp
 			If Countdown.enabled = false Then
@@ -1372,7 +1391,7 @@ End Sub
 
 Sub MercuryBath_Hit()
 
-	PlaySound "tabd30"
+	PlaySoundAtVol "tabd30", MercuryBath, 1
 	splashcount = 0
 	splash1.visible = true
 	splash.enabled = true
@@ -1455,7 +1474,7 @@ End Sub
 '******************************************************
 
 Sub IgorSink_Hit()
-	PlaySound "Scoopenter"
+	PlaySoundAtVol "Scoopenter", IgorSink, 1
 
 	IgorSink.TimerInterval=1000:IgorSink.TimerEnabled=True
 	FlashForMS Bulb1, 500, 100, LightStateOff
@@ -1487,7 +1506,7 @@ End Sub
 '******************************************************
 
 Sub kicker_Hit()
-	PlaySound "fx2_kicker_enter_left"
+	PlaySoundAtVol "fx2_kicker_enter_left", Kicker, VolKick
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If Countdown.enabled = false Then
 			FlashForMs Light9, 1000,150, LightStateOff
@@ -1523,7 +1542,7 @@ End Sub
 Sub kicker_Timer()
 	kicker.TimerEnabled = FALSE
 	kicker.kick 168, 10
-	PlaySound "fx_kicker"
+	PlaySoundAtVol "fx_kicker", kicker, VolKick
 	DOF 122, DOFPulse
 	DOF 118, DOFPulse
 	DOF 234, DOFPulse  'DOF MX - Strobe
@@ -1534,7 +1553,7 @@ End Sub
 '******************************************************
 
 Sub KickerEinsteinium_Hit()
-	PlaySound "fx2_kicker_enter_left"
+	PlaySoundAtVol "fx2_kicker_enter_left", KickerEinsteinium, 1
 	If (vpGameInPlay=TRUE) And (vpTilted=FALSE) Then
 		If extraballight.State <> LightStateOff Then
 			extraballight.state=LightStateOff
@@ -1572,7 +1591,7 @@ End Sub
 Sub KickerEinsteinium_Timer()
 	KickerEinsteinium.TimerEnabled = FALSE
 	KickerEinsteinium.Kick 280, 10
-	PlaySound "fx_kicker"
+	PlaySoundAtVol "fx_kicker", KickerEinsteinium, VolKick
 	DOF 125, DOFPulse
 	DOF 118, DOFPulse
 	DOF 234, DOFPulse  'DOF MX - Strobe
@@ -1583,7 +1602,7 @@ End Sub
 '******************************************************
 
 Sub Tower_Hit()
-	PlaySound "Scoopenter"
+	PlaySoundAtVol "Scoopenter", Tower, 1
 	ActivateLightning
 
 
@@ -1640,7 +1659,7 @@ Dim Flaskactive, SkipAward, battongue, yttrium, einsteinium, lecithin
 Flaskactive=0:SkipAward=0:battongue=0:yttrium=0:einsteinium=0:Lecithin=0
 
 Sub VUK_Hit()
-	PlaySound "fx2_kicker_enter_left"
+	PlaySoundAtVol "fx2_kicker_enter_left", VUK, 1
 	vuk.timerinterval=1000
 	vuk.timerenabled=True
 	If Countdown.enabled = false then FlashForMs vuklight, 1000,150, LightStateOff
@@ -1652,7 +1671,7 @@ sub vuk_timer()
 	vuk.timerenabled = 0
 	if numElements = 0 or (Countdown.enabled=true and CurExperiment <> "ElixirOfLife") or (numElements <> 4 and Countdown.enabled = true and CurExperiment = "ElixirOfLife") then
 		vuk.kick 185, 10
-		PlaySound "fx_kicker"
+		PlaySoundAtVol "fx_kicker", vuk, 1
 		DOF 126, DOFPulse
 		DOF 118, DOFPulse
 		DOF 234, DOFPulse  'DOF MX - Strobe
@@ -1726,7 +1745,7 @@ Sub ClearFlask()
 	ResetElixir()
 	PlaySound"Tabd03"
 	vuk.kick 185, 10
-	PlaySound "fx_kicker"
+	PlaySoundAtVol "fx_kicker", vuk, 1
 	DOF 126, DOFPulse
 	DOF 118, DOFPulse
 	DOF 234, DOFPulse  'DOF MX - Strobe
@@ -1893,7 +1912,7 @@ Sub WallSinkTimer_Timer()
 
 		WallSink.kick 80, 10
 		BallsOnPlayfield = BallsOnPlayfield + 1
-		PlaySound SoundFXDOF("scoopexit",127,DOFPulse,DOFcontactors)
+		PlaySoundAtVol SoundFXDOF("scoopexit",127,DOFPulse,DOFcontactors), WallSink, 1
 		DOF 118, DOFPulse
 		DOF 234, DOFPulse  'DOF MX - Strobe
 	Else
@@ -2151,7 +2170,7 @@ Sub ScoreRedTarget()
 End Sub
 
 Sub ResetRedTargets()
-	playsound SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors)
+	playsoundAtVol SoundFXDOF("droptargetreset",119,DOFPulse,DOFContactors), TargetN, VolTarg
 	TargetM.isDropped = 0:TargetM.image="red":LightM.state = LightStateBlinking:switch1.rotx=180
 	TargetO.isDropped = 0:TargetO.image="red":LightO.state = LightStateBlinking:switch2.rotx=180
 	TargetN.isDropped = 0:TargetN.image="red":LightN.state = LightStateBlinking:switch3.rotx=180
@@ -2585,7 +2604,7 @@ End Sub
 Sub TriggerPlungerLane_Hit()
 	bBallInPlungerLane = TRUE
 	DOF 223, DOFOn  'DOF MX - Ball Ready to Shoot
-	playsound "fx_sensor"
+	playsoundAtVol "fx_sensor", TriggerPlungerLane, 1
 End Sub
 
 Sub TriggerPlungerLane_unhit()
@@ -2729,7 +2748,7 @@ Dim SaverBalls:SaverBalls = 0
 Sub Drain_Hit()
 	DOF 115, DOFPulse
 	Drain.DestroyBall
-	PlaySound "Drain"
+	PlaySoundAtVol "Drain", Drain, 1
 	DOF 210, DOFPulse 'DOF MX - Ball Drained
 	if (Light7blue.state = LightStateOff) and (Ballsaverlight.state = LightStateOff) then
 		BallsOnPlayfield = BallsOnPlayfield - 1
@@ -2749,7 +2768,7 @@ Sub Drain_Hit()
 			Drain2.kick 0,40
 			PlaySound "TABD20"
 		elseif (Ballsaverlight.state <> LightStateOff) Then
-			PlaySound "Drain"
+			PlaySoundAtVol "Drain", Drain, 1
 			If Not UltraDMD.isRendering then DMD_DisplayScene "","Ball Saved", UltraDMD_Animation_ZoomIn, UltraDMD_deOn, UltraDMD_Animation_None
 			CreateSaveBall()
 		End If
@@ -2894,7 +2913,7 @@ Sub GameoverTimer_Timer()
 		Case 6:PlaySound "Tabd14"
 		Case 7:PlaySound "Tabd54"
 		Case 8:PlaySound "Tabd45"
-        Case 9:PlaySound "Tabd68"
+    Case 9:PlaySound "Tabd68"
 	end select
 	GameoverTimer.Enabled=False
 End Sub
@@ -3541,40 +3560,32 @@ sub setigortext(imagename)
 	igortext.imageA = imagename
 end sub
 
-'**********************
-' Ball Collision Sound
-'**********************
-
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
-
 '******************************
 ' Diverse Collection Hit Sounds
 '******************************
 Dim VolumeDial
 VolumeDial=2
 
-Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall): End Sub
+Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, pan(ActiveBall), AudioFade(ActiveBall): End Sub
 Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aRubbers_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-	Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-	Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-	Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolumeDial, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
-Sub DropTargetSound():PlaySound SoundFXDOF("fx_droptarget",120,DOFPulse,DOFDropTargets), 0, 1:End Sub
+Sub DropTargetSound():PlaySoundAtVol SoundFXDOF("fx_droptarget",120,DOFPulse,DOFDropTargets),TargetN,1:End Sub
 
 
 ' Ramp Soundss
 
 Sub rrail_Hit
 	if activeball.vely < 0 then
-		PlaySound "fx_metalrolling", 0, 1, 0.15, 0.25
+		PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 	end if
 End Sub
 
@@ -3586,7 +3597,7 @@ End Sub
 
 Sub lrail_Hit
 	if activeball.vely < 0 then
-		PlaySound "fx_metalrolling", 0, 1, 0.15, 0.25
+		PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 	end if
 End Sub
 
@@ -3634,8 +3645,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volume)
+  PlaySound sound, 1, Volume, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -3695,7 +3706,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -3758,10 +3769,13 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
