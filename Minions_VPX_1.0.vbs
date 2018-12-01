@@ -3,7 +3,32 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' I'm unspired to do this table finished - not that fond of Originals
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber bands volume.
+Const VolPo     = 1    ' Rubber posts volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolPlast  = 1    ' Plastics volume.
+Const VolWood   = 1    ' Woods volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -538,25 +563,25 @@ End Sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFXDOF("fx_flipperup",101,DOFOn,DOFFlippers), 0, 1, -0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperup",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
         RotateLaneLightsLeft
 
     Else
-        PlaySound SoundFXDOF("fx_flipperdown",101,DOFOff,DOFFlippers), 0, 1, -0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperdown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
     End If
 End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFXDOF("fx_flipperup",102,DOFOn,DOFFlippers), 0, 1, 0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperup",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
         RightFlipper.RotateToEnd
         RightFlipper1.RotateToEnd
         RotateLaneLightsRight
 
     Else
-        PlaySound SoundFXDOF("fx_flipperdown",102,DOFOff,DOFFlippers), 0, 1, 0.05, 0.15
+        PlaySoundAtVol SoundFXDOF("fx_flipperdown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
         RightFlipper.RotateToStart
         RightFlipper1.RotateToStart
     End If
@@ -964,14 +989,14 @@ End Sub
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPo, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aYellowPins_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolPlast, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub aCaptiveWalls_Hit(idx):PlaySound "fx_collide", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' Some quotes from the 2 first movies
@@ -985,27 +1010,27 @@ End Sub
 ' Ramp Soundss
 Sub RHelp1_Hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_ballrampdrop", ActiveBall, 1
 End Sub
 
 Sub RHelp2_Hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_ballrampdrop", ActiveBall, 1
 End Sub
 
 Sub LHelp2_Hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 Sub Trigger1_hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 Sub Trigger2_hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 
@@ -1120,7 +1145,7 @@ Sub CreateNewBall()
     BallsOnPlayfield = BallsOnPlayfield + 1
 
     ' kick it out..
-    PlaySound SoundFXDOF("fx_Ballrel",108,DOFPulse,DOFContactors), 0, 1, 0.1, 0.1
+    PlaySoundAtVol SoundFXDOF("fx_Ballrel",108,DOFPulse,DOFContactors), Primitive34, 1
     BallRelease.Kick 90, 4
 	startB2S(5)
 
@@ -1363,7 +1388,7 @@ Sub Drain_Hit()
     Drain.DestroyBall
     BallsOnPlayfield = BallsOnPlayfield - 1
     ' pretend to knock the ball into the ball storage mech
-    PlaySound "fx_drain"
+    PlaySoundAtVol "fx_drain", drain, 1
 
 If BallsOnPlayfield = 0 And bBallSaverActive = False then
    MinionPOPUP1DOWNTimer.enabled = 1
@@ -1441,7 +1466,7 @@ Sub swPlungerRest_Hit()
     'debug.print "ball in plunger lane"
     ' some sound according to the ball position
 	DOF 129, DOFOn
-    PlaySound "fx_sensor", 0, 1, 0.15, 0.25
+    PlaySoundAtVol "fx_sensor", Primitive34, 1
     bBallInPlungerLane = True
     ' turn on Launch light is there is one
 '    LaunchLight.State = 2
@@ -1476,22 +1501,22 @@ Sub swPlungerRest_UnHit()
     startB2S(5)
     bBallInPlungerLane = False
     LaserKickP.TransY = 120
-    Playsound "bumper_retro"
+    PlaysoundAtVol "bumper_retro", Primitive34, 1
 End Sub
 
 Sub Trigger3_Hit
-    Playsound  "fx_kicker"
+    PlaysoundAtVol  "fx_kicker", ActiveBall, 1
     LaserKickP.TransY = 0
 End Sub
 
 sub popupLt_hit()
-    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors)
+    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors) ' TODO
     PopupL.IsDropped = 0
     PopupResetTimer.enabled = 1
 end sub
 
 sub PopupResetTimer_Timer()
-    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors)
+    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors) ' TODO
     PopupL.Isdropped = 1
     PopupResetTimer.enabled = 0
 end sub
@@ -2737,7 +2762,7 @@ Sub LeftSlingShot_Slingshot
     If Tilted Then Exit Sub
     'startB2S(6)
     startB2S(7)
-    PlaySound SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors), 0, 1, -0.05, 0.05
+    PlaySoundAtVol SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors), lemk, 1
     LeftSling4.Visible = 1:LeftSling1.Visible = 0
     Lemk.RotX = 26
     LStep = 0
@@ -2765,7 +2790,7 @@ Sub RightSlingShot_Slingshot
     'startB2S(6)
     startB2S(8)
     If Tilted Then Exit Sub
-    PlaySound SoundFXDOF("fx_slingshot",104,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAtVol SoundFXDOF("fx_slingshot",104,DOFPulse,DOFContactors), remk, 1
     RightSling4.Visible = 1:RightSling1.Visible = 0
     Remk.RotX = 26
     RStep = 0
@@ -2924,7 +2949,7 @@ sub Rightkicker_hit()
     startB2S(6)
 BOBP = 0
 BOBToy.ENABLED = 1
-playsound "fx_kicker-enter"
+playsoundatvol "fx_kicker-enter", ActiveBall, 1
 'Rightkickertimer.set true, 1000
 if SP5.state = 2 and SPbulb1.state = 0 and WIZARD.state = 0 then
 addscore 10000
@@ -3059,14 +3084,14 @@ end sub
 ' SPbulbscomplete (LANE SWITCH) SCRIPT END*********************************************************************
 
 sub popupRt_hit()
-    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors)
+    PlaySoundAtVol SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors), Bumper1, 1
     Popup2.IsDropped = 0
     Popup3.IsDropped = 0
     PopupRResetTimer.enabled = 1
 end sub
 
 sub PopupRResetTimer_Timer()
-    PlaySound SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors)
+    PlaySoundAtVol SoundFXDOF("fx_diverter",130,DOFPulse,DOFContactors), Bumper1, 1
     Popup2.IsDropped = 0
     Popup3.IsDropped = 0
     PopupRResetTimer.enabled = 0
@@ -3165,7 +3190,7 @@ FlashForMs BulbBumper1,  200, 10, 3
 STUART.Z = -35
 DOF 134, DOFPulse
 StuartToy.enabled = 1
-playsound SoundFXDOF("fx_bumper",106,DOFPulse,DOFContactors)
+PlaysoundAtVol SoundFXDOF("fx_bumper",106,DOFPulse,DOFContactors), Bumper1, VolBump
 Addscore 1000
 if Bumperscore1.state = 1 and Bumperscore2.state = 1 and Bumperscore3.state = 1 and Bumperscore3.state = 1 then
 addscore 5000
@@ -3182,7 +3207,7 @@ FlashForMs BulbBumper2,  200, 10, 3
 STUART.Z = -35
 DOF 134, DOFPulse
 StuartToy.enabled = 1
-playsound SoundFXDOF("fx_bumper",105,DOFPulse,DOFContactors)
+playsoundatvol SoundFXDOF("fx_bumper",105,DOFPulse,DOFContactors), Bumper2, VolBump
 Addscore 1000
 if Bumperscore1.state = 1 and Bumperscore2.state = 1 and Bumperscore3.state = 1 and Bumperscore3.state = 1 then
 addscore 5000
@@ -3199,7 +3224,7 @@ FlashForMs BulbBumper3,  200, 10, 3
 STUART.Z = -35
 DOF 134, DOFPulse
 StuartToy.enabled = 1
-playsound SoundFXDOF("fx_bumper",107,DOFPulse,DOFContactors)
+playsoundatvol SoundFXDOF("fx_bumper",107,DOFPulse,DOFContactors), Bumper3, VolBump
 Addscore 1000
 if Bumperscore1.state = 1 and Bumperscore2.state = 1 and Bumperscore3.state = 1 and Bumperscore3.state = 1 then
 addscore 5000
@@ -3792,7 +3817,7 @@ end sub
 sub Lockkicker_hit()
     startB2S(6)
 addscore 10000
-playsound "fx_kicker-enter"
+playsoundatvol "fx_kicker-enter", LockKicker, VolKick
 'vpmtimer.addtimer 1000, "Lockkickertimer '"
 'Lockkickertimer.set true, 1000
 
@@ -3914,14 +3939,14 @@ End If
 end sub
 
 sub Lockkickertimer()
-Playsound SoundFXDOF("fx_vukout_LAH",118,DOFPulse,DOFContactors)
+PlaysoundAtVol SoundFXDOF("fx_vukout_LAH",118,DOFPulse,DOFContactors), Lockkicker, VolKick
 DOF 117, DOFPulse
 Lockkicker.kick 0, 75, 1.5
 jawupTimer.enabled = 1
 end sub
 
 Sub LockkickerTrigger_hit()
-   Playsound "fx_metalrolling"
+   PlaysoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 sub Multiballtimer()
@@ -4329,7 +4354,7 @@ sub MinionPOPUP1DOWNTimer_Timer()
 me.enabled = false
 if MinionPOPUP1.TransY = 70 then
 MinionPOPUP1.TransY = 0
-playsound SoundFXDOF("fx_droptarget",120,DOFPulse,DOFContactors)
+PlaysoundAtVol SoundFXDOF("fx_droptarget",120,DOFPulse,DOFContactors), MininoPopUp1, 1
 MinionPOPUP1collide.Isdropped = 1
 end if
 end sub
@@ -4347,7 +4372,7 @@ sub MinionPOPUP2Timer_Timer()
 me.enabled = false
 if MinionPOPUP2.TransY = 0 then
 MinionPOPUP2.TransY = 100
-playsound "solenoidminions"
+ PlaysoundAtVol "solenoidminions", MinionPopup2, 1
 'MinionPOPUP1collide.collidable = true
 MinionPOPUP2collide.Isdropped = 0
 DOF 121, DOFPulse
@@ -4358,7 +4383,7 @@ sub MinionPOPUP2DOWNTimer_Timer()
 me.enabled = false
 if MinionPOPUP2.TransY = 100 then
 MinionPOPUP2.TransY = 0
-playsound SoundFXDOF("fx_droptarget",121,DOFPulse,DOFContactors)
+playsoundAtVol SoundFXDOF("fx_droptarget",121,DOFPulse,DOFContactors), MinionPopup2, 1
 MinionPOPUP2collide.Isdropped =  1
 end if
 end sub
@@ -4386,7 +4411,7 @@ me.enabled = false
 if MinionPOPUP3.TransY = 40 then
 MinionPOPUP3.TransY = 0
 MinionPOPUP3collide.Isdropped = 1
-playsound SoundFXDOF("fx_droptarget",122,DOFPulse,DOFContactors)
+ PlaysoundAtVol SoundFXDOF("fx_droptarget",122,DOFPulse,DOFContactors), ActiveBall, 1
 end if
 end sub
 
@@ -4402,10 +4427,10 @@ Dim RamdonM:RamdonM = 0
 Sub MinionsRamdon_Timer
     RamdonM = RamdonM + 1
    Select Case RamdonM
-          Case 1: MinionPOPUP1.TransY = 70:playsound SoundFXDOF("solenoidminions",120,DOFPulse,DOFcontactors)
-          Case 2: MinionPOPUP2.TransY = 100:playsound SoundFXDOF("solenoidminions",121,DOFPulse,DOFcontactors)
-          Case 3: MinionPOPUP3.TransY = 0:playsound SoundFXDOF("solenoidminions",122,DOFPulse,DOFcontactors)
-          Case 4: MinionPOPUP2.TransY = 0:playsound SoundFXDOF("solenoidminions",121,DOFPulse,DOFcontactors)
+          Case 1: MinionPOPUP1.TransY = 70:playsoundAtVol SoundFXDOF("solenoidminions",120,DOFPulse,DOFcontactors), MinionPopUp1
+          Case 2: MinionPOPUP2.TransY = 100:playsoundAtVol SoundFXDOF("solenoidminions",121,DOFPulse,DOFcontactors), MinionPOPUP2
+          Case 3: MinionPOPUP3.TransY = 0:playsoundAtVol SoundFXDOF("solenoidminions",122,DOFPulse,DOFcontactors), MinionPOPUP3
+          Case 4: MinionPOPUP2.TransY = 0:playsoundAtVol SoundFXDOF("solenoidminions",121,DOFPulse,DOFcontactors), MinionPOPUP2
           Case 6: MinionPOPUP1.TransY = 0: RamdonM = 0 :MinionPOPUP3Timer.enabled = 1 :Me.enabled = 0
    End Select
 
@@ -4495,7 +4520,7 @@ end sub
 
 sub kickercenter_hit()
     startB2S(6)
-playsound "fx_kicker-enter"
+  playsoundAtVol "fx_kicker-enter", kickercenter, 1
 if WIZARD.state = 2 then
 Overkill.state =0
 FlashForMs Flasher4, 1000, 50, 0:DOF 144, DOFPulse
@@ -4985,8 +5010,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -5046,7 +5071,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -5110,13 +5135,8 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
-
 
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
