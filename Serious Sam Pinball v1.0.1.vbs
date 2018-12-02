@@ -5,13 +5,37 @@
 '                         Version 1.0.0
 ' ****************************************************************
 
-' Thalamus 2018-07-24
-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' No special SSF tweaks yet.
-' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
-
 Option Explicit
 Randomize
+
+' Thalamus 2018-07-24
+' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber bands volume.
+Const VolPo     = 1    ' Rubber posts volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolPlast  = 1    ' Plastics volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolWood   = 1    ' Woods volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 Dim Controller: Set Controller = CreateObject("B2S.Server"): Controller.Run
 
@@ -161,13 +185,12 @@ Sub Table1_Init()
         rrail.Visible = False
     End If
 End Sub
-
 '******************
 ' Captive Ball Subs
 '******************
 Sub CapTrigger1_Hit:cbRight.TrigHit ActiveBall:End Sub
 Sub CapTrigger1_UnHit:cbRight.TrigHit 0:End Sub
-Sub CapWall1_Hit:cbRight.BallHit ActiveBall:PlaySound "fx_collide", 0, Vol(ActiveBall), pan(ActiveBall):End Sub
+Sub CapWall1_Hit:cbRight.BallHit ActiveBall:PlaySound "fx_collide", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 Sub CapKicker1a_Hit:cbRight.BallReturn Me:End Sub
 
 '******
@@ -180,14 +203,14 @@ Sub Table1_KeyDown(ByVal Keycode)
         If(Tilted = False) Then
             DMDFlush
             DMD "", "CREDITS " &credits, 500
-            PlaySound "fx_coin"
+            PlaySoundAtVol "fx_coin", drain, 1
             If NOT bGameInPlay Then ShowTableInfo
         End If
     End If
 
     If keycode = PlungerKey Then
         Plunger.Pullback
-        PlaySound "fx_plungerpull", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_plungerpull", Plunger, 1
         PlaySound "fx_reload", 0, 1, 0.05, 0.05
     End If
 
@@ -270,7 +293,7 @@ Sub Table1_KeyUp(ByVal keycode)
 
     If keycode = PlungerKey Then
         Plunger.Fire
-        PlaySound "fx_plunger", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_plunger", Plunger, 1
         If bBallInPlungerLane Then PlaySound "fx_fire", 0, 1, 0.05, 0.05
     End If
 
@@ -351,20 +374,20 @@ End Sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound "fx_flipperup", 0, 1, -0.05, 0.05
+        PlaySoundAtVol "fx_flipperup", LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
     Else
-        PlaySound "fx_flipperdown", 0, 1, -0.05, 0.05
+        PlaySoundAtVol "fx_flipperdown", LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
     End If
 End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound "fx_flipperup", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_flipperup", RightFlipper, VolFlip
         RightFlipper.RotateToEnd
     Else
-        PlaySound "fx_flipperdown", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_flipperdown", RightFlipper, VolFlip
         RightFlipper.RotateToStart
     End If
 End Sub
@@ -612,23 +635,23 @@ End Sub
 ' Diverse Collection Hit Sounds
 '******************************
 
-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber_post", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber_pin", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aMetals_Hit(idx):PlaySound "fx_MetalHit2", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber_post", 0, Vol(ActiveBall)*VolPo, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber_pin", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolPlast, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 ' Ramp Soundss
 Sub RHelp1_Hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall)
+    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub RHelp2_Hit()
     StopSound "fx_metalrolling"
-    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall)
+    PlaySound "fx_ballrampdrop", 0, 1, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 '***********************
@@ -732,7 +755,7 @@ Sub CreateNewBall()
     BallsOnPlayfield = BallsOnPlayfield + 1
 
     ' kick it out..
-    PlaySound "fx_Ballrel", 0, 1, 0.1, 0.1
+    PlaySoundAtVol "fx_Ballrel", BallRelease, 1
     BallRelease.Kick 90, 4
 
 ' if there is 2 or more balls then set the multibal flag (remember to check for locked balls and other balls used for animations)
@@ -1003,7 +1026,7 @@ Sub Drain_Hit()
     BallsOnPlayfield = BallsOnPlayfield - 1
 
     ' pretend to knock the ball into the ball storage mech
-    PlaySound "fx_drain"
+    PlaySoundAtVol "fx_drain", drain, 1
     'if Tilted the end Ball Mode
     If Tilted Then
         StopEndOfBallMode
@@ -1063,7 +1086,7 @@ End Sub
 Sub swPlungerRest_Hit()
     'debug.print "ball in plunger lane"
     ' some sound according to the ball position
-    PlaySound "fx_sensor", 0, 1, 0.15, 0.25
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     bBallInPlungerLane = True
     ' turn on Launch light is there is one
     'LaunchLight.State = 2
@@ -1075,7 +1098,7 @@ Sub swPlungerRest_Hit()
     If bAutoPlunger Then
         'debug.print "autofire the ball"
         PlungerIM.AutoFire
-        PlaySound "fx_fire", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_fire", ActiveBall, 1
         bAutoPlunger = False
     End If
     ' if there is a need for a ball saver, then start off a timer
@@ -2175,7 +2198,7 @@ Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
     If Tilted Then Exit Sub
-    PlaySound "fx_slingshot", 0, 1, -0.05, 0.05
+    PlaySoundAtVol "fx_slingshot", Lemk, 1
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -2200,7 +2223,7 @@ End Sub
 
 Sub RightSlingShot_Slingshot
     If Tilted Then Exit Sub
-    PlaySound "fx_slingshot", 0, 1, 0.05, 0.05
+    PlaySoundAtVol "fx_slingshot", Remk, 1
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -2238,7 +2261,7 @@ End Sub
 
 Sub Bumper1_Hit
     If NOT Tilted Then
-        PlaySound "fx_Bumper", 0, 1, 0.03, 0.05
+        PlaySoundAtVol "fx_Bumper", Bumper1, VolBump
         ' add some points
         AddScore BumperValue(CurrentPlayer)
         If Battle(CurrentPlayer, 0) = 2 Then
@@ -2254,7 +2277,7 @@ End Sub
 
 Sub Bumper2_Hit
     If NOT Tilted Then
-        PlaySound "fx_Bumper", 0, 1, 0.05, 0.05
+        PlaySoundAtVol "fx_Bumper", Bumper2, VolBump
         ' add some points
         AddScore BumperValue(CurrentPlayer)
         If Battle(CurrentPlayer, 0) = 2 Then
@@ -2270,7 +2293,7 @@ End Sub
 
 Sub Bumper3_Hit
     If NOT Tilted Then
-        PlaySound "fx_Bumper", 0, 1, 0.04, 0.05
+        PlaySoundAtVol "fx_Bumper", Bumper3, VolBump
         ' add some points
         AddScore BumperValue(CurrentPlayer)
         If Battle(CurrentPlayer, 0) = 2 Then
@@ -2304,7 +2327,7 @@ End Sub
 ' lit the 2 top lane lights and the 2 inlane lights to increase the bonus multiplier
 
 Sub sw8_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     Light20.State = 1
@@ -2317,7 +2340,7 @@ Sub sw8_Hit
 End Sub
 
 Sub sw9_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     Light21.State = 1
@@ -2330,7 +2353,7 @@ Sub sw9_Hit
 End Sub
 
 Sub sw2_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     Light6.State = 1
@@ -2342,7 +2365,7 @@ Sub sw2_Hit
 End Sub
 
 Sub sw3_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     Light8.State = 1
@@ -2370,7 +2393,7 @@ End Sub
 ' if the light is lit then activate the ballsave
 
 Sub sw1_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     AddScore 50000
@@ -2382,7 +2405,7 @@ Sub sw1_Hit
 End Sub
 
 Sub sw4_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     AddScore 50000
@@ -2398,7 +2421,7 @@ End Sub
 '*******************************
 
 Sub Target1_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2439,7 +2462,7 @@ Sub Target1_Hit
 End Sub
 
 Sub Target2_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2480,7 +2503,7 @@ Sub Target2_Hit
 End Sub
 
 Sub Target3_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2545,7 +2568,7 @@ End Sub
 Sub spinner1_Spin
     If Tilted Then Exit Sub
     Addscore spinnervalue(CurrentPlayer)
-    PlaySound "fx_spinner", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_spinner", Spinner1, VolSpin
     Select Case Battle(CurrentPlayer, 0)
         Case 1
             Addscore 3000
@@ -2556,7 +2579,7 @@ End Sub
 
 Sub spinner2_Spin
     If Tilted Then Exit Sub
-    PlaySound "fx_spinner", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_spinner", Spinner2, VolSpin
     Addscore spinnervalue(CurrentPlayer)
     Select Case Battle(CurrentPlayer, 0)
         Case 1
@@ -2571,7 +2594,7 @@ End Sub
 '*********************************
 
 Sub Target10_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2612,7 +2635,7 @@ Sub Target10_Hit
 End Sub
 
 Sub Target11_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2681,7 +2704,7 @@ Sub lock_Hit
     Dim delay
     delay = 500
     StopSound "fx_metalrolling"
-    PlaySound "fx_kicker_enter", 0, 1, 0, 05
+    PlaySoundAtVol "fx_kicker_enter", lock, VolKick
     If light27.State = 1 Then 'lock the ball
         BallsInLock(CurrentPlayer) = BallsInLock(CurrentPlayer) + 1
         delay = 4000
@@ -2705,7 +2728,7 @@ End Sub
 
 Sub ReleaseLockedBall 'release locked ball
     FlashForMs f6, 1000, 50, 0
-    lockpost.isdropped = 1:PlaySound "fx_solenoid", 0, 1, 0.05
+    lockpost.isdropped = 1:PlaySoundAtVol "fx_solenoid", lock, 1
     lock.kick 190, 4
     lockpost.TimerInterval = 400
     lockpost.TimerEnabled = 1
@@ -2713,7 +2736,7 @@ End Sub
 
 Sub lockpost_Timer
     lockpost.TimerEnabled = 0
-    lockpost.isdropped = 0:PlaySound "fx_solenoidoff", 0, 1, 0.05
+    lockpost.isdropped = 0:PlaySound "fx_solenoidoff", 0, 1, 0.05 'TODO
 End Sub
 
 Sub StartMainMultiball
@@ -2782,7 +2805,7 @@ End Sub
 '***********************************
 
 Sub Target4_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2799,7 +2822,7 @@ Sub Target4_Hit
 End Sub
 
 Sub Target5_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2816,7 +2839,7 @@ Sub Target5_Hit
 End Sub
 
 Sub Target7_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2833,7 +2856,7 @@ Sub Target7_Hit
 End Sub
 
 Sub Target8_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2850,7 +2873,7 @@ Sub Target8_Hit
 End Sub
 
 Sub Target9_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     AddScore 5000
     TargetBonus = TargetBonus + 1
@@ -2914,7 +2937,7 @@ End Sub
 '*****************
 
 Sub Target6_Hit
-    PlaySound "fx_target", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_target", ActiveBall, VolTarg
     If Tilted Then Exit Sub
     If bSkillShotReady Then
         Awardskillshot
@@ -2954,7 +2977,7 @@ End Sub
 Sub PyramidKicker_Hit
     Dim Delay
     Delay = 200
-    PlaySound "fx_kicker_enter", 0, 1, 0.1
+    PlaySoundAtVol "fx_kicker_enter", PyramidKicker, VolKick
     If NOT Tilted Then
         ' do something
         If(bJackpot = True) AND(light24.State = 2) Then
@@ -3006,9 +3029,9 @@ End Sub
 
 Sub PyramidExit()
     FlashForMs f3, 1000, 50, 0
-    PlaySound "fx_kicker"
+    PlaySoundAtVol "fx_kicker", PyramidKicker, VolKick
     PyramidKicker.kick 180, 35
-    PlaySound "fx_cannon", 0, 1, -0.05, 0.05
+    PlaySoundAtVol "fx_cannon", PyramidKicker, VolKick
 End Sub
 
 Sub GiveRandomAward() 'from the Pyramid
@@ -3083,7 +3106,7 @@ End Sub
 '*******************
 
 Sub sw5_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     If(bJackpot = True) AND(light25.State = 2) Then
@@ -3138,7 +3161,7 @@ Sub sw5_Hit
 End Sub
 
 Sub sw6_Hit
-    PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     If(bJackpot = True) AND(light32.State = 2) Then
@@ -3198,7 +3221,7 @@ End Sub
 
 Sub LeftRampDone_Hit
     Dim tmp
-    PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
     If Tilted Then Exit Sub
     'increase the ramp bonus
     RampBonus = RampBonus + 1
@@ -3260,7 +3283,7 @@ End Sub
 
 Sub RightRampDone_Hit
     Dim tmp
-    PlaySound "fx_metalrolling", 0, 1, pan(ActiveBall)
+    PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
     If Tilted Then Exit Sub
     'increase the ramp bonus
     RampBonus = RampBonus + 1
@@ -3721,8 +3744,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -3782,7 +3805,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -3846,10 +3869,6 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
