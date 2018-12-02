@@ -1,12 +1,28 @@
 'NFL Stern 2001 for VPX by Sliderpoint
+Option Explicit
+Randomize
+
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
-Option Explicit
-Randomize
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolRH     = 1    ' Rubber hits volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolFlip   = 1    ' Flipper volume.
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -155,7 +171,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 	End If
 	If KeyDownHandler(KeyCode) Then Exit Sub
 	If KeyCode=PlungerKey Then
-		PlaySound"PlungerPull"
+		PlaySoundAtVol"PlungerPull", plunger, 1
 		Plunger.Pullback
 	End If
 
@@ -166,7 +182,7 @@ Sub Table1_KeyUp(ByVal KeyCode)
 	If KeyCode=55 Then Controller.Switch(8)=0
 	If KeyUpHandler(KeyCode) Then Exit Sub
 	If KeyCode=PlungerKey Then
-		PlaySound"Plunger"
+		PlaySoundAtVol"Plunger", plunger, 1
         PlaySound ModSound("football grunt 03")
 			if toggleModSounds = 1 Then
 			Dim x
@@ -218,17 +234,17 @@ SolCallback(35)="SolRightPost" ' AUX3 not sure these are used in this game
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("FlipperUp",DOFFlippers):LeftFlipper.RotateToEnd:Flipper1.RotateToEnd
+        PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers), LeftFlipper,VolFlip:LeftFlipper.RotateToEnd:Flipper1.RotateToEnd
     Else
-        PlaySound SoundFX("FlipperDown",DOFFlippers):LeftFlipper.RotateToStart:Flipper1.RotateToStart
+        PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers), LeftFlipper, VolFlip:LeftFlipper.RotateToStart:Flipper1.RotateToStart
     End If
 End Sub
 
 Sub SolRFlipper(Enabled)
     If Enabled Then
-        PlaySound SoundFX("FlipperUp",DOFFlippers):RightFlipper.RotateToEnd
+        PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),RightFlipper, VolFlip:RightFlipper.RotateToEnd
     Else
-        PlaySound SoundFX("FlipperDown",DOFFlippers):RightFlipper.RotateToStart
+        PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),RightFlipper, VolFlip:RightFlipper.RotateToStart
     End If
 End Sub
 
@@ -413,7 +429,7 @@ Sub pVUK(Enabled)
 	If Enabled Then
 	Kicker1.Kickz 180, 25, 91, 0
 	Wall59.isDropped = 0
-	Playsound SoundFX("Solenoid",DOFContactors)
+	PlaysoundAtVol SoundFX("Solenoid",DOFContactors), Kicker1, VolKick
 	Kicker1.TimerEnabled = 1
 	Controller.Switch(45) = 0
 	End If
@@ -425,7 +441,7 @@ Sub uVUK(Enabled)
     Kicker5.timerEnabled = 1
 	Kicker2.Kickz 0, 40,89, -20
 '		TardisEntrance.KickZ 180, 35, 92, 0
-	Playsound SoundFX("Solenoid",DOFContactors)
+	PlaysoundAtVol SoundFX("Solenoid",DOFContactors), Kicker2, VolKick
 	Kicker2.TimerEnabled = 1
 	End If
 End Sub
@@ -544,7 +560,7 @@ End Sub
 
 Sub SolShooter(Enabled)
     If Enabled Then
-	PlaySound SoundFX("SolOn",DOFContactors)
+	PlaySoundAtVol SoundFX("SolOn",DOFContactors), plunger, 1
 	Plunger1.fire
 	Plunger1.pullback
 	end if
@@ -667,7 +683,7 @@ Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
  	If finalspeed > 20 then
-		PlaySound "rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+		PlaySound "rubber", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -676,9 +692,9 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -692,9 +708,9 @@ End Sub
 
 Sub RandomSoundFlipper()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -769,8 +785,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -830,7 +846,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -893,13 +909,8 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
-
 
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
