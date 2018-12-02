@@ -2,14 +2,22 @@
 'UnderTrough switch drops a target when hit - no idea where switch goes
 'Lamp 24=Bottom Up Post (UK)
 
+Option Explicit
+
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Table didn't used JP standard ball rolling routine - replaced
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
+' Options
+' Volume devided by - lower gets higher sound
 
-Option Explicit
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+Const VolFlip = 2      ' Flipper volume
 
 Const BallSize = 55
 Const BallMass = 1.1
@@ -240,7 +248,7 @@ End Sub
  Sub LeftSlingShot_Slingshot
 	Leftsling = True
 	Controller.Switch(26) = 1
- 	PlaySound "slingshot":LeftSlingshot.TimerEnabled = 1
+ 	PlaySoundAtVol "slingshot",ActiveBall, 1:LeftSlingshot.TimerEnabled = 1
   End Sub
 
 Dim Leftsling:Leftsling = False
@@ -262,7 +270,7 @@ End Sub
  Sub RightSlingShot_Slingshot
 	Rightsling = True
 	Controller.Switch(27) = 1
- 	PlaySound "slingshot":RightSlingshot.TimerEnabled = 1
+ 	PlaySoundAtVol "slingshot",ActiveBall, 1:RightSlingshot.TimerEnabled = 1
   End Sub
 
  Dim Rightsling:Rightsling = False
@@ -293,11 +301,11 @@ Dim Bump1, Bump2, Bump3
 
 
 ''''''''''''bumper animation
-      Sub Bumper1b_Hit:vpmTimer.PulseSw 49:PlaySound "bumper1":bump1 = 1:End Sub
+      Sub Bumper1b_Hit:vpmTimer.PulseSw 49:PlaySoundAtVol "bumper1",ActiveBall, 1:bump1 = 1:End Sub
 
-      Sub Bumper2b_Hit:vpmTimer.PulseSw 50:PlaySound "bumper1":bump2 = 1:End Sub
+      Sub Bumper2b_Hit:vpmTimer.PulseSw 50:PlaySoundAtVol "bumper1",ActiveBall, 1:bump2 = 1:End Sub
 
-      Sub Bumper3b_Hit:vpmTimer.PulseSw 51:PlaySound "bumper1":bump3 = 1:End Sub
+      Sub Bumper3b_Hit:vpmTimer.PulseSw 51:PlaySoundAtVol "bumper1",ActiveBall, 1:bump3 = 1:End Sub
 
 
 ''''flipper primitive
@@ -311,11 +319,13 @@ End Sub
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-		PlaySound "flipperup"
+		PlaySoundAtVol "flipperup", LeftFlipper, VolFlip
+		PlaySoundAtVol "flipperup", Flipper1, VolFlip
 		LeftFlipper.RotateToEnd
 		Flipper1.RotateToEnd
      Else
-		PlaySound "flipperdown"
+		PlaySoundAtVol "flipperdown", LeftFlipper, VolFlip
+		PlaySoundAtVol "flipperdown", Flipper1, VolFlip
 		LeftFlipper.RotateToStart
 		Flipper1.RotateToStart
      End If
@@ -323,10 +333,10 @@ Sub SolLFlipper(Enabled)
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
-		 PlaySound "flipperup"
+		 PlaySoundAtVol "flipperup", RightFlipper, VolFlip
 		 RightFlipper.RotateToEnd
      Else
-		 PlaySound "flipperdown"
+		 PlaySoundAtVol "flipperdown", RightFlipper, VolFlip
 		 RightFlipper.RotateToStart
     End If
  End Sub
@@ -441,7 +451,7 @@ Controller.Switch(10)=1 'lockdown
 End Sub
 
 Sub Kicker3_Hit
-    PlaySound "scoopenter"
+    PlaySoundAtVol "scoopenter", ActiveBall, 1
     'ClearBallId
 	Kicker3.DestroyBall
     bsVUK.AddBall 0
@@ -579,7 +589,7 @@ Sub RightInlane_unHit:Controller.Switch(61)=0:End Sub
 
 
 Sub Drain_Hit
-	PlaySound "Drain"
+	PlaySoundAtVol "Drain", Drain, 1
 	bsTrough.AddBall Me
 	Drain.TimerInterval = 200
 	Drain.TimerEnabled = 1
@@ -1411,8 +1421,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -1472,7 +1482,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1536,10 +1546,12 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
