@@ -4,7 +4,24 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
-' No special SSF tweaks yet.
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -27,17 +44,17 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-         PlaySound SoundFx("fx_Flipperup",DOFContactors):LeftFlipper.RotateToEnd
+         PlaySoundAtVol SoundFx("fx_Flipperup",DOFContactors),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
      Else
-         PlaySound SoundFx("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
+         PlaySoundAtVol SoundFx("fx_Flipperdown",DOFContactors),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
      End If
   End Sub
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
-         PlaySound SoundFx("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd
+         PlaySoundAtVol SoundFx("fx_Flipperup",DOFContactors),RightFlipper,VolFlip:RightFlipper.RotateToEnd
      Else
-         PlaySound SoundFx("fx_Flipperdown",DOFContactors):RightFlipper.RotateToStart
+         PlaySoundAtVol SoundFx("fx_Flipperdown",DOFContactors),RightFlipper,VolFlip:RightFlipper.RotateToStart
      End If
 End Sub
 
@@ -96,12 +113,12 @@ End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
 	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:playsound"plungerpull"
+	If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull",plunger,1
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
 	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySound"plunger"
+	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol"plunger",plunger,1
 End Sub
 
 '**********************************************************************************************************
@@ -109,7 +126,7 @@ End Sub
 '**********************************************************************************************************
 
 'Drain and Kickers
-Sub Drain_Hit:playsound"drain":bsTrough.addball me:End Sub
+Sub Drain_Hit:playsoundAtVol"drain",drain,1:bsTrough.addball me:End Sub
 Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub
 
 'Drop Targets
@@ -120,23 +137,23 @@ Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub
  Sub Sw13_Hit:dtBank.Hit 5 :End Sub
 
 'Bumpers
-Sub Bumper1_Hit : vpmTimer.PulseSw(52) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
-Sub Bumper2_Hit : vpmTimer.PulseSw(56) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
-Sub Bumper3_Hit : vpmTimer.PulseSw(59) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
-Sub Bumper4_Hit : vpmTimer.PulseSw(53) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
+Sub Bumper1_Hit : vpmTimer.PulseSw(52) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper1,VolBump: End Sub
+Sub Bumper2_Hit : vpmTimer.PulseSw(56) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper2,VolBump: End Sub
+Sub Bumper3_Hit : vpmTimer.PulseSw(59) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper3,VolBump: End Sub
+Sub Bumper4_Hit : vpmTimer.PulseSw(53) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper4,VolBump: End Sub
 
 'Scoring Rubbers
-Sub sw201_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw202_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw203_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw204_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw205_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw206_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
-Sub sw207_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsound"slingshot": End Sub
+Sub sw201_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw202_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw203_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw204_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw205_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw206_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
+Sub sw207_Hit()	: vpmTimer.PulseSwitch (20), 0, "" : playsoundAtVol"slingshot",ActiveBall, 1: End Sub
 
 'Spinners
-Sub Spinner_Spin:vpmTimer.PulseSw 60 : playsound"fx_spinner" : End Sub
-Sub Spinner1_Spin:vpmTimer.PulseSw 61 : playsound"fx_spinner" : End Sub
+Sub Spinner_Spin:vpmTimer.PulseSw 60 : playsoundAtVol"fx_spinner",Spinner,VolSpin: End Sub
+Sub Spinner1_Spin:vpmTimer.PulseSw 61 : playsoundAtVol"fx_spinner",Spinner1,VolSpin : End Sub
 
 'Stand Up Targets
 Sub sw32_Hit()		: vpmTimer.PulseSwitch (32), 0, "" : End Sub
@@ -146,31 +163,31 @@ Sub sw35_Hit()		: vpmTimer.PulseSwitch (35), 0, "" : End Sub
 Sub sw36_Hit()		: vpmTimer.PulseSwitch (36), 0, "" : End Sub
 
 'Trigger Wires
-Sub sw16_Hit()		: Controller.Switch(16) = 1 : playsound"rollover" : End Sub
+Sub sw16_Hit()		: Controller.Switch(16) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw16_UnHit()	: Controller.Switch(16) = 0 : End Sub
-Sub sw17_Hit()		: Controller.Switch(17) = 1 : playsound"rollover" : End Sub
+Sub sw17_Hit()		: Controller.Switch(17) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw17_UnHit()	: Controller.Switch(17) = 0 : End Sub
-Sub sw18_Hit()		: Controller.Switch(18) = 1 : playsound"rollover" : End Sub
+Sub sw18_Hit()		: Controller.Switch(18) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw18_UnHit()	: Controller.Switch(18) = 0 : End Sub
-Sub sw19_Hit()		: Controller.Switch(19) = 1 : playsound"rollover" : End Sub
+Sub sw19_Hit()		: Controller.Switch(19) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw19_UnHit()	: Controller.Switch(19) = 0 : End Sub
-Sub sw27_Hit()		: Controller.Switch(27) = 1 : playsound"rollover" : End Sub
+Sub sw27_Hit()		: Controller.Switch(27) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw27_UnHit()	: Controller.Switch(27) = 0 : End Sub
-Sub sw28_Hit()		: Controller.Switch(28) = 1 : playsound"rollover" : End Sub
+Sub sw28_Hit()		: Controller.Switch(28) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw28_UnHit()	: Controller.Switch(28) = 0 : End Sub
-Sub sw29_Hit()		: Controller.Switch(29) = 1 : playsound"rollover" : End Sub
+Sub sw29_Hit()		: Controller.Switch(29) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw29_UnHit()	: Controller.Switch(29) = 0 : End Sub
-Sub sw40_Hit()		: Controller.Switch(40) = 1 : playsound"rollover" : End Sub
+Sub sw40_Hit()		: Controller.Switch(40) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw40_UnHit()	: Controller.Switch(40) = 0 : End Sub
-Sub sw41_Hit()		: Controller.Switch(41) = 1 : playsound"rollover" : End Sub
+Sub sw41_Hit()		: Controller.Switch(41) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw41_UnHit()	: Controller.Switch(41) = 0 : End Sub
 
 'Star Trigger
-Sub sw20_Hit()		: Controller.Switch(20) = 1 : playsound"rollover" : End Sub
+Sub sw20_Hit()		: Controller.Switch(20) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw20_UnHit()	: Controller.Switch(20) = 0 : End Sub
-Sub sw20a_Hit()		: Controller.Switch(20) = 1 : playsound"rollover" : End Sub
+Sub sw20a_Hit()		: Controller.Switch(20) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw20a_UnHit()	: Controller.Switch(20) = 0 : End Sub
-Sub sw42_Hit()		: Controller.Switch(42) = 1 : playsound"rollover" : End Sub
+Sub sw42_Hit()		: Controller.Switch(42) = 1 : playsoundAtVol"rollover" ,ActiveBall, 1: End Sub
 Sub sw42_UnHit()	: Controller.Switch(42) = 0 : End Sub
 
 
@@ -325,7 +342,7 @@ Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
 	vpmTimer.PulseSwitch (57), 0, ""
-    PlaySound SoundFX("left_slingshot",DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -343,7 +360,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
 	vpmTimer.PulseSwitch (58), 0, ""
-    PlaySound SoundFX("right_slingshot",DOFContactors),0,1,-0.05,0.05
+    PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -497,8 +514,8 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
@@ -558,7 +575,7 @@ Function AudioFade(ball) ' Can this be together with the above function ?
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -621,11 +638,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-  Else
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-  End if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 
