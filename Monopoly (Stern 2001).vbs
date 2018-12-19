@@ -1,6 +1,9 @@
 ' ****************************
 ' MONOPOLY -  Stern 2001
 ' ****************************
+
+Option Explicit
+Randomize
 '
 'Release Notes
 ' 1.2  20170518 - VPX 10.2
@@ -52,9 +55,6 @@ Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 
-
-Option Explicit
-Randomize
 
 ' ***************
 '  Table Options
@@ -294,7 +294,7 @@ End if
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
-    If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "fx_Plunger", Punger, 1
+    If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "fx_Plunger", Plunger, 1
     If vpmKeyUp(keycode) Then Exit Sub
 if keycode = "3" then
 setlamp 119,0
@@ -328,7 +328,7 @@ End Sub
 
 Sub DropReset(enabled)
     If enabled Then
-        PlaySoundAtVol SoundFX("fx_dropreset",DOFContactors), ActiveBall, 1
+        PlaySoundAtVol SoundFX("fx_dropreset",DOFContactors), sw38, 1
         sw38.IsDropped = False
         Controller.Switch(38) = False
     End If
@@ -480,7 +480,7 @@ End Sub
 
 Sub sw62_Slingshot
     vpmTimer.PulseSw 62
-    PlaySound SoundFX("fx_slingshot",DOFContactors), Remk, 1
+    PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), Remk, 1
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -602,7 +602,7 @@ Sub SolLFlipper(Enabled)
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
     Else
-        PlaySound SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
+        PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
     End If
 End Sub
