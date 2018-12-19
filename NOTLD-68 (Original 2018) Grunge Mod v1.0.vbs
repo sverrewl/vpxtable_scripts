@@ -11,6 +11,36 @@
 
 option explicit
 Randomize
+
+' Thalamus 2018-11-01 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+
+' The rest of the values are multipliers
+'
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolBump   = 2    ' Bumpers volume.
+Const VolRol    = 1    ' Rollovers volume.
+Const VolGates  = 1    ' Gates volume.
+Const VolMetal  = 1    ' Metals volume.
+Const VolRB     = 1    ' Rubber bands volume.
+Const VolRH     = 1    ' Rubber hits volume.
+Const VolPo     = 1    ' Rubber posts volume.
+Const VolPi     = 1    ' Rubber pins volume.
+Const VolPlast  = 1    ' Plastics volume.
+Const VolTarg   = 1    ' Targets volume.
+Const VolWood   = 1    ' Woods volume.
+Const VolKick   = 1    ' Kicker volume.
+Const VolSpin   = 1.5  ' Spinners volume.
+Const VolFlip   = 1    ' Flipper volume.
+
 ExecuteGlobal GetTextFile("core.vbs")
 
 On Error Resume Next
@@ -161,7 +191,7 @@ Flasherlight15.IntensityScale = 0
 '*** white flasher ***
 Sub FlasherFlash1_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash1.TimerEnabled Then 
+	If not FlasherFlash1.TimerEnabled Then
 		FlasherFlash1.TimerEnabled = True
 		FlasherFlash1.visible = 1
 		FlasherLit1.visible = 1
@@ -188,7 +218,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash2_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash2.TimerEnabled Then 
+	If not FlasherFlash2.TimerEnabled Then
 		FlasherFlash2.TimerEnabled = True
 		FlasherFlash2.visible = 1
 		FlasherLit2.visible = 1
@@ -215,7 +245,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash3_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash3.TimerEnabled Then 
+	If not FlasherFlash3.TimerEnabled Then
 		FlasherFlash3.TimerEnabled = True
 		FlasherFlash3.visible = 1
 		FlasherLit3.visible = 1
@@ -242,7 +272,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash4_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash4.TimerEnabled Then 
+	If not FlasherFlash4.TimerEnabled Then
 		FlasherFlash4.TimerEnabled = True
 		FlasherFlash4.visible = 1
 		FlasherLit4.visible = 1
@@ -269,7 +299,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash5_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash5.TimerEnabled Then 
+	If not FlasherFlash5.TimerEnabled Then
 		FlasherFlash5.TimerEnabled = True
 		FlasherFlash5.visible = 1
 		FlasherLit5.visible = 1
@@ -296,7 +326,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash6_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash6.TimerEnabled Then 
+	If not FlasherFlash6.TimerEnabled Then
 		FlasherFlash6.TimerEnabled = True
 		FlasherFlash6.visible = 1
 		FlasherLit6.visible = 1
@@ -323,7 +353,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash7_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash7.TimerEnabled Then 
+	If not FlasherFlash7.TimerEnabled Then
 		FlasherFlash7.TimerEnabled = True
 		FlasherFlash7.visible = 1
 		FlasherLit7.visible = 1
@@ -350,7 +380,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash8_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash8.TimerEnabled Then 
+	If not FlasherFlash8.TimerEnabled Then
 		FlasherFlash8.TimerEnabled = True
 		FlasherFlash8.visible = 1
 		FlasherLit8.visible = 1
@@ -377,7 +407,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash9_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash9.TimerEnabled Then 
+	If not FlasherFlash9.TimerEnabled Then
 		FlasherFlash9.TimerEnabled = True
 		FlasherFlash9.visible = 1
 		FlasherLit9.visible = 1
@@ -404,7 +434,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash10_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash10.TimerEnabled Then 
+	If not FlasherFlash10.TimerEnabled Then
 		FlasherFlash10.TimerEnabled = True
 		FlasherFlash10.visible = 1
 		FlasherLit10.visible = 1
@@ -431,7 +461,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash11_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash11.TimerEnabled Then 
+	If not FlasherFlash11.TimerEnabled Then
 		FlasherFlash11.TimerEnabled = True
 		FlasherFlash11.visible = 1
 		FlasherLit11.visible = 1
@@ -458,7 +488,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash12_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash12.TimerEnabled Then 
+	If not FlasherFlash12.TimerEnabled Then
 		FlasherFlash12.TimerEnabled = True
 		FlasherFlash12.visible = 1
 		FlasherLit12.visible = 1
@@ -485,7 +515,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash13_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash13.TimerEnabled Then 
+	If not FlasherFlash13.TimerEnabled Then
 		FlasherFlash13.TimerEnabled = True
 		FlasherFlash13.visible = 1
 		FlasherLit13.visible = 1
@@ -512,7 +542,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash14_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash14.TimerEnabled Then 
+	If not FlasherFlash14.TimerEnabled Then
 		FlasherFlash14.TimerEnabled = True
 		FlasherFlash14.visible = 1
 		FlasherLit14.visible = 1
@@ -539,7 +569,7 @@ End Sub
 '*** white flasher ***
 Sub FlasherFlash15_Timer()
 	dim flashx3, matdim
-	If not FlasherFlash15.TimerEnabled Then 
+	If not FlasherFlash15.TimerEnabled Then
 		FlasherFlash15.TimerEnabled = True
 		FlasherFlash15.visible = 1
 		FlasherLit15.visible = 1
@@ -640,11 +670,11 @@ Sub Table1_Init()
 	For XOpt = 1 to MaxOption
 		Eval("OperatorOption"&XOpt).image = "PostitBL"
 	next
-		
+
 	For XOpt = 1 to 256
 		Eval("Option"&XOpt).image = "PostItBL"
 	next
-	
+
 	LoadEM
 	LoadLMEMConfig2
 	HideOptions
@@ -664,7 +694,7 @@ Sub Table1_Init()
 
 
 	TableTilted=false
-	
+
 	Match=int(Rnd*10)*10
 	MatchReel.SetValue((Match/10)+1)
 
@@ -719,7 +749,7 @@ Sub Table1_Init()
 	RefreshReplayCard
 	GameOverReel.SetValue(1)
 	TiltReel.SetValue(1)
-	
+
 	Bumper1Light.state=0
 	Bumper2Light.state=0
 	Bumper3Light.state=0
@@ -730,7 +760,7 @@ Sub Table1_Init()
 	Points500counter=0
 	Points1000counter=0
 	Points2000counter=0
-	
+
 	BonusBooster=3
 	BonusBoosterCounter=0
 	Players=0
@@ -761,7 +791,7 @@ Sub Table1_Init()
 
 	for i=1 to 4
     player=i
-		If B2SOn Then 
+		If B2SOn Then
 			Controller.B2SSetScorePlayer player, 0
 		End If
 	next
@@ -809,29 +839,28 @@ Sub Table1_KeyDown(ByVal keycode)
 
 	If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
 		LeftFlipper.RotateToEnd
-		PlaySound "buzzL",-1
-		PlaySound "FlipperUp"
+		PlaySoundAtVol "FlipperUp", LeftFlipper, VolFlip
+		PlaySoundAtVol "buzzL", LeftFlipper, VolFlip
 		DOF 101, 1
 	End If
-    
+
 	If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
 		RightFlipper.RotateToEnd
-
-		PlaySound "FlipperUp"
-		PlaySound "buzz",-1
+		PlaySoundAtVol "FlipperUp", RightFlipper, VolFlip
+		PlaySoundAtVol "buzz", RightFlipper, VolFlip
 		DOF 102, 1
 	End If
-    
+
 	If keycode = LeftTiltKey Then
 		Nudge 90, 2
 		TiltIt
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		Nudge 270, 2
 		TiltIt
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		TiltIt
@@ -845,15 +874,15 @@ Sub Table1_KeyDown(ByVal keycode)
 	If keycode = AddCreditKey or keycode = 4 then
 		If B2SOn Then
 			'Controller.B2SSetScorePlayer6 HighScore
-			
+
 		End If
 
-		playsound "coinin"
+		playsoundAtVol "coinin", drain, 1
 		AddSpecial2
 	end if
 
-   if keycode = 5 then 
-		playsound "coinin"
+   if keycode = 5 then
+		playsoundAtVol "coinin", drain, 1
 		AddSpecial2
 		keycode= StartGameKey
 	end if
@@ -942,7 +971,7 @@ Sub Table1_KeyDown(ByVal keycode)
 	end if
 
 
-    
+
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
@@ -953,12 +982,12 @@ Sub Table1_KeyUp(ByVal keycode)
 	end if
 
 	If keycode = PlungerKey Then
-		
+
 		if PlungerPulled = 0 then
 			exit sub
 		end if
-		
-		PlaySound"plungerrelease"
+
+		PlaySoundAtVol"plungerrelease",plunger,1
 		Plunger.Fire
 	End If
 
@@ -966,19 +995,19 @@ Sub Table1_KeyUp(ByVal keycode)
 		OperatorMenuTimer.Enabled = false
 	end if
 
-	' END GNMOD    
-    
+	' END GNMOD
+
 	If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
 		LeftFlipper.RotateToStart
-		PlaySound "FlipperDown"
+		PlaySoundAtVol "FlipperDown", LeftFlipper, VolFlip
 		StopSound "buzzL"
 		DOF 101, 0
 	End If
-    
+
 	If keycode = RightFlipperKey and InProgress=true and TableTilted=false Then
 		RightFlipper.RotateToStart
-        StopSound "buzz"
-		PlaySound "FlipperDown"
+		PlaySoundAtVol "FlipperDown", RightFlipper, VolFlip
+    StopSound "buzz"
 		DOF 102, 0
 	End If
 
@@ -988,7 +1017,7 @@ End Sub
 
 Sub Drain_Hit()
 	Drain.DestroyBall
-	PlaySound "fx_drain":EndMusic:StopUpSounds:StopSounds
+	PlaySoundAtVol "fx_drain",drain,1:EndMusic:StopUpSounds:StopSounds
 	DOF 105, 2
 	Pause4Bonustimer.enabled=1:Wall47.timerenabled=0:Bumper1.timerenabled=0:BB=0:AA=1
 			Dim o
@@ -1019,10 +1048,10 @@ Sub Drain_Hit()
 			Case 22:PlaySound"0nr23":Bumper2.timerinterval=7400:Bumper2.timerenabled=1
 			Case 23:PlaySound"0nr24":Bumper2.timerinterval=9400:Bumper2.timerenabled=1
 			Case 24:PlaySound"0nr25":Bumper2.timerinterval=9900:Bumper2.timerenabled=1
-			End Select		
+			End Select
 End Sub
 
-Sub Trigger1_Unhit()	
+Sub Trigger1_Unhit()
 	DOF 128, 2
 	DOF 129, 2
 End Sub
@@ -1030,7 +1059,7 @@ End Sub
 Sub Pause4Bonustimer_timer
 	Pause4Bonustimer.enabled=0
 	AddBonus
-	
+
 End Sub
 
 '***********************
@@ -1051,7 +1080,7 @@ End Sub
 '
 
 Sub RightSlingShot_Slingshot
-    PlaySound "right_slingshot", 0, 1, 0.05, 0.05
+    PlaySoundAtVol "right_slingshot", sling1, 1
 	DOF 104, 2
     RSling0.Visible = 0
     RSling1.Visible = 1
@@ -1070,7 +1099,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-    PlaySound "left_slingshot",0,1,-0.05,0.05
+    PlaySoundAtVol "left_slingshot", sling2, 1
 	DOF 103, 2
     LSling0.Visible = 0
     LSling1.Visible = 1
@@ -1092,7 +1121,7 @@ End Sub
 '***********************************
 
 
-Sub Trigger2_Unhit()	
+Sub Trigger2_Unhit()
 			Dim t
 			t = INT(8 * RND(1) )
 			Select Case t
@@ -1133,7 +1162,7 @@ Sub Lightning1_Timer
     Case 0:FlashLevel1 = 1 : FlasherFlash1_Timer:FlashLevel2 = 1 : FlasherFlash2_Timer
     Case 1:FlashLevel3 = 1 : FlasherFlash3_Timer:FlashLevel4 = 1 : FlasherFlash4_Timer:FlashLevel5 = 1 : FlasherFlash5_Timer
     End Select
-end sub 
+end sub
 
 
 Sub Lightning1off_Timer
@@ -1152,7 +1181,7 @@ Sub Lightning2_Timer
     Case 2:FlashLevel6 = 1 : FlasherFlash6_Timer
     Case 3:FlashLevel7 = 1 : FlasherFlash7_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning2off_Timer
     Lightning2.enabled=false
@@ -1169,7 +1198,7 @@ Sub Lightning3_Timer
     Case 2:FlashLevel9 = 1 : FlasherFlash9_Timer
     Case 3:FlashLevel11 = 1 : FlasherFlash11_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning3off_Timer
     Lightning3.enabled=false
@@ -1186,7 +1215,7 @@ Sub Lightning4_Timer
     Case 1:FlashLevel12 = 1 : FlasherFlash12_Timer
     Case 2:FlashLevel13 = 1 : FlasherFlash13_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning4off_Timer
     Lightning4.enabled=false
@@ -1202,7 +1231,7 @@ Sub Lightning5_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel15 = 1 : FlasherFlash15_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning5off_Timer
     Lightning5.enabled=false
@@ -1219,7 +1248,7 @@ Sub Lightning6_Timer
     Case 0:FlashLevel1 = 1 : FlasherFlash1_Timer:FlashLevel2 = 1 : FlasherFlash2_Timer
     Case 1:FlashLevel3 = 1 : FlasherFlash3_Timer:FlashLevel4 = 1 : FlasherFlash4_Timer:FlashLevel5 = 1 : FlasherFlash5_Timer
     End Select
-end sub 
+end sub
 
 
 Sub Lightning6off_Timer
@@ -1238,7 +1267,7 @@ Sub Lightning7_Timer
     Case 2:FlashLevel6 = 1 : FlasherFlash6_Timer
     Case 3:FlashLevel7 = 1 : FlasherFlash7_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning7off_Timer
     Lightning7.enabled=false
@@ -1255,7 +1284,7 @@ Sub Lightning8_Timer
     Case 2:FlashLevel9 = 1 : FlasherFlash9_Timer
     Case 3:FlashLevel8 = 1 : FlasherFlash8_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning8off_Timer
     Lightning8.enabled=false
@@ -1272,7 +1301,7 @@ Sub Lightning9_Timer
     Case 1:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel12 = 1 : FlasherFlash12_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning9off_Timer
     Lightning9.enabled=false
@@ -1288,7 +1317,7 @@ Sub Lightning10_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel14 = 1 : FlasherFlash14_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning10off_Timer
     Lightning10.enabled=false
@@ -1306,7 +1335,7 @@ Sub Lightning11_Timer
     Case 0:FlashLevel1 = 1 : FlasherFlash1_Timer:FlashLevel2 = 1 : FlasherFlash2_Timer
     Case 1:FlashLevel3 = 1 : FlasherFlash3_Timer:FlashLevel4 = 1 : FlasherFlash4_Timer:FlashLevel5 = 1 : FlasherFlash5_Timer
     End Select
-end sub 
+end sub
 
 
 Sub Lightning11off_Timer
@@ -1325,7 +1354,7 @@ Sub Lightning12_Timer
     Case 2:FlashLevel6 = 1 : FlasherFlash6_Timer
     Case 3:FlashLevel7 = 1 : FlasherFlash7_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning12off_Timer
     Lightning12.enabled=false
@@ -1342,7 +1371,7 @@ Sub Lightning13_Timer
     Case 2:FlashLevel10 = 1 : FlasherFlash10_Timer
     Case 3:FlashLevel11 = 1 : FlasherFlash11_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning13off_Timer
     Lightning13.enabled=false
@@ -1359,7 +1388,7 @@ Sub Lightning14_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer
     Case 2:FlashLevel13 = 1 : FlasherFlash13_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning14off_Timer
     Lightning14.enabled=false
@@ -1375,7 +1404,7 @@ Sub Lightning15_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel15 = 1 : FlasherFlash15_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning15off_Timer
     Lightning15.enabled=false
@@ -1393,7 +1422,7 @@ Sub Lightning16_Timer
     Case 0:FlashLevel1 = 1 : FlasherFlash1_Timer:FlashLevel2 = 1 : FlasherFlash2_Timer
     Case 1:FlashLevel3 = 1 : FlasherFlash3_Timer:FlashLevel4 = 1 : FlasherFlash4_Timer:FlashLevel5 = 1 : FlasherFlash5_Timer
     End Select
-end sub 
+end sub
 
 
 Sub Lightning16off_Timer
@@ -1412,7 +1441,7 @@ Sub Lightning17_Timer
     Case 2:FlashLevel6 = 1 : FlasherFlash6_Timer
     Case 3:FlashLevel7 = 1 : FlasherFlash7_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning17off_Timer
     Lightning17.enabled=false
@@ -1429,7 +1458,7 @@ Sub Lightning18_Timer
     Case 2:FlashLevel9 = 1 : FlasherFlash9_Timer
     Case 3:FlashLevel8 = 1 : FlasherFlash8_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning18off_Timer
     Lightning18.enabled=false
@@ -1446,7 +1475,7 @@ Sub Lightning19_Timer
     Case 1:FlashLevel11 = 1 : FlasherFlash11_Timer
     Case 2:FlashLevel13 = 1 : FlasherFlash13_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning19off_Timer
     Lightning19.enabled=false
@@ -1462,7 +1491,7 @@ Sub Lightning20_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel15 = 1 : FlasherFlash15_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning20off_Timer
     Lightning20.enabled=false
@@ -1479,7 +1508,7 @@ Sub Lightning21_Timer
     Case 0:FlashLevel1 = 1 : FlasherFlash1_Timer:FlashLevel2 = 1 : FlasherFlash2_Timer
     Case 1:FlashLevel3 = 1 : FlasherFlash3_Timer:FlashLevel4 = 1 : FlasherFlash4_Timer:FlashLevel5 = 1 : FlasherFlash5_Timer
     End Select
-end sub 
+end sub
 
 
 Sub Lightning21off_Timer
@@ -1498,7 +1527,7 @@ Sub Lightning22_Timer
     Case 2:FlashLevel6 = 1 : FlasherFlash6_Timer
     Case 3:FlashLevel7 = 1 : FlasherFlash7_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning22off_Timer
     Lightning22.enabled=false
@@ -1515,7 +1544,7 @@ Sub Lightning23_Timer
     Case 2:FlashLevel10 = 1 : FlasherFlash10_Timer
     Case 3:FlashLevel11 = 1 : FlasherFlash11_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning23off_Timer
     Lightning23.enabled=false
@@ -1532,7 +1561,7 @@ Sub Lightning24_Timer
     Case 1:FlashLevel9 = 1 : FlasherFlash9_Timer
     Case 2:FlashLevel12 = 1 : FlasherFlash12_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning24off_Timer
     Lightning24.enabled=false
@@ -1548,7 +1577,7 @@ Sub Lightning25_Timer
     Case 1:FlashLevel15 = 1 : FlasherFlash15_Timer:FlashLevel14 = 1 : FlasherFlash14_Timer
     Case 2:FlashLevel14 = 1 : FlasherFlash14_Timer
     End Select
-end sub 
+end sub
 
 Sub Lightning25off_Timer
     Lightning25.enabled=false
@@ -1569,7 +1598,7 @@ Sub Lightning26_Timer
     Case 4:Lightning21.enabled=true:Lightning21.interval=100:Lightning21off.enabled=true:Lightning21off.interval=500
     End Select
 Lightning26.enabled=false
-end sub 
+end sub
 
 '********************************
 
@@ -1597,11 +1626,11 @@ End Sub
 
 
 Sub Wall44_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
-	
+
 End Sub
 
 Sub Wall44_Timer
@@ -1622,7 +1651,7 @@ Sub Wall44_Timer
 End Sub
 
 Sub Wall33_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
@@ -1634,7 +1663,7 @@ Sub Wall33_Timer
 End Sub
 
 Sub Wall49_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
@@ -1651,7 +1680,7 @@ Wall49.timerenabled=0
 End Sub
 
 Sub Wall45_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
@@ -1664,7 +1693,7 @@ Wall45.timerenabled=0
 End Sub
 
 Sub Wall46_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
@@ -1681,7 +1710,7 @@ Wall46.timerenabled=0
 End Sub
 
 Sub Wall47_Hit()
-	
+
 	If TableTilted=false then
 		AddScore(10)
 	End if
@@ -1705,7 +1734,7 @@ End Sub
 Sub Bumper1_Hit
 	If TableTilted=false then
 
-		PlaySound "bumper1"
+		PlaySoundAtVol "bumper1", Bumper1, VolBump
 		DOF 107, 2
 		bump1 = 1
 		If Bumper1Light.state=1 then
@@ -1715,7 +1744,7 @@ Sub Bumper1_Hit
 		End If
 		ToggleBumper
     end if
-    
+
 End Sub
 
 Sub Bumper1_Timer
@@ -1736,7 +1765,7 @@ End Sub
 Sub Bumper2_Hit
 	If TableTilted=false then
 
-		PlaySound "bumper1"
+		PlaySoundAtVol "bumper1", Bumper2, VolBump
 		DOF 108, 2
 		bump2 = 1
 		If Bumper2Light.state=1 then
@@ -1745,7 +1774,7 @@ Sub Bumper2_Hit
 			AddScore(100)
 		End If
     end if
-    
+
 End Sub
 
 Sub Bumper2_Timer
@@ -1755,8 +1784,7 @@ End Sub
 
 Sub Bumper3_Hit
 	If TableTilted=false then
-
-		PlaySound "bumper1"
+		PlaySoundAtVol "bumper1", Bumper3, VolBump
 		DOF 109, 2
 		bump3 = 1
 		If Bumper3Light.state=1 then
@@ -1766,7 +1794,7 @@ Sub Bumper3_Hit
 		End If
 		ToggleBumper
     end if
-    
+
 End Sub
 
 Sub Bumper3_Timer
@@ -1827,7 +1855,7 @@ End Sub
 
 Sub TriggerTop1_Hit()
 	If TableTilted=false then
-		PlaySound "sensor"
+		PlaySoundAtVol "sensor", ActiveBall, 1
 		DOF 116, 2
         If AA=0 then
          AA=1
@@ -1856,7 +1884,7 @@ Sub TriggerTop1_Hit()
 		else
 			SetMotor(50)
 		end if
-		
+
 	end if
 End Sub
 
@@ -1874,7 +1902,7 @@ End Sub
 
 Sub TriggerTop2_Hit()
 	If TableTilted=false then
-		PlaySound "sensor"
+		PlaySoundAtVol "sensor",ActiveBall, 1
 		DOF 117, 2
         If AA=0 then
          AA=1
@@ -1903,14 +1931,14 @@ Sub TriggerTop2_Hit()
 		else
 			SetMotor(50)
 		end if
-		
+
 	end if
 End Sub
 
 
 Sub TriggerTop3_Hit()
 	If TableTilted=false then
-		PlaySound "sensor"
+		PlaySoundAtVol "sensor", ActiveBall, 1
 		DOF 118, 2
         If AA=0 then
          AA=1
@@ -1939,7 +1967,7 @@ Sub TriggerTop3_Hit()
 		else
 			SetMotor(50)
 		end if
-		
+
 	end if
 End Sub
 
@@ -2006,7 +2034,7 @@ End Sub
 
 Sub TriggerLeftOutlane_Hit()
 	If TableTilted=false then
-		PlaySound "sensor"
+		PlaySoundAtVol "sensor", ActiveBall, 1
 		DOF 119, 2
         Dim x
          x = INT(5 * RND(1) )
@@ -2018,7 +2046,7 @@ Sub TriggerLeftOutlane_Hit()
          Case 4:PlaySound"0nc05"
         End Select
 		SetMotor(500)
-		
+
 		If LeftOutlaneLight.state=1 then
 			AddSpecial
 		end if
@@ -2028,7 +2056,7 @@ End Sub
 
 Sub TriggerRightOutlane_Hit()
 	If TableTilted=false then
-		PlaySound "sensor"
+		PlaySoundAtVol "sensor", ActiveBall, 1
 		DOF 122, 2
         Dim x
          x = INT(5 * RND(1) )
@@ -2040,7 +2068,7 @@ Sub TriggerRightOutlane_Hit()
          Case 4:PlaySound"0nc05"
         End Select
 		SetMotor(500)
-		
+
 		If RightOutlaneLight.state=1 then
 			AddSpecial
 		end if
@@ -2088,7 +2116,7 @@ Sub StarTrigger1_Hit()
 			LeftTargetLight1.state=1
 			exit sub
 		end if
-		
+
 	end if
 End Sub
 
@@ -2306,27 +2334,27 @@ Sub ResetDrops
 	for each obj in LeftDrops
 		obj.IsDropped=0
 	next
-	DOF 112, 2	
+	DOF 112, 2
 	for each obj in RightDrops
 		obj.IsDropped=0
 	next
-	DOF 113, 2	
+	DOF 113, 2
 	LeftTargetCounter=0
 	RightTargetCounter=0
 end Sub
 
 Sub CheckAllDrops
-	
+
 
 	if BallsPerGame=5 and (LeftTargetCounter=5) and (RightTargetCounter=5) then
 			DoubleBonus.state=1
 			BonusMultiplier=2
-			
+
 	end if
 	if (BallsPerGame=3) and ((LeftTargetCounter=5) or (RightTargetCounter=5)) then
 			DoubleBonus.state=1
 			BonusMultiplier=2
-			
+
 	end if
 end Sub
 
@@ -2338,13 +2366,13 @@ end sub
 Sub Kicker3_Hit()
 		Kicker3.TIMERINTERVAL = 100
 		Kicker3.TIMERENABLED = TRUE
-		
+
 End Sub
 
 Sub Kicker3_Timer()
 	Kicker3.TIMERENABLED = FALSE
 	Kicker3.Kick 0,22
-	PlaySound"saucer"
+	PlaySoundAtVol"saucer", Kicker3, VolKick
 	DOF 127, 2
 	delaykgclose.enabled=true
 
@@ -2395,7 +2423,7 @@ Sub ToggleBumper
 		LeftTarget10x.state=0
 		RightRolloverLight.state=0
 		LeftInlaneLight.state=0
-		
+
 		UpperLight3.state=1
 		RightTarget10x.state=1
 		LeftRolloverLight.state=1
@@ -2409,7 +2437,7 @@ Sub ToggleBumper
 		LeftTarget10x.state=1
 		RightRolloverLight.state=1
 		LeftInlaneLight.state=1
-		
+
 		UpperLight3.state=0
 		RightTarget10x.state=0
 		LeftRolloverLight.state=0
@@ -2483,7 +2511,7 @@ Sub ResetBalls()
 	'CreateBallID BallRelease
 	Ballrelease.CreateSizedBall 25
     Ballrelease.Kick 40,7
-	DOF 106, 2	
+	DOF 106, 2
 	if dooralreadyopen=1 then
 		closeg.enabled=true
 		DOF 132, 2
@@ -2504,23 +2532,23 @@ end sub
  sub openg_timer
     bottgate(bgpos).isdropped=true
     bgpos=bgpos-1
-    bottgate(bgpos).isdropped=false  
+    bottgate(bgpos).isdropped=false
 	primgate.RotY=30+(bgpos*10)
-     if bgpos=0 then 
-		playsound "postup"
+     if bgpos=0 then
+		playsoundAtVol "postup", primgate, VolGates
 		GateOpenLight.state=1
 		openg.enabled=false
 		DOF 132, 2
  		dooralreadyopen=1
 	end if
 
- end sub 
+ end sub
 
 sub closeg_timer
     closeg.interval=10
     bottgate(bgpos).isdropped=true
     bgpos=bgpos+1
-    bottgate(bgpos).isdropped=false   
+    bottgate(bgpos).isdropped=false
     primgate.RotY=30+(bgpos*10)
  	if bgpos=6 then
 		GateOpenLight.state=0
@@ -2528,28 +2556,28 @@ sub closeg_timer
 		DOF 132, 2
 		dooralreadyopen=0
  	end if
-end sub   
+end sub
 
  sub openkg_timer
     kickgate(kgpos).isdropped=true
     kgpos=kgpos+1
-    kickgate(kgpos).isdropped=false  
+    kickgate(kgpos).isdropped=false
 	primgate1.RotY=30+(kgpos*10)
-     if kgpos=6 then 
-		playsound "postup"
+     if kgpos=6 then
+		playsoundAtVol "postup", primgate1, VolGates
 		KickGateOpenLight.state=1
 		openkg.enabled=false
 		DOF 132, 2
  		kgdooralreadyopen=1
 	end if
 
- end sub 
+ end sub
 
 sub closekg_timer
     closekg.interval=10
     kickgate(kgpos).isdropped=true
     kgpos=kgpos-1
-    kickgate(kgpos).isdropped=false   
+    kickgate(kgpos).isdropped=false
     primgate1.RotY=30+(kgpos*10)
  	if kgpos=0 then
 		KickGateOpenLight.state=0
@@ -2557,15 +2585,15 @@ sub closekg_timer
 		DOF 132, 2
 		kgdooralreadyopen=0
  	end if
-end sub   
+end sub
 
 sub resettimer_timer
     rst=rst+1
     for i=1 to 4
- 	If B2SOn Then 
+ 	If B2SOn Then
 		Controller.B2SSetScorePlayer i, 0
-	End If    
-	next   
+	End If
+	next
     if rst=20 then
     playsound "StartBall1"
     end if
@@ -2735,7 +2763,7 @@ sub nextball
 
 			ResetBalls
 		End If
-	Else 
+	Else
 		If B2SOn Then
 			Controller.B2SSetPlayerUp Player
 			Controller.B2SSetData 81,0
@@ -2812,7 +2840,7 @@ sub checkmatch
 	tempmatch=Int(Rnd*10)
 	Match=tempmatch*10
 	MatchReel.SetValue(tempmatch+1)
-	
+
 	If B2SOn Then
 		If Match = 0 Then
 			Controller.B2SSetMatch 100
@@ -2850,12 +2878,12 @@ Sub TiltIt()
 			TiltTimer.Interval = 500
 			TiltTimer.Enabled = True
 		end if
-	
+
 end sub
 
 Sub IncreaseBonus()
 
-	
+
 	If BonusCounter=15 then
 		exit sub
 	end if
@@ -2873,7 +2901,7 @@ Sub IncreaseBonus()
 	else
 		Bonus(BonusCounter).State=1
 	end if
-	
+
 	LeftOutlaneLight.state=0
 	RightOutlaneLight.state=0
 	if BonusMultiplier=2 then
@@ -2892,7 +2920,7 @@ Sub IncreaseBonus()
 		end if
 	end if
 End Sub
-	
+
 
 Sub BonusBoost_Timer()
 	IncreaseBonus
@@ -2982,7 +3010,7 @@ Sub PlayerUpRotator_timer()
 		end if
 		RotatorTemp=RotatorTemp+1
 
-	
+
 end sub
 
 
@@ -2991,7 +3019,7 @@ sub savehs
 	Dim FileObj
 	Dim ScoreFile
 	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	Set ScoreFile=FileObj.CreateTextFile(UserDirectory & HSFileName,True)
@@ -3034,7 +3062,7 @@ sub loadhs
 	dim temp15
 
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	If Not FileObj.FileExists(UserDirectory & HSFileName) then
@@ -3078,7 +3106,7 @@ sub loadhs
 			HSScore(3) = int(temp8)
 			HSScore(4) = int(temp9)
 			HSScore(5) = int(temp10)
-			
+
 			HSName(1) = temp11
 			HSName(2) = temp12
 			HSName(3) = temp13
@@ -3103,7 +3131,7 @@ sub SaveLMEMConfig
 		tempb2s=0
 	end if
 	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	Set LMConfig=FileObj.CreateTextFile(UserDirectory & LMEMTableConfig,True)
@@ -3121,7 +3149,7 @@ sub LoadLMEMConfig
 	dim tempb2s
 
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	If Not FileObj.FileExists(UserDirectory & LMEMTableConfig) then
@@ -3165,7 +3193,7 @@ sub SaveLMEMConfig2
 	end if
 
 	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	Set LMConfig2=FileObj.CreateTextFile(UserDirectory & LMEMShadowConfig,True)
@@ -3194,7 +3222,7 @@ sub LoadLMEMConfig2
 	dim tempBS
 
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then 
+	If Not FileObj.FolderExists(UserDirectory) then
 		Exit Sub
 	End if
 	If Not FileObj.FileExists(UserDirectory & LMEMShadowConfig) then
@@ -3248,15 +3276,15 @@ end sub
 sub BumpersOff
 	Bumper1Light.Visible=false
 	Bumper2Light.Visible=false
-	Bumper3Light.Visible=false 
+	Bumper3Light.Visible=false
 
-	
+
 end sub
 
 sub BumpersOn
 	Bumper1Light.Visible=True
 	Bumper2Light.Visible=True
-	Bumper3Light.Visible=True 
+	Bumper3Light.Visible=True
 
 end sub
 
@@ -3270,8 +3298,8 @@ end sub
 Sub PlasticsOff
 	For each obj in Flashers
 		obj.Visible=false
-    next    
-    If BB=0 Then    
+    next
+    If BB=0 Then
      EndMusic: PlayMusic"0na06.mp3":TargetLeft1.timerinterval=125500:TargetLeft1.timerenabled=1
     End If
 end sub
@@ -3333,7 +3361,7 @@ end sub
 Sub RefreshReplayCard
 	Dim tempst1
 	Dim tempst2
-	
+
 	tempst1=FormatNumber(BallsPerGame,0)
 	tempst2=FormatNumber(ReplayLevel,0)
 
@@ -3371,13 +3399,13 @@ end sub
 Sub SetMotor2(x)
 	If MotorRunning<>1 And InProgress=true then
 		MotorRunning=1
-		
+
 		Select Case x
 			Case 10:
 				AddScore(10)
 				MotorRunning=0
 				BumpersOn
-				
+
 			Case 20:
 				MotorMode=10
 				MotorPosition=2
@@ -3440,8 +3468,8 @@ End Sub
 
 Sub AddScoreTimer_Timer
 	Dim tempscore
-	
-	
+
+
 	If MotorRunning<>1 And InProgress=true then
 		if queuedscore>=5000 then
 			tempscore=5000
@@ -3455,21 +3483,21 @@ Sub AddScoreTimer_Timer
 			SetMotor2(4000)
 			exit sub
 		end if
-				
+
 		if queuedscore>=3000 then
 			tempscore=3000
 			queuedscore=queuedscore-3000
 			SetMotor2(3000)
 			exit sub
 		end if
-			
+
 		if queuedscore>=2000 then
 			tempscore=2000
 			queuedscore=queuedscore-2000
 			SetMotor2(2000)
 			exit sub
 		end if
-			
+
 		if queuedscore>=1000 then
 			tempscore=1000
 			queuedscore=queuedscore-1000
@@ -3549,7 +3577,7 @@ Sub ScoreMotorTimer_Timer
 	If MotorPosition > 0 Then
 		Select Case MotorPosition
 			Case 5,4,3,2:
-				If MotorMode=1000 Then 
+				If MotorMode=1000 Then
 					AddScore(1000)
 				end if
 				if MotorMode=100 then
@@ -3560,10 +3588,10 @@ Sub ScoreMotorTimer_Timer
 				End if
 				MotorPosition=MotorPosition-1
 			Case 1:
-				If MotorMode=1000 Then 
+				If MotorMode=1000 Then
 					AddScore(1000)
 				end if
-				If MotorMode=100 then 
+				If MotorMode=100 then
 					AddScore(100)
 				End If
 				if MotorMode=10 then
@@ -3594,7 +3622,7 @@ Sub AddScore1(x)
 		Case 1:
 			PlayChime(10)
 			Score(Player)=Score(Player)+1
-			
+
 		Case 10:
 			PlayChime(10)
 			Score(Player)=Score(Player)+10
@@ -3604,7 +3632,7 @@ Sub AddScore1(x)
 			PlayChime(100)
 			Score(Player)=Score(Player)+100
 '			debugscore=debugscore+100
-			
+
 		Case 1000:
 			PlayChime(1000)
 			Score(Player)=Score(Player)+1000
@@ -3711,7 +3739,7 @@ Sub AddScore2(x)
 
     if (OldScore Mod 10 <> NewScore Mod 10) then
 		PlayChime(10)
-		
+
     end if
 
     OldScore = int(OldScore / 10)
@@ -3719,7 +3747,7 @@ Sub AddScore2(x)
 	' MsgBox("OldScore="&OldScore&", NewScore="&NewScore)
     if (OldScore Mod 10 <> NewScore Mod 10) then
 		PlayChime(100)
-		
+
     end if
 
     OldScore = int(OldScore / 10)
@@ -3727,7 +3755,7 @@ Sub AddScore2(x)
 	' MsgBox("OldScore="&OldScore&", NewScore="&NewScore)
     if (OldScore Mod 10 <> NewScore Mod 10) then
 		PlayChime(1000)
-		
+
     end if
 
     OldScore = int(OldScore / 10)
@@ -3766,7 +3794,7 @@ Sub PlayChime(x)
 					PlaySound SoundFXDOF("SpinACard_1_100_Point_Bell",142,DOFPulse,DOFChimes)
 					LastChime100=1
 				End If
-		
+
 		End Select
 	else
 		Select Case x
@@ -3803,61 +3831,98 @@ Sub HideOptions()
 
 end sub
 
-'*********************************************************************
-'                 Positional Sound Playback Functions
-'*********************************************************************
+
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX
+' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
 
 ' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
 Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-	PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
 End Sub
 
-' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
 Sub PlaySoundAt(soundname, tableobj)
-    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
+
+'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(soundname)
-    PlaySoundAt soundname, ActiveBall
+  PlaySoundAt soundname, ActiveBall
 End Sub
 
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Volum)
+  PlaySound sound, 1, Volum, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
 
 '*********************************************************************
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
+Function RndNum(min, max)
+    RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+End Function
+
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
-	Dim tmp
-    tmp = tableobj.y * 2 / table1.height-1
-    If tmp > 0 Then
-		AudioFade = Csng(tmp ^10)
-    Else
-        AudioFade = Csng(-((- tmp) ^10) )
-    End If
+  Dim tmp
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
 End Function
 
 Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
     Dim tmp
-    tmp = tableobj.x * 2 / table1.width-1
+    tmp = ball.x * 2 / table1.width-1
     If tmp > 0 Then
-        AudioPan = Csng(tmp ^10)
+        Pan = Csng(tmp ^10)
     Else
-        AudioPan = Csng(-((- tmp) ^10) )
+        Pan = Csng(-((- tmp) ^10) )
     End If
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-    Pitch = BallVel(ball) * 20
+  Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 '*****************************************
@@ -3889,16 +3954,21 @@ Sub RollingSoundTimer_Timer()
     If UBound(BOT) = -1 Then Exit Sub
 
 	' play the rolling sound for each ball
+
     For b = 0 to UBound(BOT)
-        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-            rolling(b) = True
-            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
-        Else
-            If rolling(b) = True Then
-                StopSound("fx_ballrolling" & b)
-                rolling(b) = False
-            End If
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
         End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
     Next
 End Sub
 
@@ -3907,10 +3977,8 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
-
-
 
 '*****************************************
 '	ninuzzu's	BALL SHADOW
@@ -3949,43 +4017,40 @@ End Sub
 '	Object sounds
 '*****************************************
 
-Sub Plastics_Hit (idx)
-	PlaySound "woodhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-End Sub
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+ 	If finalspeed > 20 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
  		RandomSoundRubber()
@@ -3995,8 +4060,8 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+ 	If finalspeed > 16 then
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
  		RandomSoundRubber()
@@ -4005,9 +4070,9 @@ End Sub
 
 Sub RandomSoundRubber()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -4021,9 +4086,9 @@ End Sub
 
 Sub RandomSoundFlipper()
 	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
 
@@ -4066,7 +4131,7 @@ HSName(4) = "ABC"
 HSName(5) = "BBB"
 
 Sub HighScoreTimer_Timer
-	
+
 	if EnteringInitials then
 		if HSTimerCount = 1 then
 			SetHSLine 3, InitialString & MID(AlphaString, AlphaStringPos, 1)
@@ -4308,23 +4373,23 @@ Sub DisplayAllOptions
 			Case 6:
 				SetOptLine 8, tempstring
 				SetOptLine 9, tempstring
-				
+
 			Case 7:
 				SetOptLine 10, tempstring
 				SetOptLine 11, tempstring
-			
+
 			Case 8:
-		
+
 			Case 9:
-			
-	
+
+
 		End Select
-		
+
 	next
 end sub
 
 sub MoveArrow
-	do 
+	do
 		CurrentOption = CurrentOption + 1
 		If CurrentOption>Len(OptionLinesToMark) then
 			CurrentOption=1
@@ -4346,7 +4411,7 @@ sub CollectOptions(ByVal keycode)
 		else
 			Eval("OperatorOption"&CurrentOption).image = "RedX"
 		end if
-			
+
 	elseif Keycode = RightFlipperKey then
 		PlaySound "DropTargetDropped"
 		if CurrentOption = 1 then
@@ -4365,10 +4430,10 @@ sub CollectOptions(ByVal keycode)
 		elseif CurrentOption = 3 then
 			if OptionCHS = 0 then
 				OptionCHS = 1
-				
+
 			else
 				OptionCHS = 0
-				
+
 			end if
 			DisplayAllOptions
 		elseif CurrentOption = 4 then
@@ -4380,7 +4445,7 @@ sub CollectOptions(ByVal keycode)
 			DisplayAllOptions
 		elseif CurrentOption = 8 or CurrentOption = 9 then
 				if OptionCHS=1 then
-					HSScore(1) = 75000	
+					HSScore(1) = 75000
 					HSScore(2) = 70000
 					HSScore(3) = 60000
 					HSScore(4) = 55000
@@ -4392,7 +4457,7 @@ sub CollectOptions(ByVal keycode)
 					HSName(4) = "ABC"
 					HSName(5) = "BBB"
 				end if
-	
+
 				if CurrentOption = 8 then
 					savehs
 				else
@@ -4402,7 +4467,7 @@ sub CollectOptions(ByVal keycode)
 				For XOpt = 1 to MaxOption
 					Eval("OperatorOption"&XOpt).image = "PostitBL"
 				next
-			
+
 				For XOpt = 1 to 256
 					Eval("Option"&XOpt).image = "PostItBL"
 				next
@@ -4415,7 +4480,7 @@ sub CollectOptions(ByVal keycode)
 End Sub
 
 Sub SetHighScoreOption
-	
+
 End Sub
 
 Function GetOptChar(String, Index)
