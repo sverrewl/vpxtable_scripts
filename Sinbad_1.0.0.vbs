@@ -324,7 +324,7 @@ Sub SW74b_UnHit():LS74b.State = 1:Controller.Switch(74)=0:DOF 109, DOFOff:End Su
 Sub SW74a_Hit():LS74a.State = 0:Controller.Switch(74)=1:DOF 108, DOFOn:End Sub
 Sub SW74a_UnHit():LS74a.State = 1:Controller.Switch(74)=0:DOF 108, DOFOff:End Sub
 
-Sub Spinner1_Spin:vpmTimer.PulseSw(10):PlaysoundAtVol "PNK_SB_spinner", VolSpin:End Sub
+Sub Spinner1_Spin:vpmTimer.PulseSw(10):PlaysoundAtVol "PNK_SB_spinner", Spinner1, VolSpin:End Sub
 
 '**round target switches
 Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAtVol SoundFXDOF("spothit",106,DOFPulse,DOFContactors),TargetSW51a,VolTarg:GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
