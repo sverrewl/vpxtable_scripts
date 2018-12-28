@@ -389,7 +389,7 @@ End Sub
 
 Sub SolClawMotorLeft(Enabled)
 	If enabled then
-		PlaySound SoundFX("Motor",DofGear) ' TODO
+		PlaySoundAtVol SoundFX("Motor",DofGear), Claw, 20
 	Else
 		StopSound SoundFX("Motor",DofGear)
 	End if
@@ -410,7 +410,7 @@ BallP1.RotY = Claw.RotY
 End Sub
 
 Sub UpdateElevator(aNewPos,aSpeed,aLastPos)
-	PlaySound SoundFX("ElevatorMotor",DOFGear) ' TODO
+	PlaySoundAtVol SoundFX("ElevatorMotor",DOFGear), BallP, 10
 	Elevator.TransY = elevatormech.Position
 	BallP.TransY = elevatormech.Position
 End Sub
@@ -477,7 +477,7 @@ End Sub
 Dim aBall
 
 Sub sw73_Hit()
-    PlaySound "HeadquarterHit2", sw73, 1
+    PlaySoundAtVol "HeadquarterHit2", sw73, 1
     Set aBall = ActiveBall:Me.TimerEnabled = 1
     bsTopPopper.AddBall Me
 End Sub
@@ -508,7 +508,7 @@ Sub ClawRampKicker_Hit()
 End Sub
 
 Sub sw66_Hit()
-	PlaySound "" ' TODO ??
+	PlaySoundAtVol "EjectKick", sw66, 1
 	bsEject.AddBall Me
 End Sub
 
@@ -1231,15 +1231,15 @@ End Sub
 Dim SoundBall
 
 Sub BallDropSoundCenter()
-	PlaySound "BallDrop" ' TODO
+	PlaySoundAtVol "BallDrop", BallP, 1
 End Sub
 
 Sub BallDropSoundLeft()
-	PlaySound "BallDrop", 0, 1, -0.2 ' TODO
+	PlaySoundAtVol "BallDrop", sw16, 1
 End Sub
 
 Sub BallDropSoundRight()
-	PlaySound "BallDrop", 0, 1, 0.2 ' TODO
+	PlaySoundAtVol "BallDrop", sw17, 1
 End Sub
 
 
@@ -1292,13 +1292,13 @@ Sub WireStartBottomPopper_Hit()
 End Sub
 
 
-Sub WireStopLeft_Hit(): StopSound "WireRamp":PlaySound "WireRamp_Stop": vpmTimer.AddTimer 200, "BallDropSoundLeft'": End Sub ' TODO
+Sub WireStopLeft_Hit(): StopSound "WireRamp":PlaySoundAtVol "WireRamp_Stop", sw16, 1: vpmTimer.AddTimer 200, "BallDropSoundLeft'": End Sub
 
-Sub WireStopRight_Hit(): StopSound "WireRamp":PlaySound "WireRamp_Stop": vpmTimer.AddTimer 200, "BallDropSoundRight'": End Sub ' TODO
+Sub WireStopRight_Hit(): StopSound "WireRamp":PlaySoundAtVol "WireRamp_Stop", sw17, 1: vpmTimer.AddTimer 200, "BallDropSoundRight'": End Sub
 
-Sub WireStopRetina_Hit(): StopSound "WireRamp":PlaySound "WireRamp_Stop": vpmTimer.AddTimer 200, "BallDropSoundLeft'": End Sub ' TODO
+Sub WireStopRetina_Hit(): StopSound "WireRamp":PlaySoundAtVol "WireRamp_Stop", BallP, 1: vpmTimer.AddTimer 200, "BallDropSoundLeft'": End Sub
 
-Sub WireStopSuperJets_Hit(): StopSound "WireRamp":PlaySound "WireRamp_Stop": vpmTimer.AddTimer 200, "BallDropSoundCenter'": End Sub ' TODO
+Sub WireStopSuperJets_Hit(): StopSound "WireRamp":PlaySoundAtVol "WireRamp_Stop", sw63, 1: vpmTimer.AddTimer 200, "BallDropSoundCenter'": End Sub
 
 
 
