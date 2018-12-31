@@ -415,7 +415,7 @@ End Sub
 
 'VPM Light Subs - VP10 Built in Fading Routines are used.
 
-Lights(24)=Array(L24,L24a)
+' Lights(24)=Array(L24,L24a)
 Set Lights(1) = L1
 Set Lights(2) = L2
 Set Lights(3) = L3
@@ -439,6 +439,7 @@ Set Lights(20) = L20
 Set Lights(21) = L21
 Set Lights(22) = L22
 Set Lights(23) = L23
+Set Lights(24) = L24
 Set Lights(25) = L25
 Set Lights(26) = L26
 Set Lights(27) = L27
@@ -458,6 +459,7 @@ Set Lights(40) = L40
 Set Lights(41) = L41
 Set Lights(42) = L42
 Set Lights(43) = L43
+Set Lights(44) = L24a
 Set Lights(45) = L45
 Set Lights(46) = L46
 Set Lights(47) = L47
