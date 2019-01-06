@@ -8,6 +8,7 @@
 '############################################################################################
 ' Version 1.0 FS mfuegemann 2017
 Option Explicit
+Randomize
 '
 ' Version 1.1
 ' - adjusted friction values (found by JPSalas)
@@ -76,8 +77,31 @@ SolCallback(3)="bsRightHole.SolOut"				'OK
 SolCallback(10)="Sol10"							'GameOn OK
 SolCallback(17)="vpmSolSound ""knocker"","
 
-SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"
-SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Nothing,"
+' Fix from Arngrim
+' https://www.vpforums.org/index.php?showtopic=39101&page=2
+
+'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"
+'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Nothing,"
+
+SolCallback(sLRFlipper) = "SolRFlipper"
+SolCallback(sLLFlipper) = "SolLFlipper"
+
+Sub SolLFlipper(Enabled)
+  If Enabled Then
+    PlaySound SoundFX("FlipperUp",DOFContactors):LeftFlipper.RotateToEnd
+  Else
+    PlaySound SoundFX("FlipperDown",DOFContactors):LeftFlipper.RotateToStart
+  End If
+End Sub
+
+Sub SolRFlipper(Enabled)
+  If Enabled Then
+    PlaySound SoundFX("FlipperUp",DOFContactors):RightFlipper.RotateToEnd
+  Else
+    PlaySound SoundFX("FlipperDown",DOFContactors):RightFlipper.RotateToStart
+  End If
+End Sub
+
 
 Sub Sol7(enabled)
 	if enabled then
