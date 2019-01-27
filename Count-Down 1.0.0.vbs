@@ -45,7 +45,7 @@ Dim bsTrough, dtbank1, dtbank2, dtbank3, dtbank4, bsSaucer, x
 
 Const cGameName = "countdwn"
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast
