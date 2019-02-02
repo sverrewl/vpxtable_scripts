@@ -55,7 +55,7 @@ Const VolFlip   = 1    ' Flipper volume.
 
  'STANDARD DEFINITIONS *************************************************************************************************************************************
 
- Const UseSolenoids = 1
+ Const UseSolenoids = 2
  Const UseLamps = 0
  Const UseSync = 0
  Const HandleMech = 1
