@@ -9,6 +9,7 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
+' Thalamus, 2019-02-18 : changed useSolenoids to 2.
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -64,7 +65,7 @@ LoadVPM "01560000", "SEGA.VBS", 3.26
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const UseGI = 0
