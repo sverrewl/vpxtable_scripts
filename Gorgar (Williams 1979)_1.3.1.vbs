@@ -1,4 +1,5 @@
 Option Explicit
+Randomize
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -13,6 +14,9 @@ On Error Goto 0
 ' Thalamus 2018-08-27 : Improved directional sounds
 
 ' Add droptargetdown2/droptargetreset2 -0.78/-0.78 orig to -0.16/-0.42
+' Also - make this change to the table itself - the code is already in.
+' https://vpinball.com/wiki/visual-pinball-knowledge-base/reset-a-table-to-default/
+' it states : First set Light88 as off (LightStateOff, in panel property)
 
 Const VolDiv = 1000    ' Lower number, louder ballrolling/collition sound
 Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
