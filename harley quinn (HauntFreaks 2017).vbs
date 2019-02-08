@@ -72,7 +72,7 @@ LoadVPM "01210000", "sys80.vbs", 3.1
 Dim bsTrough, dtLBank, dtRBank, dtMBank, dtCBank, bsTop, kickbackIM
 Dim DesktopMode:DesktopMode=Table1.ShowDT
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
