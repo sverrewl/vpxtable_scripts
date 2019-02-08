@@ -81,7 +81,7 @@ SolCallback(30) = "SolFlash6B"  'Flash 6B
 SolCallback(31) = "SolFlash7B"  'Flash 7B
 'SolCallback(32) = "SetLamp 98,"  'Flash 8B
 
-Const cGameName = "Hook_500"
+Const cGameName = "Hook_501"
 
 
 Dim bsTrough,bsUpperEject,bsCala,bsLVuk,SkillShotR,PlungerIM
