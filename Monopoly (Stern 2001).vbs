@@ -1030,7 +1030,7 @@ Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates
     BankDoor.RotY = - BankFlipper.CurrentAngle + 94
-    GIUpdate
+    ' GIUpdate
     RollingUpdate
 End Sub
 
