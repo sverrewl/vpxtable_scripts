@@ -1,7 +1,7 @@
 Option Explicit
 Randomize
 
-Const cGameName="jokrpokr",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
+Const cGameName="jokrpokr",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
 Const SCoin="coin"
 
 ' Thalamus 2018-07-23
