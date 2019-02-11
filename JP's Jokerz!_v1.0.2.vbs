@@ -6,6 +6,24 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
+' Not you may need to change some values to the the db2s to work as you want.
+' See this https://www.vpforums.org/index.php?showtopic=39243&p=397758
+' Stat is talking about this section, line 95 being the one containing
+' .Length = 200
+'
+'    With mWheel
+'        .Length = 200
+'        .Steps = 16
+'        .mType = vpmMechStepSol + vpmMechCircle + vpmMechLinear + vpmMechFast
+'        .Sol1 = 14
+'        .Sol2 = 13
+'        .Addsw 59, 0, 6
+'        .Callback = GetRef("UpdateWheel")
+'        .Start
+'    End With
+'
+' It is recommended to use this db2s https://www.vpforums.org/index.php?app=downloads&showfile=7786
+'
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -43,7 +61,7 @@ Const cGameName = "jokrz_l6"
 
 LoadVPM "01530000", "S11.VBS", 3.10
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
@@ -124,7 +142,7 @@ Sub table1_Init()
     Set mWheel = new cvpmMech
     With mWheel
         .Length = 200
-        .Steps = 34
+        .Steps = 16
         .mType = vpmMechStepSol + vpmMechCircle + vpmMechLinear + vpmMechFast
         .Sol1 = 14
         .Sol2 = 13
