@@ -15,7 +15,7 @@ On Error Goto 0
 
 ' Add droptargetdown2/droptargetreset2 -0.78/-0.78 orig to -0.16/-0.42
 ' Also - make this change to the table itself - the code is already in.
-' https://vpinball.com/wiki/visual-pinball-knowledge-base/reset-a-table-to-default/
+' https://www.vpforums.org/index.php?showtopic=34090&page=3#entry385153
 ' it states : First set Light88 as off (LightStateOff, in panel property)
 
 Const VolDiv = 1000    ' Lower number, louder ballrolling/collition sound
