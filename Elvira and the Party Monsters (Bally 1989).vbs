@@ -255,13 +255,13 @@ Sub BallLock_Hit:bsLock.AddBall Me : playsoundAtVol "popper_ball", BallLock, 1: 
 Sub sw32_Hit():bsBP.AddBall Me : playsoundAtVol "popper_ball", sw32, 1: End Sub
 
  'Bumpers
-Sub Bumper1_Hit : vpmTimer.PulseSw 35 : BCap1.transx = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper1, VolBump: End Sub
+Sub Bumper1_Hit : vpmTimer.PulseSw 35 : BCap1.transz = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper1, VolBump: End Sub
 Sub Bumper1_Timer : BCap1.transx = 0 : Me.TimerEnabled = 0 : End Sub
 
-Sub Bumper2_Hit : vpmTimer.PulseSw 36 : BCap2.transx = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper2, VolBump: End Sub
+Sub Bumper2_Hit : vpmTimer.PulseSw 36 : BCap2.transz = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper2, VolBump: End Sub
 Sub Bumper2_Timer : BCap2.transx = 0 : Me.TimerEnabled = 0 : End Sub
 
-Sub Bumper3_Hit : vpmTimer.PulseSw 37 : BCap3.transx = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper3, VolBump: End Sub
+Sub Bumper3_Hit : vpmTimer.PulseSw 37 : BCap3.transz = -10 : Me.TimerEnabled = 1 : playsoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper3, VolBump: End Sub
 Sub Bumper3_Timer : BCap3.transx = 0 : Me.TimerEnabled = 0 : End Sub
 
  'Wire Triggers
