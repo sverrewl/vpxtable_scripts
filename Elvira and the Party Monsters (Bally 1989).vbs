@@ -3,6 +3,8 @@ Randomize
 
 ' Thalamus 2018-08-26 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
+' Is valid for https://vpinball.com/VPBdownloads/elvira-and-the-party-monsters-bally-1989/ ver 2.3
+' Added proper table exit, draifet recommended BCapX.transz instead of BCapX.transy
 
 Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
 Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
