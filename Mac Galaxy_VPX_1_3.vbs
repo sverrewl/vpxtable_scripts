@@ -7,6 +7,7 @@
 '############################################################################################
 '############################################################################################
 Option Explicit
+Randomize
 '
 ' Version 1.1
 ' - new configuration item ForceNoB2S
@@ -24,6 +25,7 @@ Option Explicit
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
+' Changed useSolenoids=2 - thanks Carny
 
 ' Options
 ' Volume devided by - lower gets higher sound
@@ -62,7 +64,7 @@ Const ForceNoB2S=False		'set to True to skip the B2S calls - B2S errors lead to 
 
 
 Const cgamename = "macgalxy"
-Const UseSolenoids=1,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="coin3"
+Const UseSolenoids=2,UseLamps=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="coin3"
 
 if ForceNoB2S Then
 	LoadVPMALT "01560000","mac.VBS",3.2
