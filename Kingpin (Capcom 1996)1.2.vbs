@@ -69,9 +69,9 @@ LoadVPM "01130000","CAPCOM.VBS",3.10
 'Standard definitions
 '********************
 
-	Const cGameName = "kpv106" 'change the romname here
+	Const cGameName = "kpb105" 'change the romname here
 
-     Const UseSolenoids = 1
+     Const UseSolenoids = 2
      Const UseLamps = 0
      Const UseSync = 1
      Const HandleMech = 0
