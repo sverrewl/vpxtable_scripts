@@ -1360,7 +1360,7 @@ End Sub
  Sub TrapDoor_Hit
 	ClearBallID
      TrapDoor.DestroyBall
-     PlaySoundAtVolAtVol "Ballhit", TrapDoor
+     PlaySoundAtVol "Ballhit", TrapDoor
 	stopsound "plasticramp2":SndYellowRamp=0:SndYellowRampV=0
      vpmCreateBall TrapDoorA
      TrapDoorA.kick 0, 2
