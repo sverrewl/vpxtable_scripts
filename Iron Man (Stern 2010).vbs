@@ -3,6 +3,7 @@ Randomize
 
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
+' Changed rom to im_183ve for fastflips memory address hack
 
 ' Options
 ' Volume devided by - lower gets higher sound
@@ -30,7 +31,8 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="im_183",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+' Const cGameName="im_183",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="im_183ve",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01560000", "sam.VBS", 3.10
 
@@ -169,7 +171,7 @@ Sub Table1_Init
     vpmNudge.TiltSwitch=-7
     vpmNudge.Sensitivity=2
     vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
-    
+
 		InitVpmFFlipsSAM
 
     Set bsTrough = New cvpmBallStack
