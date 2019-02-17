@@ -6,10 +6,8 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Table has already its own  "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2 - reverted as table already has its on built-in fastflip
 ' No special SSF tweaks yet.
-' Wob 2018-08-09
-' Revery UseSolenoids=1 (True) as this table has built in Fast Flips
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -19,7 +17,7 @@ On Error Goto 0
 '**************************************************************
 '						DECLARACIONES
 '**************************************************************
-Const UseSolenoids = True
+Const UseSolenoids = 1
 Const UseLamps = True
 Const UseSync = False
 ' Standard Sounds
@@ -87,7 +85,7 @@ Sub Table1_Init()
 	Intensity 'sets GI brightness depending on day/night slider settings
 
 	vpmMapLights AllLamps
-	
+
 	Outhole.CreateSizedBallWithMass 25, 1.55
 	Outhole.kick 0,0
 
@@ -185,7 +183,7 @@ Sub emkickertimer_Timer
 End Sub
 
 Sub SolBackGenIllumin(Enabled)
-If Enabled Then 
+If Enabled Then
 	PlaySound"tickon" 'plays in BG sounds
 Else
 	PlaySound"tickoff" 'Plays in BG sounds
@@ -255,7 +253,7 @@ Sub Flash29(Enabled)
 		F29b.State = 1
 		F29c.State = 1
 		F29d.State = 1
-		Flasher29p.material = "Orange FlashersOn"	
+		Flasher29p.material = "Orange FlashersOn"
 	Else
 		Flasher29p.image = "DomeOff"
 		F29.State = 0
@@ -337,15 +335,15 @@ End Sub
 Dim GILevel, DayNight
 
 Sub Intensity
-	If DayNight <= 20 Then 
+	If DayNight <= 20 Then
 			GILevel = .5
-	ElseIf DayNight <= 40 Then 
+	ElseIf DayNight <= 40 Then
 			GILevel = .4125
-	ElseIf DayNight <= 60 Then 
+	ElseIf DayNight <= 60 Then
 			GILevel = .325
-	ElseIf DayNight <= 80 Then 
+	ElseIf DayNight <= 80 Then
 			GILevel = .2375
-	Elseif DayNight <= 100  Then 
+	Elseif DayNight <= 100  Then
 			GILevel = .15
 	End If
 
@@ -466,12 +464,12 @@ Function NullFunction(aEnabled):End Function	'1 argument null function placehold
 Class cFastFlips
 	Public TiltObjects, DebugOn, hi
 	Private SubL, SubUL, SubR, SubUR, FlippersEnabled, Delay, LagCompensation, Name, FlipState(3)
-	
+
 	Private Sub Class_Initialize()
 		Delay = 0 : FlippersEnabled = False : DebugOn = False : LagCompensation = False
 		Set SubL = GetRef("NullFunction"): Set SubR = GetRef("NullFunction") : Set SubUL = GetRef("NullFunction"): Set SubUR = GetRef("NullFunction")
 	End Sub
-	
+
 	'set callbacks
 	Public Property Let CallBackL(aInput)  : Set SubL  = GetRef(aInput) : Decouple sLLFlipper, aInput: End Property
 	Public Property Let CallBackUL(aInput) : Set SubUL = GetRef(aInput) : End Property
@@ -498,14 +496,14 @@ Class cFastFlips
 		FlipState(2) = aEnabled
 		If not FlippersEnabled and not DebugOn then Exit Sub
 		subUL aEnabled
-	End Sub	
+	End Sub
 
 	Public Sub FlipUR(aEnabled)
 		FlipState(3) = aEnabled
 		If not FlippersEnabled and not DebugOn then Exit Sub
 		subUR aEnabled
-	End Sub	
-	
+	End Sub
+
 	Public Sub TiltSol(aEnabled)	'Handle solenoid / Delay (if delayinit)
 		If delay > 0 and not aEnabled then 	'handle delay
 			vpmtimer.addtimer Delay, Name & ".FireDelay" & "'"
@@ -515,9 +513,9 @@ Class cFastFlips
 			EnableFlippers(aEnabled)
 		end If
 	End Sub
-	
+
 	Sub FireDelay() : If LagCompensation then EnableFlippers False End If : End Sub
-	
+
 	Private Sub EnableFlippers(aEnabled)
 		If aEnabled then SubL FlipState(0) : SubR FlipState(1) : subUL FlipState(2) : subUR FlipState(3)
 		FlippersEnabled = aEnabled
@@ -527,9 +525,9 @@ Class cFastFlips
 			subR False
 			If not IsEmpty(subUL) then subUL False
 			If not IsEmpty(subUR) then subUR False
-		End If		
+		End If
 	End Sub
-	
+
 End Class
 
 '**************************************************************
@@ -656,11 +654,11 @@ Sub Sw31_UnHit
 	Else
 		StopSound"comet_ramp"
 	End If
-End Sub 
+End Sub
 Sub Sw32_Hit:Controller.Switch(32) =1:SwitchWire2.objRotZ = -15:End Sub                          'Score rampa comet
 Sub Sw32_UnHit:Controller.Switch(32) =0:SwitchWire2.objRotZ = 0:End Sub
 Sub Sw34_Hit:Controller.Switch(34) =1:SwitchWire1.objRotZ = -15:End Sub                          'Score rampa cyclone
-Sub Sw34_UnHit:Controller.Switch(34) =0:SwitchWire1.objRotZ = 0:End Sub 
+Sub Sw34_UnHit:Controller.Switch(34) =0:SwitchWire1.objRotZ = 0:End Sub
 Sub Sw35_Hit:VPMTimer.PulseSw 35:PlaySound "Rubber_hit_3", 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall): End Sub 'Sensores en varias gomas
 Sub Sw36_Hit:VPMTimer.PulseSw 36:PlaySound "Rubber_hit_2", 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall): End Sub
 Sub Sw37_Hit:VPMTimer.PulseSw 37:PlaySound "Rubber_hit_1", 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall): End Sub
@@ -772,11 +770,11 @@ Sub FWTimer_Timer
 	elseif RedWheel.RotX >105 and RedWheel.RotX <150 Then
 		FerrisBlockedWall.isdropped = 1
 	elseif RedWheel.RotX >200 and RedWheel.RotX <240 Then
-		FerrisBlockedWall.isdropped = 1	
+		FerrisBlockedWall.isdropped = 1
 	elseif RedWheel.RotX >285 and RedWheel.RotX <330 Then
 		FerrisBlockedWall.isdropped = 1
 	else
-		FerrisBlockedWall.isdropped = 0	
+		FerrisBlockedWall.isdropped = 0
 	End If
 End Sub
 
@@ -999,10 +997,10 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 'Extra Sounds
-Sub Rubbers_Hit(idx):RandomRubberSound:End Sub 
+Sub Rubbers_Hit(idx):RandomRubberSound:End Sub
 Sub aGates_Hit(idx):RandomGateSound:End Sub
-Sub Posts_Hit(idx):PlaySound "rubber", 0, Vol(ActiveBall)*10, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub 
-Sub Posts2_Hit(idx):PlaySound "rubber", 0, Vol(ActiveBall)*10, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub 
+Sub Posts_Hit(idx):PlaySound "rubber", 0, Vol(ActiveBall)*10, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
+Sub Posts2_Hit(idx):PlaySound "rubber", 0, Vol(ActiveBall)*10, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
 Sub aGates2_Hit(idx):PlaySound "Gate", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
 Sub aMetals_Hit(idx):PlaySound "MetalHit", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
 Sub RampEnds_Hit(idx):PlaySound "RampEndHit", 0, Vol(ActiveBall)*10, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
