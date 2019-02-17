@@ -18,7 +18,7 @@
 
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2 - reverted as this table has its own fastflip built-in
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -31,7 +31,7 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 
-Const cGameName="nugent",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="fx_coin"
+Const cGameName="nugent",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="fx_coin"
 'Const ballmass = 1.7
 Const ballmass = 2.0
 LoadVPM "01120100","Bally.vbs",3.10
