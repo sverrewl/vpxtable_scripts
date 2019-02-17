@@ -7,6 +7,10 @@ Randomize
 ' I'm unspired to do this table finished - not that fond of Originals
 ' !! NOTE : Table not verified yet !!
 
+' Ready for Hauntfreaks animated db2s - see
+' https://www.vpforums.org/index.php?app=downloads&showfile=12922
+' Need FX_horn.wav to be added.
+
 ' Options
 ' Volume devided by - lower gets higher sound
 
@@ -458,6 +462,8 @@ Sub Table1_KeyDown(ByVal Keycode)
         If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+
+        If keycode = MechanicalTilt Then Nudge 0, 4:PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
 
         If keycode = LeftFlipperKey Then SolLFlipper 1
         If keycode = RightFlipperKey Then SolRFlipper 1
