@@ -41,8 +41,9 @@
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2 - reverted, it is included ... silly me.
-' No special SSF tweaks yet.
+' Changed UseSolenoids=1 to 2 - reverted - table has its own fastflip built-in
+
+' Thalamus, table uses its own SSF routines.
 
 Option Explicit
 Randomize
