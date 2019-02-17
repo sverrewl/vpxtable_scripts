@@ -76,10 +76,10 @@ Const BallSize = 51
 Const BallMass = 1.2
 
 
-' Thal : Added because of useSolenoid=2
+' Thal : Added because of useSolenoid=2 - reverted as this table has its own fastflip built-in
 Const cSingleRFlip = 0
 
-Const cGameName="gw_l5", UseSolenoids=2, UseLamps=0, UseGI=0, SSolenoidOn="SolOn", SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="gw_l5", UseSolenoids=1, UseLamps=0, UseGI=0, SSolenoidOn="SolOn", SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "01560000", "WPC.VBS", 3.46
 
