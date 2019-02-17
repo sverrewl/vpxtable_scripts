@@ -3,7 +3,7 @@ Randomize
 
 ' Thalamus 2018-07-24
 ' Tables has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Changed UseSolenoids=1 to 2
+' Changed UseSolenoids=1 to 2 - reverted because table has it own builtin version
 ' No special SSF tweaks yet.
 
 On Error Resume Next
@@ -11,7 +11,7 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="closeenc",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
+Const cGameName="closeenc",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="fx_Flipperup",SFlipperOff="fx_Flipperdown"
 Const SCoin="coin",cCredits=""
 Const VT_Delay_Factor = .88		'used to slow down the ball when hitting the vari target, smaller number slows down faster
 
@@ -1313,4 +1313,12 @@ Class cFastFlips
 	End Sub
 
 End Class
+
+
+
+' Thalamus : Exit in a clean and proper way
+Sub CloseEncounters_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
 
