@@ -12,7 +12,7 @@
 
 ' Thalamus 2018-07-24
 ' Tables already has "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
-' Table already includes fastflip routine
+' Changed UseSolenoids=1 to 2 - reverted as this already has that code built in
 
 Option Explicit
 Randomize
@@ -1221,4 +1221,10 @@ Class cFastFlips
 
 
     End Class
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
 
