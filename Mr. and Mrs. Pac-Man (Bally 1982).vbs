@@ -8,6 +8,7 @@ On Error Goto 0
 
 ' Thalamus 2019 February : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
+' Changed useSolenoids from 1 to 2.
 
 ' Options
 ' Volume devided by - lower gets higher sound
@@ -35,7 +36,10 @@ Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 
-Const cGameName="m_mpac",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="m_mpac",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+
+' Thalamus - added because of useSolenoids=2
+Const cSingleRFlip = 0
 
 LoadVPM "01500000","bally.vbs",3.1
 
