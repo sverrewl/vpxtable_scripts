@@ -1062,7 +1062,7 @@ Sub RHelp4_Hit()
 End Sub
 
 Sub RampFX(dumy)
-    PlaySoundAtVol "fx_railShort", ActiveBall, 1
+    PlaySoundAtVol "fx_railShort", sw52, 1
 End Sub
 
 
