@@ -178,7 +178,7 @@ Sub Table1_Init
 		.InitEntrySnd "Solenoid", "Solenoid"
 		.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 		.Balls = 1
-	End With	' Orange Drop targets
+	End With ' Orange Drop targets
 	set rtBank = new cvpmdroptarget
 	With rtBank
 		.InitDrop Array(Array(sw25, sw25a), sw26, Array(sw27, sw27a)), Array(25, 26, 27)
@@ -228,7 +228,8 @@ Sub Table1_unPaused:Controller.Pause = 0:End Sub
 '**********
 
 Sub Table1_KeyDown(ByVal Keycode)
-	If KeyCode = LeftFlipperKey And PinPlay = 1 Then Controller.Switch(17) = 1:LeftFlipper.RotateToEnd	If KeyCode = RightFlipperKey And PinPlay = 1 Then Controller.Switch(23) = 1:RightFlipper.RotateToEnd
+	If KeyCode = LeftFlipperKey And PinPlay = 1 Then Controller.Switch(17) = 1:LeftFlipper.RotateToEnd
+  If KeyCode = RightFlipperKey And PinPlay = 1 Then Controller.Switch(23) = 1:RightFlipper.RotateToEnd
 	If keycode = LeftTiltKey Then Nudge 90, 4:PlaySound SoundFX("nudge_left",0)
 	If keycode = RightTiltKey Then Nudge 270, 4:PlaySound SoundFX("nudge_right",0)
 	If keycode = CenterTiltKey Then Nudge 0, 5:PlaySound SoundFX("nudge_forward",0)
@@ -237,7 +238,8 @@ Sub Table1_KeyDown(ByVal Keycode)
 End Sub
 
 Sub Table1_KeyUp(ByVal Keycode)
-	If KeyCode = LeftFlipperKey Then Controller.Switch(17) = 0:LeftFlipper.RotateToStart	If KeyCode = RightFlipperKey Then Controller.Switch(23) = 0:RightFlipper.RotateToStart
+	If KeyCode = LeftFlipperKey Then Controller.Switch(17) = 0:LeftFlipper.RotateToStart
+  If KeyCode = RightFlipperKey Then Controller.Switch(23) = 0:RightFlipper.RotateToStart
 	If vpmKeyUp(keycode) Then Exit Sub
 	If keycode = PlungerKey Then
 	Plunger.Fire:PlaySoundAtVol "plunger2", Plunger, 1
