@@ -266,14 +266,14 @@ Diverter2Pos = 0
 		Diverter2Animation.Enabled = 1
  		Diverter_on.isdropped=false
  		Diverter_off.isdropped=true
-        PlaySound SoundFX("diverter",DOFContactors) ' TODO
+        PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
  	else
 		Diverter2Animation.Interval = 4
 		Diverter2Dir = 1
 		Diverter2Animation.Enabled = 1
   		Diverter_on.isdropped=true
  		Diverter_off.isdropped=false
-        PlaySound SoundFX("diverter",DOFContactors) ' TODO
+        PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
  	end if
  end sub
 
@@ -300,14 +300,14 @@ Diverter1Pos = 0
 		Diverter1Animation.Enabled = 1
  		PlayFLDiverter.isdropped=false
  		PlayFLDiverter1.isdropped=True
-        PlaySound SoundFX("diverter",DOFContactors)
+        PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
  	else
 		Diverter1Animation.Interval = 4
 		Diverter1Dir = -1
 		Diverter1Animation.Enabled = 1
  		PlayFLDiverter.isdropped=true
  		PlayFLDiverter1.isdropped=false
-        PlaySound SoundFX("diverter",DOFContactors)
+        PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
  	end if
  end sub
 
@@ -1631,9 +1631,10 @@ End Sub
 
 'Algunos Efectos
 
-Sub Balldrop1_Hit: PlaySound "fx_ballrampdrop": End Sub ' TODO
-Sub Balldrop2_Hit: PlaySound "fx_ballrampdrop": End Sub
-Sub Balldrop3_Hit: PlaySound "rubber": End Sub
+Sub Balldrop1_Hit: PlaySoundAt "fx_ballrampdrop",Balldrop1: End Sub
+Sub Balldrop2_Hit: PlaySoundAt "fx_ballrampdrop",Balldrop2: End Sub
+Sub Balldrop3_Hit: PlaySoundAt "rubber",Balldrop3: End Sub
+Sub LaunchLaneBallDrop_Hit: PlaySoundAtVol "fx_ballrampdrop",LaunchLaneBallDrop,.2: End Sub
 
 Sub LRFXOn_Hit
 	PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
