@@ -405,6 +405,8 @@ Sub Table1_KeyDown(ByVal Keycode)
       If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound SoundFX("fx_nudge",0), 0, 1, -0.1, 0.25:CheckTilt
         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound SoundFX("fx_nudge",0), 0, 1, 0.1, 0.25:CheckTilt
         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound SoundFX("fx_nudge",0), 0, 1, 1, 0.25:CheckTilt
+        If keycode =  MechanicalTilt Then Nudge 0, 3:PlaySound SoundFX("fx_nudge",0), 0, 1, 1, 0.25:CheckTilt
+
 
         If keycode = LeftFlipperKey Then SolLFlipper 1:SolULFlipper 1:InstantInfoTimer.Enabled = True
         If keycode = RightFlipperKey Then SolRFlipper 1:SolURFlipper 1:InstantInfoTimer.Enabled = True
@@ -2923,8 +2925,8 @@ Sub DMD_Init
     UltraDMD.SetProjectFolder DirName
 
     ' wait for the animation to end
-    While UltraDMD.IsRendering = True
-    WEnd
+    ' While UltraDMD.IsRendering = True
+    ' WEnd
 
 End Sub
 
