@@ -89,7 +89,10 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
+
 LoadVPM "02000000", "de.vbs", 3.49
+
+NoUpperRightFlipper
 
 Sub Tommy_Paused:Controller.Pause = 1:End Sub
 Sub Tommy_unPaused:Controller.Pause = 0:End Sub
@@ -151,8 +154,6 @@ Dim bsTrough
 
 Sub Tommy_Init
 vpminit me
-vpmFlips.CallBackUL = SolCallBack(47)
-SolCallback(47) = Empty
 '* ROM AND DMD ****************************************
 
 With Controller
