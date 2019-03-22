@@ -92,7 +92,7 @@ On Error Goto 0
 
 LoadVPM "02000000", "de.vbs", 3.49
 
-NoUpperRightFlipper
+' NoUpperRightFlipper
 
 Sub Tommy_Paused:Controller.Pause = 1:End Sub
 Sub Tommy_unPaused:Controller.Pause = 0:End Sub
@@ -154,6 +154,8 @@ Dim bsTrough
 
 Sub Tommy_Init
 vpminit me
+'vpmFlips.CallBackUL = SolCallBack(47)
+'SolCallback(47) = Empty
 '* ROM AND DMD ****************************************
 
 With Controller
@@ -316,7 +318,7 @@ SolCallBack(30) = "setlamp 130," 										'Flashlamp X4 Back Panel				(6R)
 SolCallBack(31) = "setlamp 131,"  										'Flashlamp X2 Lower Right Hot Dogs		(7R)
 SolCallBack(32) = "setlamp 132,"     									'Flashlamp X4 Top Hot Dogs				(8R)
 SolCallback(46) = "SolRFlipper"                         				'Right Flipper
-SolCallback(47) = "SolULFlipper"                        				'Upper Left Flipper
+'SolCallback(47) = "SolULFlipper"                        				'Upper Left Flipper
 SolCallback(48) = "SolLFlipper"                         				'Left Flipper
 SolCallback(51) = "BlinderMove"                         				'Blinder Motor
 
@@ -821,6 +823,7 @@ Sub sw56_UnHit:Controller.Switch(56) = 0:End Sub
 
 Sub SolLFlipper(Enabled)
 If Enabled Then
+SolULFlipper(Enabled)
 LeftFlipper.RotateToEnd:PlaySoundAtVol SoundFX("fx_flipper1",DOFContactors), LeftFlipper, VolFlip
 Else
 LeftFlipper.RotateToStart:PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
