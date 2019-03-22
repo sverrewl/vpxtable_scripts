@@ -826,6 +826,7 @@ If Enabled Then
 SolULFlipper(Enabled)
 LeftFlipper.RotateToEnd:PlaySoundAtVol SoundFX("fx_flipper1",DOFContactors), LeftFlipper, VolFlip
 Else
+SolULFlipper(Disabled)
 LeftFlipper.RotateToStart:PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
 End If
 End Sub
