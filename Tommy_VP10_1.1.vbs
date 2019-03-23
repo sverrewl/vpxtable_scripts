@@ -155,6 +155,7 @@ Dim bsTrough
 Sub Tommy_Init
 vpminit me
 'vpmFlips.CallBackUL = SolCallBack(47)
+vpmFlips.FlipperSolNumber(2) = 47
 'SolCallback(47) = Empty
 '* ROM AND DMD ****************************************
 
@@ -318,7 +319,7 @@ SolCallBack(30) = "setlamp 130," 										'Flashlamp X4 Back Panel				(6R)
 SolCallBack(31) = "setlamp 131,"  										'Flashlamp X2 Lower Right Hot Dogs		(7R)
 SolCallBack(32) = "setlamp 132,"     									'Flashlamp X4 Top Hot Dogs				(8R)
 SolCallback(46) = "SolRFlipper"                         				'Right Flipper
-'SolCallback(47) = "SolULFlipper"                        				'Upper Left Flipper
+SolCallback(47) = "SolULFlipper"                        				'Upper Left Flipper
 SolCallback(48) = "SolLFlipper"                         				'Left Flipper
 SolCallback(51) = "BlinderMove"                         				'Blinder Motor
 
@@ -823,10 +824,9 @@ Sub sw56_UnHit:Controller.Switch(56) = 0:End Sub
 
 Sub SolLFlipper(Enabled)
 If Enabled Then
-SolULFlipper(Enabled)
+' SolULFlipper(Enabled)
 LeftFlipper.RotateToEnd:PlaySoundAtVol SoundFX("fx_flipper1",DOFContactors), LeftFlipper, VolFlip
 Else
-SolULFlipper(Disabled)
 LeftFlipper.RotateToStart:PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
 End If
 End Sub
