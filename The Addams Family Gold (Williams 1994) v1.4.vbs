@@ -41,7 +41,7 @@ Dim UseVPMDMD
 Dim Incline
 Const UseVPMModSol = 1
 
-' BallMass = 1.7
+BallMass = 1.7
 
 UseVPMDMD = DesktopMode
 
@@ -56,7 +56,7 @@ Sub LoadCoreVBS
 End Sub
 
 'Standard Definitions
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const SCoin="Coin3"
