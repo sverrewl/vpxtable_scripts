@@ -118,7 +118,7 @@ End Sub
 '***********************************************
 
 	 Const cGameName = "stargzr"
-     Const UseSolenoids = True
+     Const UseSolenoids = 2
      Const UseLamps = True
      Const UseSync = 1
      Const UseGI=0
