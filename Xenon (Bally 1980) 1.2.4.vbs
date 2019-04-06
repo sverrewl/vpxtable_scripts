@@ -26,17 +26,14 @@ Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
 ' 1.5 = higher volume
 
 Const VolBump   = 2    ' Bumpers volume.
-Const VolRol    = 1    ' Rollovers volume.
 Const VolGates  = 1    ' Gates volume.
 Const VolMetal  = 1    ' Metals volume.
 Const VolRB     = 1    ' Rubber bands volume.
-Const VolRH     = 1    ' Rubber hits volume.
 Const VolPo     = 1    ' Rubber posts volume.
 Const VolPi     = 1    ' Rubber pins volume.
 Const VolPlast  = 1    ' Plastics volume.
 Const VolTarg   = 1    ' Targets volume.
 Const VolWood   = 1    ' Woods volume.
-Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 
@@ -50,7 +47,7 @@ LoadVPM "01550000", "Bally.vbs", 3.26
 Dim bsTrough, bsLeftHole, bsTopHole, bsOuthole, dtRBank, FastFlips
 Const cGameName = "Xenon"
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseGI = 0
 Const UseSync = 0
