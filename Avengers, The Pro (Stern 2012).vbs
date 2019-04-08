@@ -90,7 +90,7 @@ Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToEnd
      Else
-         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipeer, VolFlip:RightFlipper.RotateToStart
+         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToStart
      End If
 End Sub
 
