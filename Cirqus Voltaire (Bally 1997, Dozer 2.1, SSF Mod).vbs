@@ -15,6 +15,11 @@
 Option Explicit
 Randomize
 
+'  .5 = lower volume
+' 1.5 = higher volume
+
+Const VolFlip   = 1    ' Flipper volume.
+
 '-------------------------------------------------
 
 Const Dozer_Cab = 0 ' LEAVE THIS TURNED OFF
@@ -2249,12 +2254,12 @@ Dim RFTCount:RFTCount=1
 Sub SolLFlipper(Enabled)
 
      If Enabled Then
-		 PlaySoundAt SoundFX("fx_flipperup"),LeftFlipper
+		 PlaySoundAtVol SoundFX("fx_flipperup"),LeftFlipper,VolFlip
 		 LeftFlipper.RotateToEnd
          DOF 250,1
      Else
 		 LFTCount=1
-		 PlaySoundAt SoundFX("fx_flipperdown"),LeftFlipper
+		 PlaySoundAtVol SoundFX("fx_flipperdown"),LeftFlipper,VolFlip
 		 LeftFlipper.RotateToStart
          DOF 250,0
      End If
@@ -2263,12 +2268,12 @@ Sub SolLFlipper(Enabled)
 Sub SolRFlipper(Enabled)
 
      If Enabled Then
-		 PlaySoundAt SoundFX("fx_flipperup"),RightFlipper
+		 PlaySoundAtVol SoundFX("fx_flipperup"),RightFlipper,VolFlip
 		 RightFlipper.RotateToEnd
          DOF 251,1
      Else
 		 RFTCount=1
-		 PlaySoundAt SoundFX("fx_flipperdown"),RightFlipper
+		 PlaySoundAtVol SoundFX("fx_flipperdown"),RightFlipper,VolFlip
 		 RightFlipper.RotateToStart
          DOF 251,0
      End If
