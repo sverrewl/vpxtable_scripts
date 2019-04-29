@@ -9,6 +9,10 @@
 '---------------------
 
 'Additional Code by Dozer.
+' Thalamus: added Chimes not included in table - see :
+' https://www.vpforums.org/index.php?showtopic=40334&p=410744
+' Thanks Carny
+Randomize
 
 Dim Ballsize,BallMass
 BallSize = 50
@@ -98,8 +102,8 @@ ladjust = 1 'Lane Plug Adjust
     DOF 165,1
     anidown = 1
    End Sub
- 
- 
+
+
  Sub InitGame()
     UpdateBIP
     For i=1 to 3
@@ -126,11 +130,11 @@ ladjust = 1 'Lane Plug Adjust
     FLSetOn 19,20
  End Sub
 
-Dim object	
- 
+Dim object
+
     If ShowDT = True Then
-		For each object in DT_Stuff 
-		Object.visible = 1 	
+		For each object in DT_Stuff
+		Object.visible = 1
 		Next
         For each object in Cab_Stuff
         Object.visible = 0
@@ -138,10 +142,10 @@ Dim object
         CabinetRailLeft.visible = 1:CabinetRailRight.visible = 1
         Card1.Y = 1856:Card2.Y = 1856
 	End If
-	
+
 	If ShowDt = False Then
-		For each object in DT_Stuff 
-		Object.visible = 0 	
+		For each object in DT_Stuff
+		Object.visible = 0
 		Next
         For each object in Cab_Stuff
         Object.visible = 1
@@ -149,7 +153,7 @@ Dim object
         CabinetRailLeft.visible = 0:CabinetRailRight.visible = 0
         'LDB.visible = 0
 	End If
-    
+
     If BallsToPlay = 3 Then
     Card2.image = "ic3"
     Else
@@ -169,8 +173,16 @@ Sub AddScoresToPlayer(s,p)		' * Score System by STAT
 		PlaySound SoundFXDOF("10a",141,DOFPulse,DOFChimes)
 	ElseIf s = 100 Then
 		PlaySound SoundFXDOF("100a",142,DOFPulse,DOFChimes)
+  ElseIf s = 200 Then
+		PlaySound SoundFXDOF("200a",142,DOFPulse,DOFChimes)
+	ElseIf s = 300 Then
+		PlaySound SoundFXDOF("300a",142,DOFPulse,DOFChimes)
+	ElseIf s = 500 Then
+		PlaySound SoundFXDOF("500a",142,DOFPulse,DOFChimes)
 	ElseIf s = 1000 Then
 		PlaySound SoundFXDOF("1000a",143,DOFPulse,DOFChimes)
+	ElseIf s = 3000 Then
+		PlaySound SoundFXDOF("3000a",143,DOFPulse,DOFChimes)
 	End If
 	STATScores(p) = STATScores(p) + s
     If B2SOn Then
@@ -216,13 +228,13 @@ Sub AddScoresToPlayer(s,p)		' * Score System by STAT
         OTT4.State = 1
         boot4 = 1
         End If
-	    
+
     End if
    If GameSeq = 1 Then
     SReels(p).addvalue(s)
    End If
 End Sub
- 
+
 
  Sub captfant_KeyDown(ByVal keycode)
       If keycode = AddCreditKey Then
@@ -243,11 +255,11 @@ End Sub
          If MaxPlayers < 4 And Coins>0 Then
 		   MaxPlayers=MaxPlayers+1
             AddPlayer
-        End If      
+        End If
 	End If
 
     If KeyCode = LeftMagnaSave Then
-    If anidown = 1 Then 
+    If anidown = 1 Then
     anidir = 1:IC_Ani.enabled = 1:PlaySound "TargetDrop"
     Else
     anidir = 2:IC_Ani.enabled = 1:PlaySound "TargetDrop"
@@ -276,7 +288,7 @@ End Sub
         gi_bright.enabled = 1
         End If
 	End If
-    
+
 	If keycode = RightFlipperKey Then
          If Tilt<3 And Round>0 Then
 		   Flipper3.RotateToEnd
@@ -289,15 +301,15 @@ End Sub
         Next
         DOF 166,1:DOF 165,0
         gi_bright.enabled = 1
-        End If 
+        End If
 	End If
-   
+
     If keycode = MechanicalTilt Then
     Tilt = 3
     TiltOn
     PlaySound "buzzer"
     End If
-    
+
 	If keycode = LeftTiltKey Then
       PlaySound SoundFX("nudge_left",0)
       If BallInPlay=1 Then
@@ -312,7 +324,7 @@ End Sub
         'Renudge=-90
 
          Nudge 90, 2
-        
+
           Tilt2Timer.Enabled=1
          If Round>0 Then
            Tilt=Tilt+0.6
@@ -325,7 +337,7 @@ End Sub
        End If
       End If
 	End If
-    
+
 	If keycode = RightTiltKey Then
       PlaySound SoundFX("nudge_right",0)
       If BallInPlay=1 Then
@@ -338,7 +350,7 @@ End Sub
           ' RenudgeForce=0.4
         'End If
         'Renudge=90
-  
+
 		Nudge 270, 2
 
           Tilt2Timer.Enabled=1
@@ -352,8 +364,8 @@ End Sub
          End If
        End If
       End If
-	End If  
- 
+	End If
+
  	If keycode = CenterTiltKey Then
       PlaySound SoundFX("nudge_forward",0)
       If BallInPlay=1 Then
@@ -381,7 +393,7 @@ End Sub
        End If
       End If
 	End If
-    
+
 End Sub
 
 Sub captfant_KeyUp(ByVal keycode)
@@ -395,19 +407,19 @@ Sub captfant_KeyUp(ByVal keycode)
            PlaySound "Shoot"
         End If
 	End If
-  
+
 	If keycode = LeftFlipperKey Then
  	   Flipper2.RotateToStart
        Flipper4.RotateToStart
-       If Tilt<3 And Round>0 Then  
+       If Tilt<3 And Round>0 Then
         PlaySoundat SoundFXDOF("SSFlipper2",101,DOFOff,DOFFlippers), flipper2
        End If
 	End If
-    
+
 	If keycode = RightFlipperKey Then
  	   Flipper3.RotateToStart
 	   Flipper5.RotateToStart
-       If Tilt<3 And Round>0 Then  
+       If Tilt<3 And Round>0 Then
         PlaySoundat SoundFXDOF("SSFlipper2",102,DOFOff,DOFFlippers), flipper3
        End If
 	End If
@@ -431,25 +443,25 @@ End Sub
 Sub ShooterLane_Hit()
 	DOF 134, DOFPulse
 End Sub
- 
+
  '----------------------------------------------------------
  '     TILT
  '-----------------------------------------------------------
- 
+
  Sub TiltTimer_Timer()
     TiltTimer.Enabled=0
     If Tilt<3 Then
       Tilt=0
     End If
  End Sub
- 
+
   Sub Tilt2Timer_Timer()
      Tilt2Timer.Enabled=0
      Nudge renudge,RenudgeForce
   End Sub
- 
+
  Sub TiltOn()
-	
+
 	If B2SOn Then Controller.B2SSetTilt 1
     PlaySound SoundFX("solon",0)
     For i=1 to 3
@@ -479,7 +491,7 @@ End Sub
     'DOF 102,0
      End If
  End Sub
- 
+
  '----------------------------------------
   'Add Players and start game
  '----------------------------------------
@@ -502,7 +514,7 @@ End Sub
 		Controller.B2SSetScorePlayer2 0
 		Controller.B2SSetScorePlayer3 0
 		Controller.B2SSetScorePlayer4 0
-		Controller.B2SSetData 150,0:BOOT1=0:OTT1.STATE = 0 
+		Controller.B2SSetData 150,0:BOOT1=0:OTT1.STATE = 0
 		Controller.B2SSetData 151,0:BOOT2=0:OTT2.STATE = 0
 		Controller.B2SSetData 152,0:BOOT3=0:OTT3.STATE = 0
 		Controller.B2SSetData 153,0:BOOT4=0:OTT4.STATE = 0
@@ -514,7 +526,7 @@ End Sub
         SReels(1).setvalue(0)
         SReels(2).setvalue(0)
         SReels(3).setvalue(0)
-        SReels(4).setvalue(0) 
+        SReels(4).setvalue(0)
         STATScores(1) = 0
 		STATScores(2) = 0
 		STATScores(3) = 0
@@ -523,18 +535,18 @@ End Sub
         MatchBG.State = 0
         TextBox2.text = ""
     if MaxPlayers = 1 Then
-         Round=BallsToPlay  
+         Round=BallsToPlay
          ActivePlayer=0
          GameSeq=2
          SeqTimer.Interval=800
         SeqTimer.Enabled=1
      End If
 	 PlaySound "bally-addplayer"
-     End If 
-   End If    
+     End If
+   End If
  End Sub
- 
- 
+
+
  '------------------------------------------------------------------
  '    Game Sequence
  '------------------------------------------------------------------
@@ -546,7 +558,7 @@ End Sub
               SeqTimer.Enabled=0
               If LightShootAgain.State=0 Then InitGame
               LightShootAgain.State=0
-			  If B2SOn Then Controller.B2SSetShootAgain 0	
+			  If B2SOn Then Controller.B2SSetShootAgain 0
               Set ball = Kicker2.CreateBall
               BallInPlay=1
               Kicker2.Kick 45,14
@@ -559,9 +571,9 @@ End Sub
               Tilt=0
               IF mem(2)=0 Then
                  If ActivePlayer=MaxPlayers Then
-      
+
                     If Light1_X17.State = 1 Then
-                    Round = Round 
+                    Round = Round
                     Else
                     Round=Round-1
                     End If
@@ -574,7 +586,7 @@ End Sub
                  Else
                     If Light1_X17.State = 1 Then
                     ActivePlayer = ActivePlayer
-                    Else   
+                    Else
                     ActivePlayer=ActivePlayer+1
                     End If
                  End If
@@ -586,7 +598,7 @@ End Sub
 					Controller.B2SSetScoreRolloverPlayer4 0
 					Controller.B2SSetScoreRollover 24+ActivePlayer, 2
 				End if
- 
+
               End If
               IF Round <1 Then
                  'End of game
@@ -664,9 +676,9 @@ End Sub
                   CollectBonusTimer.Enabled = True
        End Select
  End Sub
- 
+
  '--------------------------------------------------------------------
- '------- TARGETS 
+ '------- TARGETS
  '--------------------------------------------------------------------
 Sub T11_Hit()
    If Tilt>2 Then Exit Sub
@@ -816,7 +828,7 @@ Sub Trigger1_Hit()
     Trigger1.TimerEnabled=True
     If Tilt>2 Then Exit Sub
 		AddScoresToPlayer 100,ActivePlayer
-    
+
     If mem(16)>1 And mem(18)=0 AND Light1_X14.state = 1 Then
        FLSetOff 14,14
        mem(18)=1
@@ -1048,15 +1060,15 @@ Sub AltLights()
          SetBumperOn 1
          SetBumperOn 2
          SetBumperOff 3
-         For each robject in BRolls 
-		 robject.state = 0 	
+         For each robject in BRolls
+		 robject.state = 0
 		 Next
          mem(10)=1
          mem(11)=0
          FLSetOff 21,21
          FLSetOn 22,22
          FLSetOff 23,23
-         
+
          If mem(16)>0  And mem(17)=0 AND sadjust = 1  AND ladjust = 1 Then
             FLSetOff 15,15 'Extra ball
          End If
@@ -1089,27 +1101,27 @@ Sub AltLights()
 
 
 
-         
+
       Case 1
          SetBumperOff 1
          SetBumperOff 2
          SetBumperOn 3
-         For each robject in BRolls 
-		 robject.state = 1 	
+         For each robject in BRolls
+		 robject.state = 1
 		 Next
          mem(10)=0
          mem(11)=1
          FLSetOn 21,21
          FLSetOff 22,22
          FLSetOn 23,23
-         
+
          If mem(16)>0 And mem(17)=0 AND sadjust = 1 AND ladjust = 1 Then
             FLSetOn 15,15 'Extra ball
          End If
          If mem(16)>1 And mem(18)=0 AND sadjust = 1 AND ladjust = 1 Then
             FLSetOff 14,14 'Special
          End If
-         
+
          If mem(16)>0 And mem(17)=0 AND sadjust = 1 AND ladjust = 0 Then
             'FLSetOn 15,15 'Extra ball
          End If
@@ -1125,14 +1137,14 @@ Sub AltLights()
          If mem(16)>0 And mem(18)=0 AND sadjust = 0 AND ladjust = 1 Then
             FLSetOff 14,14 'Special
          End If
-         
+
          If mem(16)>0 And mem(17)=0 AND sadjust = 0 AND ladjust = 0 Then
             'FLSetOn 15,15 'Extra ball
          End If
          If mem(16)>0 And mem(18)=0 AND sadjust = 0 AND ladjust = 0 Then
             'FLSetOff 14,14 'Special
          End If
-         
+
    End Select
 End Sub
 
@@ -1144,19 +1156,19 @@ Sub DTargs_Timer()
       DTL1.state = 1:DTL2.state = 1:DTL3.state = 1:DTL4.state = 1:DTL5.state = 1:DTGI.Intensity = 12
       mem(15)=0
 		AddScoresToPlayer 3000,ActivePlayer
-      
+
       If mem(16)<3 Then mem(16)=mem(16)+1
 
       Select case mem(16)
          Case 1 ' X-Ball light on
             If sadjust = 1 Then
             FLSetOn 15,15
-            Else 
+            Else
             FLSetOn 15,15
             FLSetOn 14,14
             FLSetOn 18,18
             End If
-             
+
          Case 2 ' Special light on
             If sadjust = 1 Then
             FLSetOn 18,18
@@ -1192,7 +1204,7 @@ Sub AddBonusTimer_Timer()
          SetBonusLights
       End If
       mem(8)=mem(8)-1
-   End If   
+   End If
 End Sub
 
 Dim BCC
@@ -1249,7 +1261,7 @@ End Sub
 
 Sub DownPost()
    If Post.IsDropped=false Then
-      Post.IsDropped=true   
+      Post.IsDropped=true
       PlaySound "solon"
    End If
 End Sub
@@ -1291,12 +1303,12 @@ Sub CloseTopGate()
       FLSetOff 32,32
    End if
 End Sub
- 
+
 
  '------------------------------------------------------------------------
  '             SOUNDS
  '------------------------------------------------------------------------
- 
+
  Sub Gate1_Hit()
     PlaySoundat "Gate", Primitive4
  End Sub
@@ -1518,7 +1530,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -1529,7 +1541,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -1603,7 +1615,7 @@ Sub RandomSoundWood()
 End Sub
 
 
- 
+
 '---------------------------------------------------------------------
 '       Handle Replay and Hiscore
 '---------------------------------------------------------------------
@@ -1612,7 +1624,7 @@ End Sub
    If Coins<9 Then Coins=Coins+1
 	If B2SOn Then Controller.B2SSetCredits Coins
    PlaySound SoundFXDOF("knocker",108,DOFPulse,DOFKnocker)
-   DOF 132, DOFPulse	
+   DOF 132, DOFPulse
  End Sub
 
 Function GetScore(ByVal pl)
@@ -1630,7 +1642,7 @@ End Function
  '----------------------------------------------------
  '   RULES
  '----------------------------------------------------
- 
+
  sub DisplayRuleSheet()
 	dim rules
 
@@ -2024,7 +2036,7 @@ DT5P8.X = Gate2.CurrentAngle + 733
 
 'Handle Cabinet View HighScore.
 
-'Split HiScore intvar into string and 
+'Split HiScore intvar into string and
 'assign to separate reels.
 
 Dim str:str = CStr(right("000000" & HiScore,6))
