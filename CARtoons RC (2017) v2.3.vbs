@@ -1,12 +1,12 @@
 '**************************************************
-'  ____    _    ____  _                        
-' / ___|  / \  |  _ \| |_ ___   ___  _ __  ___ 
+'  ____    _    ____  _
+' / ___|  / \  |  _ \| |_ ___   ___  _ __  ___
 '| |     / _ \ | |_) | __/ _ \ / _ \| '_ \/ __|
 '| |___ / ___ \|  _ <| || (_) | (_) | | | \__ \
 ' \____/_/   \_\_| \_\\__\___/ \___/|_| |_|___/
-'                                              
-' ___             _       ___             _    
-''| _ \___ __ _ __| |_    / __|___ __ _ __| |_  
+'
+' ___             _       ___             _
+''| _ \___ __ _ __| |_    / __|___ __ _ __| |_
 ''|   / _ / _` / _| ' \  | (__/ _ / _` / _| ' \ 
 ''|_|_\___\__,_\__|_||_|  \___\___\__,_\__|_||_|
 '
@@ -23,6 +23,9 @@
 
 Option Explicit
 Randomize
+
+' Thalamus : consider applying this fix
+' https://vpinball.com/forums/topic/cartoons-2017/page/4/#post-95497
 
 '**********************************************************
 '********   	OPTIONS		*******************************
@@ -71,7 +74,7 @@ Dim awardcount, dbonus
 dim roachstep, roachxy1, roachxy2, roachxy3, roachxy4
 dim RoachBall, MirrorBall, RealBall, roachran, RoachLoc
 dim frameRate:frameRate=0.8
-dim frame:frame=0	
+dim frame:frame=0
 Dim PI:PI=3.1415926
 Dim Magnet0, Magnet1, magnet2, Magnet3, Magnet4
 
@@ -145,7 +148,7 @@ sub CARtoons_init
 	For each light in PFlights:light.State = 0: Next
 	TlightRL1.State = 0:light4.state = 0 'mike add
 	RoachLoc=0
-	
+
 	ebmode=0
 	goroaches=0
 	hisc=50000
@@ -184,7 +187,7 @@ sub CARtoons_init
 		RepCard.image = "EBCard"&replays
 	end if
 	OptionFreeplay.image="OptionsFreeplay"&freeplay
-	
+
 	if balls=3 then
 		bumperlitscore=1000
 		bumperoffscore=1000
@@ -201,7 +204,7 @@ sub CARtoons_init
       else
         BallShadowUpdate.enabled=0
     end if
- 
+
     if flippershadows=1 then
         FlipperLSh.visible=1
         FlipperRSh.visible=1
@@ -222,15 +225,15 @@ sub CARtoons_init
 
     scorereel1.setvalue(score(1) MOD 100000)
 	roachreel1.setvalue(RoachScore(1))
-	if score(1)>100000 then 
+	if score(1)>100000 then
 		p1100k.text=100000*Int(score(1)/100000)
-		If B2SOn then Controller.B2SSetScoreRollover 24 + 1, Int(score(1)/100000) 
+		If B2SOn then Controller.B2SSetScoreRollover 24 + 1, Int(score(1)/100000)
 	  else
 		p1100k.text=" "
 	end if
     scorereel2.setvalue(score(2) MOD 100000)
 	roachreel2.setvalue(RoachScore(2))
-	if score(2)>100000 then 
+	if score(2)>100000 then
 		p2100k.text=100000*Int(score(2)/100000)
 		If B2SOn then Controller.B2SSetScoreRollover 24 + 2, Int(score(2)/100000)
 	  else
@@ -297,8 +300,8 @@ sub startGame_timer
 		Controller.B2SSetGameOver 35,1
 		Controller.B2SSetScorePlayer 1, Score(1) MOD 100000
 		Controller.B2SSetScorePlayer 2, Score(2) MOD 100000
-		Controller.B2SSetScorePlayer 3, RoachScore(1) 
-		Controller.B2SSetScorePlayer 4, RoachScore(2) 
+		Controller.B2SSetScorePlayer 3, RoachScore(1)
+		Controller.B2SSetScorePlayer 4, RoachScore(2)
 	end if
 '	lightdelay.enabled=true
 	me.enabled=false
@@ -313,7 +316,7 @@ end Sub
 sub initdelay_timer
 	saahc=4
 	lacucaracha.enabled=1
-	if goroaches=0 then 
+	if goroaches=0 then
 		roachstep=0
 		roachinit.enabled=1
 		AnimLoopTimer.enabled=1
@@ -347,7 +350,7 @@ sub roachmove
 	if roachtimer.enabled=0 then
 		RoachScore(player)=RoachScore(player)+1
 		Rreels(player).setvalue RoachScore(player)
-		if B2SOn then Controller.B2SSetScorePlayer (player+2), RoachScore(Player) 
+		if B2SOn then Controller.B2SSetScorePlayer (player+2), RoachScore(Player)
 		RoachMagnetsOff
 		Do
 			roachran=int(rnd*5)
@@ -357,27 +360,27 @@ sub roachmove
 			case 0:
 				magnet0.magneton=true
 			case 1:
-				Magnet1.magneton=true 
+				Magnet1.magneton=true
 			case 2:
-				magnet2.magneton=true 
+				magnet2.magneton=true
 			case 3:
-				magnet3.magneton=true 
+				magnet3.magneton=true
 			case 4:
-				magnet4.magneton=true 
+				magnet4.magneton=true
 		end Select
 		roachtimer.enabled=1
 		RoachAnimLoopTimer.enabled=1
 		select case RoachLoc
 			case 0:
-				RoachHole0.kick 180,4,0 
+				RoachHole0.kick 180,4,0
 			case 1:
-				RoachHole1.kick 315,4,0 
+				RoachHole1.kick 315,4,0
 			case 2:
-				RoachHole2.kick 45,4,0 
+				RoachHole2.kick 45,4,0
 			case 3:
-				RoachHole3.kick 95,4,0 
+				RoachHole3.kick 95,4,0
 			case 4:
-				RoachHole4.kick 290,4,0 
+				RoachHole4.kick 290,4,0
 		end Select
 	end if
 end sub
@@ -439,7 +442,8 @@ Sub RoachMagnetsOff
 End Sub
 
 sub lacucaracha_timer()
-	me.interval=100
+	' me.interval=100
+	me.interval=150
     Select Case saahc
 	    Case 4: PlaySoundAt SoundFXDOF("bell1000",133,DOFPulse,DOFChimes), TrigRout
 		Case 5: PlaySoundAt SoundFXDOF("bell1000",133,DOFPulse,DOFChimes), TrigRout
@@ -459,7 +463,7 @@ end Sub
 
 sub gamov_timer
 	if state=false then
-		If B2SOn then Controller.B2SSetGameOver 35,0			
+		If B2SOn then Controller.B2SSetGameOver 35,0
 		gamov.text=""
 		gtimer.enabled=true
 	end if
@@ -479,7 +483,7 @@ end sub
 sub tilttxt_timer
 	if state=false then
 		tilttxt.text=""
-		If B2SOn then Controller.B2SSetTilt 33,0	
+		If B2SOn then Controller.B2SSetTilt 33,0
 		ttimer.enabled=true
 	end if
 	tilttxt.timerenabled=0
@@ -502,7 +506,7 @@ Sub CARtoons_KeyDown(ByVal keycode)
 		if state=false then
 			creditreel.setvalue(credit)
 		end if
-		coindelay.enabled=true 
+		coindelay.enabled=true
     end if
 
 	if keycode = 19 and roachtimer.enabled=0 then roachmove	 			' R Key
@@ -537,7 +541,7 @@ Sub CARtoons_KeyDown(ByVal keycode)
 '		if goroaches=0 then lightdelay.enabled=true
 		lightdelay.enabled=true
 		'goroaches=1
-		If B2SOn Then 
+		If B2SOn Then
 			Controller.B2ssetCredits Credit
 			Controller.B2sStartAnimation "Startup"
 			Controller.B2ssetballinplay 32, Ballinplay
@@ -566,13 +570,13 @@ Sub CARtoons_KeyDown(ByVal keycode)
 		End If
 		CanPlayReel.setvalue 2
 		PlaySoundAt "click", Drain
-	   end if 
+	   end if
 	  end if
 	end if
 
-	If HSEnterMode Then 
+	If HSEnterMode Then
 		HighScoreProcessKey(keycode)
-	  elseIf RSEnterMode Then 
+	  elseIf RSEnterMode Then
 		HighRoachProcessKey(keycode)
 	end if
 
@@ -620,7 +624,7 @@ Sub CARtoons_KeyDown(ByVal keycode)
 				Balls=3
 				InstCard.image="InstCard3balls"
 			end if
-			OptionBalls.image = "OptionsBalls"&Balls   
+			OptionBalls.image = "OptionsBalls"&Balls
 		Case 2:
 			if freeplay=0 Then
 				freeplay=1
@@ -668,25 +672,25 @@ Sub CARtoons_KeyDown(ByVal keycode)
 		PlaySoundat SoundFXDOF("fx_flipperup",101,DOFOn,DOFflippers), Lflip
 		PlayXYSound "Buzz",LeftCurvedRail,-1,.05,0,0,0,1
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		rightflipperdimmer.enabled=1
 		RightFlipper.RotateToEnd
 		PlaySoundAt SoundFXDOF("fx_flipperup",102,DOFOn,DOFflippers), RFlip
 		PlayXYSound "Buzz1",RightCurvedRail, -1,.05,0,0,0,1
 	End If
-    
+
 	If keycode = LeftTiltKey Then
 		Nudge 90, 2
 		checktilt
 	End If
-    
+
 	If keycode = RightTiltKey Then
 		Nudge 270, 2
 		checktilt
 		flickertimer.enabled = 1
 	End If
-    
+
 	If keycode = CenterTiltKey Then
 		Nudge 0, 2
 		checktilt
@@ -696,12 +700,12 @@ Sub CARtoons_KeyDown(ByVal keycode)
 		gametilted
 	End If
 
-  end if  
+  end if
 End Sub
 
 sub roachinit_timer
 	Dim roachA,dx,dy, xx
-	
+
 	roach1.x=roachxy1(0)(roachstep)
 	roach1.y=roachxy1(1)(roachstep)
 	Roach2.x=roachxy2(0)(roachstep)
@@ -723,7 +727,7 @@ sub roachinit_timer
 		Next
 	end If
 	roachstep=roachstep+1
-	if roachstep=24 then 
+	if roachstep=24 then
 		AnimLoopTimer.enabled=False
 		me.enabled=false
 	end if
@@ -768,7 +772,7 @@ End Sub
 
 Sub StopControl_Hit()
 	contballinplay = false
-End Sub	
+End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
@@ -776,7 +780,7 @@ Dim bcvel, bcyveloffset, bcboostmulti
 bcboost = 1		'Do Not Change - default setting
 bcvel = 4		'Controls the speed of the ball movement
 bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key) 
+bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
 
 Sub BallControl_Timer()
 	If Contball and ContBallInPlay then
@@ -835,7 +839,7 @@ Sub CARtoons_KeyUp(ByVal keycode)
 		PlaySoundat SoundFXDOF("fx_flipperdown",101,DOFOff,DOFflippers), Lflip
 		StopSound "Buzz"
 	End If
-    
+
 	If keycode = RightFlipperKey Then
 		rightflipperdimmer.enabled=0
 		if leftFlipper.currentangle>110 then
@@ -924,8 +928,8 @@ end sub
 
 sub resettimer_timer
     rst=rst+1
-    scorereel1.resettozero 
-    scorereel2.resettozero 
+    scorereel1.resettozero
+    scorereel2.resettozero
 	roachReel1.resettozero
 	roachReel2.resettozero
 	P1100k.text = " "
@@ -946,7 +950,7 @@ sub resettimer_timer
 end sub
 
 Sub addcredit
-  if freeplay=0 then 
+  if freeplay=0 then
       credit=credit+1
 	  DOF 122, DOFOn
       if credit>15 then credit=15
@@ -972,7 +976,7 @@ end sub
 
 sub ballrel_hit
 	if ballrenabled=1 then
-		if extraballs>0 then 
+		if extraballs>0 then
 			extraballs=extraballs-1
 			if extraballs>1 then
 				shootagain.state=2
@@ -989,13 +993,13 @@ sub scorebonus_timer
    if tilt=true then
 	bonus=0
 	Else
-	if bonusx3.state=1 then 
+	if bonusx3.state=1 then
 		dbonus=3
 		'me.interval=425
-	  elseif bonusx2.state=1 then 
+	  elseif bonusx2.state=1 then
 			dbonus=2
 		'	me.interval=250
-		  else 
+		  else
 			dbonus=1
 			'me.interval=125
 	  end if
@@ -1007,15 +1011,15 @@ sub scorebonus_timer
 		checkreplays
 		bonuslight(bonus).state=0
 		bonus=bonus-1
-		if bonus >0 then 
+		if bonus >0 then
 			bonuslight(bonus).state=1
 		end if
 		me.enabled=False
-	  else 
+	  else
 		bonus=0
 		for each light in bonuslights: light.state=0: next
 	   end if
-	if bonus=0 and chimestimer.enabled=0 then 
+	if bonus=0 and chimestimer.enabled=0 then
      if shootagain.state>0 then
 	    newball
  	    ballreltimer.enabled=true
@@ -1023,7 +1027,7 @@ sub scorebonus_timer
 		PUP1.state=0
 		PUP2.state=0
 		if b2son then Controller.B2ssetplayerup 30, 0
-		  if players=1 or player=2 then 
+		  if players=1 or player=2 then
 			player=1
 			nextball
 		  else
@@ -1127,7 +1131,7 @@ sub nextball
 		  newball
 		  ballreltimer.enabled=true
 		end if
-		if player=1 then 
+		if player=1 then
 				PUP1.state=1
 				PUP2.state=0
 			Else
@@ -1135,7 +1139,7 @@ sub nextball
 				PUP2.state=1
 		end If
 		biptxt.text=ballinplay
-		If B2SOn then 
+		If B2SOn then
 			Controller.B2ssetballinplay 32, Ballinplay
 			Controller.B2ssetplayerup 30, player
 		end If
@@ -1159,7 +1163,7 @@ sub ballreltimer_timer
 		EVAL("Pup"&i).state=0
 	  next
 
-		if score(1)>hisc or score(2)>hisc then 
+		if score(1)>hisc or score(2)>hisc then
 			if score(2)> score(1) then
 				hisc=score(2)
 			  else
@@ -1168,7 +1172,7 @@ sub ballreltimer_timer
 			hiscstate=1
 			HighScoreEntryInit()
 		end if
-		if roachscore(1)>Rhisc or roachscore(2)>Rhisc then 
+		if roachscore(1)>Rhisc or roachscore(2)>Rhisc then
 			if RoachScore(2) > roachscore(1) then
 				Rhisc=roachscore(2)
 			  else
@@ -1178,9 +1182,9 @@ sub ballreltimer_timer
 			if HSEnterMode <> True then HighRoachEntryInit
 		end if
 
-	  UpdatePostIt 
+	  UpdatePostIt
 	  savehs
-	  If B2SOn then 
+	  If B2SOn then
         Controller.B2SSetGameOver 35,1
         Controller.B2ssetballinplay 32, 0
 	    Controller.B2sStartAnimation "EOGame"
@@ -1206,7 +1210,8 @@ sub ballreltimer_timer
 end sub
 
 sub shavehaircut_timer()
-	shavehaircut.interval=100
+	' shavehaircut.interval=100
+	shavehaircut.interval=150
     Select Case saahc
         Case 1: PlaySoundAt SoundFXDOF("bell10",131,DOFPulse,DOFChimes), TrigRout	'playsound"bell10"
 		Case 3: PlaySoundAt SoundFXDOF("bell1000",133,DOFPulse,DOFChimes), TrigRout	'playsound"bell1000"
@@ -1243,7 +1248,7 @@ sub matchnum
 	end if
   If B2SOn then Controller.B2SSetMatch 34,Matchnumb*10
   For i=1 to players
-    if (matchnumb*10)=(score(i) mod 100) then 
+    if (matchnumb*10)=(score(i) mod 100) then
 		addcredit
 		PlaySoundat SoundFXDOF("knocker",121,DOFPulse,DOFKnocker), Laneguard
 	end if
@@ -1271,7 +1276,7 @@ Sub Bumper2_Hit
 		addscore bumperlitscore
 	  else
 		addscore bumperoffscore
-	end if	
+	end if
    end if
 	GIdown.enabled = 1
 End Sub
@@ -1521,13 +1526,13 @@ Sub TrigRout_Hit
 	if tilt=false then
 	  DOF 120, DOFPulse
 	  flashbumpers
-	  if special.state=1 then 
+	  if special.state=1 then
 		if ebmode=0 then
 			PlaySoundAt SoundFXDOF("knocker",121,DOFPulse,DOFKnocker), Laneguard
 			addcredit
 		  else
 			PlaySoundAt SoundFXDOF("bell",134,DOFPulse,DOFBell), TrigLout
-			extraballs=extraballs+1	
+			extraballs=extraballs+1
 			if extraballs>1 then
 				shootagain.state=2
 			  else
@@ -1544,7 +1549,7 @@ Sub TrigLout_Hit
 	if tilt=false then
 	  DOF 119, DOFPulse
 	  flashbumpers
-	  if extraball.state=1 then 
+	  if extraball.state=1 then
 		PlaySoundAt SoundFXDOF("bell",134,DOFPulse,DOFBell), TrigLout
 		extraballs=extraballs+1
 		if extraballs>1 then
@@ -1566,8 +1571,8 @@ Sub AwardCheck_timer
 		if target(j).isdropped then awardcount=awardcount+1
 	next
 
-	if awardcount=8 and DTResetTimer.enabled=false then 
-		if bonusx2.state=1 or bonusx3.state=1 then 
+	if awardcount=8 and DTResetTimer.enabled=false then
+		if bonusx2.state=1 or bonusx3.state=1 then
 			bonusx3.state=1
 			bonusx2.state=0
 		  else
@@ -1595,7 +1600,7 @@ Sub DTredL_dropped
 	addscore (starstate+1)*1000
 	LDTRedL.state=1
 	LDTRedL1.state=1
-	If StarRed.State = 1 then 
+	If StarRed.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1610,7 +1615,7 @@ Sub DTredR_dropped
 	PlaySoundAt SoundFXDOF("target",123,DOFPulse,DOFContactors), DTRedR
 	addscore (starstate+1)*1000
 	LDTRedR.state=1
-	If StarRed.State = 1 then 
+	If StarRed.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1624,7 +1629,7 @@ Sub DTwhiteL_dropped
 	PlaySoundAt SoundFXDOF("target",124,DOFPulse,DOFContactors), DTwhiteL
 	addscore (starstate+1)*1000
 	LDTwhiteL.state=1
-	If StarWhite.State = 1 then 
+	If StarWhite.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1638,7 +1643,7 @@ Sub DTwhiteR_dropped
 	PlaySoundAt SoundFXDOF("target",124,DOFPulse,DOFContactors), DTwhiteR
 	addscore (starstate+1)*1000
 	LDTwhiteR.state=1
-	If StarWhite.State = 1 then 
+	If StarWhite.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1652,7 +1657,7 @@ Sub DTgreenL_dropped
 	PlaySoundAt SoundFXDOF("target",125,DOFPulse,DOFContactors), DTGreenL
 	addscore (starstate+1)*1000
 	LDTGreenL.state=1
-	If StarGreen.State = 1 then 
+	If StarGreen.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1666,7 +1671,7 @@ Sub DTGreenR_dropped
 	PlaySoundAt SoundFXDOF("target",125,DOFPulse,DOFContactors), DTGreenR
 	addscore (starstate+1)*1000
 	LDTGreenR.state=1
-	If StarGreen.State = 1 then 
+	If StarGreen.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1681,7 +1686,7 @@ Sub DTyellowL_dropped
 	PlaySoundAt SoundFXDOF("target",126,DOFPulse,DOFContactors), DTYellowL
 	addscore (starstate+1)*1000
 	LDTYellowL.state=1
-	If StarYellow.State = 1 then 
+	If StarYellow.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1696,7 +1701,7 @@ Sub DTyellowR_dropped
 	PlaySoundAt SoundFXDOF("target",126,DOFPulse,DOFContactors), DTYellowR
 	addscore (starstate+1)*1000
 	LDTYellowR.state=1
-	If StarYellow.State = 1 then 
+	If StarYellow.State = 1 then
 		addbonus
 	end if
 End Sub
@@ -1771,7 +1776,7 @@ Sub checkreplays
     ' check replays and rollover
 	if score(player)>99999 then
 		If B2SOn then Controller.B2SSetScoreRollover 24 + player, Int(score(player)/100000)
-		P100k(player).text= 100000*Int(score(player)/100000) 
+		P100k(player).text= 100000*Int(score(player)/100000)
 	End if
     if score(player)=>replay1 and rep(player)=0 then
 		rep(player)=1
@@ -1780,7 +1785,7 @@ Sub checkreplays
 			addcredit
 		  else
 			PlaySoundAt SoundFXDOF("bell",134,DOFPulse,DOFBell), TrigLout
-			extraballs=extraballs+1	
+			extraballs=extraballs+1
 			if extraballs>1 then
 				shootagain.state=2
 			  else
@@ -1795,7 +1800,7 @@ Sub checkreplays
 			addcredit
 		  else
 			PlaySoundAt SoundFXDOF("bell",134,DOFPulse,DOFBell), TrigLout
-			extraballs=extraballs+1	
+			extraballs=extraballs+1
 			if extraballs>1 then
 				shootagain.state=2
 			  else
@@ -1810,7 +1815,7 @@ Sub checkreplays
 			addcredit
 		  else
 			PlaySoundAt SoundFXDOF("bell",134,DOFPulse,DOFBell), TrigLout
-			extraballs=extraballs+1	
+			extraballs=extraballs+1
 			if extraballs>1 then
 				shootagain.state=2
 			  else
@@ -1818,11 +1823,11 @@ Sub checkreplays
 			end if
 		end if
     end if
-end sub 
+end sub
 
 
 Sub CheckTilt
-	If Tilttimer.Enabled = True Then 
+	If Tilttimer.Enabled = True Then
 	 TiltSens = TiltSens + 1
 	 if TiltSens = 3 Then GameTilted
 	Else
@@ -1853,13 +1858,13 @@ sub turnoff
 	RightFlipper.RotateToStart
 	DOF 102, DOFOff
 	StopSound "Buzz1"
-end sub    
+end sub
 
 
 Sub addbonus
 	bonus=bonus+1
 	if bonus>19 then bonus=19
-	if  bonus = 1 then 
+	if  bonus = 1 then
 		bonuslight(bonus).state=1
 	  else
 		bonuslight(bonus).state=1
@@ -1929,7 +1934,7 @@ Dim ii, OI
 Sub UpdateGI(giNo, Object)
 Dim li
    Select Case giNo
-      Case 1 
+      Case 1
 		For Each li in GI
 		li.Intensity = li.Intensity * .6
 		Next
@@ -2113,7 +2118,7 @@ End Sub
 
 ' the routine checks first for deleted balls and stops the rolling sound.
 
-' The For loop goes through all the balls on the table and checks for the ball speed and 
+' The For loop goes through all the balls on the table and checks for the ball speed and
 ' if the ball is on the table (height lower than 30) then then it plays the sound
 ' otherwise the sound is stopped, like when the ball has stopped or is on a ramp or flying.
 
@@ -2127,7 +2132,7 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
@@ -2162,7 +2167,7 @@ End Sub
 Sub Rubbers_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
+ 	If finalspeed > 20 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 20 then
@@ -2173,7 +2178,7 @@ End Sub
 Sub Posts_Hit(idx)
  	dim finalspeed
   	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
+ 	If finalspeed > 16 then
 		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End if
 	If finalspeed >= 6 AND finalspeed <= 16 then
@@ -2302,14 +2307,14 @@ End Sub
 
 Dim HSA1, HSA2, HSA3, RSA1, RSA2, RSA3
 Dim HSEnterMode, hsLetterFlash, hsEnteredDigits(3), hsCurrentDigit, hsCurrentLetter, RSEnterMode, rsLetterFlash, rsEnteredDigits(3), rsCurrentDigit, rsCurrentLetter
-Dim HSArray  
+Dim HSArray
 Dim HSScoreM,HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex, RSScore100, RSScore10, RSScore1, RSScorex	'Define 6 different score values for each reel to use
 HSArray = Array("Postit0","postit1","postit2","postit3","postit4","postit5","postit6","postit7","postit8","postit9","postitBL","postitCM","Tape")
 Const hsFlashDelay = 4
 Const rsFlashDelay = 4
 
 ' ***********************************************************
-'  HiScore DISPLAY 
+'  HiScore DISPLAY
 ' ***********************************************************
 
 Sub UpdatePostIt
@@ -2479,7 +2484,7 @@ End Sub
 
 
 ' ***********************************************************
-'  HiScore ENTER INITIALS 
+'  HiScore ENTER INITIALS
 ' ***********************************************************
 
 Sub HighScoreProcessKey(keycode)
@@ -2512,7 +2517,7 @@ Sub HighScoreProcessKey(keycode)
 				UpdatePostIt
 		 End Select
 	End If
-	
+
     If keycode = StartGameKey Then
 		Select Case hsCurrentLetter
 			Case 1:
@@ -2535,10 +2540,10 @@ Sub HighScoreProcessKey(keycode)
 					savehs 'enter it
 					HighScoreFlashTimer.Enabled = False
 					HSEnterMode = False
-					if hircstate=1 then 
+					if hircstate=1 then
 						HighRoachEntryInit
 					end if
-					
+
 				End If
 		End Select
 		UpdatePostIt
@@ -2546,7 +2551,7 @@ Sub HighScoreProcessKey(keycode)
 End Sub
 
 ' ***********************************************************
-'  RoachScore ENTER INITIALS 
+'  RoachScore ENTER INITIALS
 ' ***********************************************************
 
 Sub HighRoachProcessKey(keycode)
@@ -2579,7 +2584,7 @@ Sub HighRoachProcessKey(keycode)
 				UpdatePostIt2
 		 End Select
 	End If
-	
+
     If keycode = StartGameKey Then
 		Select Case RsCurrentLetter
 			Case 1:
@@ -2606,5 +2611,10 @@ Sub HighRoachProcessKey(keycode)
 		End Select
 		UpdatePostIt2
     End If
+End Sub
+' Thalamus : Exit in a clean and proper way
+Sub CARtoons_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
