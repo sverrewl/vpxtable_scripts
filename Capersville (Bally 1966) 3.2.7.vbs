@@ -1176,7 +1176,7 @@ End Sub
 
 '*********Saucer Hits
 Sub RightSaucer_Hit
-	PlaysoundAtVol"SaucerIn", RightSauser, 1
+	PlaysoundAtVol"SaucerIn", RightSaucer, 1
 	If DC4 = True Then
 		me.timerenabled = True
 	ElseIf Tilt = True Then
