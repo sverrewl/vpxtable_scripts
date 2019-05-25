@@ -532,6 +532,7 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(Acti
  .AddForm 700,400,"Dracula - DIP switches"
  .AddChk 2,10,180,Array("Match feature",&H00100000)'dip 21
  .AddChk 205,10,115,Array("Credits display",&H00080000)'dip 20
+ .AddChk 340,10,115,Array("Extra Ball",&H0002000)'dip 14
  .AddFrame 2,30,190,"Maximum credits",&H00070000,Array("5 credits",0,"10 credits",&H00010000,"15 credits",&H00020000,"20 credits",&H00030000,"25 credits",&H00040000,"30 credits",&H00050000,"35 credits",&H00060000,"40 credits",&H00070000)'dip 17&18&19
  .AddFrame 2,160,190,"Special award",&HC0000000,Array("100,000 points",0,"free ball",&H40000000,"free game",&H80000000,"free ball and free game",&HC0000000)'dip 31&32
  .AddFrame 2,235,190,"High score to date",49152,Array("no award",0,"1 credit",&H00004000,"2 credits",32768,"3 credits",49152)'dip 15&16
