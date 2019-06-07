@@ -2,31 +2,31 @@ Option Explicit
 
 Const cGameName = "spanisheyes_1972"
 
-' Thalamus 2018-08-26 : Improved directional sounds
+	' Thalamus 2018-08-26 : Improved directional sounds
 
-Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
-Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
+			Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+			Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
 
-' The rest of the values are multipliers
-'
-'  .5 = lower volume
-' 1.5 = higher volume
+			' The rest of the values are multipliers
+			'
+			'  .5 = lower volume
+			' 1.5 = higher volume
 
-Const VolBump   = 2    ' Bumpers volume.
-Const VolRol    = 1    ' Rollovers volume.
-Const VolGates  = 1    ' Gates volume.
-Const VolMetal  = 1    ' Metals volume.
-Const VolRH     = 1    ' Rubber hits volume.
-Const VolPo     = 1    ' Rubber posts volume.
-Const VolPi     = 1    ' Rubber pins volume.
-Const VolTarg   = 1    ' Targets volume.
-Const VolFlip   = 1    ' Flipper volume.
-
+			Const VolBump   = 2    ' Bumpers volume.
+			Const VolRol    = 1    ' Rollovers volume.
+			Const VolGates  = 1    ' Gates volume.
+			Const VolMetal  = 1    ' Metals volume.
+			Const VolRH     = 1    ' Rubber hits volume.
+			Const VolPo     = 1    ' Rubber posts volume.
+			Const VolPi     = 1    ' Rubber pins volume.
+			Const VolTarg   = 1    ' Targets volume.
+			Const VolFlip   = 1    ' Flipper volume.
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs"
 On Error Goto 0
+
 
 Dim Digit(5)
 Dim Lane(5)
@@ -38,14 +38,9 @@ Dim ALight(4)
 Dim BLight(4)
 Dim HighScore
 Dim Score
-Dim EnableBallControl
-Dim BallSize
-Dim BallMass
-
-BallSize = 25
-BallMass = 1
-
-EnableBallControl = 0
+Dim FreePlay
+Dim ShowBallShadow
+Dim Chime
 
 Set TLight(1)=Light1a
 Set TLight(2)=Light2a
@@ -109,6 +104,13 @@ Dim Got100K
 Dim f,g,h
 
 Randomize
+
+Const BallSize = 25
+Const BallMass = 1.28
+
+FreePlay = 1
+ShowBallShadow = False
+Chime = False
 
 Sub GameTimer_Timer
 
@@ -200,19 +202,31 @@ Sub GameTimer_Timer
 	If DigitDo>0 then
 	If DigitDo=4 then
 		Digit(4)=Digit(4)+1
-		PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell10"
+				Else
+					PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		TenMove=TenMove-1
 		DigitClock=5
 	End If
 	If DigitDo=3 then
 		Digit(3)=Digit(3)+1
-		PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell100"
+				Else
+					PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		HunMove=HunMove-1
 		DigitClock=5
 	End If
 	If DigitDo=2 then
 		Digit(2)=Digit(2)+1
-		PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell1000"
+				Else
+					PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		ThouMove=ThouMove-1
 		DigitClock=5
 	End If
@@ -350,13 +364,35 @@ Sub SpEyes_KeyDown(ByVal keycode)
 	If keycode = LeftFlipperKey and MachineTilt=0 and BallActive=1 Then
 		LeftFlipper.RotateToEnd
 		PlaySoundAtVol SoundFXDOF("fx_FlipperUp",101,DOFOn,DOFContactors), LeftFlipper, VolFlip
-		PlaySoundAtVol "Buzz", LeftFlipper, VolFlip
+		PlaySoundAtVolLoops "buzz",LeftFlipper,0.05,-1
 	End If
+
+    If keycode = LeftFlipperKey and BallActive = 0 and OperatorMenu = 0 Then
+        OperatorMenuTimer.Enabled = true
+    end if
+
+    If keycode = LeftFlipperKey and Ballactive = 0 and OperatorMenu = 1 Then
+		Options = Options + 1
+        If Options = 4 then Options = 0
+'		TextBox1.text = options
+		OptionMenu.visible = true
+        playsound "target"
+        Select Case (Options)
+            Case 0:
+                OptionMenu.image = "FreeCoin" & FreePlay
+            Case 1:
+                OptionMenu.image = "BallShadow" & ShowBallShadow
+			Case 2:
+				OptionMenu.image = "Chime" & Chime
+			Case 3:
+				OptionMenu.image = "SaveExit"
+        End Select
+    End If
 
 	If keycode = RightFlipperKey and MachineTilt=0 and BallActive=1 Then
 		RightFlipper.RotateToEnd
 		PlaySoundAtVol SoundFXDOF("fx_FlipperUp",102,DOFOn,DOFContactors), RightFlipper, VolFlip
-		PlaySoundAtVol "Buzz1", RightFlipper, VolFlip
+		PlaySoundAtVolLoops "buzz1",RightFlipper,0.05,-1
 	End If
 
 	If keycode = LeftTiltKey and MachineTilt=0 and BallActive=1 Then
@@ -374,6 +410,11 @@ Sub SpEyes_KeyDown(ByVal keycode)
 		TiltSensor=TiltSensor+50
 	End If
 
+	If keycode = MechanicalTilt and MachineTilt=0 and BallActive=1Then
+		Nudge 0, 2
+		TiltSensor=TiltSensor+50
+	End If
+
     If keycode=AddCreditKey and CreditPause=0 and Credits<9 then
 		CreditLight.state=1
     	PlaySoundAt "CoinIn", Drain
@@ -381,7 +422,7 @@ Sub SpEyes_KeyDown(ByVal keycode)
 	End If
 
 	If keycode=StartGameKey and BallActive=0 then
-		If Credits>0 then
+		If FreePlay = 0 and Credits>0 then
 			BallActive=2
 			Credits=Credits-1
 			If Credits < 1 Then DOF 121, DOFOff
@@ -406,31 +447,69 @@ Sub SpEyes_KeyDown(ByVal keycode)
 			ResetPause=400
 			PlaySound "Reset"
 		End If
-	End If
-
-  ' Manual Ball Control
-	If keycode = 46 Then	 				' C Key
-		If EnableBallControl = 1 Then
-			EnableBallControl = 0
-		Else
-			EnableBallControl = 1
-		End If
-	End If
-    If EnableBallControl = 1 Then
-		If keycode = 48 Then 				' B Key
-			If BCboost = 1 Then
-				BCboost = BCboostmulti
-			Else
-				BCboost = 1
+		If Freeplay = 1 then
+			BallActive = 2
+			Score=0
+			CreditBox.Text=Credits
+			If B2SOn Then
+				Controller.B2ssetCredits Credits
+				Controller.B2ssetplayerup 30, 1
+				Controller.B2SSetGameOver 0
+				Controller.B2SSetScoreRollover 25, 0
+				Controller.B2SSetScorePlayer 5, HighScore
 			End If
+			TargetDone=0
+			AllLightsOff
+			MatchBox1.Text=""
+			MatchBox2.Text=""
+			OTTBox.Text=""
+			GameOverBox.Text=""
+			Got100K=0
+			GotReplay=0
+			ResetPause=400
+			PlaySound "Reset"
 		End If
-		If keycode = 203 Then BCleft = 1	' Left Arrow
-		If keycode = 200 Then BCup = 1		' Up Arrow
-		If keycode = 208 Then BCdown = 1	' Down Arrow
-		If keycode = 205 Then BCright = 1	' Right Arrow
 	End If
 
+If keycode = RightFlipperKey and BallActive = 0 and OperatorMenu = 1 Then
+      PlaySound "metalhit2"
+      Select Case (Options)
+		Case 0:
+            If FreePlay = 0 Then
+                FreePlay = 1
+              Else
+                FreePlay = 0
+            End If
+            OptionMenu.image= "FreeCoin" & FreePlay
+        Case 1:
+            If ShowBallShadow = False Then
+                ShowBallShadow = True
+              Else
+                ShowBallShadow = False
+            End If
+			OptionMenu.image = "BallShadow" & ShowBallShadow
+			If ShowBallShadow = True Then
+				BallShadowUpdate.enabled = True
+			Else
+				BallShadowUpdate.enabled = False
+			End If
+        Case 2:
+            If Chime = False Then
+                Chime= True
+				If B2SOn Then DOF 142,DOFPulse
+              Else
+                Chime = False
+				Playsound "Bell10"
+            End If
+			OptionMenu.image = "Chime" & Chime
+        Case 3:
+            OperatorMenu = 0
 
+			OptionMenu.image = "FreeCoin" & FreePlay
+            OptionMenu.visible = 0
+			OptionsMenu.visible = 0
+		End Select
+    End If
  	'If keycode=10 and BallActive=0 and GameType=2 then
 	'	GameType=1
 	'	PlaySound "TargetsUp"
@@ -460,25 +539,36 @@ Sub SpEyes_KeyUp(ByVal keycode)
 
 	If keycode = LeftFlipperKey Then
 		LeftFlipper.RotateToStart
-		If MachineTilt=0 and BallActive=1 Then PlaySoundAtVol SoundFXDOF("fx_flipperdown",101,DOFOff,DOFContactors), LeftFlipper, VolFlip
+		If MachineTilt=0 and BallActive=1 Then PlaySoundatVol SoundFXDOF("fx_flipperdown",101,DOFOff,DOFContactors), LeftFlipper, VolFlip
 		StopSound "Buzz"
 	End If
 
+    If keycode = LeftFlipperKey and BallActive = 0 Then
+        OperatorMenuTimer.Enabled = False
+    End If
+
 	If keycode = RightFlipperKey Then
 		RightFlipper.RotateToStart
-		If MachineTilt=0 and BallActive=1 Then PlaySoundAtVol SoundFXDOF("fx_flipperdown",102,DOFOff,DOFContactors), RightFlipper, VolFlip
+		If MachineTilt=0 and BallActive=1 Then PlaySoundatVol SoundFXDOF("fx_flipperdown",102,DOFOff,DOFContactors), RightFlipper, VolFlip
 		StopSound "Buzz1"
 	End If
 
-    'Manual Ball Control
-	If EnableBallControl = 1 Then
-		If keycode = 203 Then BCleft = 0	' Left Arrow
-		If keycode = 200 Then BCup = 0		' Up Arrow
-		If keycode = 208 Then BCdown = 0	' Down Arrow
-		If keycode = 205 Then BCright = 0	' Right Arrow
-	End If
+End Sub
 
+'***********Operator Menu
+Dim operatormenu, Options
 
+Sub OperatorMenuTimer_Timer
+	Options = 0
+    OperatorMenu = 1
+    Displayoptions
+End Sub
+
+Sub DisplayOptions
+	Options = 0
+    OptionsMenu.visible = True
+    OptionMenu.visible = True
+	OptionMenu.image = "FreeCoin" & FreePlay
 End Sub
 
 Sub Drain_Hit()
@@ -754,51 +844,51 @@ Sub walllg_Timer
 End Sub
 
 Sub Sling1_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",103,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",103,DOFPulse,DOFContactors), ActiveBall
 	DOF 104, DOFPulse
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling2_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",107,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",107,DOFPulse,DOFContactors), ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling3_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",109,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",109,DOFPulse,DOFContactors), ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling4_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",110,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",110,DOFPulse,DOFContactors), ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling5_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",108,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",108,DOFPulse,DOFContactors), ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling6_Slingshot()
-	PlaySoundAt SoundFXDOF("Sling",105,DOFPulse,DOFContactors), ActiveBall
+	PlaySoundat SoundFXDOF("Sling",105,DOFPulse,DOFContactors), ActiveBall
 	DOF 106, DOFPulse
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling7_Slingshot()
-	PlaySoundAt "Sling", ActiveBall
+	PlaySoundat "Sling", ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub Sling8_Slingshot()
-	PlaySoundAt "Sling", ActiveBall
+	PlaySoundat "Sling", ActiveBall
 	If MachineTilt=0 then TenMove=TenMove+1
 End Sub
 
 Sub LaneA_Hit
 	DOF 127, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	'LLight(1).State=LightStateOn
 	HunMove=HunMove+5
 	CheckLanes(1)
@@ -808,7 +898,7 @@ End Sub
 Sub LaneB_Hit
 	DOF 128, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	'LLight(2).State=LightStateOn
 	HunMove=HunMove+5
 	CheckLanes(2)
@@ -818,7 +908,7 @@ End Sub
 Sub LaneC_Hit
 	DOF 129, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	'LLight(3).State=LightStateOn
 	HunMove=HunMove+5
 	CheckLanes(3)
@@ -828,7 +918,7 @@ End Sub
 Sub LaneD_Hit
 	DOF 130, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	'LLight(4).State=LightStateOn
 	HunMove=HunMove+5
 	CheckLanes(4)
@@ -838,7 +928,7 @@ End Sub
 Sub LaneE_Hit
 	DOF 131, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	'LLight(5).State=LightStateOn
 	HunMove=HunMove+5
 	CheckLanes(5)
@@ -859,9 +949,21 @@ Sub CheckLanes(f)
 '			ALight(2).State=LightStateOn
 '		End If
 		BallsToPlay=BallsToPlay+1
-		PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell10"
+				Else
+					PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell100"
+				Else
+					PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell1000"
+				Else
+					PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		DisplayBalls
 		For f=1 to 5
 			LLight(f).State=LightStateOff
@@ -877,13 +979,25 @@ End Sub
 Sub LeftOutlane_Hit
 	DOF 132, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	If TargetDone=6 then
 		If GameType=1 then
 		BallsToPlay=BallsToPlay+1
-		PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell10"
+				Else
+					PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell100"
+				Else
+					PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell1000"
+				Else
+					PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		DisplayBalls
 		Else
 		ThouMove=ThouMove+5
@@ -898,13 +1012,25 @@ End Sub
 Sub RightOutlane_Hit
 	DOF 133, DOFPulse
 	If MachineTilt=0 then
-	PlaySoundAt "LaneSwitch", ActiveBall
+	PlaySoundat "LaneSwitch", ActiveBall
 	If TargetDone=6 then
 		If GameType=1 then
 		BallsToPlay=BallsToPlay+1
-		PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
-		PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				If Chime = False Then
+					Playsound "Bell10"
+				Else
+					PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell100"
+				Else
+					PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+				If Chime = False Then
+					Playsound "Bell1000"
+				Else
+					PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				End If
 		DisplayBalls
 		Else
 		ThouMove=ThouMove+5
@@ -919,7 +1045,7 @@ End Sub
 Sub TopRollover_Hit
 	TopRollover_prim.z = -3
 	If MachineTilt=0 then
-		PlaySoundAtVol "Rollover", ActiveBall, VolRol
+		PlaySoundat "Rollover", ActiveBall
 		BumpOn=1
 		For f=1 to 4
 			BLight(f).State=LightStateOn
@@ -933,7 +1059,7 @@ End Sub
 
 Sub LoopRollover_Hit
 	If MachineTilt=0 then
-		PlaySoundAtVol "Rollover", ActiveBall, VolRol
+		PlaySoundat "Rollover", ActiveBall
 		If TargetDone<6 then
 			ThouMove=ThouMove+5
 '		If GotSpecial=0 and TargetDone=6 then
@@ -941,9 +1067,25 @@ Sub LoopRollover_Hit
 		  else
 			If GameType=2 then
 				BallsToPlay=BallsToPlay+1
-				PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
-				PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
-				PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+
+				If Chime = False Then
+					Playsound "Bell10"
+				Else
+					PlaySoundAt SoundFXDOF("Bell10",141,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+
+				If Chime = False Then
+					Playsound "Bell100"
+				Else
+					PlaySoundAt SoundFXDOF("Bell100",142,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+
+				If Chime = False Then
+					Playsound "Bell1000"
+				Else
+					PlaySoundAt SoundFXDOF("Bell1000",143,DOFPulse,DOFChimes), PegPlasticT19
+				End If
+
 				DisplayBalls
 				ALight(1).State=LightStateOff
 				ALight(2).State=LightStateOff
@@ -970,7 +1112,7 @@ End Sub
 Sub LeftRollover_Hit
 	LeftRollover_Prim.z = -3
 	If MachineTilt=0 then
-		PlaySoundAtVol "Rollover", ActiveBall, VolRol
+		PlaySoundat "Rollover", ActiveBall
 		TenMove=TenMove+1
 	End If
 End Sub
@@ -982,7 +1124,7 @@ End Sub
 Sub RightRollover_Hit
 	Rightrollover_prim.z = -3
 	If MachineTilt=0 then
-		PlaySoundAtVol "Rollover", ActiveBall, VolRol
+		PlaySoundat "Rollover", ActiveBall
 		TenMove=TenMove+1
 	End If
 End Sub
@@ -994,7 +1136,7 @@ End Sub
 Sub BottomRollover_Hit
 	bottomrollover_prim.z = -3
 	If MachineTilt=0 then
-		PlaySoundAtVol "Rollover", ActiveBall, VolRol
+		PlaySoundat "Rollover", ActiveBall
 		TenMove=TenMove+1
 	End If
 End Sub
@@ -1122,7 +1264,7 @@ End Sub
 
 Sub Hole_Hit()
 	HolePause=40+(TargetDone+6)
-	PlaySoundAt "KickerIn", ActiveBall
+	PlaySoundat "KickerIn", ActiveBall
 	If MachineTilt=0 then
 		If TargetDone>0 then
 			ThouMove=ThouMove+TargetDone
@@ -1223,7 +1365,7 @@ Sub SpEyes_Init()
 		Highscore=CDbl(LoadValue("SpEyes","HS"))
 	End If
 	Sbest.Text=FormatNumber(HighScore, 0, -1, 0, -1)
-	PlaySound "TargetsUp" ' TODO
+	PlaySound "TargetsUp"
 	GameType=2
     Credits=LoadValue("SpEyes","Credits") ' Load saved Credits
 	If Credits="" then
@@ -1272,50 +1414,37 @@ Sub SpEyes_Exit
 	SaveValue "SpEyes","Credits",Credits
 	If B2SOn Then Controller.stop
 End Sub
-
-'*****************************************
-'   rothbauerw's Manual Ball Control
-'*****************************************
-
-Dim BCup, BCdown, BCleft, BCright
-Dim ControlBallInPlay, ControlActiveBall
-Dim BCvel, BCyveloffset, BCboostmulti, BCboost
-
-BCboost = 1				'Do Not Change - default setting
-BCvel = 4				'Controls the speed of the ball movement
-BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
-
-ControlBallInPlay = false
-
-Sub StartBallControl_Hit()
-	Set ControlActiveBall = ActiveBall
-	ControlBallInPlay = true
-End Sub
-
-Sub StopBallControl_Hit()
-	ControlBallInPlay = false
-End Sub
-
-Sub BallControlTimer_Timer()
-	If EnableBallControl and ControlBallInPlay then
-		If BCright = 1 Then
-			ControlActiveBall.velx =  BCvel*BCboost
-		ElseIf BCleft = 1 Then
-			ControlActiveBall.velx = -BCvel*BCboost
-		Else
-			ControlActiveBall.velx = 0
-		End If
-
-		If BCup = 1 Then
-			ControlActiveBall.vely = -BCvel*BCboost
-		ElseIf BCdown = 1 Then
-			ControlActiveBall.vely =  BCvel*BCboost
-		Else
-			ControlActiveBall.vely = bcyveloffset
-		End If
-	End If
-End Sub
+'
+''************************************************************************
+''                         Ball Control
+''************************************************************************
+'
+'Dim Cup, Cdown, Cleft, Cright, contball, contballinplay, ControlBall, bcboost
+'Dim bcvel, bcyveloffset, bcboostmulti
+'
+'bcboost = 1 'Do Not Change - default setting
+'bcvel = 4 'Controls the speed of the ball movement
+'bcyveloffset = -0.01 'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
+'bcboostmulti = 3 'Boost multiplier to ball veloctiy (toggled with the B key)
+'
+'Sub BallControl_Timer()
+'    If Contball and ContBallInPlay then
+'        If Cright = 1 Then
+'            ControlBall.velx = bcvel*bcboost
+'          ElseIf Cleft = 1 Then
+'            ControlBall.velx = - bcvel*bcboost
+'          Else
+'            ControlBall.velx=0
+'        End If
+'        If Cup = 1 Then
+'            ControlBall.vely = -bcvel*bcboost
+'          ElseIf Cdown = 1 Then
+'            ControlBall.vely = bcvel*bcboost
+'          Else
+'            ControlBall.vely= bcyveloffset
+'        End If
+'    End If
+'End Sub
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -1358,6 +1487,10 @@ End Sub
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
   PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+Sub PlaySoundAtVolLoops(sound, tableobj, Vol, Loops)
+	PlaySound sound, Loops, Vol, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************
@@ -1424,11 +1557,31 @@ Const tnob = 5 ' total number of balls
 ReDim rolling(tnob)
 InitRolling
 
+ReDim ArchRolling(tnob)
+InitArchRolling
+
+Dim ArchHit
+
+Sub Wall18_Hit
+	Archhit = 1
+End Sub
+
+Sub NotOnArch_Hit
+	ArchHit = 0
+End Sub
+
 Sub InitRolling
     Dim i
     For i = 0 to tnob
         rolling(i) = False
     Next
+End Sub
+
+Sub InitArchRolling
+	Dim i
+	For i = 0 to tnob
+		ArchRolling(i) = False
+	Next
 End Sub
 
 Sub RollingTimer_Timer()
@@ -1445,21 +1598,27 @@ Sub RollingTimer_Timer()
     If UBound(BOT) = -1 Then Exit Sub
 
 	' play the rolling sound for each ball
-
     For b = 0 to UBound(BOT)
-      If BallVel(BOT(b) ) > 1 Then
-        rolling(b) = True
-        if BOT(b).z < 30 Then ' Ball on playfield
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-        Else ' Ball on raised ramp
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
+            rolling(b) = True
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b)), AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+        Else
+            If rolling(b) = True Then
+                StopSound("fx_ballrolling" & b)
+                rolling(b) = False
+            End If
         End If
-      Else
-        If rolling(b) = True Then
-          StopSound("fx_ballrolling" & b)
-          rolling(b) = False
-        End If
-      End If
+
+		If BallVel(BOT(b) ) > 1 AND ArchHit =1 Then
+			ArchRolling(b) = True
+			PlaySound("ArchHitA" & b),   0, (BallVel(BOT(b))/15)^5 * 1, AudioPan(BOT(b)), 0, (BallVel(BOT(b))/40)^7, 1, 0, 0	'Left & Right stereo or Top & Bottom stereo PF Speakers.
+			PlaySound("ArchRollA" & b), -1, (BallVel(BOT(b))/30)^5 * 1, AudioPan(BOT(b)), 0, (BallVel(BOT(b))/40)^7, 1, 0, 0	'Left & Right stereo or Top & Bottom stereo PF Speakers.
+		Else
+			If ArchRolling(b) = True Then
+			StopSound("ArchRollA" & b)
+			ArchRolling(b) = False
+			End If
+		End If
     Next
 End Sub
 
@@ -1597,8 +1756,6 @@ End Sub
 sub FlipperTimer_Timer()
 	FlipperLSh.RotZ = LeftFlipper.currentangle
 	FlipperRSh.RotZ = RightFlipper.currentangle
-'    flipperleft_prim.rotz = leftflipper.currentangle
-'    flipperright_prim.rotz = rightflipper.currentangle
 End Sub
 
 '*****************************************
@@ -1634,9 +1791,7 @@ Sub BallShadowUpdate_timer()
     Next
 End Sub
 
-' Thalamus : Exit in a clean and proper way
 Sub SpEyes_exit()
-  Controller.Pause = False
-  Controller.Stop
+		Controller.Pause = False
+		Controller.Stop
 End Sub
-
