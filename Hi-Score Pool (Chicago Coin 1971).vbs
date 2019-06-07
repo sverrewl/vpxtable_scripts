@@ -722,9 +722,6 @@ Sub CheckBalls()
 
 		BallsLit = 0
 
-'		For each gLight in BallLights
-'			gLight.state = 1
-'		Next
 
 		TextRacks.Text = Racks
 		If B2SOn Then
@@ -739,20 +736,23 @@ End Sub
 
 Sub Triggers_hit(idx)
 	dim rotball
-	rotball=idx+1
+'	rotball=idx+1
+	rotball=idx
 	if moveballs=1 Then
 		direction(rotball)=Int(Rnd*2)-1
 		if direction(rotball)=0 then direction(rotball)=1
 		if ballangle(rotball)=0 then
 			ballangle(rotball)=(12*direction(rotball))
-			EVAL("Primball"&rotball).roty=ballangle(rotball)
+			Primballs(rotball).roty=ballangle(rotball)
 		end if
 	end If
 	If Rack = 0 and BIP = 1 and tilt=false Then
-		If EVAL("Light"&rotball).State = 1 Then
+		If BallLights(rotball).State = 1 Then
 			DOF 200+idx, DOFPulse
 			If KnockerOn = False Then DOF 300+idx, DOFPulse
-			EVAL("Light"&rotball).State = 0
+			BallLights(rotball).state=0
+			BallLights(rotball+15).state=0
+			BallLights(rotball+30).state=0
 			CheckBalls
 		End If
 	End If
@@ -761,13 +761,13 @@ End Sub
 
 Sub BallTurnTimer_Timer()
 	dim x
-	for x=1 to 15
+	for x=0 to 14
 		if ballangle(x)<>0 Then
 			ballangle(x)=ballangle(x)+(12*direction(x))
 			if (ballangle(x) > 359) or (ballangle(x) < -359) Then
 				ballangle(x) = 0
 			End If
-			EVAL("Primball"&x).roty=ballangle(x)
+			PrimBalls(x).roty=ballangle(x)
 		end if
 	next
 End Sub
