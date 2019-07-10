@@ -192,7 +192,7 @@ End Sub
 
  'Kickers, drains, poppers
 	Sub Drain_Hit: bsTrough.Addball Me : PlaySoundAtVol "Drain",drain,1 : End Sub
-	Sub sw12_Hit: bsSaucer.AddBall 0 : playsoundAtVol "popper_ball,sw12,1": End Sub
+	Sub sw12_Hit: bsSaucer.AddBall 0 : playsoundAtVol "popper_ball",sw12,1: End Sub
 
 'Drop Targets
 Sub sw13_Dropped: dtC.Hit 1 :End Sub
@@ -243,7 +243,7 @@ Sub sw24_Dropped: dtL.Hit 1 :End Sub
 Sub Spinner_Spin:vpmTimer.PulseSw(34) : playsoundAtVol"fx_spinner",Spinner,VolSpin : End Sub
 
    'Bumpers
-	Sub Bumper1_Hit : vpmTimer.PulseSw(39) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper1,VolBump: End Sub
+  Sub Bumper1_Hit : vpmTimer.PulseSw(39) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper1,VolBump: End Sub
   Sub Bumper2_Hit : vpmTimer.PulseSw(38) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper2,VolBump: End Sub
   Sub Bumper3_Hit : vpmTimer.PulseSw(40) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper3,VolBump: End Sub
   Sub Bumper4_Hit : vpmTimer.PulseSw(37) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper4,VolBump: End Sub
