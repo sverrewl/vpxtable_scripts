@@ -240,13 +240,13 @@ Sub sw24_Dropped: dtL.Hit 1 :End Sub
  Sub sw29_Hit:vpmTimer.PulseSw 29:End Sub
 
 'Spinner
-Sub Spinner_Spin:vpmTimer.PulseSw(34) : playsoundAtVol"fx_spinner",Spinner,VolSpin : End Sub
+Sub sw34_Spin:vpmTimer.PulseSw(34) : playsoundAtVol"fx_spinner",sw34,VolSpin : End Sub
 
    'Bumpers
   Sub Bumper1_Hit : vpmTimer.PulseSw(39) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper1,VolBump: End Sub
-  Sub Bumper2_Hit : vpmTimer.PulseSw(38) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper2,VolBump: End Sub
-  Sub Bumper3_Hit : vpmTimer.PulseSw(40) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper3,VolBump: End Sub
-  Sub Bumper4_Hit : vpmTimer.PulseSw(37) : playsoundAtVol SoundFX("fx_bumper1",DOFContactors),Bumper4,VolBump: End Sub
+  Sub Bumper2_Hit : vpmTimer.PulseSw(38) : playsoundAtVol SoundFX("fx_bumper2",DOFContactors),Bumper2,VolBump: End Sub
+  Sub Bumper3_Hit : vpmTimer.PulseSw(40) : playsoundAtVol SoundFX("fx_bumper3",DOFContactors),Bumper3,VolBump: End Sub
+  Sub Bumper4_Hit : vpmTimer.PulseSw(37) : playsoundAtVol SoundFX("fx_bumper4",DOFContactors),Bumper4,VolBump: End Sub
 
 '***************************************************
 '       JP's VP10 Fading Lamps & Flashers
