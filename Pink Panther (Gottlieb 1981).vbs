@@ -77,9 +77,12 @@ DisplayTimer.Enabled = true
 
 Sub FlipperTimer_Timer
     'Add flipper, gate and spinner rotations here
-   FlipperT2.RotY = LeftFlipper.CurrentAngle
-    FlipperT5.RotY = RightFlipper.CurrentAngle
-    FlipperT1.RotY = RightFlipper1.CurrentAngle
+   FlipperLB.Rotz = LeftFlipper.CurrentAngle
+   FlipperLR.Rotz = LeftFlipper.CurrentAngle
+    FlipperRB1.Rotz = RightFlipper.CurrentAngle
+    FlipperRR1.Rotz = RightFlipper.CurrentAngle
+    FlipperRB.Rotz = RightFlipper.CurrentAngle
+    FlipperRR.Rotz = RightFlipper.CurrentAngle
     FlipperLSh.rotz = LeftFlipper.currentangle '+ 45
    FlipperRSh.rotz = RightFlipper1.currentangle '+ 45
    FlipperRSh1.rotz = RightFlipper1.currentangle '+ 45
@@ -109,7 +112,7 @@ Sub Table1_Init
    Set bsTrough=New cvpmBallStack
     with bsTrough
         .InitSw 63,73,0,0,0,0,0,0
-        .InitKick ballrelease, 110, 1
+        .InitKick ballrelease, 110, 12
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
         .Balls=3
     end with
@@ -194,17 +197,27 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
+         'PlaySound SoundFX("fx_Flipperup",DOFContactors)
          PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToEnd
+		'LeftFlipper.RotateToEnd
+		lf.fire
      Else
          PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToStart
+         ' PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
      End If
   End Sub
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
          PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
+         ' PlaySound SoundFX("fx_Flipperup",DOFContactors)
+		'RightFlipper.RotateToEnd
+		'RightFlipper1.RotateToEnd
+		RF.fire
+		RF1.fire
      Else
          PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
+         ' PlaySound SoundFX("fx_Flipperdown",DOFContactors):RightFlipper.RotateToStart:RightFlipper1.RotateToStart
      End If
 End Sub
 
@@ -485,6 +498,189 @@ Sub Dingwall6_Timer
     D6Step = D6Step + 1
 End Sub
 
+' *******************************************************************************************************
+' Positional Sound Playback Functions by DJRobX and Rothbauerw
+' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' *******************************************************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Set position as table object (Use object or light but NOT wall) and Vol to 1
+
+Sub PlaySoundAt(soundname, tableobj)
+  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed.
+
+Sub PlaySoundAtBall(soundname)
+  PlaySoundAt soundname, ActiveBall
+End Sub
+
+'Set position as table object and Vol manually.
+
+Sub PlaySoundAtVol(sound, tableobj, Volume)
+  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+
+Sub PlaySoundAtBallVol(sound, VolMult)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+'Set position as bumperX and Vol manually.
+
+Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+Sub PlaySoundAtBOTBallZ(sound, BOT)
+    PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+End Sub
+
+' play a looping sound at a location with volume
+Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+	PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+End Sub
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function RndNum(min, max)
+    RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+End Function
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+  Dim tmp
+  On Error Resume Next
+  tmp = tableobj.y * 2 / table1.height-1
+  If tmp > 0 Then
+    AudioFade = Csng(tmp ^10)
+  Else
+    AudioFade = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  On Error Resume Next
+  tmp = tableobj.x * 2 / table1.width-1
+  If tmp > 0 Then
+    AudioPan = Csng(tmp ^10)
+  Else
+    AudioPan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+  Dim tmp
+  On Error Resume Next
+  tmp = ball.x * 2 / table1.width-1
+  If tmp > 0 Then
+    Pan = Csng(tmp ^10)
+  Else
+    Pan = Csng(-((- tmp) ^10) )
+  End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+  Vol = Csng(BallVel(ball) ^2 / VolDiv)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+  Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+    BallVelZ = INT((ball.VelZ) * -1 )
+End Function
+
+Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+    VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+End Function
+
+'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+
+Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+  Dim AB, BC, CD, DA
+  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+
+  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+    InRect = True
+  Else
+    InRect = False
+  End If
+End Function
+
+'*****************************************
+'    JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 3 ' total number of balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingTimer_Timer()
+    Dim BOT, b
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+  For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+    Next
+
+    ' exit the sub if no balls on the table
+  If UBound(BOT) = -1 Then Exit Sub
+
+    ' play the rolling sound for each ball
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else ' Ball on raised ramp
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+        End If
+      End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
 '******************************
 ' Diverse Collection Hit Sounds
 '******************************
@@ -734,29 +930,33 @@ End Sub
 
 'Gottlieb Pink Panther
 'added by Inkochnito
+'Added coins chute by Mike da Spike
 Sub editDips
     Dim vpmDips : Set vpmDips = New cvpmDips
     With vpmDips
-        .AddForm 700,400,"Pink Panther - DIP switches"
-        .AddFrame 2,10,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"25 credits",49152)'dip 15&16
-       .AddFrame 2,86,190,"Coin chute 1 and 2 control",&H00002000,Array("Seperate",0,"Same",&H00002000)'dip 14
-       .AddFrame 2,132,190,"Playfield special",&H00200000,Array("Replay",0,"Extra Ball",&H00200000)'dip 22
-       .AddFrame 2,178,190,"Maximum blue diamond total",&H80000000,Array("maximum 40",0,"maximum 50",&H80000000)'dip32
-       .AddFrame 2,224,190,"High score to date awards",&H00C00000,Array("Not displayed and no award",0,"Displayed and no award",&H00800000,"Displayed and 2 replays",&H00400000,"Displayed and 3 replays",&H00C00000)'dip 23&24
+       .AddForm 700,400,"Pink Panther - DIP switches"
+       .AddFrame 2,10,190,"Coin Chute 1 (Coins/Credit)",&H0000000F,Array("2/1",&H00000008,"1/1",&H00000000,"1/2",&H00000009) 'Dip 1-4
+       .AddFrame 2,70,190,"Coin Chute 2 (Coins/Credit)",&H000000F0,Array("2/1",&H00000080,"1/1",&H00000000,"1/2",&H00000090) 'Dip 5-8
+       .AddFrame 2,130,190,"Coin Chute 3 (Coins/Credit)",&H00000F00,Array("2/1",&H00000800,"1/1",&H00000000,"1/2",&H00000900) 'Dip 9-12
+       .AddFrame 2,190,190,"Coin Chute 3 extra credits",&H00001000,Array("no effect",0,"add 9",&H00001000)'dip 13
+       .AddFrame 207,10,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"25 credits",49152)'dip 15&16
+       .AddFrame 207,86,190,"Coin chute 1 and 2 control",&H00002000,Array("Seperate",0,"Same",&H00002000)'dip 14
+       .AddFrame 207,132,190,"Playfield special",&H00200000,Array("Replay",0,"Extra Ball",&H00200000)'dip 22
+       .AddFrame 207,178,190,"Maximum blue diamond total",&H80000000,Array("maximum 40",0,"maximum 50",&H80000000)'dip32
+       .AddFrame 207,224,190,"High score to date awards",&H00C00000,Array("Not displayed and no award",0,"Displayed and no award",&H00800000,"Displayed and 2 replays",&H00400000,"Displayed and 3 replays",&H00C00000)'dip 23&24
        .AddChk 2,300,190,Array("Sound when scoring?",&H01000000)'dip 25
        .AddChk 2,315,190,Array("Replay button tune?",&H02000000)'dip 26
        .AddChk 2,330,190,Array("Coin switch tune?",&H04000000)'dip 27
        .AddChk 2,345,190,Array("Credits displayed?",&H08000000)'dip 28
        .AddChk 2,360,190,Array("Match feature",&H00020000)'dip 18
        .AddChk 2,375,190,Array("Attract features",&H20000000)'dip 30
-       .AddFrameExtra 205,10,190,"Attract tune",&H0200,Array("No attract tune",0,"attract tune played every 5 minutes",&H0200)'S-board dip 2
-       .AddFrame 205,56,190,"Balls per game",&H00010000,Array("5 balls",0,"3 balls",&H00010000)'dip 17
-       .AddFrame 205,102,190,"Replay limit",&H00040000,Array("No limit",0,"One per ball",&H00040000)'dip 19
-       .AddFrame 205,148,190,"Novelty",&H00080000,Array("Normal",0,"Points",&H0080000)'dip 20
-       .AddFrame 205,194,190,"Game mode",&H00100000,Array("Replay",0,"Extra ball",&H00100000)'dip 21
-       .AddFrame 205,240,190,"3rd coin chute credits control",&H00001000,Array("No effect",0,"Add 9",&H00001000)'dip 13
-       .AddFrame 205,286,190,"Tilt penalty",&H10000000,Array("Game over",0,"Ball in play",&H10000000)'dip 29
-       .AddFrame 205,332,190,"Playfield special adjust",&H40000000,Array("On 20% longer than conservative",0,"Conservative",&H40000000)'dip 31
+       .AddFrameExtra 412,10,190,"Attract tune",&H0200,Array("No attract tune",0,"attract tune played every 5 minutes",&H0200)'S-board dip 2
+       .AddFrame 412,56,190,"Balls per game",&H00010000,Array("5 balls",0,"3 balls",&H00010000)'dip 17
+       .AddFrame 412,102,190,"Replay limit",&H00040000,Array("No limit",0,"One per ball",&H00040000)'dip 19
+       .AddFrame 412,148,190,"Novelty",&H00080000,Array("Normal",0,"Points",&H0080000)'dip 20
+       .AddFrame 412,194,190,"Game mode",&H00100000,Array("Replay",0,"Extra ball",&H00100000)'dip 21
+       .AddFrame 412,240,190,"Tilt penalty",&H10000000,Array("Game over",0,"Ball in play",&H10000000)'dip 29
+       .AddFrame 412,286,190,"Playfield special adjust",&H40000000,Array("On 20% longer than conservative",0,"Conservative",&H40000000)'dip 31
        .AddLabel 50,400,300,20,"After hitting OK, press F3 to reset game with new settings."
     End With
     Dim extra
@@ -766,6 +966,7 @@ Sub editDips
     Controller.Dip(5) = (extra And 65280)\256 And 255
 End Sub
 Set vpmShowDips = GetRef("editDips")
+
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
 Sub table1_unPaused:Controller.Pause = 0:End Sub
@@ -849,161 +1050,452 @@ Class cFastFlips
 
     End Class
 
-' *******************************************************************************************************
-' Positional Sound Playback Functions by DJRobX
-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-' *******************************************************************************************************
+'******************************************************
+'		FLIPPER CORRECTION SUPPORTING FUNCTIONS
+'******************************************************
 
-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
-
-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+Sub AddPt(aStr, idx, aX, aY)	'debugger wrapper for adjusting flipper script in-game
+	dim a : a = Array(LF, RF, RF1)
+	dim x : for each x in a
+		x.addpoint aStr, idx, aX, aY
+	Next
 End Sub
 
-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+'Methods:
+'.TimeDelay - Delay before trigger shuts off automatically. Default = 80 (ms)
+'.AddPoint - "Polarity", "Velocity", "Ycoef" coordinate points. Use one of these 3 strings, keep coordinates sequential. x = %position on the flipper, y = output
+'.Object - set to flipper reference. Optional.
+'.StartPoint - set start point coord. Unnecessary, if .object is used.
 
-Sub PlaySoundAt(soundname, tableobj)
-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+'Called with flipper -
+'ProcessBalls - catches ball data.
+' - OR -
+'.Fire - fires flipper.rotatetoend automatically + processballs. Requires .Object to be set to the flipper.
+
+Class FlipperPolarity
+	Public DebugOn, Enabled
+	Private FlipAt	'Timer variable (IE 'flip at 723,530ms...)
+	Public TimeDelay	'delay before trigger turns off and polarity is disabled TODO set time!
+	private Flipper, FlipperStart, FlipperEnd, LR, PartialFlipCoef
+	Private Balls(20), balldata(20)
+
+	dim PolarityIn, PolarityOut
+	dim VelocityIn, VelocityOut
+	dim YcoefIn, YcoefOut
+	Public Sub Class_Initialize
+		redim PolarityIn(0) : redim PolarityOut(0) : redim VelocityIn(0) : redim VelocityOut(0) : redim YcoefIn(0) : redim YcoefOut(0)
+		Enabled = True : TimeDelay = 50 : LR = 1:  dim x : for x = 0 to uBound(balls) : balls(x) = Empty : set Balldata(x) = new SpoofBall : next
+	End Sub
+
+	Public Property let Object(aInput) : Set Flipper = aInput : StartPoint = Flipper.x : End Property
+	Public Property Let StartPoint(aInput) : if IsObject(aInput) then FlipperStart = aInput.x else FlipperStart = aInput : end if : End Property
+	Public Property Get StartPoint : StartPoint = FlipperStart : End Property
+	Public Property Let EndPoint(aInput) : if IsObject(aInput) then FlipperEnd = aInput.x else FlipperEnd = aInput : end if : End Property
+	Public Property Get EndPoint : EndPoint = FlipperEnd : End Property
+
+	Public Sub AddPoint(aChooseArray, aIDX, aX, aY) 'Index #, X position, (in) y Position (out)
+		Select Case aChooseArray
+			case "Polarity" : ShuffleArrays PolarityIn, PolarityOut, 1 : PolarityIn(aIDX) = aX : PolarityOut(aIDX) = aY : ShuffleArrays PolarityIn, PolarityOut, 0
+			Case "Velocity" : ShuffleArrays VelocityIn, VelocityOut, 1 :VelocityIn(aIDX) = aX : VelocityOut(aIDX) = aY : ShuffleArrays VelocityIn, VelocityOut, 0
+			Case "Ycoef" : ShuffleArrays YcoefIn, YcoefOut, 1 :YcoefIn(aIDX) = aX : YcoefOut(aIDX) = aY : ShuffleArrays YcoefIn, YcoefOut, 0
+		End Select
+		if gametime > 100 then Report aChooseArray
+	End Sub
+
+	Public Sub Report(aChooseArray) 	'debug, reports all coords in tbPL.text
+		if not DebugOn then exit sub
+		dim a1, a2 : Select Case aChooseArray
+			case "Polarity" : a1 = PolarityIn : a2 = PolarityOut
+			Case "Velocity" : a1 = VelocityIn : a2 = VelocityOut
+			Case "Ycoef" : a1 = YcoefIn : a2 = YcoefOut
+			case else :tbpl.text = "wrong string" : exit sub
+		End Select
+		dim str, x : for x = 0 to uBound(a1) : str = str & aChooseArray & " x: " & round(a1(x),4) & ", " & round(a2(x),4) & vbnewline : next
+		tbpl.text = str
+	End Sub
+
+	Public Sub AddBall(aBall) : dim x : for x = 0 to uBound(balls) : if IsEmpty(balls(x)) then set balls(x) = aBall : exit sub :end if : Next  : End Sub
+
+	Private Sub RemoveBall(aBall)
+		dim x : for x = 0 to uBound(balls)
+			if TypeName(balls(x) ) = "IBall" then
+				if aBall.ID = Balls(x).ID Then
+					balls(x) = Empty
+					Balldata(x).Reset
+				End If
+			End If
+		Next
+	End Sub
+
+	Public Sub Fire()
+		Flipper.RotateToEnd
+		processballs
+	End Sub
+
+	Public Property Get Pos 'returns % position a ball. For debug stuff.
+		dim x : for x = 0 to uBound(balls)
+			if not IsEmpty(balls(x) ) then
+				pos = pSlope(Balls(x).x, FlipperStart, 0, FlipperEnd, 1)
+			End If
+		Next
+	End Property
+
+	Public Sub ProcessBalls() 'save data of balls in flipper range
+		FlipAt = GameTime
+		dim x : for x = 0 to uBound(balls)
+			if not IsEmpty(balls(x) ) then
+				balldata(x).Data = balls(x)
+				if DebugOn then StickL.visible = True : StickL.x = balldata(x).x		'debug TODO
+			End If
+		Next
+		PartialFlipCoef = ((Flipper.StartAngle - Flipper.CurrentAngle) / (Flipper.StartAngle - Flipper.EndAngle))
+		PartialFlipCoef = abs(PartialFlipCoef-1)
+		if abs(Flipper.currentAngle - Flipper.EndAngle) < 30 Then
+			PartialFlipCoef = 0
+		End If
+	End Sub
+	Private Function FlipperOn() : if gameTime < FlipAt+TimeDelay then FlipperOn = True : End If : End Function	'Timer shutoff for polaritycorrect
+
+	Public Sub PolarityCorrect(aBall)
+		if FlipperOn() then
+			dim tmp, BallPos, x, IDX, Ycoef : Ycoef = 1
+			dim teststr : teststr = "Cutoff"
+			tmp = PSlope(aBall.x, FlipperStart, 0, FlipperEnd, 1)
+			if tmp < 0.1 then 'if real ball position is behind flipper, exit Sub to prevent stucks	'Disabled 1.03, I think it's the Mesh that's causing stucks, not this
+				if DebugOn then TestStr = "real pos < 0.1 ( " & round(tmp,2) & ")" : tbpl.text = Teststr
+				'RemoveBall aBall
+				'Exit Sub
+			end if
+
+			'y safety Exit
+			if aBall.VelY > -8 then 'ball going down
+				if DebugOn then teststr = "y velocity: " & round(aBall.vely, 3) & "exit sub" : tbpl.text = teststr
+				RemoveBall aBall
+				exit Sub
+			end if
+			'Find balldata. BallPos = % on Flipper
+			for x = 0 to uBound(Balls)
+				if aBall.id = BallData(x).id AND not isempty(BallData(x).id) then
+					idx = x
+					BallPos = PSlope(BallData(x).x, FlipperStart, 0, FlipperEnd, 1)
+					'TB.TEXT = balldata(x).id & " " & BALLDATA(X).X & VBNEWLINE & FLIPPERSTART & " " & FLIPPEREND
+					if ballpos > 0.65 then  Ycoef = LinearEnvelope(BallData(x).Y, YcoefIn, YcoefOut)				'find safety coefficient 'ycoef' data
+				end if
+			Next
+
+			'Velocity correction
+			if not IsEmpty(VelocityIn(0) ) then
+				Dim VelCoef
+				if DebugOn then set tmp = new spoofball : tmp.data = aBall : End If
+				if IsEmpty(BallData(idx).id) and aBall.VelY < -12 then 'if tip hit with no collected data, do vel correction anyway
+					if PSlope(aBall.x, FlipperStart, 0, FlipperEnd, 1) > 1.1 then 'adjust plz
+						VelCoef = LinearEnvelope(5, VelocityIn, VelocityOut)
+						if partialflipcoef < 1 then VelCoef = PSlope(partialflipcoef, 0, 1, 1, VelCoef)
+						if Enabled then aBall.Velx = aBall.Velx*VelCoef'VelCoef
+						if Enabled then aBall.Vely = aBall.Vely*VelCoef'VelCoef
+						if DebugOn then teststr = "tip protection" & vbnewline & "velcoef: " & round(velcoef,3) & vbnewline & round(PSlope(aBall.x, FlipperStart, 0, FlipperEnd, 1),3) & vbnewline
+						'debug.print teststr
+					end if
+				Else
+		 : 			VelCoef = LinearEnvelope(BallPos, VelocityIn, VelocityOut)
+					if Enabled then aBall.Velx = aBall.Velx*VelCoef
+					if Enabled then aBall.Vely = aBall.Vely*VelCoef
+				end if
+			End If
+
+			'Polarity Correction (optional now)
+			if not IsEmpty(PolarityIn(0) ) then
+				If StartPoint > EndPoint then LR = -1	'Reverse polarity if left flipper
+				dim AddX : AddX = LinearEnvelope(BallPos, PolarityIn, PolarityOut) * LR
+				if Enabled then aBall.VelX = aBall.VelX + 1 * (AddX*ycoef*PartialFlipcoef)
+			End If
+			'debug
+			if DebugOn then
+				TestStr = teststr & "%pos:" & round(BallPos,2)
+				if IsEmpty(PolarityOut(0) ) then
+					teststr = teststr & vbnewline & "(Polarity Disabled)" & vbnewline
+				else
+					teststr = teststr & "+" & round(1 *(AddX*ycoef*PartialFlipcoef),3)
+					if BallPos >= PolarityOut(uBound(PolarityOut) ) then teststr = teststr & "(MAX)" & vbnewline else teststr = teststr & vbnewline end if
+					if Ycoef < 1 then teststr = teststr &  "ycoef: " & ycoef & vbnewline
+					if PartialFlipcoef < 1 then teststr = teststr & "PartialFlipcoef: " & round(PartialFlipcoef,4) & vbnewline
+				end if
+
+				teststr = teststr & vbnewline & "Vel: " & round(BallSpeed(tmp),2) & " -> " & round(ballspeed(aBall),2) & vbnewline
+				teststr = teststr & "%" & round(ballspeed(aBall) / BallSpeed(tmp),2)
+				tbpl.text = TestSTR
+			end if
+		Else
+			'if DebugOn then tbpl.text = "td" & timedelay
+		End If
+		RemoveBall aBall
+	End Sub
+End Class
+
+'================================
+'Helper Functions
+
+
+Sub ShuffleArray(ByRef aArray, byVal offset) 'shuffle 1d array
+	dim x, aCount : aCount = 0
+	redim a(uBound(aArray) )
+	for x = 0 to uBound(aArray)	'Shuffle objects in a temp array
+		if not IsEmpty(aArray(x) ) Then
+			if IsObject(aArray(x)) then
+				Set a(aCount) = aArray(x)
+			Else
+				a(aCount) = aArray(x)
+			End If
+			aCount = aCount + 1
+		End If
+	Next
+	if offset < 0 then offset = 0
+	redim aArray(aCount-1+offset)	'Resize original array
+	for x = 0 to aCount-1		'set objects back into original array
+		if IsObject(a(x)) then
+			Set aArray(x) = a(x)
+		Else
+			aArray(x) = a(x)
+		End If
+	Next
 End Sub
 
-'Set all as per ball position & speed.
-
-Sub PlaySoundAtBall(soundname)
-  PlaySoundAt soundname, ActiveBall
+Sub ShuffleArrays(aArray1, aArray2, offset)
+	ShuffleArray aArray1, offset
+	ShuffleArray aArray2, offset
 End Sub
 
-'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-End Sub
-
-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
-
-Sub PlaySoundAtBallVol(sound, VolMult)
-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-End Sub
-
-'Set position as bumperX and Vol manually.
-
-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
-End Sub
-
-'*********************************************************************
-'                     Supporting Ball & Sound Functions
-'*********************************************************************
-
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
-  Dim tmp
-  tmp = tableobj.y * 2 / table1.height-1
-  If tmp > 0 Then
-    AudioFade = Csng(tmp ^10)
-  Else
-    AudioFade = Csng(-((- tmp) ^10) )
-  End If
+Function BallSpeed(ball) 'Calculates the ball speed
+    BallSpeed = SQR(ball.VelX^2 + ball.VelY^2 + ball.VelZ^2)
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
-  Dim tmp
-  tmp = tableobj.x * 2 / table1.width-1
-  If tmp > 0 Then
-    AudioPan = Csng(tmp ^10)
-  Else
-    AudioPan = Csng(-((- tmp) ^10) )
-  End If
+Function PSlope(Input, X1, Y1, X2, Y2)	'Set up line via two points, no clamping. Input X, output Y
+	dim x, y, b, m : x = input : m = (Y2 - Y1) / (X2 - X1) : b = Y2 - m*X2
+	Y = M*x+b
+	PSlope = Y
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / table1.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
+Function NullFunctionZ(aEnabled):End Function	'1 argument null function placeholder	 TODO move me or replac eme
+
+Class spoofball
+	Public X, Y, Z, VelX, VelY, VelZ, ID, Mass, Radius
+	Public Property Let Data(aBall)
+		With aBall
+			x = .x : y = .y : z = .z : velx = .velx : vely = .vely : velz = .velz
+			id = .ID : mass = .mass : radius = .radius
+		end with
+	End Property
+	Public Sub Reset()
+		x = Empty : y = Empty : z = Empty  : velx = Empty : vely = Empty : velz = Empty
+		id = Empty : mass = Empty : radius = Empty
+	End Sub
+End Class
+
+
+Function LinearEnvelope(xInput, xKeyFrame, yLvl)
+	dim y 'Y output
+	dim L 'Line
+	dim ii : for ii = 1 to uBound(xKeyFrame)	'find active line
+		if xInput <= xKeyFrame(ii) then L = ii : exit for : end if
+	Next
+	if xInput > xKeyFrame(uBound(xKeyFrame) ) then L = uBound(xKeyFrame)	'catch line overrun
+	Y = pSlope(xInput, xKeyFrame(L-1), yLvl(L-1), xKeyFrame(L), yLvl(L) )
+
+	'Clamp if on the boundry lines
+	'if L=1 and Y < yLvl(LBound(yLvl) ) then Y = yLvl(lBound(yLvl) )
+	'if L=uBound(xKeyFrame) and Y > yLvl(uBound(yLvl) ) then Y = yLvl(uBound(yLvl) )
+	'clamp 2.0
+	if xInput <= xKeyFrame(lBound(xKeyFrame) ) then Y = yLvl(lBound(xKeyFrame) ) 	'Clamp lower
+	if xInput >= xKeyFrame(uBound(xKeyFrame) ) then Y = yLvl(uBound(xKeyFrame) )	'Clamp upper
+
+	LinearEnvelope = Y
 End Function
 
-Function AudioFade(ball) ' Can this be together with the above function ?
-  Dim tmp
-  tmp = ball.y * 2 / Table1.height-1
-  If tmp > 0 Then
-    AudioFade = Csng(tmp ^10)
-  Else
-    AudioFade = Csng(-((- tmp) ^10) )
-  End If
-End Function
+dim LF : Set LF = New FlipperPolarity
+dim RF : Set RF = New FlipperPolarity
+dim RF1 : Set RF1 = New FlipperPolarity
 
-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / VolDiv)
-End Function
+InitPolarity
 
-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-  Pitch = BallVel(ball) * 20
-End Function
+Sub InitPolarity()
+	dim x, a : a = Array(LF, RF, RF1)
+	for each x in a
+		'safety coefficient (diminishes polarity correction only)
+		x.AddPoint "Ycoef", 0, RightFlipper.Y-65, 1	'disabled
+		x.AddPoint "Ycoef", 1, RightFlipper.Y-11, 1
 
-Function BallVel(ball) 'Calculates the ball speed
-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
+		x.enabled = True
+		x.TimeDelay = 44
+	Next
+
+	'"Polarity" Profile
+'"Polarity" Profile<br>
+	AddPt "Polarity", 0, 0, 0
+	AddPt "Polarity", 1, 0.1, 0
+	AddPt "Polarity", 2, 0.14, -2.25
+	AddPt "Polarity", 3, 0.2, -2.25
+	AddPt "Polarity", 4, 0.28, -3.25
+	AddPt "Polarity", 5, 0.31, -3.25
+	AddPt "Polarity", 6, 0.34, -3.75
+	AddPt "Polarity", 7, 0.37, -3.75
+	AddPt "Polarity", 8, 0.4, -4.5
+	AddPt "Polarity", 9, 0.45, -3.5
+	AddPt "Polarity", 10, 0.48, -3.5
+	AddPt "Polarity", 11, 0.51, -3.75
+	AddPt "Polarity", 12, 0.55, -3.75
+	AddPt "Polarity", 13, 0.58, -3
+	AddPt "Polarity", 14, 0.6, -2.75
+	AddPt "Polarity", 15, 0.62, -2.75
+	AddPt "Polarity", 16, 0.65, -2.5
+	AddPt "Polarity", 17, 0.8, -2
+	AddPt "Polarity", 18, 0.85, -1.9
+	AddPt "Polarity", 19, 1.0, -1
+	AddPt "Polarity", 20, 1.2, 0
 
 
-'*****************************************
-'    JP's VP10 Rolling Sounds
-'*****************************************
+	'"Velocity" Profile
+	addpt "Velocity", 0, 0, 	1
+	addpt "Velocity", 1, 0.16, 1.06
+	addpt "Velocity", 2, 0.41, 	1.05
+	addpt "Velocity", 3, 0.53, 	1'0.982
+	addpt "Velocity", 4, 0.702, 0.968
+	addpt "Velocity", 5, 0.95,  0.968
+	addpt "Velocity", 6, 1.03, 	0.945
 
-Const tnob = 3 ' total number of balls
-ReDim rolling(tnob)
-InitRolling
-
-Sub InitRolling
-    Dim i
-    For i = 0 to tnob
-        rolling(i) = False
-    Next
+	LF.Object = LeftFlipper
+	LF.EndPoint = EndPointLp	'you can use just a coordinate, or an object with a .x property. Using a couple of simple primitive objects
+	RF.Object = RightFlipper
+	RF.EndPoint = EndPointRp
+	RF1.Object = RightFlipper1
+	RF1.EndPoint = EndPointRp1
 End Sub
 
-Sub RollingTimer_Timer()
-    Dim BOT, b
-    BOT = GetBalls
+'Trigger Hit - .AddBall activeball
+'Trigger UnHit - .PolarityCorrect activeball
 
-    ' stop the sound of deleted balls
-  For b = UBound(BOT) + 1 to tnob
-        rolling(b) = False
-        StopSound("fx_ballrolling" & b)
-    Next
+Sub TriggerLF_Hit() : LF.Addball activeball : End Sub
+Sub TriggerLF_UnHit() : LF.PolarityCorrect activeball : End Sub
+Sub TriggerRF_Hit() : RF.Addball activeball : End Sub
+Sub TriggerRF_UnHit() : RF.PolarityCorrect activeball : End Sub
+Sub TriggerRF1_Hit() : RF1.Addball activeball : End Sub
+Sub TriggerRF1_UnHit() : RF1.PolarityCorrect activeball : End Sub
 
-    ' exit the sub if no balls on the table
-  If UBound(BOT) = -1 Then Exit Sub
-
-    ' play the rolling sound for each ball
-
-    For b = 0 to UBound(BOT)
-      If BallVel(BOT(b) ) > 1 Then
-        rolling(b) = True
-        if BOT(b).z < 30 Then ' Ball on playfield
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-        Else ' Ball on raised ramp
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
-        End If
-      Else
-        If rolling(b) = True Then
-          StopSound("fx_ballrolling" & b)
-          rolling(b) = False
-        End If
-      End If
-    Next
+Sub RDampen_Timer()
+Cor.Update
 End Sub
 
-'**********************
-' Ball Collision Sound
-'**********************
+'****************************************************************************
+'PHYSICS DAMPENERS
 
-Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+'These are data mined bounce curves,
+'dialed in with the in-game elasticity as much as possible to prevent angle / spin issues.
+'Requires tracking ballspeed to calculate COR
+
+
+Sub dPosts_Hit(idx)
+	RubbersD.dampen Activeball
 End Sub
 
+Sub dSleeves_Hit(idx)
+	SleevesD.Dampen Activeball
+End Sub
+
+
+dim RubbersD : Set RubbersD = new Dampener	'frubber
+RubbersD.name = "Rubbers"
+RubbersD.debugOn = False	'shows info in textbox "TBPout"
+RubbersD.Print = False	'debug, reports in debugger (in vel, out cor)
+'cor bounce curve (linear)
+'for best results, try to match in-game velocity as closely as possible to the desired curve
+'RubbersD.addpoint 0, 0, 0.935	'point# (keep sequential), ballspeed, CoR (elasticity)
+RubbersD.addpoint 0, 0, 0.96	'point# (keep sequential), ballspeed, CoR (elasticity)
+RubbersD.addpoint 1, 3.77, 0.96
+RubbersD.addpoint 2, 5.76, 0.967	'dont take this as gospel. if you can data mine rubber elasticitiy, please help!
+RubbersD.addpoint 3, 15.84, 0.874
+RubbersD.addpoint 4, 56, 0.64	'there's clamping so interpolate up to 56 at least
+
+dim SleevesD : Set SleevesD = new Dampener	'this is just rubber but cut down to 85%...
+SleevesD.name = "Sleeves"
+SleevesD.debugOn = False	'shows info in textbox "TBPout"
+SleevesD.Print = False	'debug, reports in debugger (in vel, out cor)
+SleevesD.CopyCoef RubbersD, 0.85
+
+Class Dampener
+	Public Print, debugOn 'tbpOut.text
+	public name, Threshold 	'Minimum threshold. Useful for Flippers, which don't have a hit threshold.
+	Public ModIn, ModOut
+	Private Sub Class_Initialize : redim ModIn(0) : redim Modout(0): End Sub
+
+	Public Sub AddPoint(aIdx, aX, aY)
+		ShuffleArrays ModIn, ModOut, 1 : ModIn(aIDX) = aX : ModOut(aIDX) = aY : ShuffleArrays ModIn, ModOut, 0
+		if gametime > 100 then Report
+	End Sub
+
+	public sub Dampen(aBall)
+		if threshold then if BallSpeed(aBall) < threshold then exit sub end if end if
+		dim RealCOR, DesiredCOR, str, coef
+		DesiredCor = LinearEnvelope(cor.ballvel(aBall.id), ModIn, ModOut )
+		RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+		coef = desiredcor / realcor
+		if debugOn then str = name & " in vel:" & round(cor.ballvel(aBall.id),2 ) & vbnewline & "desired cor: " & round(desiredcor,4) & vbnewline & _
+		"actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+		if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+
+		aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+		if debugOn then TBPout.text = str
+	End Sub
+
+	Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef
+		dim x : for x = 0 to uBound(aObj.ModIn)
+			addpoint x, aObj.ModIn(x), aObj.ModOut(x)*aCoef
+		Next
+	End Sub
+
+
+	Public Sub Report() 	'debug, reports all coords in tbPL.text
+		if not debugOn then exit sub
+		dim a1, a2 : a1 = ModIn : a2 = ModOut
+		dim str, x : for x = 0 to uBound(a1) : str = str & x & ": " & round(a1(x),4) & ", " & round(a2(x),4) & vbnewline : next
+		TBPout.text = str
+	End Sub
+
+
+End Class
+
+'Tracks ball velocity for judging bounce calculations & angle
+'apologies to JimmyFingers is this is what his script does. I know his tracks ball velocity too but idk how it works in particular
+dim cor : set cor = New CoRTracker
+cor.debugOn = False
+'cor.update() - put this on a low interval timer
+Class CoRTracker
+	public DebugOn 'tbpIn.text
+	public ballvel
+
+	Private Sub Class_Initialize : redim ballvel(0) : End Sub
+	'TODO this would be better if it didn't do the sorting every ms, but instead every time it's pulled for COR stuff
+	Public Sub Update()	'tracks in-ball-velocity
+		dim str, b, AllBalls, highestID : allBalls = getballs
+		if uBound(allballs) < 0 then if DebugOn then str = "no balls" : TBPin.text = str : exit Sub else exit sub end if: end if
+		for each b in allballs
+			if b.id >= HighestID then highestID = b.id
+		Next
+
+		if uBound(ballvel) < highestID then redim ballvel(highestID)	'set bounds
+
+		for each b in allballs
+			ballvel(b.id) = BallSpeed(b)
+			if DebugOn then
+				dim s, bs 'debug spacer, ballspeed
+				bs = round(BallSpeed(b),1)
+				if bs < 10 then s = " " else s = "" end if
+				str = str & b.id & ": " & s & bs & vbnewline
+				'str = str & b.id & ": " & s & bs & "z:" & b.z & vbnewline
+			end if
+		Next
+		if DebugOn then str = "ubound ballvels: " & ubound(ballvel) & vbnewline & str : if TBPin.text <> str then TBPin.text = str : end if
+	End Sub
+End Class
 
 ' Thalamus : Exit in a clean and proper way
 Sub Table1_exit()
