@@ -444,9 +444,9 @@ Sub Gates_Hit (idx)
 	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
-End Sub
+' Sub Spinner_Spin
+' 	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+' End Sub
 
 Sub Rubbers_Hit(idx)
  	dim finalspeed
