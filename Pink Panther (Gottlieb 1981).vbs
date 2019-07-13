@@ -935,9 +935,9 @@ Sub editDips
     Dim vpmDips : Set vpmDips = New cvpmDips
     With vpmDips
        .AddForm 700,400,"Pink Panther - DIP switches"
-       .AddFrame 2,10,190,"Coin Chute 1 (Coins/Credit)",&H0000000F,Array("2/1",&H00000008,"1/1",&H00000000,"1/2",&H00000009) 'Dip 1-4
-       .AddFrame 2,70,190,"Coin Chute 2 (Coins/Credit)",&H000000F0,Array("2/1",&H00000080,"1/1",&H00000000,"1/2",&H00000090) 'Dip 5-8
-       .AddFrame 2,130,190,"Coin Chute 3 (Coins/Credit)",&H00000F00,Array("2/1",&H00000800,"1/1",&H00000000,"1/2",&H00000900) 'Dip 9-12
+       .AddFrame 2,10,190,"Coin Chute 1 (Coins/Credit)",&H0000000F,Array("2/1",&H00000009,"1/1",&H00000000,"1/2",&H00000008) 'Dip 1-4
+       .AddFrame 2,70,190,"Coin Chute 2 (Coins/Credit)",&H000000F0,Array("2/1",&H00000090,"1/1",&H00000000,"1/2",&H00000080) 'Dip 5-8
+       .AddFrame 2,130,190,"Coin Chute 3 (Coins/Credit)",&H00000F00,Array("2/1",&H00000900,"1/1",&H00000000,"1/2",&H00000800) 'Dip 9-12
        .AddFrame 2,190,190,"Coin Chute 3 extra credits",&H00001000,Array("no effect",0,"add 9",&H00001000)'dip 13
        .AddFrame 207,10,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"25 credits",49152)'dip 15&16
        .AddFrame 207,86,190,"Coin chute 1 and 2 control",&H00002000,Array("Seperate",0,"Same",&H00002000)'dip 14
@@ -966,7 +966,6 @@ Sub editDips
     Controller.Dip(5) = (extra And 65280)\256 And 255
 End Sub
 Set vpmShowDips = GetRef("editDips")
-
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
 Sub table1_unPaused:Controller.Pause = 0:End Sub
