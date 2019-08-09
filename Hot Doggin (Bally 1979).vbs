@@ -447,32 +447,58 @@ Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
 End Sub
 
 
-'Bally Hot Doggin'
+' 'Bally Hot Doggin'
+' 'added by Inkochnito
+' Sub editDips
+' 	Dim vpmDips : Set vpmDips = New cvpmDips
+' 	With vpmDips
+' 		.AddForm 700,400,"Hot Doggin' - DIP switches"
+' 		.AddFrame 0,0,190,"Maximum credits",&H03000000,Array("10 credits",0,"20 credits",&H01000000,"30 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
+' 		.AddFrame 0,76,190,"High game to date",&H00300000,Array("no award",0,"1 credit",&H00100000,"2 credits",&H00200000,"3 credits",&H00300000)'dip 21&22
+' 		.AddFrame 0,152,190,"Saucer special adjust",&H00800000,Array("1 special then 25K points",0,"special stays lit",&H00800000)'dip 24
+' 		.AddFrame 0,198,190,"In-line drop targets",&H80000000,Array("does not add bonus",0,"add bonus",&H80000000)'dip 32
+' 		.AddFrame 0,244,190,"Bonus extra ball-special adjust",&H00000080,Array("extra ball and special lit together",0,"first extra ball then special lit",&H00000080)'dip 8
+' 		.AddChk 0,295,190,Array("Match feature",&H08000000)'dip 28
+' 		.AddChk 0,310,190,Array("Credits displayed",&H04000000)'dip 27
+' 		.AddFrame 205,0,190,"Sound features",&H30000000,Array("chime effects",0,"noises and no background",&H10000000,"noise effects",&H20000000,"noises and background",&H30000000)'dip 29&30
+' 		.AddFrame 205,76,190,"High score feature",&H00000060,Array("points",0,"extra ball",&H00000040,"replay",&H00000060)'dip 6&7
+' 		.AddFrame 205,152,190,"In-lane bonus lights adjust",&H00004000,Array("alternating left to right",0,"both lanes lit",&H00004000)'dip 15
+' 		.AddFrame 205,198,190,"In-lane bonus lights interval",32768,Array("lights once every 5th bumper hit",0,"always on",32768)'dip 16
+' 		.AddFrame 205,244,190,"Balls per game",&H40000000,Array ("3 balls",0,"5 balls",&H40000000)'dip 31
+' 		.AddChk 205,295,190,Array("Bonus multiplier in memory",&H00002000)'dip 14
+' 		.AddChk 205,310,190,Array("Extra ball light held in memory",&H00400000)'dip 23
+' 		.AddLabel 50,330,300,20,"After hitting OK, press F3 to reset game with new settings."
+' 		.ViewDips
+' 	End With
+' End Sub
+' Set vpmShowDips = GetRef("editDips")
+
+'Bally Hot Doggin 7 digits
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"Hot Doggin' - DIP switches"
-		.AddFrame 0,0,190,"Maximum credits",&H03000000,Array("10 credits",0,"20 credits",&H01000000,"30 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
-		.AddFrame 0,76,190,"High game to date",&H00300000,Array("no award",0,"1 credit",&H00100000,"2 credits",&H00200000,"3 credits",&H00300000)'dip 21&22
-		.AddFrame 0,152,190,"Saucer special adjust",&H00800000,Array("1 special then 25K points",0,"special stays lit",&H00800000)'dip 24
-		.AddFrame 0,198,190,"In-line drop targets",&H80000000,Array("does not add bonus",0,"add bonus",&H80000000)'dip 32
-		.AddFrame 0,244,190,"Bonus extra ball-special adjust",&H00000080,Array("extra ball and special lit together",0,"first extra ball then special lit",&H00000080)'dip 8
-		.AddChk 0,295,190,Array("Match feature",&H08000000)'dip 28
-		.AddChk 0,310,190,Array("Credits displayed",&H04000000)'dip 27
-		.AddFrame 205,0,190,"Sound features",&H30000000,Array("chime effects",0,"noises and no background",&H10000000,"noise effects",&H20000000,"noises and background",&H30000000)'dip 29&30
-		.AddFrame 205,76,190,"High score feature",&H00000060,Array("points",0,"extra ball",&H00000040,"replay",&H00000060)'dip 6&7
-		.AddFrame 205,152,190,"In-lane bonus lights adjust",&H00004000,Array("alternating left to right",0,"both lanes lit",&H00004000)'dip 15
-		.AddFrame 205,198,190,"In-lane bonus lights interval",32768,Array("lights once every 5th bumper hit",0,"always on",32768)'dip 16
-		.AddFrame 205,244,190,"Balls per game",&H40000000,Array ("3 balls",0,"5 balls",&H40000000)'dip 31
-		.AddChk 205,295,190,Array("Bonus multiplier in memory",&H00002000)'dip 14
-		.AddChk 205,310,190,Array("Extra ball light held in memory",&H00400000)'dip 23
-		.AddLabel 50,330,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+ Dim vpmDips:Set vpmDips=New cvpmDips
+ With vpmDips
+  .AddForm 700,400,"Hot Doggin' 7 digits - DIP switches"
+  .AddFrame 0,0,190,"Maximum credits",&H03000000,Array("10 credits",0,"20 credits",&H01000000,"30 credits",&H02000000,"free play (40 credits)",&H03000000)'dip 25&26
+  .AddFrame 0,76,190,"High game to date",&H00200000,Array("no award",0,"3 credits",&H00200000)'dip 22
+  .AddFrame 0,122,190,"Score version",&H00100000,Array("6 digit scoring",0,"7 digit scoring",&H00100000)'dip 21
+  .AddFrame 0,168,190,"Saucer special adjust",&H00800000,Array("1 special then 25K points",0,"special stays lit",&H00800000)'dip 24
+  .AddFrame 0,214,190,"In-line drop targets",&H80000000,Array("does not add bonus",0,"add bonus",&H80000000)'dip 32
+  .AddFrame 0,260,190,"Bonus extra ball-special adjust",&H00000080,Array("extra ball and special lit together",0,"first extra ball then special lit",&H00000080)'dip 8
+  .AddFrame 205,0,190,"Sound features",&H30000000,Array("chime effects",0,"noises and no background",&H10000000,"noise effects",&H20000000,"noises and background",&H30000000)'dip 29&30
+  .AddFrame 205,76,190,"In-lane bonus lights adjust",&H00004000,Array("alternating left to right",0,"both lanes lit",&H00004000)'dip 15
+  .AddFrame 205,122,190,"In-lane bonus lights interval",32768,Array("lights once every 5th bumper hit",0,"always on",32768)'dip 16
+  .AddFrame 205,168,190,"Balls per game",&H40000000,Array ("3 balls",0,"5 balls",&H40000000)'dip 31
+  .AddFrame 205,214,190,"High score feature",&H00000060,Array("no award",0,"extra ball",&H00000040,"replay",&H00000060)'dip 6&7
+  .AddChk 205,280,190,Array("Match feature",&H08000000)'dip 28
+  .AddChk 205,295,190,Array("Credits displayed",&H04000000)'dip 27
+  .AddChk 205,310,190,Array("Bonus multiplier in memory",&H00002000)'dip 14
+  .AddChk 205,325,190,Array("Extra ball light held in memory",&H00400000)'dip 23
+  .AddLabel 50,350,300,20,"After hitting OK, press F3 to reset game with new settings."
+  .ViewDips
+ End With
 End Sub
-Set vpmShowDips = GetRef("editDips")
-
+Set vpmShowDips=GetRef("editDips")
 
 '**********************************************************************************************************
 'Digital Display
