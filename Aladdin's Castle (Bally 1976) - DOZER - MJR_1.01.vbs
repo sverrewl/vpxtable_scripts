@@ -188,6 +188,7 @@
 
 ' Thalamus 2018-07-24
 ' No special SSF tweaks yet.
+' Added mechanicaltilt
 
 Option Explicit
 Randomize                          'This generates a random number for the match.
@@ -694,6 +695,10 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
 	End If
 	If  Keycode = CenterTiltKey Then    'Center shake.
 		Nudge 0, 2                      'Degree of shake and strength.
+		BumpIt                          'Check for tilt
+	End If
+	If  Keycode = MechanicalTilt Then 'Analog tiltbob.
+'		Nudge 0, 2                      'Degree of shake and strength.
 		BumpIt                          'Check for tilt
 	End If
 	if Keycode = 207 and Not InProgress and Not OpMenuActive AND showdt = false then   ' End = Coin Door key = operator menu
