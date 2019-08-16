@@ -1161,3 +1161,12 @@ Sub RandomSoundFlipper()
         Case 3:PlaySound "flip_hit_3", 0, 1, Pan(ActiveBall)*VolRH, 0, Pitch(ActiveBall), 1, 0
     End Select
 End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  On Error Resume Next
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+
