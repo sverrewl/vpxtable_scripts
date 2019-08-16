@@ -51,16 +51,21 @@ Dim UseVPMColoredDMD
 
 UseVPMColoredDMD = DesktopMode
 
+Const UseSolenoids = 2
+Const UseLamps = 0
+Const UseSync = 0
+Const HandleMech = 0
+
+'
 LoadVPM "01560000", "WPC.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 '********************
 'Standard definitions
 '********************
-
-Const UseSolenoids = 1
-Const UseLamps = 0
-Const UseSync = 0
-Const HandleMech = 0
 
 ' Standard Sounds
 Const SSolenoidOn = "fx_Solenoidon"
