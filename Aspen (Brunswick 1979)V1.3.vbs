@@ -1222,10 +1222,3 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
-
-' Thalamus : Exit in a clean and proper way
-Sub Aspen_exit()
-  Controller.Pause = False
-  Controller.Stop
-End Sub
-
