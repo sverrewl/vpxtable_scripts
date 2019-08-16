@@ -321,6 +321,10 @@ Sub Table1_KeyDown(ByVal KeyCode)
 		checktilt
 	End If
 
+	If keycode = MechanicalTilt Then
+		checktilt
+	End If
+
 	If KeyCode = LeftFlipperKey Then
 		LeftFlipperDown = 1
 	End If
