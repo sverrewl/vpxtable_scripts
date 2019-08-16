@@ -215,6 +215,10 @@ Sub Aspen_KeyDown(ByVal keycode)
 		Nudge 0, 2
 		checktilt
 	End If
+	If keycode = MechanicalTilt  Then
+'		Nudge 0, 2
+		checktilt
+	End If
   end IF
 end sub
 
@@ -1260,5 +1264,12 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
   Else
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
   End if
+End Sub
+
+
+' Thalamus : Exit in a clean and proper way
+Sub Aspen_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
