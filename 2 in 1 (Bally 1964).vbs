@@ -2,9 +2,16 @@
 
 ' Thalamus 2018-07-18
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Thalamus 2018-08-08 : Improved directional sounds
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 Randomize
+
+' Options
+' Volume devided by - lower gets higher sound
+
+Const VolDiv = 2000
 
 dim score(4)
 dim truesc(4)
@@ -985,7 +992,7 @@ End Sub
 ' *********************************************************************
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+    Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
@@ -1125,7 +1132,7 @@ Sub a_Gates_Hit (idx)
 End Sub
 
 Sub a_Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
+	PlaySoundAt "fx_spinner", a_spinner
 End Sub
 
 Sub a_Rubbers_Hit(idx)
