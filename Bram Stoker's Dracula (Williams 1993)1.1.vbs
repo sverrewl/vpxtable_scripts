@@ -27,8 +27,8 @@ Const VolDiv = 400
 Dim dtxx
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
+' Const cSingleLFlip = 0
+' Const cSingleRFlip = 0
 
 If DesktopMode = True Then
   Ramp15.visible = 1
@@ -60,6 +60,10 @@ else
 end if
 
 LoadVPM "01560000", "WPC.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Sub LoadVPM(VPMver, VBSfile, VBSver)
     On Error Resume Next
@@ -295,7 +299,8 @@ End Sub
 
 
 ' Bumpers
-Sub Bumper1_Hit:vpmTimer.PulseSw 61:PlaySound "bumper", 0, 0.1, 0, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 61:PlaySoundAtVol "bumper", ActiveBall, 1:End Sub
+' Sub Bumper1_Hit:vpmTimer.PulseSw 61:PlaySound "bumper", 0, 0.1, 0, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
 Sub Bumper1_Timer()
     Select Case bump1
         Case 1:Ring1a.IsDropped = 0:bump1 = 2
@@ -305,7 +310,8 @@ Sub Bumper1_Timer()
     End Select
 End Sub
 
-Sub Bumper2_Hit:vpmTimer.PulseSw 62:PlaySound "bumper", 0, 0.1, -0.1, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 62:PlaySoundAtVol "bumper", ActiveBall, 1:End Sub
+' Sub Bumper2_Hit:vpmTimer.PulseSw 62:PlaySound "bumper", 0, 0.1, -0.1, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
 Sub Bumper2_Timer()
     Select Case bump2
         Case 1:Ring2a.IsDropped = 0:bump2 = 2
@@ -315,7 +321,8 @@ Sub Bumper2_Timer()
     End Select
 End Sub
 
-Sub Bumper3_Hit:vpmTimer.PulseSw 63:PlaySound "bumper", 0, 0.1, 0.1, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 63:PlaySoundAtVol "bumper", ActiveBall, 1:End Sub
+' Sub Bumper3_Hit:vpmTimer.PulseSw 63:PlaySound "bumper", 0, 0.1, 0.1, 0.25, 0, 1, AudioFade(ActiveBall):End Sub
 Sub Bumper3_Timer()
     Select Case bump3
         Case 1:Ring3a.IsDropped = 0:bump3 = 2
