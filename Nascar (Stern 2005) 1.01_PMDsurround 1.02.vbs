@@ -758,8 +758,8 @@ Sub sw19_Hit:dtR.Hit 3:dt19.Z = -70:End Sub
 ' Spinners
 '************
 
-Sub sw33_Spin:vpmTimer.PulseSw 33:PlaySound "fx_spinner", 0, .4, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
-Sub sw42_Spin:vpmTimer.PulseSw 42:PlaySound "fx_spinner2", 0, .4, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+Sub sw33_Spin:vpmTimer.PulseSw 33:PlaySound "fx_spinner", 0, .4, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(sw33):End Sub
+Sub sw42_Spin:vpmTimer.PulseSw 42:PlaySound "fx_spinner2", 0, .4, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(sw42):End Sub
 
 '************************
 ' Diverter animation
