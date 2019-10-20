@@ -552,7 +552,7 @@ Sub sw91_Timer:Me.TimerEnabled = 0:sw91p.TransX = 0:End Sub
 
 Sub sw50_Hit:bsSVUK.AddBall Me:End Sub
 
-Sub sw60s_Spin:Controller.Switch(60) = 1:sw60s.TimerEnabled = 1:PlaySoundAtVol "Gate", ActiveBall, 1:End Sub
+Sub sw60s_Spin:Controller.Switch(60) = 1:sw60s.TimerEnabled = 1:PlaySoundAtVol "Gate", sw60, 1:End Sub
 Sub sw60s_Timer:Controller.Switch(60) = 0:sw60s.TimerEnabled = 0:End Sub
 
 Sub sw60_Hit:Controller.Switch(60)=1:End Sub
