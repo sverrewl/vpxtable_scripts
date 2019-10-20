@@ -313,7 +313,7 @@ End Sub
 
 'Spinner
 
-Sub sw25_Spin:vpmTimer.PulseSw 25:PlaysoundAtVol "fx_spinner", ActiveBall, 1:End Sub
+Sub sw25_Spin:vpmTimer.PulseSw 25:PlaysoundAtVol "fx_spinner", sw25, 1:End Sub
 
 '*********
 'Solenoids
