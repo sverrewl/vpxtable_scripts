@@ -312,7 +312,7 @@ Sub sw43_Dropped:dtTbank.Hit 6:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTa
 Sub sw42_Dropped:dtTbank.Hit 7:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets),sw42, VolTarg:End Sub
 
 'Spinner
-Sub sw33_Spin:vpmTimer.PulseSw 33:PlaySoundAtVol "spinner",ActiveBall,1:End Sub
+Sub sw33_Spin:vpmTimer.PulseSw 33:PlaySoundAtVol "spinner",sw33,1:End Sub
 
 '*********
 'Solenoids
