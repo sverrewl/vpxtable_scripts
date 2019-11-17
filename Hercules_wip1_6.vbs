@@ -5,6 +5,12 @@
 Option Explicit
     Randomize
 	'StartShake
+	
+	On Error Resume Next
+ExecuteGlobal GetTextFile("Controller.vbs")
+If Err Then MsgBox "Unable to open Controller.vbs. Ensure that it is in the Scripts folder of Visual Pinball."
+On Error Goto 0
+
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
@@ -58,26 +64,6 @@ end if
 
 LoadVPM "01120000", "ATARI2.VBS", 3.0
 
-Sub LoadVPM(VPMver, VBSfile, VBSver)
-	On Error Resume Next
-		If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-		If VPBuildVersion < 0 Or Err Then
-			ExecuteGlobal CreateObject("Scripting.FileSystemObject").OpenTextFile(VBSfile, 1).ReadAll
-		Else
-			ExecuteGlobal GetTextFile(VBSfile)
-		End If
-		If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description : Err.Clear
-		'Set Controller = CreateObject("VPinMAME.Controller")
-		Set Controller = CreateObject("b2s.server")
-		If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-		If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required." : Err.Clear
-		If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-End Sub
-
-
-
-
-
 
 '==================================================================
 ' Game Specific code starts here
@@ -114,18 +100,36 @@ Const sCLo			= 17
 ' Last argument will always be "enabled" (True, False)
 '----------------------------------------------------
 SolCallback(sBallRelease)	= "bsTrough.SolOut"
-SolCallback(sKnocker)		= "vpmSolSound ""knock"","
-SolCallback(sLSling)		= "vpmSolSound ""hercsling"","
-SolCallback(sRSling)		= "vpmSolSound ""hercsling"","
+SolCallback(sKnocker)		= "vpmSolSound SoundFX(""knock"",DOFKnocker),"
+'SolCallback(sLSling)		= "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
+'SolCallback(sRSling)		= "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
 SolCallback(sLJet)			= "Bumper 1,"
 SolCallback(sRJet)			= "Bumper 2,"
 SolCallback(sEnable)		= "vpmNudge.SolGameOn"
-SolCallback(sLLFlipper)		= "vpmSolFlipper LeftFlipper, Nothing,"
-SolCallback(sLRFlipper)		= "vpmSolFlipper RightFlipper, Nothing,"
+SolCallback(sLLFlipper)		= "SolLFlipper"
+SolCallback(sLRFlipper)		= "SolRFlipper"
+'SolCallback(sLLFlipper)		= "vpmSolFlipper LeftFlipper, Nothing,"
+'SolCallback(sLRFlipper)		= "vpmSolFlipper RightFlipper, Nothing,"
 
 Sub Bumper(number, enabled)
-	vpmSolSound "hercjet", enabled
+	vpmSolSound SoundFX("hercjet",DOFContactors), enabled
 	if enabled then BumperState(number) = 3
+End Sub
+
+Sub SolLFlipper(Enabled)
+  If Enabled Then
+    PlaySound SoundFX("flipup",DOFFlippers):LeftFlipper.RotateToEnd
+  Else
+    PlaySound SoundFX("flipdown",DOFFlippers):LeftFlipper.RotateToStart
+  End If
+End Sub
+
+Sub SolRFlipper(Enabled)
+  If Enabled Then
+    PlaySound SoundFX("flipup",DOFFlippers):RightFlipper.RotateToEnd
+  Else
+    PlaySound SoundFX("flipdown",DOFFlippers):RightFlipper.RotateToStart
+  End If
 End Sub
 
 '--------------------------------
@@ -169,7 +173,7 @@ Sub Hercules_Init
 	Set bsTrough = New cvpmBallStack ' Trough handler
 	bsTrough.InitSw 0,1,0,0,0,0,0,0
 	bsTrough.InitKick Kicker1, 90, 4
-	bsTrough.InitExitSnd "BallOut", "BallOut"
+	bsTrough.InitExitSnd SoundFX("BallOut",DOFContactors), SoundFX("BallOut",DOFContactors)
 	bsTrough.BallImage = "Cue"
 	bsTrough.Balls = 1
 
@@ -378,7 +382,7 @@ End Sub
 
 Dim TargetTR, TargetTL, TargetML, TargetMR
 
-Sub S_Top_P_Hit:TargetTL = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(35):PlaysoundAtVol("Bump3"), ActiveBall, 1:End Sub
+Sub S_Top_P_Hit:TargetTL = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(35):PlaysoundAtVol SoundFX("Bump3",DOFTargets), ActiveBall, 1:End Sub
 
        Sub S_Top_P_Timer()
            Select Case TargetTL
@@ -389,7 +393,7 @@ Sub S_Top_P_Hit:TargetTL = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(35):PlaysoundA
            End Select
        End Sub
 
-Sub S_L_Target_Hit:TargetML = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(34):PlaysoundAtVol("Bump3"), ActiveBall, 1:End Sub
+Sub S_L_Target_Hit:TargetML = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(34):PlaysoundAtVol SoundFX("Bump3",DOFTargets), ActiveBall, 1:End Sub
 
        Sub S_L_Target_Timer()
            Select Case TargetML
@@ -400,7 +404,7 @@ Sub S_L_Target_Hit:TargetML = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(34):Playsou
            End Select
        End Sub
 
-Sub S_R_Target_Hit:TargetMR = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(36):PlaysoundAtVol("Bump3"), ActiveBall, 1:End Sub
+Sub S_R_Target_Hit:TargetMR = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(36):PlaysoundAtVol SoundFX("Bump3",DOFTargets), ActiveBall, 1:End Sub
 
        Sub S_R_Target_Timer()
            Select Case TargetMR
@@ -411,7 +415,7 @@ Sub S_R_Target_Hit:TargetMR = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(36):Playsou
            End Select
        End Sub
 
-Sub S_Top_Y_Hit:TargetTR = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(37):PlaysoundAtVol("Bump3"), ActiveBall, 1:End Sub
+Sub S_Top_Y_Hit:TargetTR = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw(37):PlaysoundAtVol SoundFX("Bump3",DOFTargets), ActiveBall, 1:End Sub
 
        Sub S_Top_Y_Timer()
            Select Case TargetTR
@@ -429,7 +433,7 @@ Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
 vpmTimer.PulseSw 56
-    PlaySoundAtVol "hercsling", sling1, 1
+    PlaySoundAtVol SoundFX("hercsling",DOFContactors), sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -448,7 +452,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
 vpmTimer.PulseSw 57
-    PlaySoundAtVol "hercsling", sling2, 1
+    PlaySoundAtVol SoundFX("hercsling",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
