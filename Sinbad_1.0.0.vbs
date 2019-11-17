@@ -207,6 +207,7 @@ Sub Table1_KeyDown(ByVal keycode)
 	If keycode = LeftTiltKey Then Nudge 90, 3:Playsound "fx_nudge_left"			'JPSalas recommended strength = 3
 	If keycode = RightTiltKey Then Nudge 270, 3:Playsound "fx_nudge_right"		'JPSalas recommended strength = 3
 	If keycode = CenterTiltKey Then Nudge 0, 2.5:Playsound "fx_nudge_forward"	'JPSalas recommended strenght = 2.5
+  If keycode = MechanicalTilt Then PlaySound "fx_nudge_forward"  'Can't see how this work - Thalamus
 	If keycode = keyReset then
 		UpdateGI 0:GIT.Enabled=1
 	end if
@@ -327,7 +328,7 @@ Sub SW74a_UnHit():LS74a.State = 1:Controller.Switch(74)=0:DOF 108, DOFOff:End Su
 Sub Spinner1_Spin:vpmTimer.PulseSw(10):PlaysoundAtVol "PNK_SB_spinner", Spinner1, VolSpin:End Sub
 
 '**round target switches
-Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAtVol SoundFXDOF("spothit",106,DOFPulse,DOFContactors),TargetSW51a,VolTarg:GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
+Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAtVol SoundFXDOF("spothit",106,DOFPulse,DOFContactors),TargetSW41a,VolTarg:GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
 Sub TargetSW41a_Timer:TargetSW41a.TimerEnabled=False:GIPL34.State=1:End Sub
 
 Sub TargetSW41c_hit:vpmTimer.PulseSw(41):PlaysoundAt SoundFXDOF("spothit",107,DOFPulse,DOFContactors),TargetSW41c:End Sub
