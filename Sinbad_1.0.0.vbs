@@ -48,6 +48,16 @@
 Option Explicit
 Randomize
 
+' BorgDog Freeplay and skillshot Option
+
+Dim FreePlayMod: FreePlayMod = 1			'** set to 1 for freeplay, 0 to coins, 
+											'	hack like real system1 machines where start and credit are jumpered together to improvise freeplay
+											' 	if at zero credits you may have to press twice to start game
+
+Dim SkillShotMod: SkillShotMod = 1			'fake skill shot add-in
+Dim skilllight, SkillShot
+
+
 ' Thalamus 2018-08-26 : Improved directional sounds
 
 ' !! NOTE : Table not verified yet !!
@@ -208,6 +218,9 @@ Sub Table1_KeyDown(ByVal keycode)
 	If keycode = RightTiltKey Then Nudge 270, 3:Playsound "fx_nudge_right"		'JPSalas recommended strength = 3
 	If keycode = CenterTiltKey Then Nudge 0, 2.5:Playsound "fx_nudge_forward"	'JPSalas recommended strenght = 2.5
   If keycode = MechanicalTilt Then PlaySound "fx_nudge_forward"  'Can't see how this work - Thalamus
+
+	if keycode = StartGameKey and FreePlayMod=1 then vpmTimer.pulseSW (swCoin1)		'BorgDog freeplay mod
+
 	If keycode = keyReset then
 		UpdateGI 0:GIT.Enabled=1
 	end if
@@ -298,71 +311,132 @@ GIT.Enabled=1
 
 End Sub
 
+'************start BorgDog skillshot add-In
+'************skillshot add in also includes a check on every switch hit in the table (in case you miss the skill shot)
+
+sub startSkillShot
+	SkillShot=1
+	if L5.state<>2 and L6.state<>2 and L7.state<>2 and L9.state<>2 then 
+		soundon.uservalue=0
+		SoundOn.timerenabled=1
+	end if
+end sub
+
+sub SoundOn_timer
+	Select Case SoundOn.uservalue
+		Case 0,4,8,12:
+			L5.state=1:L6.state=0:L7.state=0:L9.state=0
+		Case 1,5,9,13:
+			L5.state=0:L6.state=1:L7.state=0:L9.state=0
+		Case 2,6,10,14:
+			L5.state=0:L6.state=0:L7.state=1:L9.state=0
+		Case 3,7,11,15:
+			L5.state=0:L6.state=0:L7.state=0:L9.state=1
+		Case 16:
+			L5.state=0:L6.state=0:L7.state=0:L9.state=0
+			skilllight=Int(Rnd*4)
+			Select Case skilllight
+				Case 0 : L5.state=2
+				Case 1 : L6.state=2
+				Case 2 : L7.state=2
+				Case 3 : L9.state=2
+			End Select
+			SoundOn.timerenabled=0
+	end Select
+	SoundOn.uservalue=SoundOn.uservalue+1
+end Sub
+
+sub awardSkillShot
+	sw70.timerinterval=500
+	sw70.timerenabled=1
+end Sub
+
+sub sw70_timer
+	vpmTimer.PulseSw(70)
+	stopSkillShot
+	sw70.timerenabled=0
+end Sub
+
+sub stopSkillShot
+	SkillShot=0
+	L5.state=0
+	L6.state=0
+	L7.state=0
+	L9.state=0
+end sub
+
+Sub SoundOn_hit()
+	if SkillShot<>1 then startSkillShot
+End Sub
+
+'************end BorgDog skillshot add-In
+
+
 Sub Table1_Paused:Controller.Pause = 1:End Sub
 Sub Table1_unPaused:Controller.Pause = 0:End Sub
 
-Sub Bumper1_Hit:vpmTimer.PulseSw 14:PlaySoundAtVol SoundFXDOF("bumper_L",112,DOFPulse,DOFContactors), Bumper1, VolBump:bump1 = 1:End Sub
-Sub Bumper2_Hit:vpmTimer.PulseSw 14:PlaySoundAtVol SoundFXDOF("bumper_R",113,DOFPulse,DOFContactors), Bumper2, VolBump:bump2 = 1:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 14:PlaySoundAtVol SoundFXDOF("bumper_L",112,DOFPulse,DOFContactors), Bumper1, VolBump:bump1 = 1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 14:PlaySoundAtVol SoundFXDOF("bumper_R",113,DOFPulse,DOFContactors), Bumper2, VolBump:bump2 = 1: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**top rollover switches
 
-Sub SW70_Hit():Controller.Switch(70)=1:End Sub
+Sub SW70_Hit():Controller.Switch(70)=1: if skillshot=1 and L5.state=2 then awardSkillShot: end If: End Sub
 Sub SW70_UnHit():Controller.Switch(70)=0:End Sub
-Sub SW71_Hit()::Controller.Switch(71)=1:End Sub
+Sub SW71_Hit()::Controller.Switch(71)=1: if skillshot=1 and L6.state=2 then awardSkillShot: end If: End Sub
 Sub SW71_UnHit():Controller.Switch(71)=0:End Sub
-Sub SW40_Hit():Controller.Switch(40)=1:DOF 101, DOFOn:End Sub
+Sub SW40_Hit():Controller.Switch(40)=1:DOF 101, DOFOn: if skillshot=1 and L7.state=2 then awardSkillShot: end If: End Sub
 Sub SW40_UnHit():Controller.Switch(40)=0:DOF 101, DOFOff:End Sub
-Sub SW41_Hit():Controller.Switch(41)=1:DOF 105, DOFOn:End Sub
+Sub SW41_Hit():Controller.Switch(41)=1:DOF 105, DOFOn: if skillshot=1 and L9.state=2 then awardSkillShot: end If: End Sub
 Sub SW41_UnHit():Controller.Switch(41)=0:DOF 105, DOFOff:End Sub
 
 '**left green star rollover switches
-Sub SW74d_Hit():LS74d.State = 0:Controller.Switch(74)=1:DOF 111, DOFOn:End Sub
+Sub SW74d_Hit():LS74d.State = 0:Controller.Switch(74)=1:DOF 111, DOFOn: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW74d_UnHit():LS74d.State = 1:Controller.Switch(74)=0:DOF 111, DOFOff:End Sub
-Sub SW74c_Hit():LS74c.State = 0:Controller.Switch(74)=1:DOF 110, DOFOn:End Sub
+Sub SW74c_Hit():LS74c.State = 0:Controller.Switch(74)=1:DOF 110, DOFOn: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW74c_UnHit():LS74c.State = 1:Controller.Switch(74)=0:DOF 110, DOFOff:End Sub
-Sub SW74b_Hit():LS74b.State = 0:Controller.Switch(74)=1:DOF 109, DOFOn:End Sub
+Sub SW74b_Hit():LS74b.State = 0:Controller.Switch(74)=1:DOF 109, DOFOn: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW74b_UnHit():LS74b.State = 1:Controller.Switch(74)=0:DOF 109, DOFOff:End Sub
-Sub SW74a_Hit():LS74a.State = 0:Controller.Switch(74)=1:DOF 108, DOFOn:End Sub
+Sub SW74a_Hit():LS74a.State = 0:Controller.Switch(74)=1:DOF 108, DOFOn: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW74a_UnHit():LS74a.State = 1:Controller.Switch(74)=0:DOF 108, DOFOff:End Sub
 
-Sub Spinner1_Spin:vpmTimer.PulseSw(10):PlaysoundAtVol "PNK_SB_spinner", Spinner1, VolSpin:End Sub
+Sub Spinner1_Spin:vpmTimer.PulseSw(10):PlaysoundAtVol "PNK_SB_spinner", Spinner1, VolSpin: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**round target switches
-Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAtVol SoundFXDOF("spothit",106,DOFPulse,DOFContactors),TargetSW41a,VolTarg:GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
+Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAtVol SoundFXDOF("spothit",106,DOFPulse,DOFContactors),TargetSW41a,VolTarg:GIPL34.State=0:TargetSW41a.TimerEnabled=True: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub TargetSW41a_Timer:TargetSW41a.TimerEnabled=False:GIPL34.State=1:End Sub
 
-Sub TargetSW41c_hit:vpmTimer.PulseSw(41):PlaysoundAt SoundFXDOF("spothit",107,DOFPulse,DOFContactors),TargetSW41c:End Sub
+Sub TargetSW41c_hit:vpmTimer.PulseSw(41):PlaysoundAt SoundFXDOF("spothit",107,DOFPulse,DOFContactors),TargetSW41c: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**right lane switch
-Sub SW44_Hit():Controller.Switch(44)=1:End Sub
+Sub SW44_Hit():Controller.Switch(44)=1: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW44_UnHit():Controller.Switch(44)=0:PlaysoundAt "PNK_MH_metal_roll", sw44:End Sub
 
 '**red drop target bank
-Sub TR1_Hit():dtDropR.Hit 1:GIPL30.State=1:End Sub
-Sub TR2_Hit():dtDropR.Hit 2:GIPL31.State=1:End Sub
-Sub TR3_Hit():dtDropR.Hit 3:GIPL32.State=1:End Sub
-Sub TR4_Hit():dtDropR.HIt 4:GIPL33.State=1:End Sub
+Sub TR1_Hit():dtDropR.Hit 1:GIPL30.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TR2_Hit():dtDropR.Hit 2:GIPL31.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TR3_Hit():dtDropR.Hit 3:GIPL32.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TR4_Hit():dtDropR.HIt 4:GIPL33.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**white & yellow drop target bank
-Sub TW1_Hit():dtDropW.Hit 1:End Sub
-Sub TY1_Hit():dtDropW.Hit 2:End Sub
-Sub TY2_Hit():dtDropW.Hit 3:GIPL37.State=1:End Sub
+Sub TW1_Hit():dtDropW.Hit 1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TY1_Hit():dtDropW.Hit 2: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TY2_Hit():dtDropW.Hit 3:GIPL37.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**purple drop target bank
-Sub TP1_Hit():dtDropP.Hit 1:GIPL38.State=1:End Sub
-Sub TP2_Hit():dtDropP.Hit 2:GIPL39.State=1:End Sub
-Sub TP3_Hit():dtDropP.Hit 3:GIPL40.State=1:End Sub
+Sub TP1_Hit():dtDropP.Hit 1:GIPL38.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TP2_Hit():dtDropP.Hit 2:GIPL39.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
+Sub TP3_Hit():dtDropP.Hit 3:GIPL40.State=1: if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**triggers for leaf switches linked to switch 54
-Sub SW54a_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54b_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54c_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54d_Hit():vpmTimer.PulseSw(54):SW54d.TimerEnabled=True:End Sub
+Sub SW54a_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54b_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54c_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54d_Hit():vpmTimer.PulseSw(54):SW54d.TimerEnabled=True: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW54d_Timer:Sw54d.TimerEnabled=False:End Sub
-Sub SW54e_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54f_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54g_Hit():vpmTimer.PulseSw(54):End Sub
-Sub SW54h_Hit():vpmTimer.PulseSw(54):End Sub
+Sub SW54e_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54f_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54g_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
+Sub SW54h_Hit():vpmTimer.PulseSw(54): if skillshot=1 then stopSkillShot: end If: End Sub
 
 '**not sure what these do, there are no matching objects
 Sub LeftSlingshot_slingshot():vpmtimer.pulsesw 60:PlaysoundAt SoundFX("slingshot",DOFContactors),ActiveBall:End Sub
@@ -389,13 +463,13 @@ End Sub
 
 
 '**you hit the drain, bad luck, try again!
-Sub Drain_Hit():PlaysoundAt "PNK_MH_drain", Drain:bsTrough.addball me:DOF 103, DOFPulse:End Sub
+Sub Drain_Hit():PlaysoundAt "PNK_MH_drain", Drain:bsTrough.addball me:DOF 103, DOFPulse: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub DrainRoll_Hit():Playsound "PNK_MH_drain_roll", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 '**you hit the left or right outlane, bad luck, try again!
-Sub SW40b_Hit():Controller.Switch(40)=1:DOF 102, DOFOn:End Sub
+Sub SW40b_Hit():Controller.Switch(40)=1:DOF 102, DOFOn: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW40b_Unhit():Controller.Switch(40)=0:DOF 102, DOFOff:End Sub
-Sub SW44b_Hit():Controller.Switch(44)=1:End Sub
+Sub SW44b_Hit():Controller.Switch(44)=1: if skillshot=1 then stopSkillShot: end If: End Sub
 Sub SW44b_Unhit():Controller.Switch(44)=0:End Sub
 
 '**if the ball is launched, play a ball rolling sound
