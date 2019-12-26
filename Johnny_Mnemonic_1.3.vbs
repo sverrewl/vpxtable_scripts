@@ -7,6 +7,7 @@ Const BallMass = 1.3
 ' Thalamus 2018-07-23
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
 ' No special SSF tweaks yet.
 
 
@@ -22,6 +23,10 @@ Const UseVPMModSol = 0
  Const cGameName = "jm_12r"
 
 LoadVPM "02000000", "WPC.VBS", 3.50
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
  Const UseSolenoids = 2
  Const UseLamps = True
