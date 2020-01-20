@@ -18,7 +18,7 @@ Randomize
 ' - Anyone I may have forgotten. Please let me know and I'll add you.
 
 ' Release notes:
-' Version 1.0.0 - New VPX version of Strange Science built loosely from the V9 version.  
+' Version 1.0.0 - New VPX version of Strange Science built loosely from the V9 version.
 '				Most of the script was rewritten and the table elements were overhauled.
 '				New VPX routines (flipper physics, shadowing, flasher lighting, ball jumping, etc.).
 '				Playfield cleanup/optimization.
@@ -71,7 +71,7 @@ DynamicGIIntensity = 1
 '	1 = ball shadows are visible
 ShowBallShadow = 1
 
-' FLIPPERS ALSO ACTIVATE MAGNASAVE 
+' FLIPPERS ALSO ACTIVATE MAGNASAVE
 ' Set to True if Your cabinet has no Magnasave Buttons. (default=False)
 ' Setting this to true allows right flipper button to act as right magnasave
 ' Setting this to true also turns on AutoPowerSaver instead of using left magnasave
@@ -204,7 +204,7 @@ Sub Science_Init
 		.ShowTitle=0
 		.Hidden= 1
 		On Error Resume Next
-		.Run 
+		.Run
 		If Err Then MsgBox Err.Description
 		On Error Goto 0
 		End With
@@ -231,7 +231,7 @@ Sub Science_Init
     Controller.Switch(35)=1
     Controller.Switch(36)=1
     Controller.Switch(37)=1
-	
+
 	Set Lights(1) = L1
 	Set Lights(2) = L2
 	Set Lights(3) = L3
@@ -241,10 +241,10 @@ Sub Science_Init
 	Set Lights(7) = L7
 	Set Lights(8) = L8
 	Set Lights(9) = L9
-	Set Lights(10) = Bumper3a 
+	Set Lights(10) = Bumper3a
 	Set Lights(11) = L11
 	Set Lights(12) = L12
-	Set Lights(13) = L13	
+	Set Lights(13) = L13
 	Set Lights(14) = L14
 	Set Lights(15) = L15
 	Set Lights(17) = L17
@@ -255,7 +255,7 @@ Sub Science_Init
 	Set Lights(22) = L22
 	Set Lights(23) = L23
 	Set Lights(24) = L24
-	Set Lights(25) = Bumper1a 
+	Set Lights(25) = Bumper1a
 	Set Lights(26) = L26
 	Set Lights(27) = L27
 	Set Lights(28) = L28
@@ -267,14 +267,14 @@ Sub Science_Init
 	Set Lights(35) = L35
 	Set Lights(36) = L36
 	Set Lights(37) = L37
-	Set Lights(38) = L38 
+	Set Lights(38) = L38
 	Set Lights(39) = L39
 	Set Lights(40) = L40
-	Set Lights(41) = Bumper2a 
+	Set Lights(41) = Bumper2a
 	Set Lights(42) = L42
 	Set Lights(43) = L43
 	Set Lights(44) = L44 ' Spark 1
-	Set Lights(45) = L45 
+	Set Lights(45) = L45
 	Set Lights(46) = L46
 	Set Lights(47) = L47
 	Set Lights(49) = L49
@@ -290,7 +290,7 @@ Sub Science_Init
 	Set Lights(59) = L59 'A
 	Set Lights(60) = L60 ' Dbl Flash 3 Lightning Arrow (curr rt electrode)
 	Set Lights(61) = L61 '  Atomic smasher bottom (loaded)
-	Set Lights(62) = L62 ' Dbl Flash 2 Lightning Arrow (curr lft electrode)	
+	Set Lights(62) = L62 ' Dbl Flash 2 Lightning Arrow (curr lft electrode)
 	Set Lights(63) = L63
 	Set Lights(65) = L65
 	Set Lights(66) = L66
@@ -303,7 +303,7 @@ Sub Science_Init
 	Set Lights(73) = L73
 	Set Lights(74) = L74
 	Set Lights(75) = L75 'B
-	Set Lights(76) = L76 ' Dbl Flash 1 Lightning Arrow (curr large atom)	
+	Set Lights(76) = L76 ' Dbl Flash 1 Lightning Arrow (curr large atom)
 	Set Lights(77) = L77 '  Atomic smasher top (loaded)
 	Set Lights(78) = L78
 	Set Lights(79) = L79
@@ -319,7 +319,7 @@ Sub Science_Init
 	Set Lights(90) = L90 'L
 	Set Lights(91) = L91
 	Set Lights(92) = L92 ' Spark 2
-	Set Lights(93) = L93 
+	Set Lights(93) = L93
 	Set Lights(94) = L94
 	Set Lights(95) = L95
 
@@ -333,23 +333,23 @@ End Sub
 ' keys
 ' ****************************************************
 Sub Science_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.PullBack 
+	If keycode = PlungerKey Then Plunger.PullBack
 	If keycode = LeftMagnaSave Then Controller.Switch(5) = True  ' LeftMagnaSave PowerSaver
 	if SubstMagnaSaveButtons = False then
-		If keycode = RightMagnaSave Then Controller.Switch(7) = True  ' RightMagnaSave 
+		If keycode = RightMagnaSave Then Controller.Switch(7) = True  ' RightMagnaSave
 	else
-		If keycode = RightFlipperKey Then Controller.Switch(7) = True  ' RightMagnaSave 
+		If keycode = RightFlipperKey Then Controller.Switch(7) = True  ' RightMagnaSave
 	end if
 	If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Science_KeyUp(ByVal keycode)
-    If keycode = PlungerKey Then Plunger.Fire 
+    If keycode = PlungerKey Then Plunger.Fire
 	If keycode = LeftMagnaSave Then Controller.Switch(5) = False  ' LeftMagnaSave PowerSaver Reset
 	if SubstMagnaSaveButtons = False then
-		If keycode = RightMagnaSave Then Controller.Switch(7) = False  ' RightMagnaSave 
+		If keycode = RightMagnaSave Then Controller.Switch(7) = False  ' RightMagnaSave
 	else
-		If keycode = RightFlipperKey Then Controller.Switch(7) = False  ' RightMagnaSave 
+		If keycode = RightFlipperKey Then Controller.Switch(7) = False  ' RightMagnaSave
 	end if
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
@@ -361,10 +361,10 @@ End Sub
 Sub SolLFlipper(Enabled)
 	If Enabled Then
 		LF.fire
-		PlaySound SoundFX("fx_Flipperup1",DOFFlippers)
+		PlaySoundAtVol SoundFX("fx_Flipperup1",DOFFlippers), LeftFlipper, 1
 		'LeftFlipper.RotateToEnd
     Else
-		PlaySound SoundFX("fx_Flipperdown1",DOFFlippers)
+		PlaySoundAtVol SoundFX("fx_Flipperdown1",DOFFlippers), LeftFlipper, 1
         LeftFlipper.RotateToStart
     End If
 End Sub
@@ -372,11 +372,13 @@ End Sub
 Sub SolRFlipper(Enabled)
 	If Enabled Then
 		RF.fire
-		PlaySound SoundFX("fx_Flipperup2",DOFFlippers)
+		PlaySoundAtVol SoundFX("fx_Flipperup2",DOFFlippers), RightFlipper, 1
+		PlaySoundAtVol "fx_Flipperup2", RightFlipper1, 1
 		'RightFlipper.RotateToEnd
 		RightFlipper1.RotateToEnd
-    Else 
-		PlaySound SoundFX("fx_Flipperdown2",DOFFlippers)
+    Else
+		PlaySoundAtVol SoundFX("fx_Flipperdown2",DOFFlippers), RightFlipper, 1
+		PlaySoundAtVol "fx_Flipperdown2", RightFlipper1, 1
         RightFlipper.RotateToStart
 		RightFlipper1.RotateToStart
     End If
@@ -387,7 +389,7 @@ Sub HandleDrain(Enabled)
 	If Enabled Then
 		Drain.Kick 60,20
 		TroughBalls=TroughBalls+1
-		PlaySound SoundFX("Popper",DOFContactors)
+		PlaySoundAtVol SoundFX("Popper",DOFContactors), Drain, 1
 		Controller.Switch(8)=0
 	End If
 End Sub
@@ -422,7 +424,7 @@ TroughBalls=5
 Sub TroughOut(Enabled)
 	If Enabled Then
 		TroughBalls=TroughBalls-1
-		Playsound SoundFX("ballrel",DOFContactors)
+		PlaysoundAtVol SoundFX("ballrel",DOFContactors), BallRelease, 1
 		BallRelease.Kick 60,5
 		Kicker11.Kick 60,5
 		Kicker10.Kick 60,5
@@ -441,7 +443,7 @@ Sub SolPowerSaver(Enabled)
 End Sub
 
 Sub PowerSaverTrigger_Hit
-	If AutoPowerSaver = true then 
+	If AutoPowerSaver = true then
 		vpmTimer.PulseSw 5
 	End If
 End Sub
@@ -783,7 +785,7 @@ Sub DisplayTimer_Timer()
 		End If
     End If
 End Sub
- 
+
 
 Sub GILightControl (enabled)
     If enabled Then
@@ -812,7 +814,7 @@ Sub SetDynamicLampIntensity
 	dim xx
 	For each xx in AllLights
 	If xx.name <> "FBackWallAtom" and xx.name <> "F90" and xx.name <> "F75" and xx.name <> "F59" Then
-		xx.intensity = (xx.intensity + 1) * DynamicLampIntensity 
+		xx.intensity = (xx.intensity + 1) * DynamicLampIntensity
 	End If
 	Next
 End Sub
@@ -831,7 +833,7 @@ End Sub
 Sub LSampleTimer_Timer()
 	'FBackWallAtom.visible = LBackWallAtom.state
 	F59.visible = (L59.state = LightStateOn)
-	F75.visible = (L75.state = LightStateOn) 
+	F75.visible = (L75.state = LightStateOn)
 	F90.visible = (L90.state = LightStateOn)
 
 	F45.visible = (L45.state = LightStateOn)
@@ -1324,7 +1326,7 @@ End Sub
 ' *********************************************************************
 Sub RollOverSound()
 	PlaySoundAtVolPitch SoundFX("fx_rollover",DOFContactors), ActiveBall, 0.02, .25
-End Sub  
+End Sub
 Sub DropTargetSound()
 	PlaySoundAtVolPitch SoundFX("fx_droptarget",DOFTargets), ActiveBall, 2, .25
 End Sub
@@ -1347,7 +1349,7 @@ End Sub
 Sub PlaySoundAtVol(sound, tableobj, Vol)
 	PlaySound sound, 1, Vol, AudioPan(tableobj), 0, 0, 0, 1, AudioFade(tableobj)
 End Sub
-' set position as table object and Vol + RndPitch manually 
+' set position as table object and Vol + RndPitch manually
 Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
 	PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
 End Sub
@@ -1541,17 +1543,17 @@ End Function
 Sub TestKickerIn_Hit
 	TestKickerIn.DestroyBall
 	TestKickerOut.CreateBall
-	'TestKickerOut.Kick Angle,velocity 
+	'TestKickerOut.Kick Angle,velocity
 	TestKickerOut.Kick 300, 45
 End Sub
 Sub TestKickerLoop_Hit
 	TestKickerLoop.DestroyBall
 	TestKickerOut.CreateBall
-	'TestKickerOut.Kick Angle,velocity 
+	'TestKickerOut.Kick Angle,velocity
 	TestKickerOut.Kick 300, 40
 End Sub
 Sub TestKickerOut_Hit
-	'TestKickerOut.Kick Angle,velocity 
+	'TestKickerOut.Kick Angle,velocity
 	TestKickerOut.Kick 300, 40
 End Sub
 
