@@ -51,7 +51,7 @@ yaml_path = curr_file_path + "/config/cc_machine.yaml"
 class CCGame(game.BasicGame):
     def __init__(self):
 
-        self.fakePinProc = True
+        self.fakePinProc = False ' 2020-02-20, Thalamus - ref - https://www.vpforums.org/index.php?showtopic=35311&p=361716
         config.values['pinproc_class'] = 'procgame.fakepinproc.FakePinPROC'
         #else:
         #    self.fakePinProc = False
