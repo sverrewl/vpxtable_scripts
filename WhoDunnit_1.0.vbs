@@ -32,6 +32,11 @@ Const cGameName = "wd_12"
 
 LoadVPM "02000000", "WPC.VBS", 3.50
 
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
+
 ' Standard Options
 Const UseSolenoids = 2
 Const UseLamps = 1
