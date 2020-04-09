@@ -45,7 +45,7 @@ End Sub
 '**************************************
 
 SolCallback(1)="SolTrough"
-'SolCallback(2)="vpmSolAutoPlunger Plunger,0,"
+SolCallback(2)="vpmSolAutoPlunger Plunger,0,"
 SolCallback(2)="AutoPlunger"
 SolCallback(3)="bsTRVUK.SolOut"
 SolCallback(4)="bsBRVUK.SolOut"
