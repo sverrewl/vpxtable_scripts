@@ -120,8 +120,7 @@ Sub table1_KeyUp(ByVal keycode)
 End Sub
 
 SolCallBack(1)      = "SolTrough"
-'SolCallBack(2)		= "vpmSolAutoPlunger Plunger1,0,"
-SolCallBack(2)		= "AutoPlunger"
+SolCallBack(2)		= "vpmSolAutoPlunger Plunger1,0,"
 SolCallBack(3)		= "leftramplockpost"
 SolCallback(4)		= "LeftOrbitPost"
 SolCallback(5)		= "dtDrop.SolDropUp"
