@@ -794,9 +794,9 @@ Sub S47_Hit:Controller.Switch(47)=1:End Sub              '47
 Sub S47_unHit:Controller.Switch(47)=0:End Sub
 Sub S48_Hit:Controller.Switch(48)=1:End Sub              '48
 Sub S48_unHit:Controller.Switch(48)=0:End Sub
-Sub Bumper1_Hit:vpmTimer.PulseSw 49:End Sub              '49
-Sub Bumper2_Hit:vpmTimer.PulseSw 50:End Sub              '50
-Sub Bumper3_Hit:vpmTimer.PulseSw 51:End Sub              '51
+Sub Bumper1_Hit:vpmTimer.PulseSw 49:PlaySound SoundFX("Jet1",DOFContactors):End Sub								'49
+Sub Bumper2_Hit:vpmTimer.PulseSw 50:Playsound SoundFX("Jet2",DOFContactors):End Sub								'50
+Sub Bumper3_Hit:vpmTimer.PulseSw 51:Playsound SoundFX("Jet1",DOFContactors):End Sub								'511
 Sub S52_Hit:Controller.Switch(52)=1:End Sub              '52
 Sub S52_unHit:Controller.Switch(52)=0:End Sub
 Sub S53_Hit:Controller.Switch(53)=1:End Sub              '53
