@@ -695,7 +695,7 @@ dim postdwn : postdwn = 0
 			End If
 		End If
 		If bsTHelp.Balls>0 Then
-			swTHelpH.DestroyBall:swTHelp.CreateBall:bsTHelp.SolOut 1:THelp.Kick 180, 1
+			swTHelpH.DestroyBall:swTHelp.CreateBall:bsTHelp.SolOut 1:swTHelp.Kick 180, 1
 		End If
 	End If
   End Sub
