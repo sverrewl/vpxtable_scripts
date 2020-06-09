@@ -250,13 +250,13 @@ Sub sw30a_Hit:vpmTimer.PulseSw 30:End Sub
 Sub sw30b_Hit:vpmTimer.PulseSw 30:End Sub
 
 'Stand Up Targets
-Sub S34_Hit:vpmTimer.PulseSw 34:End Sub
-Sub S35_Hit:vpmTimer.PulseSw 35:End Sub
-Sub S36_Hit:vpmTimer.PulseSw 36:End Sub
+Sub Sw34_Hit:vpmTimer.PulseSw 34:End Sub
+Sub Sw35_Hit:vpmTimer.PulseSw 35:End Sub
+Sub Sw36_Hit:vpmTimer.PulseSw 36:End Sub
 
-Sub S38_Hit:vpmTimer.PulseSw 38:End Sub
-Sub S39_Hit:vpmTimer.PulseSw 39:End Sub
-Sub S40_Hit:vpmTimer.PulseSw 40:End Sub
+Sub Sw38_Hit:vpmTimer.PulseSw 38:End Sub
+Sub Sw39_Hit:vpmTimer.PulseSw 39:End Sub
+Sub Sw40_Hit:vpmTimer.PulseSw 40:End Sub
 
 
 Set Motorcallback=Getref("UpdateSolenoids")
@@ -904,3 +904,11 @@ Sub RandomSoundFlipper()
 		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 	End Select
 End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  On Error Resume Next
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+
