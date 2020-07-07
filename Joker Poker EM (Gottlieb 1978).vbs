@@ -660,7 +660,7 @@ sub nextball
     end if
 	if player=1 then ballinplay=ballinplay+1
 	if ballinplay>balls then
-		playsoundAtVol "GameOver"
+		playsound "GameOver"
 		eg=1
 		ballreltimer.enabled=true
 	  else
