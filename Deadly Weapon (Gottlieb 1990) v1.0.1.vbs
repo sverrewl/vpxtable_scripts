@@ -486,7 +486,7 @@ Dim RightStep
 
 Sub RightSlingShot_Slingshot()
 	vpmTimer.PulseSwitch 15,0,0
-    PlaySound SoundFX("right_slingshot",DOFContactors), 0, 1, 0.05, 0.05
+    PlaySoundAt SoundFX("right_slingshot",DOFContactors), sling1
     PSlingR1a.Visible = 0
     PSlingR1c.Visible = 1
     sling1.TransZ = -20
@@ -1439,7 +1439,7 @@ End Sub
 ' ball collision sound
 ' *********************************************************************
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound "fx_collide", 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+	PlaySound "fx_collide", 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 
