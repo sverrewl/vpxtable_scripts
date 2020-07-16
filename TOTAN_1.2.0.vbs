@@ -899,6 +899,7 @@ Sub UpdateLamps
     NFadeL 84, l84
     NFadeL 85, l85
     NFadeL 86, l86
+    NFadeL 87, l87
     NFadeL 88, l88
 
     'Spikers
