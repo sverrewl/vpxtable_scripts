@@ -245,7 +245,8 @@ Sub Table1_Init
 
 	Set bsLEject = New cvpmSaucer
 	With bsLEject
-	    .InitKicker Sw35, 35, 170, 30, 1.56
+		.InitExitVariance 3,4
+	  .InitKicker Sw35, 35, 170, 30, 1.56
 		.InitSounds "fx_sensor", SoundFX(SSolenoidOn,DOFContactors), SoundFX("Popper",DOFContactors)
 		.CreateEvents "bsLEject", Sw35
     End With
@@ -991,7 +992,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCo), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 '*****************************************
