@@ -13,6 +13,7 @@
 ' Thalamus 2018-08-18 : Improved directional sounds
 
 Option Explicit
+Randomize
 
 Const VolDiv = 2000
 
@@ -741,33 +742,67 @@ Sub Rules()
 	MsgBox Msg(0), , "         Instructions and Rule Card"
 End Sub
 
+' ' Dip Switches
+' ' ==================================================================
+' ' Gottlieb Robo-War
+' ' originally added by Inkochnito
+' ' Updated Switches 8, 31, and 32
+' Sub editDips
+' 	Dim vpmDips : Set vpmDips = New cvpmDips
+' 	With vpmDips
+' 		.AddForm  700,400,"Robo-War - DIP switches"
+' 		.AddFrame 2,4,190,"Maximum Credits",49152,Array("8",0,"10",32768,"15",&H00004000,"20",49152)'dip 15&16
+' 		.AddFrame 2,80,190,"Coin Chute Left and Right Control",&H00002000,Array("Separate",0,"Same",&H00002000)'dip 14
+' 		.AddFrame 2,126,190,"Playfield Special",&H00200000,Array("Special",0,"Extra Ball",&H00200000)'dip 22
+' 		.AddFrame 2,172,190,"Highest Games to Date Control",&H00000020,Array("No Effect",0,"Reset High Games #2-#5 on Power Off",&H00000020)'dip 6
+' 		.AddFrame 2, 218, 190, "Auto-Percentage Control", &H00000080, Array("Disabled (Normal High Score Mode)", 0, "Enabled", &H00000080)'dip 8
+'         .AddFrame 2, 264, 190, "Alpha Drop Bank Sequence", &H40000000, Array("Also Award ROBOWAR Letter", 0, "Light Extra Ball Only", &H40000000)'dip 31
+'         .AddFrame 2, 310, 190, "Number of Active ADV X Targets", &H80000000, Array("More", 0, "Less", &H80000000)'dip 32
+' 		.AddFrame 205,4,190,"Highest Game to Date Awards",&H00C00000,Array("None (Not Displayed)",0,"None",&H00800000,"2 Replay",&H00400000,"3 Replay",&H00C00000)'dip 23&24
+' 		.AddFrame 205,80,190,"Balls/Game",&H01000000,Array("5",0,"3",&H01000000)'dip 25
+' 		.AddFrame 205,126,190,"Replay Limit",&H04000000,Array("No Limit",0,"1",&H04000000)'dip 27
+' 		.AddFrame 205,172,190,"Novelty",&H08000000,Array("Normal",0,"Score 500,000 in Place of Extra Ball and Special",&H08000000)'dip 28
+' 		.AddFrame 205,218,190,"Game Mode",&H10000000,Array("Replay",0,"Extra Ball",&H10000000)'dip 29
+' 		.AddFrame 205,264,190,"3rd Coin Chute Credit Control",&H20000000,Array("No Effect",0,"Add 9",&H20000000)'dip 30
+' 		.AddChk 205,316,180,Array("Match",&H02000000)'dip 26
+' 		.AddChk 205,331,190,Array("Attract Mode Sound",&H00000040)'dip 7
+' 		.AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."
+' 		.ViewDips
+' 	End With
+' End Sub
+' Set vpmShowDips = GetRef("editDips")
+
 ' Dip Switches
 ' ==================================================================
 ' Gottlieb Robo-War
 ' originally added by Inkochnito
 ' Updated Switches 8, 31, and 32
+' Added Coin chute by Mike da Spike
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm  700,400,"Robo-War - DIP switches"
-		.AddFrame 2,4,190,"Maximum Credits",49152,Array("8",0,"10",32768,"15",&H00004000,"20",49152)'dip 15&16
-		.AddFrame 2,80,190,"Coin Chute Left and Right Control",&H00002000,Array("Separate",0,"Same",&H00002000)'dip 14
-		.AddFrame 2,126,190,"Playfield Special",&H00200000,Array("Special",0,"Extra Ball",&H00200000)'dip 22
-		.AddFrame 2,172,190,"Highest Games to Date Control",&H00000020,Array("No Effect",0,"Reset High Games #2-#5 on Power Off",&H00000020)'dip 6
-		.AddFrame 2, 218, 190, "Auto-Percentage Control", &H00000080, Array("Disabled (Normal High Score Mode)", 0, "Enabled", &H00000080)'dip 8
-        .AddFrame 2, 264, 190, "Alpha Drop Bank Sequence", &H40000000, Array("Also Award ROBOWAR Letter", 0, "Light Extra Ball Only", &H40000000)'dip 31
-        .AddFrame 2, 310, 190, "Number of Active ADV X Targets", &H80000000, Array("More", 0, "Less", &H80000000)'dip 32
-		.AddFrame 205,4,190,"Highest Game to Date Awards",&H00C00000,Array("None (Not Displayed)",0,"None",&H00800000,"2 Replay",&H00400000,"3 Replay",&H00C00000)'dip 23&24
-		.AddFrame 205,80,190,"Balls/Game",&H01000000,Array("5",0,"3",&H01000000)'dip 25
-		.AddFrame 205,126,190,"Replay Limit",&H04000000,Array("No Limit",0,"1",&H04000000)'dip 27
-		.AddFrame 205,172,190,"Novelty",&H08000000,Array("Normal",0,"Score 500,000 in Place of Extra Ball and Special",&H08000000)'dip 28
-		.AddFrame 205,218,190,"Game Mode",&H10000000,Array("Replay",0,"Extra Ball",&H10000000)'dip 29
-		.AddFrame 205,264,190,"3rd Coin Chute Credit Control",&H20000000,Array("No Effect",0,"Add 9",&H20000000)'dip 30
-		.AddChk 205,316,180,Array("Match",&H02000000)'dip 26
-		.AddChk 205,331,190,Array("Attract Mode Sound",&H00000040)'dip 7
-		.AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+    Dim vpmDips : Set vpmDips = New cvpmDips
+    With vpmDips
+        .AddForm  700,400,"Robo-War - DIP switches"
+        .AddFrame 2,4,190,"Left Coin Chute (Coins/Credit)",&H0000001F,Array("4/1",&H0000000D,"2/1",&H0000000A,"1/1",&H00000000,"1/2",&H00000010) 'Dip 1-5
+        .AddFrame 2,80,190,"Right Coin Chute (Coins/Credit)",&H00001F00,Array("4/1",&H00000D00,"2/1",&H00000A00,"1/1",&H00000000,"1/2",&H00001000) 'Dip 9-13
+        .AddFrame 2,160,190,"Center Coin Chute (Coins/Credit)",&H001F0000,Array("4/1",&H000D0000,"2/1",&H000A0000,"1/1",&H00000000,"1/2",&H00010000) 'Dip 17-21
+        .AddFrame 2,240,190,"3rd coin chute credits control",&H20000000,Array("no effect",0,"add 9",&H20000000)'dip 30
+        .AddFrame 207,4,190,"Maximum Credits",49152,Array("8",0,"10",32768,"15",&H00004000,"20",49152)'dip 15&16
+        .AddFrame 207,80,190,"Coin Chute Left and Right Control",&H00002000,Array("Separate",0,"Same",&H00002000)'dip 14
+        .AddFrame 207,126,190,"Playfield Special",&H00200000,Array("Special",0,"Extra Ball",&H00200000)'dip 22
+        .AddFrame 207,172,190,"Highest Games to Date Control",&H00000020,Array("No Effect",0,"Reset High Games #2-#5 on Power Off",&H00000020)'dip 6
+        .AddFrame 207, 218, 190, "Auto-Percentage Control", &H00000080, Array("Disabled (Normal High Score Mode)", 0, "Enabled", &H00000080)'dip 8
+        .AddFrame 207, 264, 190, "Alpha Drop Bank Sequence", &H40000000, Array("Also Award ROBOWAR Letter", 0, "Light Extra Ball Only", &H40000000)'dip 31
+        .AddFrame 207, 310, 190, "Number of Active ADV X Targets", &H80000000, Array("More", 0, "Less", &H80000000)'dip 32
+        .AddFrame 412,4,190,"Highest Game to Date Awards",&H00C00000,Array("None (Not Displayed)",0,"None",&H00800000,"2 Replay",&H00400000,"3 Replay",&H00C00000)'dip 23&24
+        .AddFrame 412,80,190,"Balls/Game",&H01000000,Array("5",0,"3",&H01000000)'dip 25
+        .AddFrame 412,126,190,"Replay Limit",&H04000000,Array("No Limit",0,"1",&H04000000)'dip 27
+        .AddFrame 412,172,190,"Novelty",&H08000000,Array("Normal",0,"Score 500,000 in Place of Extra Ball and Special",&H08000000)'dip 28
+        .AddFrame 412,218,190,"Game Mode",&H10000000,Array("Replay",0,"Extra Ball",&H10000000)'dip 29
+        .AddChk 412,316,180,Array("Match",&H02000000)'dip 26
+        .AddChk 412,331,190,Array("Attract Mode Sound",&H00000040)'dip 7
+        .AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."
+        .ViewDips
+    End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
