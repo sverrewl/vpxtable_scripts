@@ -24,20 +24,11 @@ Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
 '  .5 = lower volume
 ' 1.5 = higher volume
 
-Const VolBump   = 2    ' Bumpers volume.
-Const VolRol    = 1    ' Rollovers volume.
 Const VolGates  = 1    ' Gates volume.
-Const VolMetal  = 1    ' Metals volume.
-Const VolRB     = 1    ' Rubber bands volume.
-Const VolRH     = 1    ' Rubber hits volume.
-Const VolPo     = 1    ' Rubber posts volume.
-Const VolPi     = 1    ' Rubber pins volume.
-Const VolPlast  = 1    ' Plastics volume.
 Const VolTarg   = 1    ' Targets volume.
-Const VolWood   = 1    ' Woods volume.
 Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
-Const VolFlip   = 1    ' Flipper volume.
+Const VolFlip   = 0.5  ' Flipper volume.
 
 
 Const BallSize = 51
@@ -59,6 +50,9 @@ LoadVPM "02000000", "WPC.VBS", 3.50
 
 ' Standard Options
 Const UseSolenoids = 2
+' Thal : Added because of useSolenoid=2
+Const cSingleLFlip = 0
+Const cSingleRFlip = 0
 Const UseLamps = 0
 Const UseSync = 1
 Const HandleMech = 0
@@ -1115,7 +1109,7 @@ End Sub
 ' *********************************************************************
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-    Vol = Csng(BallVel(ball) ^2 / 2000)
+    Vol = Csng(BallVel(ball) ^2 / VolDiv)
 End Function
 
 Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
@@ -1158,7 +1152,7 @@ End Function
 ' *********************************************************************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
 End Sub
 
 Sub LeftFlipper_Collide(parm)
