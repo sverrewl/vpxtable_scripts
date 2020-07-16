@@ -1151,7 +1151,7 @@ Sub Collide(cb1, cb2)
     If cForce < 4 Then Exit Sub
     cForce = Cint((cForce) / (cFactor / nosf) )
     If cForce > nosf-1 Then cForce = nosf-1
-    PlaySound "ball_ball_hit", 0, cForce, Pan(CurrentBall(b1) ), 0, 0, 1, 0, AudioFade(ActiveBall)
+    PlaySound "ball_ball_hit", 0, cForce, Pan(CurrentBall(b1) ), 0, 0, 1, 0, AudioFade(CurrentBall(b1))
 End Sub
 
 ' Get angle
