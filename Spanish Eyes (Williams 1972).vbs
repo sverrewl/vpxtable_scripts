@@ -411,7 +411,6 @@ Sub SpEyes_KeyDown(ByVal keycode)
 	End If
 
 	If keycode = MechanicalTilt and MachineTilt=0 and BallActive=1Then
-		Nudge 0, 2
 		TiltSensor=TiltSensor+50
 	End If
 
