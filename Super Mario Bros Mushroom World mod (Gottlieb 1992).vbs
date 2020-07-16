@@ -9,6 +9,7 @@ On Error Goto 0
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
+' useSolenoids=2 for Fast Flips
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -36,7 +37,7 @@ Const VolFlip   = 1    ' Flipper volume.
 
 
 
-Const cGameName="smbmush",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
+Const cGameName="smbmush",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 Const swStartButton=4   'Remap Start Button
 
@@ -210,6 +211,7 @@ End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
 	If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = AddCreditKey Then vpmTimer.pulseSW(swCoin1)
 	If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull",plunger,1
 	If KeyCode=LeftFlipperKey Then Controller.Switch(81)=1
 	If KeyCode=RightFlipperKey Then Controller.Switch(82)=1
