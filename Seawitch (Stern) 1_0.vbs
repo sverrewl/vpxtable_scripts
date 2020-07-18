@@ -86,6 +86,7 @@ On Error Goto 0
 	'************
 
 	Sub Table1_Init
+    vpmInit me
 		With Controller
 			.GameName = cGameName
 			.SplashInfoLine = "Seawitch, Stern 1980" & vbNewLine & "VPX table by Flash62"
