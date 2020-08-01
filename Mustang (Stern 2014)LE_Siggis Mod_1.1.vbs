@@ -598,7 +598,7 @@ Sub Left_Orbit_Gate(Enabled)
   If enabled Then
     Lorbit.open = 1
     ' PlaySound "dtl"
-    PlaySoundAtVol SoundFX("dtl",DOFDropTargets)", Lorbit, 1
+    PlaySoundAtVol SoundFX("dtl",DOFDropTargets), Lorbit, 1
   else
     Lorbit.open = 0
   End If
