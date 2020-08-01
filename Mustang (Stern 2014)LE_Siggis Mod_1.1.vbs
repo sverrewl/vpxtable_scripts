@@ -10,7 +10,6 @@ On Error Goto 0
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' No special SSF tweaks yet.
 ' Added InitVpmFFlipsSAM
-' Arngrim added controller.vbs and DOF calls.
 
 
 Const VolDiv = 2000
@@ -31,7 +30,7 @@ Const Inteceptor = 0 'Replace yellow Showroom Car with Mad Max Inteceptor
 Const Flasher_Halos = 1 'Rendber Halos around flashers.
 Const Tacho_Mod = 1 'Render spinner activated tacho on right ramp.
 Const Erratic_Scoop = 1 'Make the Mustang scoop / saucer behave more organically.
-Const Car_Color = 2 'Turntable car color (Select from list below)
+Const Car_Color = 9 'Turntable car color (Select from list below)
 
 '1 Light Blue
 '2 Dark Blue
@@ -119,11 +118,34 @@ Const UseVPMModSol = 1
 
 LoadVPM "01560000", "sam.VBS", 3.10
 
+	 vpmflips.Delay = 100 ' Thalamus - trying to get rid of dying flippers.
+
+     Sub LoadVPM(VPMver, VBSfile, VBSver)
+       On Error Resume Next
+       If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+       ExecuteGlobal GetTextFile(VBSfile)
+       If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
+       If Table.ShowDT = true Then
+       Set Controller = CreateObject("VPinMAME.Controller")
+       B2SOn = 0
+       else
+       Set Controller = CreateObject("B2S.server")
+       'Set Controller = CreateObject("VPinMAME.Controller")
+       B2SOn = 1
+       End If
+       If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+       If VPMver > "" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+       If VPMver > "" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+       If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+       On Error Goto 0
+     End Sub
+
 '********************
 'Standard definitions
 '********************
+     'Const B2SOn = 1
 
-	 Const cGameName = "mt_145h" 'change the romname here
+	 Const cGameName = "mt_145hc" 'change the romname here
 
      Const UseSolenoids = 1
      Const UseLamps = 0
@@ -159,7 +181,7 @@ LoadVPM "01560000", "sam.VBS", 3.10
 		.Run GetPlayerHWnd
 		If Err Then MsgBox Err.Description
 	End With
-
+  InitVpmFFlipsSAM
     On Error Goto 0
 
 
@@ -471,10 +493,10 @@ End Sub
 Sub Ramp_Div(Enabled)
   If enabled Then
     DivKick1.enabled = 1
-    PlaySoundAtVol SoundFX("diverter",DOFContactors)"
+    PlaySound SoundFX("diverter",DOFContactors)
   else
     DivKick1.enabled = 0
-    PlaySoundAtVol SoundFX("diverter",DOFContactors)
+    PlaySound SoundFX("diverter",DOFContactors)
   End If
 End Sub
 
@@ -729,27 +751,27 @@ Sub RCaptKicker1a_Hit:cbRight.BallReturn Me:End Sub
 ' Use FlipperTimers to call div subs
 '******************************************
 
-Dim LFTCount:LFTCount=1
-
-Sub LeftFlipperTimer_Timer()
-	If LFTCount < 6 Then
-		LFTCount = LFTCount + 1
-		LeftFlipper.Strength = StartLeftFlipperStrength*(LFTCount/6)
-	Else
-		Me.Enabled=0
-	End If
-End Sub
-
+'Dim LFTCount:LFTCount=1
+'
+'Sub LeftFlipperTimer_Timer()
+'	If LFTCount < 6 Then
+'		LFTCount = LFTCount + 1
+'		LeftFlipper.Strength = StartLeftFlipperStrength*(LFTCount/6)
+'	Else
+'		Me.Enabled=0
+'	End If
+'End Sub
+'
 Dim RFTCount:RFTCount=1
-
-Sub RightFlipperTimer_Timer()
-	If RFTCount < 6 Then
-		RFTCount = RFTCount + 1
-		RightFlipper.Strength = StartRightFlipperStrength*(RFTCount/6)
-	Else
-		Me.Enabled=0
-	End If
-End Sub
+'
+'Sub RightFlipperTimer_Timer()
+'	If RFTCount < 6 Then
+'		RFTCount = RFTCount + 1
+'		RightFlipper.Strength = StartRightFlipperStrength*(RFTCount/6)
+'	Else
+'		Me.Enabled=0
+'	End If
+'End Sub
 
 
 Sub SolLFlipper(Enabled)
@@ -940,10 +962,10 @@ Sub RightSlingShot_Timer
 End Sub
 
    'Bumpers
-      Sub Bumper1_Hit:vpmTimer.PulseSw 30:PlaySoundAtVol SoundFX("bumper",DOFContactors),ActiveBall,VolBump:End Sub
-      Sub Bumper2_Hit:vpmTimer.PulseSw 32:PlaySoundAtVol SoundFX("bumper",DOFContactors),ActiveBall,VolBump:End Sub
-      Sub Bumper3_Hit:vpmTimer.PulseSw 33:PlaySoundAtVol SoundFX("bumper",DOFContactors),ActiveBall,VolBump:End Sub
-      Sub Bumper4_Hit:vpmTimer.PulseSw 31:PlaySoundAtVol SoundFX("bumper",DOFContactors),ActiveBall,VolBump:End Sub
+Sub Bumper1_Hit:vpmTimer.PulseSw 30:PlaySoundAtVol "bumper", bumper1, VolBump:End Sub
+Sub Bumper2_Hit:vpmTimer.PulseSw 32:PlaySoundAtVol "Mustang_bumper1", bumper2, VolBump:End Sub
+Sub Bumper3_Hit:vpmTimer.PulseSw 33:PlaySoundAtVol "Mustang_bumper2", bumper3, VolBump:End Sub
+Sub Bumper4_Hit:vpmTimer.PulseSw 31:PlaySoundAtVol "Mustang_bumper3", bumper4, VolBump:End Sub
 
  'Sounds
  dim speedx
@@ -1610,3 +1632,4 @@ End Sub
 Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
+
