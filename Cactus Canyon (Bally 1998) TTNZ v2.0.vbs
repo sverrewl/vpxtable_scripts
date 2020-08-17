@@ -59,14 +59,17 @@ Const UseVPMModSol = True
 Const cSingleLFlip = 0
 Const cSingleRFlip = 0
 
-LoadVBSFiles "02800000", "WPC.VBS", 3.52
+' LoadVBSFiles "02800000", "WPC.VBS", 3.52
+' Mentioned by Toxie here : https://www.vpforums.org/index.php?showtopic=44135&p=456910
 
 If PROC = 1 Then
     UseSolenoids = 39
-	LoadController("PROC")
+	'LoadController("PROC")
+  LoadProc "02000000", "WPC.VBS", 3.50
 Else
 	UseSolenoids = 2
-	LoadController("VPM")
+	'LoadController("VPM")
+  LoadVPM "02000000", "WPC.VBS", 3.50
 End If
 
 ' Standard Options
