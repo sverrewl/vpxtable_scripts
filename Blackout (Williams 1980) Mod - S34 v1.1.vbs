@@ -7,6 +7,8 @@ Randomize
 ' Thalamus 2018-08-26 : Improved directional sounds
 ' Export/Import DTDrop/DTReset as DTDrop2/DTReset2 -.14/-.25 and 0.72/-076
 ' Popper .76/.38
+' 2020-11-20
+' Reverted the changes above, not needed with the core.vbs update from Michaels.
 
 Const VolDiv = 3000    ' Lower number, louder ballrolling/collition sound
 Const VolCol    = 3    ' Ball collition divider ( voldiv/volcol )
@@ -20,14 +22,10 @@ Const VolBump   = 2    ' Bumpers volume.
 Const VolRol    = 1    ' Rollovers volume.
 Const VolGates  = 1    ' Gates volume.
 Const VolMetal  = 1    ' Metals volume.
-Const VolRB     = 1    ' Rubber bands volume.
 Const VolRH     = 1    ' Rubber hits volume.
 Const VolPo     = 1    ' Rubber posts volume.
 Const VolPi     = 1    ' Rubber pins volume.
-Const VolPlast  = 1    ' Plastics volume.
 Const VolTarg   = 1    ' Targets volume.
-Const VolWood   = 1    ' Woods volume.
-Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 
@@ -166,7 +164,7 @@ Sub Table1_Init
 
   	Set dtTDrop=New cvpmDropTarget
 		dtTDrop.InitDrop Array(sw33,sw34,sw35),Array(33,34,35)
-		dtTDrop.InitSnd SoundFX("DTDrop2",DOFContactors),SoundFX("DTReset2",DOFContactors)
+		dtTDrop.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
 		dtTDrop.AllDownSw = 36
 
 
