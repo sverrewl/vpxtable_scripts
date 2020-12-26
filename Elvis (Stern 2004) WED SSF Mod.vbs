@@ -9,6 +9,10 @@
 ' Elvis - Stern 2004
 ' VPX 1.0.2 by JPSalas July 2017
 
+
+' Thalamus - you should add a sw10 to the top of the plunger lane
+' ref : https://vpinball.com/forums/topic/jps-elvis-mod/page/3/#post-201744
+
 ' Thalamus 2018-07-24
 ' Table has already its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
@@ -325,11 +329,11 @@ Sub sw9_Hit:vpmTimer.PulseSw 9:End Sub
 
 Sub sw10_Hit:Controller.Switch(10) = 1:End Sub
 Sub sw10_unHit:Controller.Switch(10) = 0:End Sub
-Sub sw17_Hit:dtBankL.Hit 1:End Sub
-Sub sw18_Hit:dtBankL.Hit 2:End Sub
-Sub sw19_Hit:dtBankL.Hit 3:End Sub
-Sub sw20_Hit:dtBankL.Hit 4:End Sub
-Sub sw21_Hit:dtBankL.Hit 5:End Sub
+Sub sw17_Dropped:dtBankL.Hit 1:End Sub
+Sub sw18_Dropped:dtBankL.Hit 2:End Sub
+Sub sw19_Dropped:dtBankL.Hit 3:End Sub
+Sub sw20_Dropped:dtBankL.Hit 4:End Sub
+Sub sw21_Dropped:dtBankL.Hit 5:End Sub
 Sub sw22_Hit:vpmTimer.PulseSw 22:End Sub
 Sub sw23_Hit:vpmTimer.PulseSw 23:End Sub
 Sub sw24_Hit:vpmTimer.PulseSw 24:End Sub
