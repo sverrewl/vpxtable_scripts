@@ -1456,8 +1456,8 @@ End Sub
 Sub upperjump_UnHit():ActiveBall.Velz=ActiveBall.Velz=0:End Sub
 
 ' *******************************************************************************************************
-' Positional Sound Playback Functions by DJRobX
-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' Positional Sound Playback Functions by DJRobX, Rothbauerw, Thalamus and Herweh
+' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 ' *******************************************************************************************************
 
 ' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
@@ -1474,6 +1474,12 @@ Sub PlaySoundAt(soundname, tableobj)
   PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
+' set position as table object and Vol + RndPitch manually
+
+Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
+  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
+End Sub
+
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(soundname)
@@ -1482,29 +1488,54 @@ End Sub
 
 'Set position as table object and Vol manually.
 
-Sub PlaySoundAtVol(sound, tableobj, Volumum)
-  PlaySound sound, 1, Volumum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+Sub PlaySoundAtVol(sound, tableobj, Volume)
+  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
-'Set position as bumperX and Vol manually.
+Sub PlaySoundAtBallAbsVol(sound, VolMult)
+  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+End Sub
+
+' requires rampbump1 to 7 in Sound Manager
+
+Sub RandomBump(voladj, freq)
+  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+End Sub
+
+' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+End Sub
+
+Sub PlaySoundAtBOTBallZ(sound, BOT)
+  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+End Sub
+
+' play a looping sound at a location with volume
+Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************
 '                     Supporting Ball & Sound Functions
 '*********************************************************************
 
-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "Table" is the name of the table
+Function RndNum(min, max)
+  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+End Function
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
   Dim tmp
-  tmp = tableobj.y * 2 / Table.height-1
+  On Error Resume Next
+  tmp = tableobj.y * 2 / table1.height-1
   If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
   Else
@@ -1512,9 +1543,10 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 End Function
 
-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "Table" is the name of the table
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
   Dim tmp
-  tmp = tableobj.x * 2 / Table.width-1
+  On Error Resume Next
+  tmp = tableobj.x * 2 / table1.width-1
   If tmp > 0 Then
     AudioPan = Csng(tmp ^10)
   Else
@@ -1522,28 +1554,32 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 End Function
 
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "Table" is the name of the table
-    Dim tmp
-    tmp = ball.x * 2 / Table.width-1
-    If tmp > 0 Then
-        Pan = Csng(tmp ^10)
-    Else
-        Pan = Csng(-((- tmp) ^10) )
-    End If
-End Function
-
-Function AudioFade(ball) ' Can this be together with the above function ?
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
   Dim tmp
-  tmp = ball.y * 2 / Table.height-1
+  On Error Resume Next
+  tmp = ball.x * 2 / table1.width-1
   If tmp > 0 Then
-    AudioFade = Csng(tmp ^10)
+    Pan = Csng(tmp ^10)
   Else
-    AudioFade = Csng(-((- tmp) ^10) )
+    Pan = Csng(-((- tmp) ^10) )
   End If
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / VolDiv)
+  Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+  VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+End Function
+
+Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+  debug.print DVolMulti
+End Function
+
+Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1552,6 +1588,30 @@ End Function
 
 Function BallVel(ball) 'Calculates the ball speed
   BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+  BallVelZ = INT((ball.VelZ) * -1 )
+End Function
+
+Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+End Function
+
+'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+
+Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+  Dim AB, BC, CD, DA
+  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+
+  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+    InRect = True
+  Else
+    InRect = False
+  End If
 End Function
 
 '*****************************************
