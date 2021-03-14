@@ -671,8 +671,7 @@ Sub Fireball_KeyUp(ByVal keycode)
 	If keycode = LeftFlipperKey And Game = 1 And Tilt = False Then
 		LeftFlipper.RotateToStart
 		LeftFlipper1.RotateToStart
-		PlaySoundAtVol "fx_flipperdown", LeftFlipper, VolFlip
-    DOFOff
+		PlaySoundAtVol  SoundFXDOF("fx_flipperdown",101,DOFoff,DOFContactors), LeftFlipper, VolFlip
 		StopSound "buzz"
 		If Tilt = true Then
 		FlipOff
@@ -683,9 +682,8 @@ Sub Fireball_KeyUp(ByVal keycode)
 	If keycode = RightFlipperKey And Game = 1 And Tilt = False Then
 		RightFlipper.RotateToStart
 		RightFlipper1.RotateToStart
-		PlaySoundAtVol "fx_flipperdown", LeftFlipper, VolFlip
+		PlaySoundAtVol  SoundFXDOF("fx_flipperdown",102,DOFoff,DOFContactors), LeftFlipper, VolFlip
 		StopSound "buzz1"
-    DOFOff
 		If Tilt = true Then
 		FlipOff
 		End If
