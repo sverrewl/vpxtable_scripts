@@ -673,11 +673,13 @@ Sub Sw_66a_Hit():Controller.Switch(66) = 1:PlaySoundAt "sensor", ActiveBall:End 
 Sub Sw_66a_UnHit():Controller.Switch(66) = 0:End Sub
 
 '**Targets
-Sub sw_27_Hit:Controller.Switch(27) = 1:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
-Sub sw_27_UnHit():Controller.Switch(27) = 0:End Sub
+'Sub sw_27_Hit:Controller.Switch(27) = 1:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
+Sub sw_27_Hit:vpmTimer.PulseSw 27:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
+'Sub sw_27_UnHit():Controller.Switch(27) = 0:End Sub
 
-Sub sw_28_Hit:Controller.Switch(28) = 1:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
-Sub sw_28_UnHit():Controller.Switch(28) = 0:End Sub
+'Sub sw_28_Hit:Controller.Switch(28) = 1:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
+Sub sw_28_Hit:vpmTimer.PulseSw 28:PlaySoundAt SoundFX("Target",DOFTargets), ActiveBall:End Sub
+'Sub sw_28_UnHit():Controller.Switch(28) = 0:End Sub
 
 '**Left Ramp
 Sub sw_41_Hit()
