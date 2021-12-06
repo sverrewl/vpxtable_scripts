@@ -198,7 +198,7 @@ LoadVPM "01560000", "sam.VBS", 3.10
 'Standard definitions
 '********************
 
-	Const cGameName = "twd_160h" 'change the romname here
+  Const cGameName = "twd_160h" 'change the romname here
 
      Const UseSolenoids = 1
      Const UseLamps = 0
@@ -218,36 +218,36 @@ LoadVPM "01560000", "sam.VBS", 3.10
    'Variables
     Dim xx
     Dim Bump1,Bump2,Bump3,Mech3bank,bsTrough,bsVUK,visibleLock,bsTEject,bsceject
-	Dim dtUDrop,dtLDrop,dtRDrop
-	Dim PlungerIM
-	Dim PMag, DMag, WMag
+  Dim dtUDrop,dtLDrop,dtRDrop
+  Dim PlungerIM
+  Dim PMag, DMag, WMag
 
 
   Sub Table_Init
-	With Controller
+  With Controller
         vpmInit Me
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "The Walking Dead LE"
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 1
-		.Hidden = VarHidden
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "The Walking Dead LE"
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 1
+    .Hidden = VarHidden
         .Games(cGameName).Settings.Value("sound") = 1
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-	End With
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+  End With
 
-	InitVpmFFlipsSAM
+  InitVpmFFlipsSAM
     On Error Goto 0
 
 '**Trough
     Set bsTrough = New cvpmTrough
     With bsTrough
-		.Size = 4
+    .Size = 4
         .InitSwitches Array(21, 20, 19, 18)
         .InitExit BallRelease, 90, 8
         .InitEntrySounds "drain", SoundFX("fxSolenoid",DOFContactors), SoundFX("fxSolenoid",DOFContactors)
@@ -255,27 +255,27 @@ LoadVPM "01560000", "sam.VBS", 3.10
         .Balls = 4
     End With
 
-	Set PMag=New cvpmMagnet
-	PMag.InitMagnet PrisonMag,42
-	PMag.GrabCenter=False
+  Set PMag=New cvpmMagnet
+  PMag.InitMagnet PrisonMag,42
+  PMag.GrabCenter=False
 
     Set WMag=New cvpmMagnet
-	WMag.InitMagnet WWMag,42
-	WMag.GrabCenter=False
+  WMag.InitMagnet WWMag,42
+  WMag.GrabCenter=False
 
     Set DMag=New cvpmMagnet
-	DMag.InitMagnet Divmagnet,100
-	DMag.GrabCenter=True
+  DMag.InitMagnet Divmagnet,100
+  DMag.GrabCenter=True
 
 '**Nudging
-    	vpmNudge.TiltSwitch=-7
-   	vpmNudge.Sensitivity=1
-   	vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot)
+      vpmNudge.TiltSwitch=-7
+    vpmNudge.Sensitivity=1
+    vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot)
 
      Set dtLDrop = new cvpmDropTarget
      With dtLDrop
-	      .Initdrop Array(sw9, sw10, sw11), Array(9, 10, 11)
-	      .InitSnd SoundFX("droptarget_l",DOFDropTargets),SoundFX("resetdrop",DOFContactors)
+        .Initdrop Array(sw9, sw10, sw11), Array(9, 10, 11)
+        .InitSnd SoundFX("droptarget_l",DOFDropTargets),SoundFX("resetdrop",DOFContactors)
       End With
 
      ' Impulse Plunger
@@ -284,7 +284,7 @@ LoadVPM "01560000", "sam.VBS", 3.10
     Set plungerIM = New cvpmImpulseP
     With plungerIM
         .InitImpulseP sw23, IMPowerSetting, IMTime
-		.Switch 23
+    .Switch 23
         .Random 1.5
         .InitExitSnd SoundFX("plunger",0), SoundFX("plunger",0)
         .CreateEvents "plungerIM"
@@ -292,8 +292,8 @@ LoadVPM "01560000", "sam.VBS", 3.10
 
 
       '**Main Timer init
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
 
 bgwall1.isdropped = 1
@@ -303,19 +303,19 @@ End Sub
 '*****Keys
 Sub Table_KeyDown(ByVal Keycode)
     'If Keycode = 3 Then lpos=1:Laser.enabled = 1:cbdir=1:Darryl.enabled = 1
- 	If Keycode = LeftFlipperKey then
-		'SolLFlipper true
-	End If
- 	If Keycode = RightFlipperKey then
-		'SolRFlipper true
-	End If
+  If Keycode = LeftFlipperKey then
+    'SolLFlipper true
+  End If
+  If Keycode = RightFlipperKey then
+    'SolRFlipper true
+  End If
     If keycode = PlungerKey Then
     Plunger.Pullback
     If NOT Controller.Switch(23) = True Then
     Controller.Switch(71) = 1
     End If
     End If
-  	If keycode = LeftTiltKey Then nudgebobble(keycode):End If
+    If keycode = LeftTiltKey Then nudgebobble(keycode):End If
     If keycode = RightTiltKey Then nudgebobble(keycode):End If
     If Keycode = StartGameKey Then Controller.Switch(16) = 1
 '   If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
@@ -324,21 +324,21 @@ Sub Table_KeyDown(ByVal Keycode)
 End Sub
 
 Sub Table_KeyUp(ByVal keycode)
-	If vpmKeyUp(keycode) Then Exit Sub
+  If vpmKeyUp(keycode) Then Exit Sub
     If keycode = PlungerKey Then dmag.MagnetOn = False
- 	'If Keycode = LeftFlipperKey then
-	'SolLFlipper false
-	'End If
- 	'If Keycode = RightFlipperKey then
+  'If Keycode = LeftFlipperKey then
+  'SolLFlipper false
+  'End If
+  'If Keycode = RightFlipperKey then
     'SolRFlipper False
     'End If
-	If Keycode = StartGameKey Then Controller.Switch(16) = 0
+  If Keycode = StartGameKey Then Controller.Switch(16) = 0
     If keycode = RightMagnaSave Then Controller.Switch(71) = 0
     If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAt "plunger", Plunger
+    Plunger.Fire
+    PlaySoundAt "plunger", Plunger
         Controller.Switch(71) = 0
-	End If
+  End If
 End Sub
 
 
@@ -492,9 +492,9 @@ Sub PrisonDoorsHold(Enabled)
 End Sub
 
 Sub SolLeftBank(Enabled)
-	If Enabled Then
-		dtLDrop.DropSol_On
-	End If
+  If Enabled Then
+    dtLDrop.DropSol_On
+  End If
 End Sub
 
 Sub WellWalkerFlash(Enabled)
@@ -632,24 +632,24 @@ End Sub
 Sub Drain_Hit: bsTrough.AddBall Me:End Sub
 
 Sub RLS_Timer()
-	sw34p.RotX = -(sw34.currentangle)
-	sw35p.RotX = -(sw35.currentangle)
-	sw42p.RotX = -(sw42.currentangle)
-	sw43p.RotX = -(sw43.currentangle)
+  sw34p.RotX = -(sw34.currentangle)
+  sw35p.RotX = -(sw35.currentangle)
+  sw42p.RotX = -(sw42.currentangle)
+  sw43p.RotX = -(sw43.currentangle)
 End Sub
 
 
 Sub WZ_Init
-	Controller.Switch (2) = 1
+  Controller.Switch (2) = 1
 End Sub
 
 Dim WZOpen:WZOpen = False
 
 Sub WZT_Timer()
-	If WZOpen = True then wzf.rotatetoend 'WellZombie.ObjRotX = WellZombie.ObjRotX + 4
-	If WZOpen = False then wzf.rotatetostart 'WellZombie.ObjRotX = WellZombie.ObjRotX - 4
-	If WellZombie.ObjRotX >= 30 then WZOpen = False: Controller.Switch (2) = 1
-	WellZombie.ObjRotX = wzf.CurrentAngle
+  If WZOpen = True then wzf.rotatetoend 'WellZombie.ObjRotX = WellZombie.ObjRotX + 4
+  If WZOpen = False then wzf.rotatetostart 'WellZombie.ObjRotX = WellZombie.ObjRotX - 4
+  If WellZombie.ObjRotX >= 30 then WZOpen = False: Controller.Switch (2) = 1
+  WellZombie.ObjRotX = wzf.CurrentAngle
   'WellZombie1.ObjRotX = wzf.CurrentAngle
   If WellZombie.ObjRotX >= 30 Then
    'WW1.visible = 0
@@ -688,32 +688,32 @@ Sub WZ_Hit:Controller.Switch(2) = 0:WZOpen = True:PlaySoundAt "metalhit_thin", P
 Dim prisonstate
 prisonstate = False
 Sub PrisonT_Timer()
-	If prisonstate = False then 'Opening
-		If ld.ObjRotZ < 96 then
-			ld.ObjRotZ = ld.ObjRotZ + 3
-			rd.ObjRotZ = rd.ObjRotZ - 3
-		Else
-			PrisonT.Enabled = False
-			Controller.Switch(4) = 1
-			'debug.print "Door Switch set"
-			'prisonstate = True
-		End If
-		sw4.isdropped = true
-	Else	'Closing
-		If ld.ObjRotZ > 0 then
-			ld.ObjRotZ = ld.ObjRotZ - 3
-			rd.ObjRotZ = rd.ObjRotZ + 3
-		Else
-			PrisonT.Enabled = False
-			Controller.Switch(4) = 0
-			'debug.print "Door Switch open"
-			'prisonstate = False
-		End If
-		sw4.isdropped = false
-	End If
-	ld1.ObjRotZ = ld.ObjRotZ
-	rd1.ObjRotZ = rd.ObjRotZ
-	'if ld.ObjRotZ > 15 then sw4.isdropped = true else sw4.isdropped = false
+  If prisonstate = False then 'Opening
+    If ld.ObjRotZ < 96 then
+      ld.ObjRotZ = ld.ObjRotZ + 3
+      rd.ObjRotZ = rd.ObjRotZ - 3
+    Else
+      PrisonT.Enabled = False
+      Controller.Switch(4) = 1
+      'debug.print "Door Switch set"
+      'prisonstate = True
+    End If
+    sw4.isdropped = true
+  Else  'Closing
+    If ld.ObjRotZ > 0 then
+      ld.ObjRotZ = ld.ObjRotZ - 3
+      rd.ObjRotZ = rd.ObjRotZ + 3
+    Else
+      PrisonT.Enabled = False
+      Controller.Switch(4) = 0
+      'debug.print "Door Switch open"
+      'prisonstate = False
+    End If
+    sw4.isdropped = false
+  End If
+  ld1.ObjRotZ = ld.ObjRotZ
+  rd1.ObjRotZ = rd.ObjRotZ
+  'if ld.ObjRotZ > 15 then sw4.isdropped = true else sw4.isdropped = false
 End Sub
 
 Dim xlss
@@ -1350,37 +1350,37 @@ Dim bgdegree2:bgdegree2 = 4 'move +/- 6 degrees
 Dim bgdurationctr2:bgdurationctr2 = 0
 
 Sub LevelT_Timer()
-	Level.RotAndTra7 = Level.RotAndTra7 + bgcharctr  'change rotation value by bgcharctr
-	If Level.RotAndTra7 >= bgdegree + centerlocation then bgcharctr = -1:bgdurationctr = bgdurationctr + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Level.RotAndTra7 <= -bgdegree + centerlocation then bgcharctr = 1  'if level moves past min location, change direction
-	If bgdurationctr = 4 then bgdegree = bgdegree - 2:bgdurationctr = 0 'if level has moved back and forth 5 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdegree <= 0 then LevelT.Enabled = False:bgdegree = 4 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 7 degrees
+  Level.RotAndTra7 = Level.RotAndTra7 + bgcharctr  'change rotation value by bgcharctr
+  If Level.RotAndTra7 >= bgdegree + centerlocation then bgcharctr = -1:bgdurationctr = bgdurationctr + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Level.RotAndTra7 <= -bgdegree + centerlocation then bgcharctr = 1  'if level moves past min location, change direction
+  If bgdurationctr = 4 then bgdegree = bgdegree - 2:bgdurationctr = 0 'if level has moved back and forth 5 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdegree <= 0 then LevelT.Enabled = False:bgdegree = 4 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 7 degrees
 End Sub
 
 Sub LevelT2_Timer()
-	'Dim loopctr
-	'Level.RotAndTra7 = Level.RotAndTra7 + bgcharctr  'change rotation value by bgcharctr
-	Primitive_Head1.ObjRotY = Primitive_Head1.ObjRotY + bgcharctr2
-	Primitive_head2.ObjRotY = Primitive_head2.ObjRotY + bgcharctr2
-	Primitive_head3.ObjRotY = Primitive_head3.ObjRotY + bgcharctr2
-	'debug.print "Degrees: " & Level.RotAndTra7 & " Max degree offset: " & bgdegree & " Cycle count: " & bgdurationctr ''debug print
-	If Primitive_Head1.ObjRotY >= bgdegree2 + centerlocation2 then bgcharctr2 = -1:bgdurationctr2 = bgdurationctr2 + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Primitive_Head1.ObjRotY <= -bgdegree2 + centerlocation2 then bgcharctr2 = 1  'if level moves past min location, change direction
-	If bgdurationctr2 = 4 then bgdegree2 = bgdegree2 - 2:bgdurationctr2 = 0 'if level has moved back and forth 5 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdegree2 <= 0 then LevelT2.Enabled = False:bgdegree2 = 4 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 7 degrees
+  'Dim loopctr
+  'Level.RotAndTra7 = Level.RotAndTra7 + bgcharctr  'change rotation value by bgcharctr
+  Primitive_Head1.ObjRotY = Primitive_Head1.ObjRotY + bgcharctr2
+  Primitive_head2.ObjRotY = Primitive_head2.ObjRotY + bgcharctr2
+  Primitive_head3.ObjRotY = Primitive_head3.ObjRotY + bgcharctr2
+  'debug.print "Degrees: " & Level.RotAndTra7 & " Max degree offset: " & bgdegree & " Cycle count: " & bgdurationctr ''debug print
+  If Primitive_Head1.ObjRotY >= bgdegree2 + centerlocation2 then bgcharctr2 = -1:bgdurationctr2 = bgdurationctr2 + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Primitive_Head1.ObjRotY <= -bgdegree2 + centerlocation2 then bgcharctr2 = 1  'if level moves past min location, change direction
+  If bgdurationctr2 = 4 then bgdegree2 = bgdegree2 - 2:bgdurationctr2 = 0 'if level has moved back and forth 5 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdegree2 <= 0 then LevelT2.Enabled = False:bgdegree2 = 4 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 7 degrees
 End Sub
 
 
 Sub Nudgebobble(keycode)
-	If keycode = LeftTiltKey then bgcharctr = -1:bgcharctr2 = -1  'if nudge left, move in - direction
-	If keycode = RightTiltKey then bgcharctr = 1:bgcharctr2 = 1  'if nudge left, move in + direction
-	If keycode = CenterTiltKey then 		'if nudge center, generate random number 1 or 2.  If 1 change it to -2.  use this number for initial direction
-		Dim randombobble:randombobble = Int(2 * Rnd + 1)
-		If randombobble = 1 then randombobble = -2
-		bgcharctr = randombobble
-	End If
-	LevelT.Enabled = True:bgdurationctr = 0:bgdegree = 4
-	LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 4
+  If keycode = LeftTiltKey then bgcharctr = -1:bgcharctr2 = -1  'if nudge left, move in - direction
+  If keycode = RightTiltKey then bgcharctr = 1:bgcharctr2 = 1  'if nudge left, move in + direction
+  If keycode = CenterTiltKey then     'if nudge center, generate random number 1 or 2.  If 1 change it to -2.  use this number for initial direction
+    Dim randombobble:randombobble = Int(2 * Rnd + 1)
+    If randombobble = 1 then randombobble = -2
+    bgcharctr = randombobble
+  End If
+  LevelT.Enabled = True:bgdurationctr = 0:bgdegree = 4
+  LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 4
 End Sub
 
 '''walking dead pro switches
@@ -1483,7 +1483,7 @@ Sub WWMag_UnHit:WMag.RemoveBall ActiveBall:End Sub
 
 '***********************************************
 '***********************************************
-					'Slings
+          'Slings
 '***********************************************
 '***********************************************
 
@@ -1496,15 +1496,15 @@ End Sub
 Dim Leftsling:Leftsling = False
 
 Sub LS_Timer()
-	If Leftsling = True and Left1.ObjRotZ < -7 then Left1.ObjRotZ = Left1.ObjRotZ + 2
-	If Leftsling = False and Left1.ObjRotZ > -20 then Left1.ObjRotZ = Left1.ObjRotZ - 2
-	If Left1.ObjRotZ >= -7 then Leftsling = False
-	If Leftsling = True and Left2.ObjRotZ > -212.5 then Left2.ObjRotZ = Left2.ObjRotZ - 2
-	If Leftsling = False and Left2.ObjRotZ < -199 then Left2.ObjRotZ = Left2.ObjRotZ + 2
-	If Left2.ObjRotZ <= -212.5 then Leftsling = False
-	If Leftsling = True and Left3.TransZ > -23 then Left3.TransZ = Left3.TransZ - 4
-	If Leftsling = False and Left3.TransZ < -0 then Left3.TransZ = Left3.TransZ + 4
-	If Left3.TransZ <= -23 then Leftsling = False
+  If Leftsling = True and Left1.ObjRotZ < -7 then Left1.ObjRotZ = Left1.ObjRotZ + 2
+  If Leftsling = False and Left1.ObjRotZ > -20 then Left1.ObjRotZ = Left1.ObjRotZ - 2
+  If Left1.ObjRotZ >= -7 then Leftsling = False
+  If Leftsling = True and Left2.ObjRotZ > -212.5 then Left2.ObjRotZ = Left2.ObjRotZ - 2
+  If Leftsling = False and Left2.ObjRotZ < -199 then Left2.ObjRotZ = Left2.ObjRotZ + 2
+  If Left2.ObjRotZ <= -212.5 then Leftsling = False
+  If Leftsling = True and Left3.TransZ > -23 then Left3.TransZ = Left3.TransZ - 4
+  If Leftsling = False and Left3.TransZ < -0 then Left3.TransZ = Left3.TransZ + 4
+  If Left3.TransZ <= -23 then Leftsling = False
 End Sub
 
 Sub LeftSlingShot_Timer:Me.TimerEnabled = 0:Controller.Switch(26) = 0:End Sub
@@ -1518,15 +1518,15 @@ End Sub
 Dim Rightsling:Rightsling = False
 
 Sub RS_Timer()
-	If Rightsling = True and Right1.ObjRotZ > 7 then Right1.ObjRotZ = Right1.ObjRotZ - 2
-	If Rightsling = False and Right1.ObjRotZ < 20 then Right1.ObjRotZ = Right1.ObjRotZ + 2
-	If Right1.ObjRotZ <= 7 then Rightsling = False
-	If Rightsling = True and Right2.ObjRotZ < 212.5 then Right2.ObjRotZ = Right2.ObjRotZ + 2
-	If Rightsling = False and Right2.ObjRotZ > 199 then Right2.ObjRotZ = Right2.ObjRotZ - 2
-	If Right2.ObjRotZ >= 212.5 then Rightsling = False
-	If Rightsling = True and Right3.TransZ > -23 then Right3.TransZ = Right3.TransZ - 4
-	If Rightsling = False and Right3.TransZ < -0 then Right3.TransZ = Right3.TransZ + 4
-	If Right3.TransZ <= -23 then Rightsling = False
+  If Rightsling = True and Right1.ObjRotZ > 7 then Right1.ObjRotZ = Right1.ObjRotZ - 2
+  If Rightsling = False and Right1.ObjRotZ < 20 then Right1.ObjRotZ = Right1.ObjRotZ + 2
+  If Right1.ObjRotZ <= 7 then Rightsling = False
+  If Rightsling = True and Right2.ObjRotZ < 212.5 then Right2.ObjRotZ = Right2.ObjRotZ + 2
+  If Rightsling = False and Right2.ObjRotZ > 199 then Right2.ObjRotZ = Right2.ObjRotZ - 2
+  If Right2.ObjRotZ >= 212.5 then Rightsling = False
+  If Rightsling = True and Right3.TransZ > -23 then Right3.TransZ = Right3.TransZ - 4
+  If Rightsling = False and Right3.TransZ < -0 then Right3.TransZ = Right3.TransZ + 4
+  If Right3.TransZ <= -23 then Rightsling = False
 End Sub
 
 Sub RightSlingShot_Timer:Me.TimerEnabled = 0:Controller.Switch(27) = 0:End Sub
@@ -1544,7 +1544,7 @@ Sub Bumper1_Timer:BS1.visible = 1:End Sub
 
 '***********************************************
 '***********************************************
-					' Lamps
+          ' Lamps
 '***********************************************
 '***********************************************
 
@@ -1851,51 +1851,51 @@ Sub Gate2_Hit: PlaySound "Gate": End Sub
 ' *********************************************************************
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow
@@ -1906,16 +1906,16 @@ Sub BallShadowUpdate()
     Dim BOT, b, shadowZ
     BOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		BallShadow(b).X = BOT(b).X
-		BallShadow(b).Y = BOT(b).Y + 20
-		'If BOT(b).Z > 90 and BOT(b).Z < 120 Then
-		'	BallShadow(b).visible = 1
-		'Else
-		'	BallShadow(b).visible = 0
-		'End If
-	Next
+    BallShadow(b).X = BOT(b).X
+    BallShadow(b).Y = BOT(b).Y + 20
+    'If BOT(b).Z > 90 and BOT(b).Z < 120 Then
+    ' BallShadow(b).visible = 1
+    'Else
+    ' BallShadow(b).visible = 0
+    'End If
+  Next
 End Sub
 
 '**********************
@@ -1923,12 +1923,12 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
 End Sub
 
 Sub Table_exit()
-	Controller.Pause = False
-	Controller.Stop
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
 ' *******************************************************************************************************

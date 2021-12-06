@@ -50,9 +50,9 @@ Dim PinBlades
 '* TABLE OPTIONS **************************************************************************
 '******************************************************************************************
 
-'***********	Activate Pinblades     ****************************************************
+'***********  Activate Pinblades     ****************************************************
 
-PinBlades = 1			'0 = no PinBlades, 1 = with PinBlades
+PinBlades = 1     '0 = no PinBlades, 1 = with PinBlades
 
 'V2.0 Shiny Mod by Flupper
 'Retextured warehouses with Blender generated ambient occlusion map, including the plastics below the warehouses
@@ -241,21 +241,21 @@ Sub Table1_Init
         Ramp16.WidthBottom = 0
         Ramp15.WidthTop = 0
         Ramp15.WidthBottom = 0
-		If PinBlades = 0 Then
-			Korpus.visible = 1
-			Korpus.Size_Y = 1.7
-			primitive2.visible = 0
-			primitive3.visible = 0
-		Else
-			Korpus.visible = 0
-		End If
-	Else
-		primitive2.visible = 0
-		primitive3.visible = 0
-		Korpus.visible = 1
-		If PinBlades = 1 Then
-			Korpus.image = "korpuspinblade"
-		End If
+    If PinBlades = 0 Then
+      Korpus.visible = 1
+      Korpus.Size_Y = 1.7
+      primitive2.visible = 0
+      primitive3.visible = 0
+    Else
+      Korpus.visible = 0
+    End If
+  Else
+    primitive2.visible = 0
+    primitive3.visible = 0
+    Korpus.visible = 1
+    If PinBlades = 1 Then
+      Korpus.image = "korpuspinblade"
+    End If
 
     End if
 End Sub
@@ -312,9 +312,9 @@ End Sub
 '*********
 
 Sub WarehouseEntry_Hit 'Warehouse
-	PlaySoundAtVol "WareHouseHit", WarehouseEntry, 1
-	WarehousePopper.AddBall Me
-	Warehousedw.isDropped = 0
+  PlaySoundAtVol "WareHouseHit", WarehouseEntry, 1
+  WarehousePopper.AddBall Me
+  Warehousedw.isDropped = 0
 End Sub
 
 Sub Warehousedwtrigger_Hit
@@ -326,8 +326,8 @@ End Sub
 '*********
 
 Sub TrapDoorKicker_Hit
-	PlaySoundAtVol "HeadquarterHit", TrapDoorKicker, 1
-	GunPopper.AddBall Me
+  PlaySoundAtVol "HeadquarterHit", TrapDoorKicker, 1
+  GunPopper.AddBall Me
 End Sub
 
 '************
@@ -340,9 +340,9 @@ Sub TrapDoorLow(Enabled)
         TrapDoorP.RotX = TrapDoorP.RotX + 25
         TrapDoorKicker.Enabled = True
     Else
-		 TrapDoorP.RotX = TrapDoorP.RotX - 25
-		 PlaySoundAtVol "TrapDoorLow", TrapDoorP, 1
-	     TrapDoorKicker.Enabled = False
+     TrapDoorP.RotX = TrapDoorP.RotX - 25
+     PlaySoundAtVol "TrapDoorLow", TrapDoorP, 1
+       TrapDoorKicker.Enabled = False
     End If
 End Sub
 
@@ -352,16 +352,16 @@ End Sub
 
 Sub SolGunLaunch(Enabled)
      If Enabled AND BallInGun then
-		 vpmCreateBall GunKick
+     vpmCreateBall GunKick
          GunKick.kick GPos, 50
          PlaySoundAtVol "GunShot", BallP, VolKick
          controller.switch(3) = 0
          BallInGun = 0
          BallP.Visible = False
-	Else
-		Controller.switch(44) = 0
-'		sw44.Enabled = True
-		vpmTimer.AddTimer 200, "sw44.Enabled = True'"
+  Else
+    Controller.switch(44) = 0
+'   sw44.Enabled = True
+    vpmTimer.AddTimer 200, "sw44.Enabled = True'"
      End If
  End Sub
 
@@ -376,7 +376,7 @@ Sub SolGunMotor(Enabled)
      Else
        UpdateGun.Enabled=0
        Controller.switch(77) = 0
-	   StopSound "GunMotor"
+     StopSound "GunMotor"
   End If
 
 End Sub
@@ -425,12 +425,12 @@ End Sub
 '*************
 
 Sub RightLoopGate(Enabled)
-	If Enabled then
+  If Enabled then
     PlaysoundAtVol "gate", sw42, 1
     GateR.open = True
-	Else
-	GateR.open = False
-	End if
+  Else
+  GateR.open = False
+  End if
 End sub
 
 '******

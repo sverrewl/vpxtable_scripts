@@ -55,57 +55,57 @@ End Sub
 'table init
 Const cGameName = "Rdkng_L4"
 Sub Table1_Init
-	vpmInit Me
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine="Road Kings, Williams, 1986"
-		.Games(cGameName).Settings.Value("rol") = 0
-		.HandleKeyboard=0
-		.ShowTitle=0
-		.ShowDMDOnly=1
-		.HandleMechanics=0
-		.DIP(0)=&H00
-		.ShowFrame=0
-		.Hidden = 0
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-		On Error Goto 0
-	End With
+  vpmInit Me
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine="Road Kings, Williams, 1986"
+    .Games(cGameName).Settings.Value("rol") = 0
+    .HandleKeyboard=0
+    .ShowTitle=0
+    .ShowDMDOnly=1
+    .HandleMechanics=0
+    .DIP(0)=&H00
+    .ShowFrame=0
+    .Hidden = 0
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+    On Error Goto 0
+  End With
 
 'Main Timer
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
 'Other init
-	Plunger1.Pullback
-	GoRight.IsDropped=1
-	Ramp1.Collidable=False
-	Controller.Switch(39)=0
+  Plunger1.Pullback
+  GoRight.IsDropped=1
+  Ramp1.Collidable=False
+  Controller.Switch(39)=0
 
 'Nudging
     vpmNudge.TiltSwitch = 1
     vpmNudge.Sensitivity = 2
 
 'Trough
-	Set bsTrough=New cvpmBallStack
-		with bsTrough
-			.InitSw 40,41,42,0,0,0,0,0
-			.InitKick BallRelease,90,7
-			.InitExitSnd SoundFX("ballrel",DOFContactors),SoundFX("solenoid",DOFContactors)
-			.IsTrough = True
-			.Balls=2
-		end with
+  Set bsTrough=New cvpmBallStack
+    with bsTrough
+      .InitSw 40,41,42,0,0,0,0,0
+      .InitKick BallRelease,90,7
+      .InitExitSnd SoundFX("ballrel",DOFContactors),SoundFX("solenoid",DOFContactors)
+      .IsTrough = True
+      .Balls=2
+    end with
 'kickers
-	Set bsLeftLock=New cvpmBallStack
-	Set bsLeft=New cvpmBallStack
-	Set bsCenter=New cvpmBallStack
+  Set bsLeftLock=New cvpmBallStack
+  Set bsLeft=New cvpmBallStack
+  Set bsCenter=New cvpmBallStack
 
 'Drop Target
-	Set dtDrop=New cvpmDropTarget
-	dtDrop.InitDrop DropTarget,30
-	dtDrop.InitSnd SoundFX("DropTarget",DOFContactors),SoundFX("resetDrop",DOFContactors)
+  Set dtDrop=New cvpmDropTarget
+  dtDrop.InitDrop DropTarget,30
+  dtDrop.InitSnd SoundFX("DropTarget",DOFContactors),SoundFX("resetDrop",DOFContactors)
 End Sub
 
 'Pause/exit support
@@ -115,90 +115,90 @@ Sub table1_Exit:Controller.Stop:End Sub
 
 'Balls in locks
  Sub Trigger2_Hit
- 	If bsCenter.Balls Then
- 		If ActiveBall.VelY<0 Then ActiveBall.VelY=-ActiveBall.VelY/2
-		PlaySoundAtVol "ball_ball_hit",Trigger2, 1
-	End If
+  If bsCenter.Balls Then
+    If ActiveBall.VelY<0 Then ActiveBall.VelY=-ActiveBall.VelY/2
+    PlaySoundAtVol "ball_ball_hit",Trigger2, 1
+  End If
  End Sub
 
 Sub Trigger4_Hit
- 	If bsLeft.Balls Then
- 		If ActiveBall.VelY<0 Then ActiveBall.VelY=-ActiveBall.VelY/2
-		PlaysoundAtVol "ball_ball_hit", Trigger4, 1
- 	End If
+  If bsLeft.Balls Then
+    If ActiveBall.VelY<0 Then ActiveBall.VelY=-ActiveBall.VelY/2
+    PlaysoundAtVol "ball_ball_hit", Trigger4, 1
+  End If
  End Sub
 
 'Keys
 Sub Table1_KeyDown(ByVal keycode)
 
-	If keycode = PlungerKey Then
-		Plunger.PullBack
-		PlaysoundAtVol "PlungerPull", Plunger, 1
-	End If
+  If keycode = PlungerKey Then
+    Plunger.PullBack
+    PlaysoundAtVol "PlungerPull", Plunger, 1
+  End If
 
-	If keycode = LeftTiltKey Then
-		Nudge 90, 2: PlaySound SoundFX("Nudge_Left",0)
-	End If
+  If keycode = LeftTiltKey Then
+    Nudge 90, 2: PlaySound SoundFX("Nudge_Left",0)
+  End If
 
-	If keycode = RightTiltKey Then
-		Nudge 270, 2: PlaySound SoundFX("Nudge_Right",0)
-	End If
+  If keycode = RightTiltKey Then
+    Nudge 270, 2: PlaySound SoundFX("Nudge_Right",0)
+  End If
 
-	If keycode = CenterTiltKey Then
-		Nudge 0, 2: PlaySound SoundFX("Nudge_Forward",0)
-	End If
+  If keycode = CenterTiltKey Then
+    Nudge 0, 2: PlaySound SoundFX("Nudge_Forward",0)
+  End If
 
-	If VPMKeyDown(KeyCode) Then Exit Sub
+  If VPMKeyDown(KeyCode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
 
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAtVol "plungerRel", Plunger, 1
-	End If
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySoundAtVol "plungerRel", Plunger, 1
+  End If
 
-	If VPMKeyUp(KeyCode) Then Exit Sub
+  If VPMKeyUp(KeyCode) Then Exit Sub
 End Sub
 
 ' RealTime Updates
 Set MotorCallback = GetRef("GameTimer")
 
-	Sub GameTimer
-		UpdateFlipperLogos
-		UpdateGates
-		RollingSound
-	End Sub
+  Sub GameTimer
+    UpdateFlipperLogos
+    UpdateGates
+    RollingSound
+  End Sub
 
 Dim bsTrough, bsLKick, bsREject, bsAPlunger, x, xx, bump1, bump2, bump3, bump4, target9, target10, target11, target12, target13, target14, target15, target16, target17, bsLeft,bsCenter,dtDrop,bsLeftLock,obj
 
 'Drain
 Sub Drain_Hit()   '40/41/42
-	ClearBallid
-	Drain.DestroyBall
-	PlaySoundAtVol "Drain", drain, 1
-	bsTrough.addball ME
+  ClearBallid
+  Drain.DestroyBall
+  PlaySoundAtVol "Drain", drain, 1
+  bsTrough.addball ME
 End Sub
 
 'Flipper Logos
-	Sub UpdateFlipperLogos
-			Primitive52.objRoty = RightFlipper.currentAngle
-			Primitive51.objroty = LeftFlipper.CurrentAngle
-	End Sub
+  Sub UpdateFlipperLogos
+      Primitive52.objRoty = RightFlipper.currentAngle
+      Primitive51.objroty = LeftFlipper.CurrentAngle
+  End Sub
 
 'Primitive Gate rotations
-	Sub UpdateGates
-			GatePrim.RotZ = -(Gate.currentangle +15)
-			Gate2Prim.RotZ = -(Gate2.currentangle +15)
-			Gate3Prim.RotZ = -(Gate3.currentangle +15)
-			Gate4Prim.RotZ = -(Gate4.currentangle)
-			Gate5Prim.RotZ = -(Gate5.currentangle)
-			Gate6Prim.RotZ = -(Gate6.currentangle -90)
-			Gate7Prim.RotZ = -(Spinner7.currentangle)
-			Gate8Prim.RotZ = -(Spinner8.currentangle)
-			Gate9Prim.RotZ = -(Gate9.currentangle)
+  Sub UpdateGates
+      GatePrim.RotZ = -(Gate.currentangle +15)
+      Gate2Prim.RotZ = -(Gate2.currentangle +15)
+      Gate3Prim.RotZ = -(Gate3.currentangle +15)
+      Gate4Prim.RotZ = -(Gate4.currentangle)
+      Gate5Prim.RotZ = -(Gate5.currentangle)
+      Gate6Prim.RotZ = -(Gate6.currentangle -90)
+      Gate7Prim.RotZ = -(Spinner7.currentangle)
+      Gate8Prim.RotZ = -(Spinner8.currentangle)
+      Gate9Prim.RotZ = -(Gate9.currentangle)
 
-	End Sub
+  End Sub
 'Bumpers
       Sub Bumper1b_Hit::PlaySoundAtVol SoundFX("bumper",DOFContactors),bumper1b,VolBump:bump1 = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw 24:End Sub
 
@@ -240,8 +240,8 @@ End Sub
                Case 6:BR3.z = -10:bump3 = 7
                Case 7:BR3.z = 0:Me.TimerEnabled = 0
            End Select
-		End Sub
-	  Sub Bumper4b_Hit::PlaySoundAtVol SoundFX("bumper",DOFContactors),bumper4b,volbump:bump4 = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw 27:End Sub
+    End Sub
+    Sub Bumper4b_Hit::PlaySoundAtVol SoundFX("bumper",DOFContactors),bumper4b,volbump:bump4 = 1:Me.TimerEnabled = 1:vpmTimer.PulseSw 27:End Sub
 
        Sub Bumper4b_Timer()
            Select Case bump4
@@ -255,15 +255,15 @@ End Sub
            End Select
        End Sub
 'Targets
-	  Sub T9_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target9 = 1::vpmTimer.PulseSw 9:End Sub
-	  Sub T10_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target10 = 1:vpmTimer.PulseSw 10:End Sub
+    Sub T9_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target9 = 1::vpmTimer.PulseSw 9:End Sub
+    Sub T10_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target10 = 1:vpmTimer.PulseSw 10:End Sub
     Sub T11_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target11 = 1:vpmTimer.PulseSw 11:End Sub
-	  Sub T12_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target12 = 1:vpmTimer.PulseSw 12:End Sub
-	  Sub T13_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target13 = 1:vpmTimer.PulseSw 13:End Sub
-	  Sub T14_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target14 = 1:vpmTimer.PulseSw 14:End Sub
-	  Sub T15_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target15 = 1:vpmTimer.PulseSw 15:End Sub
-	  Sub T16_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target16 = 1:vpmTimer.PulseSw 16:End Sub
-	  Sub T17_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target17 = 1:vpmTimer.PulseSw 17:End Sub
+    Sub T12_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target12 = 1:vpmTimer.PulseSw 12:End Sub
+    Sub T13_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target13 = 1:vpmTimer.PulseSw 13:End Sub
+    Sub T14_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target14 = 1:vpmTimer.PulseSw 14:End Sub
+    Sub T15_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target15 = 1:vpmTimer.PulseSw 15:End Sub
+    Sub T16_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target16 = 1:vpmTimer.PulseSw 16:End Sub
+    Sub T17_Hit:PlaySoundAtVol SoundFX("Target",DOFContactors),ActiveBall,VolTarg:Target17 = 1:vpmTimer.PulseSw 17:End Sub
 
 '**********Sling Shot Animations
 ' Rstep and Lstep  are the variables that increment the animation
@@ -271,9 +271,9 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingshot_Slingshot()
-	PlaySoundAtVol SoundFX("Sling",DOFContactors), sling1, 1
-	vpmTimer.PulseSw 44
-	RSling.Visible = 0
+  PlaySoundAtVol SoundFX("Sling",DOFContactors), sling1, 1
+  vpmTimer.PulseSw 44
+  RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
@@ -289,8 +289,8 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingshot_Slingshot()
-	PlaySoundAtVol SoundFX("Sling",DOFContactors), sling2, 1
-	vpmTimer.PulseSw 43
+  PlaySoundAtVol SoundFX("Sling",DOFContactors), sling2, 1
+  vpmTimer.PulseSw 43
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -378,88 +378,88 @@ Sub RightFlipper_Collide(parm)
 End Sub
 
 'Rollovers
-Sub SW18_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(18)=1:End Sub	'18
+Sub SW18_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(18)=1:End Sub  '18
 Sub SW18_unHit:Controller.Switch(18)=0:End Sub
-Sub SW19_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(19)=1:End Sub	'19
+Sub SW19_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(19)=1:End Sub  '19
 Sub SW19_unHit:Controller.Switch(19)=0:End Sub
-Sub SW20_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(20)=1:End Sub	'20
+Sub SW20_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(20)=1:End Sub  '20
 Sub SW20_unHit:Controller.Switch(20)=0:End Sub
-Sub SW21_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(21)=1:End Sub	'21
+Sub SW21_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(21)=1:End Sub  '21
 Sub SW21_unHit:Controller.Switch(21)=0:End Sub
-Sub SW22_Hit:Controller.Switch(22)=1:End Sub	'22
+Sub SW22_Hit:Controller.Switch(22)=1:End Sub  '22
 Sub SW22_unHit:Controller.Switch(22)=0:End Sub
-'Sub 		'23 Ramp Raise EOS
-Sub SW28_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(28)=1:End Sub	'28
+'Sub    '23 Ramp Raise EOS
+Sub SW28_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(28)=1:End Sub  '28
 Sub SW28_unHit:Controller.Switch(28)=0:End Sub
-Sub SW29_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(29)=1:End Sub	'29
+Sub SW29_Hit:PlaySoundAtVol "RollOver",ActiveBall, 1:Controller.Switch(29)=1:End Sub  '29
 Sub SW29_unHit:Controller.Switch(29)=0:End Sub
 
 'DropTarget
-Sub DropTarget_Hit:dtDrop.Hit 1:End Sub				'30
+Sub DropTarget_Hit:dtDrop.Hit 1:End Sub       '30
 
-Sub Gate6_Hit:Controller.Switch(32)=1:PlaySoundAtVol "GateSmallWire",gate6, VolGates:End Sub	'32
+Sub Gate6_Hit:Controller.Switch(32)=1:PlaySoundAtVol "GateSmallWire",gate6, VolGates:End Sub  '32
 Sub Gate6_unHit:Controller.Switch(32)=0:End Sub
-Sub Rubber24_Hit:vpmTimer.PulseSw 33:End Sub		'33 Right Ten Point
-Sub LeftLock_Hit:PlaySoundAtVol "Kicker_Enter",leftlock,VolKick:RampLock.Enabled = 1:End Sub	'34
-Sub SW35_Hit:Controller.Switch(35)=1:PlaySoundAtVol "gatewire",sw35,1:End Sub	'35
+Sub Rubber24_Hit:vpmTimer.PulseSw 33:End Sub    '33 Right Ten Point
+Sub LeftLock_Hit:PlaySoundAtVol "Kicker_Enter",leftlock,VolKick:RampLock.Enabled = 1:End Sub  '34
+Sub SW35_Hit:Controller.Switch(35)=1:PlaySoundAtVol "gatewire",sw35,1:End Sub '35
 Sub SW35_unHit:Controller.Switch(35)=0:PlaySoundAtVol "gatewire",sw35,1:End Sub
-Sub SW36_Hit:Controller.Switch(36)=1:PlaySoundAtVol "gatewire",sw36,1:End Sub	'36
+Sub SW36_Hit:Controller.Switch(36)=1:PlaySoundAtVol "gatewire",sw36,1:End Sub '36
 Sub SW36_unHit:Controller.Switch(36)=0:PlaySoundAtVol "gatewire",sw36,1:End Sub
-Sub Kicker1_Hit:PlaySoundAtVol "Kicker_Enter",kicker1,VolKick:LeftLockT.Enabled = 1:End Sub		'37
-Sub Kicker2_Hit:PlaySoundAtVol "Kicker_Enter",kicker2,VolKick:CenterLock.Enabled = 1:End Sub		'38
-Sub SW39_Hit:Controller.Switch(39)=1:End Sub	'39
+Sub Kicker1_Hit:PlaySoundAtVol "Kicker_Enter",kicker1,VolKick:LeftLockT.Enabled = 1:End Sub   '37
+Sub Kicker2_Hit:PlaySoundAtVol "Kicker_Enter",kicker2,VolKick:CenterLock.Enabled = 1:End Sub    '38
+Sub SW39_Hit:Controller.Switch(39)=1:End Sub  '39
 Sub SW39_unHit:Controller.Switch(39)=0:End Sub
 
-Sub Rubber7_Hit:vpmTimer.PulseSw 45:End Sub	'45 Left Ten Point
+Sub Rubber7_Hit:vpmTimer.PulseSw 45:End Sub '45 Left Ten Point
 'Sub    '46 playfield Tilt
-Sub SW54_Hit:Controller.Switch(54)=1:End Sub	'54
+Sub SW54_Hit:Controller.Switch(54)=1:End Sub  '54
 Sub SW54_unHit:Controller.Switch(54)=0:End Sub
 
 'Ramp Lock
 Sub RampLock_timer()
-		bsLeftLock.AddBall 0:
-		bsLeftLock.InitSaucer LeftLock,34,0,60
-		bsLeftLock.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
-	RampLock.Enabled = 0
+    bsLeftLock.AddBall 0:
+    bsLeftLock.InitSaucer LeftLock,34,0,60
+    bsLeftLock.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
+  RampLock.Enabled = 0
 End Sub
 
 'Left Lock
 Sub LeftLockT_timer()
-		bsLeft.AddBall 0:
-		bsLeft.InitSaucer Kicker1,37,239,25
-		bsLeft.kickZ = .4
-		bsLeft.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
-	LeftLockT.Enabled = 0
+    bsLeft.AddBall 0:
+    bsLeft.InitSaucer Kicker1,37,239,25
+    bsLeft.kickZ = .4
+    bsLeft.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
+  LeftLockT.Enabled = 0
 End Sub
 
 'Center Lock
 Sub CenterLock_timer()
-		bsCenter.AddBall 0:
-		bsCenter.InitSaucer Kicker2,38,118,22
-		bsCenter.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
-		popper.isDropped = 0
-		popper.timerenabled = 1
-	CenterLock.Enabled = 0
+    bsCenter.AddBall 0:
+    bsCenter.InitSaucer Kicker2,38,118,22
+    bsCenter.InitExitSnd SoundFX("popper_Ball",DOFContactors),SoundFX("solenoid",DOFContactors)
+    popper.isDropped = 0
+    popper.timerenabled = 1
+  CenterLock.Enabled = 0
 End Sub
 
 Sub Popper_timer()
-	Popper.isDropped = 1
-	popper.timerenabled = 0
+  Popper.isDropped = 1
+  popper.timerenabled = 0
 end Sub
 
 'Diverter
 Sub Gate9_Hit() '31
-	vpmTimer.PulseSw 31
-	PlaySoundAtVol "GateSmallWire", gate9, VolGates
+  vpmTimer.PulseSw 31
+  PlaySoundAtVol "GateSmallWire", gate9, VolGates
 End Sub
 
 Dim Right1, Left1
 Sub Tirgger7_Hit
-	If GoRight.IsDropped Then
-	ActiveBall.VelX=0.5
-	Else
-	ActiveBall.VelX=-0.5
-	End If
+  If GoRight.IsDropped Then
+  ActiveBall.VelX=0.5
+  Else
+  ActiveBall.VelX=-0.5
+  End If
 End Sub
 
 Sub Trigger5_Hit::PlaySoundAtVol "Tick",ActiveBall, 1:Right1 = 1:Me.TimerEnabled = 1:End Sub
@@ -474,7 +474,7 @@ Sub Trigger5_Hit::PlaySoundAtVol "Tick",ActiveBall, 1:Right1 = 1:Me.TimerEnabled
                Case 6:Diverter.ObjRotZ = 20:Right1 = 7
                Case 7:Diverter.ObjRotZ = 30:Me.TimerEnabled = 0
            End Select
-		End Sub
+    End Sub
 
 
 Sub Trigger6_Hit::PlaySoundAtVol "Tick",ActiveBall, 1:Left1 = 1:Me.TimerEnabled = 1:End Sub
@@ -489,50 +489,50 @@ Sub Trigger6_Hit::PlaySoundAtVol "Tick",ActiveBall, 1:Left1 = 1:Me.TimerEnabled 
                Case 6:Diverter.ObjRotZ = -20:Left1 = 7
                Case 7:Diverter.ObjRotZ = -30:Me.TimerEnabled = 0
            End Select
-		End Sub
+    End Sub
 
 
 Sub Trigger7_unHit
-	If (Not DivTimer.Enabled) And (Not Trigger7.TimerEnabled) And (Not DivTimer2.Enabled) Then
-	DivTimer.Enabled=1
-	Else
-	Exit Sub
-	End If
+  If (Not DivTimer.Enabled) And (Not Trigger7.TimerEnabled) And (Not DivTimer2.Enabled) Then
+  DivTimer.Enabled=1
+  Else
+  Exit Sub
+  End If
 End Sub
 
 Sub DivTimer_Timer
-	Me.Enabled=0
-	If GoRight.IsDropped Then
-		GoLeft.IsDropped=1
-		GoRight.IsDropped=0
-	Else
-		GoLeft.IsDropped=0
-		GoRight.IsDropped=1
-	End If
-		Gate9.TimerEnabled=1
-	End Sub
+  Me.Enabled=0
+  If GoRight.IsDropped Then
+    GoLeft.IsDropped=1
+    GoRight.IsDropped=0
+  Else
+    GoLeft.IsDropped=0
+    GoRight.IsDropped=1
+  End If
+    Gate9.TimerEnabled=1
+  End Sub
 
 Sub Trigger7_Timer()
-	Trigger7.TimerEnabled=0
-	If GoRight.IsDropped Then
-		GoLeft.IsDropped=1
-		GoRight.IsDropped=0
-	Else
-		GoLeft.IsDropped=0
-		GoRight.IsDropped=1
-	End If
-	DivTimer2.Enabled=1
+  Trigger7.TimerEnabled=0
+  If GoRight.IsDropped Then
+    GoLeft.IsDropped=1
+    GoRight.IsDropped=0
+  Else
+    GoLeft.IsDropped=0
+    GoRight.IsDropped=1
+  End If
+  DivTimer2.Enabled=1
 End Sub
 
 Sub DivTimer2_Timer
-	DivTimer2.Enabled=0
-	If GoRight.IsDropped Then
-		GoLeft.IsDropped=1
-		GoRight.IsDropped=0
-	Else
-		GoLeft.IsDropped=0
-		GoRight.IsDropped=1
-	End If
+  DivTimer2.Enabled=0
+  If GoRight.IsDropped Then
+    GoLeft.IsDropped=1
+    GoRight.IsDropped=0
+  Else
+    GoLeft.IsDropped=0
+    GoRight.IsDropped=1
+  End If
 End Sub
 
 
@@ -544,367 +544,367 @@ Dim RampBalls, RampLift, RampDrop
  Sub Trigger1_unHit:RampBalls=RampBalls-1:End Sub
 
 Sub SolRampDown(Enabled)
-	If Enabled AND MetalRamp.ObjRotX = 10 Then 'RampDown
-		Controller.Switch(23) = 1
- 		If RampBalls<1 Then
-			Ramp1.Collidable=True
-			RampDrop = 1
-			RampDownTimer.Enabled = 1
-			Trigger1.TimerEnabled = 0
-		Else
- 			Trigger1.TimerEnabled = 1
- 		End If
-	End If
+  If Enabled AND MetalRamp.ObjRotX = 10 Then 'RampDown
+    Controller.Switch(23) = 1
+    If RampBalls<1 Then
+      Ramp1.Collidable=True
+      RampDrop = 1
+      RampDownTimer.Enabled = 1
+      Trigger1.TimerEnabled = 0
+    Else
+      Trigger1.TimerEnabled = 1
+    End If
+  End If
 End Sub
 
 Sub RampDownTimer_Timer()
-		Select Case RampDrop
-				Case 1:MetalRamp.ObjRotX = 10:RampArm.RotY = 30:PlaysoundAtVol "RampDown",Gate9Prim,1:RampDrop = 2
-				Case 2:MetalRamp.ObjRotX = 7:RampArm.RotY = 15:RampDrop = 3
-				Case 3:MetalRamp.ObjRotX = 5:RampArm.RotY = 0:RampDrop = 4
-				Case 4:MetalRamp.ObjRotX = 3:RampArm.RotY = -15:RampDrop = 5
-				Case 5:MetalRamp.ObjRotX = 0:RampArm.RotY = -30:RampDownTimer.Enabled = 0
-		End Select
+    Select Case RampDrop
+        Case 1:MetalRamp.ObjRotX = 10:RampArm.RotY = 30:PlaysoundAtVol "RampDown",Gate9Prim,1:RampDrop = 2
+        Case 2:MetalRamp.ObjRotX = 7:RampArm.RotY = 15:RampDrop = 3
+        Case 3:MetalRamp.ObjRotX = 5:RampArm.RotY = 0:RampDrop = 4
+        Case 4:MetalRamp.ObjRotX = 3:RampArm.RotY = -15:RampDrop = 5
+        Case 5:MetalRamp.ObjRotX = 0:RampArm.RotY = -30:RampDownTimer.Enabled = 0
+    End Select
 End Sub
 
 Sub SolRampUp(Enabled)
-	If Enabled AND MetalRamp.ObjRotX = 0 Then 'RampUp
-		Ramp1.Collidable=False
-		RampLift = 1
-		RampUpTimer.Enabled = 1
-		Controller.Switch(23)= 0
-	End If
+  If Enabled AND MetalRamp.ObjRotX = 0 Then 'RampUp
+    Ramp1.Collidable=False
+    RampLift = 1
+    RampUpTimer.Enabled = 1
+    Controller.Switch(23)= 0
+  End If
 End Sub
 
 Sub RampUpTimer_Timer()
-		Select Case RampLift
-				Case 1:MetalRamp.ObjRotX = 0:RampArm.RotY = -30:PlaysoundAtVol "RampUp",Gate9Prim,1:RampLift = 2
-				Case 2:MetalRamp.ObjRotX = 3:RampArm.RotY = -15:RampLift = 3
-				Case 3:MetalRamp.ObjRotX = 5:RampArm.RotY = 0:RampLift = 4
-				Case 4:MetalRamp.ObjRotX = 7:RampArm.RotY = 15:RampLift = 5
-				Case 5:MetalRamp.ObjRotX = 10:RampArm.RotY = 30:RampUpTimer.Enabled = 0
-		End Select
+    Select Case RampLift
+        Case 1:MetalRamp.ObjRotX = 0:RampArm.RotY = -30:PlaysoundAtVol "RampUp",Gate9Prim,1:RampLift = 2
+        Case 2:MetalRamp.ObjRotX = 3:RampArm.RotY = -15:RampLift = 3
+        Case 3:MetalRamp.ObjRotX = 5:RampArm.RotY = 0:RampLift = 4
+        Case 4:MetalRamp.ObjRotX = 7:RampArm.RotY = 15:RampLift = 5
+        Case 5:MetalRamp.ObjRotX = 10:RampArm.RotY = 30:RampUpTimer.Enabled = 0
+    End Select
 End Sub
 
 'Only drop ramp if there is no ball under the ramp
  Sub Trigger1_Timer
- 	If RampBalls<1 AND MetalRamp.ObjRotX = 9 Then
-		Ramp1.Collidable=True
-		RampDrop = 1
-		RampDownTimer.Enabled = 1
- 		Trigger1.TimerEnabled = 0
- 	End If
+  If RampBalls<1 AND MetalRamp.ObjRotX = 9 Then
+    Ramp1.Collidable=True
+    RampDrop = 1
+    RampDownTimer.Enabled = 1
+    Trigger1.TimerEnabled = 0
+  End If
 End Sub
 
 'Update GI stuff...
 Sub SolGI(Enabled)
-	If Enabled Then
-			Light1.state = 0
-			Light2.state = 0
-			Light3.state = 0
-			Light4.state = 0
-			Light5.state = 0
-			Light6.state = 0
-			Light7.state = 0
-			Light8.state = 0
-			Light9.state = 0
-			Light10.state = 0
-			Light11.state = 0
-			Light12.state = 0
-			Light13.state = 0
-			Light14.state = 0
-			Light15.state = 0
-			Light16.state = 0
-			Light17.state = 0
-			Light18.state = 0
-			Light19.state = 0
-			Light20.state = 0
-			Light21.state = 0
-			Light22.state = 0
-			Light23.state = 0
-			Light25.state = 0
-			Light28.state = 0
-			Light29.state = 0
-			Light30.state = 0
-			Light31.State = 0
-			Light32.State = 0
-			Light33.State = 0
-			Light34.State = 0
-			Light35.State = 0
-			Light36.State = 0
-			Light37.State = 0
-			Light38.State = 0
-			Light39.State = 0
-			Light40.State = 0
-			Light41.State = 0
-			Light42.State = 0
-			Light43.State = 0
-			Light44.State = 0
-			Light45.State = 0
-			Light46.State = 0
-			Light47.State = 0
-'			Light48.State = 0
-'			Light49.State = 0
-			Light50.State = 0
-			Light51.State = 0
-			Light52.State = 0
-			Light53.State = 0
-			Light54.State = 0
-			Light55.State = 0
-			Light56.State = 0
-'			Light57.State = 0
-			Light58.State = 0
-			Light59.state = 0
-			Light60.state = 0
-			Light61.state = 0
-			Light62.state = 0
-			Light63.state = 0
-			Light64.state = 0
-			Light65.state = 0
-			Light66.state = 0
-			Light67.state = 0
-			Light68.state = 0
-			Light69.state = 0
-			Light70.state = 0
-			Light71.state = 0
-			Light72.state = 0
-			Light73.state = 0
-			Light74.state = 0
-			Light75.state = 0
-			Light76.state = 0
-			Light77.state = 0
-			Light78.state = 0
-			Light79.state = 0
-			Light80.state = 0
-			Light81.state = 0
-			Light82.state = 0
-			Light83.state = 0
-			Light84.state = 0
-			Light85.state = 0
-			Light86.state = 0
-			Light87.state = 0
-			Light88.state = 0
-			Light89.state = 0
-			Light90.state = 0
-			Light91.state = 0
-			Light92.state = 0
-			Light93.state = 0
-			Light94.state = 0
-			Light95.state = 0
-			Light96.state = 0
-			Light97.state = 0
-			Light98.state = 0
-			Flasher1.Visible = 0
-			RightWall.visible = 0
-			LeftWall.visible = 0
-			Flasher2.Visible = 0
+  If Enabled Then
+      Light1.state = 0
+      Light2.state = 0
+      Light3.state = 0
+      Light4.state = 0
+      Light5.state = 0
+      Light6.state = 0
+      Light7.state = 0
+      Light8.state = 0
+      Light9.state = 0
+      Light10.state = 0
+      Light11.state = 0
+      Light12.state = 0
+      Light13.state = 0
+      Light14.state = 0
+      Light15.state = 0
+      Light16.state = 0
+      Light17.state = 0
+      Light18.state = 0
+      Light19.state = 0
+      Light20.state = 0
+      Light21.state = 0
+      Light22.state = 0
+      Light23.state = 0
+      Light25.state = 0
+      Light28.state = 0
+      Light29.state = 0
+      Light30.state = 0
+      Light31.State = 0
+      Light32.State = 0
+      Light33.State = 0
+      Light34.State = 0
+      Light35.State = 0
+      Light36.State = 0
+      Light37.State = 0
+      Light38.State = 0
+      Light39.State = 0
+      Light40.State = 0
+      Light41.State = 0
+      Light42.State = 0
+      Light43.State = 0
+      Light44.State = 0
+      Light45.State = 0
+      Light46.State = 0
+      Light47.State = 0
+'     Light48.State = 0
+'     Light49.State = 0
+      Light50.State = 0
+      Light51.State = 0
+      Light52.State = 0
+      Light53.State = 0
+      Light54.State = 0
+      Light55.State = 0
+      Light56.State = 0
+'     Light57.State = 0
+      Light58.State = 0
+      Light59.state = 0
+      Light60.state = 0
+      Light61.state = 0
+      Light62.state = 0
+      Light63.state = 0
+      Light64.state = 0
+      Light65.state = 0
+      Light66.state = 0
+      Light67.state = 0
+      Light68.state = 0
+      Light69.state = 0
+      Light70.state = 0
+      Light71.state = 0
+      Light72.state = 0
+      Light73.state = 0
+      Light74.state = 0
+      Light75.state = 0
+      Light76.state = 0
+      Light77.state = 0
+      Light78.state = 0
+      Light79.state = 0
+      Light80.state = 0
+      Light81.state = 0
+      Light82.state = 0
+      Light83.state = 0
+      Light84.state = 0
+      Light85.state = 0
+      Light86.state = 0
+      Light87.state = 0
+      Light88.state = 0
+      Light89.state = 0
+      Light90.state = 0
+      Light91.state = 0
+      Light92.state = 0
+      Light93.state = 0
+      Light94.state = 0
+      Light95.state = 0
+      Light96.state = 0
+      Light97.state = 0
+      Light98.state = 0
+      Flasher1.Visible = 0
+      RightWall.visible = 0
+      LeftWall.visible = 0
+      Flasher2.Visible = 0
 
 
-		Else
-			Light1.state = 1
-			Light2.state = 1
-			Light3.state = 1
-			Light4.state = 1
-			Light5.state = 1
-			Light6.state = 1
-			Light7.state = 1
-			Light8.state = 1
-			Light9.state = 1
-			Light10.State = 1
-			Light11.state = 1
-			Light12.state = 1
-			Light13.state = 1
-			Light14.state = 1
-			Light15.state = 1
-			Light16.State = 1
-			Light17.state = 1
-			Light18.state = 1
-			Light19.state = 1
-			Light20.state = 1
-			Light21.state = 1
-			Light22.state = 1
-			Light23.state = 1
-			Light25.state = 1
-			Light28.state = 1
-			Light29.state = 1
-			Light30.state = 1
-			Light31.State = 1
-			Light32.State = 1
-			Light33.State = 1
-			Light34.State = 1
-			Light35.State = 1
-			Light36.State = 1
-			Light37.State = 1
-			Light38.State = 1
-			Light39.State = 1
-			Light40.State = 1
-			Light41.State = 1
-			Light42.State = 1
-			Light43.State = 1
-			Light44.State = 1
-			Light45.State = 1
-			Light46.State = 1
-			Light47.State = 1
-'			Light48.State = 1
-'			Light49.State = 1
-			Light50.State = 1
-			Light51.State = 1
-			Light52.State = 1
-			Light53.State = 1
-			Light54.State = 1
-			Light55.State = 1
-			Light56.State = 1
-'			Light57.State = 1
-			Light58.State = 1
-			Light59.State = 1
-			Light60.state = 1
-			Light61.state = 1
-			Light62.state = 1
-			Light63.state = 1
-			Light64.state = 1
-			Light65.state = 1
-			Light66.state = 1
-			Light67.state = 1
-			Light68.state = 1
-			Light69.state = 1
-			Light70.state = 1
-			Light71.state = 1
-			Light72.state = 1
-			Light73.state = 1
-			Light74.state = 1
-			Light75.state = 1
-			Light76.state = 1
-			Light77.state = 1
-			Light78.state = 1
-			Light79.state = 1
-			Light80.state = 1
-			Light81.state = 1
-			Light82.state = 1
-			Light83.state = 1
-			Light84.state = 1
-			Light85.state = 1
-			Light86.state = 1
-			Light87.state = 1
-			Light88.state = 1
-			Light89.state = 1
-			Light90.state = 1
-			Light91.state = 1
-			Light92.state = 1
-			Light93.state = 1
-			Light94.state = 1
-			Light95.state = 1
-			Light96.state = 1
-			Light97.state = 1
-			Light98.state = 1
-			Flasher1.Visible = 1
-			RightWall.Visible = 1
-			LeftWall.Visible = 1
-			Flasher2.Visible = 1
+    Else
+      Light1.state = 1
+      Light2.state = 1
+      Light3.state = 1
+      Light4.state = 1
+      Light5.state = 1
+      Light6.state = 1
+      Light7.state = 1
+      Light8.state = 1
+      Light9.state = 1
+      Light10.State = 1
+      Light11.state = 1
+      Light12.state = 1
+      Light13.state = 1
+      Light14.state = 1
+      Light15.state = 1
+      Light16.State = 1
+      Light17.state = 1
+      Light18.state = 1
+      Light19.state = 1
+      Light20.state = 1
+      Light21.state = 1
+      Light22.state = 1
+      Light23.state = 1
+      Light25.state = 1
+      Light28.state = 1
+      Light29.state = 1
+      Light30.state = 1
+      Light31.State = 1
+      Light32.State = 1
+      Light33.State = 1
+      Light34.State = 1
+      Light35.State = 1
+      Light36.State = 1
+      Light37.State = 1
+      Light38.State = 1
+      Light39.State = 1
+      Light40.State = 1
+      Light41.State = 1
+      Light42.State = 1
+      Light43.State = 1
+      Light44.State = 1
+      Light45.State = 1
+      Light46.State = 1
+      Light47.State = 1
+'     Light48.State = 1
+'     Light49.State = 1
+      Light50.State = 1
+      Light51.State = 1
+      Light52.State = 1
+      Light53.State = 1
+      Light54.State = 1
+      Light55.State = 1
+      Light56.State = 1
+'     Light57.State = 1
+      Light58.State = 1
+      Light59.State = 1
+      Light60.state = 1
+      Light61.state = 1
+      Light62.state = 1
+      Light63.state = 1
+      Light64.state = 1
+      Light65.state = 1
+      Light66.state = 1
+      Light67.state = 1
+      Light68.state = 1
+      Light69.state = 1
+      Light70.state = 1
+      Light71.state = 1
+      Light72.state = 1
+      Light73.state = 1
+      Light74.state = 1
+      Light75.state = 1
+      Light76.state = 1
+      Light77.state = 1
+      Light78.state = 1
+      Light79.state = 1
+      Light80.state = 1
+      Light81.state = 1
+      Light82.state = 1
+      Light83.state = 1
+      Light84.state = 1
+      Light85.state = 1
+      Light86.state = 1
+      Light87.state = 1
+      Light88.state = 1
+      Light89.state = 1
+      Light90.state = 1
+      Light91.state = 1
+      Light92.state = 1
+      Light93.state = 1
+      Light94.state = 1
+      Light95.state = 1
+      Light96.state = 1
+      Light97.state = 1
+      Light98.state = 1
+      Flasher1.Visible = 1
+      RightWall.Visible = 1
+      LeftWall.Visible = 1
+      Flasher2.Visible = 1
 
-	End if
+  End if
 End Sub
 
 Sub BoardGI(Enabled)
-	If Enabled Then
-			Flasher6.Visible=1
-		Else
-			Flasher6.Visible=0
-	End if
+  If Enabled Then
+      Flasher6.Visible=1
+    Else
+      Flasher6.Visible=0
+  End if
 End Sub
 
 Sub RearGI(Enabled)
-	If Enabled Then
-			Light26.State = 1
-			Light27.State = 1
-			RightWall1.Visible = 1
-			LeftWall1.visible = 1
-		Else
-			Light26.State = 0
-			Light27.State = 0
-			RightWall1.Visible = 0
-			LeftWall1.Visible = 0
-	End if
+  If Enabled Then
+      Light26.State = 1
+      Light27.State = 1
+      RightWall1.Visible = 1
+      LeftWall1.visible = 1
+    Else
+      Light26.State = 0
+      Light27.State = 0
+      RightWall1.Visible = 0
+      LeftWall1.Visible = 0
+  End if
 End Sub
 
 
 Set LampCallback = GetRef("Lamps")
-	Sub Lamps
-		L1.State = Controller.Lamp(1)
-		L2.State = Controller.Lamp(2)
-		L3.State = Controller.Lamp(3)
-		L4.State = Controller.Lamp(4)
-		L5.State = Controller.Lamp(5)
-		L6.State = Controller.Lamp(6)
-		L7.State = Controller.Lamp(7)
-		L8.State = Controller.Lamp(8)
-		L9.State = Controller.Lamp(9)
-		L10.State = Controller.Lamp(10)
-		L11.State = Controller.Lamp(11)
-		L12.State = Controller.Lamp(12)
-		L13.State = Controller.Lamp(13)
-		L14.State = Controller.Lamp(14)
-		L15.State = Controller.Lamp(15)
-		L16.State = Controller.Lamp(16)
-		L17.State = Controller.Lamp(17)
-		L18.State = Controller.Lamp(18)
-		L19.State = Controller.Lamp(19)
-		L20.State = Controller.Lamp(20)
-		L21.State = Controller.Lamp(21)
-		L22.State = Controller.Lamp(22)
-		L23.State = Controller.Lamp(23)
-		L24.State = Controller.Lamp(24)
-		L25.State = Controller.Lamp(25)
-		L26.State = Controller.Lamp(26)
-		L27.State = Controller.Lamp(27)
-		L28.State = Controller.Lamp(28)
-		L29.State = Controller.Lamp(29)
-		L30.State = Controller.Lamp(30)
-		L31.State = Controller.Lamp(31)
-		L32.State = Controller.Lamp(32)
-		L33.State = Controller.Lamp(33)
-		L34.State = Controller.Lamp(34)
-		L35.State = Controller.Lamp(35)
-		L36.State = Controller.Lamp(36)
-		L37.State = Controller.Lamp(37)
-		L38.State = Controller.Lamp(38)
-		L39.State = Controller.Lamp(39)
-		L40.State = Controller.Lamp(40)
-		L41.State = Controller.Lamp(41)
-		L42.State = Controller.Lamp(42)
-		L43.State = Controller.Lamp(43)
-		L44.State = Controller.Lamp(44)
-		L45.State = Controller.Lamp(45)
-		L46.State = Controller.Lamp(46)
-		L47.State = Controller.Lamp(47)
-		L48.State = Controller.Lamp(48)
-		L49.State = Controller.Lamp(49)
-		L50.State = Controller.Lamp(50)
-		L51.State = Controller.Lamp(51)
-		L52.State = Controller.Lamp(52)
-		L53.State = Controller.Lamp(53)
-		L54.State = Controller.Lamp(54)
-		L55.State = Controller.Lamp(55)
+  Sub Lamps
+    L1.State = Controller.Lamp(1)
+    L2.State = Controller.Lamp(2)
+    L3.State = Controller.Lamp(3)
+    L4.State = Controller.Lamp(4)
+    L5.State = Controller.Lamp(5)
+    L6.State = Controller.Lamp(6)
+    L7.State = Controller.Lamp(7)
+    L8.State = Controller.Lamp(8)
+    L9.State = Controller.Lamp(9)
+    L10.State = Controller.Lamp(10)
+    L11.State = Controller.Lamp(11)
+    L12.State = Controller.Lamp(12)
+    L13.State = Controller.Lamp(13)
+    L14.State = Controller.Lamp(14)
+    L15.State = Controller.Lamp(15)
+    L16.State = Controller.Lamp(16)
+    L17.State = Controller.Lamp(17)
+    L18.State = Controller.Lamp(18)
+    L19.State = Controller.Lamp(19)
+    L20.State = Controller.Lamp(20)
+    L21.State = Controller.Lamp(21)
+    L22.State = Controller.Lamp(22)
+    L23.State = Controller.Lamp(23)
+    L24.State = Controller.Lamp(24)
+    L25.State = Controller.Lamp(25)
+    L26.State = Controller.Lamp(26)
+    L27.State = Controller.Lamp(27)
+    L28.State = Controller.Lamp(28)
+    L29.State = Controller.Lamp(29)
+    L30.State = Controller.Lamp(30)
+    L31.State = Controller.Lamp(31)
+    L32.State = Controller.Lamp(32)
+    L33.State = Controller.Lamp(33)
+    L34.State = Controller.Lamp(34)
+    L35.State = Controller.Lamp(35)
+    L36.State = Controller.Lamp(36)
+    L37.State = Controller.Lamp(37)
+    L38.State = Controller.Lamp(38)
+    L39.State = Controller.Lamp(39)
+    L40.State = Controller.Lamp(40)
+    L41.State = Controller.Lamp(41)
+    L42.State = Controller.Lamp(42)
+    L43.State = Controller.Lamp(43)
+    L44.State = Controller.Lamp(44)
+    L45.State = Controller.Lamp(45)
+    L46.State = Controller.Lamp(46)
+    L47.State = Controller.Lamp(47)
+    L48.State = Controller.Lamp(48)
+    L49.State = Controller.Lamp(49)
+    L50.State = Controller.Lamp(50)
+    L51.State = Controller.Lamp(51)
+    L52.State = Controller.Lamp(52)
+    L53.State = Controller.Lamp(53)
+    L54.State = Controller.Lamp(54)
+    L55.State = Controller.Lamp(55)
 
-	End Sub
+  End Sub
 
 sub FlasherTimer_Timer()
-		If L19.State Then
-			Flasher3.Visible = 1
-		Else
-			Flasher3.Visible = 0
-		End If
+    If L19.State Then
+      Flasher3.Visible = 1
+    Else
+      Flasher3.Visible = 0
+    End If
 
-		If L18.State Then
-			Flasher4.Visible = 1
-		Else
-			Flasher4.Visible = 0
-		End If
+    If L18.State Then
+      Flasher4.Visible = 1
+    Else
+      Flasher4.Visible = 0
+    End If
 
-		If L28.State Then
-			Flasher5.Visible = 1
-		Else
-			Flasher5.Visible = 0
-		End If
+    If L28.State Then
+      Flasher5.Visible = 1
+    Else
+      Flasher5.Visible = 0
+    End If
 
 End Sub
 
@@ -912,27 +912,27 @@ End Sub
 
 Dim ChgLed, iw
 Sub Leds_Timer()
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
-	If DesktopMode = True Then
-		UpdateLeds
-		Controller.hidden = 1
-		For each iw in BGLCDs: iw.Visible = True:Next
-	Else
-		For each iw in BGLCDs: iw.Visible = False:Next
-	End If
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  If DesktopMode = True Then
+    UpdateLeds
+    Controller.hidden = 1
+    For each iw in BGLCDs: iw.Visible = True:Next
+  Else
+    For each iw in BGLCDs: iw.Visible = False:Next
+  End If
 End Sub
 
 Sub UpdateLeds()
-	Dim ii, num, chg, stat, obj
-	If Not IsEmpty(ChgLED) Then
-		For ii=0 To UBound(chgLED)
-			num=chgLED(ii,0):chg=chgLED(ii,1):stat=chgLED(ii,2)
-			For Each obj In Digits(num)
-				If chg And 1 Then obj.State=stat And 1
-				chg=chg\2:stat=stat\2
-			Next
-		Next
-	End If
+  Dim ii, num, chg, stat, obj
+  If Not IsEmpty(ChgLED) Then
+    For ii=0 To UBound(chgLED)
+      num=chgLED(ii,0):chg=chgLED(ii,1):stat=chgLED(ii,2)
+      For Each obj In Digits(num)
+        If chg And 1 Then obj.State=stat And 1
+        chg=chg\2:stat=stat\2
+      Next
+    Next
+  End If
 End Sub
 
 Dim Digits(32)
@@ -971,7 +971,7 @@ Digits(31)=Array(A331,A336,A337,A333,A335,A334,A332,A338)
 
 
 ' *********************************************************************
-' 					Wall, rubber and metal hit sounds
+'           Wall, rubber and metal hit sounds
 ' *********************************************************************
 
 Sub aRubbers_Hit(idx):PlaySound "rubber", 0, 1, pan(ActiveBall)*VolRH, 0.25, AudioFade(ActiveBall):End Sub
@@ -1173,31 +1173,31 @@ End Sub
 'Extra Sounds
 
 Sub Gate_Hit()
-	PlaySoundAtVol "GateFast", gate, VolGates
+  PlaySoundAtVol "GateFast", gate, VolGates
 End Sub
 
 Sub Gate2_Hit()
-	PlaySoundAtVol "Gate", gate2, VolGates
+  PlaySoundAtVol "Gate", gate2, VolGates
 End Sub
 
 Sub Gate3_Hit()
-	PlaySoundAtVol "Gate", gate3, VolGates
+  PlaySoundAtVol "Gate", gate3, VolGates
 End Sub
 
 Sub Gate4_Hit()
-	PlaySoundAtVol "GateFast", gate4, VolGates
+  PlaySoundAtVol "GateFast", gate4, VolGates
 End Sub
 
 Sub Trigger8_Hit()
-	PlaySoundAtVol "BallHit", ActiveBall, 1
+  PlaySoundAtVol "BallHit", ActiveBall, 1
 End Sub
 
 Sub Trigger9_Hit()
-	PlaySoundAtVol "BallHit", ActiveBall, 1
+  PlaySoundAtVol "BallHit", ActiveBall, 1
 End Sub
 
 Sub Trigger10_Hit()
-	PlaySoundAtVol "top_lane", ActiveBall, 1
+  PlaySoundAtVol "top_lane", ActiveBall, 1
 End Sub
 
 ' *******************************************************************************************************

@@ -180,67 +180,67 @@ myPrefs_FlipperBatType = 0               'Flipper Bat Type (G5K)
 '*****/_/ /____/___/_/  /_/  /___/_/|_/___/  *****
 
    Sub  GraphicsTimer1_Timer() 'UpperFlipperPrimitive Motion
-		batleft1.objrotz = FlipperLeftUpper.CurrentAngle - 8
-		batright1.objrotz = FlipperRightUpper.CurrentAngle + 18
+    batleft1.objrotz = FlipperLeftUpper.CurrentAngle - 8
+    batright1.objrotz = FlipperRightUpper.CurrentAngle + 18
    End Sub
 
    Sub GraphicsTimer_Timer() 'Lower Flipper Primitive Motion
-		batleft.objrotz = FlipperLeft.CurrentAngle + 1
-		batright.objrotz = FlipperRight.CurrentAngle - 1
+    batleft.objrotz = FlipperLeft.CurrentAngle + 1
+    batright.objrotz = FlipperRight.CurrentAngle - 1
    End Sub
 
   Select Case myPrefs_FlipperBatType  'Upper Flipper Primitive Material
     Case 0
-		batleft1.image = "_flipper_white_red"
-		batright1.image = "_flipper_white_red"
+    batleft1.image = "_flipper_white_red"
+    batright1.image = "_flipper_white_red"
     Case 1
-	        batleft1.image = "_flipper_white_black"
-		batright1.image = "_flipper_white_black"
+          batleft1.image = "_flipper_white_black"
+    batright1.image = "_flipper_white_black"
     Case 2
-	        batleft1.image = "_flipper_white_green"
-		batright1.image = "_flipper_white_green"
+          batleft1.image = "_flipper_white_green"
+    batright1.image = "_flipper_white_green"
     Case 3
-		batleft1.image = "_flipper_white_red"
-		batright1.image = "_flipper_white_red"
+    batleft1.image = "_flipper_white_red"
+    batright1.image = "_flipper_white_red"
     Case 4
-		batleft1.image = "_flipper_yellow_red"
-		batright1.image = "_flipper_yellow_red"
+    batleft1.image = "_flipper_yellow_red"
+    batright1.image = "_flipper_yellow_red"
     Case 5
                 batleft1.image = "_flipper_yellow_black"
-		batright1.image = "_flipper_yellow_black"
+    batright1.image = "_flipper_yellow_black"
     Case 6
-		batleft1.image = "_flipper_yellow_green"
-		batright1.image = "_flipper_yellow_green"
+    batleft1.image = "_flipper_yellow_green"
+    batright1.image = "_flipper_yellow_green"
      Case 7
-		batleft1.image = "_flipper_yellow_green"
-		batright1.image = "_flipper_yellow_green"
+    batleft1.image = "_flipper_yellow_green"
+    batright1.image = "_flipper_yellow_green"
   End Select
 
   Select Case myPrefs_FlipperBatType 'Lower Flipper Primitive Material
     Case 0
-		batleft.image = "_flipper_white_red"
-		batright.image = "_flipper_white_red"
+    batleft.image = "_flipper_white_red"
+    batright.image = "_flipper_white_red"
     Case 1
-	        batleft.image = "_flipper_white_black"
-		batright.image = "_flipper_white_black"
+          batleft.image = "_flipper_white_black"
+    batright.image = "_flipper_white_black"
     Case 2
-	        batleft.image = "_flipper_white_green"
-		batright.image = "_flipper_white_green"
+          batleft.image = "_flipper_white_green"
+    batright.image = "_flipper_white_green"
     Case 3
-		batleft.image = "_flipper_white_blue"
-		batright.image = "_flipper_white_blue"
+    batleft.image = "_flipper_white_blue"
+    batright.image = "_flipper_white_blue"
     Case 4
-		batleft.image = "_flipper_yellow_red"
-		batright.image = "_flipper_yellow_red"
+    batleft.image = "_flipper_yellow_red"
+    batright.image = "_flipper_yellow_red"
     Case 5
                 batleft.image = "_flipper_yellow_black"
-		batright.image = "_flipper_yellow_black"
+    batright.image = "_flipper_yellow_black"
     Case 6
-		batleft.image = "_flipper_yellow_green"
-		batright.image = "_flipper_yellow_green"
+    batleft.image = "_flipper_yellow_green"
+    batright.image = "_flipper_yellow_green"
     Case 7
-		batleft.image = "_flipper_yellow_red"
-		batright.image = "_flipper_yellow_red"
+    batleft.image = "_flipper_yellow_red"
+    batright.image = "_flipper_yellow_red"
   End Select
 
 Sub myAdjustTableToPrefs
@@ -324,7 +324,7 @@ Sub mySetRubberColor(myGIOn)
     Case 0 'White
       myMaterial = "Rubber White"
     Case 1 'Random
-		Select Case Int(Rnd()*4) '(Rnd()*3)AXS
+    Select Case Int(Rnd()*4) '(Rnd()*3)AXS
           Case 0 'White
             myMaterial = "Rubber White"
           Case 1 'Black
@@ -335,7 +335,7 @@ Sub mySetRubberColor(myGIOn)
             myMaterial = "Rubber Red"
           Case 4 'Blue
             myMaterial = "Rubber Blue"
-		End Select
+    End Select
     Case 2 'Black
       myMaterial = "Rubber Black"
     Case 3 'Green
@@ -358,24 +358,24 @@ End if
 End Sub
 
 Sub mySetInstructionCards(myCardType)
-	Select Case myCardType
-		Case 0
-		  LCardFactory.visible = 1
-		  RCardFactory.visible = 1
-		Case 1
-		  LCardMod.visible = 1
-		  RCardMod.visible = 1
-		Case 2
-		  LCardTHX.visible = 1
-		  RCardTHX.visible = 1
-		Case -1
-		  LCardFactory.visible = 0
-		  RCardFactory.visible = 0
-		  LCardMod.visible = 0
-		  RCardMod.visible = 0
-		  LCardTHX.visible = 0
-		  RCardTHX.visible = 0
-	  End Select
+  Select Case myCardType
+    Case 0
+      LCardFactory.visible = 1
+      RCardFactory.visible = 1
+    Case 1
+      LCardMod.visible = 1
+      RCardMod.visible = 1
+    Case 2
+      LCardTHX.visible = 1
+      RCardTHX.visible = 1
+    Case -1
+      LCardFactory.visible = 0
+      RCardFactory.visible = 0
+      LCardMod.visible = 0
+      RCardMod.visible = 0
+      LCardTHX.visible = 0
+      RCardTHX.visible = 0
+    End Select
 End Sub
 
 
@@ -438,51 +438,51 @@ Sub myAdjustGIColor()
       myLightColorFull = RGB(225,190,160)
       myLightIntensity = 250
     Case 1 'Random
-		Select Case Int(Rnd()*6)
+    Select Case Int(Rnd()*6)
           Case 0 'Warm White
-			  myLightColor = RGB(225,190,160)
-			  myLightColorFull = RGB(225,190,160)
-			  myLightIntensity = 250
-     	  Case 1 'Cool White
+        myLightColor = RGB(225,190,160)
+        myLightColorFull = RGB(225,190,160)
+        myLightIntensity = 250
+        Case 1 'Cool White
               myLightColor = RGB(230,230,255)
-	          myLightColorFull = RGB(230,230,255)
+            myLightColorFull = RGB(230,230,255)
               myLightIntensity = 250
           Case 2 'Green
-        	  myLightColor = RGB(100,255,0)
-	          myLightColorFull = RGB(100,255,0)
+            myLightColor = RGB(100,255,0)
+            myLightColorFull = RGB(100,255,0)
               myLightIntensity = 150
           Case 3 'Blue
-        	  myLightColor = RGB(25,25,255)
-	          myLightColorFull = RGB(25,25,255)
+            myLightColor = RGB(25,25,255)
+            myLightColorFull = RGB(25,25,255)
               myLightIntensity = 650
           Case 4 'Purple
-        	  myLightColor = RGB(128,0,255)
-	          myLightColorFull = RGB(128,0,255)
+            myLightColor = RGB(128,0,255)
+            myLightColorFull = RGB(128,0,255)
               myLightIntensity = 250
           Case 5 'Red
-        	  myLightColor = RGB(255,5,5)
-	          myLightColorFull = RGB(255,5,5)
+            myLightColor = RGB(255,5,5)
+            myLightColorFull = RGB(255,5,5)
               myLightIntensity = 100
-		End Select
+    End Select
     Case 2 'Cool White
       myLightColor = RGB(230,230,255)
-	  myLightColorFull = RGB(230,230,255)
+    myLightColorFull = RGB(230,230,255)
       myLightIntensity = 250
     Case 3 'Green
-	  myLightColor = RGB(100,255,0)
-	  myLightColorFull = RGB(100,255,0)
+    myLightColor = RGB(100,255,0)
+    myLightColorFull = RGB(100,255,0)
       myLightIntensity = 150
     Case 4 'Blue
-	  myLightColor = RGB(25,25,255)
-	  myLightColorFull = RGB(25,25,255)
+    myLightColor = RGB(25,25,255)
+    myLightColorFull = RGB(25,25,255)
       myLightIntensity = 650
     Case 5 'Purple
-	  myLightColor = RGB(128,0,255)
-	  myLightColorFull = RGB(128,0,255)
+    myLightColor = RGB(128,0,255)
+    myLightColorFull = RGB(128,0,255)
       myLightIntensity = 250
     Case 6 'Red
-	  myLightColor = RGB(255,5,5)
-	  myLightColorFull = RGB(255,5,5)
+    myLightColor = RGB(255,5,5)
+    myLightColorFull = RGB(255,5,5)
       myLightIntensity = 100
   End Select
   For each myObject in GI
@@ -498,7 +498,7 @@ End Sub
 
  Sub Table1_Init
     On Error Resume Next
-	vpminit Me
+  vpminit Me
     With Controller
        .GameName=cGameName
        If Err Then MsgBox "Can't start Game: " & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -508,11 +508,11 @@ End Sub
        .ShowDMDOnly=1
        .ShowFrame=0
        .HandleMechanics=0
-		if ShowDT Then
-		  .Hidden=0
-		Else
-		  .Hidden=1
-		End If
+    if ShowDT Then
+      .Hidden=0
+    Else
+      .Hidden=1
+    End If
 
        '.SetDisplayPosition 0, 0, GetPlayerHWnd
        On Error Resume Next
@@ -521,7 +521,7 @@ End Sub
     End With
     On Error Goto 0
 
-	Call myAdjustTableToPrefs()
+  Call myAdjustTableToPrefs()
 
     ' Trough handler
     Set bsTrough=New cvpmBallStack ' Trough handler
@@ -567,8 +567,8 @@ End Sub
     vpmNudge.Sensitivity=1
     'vpmNudge.TiltObj=Array(sw43, sw44)
 
-	If NOT Me.ShowDT  Then
-		TextBoxWarning.Visible = False
+  If NOT Me.ShowDT  Then
+    TextBoxWarning.Visible = False
     End If
 
 
@@ -586,166 +586,166 @@ End Sub
  Sub Table1_KeyDown(ByVal keycode)
     If keycode=RightFlipperKey Then Controller.Switch(48)=1
     If keycode=LeftFlipperKey Then Controller.Switch(47)=1
-	If keycode= RightMagnaSave Then Controller.Switch(46)=1
+  If keycode= RightMagnaSave Then Controller.Switch(46)=1
     If keycode= LeftMagnaSave Then Controller.Switch(45)=1
     If keycode = LeftTiltKey Then LeftNudge 80, .8, 20:PlaySound "nudge_left"
     If keycode = RightTiltKey Then RightNudge 280, .8, 20:PlaySound "nudge_right"
     If keycode = CenterTiltKey Then CenterNudge 0, 1.2, 25:PlaySound "nudge_forward"
-	If keycode = PlungerKey Then
-		 Plunger1.PullBack
+  If keycode = PlungerKey Then
+     Plunger1.PullBack
          PlaySoundAtVol "fx_plungerpull", Plunger1, 1
-	End If
-	If keycode = StartGameKey Then
-		Call myStartGame
-	End If
+  End If
+  If keycode = StartGameKey Then
+    Call myStartGame
+  End If
 
-	'sds
+  'sds
     ' If keycode = myPrefs_AutoPlayToggleKeyCode and myBallCount > 0 then
     If keycode = myPrefs_AutoPlayToggleKeyCode then
-		myPrefs_AutoPlay = myPrefs_AutoPlay + 1
-		If myPrefs_AutoPlay > 1 Then
-			myPrefs_AutoPlay = 0
-		End If
-		Call myAutoPlay(myPrefs_AutoPlay)
-	End If
+    myPrefs_AutoPlay = myPrefs_AutoPlay + 1
+    If myPrefs_AutoPlay > 1 Then
+      myPrefs_AutoPlay = 0
+    End If
+    Call myAutoPlay(myPrefs_AutoPlay)
+  End If
 
-	If keycode = myPrefs_AutoPlaySoundToggleKeyCode then
-		call myAutoPlaySoundToggle
-	End If
+  If keycode = myPrefs_AutoPlaySoundToggleKeyCode then
+    call myAutoPlaySoundToggle
+  End If
 
-	 If keycode = myPrefs_AutoPlayCheatingToggleKeyCode then
-		call myAutoPlayCheatToggle
-	End If
+   If keycode = myPrefs_AutoPlayCheatingToggleKeyCode then
+    call myAutoPlayCheatToggle
+  End If
 
 
     If vpmKeyDown(keycode) Then Exit Sub
  End Sub
 
  Sub Table1_KeyUp(ByVal keycode)
-	If keycode=RightFlipperKey Then Controller.Switch(48)=0
-	If keycode=LeftFlipperKey Then Controller.Switch(47)=0
-	If keycode=  RightMagnaSave Then Controller.Switch(46)=0
-	If keycode= LeftMagnaSave Then Controller.Switch(45)=0
-	If keycode = PlungerKey Then
-		Plunger1.Fire
+  If keycode=RightFlipperKey Then Controller.Switch(48)=0
+  If keycode=LeftFlipperKey Then Controller.Switch(47)=0
+  If keycode=  RightMagnaSave Then Controller.Switch(46)=0
+  If keycode= LeftMagnaSave Then Controller.Switch(45)=0
+  If keycode = PlungerKey Then
+    Plunger1.Fire
         PlaySoundAtVol "fx_plunger", Plunger1, 1
-	End If
+  End If
 
-	If keycode=keyInsertCoin1 or keycode=keyInsertCoin2 or keycode=keyInsertCoin3 or keycode=keyInsertCoin4 Then
-		TextBoxWarning.Visible = False
-	End If
+  If keycode=keyInsertCoin1 or keycode=keyInsertCoin2 or keycode=keyInsertCoin3 or keycode=keyInsertCoin4 Then
+    TextBoxWarning.Visible = False
+  End If
 
-	If vpmKeyUp(keycode) Then Exit Sub
+  If vpmKeyUp(keycode) Then Exit Sub
  End Sub
 
 
 '===============================================
 Sub myStartGame
-		GameOverTimer.Enabled = 0
-		Gameover6.Collidable = 0
-		StopSound ""
-		StopSound ""
-		CreditLight.State = 0
-		CreditLight1.State = 0
-		Hal9000Eye.Visible = 0
-		Hal9000Ring.Visible = 0
-		HalLight2.State = 0
-		TWall.enabled = 0
-		TWall1.enabled = 0
-		TriggerLF.enabled=0
-		TriggerRF.enabled=0
-		TriggerULF.enabled=0
-		TriggerURF.enabled=0
-		TriggerLMS.enabled=0
-		TriggerRMS.enabled=0
-		TriggerAutoFlipPlunger.enabled = 0
-		stopsound "AutoplayTrack1"
-		stopsound "AutoplayTrack2"
+    GameOverTimer.Enabled = 0
+    Gameover6.Collidable = 0
+    StopSound ""
+    StopSound ""
+    CreditLight.State = 0
+    CreditLight1.State = 0
+    Hal9000Eye.Visible = 0
+    Hal9000Ring.Visible = 0
+    HalLight2.State = 0
+    TWall.enabled = 0
+    TWall1.enabled = 0
+    TriggerLF.enabled=0
+    TriggerRF.enabled=0
+    TriggerULF.enabled=0
+    TriggerURF.enabled=0
+    TriggerLMS.enabled=0
+    TriggerRMS.enabled=0
+    TriggerAutoFlipPlunger.enabled = 0
+    stopsound "AutoplayTrack1"
+    stopsound "AutoplayTrack2"
          stopsound "AutoplayTrack3"
-		AutoplayTrack1Timer.enabled=0
-		AutoplayTrack2Timer.enabled=0
+    AutoplayTrack1Timer.enabled=0
+    AutoplayTrack2Timer.enabled=0
          AutoplayTrack3Timer.enabled=0
   myGamePlaying = True
 End Sub
 
 Sub myAutoPlaySoundToggle
-		If Hal9000Eye.Visible = True then
-			If myPrefs_SoundEffects = 1 Then
-				myPrefs_SoundEffects = 0
-				Hal9000Eye.Image = "__BlueEye"
-				Playsound "button-click"
-				Playsound "spin-down"
-				Stopsound "boot1"
-				stopsound "AutoplayTrack1"
-				stopsound "AutoplayTrack2"
+    If Hal9000Eye.Visible = True then
+      If myPrefs_SoundEffects = 1 Then
+        myPrefs_SoundEffects = 0
+        Hal9000Eye.Image = "__BlueEye"
+        Playsound "button-click"
+        Playsound "spin-down"
+        Stopsound "boot1"
+        stopsound "AutoplayTrack1"
+        stopsound "AutoplayTrack2"
                 stopsound "AutoplayTrack3"
-				AutoplayTrack1Timer.enabled=0
-				AutoplayTrack2Timer.enabled=0
+        AutoplayTrack1Timer.enabled=0
+        AutoplayTrack2Timer.enabled=0
                                 AutoplayTrack3Timer.enabled=0
                                 liB.State=0
-		   Else
-				myPrefs_SoundEffects = 1
-				Hal9000Eye.Image = "__RedEye"
-				If myPrefs_Drain = 1 Then
-						Hal9000Eye.Image = "__GreenEye"
-				End If
-				Playsound "button-click"
-				Playsound "boot1"
-				Stopsound "spin-down"
+       Else
+        myPrefs_SoundEffects = 1
+        Hal9000Eye.Image = "__RedEye"
+        If myPrefs_Drain = 1 Then
+            Hal9000Eye.Image = "__GreenEye"
+        End If
+        Playsound "button-click"
+        Playsound "boot1"
+        Stopsound "spin-down"
                                 liB.State=1
-				Select Case Int(Rnd()*3)
-					Case 0
-						playsound "AutoplayTrack1"
+        Select Case Int(Rnd()*3)
+          Case 0
+            playsound "AutoplayTrack1"
                                                 AutoplayTrack1Timer.enabled=1
-					Case 1
-						playsound "AutoplayTrack2"
+          Case 1
+            playsound "AutoplayTrack2"
                                                 AutoplayTrack2Timer.enabled=1
                                          Case 2
-						playsound "AutoplayTrack3"
+            playsound "AutoplayTrack3"
                                                 AutoplayTrack3Timer.enabled=1
-				End Select
-			End If
-	End If
+        End Select
+      End If
+  End If
 End Sub
 
 Sub myAutoPlayCheatToggle
-	If Hal9000Eye.Visible = True then
-		If myPrefs_Drain = 1 Then
-			myPrefs_Drain = 0
-			Wall11.Collidable = 0
-			Wall12.Collidable = 0
-			Wall13.Collidable = 0
+  If Hal9000Eye.Visible = True then
+    If myPrefs_Drain = 1 Then
+      myPrefs_Drain = 0
+      Wall11.Collidable = 0
+      Wall12.Collidable = 0
+      Wall13.Collidable = 0
                         BarrierLeft.Collidable = 0
                         BarrierRight.Collidable = 0
-			Playsound "button-click"
-			Stopsound "cheater"
-			StrobeLight2.State=0
+      Playsound "button-click"
+      Stopsound "cheater"
+      StrobeLight2.State=0
                         liG.State=0
-			 If myPrefs_SoundEffects = 1 Then
-				Hal9000Eye.image = "__RedEye"
-			End If
-			 If myPrefs_SoundEffects = 0 Then
-				Hal9000Eye.image = "__BlueEye"
-			 End If
-	   Else
-			myPrefs_Drain = 1
-			Wall11.Collidable = 1
-			Wall12.Collidable = 1
-			Wall13.Collidable = 1
+       If myPrefs_SoundEffects = 1 Then
+        Hal9000Eye.image = "__RedEye"
+      End If
+       If myPrefs_SoundEffects = 0 Then
+        Hal9000Eye.image = "__BlueEye"
+       End If
+     Else
+      myPrefs_Drain = 1
+      Wall11.Collidable = 1
+      Wall12.Collidable = 1
+      Wall13.Collidable = 1
                         BarrierLeft.Collidable = 1
                         BarrierRight.Collidable = 1
-			If myPrefs_Disablecheating = 0 Then
-				 Playsound "button-click"
-				 Playsound "cheater"
-				 Playsound "cheater"
-				 StrobeLight2.State=2
-				 Hal9000Eye.image = "__GreenEye"
-				 Drain.enabled=False
-				 TWall.enabled=False
-				 Gameover6.Collidable = 1
+      If myPrefs_Disablecheating = 0 Then
+         Playsound "button-click"
+         Playsound "cheater"
+         Playsound "cheater"
+         StrobeLight2.State=2
+         Hal9000Eye.image = "__GreenEye"
+         Drain.enabled=False
+         TWall.enabled=False
+         Gameover6.Collidable = 1
                                  liG.State=1
-			End If
-		End If
+      End If
+    End If
        End If
 End Sub
 
@@ -763,13 +763,13 @@ End Sub
 'End Sub
 
 ' Function myBallCount
-' 	Dim iCounter
-' 	Dim myCount
+'   Dim iCounter
+'   Dim myCount
 '
-' 	iCounter = 0
-' 	For iCounter = 1 to 4
-' 	  myCount = myCount + ballStatus(iCounter)
-' 	Next
+'   iCounter = 0
+'   For iCounter = 1 to 4
+'     myCount = myCount + ballStatus(iCounter)
+'   Next
 '     myBallCount = myCount
 ' End Function
 '************************************************************************************
@@ -825,7 +825,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 44
+  vpmTimer.PulseSw 44
     'PlaySound SoundFX("right_slingshot",DOFContactors), 0, 1, 0.05, 0.05
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -847,13 +847,13 @@ Sub RightSlingShot_Timer
           RSLing.Visible = 1
           SlingArmR.TransX = 0
           SlingArmR.Transz = 0
-	      RightSlingShot.TimerEnabled = False
+        RightSlingShot.TimerEnabled = False
    End Select
 End Sub
 
 Sub LeftSlingShot_Slingshot
      'PlaySound SoundFX("left_slingshot",DOFContactors), 0, 1, 0.05, 0.05
-	vpmTimer.PulseSw 43
+  vpmTimer.PulseSw 43
     LSling.Visible = 0
     LSling1.Visible = 1
     LStep = 0
@@ -874,7 +874,7 @@ Sub LeftSlingShot_Timer
          LSLing.Visible = 1
          SlingArmL.TransX = 0
          SlingArmL.Transz = 0
-	     LeftSlingShot.TimerEnabled = False
+       LeftSlingShot.TimerEnabled = False
     End Select
 End Sub
 
@@ -911,33 +911,33 @@ End Sub
 '**************************************
 
 Sub TargetD_7M_Hit
-	Call myTargetHit(TargetD_7, TargetButtonD_10, 38)
+  Call myTargetHit(TargetD_7, TargetButtonD_10, 38)
 End Sub
 Sub TargetR_7M_Hit
-	Call myTargetHit(TargetR_7, TargetButtonR_10, 39)
+  Call myTargetHit(TargetR_7, TargetButtonR_10, 39)
 End Sub
 Sub TargetA_7M_Hit
-	Call myTargetHit(TargetA_7, TargetButtonA_10, 40)
+  Call myTargetHit(TargetA_7, TargetButtonA_10, 40)
 End Sub
 Sub TargetZ_7M_Hit
-	Call myTargetHit(TargetZ_7, TargetButtonZ_10, 37)
+  Call myTargetHit(TargetZ_7, TargetButtonZ_10, 37)
 End Sub
 Sub TargetI_7M_Hit
-	Call myTargetHit(TargetI_7, TargetButtonI_10, 36)
+  Call myTargetHit(TargetI_7, TargetButtonI_10, 36)
 End Sub
 Sub TargetL_7M_Hit
-	Call myTargetHit(TargetL_7, TargetButtonL_10, 35)
+  Call myTargetHit(TargetL_7, TargetButtonL_10, 35)
 End Sub
 Sub TargetE_7_Hit
-	Call myTargetHit(TargetE_7, TargetButtonE_10, 41)
+  Call myTargetHit(TargetE_7, TargetButtonE_10, 41)
 End Sub
 Sub TargetM_7_Hit
-	Call myTargetHit(TargetM_7, TargetButtonM_10, 24)
+  Call myTargetHit(TargetM_7, TargetButtonM_10, 24)
 End Sub
 
 Sub myTargetHit( myTarget1, myTarget2, mySwitchNum)
-	PlaysoundAtVol "target", ActiveBall, 1
-	vpmTimer.PulseSwitch mySwitchNum, 0, ""
+  PlaysoundAtVol "target", ActiveBall, 1
+  vpmTimer.PulseSwitch mySwitchNum, 0, ""
     myTarget1.playanim 0,.25
     myTarget2.playanim 0,.25
 End Sub
@@ -948,53 +948,53 @@ End Sub
 
  Sub LFlipper(Enabled)
    If Enabled Then
-		PlaySoundAtVol "flipperup", FlipperLeftUpper, VolFlip
-		PlaySoundAtVol "flipperup", FlipperLeft, VolFlip
-		FlipperLeft.RotateToEnd
-		FlipperLeftUpper.RotateToEnd
+    PlaySoundAtVol "flipperup", FlipperLeftUpper, VolFlip
+    PlaySoundAtVol "flipperup", FlipperLeft, VolFlip
+    FlipperLeft.RotateToEnd
+    FlipperLeftUpper.RotateToEnd
                 'myLightIntensity = 0 'SDS
                 Call myChangeGIForFlip()
-				'LightIntensityTimer.Enabled = 1
+        'LightIntensityTimer.Enabled = 1
    Else
-		PlaySoundAtVol "flipperdown", FlipperLeftUpper, VolFlip
-		PlaySoundAtVol "flipperdown", FlipperLeft, VolFlip
-		FlipperLeft.RotateToStart
-		FlipperLeftUpper.RotateToStart
+    PlaySoundAtVol "flipperdown", FlipperLeftUpper, VolFlip
+    PlaySoundAtVol "flipperdown", FlipperLeft, VolFlip
+    FlipperLeft.RotateToStart
+    FlipperLeftUpper.RotateToStart
    End If
  End Sub
 
  Sub RFlipper(Enabled)
    If Enabled Then
-		PlaySoundAtVol "flipperup", FlipperRightUpper, VolFlip
-		PlaySoundAtVol "flipperup", FlipperRight, VolFlip
-		FlipperRight.RotateToEnd
-		FlipperRightUpper.RotateToEnd
+    PlaySoundAtVol "flipperup", FlipperRightUpper, VolFlip
+    PlaySoundAtVol "flipperup", FlipperRight, VolFlip
+    FlipperRight.RotateToEnd
+    FlipperRightUpper.RotateToEnd
                 'myLightIntensity = 0
                 'LightIntensityTimer.Enabled = 1
                 Call myChangeGIForFlip()
    Else
-		PlaySoundAtVol "flipperdown", FlipperRightUpper, VolFlip
-		PlaySoundAtVol "flipperdown", FlipperRight, VolFlip
-		FlipperRight.RotateToStart
-		FlipperRightUpper.RotateToStart
+    PlaySoundAtVol "flipperdown", FlipperRightUpper, VolFlip
+    PlaySoundAtVol "flipperdown", FlipperRight, VolFlip
+    FlipperRight.RotateToStart
+    FlipperRightUpper.RotateToStart
    End If
  End Sub
 
 Sub myChangeGIForFlip()
-	For Each myObject in GI
-	myObject.Intensity = 205
-	GI_14.Intensity = 8
-	GI_2.Intensity = 22
-	LightIntensityTimer.Enabled = 1
+  For Each myObject in GI
+  myObject.Intensity = 205
+  GI_14.Intensity = 8
+  GI_2.Intensity = 22
+  LightIntensityTimer.Enabled = 1
     Next
 End Sub
 
 Sub LightIntensityTimer_Timer
-	For Each myObject in GI
-	myObject.Intensity = 250
-	GI_14.Intensity = 10
-	GI_2.Intensity = 30
-	LightIntensityTimer.Enabled = 0
+  For Each myObject in GI
+  myObject.Intensity = 250
+  GI_14.Intensity = 10
+  GI_2.Intensity = 30
+  LightIntensityTimer.Enabled = 0
   Next
 End Sub
 
@@ -1150,33 +1150,33 @@ Sub LockKick(enabled)
 '*********************************************
 
 Sub PFGI(Enabled)
-	If Enabled Then
-		        TextBoxWarning.Visible = False
-			CabinetWalls.image = "LargeWood2"
-			GI_13.State = 0
-			GI_2.State = 0
-			GI_14.State = 0
-			Light101.Intensity = 1
-			Flasher6.visible = False
-			LizardHeadDT.image="lizheadDAXS"
-			LizardHeadFS.image="lizheadDAXS"
-			BladeR.image="1373633971-sota-forestD"
-			BladeL.image="1373633971-sota-forestD"
-			batleft.Material="g_Plastic2"
-			batright.Material="g_Plastic2"
-			batleft1.Material="g_Plastic2"
-			batright1.Material="g_Plastic2"
-	if myPrefs_DynamicBackground = 0 then
-			Ramp1.visible = False
-			Ramp2.visible = False
+  If Enabled Then
+            TextBoxWarning.Visible = False
+      CabinetWalls.image = "LargeWood2"
+      GI_13.State = 0
+      GI_2.State = 0
+      GI_14.State = 0
+      Light101.Intensity = 1
+      Flasher6.visible = False
+      LizardHeadDT.image="lizheadDAXS"
+      LizardHeadFS.image="lizheadDAXS"
+      BladeR.image="1373633971-sota-forestD"
+      BladeL.image="1373633971-sota-forestD"
+      batleft.Material="g_Plastic2"
+      batright.Material="g_Plastic2"
+      batleft1.Material="g_Plastic2"
+      batright1.Material="g_Plastic2"
+  if myPrefs_DynamicBackground = 0 then
+      Ramp1.visible = False
+      Ramp2.visible = False
                         SideRails.Material="Metal2"
                         LockdownBar.Material="Metal2"
-		Else
+    Else
                         SideRails.Material="Metal21"
                         LockdownBar.Material="Metal21"
-	                Ramp1.visible = True
-			Ramp2.visible = True
-		End If
+                  Ramp1.visible = True
+      Ramp2.visible = True
+    End If
                         Gates.Material="Metal2"
                         MetalWork.Material="Metal2"
                         BounceBackBars.Material="Metal2"
@@ -1190,52 +1190,52 @@ Sub PFGI(Enabled)
                         ApronLight1.Intensity = 0
                         ApronLight2.Intensity = 0
                         sw20.Material = "PlasticD"
-			sw21.Material = "PlasticD"
-			sw22.Material = "PlasticD"
-			sw23.Material = "PlasticD"
-			sw25.Material = "PlasticD"
-			sw26.Material = "PlasticD"
-			sw27.Material = "PlasticD"
+      sw21.Material = "PlasticD"
+      sw22.Material = "PlasticD"
+      sw23.Material = "PlasticD"
+      sw25.Material = "PlasticD"
+      sw26.Material = "PlasticD"
+      sw27.Material = "PlasticD"
                         RampBlades.Material= "RampBladesD"
                         PlasticSlingshots.Material= "PlasticTriggerD"
-			Plastic2.Material= "PlasticTriggerD"
-			Plastic3.Material= "PlasticTriggerD"
-			Plastic5.Material= "PlasticTriggerD"
-			Plastic6.Material= "PlasticTriggerD"
-			Plastic7.Material= "PlasticTriggerD"
-			Plastic8.Material= "PlasticTriggerD"
-			Plastic9.Material= "PlasticTriggerD"
+      Plastic2.Material= "PlasticTriggerD"
+      Plastic3.Material= "PlasticTriggerD"
+      Plastic5.Material= "PlasticTriggerD"
+      Plastic6.Material= "PlasticTriggerD"
+      Plastic7.Material= "PlasticTriggerD"
+      Plastic8.Material= "PlasticTriggerD"
+      Plastic9.Material= "PlasticTriggerD"
                         'iBall.Image= "_SuperBallD"
                        'wireform.Material="Metal21" (Comment out for "Static" status)
-		dim xx
-	For each xx in GI:xx.State = 0: Next
-	               PlaySound "fx_relay"
-	       	       Call mySetRubberColor(False)
-		       Call mySetRubberSleeveColor(False)
-		       Call mySetPostColor(False)
-	Else
-			CabinetWalls.image = "LargeWood"
-			Light101.Intensity = 6
-			GI_13.State = 1
-			GI_2.State = 1
-			GI_14.State = 1
-			Flasher6.visible = True
-			LizardHeadDT.image="lizheadAXS"
-			LizardHeadFS.image="lizheadAXS"
-			BladeR.image="1373633971-sota-forest"
-			BladeL.image="1373633971-sota-forest"
-			batleft.Material="g_Plastic"
-			batright.Material="g_Plastic"
-			batleft1.Material="g_Plastic"
-			batright1.Material="g_Plastic"
-			Ramp1.visible = False
-			Ramp2.visible = False
-			SideRails.Material="Metal2"
-			LockdownBar.Material="Metal2"
-			Gates.Material="Metal1"
-			MetalWork.Material="Metal1"
+    dim xx
+  For each xx in GI:xx.State = 0: Next
+                 PlaySound "fx_relay"
+                 Call mySetRubberColor(False)
+           Call mySetRubberSleeveColor(False)
+           Call mySetPostColor(False)
+  Else
+      CabinetWalls.image = "LargeWood"
+      Light101.Intensity = 6
+      GI_13.State = 1
+      GI_2.State = 1
+      GI_14.State = 1
+      Flasher6.visible = True
+      LizardHeadDT.image="lizheadAXS"
+      LizardHeadFS.image="lizheadAXS"
+      BladeR.image="1373633971-sota-forest"
+      BladeL.image="1373633971-sota-forest"
+      batleft.Material="g_Plastic"
+      batright.Material="g_Plastic"
+      batleft1.Material="g_Plastic"
+      batright1.Material="g_Plastic"
+      Ramp1.visible = False
+      Ramp2.visible = False
+      SideRails.Material="Metal2"
+      LockdownBar.Material="Metal2"
+      Gates.Material="Metal1"
+      MetalWork.Material="Metal1"
                         BounceBackBars.Material="Metal1"
-			PlasticNuts.Material = "PlasticNuts"
+      PlasticNuts.Material = "PlasticNuts"
                         PostOutlaneRight1.Material = "PostRed"
                         PostOutlaneRight2.Material = "PostRed"
                         PostOutlaneRight3.Material = "PostRed"
@@ -1245,28 +1245,28 @@ Sub PFGI(Enabled)
                         ApronLight1.Intensity = 2
                         ApronLight2.Intensity = 2
                         sw20.Material = "Plastic"
-			sw21.Material = "Plastic"
-			sw22.Material = "Plastic"
-			sw23.Material = "Plastic"
-			sw25.Material = "Plastic"
-			sw26.Material = "Plastic"
-			sw27.Material = "Plastic"
+      sw21.Material = "Plastic"
+      sw22.Material = "Plastic"
+      sw23.Material = "Plastic"
+      sw25.Material = "Plastic"
+      sw26.Material = "Plastic"
+      sw27.Material = "Plastic"
                         RampBlades.Material= "RampBlades"
-			PlasticSlingshots.Material= "PlasticTrigger"
-			Plastic2.Material= "PlasticTrigger"
-			Plastic3.Material= "PlasticTrigger"
-			Plastic5.Material= "PlasticTrigger"
-			Plastic6.Material= "PlasticTrigger"
-			Plastic7.Material= "PlasticTrigger"
-			Plastic8.Material= "PlasticTrigger"
-			Plastic9.Material= "PlasticTrigger"
+      PlasticSlingshots.Material= "PlasticTrigger"
+      Plastic2.Material= "PlasticTrigger"
+      Plastic3.Material= "PlasticTrigger"
+      Plastic5.Material= "PlasticTrigger"
+      Plastic6.Material= "PlasticTrigger"
+      Plastic7.Material= "PlasticTrigger"
+      Plastic8.Material= "PlasticTrigger"
+      Plastic9.Material= "PlasticTrigger"
                         'iBall.Image= "_SuperBall"
-			'wireform.Material="Metal2" (Comment out for "Static" status)
-		For each xx in GI:xx.State = 1: Next
-			PlaySound "fx_relay"
-			Call mySetRubberColor(True)
-		        Call mySetRubberSleeveColor(True)
-		       Call mySetPostColor(True)
+      'wireform.Material="Metal2" (Comment out for "Static" status)
+    For each xx in GI:xx.State = 1: Next
+      PlaySound "fx_relay"
+      Call mySetRubberColor(True)
+            Call mySetRubberSleeveColor(True)
+           Call mySetPostColor(True)
     End If
 End Sub
 
@@ -1477,40 +1477,40 @@ Sub LightCopy_TIMER
 
 
 ' fix
-'	Dim iCounter
-'	For iCounter = 7 to 64
-'		Eval("Light" & iCounter & "b.State") = Eval("Light" & iCounter & ".State")
-'	Next
+' Dim iCounter
+' For iCounter = 7 to 64
+'   Eval("Light" & iCounter & "b.State") = Eval("Light" & iCounter & ".State")
+' Next
 '***************************************************
 '**********   MUSIC,SOUND AND MOTION    ************
 '***************************************************
 
     If Light2.State = 1 then 'End Game
-		If  NOT myPlayingEndGameSnd Then
-			If myPrefs_PlayMusic then
-				If myPrefs_AutoPlay Then
-					PlaySound "ConanEnding"
-					stopsound "JungleJam2"
-				Else
-					stopsound "AutoplayTrack1"
-					stopsound "AutoplayTrack2"
+    If  NOT myPlayingEndGameSnd Then
+      If myPrefs_PlayMusic then
+        If myPrefs_AutoPlay Then
+          PlaySound "ConanEnding"
+          stopsound "JungleJam2"
+        Else
+          stopsound "AutoplayTrack1"
+          stopsound "AutoplayTrack2"
                                         stopsound "AutoplayTrack3"
-					PlaySound "JungleJam2"
-					Playsound "GrandLizardIntro2"
-					Playsound "MonsterGrowl"
-					AutoplayTrack1Timer.enabled=0
-					AutoplayTrack2Timer.enabled=0
+          PlaySound "JungleJam2"
+          Playsound "GrandLizardIntro2"
+          Playsound "MonsterGrowl"
+          AutoplayTrack1Timer.enabled=0
+          AutoplayTrack2Timer.enabled=0
                                         AutoplayTrack3Timer.enabled=0
-				End IF
-				myPlayingEndGameSnd = True
-			End If
-		End If
-		If  myGamePlaying then 'Turn Off Autoplay
-			myPrefs_AutoPlay = 0
-			Call myAutoPlay(myPrefs_AutoPlay)
-			myGamePlaying = False
-		End If
-	End If
+        End IF
+        myPlayingEndGameSnd = True
+      End If
+    End If
+    If  myGamePlaying then 'Turn Off Autoplay
+      myPrefs_AutoPlay = 0
+      Call myAutoPlay(myPrefs_AutoPlay)
+      myGamePlaying = False
+    End If
+  End If
 
 End Sub
 
@@ -1608,24 +1608,24 @@ Sub   AutoplayTrack3Timer_Timer
 End Sub
 
 Sub TWall_hit
-	If myPrefs_SoundEffects Then
-	   Select Case Int(Rnd()*5)
-		Case 0
-		  Call myAutoPlayEndBallSound("WizardScream1")
-		Case 1
-			Call myAutoPlayEndBallSound("Lizard-scream1")
-		Case 2
-			Call myAutoPlayEndBallSound("Glass Breakin")
-		Case 3
-			Call myAutoPlayEndBallSound("Fatality")
-		Case 4
-			Call myAutoPlayEndBallSound("WizardScream3")
-	  End Select
-	End If
+  If myPrefs_SoundEffects Then
+     Select Case Int(Rnd()*5)
+    Case 0
+      Call myAutoPlayEndBallSound("WizardScream1")
+    Case 1
+      Call myAutoPlayEndBallSound("Lizard-scream1")
+    Case 2
+      Call myAutoPlayEndBallSound("Glass Breakin")
+    Case 3
+      Call myAutoPlayEndBallSound("Fatality")
+    Case 4
+      Call myAutoPlayEndBallSound("WizardScream3")
+    End Select
+  End If
 End Sub
 
 Sub myAutoPlayEndBallSound(mySoundFile)
-	Playsound mySoundFile
+  Playsound mySoundFile
     Playsound mySoundFile
     Playsound mySoundFile
     CreditLight1.State = 2
@@ -1636,141 +1636,141 @@ End Sub
     If myPrefs_SoundEffects Then
      Select Case Int(Rnd()*6)
        Case 0
-			Call myAutoPlaySound("Fight")
+      Call myAutoPlaySound("Fight")
        Case 1
-			Call myAutoPlaySound("EnoughTalk")
+      Call myAutoPlaySound("EnoughTalk")
        Case 3
-			Call myAutoPlaySound("Revenge")
+      Call myAutoPlaySound("Revenge")
        Case 4
-			Call myAutoPlaySound("Notyet")
+      Call myAutoPlaySound("Notyet")
        Case 5
-			Playsound ""
+      Playsound ""
       End Select
     End If
  End Sub
 
 Sub myAutoPlaySound(mySoundFile)
-	Playsound mySoundFile
+  Playsound mySoundFile
     Playsound mySoundFile
     Playsound mySoundFile
 End Sub
 '====================================================================================================================
 Sub myAutoPlay(myOnOff)
-		debug.print "OnOff=" & myOnOff
-		Select Case myOnOff
-			Case 0 'Turn Off AutoPlay
-					Call mySetInstructionCards(myPrefs_InstructionCardType)
-					RCardFilm1.visible = False
-					RCardFilm2.visible = False
-					TimerAnimateCard1.Enabled = False
-					Select Case Int(Rnd()*3)
-						 Case 0
-								playsound ""
-								playsound ""
-						  Case 1
-								playsound ""
-						  Case 2
-								playsound ""
-								playsound ""
-					End Select
-					playsound "button-click"
-					stopsound "AutoplayTrack1"
-				        stopsound "AutoplayTrack2"
-					stopsound "AutoplayTrack3"
-					Wall11.Collidable = 0
-					Wall12.Collidable = 0
-					Wall13.Collidable = 0
+    debug.print "OnOff=" & myOnOff
+    Select Case myOnOff
+      Case 0 'Turn Off AutoPlay
+          Call mySetInstructionCards(myPrefs_InstructionCardType)
+          RCardFilm1.visible = False
+          RCardFilm2.visible = False
+          TimerAnimateCard1.Enabled = False
+          Select Case Int(Rnd()*3)
+             Case 0
+                playsound ""
+                playsound ""
+              Case 1
+                playsound ""
+              Case 2
+                playsound ""
+                playsound ""
+          End Select
+          playsound "button-click"
+          stopsound "AutoplayTrack1"
+                stopsound "AutoplayTrack2"
+          stopsound "AutoplayTrack3"
+          Wall11.Collidable = 0
+          Wall12.Collidable = 0
+          Wall13.Collidable = 0
                                         BarrierLeft.Collidable = 0
                                         BarrierRight.Collidable = 0
-					StrobeLight2.State=0
-					CreditLight.State = 0
-					CreditLight1.State = 0
-					HalLight2.State = 0
-					Hal9000Eye.Visible = 0
-					Hal9000Ring.Visible = 0
-					TWall.enabled = 0
-					TWall1.enabled = 0
-					TriggerLF.enabled=0
-					TriggerRF.enabled=0
-					TriggerULF.enabled=0
-					TriggerURF.enabled=0
+          StrobeLight2.State=0
+          CreditLight.State = 0
+          CreditLight1.State = 0
+          HalLight2.State = 0
+          Hal9000Eye.Visible = 0
+          Hal9000Ring.Visible = 0
+          TWall.enabled = 0
+          TWall1.enabled = 0
+          TriggerLF.enabled=0
+          TriggerRF.enabled=0
+          TriggerULF.enabled=0
+          TriggerURF.enabled=0
                     TriggerLMS.enabled=0
                     TriggerRMS.enabled=0
-					TriggerAutoFlipPlunger.enabled = 0
+          TriggerAutoFlipPlunger.enabled = 0
                     AutoplayTrack1Timer.enabled=0
                     AutoplayTrack2Timer.enabled=0
                     AutoplayTrack3Timer.enabled=0
                     liY.State=0
                     liB.State=0
                     liG.State=0
-			Case 1 'Turn On AutoPlay
-				RCardFilm1.visible = True
-				RCardFilm2.visible = True
-				Call mySetInstructionCards(-1)
+      Case 1 'Turn On AutoPlay
+        RCardFilm1.visible = True
+        RCardFilm2.visible = True
+        Call mySetInstructionCards(-1)
 
-				TimerAnimateCard1.Enabled = True
-				AnimateCard1Counter = 0
+        TimerAnimateCard1.Enabled = True
+        AnimateCard1Counter = 0
 
-				Select Case Int(Rnd()*3)
-					Case 0
-						playsound "AutoplayTrack1"
+        Select Case Int(Rnd()*3)
+          Case 0
+            playsound "AutoplayTrack1"
                         AutoplayTrack1Timer.enabled=1
-					Case 1
-						playsound "AutoplayTrack2"
+          Case 1
+            playsound "AutoplayTrack2"
                         AutoplayTrack2Timer.enabled=1
-					Case 2
-						playsound "AutoplayTrack3"
+          Case 2
+            playsound "AutoplayTrack3"
                         AutoplayTrack3Timer.enabled=1
-				End Select
-				playsound "0CB00k"
-				playsound ""
-				playsound "fx_plungerpull"
-				stopsound ""
-				stopsound "button-click"
-				stopsound ""
-				stopsound ""
-				CreditLight.State = 2
-				CreditLight1.State = 2
-				Hal9000Eye.Visible = 1
-				Hal9000Ring.Visible = 1
-				HalLight2.State = 2
-				TWall.enabled = 1
-				TWall1.enabled = 1
-				TriggerLF.enabled=1
-				TriggerRF.enabled=1
-				TriggerULF.enabled=1
-				TriggerURF.enabled=1
+        End Select
+        playsound "0CB00k"
+        playsound ""
+        playsound "fx_plungerpull"
+        stopsound ""
+        stopsound "button-click"
+        stopsound ""
+        stopsound ""
+        CreditLight.State = 2
+        CreditLight1.State = 2
+        Hal9000Eye.Visible = 1
+        Hal9000Ring.Visible = 1
+        HalLight2.State = 2
+        TWall.enabled = 1
+        TWall1.enabled = 1
+        TriggerLF.enabled=1
+        TriggerRF.enabled=1
+        TriggerULF.enabled=1
+        TriggerURF.enabled=1
                 TriggerLMS.enabled=1
                 TriggerRMS.enabled=1
-				TriggerAutoFlipPlunger.enabled = 1
-				StrobeLight.State=1
-				StrobeLight1.State=1
-				StrobeLightTimer.Enabled=1
-				Plunger1.PullBack
-				TimerAutoFlipPlunger.Enabled = True
-				liY.State=1
-				liB.State=1
-		End Select
+        TriggerAutoFlipPlunger.enabled = 1
+        StrobeLight.State=1
+        StrobeLight1.State=1
+        StrobeLightTimer.Enabled=1
+        Plunger1.PullBack
+        TimerAutoFlipPlunger.Enabled = True
+        liY.State=1
+        liB.State=1
+    End Select
 End Sub
 
 
  Sub TriggerAutoFlipPlunger_Hit()
     CreditLight1.State = 2
     CreditLight.State = 0
-	'msgbox("Great")
-	Plunger1.Pullback()
+  'msgbox("Great")
+  Plunger1.Pullback()
     PlaysoundAtVol "fx_plungerpull", Plunger1, 1
-	TimerAutoFlipPlunger.Enabled = True
+  TimerAutoFlipPlunger.Enabled = True
  End Sub
 Sub TimerAutoFlipPlunger_Timer()
-	Plunger1.Fire()
+  Plunger1.Fire()
     PlaysoundAtVol "fx_plunger", Plunger1, 1
-	TimerAutoFlipPlunger.Enabled = False
-	TimerBallStuck.Enabled = True
+  TimerAutoFlipPlunger.Enabled = False
+  TimerBallStuck.Enabled = True
  End Sub
 
 Sub TimerAnimateCard1_Timer()
-	RCardFilm1.Image = "IC 00" & Eval(Int(Rnd()*9)+1)
+  RCardFilm1.Image = "IC 00" & Eval(Int(Rnd()*9)+1)
     RCardFilm2.Image = "IC 00" & Eval(Int(Rnd()*9)+1)
 End Sub
 
@@ -1778,69 +1778,69 @@ End Sub
 
  Sub TriggerLF_Hit
     If myPrefs_SoundEffects Then
-		Call myHitSoundFlipper2
+    Call myHitSoundFlipper2
     Select Case Int(Rnd()*3)
        Case 0
 '        StrobeLight2.State=1
 '        StrobeLightTimer.Enabled=1
        Case 1
         StrobeLight3.State=1
-                	  myLightColor = RGB(100,255,0)
-	          myLightColorFull = RGB(100,255,0)
+                    myLightColor = RGB(100,255,0)
+            myLightColorFull = RGB(100,255,0)
               myLightIntensity = 50
         StrobeLightTimer.Enabled=1
        Case 2
         StrobeLight4.State=1
-                       	  myLightColor = RGB(255,5,5)
-	          myLightColorFull = RGB(255,5,5)
+                          myLightColor = RGB(255,5,5)
+            myLightColorFull = RGB(255,5,5)
               myLightIntensity = 40
         StrobeLightTimer.Enabled=1
 
       End Select
      End If
         'Playsound "flipperup"
-		FlipperLeft.RotateToEnd
+    FlipperLeft.RotateToEnd
         'TriggerLF.enabled=0
         TimerLF.Enabled=1
  End Sub
 
  Sub TimerLF_Timer
         'PlaySound "flipperdown"
-		FlipperLeft.RotateToStart
+    FlipperLeft.RotateToStart
         'TriggerLF.enabled=1
         TimerLF.Enabled=0
  End Sub
 
  Sub TriggerRF_Hit
    If myPrefs_SoundEffects Then
-	Call myHitSoundFlipper1
+  Call myHitSoundFlipper1
     Select Case Int(Rnd()*3)
        Case 0
 '        StrobeLight2.State=1
 '        StrobeLightTimer.Enabled=1
        Case 1
         StrobeLight3.State=1
-                        	  myLightColor = RGB(100,255,0)
-	          myLightColorFull = RGB(100,255,0)
+                            myLightColor = RGB(100,255,0)
+            myLightColorFull = RGB(100,255,0)
               myLightIntensity = 50
         StrobeLightTimer.Enabled=1
        Case 2
         StrobeLight4.State=1
-                              	  myLightColor = RGB(255,5,5)
-	          myLightColorFull = RGB(255,5,5)
+                                  myLightColor = RGB(255,5,5)
+            myLightColorFull = RGB(255,5,5)
               myLightIntensity = 40
         StrobeLightTimer.Enabled=1
       End Select
      End If
         'Playsound "flipperup"
-		FlipperRight.RotateToEnd
+    FlipperRight.RotateToEnd
         'TriggerRF.enabled=0
         TimerRF.Enabled=1
  End Sub
 
  Sub TimerRF_Timer
         'PlaySound "flipperdown"
-		FlipperRight.RotateToStart
+    FlipperRight.RotateToStart
         'TriggerRF.enabled=1
         TimerRF.enabled=0
  End Sub
@@ -1858,8 +1858,8 @@ End Sub
       liY.State=0
       liB.State=0
       liG.State=0
-	myPrefs_AutoPlay = 0
-	Call myAutoPlay(myPrefs_AutoPlay)
+  myPrefs_AutoPlay = 0
+  Call myAutoPlay(myPrefs_AutoPlay)
 
   End Sub
 
@@ -1887,21 +1887,21 @@ End Sub
 
  Sub TriggerULF_Hit
     If myPrefs_SoundEffects Then
-	Call myHitSoundFlipper1
+  Call myHitSoundFlipper1
     Select Case Int(Rnd()*3)
        Case 0
 '        StrobeLight2.State=1
 '        StrobeLightTimer.Enabled=1
        Case 1
         StrobeLight3.State=1
-                      	  myLightColor = RGB(100,255,0)
-	          myLightColorFull = RGB(100,255,0)
+                          myLightColor = RGB(100,255,0)
+            myLightColorFull = RGB(100,255,0)
               myLightIntensity = 50
         StrobeLightTimer.Enabled=1
        Case 2
         StrobeLight4.State=1
-                              	  myLightColor = RGB(255,5,5)
-	          myLightColorFull = RGB(255,5,5)
+                                  myLightColor = RGB(255,5,5)
+            myLightColorFull = RGB(255,5,5)
               myLightIntensity = 40
         StrobeLightTimer.Enabled=1
       End Select
@@ -1911,42 +1911,42 @@ End Sub
  End Sub
 
  Sub TimerULF_Timer
-	FlipperLeftUpper.RotateToStart
+  FlipperLeftUpper.RotateToStart
         TimerULF.enabled=0
  End Sub
 
  Sub TriggerURF_Hit'
    If myPrefs_SoundEffects Then
-		Call myHitSoundFlipper1  ' added ???
-	    Select Case Int(Rnd()*3)
-		   Case 0
-	'        StrobeLight2.State=1
-	'        StrobeLightTimer.Enabled=1
-		   Case 1
-			StrobeLight3.State=1
-							  myLightColor = RGB(100,255,0)
-				  myLightColorFull = RGB(100,255,0)
-				  myLightIntensity = 50
-			StrobeLightTimer.Enabled=1
-		   Case 2
-			StrobeLight4.State=1
-									  myLightColor = RGB(255,5,5)
-				  myLightColorFull = RGB(255,5,5)
-				  myLightIntensity = 40
-			StrobeLightTimer.Enabled=1
-		  End Select
+    Call myHitSoundFlipper1  ' added ???
+      Select Case Int(Rnd()*3)
+       Case 0
+  '        StrobeLight2.State=1
+  '        StrobeLightTimer.Enabled=1
+       Case 1
+      StrobeLight3.State=1
+                myLightColor = RGB(100,255,0)
+          myLightColorFull = RGB(100,255,0)
+          myLightIntensity = 50
+      StrobeLightTimer.Enabled=1
+       Case 2
+      StrobeLight4.State=1
+                    myLightColor = RGB(255,5,5)
+          myLightColorFull = RGB(255,5,5)
+          myLightIntensity = 40
+      StrobeLightTimer.Enabled=1
+      End Select
      End If
-	FlipperRightUpper.RotateToEnd
+  FlipperRightUpper.RotateToEnd
      TimerURF.Enabled=1
  End Sub
 
  Sub TimerURF_Timer
-	FlipperRightUpper.RotateToStart
+  FlipperRightUpper.RotateToStart
         TimerURF.enabled=0
  End Sub
 
 Sub myHitSoundFlipper1
-	Select Case Int(Rnd()*13)
+  Select Case Int(Rnd()*13)
        Case 0
         Playsound "sword1"
        Case 1
@@ -2128,16 +2128,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

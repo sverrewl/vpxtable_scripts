@@ -16,9 +16,9 @@
 'MMMMMMMMMMMMMMMMMMMMMMMMNO:.              ..;cdkKNWMMNx:'.        .'lk:       :NMN:    ;Ko    'Oo      .:;..  ,0K,    lXc    ;XK;    cNk.   .xWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 'MMMMMMMMMMMMMMMMMMMMMMMKc.          ..;cok0NWMMMMMMMM0'         ;kKNW0'       ;XMX;    :Xl    ;0l             .k0'    oX:    :XK,    lWx.   .kMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNKOkk0X
 'MMMMMMMMMMMMMMMMMMMMMMK:         'lk0XWMMMMMMMMMMMMMM0;';l:.    oWMMMk.   .   ,KMK,    ,l.   'kNk,..',:lc.    .OO.    dK;    cN0'    oWx.   .OMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOo:'.    '
-'MMMMMMMMMMMMMMMMMMMMMNl         'OMMMMMMMMMMMMMMMMMMMWXNWMO.   .dWMMWo   ..   '0M0'          ;OWWNXXNWMMK,    '0O.   .xK,    cNO.    dWd    '0MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNNWMMMNx,.      ''    
-'MMMMMMMMMMMMMMMMMMMMMk.         :NMMMMMMMMMMMMMMMMMMMMMMMMk.   .xMMMNc   ''   '0M0'           cNMMMMWNXW0'    '0k.   .x0'    lWk.   .xWd'':oONMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0xo:,''cOWXl    .c,    ' 
-'MMMMMMMMMMMMMMMMMMMMWl          lWMMMMMMMMMMMMMMWXK00XWMMMx.   .kMMMK,   ;;   .OMO.    :o.    cNKxl:;,,kO'    ,Kx.   .kO.    oWk. .'c0WX00OdxXMMMMMMMMMMMMMMMMMMMMMMMMMWNXWNx:,..       :Xk.    ;0c     
+'MMMMMMMMMMMMMMMMMMMMMNl         'OMMMMMMMMMMMMMMMMMMMWXNWMO.   .dWMMWo   ..   '0M0'          ;OWWNXXNWMMK,    '0O.   .xK,    cNO.    dWd    '0MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNNWMMMNx,.      ''
+'MMMMMMMMMMMMMMMMMMMMMk.         :NMMMMMMMMMMMMMMMMMMMMMMMMk.   .xMMMNc   ''   '0M0'           cNMMMMWNXW0'    '0k.   .x0'    lWk.   .xWd'':oONMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0xo:,''cOWXl    .c,    '
+'MMMMMMMMMMMMMMMMMMMMWl          lWMMMMMMMMMMMMMMWXK00XWMMMx.   .kMMMK,   ;;   .OMO.    :o.    cNKxl:;,,kO'    ,Kx.   .kO.    oWk. .'c0WX00OdxXMMMMMMMMMMMMMMMMMMMMMMMMMWNXWNx:,..       :Xk.    ;0c
 'MMMMMMMMMMMMMMMMMMMMK;          oWMMMMMMMMWX0koc,.. ..;OWMx.   .kMMMO.   c:   .kMk.   .x0'    lXl     .kO.    ,Kd.   .OO.   .kWKkkOOOdl:'.  '0MMMMMMMMMMMMMMMMMMMWNKOdl:',O0'           ;Kd     :0:    '
 'MMMMMMMMMMMMMMMMMMMM0'         .xMMMWX0koc,..          'OWd    .OMMMd.  .oc   .xMx.   .kO'    oX:     .kk.    :Xo    ,00lldk00Oxl:'.        '0MMMMMMMMMMMMMWWMMMNo'.     .OO.    cx'    :Kl     lKo:ldOK
 'MMMMMMMMMMMMMMMMMMMMk.          ;doc;..                 oNo    '0MMNl   .x:   .dWx.   .OO.    dX:     .c:    'OWd,;ldOXKOxl:'.              '0MMMMMMMNKOdl:;:oKMK,    .,:dXO.   .xK,    cKc     oWWWMMMM
@@ -74,7 +74,7 @@
 'Sixtoe: Playfield upgrades, lights and improvements and lots of support and fixes.
 'Thalamus: Improved directional sounds, support and fixes
 '32Assassin: Assets from his SST base table.
-'JPSalas: GI , lighting and overall appearance 
+'JPSalas: GI , lighting and overall appearance
 'Vogliadicane: Upscaled plastics and images.
 'Knorr: 3D Apron
 'Schreibi34: PF Inserts
@@ -106,12 +106,12 @@ Randomize
 Dim luts, lutpos
 
 '******************************************************
-' 						OPTIONS (not working yet)
+'             OPTIONS (not working yet)
 '******************************************************
 
 'luts = array("LUT_dark", "LUT_darker", "LUT_daylight", "LUT_night", "LUT_pitch-dark")
-'lutpos = 5							'  set the nr of the LUT you want to use (0 = first in the list above, 1 = second, etc); 5 is the default
-'Const EnablelEFTMagnasave = 1		' 1 - on; 0 - off; if on then the LEFT magnasave button let's you rotate all LUT's
+'lutpos = 5             '  set the nr of the LUT you want to use (0 = first in the list above, 1 = second, etc); 5 is the default
+'Const EnablelEFTMagnasave = 1    ' 1 - on; 0 - off; if on then the LEFT magnasave button let's you rotate all LUT's
 
 ' Options
 ' Volume devided by - lower gets higher sound
@@ -177,57 +177,57 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then
-		PlaySound SoundFX("FlipperUp",DOFFlippers)
-		LeftFlipper.RotateToEnd
+  If Enabled Then
+    PlaySound SoundFX("FlipperUp",DOFFlippers)
+    LeftFlipper.RotateToEnd
    Else
-		PlaySound SoundFX("FlipperDown",DOFFlippers)
-		LeftFlipper.RotateToStart
+    PlaySound SoundFX("FlipperDown",DOFFlippers)
+    LeftFlipper.RotateToStart
    End If
 End Sub
 
 Sub SolRFlipper(Enabled)
    If Enabled Then
-		PlaySound SoundFX("FlipperUp",DOFFlippers)
-		RightFlipper.RotateToEnd
+    PlaySound SoundFX("FlipperUp",DOFFlippers)
+    RightFlipper.RotateToEnd
    Else
-		PlaySound SoundFX("FlipperDown",DOFFlippers)
-		RightFlipper.RotateToStart
+    PlaySound SoundFX("FlipperDown",DOFFlippers)
+    RightFlipper.RotateToStart
    End If
 End Sub
 
 Sub SolMiniFlipper(Enabled)
-	If Enabled Then
-		PlaySound SoundFX("FlipperUp",DOFFlippers)
-		Flipper1.RotateToEnd
-	Else
-		PlaySound SoundFX("FlipperDown",DOFFlippers)
-		Flipper1.RotateToStart
-	End If
+  If Enabled Then
+    PlaySound SoundFX("FlipperUp",DOFFlippers)
+    Flipper1.RotateToEnd
+  Else
+    PlaySound SoundFX("FlipperDown",DOFFlippers)
+    Flipper1.RotateToStart
+  End If
 End Sub
-	
-	
+
+
 Sub AutoPlunger(Enabled)
-	If Enabled Then
-		PlungerIM.AutoFire
-	End If
+  If Enabled Then
+    PlungerIM.AutoFire
+  End If
 End Sub
 
 
-'Stern-Sega GI 
+'Stern-Sega GI
 set GICallback = GetRef("UpdateGI")
 Sub UpdateGI(no, Enabled)
-'		SetLamp 134, Enabled	'Backwall bulbs
-	If Enabled Then
-		Dim xx
-		For each xx in GI:xx.State = 1:Next
-		DOF 101, DOFOn
-		PlaySound "fx_relay"
-	Else
-		For each xx in GI:xx.State = 0:Next
-		DOF 101, DOFOff
-		PlaySound "fx_relay"
-	End If
+'   SetLamp 134, Enabled  'Backwall bulbs
+  If Enabled Then
+    Dim xx
+    For each xx in GI:xx.State = 1:Next
+    DOF 101, DOFOn
+    PlaySound "fx_relay"
+  Else
+    For each xx in GI:xx.State = 0:Next
+    DOF 101, DOFOff
+    PlaySound "fx_relay"
+  End If
 End Sub
 
 Dim BugLit
@@ -242,7 +242,7 @@ Sub SolWarrior(Enabled)
     BugWalls(Position).IsDropped=0
     BugTargets(Position).IsDropped=0
     BugWarSledPrim.TransY = -16
-	PlaySoundAtVol "fx_chapa", BugWarSledPrim, 1
+  PlaySoundAtVol "fx_chapa", BugWarSledPrim, 1
   Else
     BugLit=False
     BugWalls(Position).IsDropped=1
@@ -794,9 +794,9 @@ Sub S47_Hit:Controller.Switch(47)=1:End Sub              '47
 Sub S47_unHit:Controller.Switch(47)=0:End Sub
 Sub S48_Hit:Controller.Switch(48)=1:End Sub              '48
 Sub S48_unHit:Controller.Switch(48)=0:End Sub
-Sub Bumper1_Hit:vpmTimer.PulseSw 49:PlaySound SoundFX("Jet1",DOFContactors):End Sub								'49
-Sub Bumper2_Hit:vpmTimer.PulseSw 50:Playsound SoundFX("Jet2",DOFContactors):End Sub								'50
-Sub Bumper3_Hit:vpmTimer.PulseSw 51:Playsound SoundFX("Jet1",DOFContactors):End Sub								'511
+Sub Bumper1_Hit:vpmTimer.PulseSw 49:PlaySound SoundFX("Jet1",DOFContactors):End Sub               '49
+Sub Bumper2_Hit:vpmTimer.PulseSw 50:Playsound SoundFX("Jet2",DOFContactors):End Sub               '50
+Sub Bumper3_Hit:vpmTimer.PulseSw 51:Playsound SoundFX("Jet1",DOFContactors):End Sub               '511
 Sub S52_Hit:Controller.Switch(52)=1:End Sub              '52
 Sub S52_unHit:Controller.Switch(52)=0:End Sub
 Sub S53_Hit:Controller.Switch(53)=1:End Sub              '53
@@ -1037,45 +1037,45 @@ End Sub
 '**************************************
 
 ' The collision is built in VP.
-' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they 
+' You only need to add a Sub OnBallBallCollision(ball1, ball2, velocity) and when two balls collide they
 ' will call this routine. What you add in the sub is up to you. As an example is a simple Playsound with volume and paning
 ' depending of the speed of the collision.
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rollovers_Hit (idx)
-	' PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  ' PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
   RandomSoundRollover()
 End Sub
 
 Sub Targets_Hit (idx)
-	' PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  ' PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
   RandomSoundTargetHitStrong()
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	' PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  ' PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
   RandomSoundMetal
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	' PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  ' PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
   RandomSoundMetal
 End Sub
 
 Sub Metals2_Hit (idx)
-	' PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  ' PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
   RandomSoundMetal()
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", 0, 1, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+  PlaySound "fx_spinner", 0, 1, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -1130,21 +1130,21 @@ Sub RandomSoundRubberWeak()
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	'RandomSoundFlipper()
+  'RandomSoundFlipper()
   RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	'RandomSoundFlipper()
+  'RandomSoundFlipper()
   RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub RandomSoundRubberFlipper(parm)

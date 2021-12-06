@@ -65,7 +65,7 @@ Const SCoin = "fx_coin"
 
 Sub table1_Init
 
-	Dim cGameName
+  Dim cGameName
 
     With Controller
         cGameName = "swtril43" ' Latest rom version
@@ -360,11 +360,11 @@ SolCallBack(5) = "FireXWing"
 SolCallBack(6) = "bsBottomVUK.SolOut"
 SolCallBack(7) = "RampMagnet"
 'SolCallBack(8) =  "Relaissound"
-'SolCallBack(9)	= "Relaissound"
+'SolCallBack(9) = "Relaissound"
 'SolCallBack(10) = "Relaissound"
 'SolCallBack(11) = "Relaissound"
-'SolCallBack(12)	'left slingshot
-'SolCallBack(13)	'right slingshot
+'SolCallBack(12)  'left slingshot
+'SolCallBack(13)  'right slingshot
 'SolCallBack(14) = "Relaissound"
 'SolCallBack(24) = "Relaissound"
 SolCallBack(17) = "SolDiv"
@@ -424,26 +424,26 @@ Sub TieFighterShaker(Enabled)
 End Sub
 
 Sub Tiefightershake_timer
-	tiefighter1.RotAndTra2 = tiepos
-	If tiepostemp <0.1 AND tiepostemp >-0.1  Then : Tiefightershake.Enabled = False: Exit Sub
+  tiefighter1.RotAndTra2 = tiepos
+  If tiepostemp <0.1 AND tiepostemp >-0.1  Then : Tiefightershake.Enabled = False: Exit Sub
     If tiesound = False Then PlaysoundAtVol "solenoid", tiefighter1, 1: tiesound = True
 
 If tiepostemp < 0 Then
 '    tiepos = ABS(tiepos) - (0.01+(60/Tiefightershake.interval))
-	IF tiepos > tiepostemp Then
-	tiepos = tiepos - (0.1*(tiespeed/2))
+  IF tiepos > tiepostemp Then
+  tiepos = tiepos - (0.1*(tiespeed/2))
     Else
-	tiepostemp = ABS(tiepostemp) - 0.03*tiespeed
+  tiepostemp = ABS(tiepostemp) - 0.03*tiespeed
     tiespeed = tiepostemp
     End if
 Else
-	IF tiepos < tiepostemp Then
-	tiepos = tiepos + (0.1*(tiespeed/2))
+  IF tiepos < tiepostemp Then
+  tiepos = tiepos + (0.1*(tiespeed/2))
     Else
-	tiepostemp = -tiepostemp + 0.03*tiespeed
+  tiepostemp = -tiepostemp + 0.03*tiespeed
     End if
 
-'	    tiepos = -tiepos + (0.01+(60/Tiefightershake.interval))
+'     tiepos = -tiepos + (0.01+(60/Tiefightershake.interval))
 End If
 End Sub
 
@@ -453,7 +453,7 @@ Dim cannonpos
 
 Sub MagnetSlide(Enabled)
     If Enabled Then
-		cannonpos = 0:
+    cannonpos = 0:
         Cannonanimate.Enabled = True
         PlungerStatus = 0
         PlaysoundAtVol "solenoid", cannonMuzzle, 1
@@ -494,8 +494,8 @@ Sub UpdateXWing(aNewPos, aSpeed, aLastPos)
     xwingcannon1.RotAndTra2 = KickDir
     xwing1.RotAndTra2 = KickDir
 
-	Duese1.Rotz = KickDir +270
-	Duese2.Rotz = KickDir +270
+  Duese1.Rotz = KickDir +270
+  Duese2.Rotz = KickDir +270
 
 
 
@@ -508,20 +508,20 @@ Sub UpdateXWing(aNewPos, aSpeed, aLastPos)
     IF KickDir = 0 Then
 
         Duese1.visible = False
-		Duese2.visible = False
+    Duese2.visible = False
 
     End If
 
 
     IF KickDir > 1 Then
         Duese1.visible = True
-		Duese2.visible = True
-		PlaysoundAtVol "Gunmotor", XwingCannon, 1
-	END if
+    Duese2.visible = True
+    PlaysoundAtVol "Gunmotor", XwingCannon, 1
+  END if
 
     IF KickDir = 1 Then
 
-	END if
+  END if
 
 End Sub
 
@@ -561,10 +561,10 @@ End Sub
 
 Sub Magnet_Hit()
     ActiveBall.X = 182
-	ActiveBall.Y = 175
-	ActiveBall.Z = 120
-	ActiveBall.VelX = -5
-	ActiveBall.VelY = 5
+  ActiveBall.Y = 175
+  ActiveBall.Z = 120
+  ActiveBall.VelX = -5
+  ActiveBall.VelY = 5
 End Sub
 
 '*********
@@ -985,7 +985,7 @@ Sub LampTimer_Timer()
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-			FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
         Next
     End If
 
@@ -1191,11 +1191,11 @@ Sub FlasherTimer_Timer()
 
 
 
-	FlashHan 3, F3a
+  FlashHan 3, F3a
     FlashHan 3, F3b
     FlashHan 3, f3c
     FlashHan 3, FlashTie
-	FlashHan 6, F6a
+  FlashHan 6, F6a
     FlashHan 6, F6b
     FlashHan 6, F6c
     FlashHan 6, F6d
@@ -1319,7 +1319,7 @@ Sub Flash(nr, object)
             '    FadingLevel(nr) = 0 'completely off
             'End if
             'Object.IntensityScale = FlashLevel(nr)
-			Object.visible = 0
+      Object.visible = 0
 
 
 

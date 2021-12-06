@@ -281,25 +281,25 @@ Sub Bumper3_hit:vpmTimer.PulseSw 33:PlaySoundAt "Fx_Bumper3", Bumper3:End Sub
 
  'added by Inkochnito
 Sub editDips
-	Dim vpmDips:Set vpmDips=New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"Nugent - DIP switches"
-		.AddChk 2,10,180,Array("Match feature",&H00100000)'dip 21
-		.AddChk 205,10,115,Array("Credits display",&H00080000)'dip 20
-		.AddFrame 2,30,190,"Maximum credits",&H00070000,Array("5 credits",0,"10 credits",&H00010000,"15 credits",&H00020000,"20 credits",&H00030000,"25 credits",&H00040000,"30 credits",&H00050000,"35 credits",&H00060000,"40 credits",&H00070000)'dip 17&18&19
-		.AddFrame 2,160,190,"High game to date award",49152,Array("points",0,"1 free game",&H00004000,"2 free games",32768,"3 free games",49152)'dip 15&16
-		.AddFrame 2,235,190,"Special award",&HC0000000,Array("100,000 points",0,"free ball",&H40000000,"free game",&H80000000,"free ball and free game",&HC0000000)'dip 31&32
-		.AddFrame 2,310,190,"High score feature",&H00000020,Array("extra ball",0,"replay",&H00000020)'dip 6
-		.AddFrame 205,30,190,"Balls per game",&H00000040,Array("3 balls",0,"5 balls",&H00000040)'dip 7
-		.AddFrame 205,76,190,"Return lane lamps",&H00002000,Array("goes off after being made",0,"stay on for entire ball",&H00002000)'dip 14
-		.AddFrame 205,122,190,"Special limit 3 bank drop targets",&H00200000,Array("no limit",0,"one special per ball",&H00200000)'dip 22
-		.AddFrame 205,169,190,"Electronic sound",&H00400000,Array("electronic chimes",0,"computer type sounds",&H00400000)'dip 23
-		.AddFrame 205,216,190,"Bonus countdown",&H00800000,Array("multiple steps",0,"1,000 per step",&H00800000)'dip 24
-		.AddFrame 205,263,190,"Extra ball",&H02000000,Array("no extra ball (bypass)",0,"award extra ball",&H02000000)'dip 26
-		.AddFrame 205,310,190,"Melody option",&H00000080,Array("2 tones only",0,"full melody",&H00000080)'dip 8
-		.AddLabel 50,382,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips:Set vpmDips=New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"Nugent - DIP switches"
+    .AddChk 2,10,180,Array("Match feature",&H00100000)'dip 21
+    .AddChk 205,10,115,Array("Credits display",&H00080000)'dip 20
+    .AddFrame 2,30,190,"Maximum credits",&H00070000,Array("5 credits",0,"10 credits",&H00010000,"15 credits",&H00020000,"20 credits",&H00030000,"25 credits",&H00040000,"30 credits",&H00050000,"35 credits",&H00060000,"40 credits",&H00070000)'dip 17&18&19
+    .AddFrame 2,160,190,"High game to date award",49152,Array("points",0,"1 free game",&H00004000,"2 free games",32768,"3 free games",49152)'dip 15&16
+    .AddFrame 2,235,190,"Special award",&HC0000000,Array("100,000 points",0,"free ball",&H40000000,"free game",&H80000000,"free ball and free game",&HC0000000)'dip 31&32
+    .AddFrame 2,310,190,"High score feature",&H00000020,Array("extra ball",0,"replay",&H00000020)'dip 6
+    .AddFrame 205,30,190,"Balls per game",&H00000040,Array("3 balls",0,"5 balls",&H00000040)'dip 7
+    .AddFrame 205,76,190,"Return lane lamps",&H00002000,Array("goes off after being made",0,"stay on for entire ball",&H00002000)'dip 14
+    .AddFrame 205,122,190,"Special limit 3 bank drop targets",&H00200000,Array("no limit",0,"one special per ball",&H00200000)'dip 22
+    .AddFrame 205,169,190,"Electronic sound",&H00400000,Array("electronic chimes",0,"computer type sounds",&H00400000)'dip 23
+    .AddFrame 205,216,190,"Bonus countdown",&H00800000,Array("multiple steps",0,"1,000 per step",&H00800000)'dip 24
+    .AddFrame 205,263,190,"Extra ball",&H02000000,Array("no extra ball (bypass)",0,"award extra ball",&H02000000)'dip 26
+    .AddFrame 205,310,190,"Melody option",&H00000080,Array("2 tones only",0,"full melody",&H00000080)'dip 8
+    .AddLabel 50,382,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips=GetRef("editDips")
 
@@ -486,11 +486,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
    For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else

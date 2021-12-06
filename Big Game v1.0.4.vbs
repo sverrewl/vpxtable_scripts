@@ -441,7 +441,7 @@ Sub LampTimer_Timer()
     UpdateLamps
     GIUpdate
     RollingUpdate
-	ExtraLights
+  ExtraLights
 End Sub
 
 Sub UpdateLamps
@@ -520,12 +520,12 @@ Sub UpdateLamps
     If VarHidden Then
         NFadeT 13, l13, "High Score to Date"
         NFadeTm 29, l29, "Same Player Shoots Again"
-		NFadeL 29, l47 'table's shoot again light
+    NFadeL 29, l47 'table's shoot again light
         NFadeT 45, l45, "Game Over"
         NFadeT 61, l61, "TILT"
         NFadeT 63, l63, "Match"
-	Else
-		NFadeL 29, l47 'table's shoot again light
+  Else
+    NFadeL 29, l47 'table's shoot again light
     End If
 End Sub
 

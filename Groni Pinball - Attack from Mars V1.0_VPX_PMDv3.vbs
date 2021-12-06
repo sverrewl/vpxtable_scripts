@@ -175,7 +175,7 @@ End Sub
 '*********************************************************************
 '* VUK ***************************************************************
 '*********************************************************************
-   
+
  Set bsL = New cvpmBallStack
  With bsL
  .InitSw 0, 36, 0, 0, 0, 0, 0, 0
@@ -382,25 +382,25 @@ lfstep = 1
 rfstep = 1
 
 sub leftflipper_timer()
-	select case lfstep
-		Case 1: leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
-		Case 2: leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
-		Case 3: leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
-		Case 4: leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
-		Case 5: leftflipper.return = returnspeed * 1 :lfstep = lfstep + 1
-		Case 6: leftflipper.timerenabled = 0 : lfstep = 1
-	end select
+  select case lfstep
+    Case 1: leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
+    Case 2: leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
+    Case 3: leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
+    Case 4: leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
+    Case 5: leftflipper.return = returnspeed * 1 :lfstep = lfstep + 1
+    Case 6: leftflipper.timerenabled = 0 : lfstep = 1
+  end select
 end sub
 
 sub rightflipper_timer()
-	select case rfstep
-		Case 1: rightflipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
-		Case 2: rightflipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
-		Case 3: rightflipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
-		Case 4: rightflipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
-		Case 5: rightflipper.return = returnspeed * 1 :rfstep = rfstep + 1
-		Case 6: rightflipper.timerenabled = 0 : rfstep = 1
-	end select
+  select case rfstep
+    Case 1: rightflipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
+    Case 2: rightflipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
+    Case 3: rightflipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
+    Case 4: rightflipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
+    Case 5: rightflipper.return = returnspeed * 1 :rfstep = rfstep + 1
+    Case 6: rightflipper.timerenabled = 0 : rfstep = 1
+  end select
 end sub
 
 '*********************************************************************
@@ -630,7 +630,7 @@ Set cBall = ckicker.createball
 ckicker.Kick 0, 0
 End Sub
 
-Sub SolUfoShake(Enabled) 
+Sub SolUfoShake(Enabled)
 If Enabled Then
 BigUfoShake
 PlaySound SoundFX("SaucerShake",DOFShaker),0,2,0,0,0,0,1,-.75
@@ -639,7 +639,7 @@ End If
 End Sub
 
 Sub BigUfoShake
-cball.velx = 1 
+cball.velx = 1
 cball.vely = -2
 End Sub
 
@@ -706,7 +706,7 @@ PlaySoundAtVol SoundFX("AlienShake1",DOFShaker),Alien1n,2
 End If
 End Sub
 
-Sub Alien1Timer_Timer()	
+Sub Alien1Timer_Timer()
 Select Case Alien1Pos
 Case 0: Alien1n.Z=60:AlienPost1.Z=-60
 Case 1: Alien1n.Z=65:AlienPost1.Z=-55
@@ -741,7 +741,7 @@ PlaySoundAtVol SoundFX("AlienShake2",DOFShaker),Alien2n,2
 End If
 End Sub
 
-Sub Alien2Timer_Timer()	
+Sub Alien2Timer_Timer()
 Select Case Alien2Pos
 Case 0: Alien2n.Z=60:AlienPost2.Z=-60
 Case 1: Alien2n.Z=65:AlienPost2.Z=-55:Alien2n.visible=0:Alien2h1.Z=65:Alien2h1.visible=1
@@ -774,7 +774,7 @@ PlaySoundAtVol SoundFX("AlienShake3",DOFShaker),Alien3n,2
 End If
 End Sub
 
-Sub Alien3Timer_Timer()	
+Sub Alien3Timer_Timer()
 Select Case Alien3Pos
 Case 0: Alien3n.Z=60:AlienPost3.Z=-60
 Case 1: Alien3n.Z=65:AlienPost3.Z=-55:Alien3n.visible=0:Alien3h1.Z=65:Alien3h1.visible=1
@@ -809,7 +809,7 @@ PlaySoundAtVol SoundFX("AlienShake4",DOFShaker),Alien4n,2
 End If
 End Sub
 
-Sub Alien4Timer_Timer()	
+Sub Alien4Timer_Timer()
 Select Case Alien4Pos
 Case 0: Alien4n.Z=60:AlienPost4.Z=-60
 Case 1: Alien4n.Z=65:AlienPost4.Z=-55:Alien4n.visible=0:Alien4h1.Z=65:Alien4h1.visible=1
@@ -845,7 +845,7 @@ PlaySoundAt SoundFX("TargetBank",DOFContactors),DPTrigger
 End If
 End Sub
 
-Sub TBTimer_Timer()	
+Sub TBTimer_Timer()
 Select Case TBPos
 Case 0: MotorBank.Z=-20:SW45P.Z=-20:SW46P.Z=-20:SW47P.Z=-20:TBPos=0:TBDown=0:TBTimer.Enabled=0:Controller.Switch(66) = 0:Controller.Switch(67) = 1::SW45.isdropped=0:SW46.isdropped=0:SW47.isdropped=0:DPWall.isdropped=0:DPWall1.isdropped=1:DPRAMP.collidable=1
 Case 1: MotorBank.Z=-22:SW45P.Z=-22:SW46P.Z=-22:SW47P.Z=-22
@@ -879,7 +879,7 @@ Case 28: MotorBank.Z=-76:SW45P.Z=-76:SW46P.Z=-76:SW47P.Z=-76:SW45.isdropped=1:SW
 Case 29: TBTimer.Enabled=0:TBDown=1:Controller.Switch(66) = 1:Controller.Switch(67) = 0
 End Select
 
-If TBDown=0 then TBPos=TBPos+1 
+If TBDown=0 then TBPos=TBPos+1
 If TBDown=1 then TBPos=TBPos-1
 End Sub
 
@@ -954,7 +954,7 @@ Sub RightSlingRubber_Hit(): PlaySoundAt "RubberHit",ActiveBall:End Sub
 
 Sub Rubber3_Hit(): PlaySoundAt "RubberHit3",ActiveBall: End Sub
 
-Sub Rubber6_Hit(): PlaySoundAt "RubberHit3",ActiveBall: End Sub 
+Sub Rubber6_Hit(): PlaySoundAt "RubberHit3",ActiveBall: End Sub
 
 Sub Wall14_Hit(): PlaySoundAt "Objecthit",ActiveBall:End Sub
 
@@ -1014,10 +1014,10 @@ End If
 End Function
 
 function AudioFade(ball)
-	Dim tmp
+  Dim tmp
     tmp = ball.y * 2 / AFM.height-1
     If tmp > 0 Then
-		AudioFade = Csng(tmp ^10)
+    AudioFade = Csng(tmp ^10)
     Else
         AudioFade = Csng(-((- tmp) ^10) )
     End If
@@ -1058,7 +1058,7 @@ Next
 ' exit the sub if no balls on the table
 If UBound(BOT) = -1 Then Exit Sub
 ' play the rolling sound for each ball
-' in this table we ignore the captive ball, it´s the 0 
+' in this table we ignore the captive ball, it´s the 0
 For b = 1 to UBound(BOT)
 If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
 rolling(b) = True
@@ -1087,35 +1087,35 @@ End Sub
 'Set position as table object (Use object or light but NOT wall) and Vol to 1
 
 Sub PlaySoundAt(sound, tableobj)
-		PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(sound)
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as table object and Vol manually.
 
 Sub PlaySoundAtVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as bumperX and Vol manually.
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************

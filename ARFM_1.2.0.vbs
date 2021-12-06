@@ -96,7 +96,7 @@ Sub Table1_Init
         .ShowFrame = 0
         .HandleMechanics = 0
         .Hidden = DesktopMode
-		NVOffset (3)
+    NVOffset (3)
         On Error Resume Next
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
@@ -111,15 +111,15 @@ Sub Table1_Init
     vpmNudge.TiltObj = Array(bumper1, bumper2, bumper3, LeftSlingshot, RightSlingshot)
 
     ' Trough
-	Set bsTrough = New cvpmTrough
-	With bsTrough
-	.size = 4
-	'.entrySw = 18
-	.initSwitches Array(32, 33, 34, 35)
-	.Initexit BallRelease, 80, 6
-	.InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFX("fx_ballrel",DOFContactors)
-	.Balls = 4
-	End With
+  Set bsTrough = New cvpmTrough
+  With bsTrough
+  .size = 4
+  '.entrySw = 18
+  .initSwitches Array(32, 33, 34, 35)
+  .Initexit BallRelease, 80, 6
+  .InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFX("fx_ballrel",DOFContactors)
+  .Balls = 4
+  End With
 
     ' Droptarget
     Set dtDrop = New cvpmDropTarget
@@ -131,7 +131,7 @@ Sub Table1_Init
     ' Left hole
     Set bsL = New cvpmTrough
     With bsL
-		.size = 1
+    .size = 1
         .initSwitches Array(36)
         .Initexit sw36, 0, 2
         .InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFX("fx_popper",DOFContactors)
@@ -141,12 +141,12 @@ Sub Table1_Init
     ' Right hole
     Set bsR = New cvpmTrough
     With bsR
-		.size = 4
+    .size = 4
         .initSwitches Array(37)
         .Initexit sw37, 200, 24
         .InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFX("fx_popper",DOFContactors)
         .InitExitVariance 2, 2
-		.MaxBallsPerKick = 1
+    .MaxBallsPerKick = 1
     End With
 
     '3 Targets Bank
@@ -183,13 +183,13 @@ Sub Table1_Init
     UFORotSpeedSlow
 'UfoLed.Enabled = 1
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-		'ramp4.Visible = False
-		'ramp5.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+    'ramp4.Visible = False
+    'ramp5.Visible = False
+  End If
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -843,7 +843,7 @@ Sub UpdateLamps
     'NFadeL 106, l106
     'NFadeL 107, l107
     'NFadeL 108, l108
-	'flashers
+  'flashers
     LightMod 117, f17
     FlashMod 117, f17a
     LightMod 118, f18
@@ -895,7 +895,7 @@ Sub SetLamp(nr, value)
 End Sub
 
 Sub SetModLamp(nr, level)
-	FlashLevel(nr) = level /150 'lights & flashers
+  FlashLevel(nr) = level /150 'lights & flashers
 End Sub
 
 ' Lights: old method, using 4 images
@@ -938,7 +938,7 @@ End Sub
 
 Sub LightMod(nr, object) ' modulated lights used as flashers
     Object.IntensityScale = FlashLevel(nr)
-	Object.State = 1
+  Object.State = 1
 End Sub
 
 'Ramps & Primitives used as 4 step fading lights

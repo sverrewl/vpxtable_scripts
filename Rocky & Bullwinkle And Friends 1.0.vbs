@@ -3,8 +3,8 @@
 '                   **************************************
 ' ******************** Rocky & Bullwinkle And Friends **********************
 ' ********************    DATA EAST 1992 FS Ver. 0.96  **********************
-' ****************** 		Zedonius 27/05/2017		  ********************
-'                   /***********************************\									|
+' ******************    Zedonius 27/05/2017     ********************
+'                   /***********************************\                 |
 '                       **************/\***************
 '
 '
@@ -12,7 +12,7 @@
 ' **************************************************************************
 '                                  Credits
 
-'					   Javier15: For all work done
+'            Javier15: For all work done
 '                      LoboTomy: For the playfield redraw
 '                      FBX: For the HR plastic pics
 '                      Akiles: For the HR pics
@@ -69,8 +69,8 @@ Const sCoin         = "Coin3"
 Const sDtRDrop      = 15
 
 If RockyBullwinkle.ShowDT = False Then
-	Ramp62.visible=0
-	Ramp63.visible=0
+  Ramp62.visible=0
+  Ramp63.visible=0
 End If
 
 Dim bsTrough, bsVUK, bsLEjet, bsUpperEject, Lnell, mNell, plungerIM
@@ -109,9 +109,9 @@ solcallback(13) ="SolPdiv"
 solCallback(14) ="vpmSolgate Gate,SoundFX(""Diverter"",DOFContactors),"
 solCallback(15) ="SolDrop" '5 Bank
 SolCallBack(16) ="SolAutoPlungerIM"
-SolCallBack(17)	="vpmSolSound SoundFX(""jet"",DOFContactors),"
-SolCallBack(18)	="vpmSolSound SoundFX(""jet"",DOFContactors),"
-SolCallBack(19)	="vpmSolSound SoundFX(""jet"",DOFContactors),"
+SolCallBack(17) ="vpmSolSound SoundFX(""jet"",DOFContactors),"
+SolCallBack(18) ="vpmSolSound SoundFX(""jet"",DOFContactors),"
+SolCallBack(19) ="vpmSolSound SoundFX(""jet"",DOFContactors),"
 SolCallBack(20) ="vpmSolSound SoundFX(""slingshot"",DOFContactors),"
 SolCallBack(21) ="vpmSolSound SoundFX(""slingshot"",DOFContactors),"
 SolCallBack(22) ="AutoPlunge"
@@ -128,22 +128,22 @@ SolCallback(32) = "SetLamp 88," '8
 
 
  Sub RockyBullwinkle_Init
-	 InitVPM
+   InitVPM
      vpmNudge.TiltSwitch = 1
-	 vpmNudge.Sensitivity = 5
-	 vpmNudge.tiltobj = Array(LeftSlingShot,RightSlingShot,Bumper1b,Bumper2b,Bumper3b)
+   vpmNudge.Sensitivity = 5
+   vpmNudge.tiltobj = Array(LeftSlingShot,RightSlingShot,Bumper1b,Bumper2b,Bumper3b)
 
 
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	'Drain & BallRelease
-	Set bsTrough = New cvpmBallStack
+  'Drain & BallRelease
+  Set bsTrough = New cvpmBallStack
     With bsTrough
-	    .InitSw 0,13,12,11,0,0,0,0
-	    .InitKick BallRelease, 90, 10
+      .InitSw 0,13,12,11,0,0,0,0
+      .InitKick BallRelease, 90, 10
         .InitExitSnd SoundFX("fx_kickerout",DOFContactors), SoundFX("fx_solenoid",DOFContactors)
-	    .Balls = 3
+      .Balls = 3
     End With
 
     ' Left vuk
@@ -161,14 +161,14 @@ SolCallback(32) = "SetLamp 88," '8
            .InitSw 0,29,0,0,0,0,0,0
            .InitKick Sw29,177,30
            .KickZ = 0.4
-	       .InitExitSnd SoundFX("fx_kickerout",DOFContactors), "Solenoid"
+         .InitExitSnd SoundFX("fx_kickerout",DOFContactors), "Solenoid"
       End With
 
      ' Drop Targets
      Set dtRDrop = new cvpmDropTarget
      With dtRDrop
-	      .Initdrop Array(Sw17,Sw18,Sw19,Sw20,Sw21), Array(17,18,19,20,21)
-	      .InitSnd SoundFX("fx_droptarget",DOFDropTargets),SoundFX("fx_resetdrop",DOFContactors)
+        .Initdrop Array(Sw17,Sw18,Sw19,Sw20,Sw21), Array(17,18,19,20,21)
+        .InitSnd SoundFX("fx_droptarget",DOFDropTargets),SoundFX("fx_resetdrop",DOFContactors)
       End With
 
 
@@ -186,22 +186,22 @@ SolCallback(32) = "SetLamp 88," '8
 
      'Diverters & Sensors
      Diverter_on.isdropped=true
-	 Diverter_off.isdropped=False
+   Diverter_off.isdropped=False
      PlayFLDiverter.isdropped=True
 
      'Gi
-' 	For each x in GILampFlashT:x.isvisible = 0:next
-' 	For each x in GILampFlashM:x.isvisible = 0:next
-' 	For each x in GILampFlashB:x.isvisible = 0:next
+'   For each x in GILampFlashT:x.isvisible = 0:next
+'   For each x in GILampFlashM:x.isvisible = 0:next
+'   For each x in GILampFlashB:x.isvisible = 0:next
 
 End sub
 
 'Trough
 Sub SolTrough(Enabled)
     If Enabled then
-		bsTrough.ExitSol_On
-		vpmTimer.PulseSw 10
-	End If
+    bsTrough.ExitSol_On
+    vpmTimer.PulseSw 10
+  End If
 End Sub
 
 'AutoPlunger
@@ -214,11 +214,11 @@ End Sub
 
 ' LaserKick
 Sub AutoPlunge(Enabled)
-	If Enabled Then
-		LaserKick.Enabled=True
-	Else
-		LaserKick.Enabled=False
-	End If
+  If Enabled Then
+    LaserKick.Enabled=True
+  Else
+    LaserKick.Enabled=False
+  End If
 End Sub
 
 Sub LaserKick_Hit:Me.Kick 0,52:PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors),LaserKick, 1: End Sub
@@ -232,22 +232,22 @@ NellDir = 0
 Sub SolNell(Enabled)
 
     If Enabled Then
-	   NelLight1.state = 1
-	   NellDir = -2
+     NelLight1.state = 1
+     NellDir = -2
        NellTimer.Enabled=1
       Else
-	   NelLight1.state = 0
-	   NellDir = 2
+     NelLight1.state = 0
+     NellDir = 2
        NellTimer.Enabled=1
   End If
 End Sub
 
 Sub NellTimer_Timer()
     StopSound"motor": PlaySoundAtVol SoundFX("motor",DOFGear), NellP, 1
-	NellPos = NellPos + NellDir
-	If NellPos <= 0 Then NellPos = 0:Me.Enabled = 0
-	If NellPos >= 130 Then NellPos = 130: Me.Enabled = 0
-	NellP.TransY = NellPos
+  NellPos = NellPos + NellDir
+  If NellPos <= 0 Then NellPos = 0:Me.Enabled = 0
+  If NellPos >= 130 Then NellPos = 130: Me.Enabled = 0
+  NellP.TransY = NellPos
 End Sub
 
 ' **********
@@ -260,21 +260,21 @@ Diverter2Dir = 0
 Diverter2Pos = 0
 
  Sub SolRdiv(enabled)
- 	if enabled then
-		Diverter2Animation.Interval = 4
-		Diverter2Dir = -1
-		Diverter2Animation.Enabled = 1
- 		Diverter_on.isdropped=false
- 		Diverter_off.isdropped=true
+  if enabled then
+    Diverter2Animation.Interval = 4
+    Diverter2Dir = -1
+    Diverter2Animation.Enabled = 1
+    Diverter_on.isdropped=false
+    Diverter_off.isdropped=true
         PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
- 	else
-		Diverter2Animation.Interval = 4
-		Diverter2Dir = 1
-		Diverter2Animation.Enabled = 1
-  		Diverter_on.isdropped=true
- 		Diverter_off.isdropped=false
+  else
+    Diverter2Animation.Interval = 4
+    Diverter2Dir = 1
+    Diverter2Animation.Enabled = 1
+      Diverter_on.isdropped=true
+    Diverter_off.isdropped=false
         PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
- 	end if
+  end if
  end sub
 
 Sub Diverter2Animation_Timer
@@ -294,21 +294,21 @@ Diverter1Dir = 0
 Diverter1Pos = 0
 
  Sub SolPdiv(enabled)
- 	if enabled then
-		Diverter1Animation.Interval = 4
-		Diverter1Dir = 1
-		Diverter1Animation.Enabled = 1
- 		PlayFLDiverter.isdropped=false
- 		PlayFLDiverter1.isdropped=True
+  if enabled then
+    Diverter1Animation.Interval = 4
+    Diverter1Dir = 1
+    Diverter1Animation.Enabled = 1
+    PlayFLDiverter.isdropped=false
+    PlayFLDiverter1.isdropped=True
         PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
- 	else
-		Diverter1Animation.Interval = 4
-		Diverter1Dir = -1
-		Diverter1Animation.Enabled = 1
- 		PlayFLDiverter.isdropped=true
- 		PlayFLDiverter1.isdropped=false
+  else
+    Diverter1Animation.Interval = 4
+    Diverter1Dir = -1
+    Diverter1Animation.Enabled = 1
+    PlayFLDiverter.isdropped=true
+    PlayFLDiverter1.isdropped=false
         PlaySoundAt SoundFX("diverter",DOFContactors),GiR2
- 	end if
+  end if
  end sub
 
 Sub Diverter1Animation_Timer
@@ -325,19 +325,19 @@ End Sub
 ' **** Key_Up ***
 Sub RockyBullwinkle_KeyUp(ByVal keyCode)
 
-	If keycode = LeftFlipperKey Then  Controller.Switch(15) = False  End If
- 	If keycode = RightFlipperKey Then	Controller.Switch(16) = False End If
-	If KeyUpHandler(keyCode) Then Exit Sub
-	If keyCode=PlungerKey Then  Controller.Switch(9)=false: END IF
+  If keycode = LeftFlipperKey Then  Controller.Switch(15) = False  End If
+  If keycode = RightFlipperKey Then Controller.Switch(16) = False End If
+  If KeyUpHandler(keyCode) Then Exit Sub
+  If keyCode=PlungerKey Then  Controller.Switch(9)=false: END IF
 End Sub
 
 ' **** Key_Down ****
 Sub RockyBullwinkle_KeyDown(ByVal keyCode)
 
 If keycode = LeftFlipperKey Then  Controller.Switch(15) = True End If
-	If keycode = RightFlipperKey Then	Controller.Switch(16) = True End If
+  If keycode = RightFlipperKey Then Controller.Switch(16) = True End If
     If KeyDownHandler(keyCode) Then Exit Sub
-	If keyCode=PlungerKey Then Controller.Switch(9)=true END IF
+  If keyCode=PlungerKey Then Controller.Switch(9)=true END IF
 End Sub
 
 
@@ -355,7 +355,7 @@ End Sub
          PlaySoundAtVol SoundFX("fx_flipup",DOFFlippers),LeftFlipper, VolFlip:LeftFlipper.RotateToEnd
      Else
          PlaySoundAtVol SoundFX("fx_flipdown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
- 	End If
+  End If
  End Sub
 
  Sub SolLRFlipper(Enabled)
@@ -375,8 +375,8 @@ Sub RightFlipper_Collide(parm)
 End Sub
 
 Sub UpdateModelFlipper_Timer
-	LeftBat.RotY=LeftFlipper.currentangle-90
-	RightBat.RotY=RightFlipper.currentangle-90
+  LeftBat.RotY=LeftFlipper.currentangle-90
+  RightBat.RotY=RightFlipper.currentangle-90
 End Sub
 
 '******************
@@ -386,7 +386,7 @@ Set MotorCallback = GetRef("GameTimer")
 
 Sub GameTimer
     RollingSound
-	UpdateModelFlipper
+  UpdateModelFlipper
 End Sub
 
 
@@ -462,11 +462,11 @@ End Sub
 '*************
 Dim Sw17pos,Sw18pos,Sw19pos,Sw20pos,Sw21pos
 Sub SolDrop(enabled)
-	if enabled then
+  if enabled then
        Sw17pos=50:Sw18pos=50:Sw19pos=50:Sw20pos=50:Sw21pos=50
        Sw17Tr.Enabled=1:Sw18Tr.Enabled=1:Sw19Tr.Enabled=1:Sw20Tr.Enabled=1:Sw21Tr.Enabled=1
-	   dtRDrop.DropSol_On
-	end if
+     dtRDrop.DropSol_On
+  end if
 End Sub
 
 Sub Sw17_Hit:dtRDrop.Hit 1:Sw17pos=0:Sw17T.Enabled=1:End Sub
@@ -490,7 +490,7 @@ Sub Sw21_Hit:dtRDrop.Hit 5:Sw21pos=0:Sw21T.Enabled=1:End Sub
         Case 9: Sw17p.z=-20
         Case 10: Sw17p.z=-20:Sw17T.Enabled = 0
 End Select
- 	 If Sw17pos<10 then Sw17pos=Sw17pos+1
+   If Sw17pos<10 then Sw17pos=Sw17pos+1
   End Sub
 
   Sub Sw17Tr_Timer()
@@ -507,7 +507,7 @@ End Select
         Case 9: Sw17p.z=-20
         Case 10: Sw17p.z=-20
    End Select
- 	If Sw17pos>0 Then Sw17pos=Sw17pos-1
+  If Sw17pos>0 Then Sw17pos=Sw17pos-1
   End Sub
 
 'Sw18
@@ -525,7 +525,7 @@ End Select
         Case 9: Sw18p.z=-20
         Case 10: Sw18p.z=-20:Sw18T.Enabled = 0
 End Select
- 	 If Sw18pos<10 then Sw18pos=Sw18pos+1
+   If Sw18pos<10 then Sw18pos=Sw18pos+1
   End Sub
 
   Sub Sw18Tr_Timer()
@@ -542,7 +542,7 @@ End Select
         Case 9: Sw18p.z=-20
         Case 10: Sw18p.z=-20
    End Select
- 	If Sw18pos>0 Then Sw18pos=Sw18pos-1
+  If Sw18pos>0 Then Sw18pos=Sw18pos-1
   End Sub
 
 'Sw19
@@ -560,7 +560,7 @@ End Select
         Case 9: Sw19p.z=-20
         Case 10: Sw19p.z=-20:Sw19T.Enabled = 0
 End Select
- 	 If Sw19pos<10 then Sw19pos=Sw19pos+1
+   If Sw19pos<10 then Sw19pos=Sw19pos+1
   End Sub
 
   Sub Sw19Tr_Timer()
@@ -577,7 +577,7 @@ End Select
         Case 9: Sw19p.z=-20
         Case 10: Sw19p.z=-20
    End Select
- 	If Sw19pos>0 Then Sw19pos=Sw19pos-1
+  If Sw19pos>0 Then Sw19pos=Sw19pos-1
   End Sub
 
 'Sw20
@@ -595,7 +595,7 @@ End Select
         Case 9: Sw20p.z=-20
         Case 10: Sw20p.z=-20:Sw20T.Enabled = 0
 End Select
- 	 If Sw20pos<10 then Sw20pos=Sw20pos+1
+   If Sw20pos<10 then Sw20pos=Sw20pos+1
   End Sub
 
   Sub Sw20Tr_Timer()
@@ -612,7 +612,7 @@ End Select
         Case 9: Sw20p.z=-20
         Case 10: Sw20p.z=-20
    End Select
- 	If Sw20pos>0 Then Sw20pos=Sw20pos-1
+  If Sw20pos>0 Then Sw20pos=Sw20pos-1
   End Sub
 
 'Sw21
@@ -630,7 +630,7 @@ End Select
         Case 9: Sw21p.z=-20
         Case 10: Sw21p.z=-20:Sw21T.Enabled = 0
 End Select
- 	 If Sw21pos<10 then Sw21pos=Sw21pos+1
+   If Sw21pos<10 then Sw21pos=Sw21pos+1
   End Sub
 
   Sub Sw21Tr_Timer()
@@ -647,7 +647,7 @@ End Select
         Case 9: Sw21p.z=-20
         Case 10: Sw21p.z=-20
    End Select
- 	If Sw21pos>0 Then Sw21pos=Sw21pos-1
+  If Sw21pos>0 Then Sw21pos=Sw21pos-1
   End Sub
 
 
@@ -819,7 +819,7 @@ Sub LampTimer_Timer()
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-			FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
         Next
     End If
 
@@ -928,7 +928,7 @@ Sub UpdateLamps
    NFadeLm 88, Gi8r1
 '   NFadePri 85, bulb8, "Bulb_On", "Bulb_Off"
 
-	'GI LIGHTS
+  'GI LIGHTS
    NFadeLm 101, GiL1
    NFadeLm 102, GiL2
    NFadeLm 103, GiL3
@@ -973,209 +973,209 @@ Sub UpdateLamps
    NFadeLm 142, GiL42
 
 If Lamp1.state = 1 Then
-		l1.visible = 1
-		l1b.visible = 1
-		ToyL1.visible = 1
-		ToyL1b.visible = 0
-	Else
-		l1.visible = 0
-		l1b.visible = 0
-		ToyL1.visible = 0
-		ToyL1b.visible = 1
+    l1.visible = 1
+    l1b.visible = 1
+    ToyL1.visible = 1
+    ToyL1b.visible = 0
+  Else
+    l1.visible = 0
+    l1b.visible = 0
+    ToyL1.visible = 0
+    ToyL1b.visible = 1
 end if
 If Lamp2.state = 1 Then
-		l2.visible = 1
-		l2b.visible = 1
-		ToyL2.visible = 1
-		ToyL2b.visible = 0
-	Else
-		l2.visible = 0
-		l2b.visible = 0
-		ToyL2.visible = 0
-		ToyL2b.visible = 1
+    l2.visible = 1
+    l2b.visible = 1
+    ToyL2.visible = 1
+    ToyL2b.visible = 0
+  Else
+    l2.visible = 0
+    l2b.visible = 0
+    ToyL2.visible = 0
+    ToyL2b.visible = 1
 end if
 If Lamp3.state = 1 Then
-		l3.visible = 1
-		l3b.visible = 1
-		ToyL3.visible = 1
-		ToyL3b.visible = 0
-	Else
-		l3.visible = 0
-		l3b.visible = 0
-		ToyL3.visible = 0
-		ToyL3b.visible = 1
+    l3.visible = 1
+    l3b.visible = 1
+    ToyL3.visible = 1
+    ToyL3b.visible = 0
+  Else
+    l3.visible = 0
+    l3b.visible = 0
+    ToyL3.visible = 0
+    ToyL3b.visible = 1
 end if
 If Lamp4.state = 1 Then
-		l4.visible = 1
-		l4b.visible = 1
-		ToyL4.visible = 1
-		ToyL4b.visible = 0
-	Else
-		l4.visible = 0
-		l4b.visible = 0
-		ToyL4.visible = 0
-		ToyL4b.visible = 1
+    l4.visible = 1
+    l4b.visible = 1
+    ToyL4.visible = 1
+    ToyL4b.visible = 0
+  Else
+    l4.visible = 0
+    l4b.visible = 0
+    ToyL4.visible = 0
+    ToyL4b.visible = 1
 end if
 If Lamp5.state = 1 Then
-		l5.visible = 1
-		l5b.visible = 1
-		ToyL5.visible = 1
-		ToyL5b.visible = 0
-	Else
-		l5.visible = 0
-		l5b.visible = 0
-		ToyL5.visible = 0
-		ToyL5b.visible = 1
+    l5.visible = 1
+    l5b.visible = 1
+    ToyL5.visible = 1
+    ToyL5b.visible = 0
+  Else
+    l5.visible = 0
+    l5b.visible = 0
+    ToyL5.visible = 0
+    ToyL5b.visible = 1
 end if
 If Lamp6.state = 1 Then
-		l6.visible = 1
-		l6b.visible = 1
-		ToyL6.visible = 1
-		ToyL6b.visible = 0
-	Else
-		l6.visible = 0
-		l6b.visible = 0
-		ToyL6.visible = 0
-		ToyL6b.visible = 1
+    l6.visible = 1
+    l6b.visible = 1
+    ToyL6.visible = 1
+    ToyL6b.visible = 0
+  Else
+    l6.visible = 0
+    l6b.visible = 0
+    ToyL6.visible = 0
+    ToyL6b.visible = 1
 end if
 If Lamp7.state = 1 Then
-		l7.visible = 1
-		l7b.visible = 1
-		ToyL7.visible = 1
-		ToyL7b.visible = 0
-	Else
-		l7.visible = 0
-		l7b.visible = 0
-		ToyL7.visible = 0
-		ToyL7b.visible = 1
+    l7.visible = 1
+    l7b.visible = 1
+    ToyL7.visible = 1
+    ToyL7b.visible = 0
+  Else
+    l7.visible = 0
+    l7b.visible = 0
+    ToyL7.visible = 0
+    ToyL7b.visible = 1
 end if
 If Lamp8.state = 1 Then
-		l8.visible = 1
-		l8b.visible = 1
-		ToyL8.visible = 1
-		ToyL8b.visible = 0
-	Else
-		l8.visible = 0
-		l8b.visible = 0
-		ToyL8.visible = 0
-		ToyL8b.visible = 1
+    l8.visible = 1
+    l8b.visible = 1
+    ToyL8.visible = 1
+    ToyL8b.visible = 0
+  Else
+    l8.visible = 0
+    l8b.visible = 0
+    ToyL8.visible = 0
+    ToyL8b.visible = 1
 end if
 If Lamp9.state = 1 Then
-		l9.visible = 1
-		l9b.visible = 1
-		ToyL9.visible = 1
-		ToyL9b.visible = 0
-	Else
-		l9.visible = 0
-		l9b.visible = 0
-		ToyL9.visible = 0
-		ToyL9b.visible = 1
+    l9.visible = 1
+    l9b.visible = 1
+    ToyL9.visible = 1
+    ToyL9b.visible = 0
+  Else
+    l9.visible = 0
+    l9b.visible = 0
+    ToyL9.visible = 0
+    ToyL9b.visible = 1
 end if
 If Lamp10.state = 1 Then
-		l10.visible = 1
-		l10b.visible = 1
-		ToyL10.visible = 1
-		ToyL10b.visible = 0
-	Else
-		l10.visible = 0
-		l10b.visible = 0
-		ToyL10.visible = 0
-		ToyL10b.visible = 1
+    l10.visible = 1
+    l10b.visible = 1
+    ToyL10.visible = 1
+    ToyL10b.visible = 0
+  Else
+    l10.visible = 0
+    l10b.visible = 0
+    ToyL10.visible = 0
+    ToyL10b.visible = 1
 end if
 If Lamp11.state = 1 Then
-		l11.visible = 1
-		l11b.visible = 1
-		ToyL11.visible = 1
-		ToyL11b.visible = 0
-	Else
-		l11.visible = 0
-		l11b.visible = 0
-		ToyL11.visible = 0
-		ToyL11b.visible = 1
+    l11.visible = 1
+    l11b.visible = 1
+    ToyL11.visible = 1
+    ToyL11b.visible = 0
+  Else
+    l11.visible = 0
+    l11b.visible = 0
+    ToyL11.visible = 0
+    ToyL11b.visible = 1
 end if
 If Lamp12.state = 1 Then
-		l12.visible = 1
-		l12b.visible = 1
-		ToyL12.visible = 1
-		ToyL12b.visible = 0
-	Else
-		l12.visible = 0
-		l12b.visible = 0
-		ToyL12.visible = 0
-		ToyL12b.visible = 1
+    l12.visible = 1
+    l12b.visible = 1
+    ToyL12.visible = 1
+    ToyL12b.visible = 0
+  Else
+    l12.visible = 0
+    l12b.visible = 0
+    ToyL12.visible = 0
+    ToyL12b.visible = 1
 end if
 If Lamp13.state = 1 Then
-		l13.visible = 1
-		l13b.visible = 1
-		ToyL13.visible = 1
-		ToyL13b.visible = 0
-	Else
-		l13.visible = 0
-		l13b.visible = 0
-		ToyL13.visible = 0
-		ToyL13b.visible = 1
+    l13.visible = 1
+    l13b.visible = 1
+    ToyL13.visible = 1
+    ToyL13b.visible = 0
+  Else
+    l13.visible = 0
+    l13b.visible = 0
+    ToyL13.visible = 0
+    ToyL13b.visible = 1
 end if
 If Lamp14.state = 1 Then
-		l14.visible = 1
-		l14b.visible = 1
-		ToyL14.visible = 1
-		ToyL14b.visible = 0
-	Else
-		l14.visible = 0
-		l14b.visible = 0
-		ToyL14.visible = 0
-		ToyL14b.visible = 1
+    l14.visible = 1
+    l14b.visible = 1
+    ToyL14.visible = 1
+    ToyL14b.visible = 0
+  Else
+    l14.visible = 0
+    l14b.visible = 0
+    ToyL14.visible = 0
+    ToyL14b.visible = 1
 end if
 
 If Gi7r1.state = 1 Then
-		Gi7r2.state = 1
-		Gi7r3.state = 1
-		Gi7r2b.visible = 1
-	Else
-		Gi7r2.state = 0
-		Gi7r3.state = 0
-		Gi7r2b.visible = 0
+    Gi7r2.state = 1
+    Gi7r3.state = 1
+    Gi7r2b.visible = 1
+  Else
+    Gi7r2.state = 0
+    Gi7r3.state = 0
+    Gi7r2b.visible = 0
 end if
 
 If l5r.state = 1 Then
-		l5rb.visible = 1
-		l5rb1.visible = 1
-		l5rb2.visible = 1
-		l5rc.visible = 1
-		l5rc1.visible = 1
-	Else
-		l5rb.visible = 0
-		l5rb1.visible = 0
-		l5rb2.visible = 0
-		l5rc.visible = 0
-		l5rc1.visible = 0
+    l5rb.visible = 1
+    l5rb1.visible = 1
+    l5rb2.visible = 1
+    l5rc.visible = 1
+    l5rc1.visible = 1
+  Else
+    l5rb.visible = 0
+    l5rb1.visible = 0
+    l5rb2.visible = 0
+    l5rc.visible = 0
+    l5rc1.visible = 0
 end if
 
 If l16.state = 1 Then
-		l16b.visible = 1
-		l16b1.visible = 1
-		l16b2.visible = 1
-		LightLR1.visible = 0
-		LightLR2.visible = 1
-	Else
-		l16b.visible = 0
-		l16b1.visible = 0
-		l16b2.visible = 0
-		LightLR1.visible = 1
-		LightLR2.visible = 0
+    l16b.visible = 1
+    l16b1.visible = 1
+    l16b2.visible = 1
+    LightLR1.visible = 0
+    LightLR2.visible = 1
+  Else
+    l16b.visible = 0
+    l16b1.visible = 0
+    l16b2.visible = 0
+    LightLR1.visible = 1
+    LightLR2.visible = 0
 end if
 If l53.state = 1 Then
-		l53b.visible = 1
-		l53b1.visible = 1
-		l53b2.visible = 1
-		LightRR1.visible = 0
-		LightRR2.visible = 1
-	Else
-		l53b.visible = 0
-		l53b1.visible = 0
-		l53b2.visible = 0
-		LightRR1.visible = 1
-		LightRR2.visible = 0
+    l53b.visible = 1
+    l53b1.visible = 1
+    l53b2.visible = 1
+    LightRR1.visible = 0
+    LightRR2.visible = 1
+  Else
+    l53b.visible = 0
+    l53b1.visible = 0
+    l53b2.visible = 0
+    LightRR1.visible = 1
+    LightRR2.visible = 0
 end if
 
    'Gi Lights
@@ -1484,7 +1484,7 @@ End Sub
 Sub SolGi(enabled)
 Dim GIState
 If enabled then
-	GIState = 0
+  GIState = 0
 Bumper1L.visible = 0
 Bumper2L.visible = 0
 Bumper3L.visible = 1
@@ -1533,7 +1533,7 @@ Bumper3L2.visible = 0
     SetLamp 141, 0
     SetLamp 142, 0
 else
-	GIState = 1
+  GIState = 1
 Bumper1L.visible = 1
 Bumper2L.visible = 1
 Bumper3L.visible = 0
@@ -1582,48 +1582,48 @@ Bumper3L2.visible = 1
     SetLamp 141, 1
     SetLamp 142, 1
 end If
-	SetFlash 101, GIState
-	SetFlash 102, GIState
-	SetFlash 103, GIState
-	SetFlash 104, GIState
-	SetFlash 105, GIState
-	SetFlash 106, GIState
-	SetFlash 107, GIState
-	SetFlash 108, GIState
-	SetFlash 109, GIState
-	SetFlash 110, GIState
-	SetFlash 111, GIState
-	SetFlash 112, GIState
-	SetFlash 113, GIState
-	SetFlash 114, GIState
-	SetFlash 115, GIState
-	SetFlash 116, GIState
-	SetFlash 117, GIState
-	SetFlash 118, GIState
-	SetFlash 119, GIState
-	SetFlash 120, GIState
-	SetFlash 121, GIState
-	SetFlash 122, GIState
-	SetFlash 123, GIState
-	SetFlash 124, GIState
-	SetFlash 125, GIState
-	SetFlash 126, GIState
-	SetFlash 127, GIState
-	SetFlash 128, GIState
-	SetFlash 129, GIState
-	SetFlash 130, GIState
-	SetFlash 131, GIState
-	SetFlash 132, GIState
-	SetFlash 133, GIState
-	SetFlash 134, GIState
-	SetFlash 135, GIState
-	SetFlash 136, GIState
-	SetFlash 137, GIState
-	SetFlash 138, GIState
-	SetFlash 139, GIState
-	SetFlash 140, GIState
-	SetFlash 141, GIState
-	SetFlash 142, GIState
+  SetFlash 101, GIState
+  SetFlash 102, GIState
+  SetFlash 103, GIState
+  SetFlash 104, GIState
+  SetFlash 105, GIState
+  SetFlash 106, GIState
+  SetFlash 107, GIState
+  SetFlash 108, GIState
+  SetFlash 109, GIState
+  SetFlash 110, GIState
+  SetFlash 111, GIState
+  SetFlash 112, GIState
+  SetFlash 113, GIState
+  SetFlash 114, GIState
+  SetFlash 115, GIState
+  SetFlash 116, GIState
+  SetFlash 117, GIState
+  SetFlash 118, GIState
+  SetFlash 119, GIState
+  SetFlash 120, GIState
+  SetFlash 121, GIState
+  SetFlash 122, GIState
+  SetFlash 123, GIState
+  SetFlash 124, GIState
+  SetFlash 125, GIState
+  SetFlash 126, GIState
+  SetFlash 127, GIState
+  SetFlash 128, GIState
+  SetFlash 129, GIState
+  SetFlash 130, GIState
+  SetFlash 131, GIState
+  SetFlash 132, GIState
+  SetFlash 133, GIState
+  SetFlash 134, GIState
+  SetFlash 135, GIState
+  SetFlash 136, GIState
+  SetFlash 137, GIState
+  SetFlash 138, GIState
+  SetFlash 139, GIState
+  SetFlash 140, GIState
+  SetFlash 141, GIState
+  SetFlash 142, GIState
 
 End Sub
 
@@ -1637,47 +1637,47 @@ Sub Balldrop3_Hit: PlaySoundAt "rubber",Balldrop3: End Sub
 Sub LaunchLaneBallDrop_Hit: PlaySoundAtVol "fx_ballrampdrop",LaunchLaneBallDrop,.2: End Sub
 
 Sub LRFXOn_Hit
-	PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
+  PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 Sub LRFXOff_Hit
-	StopSound "fx_metalrolling"
+  StopSound "fx_metalrolling"
 End Sub
 
 Sub RRFXON_Hit
-	PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
+  PlaySoundAtVol "fx_metalrolling", ActiveBall, 1
 End Sub
 
 Sub RRFXOff_Hit
-	StopSound "fx_metalrolling"
+  StopSound "fx_metalrolling"
 End Sub
 
 Sub RRPLasticFXON_Hit
-	PlaySoundAtVol "fx_plasticrolling2", ActiveBall, 1
+  PlaySoundAtVol "fx_plasticrolling2", ActiveBall, 1
 End Sub
 
 Sub RRPlasticFXOff_Hit
-	StopSound "fx_plasticrolling2"
+  StopSound "fx_plasticrolling2"
 End Sub
 
 Sub RRPLasticFXON1_Hit
-	PlaySoundAtVol "fx_plasticrolling1", ActiveBall, 1
+  PlaySoundAtVol "fx_plasticrolling1", ActiveBall, 1
 End Sub
 
 Sub RRPlasticFXOff1_Hit
-	StopSound "fx_plasticrolling1"
+  StopSound "fx_plasticrolling1"
 End Sub
 
 Sub RRPLasticFXON2_Hit
-	PlaySoundAtVol "fx_plasticrolling2", ActiveBall, 1
+  PlaySoundAtVol "fx_plasticrolling2", ActiveBall, 1
 End Sub
 
 Sub RRPlasticFXOff2_Hit
-	StopSound "fx_plasticrolling2"
+  StopSound "fx_plasticrolling2"
 End Sub
 
 Sub RRPLasticFXON3_Hit
-	PlaySoundAtVol "fx_plasticrolling1", ActiveBall, 1
+  PlaySoundAtVol "fx_plasticrolling1", ActiveBall, 1
 End Sub
 
 

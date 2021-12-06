@@ -157,7 +157,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If keycode = CenterTiltKey Then Nudge 0, 2:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
     If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", Plunger, 1:Plunger.Pullback
     If vpmKeyDown(keycode) Then Exit Sub
-	If keycode=AddCreditKey then PlaysoundAtVol "fx_coin",drain, 1: vpmTimer.pulseSW (swCoin1): If SFXon=true then PlaySound "swell_01":End if
+  If keycode=AddCreditKey then PlaysoundAtVol "fx_coin",drain, 1: vpmTimer.pulseSW (swCoin1): If SFXon=true then PlaySound "swell_01":End if
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
@@ -773,10 +773,10 @@ Set vpmShowDips = GetRef("editDips")
 ' SOUNDFX Section
 '****************************************
 
-Dim sfxRestartDelay(7) 
+Dim sfxRestartDelay(7)
 Dim sfxRestartCount(7)
 
-' amount of time before a SFX can re-trigger 
+' amount of time before a SFX can re-trigger
 ' set in units of 40ms, ie. 25 = 1.0 sec (assuming DelayTimer interval is set to 40)
 sfxRestartDelay(1) = 150 'Top Rollover 1
 sfxRestartDelay(2) = 150 'Top Rollover 2
@@ -789,103 +789,103 @@ sfxRestartDelay(7) = 50 'Right Inlane
 Dim draining
 
 Sub PlaySFX(SFXid)
-	if SFXon<>true then exit sub
-	Select Case SFXid
-		Case "bumper1"
-			RandomBrassHit
-		Case "bumper2"
-			RandomBrassHit
-		Case "redDrop"
-			playsound "gun_short_01"
-		Case "whiteDrop"
-			playsound "Brass_hit_04"
-		Case "LOL"
-			draining=1
-			playsound "bumper_out_03_short"
-		Case "ROL"
-			draining=1
-			playsound "bumper_out_03_short"
-		Case "LIL"
-			If sfxRestartCount(6)<1 then playsound "soft_cue_05":sfxRestartCount(6)=sfxRestartDelay(6)
-		Case "RIL"
-			If sfxRestartCount(7)<1 then playsound "soft_hit_03":sfxRestartCount(7)=sfxRestartDelay(7)
-		Case "TRO1"
-			If sfxRestartCount(1)<1 then playsound "short_cue_01":sfxRestartCount(1)=sfxRestartDelay(1)
-		Case "TRO2"
-			If sfxRestartCount(2)<1 then playsound "short_cue_02":sfxRestartCount(2)=sfxRestartDelay(2)
-		Case "TRO3"
-			If sfxRestartCount(3)<1 then playsound "short_cue_03":sfxRestartCount(3)=sfxRestartDelay(3)
-		Case "TRO4"
-			If sfxRestartCount(4)<1 then playsound "short_cue_04":sfxRestartCount(4)=sfxRestartDelay(4)
-		Case "star"
-			AlternateStar()
-		Case "SUP"
-			playsound "Brass_hit_03"
-	End Select
+  if SFXon<>true then exit sub
+  Select Case SFXid
+    Case "bumper1"
+      RandomBrassHit
+    Case "bumper2"
+      RandomBrassHit
+    Case "redDrop"
+      playsound "gun_short_01"
+    Case "whiteDrop"
+      playsound "Brass_hit_04"
+    Case "LOL"
+      draining=1
+      playsound "bumper_out_03_short"
+    Case "ROL"
+      draining=1
+      playsound "bumper_out_03_short"
+    Case "LIL"
+      If sfxRestartCount(6)<1 then playsound "soft_cue_05":sfxRestartCount(6)=sfxRestartDelay(6)
+    Case "RIL"
+      If sfxRestartCount(7)<1 then playsound "soft_hit_03":sfxRestartCount(7)=sfxRestartDelay(7)
+    Case "TRO1"
+      If sfxRestartCount(1)<1 then playsound "short_cue_01":sfxRestartCount(1)=sfxRestartDelay(1)
+    Case "TRO2"
+      If sfxRestartCount(2)<1 then playsound "short_cue_02":sfxRestartCount(2)=sfxRestartDelay(2)
+    Case "TRO3"
+      If sfxRestartCount(3)<1 then playsound "short_cue_03":sfxRestartCount(3)=sfxRestartDelay(3)
+    Case "TRO4"
+      If sfxRestartCount(4)<1 then playsound "short_cue_04":sfxRestartCount(4)=sfxRestartDelay(4)
+    Case "star"
+      AlternateStar()
+    Case "SUP"
+      playsound "Brass_hit_03"
+  End Select
 End Sub
 
 Sub TroughEject_unHit
-	if SFXon=true then GoodLuckPause=GoodLuckPauseDelay:End If
-	'NewBallid
-	'Set BallObj=ActiveBall
-	'BallinPlay=1
+  if SFXon=true then GoodLuckPause=GoodLuckPauseDelay:End If
+  'NewBallid
+  'Set BallObj=ActiveBall
+  'BallinPlay=1
 
 End Sub
 
 Sub BallOut_Hit
-	'ClearBallid
-	'StopRollingSound
-	'BallinPlay=0
-	If SFXon=true then 
-		DrainSound
-		draining=0
-		DrainPause=DrainPauseDelay
-	'Else
-	'	bsTrough.AddBall S66
-	End If
+  'ClearBallid
+  'StopRollingSound
+  'BallinPlay=0
+  If SFXon=true then
+    DrainSound
+    draining=0
+    DrainPause=DrainPauseDelay
+  'Else
+  ' bsTrough.AddBall S66
+  End If
 End Sub
 
 Dim CarPlaying, CarDelay
 
 Sub CarLane_Hit
-	if SFXon<>true then exit sub
-	If sfxRestartCount(5)<1 then playsound "car_tires_01":sfxRestartCount(5)=sfxRestartDelay(5)
+  if SFXon<>true then exit sub
+  If sfxRestartCount(5)<1 then playsound "car_tires_01":sfxRestartCount(5)=sfxRestartDelay(5)
 End Sub
 
 Dim LastStar
 
 Sub AlternateStar()
-	If LastStar=1 Then
-		PlaySound "soft_hit_04_phase_a"
-		LastStar=0
-	Else
-		PlaySound "soft_hit_04_phase_b"
-		LastStar=1
-	End If
+  If LastStar=1 Then
+    PlaySound "soft_hit_04_phase_a"
+    LastStar=0
+  Else
+    PlaySound "soft_hit_04_phase_b"
+    LastStar=1
+  End If
 End Sub
 
 Sub RandomBrassHit()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "Brass_hit_01"
-		Case 2 : PlaySound "Brass_hit_01b"
-		Case 3 : PlaySound "Brass_hit_02"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "Brass_hit_01"
+    Case 2 : PlaySound "Brass_hit_01b"
+    Case 3 : PlaySound "Brass_hit_02"
+  End Select
 End Sub
 
 Sub RandomGoodLuck()
-	Select Case Int(Rnd*5)+1
-		Case 1 : PlaySound "good morning"
-		Case 2 : PlaySound "caribbean"
-		Case 3 : PlaySound "Good Luck NASA"
-		Case 4 : PlaySound "Take the day off"
-		Case 5 : PlaySound "Goodbye angels 2"
-	End Select
+  Select Case Int(Rnd*5)+1
+    Case 1 : PlaySound "good morning"
+    Case 2 : PlaySound "caribbean"
+    Case 3 : PlaySound "Good Luck NASA"
+    Case 4 : PlaySound "Take the day off"
+    Case 5 : PlaySound "Goodbye angels 2"
+  End Select
 End Sub
 
 Sub DrainSound
-	If draining<>1 then
-		PlaySound "bumper_out_05_really_short"
-	end if
+  If draining<>1 then
+    PlaySound "bumper_out_05_really_short"
+  end if
 End Sub
 
 Dim DrainPause
@@ -895,43 +895,43 @@ Const GoodLuckPauseDelay=25
 
 Sub DelayTimer_Timer
 
-	If DrainPause > 0 Then 'let bumper cue play for a bit
-		DrainPause = DrainPause - 1
-		If DrainPause = 0 Then
-	'		bsTrough.AddBall S66
-		End If
-	End If
+  If DrainPause > 0 Then 'let bumper cue play for a bit
+    DrainPause = DrainPause - 1
+    If DrainPause = 0 Then
+  '   bsTrough.AddBall S66
+    End If
+  End If
 
-	If GoodLuckPause > 0 Then
-		GoodLuckPause = GoodLuckPause - 1
-		If GoodLuckPause = 0 Then
-			RandomGoodLuck()
-		End If
-	End If
+  If GoodLuckPause > 0 Then
+    GoodLuckPause = GoodLuckPause - 1
+    If GoodLuckPause = 0 Then
+      RandomGoodLuck()
+    End If
+  End If
 
-	' yeah this should be a loop, but i wasn't sure of syntax so fuck it
-	If sfxRestartCount(1)>0 then sfxRestartCount(1)=sfxRestartCount(1)-1
-	If sfxRestartCount(2)>0 then sfxRestartCount(2)=sfxRestartCount(2)-1
-	If sfxRestartCount(3)>0 then sfxRestartCount(3)=sfxRestartCount(3)-1
-	If sfxRestartCount(4)>0 then sfxRestartCount(4)=sfxRestartCount(4)-1
-	If sfxRestartCount(5)>0 then sfxRestartCount(5)=sfxRestartCount(5)-1
-	If sfxRestartCount(6)>0 then sfxRestartCount(6)=sfxRestartCount(6)-1
-	If sfxRestartCount(7)>0 then sfxRestartCount(7)=sfxRestartCount(7)-1
+  ' yeah this should be a loop, but i wasn't sure of syntax so fuck it
+  If sfxRestartCount(1)>0 then sfxRestartCount(1)=sfxRestartCount(1)-1
+  If sfxRestartCount(2)>0 then sfxRestartCount(2)=sfxRestartCount(2)-1
+  If sfxRestartCount(3)>0 then sfxRestartCount(3)=sfxRestartCount(3)-1
+  If sfxRestartCount(4)>0 then sfxRestartCount(4)=sfxRestartCount(4)-1
+  If sfxRestartCount(5)>0 then sfxRestartCount(5)=sfxRestartCount(5)-1
+  If sfxRestartCount(6)>0 then sfxRestartCount(6)=sfxRestartCount(6)-1
+  If sfxRestartCount(7)>0 then sfxRestartCount(7)=sfxRestartCount(7)-1
 
 End Sub
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS
+' ninuzzu's FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper2.currentangle
-	FlipperRSh.RotZ = RightFlipper2.currentangle
+  FlipperLSh.RotZ = LeftFlipper2.currentangle
+  FlipperRSh.RotZ = RightFlipper2.currentangle
 
 End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)

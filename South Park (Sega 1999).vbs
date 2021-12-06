@@ -2,8 +2,8 @@
 '1999 South Park by Sega Pinball
 '*********************************************************************
 '*********************************************************************
-'Mechanics by:	Joe Balcer, Rob Hurtado
-'Software by:	Neil Falconer, Orin Day
+'Mechanics by:  Joe Balcer, Rob Hurtado
+'Software by: Neil Falconer, Orin Day
 '*********************************************************************
 '*********************************************************************
 'recreated for Visual Pinball by Knorr
@@ -90,7 +90,7 @@ Const SCoin = "Coin5"
 '************************************
 
 
-SlingPlastics = 1			'Change to 1 for "Yes, i hate Timmy and Butters"
+SlingPlastics = 1     'Change to 1 for "Yes, i hate Timmy and Butters"
 
 
 
@@ -102,10 +102,10 @@ Dim bsTrough, PlungerIM, TopVuk, SuperVuk, nBall, aBall, SlingPlastics
 Set LampCallback = GetRef("UpdateMultipleLamps")
 Set MotorCallback = GetRef("RealTimeUpdates")
 Set nBall = ckicker.createball
-	ckicker.Kick 0, 0
+  ckicker.Kick 0, 0
 If SlingPlastics = 1 then
-	PlasticSlingshotLinks.Image = "PlasticSlingShotStan"
-	PlasticSlingShotRechts.Image = "PlasticSlingShotKenny"
+  PlasticSlingshotLinks.Image = "PlasticSlingShotStan"
+  PlasticSlingShotRechts.Image = "PlasticSlingShotKenny"
 End if
 
 '************
@@ -147,14 +147,14 @@ Sub table1_Init
     End With
 
 
-	Set TopVuk = New cvpmBallStack
-	With TopVuk
-		.InitSaucer sw46, 46, -90, 100
-		.InitExitSnd SoundFX("SafeHouseKick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
-		.KickForceVar = 5
-		.KickZ = 1.4
+  Set TopVuk = New cvpmBallStack
+  With TopVuk
+    .InitSaucer sw46, 46, -90, 100
+    .InitExitSnd SoundFX("SafeHouseKick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+    .KickForceVar = 5
+    .KickZ = 1.4
         .KickBalls = 1
-	End With
+  End With
 
     Set SuperVuk = New cvpmBallStack
     With SuperVuk
@@ -170,7 +170,7 @@ Sub table1_Init
         Ramp15.WidthTop = 0
         Ramp15.WidthBottom = 0
         Korpus.Size_Y = 1.7
-		Korpus.Z = 60
+    Korpus.Z = 60
     End if
 End Sub
 
@@ -188,11 +188,11 @@ Sub SolRelease(Enabled)
 End Sub
 
 Sub BallRelease_UnHit()
-	BallCount = BallCount +1
-	End Sub
+  BallCount = BallCount +1
+  End Sub
 
 Sub Drain_Hit
-	BallCount = BallCount -1
+  BallCount = BallCount -1
     PlaySoundAtVol "Balltruhe", Drain, 1
     bsTrough.AddBall Me
     If BallCount <1 then GiOff:GiOffState = True
@@ -201,13 +201,13 @@ End Sub
 'Autoplunger
 
 Sub AutoLaunch(Enabled)
-	If Enabled Then
-		Plunger.Autoplunger = True
-		Plunger.Fire
-		PlaySoundAtVol SoundFX("AutoPlunger", DOFContactors), Plunger, 1
-		Else
-		Plunger.Autoplunger = False
-	End If
+  If Enabled Then
+    Plunger.Autoplunger = True
+    Plunger.Fire
+    PlaySoundAtVol SoundFX("AutoPlunger", DOFContactors), Plunger, 1
+    Else
+    Plunger.Autoplunger = False
+  End If
  End Sub
 
 '********
@@ -215,12 +215,12 @@ Sub AutoLaunch(Enabled)
 '********
 
 Sub sw46_Hit()
-	PlaySoundAtVol "SafeHouseHit", ActiveBall, 1
-	TopVuk.AddBall Me
+  PlaySoundAtVol "SafeHouseHit", ActiveBall, 1
+  TopVuk.AddBall Me
 End Sub
 
 Sub sw46_UnHit()
-	GiOn
+  GiOn
 End Sub
 
 '*********
@@ -295,7 +295,7 @@ End Sub
 
 
 Sub SuperVukAddBall()
-	SuperVuk.AddBall 1
+  SuperVuk.AddBall 1
 End Sub
 
 
@@ -380,7 +380,7 @@ Sub CartmanKickerHole7_Timer
 End Sub
 
 Sub sw45_UnHit()
-	BallinToilet = 0
+  BallinToilet = 0
 End Sub
 
 '*********
@@ -393,41 +393,41 @@ Dim KennySolRight
 Dim kBall, kBall1, kBall2, kBall3, kBall4, kBall5
 
 Sub KennyLeft(Enabled)
-	If Enabled then
-		UpdateKennyLeft.Enabled = 1
-		KennySolLeft = True
-		RandomSoundKennyMove
-		Else
-		UpdateKennyLeft.Enabled = 0
-		Kenny.RotZ = 0
-		KennyL.RotZ = 0
-	End if
+  If Enabled then
+    UpdateKennyLeft.Enabled = 1
+    KennySolLeft = True
+    RandomSoundKennyMove
+    Else
+    UpdateKennyLeft.Enabled = 0
+    Kenny.RotZ = 0
+    KennyL.RotZ = 0
+  End if
 End Sub
 
 Sub KennyRight(Enabled)
-	If Enabled then
-		UpdateKennyRight.Enabled = 1
-		KennySolRight = True
-		RandomSoundKennyMove
-		Else
-		UpdateKennyright.Enabled = 0
-		Kenny.RotZ = 0
-		KennyL.RotZ = 0
-	End if
+  If Enabled then
+    UpdateKennyRight.Enabled = 1
+    KennySolRight = True
+    RandomSoundKennyMove
+    Else
+    UpdateKennyright.Enabled = 0
+    Kenny.RotZ = 0
+    KennyL.RotZ = 0
+  End if
 End Sub
 
 Sub KennyDead(Enabled)
-	If Enabled then
-		KennyFlipper.RotatetoEnd
-		PlaySoundAtVol SoundFX("TrapDoorLow",DOFContactors), KennyFlipper, 1
-		Else
-		KennyFlipper.RotatetoStart
-		PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), KennyFlipper, 1
-	End if
+  If Enabled then
+    KennyFlipper.RotatetoEnd
+    PlaySoundAtVol SoundFX("TrapDoorLow",DOFContactors), KennyFlipper, 1
+    Else
+    KennyFlipper.RotatetoStart
+    PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), KennyFlipper, 1
+  End if
 End Sub
 
 Sub updatekennydead_Timer()
-	    Kenny.RotX = KennyFlipper.CurrentAngle
+      Kenny.RotX = KennyFlipper.CurrentAngle
 End Sub
 
 
@@ -438,23 +438,23 @@ End Sub
 'RotZ -1 = KennyRight
 
 Sub UpdateKennyLeft_Timer()
-	If KennySolLeft = True And Kenny.RotZ < 8 then Kenny.RotZ = Kenny.RotZ +1
-	If KennysolLeft = False And Kenny.RotZ > 0 then Kenny.RotZ = Kenny.RotZ -1
-	If Kenny.RotZ >= 8 Then KennySolLeft = False
+  If KennySolLeft = True And Kenny.RotZ < 8 then Kenny.RotZ = Kenny.RotZ +1
+  If KennysolLeft = False And Kenny.RotZ > 0 then Kenny.RotZ = Kenny.RotZ -1
+  If Kenny.RotZ >= 8 Then KennySolLeft = False
 
-	If KennySolLeft = True And KennyL.RotZ < 8 then KennyL.RotZ = KennyL.RotZ +1
-	If KennysolLeft = False And KennyL.RotZ > 0 then KennyL.RotZ = KennyL.RotZ -1
-	If KennyL.RotZ >= 8 Then KennySolLeft = False
+  If KennySolLeft = True And KennyL.RotZ < 8 then KennyL.RotZ = KennyL.RotZ +1
+  If KennysolLeft = False And KennyL.RotZ > 0 then KennyL.RotZ = KennyL.RotZ -1
+  If KennyL.RotZ >= 8 Then KennySolLeft = False
 End Sub
 
 Sub UpdateKennyRight_Timer()
-	If KennySolRight = True And Kenny.RotZ > -8 then Kenny.RotZ = Kenny.RotZ -1
-	If KennySolRight = False And Kenny.RotZ < 0 then Kenny.RotZ = Kenny.RotZ +1
-	If Kenny.RotZ <= -8 Then KennySolRight = False
+  If KennySolRight = True And Kenny.RotZ > -8 then Kenny.RotZ = Kenny.RotZ -1
+  If KennySolRight = False And Kenny.RotZ < 0 then Kenny.RotZ = Kenny.RotZ +1
+  If Kenny.RotZ <= -8 Then KennySolRight = False
 
-	If KennySolRight = True And KennyL.RotZ > -8 then KennyL.RotZ = KennyL.RotZ -1
-	If KennySolRight = False And KennyL.RotZ < 0 then KennyL.RotZ = KennyL.RotZ +1
-	If KennyL.RotZ <= -8 Then KennySolRight = False
+  If KennySolRight = True And KennyL.RotZ > -8 then KennyL.RotZ = KennyL.RotZ -1
+  If KennySolRight = False And KennyL.RotZ < 0 then KennyL.RotZ = KennyL.RotZ +1
+  If KennyL.RotZ <= -8 Then KennySolRight = False
 End Sub
 
 
@@ -481,7 +481,7 @@ End Sub
 Sub KennyKickerHole1_Hit()
     RandomSoundKenny
     Set kBall1 = ActiveBall:Me.TimerEnabled = 1
-	vpmTimer.PulseSw 44
+  vpmTimer.PulseSw 44
     vpmTimer.AddTimer 2000, "SuperVukAddBall'"
     Me.Enabled = 0
 End Sub
@@ -573,7 +573,7 @@ End Sub
 
 
 Sub BallTrigger_Hit()
-	ActiveBall.VelZ = +15
+  ActiveBall.VelZ = +15
 End Sub
 
 
@@ -585,52 +585,52 @@ Dim FlasherF7Visible
 
 'Seat
 Sub ToiletSeatLid(Enabled)
-	If Enabled then
-		ToiletFlipper.RotatetoEnd
-		ToiletKicker.Enabled = True
-		PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), ToiletFlipper, 1
-	Else
-		ToiletFlipper.RotatetoStart
-		ToiletKicker.Enabled = False
-		PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), ToiletFlipper, 1
-	End if
+  If Enabled then
+    ToiletFlipper.RotatetoEnd
+    ToiletKicker.Enabled = True
+    PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), ToiletFlipper, 1
+  Else
+    ToiletFlipper.RotatetoStart
+    ToiletKicker.Enabled = False
+    PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), ToiletFlipper, 1
+  End if
 End Sub
 
 
 'MrHankeyUp
 Sub MrHankeyup(Enabled)
-	If Enabled then
-	MrHankeyFlipper.RotatetoEnd
-	CisternFlipper.RotatetoEnd
-	FlasherF7Visible = True
-	PlaySoundAtVol SoundFX("TrapDoorLow",DOFContactors), CisternFlipper, 1
-	End if
+  If Enabled then
+  MrHankeyFlipper.RotatetoEnd
+  CisternFlipper.RotatetoEnd
+  FlasherF7Visible = True
+  PlaySoundAtVol SoundFX("TrapDoorLow",DOFContactors), CisternFlipper, 1
+  End if
 End Sub
 
 'MrHankey
 Sub MrHankeyDown(Enabled)
-	If Enabled then
-	MrHankeyFlipper.RotatetoStart
-	CisternFlipper.RotatetoStart
-	FlasherF7Visible = False
-	End if
+  If Enabled then
+  MrHankeyFlipper.RotatetoStart
+  CisternFlipper.RotatetoStart
+  FlasherF7Visible = False
+  End if
 End Sub
 
 Dim BallinToilet
 
 Sub ToiletKicker_Hit
-	BallinToilet = 1
-	sw26spinner.timerenabled = False
+  BallinToilet = 1
+  sw26spinner.timerenabled = False
     RandomSoundCartman
     Set aBall = ActiveBall:Me.TimerEnabled = 1
     vpmTimer.PulseSw 43
     vpmTimer.AddTimer 2400, "SuperVukAddBall'"
     GiBlinking
-	if BallCount < 2 then
-		vpmTimer.AddTimer 2400, "GiOff'"
-		else
-		vpmTimer.AddTimer 2400, "GiOn'"
-	End if
+  if BallCount < 2 then
+    vpmTimer.AddTimer 2400, "GiOff'"
+    else
+    vpmTimer.AddTimer 2400, "GiOn'"
+  End if
 End Sub
 
 
@@ -655,15 +655,15 @@ ShakeTime = 20
 
 
 Sub LeftHit_Hit()
-	nudgebobble2(keycode)
-	nudgebobble3(keycode)
-	nudgebobble4(keycode)
+  nudgebobble2(keycode)
+  nudgebobble3(keycode)
+  nudgebobble4(keycode)
 End Sub
 
 Sub RightHit_Hit()
-	nudgebobble2(keycode)
-	nudgebobble3(keycode)
-	nudgebobble4(keycode)
+  nudgebobble2(keycode)
+  nudgebobble3(keycode)
+  nudgebobble4(keycode)
 End Sub
 
 
@@ -692,72 +692,72 @@ Dim bgdurationctr4a:bgdurationctr4a = 0
 Dim bgdurationctr4b:bgdurationctr4b = 0
 
 Sub LevelT2_Timer()
-	eric.RotAndTra7 = eric.RotAndTra7 + bgcharctr2a  'change rotation value by bgcharctr
-	If eric.RotAndTra7 >= bgdegree2a + centerlocation2 then bgcharctr2a = -1:bgdurationctr2a = bgdurationctr2a + 1   'if level moves past max degrees, change direction and increate durationctr
-	If eric.RotAndTra7 <= -bgdegree2a + centerlocation2 then bgcharctr2a = 1  'if level moves past min location, change direction
-	eric.ObjRotX = eric.ObjRotX + bgcharctr2b  'change rotation value by bgcharctr
-	If eric.ObjRotX >= bgdegree2b + centerlocation2 then bgcharctr2b = -1:bgdurationctr2b = bgdurationctr2b + 1   'if level moves past max degrees, change direction and increate durationctr
-	If eric.ObjRotX <= -bgdegree2b + centerlocation2 then bgcharctr2b = 1  'if level moves past min location, change direction
+  eric.RotAndTra7 = eric.RotAndTra7 + bgcharctr2a  'change rotation value by bgcharctr
+  If eric.RotAndTra7 >= bgdegree2a + centerlocation2 then bgcharctr2a = -1:bgdurationctr2a = bgdurationctr2a + 1   'if level moves past max degrees, change direction and increate durationctr
+  If eric.RotAndTra7 <= -bgdegree2a + centerlocation2 then bgcharctr2a = 1  'if level moves past min location, change direction
+  eric.ObjRotX = eric.ObjRotX + bgcharctr2b  'change rotation value by bgcharctr
+  If eric.ObjRotX >= bgdegree2b + centerlocation2 then bgcharctr2b = -1:bgdurationctr2b = bgdurationctr2b + 1   'if level moves past max degrees, change direction and increate durationctr
+  If eric.ObjRotX <= -bgdegree2b + centerlocation2 then bgcharctr2b = 1  'if level moves past min location, change direction
 
-	If bgdurationctr2a = ShakeTime then bgdegree2a = bgdegree2a - 2:bgdurationctr2a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdurationctr2b = ShakeTime then bgdegree2b = bgdegree2b - 2:bgdurationctr2b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdegree2a <= 0 then LevelT2.Enabled = False:bgdegree2a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
-	If bgdegree2b <= 0 then LevelT2.Enabled = False:bgdegree2b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdurationctr2a = ShakeTime then bgdegree2a = bgdegree2a - 2:bgdurationctr2a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdurationctr2b = ShakeTime then bgdegree2b = bgdegree2b - 2:bgdurationctr2b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdegree2a <= 0 then LevelT2.Enabled = False:bgdegree2a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdegree2b <= 0 then LevelT2.Enabled = False:bgdegree2b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
 End Sub
 
 Sub LevelT3_Timer()
-	'Dim loopctr
-	Kyle.RotAndTra7 = Kyle.RotAndTra7 + bgcharctr3a  'change rotation value by bgcharctr
-	If Kyle.RotAndTra7 >= bgdegree3a + centerlocation3 then bgcharctr3a = -1:bgdurationctr3a = bgdurationctr3a + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Kyle.RotAndTra7 <= -bgdegree3a + centerlocation3 then bgcharctr3a = 1  'if level moves past min location, change direction
-	Kyle.ObjRotX = Kyle.ObjRotX + bgcharctr3b  'change rotation value by bgcharctr
-	If Kyle.ObjRotX >= bgdegree3b + centerlocation3 then bgcharctr3b = -1:bgdurationctr3b = bgdurationctr3b + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Kyle.ObjRotX <= -bgdegree3b + centerlocation3 then bgcharctr3b = 1  'if level moves past min location, change direction
+  'Dim loopctr
+  Kyle.RotAndTra7 = Kyle.RotAndTra7 + bgcharctr3a  'change rotation value by bgcharctr
+  If Kyle.RotAndTra7 >= bgdegree3a + centerlocation3 then bgcharctr3a = -1:bgdurationctr3a = bgdurationctr3a + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Kyle.RotAndTra7 <= -bgdegree3a + centerlocation3 then bgcharctr3a = 1  'if level moves past min location, change direction
+  Kyle.ObjRotX = Kyle.ObjRotX + bgcharctr3b  'change rotation value by bgcharctr
+  If Kyle.ObjRotX >= bgdegree3b + centerlocation3 then bgcharctr3b = -1:bgdurationctr3b = bgdurationctr3b + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Kyle.ObjRotX <= -bgdegree3b + centerlocation3 then bgcharctr3b = 1  'if level moves past min location, change direction
 
-	If bgdurationctr3a = ShakeTime then bgdegree3a = bgdegree3a - 2:bgdurationctr3a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdurationctr3b = ShakeTime then bgdegree3b = bgdegree3b - 2:bgdurationctr3b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdegree3a <= 0 then LevelT3.Enabled = False:bgdegree3a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
-	If bgdegree3b <= 0 then LevelT3.Enabled = False:bgdegree3b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdurationctr3a = ShakeTime then bgdegree3a = bgdegree3a - 2:bgdurationctr3a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdurationctr3b = ShakeTime then bgdegree3b = bgdegree3b - 2:bgdurationctr3b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdegree3a <= 0 then LevelT3.Enabled = False:bgdegree3a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdegree3b <= 0 then LevelT3.Enabled = False:bgdegree3b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
 End Sub
 
 Sub LevelT4_Timer()
-	'Dim loopctr
-	Stan.RotAndTra7 = Stan.RotAndTra7 + bgcharctr4a  'change rotation value by bgcharctr
-	If Stan.RotAndTra7 >= bgdegree4a + centerlocation4 then bgcharctr4a = -1:bgdurationctr4a = bgdurationctr4a + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Stan.RotAndTra7 <= -bgdegree4a + centerlocation4 then bgcharctr4a = 1  'if level moves past min location, change direction
-	Stan.ObjRotX = Stan.ObjRotX + bgcharctr4b  'change rotation value by bgcharctr
-	If Stan.ObjRotX >= bgdegree4b + centerlocation4 then bgcharctr4b = -1:bgdurationctr4b = bgdurationctr4b + 1   'if level moves past max degrees, change direction and increate durationctr
-	If Stan.ObjRotX <= -bgdegree4b + centerlocation4 then bgcharctr4b = 1  'if level moves past min location, change direction
+  'Dim loopctr
+  Stan.RotAndTra7 = Stan.RotAndTra7 + bgcharctr4a  'change rotation value by bgcharctr
+  If Stan.RotAndTra7 >= bgdegree4a + centerlocation4 then bgcharctr4a = -1:bgdurationctr4a = bgdurationctr4a + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Stan.RotAndTra7 <= -bgdegree4a + centerlocation4 then bgcharctr4a = 1  'if level moves past min location, change direction
+  Stan.ObjRotX = Stan.ObjRotX + bgcharctr4b  'change rotation value by bgcharctr
+  If Stan.ObjRotX >= bgdegree4b + centerlocation4 then bgcharctr4b = -1:bgdurationctr4b = bgdurationctr4b + 1   'if level moves past max degrees, change direction and increate durationctr
+  If Stan.ObjRotX <= -bgdegree4b + centerlocation4 then bgcharctr4b = 1  'if level moves past min location, change direction
 
-	If bgdurationctr4a = ShakeTime then bgdegree4a = bgdegree4a - 2:bgdurationctr4a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdurationctr4b = ShakeTime then bgdegree4b = bgdegree4b - 2:bgdurationctr4b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
-	If bgdegree4a <= 0 then LevelT4.Enabled = False:bgdegree4a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
-	If bgdegree4b <= 0 then LevelT4.Enabled = False:bgdegree4b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdurationctr4a = ShakeTime then bgdegree4a = bgdegree4a - 2:bgdurationctr4a = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdurationctr4b = ShakeTime then bgdegree4b = bgdegree4b - 2:bgdurationctr4b = 0 'if level has moved back and forth 4 times, decrease amount of movement by -2 and repeat by resetting durationctr
+  If bgdegree4a <= 0 then LevelT4.Enabled = False:bgdegree4a = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
+  If bgdegree4b <= 0 then LevelT4.Enabled = False:bgdegree4b = 5 'if amount of movement is 0, turn off LevelT timer and reset movement back to max 8 degrees
 End Sub
 
 
 Sub Nudgebobble2(keycode)
-	LevelT2.Enabled = True:bgdurationctr2a = 0:bgdegree2a = 7:bgdurationctr2b = 0:bgdegree2b = 7
-	'LevelT3.Enabled = True:bgdurationctr3 = 0:bgdegree3 = 7
-	'LevelT4.Enabled = True:bgdurationctr4 = 0:bgdegree4 = 7
+  LevelT2.Enabled = True:bgdurationctr2a = 0:bgdegree2a = 7:bgdurationctr2b = 0:bgdegree2b = 7
+  'LevelT3.Enabled = True:bgdurationctr3 = 0:bgdegree3 = 7
+  'LevelT4.Enabled = True:bgdurationctr4 = 0:bgdegree4 = 7
 End Sub
 
 Sub Nudgebobble3(keycode)
-	'LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 7
-	LevelT3.Enabled = True:bgdurationctr3a = 0:bgdegree3a = 7:bgdurationctr3b = 0:bgdegree3b = 7
-	'LevelT4.Enabled = True:bgdurationctr4 = 0:bgdegree4 = 7
+  'LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 7
+  LevelT3.Enabled = True:bgdurationctr3a = 0:bgdegree3a = 7:bgdurationctr3b = 0:bgdegree3b = 7
+  'LevelT4.Enabled = True:bgdurationctr4 = 0:bgdegree4 = 7
 End Sub
 
 Sub Nudgebobble4(keycode)
-	'LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 7
-	'LevelT3.Enabled = True:bgdurationctr3 = 0:bgdegree3 = 7
-	LevelT4.Enabled = True:bgdurationctr4a = 0:bgdegree4a = 7:bgdurationctr4b = 0:bgdegree4b = 7
+  'LevelT2.Enabled = True:bgdurationctr2 = 0:bgdegree2 = 7
+  'LevelT3.Enabled = True:bgdurationctr3 = 0:bgdegree3 = 7
+  LevelT4.Enabled = True:bgdurationctr4a = 0:bgdegree4a = 7:bgdurationctr4b = 0:bgdegree4b = 7
 End Sub
 
 'Sub bobblesome_Timer()  'This looks like a free running timer that 1 out of ten times will start movement
-'	Dim chance
-'	chance = Int(10*Rnd+1)
-'	If chance = 5 then Nudgebobble(CenterTiltKey)
+' Dim chance
+' chance = Int(10*Rnd+1)
+' If chance = 5 then Nudgebobble(CenterTiltKey)
 'End Sub
 
 
@@ -790,8 +790,8 @@ Sub table1_KeyDown(ByVal Keycode)
         vpmTimer.PulseSw vpmNudge.TiltSwitch
         Exit Sub
     End if
-	If keycode = PlungerKey Then Plunger.Pullback:PlaysoundAtVol "plungerpull", Plunger, 1:End if
-	If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:PlaysoundAtVol "plungerpull", Plunger, 1:End if
+  If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
@@ -838,12 +838,12 @@ Sub sw26_Hit:Controller.Switch(26) = 1: sw26spinner.timerenabled = True:End Sub
 Sub sw26_UnHit:Controller.Switch(26) = 0: End Sub
 
 Sub sw26spinner_Timer()
-	If (sw26spinner.currentangle > 9 Or  sw26spinner.currentangle < -9) then
-	GiBlinking
-	Else
-	if Ballcount > 0 then GiOn
-'	if Ballcount < 1 then GiOff
-	End if
+  If (sw26spinner.currentangle > 9 Or  sw26spinner.currentangle < -9) then
+  GiBlinking
+  Else
+  if Ballcount > 0 then GiOn
+' if Ballcount < 1 then GiOff
+  End if
 End Sub
 
 Sub sw42_Hit: Controller.Switch(42) = 1:ActiveBall.VelZ = 0: End Sub
@@ -909,10 +909,10 @@ Sub T38_Timer:DTMephisto.RotX = DTMephisto.RotX -5:Me.TimerEnabled = 0:End Sub
 '*********
 
 Sub GateUpdate()
-	WireBumpers.RotX = BumperGate.currentangle +90
-	WirePlungerLane.RotX = PlungerLaneGate.currentangle +90
-	sw25wire.RotX = sw25spinner.currentangle +90
-	sw26wire.RotX = sw26spinner.currentangle +90
+  WireBumpers.RotX = BumperGate.currentangle +90
+  WirePlungerLane.RotX = PlungerLaneGate.currentangle +90
+  sw25wire.RotX = sw25spinner.currentangle +90
+  sw26wire.RotX = sw26spinner.currentangle +90
 End Sub
 
 
@@ -1049,15 +1049,15 @@ Sub InitLamps()
 End Sub
 
   Sub UpdateMultipleLamps()
-		If l30.state = 1 then Kenny.Visible = False:KennyL.Visible = True: else Kenny.Visible = True: KennyL.Visible = False
-		If l22.state = 1 then BulbCoverKennyRed.visible = False:BulbCoverKennyRedL.visible = True:BulbCoverKennyRedF.visible = True: else BulbCoverKennyRed.visible = True: BulbCoverKennyRedL.visible = False:BulbCoverKennyRedF.visible = False
-		If l23.state = 1 then BulbCoverKennyYellow.visible = False:BulbCoverKennyYellowL.visible = True:BulbCoverKennyYellowF.visible = True: else BulbCoverKennyYellow.visible = True: BulbCoverKennyYellowF.visible = False: BulbCoverKennyYellowF.visible = False
-		If l46.state = 1 then bulbgreenleft.visible = False:bulbgreenleftL.visible = True:bulbgreenleftF.Visible = True: Else bulbgreenleft.visible = True:bulbgreenleftL.visible = False:bulbgreenleftF.visible = False
-		If l48.state = 1 then bulbgreenright.visible = False:bulbgreenrightL.visible = True:bulbgreenrightf.visible = True: Else bulbgreenright.visible = True:bulbgreenrightL.visible = False:bulbgreenrightF.visible = False
-		If l30.state = 1 then l30a.state = 1:FlasherF6.Visible = True: Else FlasherF6.Visible = False:l30a.state = 0
-		If l38.state = 1 then BumperLeftLight:BumperFlasher.Visible = 1: Else BumperLeftLightOff:BumperFlasher.Visible = 0
-		If l39.state = 1 then BumperRightLight: Else BumperRightLightOff
-		If l40.state = 1 then BumperBottomLight: Else BumperBottomLightOff
+    If l30.state = 1 then Kenny.Visible = False:KennyL.Visible = True: else Kenny.Visible = True: KennyL.Visible = False
+    If l22.state = 1 then BulbCoverKennyRed.visible = False:BulbCoverKennyRedL.visible = True:BulbCoverKennyRedF.visible = True: else BulbCoverKennyRed.visible = True: BulbCoverKennyRedL.visible = False:BulbCoverKennyRedF.visible = False
+    If l23.state = 1 then BulbCoverKennyYellow.visible = False:BulbCoverKennyYellowL.visible = True:BulbCoverKennyYellowF.visible = True: else BulbCoverKennyYellow.visible = True: BulbCoverKennyYellowF.visible = False: BulbCoverKennyYellowF.visible = False
+    If l46.state = 1 then bulbgreenleft.visible = False:bulbgreenleftL.visible = True:bulbgreenleftF.Visible = True: Else bulbgreenleft.visible = True:bulbgreenleftL.visible = False:bulbgreenleftF.visible = False
+    If l48.state = 1 then bulbgreenright.visible = False:bulbgreenrightL.visible = True:bulbgreenrightf.visible = True: Else bulbgreenright.visible = True:bulbgreenrightL.visible = False:bulbgreenrightF.visible = False
+    If l30.state = 1 then l30a.state = 1:FlasherF6.Visible = True: Else FlasherF6.Visible = False:l30a.state = 0
+    If l38.state = 1 then BumperLeftLight:BumperFlasher.Visible = 1: Else BumperLeftLightOff:BumperFlasher.Visible = 0
+    If l39.state = 1 then BumperRightLight: Else BumperRightLightOff
+    If l40.state = 1 then BumperBottomLight: Else BumperBottomLightOff
 End Sub
 
 'RainbowLight
@@ -1125,57 +1125,57 @@ End Sub
 Dim bulb, fbulb, GiOnState, GiOffState
 
 Sub GIOff()
-	GiOffState = True
-	for each bulb in GI
-	bulb.state = 0
-	Table1.ColorGradeImage = "-70"
-	for each fbulb in GiFlasher
-	fbulb.visible = False
-	next
-	next
+  GiOffState = True
+  for each bulb in GI
+  bulb.state = 0
+  Table1.ColorGradeImage = "-70"
+  for each fbulb in GiFlasher
+  fbulb.visible = False
+  next
+  next
 End Sub
 
 Sub GIOn()
-	GiOnState = True
-	for each bulb in GI
-	bulb.state = 1
-	for each fbulb in GiFlasher
-	fbulb.visible = True
-	Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
-	next
-	next
+  GiOnState = True
+  for each bulb in GI
+  bulb.state = 1
+  for each fbulb in GiFlasher
+  fbulb.visible = True
+  Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
+  next
+  next
 End Sub
 
 Sub GiBlinking()
-	GiOnState = False
-	GiOffState = False
-	FlasherTimer1.Enabled = True
-	Table1.ColorGradeImage = "-30"
+  GiOnState = False
+  GiOffState = False
+  FlasherTimer1.Enabled = True
+  Table1.ColorGradeImage = "-30"
 End Sub
 
 
 'GiFlasherBlinking
 
 Sub FlasherTimer1_Timer()
-	for each fbulb in GiFlasher
-	fbulb.visible = 0
-	for each bulb in Gi
-	bulb.state = 0
-	FlasherTimer1.Enabled = 0
-	If GiOffState = False then FlasherTimer2.Enabled = 1
-	next
-	next
+  for each fbulb in GiFlasher
+  fbulb.visible = 0
+  for each bulb in Gi
+  bulb.state = 0
+  FlasherTimer1.Enabled = 0
+  If GiOffState = False then FlasherTimer2.Enabled = 1
+  next
+  next
 End Sub
 
 Sub FlasherTimer2_Timer()
-	for each fbulb in GiFlasher
-	fbulb.visible = 1
-	for each bulb in Gi
-	bulb.state = 1
-	If GiOnState = False then FlasherTimer1.Enabled = 1: Else
-	FlasherTimer2.Enabled = 0
-	next
-	next
+  for each fbulb in GiFlasher
+  fbulb.visible = 1
+  for each bulb in Gi
+  bulb.state = 1
+  If GiOnState = False then FlasherTimer1.Enabled = 1: Else
+  FlasherTimer2.Enabled = 0
+  next
+  next
 End Sub
 
 
@@ -1184,40 +1184,40 @@ End Sub
 '*********************
 
 Sub BumperLeftLight()
-	for each bulb in RingLightLeftBumper
-	bulb.state = 1
-	next
+  for each bulb in RingLightLeftBumper
+  bulb.state = 1
+  next
 End Sub
 
 Sub BumperLeftLightOff()
-	for each bulb in RingLightLeftBumper
-	bulb.state = 0
-	next
+  for each bulb in RingLightLeftBumper
+  bulb.state = 0
+  next
 End Sub
 
 Sub BumperRightLight()
-	for each bulb in RingLightRightBumper
-	bulb.state = 1
-	next
+  for each bulb in RingLightRightBumper
+  bulb.state = 1
+  next
 End Sub
 
 Sub BumperRightLightOff()
-	for each bulb in RingLightRightBumper
-	bulb.state = 0
-	next
+  for each bulb in RingLightRightBumper
+  bulb.state = 0
+  next
 End Sub
 
 
 Sub BumperBottomLight()
-	for each bulb in RingLightBottomBumper
-	bulb.state = 1
-	next
+  for each bulb in RingLightBottomBumper
+  bulb.state = 1
+  next
 End Sub
 
 Sub BumperBottomLightOff()
-	for each bulb in RingLightBottomBumper
-	bulb.state = 0
-	next
+  for each bulb in RingLightBottomBumper
+  bulb.state = 0
+  next
 End Sub
 
 
@@ -1239,143 +1239,143 @@ SolCallback(32) = "FlashSuperVuk"
 
 
 Sub FlashMrHankeyToilet(Enabled)
-	If Enabled Then
-	BulbCoverToiletteLeft.Visible = False
-	BulbCoverToiletteLeftOn.Visible = True
-	BulbCoverToiletteRight.Visible = False
-	BulbcoverToiletteRightOn.Visible = True
-	F7l.State = 1
-	F7r.State = 1
-	If FlasherF7Visible = True then FlasherF7.Visible = True
-	If FlasherF7Visible = True then FlasherF7a.Visible = True
-	Else
-	BulbCoverToiletteLeft.Visible = True
-	BulbcoverToiletteLeftOn.Visible = False
-	BulbCoverToiletteRight.Visible = True
-	BulbCoverToiletteRightOn.Visible = False
-	F7l.State = 0
-	F7r.State = 0
-	FlasherF7.Visible = False
-	FlasherF7a.Visible = False
-	End if
+  If Enabled Then
+  BulbCoverToiletteLeft.Visible = False
+  BulbCoverToiletteLeftOn.Visible = True
+  BulbCoverToiletteRight.Visible = False
+  BulbcoverToiletteRightOn.Visible = True
+  F7l.State = 1
+  F7r.State = 1
+  If FlasherF7Visible = True then FlasherF7.Visible = True
+  If FlasherF7Visible = True then FlasherF7a.Visible = True
+  Else
+  BulbCoverToiletteLeft.Visible = True
+  BulbcoverToiletteLeftOn.Visible = False
+  BulbCoverToiletteRight.Visible = True
+  BulbCoverToiletteRightOn.Visible = False
+  F7l.State = 0
+  F7r.State = 0
+  FlasherF7.Visible = False
+  FlasherF7a.Visible = False
+  End if
 End Sub
 
 Sub FlashStan(Enabled)
-	If Enabled Then
-	F1.State = 1
-	F1a.State = 1
-	Else
-	F1.State = 0
-	F1a.State = 0
-	End if
+  If Enabled Then
+  F1.State = 1
+  F1a.State = 1
+  Else
+  F1.State = 0
+  F1a.State = 0
+  End if
 End Sub
 
 Sub FlashChef(Enabled)
-	If Enabled Then
-	F2.State = 1
-	F2a.State = 1
-	Else
-	F2.State = 0
-	F2a.State = 0
-	End if
+  If Enabled Then
+  F2.State = 1
+  F2a.State = 1
+  Else
+  F2.State = 0
+  F2a.State = 0
+  End if
 End Sub
 
 Sub FlashKenny(Enabled)
-	If Enabled Then
-	F3.State = 1
-	F3a.State = 1
-	Else
-	F3.State = 0
-	F3a.State = 0
-	End if
+  If Enabled Then
+  F3.State = 1
+  F3a.State = 1
+  Else
+  F3.State = 0
+  F3a.State = 0
+  End if
 End Sub
 
 Sub FlashKyle(Enabled)
-	If Enabled Then
-	F4.State = 1
-	F4a.State = 1
-	Else
-	F4.State = 0
-	F4a.State = 0
-	End if
+  If Enabled Then
+  F4.State = 1
+  F4a.State = 1
+  Else
+  F4.State = 0
+  F4a.State = 0
+  End if
 End Sub
 
 Sub FlashCartman(Enabled)
-	If Enabled Then
-	F5.State = 1
-	F5a.State = 1
-	Else
-	F5.State = 0
-	F5a.State = 0
-	End if
+  If Enabled Then
+  F5.State = 1
+  F5a.State = 1
+  Else
+  F5.State = 0
+  F5a.State = 0
+  End if
 End Sub
 
 Sub FlashSuperVuk(Enabled)
-	If Enabled Then
-	F8.State = 1
-	FlasherCapRed.Image = "dome3_redOn"
-	FlasherF8.Visible = True
-	if Ballcount > 0 And BallinToilet = 0 then GiBlinking
-	Else
-	F8.State = 0
-	FlasherCapRed.Image = "dome3_red"
-	FlasherF8.Visible = False
-	If Ballcount > 0 And BallinToilet = 0 then GiOn
-	End if
+  If Enabled Then
+  F8.State = 1
+  FlasherCapRed.Image = "dome3_redOn"
+  FlasherF8.Visible = True
+  if Ballcount > 0 And BallinToilet = 0 then GiBlinking
+  Else
+  F8.State = 0
+  FlasherCapRed.Image = "dome3_red"
+  FlasherF8.Visible = False
+  If Ballcount > 0 And BallinToilet = 0 then GiOn
+  End if
 End Sub
 
 Sub FlashPops(Enabled)
-	If Enabled Then
-	FPa.State = 1
-	FPb.State = 1
-	FPc.State = 1
-	FPd.State = 1
-	FlasherCapYellow.Image = "dome3_yellowOn"
-	FlasherFPa.Visible = True
-	Else
-	FPa.State = 0
-	FPb.State = 0
-	FPc.State = 0
-	FPd.State = 0
-	FlasherCapYellow.Image = "dome3_yellow"
-	FlasherFPa.Visible = False
-	End if
+  If Enabled Then
+  FPa.State = 1
+  FPb.State = 1
+  FPc.State = 1
+  FPd.State = 1
+  FlasherCapYellow.Image = "dome3_yellowOn"
+  FlasherFPa.Visible = True
+  Else
+  FPa.State = 0
+  FPb.State = 0
+  FPc.State = 0
+  FPd.State = 0
+  FlasherCapYellow.Image = "dome3_yellow"
+  FlasherFPa.Visible = False
+  End if
 End Sub
 
 Sub FlashKennyandBack(Enabled)
-	If Enabled Then
-	F6b.State = 1
-	F6a.Visible = False
-	F6a1.Visible = True
-	Flasherf6.Visible = True
-	FlasherF6a.Visible = True
-	Kenny.Visible = False
-	KennyL.Visible = True
-	Else
-	F6b.State = 0
-	F6a.Visible = True
-	F6a1.Visible = False
-	FlasherF6.Visible = False
-	FlasherF6a.Visible = False
-	Kenny.Visible = True
-	KennyL.Visible = False
-	End if
+  If Enabled Then
+  F6b.State = 1
+  F6a.Visible = False
+  F6a1.Visible = True
+  Flasherf6.Visible = True
+  FlasherF6a.Visible = True
+  Kenny.Visible = False
+  KennyL.Visible = True
+  Else
+  F6b.State = 0
+  F6a.Visible = True
+  F6a1.Visible = False
+  FlasherF6.Visible = False
+  FlasherF6a.Visible = False
+  Kenny.Visible = True
+  KennyL.Visible = False
+  End if
 End Sub
 
 Sub FlashTopVuk(Enabled)
-	If Enabled Then
-	F18.State = 1
-	FlasherCapChef.Image = "dome3_redOn"
-	FlasherF18.Visible = True
-	FlasherF18a.Visible = True
-	If BallCount > 0 And BallinToilet = 0 then GiBlinking
-	Else
-	F18.State = 0
-	FlasherCapChef.Image = "dome3_red"
-	FlasherF18.Visible = False
-	FlasherF18a.Visible = False
-	If BallCount > 0 And BallinToilet = 0 then GiOn
-	End if
+  If Enabled Then
+  F18.State = 1
+  FlasherCapChef.Image = "dome3_redOn"
+  FlasherF18.Visible = True
+  FlasherF18a.Visible = True
+  If BallCount > 0 And BallinToilet = 0 then GiBlinking
+  Else
+  F18.State = 0
+  FlasherCapChef.Image = "dome3_red"
+  FlasherF18.Visible = False
+  FlasherF18a.Visible = False
+  If BallCount > 0 And BallinToilet = 0 then GiOn
+  End if
 End Sub
 
 ' *******************************************************************************************************
@@ -1529,55 +1529,55 @@ End Sub
 Dim SoundBall
 
 Sub CartmanWireStart_Hit
-	GiOn
+  GiOn
 End Sub
 
 Sub CartmanWireEnd_Hit
-	PlaySound "BallDrop"
+  PlaySound "BallDrop"
 End Sub
 
 Sub Trigger3_Hit()
-	StopSound "plasticrolling"
-	PlaySound "Balldrop"
+  StopSound "plasticrolling"
+  PlaySound "Balldrop"
 End Sub
 
 Sub Trigger4_Hit()
-	StopSound "plasticrolling"
-	PlaySound "Balldrop"
+  StopSound "plasticrolling"
+  PlaySound "Balldrop"
 End Sub
 
 Sub Trigger5_Hit()
-	Playsound "Balldrop"
+  Playsound "Balldrop"
 End Sub
 
 Sub Trigger6_Hit()
-	Stopsound "plasticrolling"
+  Stopsound "plasticrolling"
 End Sub
 
 Sub RightRampColl_Hit()
-	Set SoundBall = ActiveBall
-	PlaySound "plasticrolling", 0, Vol(ActiveBall) + 0.05, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  Set SoundBall = ActiveBall
+  PlaySound "plasticrolling", 0, Vol(ActiveBall) + 0.05, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub RightRampColl_UnHit()
-	StopSound "plasticrolling"
+  StopSound "plasticrolling"
 End Sub
 
 Sub LeftRampColl_UnHit()
-	StopSound "plasticrolling"
+  StopSound "plasticrolling"
 End Sub
 
 Sub LeftRampColl_Hit()
-	Set SoundBall = ActiveBall
-	PlaySound "plasticrolling", 0, Vol(ActiveBall) +0.05, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  Set SoundBall = ActiveBall
+  PlaySound "plasticrolling", 0, Vol(ActiveBall) +0.05, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub StopsoundRamp_Hit()
-	StopSound "plasticrolling"
+  StopSound "plasticrolling"
 End Sub
 
 Sub StopsoundRamp1_Hit()
-	StopSound "plasticrolling"
+  StopSound "plasticrolling"
 End Sub
 
 
@@ -1596,7 +1596,7 @@ Sub RealTimeUpdates
     ' rolling sound
     RollingSoundUpdate
     'Gates
-	GateUpdate
+  GateUpdate
 End Sub
 
 

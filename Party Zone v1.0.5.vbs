@@ -363,11 +363,11 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
 End Sub
 
 Sub LeftFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
 End Sub
 
 Sub RandomSoundFlipper()
@@ -475,7 +475,7 @@ Sub SolBackPopper(Enabled)
         Controller.Switch(41) = 0
         sw41.CreateBall
         sw41.Kick 190, 26
-		RocketShake
+    RocketShake
         if Controller.Switch(31) then
             Controller.Switch(31) = 0
             Controller.Switch(41) = 1

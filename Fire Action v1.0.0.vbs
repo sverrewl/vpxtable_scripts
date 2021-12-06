@@ -349,15 +349,15 @@ SolCallback(18) = "vpmNudge.SolGameOn"
 
 Sub SolFireAction(enabled)
 If enabled Then
-	LightSeqFA.Play SeqBlinking, , 25, 50
-End If    
+  LightSeqFA.Play SeqBlinking, , 25, 50
+End If
 End Sub
 
 Sub SolFireActionB(enabled) 'backdrop
 If enabled Then
-	li3.Duration 2, 1000, 0
-	li4.Duration 2, 1000, 0
-End If    
+  li3.Duration 2, 1000, 0
+  li4.Duration 2, 1000, 0
+End If
 End Sub
 
 Sub SolGi(enabled)

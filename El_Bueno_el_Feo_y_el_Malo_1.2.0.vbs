@@ -76,7 +76,7 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
  '************
 
  Sub Table1_Init
-	Dim ii
+  Dim ii
     With Controller
        .GameName = cGameName
        .Games(cGameName).Settings.Value("sound") = 0 'turn off rom sound
@@ -99,15 +99,15 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
     vpmNudge.Sensitivity = 5
     vpmNudge.TiltObj = Array(Bumper1, Bumper2, LeftSlingshot, RightSlingshot)
 
-	Set bsTrough = New cvpmTrough
-	With bsTrough
-	.size = 1
-	'.entrySw = 18
-	.initSwitches Array(67)
-	.Initexit BallRelease, 80, 6
-	.InitExitSounds "fx_ballrel", "fx_ballrel"
-	.Balls = 1
-	End With
+  Set bsTrough = New cvpmTrough
+  With bsTrough
+  .size = 1
+  '.entrySw = 18
+  .initSwitches Array(67)
+  .Initexit BallRelease, 80, 6
+  .InitExitSounds "fx_ballrel", "fx_ballrel"
+  .Balls = 1
+  End With
 
     ' Top Drop targets
     set dtTBank = new cvpmdroptarget
@@ -130,16 +130,16 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
     ' Start the music from Fast Draw table
     MusicOn
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-		ramp4.Visible = False
-		ramp5.Visible = False
-		For each ii in aReels
-			ii.Visible = 0
-		Next
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+    ramp4.Visible = False
+    ramp5.Visible = False
+    For each ii in aReels
+      ii.Visible = 0
+    Next
+  End If
  End Sub
 
  Sub Table1_Paused:Controller.Pause = 1:End Sub
@@ -237,9 +237,9 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 55:PlaySoundAtVol "fx_bumper", Bumper2, VolBump
  ' Rollovers
  Sub sw53_Hit:Controller.Switch(53) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l33.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
 
@@ -247,117 +247,117 @@ End Sub
 
  Sub sw63_Hit:Controller.Switch(63) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l34.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw63_UnHit:Controller.Switch(63) = 0:End Sub
 
  Sub sw54_Hit:Controller.Switch(54) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l35.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw54_UnHit:Controller.Switch(54) = 0:End Sub
 
  Sub sw64_Hit:Controller.Switch(64) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l36.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw64_UnHit:Controller.Switch(64) = 0:End Sub
 
  Sub sw52_Hit:Controller.Switch(52) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l31.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
 
  Sub sw62_Hit:Controller.Switch(62) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l32.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw62_UnHit:Controller.Switch(62) = 0:End Sub
 
  Sub sw61_Hit:Controller.Switch(61) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l30.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw61_UnHit:Controller.Switch(61) = 0:End Sub
 
   Sub sw61a_Hit:Controller.Switch(61) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l30b.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw61a_UnHit:Controller.Switch(61) = 0:End Sub
 
  Sub sw50_Hit:Controller.Switch(50) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l27.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw50_UnHit:Controller.Switch(50) = 0:End Sub
 
  Sub sw50a_Hit:Controller.Switch(50) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l27b.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw50a_UnHit:Controller.Switch(50) = 0:End Sub
 
  Sub sw60_Hit:Controller.Switch(60) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l28.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw60_UnHit:Controller.Switch(60) = 0:End Sub
 
   Sub sw60a_Hit:Controller.Switch(60) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l28b.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw60a_UnHit:Controller.Switch(60) = 0:End Sub
 
  Sub sw51_Hit:Controller.Switch(51) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l29.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw51_UnHit:Controller.Switch(51) = 0:End Sub
 
   Sub sw51a_Hit:Controller.Switch(51) = 1:PlaySoundAtVol "fx_sensor", ActiveBall, 1
 If l29b.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw51a_UnHit:Controller.Switch(51) = 0:End Sub
@@ -373,107 +373,107 @@ End Sub
  ' Droptargets
  Sub sw0_Hit:dtTBank.hit 1:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l12.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw10_Hit:dtTBank.hit 2:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l13.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw20_Hit:dtTBank.hit 3:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l14.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw30_Hit:dtTBank.hit 4:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l15.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw40_Hit:dtTBank.hit 5:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l16.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw1_Hit:dtTBank.hit 6:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l17.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw11_Hit:dtTBank.hit 7:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l18.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw21_Hit:dtTBank.hit 8:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l19.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw31_Hit:dtTBank.hit 9:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l20.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw41_Hit:dtTBank.hit 10:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l21.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw2_Hit:dtRBank.hit 1:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l22.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw12_Hit:dtRBank.hit 2:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l23.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw22_Hit:dtRBank.hit 3:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l24.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw32_Hit:dtRBank.hit 4:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l25.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
  Sub sw42_Hit:dtRBank.hit 5:PlaySoundAtVol "fx_droptarget", ActiveBall, 1
 If l26.State Then
-	PlaySound "fx_5000"
+  PlaySound "fx_5000"
 Else
-	PlaySound "fx_500"
+  PlaySound "fx_500"
 End If
 End Sub
 
@@ -920,9 +920,9 @@ End Sub
 Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates
-	Gatep.RotZ = Gate.CurrentAngle
+  Gatep.RotZ = Gate.CurrentAngle
     RollingUpdate
-	GIUpdate
+  GIUpdate
 End Sub
 
  'Gottlieb El Dorado City of Gold

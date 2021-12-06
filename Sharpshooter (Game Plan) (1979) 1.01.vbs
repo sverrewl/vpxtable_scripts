@@ -1,8 +1,8 @@
 'Game Plan Sharpshooter, 1979
 'VP9 DT Table by Bodydump credits:
-	'Thanks to Eala for his original vp8 table and his object table which I borrowed from
-	'Thanks to JimmyFingers for physics tweaks and BMPR modding and improved sound/sound routines.
-	'Thanks to Rob046, Uncle Willy and Destruk for help, question answering and opinions.
+  'Thanks to Eala for his original vp8 table and his object table which I borrowed from
+  'Thanks to JimmyFingers for physics tweaks and BMPR modding and improved sound/sound routines.
+  'Thanks to Rob046, Uncle Willy and Destruk for help, question answering and opinions.
 'VPX conversion by HSM
 Option Explicit
 Randomize
@@ -102,64 +102,64 @@ Sub Sharpshooter_Init
          On Error Goto 0
      End With
 
-	Controller.Dip(0) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '01-08
-	Controller.Dip(1) = (0*1 + 0*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 1*128) '09-16
-	Controller.Dip(2) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '17-24
-	Controller.Dip(3) = (1*1 + 1*2 + 1*4 + 1*8 + 0*16 + 1*32 + 1*64 + 0*128) '25-32
+  Controller.Dip(0) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '01-08
+  Controller.Dip(1) = (0*1 + 0*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 1*128) '09-16
+  Controller.Dip(2) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '17-24
+  Controller.Dip(3) = (1*1 + 1*2 + 1*4 + 1*8 + 0*16 + 1*32 + 1*64 + 0*128) '25-32
 
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
-	vpmNudge.TiltSwitch = swTilt
-	vpmNudge.Sensitivity = 5
+  vpmNudge.TiltSwitch = swTilt
+  vpmNudge.Sensitivity = 5
     vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot,ShooterSlingshot,Wall34)
 
-	Set dtdrop = New cvpmDropTarget
-   	  With dtdrop
-   		.InitDrop Array(TargetS,TargetH,TargetO1,TargetO2,TargetT,TargetE,TargetR),Array(31,32,35,36,4,10,17)
+  Set dtdrop = New cvpmDropTarget
+      With dtdrop
+      .InitDrop Array(TargetS,TargetH,TargetO1,TargetO2,TargetT,TargetE,TargetR),Array(31,32,35,36,4,10,17)
          .Initsnd "fx_droptarget", "fx2_DTReset"
        End With
 
-	Set bsSaucer = New cvpmBallStack
+  Set bsSaucer = New cvpmBallStack
              With bsSaucer
               .InitSaucer Kicker1,24, 200, 10
-      		 .KickForceVar = 1
-      		 .KickAngleVar = 1
+           .KickForceVar = 1
+           .KickAngleVar = 1
               .InitExitSnd "fx2_popper_ball", "Solenoid"
-    		     .InitAddSnd "fx2_kicker_enter_left"
+             .InitAddSnd "fx2_kicker_enter_left"
              End With
 
-	Set bsTrough = New cvpmBallStack
+  Set bsTrough = New cvpmBallStack
             With bsTrough
              .InitSw 0,11,0,0,0,0,0,0
-      	     .InitKick BallRelease,90,8
+             .InitKick BallRelease,90,8
              bsTrough.InitExitSnd "fx_ballrel", "fx_solenoid"
              .Balls = 1
             End With
 End Sub
 
 Sub Sharpshooter_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",Plunger,1: 	End If
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),RightFlipper,VolFlip
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",Plunger,1:   End If
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),RightFlipper,VolFlip
 End Sub
 
 Sub Sharpshooter_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, Volflip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, Volflip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
-		LeftFlipper.RotateToEnd
+    LeftFlipper.RotateToEnd
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper,Volflip
         LeftFlipper.RotateToStart
@@ -177,29 +177,29 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub SolKnocker(Enabled)
-	If Enabled Then PlaySound SoundFX("fx_Knocker",DOFKnocker)
+  If Enabled Then PlaySound SoundFX("fx_Knocker",DOFKnocker)
 End Sub
 
   Sub Sharpshooter_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",plunger,1: 	End If
-	If FlippersAlwaysOn =1 Then
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
-	End If
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",plunger,1:   End If
+  If FlippersAlwaysOn =1 Then
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
+  End If
 End Sub
 
 Sub Sharpshooter_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
-	If FlippersAlwaysOn =1 Then
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, VolFlip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
-	End If
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
+  If FlippersAlwaysOn =1 Then
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, VolFlip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
+  End If
+  If vpmKeyUp(keycode) Then Exit Sub
 
 End Sub
 Sub Drain_Hit:PlaysoundAtVol "fx2_drain2",drain,1:bsTrough.AddBall Me:End Sub
@@ -235,28 +235,28 @@ Sub T2_Hit:vpmTimer.PulseSw 20:PlaySoundAtVol "FX2_Target",ActiveBall,1:End Sub
 Sub Bumper1_Hit:RandomSoundBumper:vpmTimer.PulseSw 34:PlaySoundAtVol "fx_bumper",bumper1,volbump:bump1 = 1:Me.TimerEnabled = 1:End Sub
  Sub Bumper1_Timer()
  if L43.state=0 then
-	L43A.state=0
-	L43A1.state=0
-	L43A2.state=0
-	end If
+  L43A.state=0
+  L43A1.state=0
+  L43A2.state=0
+  end If
  if L43.state=1 then
-	L43A.state=1
-	L43A1.state=1
-	L43A2.state=1
-	end If
+  L43A.state=1
+  L43A1.state=1
+  L43A2.state=1
+  end If
   End Sub
 Sub Bumper2_Hit:RandomSoundBumper:vpmTimer.PulseSw 33:PlaySoundAtVol "fx_bumper",bumper2,volbump:bump2 = 1:Me.TimerEnabled = 1:End Sub
  Sub Bumper2_Timer()
  if L39.state=0 then
-	L39A.state=0
-	L39A1.state=0
-	L39A2.state=0
-	end if
+  L39A.state=0
+  L39A1.state=0
+  L39A2.state=0
+  end if
  if L39.state=1 then
-	L39A.state=1
-	L39A1.state=1
-	L39A2.state=1
-	end if
+  L39A.state=1
+  L39A1.state=1
+  L39A2.state=1
+  end if
 End Sub
 
 Sub Bumper3_Hit:RandomSoundBumper:vpmTimer.PulseSw 21:PlaySoundAtVol "fx_bumper",bumper3,volbump:bump3 = 1:Me.TimerEnabled = 1:End Sub
@@ -283,9 +283,9 @@ Sub Lane4_unHit:Controller.Switch(39)=0:End Sub
 Sub Lane7_Hit:Controller.Switch(40)=1:End Sub
 Sub Lane7_unHit:Controller.Switch(40)=0:End Sub
 
-	Dim LStep
+  Dim LStep
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 15
+  vpmTimer.PulseSw 15
     PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -303,47 +303,47 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 4 then
-		RandomSoundFlipper()
-	Else
- 		RandomSoundFlipperLowVolume()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 4 then
+    RandomSoundFlipper()
+  Else
+    RandomSoundFlipperLowVolume()
+  End If
 
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 4 then
-		RandomSoundFlipper()
-	Else
- 		RandomSoundFlipperLowVolume()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 4 then
+    RandomSoundFlipper()
+  Else
+    RandomSoundFlipperLowVolume()
+  End If
 End Sub
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "fx2_flip_hit_1" ' TODO
-		Case 2 : PlaySound "fx2_flip_hit_2"
-		Case 3 : PlaySound "fx2_flip_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "fx2_flip_hit_1" ' TODO
+    Case 2 : PlaySound "fx2_flip_hit_2"
+    Case 3 : PlaySound "fx2_flip_hit_3"
+  End Select
 End Sub
 
 Sub RandomSoundFlipperLowVolume()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "fx2_flip_hit_1_low"
-		Case 2 : PlaySound "fx2_flip_hit_2_low"
-		Case 3 : PlaySound "fx2_flip_hit_3_low"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "fx2_flip_hit_1_low"
+    Case 2 : PlaySound "fx2_flip_hit_2_low"
+    Case 3 : PlaySound "fx2_flip_hit_3_low"
+  End Select
 End Sub
 
 Sub RandomSoundBumper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "fx2_bumper_1"
-		Case 2 : PlaySound "fx2_bumper_2"
-		Case 3 : PlaySound "fx2_bumper_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "fx2_bumper_1"
+    Case 2 : PlaySound "fx2_bumper_2"
+    Case 3 : PlaySound "fx2_bumper_3"
+  End Select
 End Sub
 
 '***************************************************
@@ -380,65 +380,65 @@ Sub LampTimer_Timer()
 End Sub
 
 Sub UpdateLamps
-	NFadeL 2, l2 	'1000bonus
-	NFadeL 3, l3 	'2000 bonus
-	NFadeL 4, l4	'3000 bonus
-	NFadeL 5, l5	'4000 bonus
-	NFadeL 6, l6	'5000 bonus
-	NFadeL 7, l7	'6000 bonus
-	NFadeL 8, l8	'7000 bonus
-	NFadeL 9, l9	'8000 bonus
-	NFadeL 10, l10	'9000 bonus
-    NFadeL 11, l11	'10000 bonus
-	NFadeL 12, l12	'2x bonus
-	NFadeL 13, l13	'3x bonus
-	NFadeL 14, l14	'4x bonus
-	NFadeL 15, l15	'5x bonus
-	NFadeL 17, l17	'Special upper
-	NFadeL 18, l18	'Special lower
-	NFadeL 19, l19	'Extra Ball upper
-	NFadeLm 19,l19b 'Rollover5
-	NFadeL 20, l20	'Extra Ball lower
-	NFadeL 21, l21	'S harp
-	NFadeL 22, l22	's H arp
-	NFadeL 23, l23  'shoote R
-	NFadeL 24, l24	'sh A rp
-	NFadeL 25, l25	'sha R p
-	NFadeL 26, l26  'shar P
-	NFadeL 28, l28  'S hooter
-	NFadeL 29, l29	'Rollover 2
-	NFadeL 30, l30	'Rollover 3
-	NFadeL 31, l31	'sho O ter
-	NFadeL 32, l32	'Rollover 4
-	NFadeL 33, l33	's H ooter
-	NFadeL 35, l35	'20000 bonus
-	NFadeL 36, l36	'sh O oter
-	NFadeL 37, l37	'upper 2x
-	NFadeL 39, L39  '1st pair bumpers
-    NFadeTm 40, l40, "TILT"						'Tilt Backbox
-    NFadeTm 41, l41, "High Score to Date"		'High Score Backbox
-	NFadeL 42, l42	'Spinner 1000
-	NFadeL 43, L43	 '2nd pair bumpers
-	NFadeTm 44, l44, "Game Over" 				'Game Over Backbox
-    NFadeL 45, l45	'shoo T er
-	NFadeL 46, l46	'shoot E r
-    NFadeL 47, l47	'upper 3x
-    NFadeL 48, l48	'upper 5x
-    NFadeL 50, l50	'upper 4x
-    NFadeL 51, l51	'Rollover 1
+  NFadeL 2, l2  '1000bonus
+  NFadeL 3, l3  '2000 bonus
+  NFadeL 4, l4  '3000 bonus
+  NFadeL 5, l5  '4000 bonus
+  NFadeL 6, l6  '5000 bonus
+  NFadeL 7, l7  '6000 bonus
+  NFadeL 8, l8  '7000 bonus
+  NFadeL 9, l9  '8000 bonus
+  NFadeL 10, l10  '9000 bonus
+    NFadeL 11, l11  '10000 bonus
+  NFadeL 12, l12  '2x bonus
+  NFadeL 13, l13  '3x bonus
+  NFadeL 14, l14  '4x bonus
+  NFadeL 15, l15  '5x bonus
+  NFadeL 17, l17  'Special upper
+  NFadeL 18, l18  'Special lower
+  NFadeL 19, l19  'Extra Ball upper
+  NFadeLm 19,l19b 'Rollover5
+  NFadeL 20, l20  'Extra Ball lower
+  NFadeL 21, l21  'S harp
+  NFadeL 22, l22  's H arp
+  NFadeL 23, l23  'shoote R
+  NFadeL 24, l24  'sh A rp
+  NFadeL 25, l25  'sha R p
+  NFadeL 26, l26  'shar P
+  NFadeL 28, l28  'S hooter
+  NFadeL 29, l29  'Rollover 2
+  NFadeL 30, l30  'Rollover 3
+  NFadeL 31, l31  'sho O ter
+  NFadeL 32, l32  'Rollover 4
+  NFadeL 33, l33  's H ooter
+  NFadeL 35, l35  '20000 bonus
+  NFadeL 36, l36  'sh O oter
+  NFadeL 37, l37  'upper 2x
+  NFadeL 39, L39  '1st pair bumpers
+    NFadeTm 40, l40, "TILT"           'Tilt Backbox
+    NFadeTm 41, l41, "High Score to Date"   'High Score Backbox
+  NFadeL 42, l42  'Spinner 1000
+  NFadeL 43, L43   '2nd pair bumpers
+  NFadeTm 44, l44, "Game Over"        'Game Over Backbox
+    NFadeL 45, l45  'shoo T er
+  NFadeL 46, l46  'shoot E r
+    NFadeL 47, l47  'upper 3x
+    NFadeL 48, l48  'upper 5x
+    NFadeL 50, l50  'upper 4x
+    NFadeL 51, l51  'Rollover 1
     NFadeTm 52, l52b, "Same Player Shoots Again"'Shoot Again Backbox
-	NFadeL 52, l52	'Shoot Again
-    NFadeTm 53, l53b, "Ball in Play"			'Ball In Play Backbox
-    NFadeL 55, l55	'25000
-    NFadeT 56, l56, "Match"						'Match Backbox
-	NFadeL 57, l57								'Player 1 Backbox
-    NFadeL 58, l58								'Player 2 Backbox
-    NFadeL 59, l59								'Player 3 Backbox
-    NFadeL 60, l60								'Player 4 Backbox
-    NFadeT 61, l61, "MILLION"					'Player 1 Million
-	NFadeT 62, l62, "MILLION"					'Player 2 Million
-    NFadeT 63, l63, "MILLION"					'Player 3 Million
-	NFadeT 64, l64, "MILLION"					'Player 4 Million
+  NFadeL 52, l52  'Shoot Again
+    NFadeTm 53, l53b, "Ball in Play"      'Ball In Play Backbox
+    NFadeL 55, l55  '25000
+    NFadeT 56, l56, "Match"           'Match Backbox
+  NFadeL 57, l57                'Player 1 Backbox
+    NFadeL 58, l58                'Player 2 Backbox
+    NFadeL 59, l59                'Player 3 Backbox
+    NFadeL 60, l60                'Player 4 Backbox
+    NFadeT 61, l61, "MILLION"         'Player 1 Million
+  NFadeT 62, l62, "MILLION"         'Player 2 Million
+    NFadeT 63, l63, "MILLION"         'Player 3 Million
+  NFadeT 64, l64, "MILLION"         'Player 4 Million
 End Sub
 
 ' div lamp subs
@@ -461,7 +461,7 @@ Sub AllLampsOff
     For x = 0 to 200
         SetLamp x, 0
     Next
-	UpdateLamps:UpdateLamps:UpdateLamps
+  UpdateLamps:UpdateLamps:UpdateLamps
 End Sub
 
 Sub SetLamp(nr, value)

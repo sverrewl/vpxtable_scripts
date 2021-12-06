@@ -239,17 +239,17 @@ End If
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 
 If DesktopMode = True Then
-	Cover1.TopMaterial = "Plastic Cover Clear1"
-	Cover2.TopMaterial = "Plastic Cover Clear1"
-	Cover3.TopMaterial = "Plastic Cover Clear1"
-	Cover4.material = "Plastic Cover Clear1"
-	Cover5.material = "Plastic Cover Clear1"
-	Cover6.material = "Plastic Cover Clear1"
-	Cover7.material = "Plastic Cover Clear1"
-	Cover8.material = "Plastic Cover Clear1"
-	Plastic_SlingL.material = "Plastic Cover Clear1"
-	Plastic_SlingR.material = "Plastic Cover Clear1"
-	Plastic_RM.material = "Plastic Cover Clear1"
+  Cover1.TopMaterial = "Plastic Cover Clear1"
+  Cover2.TopMaterial = "Plastic Cover Clear1"
+  Cover3.TopMaterial = "Plastic Cover Clear1"
+  Cover4.material = "Plastic Cover Clear1"
+  Cover5.material = "Plastic Cover Clear1"
+  Cover6.material = "Plastic Cover Clear1"
+  Cover7.material = "Plastic Cover Clear1"
+  Cover8.material = "Plastic Cover Clear1"
+  Plastic_SlingL.material = "Plastic Cover Clear1"
+  Plastic_SlingR.material = "Plastic Cover Clear1"
+  Plastic_RM.material = "Plastic Cover Clear1"
 'Ramp15.image = "Right_rail_brighter_D"
 Can1.visible = 1
 Can2.visible = 1
@@ -310,36 +310,36 @@ Dim Sound1, Sound2, Sound3, Sound4, Sound5, B2SController
 
  LoadVPM "01560000", "WPC.VBS", 3.46
 
- Sub LoadVPM(VPMver, VBSfile, VBSver)	'Add new call to InitializeOptions to allow selection of controller through F6 menu
-	On Error Resume Next
-		If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-			ExecuteGlobal GetTextFile(VBSfile)
-		If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
+ Sub LoadVPM(VPMver, VBSfile, VBSver) 'Add new call to InitializeOptions to allow selection of controller through F6 menu
+  On Error Resume Next
+    If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+      ExecuteGlobal GetTextFile(VBSfile)
+    If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
 
-		'InitializeOptions 'Enables New Controller change through F6 menu, so it needs to be placed before Controller selection
+    'InitializeOptions 'Enables New Controller change through F6 menu, so it needs to be placed before Controller selection
 
-		'Select Case cController
-			'Case 1:
-				Set Controller = CreateObject("VPinMAME.Controller")
-				If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-				If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
-				If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-			'Case 2:
-				'Set Controller = CreateObject("UltraVP.BackglassServ")
-			'Case 3:
-				'Set Controller = CreateObject("B2S.Server")
-		'End Select
-		If Err then
-			msgbox "Invalid controller selected, defaulting to VPinMame"
-			Set controller = CreateObject("VPinMAME.Controller")
-		End If
+    'Select Case cController
+      'Case 1:
+        Set Controller = CreateObject("VPinMAME.Controller")
+        If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+        If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+        If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+      'Case 2:
+        'Set Controller = CreateObject("UltraVP.BackglassServ")
+      'Case 3:
+        'Set Controller = CreateObject("B2S.Server")
+    'End Select
+    If Err then
+      msgbox "Invalid controller selected, defaulting to VPinMame"
+      Set controller = CreateObject("VPinMAME.Controller")
+    End If
       If B2SOn = 1 Then
       Set B2SController=CreateObject("B2S.Server")
       B2SController.B2SName = "cv_dmd"
       B2SController.Run
-		  if not IsObject(B2SController) then B2SOn=0
+      if not IsObject(B2SController) then B2SOn=0
       End If
-	On Error Goto 0
+  On Error Goto 0
  End Sub
 
 '==============================
@@ -1302,7 +1302,7 @@ End Sub
 On Error Resume Next
 Dim i
 For i=0 To 127
-	Execute "Set Lights(" & i & ")  = L" & i
+  Execute "Set Lights(" & i & ")  = L" & i
 Next
 
 '************
@@ -1312,35 +1312,35 @@ Next
 Sub Table1_Init
     vpmInit Me
     With Controller
-		.GameName = cGameName
-		.SplashInfoLine = "Cirqus Voltaire"
-		.Games(cGameName).Settings.Value("rol") = DMD_Rot
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 0
-		 If IntegratedDMDType = 1 OR 2 Then
+    .GameName = cGameName
+    .SplashInfoLine = "Cirqus Voltaire"
+    .Games(cGameName).Settings.Value("rol") = DMD_Rot
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 0
+     If IntegratedDMDType = 1 OR 2 Then
         .Hidden=1
          End If
          If IntegratedDMDType = 0 Then
         .Hidden=0
          End If
         .SolMask(0) = 0
-		vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then
-			MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description
-			msgbox "After table loads, use F6 to choose a different Rom and reload the table."
-			Exit Sub
-		End If
-		On Error Goto 0
+    vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then
+      MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description
+      msgbox "After table loads, use F6 to choose a different Rom and reload the table."
+      Exit Sub
+    End If
+    On Error Goto 0
     End With
 
-		Sound1 = "ballrelease"
-		Sound2 = "fx_Solenoid"
-		Sound3 = "popper_ball"
+    Sound1 = "ballrelease"
+    Sound2 = "fx_Solenoid"
+    Sound3 = "popper_ball"
         Sound4 = "KickerEnter"
 
     ' Nudging
@@ -1394,9 +1394,9 @@ Sub Table1_Init
         .Sol2 = 39
         .Length = Ringmaster_Speed  '148
         .Steps = Ringmaster_Speed    ' 148
-        .AddSw 44, 0, 2			'0
-        .AddSw 43, Ringmaster_Speed * 73 \ 100, Ringmaster_Speed * 75 \ 100'109, 111		'200
-        .AddSw 42, Ringmaster_Speed * 98 \ 100, Ringmaster_Speed		    '265.5
+        .AddSw 44, 0, 2     '0
+        .AddSw 43, Ringmaster_Speed * 73 \ 100, Ringmaster_Speed * 75 \ 100'109, 111    '200
+        .AddSw 42, Ringmaster_Speed * 98 \ 100, Ringmaster_Speed        '265.5
     'Motor fix later down in the script
     End With
 
@@ -1499,7 +1499,7 @@ Sub table1_KeyDown(ByVal Keycode)
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
-	If keycode = PlungerKey Then Plunger2.Fire:PlaySoundat "plunger",Plunger2
+  If keycode = PlungerKey Then Plunger2.Fire:PlaySoundat "plunger",Plunger2
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
@@ -1518,13 +1518,13 @@ End Sub
 Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
-	PlaySoundAt SoundFX("Left_slingshot"),SLING2
-	vpmTimer.PulseSw 51
-	LSling.Visible = 0
-	LSling1.Visible = 1
-	sling1.TransZ = -24
-	LStep = 0
-	LeftSlingShot.TimerEnabled = 1
+  PlaySoundAt SoundFX("Left_slingshot"),SLING2
+  vpmTimer.PulseSw 51
+  LSling.Visible = 0
+  LSling1.Visible = 1
+  sling1.TransZ = -24
+  LStep = 0
+  LeftSlingShot.TimerEnabled = 1
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -1537,13 +1537,13 @@ End Sub
 
 
 Sub RightSlingShot_Slingshot
-	PlaySoundAt SoundFX("Right_Slingshot"),SLING1
-	vpmTimer.PulseSw 52
-	RSling.Visible = 0
-	RSling1.Visible = 1
-	sling2.TransZ = -24
-	RStep = 0
-	RightSlingShot.TimerEnabled = 1
+  PlaySoundAt SoundFX("Right_Slingshot"),SLING1
+  vpmTimer.PulseSw 52
+  RSling.Visible = 0
+  RSling1.Visible = 1
+  sling2.TransZ = -24
+  RStep = 0
+  RightSlingShot.TimerEnabled = 1
 End Sub
 
 Sub RightSlingShot_Timer
@@ -1569,34 +1569,34 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 55:PlaySoundAtBumperVol SoundFX("fx_bumper2"),B
 Sub Lbumper1_Hit():vpmTimer.PulseSw 54:PlaySoundAtBumperVol SoundFX("fx_bumper3"),LBumper1,1: Me.TimerEnabled = 1:Me.timerinterval = 10:boom2_shake.enabled = 1:End Sub
 
 Sub Bumper1_timer()
-	BR1.Z = BR1.Z + (5 * dirRing1)
-	If BR1.Z <= 0 Then dirRing1 = 1
-	If BR1.Z >= 30 Then
-		dirRing1 = -1
-		BR1.Z = 30
-		Me.TimerEnabled = 0
-	End If
+  BR1.Z = BR1.Z + (5 * dirRing1)
+  If BR1.Z <= 0 Then dirRing1 = 1
+  If BR1.Z >= 30 Then
+    dirRing1 = -1
+    BR1.Z = 30
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper2_timer()
-	BR2.Z = BR2.Z + (5 * dirRing2)
-	If BR2.Z <= 0 Then dirRing2 = 1
-	If BR2.Z >= 30 Then
-		dirRing2 = -1
-		BR2.Z = 30
-		Me.TimerEnabled = 0
-	End If
+  BR2.Z = BR2.Z + (5 * dirRing2)
+  If BR2.Z <= 0 Then dirRing2 = 1
+  If BR2.Z >= 30 Then
+    dirRing2 = -1
+    BR2.Z = 30
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub LBumper1_Timer()
 
-	Boom_Ring.Z = Boom_Ring.Z + (5 * dirRing3)
-	If Boom_Ring.Z <= 0 Then dirRing3 = 1
-	If Boom_Ring.Z >= 35 Then
-		dirRing3 = -1
-		Boom_Ring.Z = 35
-		Me.TimerEnabled = 0
-	End If
+  Boom_Ring.Z = Boom_Ring.Z + (5 * dirRing3)
+  If Boom_Ring.Z <= 0 Then dirRing3 = 1
+  If Boom_Ring.Z >= 35 Then
+    dirRing3 = -1
+    Boom_Ring.Z = 35
+    Me.TimerEnabled = 0
+  End If
 
 End Sub
 
@@ -1671,14 +1671,14 @@ Sub sw17_Hit:Controller.Switch(17) = 1:pstep = 1:cplas.enabled = 1:d4dir = 1:d4t
 Sub sw17_Unhit:Controller.Switch(17) = 0:d4dir = 2:d4timer.enabled = 1:End Sub
 
 Sub BallLockCollide_Hit
-	me.TimerInterval = (2-vlLock.Balls) * ((1.0-(BallVel(ActiveBall)/20)) * 160)
-	me.TimerEnabled = 1
+  me.TimerInterval = (2-vlLock.Balls) * ((1.0-(BallVel(ActiveBall)/20)) * 160)
+  me.TimerEnabled = 1
 End Sub
 
 
 Sub BallLockCollide_Timer
-	PlaySoundAt "metalhit_thin",sw68
-	me.TimerEnabled = false
+  PlaySoundAt "metalhit_thin",sw68
+  me.TimerEnabled = false
 End Sub
 
 Sub sw75_Hit:Controller.Switch(75) = 1:pstep = 1:cplas.enabled = 1:d3dir = 1:d3timer.enabled = 3:PlaySoundAt "fx_sensor",sw75:End Sub
@@ -1762,7 +1762,7 @@ Sub sw64_Hit
     Controller.Switch(64) = 1
     'MsgBox ActiveBall.VelX
     If ActiveBall.VelX > 20 then ActiveBall.VelX = 15
-	Flipper1.rotatetoend
+  Flipper1.rotatetoend
 End Sub
 
 Sub sw64_Unhit:Controller.Switch(64) = 0:Flipper1.rotatetostart:End Sub
@@ -1783,14 +1783,14 @@ Sub sw12_Unhit:Controller.Switch(12) = 0:End Sub
 
 
 Sub sw16_Hit()
-	Set RMBall = ActiveBall
-	PlaySoundAt "fx_woodhit",sw16
-	If RMCurrPos > Ringmaster_Speed * 72 \ 100  Then
-		RMShake
+  Set RMBall = ActiveBall
+  PlaySoundAt "fx_woodhit",sw16
+  If RMCurrPos > Ringmaster_Speed * 72 \ 100  Then
+    RMShake
         'If Dozer_Cab = 1 Then
-		DOF 269,2
-		'End If
-	End If
+    DOF 269,2
+    'End If
+  End If
         Controller.Switch(16)=1
         Eddy.enabled = 1
  End Sub
@@ -1933,8 +1933,8 @@ End Sub
 Sub Ramp_Magnet(enabled)
 If enabled Then
 DOF 64,2
-		'on error goto 0
-		StopBumpSounds
+    'on error goto 0
+    StopBumpSounds
 End If
 
 End Sub
@@ -2254,13 +2254,13 @@ Dim RFTCount:RFTCount=1
 Sub SolLFlipper(Enabled)
 
      If Enabled Then
-		 PlaySoundAtVol SoundFX("fx_flipperup"),LeftFlipper,VolFlip
-		 LeftFlipper.RotateToEnd
+     PlaySoundAtVol SoundFX("fx_flipperup"),LeftFlipper,VolFlip
+     LeftFlipper.RotateToEnd
          DOF 250,1
      Else
-		 LFTCount=1
-		 PlaySoundAtVol SoundFX("fx_flipperdown"),LeftFlipper,VolFlip
-		 LeftFlipper.RotateToStart
+     LFTCount=1
+     PlaySoundAtVol SoundFX("fx_flipperdown"),LeftFlipper,VolFlip
+     LeftFlipper.RotateToStart
          DOF 250,0
      End If
  End Sub
@@ -2268,13 +2268,13 @@ Sub SolLFlipper(Enabled)
 Sub SolRFlipper(Enabled)
 
      If Enabled Then
-		 PlaySoundAtVol SoundFX("fx_flipperup"),RightFlipper,VolFlip
-		 RightFlipper.RotateToEnd
+     PlaySoundAtVol SoundFX("fx_flipperup"),RightFlipper,VolFlip
+     RightFlipper.RotateToEnd
          DOF 251,1
      Else
-		 RFTCount=1
-		 PlaySoundAtVol SoundFX("fx_flipperdown"),RightFlipper,VolFlip
-		 RightFlipper.RotateToStart
+     RFTCount=1
+     PlaySoundAtVol SoundFX("fx_flipperdown"),RightFlipper,VolFlip
+     RightFlipper.RotateToStart
          DOF 251,0
      End If
  End Sub
@@ -2341,7 +2341,7 @@ End Sub
 '         DOF 15,1
 '         DOF 16,1
 '         Light93.State = 1
-'		 bgcan = 1:dtcan.enabled = 1
+'    bgcan = 1:dtcan.enabled = 1
 '     End If
 '   End If
 ' End Sub
@@ -2363,9 +2363,9 @@ End Sub
 
 Sub BoomUp(Enabled)
     If Enabled Then
-		PlaySoundAt SoundFX("fx_solenoid"),Boom_Body
+    PlaySoundAt SoundFX("fx_solenoid"),Boom_Body
         Boom_Up.enabled = 1
-		BoomTrigger.enabled = 1
+    BoomTrigger.enabled = 1
         DOF 255,2
     End If
 End Sub
@@ -2373,7 +2373,7 @@ End Sub
 Sub BoomDown(Enabled)
     If Enabled Then
         PlaySoundAt SoundFX("fx_solenoid"),Boom_Body
-		BoomTrigger.enabled = 0
+    BoomTrigger.enabled = 0
         LBumper1.Collidable = 0
         Boom_Down.enabled = 1
         DOF 255,2
@@ -2381,7 +2381,7 @@ Sub BoomDown(Enabled)
 End Sub
 
 Sub BoomTrigger_Hit
-	activeball.z = activeball.z + 70
+  activeball.z = activeball.z + 70
 End Sub
 
 Dim pstep, prun
@@ -2420,17 +2420,17 @@ End Sub
 
  Dim KickAngle
  Sub SolRingmasterMagnet(Enabled)
-	mRingmasterMagnet.MagnetOn = Enabled
+  mRingmasterMagnet.MagnetOn = Enabled
     DOF 270,Enabled
-	RMMagnetkicker.Enabled = Enabled
+  RMMagnetkicker.Enabled = Enabled
     If Not Enabled And RMBallInMagnet Then
-		mRingmasterMagnet.RemoveBall RMMagBall
-		KickAngle = 135 + Rnd * 180
-		cball.vely = cball.vely + dcos(KickAngle)*2
-		cball.velx = cball.velx - dsin(KickAngle)*2
+    mRingmasterMagnet.RemoveBall RMMagBall
+    KickAngle = 135 + Rnd * 180
+    cball.vely = cball.vely + dcos(KickAngle)*2
+    cball.velx = cball.velx - dsin(KickAngle)*2
         PlaySound "fx_spring", 0, (cball.vely + cball.velx)/4, 0, 0.15 'Hanibal Spring Sound
-		vpmTimer.AddTimer 400, "RMKick"
-		vpmTimer.AddTimer 200, "BallSound3"
+    vpmTimer.AddTimer 400, "RMKick"
+    vpmTimer.AddTimer 200, "BallSound3"
         DOF 270,0
     End If
  End Sub
@@ -2442,9 +2442,9 @@ End Sub
  End Sub
 
  Sub RMKick(dummy)
-	RMMagnetkicker.kick KickAngle, rnd * 7 + 7
-	RMBallInMagnet = 0
-	RMMagBall = Empty
+  RMMagnetkicker.kick KickAngle, rnd * 7 + 7
+  RMBallInMagnet = 0
+  RMMagBall = Empty
  End Sub
 
 Dim RMBallInMagnet, RMMagBall, RMBall, RMFlashOn, RMCurrPos
@@ -2452,12 +2452,12 @@ RMBallInMagnet = 0:RMFlashOn = 0:RMCurrPos = 0
 RMMagBall = Empty
 
  Sub sw38r_Hit
-	Set RMBall = ActiveBall
-	PlaySoundAt "fx_woodhit",sw38
-	vpmTimer.PulseSw 38
-	If RMCurrPos > Ringmaster_Speed * 72 \ 100  Then
-		RMShake
-	End If
+  Set RMBall = ActiveBall
+  PlaySoundAt "fx_woodhit",sw38
+  vpmTimer.PulseSw 38
+  If RMCurrPos > Ringmaster_Speed * 72 \ 100  Then
+    RMShake
+  End If
  End Sub
 
  Sub UpdateRM(aCurrPos, aSpeed, aLastPos)
@@ -2466,14 +2466,14 @@ RMMagBall = Empty
     PlaySound SoundFX("bridge2"),0,1,.1,0,0,0,0,-.9
     End If
     RMCurrPos = aCurrPos
-	Ringmaster_Down.visible = NOT cbool(RMCurrPos>4)
- 	Ringmaster_Down2.visible = NOT cbool(RMCurrPos>4)
-	Ringmaster.z = (RMCurrPos-4) * 265.5/(Ringmaster_Speed-4)- 265.5
+  Ringmaster_Down.visible = NOT cbool(RMCurrPos>4)
+  Ringmaster_Down2.visible = NOT cbool(RMCurrPos>4)
+  Ringmaster.z = (RMCurrPos-4) * 265.5/(Ringmaster_Speed-4)- 265.5
     JackpotP.z = (RMCurrPos-4) * 265.5/(Ringmaster_Speed-4)- 265.5
-	RMHitWall.IsDropped = NOT RMCurrPos > 4
+  RMHitWall.IsDropped = NOT RMCurrPos > 4
      sw16.enabled = RMCurrPos > 4
-	If (RMCurrPos >37 And RMCurrPos < 40)  AND RMCurrPos > aLastPos Then cball.vely = cball.vely - 1.5
-	If RMBallInMagnet Then RMMagBall.z = Ringmaster.z + 50 + 265.5
+  If (RMCurrPos >37 And RMCurrPos < 40)  AND RMCurrPos > aLastPos Then cball.vely = cball.vely - 1.5
+  If RMBallInMagnet Then RMMagBall.z = Ringmaster.z + 50 + 265.5
     If aCurrPos >= Ringmaster_Speed * 97 \ 100 Then
         vpmSolToggleObj cRMHoles, Nothing, 0, 1
         RM_Make.enabled = 1
@@ -2481,9 +2481,9 @@ RMMagBall = Empty
         If RMBallInMagnet = 0 Then
         mSpinMagnet.MagnetOn = True
         End If
-		sw16.enabled = 0
+    sw16.enabled = 0
         Jackpot.Isdropped = 0
-	Else
+  Else
         vpmSolToggleObj cRMHoles, Nothing, 0, 0
         Jackpot.Isdropped = 1
         mSpinMagnet.MagnetOn = False
@@ -2496,21 +2496,21 @@ RMMagBall = Empty
 
  Set mMagnet = new cvpmMagnet
  With mMagnet
-	.InitMagnet WobbleMagnet, 1.5
-	.Size = 100
-	.CreateEvents mMagnet
-	.MagnetOn = True
+  .InitMagnet WobbleMagnet, 1.5
+  .Size = 100
+  .CreateEvents mMagnet
+  .MagnetOn = True
  End With
  WobbleInit
 
  Sub RMShake
-	cball.velx = cball.velx + rmball.velx*pMod
-	cball.vely = cball.vely + rmball.vely*pMod
+  cball.velx = cball.velx + rmball.velx*pMod
+  cball.vely = cball.vely + rmball.vely*pMod
  End Sub
 
 Sub RMShake2
-	cball.velx = cball.velx + activeball.velx*.05
-	cball.vely = cball.vely + activeball.vely*.05
+  cball.velx = cball.velx + activeball.velx*.05
+  cball.vely = cball.vely + activeball.vely*.05
  End Sub
 
 Sub RM_Make_Hit()
@@ -2520,32 +2520,32 @@ End Sub
 'Includes stripped down version of my reverse slope scripting for a single ball
  Dim ngrav, ngravmod, pslope, nslope, slopemod
  Sub WobbleInit
-	pslope = Table1.SlopeMin +((Table1.SlopeMax - Table1.SlopeMin) * Table1.GlobalDifficulty)
-	nslope = pslope
-	slopemod = pslope + nslope
-	ngravmod = 60/aWobbleTimer.interval
-	ngrav = slopemod * .0905 * Table1.Gravity / ngravmod
-	pMod = .15					'percentage of hit power transfered to captive wobble ball
-	Set cBall = ckicker.createball:cball.image = "blank":ckicker.Kick 0,0:mMagnet.addball cball
-	aWobbleTimer.enabled = 1
+  pslope = Table1.SlopeMin +((Table1.SlopeMax - Table1.SlopeMin) * Table1.GlobalDifficulty)
+  nslope = pslope
+  slopemod = pslope + nslope
+  ngravmod = 60/aWobbleTimer.interval
+  ngrav = slopemod * .0905 * Table1.Gravity / ngravmod
+  pMod = .15          'percentage of hit power transfered to captive wobble ball
+  Set cBall = ckicker.createball:cball.image = "blank":ckicker.Kick 0,0:mMagnet.addball cball
+  aWobbleTimer.enabled = 1
  End Sub
 
  Sub aWobbleTimer_Timer
-	BallShake.Enabled = RMBallInMagnet
-	cBall.Vely = cBall.VelY-ngrav					'modifier for slope reversal/cancellation
-	rmmod = (ringmaster.z+265.5)/265*.4				'.4 is a 40% modifier for ratio of ball movement to head movement
+  BallShake.Enabled = RMBallInMagnet
+  cBall.Vely = cBall.VelY-ngrav         'modifier for slope reversal/cancellation
+  rmmod = (ringmaster.z+265.5)/265*.4       '.4 is a 40% modifier for ratio of ball movement to head movement
     If RMCurrPos >3 Then
-	  PlaySound "fx_spring", 0, (((ringmaster.rotx * 2)  + (ringmaster.roty * 2))/400), (ringmaster.rotx / 1000), ((ringmaster.rotx + ringmaster.roty)/2000) 'Hanibal Spring Sound
+    PlaySound "fx_spring", 0, (((ringmaster.rotx * 2)  + (ringmaster.roty * 2))/400), (ringmaster.rotx / 1000), ((ringmaster.rotx + ringmaster.roty)/2000) 'Hanibal Spring Sound
     End If
-	ringmaster.rotx = (ckicker.y - cball.y)*rmmod
-	ringmaster.roty = (cball.x - ckicker.x)*rmmod
+  ringmaster.rotx = (ckicker.y - cball.y)*rmmod
+  ringmaster.roty = (cball.x - ckicker.x)*rmmod
  End Sub
 
  Sub BallShake_Timer
-	If Not IsEmpty(RMMagBall) Then
-		RMMagBall.y = RMMagnetkicker.y - dsin(ringmaster.rotx)*265.5
-		RMMagBall.x = RMMagnetkicker.x + dsin(ringmaster.roty)*265.5
-	End If
+  If Not IsEmpty(RMMagBall) Then
+    RMMagBall.y = RMMagnetkicker.y - dsin(ringmaster.rotx)*265.5
+    RMMagBall.x = RMMagnetkicker.x + dsin(ringmaster.roty)*265.5
+  End If
  End Sub
 
 '*************  End Shake Scripting  ****************
@@ -2653,10 +2653,10 @@ Sub GameTimer
 End Sub
 
  Sub UpdateMechs
-	sw64p.rotY=Flipper1.currentangle
-	sw65p.rotY=Flipper2.currentangle
-	LogoR.rotz = RightFlipper.CurrentAngle
-	LogoL.rotz = LeftFlipper.CurrentAngle
+  sw64p.rotY=Flipper1.currentangle
+  sw65p.rotY=Flipper2.currentangle
+  LogoR.rotz = RightFlipper.CurrentAngle
+  LogoL.rotz = LeftFlipper.CurrentAngle
     LeftFlipperP.roty = LeftFlipper.CurrentAngle
     RightFlipperP.roty = RightFlipper.CurrentAngle
     If Boom_Cap.Z <= -3 Then
@@ -2664,90 +2664,90 @@ End Sub
     End If
  End Sub
 
-Sub Dampen(dt,df,r)						'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
-	Dim dfRandomness
-	r=cint(r)
-	dfRandomness=INT(RND*(2*r+1))
-	df=df+(r-dfRandomness)*.01
-	If ABS(activeball.velx) > dt Then activeball.velx=activeball.velx*(1-df*(ABS(activeball.velx)/100))
-	If ABS(activeball.vely) > dt Then activeball.vely=activeball.vely*(1-df*(ABS(activeball.vely)/100))
+Sub Dampen(dt,df,r)           'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
+  Dim dfRandomness
+  r=cint(r)
+  dfRandomness=INT(RND*(2*r+1))
+  df=df+(r-dfRandomness)*.01
+  If ABS(activeball.velx) > dt Then activeball.velx=activeball.velx*(1-df*(ABS(activeball.velx)/100))
+  If ABS(activeball.vely) > dt Then activeball.vely=activeball.vely*(1-df*(ABS(activeball.vely)/100))
 End Sub
 
-Sub DampenXY (dtx,dfx,rx, dty, dfy, ry)	 'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
-	Dim dfxRandomness
-	Dim dfyRandomness
-	rx=cint(rx)
-	ry=cint(ry)
-	dfxRandomness=INT(RND*(2*rx+1))
-	dfyRandomness=INT(RND*(2*ry+1))
-	dfx=dfx+(rx-dfxRandomness)*.01
-	dfy=dfy+(ry-dfyRandomness)*.01
-	If ABS(activeball.velx) > dtx Then activeball.velx=activeball.velx*(1-dfx*(ABS(activeball.velx)/100))
-	If ABS(activeball.vely) > dty Then activeball.vely=activeball.vely*(1-dfy*(ABS(activeball.vely)/100))
+Sub DampenXY (dtx,dfx,rx, dty, dfy, ry)  'dt is threshold speed, df is dampen factor 0 to 1 (higher more dampening), r is randomness
+  Dim dfxRandomness
+  Dim dfyRandomness
+  rx=cint(rx)
+  ry=cint(ry)
+  dfxRandomness=INT(RND*(2*rx+1))
+  dfyRandomness=INT(RND*(2*ry+1))
+  dfx=dfx+(rx-dfxRandomness)*.01
+  dfy=dfy+(ry-dfyRandomness)*.01
+  If ABS(activeball.velx) > dtx Then activeball.velx=activeball.velx*(1-dfx*(ABS(activeball.velx)/100))
+  If ABS(activeball.vely) > dty Then activeball.vely=activeball.vely*(1-dfy*(ABS(activeball.vely)/100))
 End Sub
 
 Sub FlipperDampener_Hit ()
-	Dim YThreshold:YThreshold=-10	'Ball speed threshold to activate routine (-Y veloctiy for up table)
-	Dim Level:Level=4				'Choose 1-10, 0 for off
-	Dim XFactor:XFactor=2			'Straightening factor on X axis (higher value for straighter shots)
-	Dim BallTriggerAngle, AngleMultiplier	'Angle calculated to apply less straightening on more lateral shots (further away from center line yields lower SIN result - used as coefficient)
-	If ActiveBall.VelY < YThreshold AND Level <> 0 Then
-		GetAngle ActiveBall.VelX, ActiveBall.VelY, BallTriggerAngle
-		AngleMultiplier=Round(ABS(sin(BallTriggerAngle)),3)
-		ActiveBall.VelY = ActiveBall.VelY*((1-(ABS(ActiveBall.VelY)/(200*10/Level-10*Level))))
-		ActiveBall.VelX = ActiveBall.VelX*((1-XFactor*AngleMultiplier*(ABS(ActiveBall.VelY)/(200*10/Level-10*Level))))
-	End If
+  Dim YThreshold:YThreshold=-10 'Ball speed threshold to activate routine (-Y veloctiy for up table)
+  Dim Level:Level=4       'Choose 1-10, 0 for off
+  Dim XFactor:XFactor=2     'Straightening factor on X axis (higher value for straighter shots)
+  Dim BallTriggerAngle, AngleMultiplier 'Angle calculated to apply less straightening on more lateral shots (further away from center line yields lower SIN result - used as coefficient)
+  If ActiveBall.VelY < YThreshold AND Level <> 0 Then
+    GetAngle ActiveBall.VelX, ActiveBall.VelY, BallTriggerAngle
+    AngleMultiplier=Round(ABS(sin(BallTriggerAngle)),3)
+    ActiveBall.VelY = ActiveBall.VelY*((1-(ABS(ActiveBall.VelY)/(200*10/Level-10*Level))))
+    ActiveBall.VelX = ActiveBall.VelX*((1-XFactor*AngleMultiplier*(ABS(ActiveBall.VelY)/(200*10/Level-10*Level))))
+  End If
 End Sub
 
 '=================================================
 ' <<<<<<<< GetAngle(X, Y, Anglename) >>>>>>>>
 '=================================================
 Dim Xin,Yin,rAngle,Radit,wAngle,Pi
-Pi = csng(4*Atn(1))					'3.1415926535897932384626433832795
+Pi = csng(4*Atn(1))         '3.1415926535897932384626433832795
 
  Sub GetAngle(Xin, Yin, wAngle)
-	If Sgn(Xin) = 0 Then
-		If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
-		If Sgn(Yin) = 0 Then rAngle = 0
-	Else
-		rAngle = atn(-Yin/Xin)
-	End If
-	If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
-	If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
-	wAngle = round((Radit + rAngle),4)
+  If Sgn(Xin) = 0 Then
+    If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
+    If Sgn(Yin) = 0 Then rAngle = 0
+  Else
+    rAngle = atn(-Yin/Xin)
+  End If
+  If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
+  If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
+  wAngle = round((Radit + rAngle),4)
  End Sub
 
 '** Extra math to make my life easier **
 Function dCos(degrees)
   Dim Pi:Pi = CSng(4*Atn(1))
-	dcos = cos(degrees * Pi/180)
-	if ABS(dCos) < 0.000001 Then dCos = 0
-	if ABS(dCos) > 0.999999 Then dCos = 1 * sgn(dCos)
+  dcos = cos(degrees * Pi/180)
+  if ABS(dCos) < 0.000001 Then dCos = 0
+  if ABS(dCos) > 0.999999 Then dCos = 1 * sgn(dCos)
 End Function
 
 Function dSin(degrees)
   Dim Pi:Pi = CSng(4*Atn(1))
-	dsin = sin(degrees * Pi/180)
-	if ABS(dSin) < 0.000001 Then dSin = 0
-	if ABS(dSin) > 0.999999 Then dSin = 1 * sgn(dSin)
+  dsin = sin(degrees * Pi/180)
+  if ABS(dSin) < 0.000001 Then dSin = 0
+  if ABS(dSin) > 0.999999 Then dSin = 1 * sgn(dSin)
 End Function
 
 Function dAtn(x)
   Dim Pi:Pi = CSng(4*Atn(1))
-	datn = atn(x) * 180 / Pi
+  datn = atn(x) * 180 / Pi
 End Function
 
 Function dAtn2(X, Y)
-	If X > 0 Then
-		dAtn2 = dAtn(Y / X)
-	ElseIf X < 0 Then
-		dAtn2 = dAtn(Y / X) + 180 * Sgn(Y)
-		If Y = 0 Then dAtn2 = dAtn2 + 180
-		If Y < 0 Then dAtn2 = dAtn2 + 360
-	Else
-		dAtn2 = 90 * Sgn(Y)
-	End If
-	dAtn2 = dAtn2+90
+  If X > 0 Then
+    dAtn2 = dAtn(Y / X)
+  ElseIf X < 0 Then
+    dAtn2 = dAtn(Y / X) + 180 * Sgn(Y)
+    If Y = 0 Then dAtn2 = dAtn2 + 180
+    If Y < 0 Then dAtn2 = dAtn2 + 360
+  Else
+    dAtn2 = 90 * Sgn(Y)
+  End If
+  dAtn2 = dAtn2+90
 End Function
 '** End Extra math **
 
@@ -2879,28 +2879,28 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
        ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
-		dim IsRMMag: IsRMMag = False
-		if not IsEmpty(RMMagBall) then if BOT(b) is RMMagBall then IsRMMag = true
+    dim IsRMMag: IsRMMag = False
+    if not IsEmpty(RMMagBall) then if BOT(b) is RMMagBall then IsRMMag = true
 
         If BallVel(BOT(b) ) > 1 and not BOT(b) is cball and not IsRMMag Then
-			rolling(b) = True
-			if BOT(b).z < 30 Then ' Ball on playfield
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-			Else ' Ball on raised ramp
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+30000, 1, 0, AudioFade(BOT(b) )
-				End If
-		Else
+      rolling(b) = True
+      if BOT(b).z < 30 Then ' Ball on playfield
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+      Else ' Ball on raised ramp
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+30000, 1, 0, AudioFade(BOT(b) )
+        End If
+    Else
             If rolling(b) = True Then
                 StopSound("fx_ballrolling" & b)
                 rolling(b) = False
@@ -2908,24 +2908,24 @@ Sub RollingTimer_Timer()
         End If
     Next
 
-	on error resume next ' In case VP is too old..
-		' Kill ball spin
-	if mLockMagnet.MagnetOn then
-		dim rampballs:rampballs = mLockMagnet.Balls
-		dim obj
-		for each obj in rampballs
-			obj.AngMomZ= 0
-			obj.AngVelZ= 0
-			obj.AngMomY= 0
-			obj.AngVelY= 0
-			obj.AngMomX= 0
-			obj.AngVelX= 0
-			obj.velx = 0
-			obj.vely = 0
-			obj.velz = 0
-		next
-	end if
-	on error goto 0
+  on error resume next ' In case VP is too old..
+    ' Kill ball spin
+  if mLockMagnet.MagnetOn then
+    dim rampballs:rampballs = mLockMagnet.Balls
+    dim obj
+    for each obj in rampballs
+      obj.AngMomZ= 0
+      obj.AngVelZ= 0
+      obj.AngMomY= 0
+      obj.AngVelY= 0
+      obj.AngMomX= 0
+      obj.AngVelX= 0
+      obj.velx = 0
+      obj.vely = 0
+      obj.velz = 0
+    next
+  end if
+  on error goto 0
 End Sub
 
 '**********************
@@ -2936,36 +2936,36 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     If ball1.id = 666 OR ball2.id = 666 Then ' 666 is the Menagarie ball
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 1000, Pan(ball1), 0, Pitch(ball1) - 10000, 0, 0,AudioFade(ball1)
     else
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0,AudioFade(ball1)
+  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0,AudioFade(ball1)
     End If
 End Sub
 
 Sub Pins_Hit (idx)
-	PlaySoundAtBall "pinhit_low"
+  PlaySoundAtBall "pinhit_low"
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySoundAtBall "target"
+  PlaySoundAtBall "target"
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySoundAtBall "metalhit_thin"
+  PlaySoundAtBall "metalhit_thin"
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySoundAtBall "metalhit_medium"
+  PlaySoundAtBall "metalhit_medium"
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySoundAtBall "metalhit2"
+  PlaySoundAtBall "metalhit2"
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySoundAtBall "gate4"
+  PlaySoundAtBall "gate4"
 End Sub
 
 Sub Rollovers_Hit (idx)
-	PlaySoundAtBall "rollover"
+  PlaySoundAtBall "rollover"
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -3214,69 +3214,69 @@ End If
 End Sub
 
 Function SoundFX (Sound)
-	If DOFs Then
-		SoundFX = ""
-	Else
-		SoundFX = Sound
-	End If
+  If DOFs Then
+    SoundFX = ""
+  Else
+    SoundFX = Sound
+  End If
 End Function
 
 Sub Table1_exit()
-	Controller.Pause = False
-	Controller.Stop
+  Controller.Pause = False
+  Controller.Stop
     If b2sOn = 1 Then
-	B2SController.Stop
-	End If
+  B2SController.Stop
+  End If
 End Sub
 
 
 Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub WireRampBumps_Hit(idx)
-	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
-		RandomBump3 .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
-		' Lowering these numbers allow more closely-spaced clunks.
-		NextOrbitHit = Timer + .5 + (Rnd * .2)
-	end if
+  if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
+    RandomBump3 .5, Pitch(ActiveBall)+5
+    ' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
+    ' Lowering these numbers allow more closely-spaced clunks.
+    NextOrbitHit = Timer + .5 + (Rnd * .2)
+  end if
 End Sub
 
 Sub WireLaunchRampBumps_Hit(idx)
-	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
-		RandomBump .5, Pitch(ActiveBall)+5
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
-		' Lowering these numbers allow more closely-spaced clunks.
-		NextOrbitHit = Timer + .2 + (Rnd * .2)
-	end if
+  if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
+    RandomBump .5, Pitch(ActiveBall)+5
+    ' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
+    ' Lowering these numbers allow more closely-spaced clunks.
+    NextOrbitHit = Timer + .2 + (Rnd * .2)
+  end if
 End Sub
 
 Sub PlasticRampBumps_Hit(idx)
-	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
-		RandomBump 1, -20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
-		' Lowering these numbers allow more closely-spaced clunks.
-		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if
+  if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
+    RandomBump 1, -20000
+    ' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
+    ' Lowering these numbers allow more closely-spaced clunks.
+    NextOrbitHit = Timer + .1 + (Rnd * .2)
+  end if
 End Sub
 
 
 
 ' Requires rampbump1 to 7 in Sound Manager
 Sub RandomBump(voladj, freq)
-	dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
-		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+  dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+    PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
 End Sub
 
 '' Requires metalguidebump1 to 2 in Sound Manager
 'Sub RandomBump2(voladj, freq)
-'	dim BumpSnd:BumpSnd= "metalguidebump" & CStr(Int(Rnd*2)+1)
-'		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+' dim BumpSnd:BumpSnd= "metalguidebump" & CStr(Int(Rnd*2)+1)
+'   PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
 'End Sub
 
 ' Requires WireRampBump1 to 5 in Sound Manager
 Sub RandomBump3(voladj, freq)
-	dim BumpSnd:BumpSnd= "WireRampBump" & CStr(Int(Rnd*5)+1)
-		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+  dim BumpSnd:BumpSnd= "WireRampBump" & CStr(Int(Rnd*5)+1)
+    PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
@@ -3285,7 +3285,7 @@ End Sub
 Sub StopBumpSounds()
 dim i:for i=1 to 4:StopSound "WireRampBump" & i:StopSound "PlasticRampBump" & i:next
 NextOrbitHit = Timer + 1
-	Debug.print "StopBumps"
+  Debug.print "StopBumps"
 
 End Sub
 
@@ -3296,33 +3296,33 @@ End Sub
 'Set position as table object (Use object or light but NOT wall) and Vol to 1
 
 Sub PlaySoundAt(sound, tableobj)
-		PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(sound)
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as table object and Vol manually.
 
 Sub PlaySoundAtVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as bumperX and Vol manually.
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
 End Sub

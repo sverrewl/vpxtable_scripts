@@ -188,7 +188,7 @@ Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot", DOFContactors), Lemk, 1
-	DOF 104, DOFPulse
+  DOF 104, DOFPulse
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -207,7 +207,7 @@ End Sub
 
 Sub RightSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot", DOFContactors), Remk, 1
-	DOF 105, DOFPulse
+  DOF 105, DOFPulse
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -475,7 +475,7 @@ Sub LampTimer_Timer()
     UpdateLamps
     GIUpdate
     RollingUpdate
-	BigGateP.RotX = Biggate.CurrentAngle
+  BigGateP.RotX = Biggate.CurrentAngle
 End Sub
 
 Sub UpdateLamps()

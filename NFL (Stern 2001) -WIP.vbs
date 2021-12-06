@@ -46,60 +46,60 @@ Dim cNewController
 Sub LoadVPM(VPMver, VBSfile, VBSver)
 Dim FileObj, ControllerFile, TextStr
  'Sub LoadVPM(VPMver,VBSfile,VBSver)
-	On Error Resume Next
-		If ScriptEngineMajorVersion<5 Then MsgBox"VB Script Engine 5.0 or higher required"
-		ExecuteGlobal GetTextFile(VBSfile)
-		If Err Then MsgBox "Unable to open "&VBSfile&". Ensure that it is in the same folder as this table. "&vbNewLine&Err.Description
-		Set Controller=CreateObject("b2s.server")
-		'Set Controller = CreateObject("VPinMAME.Controller")
-		If Err Then	MsgBox "Unable to load VPinMAME."&vbNewLine&Err.Description
-		If VPMver>"" Then
-			If Controller.Version<VPMver Or Err Then MsgBox"This table requires VPinMAME ver "&VPMver&" or higher."
-		End If
-		If VPinMAMEDriverVer<VBSver Or Err Then MsgBox"This table requires "&VBSFile&" ver "&VBSver&" or higher."
-	On Error Goto 0
+  On Error Resume Next
+    If ScriptEngineMajorVersion<5 Then MsgBox"VB Script Engine 5.0 or higher required"
+    ExecuteGlobal GetTextFile(VBSfile)
+    If Err Then MsgBox "Unable to open "&VBSfile&". Ensure that it is in the same folder as this table. "&vbNewLine&Err.Description
+    Set Controller=CreateObject("b2s.server")
+    'Set Controller = CreateObject("VPinMAME.Controller")
+    If Err Then MsgBox "Unable to load VPinMAME."&vbNewLine&Err.Description
+    If VPMver>"" Then
+      If Controller.Version<VPMver Or Err Then MsgBox"This table requires VPinMAME ver "&VPMver&" or higher."
+    End If
+    If VPinMAMEDriverVer<VBSver Or Err Then MsgBox"This table requires "&VBSFile&" ver "&VBSver&" or higher."
+  On Error Goto 0
 End Sub
-'	On Error Resume Next
-'	If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-'	ExecuteGlobal GetTextFile(VBSfile)
-'		If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
+' On Error Resume Next
+' If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+' ExecuteGlobal GetTextFile(VBSfile)
+'   If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
 '
-'		InitializeOptions
+'   InitializeOptions
 '
-'		cNewController = 1
-'		If cController = 0 then
-'		Set FileObj=CreateObject("Scripting.FileSystemObject")
-'			If Not FileObj.FolderExists(UserDirectory) then
-'			Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
-'			ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
-'			Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-'			ControllerFile.WriteLine 1: ControllerFile.Close
-'			Else
-'			Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
-'			Set TextStr=ControllerFile.OpenAsTextStream(1,0)
-'				If (TextStr.AtEndOfStream=True) then
-'				Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-'				ControllerFile.WriteLine 1: ControllerFile.Close
-'				Else
-'				cNewController=Textstr.ReadLine: TextStr.Close
-'				End If
-'			End If
-'			Else
-'			cNewController = cController
-'			End If
+'   cNewController = 1
+'   If cController = 0 then
+'   Set FileObj=CreateObject("Scripting.FileSystemObject")
+'     If Not FileObj.FolderExists(UserDirectory) then
+'     Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
+'     ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
+'     Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+'     ControllerFile.WriteLine 1: ControllerFile.Close
+'     Else
+'     Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
+'     Set TextStr=ControllerFile.OpenAsTextStream(1,0)
+'       If (TextStr.AtEndOfStream=True) then
+'       Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+'       ControllerFile.WriteLine 1: ControllerFile.Close
+'       Else
+'       cNewController=Textstr.ReadLine: TextStr.Close
+'       End If
+'     End If
+'     Else
+'     cNewController = cController
+'     End If
 '
-'	Select Case cNewController
-'	Case 1
-'	Set Controller = CreateObject("VPinMAME.Controller")
-'		If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-'		If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
-'		If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-'	Case 2
-'		Set Controller = CreateObject("UltraVP.BackglassServ")
-'	Case 3,4
-'		Set Controller = CreateObject("B2S.Server")
-'	End Select
-'	On Error Goto 0
+' Select Case cNewController
+' Case 1
+' Set Controller = CreateObject("VPinMAME.Controller")
+'   If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+'   If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+'   If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+' Case 2
+'   Set Controller = CreateObject("UltraVP.BackglassServ")
+' Case 3,4
+'   Set Controller = CreateObject("B2S.Server")
+' End Select
+' On Error Goto 0
 'End Sub
 
 '*************************************************************
@@ -126,15 +126,15 @@ End Sub
 
 Dim toggleModSounds
 Function ModSound(sound)
-	If toggleModSounds = 0 Then
-		ModSound = ""
-	Else
-		ModSound = sound
-	End If
+  If toggleModSounds = 0 Then
+    ModSound = ""
+  Else
+    ModSound = sound
+  End If
 End Function
 
 If toggleModSounds = 1 Then
-	PlayMusic "NFL 49ers 17.mp3"
+  PlayMusic "NFL 49ers 17.mp3"
 end If
 
 Const UseSolenoids=1,UseLamps=1,UseSync=1, SCoin="coin3"
@@ -187,201 +187,201 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub SolLeftPost(Enabled)
-	If Enabled Then
-		LP.IsDropped=0
-	Else
-		LP.IsDropped=1
-	End If
+  If Enabled Then
+    LP.IsDropped=0
+  Else
+    LP.IsDropped=1
+  End If
 End Sub
 Sub SolRightPost(Enabled)
-	If Enabled Then
-		RP.IsDropped=0
-	Else
-		RP.IsDropped=1
-	End If
+  If Enabled Then
+    RP.IsDropped=0
+  Else
+    RP.IsDropped=1
+  End If
 End Sub
 Sub SolMidPost(Enabled)
-	If Enabled Then
-		MP.IsDropped=0
-	Else
-		MP.IsDropped=1
-	End If
+  If Enabled Then
+    MP.IsDropped=0
+  Else
+    MP.IsDropped=1
+  End If
 End Sub
 
 ' add any new GI lights to the collection "GI" to control them together.
 Dim ig
 Sub UpdateGITimer
-	For each ig in GI
-		If updateGI = 1 then
-		ig.state = 1
-		ElseIf UpdateGI = 2 Then
-		ig.state = 2
-		Else
-		ig.state = 0
-		End If
-	Next
-	GILite.enabled = 1
+  For each ig in GI
+    If updateGI = 1 then
+    ig.state = 1
+    ElseIf UpdateGI = 2 Then
+    ig.state = 2
+    Else
+    ig.state = 0
+    End If
+  Next
+  GILite.enabled = 1
 End Sub
 
 Sub GILite_Timer
-	UpdateGI = 1
-	UpdateGITimer
-	me.enabled = 0
+  UpdateGI = 1
+  UpdateGITimer
+  me.enabled = 0
 End Sub
 
 Sub StLock(enabled)
-	if Enabled Then
-	Stadiumlock.isDropped = 1
-	Else
-	Stadiumlock.isDropped = 0
-	end If
+  if Enabled Then
+  Stadiumlock.isDropped = 1
+  Else
+  Stadiumlock.isDropped = 0
+  end If
 End Sub
 
 
 
 Sub pVUK(Enabled)
-	If Enabled Then
-	Kicker1.Kickz 180, 12, 5, 120
-	PlaysoundAtVol SoundFX("Solenoid"), Kicker1, VolKick
-	Kicker1.TimerEnabled = 1
-	End If
+  If Enabled Then
+  Kicker1.Kickz 180, 12, 5, 120
+  PlaysoundAtVol SoundFX("Solenoid"), Kicker1, VolKick
+  Kicker1.TimerEnabled = 1
+  End If
 End Sub
 
 Sub uVUK(Enabled)
-	If Enabled Then
-	Kicker2.Kickz 0, 70,1, 135
-	PlaysoundAtVol SoundFX("Solenoid"), Kicker2, VolKick
-	Kicker2.TimerEnabled = 1
-	End If
+  If Enabled Then
+  Kicker2.Kickz 0, 70,1, 135
+  PlaysoundAtVol SoundFX("Solenoid"), Kicker2, VolKick
+  Kicker2.TimerEnabled = 1
+  End If
 End Sub
 
 Sub Kicker1_Timer
-	Controller.Switch(45) = 0
-	Kicker1.Timerenabled = 0
+  Controller.Switch(45) = 0
+  Kicker1.Timerenabled = 0
 End Sub
 
 Sub Kicker2_Timer
-	Controller.Switch(46) = 0
-	Kicker2.Timerenabled = 0
+  Controller.Switch(46) = 0
+  Kicker2.Timerenabled = 0
 End Sub
 
 Sub SFF(Enabled)
-	If Enabled Then
-	Light20a.state=1
-	Light20b.state=1
-	Light20c.state=1
-	Light20d.state=1
-	Else
-	Light20a.state=0
-	Light20b.state=0
-	Light20c.state=0
-	Light20d.state=0
-	End If
+  If Enabled Then
+  Light20a.state=1
+  Light20b.state=1
+  Light20c.state=1
+  Light20d.state=1
+  Else
+  Light20a.state=0
+  Light20b.state=0
+  Light20c.state=0
+  Light20d.state=0
+  End If
 End Sub
 
 Sub UFF(Enabled)
-	If Enabled Then
-		Light27a.state = 1
-		Light27b.state = 1
-		Light27c.state = 1
-	Else
-		Light27a.state = 0
-		Light27b.state = 0
-		Light27c.state = 0
-	End If
+  If Enabled Then
+    Light27a.state = 1
+    Light27b.state = 1
+    Light27c.state = 1
+  Else
+    Light27a.state = 0
+    Light27b.state = 0
+    Light27c.state = 0
+  End If
 End Sub
 
 Sub SlingFlash(Enabled)
-	If Enabled Then
-	Light28.state = 1
-	Light36.State = 1
-	Light77.State = 1
-	Light78.State = 1
-	Else
-	Light28.state = 0
-	Light36.State = 0
-	Light77.State = 0
-	Light78.State = 0
-	End If
+  If Enabled Then
+  Light28.state = 1
+  Light36.State = 1
+  Light77.State = 1
+  Light78.State = 1
+  Else
+  Light28.state = 0
+  Light36.State = 0
+  Light77.State = 0
+  Light78.State = 0
+  End If
 End Sub
 
 Sub PopsFlash(enabled)
-	If Enabled Then
-		Light75.state = 1
-		Light76.state = 1
-		Light79.State = 1
-		Light80.State = 1
-	Else
-		Light75.state = 0
-		Light76.State = 0
-		Light79.State = 0
-		Light80.State = 0
-	End If
+  If Enabled Then
+    Light75.state = 1
+    Light76.state = 1
+    Light79.State = 1
+    Light80.State = 1
+  Else
+    Light75.state = 0
+    Light76.State = 0
+    Light79.State = 0
+    Light80.State = 0
+  End If
 End Sub
 
 Sub Flasher29(enabled)
-	If Enabled Then
-		Light29c.state = 1
-		Light29a.state = 1
-		Light29b.state = 1
-	Else
-		Light29c.state = 0
-		Light29a.state = 0
-		Light29b.state = 0
-	End If
+  If Enabled Then
+    Light29c.state = 1
+    Light29a.state = 1
+    Light29b.state = 1
+  Else
+    Light29c.state = 0
+    Light29a.state = 0
+    Light29b.state = 0
+  End If
 End Sub
 
 Sub Flasher28(enabled)
-	If Enabled Then
-		Light28a.state = 1
-		Light28b.state = 1
-	Else
-		Light28a.state = 0
-		Light28b.state = 0
-	End If
+  If Enabled Then
+    Light28a.state = 1
+    Light28b.state = 1
+  Else
+    Light28a.state = 0
+    Light28b.state = 0
+  End If
 End Sub
 
 Sub LightTimer_Timer
-	F25.visible = Light25.State
-	F26.visible = Light26.State
-	F27.visible = Light27.State
+  F25.visible = Light25.State
+  F26.visible = Light26.State
+  F27.visible = Light27.State
 End Sub
 
 Sub SolBallDeflector(Enabled)
-	If Enabled Then
-		Deflector.IsDropped=0
-	Else
-		Deflector.IsDropped=1
-	End If
+  If Enabled Then
+    Deflector.IsDropped=0
+  Else
+    Deflector.IsDropped=1
+  End If
 End Sub
 
 Sub SolTrough(Enabled)
-	If Enabled Then
-		bsTrough.ExitSol_On
-		vpmTimer.PulseSw 15
-	End If
+  If Enabled Then
+    bsTrough.ExitSol_On
+    vpmTimer.PulseSw 15
+  End If
 End Sub
 
 Sub SolShooter(Enabled)
     If Enabled Then
-	PlaySoundAtVol SoundFX("SolOn"), plunger1, 1
-	Plunger1.fire
-	Plunger1.pullback
-	end if
+  PlaySoundAtVol SoundFX("SolOn"), plunger1, 1
+  Plunger1.fire
+  Plunger1.pullback
+  end if
 End Sub
 
 Dim bsTrough, Magnet1,VLLock,dtDrop,mGoalie,Magnet2, UpdateGI
 
 Sub Table1_Init
-	Plunger1.Pullback
+  Plunger1.Pullback
     LP.IsDropped=1
     MP.IsDropped=1
     RP.IsDropped=1
-	Deflector.IsDropped=1
-	For X=0 To 7:LBPlace(X).IsDropped=1:Next
-	vpmInit Me
-	Controller.GameName="nfl"
-	NVOffset (29)
+  Deflector.IsDropped=1
+  For X=0 To 7:LBPlace(X).IsDropped=1:Next
+  vpmInit Me
+  Controller.GameName="nfl"
+  NVOffset (29)
     Controller.Games("nfl").Settings.Value("dmd_red") = 255
     Controller.Games("nfl").Settings.Value("dmd_green") = 255
     Controller.Games("nfl").Settings.Value("dmd_blue") = 255
@@ -394,106 +394,106 @@ Sub Table1_Init
     Controller.Games("nfl").Settings.Value("dmd_red0") = 0
     Controller.Games("nfl").Settings.Value("dmd_green0") = 0
     Controller.Games("nfl").Settings.Value("dmd_blue0") = 0
-	Controller.SplashInfoLine="NFL San Francisco 49ers"&vbNewLine&"Stern 2001"
-	Controller.HandleKeyboard=0
-	Controller.ShowTitle=0
-	Controller.ShowDMDOnly=1
-	Controller.ShowFrame=0
-	Controller.HandleMechanics=0
-	On Error Resume Next
-		Controller.Run GetPlayerHwnd
-		If Err Then MsgBox Err.Description
-	On Error Goto 0
+  Controller.SplashInfoLine="NFL San Francisco 49ers"&vbNewLine&"Stern 2001"
+  Controller.HandleKeyboard=0
+  Controller.ShowTitle=0
+  Controller.ShowDMDOnly=1
+  Controller.ShowFrame=0
+  Controller.HandleMechanics=0
+  On Error Resume Next
+    Controller.Run GetPlayerHwnd
+    If Err Then MsgBox Err.Description
+  On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval:PinMAMETimer.Enabled=1:vpmNudge.TiltSwitch=56:vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+  PinMAMETimer.Interval=PinMAMEInterval:PinMAMETimer.Enabled=1:vpmNudge.TiltSwitch=56:vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
     Set bsTrough=New cvpmBallStack
- 	bsTrough.InitSw 0,14,13,12,11,0,0,0
- 	bsTrough.InitKick BallRelease,95,4
-	bsTrough.InitEntrySnd "Solenoid","Solenoid"
-	bsTrough.InitExitSnd "BallRel","Solenoid"
-	bsTrough.Balls=4
+  bsTrough.InitSw 0,14,13,12,11,0,0,0
+  bsTrough.InitKick BallRelease,95,4
+  bsTrough.InitEntrySnd "Solenoid","Solenoid"
+  bsTrough.InitExitSnd "BallRel","Solenoid"
+  bsTrough.Balls=4
 
     Set Magnet1=New cvpmMagnet
-	with Magnet1
-		.InitMagnet Trigger8,40
-		.Solenoid=12
-		.CreateEvents "Magnet1"
-		.Grabcenter = 1
-	end With
+  with Magnet1
+    .InitMagnet Trigger8,40
+    .Solenoid=12
+    .CreateEvents "Magnet1"
+    .Grabcenter = 1
+  end With
 
     Set Magnet2=New cvpmMagnet
-	with magnet2
-		.InitMagnet RampMag,40
-		.Solenoid=13
-		.CreateEvents "Magnet2"
-		.GrabCenter = 0
-	End With
+  with magnet2
+    .InitMagnet RampMag,40
+    .Solenoid=13
+    .CreateEvents "Magnet2"
+    .GrabCenter = 0
+  End With
 
-	Set dtDrop=New cvpmDropTarget
-	dtDrop.InitDrop Array(Drop1,Drop2,Drop3,Drop4),Array(20,19,18,17)
-	dtDrop.InitSnd "flapclos","flapopen"
-	dtDrop.CreateEvents "dtDrop"
+  Set dtDrop=New cvpmDropTarget
+  dtDrop.InitDrop Array(Drop1,Drop2,Drop3,Drop4),Array(20,19,18,17)
+  dtDrop.InitSnd "flapclos","flapopen"
+  dtDrop.CreateEvents "dtDrop"
 
-	Set mGoalie=New cvpmMech
-	mGoalie.MType=vpmMechOneDirSol+vpmMechReverse+vpmMechLinear
-	mGoalie.Sol1=25
-	mGoalie.Sol2=26
-	mGoalie.Length=20
-	mGoalie.Steps=8
-	mGoalie.AddSw 41,0,0
-	mGoalie.AddSw 47,3,4
-	mGoalie.AddSw 42,7,7
-	mGoalie.Callback=GetRef("UpdateGoalie")
-	mGoalie.Start
+  Set mGoalie=New cvpmMech
+  mGoalie.MType=vpmMechOneDirSol+vpmMechReverse+vpmMechLinear
+  mGoalie.Sol1=25
+  mGoalie.Sol2=26
+  mGoalie.Length=20
+  mGoalie.Steps=8
+  mGoalie.AddSw 41,0,0
+  mGoalie.AddSw 47,3,4
+  mGoalie.AddSw 42,7,7
+  mGoalie.Callback=GetRef("UpdateGoalie")
+  mGoalie.Start
 
-	vpmMapLights AllLights
+  vpmMapLights AllLights
 
-'	Controller.Switch(24) = 1  'switch testing
+' Controller.Switch(24) = 1  'switch testing
 
 
-	Dim iw
-		If DesktopMode = True Then
-			For each iw in BGstuff: iw.Visible = True:Next
-		Else
-			For each iw in BGstuff: iw.Visible = False:Next
-		End If
+  Dim iw
+    If DesktopMode = True Then
+      For each iw in BGstuff: iw.Visible = True:Next
+    Else
+      For each iw in BGstuff: iw.Visible = False:Next
+    End If
 End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyCode=LeftMagnaSave Then Controller.Switch(1)=1
-	If KeyCode=RightMagnaSave Then Controller.Switch(8)=1
-	If KeyDownHandler(KeyCode) Then Exit Sub
-	If KeyCode=PlungerKey Then
-		PlaySoundAtVol"Plunger",plunger1, 1
+  If KeyCode=LeftMagnaSave Then Controller.Switch(1)=1
+  If KeyCode=RightMagnaSave Then Controller.Switch(8)=1
+  If KeyDownHandler(KeyCode) Then Exit Sub
+  If KeyCode=PlungerKey Then
+    PlaySoundAtVol"Plunger",plunger1, 1
         PlaySound ModSound("football grunt 03")
-			if toggleModSounds = 1 Then
-			Dim x
-			x = INT(11 * RND(1) )
-			Select Case x
-			Case 1:PlayMusic "NFL 49ers 01.mp3"
-			Case 2:PlayMusic "NFL 49ers 02.mp3"
-			Case 3:PlayMusic "NFL 49ers 03.mp3"
-			Case 4:PlayMusic "NFL 49ers 04.mp3"
-			Case 5:PlayMusic "NFL 49ers 05.mp3"
-			Case 6:PlayMusic "NFL 49ers 06.mp3"
-			Case 7:PlayMusic "NFL 49ers 07.mp3"
-			Case 8:PlayMusic "NFL 49ers 08.mp3"
-			Case 9:PlayMusic "NFL 49ers 09.mp3"
-			Case 10:PlayMusic "NFL 49ers 10.mp3"
-			End Select
-			end if
-		Plunger.Pullback
-	End If
+      if toggleModSounds = 1 Then
+      Dim x
+      x = INT(11 * RND(1) )
+      Select Case x
+      Case 1:PlayMusic "NFL 49ers 01.mp3"
+      Case 2:PlayMusic "NFL 49ers 02.mp3"
+      Case 3:PlayMusic "NFL 49ers 03.mp3"
+      Case 4:PlayMusic "NFL 49ers 04.mp3"
+      Case 5:PlayMusic "NFL 49ers 05.mp3"
+      Case 6:PlayMusic "NFL 49ers 06.mp3"
+      Case 7:PlayMusic "NFL 49ers 07.mp3"
+      Case 8:PlayMusic "NFL 49ers 08.mp3"
+      Case 9:PlayMusic "NFL 49ers 09.mp3"
+      Case 10:PlayMusic "NFL 49ers 10.mp3"
+      End Select
+      end if
+    Plunger.Pullback
+  End If
 
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyCode=LeftMagnaSave Then Controller.Switch(1)=0
-	If KeyCode=RightMagnaSave Then Controller.Switch(8)=0
-	If KeyUpHandler(KeyCode) Then Exit Sub
-	If KeyCode=PlungerKey Then Plunger.Fire
+  If KeyCode=LeftMagnaSave Then Controller.Switch(1)=0
+  If KeyCode=RightMagnaSave Then Controller.Switch(8)=0
+  If KeyUpHandler(KeyCode) Then Exit Sub
+  If KeyCode=PlungerKey Then Plunger.Fire
 End Sub
 
 
@@ -502,49 +502,49 @@ LBPlace=Array(L0,L1,L2,L3,L4,L5,L6,L7)
 
 Sub UpdateGoalie(aNewPos,aSpeed,aLastPos)
 If aNewPos>-1 And aNewPos<8 Then For X=0 To 7:LBPlace(X).IsDropped=1:Next
-	Select Case aNewPos
-		Case 0:Magnet1.X=155:Magnet1.Y=275:LBPlace(0).IsDropped=0:Goalie.ObjRotZ = 38
-		Case 1:Magnet1.X=170:Magnet1.Y=285:LBPlace(1).IsDropped=0:Goalie.ObjRotZ = 26
-		Case 2:Magnet1.X=195:Magnet1.Y=295:LBPlace(2).IsDropped=0:Goalie.ObjRotZ = 15
-		Case 3:Magnet1.X=215:Magnet1.Y=297:LBPlace(3).IsDropped=0:Goalie.ObjRotZ = 0
-		Case 4:Magnet1.X=230:Magnet1.Y=295:LBPlace(4).IsDropped=0:Goalie.ObjRotZ = -15
-		Case 5:Magnet1.X=250:Magnet1.Y=285:LBPlace(5).IsDropped=0:Goalie.ObjRotZ = -26
-		Case 6:Magnet1.X=270:Magnet1.Y=275:LBPlace(6).IsDropped=0:Goalie.ObjRotZ = -38
-		Case 7:Magnet1.X=280:Magnet1.Y=265:LBPlace(7).IsDropped=0:Goalie.ObjRotZ = -48
-	End Select
-	Magnet1.Size=40
+  Select Case aNewPos
+    Case 0:Magnet1.X=155:Magnet1.Y=275:LBPlace(0).IsDropped=0:Goalie.ObjRotZ = 38
+    Case 1:Magnet1.X=170:Magnet1.Y=285:LBPlace(1).IsDropped=0:Goalie.ObjRotZ = 26
+    Case 2:Magnet1.X=195:Magnet1.Y=295:LBPlace(2).IsDropped=0:Goalie.ObjRotZ = 15
+    Case 3:Magnet1.X=215:Magnet1.Y=297:LBPlace(3).IsDropped=0:Goalie.ObjRotZ = 0
+    Case 4:Magnet1.X=230:Magnet1.Y=295:LBPlace(4).IsDropped=0:Goalie.ObjRotZ = -15
+    Case 5:Magnet1.X=250:Magnet1.Y=285:LBPlace(5).IsDropped=0:Goalie.ObjRotZ = -26
+    Case 6:Magnet1.X=270:Magnet1.Y=275:LBPlace(6).IsDropped=0:Goalie.ObjRotZ = -38
+    Case 7:Magnet1.X=280:Magnet1.Y=265:LBPlace(7).IsDropped=0:Goalie.ObjRotZ = -48
+  End Select
+  Magnet1.Size=40
 End Sub
 
 Sub Spinner1_Spin:vpmTimer.PulseSw 9:End Sub
 Sub Drain_Hit:bsTrough.AddBall Me
-	If toggleModSounds = 1 Then
-		Dim x
-		x = INT(23 * RND(1) )
-		Select Case x
-		Case 1:PlayMusic "NFL 49ers 11.mp3"
-		Case 2:PlayMusic "NFL 49ers 12.mp3"
-		Case 3:PlayMusic "NFL 49ers 13.mp3"
-		Case 4:PlayMusic "NFL 49ers 14.mp3"
-		Case 5:PlayMusic "NFL 49ers 15.mp3"
-		Case 6:PlayMusic "NFL 49ers 16.mp3"
-		Case 7:PlayMusic "NFL 49ers 17.mp3"
-		Case 8:PlayMusic "NFL 49ers 18.mp3"
-		Case 9:PlayMusic "NFL 49ers 19.mp3"
-		Case 10:PlayMusic "NFL 49ers 20.mp3"
-		Case 11:PlayMusic "NFL 49ers 21.mp3"
-		Case 12:PlayMusic "NFL 49ers 22.mp3"
-		Case 13:PlayMusic "NFL 49ers 23.mp3"
-		Case 14:PlayMusic "NFL 49ers 24.mp3"
-		Case 15:PlayMusic "NFL 49ers 25.mp3"
-		Case 16:PlayMusic "NFL 49ers 26.mp3"
-		Case 17:PlayMusic "NFL 49ers 27.mp3"
-		Case 18:PlayMusic "NFL 49ers 28.mp3"
-		Case 19:PlayMusic "NFL 49ers 29.mp3"
-		Case 20:PlayMusic "NFL 49ers 15.mp3"
-		Case 21:PlayMusic "NFL 49ers 15.mp3"
-		Case 22:PlayMusic "NFL 49ers 17.mp3"
-		End Select
-	End If
+  If toggleModSounds = 1 Then
+    Dim x
+    x = INT(23 * RND(1) )
+    Select Case x
+    Case 1:PlayMusic "NFL 49ers 11.mp3"
+    Case 2:PlayMusic "NFL 49ers 12.mp3"
+    Case 3:PlayMusic "NFL 49ers 13.mp3"
+    Case 4:PlayMusic "NFL 49ers 14.mp3"
+    Case 5:PlayMusic "NFL 49ers 15.mp3"
+    Case 6:PlayMusic "NFL 49ers 16.mp3"
+    Case 7:PlayMusic "NFL 49ers 17.mp3"
+    Case 8:PlayMusic "NFL 49ers 18.mp3"
+    Case 9:PlayMusic "NFL 49ers 19.mp3"
+    Case 10:PlayMusic "NFL 49ers 20.mp3"
+    Case 11:PlayMusic "NFL 49ers 21.mp3"
+    Case 12:PlayMusic "NFL 49ers 22.mp3"
+    Case 13:PlayMusic "NFL 49ers 23.mp3"
+    Case 14:PlayMusic "NFL 49ers 24.mp3"
+    Case 15:PlayMusic "NFL 49ers 25.mp3"
+    Case 16:PlayMusic "NFL 49ers 26.mp3"
+    Case 17:PlayMusic "NFL 49ers 27.mp3"
+    Case 18:PlayMusic "NFL 49ers 28.mp3"
+    Case 19:PlayMusic "NFL 49ers 29.mp3"
+    Case 20:PlayMusic "NFL 49ers 15.mp3"
+    Case 21:PlayMusic "NFL 49ers 15.mp3"
+    Case 22:PlayMusic "NFL 49ers 17.mp3"
+    End Select
+  End If
 UpdateGI = 0
 UpdateGITimer
 End Sub
@@ -615,44 +615,44 @@ Sub RampMag_Hit():Magnet2.addball activeball:End Sub
 Sub RampMag_Unhit():Magnet2.removeball activeball:activeball.vely = activeball.vely * 1.5:End Sub
 
 
-'	Controller.switch(54) = 1' start button
-'	Controller.switch(55) = 1' slam tilt
-'	Controller.switch(56) = 1' plumbbob tilt
+' Controller.switch(54) = 1' start button
+' Controller.switch(55) = 1' slam tilt
+' Controller.switch(56) = 1' plumbbob tilt
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "rubber", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "rubber", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************
@@ -773,16 +773,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

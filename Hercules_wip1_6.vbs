@@ -1,12 +1,12 @@
-'	---------------------------------------------
-'	HERCULES
-'	---------------------------------------------
+' ---------------------------------------------
+' HERCULES
+' ---------------------------------------------
 
 Option Explicit
     Randomize
-	'StartShake
-	
-	On Error Resume Next
+  'StartShake
+
+  On Error Resume Next
 ExecuteGlobal GetTextFile("Controller.vbs")
 If Err Then MsgBox "Unable to open Controller.vbs. Ensure that it is in the Scripts folder of Visual Pinball."
 On Error Goto 0
@@ -44,19 +44,19 @@ Const BallSize = 100 'Its huge!
 
 Dim VarHidden, UseVPMDMD
 If Hercules.ShowDT = true then
-	UseVPMDMD = True
-	VarHidden = 0
-	lockdown.visible = true
-	Primitive8.visible = true
-	leftrail.visible = true
-	rightrail.visible = true
+  UseVPMDMD = True
+  VarHidden = 0
+  lockdown.visible = true
+  Primitive8.visible = true
+  leftrail.visible = true
+  rightrail.visible = true
 else
-	UseVPMDMD = False
-	VarHidden = 1
-	lockdown.visible = false
-	leftrail.visible = false
-	rightrail.visible = false
-	Primitive8.visible = false
+  UseVPMDMD = False
+  VarHidden = 1
+  lockdown.visible = false
+  leftrail.visible = false
+  rightrail.visible = false
+  Primitive8.visible = false
 
 end if
 
@@ -82,38 +82,38 @@ Const SFlipperOff   = "flipdown"
 Const SCoin         = "coin3"
 
 ' Solenoids
-Const sKnocker		=  3
-Const sRJet			=  4
-Const sLJet			=  5
-Const sRSling		=  8
-Const sLSling		=  9
-Const sKnocker2		= 10
-Const sKnocker3		= 11
-Const sKnocker4		= 12
-Const sKnocker5		= 13
-Const sBallRelease	= 15
-Const sEnable		= 16
-Const sCLo			= 17
+Const sKnocker    =  3
+Const sRJet     =  4
+Const sLJet     =  5
+Const sRSling   =  8
+Const sLSling   =  9
+Const sKnocker2   = 10
+Const sKnocker3   = 11
+Const sKnocker4   = 12
+Const sKnocker5   = 13
+Const sBallRelease  = 15
+Const sEnable   = 16
+Const sCLo      = 17
 
 '----------------------------------------------------
 ' Bind events to solenoids
 ' Last argument will always be "enabled" (True, False)
 '----------------------------------------------------
-SolCallback(sBallRelease)	= "bsTrough.SolOut"
-SolCallback(sKnocker)		= "vpmSolSound SoundFX(""knock"",DOFKnocker),"
-'SolCallback(sLSling)		= "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
-'SolCallback(sRSling)		= "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
-SolCallback(sLJet)			= "Bumper 1,"
-SolCallback(sRJet)			= "Bumper 2,"
-SolCallback(sEnable)		= "vpmNudge.SolGameOn"
-SolCallback(sLLFlipper)		= "SolLFlipper"
-SolCallback(sLRFlipper)		= "SolRFlipper"
-'SolCallback(sLLFlipper)		= "vpmSolFlipper LeftFlipper, Nothing,"
-'SolCallback(sLRFlipper)		= "vpmSolFlipper RightFlipper, Nothing,"
+SolCallback(sBallRelease) = "bsTrough.SolOut"
+SolCallback(sKnocker)   = "vpmSolSound SoundFX(""knock"",DOFKnocker),"
+'SolCallback(sLSling)   = "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
+'SolCallback(sRSling)   = "vpmSolSound SoundFX(""hercsling"",DOFContactors),"
+SolCallback(sLJet)      = "Bumper 1,"
+SolCallback(sRJet)      = "Bumper 2,"
+SolCallback(sEnable)    = "vpmNudge.SolGameOn"
+SolCallback(sLLFlipper)   = "SolLFlipper"
+SolCallback(sLRFlipper)   = "SolRFlipper"
+'SolCallback(sLLFlipper)    = "vpmSolFlipper LeftFlipper, Nothing,"
+'SolCallback(sLRFlipper)    = "vpmSolFlipper RightFlipper, Nothing,"
 
 Sub Bumper(number, enabled)
-	vpmSolSound SoundFX("hercjet",DOFContactors), enabled
-	if enabled then BumperState(number) = 3
+  vpmSolSound SoundFX("hercjet",DOFContactors), enabled
+  if enabled then BumperState(number) = 3
 End Sub
 
 Sub SolLFlipper(Enabled)
@@ -146,41 +146,41 @@ dim bump1
 dim bump2
 
 Sub Hercules_Init
-	vpmInit Me
-	On Error Resume Next
-	With Controller
-		.GameName = cGameName
-		.SplashInfoLine = cCredits
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		'.HandleMechanics = 1
-		.Hidden = VarHidden
-		On Error Resume Next
-			.Run
-			If Err Then MsgBox Err.Description
-		On Error Goto 0
-	End With
-	' Main Timer init
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = True
-	' Nudging
-	vpmNudge.TiltSwitch = 48
-	vpmNudge.Sensitivity = 3
-	vpmNudge.TiltObj = Array(Bumper1,Bumper2,LeftSlingshot,RightSlingshot)
+  vpmInit Me
+  On Error Resume Next
+  With Controller
+    .GameName = cGameName
+    .SplashInfoLine = cCredits
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    '.HandleMechanics = 1
+    .Hidden = VarHidden
+    On Error Resume Next
+      .Run
+      If Err Then MsgBox Err.Description
+    On Error Goto 0
+  End With
+  ' Main Timer init
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = True
+  ' Nudging
+  vpmNudge.TiltSwitch = 48
+  vpmNudge.Sensitivity = 3
+  vpmNudge.TiltObj = Array(Bumper1,Bumper2,LeftSlingshot,RightSlingshot)
 
-	Set bsTrough = New cvpmBallStack ' Trough handler
-	bsTrough.InitSw 0,1,0,0,0,0,0,0
-	bsTrough.InitKick Kicker1, 90, 4
-	bsTrough.InitExitSnd SoundFX("BallOut",DOFContactors), SoundFX("BallOut",DOFContactors)
-	bsTrough.BallImage = "Cue"
-	bsTrough.Balls = 1
+  Set bsTrough = New cvpmBallStack ' Trough handler
+  bsTrough.InitSw 0,1,0,0,0,0,0,0
+  bsTrough.InitKick Kicker1, 90, 4
+  bsTrough.InitExitSnd SoundFX("BallOut",DOFContactors), SoundFX("BallOut",DOFContactors)
+  bsTrough.BallImage = "Cue"
+  bsTrough.Balls = 1
 
-	Dim f
-	For f=1 to 6
+  Dim f
+  For f=1 to 6
 
-	Next
+  Next
 End Sub
 
 
@@ -190,25 +190,25 @@ End Sub
 ' keyboard handlers
 '-------------------
 Sub Hercules_KeyUp(ByVal keycode)
-	If vpmKeyUp(keycode) Then Exit Sub
-	If keycode = PlungerKey Then PlaySoundAtVol "Plunger", Plunger, 1 : Plunger.Fire
+  If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then PlaySoundAtVol "Plunger", Plunger, 1 : Plunger.Fire
 End Sub
 
 Sub Hercules_KeyDown(ByVal keycode)
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback
 End Sub
 
 
 Sub FlipperDecals_Timer
-	LFD.RotAndTra2=LeftFlipper.CurrentAngle
-	RFD.RotAndTra2=RightFlipper.CurrentAngle
+  LFD.RotAndTra2=LeftFlipper.CurrentAngle
+  RFD.RotAndTra2=RightFlipper.CurrentAngle
 
 End Sub
 
 Sub timergate_Timer
-	prightgate.rotz=gate3.CurrentAngle
-	pleftgate.rotz=gate1.CurrentAngle
+  prightgate.rotz=gate3.CurrentAngle
+  pleftgate.rotz=gate1.CurrentAngle
 
 End Sub
 
@@ -282,7 +282,7 @@ Sub RightInLane_Hit : Controller.Switch(32) = True : End Sub
 Sub RightInLane_Unhit : Controller.Switch(32) = False : End Sub
 Sub RightOutLane_Hit : Controller.Switch(33) = True : End Sub
 Sub RightOutLane_Unhit : Controller.Switch(33) = False : End Sub
-Sub Spinner1_Spin :	vpmTimer.pulseSw 40 : End Sub
+Sub Spinner1_Spin : vpmTimer.pulseSw 40 : End Sub
 'Sub Bumper2_Hit : vpmTimer.PulseSw 52 : End Sub
 'Sub Bumper1_Hit : vpmTimer.PulseSw 53 : End Sub
 Sub RightSlingShot_Slingshot  : vpmTimer.PulseSw 56 : End Sub
@@ -297,8 +297,8 @@ Sub WoodHit3_Hit : PlaySoundAtVol "Bump3", ActiveBall, VolWood : End Sub
 Sub WoodHit4_Hit : PlaySoundAtVol "metalhit_thin", ActiveBall, VolMetal : End Sub
 
 Sub ActiveOn_Hit()
-	Set Cue = ActiveBall
-	BallActive = 1
+  Set Cue = ActiveBall
+  BallActive = 1
 End Sub
 
 '-------------------------------------
@@ -352,22 +352,22 @@ Set Lights(49) = SpinYellow
 Set Lights(50) = SpinOrange
 
 Sub editDips
-	With vpmDips
-		.AddForm  334,215,"Hercules DIP switches"
-		.AddChk   194,146,150,Array("Match feature",&H00000080)
-		.AddChk   194,162,150,Array("High Score Million Limit",&H00400000)
-		.AddChk   194,178,150,Array("High Score Display",&H00800000)
-		.AddChk   194,194,150,Array("Feature ladder memory",&H20000000)
-		.AddFrame   2,  2, 90,"High score award",&HC0000000,Array("3 replays",&H40000000,"2 replays",&HC0000000,"1 replay",0,"Nothing",&H80000000)
-		.AddFrame   2, 77, 90,"Maximum credits",&H00000007,Array("5 credits",7,"10 credits",6,"15 credits",5,"20 credits",4,"25 credits",3,"30 credits",2,"35 credits",1,"40 credits",0)
-		.AddFrame 107,  2, 90,"Special award",&H00000050,Array("Replay",&H50,"Add a ball",&H40,"50,000 points",&H10,"60,000 points",0)
-		.AddFrame 107, 82, 90,"Extra award",&H00006000,Array("Extra ball",&H6000,"20,000 points",&H4000,"30,000 points",0)
-		.AddFrame 107,147, 72,"Return lanes",&H00208000,Array("Always off",0,"Alternating",&H200000,"Both on",&H00208000)
-		.AddFrame 212,  2,100,"Upper lanes",&H00001000,Array("Start + advance",&H1000,"Start only",0)
-		.AddFrame 212, 49,100,"Game mode",&H00000020,Array("Coin-op",&H20,"Free play",0)
-		.AddFrame 212, 96,100,"Balls in play",&H1F1F0008,Array("3 balls",&H1D150008,"5 balls",&H1D150000)
-		.ViewDips
-	End With
+  With vpmDips
+    .AddForm  334,215,"Hercules DIP switches"
+    .AddChk   194,146,150,Array("Match feature",&H00000080)
+    .AddChk   194,162,150,Array("High Score Million Limit",&H00400000)
+    .AddChk   194,178,150,Array("High Score Display",&H00800000)
+    .AddChk   194,194,150,Array("Feature ladder memory",&H20000000)
+    .AddFrame   2,  2, 90,"High score award",&HC0000000,Array("3 replays",&H40000000,"2 replays",&HC0000000,"1 replay",0,"Nothing",&H80000000)
+    .AddFrame   2, 77, 90,"Maximum credits",&H00000007,Array("5 credits",7,"10 credits",6,"15 credits",5,"20 credits",4,"25 credits",3,"30 credits",2,"35 credits",1,"40 credits",0)
+    .AddFrame 107,  2, 90,"Special award",&H00000050,Array("Replay",&H50,"Add a ball",&H40,"50,000 points",&H10,"60,000 points",0)
+    .AddFrame 107, 82, 90,"Extra award",&H00006000,Array("Extra ball",&H6000,"20,000 points",&H4000,"30,000 points",0)
+    .AddFrame 107,147, 72,"Return lanes",&H00208000,Array("Always off",0,"Alternating",&H200000,"Both on",&H00208000)
+    .AddFrame 212,  2,100,"Upper lanes",&H00001000,Array("Start + advance",&H1000,"Start only",0)
+    .AddFrame 212, 49,100,"Game mode",&H00000020,Array("Coin-op",&H20,"Free play",0)
+    .AddFrame 212, 96,100,"Balls in play",&H1F1F0008,Array("3 balls",&H1D150008,"5 balls",&H1D150000)
+    .ViewDips
+  End With
 End Sub
 Set vpmDips = New cvpmDips
 Set vpmShowDips = GetRef("editDips")
@@ -525,82 +525,82 @@ End Sub
 ' then there is no collision and then set the collision property of the ball to False (-1).
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	vpmTimer.pulseSw 40
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  vpmTimer.pulseSw 40
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 1 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 2 AND finalspeed <= 1 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 1 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 2 AND finalspeed <= 1 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub AttractTimer_Timer()
-	AttractCount = AttractCount + 1
+  AttractCount = AttractCount + 1
 End Sub
 
 ' *******************************************************************************************************
@@ -720,16 +720,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

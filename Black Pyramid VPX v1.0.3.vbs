@@ -103,8 +103,8 @@ Sub table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	'Init swing target
-	sw5a.IsDropped = 1:sw5b.IsDropped = 1:sw5c.IsDropped = 1
+  'Init swing target
+  sw5a.IsDropped = 1:sw5b.IsDropped = 1:sw5c.IsDropped = 1
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -132,7 +132,7 @@ Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
     PlaySound SoundFX("", DOFContactors), 0, 1, -0.05, 0.05
-	PlaySoundAtBallVol "fx_slingshot", 2
+  PlaySoundAtBallVol "fx_slingshot", 2
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -151,7 +151,7 @@ End Sub
 
 Sub RightSlingShot_Slingshot
     PlaySound SoundFX("", DOFContactors), 0, 1, 0.05, 0.05
-	PlaySoundAtBallVol "fx_slingshot", 2
+  PlaySoundAtBallVol "fx_slingshot", 2
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
@@ -856,11 +856,11 @@ Set vpmShowDips = GetRef("editDips")
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	Else
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
         PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-	End if
+  End if
 End Sub
 
 '*******************************************************************************************************************************
@@ -872,35 +872,35 @@ End Sub
 'Set position as table object (Use object or light but NOT wall) and Vol to 1
 
 Sub PlaySoundAt(sound, tableobj)
-		PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(sound)
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as table object and Vol manually.
 
 Sub PlaySoundAtVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
 
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 End Sub
 
 
 'Set position as bumperX and Vol manually.
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
 End Sub
 
 

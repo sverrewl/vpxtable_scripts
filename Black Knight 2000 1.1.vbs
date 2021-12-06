@@ -87,52 +87,52 @@ InsertBrightness = 0.75
 ChooseBall = 0
 
 ' default Ball
-CustomBallGlow(0) = 		False
-CustomBallImage(0) = 		"TTMMball"
-CustomBallLogoMode(0) = 	False
-CustomBallDecal(0) = 		"scratches"
-CustomBulbIntensity(0) = 	10
-Red(0) = 0 : Green(0)	= 0 : Blue(0) = 0
+CustomBallGlow(0) =     False
+CustomBallImage(0) =    "TTMMball"
+CustomBallLogoMode(0) =   False
+CustomBallDecal(0) =    "scratches"
+CustomBulbIntensity(0) =  10
+Red(0) = 0 : Green(0) = 0 : Blue(0) = 0
 
 ' white GlowBall
-CustomBallGlow(1) = 		True
-CustomBallImage(1) = 		"white"
-CustomBallLogoMode(1) = 	True
-CustomBallDecal(1) = 		""
-CustomBulbIntensity(1) = 	0
-Red(1) = 255 : Green(1)	= 255 : Blue(1) = 255
+CustomBallGlow(1) =     True
+CustomBallImage(1) =    "white"
+CustomBallLogoMode(1) =   True
+CustomBallDecal(1) =    ""
+CustomBulbIntensity(1) =  0
+Red(1) = 255 : Green(1) = 255 : Blue(1) = 255
 
 ' Magma GlowBall
-CustomBallGlow(2) = 		True
-CustomBallImage(2) = 		"ballblack"
-CustomBallLogoMode(2) = 	True
-CustomBallDecal(2) = 		"ballmagma"
-CustomBulbIntensity(2) = 	0
-Red(2) = 255 : Green(2)	= 180 : Blue(2) = 100
+CustomBallGlow(2) =     True
+CustomBallImage(2) =    "ballblack"
+CustomBallLogoMode(2) =   True
+CustomBallDecal(2) =    "ballmagma"
+CustomBulbIntensity(2) =  0
+Red(2) = 255 : Green(2) = 180 : Blue(2) = 100
 
 ' Blue ball
-CustomBallGlow(3) = 		True
-CustomBallImage(3) = 		"blueball2"
-CustomBallLogoMode(3) = 	False
-CustomBallDecal(3) = 		""
-CustomBulbIntensity(3) = 	0
-Red(3) = 30 : Green(3)	= 40 : Blue(3) = 200
+CustomBallGlow(3) =     True
+CustomBallImage(3) =    "blueball2"
+CustomBallLogoMode(3) =   False
+CustomBallDecal(3) =    ""
+CustomBulbIntensity(3) =  0
+Red(3) = 30 : Green(3)  = 40 : Blue(3) = 200
 
 ' Pin ball
-CustomBallGlow(4) = 		False
-CustomBallImage(4) = 		"pinball"
-CustomBallLogoMode(4) = 	False
-CustomBallDecal(4) = 		"scratch2"
-CustomBulbIntensity(4) = 	10
-Red(4) = 0 : Green(4)	= 0 : Blue(4) = 0
+CustomBallGlow(4) =     False
+CustomBallImage(4) =    "pinball"
+CustomBallLogoMode(4) =   False
+CustomBallDecal(4) =    "scratch2"
+CustomBulbIntensity(4) =  10
+Red(4) = 0 : Green(4) = 0 : Blue(4) = 0
 
 ' Earth
-CustomBallGlow(5) = 		True
-CustomBallImage(5) = 		"ballblack"
-CustomBallLogoMode(5) = 	True
-CustomBallDecal(5) = 		"earth"
-CustomBulbIntensity(5) = 	0
-Red(5) = 100 : Green(5)	= 100 : Blue(5) = 100
+CustomBallGlow(5) =     True
+CustomBallImage(5) =    "ballblack"
+CustomBallLogoMode(5) =   True
+CustomBallDecal(5) =    "earth"
+CustomBulbIntensity(5) =  0
+Red(5) = 100 : Green(5) = 100 : Blue(5) = 100
 
 
 '******************************************************************************************
@@ -190,13 +190,13 @@ Dim GlowLow(10), GlowMed(10), GlowHigh(10)
 ' *** LightType 1 = MagnaSave
 ' *** LightType 2 = Ransom
 
-LightType(1)  = 2 : Set LightObjectFirst(1)  = FlasherR										  '*R*ANSOM (Backbox)
-LightType(2)  = 2 : Set LightObjectFirst(2)  = FlasherA 		  							  'R*A*NSOM (Backbox)
-LightType(3)  = 2 : Set LightObjectFirst(3)  = FlasherN 	      							  'RA*N*SOM (Backbox)
-LightType(4)  = 2 : Set LightObjectFirst(4)  = FlasherS 	      							  'RAN*S*OM (Backbox)
-LightType(6)  = 2 : Set LightObjectFirst(6)  = FlasherO 		  							  'RANS*O*M (Backbox)
-LightType(7)  = 2 : Set LightObjectFirst(7)  = FlasherM 		  							  'RANSO*M* (Backbox)
-LightType(19) = 1																			  'Magna Save
+LightType(1)  = 2 : Set LightObjectFirst(1)  = FlasherR                     '*R*ANSOM (Backbox)
+LightType(2)  = 2 : Set LightObjectFirst(2)  = FlasherA                       'R*A*NSOM (Backbox)
+LightType(3)  = 2 : Set LightObjectFirst(3)  = FlasherN                         'RA*N*SOM (Backbox)
+LightType(4)  = 2 : Set LightObjectFirst(4)  = FlasherS                         'RAN*S*OM (Backbox)
+LightType(6)  = 2 : Set LightObjectFirst(6)  = FlasherO                       'RANS*O*M (Backbox)
+LightType(7)  = 2 : Set LightObjectFirst(7)  = FlasherM                       'RANSO*M* (Backbox)
+LightType(19) = 1                                       'Magna Save
 LightType(5)  = 0 : Set LightObjectFirst(5)  = light5b  : Set LightObjectSecond(5)  = Light5  'Bolt Circle Center
 LightType(8)  = 0 : Set LightObjectFirst(8)  = Light8b  : Set LightObjectSecond(8)  = Light8  'LAST CHANCE (L. Outlane)
 LightType(9)  = 0 : Set LightObjectFirst(9)  = Light9b  : Set LightObjectSecond(9)  = Light9  'U-Turn Bolt (Right)
@@ -268,9 +268,9 @@ Set GlowLow(2) = Glowball3low : Set GlowMed(2) = Glowball3med : Set GlowHigh(2) 
 '************
 
 Sub BK2K_Init
-	Dim Light
+  Dim Light
 
-	vpmInit Me
+  vpmInit Me
     With Controller
         .GameName = cGameName
         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -290,26 +290,26 @@ Sub BK2K_Init
         .Switch(24) = 1 'and keep it close
     End With
 
-	'*** option settings ***
+  '*** option settings ***
 
-	If AmbienceCategory and BK2K.ShowDT Then Flasher1.Visible = 1 Else Flasher1.Visible = 0 End If
-	If LightningBats Then LeftFlipper.image = "flipperaoleft" : RightFlipper.image = "flipperaoright" : URightFlipper.image = "flipperaoright" End If
-	If not ShowRansom Then ransomplate.visible = 0 : FlasherR.visible = 0 : FlasherA.visible = 0 : FlasherN.visible = 0 : FlasherS.visible = 0 : FlasherO.visible = 0 : FlasherM.visible = 0 end If
-	For Each Light in GlowLights : Light.IntensityScale = GlowAmount: Light.FadeSpeedUp = Light.Intensity /  10 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next
-	For Each Light in InsertLights : Light.IntensityScale = InsertBrightness : Light.FadeSpeedUp = Light.Intensity / 10 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next
-	If BK2K.ShowDT or ForceSiderailsFS then wallleftFS.isdropped = 1 : wallrightFS.isdropped = 1 Else lockbar.Visible = 0 End If
-	ChangeBall(ChooseBall)
+  If AmbienceCategory and BK2K.ShowDT Then Flasher1.Visible = 1 Else Flasher1.Visible = 0 End If
+  If LightningBats Then LeftFlipper.image = "flipperaoleft" : RightFlipper.image = "flipperaoright" : URightFlipper.image = "flipperaoright" End If
+  If not ShowRansom Then ransomplate.visible = 0 : FlasherR.visible = 0 : FlasherA.visible = 0 : FlasherN.visible = 0 : FlasherS.visible = 0 : FlasherO.visible = 0 : FlasherM.visible = 0 end If
+  For Each Light in GlowLights : Light.IntensityScale = GlowAmount: Light.FadeSpeedUp = Light.Intensity /  10 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next
+  For Each Light in InsertLights : Light.IntensityScale = InsertBrightness : Light.FadeSpeedUp = Light.Intensity / 10 : Light.FadeSpeedDown = Light.FadeSpeedUp : Next
+  If BK2K.ShowDT or ForceSiderailsFS then wallleftFS.isdropped = 1 : wallrightFS.isdropped = 1 Else lockbar.Visible = 0 End If
+  ChangeBall(ChooseBall)
 
     ' ### Nudging ###
     vpmNudge.TiltSwitch = 1 'was 14 nFozzy
     vpmNudge.Sensitivity = 1
-	vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LSling,RSling)
+  vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LSling,RSling)
 
-	' ### Main Timer init ###
+  ' ### Main Timer init ###
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	' autoplunger pullback
+  ' autoplunger pullback
     LockPlunger.PullBack
 
     ' Trough
@@ -321,53 +321,53 @@ Sub BK2K_Init
         .InitEntrySounds "fx_drain", "", ""
         .InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFX("fx_ballrel",DOFContactors)
         .Balls = 3
-		.EntrySw = 10
+    .EntrySw = 10
     End With
 
-	'Right Eject - Knights Challenge (Lower Right)
-	Set bsREject = New cvpmSaucer
-	With bsREject
-		'.InitKicker REject, swREject, 180, 2.2, 0
-		.InitKicker REject, swREject, 250, 40, 0
-		.InitSounds "SolIn", SoundFX("solenoid",DOFContactors), SoundFX("solenoid",DOFContactors)
-	End With
+  'Right Eject - Knights Challenge (Lower Right)
+  Set bsREject = New cvpmSaucer
+  With bsREject
+    '.InitKicker REject, swREject, 180, 2.2, 0
+    .InitKicker REject, swREject, 250, 40, 0
+    .InitSounds "SolIn", SoundFX("solenoid",DOFContactors), SoundFX("solenoid",DOFContactors)
+  End With
 
- 	'Ball Popper - Spin
-	Set bsBallPopper = New cvpmSaucer
-	With bsBallPopper
-		.InitKicker BallPopper1, swBallPopper, 220, 60, 1.56 'was 45, now 60 based on JohnGreve's comments
-		.InitSounds "SolIn", SoundFX("solenoid",DOFContactors), Wirerampsound
-		.CreateEvents "bsBallPopper", BallPopper1
-	End With
+  'Ball Popper - Spin
+  Set bsBallPopper = New cvpmSaucer
+  With bsBallPopper
+    .InitKicker BallPopper1, swBallPopper, 220, 60, 1.56 'was 45, now 60 based on JohnGreve's comments
+    .InitSounds "SolIn", SoundFX("solenoid",DOFContactors), Wirerampsound
+    .CreateEvents "bsBallPopper", BallPopper1
+  End With
 
-	' KNI-Targets (Left Bank)
-	Set dtKNI = New cvpmDropTarget
-	With dtKNI
+  ' KNI-Targets (Left Bank)
+  Set dtKNI = New cvpmDropTarget
+  With dtKNI
         .InitDrop Array(sw4, sw5, sw6), Array(44, 45, 46)
         .initsnd SoundFX("fx_droptarget", DOFContactors), SoundFX("fx_resetdrop", DOFContactors)
         .CreateEvents "dtKNI"
     End With
 
-	' GHT-Targets (Right Bank)
-	Set dtGHT = New cvpmDropTarget
-	With dtGHT
+  ' GHT-Targets (Right Bank)
+  Set dtGHT = New cvpmDropTarget
+  With dtGHT
         .InitDrop Array(sw1, sw2, sw3), Array(41, 42, 43)
         .initsnd SoundFX("fx_droptarget", DOFContactors), SoundFX("fx_resetdrop", DOFContactors)
         .CreateEvents "dtGHT"
     End With
 
-	'ball lock
-	Set Lock = New cvpmVLock
-	With Lock
-		.InitVLock Array(Lock1,Lock2,Lock3), Array(LockKicker1,LockKicker2,LockKicker3), Array(swLock1,swLock2,swLock3)
-		.InitSnd Wirerampsound, SoundFX("solenoid",DOFContactors)
-		.ExitDir = 0
-		.ExitForce = 20
-		.KickForceVar = 1
-		.CreateEvents "Lock"
-	End With
+  'ball lock
+  Set Lock = New cvpmVLock
+  With Lock
+    .InitVLock Array(Lock1,Lock2,Lock3), Array(LockKicker1,LockKicker2,LockKicker3), Array(swLock1,swLock2,swLock3)
+    .InitSnd Wirerampsound, SoundFX("solenoid",DOFContactors)
+    .ExitDir = 0
+    .ExitForce = 20
+    .KickForceVar = 1
+    .CreateEvents "Lock"
+  End With
 
-	'3 Targets Bank (copied from AFM)
+  '3 Targets Bank (copied from AFM)
     Set Mech3Bank = new cvpmMech
     With Mech3Bank
         .Sol1 = sMTargets
@@ -380,29 +380,29 @@ Sub BK2K_Init
         .Start
     End With
 
-	'Setup magnets
-	Set MagnaSave = New cvpmMagnet
-	With MagnaSave
-		.InitMagnet MSave, 12
-		.Solenoid = sMagnaSave
-		.GrabCenter = False 	'Try to set to true it if you like...i prefer it off as that´s closer to the real bk2k magnet
-	End With
+  'Setup magnets
+  Set MagnaSave = New cvpmMagnet
+  With MagnaSave
+    .InitMagnet MSave, 12
+    .Solenoid = sMagnaSave
+    .GrabCenter = False   'Try to set to true it if you like...i prefer it off as that´s closer to the real bk2k magnet
+  End With
 End Sub
 
 ' keyboard handlers
 Sub BK2K_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 3 : PlaySound SoundFX("fx_nudge",0)
-	If keycode = RightTiltKey Then Nudge 270, 3 : PlaySound SoundFX("fx_nudge",0)
-	If keycode = CenterTiltKey Then Nudge 0, 3 : PlaySound SoundFX("fx_nudge",0)
-	If keycode = RightMagnaSave Then:Controller.Switch(59) = 1:End If
-	If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", Plunger, 1:Plunger.Pullback
-	If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = LeftTiltKey Then Nudge 90, 3 : PlaySound SoundFX("fx_nudge",0)
+  If keycode = RightTiltKey Then Nudge 270, 3 : PlaySound SoundFX("fx_nudge",0)
+  If keycode = CenterTiltKey Then Nudge 0, 3 : PlaySound SoundFX("fx_nudge",0)
+  If keycode = RightMagnaSave Then:Controller.Switch(59) = 1:End If
+  If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", Plunger, 1:Plunger.Pullback
+  If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub BK2K_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then PLaySoundAtVol "fx_plunger", plunger, 1:Plunger.Fire
-	If keycode = RightMagnaSave Then:Controller.Switch(59) = False:End If
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then PLaySoundAtVol "fx_plunger", plunger, 1:Plunger.Fire
+  If keycode = RightMagnaSave Then:Controller.Switch(59) = False:End If
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 Sub BK2K_Paused: Controller.Pause = 1:End Sub
@@ -411,9 +411,9 @@ Sub BK2K_Exit(): Controller.Stop:End Sub
 
 '******************* Switches ***********************
 
-Const swOuthole	   = 10 ' Outhole
-Const swTrough1	   = 11 ' Ball Trough 1 (left)
-Const swTrough2	   = 12 ' Ball Trough 2 (middle)
+Const swOuthole    = 10 ' Outhole
+Const swTrough1    = 11 ' Ball Trough 1 (left)
+Const swTrough2    = 12 ' Ball Trough 2 (middle)
 Const swTrough3    = 13 ' Ball Trough 3 (right)
 Const swSwitch14   = 14 ' not used
 Const swSwitch15   = 15 ' not used
@@ -548,14 +548,14 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 Sub Shooter_Hit()       : Controller.Switch(swShooter) = 1 : End Sub
 Sub Shooter_UnHit()     : Controller.Switch(swShooter) = 0 : End Sub
 'In/Out Lanes
-Sub LOutLane_Hit()	    : Controller.Switch(swLOutLane) = 1 : End Sub
-Sub LOutLane_UnHit()	: Controller.Switch(swLOutLane) = 0 : End Sub
-Sub LRetLane_Hit()		: Controller.Switch(swLRetLane) = 1 : End Sub
-Sub LRetLane_UnHit()	: Controller.Switch(swLRetLane) = 0 : End Sub
-Sub ROutLane_Hit()	    : Controller.Switch(swROutLane) = 1 : End Sub
-Sub ROutLane_UnHit()	: Controller.Switch(swROutLane) = 0 : End Sub
-Sub RRetLane_Hit()		: Controller.Switch(swRRetLane) = 1 : End Sub
-Sub RRetLane_UnHit()	: Controller.Switch(swRRetLane) = 0 : End Sub
+Sub LOutLane_Hit()      : Controller.Switch(swLOutLane) = 1 : End Sub
+Sub LOutLane_UnHit()  : Controller.Switch(swLOutLane) = 0 : End Sub
+Sub LRetLane_Hit()    : Controller.Switch(swLRetLane) = 1 : End Sub
+Sub LRetLane_UnHit()  : Controller.Switch(swLRetLane) = 0 : End Sub
+Sub ROutLane_Hit()      : Controller.Switch(swROutLane) = 1 : End Sub
+Sub ROutLane_UnHit()  : Controller.Switch(swROutLane) = 0 : End Sub
+Sub RRetLane_Hit()    : Controller.Switch(swRRetLane) = 1 : End Sub
+Sub RRetLane_UnHit()  : Controller.Switch(swRRetLane) = 0 : End Sub
 'Skyway
 Sub Skyway_Hit()        : Controller.Switch(swLRampExit) = 1 : End Sub
 Sub Skyway_UnHit()      : Controller.Switch(swLRampExit) = 0 : End Sub
@@ -568,7 +568,7 @@ Sub UTurn3_Hit()        : Controller.Switch(swUTurn3) = 1 : If ActiveBall.VelY >
 Sub UTurn3_UnHit()      : Controller.Switch(swUTurn3) = 0 : End Sub
 Sub UTurn4_Hit()        : Controller.Switch(swUTurn4) = 1 : End Sub
 Sub UTurn4_UnHit()      : Controller.Switch(swUTurn4) = 0 : End Sub
-Sub REject_Hit()	    : bsREject.AddBall Me : End Sub
+Sub REject_Hit()      : bsREject.AddBall Me : End Sub
 
 'SWITCH HANDLING (Upper PF)
 'UPF Wire Ramp (Lock)
@@ -600,9 +600,9 @@ Sub DBTrgt1_Slingshot() : vpmTimer.PulseSwitch (swBridge1), 0, "" : PlaysoundAtV
 Sub DBTrgt2_Slingshot() : vpmTimer.PulseSwitch (swBridge2), 0, "" : PlaysoundAtVol SoundFX("fx_target",DOFContactors),backbank,VolTarg: End Sub
 Sub DBTrgt3_Slingshot() : vpmTimer.PulseSwitch (swBridge3), 0, "" : PlaysoundAtVol SoundFX("fx_target",DOFContactors),backbank,VolTarg: End Sub
 'Bumpers
-Sub Bumper1_Hit()		: vpmTimer.PulseSwitch (swJet1), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper1, VolBump : End Sub
-Sub Bumper2_Hit()		: vpmTimer.PulseSwitch (swJet2), 0, "" : PlaySoundAtVol SoundFX("Jet2",DOFContactors), Bumper2, VolBump : End Sub
-Sub Bumper3_Hit()		: vpmTimer.PulseSwitch (swJet3), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper3, VolBump : End Sub
+Sub Bumper1_Hit()   : vpmTimer.PulseSwitch (swJet1), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper1, VolBump : End Sub
+Sub Bumper2_Hit()   : vpmTimer.PulseSwitch (swJet2), 0, "" : PlaySoundAtVol SoundFX("Jet2",DOFContactors), Bumper2, VolBump : End Sub
+Sub Bumper3_Hit()   : vpmTimer.PulseSwitch (swJet3), 0, "" : PlaySoundAtVol SoundFX("Jet1",DOFContactors), Bumper3, VolBump : End Sub
 'Drain
 Sub Outhole_Hit()       : vpmTimer.PulseSwitch(swOutHole), 100, "HandleOutHole" : End Sub
 Sub HandleOutHole(swNo) : bsTrough.AddBall Outhole : End Sub
@@ -623,7 +623,7 @@ Sub SolLFlipper(Enabled)
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
-		LeftFlipper.TimerEnabled = 1
+    LeftFlipper.TimerEnabled = 1
         LeftFlipper.return = returnspeed * 0.5
     End If
 End Sub
@@ -632,14 +632,14 @@ Sub SolRFlipper(Enabled)
     If Enabled Then
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
         RightFlipper.RotateToEnd
-		URightFlipper.RotateToEnd
+    URightFlipper.RotateToEnd
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, VolFlip
         RightFlipper.RotateToStart
-		URightFlipper.RotateToStart
-		rightflipper.TimerEnabled = 1
+    URightFlipper.RotateToStart
+    rightflipper.TimerEnabled = 1
         rightflipper.return = returnspeed * 0.5
-		URightFlipper.return = returnspeed * 0.5
+    URightFlipper.return = returnspeed * 0.5
     End If
 End Sub
 
@@ -652,25 +652,25 @@ Sub RightFlipper_Collide(parm)
 End Sub
 
 sub leftflipper_timer()
-	select case lfstep
-		Case 1: leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
-		Case 2: leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
-		Case 3: leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
-		Case 4: leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
-		Case 5: leftflipper.return = returnspeed * 1.0 :lfstep = lfstep + 1
-		Case 6: leftflipper.timerenabled = 0 : lfstep = 1
-	end select
+  select case lfstep
+    Case 1: leftflipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
+    Case 2: leftflipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
+    Case 3: leftflipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
+    Case 4: leftflipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
+    Case 5: leftflipper.return = returnspeed * 1.0 :lfstep = lfstep + 1
+    Case 6: leftflipper.timerenabled = 0 : lfstep = 1
+  end select
 end sub
 
 sub rightflipper_timer()
-	select case rfstep
-		Case 1: rightflipper.return = returnspeed * 0.6 : URightFlipper.return = returnspeed * 0.6 : rfstep = rfstep + 1
-		Case 2: rightflipper.return = returnspeed * 0.7 : URightFlipper.return = returnspeed * 0.7 : rfstep = rfstep + 1
-		Case 3: rightflipper.return = returnspeed * 0.8 : URightFlipper.return = returnspeed * 0.8 : rfstep = rfstep + 1
-		Case 4: rightflipper.return = returnspeed * 0.9 : URightFlipper.return = returnspeed * 0.9 : rfstep = rfstep + 1
-		Case 5: rightflipper.return = returnspeed * 1.0 : URightFlipper.return = returnspeed * 1.0 : rfstep = rfstep + 1
-		Case 6: rightflipper.timerenabled = 0 : rfstep = 1
-	end select
+  select case rfstep
+    Case 1: rightflipper.return = returnspeed * 0.6 : URightFlipper.return = returnspeed * 0.6 : rfstep = rfstep + 1
+    Case 2: rightflipper.return = returnspeed * 0.7 : URightFlipper.return = returnspeed * 0.7 : rfstep = rfstep + 1
+    Case 3: rightflipper.return = returnspeed * 0.8 : URightFlipper.return = returnspeed * 0.8 : rfstep = rfstep + 1
+    Case 4: rightflipper.return = returnspeed * 0.9 : URightFlipper.return = returnspeed * 0.9 : rfstep = rfstep + 1
+    Case 5: rightflipper.return = returnspeed * 1.0 : URightFlipper.return = returnspeed * 1.0 : rfstep = rfstep + 1
+    Case 6: rightflipper.timerenabled = 0 : rfstep = 1
+  end select
 end sub
 
 '******************************************************************************************
@@ -680,14 +680,14 @@ end sub
 Dim RStep, Lstep
 
 Sub RSling_Slingshot
-	vpmTimer.PulseSwitch (swRSling), 0, ""
-  	PlaySoundAtVol SoundFx("SlingshotRight",DOFContactors), sling1, 1
+  vpmTimer.PulseSwitch (swRSling), 0, ""
+    PlaySoundAtVol SoundFx("SlingshotRight",DOFContactors), sling1, 1
     RSling3.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
     RSling.TimerEnabled = 1
-	'gi1.State = 0:Gi2.State = 0
+  'gi1.State = 0:Gi2.State = 0
 End Sub
 
 Sub RSling_Timer
@@ -699,7 +699,7 @@ Sub RSling_Timer
 End Sub
 
 Sub LSling_Slingshot
-	vpmTimer.PulseSwitch (swLSling), 0, ""
+  vpmTimer.PulseSwitch (swLSling), 0, ""
     PlaySoundAtVol SoundFx("SlingshotLeft",DOFContactors), sling2, 1
     LSling3.Visible = 0
     LSling1.Visible = 1
@@ -723,78 +723,78 @@ End Sub
 
 Sub SolACSelect(enabled)
 If Enabled Then
-	PlaySound "fx_relay_on"
-	StopSound "fx_relay_off"
+  PlaySound "fx_relay_on"
+  StopSound "fx_relay_off"
 Else
-	PlaySound "fx_relay_off"
-	StopSound "fx_relay_on"
+  PlaySound "fx_relay_off"
+  StopSound "fx_relay_on"
 End If
 End Sub
 
 Sub SolBallRelease(enabled)
-	if enabled then
-		if bsTrough.Balls then vpmTimer.PulseSwitch(swTroughEject),0,""
-		bsTrough.ExitSol_On
-	End if
+  if enabled then
+    if bsTrough.Balls then vpmTimer.PulseSwitch(swTroughEject),0,""
+    bsTrough.ExitSol_On
+  End if
 End Sub
 
 Sub SolREject(enabled)
-	if enabled then
-		bsREject.SolOut Enabled
-	end if
+  if enabled then
+    bsREject.SolOut Enabled
+  end if
 end sub
 
 Sub SolBallPopper(enabled)
-	if enabled then
-		bsBallPopper.SolOut Enabled
-	end if
+  if enabled then
+    bsBallPopper.SolOut Enabled
+  end if
 end sub
 
 Sub SolLockPlunger(enabled) 'currently not used - using vlock instead :)
     if Enabled then
-		LockPlunger.Fire
-		PlaySoundAt SoundFX("autoplung",DOFContactors), plunger
-	else
-		LockPlunger.PullBack
-	end If
+    LockPlunger.Fire
+    PlaySoundAt SoundFX("autoplung",DOFContactors), plunger
+  else
+    LockPlunger.PullBack
+  end If
 End Sub
 
 Sub SolKickBack(enabled)
     if Enabled then
-		Playsound SoundFX("solenoid",DOFContactors)
-		KickbackTimer.Interval = 500
-    	KickbackTimer.Enabled = True
-    	Kickback.Enabled = True
-	End If
+    Playsound SoundFX("solenoid",DOFContactors)
+    KickbackTimer.Interval = 500
+      KickbackTimer.Enabled = True
+      Kickback.Enabled = True
+  End If
 End Sub
 
 '"FlipLaneFlashers" (LPF)
 Sub SolFlipLaneFlash(enabled)
-	if enabled then
-		GI14.state = LightStateOn : GI14b.state = LightStateOn : GI15.state = LightStateOn : GI15b.state = LightStateOn
-	Else
-		GI14.state = LightStateOff : GI14b.state = LightStateOff : GI15.state = LightStateOff : GI15b.state = LightStateOff
-	End If
+  if enabled then
+    GI14.state = LightStateOn : GI14b.state = LightStateOn : GI15.state = LightStateOn : GI15b.state = LightStateOn
+  Else
+    GI14.state = LightStateOff : GI14b.state = LightStateOff : GI15.state = LightStateOff : GI15b.state = LightStateOff
+  End If
 End Sub
 
 Sub SolDTFlash(enabled)
-	if enabled then
-		GI17.state = LightStateOn : GI17b.state = LightStateOn
-		PegPlasticT18.DisableLighting = 1 : PegPlasticT17.DisableLighting = 1 : PegPlasticT16.DisableLighting = 1  : PegPlasticT15.DisableLighting = 1
-	Else
-		GI17.state = LightStateOff : GI17b.state = LightStateOff
-		PegPlasticT18.DisableLighting = 0 : PegPlasticT17.DisableLighting = 0 : PegPlasticT16.DisableLighting = 0  : PegPlasticT15.DisableLighting = 0
-	End If
+  if enabled then
+    GI17.state = LightStateOn : GI17b.state = LightStateOn
+    PegPlasticT18.DisableLighting = 1 : PegPlasticT17.DisableLighting = 1 : PegPlasticT16.DisableLighting = 1  : PegPlasticT15.DisableLighting = 1
+  Else
+    GI17.state = LightStateOff : GI17b.state = LightStateOff
+    PegPlasticT18.DisableLighting = 0 : PegPlasticT17.DisableLighting = 0 : PegPlasticT16.DisableLighting = 0  : PegPlasticT15.DisableLighting = 0
+  End If
 End Sub
 
 
 'Light-Flashers
 Sub SolREjectFlash(enabled) : if enabled then GI24b.state = LightStateOn Else GI24b.state = LightStateOff End If : End Sub
-Sub SolBlueBoltFlash(enabled) : if enabled then	Light20.State=LightStateOn:BlueBoltFlash.State=LightStateOn else Light20.State=LightStateOff: BlueBoltFlash.State=LightStateOff end if : End Sub
+Sub SolBlueBoltFlash(enabled) : if enabled then Light20.State=LightStateOn:BlueBoltFlash.State=LightStateOn else Light20.State=LightStateOff: BlueBoltFlash.State=LightStateOff end if : End Sub
 Sub SolRedBoltFlash(enabled) : if enabled then Light18.State=LightStateOn: RedBoltFlash.State=LightStateOn else Light18.State=LightStateOff: RedBoltFlash.State=LightStateOff end if : End Sub
-Sub SolKnightHeadFlash(enabled): if enabled then KnightHeadFlash.State=LightStateOn	else KnightHeadFlash.State=LightStateOff end if: End Sub
+Sub SolKnightHeadFlash(enabled): if enabled then KnightHeadFlash.State=LightStateOn else KnightHeadFlash.State=LightStateOff end if: End Sub
 Sub SolSkyWayFlash(enabled) : if enabled then SkyWayFlash.State=LightStateOn else SkyWayFlash.State=LightStateOff end if : End Sub
-Sub SolLockFlash(enabled) : if enabled then	LockFlash.State=LightStateOn else LockFlash.State=LightStateOff end if : End Sub
+Sub SolLockFlash(enabled) : if enabled then LockFlash.State=LightStateOn else LockFlash.State=LightStateOff end if : End Sub
 
 '---------------------------------------
 '      MagnaSave!
@@ -824,48 +824,48 @@ End Sub
 
 Sub SolMTargets(enabled)
     If enabled Then
-		PlaySound SoundFX("bk2k_drawbridge",DOFGear), -1
-	Else
-		StopSound "bk2k_drawbridge"
-	End If
+    PlaySound SoundFX("bk2k_drawbridge",DOFGear), -1
+  Else
+    StopSound "bk2k_drawbridge"
+  End If
 End Sub
 
 ' ### General Illumination-UPF ###
 Sub SolUPFGIRelay(enabled)
     Dim Prim, Light
     If enabled Then
-		PlaySound "fx_relay_off"
-		StopSound "fx_relay_on"
-		For Each Light in LightsGIupf : Light.State = LightStateOff : Next
-		For Each Prim in primitivesGIupf : Prim.DisableLighting = 0 : Next
-		For Each Prim in primitivesGIupfpegs : Prim.image = "peg" : Prim.material = "peg3": Next
-		Primitive98.material = "RubberOff" : Primitive99.material = "RubberOff" : Primitive100.material = "RubberOff" : Primitive101.material = "RubberOff"
-	Else
-		PlaySound "fx_relay_on"
-		StopSound "fx_relay_off"
-		For Each Light in LightsGIupf : Light.State = LightStateOn : Next
-		For Each Prim in primitivesGIupfpegs : Prim.image = "peglight" : Prim.material = "peg3light": Next
-		For Each Prim in primitivesGIupf : Prim.DisableLighting = 1 : Next
-		Primitive98.material = "RubberOn" : Primitive99.material = "RubberOn" : Primitive100.material = "RubberOn" : Primitive101.material = "RubberOn"
+    PlaySound "fx_relay_off"
+    StopSound "fx_relay_on"
+    For Each Light in LightsGIupf : Light.State = LightStateOff : Next
+    For Each Prim in primitivesGIupf : Prim.DisableLighting = 0 : Next
+    For Each Prim in primitivesGIupfpegs : Prim.image = "peg" : Prim.material = "peg3": Next
+    Primitive98.material = "RubberOff" : Primitive99.material = "RubberOff" : Primitive100.material = "RubberOff" : Primitive101.material = "RubberOff"
+  Else
+    PlaySound "fx_relay_on"
+    StopSound "fx_relay_off"
+    For Each Light in LightsGIupf : Light.State = LightStateOn : Next
+    For Each Prim in primitivesGIupfpegs : Prim.image = "peglight" : Prim.material = "peg3light": Next
+    For Each Prim in primitivesGIupf : Prim.DisableLighting = 1 : Next
+    Primitive98.material = "RubberOn" : Primitive99.material = "RubberOn" : Primitive100.material = "RubberOn" : Primitive101.material = "RubberOn"
     End If
 End Sub
 
 ' ### General Illumination-LPF ###
 Sub SolLPFGIRelay(enabled)
-	Dim Prim, Light
-	If enabled Then
-		PlaySound "fx_relay_off"
-		StopSound "fx_relay_on"
-		For Each Light in LightsGIlpf : Light.State = LightStateOff : Next
-		For Each Prim in primitivesGIlpf : Prim.DisableLighting = 0 : Next
-		For Each Prim in primitivesGIlpfpegs : Prim.image = "peg" : Prim.material = "peg3": Next
-	Else
-		PlaySound "fx_relay_on"
-		StopSound "fx_relay_off"
-		For Each Light in LightsGIlpf : Light.State = LightStateOn : Next
-		For Each Prim in primitivesGIlpf : Prim.DisableLighting = 1 : Next
-		For Each Prim in primitivesGIlpfpegs : Prim.image = "peglight" : Prim.material = "peg3light": Next
-	End If
+  Dim Prim, Light
+  If enabled Then
+    PlaySound "fx_relay_off"
+    StopSound "fx_relay_on"
+    For Each Light in LightsGIlpf : Light.State = LightStateOff : Next
+    For Each Prim in primitivesGIlpf : Prim.DisableLighting = 0 : Next
+    For Each Prim in primitivesGIlpfpegs : Prim.image = "peg" : Prim.material = "peg3": Next
+  Else
+    PlaySound "fx_relay_on"
+    StopSound "fx_relay_off"
+    For Each Light in LightsGIlpf : Light.State = LightStateOn : Next
+    For Each Prim in primitivesGIlpf : Prim.DisableLighting = 1 : Next
+    For Each Prim in primitivesGIlpfpegs : Prim.image = "peglight" : Prim.material = "peg3light": Next
+  End If
 End Sub
 
 '-----------------------------------------------------------------------------------
@@ -873,25 +873,25 @@ End Sub
 '-----------------------------------------------------------------------------------
 
 Sub KickbackTimer_Timer
-	' Turn off kickback after a certain period
-	KickbackTimer.Enabled = False
-	Kickback.Enabled = False
+  ' Turn off kickback after a certain period
+  KickbackTimer.Enabled = False
+  Kickback.Enabled = False
 End Sub
 
 Sub Kickback_Hit()
-	' Kick ball back up, with random unpredictable force (like real life)
-	Kickback.Kick 0, (33 + ((Rnd - 0.5) * 3)), 15
-	'change the 33 to something else to raise or lower the kickback strength
-	Kickback.Enabled = False
+  ' Kick ball back up, with random unpredictable force (like real life)
+  Kickback.Kick 0, (33 + ((Rnd - 0.5) * 3)), 15
+  'change the 33 to something else to raise or lower the kickback strength
+  Kickback.Enabled = False
 End Sub
 
 Sub NoJump_Hit() : ActiveBall.VelZ = 0 : End Sub
 
 sub MagnetHelper_unhit
-	if MagnaSave.MagnetOn = 1 then	'if magnet is on...
-		activeball.vely = activeball.vely * -0.25	'reverse direction of the ball
-		activeball.velx = activeball.velx * -0.25
-	end if
+  if MagnaSave.MagnetOn = 1 then  'if magnet is on...
+    activeball.vely = activeball.vely * -0.25 'reverse direction of the ball
+    activeball.velx = activeball.velx * -0.25
+  end if
 End Sub
 
 
@@ -906,29 +906,29 @@ Sub LampTimer_Timer()
     chgLamp = Controller.ChangedLamps
     If Not IsEmpty(chgLamp) Then
         For ii = 0 To UBound(chgLamp)
-			Select Case LightType(chgLamp(ii, 0))
-				Case 0
-					If LightObjectFirst(chgLamp(ii, 0)).state <> chgLamp(ii, 1) Then
-						LightObjectFirst(chgLamp(ii, 0)).state = chgLamp(ii, 1) : LightObjectSecond(chgLamp(ii, 0)).state = chgLamp(ii, 1)
-					End If
-				Case 1 :
-						If Light19.State <> chgLamp(ii, 1) Then
-						Select Case chgLamp(ii, 1)
-							Case 0
-								Light19.state = 0:Light19b.state = 0:bulbyellow.Disablelighting = 0
-								PegPlasticT23.Disablelighting = 0 : PegPlasticT23.image = "peg" : PegPlasticT23.material = "peg3"
-								PegPlasticT24.Disablelighting = 0 : PegPlasticT24.image = "peg" : PegPlasticT24.material = "peg3"
-							Case 1
-								Light19.state = 1:Light19b.state = 1:bulbyellow.Disablelighting = 1
-								PegPlasticT23.Disablelighting = 1 : PegPlasticT23.image = "peglight" : PegPlasticT23.material = "peg3light"
-								PegPlasticT24.Disablelighting = 1 : PegPlasticT24.image = "peglight" : PegPlasticT24.material = "peg3light"
-						 End Select
-						End If
-				Case 2 : Select Case chgLamp(ii, 1)
-							Case 0: LightObjectFirst(chgLamp(ii, 0)).IntensityScale = 0.5
-							Case 1: LightObjectFirst(chgLamp(ii, 0)).IntensityScale = 20.0
-						 End Select
-			End Select
+      Select Case LightType(chgLamp(ii, 0))
+        Case 0
+          If LightObjectFirst(chgLamp(ii, 0)).state <> chgLamp(ii, 1) Then
+            LightObjectFirst(chgLamp(ii, 0)).state = chgLamp(ii, 1) : LightObjectSecond(chgLamp(ii, 0)).state = chgLamp(ii, 1)
+          End If
+        Case 1 :
+            If Light19.State <> chgLamp(ii, 1) Then
+            Select Case chgLamp(ii, 1)
+              Case 0
+                Light19.state = 0:Light19b.state = 0:bulbyellow.Disablelighting = 0
+                PegPlasticT23.Disablelighting = 0 : PegPlasticT23.image = "peg" : PegPlasticT23.material = "peg3"
+                PegPlasticT24.Disablelighting = 0 : PegPlasticT24.image = "peg" : PegPlasticT24.material = "peg3"
+              Case 1
+                Light19.state = 1:Light19b.state = 1:bulbyellow.Disablelighting = 1
+                PegPlasticT23.Disablelighting = 1 : PegPlasticT23.image = "peglight" : PegPlasticT23.material = "peg3light"
+                PegPlasticT24.Disablelighting = 1 : PegPlasticT24.image = "peglight" : PegPlasticT24.material = "peg3light"
+             End Select
+            End If
+        Case 2 : Select Case chgLamp(ii, 1)
+              Case 0: LightObjectFirst(chgLamp(ii, 0)).IntensityScale = 0.5
+              Case 1: LightObjectFirst(chgLamp(ii, 0)).IntensityScale = 20.0
+             End Select
+      End Select
         Next
     End If
 End Sub
@@ -938,17 +938,17 @@ End Sub
 '******************************
 
 Sub ChangeBall(ballnr)
-	Dim BOT, ii, col
-	Bk2k.BallDecalMode = CustomBallLogoMode(ballnr)
-	Bk2k.BallFrontDecal = CustomBallDecal(ballnr)
-	Bk2k.DefaultBulbIntensityScale = CustomBulbIntensity(ballnr)
-	Bk2k.BallImage = CustomBallImage(ballnr)
-	GlowBall = CustomBallGlow(ballnr)
-	For ii = 0 to 2
-		col = RGB(red(ballnr), green(ballnr), Blue(ballnr))
-		GlowLow(ii).color = col : GlowMed(ii).color = col : GlowHigh(ii).color = col
-		GlowLow(ii).colorfull = col : GlowMed(ii).colorfull = col : GlowHigh(ii).colorfull = col
-	Next
+  Dim BOT, ii, col
+  Bk2k.BallDecalMode = CustomBallLogoMode(ballnr)
+  Bk2k.BallFrontDecal = CustomBallDecal(ballnr)
+  Bk2k.DefaultBulbIntensityScale = CustomBulbIntensity(ballnr)
+  Bk2k.BallImage = CustomBallImage(ballnr)
+  GlowBall = CustomBallGlow(ballnr)
+  For ii = 0 to 2
+    col = RGB(red(ballnr), green(ballnr), Blue(ballnr))
+    GlowLow(ii).color = col : GlowMed(ii).color = col : GlowHigh(ii).color = col
+    GlowLow(ii).colorfull = col : GlowMed(ii).colorfull = col : GlowHigh(ii).colorfull = col
+  Next
 End Sub
 
 '******************************
@@ -1089,7 +1089,7 @@ Sub RollingUpdate()
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
-		If GlowBall and b <3 Then GlowLow(b).state = 0 : GlowMed(b).state = 0 : GlowHigh(b).state = 0 End If
+    If GlowBall and b <3 Then GlowLow(b).state = 0 : GlowMed(b).state = 0 : GlowHigh(b).state = 0 End If
     Next
 
     ' exit the sub if no balls on the table
@@ -1110,20 +1110,20 @@ Sub RollingUpdate()
           rolling(b) = False
         End If
       End If
-		If GlowBall Then
-			If BOT(b).z > 160 Then
-				If GlowHigh(b).state = 0 Then GlowLow(b).state = 0 : GlowMed(b).state = 0 : GlowHigh(b).state = 1 : End If
-				GlowHigh(b).x = BOT(b).x : GlowHigh(b).y = BOT(b).y + anglecompensate
-			Else
-				If BOT(b).z > 50 Then
-					If GlowMed(b).state = 0 Then GlowLow(b).state = 0 : GlowHigh(b).state = 0 : GlowMed(b).state = 1 : End If
-					GlowMed(b).x = BOT(b).x : GlowMed(b).y = BOT(b).y + anglecompensate
-				Else
-					If GlowLow(b).state = 0 Then GlowMed(b).state = 0 : GlowHigh(b).state = 0 : GlowLow(b).state = 1 : End If
-					GlowLow(b).x = BOT(b).x : GlowLow(b).y = BOT(b).y + anglecompensate
-				End If
-			End if
-		End If
+    If GlowBall Then
+      If BOT(b).z > 160 Then
+        If GlowHigh(b).state = 0 Then GlowLow(b).state = 0 : GlowMed(b).state = 0 : GlowHigh(b).state = 1 : End If
+        GlowHigh(b).x = BOT(b).x : GlowHigh(b).y = BOT(b).y + anglecompensate
+      Else
+        If BOT(b).z > 50 Then
+          If GlowMed(b).state = 0 Then GlowLow(b).state = 0 : GlowHigh(b).state = 0 : GlowMed(b).state = 1 : End If
+          GlowMed(b).x = BOT(b).x : GlowMed(b).y = BOT(b).y + anglecompensate
+        Else
+          If GlowLow(b).state = 0 Then GlowMed(b).state = 0 : GlowHigh(b).state = 0 : GlowLow(b).state = 1 : End If
+          GlowLow(b).x = BOT(b).x : GlowLow(b).y = BOT(b).y + anglecompensate
+        End If
+      End if
+    End If
     Next
 End Sub
 

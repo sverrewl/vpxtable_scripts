@@ -8,14 +8,14 @@
 '
 ' Williams 1987, F-14 Tomcat
 '
-' Concept by: 	Steve Ritchie
-' Design by: 	Steve Ritchie
-' Art by: 	Doug Watson
-' Mechanics by: 	Craig Fitpold
-' Music by: 	Steve Ritchie, Chris Granner
-' Sound by: 	Bill Parod, Chris Granner
-' Software by: 	Eugene Jarvis, Ed Boon
-' Notes: 	This game has two 7-digit alphanumeric score displays and two 7-digit numeric-only score displays.
+' Concept by:   Steve Ritchie
+' Design by:  Steve Ritchie
+' Art by:   Doug Watson
+' Mechanics by:   Craig Fitpold
+' Music by:   Steve Ritchie, Chris Granner
+' Sound by:   Bill Parod, Chris Granner
+' Software by:  Eugene Jarvis, Ed Boon
+' Notes:  This game has two 7-digit alphanumeric score displays and two 7-digit numeric-only score displays.
 '
 ' Credits:
 '
@@ -109,16 +109,16 @@ LoadVPM "01560000", "S11.VBS", 3.26
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 If DesktopMode = True Then 'Show Desktop components
-	Ramp16.visible=1
-	Ramp15.visible=1
-	Primitive13.visible=1
-	ref1.visible=0
-	ref2.visible=0
-	ref3.visible=0
+  Ramp16.visible=1
+  Ramp15.visible=1
+  Primitive13.visible=1
+  ref1.visible=0
+  ref2.visible=0
+  ref3.visible=0
 Else
-	Ramp16.visible=0
-	Ramp15.visible=0
-	Primitive13.visible=0
+  Ramp16.visible=0
+  Ramp15.visible=0
+  Primitive13.visible=0
 End if
 
 If Sticker = 1 Then
@@ -130,23 +130,23 @@ Ramp18.visible=1
 End if
 
 If BumperColor = 1 Then
-			GI_Bumper_1.color = RGB(0,0,255)
-			GI_Bumper_1.colorfull = RGB(0,0,255)
+      GI_Bumper_1.color = RGB(0,0,255)
+      GI_Bumper_1.colorfull = RGB(0,0,255)
 
-	Else
-			Bumper.image = "bumper_red"
-			GI_Bumper_1.color = RGB(255,0,0)
-			GI_Bumper_1.colorfull = RGB(255,0,0)
+  Else
+      Bumper.image = "bumper_red"
+      GI_Bumper_1.color = RGB(255,0,0)
+      GI_Bumper_1.colorfull = RGB(255,0,0)
 End If
 
 If CustomBackwall = 1 Then
-	Wall21.sidevisible=1
+  Wall21.sidevisible=1
 Else
-	Wall21.sidevisible=0
+  Wall21.sidevisible=0
 End If
 
 If CustomCards = 1 Then
-	Primitive68.image = "apron_custom"
+  Primitive68.image = "apron_custom"
 End If
 
 '*************************************************************
@@ -197,175 +197,175 @@ SolCallback(31) = "Flasher31" 'top white and red
 SolCallback(32) = "SetLamp 132," 'radar flashers
 
 Sub Flasher9(value)
-	SetLamp 109, value
-	If value Then
-		FlasherDome9.disablelighting = 1
-		FlasherDome9.image = "dome3_blue_lit"
-		'FlasherDome9.material = "Flasherlit"
-		PlaySoundAtVol "fx_relay", FlasherDome9, 1
-	Else
-		FlasherDome9.disablelighting = 0
-		FlasherDome9.image = "dome3_blue"
-		'FlasherDome9.material = "Flasherunlit"
-	End If
+  SetLamp 109, value
+  If value Then
+    FlasherDome9.disablelighting = 1
+    FlasherDome9.image = "dome3_blue_lit"
+    'FlasherDome9.material = "Flasherlit"
+    PlaySoundAtVol "fx_relay", FlasherDome9, 1
+  Else
+    FlasherDome9.disablelighting = 0
+    FlasherDome9.image = "dome3_blue"
+    'FlasherDome9.material = "Flasherunlit"
+  End If
 End Sub
 
 Sub Flasher15(value)
-	SetLamp 115, value
-	If value Then
-		Primitive2.image="dome3_red_lit"
-		'Primitive2.material="Flasherlit"
-		Primitive2.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive2, 1
-	Else
-		Primitive2.image="dome3_red"
-		'Primitive2.material="Flasherunlit"
-		Primitive2.disablelighting=0
-	End If
+  SetLamp 115, value
+  If value Then
+    Primitive2.image="dome3_red_lit"
+    'Primitive2.material="Flasherlit"
+    Primitive2.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive2, 1
+  Else
+    Primitive2.image="dome3_red"
+    'Primitive2.material="Flasherunlit"
+    Primitive2.disablelighting=0
+  End If
 End Sub
 
 Sub Flasher25(value)
-	SetLamp 125, value
-	if value Then
-		Primitive4.image="dome3_clear_lit"
-		'Primitive4.material="Flasherlit"
-		Primitive4.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive4, 1
-		Dome125.image="dome2_0_red_lit"
-		Dome125.disablelighting=1
-		topred.state=1 'backwall reflection
-		Wall21.sideimage = "backdrop_lit"
-		Wall21.disablelighting=1
-	Else
-		Primitive4.image="dome3_clear"
-		'Primitive4.material="Flasherunlit"
-		Primitive4.disablelighting=0
-		Dome125.image="dome2_0_red_dark"
-		Dome125.disablelighting=0
-		topred.state=0 'backwall reflection
-		Wall21.sideimage = "backdrop"
-		Wall21.disablelighting=0
-	End If
+  SetLamp 125, value
+  if value Then
+    Primitive4.image="dome3_clear_lit"
+    'Primitive4.material="Flasherlit"
+    Primitive4.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive4, 1
+    Dome125.image="dome2_0_red_lit"
+    Dome125.disablelighting=1
+    topred.state=1 'backwall reflection
+    Wall21.sideimage = "backdrop_lit"
+    Wall21.disablelighting=1
+  Else
+    Primitive4.image="dome3_clear"
+    'Primitive4.material="Flasherunlit"
+    Primitive4.disablelighting=0
+    Dome125.image="dome2_0_red_dark"
+    Dome125.disablelighting=0
+    topred.state=0 'backwall reflection
+    Wall21.sideimage = "backdrop"
+    Wall21.disablelighting=0
+  End If
 End Sub
 
 Sub Flasher26(value)
-	SetLamp 126, value
-	if value Then
-		Dome126.image="dome2_0_red_lit"
-		Dome126.disablelighting=1
-		topred.state=1 'backwall reflection
-		'Wall21.sideimage = "backdrop_lit"
-	Else
-		Dome126.image="dome2_0_red_dark"
-		Dome126.disablelighting=0
-		topred.state=0 'backwall reflection
-		'Wall21.sideimage = "backdrop"
-	End If
+  SetLamp 126, value
+  if value Then
+    Dome126.image="dome2_0_red_lit"
+    Dome126.disablelighting=1
+    topred.state=1 'backwall reflection
+    'Wall21.sideimage = "backdrop_lit"
+  Else
+    Dome126.image="dome2_0_red_dark"
+    Dome126.disablelighting=0
+    topred.state=0 'backwall reflection
+    'Wall21.sideimage = "backdrop"
+  End If
 End Sub
 
 Sub Flasher27(value)
-	SetLamp 127, value
-	if value Then
-		Dome127.image="dome2_0_red_lit"
-		Dome127.disablelighting=1
-		topred.state=1 'backwall reflection
-		Wall21.sideimage = "backdrop_lit"
-		Wall21.disablelighting=1
-	Else
-		Dome127.image="dome2_0_red_dark"
-		Dome127.disablelighting=0
-		topred.state=0 'backwall reflection
-		Wall21.sideimage = "backdrop"
-		Wall21.disablelighting=0
-	End If
+  SetLamp 127, value
+  if value Then
+    Dome127.image="dome2_0_red_lit"
+    Dome127.disablelighting=1
+    topred.state=1 'backwall reflection
+    Wall21.sideimage = "backdrop_lit"
+    Wall21.disablelighting=1
+  Else
+    Dome127.image="dome2_0_red_dark"
+    Dome127.disablelighting=0
+    topred.state=0 'backwall reflection
+    Wall21.sideimage = "backdrop"
+    Wall21.disablelighting=0
+  End If
 End Sub
 
 Sub Flasher28(value)
-	SetLamp 128, value
-	if value Then
-		Primitive16.image="dome3_red_lit"
-		'Primitive16.material="Flasherlit"
-		Primitive16.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive6, 1
-		Dome128.image="dome2_0_red_lit"
-		Dome128.disablelighting=1
-		topred.state=1 'backwall reflection
-		'Wall21.sideimage = "backdrop_lit"
-	Else
-		Primitive16.image="dome3_red"
-		'Primitive16.material="Flasherunlit"
-		Primitive16.disablelighting=0
-		Dome128.image="dome2_0_red_dark"
-		Dome128.disablelighting=0
-		topred.state=0 'backwall reflection
-		'Wall21.sideimage = "backdrop"
-	End If
+  SetLamp 128, value
+  if value Then
+    Primitive16.image="dome3_red_lit"
+    'Primitive16.material="Flasherlit"
+    Primitive16.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive6, 1
+    Dome128.image="dome2_0_red_lit"
+    Dome128.disablelighting=1
+    topred.state=1 'backwall reflection
+    'Wall21.sideimage = "backdrop_lit"
+  Else
+    Primitive16.image="dome3_red"
+    'Primitive16.material="Flasherunlit"
+    Primitive16.disablelighting=0
+    Dome128.image="dome2_0_red_dark"
+    Dome128.disablelighting=0
+    topred.state=0 'backwall reflection
+    'Wall21.sideimage = "backdrop"
+  End If
 End Sub
 
 Sub Flasher29(value)
-	SetLamp 129, value
-	if value Then
-		Primitive5.image="dome3_clear_lit"
-		'Primitive5.material="Flasherlit"
-		Primitive5.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive5, 1
-		Dome129.image="dome2_0_red_lit"
-		Dome129.disablelighting=1
-		topred.state=1 'backwall reflection
-		Wall21.sideimage = "backdrop_lit"
-		Wall21.disablelighting=1
-	Else
-		Primitive5.image="dome3_clear"
-		'Primitive5.material="Flasherunlit"
-		Primitive5.disablelighting=0
-		Dome129.image="dome2_0_red_dark"
-		Dome129.disablelighting=0
-		topred.state=0 'backwall reflection
-		Wall21.sideimage = "backdrop"
-		Wall21.disablelighting=0
-	End If
+  SetLamp 129, value
+  if value Then
+    Primitive5.image="dome3_clear_lit"
+    'Primitive5.material="Flasherlit"
+    Primitive5.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive5, 1
+    Dome129.image="dome2_0_red_lit"
+    Dome129.disablelighting=1
+    topred.state=1 'backwall reflection
+    Wall21.sideimage = "backdrop_lit"
+    Wall21.disablelighting=1
+  Else
+    Primitive5.image="dome3_clear"
+    'Primitive5.material="Flasherunlit"
+    Primitive5.disablelighting=0
+    Dome129.image="dome2_0_red_dark"
+    Dome129.disablelighting=0
+    topred.state=0 'backwall reflection
+    Wall21.sideimage = "backdrop"
+    Wall21.disablelighting=0
+  End If
 End Sub
 
 Sub Flasher30(value)
-	SetLamp 130, value
-	if value Then
-		Primitive6.image="dome3_blue_lit"
-		'Primitive6.material="Flasherlit"
-		Primitive6.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive6, 1
-		Dome130.image="dome2_0_red_lit"
-		Dome130.disablelighting=1
-		topred.state=1 'backwall reflection
-		'Wall21.sideimage = "backdrop_lit"
-	Else
-		Primitive6.image="dome3_blue"
-		'Primitive6.material="Flasherunlit"
-		Primitive6.disablelighting=0
-		Dome130.image="dome2_0_red_dark"
-		Dome130.disablelighting=0
-		topred.state=0 'backwall reflection
-		'Wall21.sideimage = "backdrop"
-	End If
+  SetLamp 130, value
+  if value Then
+    Primitive6.image="dome3_blue_lit"
+    'Primitive6.material="Flasherlit"
+    Primitive6.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive6, 1
+    Dome130.image="dome2_0_red_lit"
+    Dome130.disablelighting=1
+    topred.state=1 'backwall reflection
+    'Wall21.sideimage = "backdrop_lit"
+  Else
+    Primitive6.image="dome3_blue"
+    'Primitive6.material="Flasherunlit"
+    Primitive6.disablelighting=0
+    Dome130.image="dome2_0_red_dark"
+    Dome130.disablelighting=0
+    topred.state=0 'backwall reflection
+    'Wall21.sideimage = "backdrop"
+  End If
 End Sub
 
 Sub Flasher31(value)
-	SetLamp 131, value
-	if value Then
-		Primitive3.image="dome3_clear_lit"
-		'Primitive3.material="Flasherlit"
-		Primitive3.disablelighting=1
-		Primitive1.image="dome3_red_lit"
-		'Primitive1.material="Flasherlit"
-		Primitive1.disablelighting=1
-		PlaySoundAtVol "fx_relay", Primitive3, 1
-	Else
-		Primitive3.image="dome3_clear"
-		'Primitive3.material="Flasherunlit"
-		Primitive3.disablelighting=0
-		Primitive1.image="dome3_red"
-		'Primitive1.material="Flasherunlit"
-		Primitive1.disablelighting=0
-	End If
+  SetLamp 131, value
+  if value Then
+    Primitive3.image="dome3_clear_lit"
+    'Primitive3.material="Flasherlit"
+    Primitive3.disablelighting=1
+    Primitive1.image="dome3_red_lit"
+    'Primitive1.material="Flasherlit"
+    Primitive1.disablelighting=1
+    PlaySoundAtVol "fx_relay", Primitive3, 1
+  Else
+    Primitive3.image="dome3_clear"
+    'Primitive3.material="Flasherunlit"
+    Primitive3.disablelighting=0
+    Primitive1.image="dome3_red"
+    'Primitive1.material="Flasherunlit"
+    Primitive1.disablelighting=0
+  End If
 End Sub
 
 '**********************************************************************************************************
@@ -376,20 +376,20 @@ End Sub
 'Playfield GI
 Sub PFGI(Enabled)
 
-	If Enabled Then
-		dim xx
-		For each xx in GI:xx.State = 1: Next
+  If Enabled Then
+    dim xx
+    For each xx in GI:xx.State = 1: Next
         PlaySound "fx_relay"
-		ref1.visible=1
-		ref2.visible=1
-		ref3.visible=1
-	Else
-		For each xx in GI:xx.State = 0: Next
+    ref1.visible=1
+    ref2.visible=1
+    ref3.visible=1
+  Else
+    For each xx in GI:xx.State = 0: Next
         PlaySound "fx_relay"
-		ref1.visible=0
-		ref2.visible=0
-		ref3.visible=0
-	End If
+    ref1.visible=0
+    ref2.visible=0
+    ref3.visible=0
+  End If
 End Sub
 
 
@@ -401,7 +401,7 @@ Sub SolPopper(Enabled)
             Set popperBall = sw24a.Createball
             popperBall.Z = 0
             popperZpos = 0
-			PlaySoundAtVol SoundFX("Popper",DOFContactors), sw24, VolKick
+      PlaySoundAtVol SoundFX("Popper",DOFContactors), sw24, VolKick
             sw24a.TimerInterval = 2
             sw24a.TimerEnabled = 1
         End If
@@ -422,7 +422,7 @@ End Sub
 Sub SolKickBack(enabled)
     If enabled Then
         KickBack.Fire
-		PlaySoundAtVol SoundFX("Popper",DOFContactors), KickBack, VolKick
+    PlaySoundAtVol SoundFX("Popper",DOFContactors), KickBack, VolKick
     Else
         KickBack.PullBack
     End If
@@ -431,24 +431,24 @@ End Sub
 Sub SolDiverter1(enabled)
     If enabled Then
         Diverter1.RotateToEnd
-		PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter1, 1
-		PlaySoundAtVol "fx_relay", Diverter1, 1
+    PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter1, 1
+    PlaySoundAtVol "fx_relay", Diverter1, 1
     Else
         Diverter1.RotateToStart
-		PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter1, 1
-		PlaySoundAtVol "fx_relay", Diverter1, 1
+    PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter1, 1
+    PlaySoundAtVol "fx_relay", Diverter1, 1
     End If
 End Sub
 
 Sub SolDiverter2(enabled)
     If enabled Then
         Diverter2.RotateToEnd
-		PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter2, 1
-		PlaySoundAtVol "fx_relay", Diverter2, 1
+    PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter2, 1
+    PlaySoundAtVol "fx_relay", Diverter2, 1
     Else
         Diverter2.RotateToStart
-		PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter2, 1
-		PlaySoundAtVol "fx_relay", Diverter2, 1
+    PlaySoundAtVol SoundFX("Popper_Ball",DOFContactors), Diverter2, 1
+    PlaySoundAtVol "fx_relay", Diverter2, 1
     End If
 End Sub
 
@@ -471,17 +471,17 @@ End Sub
 dim bsTrough, bsRE, bsLC, bsRC, bsBP, bsKB
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "F-14 Tomcat (Williams 1987)"&chr(13)&"You Suck"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "F-14 Tomcat (Williams 1987)"&chr(13)&"You Suck"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .hidden = 1
          On Error Resume Next
          .Run GetPlayerHWnd
@@ -497,46 +497,46 @@ Sub Table1_Init
     vpmNudge.Sensitivity = 5
     vpmNudge.TiltObj = Array(Bumper1, LeftSlingshot, RightSlingshot)
 
-	'Change flippers
+  'Change flippers
 
-	ChangeBats(ChooseBats)
+  ChangeBats(ChooseBats)
 
     ' Trough
     Set bsTrough = New cvpmBallStack
-		bsTrough.InitSw 10, 14, 13, 12, 11, 0, 0, 0
-		bsTrough.InitKick BallRelease, 135, 6
-		bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsTrough.Balls = 4
+    bsTrough.InitSw 10, 14, 13, 12, 11, 0, 0, 0
+    bsTrough.InitKick BallRelease, 135, 6
+    bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsTrough.Balls = 4
 
     ' Right Eject
     Set bsRE = New cvpmBallStack
-		bsRE.InitSaucer sw21, 21, 0, 38
-		bsRE.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsRE.InitSaucer sw21, 21, 0, 38
+    bsRE.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
     ' Left Center Eject
     Set bsLC = New cvpmBallStack
-		bsLC.InitSaucer sw22, 22, 335, 45
-		bsLC.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsLC.InitSaucer sw22, 22, 335, 45
+    bsLC.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
     ' Right Center Eject
     Set bsRC = New cvpmBallStack
-		bsRC.InitSaucer sw23, 23, 27, 45
-		bsRC.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsRC.KickAngleVar = 4
-		bsRC.KickForceVar = 1
+    bsRC.InitSaucer sw23, 23, 27, 45
+    bsRC.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsRC.KickAngleVar = 4
+    bsRC.KickForceVar = 1
 
     ' Ball Popper
     Set bsBP = New cvpmBallStack
-		bsBP.InitSaucer sw24, 24, 0, 0
-		bsBP.InitKick sw24a, 270, 28
-		bsBP.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsBP.InitSaucer sw24, 24, 0, 0
+    bsBP.InitKick sw24a, 270, 28
+    bsBP.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
     ' Line of Death Kickback
     Set bsKB = New cvpmBallStack
-		bsKB.InitSaucer sw55, 55, 178, 55
-		bsKB.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsKB.KickAngleVar = 1
-		bsKB.KickForceVar = 5
+    bsKB.InitSaucer sw55, 55, 178, 55
+    bsKB.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsKB.KickAngleVar = 1
+    bsKB.KickForceVar = 5
 
     ' Init ramp diverter
     Diverter1.RotatetoStart
@@ -550,22 +550,22 @@ End Sub
 'Change flippers
 
 Sub ChangeBats(Bats)
-	Select Case Bats
-		Case 0
-			batleft.visible = 0 : batright.visible = 0 : batleft1.visible = 0 : batright1.visible = 0 : LeftFlipper.visible = 1 : RightFlipper.visible = 1 : LeftFlipper1.visible = 1 : RightFlipper1.visible = 1
-			batleftshadow.visible = 0 : batrightshadow.visible = 0 : batleftshadow1.visible = 0 : batrightshadow1.visible = 0 : GraphicsTimer.enabled = False
-		Case 1
-			batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
-			batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
-		Case 2
-			batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
-			batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
-			batleft.image = "flipper_white_red" : batright.image = "flipper_white_red" : batleft1.image = "flipper_white_red" : batright1.image = "flipper_white_red"
-		Case 3
-			batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
-			batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
-			batleft.image = "flipper_white_blue" : batright.image = "flipper_white_blue" : batleft1.image = "flipper_white_blue" : batright1.image = "flipper_white_blue"
-	End Select
+  Select Case Bats
+    Case 0
+      batleft.visible = 0 : batright.visible = 0 : batleft1.visible = 0 : batright1.visible = 0 : LeftFlipper.visible = 1 : RightFlipper.visible = 1 : LeftFlipper1.visible = 1 : RightFlipper1.visible = 1
+      batleftshadow.visible = 0 : batrightshadow.visible = 0 : batleftshadow1.visible = 0 : batrightshadow1.visible = 0 : GraphicsTimer.enabled = False
+    Case 1
+      batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
+      batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
+    Case 2
+      batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
+      batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
+      batleft.image = "flipper_white_red" : batright.image = "flipper_white_red" : batleft1.image = "flipper_white_red" : batright1.image = "flipper_white_red"
+    Case 3
+      batleft.visible = 1 : batright.visible = 1 : batleft1.visible = 1 : batright1.visible = 1 : LeftFlipper.visible = 0 : RightFlipper.visible = 0 : LeftFlipper1.visible = 0 : RightFlipper1.visible = 0
+      batleftshadow.visible = 1 : batrightshadow.visible = 1 : batleftshadow1.visible = 1 : batrightshadow1.visible = 1 : GraphicsTimer.enabled = True
+      batleft.image = "flipper_white_blue" : batright.image = "flipper_white_blue" : batleft1.image = "flipper_white_blue" : batright1.image = "flipper_white_blue"
+  End Select
 End Sub
 
 '**********************************************************************************************************
@@ -573,15 +573,15 @@ End Sub
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol "plungerpull", Plunger, 1
+  If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol "plungerpull", Plunger, 1
     If keycode = RightFlipperKey Then Controller.Switch(63) = 1
     If keycode = LeftFlipperKey Then Controller.Switch(15) = 1
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "plunger", Plunger, 1
+  If KeyUpHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "plunger", Plunger, 1
     If keycode = RightFlipperKey Then Controller.Switch(63) = 0
     If keycode = LeftFlipperKey Then Controller.Switch(15) = 0
 End Sub
@@ -598,15 +598,15 @@ Sub sw24_Hit:bsBP.AddBall Me : playsoundAtVol "popper_ball", sw24, 1 : End Sub
 'YAGOV KICKER
 
 Sub sw55_Hit
-	bsKB.AddBall Me
-	playsoundAtVol "popper_ball", sw55, VolKick
+  bsKB.AddBall Me
+  playsoundAtVol "popper_ball", sw55, VolKick
 
-	If EdBoon = 1 Then
-		Select Case Int(Rnd*2)+1
-			Case 1 : playsoundAtVol "scorpion", sw55, 1
-			Case 2 : playsoundAtVol "scorpion2", sw55, 1
-		End Select
-	End If
+  If EdBoon = 1 Then
+    Select Case Int(Rnd*2)+1
+      Case 1 : playsoundAtVol "scorpion", sw55, 1
+      Case 2 : playsoundAtVol "scorpion2", sw55, 1
+    End Select
+  End If
 
 End Sub
 
@@ -761,15 +761,15 @@ Sub UpdateLamps
     NFadeL 56, l56
     NFadeLm 57, l57a 'Left Ramp LEDs
     NFadeObj 57, l57, "bulbcover1_redOn", "bulbcover1_red"
-    NFadeLm 58, l58a	'Left Ramp LEDs
+    NFadeLm 58, l58a  'Left Ramp LEDs
     NFadeObj 58, l58, "bulbcover1_redOn", "bulbcover1_red"
-    NFadeLm 59, l59a	'Left Ramp LEDs
+    NFadeLm 59, l59a  'Left Ramp LEDs
     NFadeObj 59, l59, "bulbcover1_redOn", "bulbcover1_red"
-    NFadeLm 60, l60a	'Left Ramp LEDs
+    NFadeLm 60, l60a  'Left Ramp LEDs
     NFadeObj 60, l60, "bulbcover1_blueOn", "bulbcover1_blue"
-    NFadeLm 61, l61a	'Left Ramp LEDs
+    NFadeLm 61, l61a  'Left Ramp LEDs
     NFadeObj 61, l61, "bulbcover1_blueOn", "bulbcover1_blue"
-    NFadeLm 62, l62a	'Left Ramp LEDs
+    NFadeLm 62, l62a  'Left Ramp LEDs
     NFadeObj 62, l62, "bulbcover1_blueOn", "bulbcover1_blue"
     NFadeL 63, l63
     NFadeL 64, l64
@@ -809,7 +809,7 @@ Sub UpdateLamps
     NFadeLm 131, f131c
 
     NFadeLm 132, f132
-	NFadeLm 132, f132b
+  NFadeLm 132, f132b
 
 End Sub
 
@@ -963,18 +963,18 @@ Digits(27) = Array(LED280,LED281,LED282,LED283,LED284,LED285,LED286)
     Dim ChgLED, ii, jj, num, chg, stat, obj, b, x
     ChgLED=Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
     If Not IsEmpty(ChgLED)Then
-		If DesktopMode = True Then
+    If DesktopMode = True Then
        For ii=0 To UBound(chgLED)
           num=chgLED(ii, 0) : chg=chgLED(ii, 1) : stat=chgLED(ii, 2)
-			if (num < 28) then
+      if (num < 28) then
               For Each obj In Digits(num)
                    If chg And 1 Then obj.State=stat And 1
                    chg=chg\2 : stat=stat\2
                   Next
-			Else
-			       end if
+      Else
+             end if
         Next
-	   end if
+     end if
     End If
  End Sub
 
@@ -985,7 +985,7 @@ Digits(27) = Array(LED280,LED281,LED282,LED283,LED284,LED285,LED286)
 ' *********************************************************************
 ' *********************************************************************
 
-					'Start of VPX call back Functions
+          'Start of VPX call back Functions
 
 ' *********************************************************************
 ' *********************************************************************
@@ -996,14 +996,14 @@ Digits(27) = Array(LED280,LED281,LED282,LED283,LED284,LED285,LED286)
 Dim RStep, Lstep, Cstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 58
+  vpmTimer.PulseSw 58
     PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
     RightSlingShot.TimerEnabled = 1
-	f127a.state=1
+  f127a.state=1
 End Sub
 
 Sub RightSlingShot_Timer
@@ -1015,14 +1015,14 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 57
+  vpmTimer.PulseSw 57
     PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
     LStep = 0
     LeftSlingShot.TimerEnabled = 1
-	f126a.state=1
+  f126a.state=1
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -1034,7 +1034,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub TopRubberSling_Hit
-	RubberTop.visible = 0
+  RubberTop.visible = 0
     RubberTop1.Visible = 0
     RubberTop2.Visible = 1
     CStep = 0
@@ -1087,91 +1087,91 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, 1
+  PlaySoundAtVol "fx_spinner", Spinner, 1
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub GraphicsTimer_Timer()
-		If ChooseBats > 0 Then
-		' *** move primitive bats ***
-		batleft.objrotz = LeftFlipper.CurrentAngle + 1
-		batleftshadow.objrotz = batleft.objrotz
-		batright.objrotz = RightFlipper.CurrentAngle - 1
-		batrightshadow.objrotz  = batright.objrotz
-		batleft1.objrotz = LeftFlipper1.CurrentAngle + 1
-		batleftshadow1.objrotz = batleft1.objrotz
-		batright1.objrotz = RightFlipper1.CurrentAngle - 1
-		batrightshadow1.objrotz  = batright1.objrotz
-	End If
+    If ChooseBats > 0 Then
+    ' *** move primitive bats ***
+    batleft.objrotz = LeftFlipper.CurrentAngle + 1
+    batleftshadow.objrotz = batleft.objrotz
+    batright.objrotz = RightFlipper.CurrentAngle - 1
+    batrightshadow.objrotz  = batright.objrotz
+    batleft1.objrotz = LeftFlipper1.CurrentAngle + 1
+    batleftshadow1.objrotz = batleft1.objrotz
+    batright1.objrotz = RightFlipper1.CurrentAngle - 1
+    batrightshadow1.objrotz  = batright1.objrotz
+  End If
 End Sub
 
 ' *******************************************************************************************************
@@ -1292,16 +1292,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

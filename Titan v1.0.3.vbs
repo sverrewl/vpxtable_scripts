@@ -347,7 +347,7 @@ Sub Sol4(enabled)
         t3.State = a
         t4.State = a
         t5.State = a
-	End If
+  End If
     For each x in aGiLights
         x.state = ABS(a - 1)
     Next

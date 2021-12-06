@@ -26,9 +26,9 @@
 '   Added option settings for all of the operator adjustments described in the
 '       original Bally manual (balls per game, replay score levels, replay award
 '       as credit or extra ball, special award as credit or extra ball, and
-'	    Aladdin's Alley "liberal" or "conservative" scoring).  Also added a
-'		Free Play option, which allows starting a game (or adding a player)
-'		with 0 credits.
+'     Aladdin's Alley "liberal" or "conservative" scoring).  Also added a
+'   Free Play option, which allows starting a game (or adding a player)
+'   with 0 credits.
 '   Added an "operator menu" to adjust the new option settings interactively.
 '       Open the coin door (press the End key) to display the menu; navigate it
 '       using the flipper buttons and Start button.
@@ -58,7 +58,7 @@
 '   Added a VP9.9.1 custom plunger with mech plunger input enabled (for cabinet use)
 '   Fixed some broken sound effects (ball rolling, rubber bumps, etc)
 '   Added more ball-rolling sounds (the greater variety creates a more natural effect)
-'	Fixed some problems in saving and restoring settings
+' Fixed some problems in saving and restoring settings
 '   Added support for cabinet tilt bob switches using the "T" key (this just pulses
 '       the virtual tilt switch in the game, without adding any nudging physics -
 '       we assume that there's an accelerometer providing the actual nudge input)
@@ -342,38 +342,38 @@ Dim Dtoptions_A
 ' method call conditional throughout the script.  Calls to the Controller methods
 ' will simply go through these dummy methods, which will be silently ignored.
 class DummyController
-	Public B2SName
-	Public Sub Run : End Sub
-	Public Sub B2SSetData(id, val) : End Sub
-	Public Sub B2SSetGameOver(id, val) : End Sub
-	Public Sub B2SSetTilt(id, val) : End Sub
-	Public Sub B2SSetMatch(id, val) : End Sub
-	Public Sub B2SSetScore(player, val) : End Sub
-	Public Sub B2SSetCredits(val) : End Sub
-	Public Sub B2SSetCanPlay(id, val) : End Sub
-	Public Sub B2SSetBallInPlay(id, val) : End Sub
-	Public Sub B2SSetPlayerUp(id, val) : End Sub
-	Public Sub B2SSetShootAgain(id, val) : End Sub
+  Public B2SName
+  Public Sub Run : End Sub
+  Public Sub B2SSetData(id, val) : End Sub
+  Public Sub B2SSetGameOver(id, val) : End Sub
+  Public Sub B2SSetTilt(id, val) : End Sub
+  Public Sub B2SSetMatch(id, val) : End Sub
+  Public Sub B2SSetScore(player, val) : End Sub
+  Public Sub B2SSetCredits(val) : End Sub
+  Public Sub B2SSetCanPlay(id, val) : End Sub
+  Public Sub B2SSetBallInPlay(id, val) : End Sub
+  Public Sub B2SSetPlayerUp(id, val) : End Sub
+  Public Sub B2SSetShootAgain(id, val) : End Sub
 end class
 
 
 Dim object
 
     If ShowDT = True Then
-		For each object in DT_Stuff
-		Object.visible = 1
-		Next
+    For each object in DT_Stuff
+    Object.visible = 1
+    Next
         CabinetRailLeft.visible = 1:CabinetRailRight.visible = 1
         LDB.visible = 1
-	End If
+  End If
 
-	If ShowDt = False Then
-		For each object in DT_Stuff
-		Object.visible = 0
-		Next
+  If ShowDt = False Then
+    For each object in DT_Stuff
+    Object.visible = 0
+    Next
         CabinetRailLeft.visible = 0:CabinetRailRight.visible = 0
         LDB.visible = 0
-	End If
+  End If
 
 If Show_Glass = 1 AND ShowDT = True Then
 Glass.visible = 1
@@ -420,13 +420,13 @@ End If
      LoadEM
      Ball=1
      ' TextBox.Text= "Insert Coin"    'When table is first rendered show game over/insert coin.
- 	 For Each Obj In Bumperparts:Obj.Isdropped=True:Next
-	 For Each Obj In Sidelights: Obj.State=0:Next
-	 For Each Obj In Toprolloverlights: Obj.State=0:Next
-	 For Each Obj In Bottomrolloverlights: Obj.State=0:Next
-	 For Each Obj In Toplights:Obj.State=0:Next
-	 Players=0                      'Players=0 because a game hasn't started yet.
-	 for i = 1 to ubound(ScorePlayer) : ScorePlayer(i) = 0 : next   ' All scores to zero
+   For Each Obj In Bumperparts:Obj.Isdropped=True:Next
+   For Each Obj In Sidelights: Obj.State=0:Next
+   For Each Obj In Toprolloverlights: Obj.State=0:Next
+   For Each Obj In Bottomrolloverlights: Obj.State=0:Next
+   For Each Obj In Toplights:Obj.State=0:Next
+   Players=0                      'Players=0 because a game hasn't started yet.
+   for i = 1 to ubound(ScorePlayer) : ScorePlayer(i) = 0 : next   ' All scores to zero
      AlleyLevel = 0                 'Reset the Aladdin's Alley counter
      Matchnumber=10
      If B2SOn Then
@@ -435,14 +435,14 @@ End If
      Controller.B2ssetmatch 34, Matchnumber
      End If
      LoadInfo                       'Load the info for when the game boots up.
-	 BGInitTimer.Enabled = true
+   BGInitTimer.Enabled = true
      'Declare the desktop reels for desktop view.
      Set SReels(1) = ScoreReel1
      Set SReels(2) = ScoreReel2
      For i = 1 to 2
-	 'SReels(i).setvalue(scoreplayer(i)) < Uncomment to populate the score reels with high score 1 and 2 in desktop mode.
-	 Next
-	 Init_Desktop_Reels
+   'SReels(i).setvalue(scoreplayer(i)) < Uncomment to populate the score reels with high score 1 and 2 in desktop mode.
+   Next
+   Init_Desktop_Reels
      DOF 165,1
  End Sub
 
@@ -450,18 +450,18 @@ End If
  Sub Init_Desktop_Reels
     op1mval1.text = OptBallsPerGame
     hs1.text = HighscoreInits(0)
-	hs1_val.text = Highscore(0)
-	HS2.text = HighscoreInits(1)
-	hs2_val.text = Highscore(1)
+  hs1_val.text = Highscore(0)
+  HS2.text = HighscoreInits(1)
+  hs2_val.text = Highscore(1)
     hs3.text = HighscoreInits(2)
-	hs3_val.text = Highscore(2)
-	HS4.text = HighscoreInits(3)
-	hs4_val.text = Highscore(3)
+  hs3_val.text = Highscore(2)
+  HS4.text = HighscoreInits(3)
+  hs4_val.text = Highscore(3)
     op1mval6.text = optreplay1
     op1mval7.text = optreplay2
     Gotilt.setvalue(0)
 
-	For each object in DToptions
+  For each object in DToptions
      Object.visible = 0
      Next
      If OptAlleyScoring = 0 Then
@@ -490,26 +490,26 @@ End Sub
 ' seconds to initialize itself before it will accept any commands from
 ' the VP side.  This runs once on a timer, then disables itself.
 Sub BGInitTimer_Timer
-	' Set the backglass display for the player scores, credits, and high score to date.
-	' Note: I removed the score restoration, because it invokes the motor sound effects
-	' on the backglass.  That seems less authentic than just leaving it zeroed.  The
-	' real machine *would* in fact power up with whatever score was showing when it
-	' was last shut down, since the mechanical reels would just stay put across the
-	' power cycle, but therein lies the problem: the reels on the real machine would
-	' just *stay put* on power up.  So my way is inauthentic we always power up at
-	' zero, but the active animation and sound of the reels is more *noticeably*
-	' unrealistic in that it calls attention to itself.  Leaving the reels at zero
-	' isn't perfect either but is less noticeably imperfect.
-	'Controller.B2ssetscore 1, Scoreplayer(0) mod 100000
-	'Controller.B2ssetscore 2, Scoreplayer(1) mod 100000
+  ' Set the backglass display for the player scores, credits, and high score to date.
+  ' Note: I removed the score restoration, because it invokes the motor sound effects
+  ' on the backglass.  That seems less authentic than just leaving it zeroed.  The
+  ' real machine *would* in fact power up with whatever score was showing when it
+  ' was last shut down, since the mechanical reels would just stay put across the
+  ' power cycle, but therein lies the problem: the reels on the real machine would
+  ' just *stay put* on power up.  So my way is inauthentic we always power up at
+  ' zero, but the active animation and sound of the reels is more *noticeably*
+  ' unrealistic in that it calls attention to itself.  Leaving the reels at zero
+  ' isn't perfect either but is less noticeably imperfect.
+  'Controller.B2ssetscore 1, Scoreplayer(0) mod 100000
+  'Controller.B2ssetscore 2, Scoreplayer(1) mod 100000
     If B2SOn Then
-	Controller.B2ssetCredits Credits
+  Controller.B2ssetCredits Credits
     End If
-	CurHighScoreDisp = 0
-	HighScoreDisplayTimer.Enabled = True
+  CurHighScoreDisp = 0
+  HighScoreDisplayTimer.Enabled = True
 
-	' we only need to run this once, so disable the timer
-	BGInitTimer.Enabled = false
+  ' we only need to run this once, so disable the timer
+  BGInitTimer.Enabled = false
 End Sub
 
 '*********** Save/restore settings *************************************************************************************
@@ -527,77 +527,77 @@ End Sub
 ' to use on load when the variable isn't defined in the persistent store.
 
 Dim SavedVars : SavedVars = Array( _
-	"ScorePlayer(1)", "CDbl", 0, _
-	"ScorePlayer(2)", "CDbl", 0, _
-	"Credits", "CDbl", 0, _
-	"Highscore(0)", "CDbl", 70000, _
-	"Highscore(1)", "CDbl", 0, _
-	"Highscore(2)", "CDbl", 0, _
-	"Highscore(3)", "CDbl", 0, _
-	"HighscoreDate(0)", "", "6/16/1976", _
-	"HighscoreDate(1)", "", "", _
-	"HighscoreDate(2)", "", "", _
-	"HighscoreDate(3)", "", "", _
-	"HighscoreInits(0)", "", "GK[", _
-	"HighscoreInits(1)", "", "", _
-	"HighscoreInits(2)", "", "", _
-	"HighscoreInits(3)", "", "", _
-	"OptAlleyScoring", "CInt", 1, _
-	"OptSpecialVal", "CInt", 0, _
-	"OptReplayVal", "CInt", 0, _
-	"OptReplay1", "CDbl", 65000, _
-	"OptReplay2", "CDbl", 99000, _
-	"OptBallsPerGame", "CInt", 3, _
-	"OptFreePlay", "CInt", 0 _
+  "ScorePlayer(1)", "CDbl", 0, _
+  "ScorePlayer(2)", "CDbl", 0, _
+  "Credits", "CDbl", 0, _
+  "Highscore(0)", "CDbl", 70000, _
+  "Highscore(1)", "CDbl", 0, _
+  "Highscore(2)", "CDbl", 0, _
+  "Highscore(3)", "CDbl", 0, _
+  "HighscoreDate(0)", "", "6/16/1976", _
+  "HighscoreDate(1)", "", "", _
+  "HighscoreDate(2)", "", "", _
+  "HighscoreDate(3)", "", "", _
+  "HighscoreInits(0)", "", "GK[", _
+  "HighscoreInits(1)", "", "", _
+  "HighscoreInits(2)", "", "", _
+  "HighscoreInits(3)", "", "", _
+  "OptAlleyScoring", "CInt", 1, _
+  "OptSpecialVal", "CInt", 0, _
+  "OptReplayVal", "CInt", 0, _
+  "OptReplay1", "CDbl", 65000, _
+  "OptReplay2", "CDbl", 99000, _
+  "OptBallsPerGame", "CInt", 3, _
+  "OptFreePlay", "CInt", 0 _
 )
 
 
 Sub SaveInfo
-	dim i
-	for i = 0 to ubound(SavedVars)-1 step 3
-		SaveValue cGameName, SavedVars(i), Eval(SavedVars(i))
-	next
+  dim i
+  for i = 0 to ubound(SavedVars)-1 step 3
+    SaveValue cGameName, SavedVars(i), Eval(SavedVars(i))
+  next
 End Sub
 
 Sub LoadInfo
-	dim i
-	for i = 0 to ubound(SavedVars)-1 step 3
-		' load the saved value from the persistent store
-		Value = LoadValue(cGameName, SavedVars(i))
+  dim i
+  for i = 0 to ubound(SavedVars)-1 step 3
+    ' load the saved value from the persistent store
+    Value = LoadValue(cGameName, SavedVars(i))
 
-		' if it's empty, it wasn't defined, so apply the default
-		if Value = "" then Value = SavedVars(i+2)
+    ' if it's empty, it wasn't defined, so apply the default
+    if Value = "" then Value = SavedVars(i+2)
 
-		' if there's a conversion function, apply it
-		if SavedVars(i+1) <> "" then Value = Eval(SavedVars(i+1) & "(Value)")
+    ' if there's a conversion function, apply it
+    if SavedVars(i+1) <> "" then Value = Eval(SavedVars(i+1) & "(Value)")
 
-		' store the result in the target variable
-		Execute SavedVars(i) & " = Value"
-	next
+    ' store the result in the target variable
+    Execute SavedVars(i) & " = Value"
+  next
 End Sub
 
 ' Get the default value for a saved variable
 Function GetSavedVarDefault(name)
-	dim i
-	for i = 0 to ubound(SavedVars)-1 step 3
-		if SavedVars(i) = name then
-			GetSavedVarDefault = SavedVars(i+2)
-			exit function
-		end if
-	next
+  dim i
+  for i = 0 to ubound(SavedVars)-1 step 3
+    if SavedVars(i) = name then
+      GetSavedVarDefault = SavedVars(i+2)
+      exit function
+    end if
+  next
 End Function
 
 ' Apply the factory reset high score values
 Sub HighScoreReset
-	' apply each HighscoreXXX default from the saved variable list
-	for i = 0 to ubound(SavedVars)-1 step 3
-		dim name : name = SavedVars(i)
-		dim defval : defval = SavedVars(i+2)
-		if left(name, 9) = "Highscore" then
-			Execute name & " = defval"
-		end if
-	next
-	CurHighScoreDisp = 0
+  ' apply each HighscoreXXX default from the saved variable list
+  for i = 0 to ubound(SavedVars)-1 step 3
+    dim name : name = SavedVars(i)
+    dim defval : defval = SavedVars(i+2)
+    if left(name, 9) = "Highscore" then
+      Execute name & " = defval"
+    end if
+  next
+  CurHighScoreDisp = 0
 End Sub
 
 
@@ -618,35 +618,35 @@ End Sub
 Dim bgFlashers(6), lastBgFlasher
 Sub BgLights_Timer()
     do while true
-		dim n : n = ubound(bgFlashers)
-		dim lno : lno = int(rnd*n)
-		if lno < n and lno <> lastBgFlasher then
-			lastBgFlasher = lno
-			if bgFlashers(lno) then bgFlashers(lno) = 0 else bgFlashers(lno) = 1
-			dof 200+lno, bgFlashers(lno)
-			exit do
-		end if
-	loop
+    dim n : n = ubound(bgFlashers)
+    dim lno : lno = int(rnd*n)
+    if lno < n and lno <> lastBgFlasher then
+      lastBgFlasher = lno
+      if bgFlashers(lno) then bgFlashers(lno) = 0 else bgFlashers(lno) = 1
+      dof 200+lno, bgFlashers(lno)
+      exit do
+    end if
+  loop
 End Sub
 
 '******* Key Down *********************************************************************************************************
 Dim gxx
 
 Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key down.
-	If  Keycode = PlungerKey Then       'JP's plunger stuff.
-		Plunger.PullBack                'Pull back the plunger.
+  If  Keycode = PlungerKey Then       'JP's plunger stuff.
+    Plunger.PullBack                'Pull back the plunger.
         If Show_Hands = 1 AND ShowDT = True Then
         pld = 1:Plunger_Hand.enabled = 1
         End If
-	End If
-	If  Keycode = LeftFlipperKey And InProgress = True And Tilt=False Then
+  End If
+  If  Keycode = LeftFlipperKey And InProgress = True And Tilt=False Then
         If Show_Hands = 1 AND ShowDT=True Then
         hld = 1:hand_left.enabled = 1
         End If
 
-		LeftFlipper.RotateToEnd         'If the above conditions are present then flipper goes up.
+    LeftFlipper.RotateToEnd         'If the above conditions are present then flipper goes up.
         PlaySoundat SoundFXDOF("flipperup",128,DOFOn,DOFFlippers), leftflipper
-		PlaySound "BuzzL", -1
+    PlaySound "BuzzL", -1
         If Gi_Dim = 1 Then
         For Each gxx in GI_Lights
         gxx.IntensityScale = 0.9
@@ -654,15 +654,15 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
         DOF 166,1:DOF 165,0
         gi_bright.enabled = 1
         End If
-	End If
-	If  Keycode = RightFlipperKey And InProgress = True And Tilt=False Then
+  End If
+  If  Keycode = RightFlipperKey And InProgress = True And Tilt=False Then
         If Show_Hands = 1 AND ShowDT = True Then
-		rld = 1:hand_right.enabled = 1
+    rld = 1:hand_right.enabled = 1
         End If
-		RightFlipper.RotateToEnd        'If the above conditions are present then flipper goes up.
-		RightFlipper1.RotateToEnd       'If the above conditions are present then flipper goes up.
-		PlaySoundat SoundFXDOF("flipperup",129,DOFOn,DOFFlippers), rightflipper
-		PlaySound "BuzzR", -1
+    RightFlipper.RotateToEnd        'If the above conditions are present then flipper goes up.
+    RightFlipper1.RotateToEnd       'If the above conditions are present then flipper goes up.
+    PlaySoundat SoundFXDOF("flipperup",129,DOFOn,DOFFlippers), rightflipper
+    PlaySound "BuzzR", -1
         If Gi_Dim = 1 Then
         For Each gxx in GI_Lights
         gxx.IntensityScale = 0.9
@@ -670,70 +670,70 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
         DOF 166,1:DOF 165,0
         gi_bright.enabled = 1
         End If
-	End If
-	If  Keycode = AddCreditKey Then
-		Credits=credits + 1             'Add a credit.
-		MaxCredits                      'Call the max credits sub to check for maximum credits.
-		PlaySound "credit"              'Play the sound.
-		PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker)        'Play the sound.
+  End If
+  If  Keycode = AddCreditKey Then
+    Credits=credits + 1             'Add a credit.
+    MaxCredits                      'Call the max credits sub to check for maximum credits.
+    PlaySound "credit"              'Play the sound.
+    PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker)        'Play the sound.
         If B2SOn Then
-		Controller.B2ssetCredits Credits
+    Controller.B2ssetCredits Credits
         End If
-		' If  InProgress= False Then TextBox.Text = "Press Start"   'If the game is over then show Press Start.
-		PlaySound "coinin"               'I wish I had a quarter for every time I've heard this sound. Amen, Bob!
-	End If
-	If  Keycode = StartGameKey Then
-		StartGame                       'Call the start game sub.
-	End If
-	If  Keycode = LeftTiltKey Then      'Left shake.
-		Nudge 90, 2                     'Degree of shake and strength.
-		BumpIt                          'Check for tilt
-	End If
-	If  Keycode = RightTiltKey Then     'Right shake.
-		Nudge 270, 2                    'Degree of shake and strength.
-		BumpIt                          'Check for tilt
-	End If
-	If  Keycode = CenterTiltKey Then    'Center shake.
-		Nudge 0, 2                      'Degree of shake and strength.
-		BumpIt                          'Check for tilt
-	End If
-	If  Keycode = MechanicalTilt Then 'Analog tiltbob.
-'		Nudge 0, 2                      'Degree of shake and strength.
-		BumpIt                          'Check for tilt
-	End If
-	if Keycode = 207 and Not InProgress and Not OpMenuActive AND showdt = false then   ' End = Coin Door key = operator menu
-		ShowOperatorMenu
-	end if
-	if Keycode = 20 then                'Key 20 = keyBangBack = "T"
-		if CabHasAccelerometer then
-			' There's an accelerometer, so DON'T apply any physics nudge.  The "T"
-			' key is usually mapped in cabinets with accelerometers to the physical
-			' tilt bob, so we only want this to pulse the virtual tilt switch.
-			'
-			' Older EM games like this typically tilted immediately when the tilt
-			' bob switch made contact.  There wasn't usually any sort of warning or
-			' grace period.  So signal a full tilt here.
-			TiltIt:Tilt=True
+    ' If  InProgress= False Then TextBox.Text = "Press Start"   'If the game is over then show Press Start.
+    PlaySound "coinin"               'I wish I had a quarter for every time I've heard this sound. Amen, Bob!
+  End If
+  If  Keycode = StartGameKey Then
+    StartGame                       'Call the start game sub.
+  End If
+  If  Keycode = LeftTiltKey Then      'Left shake.
+    Nudge 90, 2                     'Degree of shake and strength.
+    BumpIt                          'Check for tilt
+  End If
+  If  Keycode = RightTiltKey Then     'Right shake.
+    Nudge 270, 2                    'Degree of shake and strength.
+    BumpIt                          'Check for tilt
+  End If
+  If  Keycode = CenterTiltKey Then    'Center shake.
+    Nudge 0, 2                      'Degree of shake and strength.
+    BumpIt                          'Check for tilt
+  End If
+  If  Keycode = MechanicalTilt Then 'Analog tiltbob.
+'   Nudge 0, 2                      'Degree of shake and strength.
+    BumpIt                          'Check for tilt
+  End If
+  if Keycode = 207 and Not InProgress and Not OpMenuActive AND showdt = false then   ' End = Coin Door key = operator menu
+    ShowOperatorMenu
+  end if
+  if Keycode = 20 then                'Key 20 = keyBangBack = "T"
+    if CabHasAccelerometer then
+      ' There's an accelerometer, so DON'T apply any physics nudge.  The "T"
+      ' key is usually mapped in cabinets with accelerometers to the physical
+      ' tilt bob, so we only want this to pulse the virtual tilt switch.
+      '
+      ' Older EM games like this typically tilted immediately when the tilt
+      ' bob switch made contact.  There wasn't usually any sort of warning or
+      ' grace period.  So signal a full tilt here.
+      TiltIt:Tilt=True
            ' TiltCount = 3:TiltTimer.enabled = 1
-		else
-			' No accelerometer is present, so DO apply a simulated physics nudge.
-			' In non-cabinet setups, the "T" key is meant to represent a hard nudge
-			' nudge straight ahead, so use a large nudge factor (6 is the convention
-			' as the strength factor for this type of nudge).  Since this is such
-			' a hard nudge, treat it as a full tilt.
-			Nudge 0, 6
-			TiltIt:Tilt=True
+    else
+      ' No accelerometer is present, so DO apply a simulated physics nudge.
+      ' In non-cabinet setups, the "T" key is meant to represent a hard nudge
+      ' nudge straight ahead, so use a large nudge factor (6 is the convention
+      ' as the strength factor for this type of nudge).  Since this is such
+      ' a hard nudge, treat it as a full tilt.
+      Nudge 0, 6
+      TiltIt:Tilt=True
              'TiltCount = 3:TiltTimer.enabled = 1
-		end if
-	end if
+    end if
+  end if
 
-	' do high score initial entry if applicable
-	if EnteringHS then HighScoreInitKey keycode
+  ' do high score initial entry if applicable
+  if EnteringHS then HighScoreInitKey keycode
 
-	' process an operator menu keystroke if the menu is up
-	if OpMenuActive then OpMenuKey keycode
+  ' process an operator menu keystroke if the menu is up
+  if OpMenuActive then OpMenuKey keycode
 
-	if keycode = 30 then BeginHighScoreInits 2, 0
+  if keycode = 30 then BeginHighScoreInits 2, 0
 
     'This is the code for the game's options menu in desktop mode.  Rather than convert MJR's cabinet view to desktop, I have
     'just used a series of text boxes that allowing the same variables to be changed.  This menu is opened in desktop mode by
@@ -745,83 +745,83 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
     dtoptions_A = 1
     End If
 
-	If keycode=leftmagnasave AND Dtoptions_A = 1 then
-		moptions=moptions+1
-		If moptions=11 then moptions=1
-		playsound "target"
-		Select Case (moptions)
-			Case 1:
-				Op1.state = 1
-				Op10.state = 0
-			Case 2:
-				Op2.state = 1
-				Op1.state = 0
-			Case 3:
-				Op3.state = 1
-				Op2.state = 0
+  If keycode=leftmagnasave AND Dtoptions_A = 1 then
+    moptions=moptions+1
+    If moptions=11 then moptions=1
+    playsound "target"
+    Select Case (moptions)
+      Case 1:
+        Op1.state = 1
+        Op10.state = 0
+      Case 2:
+        Op2.state = 1
+        Op1.state = 0
+      Case 3:
+        Op3.state = 1
+        Op2.state = 0
             Case 4:
                 Op4.State = 1
                 Op3.State = 0
-			Case 5:
+      Case 5:
                 Op5.State = 1
                 Op4.State = 0
-			Case 6:
+      Case 6:
                 Op6.State = 1
                 Op5.State = 0
-			Case 7:
+      Case 7:
                 Op7.State = 1
                 Op6.State = 0
-			Case 8:
+      Case 8:
                 Op8.State = 1
                 Op7.State = 0
-			Case 9:
+      Case 9:
                 Op9.State = 1
                 Op8.State = 0
            Case 10:
                 Op10.State = 1
                 Op9.State = 0
-		End Select
-	end if
+    End Select
+  end if
 
     If keycode=Rightmagnasave AND Dtoptions_A = 1 then
-	  PlaySound "metalhit"
-	  Select Case (moptions)
-		Case 1:
-			if OptBallsPerGame = 3 then
-				OptBallsPerGame=5
-				op1mval1.text = 5
-			else
-			if OptBallsPerGame = 5 Then
+    PlaySound "metalhit"
+    Select Case (moptions)
+    Case 1:
+      if OptBallsPerGame = 3 then
+        OptBallsPerGame=5
+        op1mval1.text = 5
+      else
+      if OptBallsPerGame = 5 Then
             OptBallsPerGame=3
-			op1mval1.text = 3
-			end if
+      op1mval1.text = 3
+      end if
             end if
-		Case 2:
-			If OptFreePlay = 0 Then
+    Case 2:
+      If OptFreePlay = 0 Then
                OptFreePlay = 1
                op1mval2.text = "Yes"
                Else
                OptFreePlay = 0
                op1mval2.text = "No"
             End If
-		Case 3:
-           	If OptAlleyScoring = 0 Then
+    Case 3:
+            If OptAlleyScoring = 0 Then
                OptAlleyScoring = 1
                op1mval3.text = "Con"
                Else
                OptAlleyScoring = 0
                op1mval3.text = "Lib"
             End If
-   		Case 4:
-           	If OptReplayVal = 0 Then
+      Case 4:
+            If OptReplayVal = 0 Then
                OptReplayVal = 1
                op1mval4.text = "EB"
                Else
                OptReplayVal = 0
                op1mval4.text = "CR"
             End If
-   		Case 5:
-           	If OptSpecialVal = 0 Then
+      Case 5:
+            If OptSpecialVal = 0 Then
                OptSpecialVal = 1
                op1mval5.text = "EB"
                Else
@@ -833,14 +833,14 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
              OptReplay1 = 49000
              End If
              OptReplay1 = OptReplay1 + 1000
-           	 op1mval6.text = OptReplay1
-		Case 7:
+             op1mval6.text = OptReplay1
+    Case 7:
              If OptReplay2 => 99000 Then
              OptReplay2 = 49000
              End If
              OptReplay2 = OptReplay2 + 1000
-           	 op1mval7.text = OptReplay2
-		Case 8:
+             op1mval7.text = OptReplay2
+    Case 8:
              If OptHSReset = 0 Then
                OptHSReset = 1
                op1mval8.text = "Yes"
@@ -848,7 +848,7 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
                OptHSReset = 0
                op1mval8.text = "No"
             End If
-		Case 9:
+    Case 9:
             Dtoptions_A = 0
             If OptHSReset then
             HighScoreReset
@@ -856,13 +856,13 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
             op1mval8.text = "No"
             End If
             hs1.text = HighscoreInits(0)
-			hs1_val.text = Highscore(0)
-			HS2.text = HighscoreInits(1)
-			hs2_val.text = Highscore(1)
-			hs3.text = HighscoreInits(2)
-			hs3_val.text = Highscore(2)
-			HS4.text = HighscoreInits(3)
-			hs4_val.text = Highscore(3)
+      hs1_val.text = Highscore(0)
+      HS2.text = HighscoreInits(1)
+      hs2_val.text = Highscore(1)
+      hs3.text = HighscoreInits(2)
+      hs3_val.text = Highscore(2)
+      HS4.text = HighscoreInits(3)
+      hs4_val.text = Highscore(3)
             moptions = 1
             op9.State = 0
             op1.State = 1
@@ -871,69 +871,69 @@ Sub Table1_KeyDown(ByVal keycode)   'This is what happens when you push a key do
         Case 10:
              Dtoptions_A = 0
              DTOptions_Hide
-	  End Select
-	End If
+    End Select
+  End If
 
 End Sub
 
 '*********** Key Up *******************************************************************************************************
 
 Sub Table1_KeyUp(ByVal keycode)     'This is what happens when you release a key.
-	If  keycode = PlungerKey Then       'JP's Plunger stuff.
-		Plunger.Fire                    'Fire the plunger.
-		Playsoundat "Plungerrelease", Screw61
+  If  keycode = PlungerKey Then       'JP's Plunger stuff.
+    Plunger.Fire                    'Fire the plunger.
+    Playsoundat "Plungerrelease", Screw61
         If Show_Hands = 1 AND ShowDT = True Then
         pld = 11:Plunger_Hand.enabled = 1
         End If
-	End If
-	If  Keycode = LeftFlipperKey then
-		Stopsound "BuzzL"
-		if InProgress = True And Tilt=False Then
+  End If
+  If  Keycode = LeftFlipperKey then
+    Stopsound "BuzzL"
+    if InProgress = True And Tilt=False Then
             If Show_Hands = 1 AND ShowDT = True Then
             hld = 6:hand_left.enabled = 1
             End If
-			LeftFlipper.RotateToStart       'If the above conditions are true the flipper goes down.
+      LeftFlipper.RotateToStart       'If the above conditions are true the flipper goes down.
              PlaySoundat SoundFXDOF("flipperdown",128,DOFOff,DOFFlippers), LeftFlipper
-		end if
-	End If
-	If  Keycode = RightFlipperKey then
-		Stopsound "BuzzR"
-		if InProgress = True And Tilt=False Then
+    end if
+  End If
+  If  Keycode = RightFlipperKey then
+    Stopsound "BuzzR"
+    if InProgress = True And Tilt=False Then
             If Show_Hands = 1 AND ShowDT = True Then
             rld = 6:hand_right.enabled = 1
             End If
-			RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
-			RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
-			DOF 129, 0
-			PlaySoundat SoundFXDOF("flipperdown",129,DOFOff,DOFFlippers), RightFlipper
-		end if
-	End If
+      RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
+      RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
+      DOF 129, 0
+      PlaySoundat SoundFXDOF("flipperdown",129,DOFOff,DOFFlippers), RightFlipper
+    end if
+  End If
 
-	' process a high score initial entry key if applicable
-	if EnteringHS then HighScoreInitKeyUp keycode
+  ' process a high score initial entry key if applicable
+  if EnteringHS then HighScoreInitKeyUp keycode
 
-	' process an operator menu keystroke if the menu is up
-	if OpMenuActive then OpMenuKeyUp keycode
+  ' process an operator menu keystroke if the menu is up
+  if OpMenuActive then OpMenuKeyUp keycode
 
 End Sub
 
 Sub MaxCredits()
-	If  Credits>9 Then                  'If credits are greater than 9 then you have 9 credits.
-		Credits=9
+  If  Credits>9 Then                  'If credits are greater than 9 then you have 9 credits.
+    Credits=9
         If B2SOn Then
-		Controller.B2ssetCredits Credits
+    Controller.B2ssetCredits Credits
         End If
-	End If
+  End If
 End Sub
 
 Sub Addcredit()
-	Credits=credits + 1             'Add a credit.
+  Credits=credits + 1             'Add a credit.
     MaxCredits                      'Call the max credits sub to check for maximum credits.
     PlaySound SoundFXDOF("knocker-echo",127,DOFPulse,DOFKnocker)
     If B2SOn Then
     Controller.B2ssetCredits Credits
     End If
-	if InProgress=False then SaveInfo
+  if InProgress=False then SaveInfo
 End Sub
 
 '*************************** Desktop Options Menu ************************************************************************
@@ -965,29 +965,29 @@ End Sub
 
 Sub StartGame
     ' If we're entering high score initials, or the operator menu is running,
-	' the Start button doesn't start a game after all.
-	if EnteringHS or OpMenuActive then exit sub
+  ' the Start button doesn't start a game after all.
+  if EnteringHS or OpMenuActive then exit sub
 
-	' the button only works if we have credits or the machine is set to free play
-	If Credits > 0 or OptFreePlay = 1 Then
-		' if no game is in progress, start a new game
-		If Not InProgress Then
-			NewGame                         'Call the New Game sub.
-			InProgress = True               'This means a game is in progress.
-			Playsound "Start1"
-			Playsound "Motor"
-		End If
+  ' the button only works if we have credits or the machine is set to free play
+  If Credits > 0 or OptFreePlay = 1 Then
+    ' if no game is in progress, start a new game
+    If Not InProgress Then
+      NewGame                         'Call the New Game sub.
+      InProgress = True               'This means a game is in progress.
+      Playsound "Start1"
+      Playsound "Motor"
+    End If
 
-		' now add a player, if we haven't already added all possible players
-		If InProgress = True And Players < 2 And Ball = 1 Then
-			if credits > 0 then Credits = Credits - 1  ' Subtract a credit; if 0 credits, leave it at 0 as we must be on free play
+    ' now add a player, if we haven't already added all possible players
+    If InProgress = True And Players < 2 And Ball = 1 Then
+      if credits > 0 then Credits = Credits - 1  ' Subtract a credit; if 0 credits, leave it at 0 as we must be on free play
             If B2SOn Then
-			Controller.B2ssetCredits Credits
+      Controller.B2ssetCredits Credits
             End If
-			Players = Players + 1           'Add a player.
-			Playsound "bally-addplayer"
+      Players = Players + 1           'Add a player.
+      Playsound "bally-addplayer"
             If B2SOn Then
-			Controller.B2ssetCanplay 31,Players
+      Controller.B2ssetCanplay 31,Players
             End If
             'Turn on the appropriate lights in desktop mode for a 1 or two player game. These lights are not seen in cabinet mode due to
             'the collection of desktop items being hidden.
@@ -998,19 +998,19 @@ Sub StartGame
             Plights1.State = 1
             Plights2.State = 1
             End If
-		End If
-	End If
+    End If
+  End If
 End Sub
 
 Sub NewGame                          ' Start game, kickass I found a quarter!
     Ball=1                           ' Ball 1.
-	For Each Obj In Toplights:Obj.State=1:Next    ' Top lanes are all lit at the start of each ball
-	For Each Obj In Sidelights: Obj.State=0:Next  ' Side lanes are unlit
-	For Each Obj In Toprolloverlights: Obj.State=0:Next      ' Top rollovers are unlit
-	For Each Obj In Bottomrolloverlights: Obj.State=0:Next   ' Bottom rollovers are unlit
-	'For Each Obj In TiltedObjects:Obj.disabled = False: Next ' Clear tilt flags from all relevant objects
+  For Each Obj In Toplights:Obj.State=1:Next    ' Top lanes are all lit at the start of each ball
+  For Each Obj In Sidelights: Obj.State=0:Next  ' Side lanes are unlit
+  For Each Obj In Toprolloverlights: Obj.State=0:Next      ' Top rollovers are unlit
+  For Each Obj In Bottomrolloverlights: Obj.State=0:Next   ' Bottom rollovers are unlit
+  'For Each Obj In TiltedObjects:Obj.disabled = False: Next ' Clear tilt flags from all relevant objects
     Tilt_Disable' Clear tilt flags from all relevant objects
-	For Each Obj In Alleylights: Obj.State=0: Next           ' Turn off all Aladdin's Alley score level lights
+  For Each Obj In Alleylights: Obj.State=0: Next           ' Turn off all Aladdin's Alley score level lights
     l_gi2.state = 1:l_gi1.state = 1
     Alley1.State=1                   ' Turn on the level 1 Aladdin's Alley score light
     Light1k.State=1                  ' Turn on the 1000 bonus light
@@ -1020,15 +1020,15 @@ Sub NewGame                          ' Start game, kickass I found a quarter!
     Player=1                         ' Go to Player1.
     Tilt=0                           ' Reset the Tiltcount.
     Tilt=False                       ' Reset the tilt..
-	for i = 1 to ubound(ScorePlayer)
-		ScorePlayer(i) = 0			 ' Reset our internal score counter to zero
-		If B2SOn Then
+  for i = 1 to ubound(ScorePlayer)
+    ScorePlayer(i) = 0       ' Reset our internal score counter to zero
+    If B2SOn Then
         Controller.B2Ssetscore i, 0  ' Reset the backglass score display to zero
-		End If
+    End If
         Replay1Awarded(i) = false    ' We haven't awarded any replay at level 1 yet to any players
-		Replay2Awarded(i) = false    ' Likewise replay level 2
-		OverTheTop(i) = false        ' We haven't gone "Over the Top" yet for any player
-	next
+    Replay2Awarded(i) = false    ' Likewise replay level 2
+    OverTheTop(i) = false        ' We haven't gone "Over the Top" yet for any player
+  next
     DelayTimer1.Enabled=true
     If B2SOn Then
     Controller.B2ssetgameover 35,0   ' turn off the Game Over backglass light
@@ -1040,21 +1040,21 @@ Sub NewGame                          ' Start game, kickass I found a quarter!
     If B2SOn Then
     Controller.B2ssetplayerup 30,Player    ' Player Up light on
     Controller.B2ssetshootagain 36,0       ' turn off the Shoot Again backglass light
-	Controller.B2SSetData 9,0        ' turn off the shared Over The Top light
+  Controller.B2SSetData 9,0        ' turn off the shared Over The Top light
     Controller.B2SSetData 10,0       ' turn off the individual player 1 OTT light
-    Controller.B2SSetData 11,0	     ' turn off the individual player 2 OTT light
+    Controller.B2SSetData 11,0       ' turn off the individual player 2 OTT light
     End If
     'Set both desktop score reels to 0.
     SReels(1).setvalue(0)
     SReels(2).setvalue(0)
-	' While a game is in progress, turn off the rotating high scores, and
-	' instead show the lowest high score above the current player's score
-	' at the start of each ball.  This lets the player see the next goal
-	' score at a glance, and eliminates any performance impact of updating
-	' the display repeatedly during play.  At the start of a new game, the
-	' player's score starts at zero.
-	HighScoreDisplayTimer.Enabled = False
-	DispNextHighScoreAbove 0
+  ' While a game is in progress, turn off the rotating high scores, and
+  ' instead show the lowest high score above the current player's score
+  ' at the start of each ball.  This lets the player see the next goal
+  ' score at a glance, and eliminates any performance impact of updating
+  ' the display repeatedly during play.  At the start of a new game, the
+  ' player's score starts at zero.
+  HighScoreDisplayTimer.Enabled = False
+  DispNextHighScoreAbove 0
 End Sub
 
 Sub DelayTimer1_Timer()
@@ -1067,82 +1067,82 @@ Sub DelayTimer1_Timer()
 End Sub
 
 Sub Trigger1_Hit()
-	DOF 124, 1
+  DOF 124, 1
 End Sub
 
 Sub Trigger1_UnHit()
-	Playsoundat "Plunger", Screw60
-	DOF 124, 0
+  Playsoundat "Plunger", Screw60
+  DOF 124, 0
 End Sub
 
 '*********Sound Effects**************************************************************************************************
                                        'Use these for your sound effects like ball rolling, etc.
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper1_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End Select
 End Sub
 
 Sub RandomSoundHole()
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySound "fx_Hole1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "fx_Hole2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "fx_Hole3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 4 : PlaySound "fx_Hole4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySound "fx_Hole1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 2 : PlaySound "fx_Hole2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 3 : PlaySound "fx_Hole3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 4 : PlaySound "fx_Hole4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End Select
 End Sub
 
 Sub RandomSoundMetal()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "fx_metal_hit_1"
-		Case 2 : PlaySound "fx_metal_hit_2"
-		Case 3 : PlaySound "fx_metal_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "fx_metal_hit_1"
+    Case 2 : PlaySound "fx_metal_hit_2"
+    Case 3 : PlaySound "fx_metal_hit_3"
+  End Select
 End Sub
 
 Sub Metals_Hit(idx)
@@ -1174,25 +1174,25 @@ End Sub
 '********************Tilt*************************************************************************************************
 
 Sub BumpIt
-	If  InProgress = True And Tiltcount < 3 Then
+  If  InProgress = True And Tiltcount < 3 Then
         ' The game is In Progress and not tilted yet.  Count each time you "shake" the game,
-		' and tilt if we reach 3 bumps in within too short a time span.
-		Tiltcount = Tiltcount + 1       ' add 1 to the tiltcount while starting the timer.
-		TiltTimer.Enabled = True
-	End If
-	If  Tiltcount > 2 Then
+    ' and tilt if we reach 3 bumps in within too short a time span.
+    Tiltcount = Tiltcount + 1       ' add 1 to the tiltcount while starting the timer.
+    TiltTimer.Enabled = True
+  End If
+  If  Tiltcount > 2 Then
         ' The tilt count (times you've shaken the game) has reached 3 within too short a
-		' time window.  Tilt the game.
-		Tilt = True
-	End If
-	If  Tilt= True Then                 ' If you've tilted the game do this.
-		TiltIt
-	End If
+    ' time window.  Tilt the game.
+    Tilt = True
+  End If
+  If  Tilt= True Then                 ' If you've tilted the game do this.
+    TiltIt
+  End If
 End Sub
 
 Sub TiltIt
-	if InProgress then
-		LeftFlipper.RotateToStart       'If the game is tilted then reset the flippers.
+  if InProgress then
+    LeftFlipper.RotateToStart       'If the game is tilted then reset the flippers.
         PlaySoundAt SoundFXDOF("FlipperDown",128,DOFOff,DOFFlippers), LeftFlipper
         If Show_Hands = 1 AND ShowDT = True Then
         hld = 6:hand_left.enabled = 1
@@ -1200,32 +1200,32 @@ Sub TiltIt
         If Show_Hands = 1 AND ShowDT = True Then
         rld = 6:Hand_Right.enabled = 1
         End If
-		RightFlipper.RotateToStart      'If the game is tilted then reset the flippers.
-		RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
-		PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper
-		StopSound "BuzzL" : StopSound "BuzzR"
-		BonusCounter=0                  'If the game is tilted then reset the bonus to 0.
-		Playsound "Reset3"
-		For Each Obj In Toplights:Obj.State=0:Next
-		For Each Obj In Sidelights: Obj.State=0:Next
-		For Each Obj In Alleylights: Obj.State=0: Next
-		For Each Obj In Bottomrolloverlights: Obj.State=0: Next
-		For Each Obj In Toprolloverlights: Obj.State=0:Next
-		For Each Obj In Bonuslights: Obj.State=0:Next
+    RightFlipper.RotateToStart      'If the game is tilted then reset the flippers.
+    RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
+    PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper
+    StopSound "BuzzL" : StopSound "BuzzR"
+    BonusCounter=0                  'If the game is tilted then reset the bonus to 0.
+    Playsound "Reset3"
+    For Each Obj In Toplights:Obj.State=0:Next
+    For Each Obj In Sidelights: Obj.State=0:Next
+    For Each Obj In Alleylights: Obj.State=0: Next
+    For Each Obj In Bottomrolloverlights: Obj.State=0: Next
+    For Each Obj In Toprolloverlights: Obj.State=0:Next
+    For Each Obj In Bonuslights: Obj.State=0:Next
         l_gi2.state = 0:l_gi1.state = 0
-		Alley1.State=0
-		Light1k.State=0
-		Shootagain.State=0
+    Alley1.State=0
+    Light1k.State=0
+    Shootagain.State=0
         If B2SOn Then
-		Controller.B2ssetshootagain 36,0
-		End If
+    Controller.B2ssetshootagain 36,0
+    End If
         Light2x.State=0
         Tilt_Enable 'Activate the object array which prevents dynamic table objects from interacting with the ball.
-		'For Each Obj In TiltedObjects:Obj.disabled = True: Next'If the game is tilted disable all these objects in this collection.
-		If B2SOn Then
+    'For Each Obj In TiltedObjects:Obj.disabled = True: Next'If the game is tilted disable all these objects in this collection.
+    If B2SOn Then
         Controller.B2ssetTilt 33,1
         End If
-	End If
+  End If
 End Sub
 
 Sub Tilt_Enable
@@ -1252,11 +1252,11 @@ End Sub
 
 Sub TiltTimer_Timer
     TiltTimer.Enabled = False       'Turn off/reset the timer.
-	If  Tiltcount=3 Then                'If the tilt count reches 3 then the game is tilted,
+  If  Tiltcount=3 Then                'If the tilt count reches 3 then the game is tilted,
         Tilt = True                     'We have tilted the game.
-	Else
-		Tiltcount = 0                   'Else tilt count is 0 and reset the tilt timer.
-	End If
+  Else
+    Tiltcount = 0                   'Else tilt count is 0 and reset the tilt timer.
+  End If
 End Sub
 
 
@@ -1265,73 +1265,73 @@ End Sub
 ' Score 10 points, playing the 10-point bell (or firing the DOF chime)
 Sub AddScore10
     PlaySound SoundFXDOF("Bell10",131,DOFPulse,DOFChimes)
-	AddScore 10
+  AddScore 10
 End Sub
 
 ' Score 100 points, playing the 100-point bell (or firing the DOF chime)
 Sub AddScore100
-	PlaySound SoundFXDOF("Bell100",132,DOFPulse,DOFChimes)  ' 100-point chime
-	AddScore 100
+  PlaySound SoundFXDOF("Bell100",132,DOFPulse,DOFChimes)  ' 100-point chime
+  AddScore 100
 End Sub
 
 ' Score 1000 points, playing the 1000-point bell (or firing the DOF chime)
 Sub AddScore1000
-	PlaySound SoundFXDOF("Bell1000",133,DOFPulse,DOFChimes)
-	AddScore 1000
+  PlaySound SoundFXDOF("Bell1000",133,DOFPulse,DOFChimes)
+  AddScore 1000
 End Sub
 
 ' Add points to the current player's score.  Counts the points, updates
 ' the backglass reels, and checks for replays.
 Sub AddScore(Points)
-	ScorePlayer(Player) = ScorePlayer(Player) + Points
+  ScorePlayer(Player) = ScorePlayer(Player) + Points
     If InProgress Then
     SReels(Player).addvalue(Points)
     End If
     If B2SOn Then
-	Controller.B2Ssetscore Player, ScorePlayer(Player) mod 100000
-	End If
+  Controller.B2Ssetscore Player, ScorePlayer(Player) mod 100000
+  End If
     CheckReplay
 End Sub
 
 ' Check all players' current scores for replays and "Over The Top".
 Sub CheckReplay
-	If ScorePlayer(Player) >= 100000 and Not OverTheTop(Player) then
-		OverTheTop(Player) = true
-		Playsound "overthetop"
-		if AuthenticOverTheTop then
-			' Authentic mode - this is the way the original machine worked.
-			' In this mode, there's a single Over The Top light that's shared
-			' for all players, and it only comes on for about 5 seconds after
-			' the score rolls over.  The single light has B2S ID 9.
+  If ScorePlayer(Player) >= 100000 and Not OverTheTop(Player) then
+    OverTheTop(Player) = true
+    Playsound "overthetop"
+    if AuthenticOverTheTop then
+      ' Authentic mode - this is the way the original machine worked.
+      ' In this mode, there's a single Over The Top light that's shared
+      ' for all players, and it only comes on for about 5 seconds after
+      ' the score rolls over.  The single light has B2S ID 9.
             If B2SOn Then
-			Controller.B2SSetData 9, 1
+      Controller.B2SSetData 9, 1
             End If
             Gotilt.SetValue(3) 'Set OTT in the desktop reel.
-			' put 5 seconds on the light clock and start the timer
-			OverTheTopTime = 5
-			OverTheTopTimer.Enabled = true
-		else
-			' Modernized mode.  Each player has a separate Over The Top light,
-			' which turns on and stays on until a new game is started.  Simply
-			' turn on the player's light.  The B2S lamps for these are numbered
-			' consecutively from 10 for player 1.  This mode isn't true to the
-			' original EM machine, but it's a nicer UI in that tells us which
-			' player's score is over 100k, and provides a permanent indicator,
-			' effectively serving as a limited sixth reel in the score.
+      ' put 5 seconds on the light clock and start the timer
+      OverTheTopTime = 5
+      OverTheTopTimer.Enabled = true
+    else
+      ' Modernized mode.  Each player has a separate Over The Top light,
+      ' which turns on and stays on until a new game is started.  Simply
+      ' turn on the player's light.  The B2S lamps for these are numbered
+      ' consecutively from 10 for player 1.  This mode isn't true to the
+      ' original EM machine, but it's a nicer UI in that tells us which
+      ' player's score is over 100k, and provides a permanent indicator,
+      ' effectively serving as a limited sixth reel in the score.
             If B2SOn Then
-			Controller.B2SSetData 9 + Player, 1
+      Controller.B2SSetData 9 + Player, 1
             End If
             Gotilt.SetValue(3) 'Set OTT in the desktop reel.
-		end if
-	End If
-	If OptReplay1 <> 0 And ScorePlayer(Player) >= OptReplay1 And Not Replay1Awarded(Player) Then
-		AwardReplay
-		Replay1Awarded(Player) = True
-	End If
-	If OptReplay2 <> 0 And ScorePlayer(Player) >= OptReplay2 And Not Replay2Awarded(Player) Then
-		AwardReplay
-		Replay2Awarded(Player) = True
-	End If
+    end if
+  End If
+  If OptReplay1 <> 0 And ScorePlayer(Player) >= OptReplay1 And Not Replay1Awarded(Player) Then
+    AwardReplay
+    Replay1Awarded(Player) = True
+  End If
+  If OptReplay2 <> 0 And ScorePlayer(Player) >= OptReplay2 And Not Replay2Awarded(Player) Then
+    AwardReplay
+    Replay2Awarded(Player) = True
+  End If
 End Sub
 
 ' Over The Top timer.  In authentic mode, the Over The Top light goes out
@@ -1340,48 +1340,48 @@ End Sub
 ' when the clock reaches zero.
 Dim OverTheTopTime
 Sub OverTheTopTimer_Timer
-	if OverTheTopTime > 0 then
-		' there's still time on the clock - take a second off and keep going
-		OverTheTopTime = OverTheTopTime - 1
-	else
-		' the clock has reached zero - turn off the light and kill the timer
+  if OverTheTopTime > 0 then
+    ' there's still time on the clock - take a second off and keep going
+    OverTheTopTime = OverTheTopTime - 1
+  else
+    ' the clock has reached zero - turn off the light and kill the timer
         If B2SOn Then
-		Controller.B2SSetData 9, 0
+    Controller.B2SSetData 9, 0
         End If
         Gotilt.SetValue(2) 'Turn off the OTT reel in desktop mode.
-		OverTheTopTimer.Enabled = false
-	end if
+    OverTheTopTimer.Enabled = false
+  end if
 End Sub
 
 ' Award a Special.  This awards either a credit or an extra ball, depending
 ' on the option setting.
 Sub AwardSpecial
-	if OptSpecialVal = 0 then
-		' 0 -> Special awards credit
-		Addcredit
-	else
-		' 1 -> Special awards extra ball
-		AwardExtraBall
-	end if
+  if OptSpecialVal = 0 then
+    ' 0 -> Special awards credit
+    Addcredit
+  else
+    ' 1 -> Special awards extra ball
+    AwardExtraBall
+  end if
 End Sub
 
 ' Award a replay for reaching a replay score level.  Awards an extra ball or
 ' credit, depending on the Replay Value option setting (OptReplayVal).
 Sub AwardReplay
-	if OptReplayVal = 0 then
-		' 0 -> Replay awards credit
-		AddCredit
-	else
-		' 1 -> Replay awards extra ball
-		AwardExtraBall
-	end if
+  if OptReplayVal = 0 then
+    ' 0 -> Replay awards credit
+    AddCredit
+  else
+    ' 1 -> Replay awards extra ball
+    AwardExtraBall
+  end if
 End Sub
 
 ' Award an extra ball
 Sub AwardExtraBall
-	ShootAgain.State=1
+  ShootAgain.State=1
     If B2SOn Then
-	Controller.B2ssetshootagain 36,1
+  Controller.B2ssetshootagain 36,1
     End If
 End Sub
 
@@ -1480,36 +1480,36 @@ Dim scmPos : scmPos = 1
 ' any effect on the motor cycle - it just leaves the motor running where it
 ' already is.
 Sub ScoreMotorAdd(points)
-	for i = 1 to 5
-		if points >= 1000 then
-			scmThousand(i) = true
-			points = points - 1000
-		end if
-	next
-	for i = 1 to 5
-		if points >= 100 then
-			scmHundred(i) = true
-			points = points - 100
-		end if
-	next
-	ScoreMotorStart
+  for i = 1 to 5
+    if points >= 1000 then
+      scmThousand(i) = true
+      points = points - 1000
+    end if
+  next
+  for i = 1 to 5
+    if points >= 100 then
+      scmHundred(i) = true
+      points = points - 100
+    end if
+  next
+  ScoreMotorStart
 End Sub
 
 ' Award a special via the score motor.  This latches the Special virtual relay
 ' and starts a score motor cycle.
 Sub ScoreMotorAddSpecial
-	scmSpecial = true
-	ScoreMotorStart
+  scmSpecial = true
+  ScoreMotorStart
 End Sub
 
 ' Start the score motor.  If the motor is already running, this has no effect.
 ' If the motor isn't running, it plays the "rollover buzz" effect that's meant
 ' to imitate the sound of the score motor starting, and starts the motor timer.
 Sub ScoreMotorStart
-	if not ScoreMotorTimer.Enabled then
-		Playsound "RolloverBuzz"
-		ScoreMotorTimer.Enabled = true
-	end if
+  if not ScoreMotorTimer.Enabled then
+    Playsound "RolloverBuzz"
+    ScoreMotorTimer.Enabled = true
+  end if
 End Sub
 
 ' Score motor timer.  This is invoked every motor timer interval when the
@@ -1519,27 +1519,27 @@ End Sub
 ' motor cam to the first position, and turn off the motor by disabling the
 ' timer.
 Sub ScoreMotorTimer_Timer
-	if scmPos < 6 then
-		' in position 1, award a special if activated
-		if scmPos = 1 and scmSpecial then AwardSpecial
+  if scmPos < 6 then
+    ' in position 1, award a special if activated
+    if scmPos = 1 and scmSpecial then AwardSpecial
 
-		' in positions 1-5, award multiples of 100 and 1000 points if activated
-		if scmHundred(scmPos) then AddScore100
-		if scmThousand(scmPos) then AddScore1000
+    ' in positions 1-5, award multiples of 100 and 1000 points if activated
+    if scmHundred(scmPos) then AddScore100
+    if scmThousand(scmPos) then AddScore1000
 
-		' in position 5, advance the Aladdin's Alley score level
-		if scmPos = 5 and scmAlley then AdvanceAladdinsAlley
+    ' in position 5, advance the Aladdin's Alley score level
+    if scmPos = 5 and scmAlley then AdvanceAladdinsAlley
 
-		' move to the next position
-		scmPos = scmPos + 1
-	else
-		' end of cycle - turn off the motor and clear all latching relays
-		ScoreMotorTimer.Enabled = false
-		for i = 1 to 5 : scmHundred(i) = false : scmThousand(i) = false : next
-		scmSpecial = false
-		scmAlley = false
-		scmPos = 1
-	end if
+    ' move to the next position
+    scmPos = scmPos + 1
+  else
+    ' end of cycle - turn off the motor and clear all latching relays
+    ScoreMotorTimer.Enabled = false
+    for i = 1 to 5 : scmHundred(i) = false : scmThousand(i) = false : next
+    scmSpecial = false
+    scmAlley = false
+    scmPos = 1
+  end if
 End Sub
 
 
@@ -1547,81 +1547,81 @@ End Sub
 
 Sub Toplanes_Hit(x)                 'Any trigger in the collection has been hit.
         PlaySoundAtBall "fx_Sensor"
-	If  Tilt= False Then                'If the game isn't tilted.
-		Toplights(x).State=0              'Turn OFF the lane light
-		Toprolloverlights(x).State=1      'Turn ON the corresponding top rollover light
-		Bottomrolloverlights(x).State=1   'Turn ON the corresponding bottom rollover light.
-		ScoreMotorAdd 300                 'Score 300 on the score motor
-		DOF 105+x, 1
-		Checklights
-		AdvanceBonus
-	End If
+  If  Tilt= False Then                'If the game isn't tilted.
+    Toplights(x).State=0              'Turn OFF the lane light
+    Toprolloverlights(x).State=1      'Turn ON the corresponding top rollover light
+    Bottomrolloverlights(x).State=1   'Turn ON the corresponding bottom rollover light.
+    ScoreMotorAdd 300                 'Score 300 on the score motor
+    DOF 105+x, 1
+    Checklights
+    AdvanceBonus
+  End If
 End Sub
 
 Sub Toplanes_Unhit(x)
-	DOF 105+x, 0
+  DOF 105+x, 0
 End Sub
 
 Sub Checklights()
-	If  Tilt=False Then
+  If  Tilt=False Then
         ' if A-B lane lights are OFF, turn on the spinner and outlane lights
-		If  Light1.State=0 And Light2.State=0 Then
-		For Each Obj In Sidelights: Obj.State=1:Next
-			Light5.State=1
-		End If
+    If  Light1.State=0 And Light2.State=0 Then
+    For Each Obj In Sidelights: Obj.State=1:Next
+      Light5.State=1
+    End If
 
         ' if C-D lane lights are OFF, turn on the double bonus
-		If  Light3.State=0 And Light4.State=0 Then
-			Light2x.State=1
-		End If
+    If  Light3.State=0 And Light4.State=0 Then
+      Light2x.State=1
+    End If
 
         ' if all A-B-C-D lane lights are OFF, turn on extra ball
-		If  Light1.State=0 And Light2.State=0 And Light3.State=0 And Light4.State=0 Then
-			AwardExtraBall
-		End If
-	End If
+    If  Light1.State=0 And Light2.State=0 And Light3.State=0 And Light4.State=0 Then
+      AwardExtraBall
+    End If
+  End If
 End Sub
 
 Sub Toptriggers_Hit(x)
-	If  Tilt=False Then
-		DOF 101+x, 1         ' DOF events 101-104 for the A-D rollovers
-		AddScore100
-		If  Toprolloverlights(x).State=1 Then
-			AdvanceBonus
-		End If
-	End If
+  If  Tilt=False Then
+    DOF 101+x, 1         ' DOF events 101-104 for the A-D rollovers
+    AddScore100
+    If  Toprolloverlights(x).State=1 Then
+      AdvanceBonus
+    End If
+  End If
 End Sub
 
 Sub Toptriggers_Unhit(x)
-	DOF 101+x, 0
+  DOF 101+x, 0
 End Sub
 
 Sub Bottomtriggers_Hit(x)
-	If  Tilt=False Then
-		DOF 109+x, 1
-		AddScore100          ' DOF events 109-112 for lower A-D rollovers
-		If  Bottomrolloverlights(x).State=1 Then
-			AdvanceBonus
-		End If
-	End If
+  If  Tilt=False Then
+    DOF 109+x, 1
+    AddScore100          ' DOF events 109-112 for lower A-D rollovers
+    If  Bottomrolloverlights(x).State=1 Then
+      AdvanceBonus
+    End If
+  End If
 End Sub
 
 Sub Bottomtriggers_Unhit(x)
-	 DOF 109+x, 0
+   DOF 109+x, 0
 End Sub
 
 
 Dim RStep, Lstep, Tstep, Blstep, TLstep, BRstep, TRstep
 
 Sub LeftSlingShot_Slingshot
-	if Tilt = False then
+  if Tilt = False then
     PlaySoundAt SoundFXDOF("Slingshot",122,DOFPulse,DOFContactors), Sling2
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
     LStep = 0
     LeftSlingShot.TimerEnabled = 1
-	LeftSlingShot.TimerInterval  = 10
+  LeftSlingShot.TimerInterval  = 10
     Addscore 10
     End If
 End Sub
@@ -1639,7 +1639,7 @@ Sub Rani_W_Hit()
     Rani1.Visible = 1
     TStep = 0
     Rani_W.TimerEnabled = 1
-	Rani_W.TimerInterval  = 10
+  Rani_W.TimerInterval  = 10
 End Sub
 
 Sub Rani_W_Timer
@@ -1655,7 +1655,7 @@ Sub BLani_W_Hit()
     BLani1.Visible = 1
     BLStep = 0
     BLani_W.TimerEnabled = 1
-	BLani_W.TimerInterval  = 10
+  BLani_W.TimerInterval  = 10
 End Sub
 
 Sub BLani_W_Timer
@@ -1671,7 +1671,7 @@ Sub TLani_W_Hit()
     BLani3.Visible = 1
     TLStep = 0
     TLani_W.TimerEnabled = 1
-	TLani_W.TimerInterval  = 10
+  TLani_W.TimerInterval  = 10
 End Sub
 
 Sub TLani_W_Timer
@@ -1688,7 +1688,7 @@ Sub BRani_W_Hit()
     BRani1.Visible = 1
     BRStep = 0
     BRani_W.TimerEnabled = 1
-	BRani_W.TimerInterval  = 10
+  BRani_W.TimerInterval  = 10
 End Sub
 
 Sub BRani_W_Timer
@@ -1704,7 +1704,7 @@ Sub TRani_W_Hit()
     Trani3.Visible = 1
     TRStep = 0
     TRani_W.TimerEnabled = 1
-	TRani_W.TimerInterval  = 10
+  TRani_W.TimerInterval  = 10
 End Sub
 
 Sub TRani_W_Timer
@@ -1717,51 +1717,51 @@ End Sub
 
 
 Sub Slingshots_Hit(IDX)       'If a Slingshot is hit...
-	If  Tilt= False Then            'If the game isn't tilted.
-		AddScore10                  'Add the score.
-	End If
+  If  Tilt= False Then            'If the game isn't tilted.
+    AddScore10                  'Add the score.
+  End If
 End Sub
 
 Sub Spinner1_Spin()                 'If the Spinner is hit...
     PlaySoundat "Fx_Spinner", PegPlasticT36
-	If Tilt= False Then                'If the game isn't tilted.
-		If  Light5.State=1 Then
-			DOF 126, 2
-			AddScore100                    'Add the score.
-		Else
-			DOF 125, 2
-			AddScore10
-		End If
-	End If
+  If Tilt= False Then                'If the game isn't tilted.
+    If  Light5.State=1 Then
+      DOF 126, 2
+      AddScore100                    'Add the score.
+    Else
+      DOF 125, 2
+      AddScore10
+    End If
+  End If
 End Sub
 
 Sub LeftInlane_Hit()                ' Inlane has been hit.
-	PlaySoundAtBall "fx_Sensor"
-	If  Tilt= False Then            ' If the game isn't tilted.
-		ScoreMotorAdd 300           ' score 300 on the score motor
-		DOF 115, 1                  ' fire the DOF effect
-		AdvanceBonus
-	End If
+  PlaySoundAtBall "fx_Sensor"
+  If  Tilt= False Then            ' If the game isn't tilted.
+    ScoreMotorAdd 300           ' score 300 on the score motor
+    DOF 115, 1                  ' fire the DOF effect
+    AdvanceBonus
+  End If
 End Sub
 
 Sub LeftInlane_Unhit()
-	DOF 115, 0
+  DOF 115, 0
 End Sub
 
 Sub Targa_Hit()
     PlaySoundAt SoundFX("target",DOFTargets), TargA
-	If  Tilt=False Then
-	ScoreMotorAdd 300            ' add 300 on the score motor
-	AdvanceBonus
-	End If
+  If  Tilt=False Then
+  ScoreMotorAdd 300            ' add 300 on the score motor
+  AdvanceBonus
+  End If
 End Sub
 
 Sub TargB_Hit()
     PlaySoundAt SoundFX("target",DOFTargets), TargB
-	If  Tilt=False Then
-	ScoreMotorAdd 300            ' add 300 on the score motor
-	AdvanceBonus
-	End If
+  If  Tilt=False Then
+  ScoreMotorAdd 300            ' add 300 on the score motor
+  AdvanceBonus
+  End If
 End Sub
 
 Sub Prim_Gates_Hit(IDX)                  'Outlane has been hit.
@@ -1770,27 +1770,27 @@ End Sub
 
 Sub Outlanes_Hit(IDX)                  'Outlane has been hit.
     PlaySoundAtBall "fx_Sensor"
-	If  Tilt=False Then
-		If  Sidelight1.State=1 Then
-			ScoreAladdinsAlley
-		Else
-			AddScore1000
-		End If
-	End If
+  If  Tilt=False Then
+    If  Sidelight1.State=1 Then
+      ScoreAladdinsAlley
+    Else
+      AddScore1000
+    End If
+  End If
 End Sub
 
 Sub s_LeftOut_Hit
-	if Tilt = false then DOF 114, 1
+  if Tilt = false then DOF 114, 1
 End Sub
 Sub s_LeftOut_Unhit
-	if Tilt = false then DOF 114, 0
+  if Tilt = false then DOF 114, 0
 End Sub
 
 Sub s_RightOut_Hit
-	if Tilt = false then DOF 116, 1
+  if Tilt = false then DOF 116, 1
 End Sub
 Sub s_RightOut_Unhit
-	DOF 116, 0
+  DOF 116, 0
 End Sub
 
 
@@ -1807,11 +1807,11 @@ End Sub
 ' second rollover, though.  This is consistent with the real machine, which had
 ' exactly the same timing properties for the alley scoring.
 Sub s_AALeft_Hit()
-	ScoreAladdinsAlley
+  ScoreAladdinsAlley
 End Sub
 
 Sub s_AARight_Hit()
-	ScoreAladdinsAlley
+  ScoreAladdinsAlley
 End Sub
 
 
@@ -1836,63 +1836,63 @@ Dim ConservScores : ConservScores = Array(0, 1, 2, 3, 4, 5, 6, 5, 6, 5)
 ' of points to award.  Note how each score value is paired with the corresponding playfield
 ' light object - that tells us which light to turn on to indicate the matching score level.
 Dim AlleyScores : AlleyScores = Array( _
-	500, Alley1, _
-	1000, Alley2, _
-	2000, Alley3, _
-	3000, Alley4, _
-	4000, Alley5, _
-	5000, Alley6, _
-	0, Alley7 _
+  500, Alley1, _
+  1000, Alley2, _
+  2000, Alley3, _
+  3000, Alley4, _
+  4000, Alley5, _
+  5000, Alley6, _
+  0, Alley7 _
 )
 
 Sub ScoreAladdinsAlley()
-	If Tilt=False Then
-		' fire the alley DOF effects
-		DOF 113, 2
+  If Tilt=False Then
+    ' fire the alley DOF effects
+    DOF 113, 2
 
-		' get the appropriate scoring list - liberal or conservative
-		Dim sl : if OptAlleyScoring then sl = ConservScores else sl = LiberalScores
+    ' get the appropriate scoring list - liberal or conservative
+    Dim sl : if OptAlleyScoring then sl = ConservScores else sl = LiberalScores
 
-		' get the AlleyScores index for the current position in the current mode
-		Dim idx : idx = sl(AlleyLevel)*2
+    ' get the AlleyScores index for the current position in the current mode
+    Dim idx : idx = sl(AlleyLevel)*2
 
-		' award the score for the current level
-		Dim s : s = AlleyScores(idx)
-		if s = 0 then
-			' Special - award the credit or extra ball (depending on option settings)
-			ScoreMotorAddSpecial
-			scmAlley = true
+    ' award the score for the current level
+    Dim s : s = AlleyScores(idx)
+    if s = 0 then
+      ' Special - award the credit or extra ball (depending on option settings)
+      ScoreMotorAddSpecial
+      scmAlley = true
 
-			' Award any desired points on Special.  The real machine doesn't award any
-			' points - just the credit or extra ball.  However, the old version of this
-			' virtual table awarded 5000 points.  I think that was just a misunderstanding
-			' of the original rules, but I'm keeping the option in case anyone really wants
-			' the points.  Set the constant AlleyPointsOnSpecial to the desired score (in
-			' the options section near the top of the script).
-			if AlleyPointsOnSpecial then ScoreMotorAdd AlleyPointsOnSpecial
-		else
-			ScoreMotorAdd s
-			scmAlley = true
-		end if
-	End If
+      ' Award any desired points on Special.  The real machine doesn't award any
+      ' points - just the credit or extra ball.  However, the old version of this
+      ' virtual table awarded 5000 points.  I think that was just a misunderstanding
+      ' of the original rules, but I'm keeping the option in case anyone really wants
+      ' the points.  Set the constant AlleyPointsOnSpecial to the desired score (in
+      ' the options section near the top of the script).
+      if AlleyPointsOnSpecial then ScoreMotorAdd AlleyPointsOnSpecial
+    else
+      ScoreMotorAdd s
+      scmAlley = true
+    end if
+  End If
 End Sub
 
 Sub AdvanceAladdinsAlley()
-	' get the appropriate scoring list - liberal or conservative
-	Dim sl : if OptAlleyScoring then sl = ConservScores else sl = LiberalScores
+  ' get the appropriate scoring list - liberal or conservative
+  Dim sl : if OptAlleyScoring then sl = ConservScores else sl = LiberalScores
 
-	' Move to the next award level.  When we reach the end of the score list,
-	' we stay on the last entry from then on.
-	if AlleyLevel < ubound(sl) then
-		' turn off the alley light for the old level
-		AlleyScores(sl(AlleyLevel)*2 + 1).State = 0
+  ' Move to the next award level.  When we reach the end of the score list,
+  ' we stay on the last entry from then on.
+  if AlleyLevel < ubound(sl) then
+    ' turn off the alley light for the old level
+    AlleyScores(sl(AlleyLevel)*2 + 1).State = 0
 
-		' move to the new level
-		AlleyLevel = AlleyLevel + 1
+    ' move to the new level
+    AlleyLevel = AlleyLevel + 1
 
-		' turn on the alley light for the new level
-		AlleyScores(sl(AlleyLevel)*2 + 1).State = 1
-	End If
+    ' turn on the alley light for the new level
+    AlleyScores(sl(AlleyLevel)*2 + 1).State = 1
+  End If
 End Sub
 
 
@@ -1900,80 +1900,80 @@ End Sub
 
 ' Start a new ball
 Sub AddBall()
-	If Shootagain.State=1 Then         'If the Shoot Again light is on then subtract a player. The Bonus Ended sub will add
-		Player=Player-1 'a player to go to the next player, subtracting a player counteracts this, keeping the same player.
+  If Shootagain.State=1 Then         'If the Shoot Again light is on then subtract a player. The Bonus Ended sub will add
+    Player=Player-1 'a player to go to the next player, subtracting a player counteracts this, keeping the same player.
         If B2SOn Then
-		Controller.B2ssetshootagain 36,0
-		Controller.B2ssetballinplay 32,Ball
+    Controller.B2ssetshootagain 36,0
+    Controller.B2ssetballinplay 32,Ball
         Controller.B2ssetplayerup 30,Player
         End If
     BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.
-	End If
+  End If
 End Sub
 
 ' When the ball drains, start the bonus
 Sub Drain_Hit()                     'Another one bites the dust.
     Drain.DestroyBall               'Destroy the ball when it hits the drain.
     PlaySoundat "Drain5", drain             'Play the sound.
-	DOF 123, 2
+  DOF 123, 2
 
-	' Start the bonus timer to simulate the mechanical bonus scoring motor.
-	' For regular single bonus, award points in batches of 5.  For the
-	' double bonus, award the bonus in batches of 2.  Between batches,
-	' we'll introduce a suitable delay for the motor to cycle.
+  ' Start the bonus timer to simulate the mechanical bonus scoring motor.
+  ' For regular single bonus, award points in batches of 5.  For the
+  ' double bonus, award the bonus in batches of 2.  Between batches,
+  ' we'll introduce a suitable delay for the motor to cycle.
     BonusTimer.Enabled = 1
-	If Light2x.State = 0 Then BonusMotor = 5 Else BonusMotor = 2
+  If Light2x.State = 0 Then BonusMotor = 5 Else BonusMotor = 2
 End Sub
 
 ' When the bonus ends, proceed to the next ball
 Sub BonusEnded()
-	Addball                         'Call the Addball sub to check for Extra Ball.
+  Addball                         'Call the Addball sub to check for Extra Ball.
     Player=Player+1                 'Go to the next player.
     BonusCounter = 1000             'Reset the bonus to 1000 for the next ball.
     Light1k.State = 1               'Turn on the 1000 light for the next ball.
     AlleyLevel = 0                  'Reset the Aladdin's Alley progressive score to the first level
-	'For Each Obj In TiltedObjects:Obj.disabled = False: Next 'If things were disabled by tilt turn them back on.
+  'For Each Obj In TiltedObjects:Obj.disabled = False: Next 'If things were disabled by tilt turn them back on.
     Tilt_Disable
-	If  Player > Players Then           'If the player number exceeds the number of players then default to the next ball.
-		Player = 1                      'Return to player1.
-		Ball = Ball + 1                 'Go to the next ball.
+  If  Player > Players Then           'If the player number exceeds the number of players then default to the next ball.
+    Player = 1                      'Return to player1.
+    Ball = Ball + 1                 'Go to the next ball.
         If B2SOn Then
-		Controller.B2ssetballinplay 32,Ball
+    Controller.B2ssetballinplay 32,Ball
         End If
-		BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.
+    BallReel.setvalue(Ball) ' Set the ball number on the desktop reel.
 
-	End If
-	If  Ball <= OptBallsPerGame Then   'Is ball played less than total Balls or is the Game Over.
-		DelayTimer2.Enabled=True
-		Playsound "Motor"
-		For Each Obj In Toplights:Obj.State=1:Next        ' top lanes start each ball ON
-		For Each Obj In Sidelights: Obj.State=0:Next
-		For Each Obj In Alleylights: Obj.State=0: Next
-		For Each Obj In Bottomrolloverlights: Obj.State=0: Next
-		For Each Obj In Toprolloverlights: Obj.State=0:Next
+  End If
+  If  Ball <= OptBallsPerGame Then   'Is ball played less than total Balls or is the Game Over.
+    DelayTimer2.Enabled=True
+    Playsound "Motor"
+    For Each Obj In Toplights:Obj.State=1:Next        ' top lanes start each ball ON
+    For Each Obj In Sidelights: Obj.State=0:Next
+    For Each Obj In Alleylights: Obj.State=0: Next
+    For Each Obj In Bottomrolloverlights: Obj.State=0: Next
+    For Each Obj In Toprolloverlights: Obj.State=0:Next
         l_gi2.state = 1:l_gi1.state = 1
-		Alley1.State=1
-		Light1k.State=1
-		Shootagain.State=0
-		Light2x.State=0
-		Light5.State=0
+    Alley1.State=1
+    Light1k.State=1
+    Shootagain.State=0
+    Light2x.State=0
+    Light5.State=0
         BallReel.setvalue(Ball) ' Set the ball number on the desktop reel
-		If B2SOn Then
+    If B2SOn Then
         Controller.B2ssetballinplay 32,Ball
         Controller.B2ssetshootagain 36,0
-		Controller.B2ssetplayerup 30,Player
-		Controller.B2ssetTilt 33,0
+    Controller.B2ssetplayerup 30,Player
+    Controller.B2ssetTilt 33,0
         End If
-		Tilt=False                      'Reset the tilt.
-		Tiltcount=0                     'Reset the tiltcount.
+    Tilt=False                      'Reset the tilt.
+    Tiltcount=0                     'Reset the tiltcount.
 
-		' display the next high score above the player's current score
-		DispNextHighScoreAbove ScorePlayer(Player)
+    ' display the next high score above the player's current score
+    DispNextHighScoreAbove ScorePlayer(Player)
 
-	Else                                'Sorry, but the game is now over.
-		GameOver                        'Go to game over to finish up.
-		Light1k.State=0
-	End If
+  Else                                'Sorry, but the game is now over.
+    GameOver                        'Go to game over to finish up.
+    Light1k.State=0
+  End If
 End Sub
 
 ' Ball release timer
@@ -1992,84 +1992,84 @@ Dim Obj,BonusCounter,MultiplierCounter,Tens,Ones
 
 Sub AdvanceBonus()
     BonusCounter = BonusCounter + 1000
-	If  Bonuscounter >15000 Then Bonuscounter=15000
-	ShowBonusLights
+  If  Bonuscounter >15000 Then Bonuscounter=15000
+  ShowBonusLights
 End Sub
 
 ' Bonus 1000s and 10000s lights.  Note that Light0K is a hidden off-screen light
 ' that we use as a placeholder for zero values, so that nothing visible lights.
 ' The bonus on this machine is limited to 15000, so we only need one 10K light.
 Dim BonusOnesLights : BonusOnesLights = Array( _
-	Light0K, Light1K, Light2K, Light3K, Light4K, _
-	Light5K, Light6K, Light7K, Light8K, Light9K)
+  Light0K, Light1K, Light2K, Light3K, Light4K, _
+  Light5K, Light6K, Light7K, Light8K, Light9K)
 Dim BonusTensLights : BonusTensLights = Array(Light0K, Light10K)
 
 ' Show the current bonus value on the playfield lights
 Sub ShowBonusLights ()
-	' turn off all of the lights to start fresh
-	For Each Obj In BonusLights:Obj.State = 0:Next
+  ' turn off all of the lights to start fresh
+  For Each Obj In BonusLights:Obj.State = 0:Next
 
-	' Figure the multiple of 1000 and 10000 for the current bonus value.
-	Tens = ((Bonuscounter + 500) \ 10000) MOD 10   ' Get the multiple of 10,000
-	Ones = ((Bonuscounter + 500) \ 1000) MOD 10    ' Get the multiple if 1,000
-	BonusOnesLights(Ones).State = 1                ' Turn on the suitable 1000s light
-	BonusTensLights(Tens).State = 1                ' Turn on the suitable 10000s light
+  ' Figure the multiple of 1000 and 10000 for the current bonus value.
+  Tens = ((Bonuscounter + 500) \ 10000) MOD 10   ' Get the multiple of 10,000
+  Ones = ((Bonuscounter + 500) \ 1000) MOD 10    ' Get the multiple if 1,000
+  BonusOnesLights(Ones).State = 1                ' Turn on the suitable 1000s light
+  BonusTensLights(Tens).State = 1                ' Turn on the suitable 10000s light
 End Sub
 
 Sub BonusTimer_Timer
-	' if the bonus has reached zero, we're done - signal the end of the bonus
-	' processing and turn off the bonus timer
-	If Bonuscounter = 0 Then
-		BonusEnded
-		Bonustimer.Enabled=False
-		Exit Sub
-	End If
+  ' if the bonus has reached zero, we're done - signal the end of the bonus
+  ' processing and turn off the bonus timer
+  If Bonuscounter = 0 Then
+    BonusEnded
+    Bonustimer.Enabled=False
+    Exit Sub
+  End If
 
-	' Award 1000 per cycle
-	AddScore1000
+  ' Award 1000 per cycle
+  AddScore1000
 
-	' show the current bonus lights
-	ShowBonusLights
+  ' show the current bonus lights
+  ShowBonusLights
 
-	' Adjust the counter.  For double bonus, we want to award points twice per
-	' 1000 on the nominal bonus counter, so only subtract 500 from the counter.
-	' For single bonus, subtract the full 1000 from the counter.
-	dim d : if Light2x.State = 1 then d = 500 else d = 1000
+  ' Adjust the counter.  For double bonus, we want to award points twice per
+  ' 1000 on the nominal bonus counter, so only subtract 500 from the counter.
+  ' For single bonus, subtract the full 1000 from the counter.
+  dim d : if Light2x.State = 1 then d = 500 else d = 1000
     BonusCounter = BonusCounter - d
 
-	' Count one step of the simulated bonus motor.  If we've reached zero, it
-	' means that we've reached the end of the current mechanical cycle - start
-	' the delay timer that simulates the motor resetting, and turn off the
-	' main bonus timer until the delay routine resets things.
-	BonusMotor = BonusMotor - 1
-	If BonusMotor = 0 Then
-		DelayTimer3.Enabled = True
-		BonusTimer.Enabled = False
-	End If
+  ' Count one step of the simulated bonus motor.  If we've reached zero, it
+  ' means that we've reached the end of the current mechanical cycle - start
+  ' the delay timer that simulates the motor resetting, and turn off the
+  ' main bonus timer until the delay routine resets things.
+  BonusMotor = BonusMotor - 1
+  If BonusMotor = 0 Then
+    DelayTimer3.Enabled = True
+    BonusTimer.Enabled = False
+  End If
 End Sub
 
 ' Bonus motor cycle reset delay timer.
 Sub DelayTimer3_Timer()
-	If Light2x.State = 1 Then
-		' Double Bonus.  Enable the delay timer for the double bonus cycle reset.
-		DoubleBonusDelay.Enabled=True
-	else
-		' Single Bonus.  Start a new batch of 5 cycles through the regular bonus timer.
-		BonusMotor = 5
-		BonusTimer.Enabled = True
-	end if
+  If Light2x.State = 1 Then
+    ' Double Bonus.  Enable the delay timer for the double bonus cycle reset.
+    DoubleBonusDelay.Enabled=True
+  else
+    ' Single Bonus.  Start a new batch of 5 cycles through the regular bonus timer.
+    BonusMotor = 5
+    BonusTimer.Enabled = True
+  end if
 
-	' this is a one-shot timer - disable it now that it has fired
+  ' this is a one-shot timer - disable it now that it has fired
     DelayTimer3.Enabled=False
 End Sub
 
 ' Double bonus delay timer
 Sub DoubleBonusDelay_Timer
-	' Start a new batch of 2 cycles through the regular bonus timer
-	BonusMotor = 2
+  ' Start a new batch of 2 cycles through the regular bonus timer
+  BonusMotor = 2
     BonusTimer.Enabled = True
 
-	' this is a one-shot timer - disable it
+  ' this is a one-shot timer - disable it
     DoubleBonusDelay.Enabled = False
 End Sub
 
@@ -2077,17 +2077,17 @@ End Sub
 
 Sub GameOver
     StopSound "BuzzL" : StopSound "BuzzR"
-	InProgress=False				 'We always know when the game is active with this variable.
+  InProgress=False         'We always know when the game is active with this variable.
     If B2SOn Then
     Controller.B2ssetplayerup 30,0
     Controller.B2ssetgameover 35,1
     Controller.B2ssetballinplay 32,0
     End If
-	Match						     'Call the match sub.
-	LeftFlipper.RotateToStart       'If the above conditions are true the flipper goes down.
+  Match                'Call the match sub.
+  LeftFlipper.RotateToStart       'If the above conditions are true the flipper goes down.
     PlaySoundAt SoundFXDOF("FlipperDown",128,DOFOff,DOFFlippers), LeftFlipper
-	RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
-	RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
+  RightFlipper.RotateToStart      'If the above conditions are true the flipper goes down.
+  RightFlipper1.RotateToStart     'If the above conditions are true the flipper goes down.
     PlaySoundAt SoundFXDOF("FlipperDown",129,DOFOff,DOFFlippers), RightFlipper
     If Show_Hands = 1 AND ShowDT = True Then
     hld = 6:hand_left.enabled = 1
@@ -2099,16 +2099,16 @@ Sub GameOver
     BallReel.setvalue(0) 'Set the ball count to 0 on the desktop reel.
     Gotilt.setvalue(0) 'Set the game over image on the desktop reel.
 
-	' mark all players in the game for high score checks
-	for i = 1 to ubound(NeedHighScoreCheck)
-		NeedHighScoreCheck(i) = (i <= Players)
-	next
+  ' mark all players in the game for high score checks
+  for i = 1 to ubound(NeedHighScoreCheck)
+    NeedHighScoreCheck(i) = (i <= Players)
+  next
 
-	' begin the high score checks
-	CheckHighScores
+  ' begin the high score checks
+  CheckHighScores
 
-	' game over - no players in
-	Players=0						 'No one is playing now
+  ' game over - no players in
+  Players=0            'No one is playing now
     l_gi2.state = 0:l_gi1.state = 0
 End Sub
 
@@ -2122,31 +2122,31 @@ End Sub
 ' out of the list by higher scoring players in this same session.
 Dim NeedHighScoreCheck(5)
 Sub CheckHighScores
-	' Look for the lowest score still in the game
-	dim mi : mi = -1   ' player # with lowest score among those still to be checked
-	dim n : n = 0      ' number of players still to be checked
-	for i = 1 to ubound(NeedHighScoreCheck)
-		' if this player is still to be checked...
-		if NeedHighScoreCheck(i) then
-			' count it
-			n = n + 1
+  ' Look for the lowest score still in the game
+  dim mi : mi = -1   ' player # with lowest score among those still to be checked
+  dim n : n = 0      ' number of players still to be checked
+  for i = 1 to ubound(NeedHighScoreCheck)
+    ' if this player is still to be checked...
+    if NeedHighScoreCheck(i) then
+      ' count it
+      n = n + 1
 
-			' if this is the lowest (or only) score we've seen so far, remember this index
-			if mi = -1 then mi = i else if ScorePlayer(i) < ScorePlayer(mi) then mi = i
-		end if
-	next
+      ' if this is the lowest (or only) score we've seen so far, remember this index
+      if mi = -1 then mi = i else if ScorePlayer(i) < ScorePlayer(mi) then mi = i
+    end if
+  next
 
-	' if we found a winner, process it; otherwise end the high score checks
-	if n > 0 then
-		' mark this player as checked
-		NeedHighScoreCheck(mi) = False
+  ' if we found a winner, process it; otherwise end the high score checks
+  if n > 0 then
+    ' mark this player as checked
+    NeedHighScoreCheck(mi) = False
 
-		' check the high score for this player
-		CheckHighScore mi, n-1
-	else
-		' done with all checks - finish up
-		EndHighScoreCheck
-	end if
+    ' check the high score for this player
+    CheckHighScore mi, n-1
+  else
+    ' done with all checks - finish up
+    EndHighScoreCheck
+  end if
 End Sub
 
 ' End the high score check.  This is called after we've checked the last
@@ -2154,19 +2154,19 @@ End Sub
 ' This is the final step at the end of a game, so we're ready to start a
 ' new game after this returns.
 Sub EndHighScoreCheck
-	' run the high score display timer between games, starting at the top score
-	CurHighScoreDisp = 0
-	HighScoreDisplayTimer.Enabled = True
+  ' run the high score display timer between games, starting at the top score
+  CurHighScoreDisp = 0
+  HighScoreDisplayTimer.Enabled = True
 
-	' schedule a save on a timer - the save stalls things for a couple of
-	' seconds, so we want to let the UI update first, to make the stall
-	' less obvious visually
-	SaveTimer.Enabled = true
+  ' schedule a save on a timer - the save stalls things for a couple of
+  ' seconds, so we want to let the UI update first, to make the stall
+  ' less obvious visually
+  SaveTimer.Enabled = true
 End Sub
 
 Sub SaveTimer_Timer
-	SaveInfo
-	SaveTimer.Enabled = false
+  SaveInfo
+  SaveTimer.Enabled = false
 End Sub
 
 ' Number of credits to add for a new high score in slot #n.  (Slot 0 is
@@ -2187,54 +2187,54 @@ Dim HighScoreAwards : HighScoreAwards = Array(2, 1, 1, 1)
 ' 'player' is the player number (1, 2...).  'nHigher' is the number of players
 ' in this round with higher scores than this player.
 Sub CheckHighScore(player, nHigher)
-	' get the player's score
-	dim s : s = ScorePlayer(player)
+  ' get the player's score
+  dim s : s = ScorePlayer(player)
 
-	' Check high scores from the highest down.  We'll insert the new score
-	' ahead of the first one we find that's lower or equal.
-	dim i
-	for i = 0 to ubound(Highscore)
-		' if the player's score is higher than or equal to high score #i, insert
-		' the new score at #i
-		if s >= Highscore(i) then
-			' push all scores below this one down one slot
-			dim j
-			for j = ubound(Highscore) to i+1 step -1
-				Highscore(j) = Highscore(j-1)
-				HighscoreDate(j) = HighscoreDate(j-1)
-				HighscoreInits(j) = HighscoreInits(j-1)
-			next
+  ' Check high scores from the highest down.  We'll insert the new score
+  ' ahead of the first one we find that's lower or equal.
+  dim i
+  for i = 0 to ubound(Highscore)
+    ' if the player's score is higher than or equal to high score #i, insert
+    ' the new score at #i
+    if s >= Highscore(i) then
+      ' push all scores below this one down one slot
+      dim j
+      for j = ubound(Highscore) to i+1 step -1
+        Highscore(j) = Highscore(j-1)
+        HighscoreDate(j) = HighscoreDate(j-1)
+        HighscoreInits(j) = HighscoreInits(j-1)
+      next
 
-			' set the slot to the new high score
-			Highscore(i) = s
-			dim d : d = Date()
-			HighscoreDate(i) = Month(d) & "/" & Day(d) & "/" & Year(d)
+      ' set the slot to the new high score
+      Highscore(i) = s
+      dim d : d = Date()
+      HighscoreDate(i) = Month(d) & "/" & Day(d) & "/" & Year(d)
 
-			' award the credits
-			AddCredits HighScoreAwards(i)
+      ' award the credits
+      AddCredits HighScoreAwards(i)
 
-			' Determine if this player's initials will remain in the list after
-			' we process the other players in the same game with higher scores.
-			' We always process the lowest score first, so every player remaining
-			' to be checked has a higher score than we do, so every player still
-			' to be checked will push our position down one slot.  This means
-			' that our final position is going to be i + nHigher.  If that's a
-			' valid slot, we'll remain in the list, so enter initials.  Otherwise
-			' just move on to the next player.
-			if i + nHigher <= ubound(Highscore) then
-				BeginHighScoreInits player, i
-			else
-				CheckHighScores
-			end if
+      ' Determine if this player's initials will remain in the list after
+      ' we process the other players in the same game with higher scores.
+      ' We always process the lowest score first, so every player remaining
+      ' to be checked has a higher score than we do, so every player still
+      ' to be checked will push our position down one slot.  This means
+      ' that our final position is going to be i + nHigher.  If that's a
+      ' valid slot, we'll remain in the list, so enter initials.  Otherwise
+      ' just move on to the next player.
+      if i + nHigher <= ubound(Highscore) then
+        BeginHighScoreInits player, i
+      else
+        CheckHighScores
+      end if
 
-			' no need to look any further
-			Exit Sub
-		end if
-	next
+      ' no need to look any further
+      Exit Sub
+    end if
+  next
 
-	' If we get this far, it means that this player didn't beat any of
-	' the high scores.  Go check the remaining players.
-	CheckHighScores
+  ' If we get this far, it means that this player didn't beat any of
+  ' the high scores.  Go check the remaining players.
+  CheckHighScores
 End Sub
 
 
@@ -2257,74 +2257,74 @@ End Sub
 ' these, value 1=A, 2=B, ..., 26=Z, 27=space.
 '
 Sub DispHighScore(n)
-	dim i, val, s, inits, d, dispRank
+  dim i, val, s, inits, d, dispRank
 If B2Son Then
 
-	' Set the high score number we're currently showing.  The 0th
-	' entry is "High Score 1", etc.  If n is -1 (or otherwise out
-	' of bounds), it'll translate to a non-existent light number on
-	' the backglass, so we'll just display a blank rank number.
-	Controller.B2SSetData 228, n+1
+  ' Set the high score number we're currently showing.  The 0th
+  ' entry is "High Score 1", etc.  If n is -1 (or otherwise out
+  ' of bounds), it'll translate to a non-existent light number on
+  ' the backglass, so we'll just display a blank rank number.
+  Controller.B2SSetData 228, n+1
 
-	' if n is -1 (or otherwise out of bounds), display the top score
-	if n < 0 or n > ubound(Highscore) then n = 0
+  ' if n is -1 (or otherwise out of bounds), display the top score
+  if n < 0 or n > ubound(Highscore) then n = 0
 
-	' get the current score to display
-	s = Highscore(n)
-	inits = HighscoreInits(n)
-	d = HighscoreDate(n)
+  ' get the current score to display
+  s = Highscore(n)
+  inits = HighscoreInits(n)
+  d = HighscoreDate(n)
 
-	' set the score digits
-	val = s
-	for i = 0 to 5
-		if val <> 0 or i = 0 then
-			dim dig
-			dig = ZeroToTen(val mod 10)
-			Controller.B2SSetData 240+i, dig
-			val = int(val/10)
-		else
-			Controller.B2SSetData 240+i, 0
-		end if
-	next
+  ' set the score digits
+  val = s
+  for i = 0 to 5
+    if val <> 0 or i = 0 then
+      dim dig
+      dig = ZeroToTen(val mod 10)
+      Controller.B2SSetData 240+i, dig
+      val = int(val/10)
+    else
+      Controller.B2SSetData 240+i, 0
+    end if
+  next
 
-	' set the new initials
-	for i = 1 to 3 : Controller.B2SSetData 236+i, 0 : next
-	for i = 1 to len(inits)
-		val = asc(mid(inits, i)) - 64
-		Controller.B2SSetData 236+i, val
-	next
+  ' set the new initials
+  for i = 1 to 3 : Controller.B2SSetData 236+i, 0 : next
+  for i = 1 to len(inits)
+    val = asc(mid(inits, i)) - 64
+    Controller.B2SSetData 236+i, val
+  next
 
-	' set the date
-	for i = 1 to 8 : Controller.B2SSetData 228+i, 0 : next
-	if d <> "" then
-		d = CDate(d)
-		dim mm, dd, yy : mm = Month(d) : dd = Day(d) : yy = Year(d)
-		Controller.B2SSetData 229, mm \ 10
-		Controller.B2SSetData 230, ZeroToTen(mm mod 10)
-		Controller.B2SSetData 231, ZeroToTen(dd \ 10)
-		Controller.B2SSetData 232, ZeroToTen(dd mod 10)
-		Controller.B2SSetData 233, (yy \ 1000)
-		Controller.B2SSetData 234, ZeroToTen((yy \ 100) mod 10)
-		Controller.B2SSetData 235, ZeroToTen((yy \ 10) mod 10)
-		Controller.B2SSetData 236, ZeroToTen(yy mod 10)
-	end if
+  ' set the date
+  for i = 1 to 8 : Controller.B2SSetData 228+i, 0 : next
+  if d <> "" then
+    d = CDate(d)
+    dim mm, dd, yy : mm = Month(d) : dd = Day(d) : yy = Year(d)
+    Controller.B2SSetData 229, mm \ 10
+    Controller.B2SSetData 230, ZeroToTen(mm mod 10)
+    Controller.B2SSetData 231, ZeroToTen(dd \ 10)
+    Controller.B2SSetData 232, ZeroToTen(dd mod 10)
+    Controller.B2SSetData 233, (yy \ 1000)
+    Controller.B2SSetData 234, ZeroToTen((yy \ 100) mod 10)
+    Controller.B2SSetData 235, ZeroToTen((yy \ 10) mod 10)
+    Controller.B2SSetData 236, ZeroToTen(yy mod 10)
+  end if
 End If
 End Sub
 
 ' Display the next high score above a given score.  This is used to show
 ' the next goal at the start of each ball.
 Sub DispNextHighScoreAbove(s)
-	' start with the lowest high score and work up from there
-	for i = ubound(Highscore) to 0 step -1
-		if i = 0 or (Highscore(i) <> 0 And Highscore(i) > s) then
-			DispHighScore i
-			exit sub
-		end if
-	next
+  ' start with the lowest high score and work up from there
+  for i = ubound(Highscore) to 0 step -1
+    if i = 0 or (Highscore(i) <> 0 And Highscore(i) > s) then
+      DispHighScore i
+      exit sub
+    end if
+  next
 
-	' If we didn't find a score to display, the given score must be
-	' higher than the highest score to date, so display the highest score.
-	DispHighScore 0
+  ' If we didn't find a score to display, the given score must be
+  ' higher than the highest score to date, so display the highest score.
+  DispHighScore 0
 End Sub
 
 ' A B2S lamp value of 0 always means "off", so when we want to light up
@@ -2333,7 +2333,7 @@ End Sub
 ' have lamp value 10.  This routine takes care of converting a digit value
 ' on the VP side from 0 to 10 to match up with the B2S numbering.
 Function ZeroToTen(n)
-	if n = 0 then ZeroToTen = 10 else ZeroToTen = n
+  if n = 0 then ZeroToTen = 10 else ZeroToTen = n
 End Function
 
 ' High score display timer.  This advances the high score display to the
@@ -2341,10 +2341,10 @@ End Function
 ' we stop the rotation and show a single score.
 Dim CurHighScoreDisp
 Sub HighScoreDisplayTimer_Timer
-	DispHighScore CurHighScoreDisp
-	CurHighScoreDisp = CurHighScoreDisp + 1
-	if CurHighScoreDisp > ubound(Highscore) then CurHighScoreDisp = 0
-	if Highscore(CurHighScoreDisp) = 0 then CurHighScoreDisp = 0
+  DispHighScore CurHighScoreDisp
+  CurHighScoreDisp = CurHighScoreDisp + 1
+  if CurHighScoreDisp > ubound(Highscore) then CurHighScoreDisp = 0
+  if Highscore(CurHighScoreDisp) = 0 then CurHighScoreDisp = 0
 End Sub
 
 
@@ -2353,43 +2353,43 @@ End Sub
 ' spaced out so that each awarded credit gets a distinct knock effect.
 Dim CreditsToAdd
 Sub AddCredits(n)
-	CreditsToAdd = CreditsToAdd + n
-	CreditsTimer.Enabled = 1
+  CreditsToAdd = CreditsToAdd + n
+  CreditsTimer.Enabled = 1
 End Sub
 
 Sub CreditsTimer_Timer
-	If CreditsToAdd > 0 then
-		CreditsToAdd = CreditsToAdd - 1
-		AddCredit
-	else
-		CreditsTimer.Enabled = 0
-	End If
+  If CreditsToAdd > 0 then
+    CreditsToAdd = CreditsToAdd - 1
+    AddCredit
+  else
+    CreditsTimer.Enabled = 0
+  End If
 End Sub
 
 
 ' Generate a match number, display it on the backglass, and award credits
 ' to matching scores.
 Sub Match()
-	MatchNumber = Int(Rnd(1)*10)*10
+  MatchNumber = Int(Rnd(1)*10)*10
     If B2SOn Then
     Controller.B2ssetmatch 34, Matchnumber
     End If
-	If  MatchNumber = 0 Then
+  If  MatchNumber = 0 Then
         If B2SOn Then
-		Controller.B2ssetmatch 34, 100
+    Controller.B2ssetmatch 34, 100
         End If
       MatchReel.SetValue(0):ML.state = 1 ' Sdet the match number on the desktop match reel and turn on the reel light.
-	Else
-		If B2SOn Then
+  Else
+    If B2SOn Then
         Controller.B2ssetmatch 34, Matchnumber
         End If
      MatchReel.SetValue(Matchnumber):ML.State = 1 ' Sdet the match number on the desktop match reel and turn on the reel light.
-	End If
-	For i = 1 to Players
-		If  MatchNumber = (ScorePlayer(i) Mod 100) Then
-			Addcredit
-		End If
-	Next
+  End If
+  For i = 1 to Players
+    If  MatchNumber = (ScorePlayer(i) Mod 100) Then
+      Addcredit
+    End If
+  Next
 End Sub
 
 
@@ -2443,93 +2443,93 @@ Else
 HSInits = Array(HSInit5, HSInit6, HSInit7, HSInit8)
 End If
 Sub BeginHighScoreInits(player, slot)
-	' show the UI for entering initials
+  ' show the UI for entering initials
     If ShowDT = False Then
-	HighScoreDlg.SetValue player-1
-	HighScoreDlg.Image = "High Score Prompt"
-	HSInit1.Image = "Alphabet Reel"
+  HighScoreDlg.SetValue player-1
+  HighScoreDlg.Image = "High Score Prompt"
+  HSInit1.Image = "Alphabet Reel"
     Else
     HighScoreDlgDT.SetValue player-1
-	HighScoreDlgDT.Image = "High Score Prompt_DT"
-	HSInit5.Image = "Alphabet Reel DT"
+  HighScoreDlgDT.Image = "High Score Prompt_DT"
+  HSInit5.Image = "Alphabet Reel DT"
     End If
-	EnteringHS = true
-	EnteringHSSlot = slot
+  EnteringHS = true
+  EnteringHSSlot = slot
 
-	' start at the first character at "A"
-	HSInit1.SetValue 0
-	HSInitStr = ""
-	HSPos = 0
-	HSCurInit = 0
+  ' start at the first character at "A"
+  HSInit1.SetValue 0
+  HSInitStr = ""
+  HSPos = 0
+  HSCurInit = 0
 
-	' flash the cursor
-	HSBlink = 0
-	InitEntryTimerTick = 0
-	HSLeftFlipperDown = 0
-	HSRightFlipperDown = 0
-	InitEntryTimer.Enabled = true
+  ' flash the cursor
+  HSBlink = 0
+  InitEntryTimerTick = 0
+  HSLeftFlipperDown = 0
+  HSRightFlipperDown = 0
+  InitEntryTimer.Enabled = true
 End Sub
 
 Sub EndHighScoreInits
-	' set the new initials
-	HighscoreInits(EnteringHSSlot) = HSInitStr
+  ' set the new initials
+  HighscoreInits(EnteringHSSlot) = HSInitStr
 
-	' debugging - display the final string
-	' if HSInitStr <> "" then msgbox "[" & HSInitStr & "]"
+  ' debugging - display the final string
+  ' if HSInitStr <> "" then msgbox "[" & HSInitStr & "]"
 
-	' done entering initials - hide the UI
-	HideHighScoreInitUI
+  ' done entering initials - hide the UI
+  HideHighScoreInitUI
 
-	' check the next player's score, if there are more players to be checked
-	CheckHighScores
+  ' check the next player's score, if there are more players to be checked
+  CheckHighScores
 End Sub
 
 Sub HideHighScoreInitUI
     If ShowDT = False Then
-	HighScoreDlg.Image = "Transparent Backdrop"
+  HighScoreDlg.Image = "Transparent Backdrop"
     Else
     HighScoreDlgDT.Image = "Transparent Backdrop"
     End If
-	for each Obj in HSInits : Obj.SetValue 26 : Next
-	InitEntryTimerTick = 0
-	InitEntryTimer.Enabled = false
-	EnteringHS = false
+  for each Obj in HSInits : Obj.SetValue 26 : Next
+  InitEntryTimerTick = 0
+  InitEntryTimer.Enabled = false
+  EnteringHS = false
     'Populate the high score table in desktop mode with updated scores when the HS entry field is closed.
     hs1.text = HighscoreInits(0)
-	hs1_val.text = Highscore(0)
-	HS2.text = HighscoreInits(1)
-	hs2_val.text = Highscore(1)
+  hs1_val.text = Highscore(0)
+  HS2.text = HighscoreInits(1)
+  hs2_val.text = Highscore(1)
     hs3.text = HighscoreInits(2)
-	hs3_val.text = Highscore(2)
-	HS4.text = HighscoreInits(3)
-	hs4_val.text = Highscore(3)
+  hs3_val.text = Highscore(2)
+  HS4.text = HighscoreInits(3)
+  hs4_val.text = Highscore(3)
 End Sub
 
 ' Blink the current initial, and handle auto-repeat keys.
 Dim InitEntryTimerTick, HSBlink
 Sub InitEntryTimer_Timer
-	' Blink the cursor every 500ms.  The alphabet reel has 60 slots, 30 for
-	' normal and 30 for highlighted.  So simply switch back and forth
-	' between N and N+30.
-	InitEntryTimerTick = (InitEntryTimerTick + 1) mod 10
-	if InitEntryTimerTick = 0 then
-		HSBlink = (HSBlink + 30) mod 60
-		HSInits(HSPos).SetValue HSCurInit + HSBlink
-	end if
+  ' Blink the cursor every 500ms.  The alphabet reel has 60 slots, 30 for
+  ' normal and 30 for highlighted.  So simply switch back and forth
+  ' between N and N+30.
+  InitEntryTimerTick = (InitEntryTimerTick + 1) mod 10
+  if InitEntryTimerTick = 0 then
+    HSBlink = (HSBlink + 30) mod 60
+    HSInits(HSPos).SetValue HSCurInit + HSBlink
+  end if
 
-	' If a flipper button is being held down, auto-repeat on every tick
-	' after the first 500ms
-	if HSLeftFlipperDown = 10 then
-		HSLeftFlipperKey
-	elseif HSLeftFlipperDown > 0 then
-		HSLeftFlipperDown = HSLeftFlipperDown + 1
-	end if
+  ' If a flipper button is being held down, auto-repeat on every tick
+  ' after the first 500ms
+  if HSLeftFlipperDown = 10 then
+    HSLeftFlipperKey
+  elseif HSLeftFlipperDown > 0 then
+    HSLeftFlipperDown = HSLeftFlipperDown + 1
+  end if
 
-	if HSRightFlipperDown = 10 then
-		HSRightFlipperKey
-	elseif HSRightFlipperDown > 0 then
-		HSRightFlipperDown = HSRightFlipperDown + 1
-	end if
+  if HSRightFlipperDown = 10 then
+    HSRightFlipperKey
+  elseif HSRightFlipperDown > 0 then
+    HSRightFlipperDown = HSRightFlipperDown + 1
+  end if
 End Sub
 
 ' High Score Entry key handler.  The normal keydown handler calls this when
@@ -2538,73 +2538,73 @@ End Sub
 ' UI for initial entry that virtually all alphanumeric and DMD machines use.
 Dim HSLeftFlipperDown, HSRightFlipperDown
 Sub HighScoreInitKey(keycode)
-	If Keycode = LeftFlipperKey Then
-		HSLeftFlipperKey
-		HSLeftFlipperDown = 1
-	Elseif Keycode = RightFlipperKey Then
-		HSRightFlipperKey
-		HSRightFlipperDown = 1
-	Elseif Keycode = StartGameKey Then
-		if HSCurInit = 27 and HSPos > 0 then
-			' backspace symbol - delete current position and back up to previous
-			HSInits(HSPos).SetValue 26   ' set value to space to hide initial
-			HSPos = HSPos - 1
-			HSBlink = 0
-			HSCurInit = Asc(Right(HSInitStr, 1))-65
-			HSInitStr = Left(HSInitStr, Len(HSInitStr)-1)
-		else
-			' any other symbol - move to next position, or commit entry at position 4
-			HSInits(HSPos).SetValue HSCurInit   ' set base value in case we were blinked on
-			HSPos = HSPos + 1
-			if HSPos <= 3 then HSInitStr = HSInitStr & chr(65+HSCurInit)  ' add the initial to the string
-			if HSPos = 4 or (SimplerInitUI and HSPos = 3) then
-				' fourth position or third position in simpler UI - commit the entry
-				EndHighScoreInits
-			else
-				if HSPos = 3 then HSCurInit = 28   ' start at the same letter for a new slot, except start the fourth at "OK"
-				If ShowDT = False Then
+  If Keycode = LeftFlipperKey Then
+    HSLeftFlipperKey
+    HSLeftFlipperDown = 1
+  Elseif Keycode = RightFlipperKey Then
+    HSRightFlipperKey
+    HSRightFlipperDown = 1
+  Elseif Keycode = StartGameKey Then
+    if HSCurInit = 27 and HSPos > 0 then
+      ' backspace symbol - delete current position and back up to previous
+      HSInits(HSPos).SetValue 26   ' set value to space to hide initial
+      HSPos = HSPos - 1
+      HSBlink = 0
+      HSCurInit = Asc(Right(HSInitStr, 1))-65
+      HSInitStr = Left(HSInitStr, Len(HSInitStr)-1)
+    else
+      ' any other symbol - move to next position, or commit entry at position 4
+      HSInits(HSPos).SetValue HSCurInit   ' set base value in case we were blinked on
+      HSPos = HSPos + 1
+      if HSPos <= 3 then HSInitStr = HSInitStr & chr(65+HSCurInit)  ' add the initial to the string
+      if HSPos = 4 or (SimplerInitUI and HSPos = 3) then
+        ' fourth position or third position in simpler UI - commit the entry
+        EndHighScoreInits
+      else
+        if HSPos = 3 then HSCurInit = 28   ' start at the same letter for a new slot, except start the fourth at "OK"
+        If ShowDT = False Then
                 HSInits(HSPos).Image = "Alphabet Reel"
                 Else
                 HSInits(HSPos).Image = "Alphabet Reel DT"
                 End If
-				HSBlink = 0
-				HSInits(HSPos).SetValue HSCurInit
-			end if
-		end if
-	End If
+        HSBlink = 0
+        HSInits(HSPos).SetValue HSCurInit
+      end if
+    end if
+  End If
 End Sub
 
 Sub HighScoreInitKeyUp(keycode)
-	if keycode = LeftFlipperKey then
-		HSLeftFlipperDown = 0
-	elseif keycode = RightFlipperKey then
-		HSRightFlipperDown = 0
-	end if
+  if keycode = LeftFlipperKey then
+    HSLeftFlipperDown = 0
+  elseif keycode = RightFlipperKey then
+    HSRightFlipperDown = 0
+  end if
 End Sub
 
 Sub HSLeftFlipperKey
-	HSCurInit = HSCurInit - 1
-	if HSCurInit < 0 and HSPos = 0 then
-		HSCurInit = 25       ' first position - wrap A -> Z
-	elseif HSCurInit < 0 and HSPos <> 3 then
-		HSCurInit = 27		 ' 2nd/3rd position - wrap A -> backspace
-	elseif HSPos = 3 and HSCurInit < 27 then
-		HSCurInit = 28		' 4th position - wrap backspace -> End
-	end if
-	HSInits(HSPos).SetValue HSCurInit
-	HSBlink = 0
+  HSCurInit = HSCurInit - 1
+  if HSCurInit < 0 and HSPos = 0 then
+    HSCurInit = 25       ' first position - wrap A -> Z
+  elseif HSCurInit < 0 and HSPos <> 3 then
+    HSCurInit = 27     ' 2nd/3rd position - wrap A -> backspace
+  elseif HSPos = 3 and HSCurInit < 27 then
+    HSCurInit = 28    ' 4th position - wrap backspace -> End
+  end if
+  HSInits(HSPos).SetValue HSCurInit
+  HSBlink = 0
 End Sub
 
 Sub HSRightFlipperKey
-	HSCurInit = HSCurInit + 1
-	if HSCurInit > 25 and HSPos = 0 then
-		HSCurInit = 0				' first position - wrap Z -> A
-	elseif HSPos <> 3 and HSCurInit > 27 then
-		HSCurInit = 0				' 2nd-3rd position - wrap Backspace -> A
-	elseif HSPos = 3 and HSCurInit > 28 then
-		HSCurInit = 27				' 4th position - wrap End -> Backspace
-	end if
-	HSInits(HSPos).SetValue HSCurInit
+  HSCurInit = HSCurInit + 1
+  if HSCurInit > 25 and HSPos = 0 then
+    HSCurInit = 0       ' first position - wrap Z -> A
+  elseif HSPos <> 3 and HSCurInit > 27 then
+    HSCurInit = 0       ' 2nd-3rd position - wrap Backspace -> A
+  elseif HSPos = 3 and HSCurInit > 28 then
+    HSCurInit = 27        ' 4th position - wrap End -> Backspace
+  end if
+  HSInits(HSPos).SetValue HSCurInit
 End Sub
 
 HideHighScoreInitUI
@@ -2624,7 +2624,7 @@ HideHighScoreInitUI
 '   "radio" -> radio button:
 '        Variable Name, Reel Object, First Reel Index, Last Reel Index
 '   "digit" -> digit value:
-'		 Variable Name, Reel Object, Min Value, Max Value
+'    Variable Name, Reel Object, Min Value, Max Value
 '   "score" -> integer score value:
 '        Variable Name, Ten-Thousands Reel, Thousands Reel, 000 Reel, 000 image index
 '   "save", "cancel", "defaults" -> action button
@@ -2632,17 +2632,17 @@ HideHighScoreInitUI
 '
 
 Dim OpMenuMap : OpMenuMap = Array( _
-	Array("radio", "OptFreePlay", ReelFreePlay, 0, 1), _
-	Array("digit", "OptBallsPerGame", ReelBalls, 1, 5), _
-	Array("radio", "OptAlleyScoring", ReelAlley, 2, 3), _
-	Array("radio", "OptSpecialVal", ReelSpecial, 4, 5), _
-	Array("radio", "OptReplayVal", ReelReplay, 4, 5), _
-	Array("score", "OptReplay1", ReelReplay1TT, ReelReplay1T, ReelReplay1ZZZ, 6), _
-	Array("score", "OptReplay2", ReelReplay2TT, ReelReplay2T, ReelReplay2ZZZ, 6), _
-	Array("radio", "OptHSReset", ReelHSReset, 9, 10), _
-	Array("defaults", ReelFactoryReset, 11), _
-	Array("save", ReelOptSave, 7), _
-	Array("cancel", ReelOptCancel, 8) _
+  Array("radio", "OptFreePlay", ReelFreePlay, 0, 1), _
+  Array("digit", "OptBallsPerGame", ReelBalls, 1, 5), _
+  Array("radio", "OptAlleyScoring", ReelAlley, 2, 3), _
+  Array("radio", "OptSpecialVal", ReelSpecial, 4, 5), _
+  Array("radio", "OptReplayVal", ReelReplay, 4, 5), _
+  Array("score", "OptReplay1", ReelReplay1TT, ReelReplay1T, ReelReplay1ZZZ, 6), _
+  Array("score", "OptReplay2", ReelReplay2TT, ReelReplay2T, ReelReplay2ZZZ, 6), _
+  Array("radio", "OptHSReset", ReelHSReset, 9, 10), _
+  Array("defaults", ReelFactoryReset, 11), _
+  Array("save", ReelOptSave, 7), _
+  Array("cancel", ReelOptCancel, 8) _
 )
 Dim OpMenuTmp(10)   ' temporary working values for menu items while menu is open
 Dim OpMenuActive
@@ -2652,243 +2652,243 @@ Dim OpMenuActive
 Dim OptHSReset
 
 Sub ShowOperatorMenu
-	OpMenuActive = true
-	OpSavePending = false
-	OpMenuTimer.Enabled = true
-	OpBackdrop.Image = "Options Backdrop"
-	OpMenuStartBtnDown = 0
-	OptHSReset = false
+  OpMenuActive = true
+  OpSavePending = false
+  OpMenuTimer.Enabled = true
+  OpBackdrop.Image = "Options Backdrop"
+  OpMenuStartBtnDown = 0
+  OptHSReset = false
 
-	dim i, ele, val
-	for i = 0 to ubound(OpMenuMap)
-		ele = OpMenuMap(i)
-		select case ele(0)
-			case "radio"
-				val = Eval(ele(1))
-				OpMenuTmp(i) = val
-				ele(2).SetValue (ele(3) + val)*2
-				ele(2).Image = "Options Reel"
+  dim i, ele, val
+  for i = 0 to ubound(OpMenuMap)
+    ele = OpMenuMap(i)
+    select case ele(0)
+      case "radio"
+        val = Eval(ele(1))
+        OpMenuTmp(i) = val
+        ele(2).SetValue (ele(3) + val)*2
+        ele(2).Image = "Options Reel"
 
-			case "digit"
-				val = Eval(ele(1))
-				OpMenuTmp(i) = val
-				ele(2).SetValue val*2
-				ele(2).Image = "Options Number Reel"
+      case "digit"
+        val = Eval(ele(1))
+        OpMenuTmp(i) = val
+        ele(2).SetValue val*2
+        ele(2).Image = "Options Number Reel"
 
-			case "score"
-				val = Eval(ele(1))
-				OpMenuSetScore i, val, false
-				ele(2).Image = "Options Number Reel"
-				ele(3).Image = "Options Number Reel"
-				ele(4).Image = "Options Reel"
+      case "score"
+        val = Eval(ele(1))
+        OpMenuSetScore i, val, false
+        ele(2).Image = "Options Number Reel"
+        ele(3).Image = "Options Number Reel"
+        ele(4).Image = "Options Reel"
 
-			case "save", "cancel", "defaults"
-				ele(1).SetValue ele(2)*2
-				ele(1).Image = "Options Reel"
+      case "save", "cancel", "defaults"
+        ele(1).SetValue ele(2)*2
+        ele(1).Image = "Options Reel"
 
-		end select
-	next
+    end select
+  next
 
-	' start on the last button (the Cancel button) for easy dismissal
-	OpMenuLine = ubound(OpMenuMap)
-	OpMenuHilite true
-	OpMenuBlink = 0
+  ' start on the last button (the Cancel button) for easy dismissal
+  OpMenuLine = ubound(OpMenuMap)
+  OpMenuHilite true
+  OpMenuBlink = 0
 End Sub
 
 Sub OpMenuSave
-	' go through the item list, and save each data item to its global variable
-	dim i, ele, varname, val
-	for i = 0 to ubound(OpMenuMap)
-		ele = OpMenuMap(i)
-		select case ele(0)
-			case "radio", "digit", "score"
-				varname = ele(1)
-				ExecuteGlobal varname & "=" & OpMenuTmp(i)
-		end select
-	next
+  ' go through the item list, and save each data item to its global variable
+  dim i, ele, varname, val
+  for i = 0 to ubound(OpMenuMap)
+    ele = OpMenuMap(i)
+    select case ele(0)
+      case "radio", "digit", "score"
+        varname = ele(1)
+        ExecuteGlobal varname & "=" & OpMenuTmp(i)
+    end select
+  next
 
-	' if a high score reset was requested, apply it
-	if OptHSReset then HighScoreReset
+  ' if a high score reset was requested, apply it
+  if OptHSReset then HighScoreReset
 
-	' update the persistent store with the new settings
-	SaveInfo
+  ' update the persistent store with the new settings
+  SaveInfo
 End Sub
 
 Sub OpMenuSetScore(line, val, hilite)
-	dim ele : ele = OpMenuMap(line)
-	OpMenuTmp(line) = val
-	dim ofs : if hilite then ofs = 1 else ofs = 0
-	ele(2).SetValue ((val \ 10000) mod 10)*2 + ofs
-	ele(3).SetValue ((val \ 1000) mod 10)*2 + ofs
-	ele(4).SetValue ele(5)*2 + ofs
+  dim ele : ele = OpMenuMap(line)
+  OpMenuTmp(line) = val
+  dim ofs : if hilite then ofs = 1 else ofs = 0
+  ele(2).SetValue ((val \ 10000) mod 10)*2 + ofs
+  ele(3).SetValue ((val \ 1000) mod 10)*2 + ofs
+  ele(4).SetValue ele(5)*2 + ofs
 End Sub
 
 Dim OpMenuLine
 Sub OpMenuSelect(line)
-	OpMenuHilite false
-	dim n : n = ubound(OpMenuMap)
-	if line > n then line = 0 else if line < 0 then line = n
-	OpMenuLine = line
-	OpMenuHilite true
+  OpMenuHilite false
+  dim n : n = ubound(OpMenuMap)
+  if line > n then line = 0 else if line < 0 then line = n
+  OpMenuLine = line
+  OpMenuHilite true
 End Sub
 
 Sub OpMenuHilite(hilite)
-	dim ele : ele = OpMenuMap(OpMenuLine)
-	dim val : val = OpMenuTmp(OpMenuLine)
-	dim ofs : if hilite then ofs = 1 else ofs = 0
-	select case ele(0)
-		case "radio":
-			ele(2).SetValue (ele(3) + val)*2 + ofs
-		case "digit"
-			ele(2).SetValue OpMenuTmp(OpMenuLine)*2 + ofs
-		case "score"
-			OpMenuSetScore OpMenuLine, val, hilite
-		case "save", "cancel", "defaults"
-			ele(1).SetValue ele(2)*2 + ofs
-	end select
+  dim ele : ele = OpMenuMap(OpMenuLine)
+  dim val : val = OpMenuTmp(OpMenuLine)
+  dim ofs : if hilite then ofs = 1 else ofs = 0
+  select case ele(0)
+    case "radio":
+      ele(2).SetValue (ele(3) + val)*2 + ofs
+    case "digit"
+      ele(2).SetValue OpMenuTmp(OpMenuLine)*2 + ofs
+    case "score"
+      OpMenuSetScore OpMenuLine, val, hilite
+    case "save", "cancel", "defaults"
+      ele(1).SetValue ele(2)*2 + ofs
+  end select
 End Sub
 
 Dim OpMenuBlink, OpMenuStartBtnDown, OpSavePending
 Sub OpMenuTimer_Timer
-	' if a save is pending, do the save now and stop the timer
-	if OpSavePending then
-		OpMenuSave
-		OpMenuShutdown
-		exit sub
-	end if
+  ' if a save is pending, do the save now and stop the timer
+  if OpSavePending then
+    OpMenuSave
+    OpMenuShutdown
+    exit sub
+  end if
 
-	' auto-repeat the Start button, if held down more than 500ms
-	if OpMenuStartBtnDown >= 10 then
-		OpMenuStartBtn
-	elseif OpMenuStartBtnDown > 0 then
-		OpMenuStartBtnDown = OpMenuStartBtnDown + 1
-	end if
+  ' auto-repeat the Start button, if held down more than 500ms
+  if OpMenuStartBtnDown >= 10 then
+    OpMenuStartBtn
+  elseif OpMenuStartBtnDown > 0 then
+    OpMenuStartBtnDown = OpMenuStartBtnDown + 1
+  end if
 
-	' blink every 500 ms, after a 750 ms initial delay
-	OpMenuBlink = OpMenuBlink + 1
-	if OpMenuBlink = 15 then
-		OpMenuHilite false
-	elseif OpMenuBlink = 25 then
-		OpMenuHilite true
-		OpMenuBlink = 5
-	end if
+  ' blink every 500 ms, after a 750 ms initial delay
+  OpMenuBlink = OpMenuBlink + 1
+  if OpMenuBlink = 15 then
+    OpMenuHilite false
+  elseif OpMenuBlink = 25 then
+    OpMenuHilite true
+    OpMenuBlink = 5
+  end if
 End Sub
 
 Sub OpMenuKey(keycode)
-	dim i
-	if keycode = LeftFlipperKey then
-		OpMenuMove(-1)
-	elseif keycode = RightFlipperKey then
-		OpMenuMove(1)
-	elseif keycode = StartGameKey then
-		OpMenuStartBtnDown = 1
-		OpMenuStartBtn
-	end if
+  dim i
+  if keycode = LeftFlipperKey then
+    OpMenuMove(-1)
+  elseif keycode = RightFlipperKey then
+    OpMenuMove(1)
+  elseif keycode = StartGameKey then
+    OpMenuStartBtnDown = 1
+    OpMenuStartBtn
+  end if
 End Sub
 
 Sub OpMenuStartBtn
-	dim ele : ele = OpMenuMap(OpMenuLine)
-	dim val : val = OpMenuTmp(OpMenuLine)
-	OpMenuBlink = false
-	select case ele(0)
-		case "radio"
-			' radio button - advance to next selection, wrap at last selection
-			val = val + 1
-			if val + ele(3) > ele(4) then val = 0
-			ele(2).SetValue (ele(3) + val)*2 + 1
+  dim ele : ele = OpMenuMap(OpMenuLine)
+  dim val : val = OpMenuTmp(OpMenuLine)
+  OpMenuBlink = false
+  select case ele(0)
+    case "radio"
+      ' radio button - advance to next selection, wrap at last selection
+      val = val + 1
+      if val + ele(3) > ele(4) then val = 0
+      ele(2).SetValue (ele(3) + val)*2 + 1
 
-		case "digit"
-			' digit - advance to next value, wrap if we exceed the maximum
-			val = val + 1
-			if val > ele(4) then val = ele(3)
-			ele(2).SetValue val*2 + 1
+    case "digit"
+      ' digit - advance to next value, wrap if we exceed the maximum
+      val = val + 1
+      if val > ele(4) then val = ele(3)
+      ele(2).SetValue val*2 + 1
 
-		case "score"
-			' score line - add 1000, wrap to 0 at 99000, and jump from 0 to 50000
-			if val = 99000 then val = 0 else if val = 0 then val = 50000 else val = val + 1000
-			OpMenuSetScore OpMenuLine, val, true
+    case "score"
+      ' score line - add 1000, wrap to 0 at 99000, and jump from 0 to 50000
+      if val = 99000 then val = 0 else if val = 0 then val = 50000 else val = val + 1000
+      OpMenuSetScore OpMenuLine, val, true
 
-		case "save"
-			HideOperatorMenu true
+    case "save"
+      HideOperatorMenu true
 
-		case "cancel"
-			HideOperatorMenu false
+    case "cancel"
+      HideOperatorMenu false
 
-		case "defaults"
-			' run through the menu items and set each one to the corresponding
-			' default value from the saved variable list
-			for i = 0 to ubound(OpMenuMap)
-				dim o : o = OpMenuMap(i)
-				dim t : t = o(0)    ' type of this entry
-				if t = "radio" or t = "digit" or t = "score" then
-					' these types are associated with option variable values - apply
-					' the default value for the variable
-					val = GetSavedVarDefault(o(1))
+    case "defaults"
+      ' run through the menu items and set each one to the corresponding
+      ' default value from the saved variable list
+      for i = 0 to ubound(OpMenuMap)
+        dim o : o = OpMenuMap(i)
+        dim t : t = o(0)    ' type of this entry
+        if t = "radio" or t = "digit" or t = "score" then
+          ' these types are associated with option variable values - apply
+          ' the default value for the variable
+          val = GetSavedVarDefault(o(1))
 
-					' special case: set High Score Reset to ON
-					if o(1) = "OptHSReset" then val = 1
+          ' special case: set High Score Reset to ON
+          if o(1) = "OptHSReset" then val = 1
 
-					' update the displayed item
-					OpMenuTmp(i) = val
-					select case t
-						case "radio"
-							o(2).SetValue (o(3) + val)*2
+          ' update the displayed item
+          OpMenuTmp(i) = val
+          select case t
+            case "radio"
+              o(2).SetValue (o(3) + val)*2
 
-						case "digit"
-							o(2).SetValue val*2
+            case "digit"
+              o(2).SetValue val*2
 
-						case "score"
-							OpMenuSetScore i, val, false
-					end select
-				end if
-			next
+            case "score"
+              OpMenuSetScore i, val, false
+          end select
+        end if
+      next
 
-	end select
-	OpMenuTmp(OpMenuLine) = val
+  end select
+  OpMenuTmp(OpMenuLine) = val
 End Sub
 
 Sub OpMenuKeyUp(keycode)
-	if keycode = StartGameKey then
-		OpMenuStartBtnDown = false
-	end if
+  if keycode = StartGameKey then
+    OpMenuStartBtnDown = false
+  end if
 End Sub
 
 Sub OpMenuMove(dir)
-	OpMenuHilite false
-	OpMenuLine = OpMenuLine + dir
-	dim n : n = ubound(OpMenuMap)
-	if OpMenuLine < 0 then
- 		OpMenuLine = n
-	elseif OpMenuLine > n then
-		OpMenuLine = 0
-	end if
-	OpMenuHilite true
-	OpMenuBlink = false
+  OpMenuHilite false
+  OpMenuLine = OpMenuLine + dir
+  dim n : n = ubound(OpMenuMap)
+  if OpMenuLine < 0 then
+    OpMenuLine = n
+  elseif OpMenuLine > n then
+    OpMenuLine = 0
+  end if
+  OpMenuHilite true
+  OpMenuBlink = false
 End Sub
 
 Sub HideOperatorMenu(save)
-	' hide the UI elements
-	for each Obj in OpMenu : Obj.Image = "Transparent Backdrop" : Next
+  ' hide the UI elements
+  for each Obj in OpMenu : Obj.Image = "Transparent Backdrop" : Next
 
-	' If they want to save the new settings, flag a pending save for the timer.
-	' We do the save in thetimer rather than right now so that the UI disappears
-	' immediately, which provides a smoother feedback experience.  The save takes
-	' a couple of seconds, so if we don't remove the UI first, the button push
-	' feels laggy.  If they don't want to save the new settings, simply shut
-	' down the UI immediately.
-	if save then
-		' flag the pending save for the timer
-		OpSavePending = true
-	else
-		' no save - shut down the UI immediately
-		OpMenuShutdown
-	end if
+  ' If they want to save the new settings, flag a pending save for the timer.
+  ' We do the save in thetimer rather than right now so that the UI disappears
+  ' immediately, which provides a smoother feedback experience.  The save takes
+  ' a couple of seconds, so if we don't remove the UI first, the button push
+  ' feels laggy.  If they don't want to save the new settings, simply shut
+  ' down the UI immediately.
+  if save then
+    ' flag the pending save for the timer
+    OpSavePending = true
+  else
+    ' no save - shut down the UI immediately
+    OpMenuShutdown
+  end if
 End Sub
 
 ' Shut down
 Sub OpMenuShutdown
-	OpMenuTimer.Enabled = false
-	OpMenuActive = false
+  OpMenuTimer.Enabled = false
+  OpMenuActive = false
 End Sub
 
 HideOperatorMenu false
@@ -2902,10 +2902,10 @@ HideOperatorMenu false
 '                      Supporting Ball & Sound Functions
 ' *********************************************************************
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
-	Dim tmp
+  Dim tmp
     tmp = tableobj.y * 2 / table1.height-1
     If tmp > 0 Then
-		AudioFade = Csng(tmp ^10)
+    AudioFade = Csng(tmp ^10)
     Else
         AudioFade = Csng(-((- tmp) ^10) )
     End If
@@ -2951,7 +2951,7 @@ End Function
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
 Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-	PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
 End Sub
 
 ' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
@@ -2986,16 +2986,16 @@ Sub RollingSoundUpdate()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
         If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
             rolling(b) = True
@@ -3019,7 +3019,7 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow
@@ -3030,22 +3030,22 @@ Sub BallShadowUpdate()
     Dim BOT, b
     BOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
-		End If
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
+    End If
 
-			BallShadow(b).Y = BOT(b).Y + 10
-			BallShadow(b).Z = 1
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+      BallShadow(b).Y = BOT(b).Y + 10
+      BallShadow(b).Z = 1
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 Sub Update_Stuff_Timer()

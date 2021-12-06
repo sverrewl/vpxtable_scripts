@@ -353,7 +353,7 @@ bFreeze = 0
 bDisableTable = 0
 
 Sub Table1_Init
-	LoadEM
+  LoadEM
     If B2SOverride=True AND B2SOn=False Then
         Controller.B2SName = cGameName
         Controller.Run()
@@ -391,7 +391,7 @@ Sub Table1_Init
     '***********************************************
     '               MAGNETS
     '***********************************************
-	' Magnet  (Witch)
+  ' Magnet  (Witch)
     Set LMagnet = New cvpmTurnTable
     With LMagnet
         .InitTurnTable Magnet1, 90
@@ -402,7 +402,7 @@ Sub Table1_Init
         .CreateEvents "LMagnet"
     End With
 
-	' Magnet  (Munchkin Hole)
+  ' Magnet  (Munchkin Hole)
     Set RMagnet = New cvpmTurnTable
     With RMagnet
         .InitTurnTable Magnet2, 90
@@ -448,7 +448,7 @@ Sub Table1_Init
     ' Clear BackGlass
     ClearBackGlass
 
-	' Table Object Initialization
+  ' Table Object Initialization
     TableObject_Setup
 
     ' GI off
@@ -493,15 +493,15 @@ End Sub
 '***********************************************
 Sub Table1_KeyDown(ByVal keycode)
     If bFreeze=1 OR bDisableTable=1 Then Exit Sub
-	If keycode = PlungerKey Then
+  If keycode = PlungerKey Then
         Plunger.PullBack: PlaySoundAtVol "plungerpull", Plunger, 1
         Exit Sub
- 	End If
+  End If
 
     If Keycode = AddCreditKey Then
         Credits = Credits + 1
         PlaySoundAtVol "fx_coin", Drain, 1
-		DOF 114, DOFOn
+    DOF 114, DOFOn
         If(Tilted = False)Then
             ' DMD Display
             If DMD_Option=True Then
@@ -567,7 +567,7 @@ Sub Table1_KeyDown(ByVal keycode)
                         PlayersPlayingGame = PlayersPlayingGame + 1
                         TotalGamesPlayed = TotalGamesPlayed + 1
                         Credits = Credits - 1
- 			            If Credits < 1 and bFreePlay = False Then DOF 114, DOFOff
+                  If Credits < 1 and bFreePlay = False Then DOF 114, DOFOff
                         ' DMD Display
                         If DMD_Option=True Then
                              DMD "", eNone, "_", eNone, CenterLine(2, PlayersPlayingGame & " PLAYERS"), eBlink, "", eNone, 500, True, ""
@@ -622,7 +622,7 @@ End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
     If bFreeze=1 OR bDisableTable=1 Then Exit Sub
-	If keycode = PlungerKey Then
+  If keycode = PlungerKey Then
         Plunger.Fire: PlaySoundAtVol "plunger",Plunger, 1
     End If
 
@@ -634,7 +634,7 @@ Sub Table1_KeyUp(ByVal keycode)
 
     If bGameInPlay Then
 
-	    If keycode = LeftFlipperKey Then
+      If keycode = LeftFlipperKey Then
             bLFlipper=0
             Bumper1.HasHitEvent=1
             Bumper2.HasHitEvent=1
@@ -650,7 +650,7 @@ Sub Table1_KeyUp(ByVal keycode)
             End If
         End If
 
-	    If keycode = RightFlipperKey Then
+      If keycode = RightFlipperKey Then
             bRFlipper=0
             Bumper1.HasHitEvent=1
             Bumper2.HasHitEvent=1
@@ -738,7 +738,7 @@ End Sub
 
 ' Flipper overlay (slippers) motion control
 Sub FlipperTimer_Timer
-	flipperL.RotY = LeftFlipper.CurrentAngle
+  flipperL.RotY = LeftFlipper.CurrentAngle
     flipperR.RotY = RightFlipper.CurrentAngle
 End Sub
 
@@ -855,8 +855,8 @@ Sub Bumper1_Hit
     b1StepMove.Enabled = True
     PlaySoundAtVol SoundFXDOF("fx_Bumper4",117,DOFPulse,DOFContactors), ActiveBall, 1
     SwitchHitEvent 49
-	B1L1.State = 1:B1L2. State = 1
-	Me.Timerenabled = 1
+  B1L1.State = 1:B1L2. State = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub Bumper1_Timer:B1L1.State = 0:B1L2. State = 0:Me.Timerenabled = 0:End Sub
@@ -877,8 +877,8 @@ Sub Bumper2_Hit
     b2StepMove.Enabled = True
     PlaySoundAtVol SoundFXDOF("fx_Bumper4",107,DOFPulse,DOFContactors), ActiveBall, 1
     SwitchHitEvent 50
-	B2L1.State = 1:B2L2. State = 1
-	Me.Timerenabled = 1
+  B2L1.State = 1:B2L2. State = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub Bumper2_Timer:B2L1.State = 0:B2L2. State = 0:Me.Timerenabled = 0:End Sub
@@ -899,11 +899,11 @@ Sub Bumper3_Hit
     b3StepMove.Enabled = True
     PlaySoundAtVol SoundFXDOF("fx_Bumper4",115,DOFPulse,DOFContactors), ActiveBall, 1
     SwitchHitEvent 51
-	B3L1.State = 1:B3L2. State = 1
-	Me.Timerenabled = 1
+  B3L1.State = 1:B3L2. State = 1
+  Me.Timerenabled = 1
 End Sub
 
-Sub Bumper3_Timer:	B3L1.State = 0:B3L2. State = 0:Me.Timerenabled = 0:End Sub
+Sub Bumper3_Timer:  B3L1.State = 0:B3L2. State = 0:Me.Timerenabled = 0:End Sub
 Sub b3StepMove_Timer
     Select Case b3Step
         Case 1:TreeBumper3.TransZ = -10
@@ -921,8 +921,8 @@ Sub Bumper4_Hit
     ' Used for MX Effect
     DOF 326,DOFPulse
     SwitchHitEvent 41
-	B4L1.State = 1:B4L2. State = 1
-	Me.Timerenabled = 1
+  B4L1.State = 1:B4L2. State = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub Bumper4_Timer:B4L1.State = 0:B4L2. State = 0:Me.Timerenabled = 0:End Sub
@@ -945,8 +945,8 @@ Sub swPlungerRest_Hit
     If bAutoPlunger Then
         PlungerIM.AutoFire
         AutoFireCheck.Enabled = True
-        DOF 111, DOFPulse	' AutoPlunger
-		DOF 112, DOFPulse	' Strobe
+        DOF 111, DOFPulse ' AutoPlunger
+    DOF 112, DOFPulse ' Strobe
         bAutoPlunger = False
     End If
     ' if there is a need for a ball saver, then start off a timer
@@ -1102,7 +1102,7 @@ Sub Drain_Hit
     Dim i
 
     PlaySoundAtVol "drain", Drain, 1
-	Drain.DestroyBall
+  Drain.DestroyBall
 
     If bSOTR=0 Then StopSound Song
 
@@ -1120,10 +1120,10 @@ Sub Drain_Hit
     If bSkillshotReady=1 Then SkillShotStop
 
     BallsOnPlayfield = BallsOnPlayfield - 1
-	DOF 113, DOFPulse
+  DOF 113, DOFPulse
 
    ' Table Tilted
-	If Tilted Then Exit Sub
+  If Tilted Then Exit Sub
 
     ' Check for BTWW Mode Melting in progress
     If BTWWCnt=7 Then
@@ -1311,7 +1311,7 @@ Sub ResetForNewGame
     mBalls2Eject = 0
     bExtraBallWonThisBall = False
 
-    StopAttractMode	' turn off attract mode
+    StopAttractMode ' turn off attract mode
     TurnOffPlayfieldLights
     GiOn            ' turn on GI
     BackGlass_AttractMode_OFF
@@ -1392,7 +1392,7 @@ End Sub
 
 ' Create a new ball on the Playfield
 Sub CreateNewBall
-	BallRelease.CreateBall
+  BallRelease.CreateBall
 '    debug.print "bTOTOMode = " & bTOTOMode
 '    debug.print "bTNPLHMode = " & bTNPLHMode
 
@@ -1404,16 +1404,16 @@ Sub CreateNewBall
     End If
 
     ' kick it out.
-	BallRelease.Kick 90,6.
+  BallRelease.Kick 90,6.
     PlaySoundAtVol SoundFXDOF("fx_Ballrel",110,DOFPulse,DOFContactors), BallRelease, 1
 
     ' if there is 2 or more balls then set the multiball flag
     ' (remember to check for locked balls and other balls used for animations)
     ' set the bAutoPlunger flag to kick the ball in play automatically
     If BallsOnPlayfield > 1 Then
-        DOF 111, DOFPulse 	' AutoPlunger
-		DOF 112, DOFPulse	' Strobe
-'		DOF 126, DOFPulse	' Beacon for multiball
+        DOF 111, DOFPulse   ' AutoPlunger
+    DOF 112, DOFPulse ' Strobe
+'   DOF 126, DOFPulse ' Beacon for multiball
         bMultiBallMode = 1
         bAutoPlunger = True
 '        PlaySong "m_multiball"
@@ -1799,8 +1799,8 @@ Sub sw52_Hit:SwitchHitEvent 52: End Sub    ' Bumper Entry Rubber - Lights Glinda
 Sub sw53_Hit:SwitchHitEvent 53: End Sub    ' Bumper Exit Lane
 Sub sw55_Hit:SwitchHitEvent 55: End Sub    ' Skill Target
 Sub sw56_Hit:SwitchHitEvent 56: End Sub    ' TIN MAN Rollover
-Sub sw61_Hit:SwitchHitEvent 61: End Sub	   ' Winged Monkey Target
-Sub sw62_Hit:SwitchHitEvent 62: End Sub	   ' Winged Monkey Target
+Sub sw61_Hit:SwitchHitEvent 61: End Sub    ' Winged Monkey Target
+Sub sw62_Hit:SwitchHitEvent 62: End Sub    ' Winged Monkey Target
 Sub sw64_Hit:SwitchHitEvent 64: End Sub    ' Left Orbit Made
 Sub sw65_Hit:SwitchHitEvent 65: End Sub    ' RESCUE Target - S
 Sub sw66_Hit:SwitchHitEvent 66: End Sub    ' RESCUE Target - E
@@ -1940,11 +1940,11 @@ End Sub
 ' Staging kicker - catches ball and destroys
 Sub sw5_Hit
     vpmtimer.addtimer 300, "SwitchHitEvent 5 '"
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub sw5_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     sw5.DestroyBall
 End Sub
 
@@ -1970,58 +1970,58 @@ End Sub
 Sub sw15_Hit
     SwitchHitEvent 15
     If bTOTODone=1 AND PUPpack=True Then Me.TimerInterval = 8000
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
     If bTNPLHMode=1 OR bTOTOMode=1 OR bBTWW=1 OR bDingDong=1 OR bSOTR=1Then Exit Sub
     Display_MX "WIZARD"
 End Sub
 
 Sub sw15_Timer
     Me.TimerInterval = 1500
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySoundAtVol SoundFXDOF("fx_kicker",166,DOFPulse,DOFContactors),sw15, VolKick
-	sw15.Kick 225, 20
+  sw15.Kick 225, 20
 End Sub
 
 ' VUK - Top Center (Soldier) to Castle Playfield
 Sub sw17_Hit
     SwitchHitEvent 17
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub sw17_Timer
-	Me.Timerenabled = 0
-	sw17.DestroyBall
-	sw17out.CreateBall
+  Me.Timerenabled = 0
+  sw17.DestroyBall
+  sw17out.CreateBall
     PlaySoundAtVol SoundFXDOF("fx_kicker",167,DOFPulse,DOFContactors), sw17, VolKick
-	sw17out.Kick 180, 10
+  sw17out.Kick 180, 10
 End Sub
 
 ' Scoop - Left Top (Castle)
 Sub sw18_Hit
     SwitchHitEvent 18
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub sw18_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySoundAtVol SoundFXDOF("fx_kicker",168,DOFPulse,DOFContactors), sw18, VolKick
-	sw18.Kick 135, 10
+  sw18.Kick 135, 10
 End Sub
 
 ' VUK - Left Middle (Owl)
 Sub sw21_Hit
     SwitchHitEvent 21
     If bTOTODone=1 Then Me.TimerInterval = 7000
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
 End Sub
 
 Sub sw21_Timer
     Me.TimerInterval = 1000
-	Me.Timerenabled = 0
-	sw21.DestroyBall
-	sw21out.CreateBall
+  Me.Timerenabled = 0
+  sw21.DestroyBall
+  sw21out.CreateBall
     PlaySoundAtVol SoundFXDOF("fx_kicker",168,DOFPulse,DOFContactors), sw21, 1
-	sw21out.Kick 0, 20
+  sw21out.Kick 0, 20
 End Sub
 
 ' Magnet Grab Simulator - Monkey Magnet Top
@@ -2087,15 +2087,15 @@ Sub Kicker_Mag1_Hit
             Me.TimerInterval = 2000
         End Select
     End If
- 	Me.Timerenabled = 1
+  Me.Timerenabled = 1
     MunchkinMode
 End Sub
 
 Sub Kicker_Mag1_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     Me.TimerInterval = 2000
     PlaySoundAtVol "fx_kicker", Kicker_Mag1, VolKick
-	Kicker_Mag1.Kick 180, 8
+  Kicker_Mag1.Kick 180, 8
     Kicker_Mag1.enabled=False
     vpmtimer.AddTimer 1000, "PlaySong ""voc18_OffToSee"" '"
 End Sub
@@ -2109,7 +2109,7 @@ bTOTO_kicker=0
 Sub Kicker_TOTO_Hit
     Kicker_TOTO.TimerInterval = hold_time
     bTOTO_kicker=1
-	Me.Timerenabled = 1
+  Me.Timerenabled = 1
     If bTOTOMode=0 AND bTNPLHMode=0 AND SOTR_capture=1 Then
         SOTR_capture=0
         SOTR_Mode
@@ -2117,8 +2117,8 @@ Sub Kicker_TOTO_Hit
 End Sub
 
 Sub Kicker_TOTO_Timer
-	Me.Timerenabled = 0
-	Kicker_TOTO.Kick 135, 5
+  Me.Timerenabled = 0
+  Kicker_TOTO.Kick 135, 5
     Kicker_TOTO.enabled=False
 '    debug.print "Kicker.TOTO OFF - Kicker_TOTO_Timer"
     hold_time = 8000
@@ -2235,7 +2235,7 @@ Sub MoveMonkeyNB_Timer
          Me.enabled = 0
          FlyingMonkey_NB.visible = 0
          FlyingMonkey_Ball.visible = 1
-	     Kicker_Mag.DestroyBall
+       Kicker_Mag.DestroyBall
          Kicker_Mag.enabled = False
          x_pos = 741: y_pos = 105: z_pos = 100
 
@@ -2277,7 +2277,7 @@ Sub MoveMonkeyBall_Timer
          DOF 352, DOFOff    ' Turn Gear Off
          FlyingMonkey_NB.visible = 0
          FlyingMonkey_Ball.visible = 0
-	     sw72_out.CreateBall
+       sw72_out.CreateBall
          SetSwitchFlags 72
          BallsInLock=BallsInLock+1
          bBallJustLocked = bBallJustLocked + 1
@@ -2287,9 +2287,9 @@ Sub MoveMonkeyBall_Timer
 End Sub
 
 Sub sw72_out_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySoundAtVol "fx_kicker", sw72, VolKick
-	sw72_out.Kick 180, 5
+  sw72_out.Kick 180, 5
     sw72_out.enabled = False
 End Sub
 
@@ -2313,15 +2313,15 @@ Sub lock1_Hit:lock.Isdropped = 1:PlaySoundAtVol "metalhit2",lock1,VolMetal:End S
 Sub lock1_UnHit:lock.Isdropped = 0:End Sub
 
 Sub MunchkinPost(enabled)
-	If Enabled Then
+  If Enabled Then
         If lock.IsDropped Then
-		    Lock.IsDropped = 0
-		    PlaySound SoundFX("fx_PostUp",DOFContactors) ' TODO
+        Lock.IsDropped = 0
+        PlaySound SoundFX("fx_PostUp",DOFContactors) ' TODO
         End If
-	Else
-		Lock.IsDropped = 0
-		PlaySound SoundFX("fx_PostDown",0) ' TODO
-	End If
+  Else
+    Lock.IsDropped = 0
+    PlaySound SoundFX("fx_PostDown",0) ' TODO
+  End If
 End Sub
 
 '************************************************
@@ -2684,16 +2684,16 @@ Sub RollingTimer_Timer
     Dim BOT, b, ballpitch
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = lob to UBound(BOT)
         If BallVel(BOT(b) ) > 1 Then
             If BOT(b).z < 30 Then
@@ -2770,43 +2770,43 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall),
 
 Sub a_Posts_Hit(idx):
     dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber
- 	End If
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber
+  End If
 End Sub
 
 Sub RubberWheel_hit
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber
+  End If
 End sub
 
 Sub a_Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber
+  End If
 End Sub
 
 Sub RandomSoundRubber
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 '********************************************
@@ -2993,7 +2993,7 @@ End Sub
 '        JP's VP10 Fading Lamps & Flashers
 '  very reduced, mostly for rom activated flashers
 ' if you need to turn a light on or off then use:
-'	LightState(lightnumber) = 0 or 1
+' LightState(lightnumber) = 0 or 1
 '        Based on PD's Fading Light System
 '******************************************************
 Dim LightState(200), FlashSpeedUp(200), FlashSpeedDown(200), FlashMin(200), FlashMax(200), FlashLevel(200)
@@ -3035,7 +3035,7 @@ End Sub
 Sub InitFlashers
     Dim x
     For x = 0 to 200
-        LightState(x) = 0     	 ' light state: 0=off, 1=on, -1=no change (on or off)
+        LightState(x) = 0        ' light state: 0=off, 1=on, -1=no change (on or off)
         FlashSpeedUp(x) = 0.5    ' Fade Speed Up
         FlashSpeedDown(x) = 0.25 ' Fade Speed Down
         FlashMax(x) = 1          ' the maximum intensity when on, usually 1
@@ -5561,8 +5561,8 @@ Sub AwardExtraBall
             UltraDMDBlink "black.png", " ", "EXTRA BALL WON", 100, 10
         End If
         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
-		DOF 121, DOFPulse
-		DOF 112, DOFPulse
+    DOF 121, DOFPulse
+    DOF 112, DOFPulse
         bExtraBallWonThisBall = True
         If bCB_LightsOFF=0 AND bCB_LightsON=0 Then
             GiEffect 1, 5
@@ -5586,8 +5586,8 @@ Sub AwardSpecial
     End If
     Credits = Credits + 1
     DOF 114, DOFOn
-	DOF 121, DOFPulse
-	DOF 112, DOFPulse
+  DOF 121, DOFPulse
+  DOF 112, DOFPulse
     If bCB_LightsOFF=0 AND bCB_LightsON=0 Then
         GiEffect 1, 10
         LightEffect 1
@@ -5950,8 +5950,8 @@ Sub SetSwitchFlags(switch)
             If ballRescueLock>0 Then
                 AddMultiball ballRescueLock
             Else
-                DOF 112, DOFPulse	' Strobe
-'		        DOF 126, DOFPulse	' Beacon for multiball
+                DOF 112, DOFPulse ' Strobe
+'           DOF 126, DOFPulse ' Beacon for multiball
             End If
             bMultiBallMode=1
             Display_MX "RESCUE"
@@ -8797,8 +8797,8 @@ Sub SOTR_Mode
     End If
     LightSeqAll.Play SeqAlloff
     LightSeqAll.Play SeqCircleOutOn,10,10,0
-    DOF 112, DOFPulse	' Strobe
-	DOF 126, DOFPulse	' Beacon
+    DOF 112, DOFPulse ' Strobe
+  DOF 126, DOFPulse ' Beacon
     SOTR = 0
     SOTRImage.Interval = 12000
     SOTRImage.Enabled = True
@@ -9043,8 +9043,8 @@ Sub SOTR_Rainbow_Fanfare
     If PUPpack=True Then DOF 82,DOFPulse
     LightSeqAll.Play SeqAlloff
     LightSeqAll.Play SeqCircleOutOn,10,5,0
-    DOF 112, DOFPulse	' Strobe
-	DOF 126, DOFPulse	' Beacon
+    DOF 112, DOFPulse ' Strobe
+  DOF 126, DOFPulse ' Beacon
 End Sub
 
 Sub SOTR_3Rainbows
@@ -9912,8 +9912,8 @@ Sub EmeraldCityMB
     cnt_Lion=0:cnt_Scarecrow=0:cnt_Tinman=0
     bECLock=0
     bECBallsLocked=0
-    DOF 112, DOFPulse	' Strobe for multiball
-'	DOF 126, DOFPulse	' Beacon for multiball
+    DOF 112, DOFPulse ' Strobe for multiball
+' DOF 126, DOFPulse ' Beacon for multiball
     Display_MX "EMERALD"
 End Sub
 
@@ -10002,25 +10002,25 @@ Sub ECMultiB_Throne
 End Sub
 
 Sub sw6_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySound "fx_kicker"
-	sw6.Kick 180, 5
+  sw6.Kick 180, 5
     LightState(150) = 0:Flashers(flash_dict.Item(l150))=0
     sw7.Timerenabled = 1
 End Sub
 
 Sub sw7_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySound "fx_kicker"
-	sw7.Kick 180, 5
+  sw7.Kick 180, 5
     LightState(151) = 0:Flashers(flash_dict.Item(l151))=0
     sw8.Timerenabled = 1
 End Sub
 
 Sub sw8_Timer
-	Me.Timerenabled = 0
+  Me.Timerenabled = 0
     PlaySound "fx_kicker"
-	sw8.Kick 180, 5
+  sw8.Kick 180, 5
     LightState(152) = 0:Flashers(flash_dict.Item(l152))=0
 End Sub
 
@@ -10319,72 +10319,72 @@ SkillshotIncrease(4) = 5000 ' Crystal BALL light
 
 ' Base points awarded when switch hit
 ' Array index is switch number
-BasePoints(0)  = 0		'empty
-BasePoints(1)  = 1  	'Handles 1 point awards
-BasePoints(2)  = 2  	'Handles 2 points for spinner
-BasePoints(3)  = 3  	'Handles 3 point awards - e.g. Slings
-BasePoints(15) = 165	'Throne Kicker
-BasePoints(16) = 5		'Right Orbit Enter
-BasePoints(17) = 50		'VUK to Castle Kicker
-BasePoints(18) = 150	'Castle Kicker
-BasePoints(21) = 250	'VUK - Crystal Ball
-BasePoints(24) = 5  	'Left Orbit Enter
-BasePoints(27) = 3		'Left Return Lane
-BasePoints(28) = 30		'Left Outlane
-BasePoints(29) = 115	'Crystal Ball Target - B
-BasePoints(30) = 115	'Crystal Ball Target - A
-BasePoints(31) = 115	'Crystal Ball Target - L
-BasePoints(32) = 115	'Crystal Ball Target - L
-BasePoints(37) = 7		'Toto Rollover - T
-BasePoints(38) = 7		'Toto Rollover - O
-BasePoints(39) = 7		'Toto Rollover - T
-BasePoints(40) = 7		'Toto Rollover - O
-BasePoints(41) = 60		'Bumper - State Fair
-BasePoints(42) = 30		'TNPLH - Rubber
-BasePoints(43) = 25		'TNPLH - THERE'S
-BasePoints(44) = 25		'TNPLH - NO
-BasePoints(45) = 25		'TNPLH - PLACE
-BasePoints(46) = 25		'TNPLH - LIKE
-BasePoints(47) = 25		'TNPLH - HOME
-BasePoints(49) = 104	'Bumper - Left- MidTop
-BasePoints(50) = 104	'Bumper - Left- MidCtr
-BasePoints(51) = 104	'Bumper - Left- MidBot
-BasePoints(52) = 50		'Bumper Entry Rubber - Lights Glinda
-BasePoints(53) = 15		'Bumper Exit Lane
-BasePoints(56) = 100	'Tin Man Rollover
-BasePoints(57) = 50		'Witch - Top
-BasePoints(58) = 75		'Witch - Bottom
-BasePoints(62) = 20		'Castle PF Exit
-BasePoints(64) = 7		'Left Orbit Made
-BasePoints(65) = 115	'Castle RESCUE - S
-BasePoints(66) = 115	'Castle RESCUE - E
-BasePoints(67) = 115	'Castle RESCUE - R
-BasePoints(68) = 115	'Castle RESCUE - E
-BasePoints(69) = 115	'Castle RESCUE - U
-BasePoints(70) = 115	'Castle RESCUE - C
-BasePoints(71) = 50		'Castle - Loop Trigger
-BasePoints(72) = 0		'Castle - Dorothy Trigger
-BasePoints(73) = 250	'Winkie Guard DT
-BasePoints(74) = 20		'Glinda Target (Unlit)
-BasePoints(75) = 6		'Emerald Ramp Enter
-BasePoints(76) = 25		'Emerald Ramp Made
-BasePoints(77) = 15		'Castle Door - Left
-BasePoints(78) = 15		'Castle Door - Right
-BasePoints(81) = 20		'Left OZ   (Each Way)
-BasePoints(82) = 20		'Right OZ (Each Way)
-BasePoints(87) = 7		'Right Orbit Made
-BasePoints(89) = 25 	'Rainbow - R
-BasePoints(90) = 25 	'Rainbow - A
-BasePoints(91) = 25 	'Rainbow - I
-BasePoints(92) = 25 	'Rainbow - N
-BasePoints(93) = 25 	'Rainbow - B
-BasePoints(94) = 25 	'Rainbow - O
-BasePoints(95) = 25 	'Rainbow - W
-BasePoints(96) = 50 	'Scarecrow Rollover
-BasePoints(101) = 50 	'Munchkin - Loop Upper
-BasePoints(102) = 0 	'Munchkin - Loop Lower
-BasePoints(103) = 300 	'Throne Rubber
-BasePoints(104) = 150 	'Lion Rollover
+BasePoints(0)  = 0    'empty
+BasePoints(1)  = 1    'Handles 1 point awards
+BasePoints(2)  = 2    'Handles 2 points for spinner
+BasePoints(3)  = 3    'Handles 3 point awards - e.g. Slings
+BasePoints(15) = 165  'Throne Kicker
+BasePoints(16) = 5    'Right Orbit Enter
+BasePoints(17) = 50   'VUK to Castle Kicker
+BasePoints(18) = 150  'Castle Kicker
+BasePoints(21) = 250  'VUK - Crystal Ball
+BasePoints(24) = 5    'Left Orbit Enter
+BasePoints(27) = 3    'Left Return Lane
+BasePoints(28) = 30   'Left Outlane
+BasePoints(29) = 115  'Crystal Ball Target - B
+BasePoints(30) = 115  'Crystal Ball Target - A
+BasePoints(31) = 115  'Crystal Ball Target - L
+BasePoints(32) = 115  'Crystal Ball Target - L
+BasePoints(37) = 7    'Toto Rollover - T
+BasePoints(38) = 7    'Toto Rollover - O
+BasePoints(39) = 7    'Toto Rollover - T
+BasePoints(40) = 7    'Toto Rollover - O
+BasePoints(41) = 60   'Bumper - State Fair
+BasePoints(42) = 30   'TNPLH - Rubber
+BasePoints(43) = 25   'TNPLH - THERE'S
+BasePoints(44) = 25   'TNPLH - NO
+BasePoints(45) = 25   'TNPLH - PLACE
+BasePoints(46) = 25   'TNPLH - LIKE
+BasePoints(47) = 25   'TNPLH - HOME
+BasePoints(49) = 104  'Bumper - Left- MidTop
+BasePoints(50) = 104  'Bumper - Left- MidCtr
+BasePoints(51) = 104  'Bumper - Left- MidBot
+BasePoints(52) = 50   'Bumper Entry Rubber - Lights Glinda
+BasePoints(53) = 15   'Bumper Exit Lane
+BasePoints(56) = 100  'Tin Man Rollover
+BasePoints(57) = 50   'Witch - Top
+BasePoints(58) = 75   'Witch - Bottom
+BasePoints(62) = 20   'Castle PF Exit
+BasePoints(64) = 7    'Left Orbit Made
+BasePoints(65) = 115  'Castle RESCUE - S
+BasePoints(66) = 115  'Castle RESCUE - E
+BasePoints(67) = 115  'Castle RESCUE - R
+BasePoints(68) = 115  'Castle RESCUE - E
+BasePoints(69) = 115  'Castle RESCUE - U
+BasePoints(70) = 115  'Castle RESCUE - C
+BasePoints(71) = 50   'Castle - Loop Trigger
+BasePoints(72) = 0    'Castle - Dorothy Trigger
+BasePoints(73) = 250  'Winkie Guard DT
+BasePoints(74) = 20   'Glinda Target (Unlit)
+BasePoints(75) = 6    'Emerald Ramp Enter
+BasePoints(76) = 25   'Emerald Ramp Made
+BasePoints(77) = 15   'Castle Door - Left
+BasePoints(78) = 15   'Castle Door - Right
+BasePoints(81) = 20   'Left OZ   (Each Way)
+BasePoints(82) = 20   'Right OZ (Each Way)
+BasePoints(87) = 7    'Right Orbit Made
+BasePoints(89) = 25   'Rainbow - R
+BasePoints(90) = 25   'Rainbow - A
+BasePoints(91) = 25   'Rainbow - I
+BasePoints(92) = 25   'Rainbow - N
+BasePoints(93) = 25   'Rainbow - B
+BasePoints(94) = 25   'Rainbow - O
+BasePoints(95) = 25   'Rainbow - W
+BasePoints(96) = 50   'Scarecrow Rollover
+BasePoints(101) = 50  'Munchkin - Loop Upper
+BasePoints(102) = 0   'Munchkin - Loop Lower
+BasePoints(103) = 300   'Throne Rubber
+BasePoints(104) = 150   'Lion Rollover
 
 ' Color Map array for switch associated lights
 ' Array index is switch number
@@ -10754,7 +10754,7 @@ Sub SetBackGlass(obj)
 End Sub
 
 Sub BackGlass_AttractMode_OFF
-	Dim i
+  Dim i
     ' Display Screen Panels
     For i = 202 to 205
         Controller.B2SSetData i,1
@@ -11497,11 +11497,11 @@ Sub TestCode_KeyUp(keycode)
     debug.print "keycode = " & keycode
 
     ' Turn on Auto Regression Testing
-	If keycode = LeftMagnaSave AND TEST_AUTOPLAY=True Then Auto_Regression_Flip
+  If keycode = LeftMagnaSave AND TEST_AUTOPLAY=True Then Auto_Regression_Flip
 
 
     ' Various testing support switch and mode activations
- 	If keycode = RightMagnaSave AND TEST_MODE=True Then
+  If keycode = RightMagnaSave AND TEST_MODE=True Then
 '       AwardExtraBall
 '       For i = 1 To 4:SwitchHitEvent (36+i):Next  ' TOTO
 '       For i = 0 to 4:SwitchHitEvent (43+i):Next  ' TNPLH
@@ -11619,17 +11619,17 @@ End Sub
 '       Center Post (only for testing)
 '******************************************************
 Sub CenterPost(enabled)
-	If enabled then
+  If enabled then
         CenterPostP.Visible=True
-		CenterPostP.TransZ = 26
-		Playsound SoundFX("Centerpost_Up",DOFContactors)
-		CPC.IsDropped = 0
-	Else
+    CenterPostP.TransZ = 26
+    Playsound SoundFX("Centerpost_Up",DOFContactors)
+    CPC.IsDropped = 0
+  Else
         CenterPostP.Visible=False
-		Playsound SoundFX("Centerpost_Down",DOFContactors)
-		CenterPostP.TransZ = 0
-		CPC.IsDropped = 1
-	End If
+    Playsound SoundFX("Centerpost_Down",DOFContactors)
+    CenterPostP.TransZ = 0
+    CPC.IsDropped = 1
+  End If
 End Sub
 
 

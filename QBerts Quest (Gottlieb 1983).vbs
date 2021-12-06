@@ -92,12 +92,12 @@ End Sub
 Dim LeftEMpos, RightEMPos
 
 Sub SolLeftEMKicker(enabled)
-	If enabled Then
-		bsLSaucer.ExitSol_On
-		LeftEMpos = 0
-		Lemk.RotX = 26
-		LeftEMTimer.Enabled = 1
-	End If
+  If enabled Then
+    bsLSaucer.ExitSol_On
+    LeftEMpos = 0
+    Lemk.RotX = 26
+    LeftEMTimer.Enabled = 1
+  End If
 End Sub
 
 Sub LeftEMTimer_Timer
@@ -110,12 +110,12 @@ Sub LeftEMTimer_Timer
 End Sub
 
 Sub SolRightEMKicker(enabled)
-	If enabled Then
-		bsRSaucer.ExitSol_On
-		RightEMpos = 0
-		Remk.RotX = 26
-		RightEMTimer.Enabled = 1
-	End If
+  If enabled Then
+    bsRSaucer.ExitSol_On
+    RightEMpos = 0
+    Remk.RotX = 26
+    RightEMTimer.Enabled = 1
+  End If
 End Sub
 
 Sub RightEMTimer_Timer
@@ -253,7 +253,7 @@ if ballshadows=1 then
 
     if flippershadows=1 then
         FlipperLSh.visible=1
-		FlipperLSh1.visible=1
+    FlipperLSh1.visible=1
         FlipperRSh.visible=1
         FlipperRSh1.visible=1
       else
@@ -569,7 +569,7 @@ End Sub
 
 
  Sub UpdateLamps
-	NFadeLm 1, GIlamps
+  NFadeLm 1, GIlamps
     NFadeLm 3, l3
     NFadeLm 3, l3a
     NFadeLm 4, l4

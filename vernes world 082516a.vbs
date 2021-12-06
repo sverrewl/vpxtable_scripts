@@ -47,7 +47,7 @@ VarHidden = 0
 TextBox.visible = false
 end if
 
-	Const DB2SOn = False
+  Const DB2SOn = False
 
     LoadVPM "01530000","spinball.vbs",3.10
 
@@ -56,11 +56,11 @@ end if
        If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
        ExecuteGlobal GetTextFile(VBSfile)
        If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
-	   'If DB2SOn = True then
-		Set Controller = CreateObject("B2S.Server")
-	   'Else
-		'Set Controller = CreateObject("VPinMAME.Controller")
-	   'End If
+     'If DB2SOn = True then
+    Set Controller = CreateObject("B2S.Server")
+     'Else
+    'Set Controller = CreateObject("VPinMAME.Controller")
+     'End If
        If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
        If VPMver > "" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
        If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
@@ -73,7 +73,7 @@ end if
 'Standard definitions
 '********************
 
-	Const cGameName = "vrnwrld"
+  Const cGameName = "vrnwrld"
 
      Const UseSolenoids = 1
      Const UseLamps = 0
@@ -84,8 +84,8 @@ end if
      Const SSolenoidOn = "Solenoid"
      Const SSolenoidOff = ""
      Const SCoin = "CoinIn"
-	 Const SFlipperOn="FlipperUp"
-	 Const SFlipperOff="FlipperDown"
+   Const SFlipperOn="FlipperUp"
+   Const SFlipperOff="FlipperDown"
 
 
 '*DOF method for rom controller tables by Arngrim********************
@@ -94,13 +94,13 @@ end if
 '*******Use DOF 1**, 0 to deactivate a ledwiz output*****************
 '*******Use DOF 1**, 2 to pulse a ledwiz output**********************
 Sub DOF(dofevent, dofstate)
-	If DB2SOn=True Then
-		If dofstate = 2 Then
-			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
-		Else
-			Controller.B2SSetData dofevent, dofstate
-		End If
-	End If
+  If DB2SOn=True Then
+    If dofstate = 2 Then
+      Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
+    Else
+      Controller.B2SSetData dofevent, dofstate
+    End If
+  End If
 End Sub
 '********************************************************************
 
@@ -111,55 +111,55 @@ End Sub
    'Variables
     Dim xx
     Dim Bump1,Bump2,Bump3,Mech3bank,bsTrough,bsVUK,bsSVUK,visibleLock,bsTEject
-	Dim dtRDrop
-	Dim PlungerIM
-	Dim bsBallKick
+  Dim dtRDrop
+  Dim PlungerIM
+  Dim bsBallKick
 '
   Sub Table_Init
-	Gate6.Collidable = False
-	Gate7.Collidable = False
-	volcanostop.isdropped = false
-	volcanostop.isdropped = true
-	pulpopost.isdropped = false
+  Gate6.Collidable = False
+  Gate7.Collidable = False
+  volcanostop.isdropped = false
+  volcanostop.isdropped = true
+  pulpopost.isdropped = false
 
-		Controller.SolMask(0)=0
-		vpmTimer.AddTimer 3000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 3 seconds
+    Controller.SolMask(0)=0
+    vpmTimer.AddTimer 3000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 3 seconds
 
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Verne's World"
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 1
-		if VarHidden = 1 then
-		.Hidden = 1
-		Else
-		.Hidden = 0
-		End If
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-	End With
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Verne's World"
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 1
+    if VarHidden = 1 then
+    .Hidden = 1
+    Else
+    .Hidden = 0
+    End If
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+  End With
 
 
     On Error Goto 0
 
 '**Trough
-	Set bsTrough=New cvpmBallStack
-	bsTrough.InitSw 0,73,72,71,70,0,0,0
-	bsTrough.InitKick BallRelease,62,8
-	bsTrough.InitExitSnd"BallRel","SolOn"
-	bsTrough.Balls=4
+  Set bsTrough=New cvpmBallStack
+  bsTrough.InitSw 0,73,72,71,70,0,0,0
+  bsTrough.InitKick BallRelease,62,8
+  bsTrough.InitExitSnd"BallRel","SolOn"
+  bsTrough.Balls=4
 
     Set bsVUK = New cvpmBallStack
     With bsVUK
         .InitSw 0, 67, 0, 0, 0, 0, 0, 0
         .InitKick catapult, 180, 220 'name, direction, force
         .InitExitSnd "scoopexit", "scoopexit"
-		.InitAddSnd "scoopenter"
+    .InitAddSnd "scoopenter"
         .KickAngleVar = 0
         .KickBalls = 1
     End With
@@ -170,25 +170,25 @@ End Sub
         .InitKick volcanokicker, 0, 120
         .KickZ = 100
         .InitExitSnd "scoopexit", "scoopexit"
-		.InitAddSnd "scoopenter"
+    .InitAddSnd "scoopenter"
         .KickBalls = 1
     End With
 
-    	vpmNudge.TiltSwitch=-7
-   	vpmNudge.Sensitivity=1
-   	vpmNudge.TiltObj=Array(Bumper1b,Bumper2b,LeftSlingshot)
+      vpmNudge.TiltSwitch=-7
+    vpmNudge.Sensitivity=1
+    vpmNudge.TiltObj=Array(Bumper1b,Bumper2b,LeftSlingshot)
 
 
     ' Drop Targets
      Set dtRDrop = new cvpmDropTarget
      With dtRDrop
-	      .Initdrop Array(sw41, sw42, sw43, sw44), Array(41, 42, 43, 44)
-	      .InitSnd "DTResetR","DTR"
+        .Initdrop Array(sw41, sw42, sw43, sw44), Array(41, 42, 43, 44)
+        .InitSnd "DTResetR","DTR"
       End With
 
       '**Main Timer init
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
   End Sub
 
@@ -198,50 +198,50 @@ Sub Table_KeyDown(ByVal Keycode)
 dim tt
 tt = 0
 If keycode = 17 then
-	vpmTimer.PulseSw 52: debug.print "52=pulsed" &" lock.  Time(sec)=     " & timer 'w balloon lock
+  vpmTimer.PulseSw 52: debug.print "52=pulsed" &" lock.  Time(sec)=     " & timer 'w balloon lock
 End if
 If keycode = 18 then
-	vpmTimer.PulseSw 77: debug.print "77=pulsed" &" loop.  Time(sec)=      " & timer 'e left loop
+  vpmTimer.PulseSw 77: debug.print "77=pulsed" &" loop.  Time(sec)=      " & timer 'e left loop
 End if
 If keycode = 19 then
-	vpmTimer.PulseSw 45: debug.print "45=pulsed" &" lower.  Time(sec)=      " & timer 'e left loop
+  vpmTimer.PulseSw 45: debug.print "45=pulsed" &" lower.  Time(sec)=      " & timer 'e left loop
 End if
 
 If keycode = 20 then
-	vpmTimer.PulseSw 85: debug.print "85=pulsed" &" control.  Time(sec)=      " & timer 'e left loop
-'	if Controller.switch(85) = 0 then tt =1
-'	Controller.switch(85) = tt: debug.print "85=" & tt &" control.  Time(sec)=   " & timer 't control
+  vpmTimer.PulseSw 85: debug.print "85=pulsed" &" control.  Time(sec)=      " & timer 'e left loop
+' if Controller.switch(85) = 0 then tt =1
+' Controller.switch(85) = tt: debug.print "85=" & tt &" control.  Time(sec)=   " & timer 't control
 End if
 If keycode = 21 then
-	if Controller.switch(55) = 0 then tt =1
-	Controller.switch(55) = tt: debug.print "55=" & tt &" middle.  Time(sec)=    " & timer 'y midde
+  if Controller.switch(55) = 0 then tt =1
+  Controller.switch(55) = tt: debug.print "55=" & tt &" middle.  Time(sec)=    " & timer 'y midde
 End if
 If keycode = 22 then
-	if Controller.switch(65) = 0 then tt =1
-	Controller.switch(65) = tt: debug.print "65=" & tt &" upper.  Time(sec)=     " & timer 'u upper
+  if Controller.switch(65) = 0 then tt =1
+  Controller.switch(65) = tt: debug.print "65=" & tt &" upper.  Time(sec)=     " & timer 'u upper
 End if
 If keycode = 23 then
-	vpmTimer.PulseSw 57: debug.print "57=pulsed" &" ramp exit.  Time(sec)=      " & timer 'e left loop
-'	if Controller.switch(57) = 0 then tt =1
-'	Controller.switch(57) = tt: debug.print "57=" & tt &" ramp exit.  Time(sec)= " & timer 'i ramp exit
+  vpmTimer.PulseSw 57: debug.print "57=pulsed" &" ramp exit.  Time(sec)=      " & timer 'e left loop
+' if Controller.switch(57) = 0 then tt =1
+' Controller.switch(57) = tt: debug.print "57=" & tt &" ramp exit.  Time(sec)= " & timer 'i ramp exit
 End if
 
 ' https://vpinball.com/forums/topic/vernes-world-spinball-1996/page/4/#post-103175
 
 If keycode = RightMagnaSave then Controller.Switch(75) = 1
 
-	If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
-	if keycode = LeftMagnaSave then bstrough.addball 0: debug.print "drain"
- 	If Keycode = LeftFlipperKey then
-		'SolLFlipper true
-		Controller.Switch(133)=1
-	End If
- 	If Keycode = RightFlipperKey then
-		'SolRFlipper true
-		Controller.Switch(131)=1
-	End If
+  If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
+  if keycode = LeftMagnaSave then bstrough.addball 0: debug.print "drain"
+  If Keycode = LeftFlipperKey then
+    'SolLFlipper true
+    Controller.Switch(133)=1
+  End If
+  If Keycode = RightFlipperKey then
+    'SolRFlipper true
+    Controller.Switch(131)=1
+  End If
     If keycode = PlungerKey Then  Controller.Switch(86) = 1
-'  	If keycode = LeftTiltKey Then LeftNudge 80, 1, 20:End If
+'   If keycode = LeftTiltKey Then LeftNudge 80, 1, 20:End If
 '   If keycode = RightTiltKey Then RightNudge 280, 1, 20:End If
 '   If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
    If vpmKeyDown(keycode) Then Exit Sub
@@ -254,14 +254,14 @@ End Sub
 Sub Table_KeyUp(ByVal keycode)
 '
 
-	If vpmKeyUp(keycode) Then Exit Sub
- 	If Keycode = LeftFlipperKey then
-		Controller.Switch(133)=0
-	End If
- 	If Keycode = RightFlipperKey then
-		Controller.Switch(131)=0
-	End If
-	'If Keycode = StartGameKey Then Controller.Switch(16) = 0
+  If vpmKeyUp(keycode) Then Exit Sub
+  If Keycode = LeftFlipperKey then
+    Controller.Switch(133)=0
+  End If
+  If Keycode = RightFlipperKey then
+    Controller.Switch(131)=0
+  End If
+  'If Keycode = StartGameKey Then Controller.Switch(16) = 0
     If keycode = PlungerKey Then  Controller.Switch(86) = 0
 End Sub
 
@@ -296,7 +296,7 @@ SolCallback(8) = "SolRightBank" 'bancada diana
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
 
-	'base table solcallback
+  'base table solcallback
 'SolCallback(2) = "solBallRelease" 'ballrelease
 'SolCallback(4) = "BallKicker"
 'SolCallback(5)= "bsSVUK.SolOut"
@@ -317,46 +317,46 @@ SolCallBack(23)="corkscrewMotor"
 
 
 Sub SolRightBank(Enabled)
-	If Enabled Then
-		dtRDrop.DropSol_On
-	End If
+  If Enabled Then
+    dtRDrop.DropSol_On
+  End If
 End Sub
 
 
 Sub VolcEntrada(Enabled)
-	If Enabled Then
-		Gate6.collidable = true
-		Gate7.collidable = true
-		volcanostop.isdropped = true
-		volcanostop2.isdropped = false
-	Else
-		Gate6.collidable = false
-		Gate7.collidable = false
-		volcanostop.isdropped = false
-		volcanostop2.isdropped = true
-	End If
+  If Enabled Then
+    Gate6.collidable = true
+    Gate7.collidable = true
+    volcanostop.isdropped = true
+    volcanostop2.isdropped = false
+  Else
+    Gate6.collidable = false
+    Gate7.collidable = false
+    volcanostop.isdropped = false
+    volcanostop2.isdropped = true
+  End If
 End Sub
 
 
 Sub PulpoDiverter(Enabled)
-	If Enabled Then
-		pulpopost.isdropped = true
-	Else
-		pulpopost.isdropped = false
-	End If
+  If Enabled Then
+    pulpopost.isdropped = true
+  Else
+    pulpopost.isdropped = false
+  End If
 End Sub
 
-Sub Trigger1_Hit			'top entrance trigger
-    Trigger1.DestroyBall	'top entrance destroy ball
-	Kicker1.CreateBall		'below top entrance
-	Kicker1.kick 160, 8		'below top entrance angle, force
+Sub Trigger1_Hit      'top entrance trigger
+    Trigger1.DestroyBall  'top entrance destroy ball
+  Kicker1.CreateBall    'below top entrance
+  Kicker1.kick 160, 8   'below top entrance angle, force
 End Sub
 
 Sub catapult_Hit
     'Trigger2.DestroyBall
-	'bsVUK.AddBall Me
-	'VUK.kick 180, 12
-	'Playsound "scoopexit"
+  'bsVUK.AddBall Me
+  'VUK.kick 180, 12
+  'Playsound "scoopexit"
 End Sub
 
 
@@ -364,81 +364,81 @@ End Sub
 ''Flashers
 
 Sub FlashPops(Enabled)
-	If Enabled Then
-		SetLamp 126, 1
-		SetLamp 134, 1
-	Else
-		SetLamp 126, 0
-		SetLamp 134, 0
-	End If
+  If Enabled Then
+    SetLamp 126, 1
+    SetLamp 134, 1
+  Else
+    SetLamp 126, 0
+    SetLamp 134, 0
+  End If
 End Sub
 
 Sub SolLeftPop(Enabled)
-	If Enabled Then
-		'SetLamp 60, 1
-		'UpdateGI 4, 3
-	Else
-		'SetLamp 60, 0
-		'UpdateGI 4, 8
-	End If
+  If Enabled Then
+    'SetLamp 60, 1
+    'UpdateGI 4, 3
+  Else
+    'SetLamp 60, 0
+    'UpdateGI 4, 8
+  End If
 End Sub
 
 Sub SolRightPop(Enabled)
-	If Enabled Then
-		'UpdateGI 4, 3
-	Else
-		'SetLamp 61, 0
-	End If
+  If Enabled Then
+    'UpdateGI 4, 3
+  Else
+    'SetLamp 61, 0
+  End If
 End Sub
 
 Sub SolBottomPop(Enabled)
-	If Enabled Then
-		SetLamp 62, 1
-	Else
-		SetLamp 62, 0
-	End If
+  If Enabled Then
+    SetLamp 62, 1
+  Else
+    SetLamp 62, 0
+  End If
 End Sub
 
 
 Sub SolSpinnerFlash(Enabled)
 If slingflashers = False then
-	If Enabled Then
-		SetLamp 132, 1
-	Else
-		SetLamp 132, 0
-	End If
+  If Enabled Then
+    SetLamp 132, 1
+  Else
+    SetLamp 132, 0
+  End If
 Else
-	If Enabled Then
-		SetLamp 132, 1
-	Else
-		SetLamp 132, 0
+  If Enabled Then
+    SetLamp 132, 1
+  Else
+    SetLamp 132, 0
 
-	End if
+  End if
 End if
 End Sub
 
 Sub solTrough(Enabled)
-	If Enabled Then
-		bsTrough.ExitSol_On
-		'vpmTimer.PulseSw 15
-	End If
+  If Enabled Then
+    bsTrough.ExitSol_On
+    'vpmTimer.PulseSw 15
+  End If
  End Sub
 
 Sub SolBallRelease(Enabled):If Enabled Then:Controller.Switch(15)=0:BallRelease.Kick 62,8::PlaysoundAtVol"EnterKicker",BallRelease,1:End If:End Sub
 
 Sub solAutofire(Enabled)
-	If Enabled Then
-		PlungerIM.AutoFire
-	End If
+  If Enabled Then
+    PlungerIM.AutoFire
+  End If
  End Sub
 
 Sub SolPulpo(Enabled)
-	If Enabled Then
-		pulpomove = true
-		'Solenoid20.State= 1
-	Else
-		'Solenoid20.State= 0
-	End If
+  If Enabled Then
+    pulpomove = true
+    'Solenoid20.State= 1
+  Else
+    'Solenoid20.State= 0
+  End If
 End Sub
 
 
@@ -458,25 +458,25 @@ End Sub
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-		 PlaySoundAtVol "flipperupleft", LeftFlipper, VolFlip
-		 LeftFlipper.RotateToEnd:
+     PlaySoundAtVol "flipperupleft", LeftFlipper, VolFlip
+     LeftFlipper.RotateToEnd:
      Else
-		 LeftFlipper.RotateToStart:
-		playsoundAtVol "flipperdown", LeftFlipper, VolFlip
+     LeftFlipper.RotateToStart:
+    playsoundAtVol "flipperdown", LeftFlipper, VolFlip
      End If
  End Sub
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
-		 PlaySoundAtVol "flipperupright", RightFlipper, VolFlip
-		 PlaySoundAtVol "flipperupright", UpRightFlipper, VolFlip
-		 RightFlipper.RotateToEnd
-		 UpRightFlipper.RotateToEnd
+     PlaySoundAtVol "flipperupright", RightFlipper, VolFlip
+     PlaySoundAtVol "flipperupright", UpRightFlipper, VolFlip
+     RightFlipper.RotateToEnd
+     UpRightFlipper.RotateToEnd
      Else
-		 RightFlipper.RotateToStart
-		 UpRightFlipper.RotateToStart
-		playsoundAtVol "flipperdown", RightFlipper, VolFlip
-		playsoundAtVol "flipperdown", UpRightFlipper, VolFlip
+     RightFlipper.RotateToStart
+     UpRightFlipper.RotateToStart
+    playsoundAtVol "flipperdown", RightFlipper, VolFlip
+    playsoundAtVol "flipperdown", UpRightFlipper, VolFlip
      End If
  End Sub
 
@@ -485,25 +485,25 @@ Sub SolRFlipper(Enabled)
 
 Sub RLS_Timer()
     sw60p.RotX = -(sw60s.currentangle) + 90
-	sw92pr.z = sw92p.z
-	sw93pr.z = sw93p.z
+  sw92pr.z = sw92p.z
+  sw93pr.z = sw93p.z
 End Sub
 
 pulpodropwall.isdropped = true
 Dim pulpomove:pulpomove = False
 Sub PulpoT_Timer()
-	If pulpomove = True and pulpo.TransZ >= -51 then
-		pulpo.TransZ = pulpo.TransZ - 1
-	End If
-	If pulpomove = False and pulpo.TransZ <= 0 then
-		pulpo.TransZ = pulpo.TransZ + 1
-	End If
-	'If pulpo.TransZ = 0 then pulpomove = True
-	If pulpo.TransZ = -51 then pulpomove = False
-	pulpodoor.TransZ = pulpo.TransZ
-	'corkscrew.ObjRotZ = corkscrew.ObjRotZ + 2
-	If pulpodoor.TransZ < -5 then pulpodropwall.isdropped = false
-	If pulpodoor.TransZ > -4 then pulpodropwall.isdropped = true
+  If pulpomove = True and pulpo.TransZ >= -51 then
+    pulpo.TransZ = pulpo.TransZ - 1
+  End If
+  If pulpomove = False and pulpo.TransZ <= 0 then
+    pulpo.TransZ = pulpo.TransZ + 1
+  End If
+  'If pulpo.TransZ = 0 then pulpomove = True
+  If pulpo.TransZ = -51 then pulpomove = False
+  pulpodoor.TransZ = pulpo.TransZ
+  'corkscrew.ObjRotZ = corkscrew.ObjRotZ + 2
+  If pulpodoor.TransZ < -5 then pulpodropwall.isdropped = false
+  If pulpodoor.TransZ > -4 then pulpodropwall.isdropped = true
 End Sub
 
 
@@ -573,12 +573,12 @@ Sub sw64_Hit:Controller.Switch(64)=1:PlaySoundAtVol "rollover", ActiveBall, VolR
 Sub sw64_unHit:Controller.Switch(64)=0:StopSound "rollover":End Sub
 'Sub sw67_Hit:Controller.Switch(67)=1:PlaySound "rollover":End Sub
 'Sub sw67_unHit:Controller.Switch(67)=0:StopSound "rollover":End Sub
-Sub sw67_Hit:	sw67.DestroyBall: bsVUK.AddBall Me: End Sub
+Sub sw67_Hit: sw67.DestroyBall: bsVUK.AddBall Me: End Sub
 Sub sw57_Hit:
-	'Controller.Switch(57)=1
-	If DisableSw57 = 0 Then Controller.Switch(57)=1
-	DisableSw57 = 0
-	PlaySoundAtVol "rollover", ActiveBall, VolRol
+  'Controller.Switch(57)=1
+  If DisableSw57 = 0 Then Controller.Switch(57)=1
+  DisableSw57 = 0
+  PlaySoundAtVol "rollover", ActiveBall, VolRol
 End Sub
 Sub sw57_unHit:Controller.Switch(57)=0:StopSound "rollover":End Sub
 Sub sw74_Hit:Controller.Switch(74)=1:PlaySoundAtVol "rollover", ActiveBall, VolRol:End Sub
@@ -600,9 +600,9 @@ Sub sw83_unHit:Controller.Switch(83)=0:StopSound "rollover":End Sub
 Dim switch83:switch83 = False
 
 Sub sw83t_Timer()
-	If switch83 = True and sw83p.TransY > -45 then sw83p.TransY = sw83p.TransY - 5
-	If switch83 = False and sw83p.TransY < 0 then sw83p.TransY = sw83p.TransY + 2.5
-	If sw83p.TransY <= -45 then switch83 = False
+  If switch83 = True and sw83p.TransY > -45 then sw83p.TransY = sw83p.TransY - 5
+  If switch83 = False and sw83p.TransY < 0 then sw83p.TransY = sw83p.TransY + 2.5
+  If sw83p.TransY <= -45 then switch83 = False
 End Sub
 
 Sub sw84_Hit:Controller.Switch(84)=1:sw84.TimerEnabled = 1:End Sub 'volcano drop
@@ -616,17 +616,17 @@ Sub sw93_unHit:Controller.Switch(93)=0:StopSound "rollover":End Sub
 Dim switch92:switch92 = False
 
 Sub sw92t_Timer()
-	If switch92 = True and sw92p.z > -30 then sw92p.z = sw92p.z - 5
-	If switch92 = False and sw92p.z < -10 then sw92p.z = sw92p.z + 2
-	If sw92p.z <= -30 then switch92 = False
+  If switch92 = True and sw92p.z > -30 then sw92p.z = sw92p.z - 5
+  If switch92 = False and sw92p.z < -10 then sw92p.z = sw92p.z + 2
+  If sw92p.z <= -30 then switch92 = False
 End Sub
 
 Dim switch93:switch93 = False
 
 Sub sw93t_Timer()
-	If switch93 = True and sw93p.z > -30 then sw93p.z = sw93p.z - 5
-	If switch93 = False and sw93p.z < -10 then sw93p.z = sw93p.z + 2
-	If sw93p.z <= -30 then switch93 = False
+  If switch93 = True and sw93p.z > -30 then sw93p.z = sw93p.z - 5
+  If switch93 = False and sw93p.z < -10 then sw93p.z = sw93p.z + 2
+  If sw93p.z <= -30 then switch93 = False
 End Sub
 
 Sub DropLeft_Hit:DropLeft.TimerEnabled = 1:End Sub
@@ -640,34 +640,34 @@ Sub DropRight2_Timer:DropRight2.TimerEnabled = 0:PlaySound "DROP_RIGHT":End Sub
 
 csDiverter.isDropped = True
 Sub SolCSDiverter (enabled)
-	csDiverter.isdropped = not enabled
+  csDiverter.isdropped = not enabled
 End Sub
 
 Dim csball, csball1, csball2, csball3, csball4, csballontop, csballReleased
 Sub csKicker_Hit
-	cskicker.destroyball
-	if csball = 0 then csballontop = 1
-	csball = csball + 1
-	Controller.Switch (45) = 1
-	Select Case csball
-		Case 1: Set csball1=corkb1.createball: csball1.z = csLowerSwitchPos: csball1.x = 487: csball1.y = 173: MoveBalloon = 0
-		Case 2: Set csball2=corkb2.createball: csball2.z = csLowerSwitchPos: csball2.x = 487: csball2.y = 173
-		Case 3: Set csball3=corkb3.createball: csball3.z = csLowerSwitchPos: csball3.x = 487: csball3.y = 173
-	End Select
+  cskicker.destroyball
+  if csball = 0 then csballontop = 1
+  csball = csball + 1
+  Controller.Switch (45) = 1
+  Select Case csball
+    Case 1: Set csball1=corkb1.createball: csball1.z = csLowerSwitchPos: csball1.x = 487: csball1.y = 173: MoveBalloon = 0
+    Case 2: Set csball2=corkb2.createball: csball2.z = csLowerSwitchPos: csball2.x = 487: csball2.y = 173
+    Case 3: Set csball3=corkb3.createball: csball3.z = csLowerSwitchPos: csball3.x = 487: csball3.y = 173
+  End Select
 End Sub
 
 Sub corkscrewMotor (enabled)
-	corkscrewMotorTimer.enabled = enabled
-	'Solenoid23.State = enabled
-	'debug.print "corkscrewmotor = " & enabled & " time(sec): " & timer
+  corkscrewMotorTimer.enabled = enabled
+  'Solenoid23.State = enabled
+  'debug.print "corkscrewmotor = " & enabled & " time(sec): " & timer
 End Sub
 Sub corkscrewMotorTimer_timer
-	corkscrew.ObjRotZ = corkscrew.ObjRotZ + 12	'turn screw
-	if csball >= 1 then csball1.z =  csball1.z + csStepsize: checkballoonswitches csball1, corkb1 'raise ball1
-	if csball >= 2 then csball2.z =  csball2.z + csStepsize: checkballoonswitches csball2, corkb2 'raise ball2
-	if csball >= 3 then csball3.z =  csball3.z + csStepsize: checkballoonswitches csball3, corkb3 'raise ball3
-	if MoveBalloon = 1 then Balloon.transZ = BalloonBall.z - csMiddleSwitchPos	'Raise Balloon
-	debug.Print Balloon.transZ
+  corkscrew.ObjRotZ = corkscrew.ObjRotZ + 12  'turn screw
+  if csball >= 1 then csball1.z =  csball1.z + csStepsize: checkballoonswitches csball1, corkb1 'raise ball1
+  if csball >= 2 then csball2.z =  csball2.z + csStepsize: checkballoonswitches csball2, corkb2 'raise ball2
+  if csball >= 3 then csball3.z =  csball3.z + csStepsize: checkballoonswitches csball3, corkb3 'raise ball3
+  if MoveBalloon = 1 then Balloon.transZ = BalloonBall.z - csMiddleSwitchPos  'Raise Balloon
+  debug.Print Balloon.transZ
 
 end sub
 
@@ -677,48 +677,48 @@ Const csUpperSwitchPos = 200
 Const csStepsize = 2.5
 Dim DisableSw57, BalloonBall, MoveBalloon
 Sub checkBalloonSwitches (ball, kickername)
-	Select Case ball.z
-		Case csLowerSwitchPos + 2*csStepsize:   Controller.Switch(45) = 0	'Clear Sw45
-		Case 0:  Controller.Switch(85) = 1
-		Case 5:  Controller.Switch(85) = 0
-		Case csMiddleSwitchPos: 				Controller.Switch(55) = 1	'Ball at middle sw 55
-		Case csMiddleSwitchPos + 2*csStepsize: 	Controller.Switch(55) = 0: Set BalloonBall = ball: If MoveBalloon = 0 Then MoveBalloon = 1
-		Case csUpperSwitchPos:  				Controller.Switch(65) = 1	'Ball at upper sw 65
-		Case csUpperSwitchPos + 2*csStepsize: 								'Ball is at top, kick ball onto ramp
-			Controller.Switch(65) = 0
-			kickername.kick 180,1
-			MoveBalloonT.Enabled = 1: MoveBalloon = 2
-			csballReleased = csballReleased + 1
-			if csball = 3 and csballReleased = 1 then DisableSw57 = 1		'BUGFIX: if multiball and 1st ball released, disable the exit ramp switch once, so motor works
-			if csBall = csballReleased then csball = 0:  csballReleased = 0	'if all balls released, reset ball counts
-	End Select
+  Select Case ball.z
+    Case csLowerSwitchPos + 2*csStepsize:   Controller.Switch(45) = 0 'Clear Sw45
+    Case 0:  Controller.Switch(85) = 1
+    Case 5:  Controller.Switch(85) = 0
+    Case csMiddleSwitchPos:         Controller.Switch(55) = 1 'Ball at middle sw 55
+    Case csMiddleSwitchPos + 2*csStepsize:  Controller.Switch(55) = 0: Set BalloonBall = ball: If MoveBalloon = 0 Then MoveBalloon = 1
+    Case csUpperSwitchPos:          Controller.Switch(65) = 1 'Ball at upper sw 65
+    Case csUpperSwitchPos + 2*csStepsize:                 'Ball is at top, kick ball onto ramp
+      Controller.Switch(65) = 0
+      kickername.kick 180,1
+      MoveBalloonT.Enabled = 1: MoveBalloon = 2
+      csballReleased = csballReleased + 1
+      if csball = 3 and csballReleased = 1 then DisableSw57 = 1   'BUGFIX: if multiball and 1st ball released, disable the exit ramp switch once, so motor works
+      if csBall = csballReleased then csball = 0:  csballReleased = 0 'if all balls released, reset ball counts
+  End Select
 End Sub
 
 Dim MoveBalloonCnt
 Sub MoveBalloonT_Timer
-	MoveBalloonCnt = MoveBalloonCnt+1
-	Select Case MoveBalloonCnt:
-		Case 1: Balloon.transZ = 151
-		Case 2: Balloon.transZ = 148
-		Case 3: Balloon.transZ = 144
-		Case 4: Balloon.transZ = 137
-		Case 5: Balloon.transZ = 129
-		Case 6: Balloon.transZ = 119
-		Case 7: Balloon.transZ = 107
-		Case 18 Balloon.transZ = 94
-		Case 9: Balloon.transZ = 78
-		Case 10: Balloon.transZ = 62
-		Case 11: Balloon.transZ = 42
-		Case 12: Balloon.transZ = 22
-		Case 13: Balloon.transZ = 0: 	MoveBalloonT.Enabled = 0: MoveBalloonCnt = 0: If csball > 0 Then MoveBalloon = 1
-	End Select
+  MoveBalloonCnt = MoveBalloonCnt+1
+  Select Case MoveBalloonCnt:
+    Case 1: Balloon.transZ = 151
+    Case 2: Balloon.transZ = 148
+    Case 3: Balloon.transZ = 144
+    Case 4: Balloon.transZ = 137
+    Case 5: Balloon.transZ = 129
+    Case 6: Balloon.transZ = 119
+    Case 7: Balloon.transZ = 107
+    Case 18 Balloon.transZ = 94
+    Case 9: Balloon.transZ = 78
+    Case 10: Balloon.transZ = 62
+    Case 11: Balloon.transZ = 42
+    Case 12: Balloon.transZ = 22
+    Case 13: Balloon.transZ = 0:  MoveBalloonT.Enabled = 0: MoveBalloonCnt = 0: If csball > 0 Then MoveBalloon = 1
+  End Select
 End Sub
 
 
  Sub LeftSlingShot_Slingshot
-	Leftsling = True
- 	PlaySoundAtBallVol "slingshotleft", 1
-	vpmTimer.PulseSw 40
+  Leftsling = True
+  PlaySoundAtBallVol "slingshotleft", 1
+  vpmTimer.PulseSw 40
   End Sub
 
 
@@ -726,10 +726,10 @@ Dim Leftsling1:Leftsling1 = False
 
 Dim Leftsling:Leftsling = False
 Sub LS_Timer()
-	If Leftsling = True and sling2.TransZ > -28 then sling2.TransZ = sling2.TransZ - 4
-	If Leftsling = False and sling2.TransZ < -0 then sling2.TransZ = sling2.TransZ + 4
-	If sling2.TransZ <= -28 then Leftsling = False
-	sling1.TransX = sling2.TransZ
+  If Leftsling = True and sling2.TransZ > -28 then sling2.TransZ = sling2.TransZ - 4
+  If Leftsling = False and sling2.TransZ < -0 then sling2.TransZ = sling2.TransZ + 4
+  If sling2.TransZ <= -28 then Leftsling = False
+  sling1.TransX = sling2.TransZ
 End Sub
 
 
@@ -739,7 +739,7 @@ End Sub
     Set plungerIM = New cvpmImpulseP
     With plungerIM
         .InitImpulseP swplunger, IMPowerSetting, IMTime
-		.Switch 74
+    .Switch 74
         .Random .2
         .InitExitSnd "plunger2", "plunger"
         .CreateEvents "plungerIM"
@@ -773,7 +773,7 @@ Sub LampTimer_Timer()
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-			FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
         Next
     End If
 
@@ -937,50 +937,50 @@ Sub FlasherTimer_Timer()
 
 
 Sub GIFlashT_Timer 'basic rom controlled gi flash test
-'	f9t.opacity = f9.opacity / 1.3
-'	f9f.opacity = f9.opacity / 1.3
-'	f10t.opacity = f10.opacity / 1.3
-'	f10f.opacity = f10.opacity / 1.3
-'	f74a.opacity = f74.opacity * 4
-'	f85a.opacity = f85.opacity * 2
-'	f85b.opacity = f85.opacity * 4
-'	f85c.opacity = f85.opacity * 4
-	Dim bulb
-	for each bulb in GILights
-	bulb.state = l65.state
-	next
-'	If LampState(65) = 1 then newlighttest.State = 1:End If
-'	If LampState(65) = 0 then newlighttest.State = 0:End If
-'	If LampState(65) = 1 then newlighttest1.State = 1:End If
-'	If LampState(65) = 0 then newlighttest1.State = 0:End If
-'	If LampState(65) = 1 then newlighttest2.State = 1:End If
-'	If LampState(65) = 0 then newlighttest2.State = 0:End If
-'	If LampState(65) = 1 then newlighttest3.State = 1:End If
-'	If LampState(65) = 0 then newlighttest3.State = 0:End If
-'	If LampState(65) = 1 then newlighttest4.State = 1:End If
-'	If LampState(65) = 0 then newlighttest4.State = 0:End If
-'	If LampState(65) = 1 then newlighttest5.State = 1:End If
-'	If LampState(65) = 0 then newlighttest5.State = 0:End If
-'	If LampState(65) = 1 then newlighttest6.State = 1:End If
-'	If LampState(65) = 0 then newlighttest6.State = 0:End If
-'	If LampState(65) = 1 then newlighttest7.State = 1:End If
-'	If LampState(65) = 0 then newlighttest7.State = 0:End If
-'	If LampState(65) = 1 then newlighttest8.State = 1:End If
-'	If LampState(65) = 0 then newlighttest8.State = 0:End If
-'	If LampState(65) = 1 then newlighttest9.State = 1:End If
-'	If LampState(65) = 0 then newlighttest9.State = 0:End If
-'	If LampState(65) = 1 then GIWhite.State = 1:End If
-'	If LampState(65) = 0 then GIWhite.State = 0:End If
-	If sw42.isdropped = true and LampState(65) = 1 then sw42l.State = 1
-	If sw42.isdropped = false and LampState(65) = 1 then sw42l.State = 0
-	If sw42.isdropped = true and LampState(65) = 0 then sw42l.State = 0
-	If sw42.isdropped = false and LampState(65) = 0 then sw42l.State = 0
-	'If LampState(65) = 0 then sw42l.State = 0
-	If sw43.isdropped = true and LampState(65) = 1 then sw43l.State = 1
-	If sw43.isdropped = false and LampState(65) = 1 then sw43l.State = 0
-	If sw43.isdropped = true and LampState(65) = 0 then sw43l.State = 0
-	If sw43.isdropped = false and LampState(65) = 0 then sw43l.State = 0
-	'If LampState(65) = 0 then sw43l.State = 0
+' f9t.opacity = f9.opacity / 1.3
+' f9f.opacity = f9.opacity / 1.3
+' f10t.opacity = f10.opacity / 1.3
+' f10f.opacity = f10.opacity / 1.3
+' f74a.opacity = f74.opacity * 4
+' f85a.opacity = f85.opacity * 2
+' f85b.opacity = f85.opacity * 4
+' f85c.opacity = f85.opacity * 4
+  Dim bulb
+  for each bulb in GILights
+  bulb.state = l65.state
+  next
+' If LampState(65) = 1 then newlighttest.State = 1:End If
+' If LampState(65) = 0 then newlighttest.State = 0:End If
+' If LampState(65) = 1 then newlighttest1.State = 1:End If
+' If LampState(65) = 0 then newlighttest1.State = 0:End If
+' If LampState(65) = 1 then newlighttest2.State = 1:End If
+' If LampState(65) = 0 then newlighttest2.State = 0:End If
+' If LampState(65) = 1 then newlighttest3.State = 1:End If
+' If LampState(65) = 0 then newlighttest3.State = 0:End If
+' If LampState(65) = 1 then newlighttest4.State = 1:End If
+' If LampState(65) = 0 then newlighttest4.State = 0:End If
+' If LampState(65) = 1 then newlighttest5.State = 1:End If
+' If LampState(65) = 0 then newlighttest5.State = 0:End If
+' If LampState(65) = 1 then newlighttest6.State = 1:End If
+' If LampState(65) = 0 then newlighttest6.State = 0:End If
+' If LampState(65) = 1 then newlighttest7.State = 1:End If
+' If LampState(65) = 0 then newlighttest7.State = 0:End If
+' If LampState(65) = 1 then newlighttest8.State = 1:End If
+' If LampState(65) = 0 then newlighttest8.State = 0:End If
+' If LampState(65) = 1 then newlighttest9.State = 1:End If
+' If LampState(65) = 0 then newlighttest9.State = 0:End If
+' If LampState(65) = 1 then GIWhite.State = 1:End If
+' If LampState(65) = 0 then GIWhite.State = 0:End If
+  If sw42.isdropped = true and LampState(65) = 1 then sw42l.State = 1
+  If sw42.isdropped = false and LampState(65) = 1 then sw42l.State = 0
+  If sw42.isdropped = true and LampState(65) = 0 then sw42l.State = 0
+  If sw42.isdropped = false and LampState(65) = 0 then sw42l.State = 0
+  'If LampState(65) = 0 then sw42l.State = 0
+  If sw43.isdropped = true and LampState(65) = 1 then sw43l.State = 1
+  If sw43.isdropped = false and LampState(65) = 1 then sw43l.State = 0
+  If sw43.isdropped = true and LampState(65) = 0 then sw43l.State = 0
+  If sw43.isdropped = false and LampState(65) = 0 then sw43l.State = 0
+  'If LampState(65) = 0 then sw43l.State = 0
 End Sub
 
 
@@ -988,22 +988,22 @@ End Sub
 
 
 Sub LightReflections_Timer
-'	f19r.opacity = f19.opacity / 1.5
-'	f20r.opacity = f20.opacity / 1.5
-'	f1r.opacity = f1.opacity / 1.5
-'	f2r.opacity = f2.opacity / 1.5
-'	f3r.opacity = f3.opacity / 1.5
-'	f53r.opacity = f53.opacity / 1.5
-'	f38r.opacity = f38.opacity / 2.5
-'	f39r.opacity = f39.opacity / 2.5
-'	f55r.opacity = f55.opacity / 1.5
-'	f77r.opacity = f77.opacity
-'	f78r.opacity = f78.opacity
+' f19r.opacity = f19.opacity / 1.5
+' f20r.opacity = f20.opacity / 1.5
+' f1r.opacity = f1.opacity / 1.5
+' f2r.opacity = f2.opacity / 1.5
+' f3r.opacity = f3.opacity / 1.5
+' f53r.opacity = f53.opacity / 1.5
+' f38r.opacity = f38.opacity / 2.5
+' f39r.opacity = f39.opacity / 2.5
+' f55r.opacity = f55.opacity / 1.5
+' f77r.opacity = f77.opacity
+' f78r.opacity = f78.opacity
 End Sub
 
 Sub Table_exit()
-	Controller.Pause = False
-	Controller.Stop
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
 ' *******************************************************************************************************
@@ -1118,16 +1118,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

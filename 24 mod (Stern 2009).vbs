@@ -40,19 +40,19 @@ SolCallback(6) = "vpmSolgate GateL,""gate"","
 SolCallback(7) = "vpmSolgate GateR,""gate"","
 'SolCallback(8) = 'shaker not used
 SolCallback(12) = "SolSafeHouse"
-SolCallback(13) =	"dtUDrop.SolDropUp" 'Drop Targets
+SolCallback(13) = "dtUDrop.SolDropUp" 'Drop Targets
 SolCallback(14) = "SolSniper"
 SolCallback(22) = "SolPostUp" 'left ramp post
 SolCallback(28) = "SolSuitCase" 'suitcase lockup
 SolCallback(29) = "sniperpost" 'sniper up post
 
 'Solenoid Controlled Flashers
-SolCallback(19) =	"SetLamp 119," 'flash safehouse x3
-SolCallback(20) =	"SetLamp 120," 'flash sniper x2
-SolCallback(26) =	"SetLamp 126," 'flash pop x3
-SolCallback(27) =	"SetLamp 127," 'flash right side under jet?
-SolCallback(31) =	"SetLamp 131," 'Orange Dome Slingshots x2
-SolCallback(32) =	"SetLamp 132," 'flash left spinner x3
+SolCallback(19) = "SetLamp 119," 'flash safehouse x3
+SolCallback(20) = "SetLamp 120," 'flash sniper x2
+SolCallback(26) = "SetLamp 126," 'flash pop x3
+SolCallback(27) = "SetLamp 127," 'flash right side under jet?
+SolCallback(31) = "SetLamp 131," 'Orange Dome Slingshots x2
+SolCallback(32) = "SetLamp 132," 'flash left spinner x3
 
 SolCallback(15) = "SolLFlipper"
 SolCallback(16) = "SolRFlipper"
@@ -181,8 +181,8 @@ Sub Table1_Init
       If Err Then MsgBox Err.Description
   End With
 
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
   vpmNudge.TiltSwitch=-7
   vpmNudge.Sensitivity=1
   vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
@@ -197,14 +197,14 @@ Sub Table1_Init
   bsTEject.InitSaucer sw3, 3, 162, 15
   bsTEject.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
-	Set visibleLock = New cvpmVLock
-	With visibleLock
-		.InitVLock Array(sw43,sw44,sw45),Array(k43, k44, k45), Array(43,44,45)
-		.InitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		.ExitDir = 180
-		.ExitForce = 0
-		.createevents "visibleLock"
-	End With
+  Set visibleLock = New cvpmVLock
+  With visibleLock
+    .InitVLock Array(sw43,sw44,sw45),Array(k43, k44, k45), Array(43,44,45)
+    .InitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    .ExitDir = 180
+    .ExitForce = 0
+    .createevents "visibleLock"
+  End With
 
   Set dtUDrop = new cvpmDropTarget
   dtUDrop.Initdrop Array(Sw11,Sw13), Array(11,13)
@@ -218,12 +218,12 @@ Sub Table1_Init
   dtRDrop.Initdrop Array(sw61), Array(61)
   dtRDrop.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
 
-	RampPost.Isdropped=true
-	RightPost.Isdropped=true
-	Post43.IsDropped=true
-	Post44.IsDropped=true
-	Post45.IsDropped=true
-	PostUp.Isdropped = 1
+  RampPost.Isdropped=true
+  RightPost.Isdropped=true
+  Post43.IsDropped=true
+  Post44.IsDropped=true
+  Post45.IsDropped=true
+  PostUp.Isdropped = 1
 
   InitVpmFFlipsSAM
 End Sub
@@ -238,9 +238,9 @@ Sub Table1_KeyDown(ByVal Keycode)
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If vpmKeyUp(keycode) Then Exit Sub
-	If Keycode = StartGameKey Then Controller.Switch(16) = 0
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
+  If vpmKeyUp(keycode) Then Exit Sub
+  If Keycode = StartGameKey Then Controller.Switch(16) = 0
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
 End Sub
 
 'Auto Plunger
@@ -317,12 +317,12 @@ Sub sw40_hit:vpmTimer.pulseSw 40 : End Sub
 Sub sw41_hit:vpmTimer.pulseSw 41 : End Sub
 
 Sub sw62_Hit
-	If sniperstate = true Then
-		vpmTimer.PulseSw 62
-		SniperT.Enabled = 1
-	Else
-		vpmTimer.PulseSw 62
-	End If
+  If sniperstate = true Then
+    vpmTimer.PulseSw 62
+    SniperT.Enabled = 1
+  Else
+    vpmTimer.PulseSw 62
+  End If
 End Sub
 
 
@@ -334,9 +334,9 @@ Sub Bumper3_Hit : vpmTimer.PulseSw(32) : PlaySoundAt SoundFXDOF("fx_bumper1",109
 'SuiteCase Lock buttons
 Sub sw43_Hit:Controller.Switch(43)=1:End Sub
 Sub sw43_unHit:Controller.Switch(43)=0:End Sub
-Sub sw44_Hit:Controller.Switch(44)=1:Post43.IsDropped=False:End Sub 	'suitcase lock mid
+Sub sw44_Hit:Controller.Switch(44)=1:Post43.IsDropped=False:End Sub   'suitcase lock mid
 Sub sw44_unHit:Controller.Switch(44)=0:Post43.IsDropped=True:End Sub
-Sub sw45_Hit:Controller.Switch(45)=1:Post44.IsDropped=False:End Sub 	'suitcase lock top
+Sub sw45_Hit:Controller.Switch(45)=1:Post44.IsDropped=False:End Sub   'suitcase lock top
 Sub sw45_unHit:Controller.Switch(45)=0:Post44.IsDropped=True:End Sub
 
 'Generic Sounds
@@ -376,7 +376,7 @@ Sub sniperup_Timer()
     Case 5:sniperpostprim.RotAndTra5=8
     Case 6:sniperpostprim.RotAndTra5=0:sniperup.Enabled=0
   End Select
- 	If STpos<6 then STPos=STpos+1
+  If STpos<6 then STPos=STpos+1
 End Sub
 
 Sub sniperdown_Timer()
@@ -697,7 +697,7 @@ Sub Flashm(nr, object) 'multiple flashers, it just sets the flashlevel
 End Sub
 
 '************************************************************************
-'	Start of VPX functions
+' Start of VPX functions
 '************************************************************************
 
 '**********Sling Shot Animations
@@ -899,7 +899,7 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS
+' ninuzzu's FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
@@ -912,7 +912,7 @@ sub FlipperTimer_Timer()
 End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 
 Dim BallShadow
@@ -932,11 +932,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
       If BOT(b).X < Table1.Width/2 Then
-        BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+        BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
       Else
-        BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+        BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
       End If
-      ballShadow(b).Y = BOT(b).Y + 12
+      ballShadow(b).Y = BOT(b).Y + 4
       If BOT(b).Z > 20 Then
         BallShadow(b).visible = 1
       Else
@@ -982,31 +982,31 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+  PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -1040,19 +1040,19 @@ Sub RandomSoundRubber()
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' Thalamus : Exit in a clean and proper way

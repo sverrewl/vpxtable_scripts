@@ -45,11 +45,11 @@ Dim BallShadows: Ballshadows=1          '******************set to 1 to turn on B
 Dim FlipperShadows: FlipperShadows=1  '***********set to 1 to turn on Flipper shadows
 
 If DesktopMode = True Then 'Show Desktop components
-	Ramp16.visible=1
-	Ramp15.visible=1
-	Else
-	Ramp16.visible=0
-	Ramp15.visible=0
+  Ramp16.visible=1
+  Ramp15.visible=1
+  Else
+  Ramp16.visible=0
+  Ramp15.visible=0
 End if
 
 '*************************************************************
@@ -159,28 +159,28 @@ Sub FlipperTimer_Timer
         FlipperRsh.rotz= RightFlipper.currentangle
         FlipperRsh1.rotz= RightFlipper1.currentangle
     end if
-	if l4.state=1 Then
-	    metalguide_prim.image="pp_metalalllit"
-		If l12.state=0 Then
-			metalguide_prim.image="pp_metal_bottomlit"
-		End If
-	Else
-	metalguide_prim.image="pp_metal"
-		end if
+  if l4.state=1 Then
+      metalguide_prim.image="pp_metalalllit"
+    If l12.state=0 Then
+      metalguide_prim.image="pp_metal_bottomlit"
+    End If
+  Else
+  metalguide_prim.image="pp_metal"
+    end if
 
 
-	if l58.state=1 Then
-		bumper1cap.image="bumper1ON"
-		Else
-		bumper1cap.image="bumper1OFF"
-	end If
-	if l42.state=1 Then
-		bumper2cap.image="bumper2ON"
-		bumper3cap.image="bumper3ON"
-		Else
-		bumper2cap.image="bumper2OFF"
-		bumper3cap.image="bumper3OFF"
-	end If
+  if l58.state=1 Then
+    bumper1cap.image="bumper1ON"
+    Else
+    bumper1cap.image="bumper1OFF"
+  end If
+  if l42.state=1 Then
+    bumper2cap.image="bumper2ON"
+    bumper3cap.image="bumper3ON"
+    Else
+    bumper2cap.image="bumper2OFF"
+    bumper3cap.image="bumper3OFF"
+  end If
 End Sub
 
 '*****************************************
@@ -547,8 +547,8 @@ End Sub
      NFadeL 41, l41a
      NFadeLm 42, l42
      NFadeLm 42, l42a
-	 NFadeLm 42, L42b
-	 NFadeLm 42, L42c
+   NFadeLm 42, L42b
+   NFadeLm 42, L42c
      NFadeLm 44, l44
      NFadeL 44, l44a
      NFadeLm 49, l49

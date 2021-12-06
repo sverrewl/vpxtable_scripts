@@ -135,55 +135,55 @@ End Sub
 
 
 Sub Table_Init
-	vpmInit Me
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		.SplashInfoLine="Laser Ball - Williams 1979"
-		.HandleKeyboard=0
-		.ShowTitle=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.Hidden=1
-		.Run
-		'On Error Goto 0
-	End With
+  vpmInit Me
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    .SplashInfoLine="Laser Ball - Williams 1979"
+    .HandleKeyboard=0
+    .ShowTitle=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .Hidden=1
+    .Run
+    'On Error Goto 0
+  End With
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=True
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=True
 
-	vpmNudge.TiltSwitch=swTilt
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingShot,RightSlingShot)
+  vpmNudge.TiltSwitch=swTilt
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingShot,RightSlingShot)
 
-	Set bsTrough=New cvpmBallStack
-	bsTrough.InitNoTrough BallRelease,9, 45, 7
-	bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("drain",DOFContactors)
+  Set bsTrough=New cvpmBallStack
+  bsTrough.InitNoTrough BallRelease,9, 45, 7
+  bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("drain",DOFContactors)
 
-	Set dtL=new cvpmDropTarget
-	dtL.InitDrop Array(target1,target2,target3,target4,target5),Array(19,20,21,22,23)
-	dtL.InitSnd SoundFX("droptargetdown",DOFContactors),SoundFX("flapopen",DOFContactors)
-	dtL.AllDownSw=24
+  Set dtL=new cvpmDropTarget
+  dtL.InitDrop Array(target1,target2,target3,target4,target5),Array(19,20,21,22,23)
+  dtL.InitSnd SoundFX("droptargetdown",DOFContactors),SoundFX("flapopen",DOFContactors)
+  dtL.AllDownSw=24
 
-	Set dtR=new cvpmDropTarget
-	dtR.InitDrop Array(target6,target7,target8,target9),Array(34,35,36,37)
-	dtR.InitSnd SoundFX("droptargetdown2",DOFContactors), SoundFX("target",DOFContactors)
-	dtR.AllDownSw=38
+  Set dtR=new cvpmDropTarget
+  dtR.InitDrop Array(target6,target7,target8,target9),Array(34,35,36,37)
+  dtR.InitSnd SoundFX("droptargetdown2",DOFContactors), SoundFX("target",DOFContactors)
+  dtR.AllDownSw=38
 
-	Set bsSaucer=New cvpmBallStack
-	bsSaucer.InitSaucer Kicker1,32,205,14
-	bsSaucer.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
-	bsSaucer.KickForceVar=5
+  Set bsSaucer=New cvpmBallStack
+  bsSaucer.InitSaucer Kicker1,32,205,14
+  bsSaucer.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
+  bsSaucer.KickForceVar=5
 
-	Set bsSaucer1=New cvpmBallStack
-	bsSaucer1.InitSaucer Kicker2,41,0,25
-	bsSaucer1.InitExitSnd SoundFX("popper_ball2",DOFContactors), SoundFX("popper_ball2",DOFContactors)
-	bsSaucer1.KickForceVar=5
+  Set bsSaucer1=New cvpmBallStack
+  bsSaucer1.InitSaucer Kicker2,41,0,25
+  bsSaucer1.InitExitSnd SoundFX("popper_ball2",DOFContactors), SoundFX("popper_ball2",DOFContactors)
+  bsSaucer1.KickForceVar=5
 
-	Set bsSaucer2=New cvpmBallStack
-	bsSaucer2.InitSaucer Kicker3,10,0,25
-	bsSaucer2.InitExitSnd SoundFX("popper_ball3",DOFContactors), SoundFX("popper_ball3",DOFContactors)
-	bsSaucer2.KickForceVar=8.5
+  Set bsSaucer2=New cvpmBallStack
+  bsSaucer2.InitSaucer Kicker3,10,0,25
+  bsSaucer2.InitExitSnd SoundFX("popper_ball3",DOFContactors), SoundFX("popper_ball3",DOFContactors)
+  bsSaucer2.KickForceVar=8.5
 
     GIOff
 End Sub
@@ -197,115 +197,115 @@ Sub table_KeyDown(ByVal keycode)
 End Sub
 
 Sub table_KeyUp(ByVal keycode)
-	If KeyUpHandler(keycode) Then Exit Sub
+  If KeyUpHandler(keycode) Then Exit Sub
     If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "Plunger", Plunger
 End Sub
 
 Sub GIOn
-	dim bulb
-	for each bulb in GILights
-	bulb.state = LightStateOn
-	next
-	Flasher7.visible=1
+  dim bulb
+  for each bulb in GILights
+  bulb.state = LightStateOn
+  next
+  Flasher7.visible=1
 End Sub
 
 Sub GIOff
-	dim bulb
-	for each bulb in GILights
-	bulb.state = LightStateOff
-	next
-	Flasher7.visible=0
+  dim bulb
+  for each bulb in GILights
+  bulb.state = LightStateOff
+  next
+  Flasher7.visible=0
 End Sub
 
 Set LampCallback=GetRef("UpdateMultipleLamps")
 
 Sub ballreleased_hit:GIOn():End Sub
 
-Sub Drain_Hit:bsTrough.AddBall Me:GIOff:End Sub		'switch9 Trough
+Sub Drain_Hit:bsTrough.AddBall Me:GIOff:End Sub   'switch9 Trough
 
-Sub Kicker3_Hit:bsSaucer2.AddBall 0:End Sub			'switch10
+Sub Kicker3_Hit:bsSaucer2.AddBall 0:End Sub     'switch10
 
-Sub sw11_hit:Controller.Switch(11)=1:End Sub		'switch11
-Sub sw11_unHit:Controller.Switch(11)=0:End Sub		'switch11
-Sub sw12_Hit:Controller.Switch(12)=1:End Sub		'switch12
-Sub sw12_unHit:Controller.Switch(12)=0:End Sub		'switch12
+Sub sw11_hit:Controller.Switch(11)=1:End Sub    'switch11
+Sub sw11_unHit:Controller.Switch(11)=0:End Sub    'switch11
+Sub sw12_Hit:Controller.Switch(12)=1:End Sub    'switch12
+Sub sw12_unHit:Controller.Switch(12)=0:End Sub    'switch12
 
-Sub sw14_Hit:vpmTimer.PulseSw(14):End Sub			'switch14
+Sub sw14_Hit:vpmTimer.PulseSw(14):End Sub     'switch14
 
-Sub sw16_Hit:vpmTimer.PulseSw(16):End Sub			'switch16
-Sub Spinner1_Spin:vpmTimer.PulseSw(17):PlaySoundAtVol "fx_spinner", Spinner1, VolSpin:End Sub				'switch17 Left Spinner
+Sub sw16_Hit:vpmTimer.PulseSw(16):End Sub     'switch16
+Sub Spinner1_Spin:vpmTimer.PulseSw(17):PlaySoundAtVol "fx_spinner", Spinner1, VolSpin:End Sub       'switch17 Left Spinner
 
 
-Sub sw18_Hit:vpmTimer.PulseSw(18):End Sub						'switch18
+Sub sw18_Hit:vpmTimer.PulseSw(18):End Sub           'switch18
 
-Sub target1_Hit:dtL.Hit 1:End Sub							'switch19
-Sub target2_Hit:dtL.Hit 2:End Sub							'switch20
-Sub target3_Hit:dtL.Hit 3:End Sub							'switch21
-Sub target4_Hit:dtL.Hit 4:End Sub							'switch22
-Sub target5_Hit:dtL.Hit 5:End Sub							'switch23
-															'switch24 used to reset LASER bank
-Sub sw25_Hit:vpmTimer.PulseSw(25):End Sub					'switch25
-Sub sw26_Hit:vpmTimer.PulseSw(26):End Sub					'switch26
+Sub target1_Hit:dtL.Hit 1:End Sub             'switch19
+Sub target2_Hit:dtL.Hit 2:End Sub             'switch20
+Sub target3_Hit:dtL.Hit 3:End Sub             'switch21
+Sub target4_Hit:dtL.Hit 4:End Sub             'switch22
+Sub target5_Hit:dtL.Hit 5:End Sub             'switch23
+                              'switch24 used to reset LASER bank
+Sub sw25_Hit:vpmTimer.PulseSw(25):End Sub         'switch25
+Sub sw26_Hit:vpmTimer.PulseSw(26):End Sub         'switch26
 
-Sub sw27_Hit:Controller.Switch(27)=1:End Sub		 		'switch27
-Sub sw27_unHit:Controller.Switch(27)=0:End Sub			'switch27
-Sub sw28_Hit:Controller.Switch(28)=1:End Sub			'switch28
-Sub sw28_unHit:Controller.Switch(28)=0:End Sub			'switch28
-Sub sw29_Hit:Controller.Switch(29)=1:End Sub			'switch29
-Sub sw29_unHit:Controller.Switch(29)=0:End Sub			'switch29
-Sub sw30_Hit:Controller.Switch(30)=1:End Sub			'switch30
-Sub sw30_unHit:Controller.Switch(30)=0:End Sub			'switch30
-Sub sw31_Hit:Controller.Switch(31)=1:End Sub			'switch31
-Sub sw31_unHit:Controller.Switch(31)=0:End Sub			'switch31
+Sub sw27_Hit:Controller.Switch(27)=1:End Sub        'switch27
+Sub sw27_unHit:Controller.Switch(27)=0:End Sub      'switch27
+Sub sw28_Hit:Controller.Switch(28)=1:End Sub      'switch28
+Sub sw28_unHit:Controller.Switch(28)=0:End Sub      'switch28
+Sub sw29_Hit:Controller.Switch(29)=1:End Sub      'switch29
+Sub sw29_unHit:Controller.Switch(29)=0:End Sub      'switch29
+Sub sw30_Hit:Controller.Switch(30)=1:End Sub      'switch30
+Sub sw30_unHit:Controller.Switch(30)=0:End Sub      'switch30
+Sub sw31_Hit:Controller.Switch(31)=1:End Sub      'switch31
+Sub sw31_unHit:Controller.Switch(31)=0:End Sub      'switch31
 
-Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub					'switch32
+Sub Kicker1_Hit:bsSaucer.AddBall 0:End Sub          'switch32
 
-Sub sw33_Hit:vpmTimer.PulseSw(33):End Sub					'switch33
+Sub sw33_Hit:vpmTimer.PulseSw(33):End Sub         'switch33
 
-Sub target6_Hit:dtR.Hit 1:End Sub							'switch34
-Sub target7_Hit:dtR.Hit 2:End Sub							'switch35
-Sub target8_Hit:dtR.Hit 3:End Sub							'switch36
-Sub target9_Hit:dtR.Hit 4:End Sub							'switch37
+Sub target6_Hit:dtR.Hit 1:End Sub             'switch34
+Sub target7_Hit:dtR.Hit 2:End Sub             'switch35
+Sub target8_Hit:dtR.Hit 3:End Sub             'switch36
+Sub target9_Hit:dtR.Hit 4:End Sub             'switch37
 
-Sub Spinner2_Spin:vpmTimer.PulseSw(40):PlaySoundAtVol "fx_spinner", Spinner2, VolSpin:End Sub	'switch40 Right Spinner
+Sub Spinner2_Spin:vpmTimer.PulseSw(40):PlaySoundAtVol "fx_spinner", Spinner2, VolSpin:End Sub 'switch40 Right Spinner
 
-Sub Kicker2_Hit:bsSaucer1.AddBall 0:End Sub					'switch41
+Sub Kicker2_Hit:bsSaucer1.AddBall 0:End Sub         'switch41
 
-Sub sw42_Hit:Controller.Switch(42)=1:End Sub		'switch42
-Sub sw42_unHit:Controller.Switch(42)=0:End Sub		'switch42
-Sub sw43_Hit:Controller.Switch(43)=1:End Sub		'switch43
-Sub sw43_unHit:Controller.Switch(43)=0:End Sub		'switch43
+Sub sw42_Hit:Controller.Switch(42)=1:End Sub    'switch42
+Sub sw42_unHit:Controller.Switch(42)=0:End Sub    'switch42
+Sub sw43_Hit:Controller.Switch(43)=1:End Sub    'switch43
+Sub sw43_unHit:Controller.Switch(43)=0:End Sub    'switch43
 
 Dim bump1,bump2,bump3
 
 Sub Bumper1_Hit:vpmTimer.PulseSw 45:bump1 = 1:Me.TimerEnabled = 1:End Sub
 Sub Bumper1_Timer()
-	Select Case bump1
+  Select Case bump1
         Case 1:Ring1.Z = -30:bump1 = 2
         Case 2:Ring1.Z = -20:bump1 = 3
         Case 3:Ring1.Z = -10:bump1 = 4
         Case 4:Ring1.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 Sub Bumper2_Hit:vpmTimer.PulseSw 46:bump2 = 1:Me.TimerEnabled = 1:End Sub
 Sub Bumper2_Timer()
-	Select Case bump2
+  Select Case bump2
         Case 1:Ring2.Z = -30:bump2 = 2
         Case 2:Ring2.Z = -20:bump2 = 3
         Case 3:Ring2.Z = -10:bump2 = 4
         Case 4:Ring2.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 Sub Bumper3_Hit:vpmTimer.PulseSw 47:bump3 = 1:Me.TimerEnabled = 1:End Sub
 Sub Bumper3_Timer()
-	Select Case bump3
+  Select Case bump3
         Case 1:Ring3.Z = -30:bump3 = 2
         Case 2:Ring3.Z = -20:bump3 = 3
         Case 3:Ring3.Z = -10:bump3 = 4
         Case 4:Ring3.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 
@@ -334,12 +334,12 @@ Sub sw59_Unhit:Controller.Switch(59)=0:End Sub
 
 '***********************************************
 '***********************************************
-					'Switches
+          'Switches
 '***********************************************
 '***********************************************
 Sub UpdateMultipleLamps
-	L24b.State=L24.State
-	L9b.State=L9.State
+  L24b.State=L24.State
+  L9b.State=L9.State
 End Sub
 
 Set Lights(1)=L1
@@ -440,23 +440,23 @@ Digits(26) = Array(LED270,LED271,LED272,LED273,LED274,LED275,LED276)
 Digits(27) = Array(LED280,LED281,LED282,LED283,LED284,LED285,LED286)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
-	If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 28) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
+  If Not IsEmpty(ChgLED) Then
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 28) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
 
-			end if
-		next
-		end if
-	end if
+      end if
+    next
+    end if
+  end if
 End Sub
 
 
@@ -466,88 +466,88 @@ End Sub
 
 Sub Pins_Hit (idx)
   ' debug.print "pin"
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound SoundFX("target",DOFContactors), 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound SoundFX("target",DOFContactors), 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TargetBankWalls_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolBa, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolBa, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
    debug.print "rubber"
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
     debug.print "Posts"
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Rubbers_Hit(idx)
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub Bumpers_Hit(idx)
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySound SoundFx("fx_bumper1",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound SoundFx("fx_bumper2",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound SoundFx("fx_bumper3",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 4 : PlaySound SoundFx("fx_bumper4",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySound SoundFx("fx_bumper1",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound SoundFx("fx_bumper2",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound SoundFx("fx_bumper3",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 4 : PlaySound SoundFx("fx_bumper4",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
@@ -637,15 +637,15 @@ End Sub
 
 
 Sub GraphicsTimer_Timer()
-	batleft.objrotz = LeftFlipper.CurrentAngle + 1
-	batright.objrotz = RightFlipper.CurrentAngle - 1
+  batleft.objrotz = LeftFlipper.CurrentAngle + 1
+  batright.objrotz = RightFlipper.CurrentAngle - 1
     'batleft1.objrotz = LeftFlipper.CurrentAngle + 1
-	batright1.objrotz = RightFlipperUpper.CurrentAngle - 1
+  batright1.objrotz = RightFlipperUpper.CurrentAngle - 1
 End Sub
 
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2)
@@ -664,11 +664,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else
@@ -795,16 +795,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

@@ -39,19 +39,19 @@ Const VolSpin   = 1.5  ' Spinners volume.
 
 
 LoadVPM "01000100", "BALLY.VBS", 1.2
-Dim aX, aY, sX, RSound, SBall 						' ADD FOR STAT BALL ROLL SOUND
+Dim aX, aY, sX, RSound, SBall             ' ADD FOR STAT BALL ROLL SOUND
 
 Sub LoadVPM(VPMver, VBSfile, VBSver)
-	On Error Resume Next
-		If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-		ExecuteGlobal GetTextFile(VBSfile)
-		If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description : Err.Clear
-		Set Controller = CreateObject("b2s.server")
-		'Set Controller = CreateObject("VPinMAME.Controller")
-		If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-		If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required." : Err.Clear
-		If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-	On Error Goto 0
+  On Error Resume Next
+    If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+    ExecuteGlobal GetTextFile(VBSfile)
+    If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description : Err.Clear
+    Set Controller = CreateObject("b2s.server")
+    'Set Controller = CreateObject("VPinMAME.Controller")
+    If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+    If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required." : Err.Clear
+    If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+  On Error Goto 0
 End Sub
 
 
@@ -108,30 +108,30 @@ Const sEnable=19
 Dim bsTrough
 
 Sub Table1_Init()
-	vpmInit Me
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine=cCredits
-		.HandleMechanics=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
-		.Run
-		.Hidden=0
+  vpmInit Me
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine=cCredits
+    .HandleMechanics=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
+    .Run
+    .Hidden=0
 
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch=7
-	vpmNudge.Sensitivity=3
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch=7
+  vpmNudge.Sensitivity=3
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
-	Set bsTrough=New cvpmBallStack
+  Set bsTrough=New cvpmBallStack
     bsTrough.InitSw 0,8,0,0,0,0,0,0
     bsTrough.InitKick BallRelease,80,5.75
     bsTrough.InitExitSnd "ballrel","solon"
@@ -141,24 +141,24 @@ End Sub
 ' Quick Ball Sound V0.3 by STAT                           ADD BLOCK FOR STAT BALL ROLL SOUND
 ' -----------------------
 Sub TriggerS_Timer()
-	aX = int(SBall.VelX): aY = int(SBall.VelY)
-	sX = -1.0: If int(Sball.X)>500 Then sX = 1.0
-	If (aX>5 OR aY>5) AND Rsound = 0 Then
-		RSound=int(RND*4)+1
-		PlaySound "Roll "&RSound,0,0.9,sX,0.2
-	Elseif (aX<6 AND aY<6) AND Rsound > 0 Then
-		StopSound "Roll "&Rsound
-		Rsound = 0
-	End If
+  aX = int(SBall.VelX): aY = int(SBall.VelY)
+  sX = -1.0: If int(Sball.X)>500 Then sX = 1.0
+  If (aX>5 OR aY>5) AND Rsound = 0 Then
+    RSound=int(RND*4)+1
+    PlaySound "Roll "&RSound,0,0.9,sX,0.2
+  Elseif (aX<6 AND aY<6) AND Rsound > 0 Then
+    StopSound "Roll "&Rsound
+    Rsound = 0
+  End If
 End Sub
 
 Sub TriggerS_Hit()
-	Set SBall = Activeball
-	TriggerS.TimerInterval = 100
-	TriggerS.TimerEnabled = True
-	PlaySoundAtVol "Roll 1", ActiveBall, 1
+  Set SBall = Activeball
+  TriggerS.TimerInterval = 100
+  TriggerS.TimerEnabled = True
+  PlaySoundAtVol "Roll 1", ActiveBall, 1
 End Sub
-' ----------------------- 								   End ADD BLOCK FOR STAT BALL ROLL SOUND
+' -----------------------                    End ADD BLOCK FOR STAT BALL ROLL SOUND
 
 Sub Table1_KeyUp(ByVal KeyCode)
     If vpmKeyUp(KeyCode) Then Exit Sub
@@ -171,7 +171,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
 End Sub
 
 Sub Drain_Hit:bsTrough.AddBall Me:TriggerS.TimerEnabled = False:End Sub     ' ADD TriggerS.TimerEnabled = False in a Drain_Hit Sub - FOR STAT BALL ROLL SOUND
-																			' and ADD a Trigger in Editor above the Plunger and call it "TriggerS"
+                                      ' and ADD a Trigger in Editor above the Plunger and call it "TriggerS"
 Sub RightSpinner_Spin:vpmTimer.PulseSw 17:End Sub
 Sub LeftSpinner_Spin:vpmTimer.PulseSw 18:End Sub
 
@@ -327,24 +327,24 @@ End Sub
 'Bally Voltan
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"Voltan - DIP switches"
-		.AddChk 2,10,180,Array("Match feature",&H00100000)'dip 21
-		.AddChk 205,10,115,Array("Credits display",&H00080000)'dip 20
-		.AddFrame 2,30,190,"Maximum credits",&H00070000,Array("5 credits",0,"10 credits",&H00010000,"15 credits",&H00020000,"20 credits",&H00030000,"25 credits",&H00040000,"30 credits",&H00050000,"35 credits",&H00060000,"40 credits",&H00070000)'dip 17&18&19
-		.AddFrame 2,160,190,"Sound features",&H80000080,Array("chime effects",&H80000000,"chime and tunes",0,"noise",&H00000080,"noises and tunes",&H80000080)'dip 8&32
-		.AddFrame 2,235,190,"High game to date",&H00000060,Array("no award",0,"1 credit",&H00000020,"2 credits",&H00000040,"3 credits",&H00000060)'dip 6&7
-		.AddFrame 2,310,190,"High score feature",&H00006000,Array("no award",0,"extra ball",&H00004000,"replay",&H00006000)'dip 14&15
-		.AddFrame 205,30,190,"Balls per game", 32768,Array("3 balls",0,"5 balls", 32768)'dip 16
-		.AddFrame 205,76,190,"4 && 6 top lane adjustment",&H00200000,Array("4 && 6 are not tied",0,"4 && 6 tied together",&H00200000)'dip 22
-		.AddFrame 205,122,190,"1 && 9 top lane adjustment",&H00400000,Array("1 && 9 are not tied",0,"1 && 9 tied together",&H00400000)'dip 23
-		.AddFrame 205,168,190,"Top C arrow lite at start",&H00800000,Array("C arrow lite off",0,"C arrow lite on",&H00800000)'dip 24
-		.AddFrame 205,214,190,"Outlane 50K adjustment",&H10000000,Array("alternating",0,"both lanes lit",&H10000000)'dip 29
-		.AddFrame 205,260,190,"Extra ball arrow ratio",&H60000000,Array("1 in 10",0,"1 in 15",&H20000000,"1 in 20",&H40000000,"1 in 25",&H60000000)'dip 30&31
-		.AddLabel 50,382,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"Voltan - DIP switches"
+    .AddChk 2,10,180,Array("Match feature",&H00100000)'dip 21
+    .AddChk 205,10,115,Array("Credits display",&H00080000)'dip 20
+    .AddFrame 2,30,190,"Maximum credits",&H00070000,Array("5 credits",0,"10 credits",&H00010000,"15 credits",&H00020000,"20 credits",&H00030000,"25 credits",&H00040000,"30 credits",&H00050000,"35 credits",&H00060000,"40 credits",&H00070000)'dip 17&18&19
+    .AddFrame 2,160,190,"Sound features",&H80000080,Array("chime effects",&H80000000,"chime and tunes",0,"noise",&H00000080,"noises and tunes",&H80000080)'dip 8&32
+    .AddFrame 2,235,190,"High game to date",&H00000060,Array("no award",0,"1 credit",&H00000020,"2 credits",&H00000040,"3 credits",&H00000060)'dip 6&7
+    .AddFrame 2,310,190,"High score feature",&H00006000,Array("no award",0,"extra ball",&H00004000,"replay",&H00006000)'dip 14&15
+    .AddFrame 205,30,190,"Balls per game", 32768,Array("3 balls",0,"5 balls", 32768)'dip 16
+    .AddFrame 205,76,190,"4 && 6 top lane adjustment",&H00200000,Array("4 && 6 are not tied",0,"4 && 6 tied together",&H00200000)'dip 22
+    .AddFrame 205,122,190,"1 && 9 top lane adjustment",&H00400000,Array("1 && 9 are not tied",0,"1 && 9 tied together",&H00400000)'dip 23
+    .AddFrame 205,168,190,"Top C arrow lite at start",&H00800000,Array("C arrow lite off",0,"C arrow lite on",&H00800000)'dip 24
+    .AddFrame 205,214,190,"Outlane 50K adjustment",&H10000000,Array("alternating",0,"both lanes lit",&H10000000)'dip 29
+    .AddFrame 205,260,190,"Extra ball arrow ratio",&H60000000,Array("1 in 10",0,"1 in 15",&H20000000,"1 in 20",&H40000000,"1 in 25",&H60000000)'dip 30&31
+    .AddLabel 50,382,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
@@ -550,21 +550,21 @@ Digits(27) = Array(LED67,LED58,LED69,LED77,LED68,LED57,LED59)
 
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
 If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 32) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
-			end if
-		next
-		end if
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 32) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
+      end if
+    next
+    end if
 end if
 End Sub
 
@@ -576,31 +576,31 @@ Sub Table1_exit()
 End Sub
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 ' *******************************************************************************************************
@@ -716,16 +716,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

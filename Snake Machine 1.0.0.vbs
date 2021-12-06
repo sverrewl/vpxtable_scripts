@@ -127,33 +127,33 @@ Sub table1_Init
     bsTopSaucer.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
     bsTopSaucer.KickForceVar = 6
 
-	' Drop targets
+  ' Drop targets
 
-	Set dtbankT=New cvpmDropTarget
-	dtbankT.InitDrop Array(sw24,sw34,sw44),Array(24,34,44)
-	dtbankT.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+  Set dtbankT=New cvpmDropTarget
+  dtbankT.InitDrop Array(sw24,sw34,sw44),Array(24,34,44)
+  dtbankT.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
 
-	Set dtbankL=New cvpmDropTarget
-	dtbankL.InitDrop Array(sw54,sw64,sw74),Array(54,64,74)
-	dtbankL.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+  Set dtbankL=New cvpmDropTarget
+  dtbankL.InitDrop Array(sw54,sw64,sw74),Array(54,64,74)
+  dtbankL.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
 
-	Set dtbankC=New cvpmDropTarget
-	dtbankC.InitDrop Array(sw55,sw65,sw75),Array(55,65,75)
-	dtbankC.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+  Set dtbankC=New cvpmDropTarget
+  dtbankC.InitDrop Array(sw55,sw65,sw75),Array(55,65,75)
+  dtbankC.Initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
 
     ' Impulse Plunger, used as the kickback
-	' the vp kickback plunger will never touch the ball
+  ' the vp kickback plunger will never touch the ball
     Const IMPowerSetting = 38 'Plunger Power
     Const IMTime = 0.6        ' Time in seconds for Full Plunge
     Set plungerIM = New cvpmImpulseP
     With plungerIM
         .InitImpulseP sw11, IMPowerSetting, IMTime
         .Random 0.3
-		.switch 11
+    .switch 11
         .InitExitSnd SoundFX("fx_popper",DOFContactors), SoundFX("fx_popper",DOFContactors)
         .CreateEvents "plungerIM"
     End With
-	kickback.pullback
+  kickback.pullback
 
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
@@ -428,8 +428,8 @@ End Sub
 Sub Auto_Plunger(Enabled)
     If Enabled Then
         PlungerIM.AutoFire
-		kickback.Fire
-		kickback.pullback
+    kickback.Fire
+    kickback.pullback
     End If
 End Sub
 
@@ -564,12 +564,12 @@ Sub UpdateLamps()
     NFadeL 111, li111
     NFadeL 112, li112
     NFadeL 113, li113
-    NFadeLm 119, LiBumper1a 
+    NFadeLm 119, LiBumper1a
     NFadeLm 119, LiBumper1b
     NFadeL 119, LiBumper1c
     NFadeL 12, li12
     NFadeLm 120, LiBumper2a
-    NFadeLm 120, LiBumper2b 
+    NFadeLm 120, LiBumper2b
     NFadeL 120, LiBumper2c
     NFadeL 122, li122
     NFadeL 123, li123

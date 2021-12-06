@@ -1,7 +1,7 @@
 ' ****************************************************************
 '                       VISUAL PINBALL X
 '                 JPSalas Serious Sam Pinball Script
-'		plain VPX script using core.vbs for supporting functions
+'   plain VPX script using core.vbs for supporting functions
 '                         Version 1.0.0
 ' ****************************************************************
 
@@ -107,7 +107,7 @@ Dim bJackpot
 
 ' core.vbs variables
 Dim plungerIM 'used mostly as an autofire plunger during multiballs
-Dim cbRight	  'captive ball
+Dim cbRight   'captive ball
 
 ' *********************************************************************
 '                Visual Pinball Defined Script Events
@@ -233,9 +233,9 @@ Sub Table1_KeyDown(ByVal Keycode)
         If keycode = RightFlipperKey Then SolRFlipper 1:InstantInfoTimer.Enabled = True
 
 
-		' Thalamus, added instant mechanical Tilt
+    ' Thalamus, added instant mechanical Tilt
 
-		If keycode = MechanicalTilt Then Tilt = 16:Tilted = 1:CheckTilt
+    If keycode = MechanicalTilt Then Tilt = 16:Tilted = 1:CheckTilt
 
         If keycode = StartGameKey Then
             If((PlayersPlayingGame <MaxPlayers) AND(bOnTheFirstBall = True) ) Then
@@ -1212,9 +1212,9 @@ Sub AddJackpot(points)
         Jackpot(CurrentPlayer) = Jackpot(CurrentPlayer) + points
         DMD "INCREASED JACKPOT", Jackpot(CurrentPlayer), 1000
     ' you may wish to limit the jackpot to a upper limit, ie..
-    '	If (Jackpot >= 6000) Then
-    '		Jackpot = 6000
-    ' 	End if
+    ' If (Jackpot >= 6000) Then
+    '   Jackpot = 6000
+    '   End if
     'End if
     End if
 End Sub
@@ -1349,7 +1349,7 @@ Sub AwardSkillshot()
     DMDFlush
     DMD "SKILLSHOT", SkillShotValue(CurrentPlayer), 2000
     PlaySound "fx_fanfare2"
-	Addscore SkillShotValue(CurrentPlayer)
+  Addscore SkillShotValue(CurrentPlayer)
     ' increment the skillshot value with 250.000
     SkillShotValue(CurrentPlayer) = SkillShotValue(CurrentPlayer) + 250000
     'do some light show
@@ -2102,7 +2102,7 @@ Sub Game_Init()   'called at the start of a new game
     TargetHits = 0
     CaptiveBallHits = 0
     loopCount = 0
-	MachineGunHits = 0
+  MachineGunHits = 0
 'Init Delays/Timers
 'MainMode Init()
 'Init lights
@@ -2745,8 +2745,8 @@ Sub StartMainMultiball
     DMD " ", "MULTIBALL", 2000
     StartJackpots
     ChangeGi 5
-	'reset BallsInLock variable
-	BallsInLock(CurrentPlayer) = 0
+  'reset BallsInLock variable
+  BallsInLock(CurrentPlayer) = 0
 End Sub
 
 '**********
@@ -2771,11 +2771,11 @@ Sub StartJackpots
             light28.State = 2
             light30.State = 2
             light32.State = 2
-		Case Else
-			If bMultiballMode Then
+    Case Else
+      If bMultiballMode Then
                 light28.State = 2
                 light30.State = 2
-			End If
+      End If
     End Select
 End Sub
 
@@ -3229,9 +3229,9 @@ Sub LeftRampDone_Hit
         light28.State = 0
         AwardJackpot
     End If
-	'Machine Gun - left ramp only counts the variable
-	MachineGunHits = MachineGunHits + 1
-	CheckMachineGun
+  'Machine Gun - left ramp only counts the variable
+  MachineGunHits = MachineGunHits + 1
+  CheckMachineGun
     'Battles
     Select Case Battle(CurrentPlayer, 0)
         Case 3:RampHits = RampHits + 1:Addscore 100000:CheckWinBattle
@@ -3291,17 +3291,17 @@ Sub RightRampDone_Hit
         light30.State = 0
         AwardJackpot
     End If
-	'Machine Gun - rightt ramp counts the variable and give the jackpot if light31 is lit
-	If light31.State = 2 Then
+  'Machine Gun - rightt ramp counts the variable and give the jackpot if light31 is lit
+  If light31.State = 2 Then
     DMD "Machine GUN", Jackpot(CurrentPlayer), 2000
     PlaySound "vo_Jackpot"
     AddScore Jackpot(CurrentPlayer)
     LightEffect 2
     FlashEffect 2
-	Else
-	MachineGunHits = MachineGunHits + 1
-	CheckMachineGun
-	End If
+  Else
+  MachineGunHits = MachineGunHits + 1
+  CheckMachineGun
+  End If
     'Battles
     Select Case Battle(CurrentPlayer, 0)
         Case 3:RampHits = RampHits + 1:Addscore 100000:CheckWinBattle
@@ -3568,9 +3568,9 @@ Sub WinBattle
     UpdateBattleLights
     FlashEffect 2
     LightEffect 2
-	GiEffect 2
+  GiEffect 2
     DMD " ", "BATTLE COMPLETED", 2000
-	PlaySound"fx_Explosion01"
+  PlaySound"fx_Explosion01"
     tmp = INT(RND * 4)
     Select Case tmp
         Case 0:vpmtimer.addtimer 1500, "PlaySound ""vo_excelent"" '"
@@ -3689,9 +3689,9 @@ End Sub
 
 Sub CheckMachineGun
 If light31.State = 0 Then
-	If MachineGunHits MOD 10 = 0 Then
-		EnableMachineGun
-	End If
+  If MachineGunHits MOD 10 = 0 Then
+    EnableMachineGun
+  End If
 End If
 End Sub
 

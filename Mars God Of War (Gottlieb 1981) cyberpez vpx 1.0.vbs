@@ -91,26 +91,26 @@ Dim MaxBalls, InitTime, EjectTime, TroughEject, TroughCount, iBall, fgBall, Ball
 Const SFlipperOn="FlipperUp"
 Const SFlipperOff="FlipperDown"
 Const sCoin="coin"
-Const UseSolenoids 	= 2
-Const UseLamps 		= False
-Const UseGI 		= False
-const sLSaucer		= 1
-const sRSaucer		= 2
-const sCDrops		= 5
-const sRDrops		= 6
-const sKnocker		= 8
-const sOutHole		= 9
+Const UseSolenoids  = 2
+Const UseLamps    = False
+Const UseGI     = False
+const sLSaucer    = 1
+const sRSaucer    = 2
+const sCDrops   = 5
+const sRDrops   = 6
+const sKnocker    = 8
+const sOutHole    = 9
 
 LoadVPM "01001100","sys80.vbs",2.33
 
 Set LampCallback=GetRef("UpdateLamps")
 
-SolCallback(sKnocker)	=	"vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
-SolCallback(sOutHole)	=	"ThruLoad"
-SolCallback(sCDrops)	=	"ResetCDrops"
-SolCallback(sRDrops)	=	"ResetRDrops"
-SolCallback(sLSaucer)	=	"TSKickit"
-SolCallback(sRSaucer)	=	"RSKickit"
+SolCallback(sKnocker) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
+SolCallback(sOutHole) = "ThruLoad"
+SolCallback(sCDrops)  = "ResetCDrops"
+SolCallback(sRDrops)  = "ResetRDrops"
+SolCallback(sLSaucer) = "TSKickit"
+SolCallback(sRSaucer) = "RSKickit"
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
@@ -137,7 +137,7 @@ Sub MGOW_Init()
       .HandleKeyboard=true
       .ShowTitle=false
       .ShowDMDOnly=true
-	  If DesktopMode = true then .hidden = true Else .hidden = false End If
+    If DesktopMode = true then .hidden = true Else .hidden = false End If
       .ShowFrame=false
       .HandleKeyboard=False
       .Run
@@ -152,33 +152,33 @@ Sub MGOW_Init()
    OFFLight()
    Ramp5.Collidable=0
 
-	StartLampTimer
-	SetGIColor
-	CheckDayNight
-	SetInstructions
-	SetFlipperColors
-	SetCaptiveLightColor
-	SetClearPlastics
-	SetCheats
+  StartLampTimer
+  SetGIColor
+  CheckDayNight
+  SetInstructions
+  SetFlipperColors
+  SetCaptiveLightColor
+  SetClearPlastics
+  SetCheats
 
-	Backdrop_Init
+  Backdrop_Init
 ' ball through system
-	MaxBalls=3
-	InitTime=61
-	EjectTime=0
-	TroughEject=1
-	TroughCount=0
-	iBall = 3
-	fgBall = false
-	CheckMaxBalls
+  MaxBalls=3
+  InitTime=61
+  EjectTime=0
+  TroughEject=1
+  TroughCount=0
+  iBall = 3
+  fgBall = false
+  CheckMaxBalls
     CreatBalls
 
 '''''''''''Reset Slings
 
-'	Sling1posta.IsDropped = False
-'	Sling1postb.IsDropped = True
-'	Sling1postc.IsDropped = True
-'	Sling1postd.IsDropped = True
+' Sling1posta.IsDropped = False
+' Sling1postb.IsDropped = True
+' Sling1postc.IsDropped = True
+' Sling1postd.IsDropped = True
 End Sub
 
 Dim sw63active
@@ -186,87 +186,87 @@ Dim sw63active
 Sub UpdateMultipleLamps
 
 ' Ramp
-	If controller.lamp(8)=true then
-		RampUp=true
-		Ramp5.Collidable=0
-		Ramp5a.Collidable=1
-		TubeFlasher.enabled = 0
-		TubeFlasherOff
-		rampDir = 1
-		If switch=true then
-		SlowLight()
-		switch=false
-		End If
-		rampMoveTimer.Enabled = 1
-	Else
-		RampUp=false
-		Ramp5.Collidable=1
-		Ramp5a.Collidable=0
-		TubeFlasher.enabled = 1
-		rampDir = -1
-		If switch=false then
-		FastLight()
-		switch=true
-		End If
-		rampMoveTimer.Enabled = 1
-	End If
+  If controller.lamp(8)=true then
+    RampUp=true
+    Ramp5.Collidable=0
+    Ramp5a.Collidable=1
+    TubeFlasher.enabled = 0
+    TubeFlasherOff
+    rampDir = 1
+    If switch=true then
+    SlowLight()
+    switch=false
+    End If
+    rampMoveTimer.Enabled = 1
+  Else
+    RampUp=false
+    Ramp5.Collidable=1
+    Ramp5a.Collidable=0
+    TubeFlasher.enabled = 1
+    rampDir = -1
+    If switch=false then
+    FastLight()
+    switch=true
+    End If
+    rampMoveTimer.Enabled = 1
+  End If
 
-	If controller.lamp(12)=true then
-		If sw63active = 0 then
-			SW63.timerenabled = 1
-			sw63active = 1
-		End If
-	End If
-	If controller.lamp(13)=true then
-		KickBallToLane
-	End If
+  If controller.lamp(12)=true then
+    If sw63active = 0 then
+      SW63.timerenabled = 1
+      sw63active = 1
+    End If
+  End If
+  If controller.lamp(13)=true then
+    KickBallToLane
+  End If
 End Sub
 
 ''''''''Move Ramp
 Const rampMoveMax = 16
 Dim rampDir
 Sub rampMoveTimer_Timer
-	Dim tempa
-	tempa = ramp.objrotx + 1 * rampDir
-	if tempa > rampMoveMax then
-		tempa = rampMoveMax
-		rampMoveTimer.Enabled = 0
-	elseif tempa < 0 then
-		tempa = 0
-		rampMoveTimer.Enabled = 0
-	end if
-	ramp.ObjRotX = tempa:pRampLifter.RotX = tempa*-5 + 150:'pRampLifter.TransX = tempa*-.25:
+  Dim tempa
+  tempa = ramp.objrotx + 1 * rampDir
+  if tempa > rampMoveMax then
+    tempa = rampMoveMax
+    rampMoveTimer.Enabled = 0
+  elseif tempa < 0 then
+    tempa = 0
+    rampMoveTimer.Enabled = 0
+  end if
+  ramp.ObjRotX = tempa:pRampLifter.RotX = tempa*-5 + 150:'pRampLifter.TransX = tempa*-.25:
 End Sub
 
 'War Bases
 
 Sub TSKickit(enabled)
-	If enabled Then
-	SW62.Kick 80,5 + Diff
-	SW62.timerenabled = true
-	Controller.Switch(62)=0
-	PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors), SW62, VolKick
-	SW60.timerenabled = true
-	End If
+  If enabled Then
+  SW62.Kick 80,5 + Diff
+  SW62.timerenabled = true
+  Controller.Switch(62)=0
+  PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors), SW62, VolKick
+  SW60.timerenabled = true
+  End If
 End Sub
 
 Sub RSKickit(enabled)
-	If enabled Then
-	SW61.Kick 180,5 + Diff
-	SW61.timerenabled = true
-	Controller.Switch(61)=0
-	PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors), SW61, VolKick
+  If enabled Then
+  SW61.Kick 180,5 + Diff
+  SW61.timerenabled = true
+  Controller.Switch(61)=0
+  PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors), SW61, VolKick
 
-	End If
+  End If
 End Sub
 
 'Through
 Sub ThruLoad(enabled)
-	If enabled Then
-	Drain.Kick 70,15
-	Controller.Switch(64)=0
-	PlaySoundAtVol SoundFX("Feedtru",DOFContactors), Kicker1, 1
-	End If
+  If enabled Then
+  Drain.Kick 70,15
+  Controller.Switch(64)=0
+  PlaySoundAtVol SoundFX("Feedtru",DOFContactors), Kicker1, 1
+  End If
 End Sub
 
 '******************************** SWITCH HANDLING *************************
@@ -308,13 +308,13 @@ Sub SW73l_timer:Rubber22d.visible = false:LeafSwitch5b.ObjRotX = 0:Rubber22a.vis
 Sub SW73m_timer:Rubber22c.visible = false:LeafSwitch4b.ObjRotX = 0:Rubber22a.visible = true:me.timerenabled = 0 End Sub
 
 Sub SlowLight()
-	PlaySound SoundFX("PostUp",DOFGear)
-	TubeFlasher.Interval=500
+  PlaySound SoundFX("PostUp",DOFGear)
+  TubeFlasher.Interval=500
 End Sub
 
 Sub FastLight()
-	PlaySound SoundFX("RampDown",DOFGear)
-	TubeFlasher.Interval=250
+  PlaySound SoundFX("RampDown",DOFGear)
+  TubeFlasher.Interval=250
 End Sub
 
 Sub OFFLight()
@@ -323,28 +323,28 @@ End Sub
 '---------------------------------------- KEYS
 
 Sub MGOW_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.PullBack
-	End If
-	If keycode = RightFlipperKey Then
-	Controller.Switch(34)=1
-	End If
-  	If vpmKeyDown(keycode) then Exit Sub
+  If keycode = PlungerKey Then
+    Plunger.PullBack
+  End If
+  If keycode = RightFlipperKey Then
+  Controller.Switch(34)=1
+  End If
+    If vpmKeyDown(keycode) then Exit Sub
 End Sub
 
 Sub MGOW_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAtVol "Plunger", Plunger, 1
-	End If
-	If keycode = RightFlipperKey Then
-	Controller.Switch(34)=0
-	End If
-	If vpmKeyUp(keycode) then Exit Sub
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySoundAtVol "Plunger", Plunger, 1
+  End If
+  If keycode = RightFlipperKey Then
+  Controller.Switch(34)=0
+  End If
+  If vpmKeyUp(keycode) then Exit Sub
 End Sub
 
 Sub GetDiff()
-	Diff = Int(0 + Rnd *(30-0+1)/10)
+  Diff = Int(0 + Rnd *(30-0+1)/10)
 End Sub
 
 Sub Leds_Timer()
@@ -353,99 +353,99 @@ Sub Leds_Timer()
  End Sub
 
 Sub MGOW_exit()
-	If B2SOn Then
-		Controller.Pause = False
-		Controller.Stop
-	End If
+  If B2SOn Then
+    Controller.Pause = False
+    Controller.Stop
+  End If
 End Sub
 
 '******************************
 '  Setup Desktop
 '******************************
 Sub Backdrop_Init
-	Dim bdl
-	If DesktopMode = True then
-		LeftSideRail.Visible = 1
-		RightSideRail.Visible = 1
+  Dim bdl
+  If DesktopMode = True then
+    LeftSideRail.Visible = 1
+    RightSideRail.Visible = 1
 
-		For each bdl in backdrop_lights: bdl.visible = true:Next
-		Flasher1.height = 123
-		Flasher2.height = 122
-		Flasher3.height = 121
-		Flasher4.height = 120
-		Flasher5.height = 119
-		Flasher6.height = 118
-		Flasher7.height = 117
-		Flasher8.height = 116
-		Flasher9.height = 115
-		Flasher10.height = 114
-		Flasher11.height = 113
-		Flasher12.height = 112
-	Else
-		LeftSideRail.Visible = 0
-		RightSideRail.Visible = 0
+    For each bdl in backdrop_lights: bdl.visible = true:Next
+    Flasher1.height = 123
+    Flasher2.height = 122
+    Flasher3.height = 121
+    Flasher4.height = 120
+    Flasher5.height = 119
+    Flasher6.height = 118
+    Flasher7.height = 117
+    Flasher8.height = 116
+    Flasher9.height = 115
+    Flasher10.height = 114
+    Flasher11.height = 113
+    Flasher12.height = 112
+  Else
+    LeftSideRail.Visible = 0
+    RightSideRail.Visible = 0
 
-		For each bdl in backdrop_lights: bdl.visible = false:Next
-		Flasher1.height = 143
-		Flasher2.height = 142
-		Flasher3.height = 141
-		Flasher4.height = 140
-		Flasher5.height = 139
-		Flasher6.height = 138
-		Flasher7.height = 137
-		Flasher8.height = 136
-		Flasher9.height = 135
-		Flasher10.height = 134
-		Flasher11.height = 133
-		Flasher12.height = 132
-	End If
+    For each bdl in backdrop_lights: bdl.visible = false:Next
+    Flasher1.height = 143
+    Flasher2.height = 142
+    Flasher3.height = 141
+    Flasher4.height = 140
+    Flasher5.height = 139
+    Flasher6.height = 138
+    Flasher7.height = 137
+    Flasher8.height = 136
+    Flasher9.height = 135
+    Flasher10.height = 134
+    Flasher11.height = 133
+    Flasher12.height = 132
+  End If
 End Sub
 
 '''' Apron instructions color
 Sub SetInstructions()
-	If Apron_Insert_Color = 1 then
-'		ApronInsert.image = "apron_insert_black"
-		pIC_Left.image = "IC_Left_Black_texture"
-		pIC_Right.image = "IC_Right_Black_texture"
-	End If
+  If Apron_Insert_Color = 1 then
+'   ApronInsert.image = "apron_insert_black"
+    pIC_Left.image = "IC_Left_Black_texture"
+    pIC_Right.image = "IC_Right_Black_texture"
+  End If
 
-	If Apron_Insert_Color = 2 then
-'		ApronInsert.image = "apron_insert_brown"
-		pIC_Left.image = "IC_Left_Brown_texture"
-		pIC_Right.image = "IC_Right_Brown_texture"
-	End If
+  If Apron_Insert_Color = 2 then
+'   ApronInsert.image = "apron_insert_brown"
+    pIC_Left.image = "IC_Left_Brown_texture"
+    pIC_Right.image = "IC_Right_Brown_texture"
+  End If
 End Sub
 
 'Apply Cheaters
 Sub SetCheats()
-	If ROLCheat = 1 Then
-		Primitive22.Visible = True
-		Rubber5.Collidable = True
-		Rubber5.visible = True
-	Else
-		Primitive22.Visible = False
-		Rubber5.Collidable = False
-		Rubber5.visible = False
-	End If
+  If ROLCheat = 1 Then
+    Primitive22.Visible = True
+    Rubber5.Collidable = True
+    Rubber5.visible = True
+  Else
+    Primitive22.Visible = False
+    Rubber5.Collidable = False
+    Rubber5.visible = False
+  End If
 End Sub
 
 'Set Captive Light Color
 Sub SetCaptiveLightColor()
-	If CaptiveLightR = 1 then lhalo7b.imageA = "haloBlue":lhalo7b.imageB = "haloBlue" End If
-	If CaptiveLightR = 2 then lhalo7b.imageA = "HaloOrange":lhalo7b.imageB = "HaloOrange" End If
-	If CaptiveLightR = 3 then lhalo7b.imageA = "haloGreen":lhalo7b.imageB = "haloGreen" End If
-	If CaptiveLightR = 4 then lhalo7b.imageA = "haloPurple":lhalo7b.imageB = "haloPurple" End If
-	If CaptiveLightR = 5 then lhalo7b.imageA = "haloRed":lhalo7b.imageB = "haloRed" End If
-	If CaptiveLightR = 6 then lhalo7b.imageA = "haloWhite":lhalo7b.imageB = "haloWhite" End If
-	If CaptiveLightR = 7 then lhalo7b.imageA = "haloYellow":lhalo7b.imageB = "haloYellow" End If
+  If CaptiveLightR = 1 then lhalo7b.imageA = "haloBlue":lhalo7b.imageB = "haloBlue" End If
+  If CaptiveLightR = 2 then lhalo7b.imageA = "HaloOrange":lhalo7b.imageB = "HaloOrange" End If
+  If CaptiveLightR = 3 then lhalo7b.imageA = "haloGreen":lhalo7b.imageB = "haloGreen" End If
+  If CaptiveLightR = 4 then lhalo7b.imageA = "haloPurple":lhalo7b.imageB = "haloPurple" End If
+  If CaptiveLightR = 5 then lhalo7b.imageA = "haloRed":lhalo7b.imageB = "haloRed" End If
+  If CaptiveLightR = 6 then lhalo7b.imageA = "haloWhite":lhalo7b.imageB = "haloWhite" End If
+  If CaptiveLightR = 7 then lhalo7b.imageA = "haloYellow":lhalo7b.imageB = "haloYellow" End If
 
-	If CaptiveLightL = 1 then lhalo6b.imageA = "haloBlue":lhalo6b.imageB = "haloBlue" End If
-	If CaptiveLightL = 2 then lhalo6b.imageA = "HaloOrange":lhalo6b.imageB = "HaloOrange" End If
-	If CaptiveLightL = 3 then lhalo6b.imageA = "haloGreen":lhalo6b.imageB = "haloGreen" End If
-	If CaptiveLightL = 4 then lhalo6b.imageA = "haloPurple":lhalo6b.imageB = "haloPurple" End If
-	If CaptiveLightL = 5 then lhalo6b.imageA = "haloRed":lhalo6b.imageB = "haloRed" End If
-	If CaptiveLightL = 6 then lhalo6b.imageA = "haloWhite":lhalo6b.imageB = "haloWhite" End If
-	If CaptiveLightL = 7 then lhalo6b.imageA = "haloYellow":lhalo6b.imageB = "haloYellow" End If
+  If CaptiveLightL = 1 then lhalo6b.imageA = "haloBlue":lhalo6b.imageB = "haloBlue" End If
+  If CaptiveLightL = 2 then lhalo6b.imageA = "HaloOrange":lhalo6b.imageB = "HaloOrange" End If
+  If CaptiveLightL = 3 then lhalo6b.imageA = "haloGreen":lhalo6b.imageB = "haloGreen" End If
+  If CaptiveLightL = 4 then lhalo6b.imageA = "haloPurple":lhalo6b.imageB = "haloPurple" End If
+  If CaptiveLightL = 5 then lhalo6b.imageA = "haloRed":lhalo6b.imageB = "haloRed" End If
+  If CaptiveLightL = 6 then lhalo6b.imageA = "haloWhite":lhalo6b.imageB = "haloWhite" End If
+  If CaptiveLightL = 7 then lhalo6b.imageA = "haloYellow":lhalo6b.imageB = "haloYellow" End If
 End Sub
 
 ''''''''''''''''''''
@@ -457,202 +457,202 @@ End Sub
 
 
 Sub SetClearPlastics()
-	If ClearPlastics = 1 Then
-		pPlasticBottomLefta1.visible = False
-		pPlasticBottomLeftb1.visible = False
-		pPlasticCenter1.visible = False
-		pPlasticBottomRight1.visible = False
-		pPlasticLowerRight1.visible = False
-		pPlasticMidLeft1.visible = False
-		pPlasticTop1.visible = False
-		pPlasticTopMidRight1.visible = False
-		pPlasticTopTriangle1.visible = False
-		pPlasticWarBase1.visible = False
-	Else
-		pPlasticBottomLefta1.visible = True
-		pPlasticBottomLeftb1.visible = True
-		pPlasticCenter1.visible = True
-		pPlasticBottomRight1.visible = True
-		pPlasticLowerRight1.visible = True
-		pPlasticMidLeft1.visible = True
-		pPlasticTop1.visible = True
-		pPlasticTopMidRight1.visible = True
-		pPlasticTopTriangle1.visible = True
-		pPlasticWarBase1.visible = True
+  If ClearPlastics = 1 Then
+    pPlasticBottomLefta1.visible = False
+    pPlasticBottomLeftb1.visible = False
+    pPlasticCenter1.visible = False
+    pPlasticBottomRight1.visible = False
+    pPlasticLowerRight1.visible = False
+    pPlasticMidLeft1.visible = False
+    pPlasticTop1.visible = False
+    pPlasticTopMidRight1.visible = False
+    pPlasticTopTriangle1.visible = False
+    pPlasticWarBase1.visible = False
+  Else
+    pPlasticBottomLefta1.visible = True
+    pPlasticBottomLeftb1.visible = True
+    pPlasticCenter1.visible = True
+    pPlasticBottomRight1.visible = True
+    pPlasticLowerRight1.visible = True
+    pPlasticMidLeft1.visible = True
+    pPlasticTop1.visible = True
+    pPlasticTopMidRight1.visible = True
+    pPlasticTopTriangle1.visible = True
+    pPlasticWarBase1.visible = True
 End If
 
 End Sub
 
 'Sets GI color
 Sub SetGIColor()
-	If GI_Color = 2 then
-		gi1.color = rgb(255,0,0)
-		gi2.color = rgb(255,0,0)
-		gi3.color = rgb(255,0,0)
-		gi4.color = rgb(255,0,0)
-		gi5.color = rgb(255,0,0)
-		gi6.color = rgb(255,0,0)
-		gi6dtc1.color = rgb(255,0,0)
-		gi6dtc2.color = rgb(255,0,0)
-		gi6dtc3.color = rgb(255,0,0)
-		gi6dtc4.color = rgb(255,0,0)
-		gi7.color = rgb(255,255,128)
-		gi7dtr1.color = rgb(255,255,128)
-		gi7dtr2.color = rgb(255,255,128)
-'		gi7dtr3.color = rgb(255,255,128)
-		gi7dtr4.color = rgb(255,255,128)
-		gi8.color = rgb(255,0,0)
-		gi8dtr1.color = rgb(255,0,0)
-		gi8dtr2.color = rgb(255,0,0)
-		gi8dtr3.color = rgb(255,0,0)
-		gi8dtr4.color = rgb(255,0,0)
-		gi9.color = rgb(255,0,0)
-		gi10.color = rgb(255,0,0)
-		gi11.color = rgb(255,0,0)
-		gi12.color = rgb(255,0,0)
-'		gi13.color = rgb(255,0,0)
-		gi14.color = rgb(255,0,0)
-		gi15.color = rgb(255,0,0)
-		gi16.color = rgb(255,0,0)
-		gi17.color = rgb(255,0,0)
-		gi18.color = rgb(255,0,0)
-		gi19.color = rgb(255,0,0)
-		gi20.color = rgb(255,0,0)
-		gi21.color = rgb(255,0,0)
-		gi21dtr1.color = rgb(255,0,0)
-		gi21dtr2.color = rgb(255,0,0)
-		gi21dtr3.color = rgb(255,0,0)
-		gi21dtr4.color = rgb(255,0,0)
-		gi22.color = rgb(255,0,0)
-		gi23.color = rgb(255,0,0)
-'		gi24.color = rgb(255,0,0)
-'		gi25.color = rgb(255,0,0)
+  If GI_Color = 2 then
+    gi1.color = rgb(255,0,0)
+    gi2.color = rgb(255,0,0)
+    gi3.color = rgb(255,0,0)
+    gi4.color = rgb(255,0,0)
+    gi5.color = rgb(255,0,0)
+    gi6.color = rgb(255,0,0)
+    gi6dtc1.color = rgb(255,0,0)
+    gi6dtc2.color = rgb(255,0,0)
+    gi6dtc3.color = rgb(255,0,0)
+    gi6dtc4.color = rgb(255,0,0)
+    gi7.color = rgb(255,255,128)
+    gi7dtr1.color = rgb(255,255,128)
+    gi7dtr2.color = rgb(255,255,128)
+'   gi7dtr3.color = rgb(255,255,128)
+    gi7dtr4.color = rgb(255,255,128)
+    gi8.color = rgb(255,0,0)
+    gi8dtr1.color = rgb(255,0,0)
+    gi8dtr2.color = rgb(255,0,0)
+    gi8dtr3.color = rgb(255,0,0)
+    gi8dtr4.color = rgb(255,0,0)
+    gi9.color = rgb(255,0,0)
+    gi10.color = rgb(255,0,0)
+    gi11.color = rgb(255,0,0)
+    gi12.color = rgb(255,0,0)
+'   gi13.color = rgb(255,0,0)
+    gi14.color = rgb(255,0,0)
+    gi15.color = rgb(255,0,0)
+    gi16.color = rgb(255,0,0)
+    gi17.color = rgb(255,0,0)
+    gi18.color = rgb(255,0,0)
+    gi19.color = rgb(255,0,0)
+    gi20.color = rgb(255,0,0)
+    gi21.color = rgb(255,0,0)
+    gi21dtr1.color = rgb(255,0,0)
+    gi21dtr2.color = rgb(255,0,0)
+    gi21dtr3.color = rgb(255,0,0)
+    gi21dtr4.color = rgb(255,0,0)
+    gi22.color = rgb(255,0,0)
+    gi23.color = rgb(255,0,0)
+'   gi24.color = rgb(255,0,0)
+'   gi25.color = rgb(255,0,0)
 
-		gi1.colorfull = rgb(255,0,0)
-		gi2.colorfull = rgb(255,0,0)
-		gi3.colorfull = rgb(255,0,0)
-		gi4.colorfull = rgb(255,0,0)
-		gi5.colorfull = rgb(255,0,0)
-		gi6.colorfull = rgb(255,0,0)
-		gi6dtc1.colorfull = rgb(255,0,0)
-		gi6dtc2.colorfull = rgb(255,0,0)
-		gi6dtc3.colorfull = rgb(255,0,0)
-		gi6dtc4.colorfull = rgb(255,0,0)
-		gi7.colorfull = rgb(255,255,255)
-		gi7dtr1.colorfull = rgb(255,255,255)
-		gi7dtr2.colorfull = rgb(255,255,255)
-'		gi7dtr3.colorfull = rgb(255,255,255)
-		gi7dtr4.colorfull = rgb(255,255,255)
-		gi8.colorfull = rgb(255,0,0)
-		gi8dtr1.colorfull = rgb(255,0,0)
-		gi8dtr2.colorfull = rgb(255,0,0)
-		gi8dtr3.colorfull = rgb(255,0,0)
-		gi8dtr4.colorfull = rgb(255,0,0)
-		gi9.colorfull = rgb(255,0,0)
-		gi10.colorfull = rgb(255,0,0)
-		gi11.colorfull = rgb(255,0,0)
-		gi12.colorfull = rgb(255,0,0)
-'		gi13.colorfull = rgb(255,0,0)
-		gi14.colorfull = rgb(255,0,0)
-		gi15.colorfull = rgb(255,0,0)
-		gi16.colorfull = rgb(255,0,0)
-		gi17.colorfull = rgb(255,0,0)
-		gi18.colorfull = rgb(255,0,0)
-		gi19.colorfull = rgb(255,0,0)
-		gi20.colorfull = rgb(255,0,0)
-		gi21.colorfull = rgb(255,0,0)
-		gi21dtr1.colorfull = rgb(255,0,0)
-		gi21dtr2.colorfull = rgb(255,0,0)
-		gi21dtr3.colorfull = rgb(255,0,0)
-		gi21dtr4.colorfull = rgb(255,0,0)
-		gi22.colorfull = rgb(255,0,0)
-		gi23.colorfull = rgb(255,0,0)
-'		gi24.colorfull = rgb(255,0,0)
+    gi1.colorfull = rgb(255,0,0)
+    gi2.colorfull = rgb(255,0,0)
+    gi3.colorfull = rgb(255,0,0)
+    gi4.colorfull = rgb(255,0,0)
+    gi5.colorfull = rgb(255,0,0)
+    gi6.colorfull = rgb(255,0,0)
+    gi6dtc1.colorfull = rgb(255,0,0)
+    gi6dtc2.colorfull = rgb(255,0,0)
+    gi6dtc3.colorfull = rgb(255,0,0)
+    gi6dtc4.colorfull = rgb(255,0,0)
+    gi7.colorfull = rgb(255,255,255)
+    gi7dtr1.colorfull = rgb(255,255,255)
+    gi7dtr2.colorfull = rgb(255,255,255)
+'   gi7dtr3.colorfull = rgb(255,255,255)
+    gi7dtr4.colorfull = rgb(255,255,255)
+    gi8.colorfull = rgb(255,0,0)
+    gi8dtr1.colorfull = rgb(255,0,0)
+    gi8dtr2.colorfull = rgb(255,0,0)
+    gi8dtr3.colorfull = rgb(255,0,0)
+    gi8dtr4.colorfull = rgb(255,0,0)
+    gi9.colorfull = rgb(255,0,0)
+    gi10.colorfull = rgb(255,0,0)
+    gi11.colorfull = rgb(255,0,0)
+    gi12.colorfull = rgb(255,0,0)
+'   gi13.colorfull = rgb(255,0,0)
+    gi14.colorfull = rgb(255,0,0)
+    gi15.colorfull = rgb(255,0,0)
+    gi16.colorfull = rgb(255,0,0)
+    gi17.colorfull = rgb(255,0,0)
+    gi18.colorfull = rgb(255,0,0)
+    gi19.colorfull = rgb(255,0,0)
+    gi20.colorfull = rgb(255,0,0)
+    gi21.colorfull = rgb(255,0,0)
+    gi21dtr1.colorfull = rgb(255,0,0)
+    gi21dtr2.colorfull = rgb(255,0,0)
+    gi21dtr3.colorfull = rgb(255,0,0)
+    gi21dtr4.colorfull = rgb(255,0,0)
+    gi22.colorfull = rgb(255,0,0)
+    gi23.colorfull = rgb(255,0,0)
+'   gi24.colorfull = rgb(255,0,0)
 
-	End If
+  End If
 
-	If GI_Color = 1 then
-		gi1.color = rgb(255,255,128)
-		gi2.color = rgb(255,255,128)
-		gi3.color = rgb(255,255,128)
-		gi4.color = rgb(255,255,128)
-		gi5.color = rgb(255,255,128)
-		gi6.color = rgb(255,255,128)
-		gi6dtc1.color = rgb(255,255,128)
-		gi6dtc2.color = rgb(255,255,128)
-		gi6dtc3.color = rgb(255,255,128)
-		gi6dtc4.color = rgb(255,255,128)
-		gi7.color = rgb(255,0,0)
-		gi7dtr1.color = rgb(255,0,0)
-		gi7dtr2.color = rgb(255,0,0)
-'		gi7dtr3.color = rgb(255,0,0)
-		gi7dtr4.color = rgb(255,0,0)
-		gi8.color = rgb(255,255,128)
-		gi8dtr1.color = rgb(255,255,128)
-		gi8dtr2.color = rgb(255,255,128)
-		gi8dtr3.color = rgb(255,255,128)
-		gi8dtr4.color = rgb(255,255,128)
-		gi9.color = rgb(255,255,128)
-		gi10.color = rgb(255,255,128)
-		gi11.color = rgb(255,255,128)
-		gi12.color = rgb(255,255,128)
-'		gi13.color = rgb(255,255,128)
-		gi14.color = rgb(255,255,128)
-		gi15.color = rgb(255,255,128)
-		gi16.color = rgb(255,255,128)
-		gi17.color = rgb(255,255,128)
-		gi18.color = rgb(255,255,128)
-		gi19.color = rgb(255,255,128)
-		gi20.color = rgb(255,255,128)
-		gi21.color = rgb(255,255,128)
-		gi21dtr1.color = rgb(255,255,128)
-		gi21dtr2.color = rgb(255,255,128)
-		gi21dtr3.color = rgb(255,255,128)
-		gi21dtr4.color = rgb(255,255,128)
-		gi22.color = rgb(255,255,128)
-		gi23.color = rgb(255,255,128)
-'		gi24.color = rgb(255,255,128)
-		gi1.colorfull = rgb(255,255,255)
-		gi2.colorfull = rgb(255,255,255)
-		gi3.colorfull = rgb(255,255,255)
-		gi4.colorfull = rgb(255,255,255)
-		gi5.colorfull = rgb(255,255,255)
-		gi6.colorfull = rgb(255,255,255)
-		gi6dtc1.colorfull = rgb(255,255,255)
-		gi6dtc2.colorfull = rgb(255,255,255)
-		gi6dtc3.colorfull = rgb(255,255,255)
-		gi6dtc4.colorfull = rgb(255,255,255)
-		gi7.colorfull = rgb(255,0,0)
-		gi7dtr1.colorfull = rgb(255,0,0)
-		gi7dtr2.colorfull = rgb(255,0,0)
-'		gi7dtr3.colorfull = rgb(255,0,0)
-		gi7dtr4.colorfull = rgb(255,0,0)
-		gi8.colorfull = rgb(255,255,255)
-		gi8dtr1.colorfull = rgb(255,255,255)
-		gi8dtr2.colorfull = rgb(255,255,255)
-		gi8dtr3.colorfull = rgb(255,255,255)
-		gi8dtr4.colorfull = rgb(255,255,255)
-		gi9.colorfull = rgb(255,255,255)
-		gi10.colorfull = rgb(255,255,255)
-		gi11.colorfull = rgb(255,255,255)
-		gi12.colorfull = rgb(255,255,255)
-'		gi13.colorfull = rgb(255,255,255)
-		gi14.colorfull = rgb(255,255,255)
-		gi15.colorfull = rgb(255,255,255)
-		gi16.colorfull = rgb(255,255,255)
-		gi17.colorfull = rgb(255,255,255)
-		gi18.colorfull = rgb(255,255,255)
-		gi19.colorfull = rgb(255,255,255)
-		gi20.colorfull = rgb(255,255,255)
-		gi21.colorfull = rgb(255,255,255)
-		gi21dtr1.colorfull = rgb(255,255,255)
-		gi21dtr2.colorfull = rgb(255,255,255)
-		gi21dtr3.colorfull = rgb(255,255,255)
-		gi21dtr4.colorfull = rgb(255,255,255)
-		gi22.colorfull = rgb(255,255,255)
-		gi23.colorfull = rgb(255,255,255)
-'		gi24.colorfull = rgb(255,255,255)
-	End If
+  If GI_Color = 1 then
+    gi1.color = rgb(255,255,128)
+    gi2.color = rgb(255,255,128)
+    gi3.color = rgb(255,255,128)
+    gi4.color = rgb(255,255,128)
+    gi5.color = rgb(255,255,128)
+    gi6.color = rgb(255,255,128)
+    gi6dtc1.color = rgb(255,255,128)
+    gi6dtc2.color = rgb(255,255,128)
+    gi6dtc3.color = rgb(255,255,128)
+    gi6dtc4.color = rgb(255,255,128)
+    gi7.color = rgb(255,0,0)
+    gi7dtr1.color = rgb(255,0,0)
+    gi7dtr2.color = rgb(255,0,0)
+'   gi7dtr3.color = rgb(255,0,0)
+    gi7dtr4.color = rgb(255,0,0)
+    gi8.color = rgb(255,255,128)
+    gi8dtr1.color = rgb(255,255,128)
+    gi8dtr2.color = rgb(255,255,128)
+    gi8dtr3.color = rgb(255,255,128)
+    gi8dtr4.color = rgb(255,255,128)
+    gi9.color = rgb(255,255,128)
+    gi10.color = rgb(255,255,128)
+    gi11.color = rgb(255,255,128)
+    gi12.color = rgb(255,255,128)
+'   gi13.color = rgb(255,255,128)
+    gi14.color = rgb(255,255,128)
+    gi15.color = rgb(255,255,128)
+    gi16.color = rgb(255,255,128)
+    gi17.color = rgb(255,255,128)
+    gi18.color = rgb(255,255,128)
+    gi19.color = rgb(255,255,128)
+    gi20.color = rgb(255,255,128)
+    gi21.color = rgb(255,255,128)
+    gi21dtr1.color = rgb(255,255,128)
+    gi21dtr2.color = rgb(255,255,128)
+    gi21dtr3.color = rgb(255,255,128)
+    gi21dtr4.color = rgb(255,255,128)
+    gi22.color = rgb(255,255,128)
+    gi23.color = rgb(255,255,128)
+'   gi24.color = rgb(255,255,128)
+    gi1.colorfull = rgb(255,255,255)
+    gi2.colorfull = rgb(255,255,255)
+    gi3.colorfull = rgb(255,255,255)
+    gi4.colorfull = rgb(255,255,255)
+    gi5.colorfull = rgb(255,255,255)
+    gi6.colorfull = rgb(255,255,255)
+    gi6dtc1.colorfull = rgb(255,255,255)
+    gi6dtc2.colorfull = rgb(255,255,255)
+    gi6dtc3.colorfull = rgb(255,255,255)
+    gi6dtc4.colorfull = rgb(255,255,255)
+    gi7.colorfull = rgb(255,0,0)
+    gi7dtr1.colorfull = rgb(255,0,0)
+    gi7dtr2.colorfull = rgb(255,0,0)
+'   gi7dtr3.colorfull = rgb(255,0,0)
+    gi7dtr4.colorfull = rgb(255,0,0)
+    gi8.colorfull = rgb(255,255,255)
+    gi8dtr1.colorfull = rgb(255,255,255)
+    gi8dtr2.colorfull = rgb(255,255,255)
+    gi8dtr3.colorfull = rgb(255,255,255)
+    gi8dtr4.colorfull = rgb(255,255,255)
+    gi9.colorfull = rgb(255,255,255)
+    gi10.colorfull = rgb(255,255,255)
+    gi11.colorfull = rgb(255,255,255)
+    gi12.colorfull = rgb(255,255,255)
+'   gi13.colorfull = rgb(255,255,255)
+    gi14.colorfull = rgb(255,255,255)
+    gi15.colorfull = rgb(255,255,255)
+    gi16.colorfull = rgb(255,255,255)
+    gi17.colorfull = rgb(255,255,255)
+    gi18.colorfull = rgb(255,255,255)
+    gi19.colorfull = rgb(255,255,255)
+    gi20.colorfull = rgb(255,255,255)
+    gi21.colorfull = rgb(255,255,255)
+    gi21dtr1.colorfull = rgb(255,255,255)
+    gi21dtr2.colorfull = rgb(255,255,255)
+    gi21dtr3.colorfull = rgb(255,255,255)
+    gi21dtr4.colorfull = rgb(255,255,255)
+    gi22.colorfull = rgb(255,255,255)
+    gi23.colorfull = rgb(255,255,255)
+'   gi24.colorfull = rgb(255,255,255)
+  End If
 
 End Sub
 
@@ -661,15 +661,15 @@ End Sub
 Sub SetFlipperColors()
 
 If Flipper_Color = 1 then
-	pLeftFlipper.image = "flipper_red_left"
-	pLeftFlipper2.image = "flipper_red_left"
-	pRightFlipper.image = "flipper_red_right"
-	pRightFlipper2.image = "flipper_red_right"
+  pLeftFlipper.image = "flipper_red_left"
+  pLeftFlipper2.image = "flipper_red_left"
+  pRightFlipper.image = "flipper_red_right"
+  pRightFlipper2.image = "flipper_red_right"
 Else
-	pLeftFlipper.image = "flipper_black_left"
-	pLeftFlipper2.image = "flipper_black_left"
-	pRightFlipper.image = "flipper_black_right"
-	pRightFlipper2.image = "flipper_black_right"
+  pLeftFlipper.image = "flipper_black_left"
+  pLeftFlipper2.image = "flipper_black_left"
+  pRightFlipper.image = "flipper_black_right"
+  pRightFlipper2.image = "flipper_black_right"
 End IF
 
 End Sub
@@ -677,23 +677,23 @@ End Sub
 'Primitive flippers
 
 Sub Timer_Timer()
-	pLeftFlipper.Roty = LeftFlipper.Currentangle
-	pLeftFlipper2.Roty = LeftFlipper2.Currentangle
-	pRightFlipper.Roty = RightFlipper.Currentangle
-	pRightFlipper2.Roty = RightFlipper2.Currentangle
+  pLeftFlipper.Roty = LeftFlipper.Currentangle
+  pLeftFlipper2.Roty = LeftFlipper2.Currentangle
+  pRightFlipper.Roty = RightFlipper.Currentangle
+  pRightFlipper2.Roty = RightFlipper2.Currentangle
     p_gate1.Rotx = gate1.CurrentAngle + 120
 
-	If Int(gate.CurrentAngle) > 30 Then
-		pV_gate.RotZ = 30
-	Else
-		pV_gate.RotZ = gate.CurrentAngle' + 90
-	End If
+  If Int(gate.CurrentAngle) > 30 Then
+    pV_gate.RotZ = 30
+  Else
+    pV_gate.RotZ = gate.CurrentAngle' + 90
+  End If
 
-	If Int(gate2.CurrentAngle) > 30 Then
-		pV_gate2.RotZ = 30
-	Else
-		pV_gate2.RotZ = gate2.CurrentAngle' + 90
-	End If
+  If Int(gate2.CurrentAngle) > 30 Then
+    pV_gate2.RotZ = 30
+  Else
+    pV_gate2.RotZ = gate2.CurrentAngle' + 90
+  End If
 
 '    pV_gate2.RotZ = gate2.CurrentAngle' + 90
 End Sub
@@ -703,23 +703,23 @@ Dim TubeFlasherStep
 
 Sub TubeFlasher_Timer
     Select Case TubeFlasherStep
-		Case 0:
-		Case 1:
-		Case 2:
-		Case 3:
-		Case 4:
-		Case 5:
-		Case 6:
-		Case 7:
-		Case 8:
-		Case 9:
-		Case 10:
+    Case 0:
+    Case 1:
+    Case 2:
+    Case 3:
+    Case 4:
+    Case 5:
+    Case 6:
+    Case 7:
+    Case 8:
+    Case 9:
+    Case 10:
         Case 11:SetFlash 101, 1:SetFlash 102, 1:SetFlash 111, 0:SetFlash 112, 0:SetLamp 101, 1:SetLamp 102, 1:SetLamp 111, 0:SetLamp 112, 0
         Case 12:SetFlash 103, 1:SetFlash 104, 1:SetFlash 101, 0:SetFlash 102, 0:SetLamp 103, 1:SetLamp 104, 1:SetLamp 101, 0:SetLamp 102, 0
         Case 13:SetFlash 105, 1:SetFlash 106, 1:SetFlash 103, 0:SetFlash 104, 0:SetLamp 105, 1:SetLamp 106, 1:SetLamp 103, 0:SetLamp 104, 0
         Case 14:SetFlash 107, 1:SetFlash 108, 1:SetFlash 105, 0:SetFlash 106, 0:SetLamp 107, 1:SetLamp 108, 1:SetLamp 105, 0:SetLamp 106, 0
         Case 15:SetFlash 109, 1:SetFlash 110, 1:SetFlash 107, 0:SetFlash 108, 0:SetLamp 109, 1:SetLamp 110, 1:SetLamp 107, 0:SetLamp 108, 0
-		Case 16:SetFlash 111, 1:SetFlash 112, 1:SetFlash 109, 0:SetFlash 110, 0:SetLamp 111, 1:SetLamp 112, 1:SetLamp 109, 0:SetLamp 110, 0:TubeFlasherStep = 10
+    Case 16:SetFlash 111, 1:SetFlash 112, 1:SetFlash 109, 0:SetFlash 110, 0:SetLamp 111, 1:SetLamp 112, 1:SetLamp 109, 0:SetLamp 110, 0:TubeFlasherStep = 10
     End Select
 
     TubeFlasherStep = TubeFlasherStep + 1
@@ -762,15 +762,15 @@ End Sub
 Dim SpinnerAngle, SpinnerRotations
 
 Sub SW54_Spin
-	vpmtimer.pulsesw 54
-	PlaySoundAtVol "fx_spinner", sw54, VolSpin
+  vpmtimer.pulsesw 54
+  PlaySoundAtVol "fx_spinner", sw54, VolSpin
 End Sub
 
 Const PI = 3.14
 
 Sub CheckSpinnerRod_timer()
-	pSpinnerRod.TransX = sin( (SW54.CurrentAngle+180) * (2*PI/360)) * 5
-	pSpinnerRod.TransY = sin( (SW54.CurrentAngle- 90) * (2*PI/360)) * 5
+  pSpinnerRod.TransX = sin( (SW54.CurrentAngle+180) * (2*PI/360)) * 5
+  pSpinnerRod.TransY = sin( (SW54.CurrentAngle- 90) * (2*PI/360)) * 5
 End Sub
 
 ' drop targets
@@ -798,20 +798,20 @@ Sub DC4_Timer:Me.TimerEnabled = 0 'This Drops The Target
 End Sub
 
 Sub ResetCDrops(Enabled)
-	If iauCenter = 1 Then
-		ImAlreadyUp.Enabled = True
-	Else
-	iauCenter = 1
-	PlaySoundAtVol SoundFX("mgow_Center_DropsUp",DOFContactors), DC2, 1
-	DC1.IsDropped=False
-	gi6dtc1.state = 0
-	DC2.IsDropped=False
-	gi6dtc2.state = 0
-	DC3.IsDropped=False
-	gi6dtc3.state = 0
-	DC4.IsDropped=False
-	gi6dtc4.state = 0
-	End If
+  If iauCenter = 1 Then
+    ImAlreadyUp.Enabled = True
+  Else
+  iauCenter = 1
+  PlaySoundAtVol SoundFX("mgow_Center_DropsUp",DOFContactors), DC2, 1
+  DC1.IsDropped=False
+  gi6dtc1.state = 0
+  DC2.IsDropped=False
+  gi6dtc2.state = 0
+  DC3.IsDropped=False
+  gi6dtc3.state = 0
+  DC4.IsDropped=False
+  gi6dtc4.state = 0
+  End If
 End Sub
 
 '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -835,28 +835,28 @@ Sub DR4_Timer:Me.TimerEnabled = 0: 'This Drops The Target
 End Sub
 
 Sub ResetRDrops(Enabled)
-	If iauRight = 1 Then
-		ImAlreadyUp.Enabled = True
-	Else
-	iauRight = 1
-	PlaySoundAtVol SoundFX("mgow_Right_DropsUp",DOFContactors), gi7dtr1, VolTarg
-	DR1.IsDropped=False:
-	gi8dtr1.state = 0
-	gi7dtr1.state = 0
-	gi21dtr1.state = 0
-	DR2.IsDropped=False:
-	gi8dtr2.state = 0
-	gi7dtr2.state = 0
-	gi21dtr2.state = 0
-	DR3.IsDropped=False:
-	gi8dtr3.state = 0
-'	gi7dtr3.state = 0
-	gi21dtr3.state = 0
-	DR4.IsDropped=False:
-	gi8dtr4.state = 0
-	gi7dtr4.state = 0
-	gi21dtr4.state = 0
-	End If
+  If iauRight = 1 Then
+    ImAlreadyUp.Enabled = True
+  Else
+  iauRight = 1
+  PlaySoundAtVol SoundFX("mgow_Right_DropsUp",DOFContactors), gi7dtr1, VolTarg
+  DR1.IsDropped=False:
+  gi8dtr1.state = 0
+  gi7dtr1.state = 0
+  gi21dtr1.state = 0
+  DR2.IsDropped=False:
+  gi8dtr2.state = 0
+  gi7dtr2.state = 0
+  gi21dtr2.state = 0
+  DR3.IsDropped=False:
+  gi8dtr3.state = 0
+' gi7dtr3.state = 0
+  gi21dtr3.state = 0
+  DR4.IsDropped=False:
+  gi8dtr4.state = 0
+  gi7dtr4.state = 0
+  gi21dtr4.state = 0
+  End If
 
 End Sub
 
@@ -873,7 +873,7 @@ Sub ImAlreadyUp_Timer()
                Case 7:
                Case 8:ImAlreadyUp.Enabled = False:iauRight = 0:iauCenter = 0:iauStep = 0
            End Select
-		iauStep = iauStep + 1
+    iauStep = iauStep + 1
        End Sub
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''Bumpers
@@ -896,7 +896,7 @@ Sub Bumper4_Hit:vpmTimer.PulseSw(53):bump4 = 1:Me.TimerEnabled = 1:PlaySoundAtVo
                Case 7:'BR1.z = 0:
                Case 8::Me.TimerEnabled = 0:'BR1.z = 10
            End Select
-		Bump1 = bump1 + 1
+    Bump1 = bump1 + 1
        End Sub
 
        Sub Bumper2_Timer()
@@ -910,7 +910,7 @@ Sub Bumper4_Hit:vpmTimer.PulseSw(53):bump4 = 1:Me.TimerEnabled = 1:PlaySoundAtVo
                Case 7:'BR2.z = 0:
                Case 8:Me.TimerEnabled = 0:'BR2.z = 10
            End Select
-		Bump2 = bump2 + 1
+    Bump2 = bump2 + 1
        End Sub
 
        Sub Bumper3_Timer()
@@ -924,7 +924,7 @@ Sub Bumper4_Hit:vpmTimer.PulseSw(53):bump4 = 1:Me.TimerEnabled = 1:PlaySoundAtVo
                Case 7:'BR3.z = 0:
                Case 8:Me.TimerEnabled = 0:'BR3.z = 10
            End Select
-		Bump3 = bump3 + 1
+    Bump3 = bump3 + 1
        End Sub
 
        Sub Bumper4_Timer()
@@ -938,7 +938,7 @@ Sub Bumper4_Hit:vpmTimer.PulseSw(53):bump4 = 1:Me.TimerEnabled = 1:PlaySoundAtVo
                Case 7:'BR4.z = 00:
                Case 8:Me.TimerEnabled = 0:'BR4.z = 10
            End Select
-		Bump4 = bump4 + 1
+    Bump4 = bump4 + 1
        End Sub
 
 ''''''''''''''''''''''''''''''''''''
@@ -947,42 +947,42 @@ Sub Bumper4_Hit:vpmTimer.PulseSw(53):bump4 = 1:Me.TimerEnabled = 1:PlaySoundAtVo
 dim SW61Step, SW62Step
 
 Sub SW61_Timer()
-	Select Case SW61Step
-		Case 0:	TWKicker1.transY = 2
-		Case 1: TWKicker1.transY = 5
-		Case 2: TWKicker1.transY = 5
-		Case 3: TWKicker1.transY = 2
-		Case 4:	TWKicker1.transY = 0:Me.TimerEnabled = 0:SW61Step = 0
-	End Select
-	SW61Step = SW61Step + 1
+  Select Case SW61Step
+    Case 0: TWKicker1.transY = 2
+    Case 1: TWKicker1.transY = 5
+    Case 2: TWKicker1.transY = 5
+    Case 3: TWKicker1.transY = 2
+    Case 4: TWKicker1.transY = 0:Me.TimerEnabled = 0:SW61Step = 0
+  End Select
+  SW61Step = SW61Step + 1
 End Sub
 
 Sub SW62_Timer()
-	Select Case SW62Step
-		Case 0:	TWKicker2.transY = 2
-		Case 1: TWKicker2.transY = 5
-		Case 2: TWKicker2.transY = 5
-		Case 3: TWKicker2.transY = 2
-		Case 4:	TWKicker2.transY = 0:Me.TimerEnabled = 0:SW62Step = 0
-	End Select
-	SW62Step = SW62Step + 1
+  Select Case SW62Step
+    Case 0: TWKicker2.transY = 2
+    Case 1: TWKicker2.transY = 5
+    Case 2: TWKicker2.transY = 5
+    Case 3: TWKicker2.transY = 2
+    Case 4: TWKicker2.transY = 0:Me.TimerEnabled = 0:SW62Step = 0
+  End Select
+  SW62Step = SW62Step + 1
 End Sub
 
 'delayed sound timer for launch (played many sounds without)
 Dim SW63Step
 Sub SW63_Timer()
     Select Case SW63Step
-		Case 0:
-		Case 1:pKickRod.ObjRotX = 10:PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors),pKickRod,VolKick:SW63.Kick 0,15 + diff
-		Case 2:pKickRod.ObjRotX = 5:Controller.Switch(63)=0
-		Case 3:pKickRod.ObjRotX = 0:
-		Case 4:pKickRod.ObjRotX = -5:
-		Case 5:pKickRod.ObjRotX = 0:
-		Case 6:
-		Case 7:
-		Case 8:
-		Case 9:
-		Case 10:me.timerenabled = 0 :SW63Step = 0:sw63active = 0
+    Case 0:
+    Case 1:pKickRod.ObjRotX = 10:PlaySoundAtVol SoundFX("mgow kicker out",DOFContactors),pKickRod,VolKick:SW63.Kick 0,15 + diff
+    Case 2:pKickRod.ObjRotX = 5:Controller.Switch(63)=0
+    Case 3:pKickRod.ObjRotX = 0:
+    Case 4:pKickRod.ObjRotX = -5:
+    Case 5:pKickRod.ObjRotX = 0:
+    Case 6:
+    Case 7:
+    Case 8:
+    Case 9:
+    Case 10:me.timerenabled = 0 :SW63Step = 0:sw63active = 0
     End Select
 
     SW63Step = SW63Step + 1
@@ -995,13 +995,13 @@ Dim Tsw71Step
 
 Sub Tsw71_Hit:vpmTimer.PulseSw(71):PTarget1.TransX = -5:Tsw71Step = 1:PlaySoundAtVol SoundFX("fx_target",DOFTargets),PTarget1,VolTarg:Me.TimerEnabled = 1:End Sub
 Sub Tsw71_timer()
-	Select Case Tsw71Step
-		Case 1:PTarget1.TransX = 3
+  Select Case Tsw71Step
+    Case 1:PTarget1.TransX = 3
         Case 2:PTarget1.TransX = -2
         Case 3:PTarget1.TransX = 1
         Case 4:PTarget1.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Tsw71Step = Tsw71Step + 1
+  Tsw71Step = Tsw71Step + 1
 End Sub
 
 ''''''''''''''''''''''''''''''''''''''
@@ -1076,38 +1076,38 @@ End Sub
 Dim BallCount
 
 Sub CheckMaxBalls()
-	BallCount = MaxBalls
+  BallCount = MaxBalls
 End Sub
 
 Sub CreatBalls()
-	If BallCount > 0 then
-		drain.CreateSizedBallWithMass BallRadius, BallMass
-'		Drain.CreateBall
-		Drain.kick 70,10
-		BallCount = BallCount - 1
-	End If
+  If BallCount > 0 then
+    drain.CreateSizedBallWithMass BallRadius, BallMass
+'   Drain.CreateBall
+    Drain.kick 70,10
+    BallCount = BallCount - 1
+  End If
 End Sub
 
 dim bstatus
 
 Sub CheckBallStatus_timer()
 
-	Select Case Bstatus
-	Case 1:	If Kicker1active = 0 and Kicker2active = 1 then Kicker2.Kick 70,10 End If
-	Case 2: If Kicker2active = 0 and Kicker3active = 1 then Kicker3.Kick 70,10 End If
-	Case 3: If Kicker3active = 0 and Kicker4active = 1 then Kicker4.Kick 70,10 End If
-	Case 4: If Kicker4active = 0 and Kicker5active = 1 then Kicker5.Kick 70,10 End If
-	Case 5: If Kicker5active = 0 and Kicker6active = 1 then Kicker6.Kick 70,10 End If
-	Case 6: bstatus = 0
-	End Select
-	bstatus = bstatus + 1
+  Select Case Bstatus
+  Case 1: If Kicker1active = 0 and Kicker2active = 1 then Kicker2.Kick 70,10 End If
+  Case 2: If Kicker2active = 0 and Kicker3active = 1 then Kicker3.Kick 70,10 End If
+  Case 3: If Kicker3active = 0 and Kicker4active = 1 then Kicker4.Kick 70,10 End If
+  Case 4: If Kicker4active = 0 and Kicker5active = 1 then Kicker5.Kick 70,10 End If
+  Case 5: If Kicker5active = 0 and Kicker6active = 1 then Kicker6.Kick 70,10 End If
+  Case 6: bstatus = 0
+  End Select
+  bstatus = bstatus + 1
 End Sub
 
 Dim Kicker1active, Kicker2active, Kicker3active, Kicker4active, Kicker5active, Kicker6active
 
 Sub Kicker1_hit()
-	Kicker1active = 1
-'	Controller.Switch(13)=1
+  Kicker1active = 1
+' Controller.Switch(13)=1
 End Sub
 
 Sub Kicker1_unhit()
@@ -1115,106 +1115,106 @@ Sub Kicker1_unhit()
 End Sub
 
 Sub Kicker2_hit()
-	Kicker2active = 1
+  Kicker2active = 1
 End Sub
 
 Sub Kicker2_unhit()
-	Kicker2active = 0
+  Kicker2active = 0
 End Sub
 
 Sub Kicker3_hit()
-	Kicker3active = 1
-	Controller.Switch(44)=1
+  Kicker3active = 1
+  Controller.Switch(44)=1
 End Sub
 
 Sub Kicker3_unhit()
-	Kicker3active = 0
-	Controller.Switch(44)=0
+  Kicker3active = 0
+  Controller.Switch(44)=0
 End Sub
 
 Sub Kicker4_hit()
-	Kicker4active = 1
+  Kicker4active = 1
 End Sub
 
 Sub Kicker4_unhit()
-	Kicker4active = 0
+  Kicker4active = 0
 End Sub
 
 Sub Kicker5_hit()
-	Kicker5active = 1
-		controller.switch(64) = false
+  Kicker5active = 1
+    controller.switch(64) = false
 End Sub
 
 Sub Kicker5_unhit()
-	Kicker5active = 0
+  Kicker5active = 0
 End Sub
 
 Sub Kicker6_hit()
-	Kicker6active = 1
+  Kicker6active = 1
 End Sub
 
 Sub Kicker6_unhit()
-	Kicker6active = 0
-		If BallCount > 0 then
-			CreatBalls
-		End If
+  Kicker6active = 0
+    If BallCount > 0 then
+      CreatBalls
+    End If
 End Sub
 
 dim DontKickAnyMoreBalls
 
 Sub KickBallToLane()
-	If DontKickAnyMoreBalls = 0 then
-		Kicker1.Kick 70,5
-		bstatus = 2
-		Kicker1active = 0
-		iBall = iBall - 1
-		fgBall = false
-		DontKickAnyMoreBalls = 1
-		DKTMstep = 1
-		DontKickToMany.enabled = true
-		BallsInPlay = BallsInPlay + 1
-	End If
+  If DontKickAnyMoreBalls = 0 then
+    Kicker1.Kick 70,5
+    bstatus = 2
+    Kicker1active = 0
+    iBall = iBall - 1
+    fgBall = false
+    DontKickAnyMoreBalls = 1
+    DKTMstep = 1
+    DontKickToMany.enabled = true
+    BallsInPlay = BallsInPlay + 1
+  End If
 End Sub
 
 Dim DKTMstep
 
 Sub DontKickToMany_timer ()
-	Select Case DKTMstep
-	Case 1:
-	Case 2:
-	Case 3: DontKickAnyMoreBalls = 0:DontKickToMany.Enabled = False: DontKickAnyMoreBalls = 0
-	End Select
-	DKTMstep = DKTMstep + 1
+  Select Case DKTMstep
+  Case 1:
+  Case 2:
+  Case 3: DontKickAnyMoreBalls = 0:DontKickToMany.Enabled = False: DontKickAnyMoreBalls = 0
+  End Select
+  DKTMstep = DKTMstep + 1
 End Sub
 
 sub kisort()
-	if fgBall then
-		Drain.Kick 70,10
-		iBall = iBall + 1
-		fgBall = false
-	end if
+  if fgBall then
+    Drain.Kick 70,10
+    iBall = iBall + 1
+    fgBall = false
+  end if
 end sub
 
 
 Sub Drain_hit()
-	PlaySoundAtVol "drain", drain ,1
-	controller.switch(64) = true
-	fgBall = true
-	iBall = iBall + 1
-	BallsInPlay = BallsInPlay - 1
+  PlaySoundAtVol "drain", drain ,1
+  controller.switch(64) = true
+  fgBall = true
+  iBall = iBall + 1
+  BallsInPlay = BallsInPlay - 1
 End Sub
 
 '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-'			LL		EEEEEE	DDDD		,,	 SSSSS
-'      		LL		EE		DD  DD		,,	SS
-'			LL		EE		DD   DD		 ,	 SS
-'			LL		EEEE	DD   DD			   SS
-'			LL		EE		DD  DD			    SS
-'			LLLLLL  EEEEEE	DDDD			SSSSS
+'     LL    EEEEEE  DDDD    ,,   SSSSS
+'         LL    EE    DD  DD    ,,  SS
+'     LL    EE    DD   DD    ,   SS
+'     LL    EEEE  DD   DD        SS
+'     LL    EE    DD  DD          SS
+'     LLLLLL  EEEEEE  DDDD      SSSSS
 '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-'		6 Didget Array
+'   6 Didget Array
 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Dim LED(35)
 LED(0)=Array(d121,d122,d123,d124,d125,d126,d127,LXM,d128)
@@ -1265,7 +1265,7 @@ End If
 End Sub
 
 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-'		7 Didget Array
+'   7 Didget Array
 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Dim LED7(35)
 LED7(0)=Array(d111,d112,d113,d114,d115,d116,d117,LXM,d118)
@@ -1300,10 +1300,10 @@ LED7(25)=Array(d451,d452,d453,d454,d455,d456,d457,LXM,d458)
 LED7(26)=Array(d461,d462,d463,d464,d465,d466,d467,LXM,d468)
 LED7(27)=Array(d471,d472,d473,d474,d475,d476,d477,LXM,d478)
 
-LED7(28)=Array(d511,d512,d513,d514,d515,d516,d517,LXM,d518)		'was 24 -- 26
-LED7(29)=Array(d521,d522,d523,d524,d525,d526,d527,LXM,d528)		'was 25 -- 27
-LED7(30)=Array(d611,d612,d613,d614,d615,d616,d617,LXM,d618)		'was 26 -- 24
-LED7(31)=Array(d621,d622,d623,d624,d625,d626,d627,LXM,d628)		'was 27 -- 25
+LED7(28)=Array(d511,d512,d513,d514,d515,d516,d517,LXM,d518)   'was 24 -- 26
+LED7(29)=Array(d521,d522,d523,d524,d525,d526,d527,LXM,d528)   'was 25 -- 27
+LED7(30)=Array(d611,d612,d613,d614,d615,d616,d617,LXM,d618)   'was 26 -- 24
+LED7(31)=Array(d621,d622,d623,d624,d625,d626,d627,LXM,d628)   'was 27 -- 25
 
 Sub DisplayTimer7_Timer
 Dim ChgLED, ii, num, chg, stat, obj
@@ -1340,7 +1340,7 @@ Dim BArray: BArray = Array("mgow_bumpercap_on", "mgow_bumpercap_66", "mgow_bumpe
 Dim BArrayNight: BArrayNight = Array("mgow_bumpercap_on", "mgow_bumpercap_66", "mgow_bumpercap_33", "mgow_bumpercap_off_night")
 Dim TextureArray1: TextureArray1 = Array("Plastic with an image trans", "Plastic with an image")
 
-Const LightHaloBrightness		= 200
+Const LightHaloBrightness   = 200
 
 FlashInit()
 FlasherTimer.Interval = 10 'flash fading speed
@@ -1349,9 +1349,9 @@ FlasherTimer.Enabled = 1
 ' Lamp & Flasher Timers
 
 Sub StartLampTimer
-	AllLampsOff()
-	LampTimer.Interval = 30 'lamp fading speed
-	LampTimer.Enabled = 1
+  AllLampsOff()
+  LampTimer.Interval = 30 'lamp fading speed
+  LampTimer.Enabled = 1
 End Sub
 
 Sub LampTimer_Timer()
@@ -1361,104 +1361,104 @@ Sub LampTimer_Timer()
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-			FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
         Next
     End If
 
     UpdateLamps
-	UpdateMultipleLamps
+  UpdateMultipleLamps
 End Sub
 
 Sub UpdateLamps
 
 'Bumper cap lights
-	FadeMaterialP 45, PBumpCap1, TextureArray1
-	NFadeLm 45, Blight1a
-	NFadeLm 45, Blight1b
-	FadeMaterialP 47, PBumpCap2, TextureArray1
-	NFadeLm 47, Blight2a
-	NFadeLm 47, Blight2b
-	FadeMaterialP 44, PBumpCap3, TextureArray1
-	NFadeLm 44, blight3a
-	NFadeLm 44, Blight3b
-	FadeMaterialP 46, PBumpCap4, TextureArray1
-	NFadeLm 46, Blight4a
-	NFadeLm 46, Blight4b
+  FadeMaterialP 45, PBumpCap1, TextureArray1
+  NFadeLm 45, Blight1a
+  NFadeLm 45, Blight1b
+  FadeMaterialP 47, PBumpCap2, TextureArray1
+  NFadeLm 47, Blight2a
+  NFadeLm 47, Blight2b
+  FadeMaterialP 44, PBumpCap3, TextureArray1
+  NFadeLm 44, blight3a
+  NFadeLm 44, Blight3b
+  FadeMaterialP 46, PBumpCap4, TextureArray1
+  NFadeLm 46, Blight4a
+  NFadeLm 46, Blight4b
 
-	FadePri4 101, Bulb1, BulbArray
-	FadePri4 102, Bulb2, BulbArray
-	FadePri4 103, Bulb3, BulbArray
-	FadePri4 104, Bulb4, BulbArray
-	FadePri4 105, Bulb5, BulbArray
-	FadePri4 106, Bulb6, BulbArray
-	FadePri4 107, Bulb7, BulbArray
-	FadePri4 108, Bulb8, BulbArray
-	FadePri4 109, Bulb9, BulbArray
-	FadePri4 110, Bulb10, BulbArray
-	FadePri4 111, Bulb11, BulbArray
-	FadePri4 112, Bulb12, BulbArray
+  FadePri4 101, Bulb1, BulbArray
+  FadePri4 102, Bulb2, BulbArray
+  FadePri4 103, Bulb3, BulbArray
+  FadePri4 104, Bulb4, BulbArray
+  FadePri4 105, Bulb5, BulbArray
+  FadePri4 106, Bulb6, BulbArray
+  FadePri4 107, Bulb7, BulbArray
+  FadePri4 108, Bulb8, BulbArray
+  FadePri4 109, Bulb9, BulbArray
+  FadePri4 110, Bulb10, BulbArray
+  FadePri4 111, Bulb11, BulbArray
+  FadePri4 112, Bulb12, BulbArray
 
-	NFadeL 3, Light3a
-	NFadeL 4, Light4
-	NFadeL 5, Light5
-	NFadeL 6, Light6
-	NFadeL 7, Light7
+  NFadeL 3, Light3a
+  NFadeL 4, Light4
+  NFadeL 5, Light5
+  NFadeL 6, Light6
+  NFadeL 7, Light7
 
-	NFadeLm 14, Light14a
-	NFadeLm 14, Light14b
-	NFadeL 14, Light14c
-	NFadeLm 15, Light15a
-	NFadeLm 15, Light15b
-	NFadeL 15, Light15c
-	NFadeLm 16, Light16a
-	NFadeLm 16, Light16b
-	NFadeL 16, Light16c
-	NFadeLm 17, Light17a
-	NFadeLm 17, Light17b
-	NFadeL 17, Light17c
-	NFadeLm 18, Light18a
-	NFadeL 18, Light18b
-	NFadeLm 19, Light19a
-	NFadeL 19, Light19b
+  NFadeLm 14, Light14a
+  NFadeLm 14, Light14b
+  NFadeL 14, Light14c
+  NFadeLm 15, Light15a
+  NFadeLm 15, Light15b
+  NFadeL 15, Light15c
+  NFadeLm 16, Light16a
+  NFadeLm 16, Light16b
+  NFadeL 16, Light16c
+  NFadeLm 17, Light17a
+  NFadeLm 17, Light17b
+  NFadeL 17, Light17c
+  NFadeLm 18, Light18a
+  NFadeL 18, Light18b
+  NFadeLm 19, Light19a
+  NFadeL 19, Light19b
 
-	NFadeL 20, Light20
-	NFadeL 21, Light21
-	NFadeLm 22, Light22a
-	NFadeLm 23, Light23a
-	NFadeL 23, Light23b
-	NFadeLm 24, Light24a
-	NFadeL 24, Light24b
-	NFadeLm 25, Light25a
-	NFadeL 25, Light25b
-	NFadeLm 26, Light26a
-	NFadeL 26, Light26b
-	NFadeL 27, Light27
-	NFadeL 28, Light28
-	NFadeL 29, Light29
-	NFadeL 30, Light30
+  NFadeL 20, Light20
+  NFadeL 21, Light21
+  NFadeLm 22, Light22a
+  NFadeLm 23, Light23a
+  NFadeL 23, Light23b
+  NFadeLm 24, Light24a
+  NFadeL 24, Light24b
+  NFadeLm 25, Light25a
+  NFadeL 25, Light25b
+  NFadeLm 26, Light26a
+  NFadeL 26, Light26b
+  NFadeL 27, Light27
+  NFadeL 28, Light28
+  NFadeL 29, Light29
+  NFadeL 30, Light30
 
-	NFadeL 31, Light31
-	NFadeL 32, Light32
-	NFadeL 33, Light33
-	NFadeL 34, Light34
-	NFadeL 35, Light35
-	NFadeL 36, Light36
-	NFadeL 37, Light37
-	NFadeL 38, Light38
-	NFadeL 39, Light39
-	NFadeL 40, Light40
+  NFadeL 31, Light31
+  NFadeL 32, Light32
+  NFadeL 33, Light33
+  NFadeL 34, Light34
+  NFadeL 35, Light35
+  NFadeL 36, Light36
+  NFadeL 37, Light37
+  NFadeL 38, Light38
+  NFadeL 39, Light39
+  NFadeL 40, Light40
 
-	NFadeL 41, Light41
-	NFadeL 42, Light42
-	NFadeL 43, Light43
+  NFadeL 41, Light41
+  NFadeL 42, Light42
+  NFadeL 43, Light43
 
-	NFadeL 48, Light48
-	NFadeLm 49, Light49a
-	NFadeL 49, Light49b
-	NFadeLm 50, Light50a
-	NFadeL 50, Light50b
+  NFadeL 48, Light48
+  NFadeLm 49, Light49a
+  NFadeL 49, Light49b
+  NFadeLm 50, Light50a
+  NFadeL 50, Light50b
 
-	NFadeL 51, Light51
+  NFadeL 51, Light51
 
  End Sub
 
@@ -1490,10 +1490,10 @@ End Sub
 
 LightHalos_Init
 Sub LightHalos_Init
-	If LightHalo_ON = 0 Then 'hide halos
-		For each xx in aLightHalos:xx.IsVisible = False:Next
-		For each xx in aLightHalos:xx.Alpha = 0:Next
-	End If
+  If LightHalo_ON = 0 Then 'hide halos
+    For each xx in aLightHalos:xx.IsVisible = False:Next
+    For each xx in aLightHalos:xx.Alpha = 0:Next
+  End If
 
 
 
@@ -1501,84 +1501,84 @@ End Sub
 
 Sub FlasherTimer_Timer()
 
-	Flash 101, Flasher1
-	Flash 102, Flasher2
-	Flash 103, Flasher3
-	Flash 104, Flasher4
-	Flash 105, Flasher5
-	Flash 106, Flasher6
-	Flash 107, Flasher7
-	Flash 108, Flasher8
-	Flash 109, Flasher9
-	Flash 110, Flasher10
-	Flash 111, Flasher11
-	Flash 112, Flasher12
+  Flash 101, Flasher1
+  Flash 102, Flasher2
+  Flash 103, Flasher3
+  Flash 104, Flasher4
+  Flash 105, Flasher5
+  Flash 106, Flasher6
+  Flash 107, Flasher7
+  Flash 108, Flasher8
+  Flash 109, Flasher9
+  Flash 110, Flasher10
+  Flash 111, Flasher11
+  Flash 112, Flasher12
 
-		If CaptiveLightL = 0 then
-		Else
-		FlashVal 6, lhalo6b, LightHaloBrightness
-		End If
+    If CaptiveLightL = 0 then
+    Else
+    FlashVal 6, lhalo6b, LightHaloBrightness
+    End If
 
-		If CaptiveLightR = 0 then
-		Else
-		FlashVal 7, lhalo7b, LightHaloBrightness
-		End If
+    If CaptiveLightR = 0 then
+    Else
+    FlashVal 7, lhalo7b, LightHaloBrightness
+    End If
 
 '***GI
-	If LampState(0) = 1 Then SetGIOn
-	If LampState(0) = 0 Then SetGIOff
+  If LampState(0) = 1 Then SetGIOn
+  If LampState(0) = 0 Then SetGIOff
 
 
-	If LampState(0) = 1 and LampState(22) = 1 then
-		NFadeLm 22 , gi7a
-		NFadeL 22 , gi7
+  If LampState(0) = 1 and LampState(22) = 1 then
+    NFadeLm 22 , gi7a
+    NFadeL 22 , gi7
 
-	End If
-	If LampState(0) = 1 and LampState(22) = 0 then
-	End If
+  End If
+  If LampState(0) = 1 and LampState(22) = 0 then
+  End If
 
-	NFadeLm 0, gi1
-	NFadeLm 0, gi1a
-	NFadeLm 0, gi2
-	NFadeLm 0, gi2a
-	NFadeLm 0, gi3
-	NFadeLm 0, gi3a
-	NFadeLm 0, gi4
-	NFadeLm 0, gi4a
-	NFadeLm 0, gi5
-	NFadeLm 0, gi5a
-	NFadeLm 0, gi6
-	NFadeLm 0, gi6a
-	NFadeLm 0, gi6b
+  NFadeLm 0, gi1
+  NFadeLm 0, gi1a
+  NFadeLm 0, gi2
+  NFadeLm 0, gi2a
+  NFadeLm 0, gi3
+  NFadeLm 0, gi3a
+  NFadeLm 0, gi4
+  NFadeLm 0, gi4a
+  NFadeLm 0, gi5
+  NFadeLm 0, gi5a
+  NFadeLm 0, gi6
+  NFadeLm 0, gi6a
+  NFadeLm 0, gi6b
 
-	NFadeLm 0, gi8
-	NFadeLm 0, gi8a
-	NFadeLm 0, gi9
-	NFadeLm 0, gi9a
-	NFadeLm 0, gi10
-	NFadeLm 0, gi10a
-	NFadeLm 0, gi11
-	NFadeLm 0, gi11a
-	NFadeLm 0, gi12
-	NFadeLm 0, gi12a
-'	NFadeLm 0, gi13
-'	NFadeLm 0, gi13a
-	NFadeLm 0, gi14
-	NFadeLm 0, gi15
-	NFadeLm 0, gi16
-	NFadeLm 0, gi17
-	NFadeLm 0, gi18
-	NFadeLm 0, gi19
-	NFadeLm 0, gi19a
-	NFadeLm 0, gi20
-	NFadeLm 0, gi20a
-	NFadeLm 0, gi21
-	NFadeLm 0, gi21a
-	NFadeLm 0, gi22
-	NFadeLm 0, gi23
-	NFadeL 0, gi23a
-'	NFadeLm 0, gi24a
-'	NFadeL 0, gi24
+  NFadeLm 0, gi8
+  NFadeLm 0, gi8a
+  NFadeLm 0, gi9
+  NFadeLm 0, gi9a
+  NFadeLm 0, gi10
+  NFadeLm 0, gi10a
+  NFadeLm 0, gi11
+  NFadeLm 0, gi11a
+  NFadeLm 0, gi12
+  NFadeLm 0, gi12a
+' NFadeLm 0, gi13
+' NFadeLm 0, gi13a
+  NFadeLm 0, gi14
+  NFadeLm 0, gi15
+  NFadeLm 0, gi16
+  NFadeLm 0, gi17
+  NFadeLm 0, gi18
+  NFadeLm 0, gi19
+  NFadeLm 0, gi19a
+  NFadeLm 0, gi20
+  NFadeLm 0, gi20a
+  NFadeLm 0, gi21
+  NFadeLm 0, gi21a
+  NFadeLm 0, gi22
+  NFadeLm 0, gi23
+  NFadeL 0, gi23a
+' NFadeLm 0, gi24a
+' NFadeL 0, gi24
 
 End Sub
 
@@ -1625,11 +1625,11 @@ End Sub
 '''GGGGG IIIII  OOOOO N   N
 ''''''''''''''''''''''''''''''''''''
 Sub SetGIOn
-	Primitive1.image = "[plastic-red_on]"
-	Primitive2.image = "[plastic-red_on]"
-	Primitive3.image = "[plastic-red_on]"
-	Primitive4.image = "[plastic-red_on]"
-	Primitive5.image = "[plastic-red_on]"
+  Primitive1.image = "[plastic-red_on]"
+  Primitive2.image = "[plastic-red_on]"
+  Primitive3.image = "[plastic-red_on]"
+  Primitive4.image = "[plastic-red_on]"
+  Primitive5.image = "[plastic-red_on]"
 End Sub
 
 ''''''''''''''''''''''''''''''''''''
@@ -1641,11 +1641,11 @@ End Sub
 ''''''''''''''''''''''''''''''''''''
 Sub SetGIOff
 
-	Primitive1.image = "[plastic-red]"
-	Primitive2.image = "[plastic-red]"
-	Primitive3.image = "[plastic-red]"
-	Primitive4.image = "[plastic-red]"
-	Primitive5.image = "[plastic-red]"
+  Primitive1.image = "[plastic-red]"
+  Primitive2.image = "[plastic-red]"
+  Primitive3.image = "[plastic-red]"
+  Primitive4.image = "[plastic-red]"
+  Primitive5.image = "[plastic-red]"
 End Sub
 
 ' div flasher subs
@@ -2031,7 +2031,7 @@ End Sub
 
 Sub FadePri4m(nr, pri, group)
     Select Case FadingLevel(nr)
-		Case 2:pri.image = group(3) 'Off
+    Case 2:pri.image = group(3) 'Off
         Case 3:pri.image = group(2) 'Fading...
         Case 4:pri.image = group(1) 'Fading...
         Case 5:pri.image = group(0) 'ON
@@ -2137,81 +2137,81 @@ End Sub
 ' depending of the speed of the collision.
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub LeftFlipper2_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper2_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************
@@ -2332,16 +2332,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

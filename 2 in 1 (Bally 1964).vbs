@@ -299,54 +299,54 @@ Sub Table1_KeyUp(ByVal keycode)
 End Sub
 
 sub flippertimer_timer()
-	LFlip.RotY = LeftFlipper.CurrentAngle+90
-	RFlip.RotY = RightFlipper.CurrentAngle+90
+  LFlip.RotY = LeftFlipper.CurrentAngle+90
+  RFlip.RotY = RightFlipper.CurrentAngle+90
 End Sub
 
 
 sub newgame
-	Light17.state=0
-	Light18.state=0
-	Light19.state=0
-	Light20.state=0
-	Light21.state=0
-	Light22.state=0
-	Light23.state=0
-	Light24.state=0
-	Light25.state=0
-	Light26.state=0
-	Light27.state=0
-	Light28.state=0
-	Light50.state=0
-	Light51.state=0
-	sbv1=0
-	sbv2=0
-	pno2.state=0
-	scntimer.enabled=False
-	scntimer1.enabled=False
-	scntimer2.enabled=False
-	state=true
-	eg=0
-	for i=0 to 3
-	score(i)=0
-	truesc(i)=0
-	rep(i)=0
-	next
-	bip5.text=" "
-	bip1.text="1"
-	for i=0 to 9
-	match(i).text=" "
-	next
-	tilttext.text=" "
-	gamov.text=" "
-	tilt=false
-	tiltsens=0
-	ballinplay=1
-	wheelcheck
-	motorcheck
-	nb.CreateBall
-	nb.kick 90,6
-	If B2SOn then Controller.B2SSetBallInPlay 1
+  Light17.state=0
+  Light18.state=0
+  Light19.state=0
+  Light20.state=0
+  Light21.state=0
+  Light22.state=0
+  Light23.state=0
+  Light24.state=0
+  Light25.state=0
+  Light26.state=0
+  Light27.state=0
+  Light28.state=0
+  Light50.state=0
+  Light51.state=0
+  sbv1=0
+  sbv2=0
+  pno2.state=0
+  scntimer.enabled=False
+  scntimer1.enabled=False
+  scntimer2.enabled=False
+  state=true
+  eg=0
+  for i=0 to 3
+  score(i)=0
+  truesc(i)=0
+  rep(i)=0
+  next
+  bip5.text=" "
+  bip1.text="1"
+  for i=0 to 9
+  match(i).text=" "
+  next
+  tilttext.text=" "
+  gamov.text=" "
+  tilt=false
+  tiltsens=0
+  ballinplay=1
+  wheelcheck
+  motorcheck
+  nb.CreateBall
+  nb.kick 90,6
+  If B2SOn then Controller.B2SSetBallInPlay 1
 End Sub
 
 sub resettimer_timer
@@ -355,12 +355,12 @@ sub resettimer_timer
     reel2.resettozero
     reel3.resettozero
     reel4.resettozero
-	If B2SOn Then
-		Controller.B2SSetScorePlayer1 0
-		Controller.B2SSetScorePlayer2 0
-		Controller.B2SSetScorePlayer3 0
-		Controller.B2SSetScorePlayer4 0
-	End if
+  If B2SOn Then
+    Controller.B2SSetScorePlayer1 0
+    Controller.B2SSetScorePlayer2 0
+    Controller.B2SSetScorePlayer3 0
+    Controller.B2SSetScorePlayer4 0
+  End if
     if rst=14 then
     playsound "kickerkick"
     End if
@@ -371,23 +371,23 @@ sub resettimer_timer
 End Sub
 
 sub coindelay_timer
-	playsound "click"
-	credit=credit+5
-	credittxt.text=credit
+  playsound "click"
+  credit=credit+5
+  credittxt.text=credit
     coindelay.enabled=false
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
 End Sub
 
 sub coindelay1_timer
-	playsound "click"
-	credit=credit+1
-	credittxt.text=credit
+  playsound "click"
+  credit=credit+1
+  credittxt.text=credit
     coindelay1.enabled=false
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
 End Sub
 
 '*********************
@@ -395,105 +395,105 @@ End Sub
 '*********************
 
 sub addscore(points)
-	if tilt=false then
-	bell=0
-	scn=0
-	scn1=0
-	if points = 1 or points = 10 then scn=1
-	if points = 1 or points = 10 then matchnumb=matchnumb+1
-	if matchnumb=10 then matchnumb=0
+  if tilt=false then
+  bell=0
+  scn=0
+  scn1=0
+  if points = 1 or points = 10 then scn=1
+  if points = 1 or points = 10 then matchnumb=matchnumb+1
+  if matchnumb=10 then matchnumb=0
 
-	if points=1 or points=10 then
-	Light13.state=0
-	Light14.state=0
-	Light15.state=0
-	Light16.state=0
-	End if
+  if points=1 or points=10 then
+  Light13.state=0
+  Light14.state=0
+  Light15.state=0
+  Light16.state=0
+  End if
 
-	if points = 50 then
-	reel(currpl).addvalue(50)
-	bell=2
-	scn=5
-	mv=mv+1
-	motorcheck
+  if points = 50 then
+  reel(currpl).addvalue(50)
+  bell=2
+  scn=5
+  mv=mv+1
+  motorcheck
     End if
 
-	if points = 20 then
-	reel(currpl).addvalue(20)
-	bell=2
-	scn=2
-	mv=mv+1
-	motorcheck
+  if points = 20 then
+  reel(currpl).addvalue(20)
+  bell=2
+  scn=2
+  mv=mv+1
+  motorcheck
     End if
 
-	if points = 10 then
-	reel(currpl).addvalue(10)
-	bell=2
+  if points = 10 then
+  reel(currpl).addvalue(10)
+  bell=2
     End if
 
-	if points = 1 then
-	reel(currpl).addvalue(1)
-	bell=1
+  if points = 1 then
+  reel(currpl).addvalue(1)
+  bell=1
     End if
 
-	scntimer.enabled=true
-	score(currpl)=score(currpl)+points
-	truesc(currpl)=truesc(currpl)+points
-	If B2SOn Then
-		Controller.B2SSetScore currpl,score(currpl)
-	End if
-	if score(currpl)>9999 then
-	score(currpl)=score(currpl)-10000
-	rep(currpl)=0
-	End if
+  scntimer.enabled=true
+  score(currpl)=score(currpl)+points
+  truesc(currpl)=truesc(currpl)+points
+  If B2SOn Then
+    Controller.B2SSetScore currpl,score(currpl)
+  End if
+  if score(currpl)>9999 then
+  score(currpl)=score(currpl)-10000
+  rep(currpl)=0
+  End if
 
-	if score(currpl)=>replay1 and rep(currpl)=0 then
-	credit=credit+1
-	qs=qs+2
-	playsound "knocke"
-	credittxt.text=credit
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
-	rep(currpl)=1
-	playsound "click"
-	End if
+  if score(currpl)=>replay1 and rep(currpl)=0 then
+  credit=credit+1
+  qs=qs+2
+  playsound "knocke"
+  credittxt.text=credit
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
+  rep(currpl)=1
+  playsound "click"
+  End if
 
-	if score(currpl)=>replay2 and rep(currpl)=1 then
-	qs=qs+2
-	credit=credit+1
-	playsound "knocke"
-	credittxt.text=credit
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
-	rep(currpl)=2
-	playsound "click"
-	End if
+  if score(currpl)=>replay2 and rep(currpl)=1 then
+  qs=qs+2
+  credit=credit+1
+  playsound "knocke"
+  credittxt.text=credit
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
+  rep(currpl)=2
+  playsound "click"
+  End if
 
-	if score(currpl)=>replay3 and rep(currpl)=2 then
-	credit=credit+1
-	qs=qs+2
-	playsound "knocke"
-	credittxt.text=credit
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
-	rep(currpl)=3
-	playsound "click"
-	End if
+  if score(currpl)=>replay3 and rep(currpl)=2 then
+  credit=credit+1
+  qs=qs+2
+  playsound "knocke"
+  credittxt.text=credit
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
+  rep(currpl)=3
+  playsound "click"
+  End if
 
-	if score(currpl)=>replay4 and rep(currpl)=3 then
-	credit=credit+1
-	qs=qs+2
-	playsound "knocke"
-	credittxt.text=credit
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
-	rep(currpl)=4
-	playsound "click"
-	End if
+  if score(currpl)=>replay4 and rep(currpl)=3 then
+  credit=credit+1
+  qs=qs+2
+  playsound "knocke"
+  credittxt.text=credit
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
+  rep(currpl)=4
+  playsound "click"
+  End if
     End if
 End Sub
 
@@ -518,21 +518,21 @@ End Sub
 
 
 sub wheelcheck
-	If wv=0 or wv=1 then
-	BumperLight1.state=1
-	LeftSlingLight.state=1
-	BumperLight2.state=0
-	BumperLight3.state=0
-	RightSlingLight.state=0
-	If Light50.state=1 then Mushroomlight1.state=0 else MushroomLight1.state=1
-	MushroomLight2.state=0
-	MushroomLight3.state=0
-	If Light50.state=1 then Mushroomlight4.state=0 else	MushroomLight4.state=1
-	If Light50.state=1 then Mushroomlight5.state=0 else	MushroomLight5.state=1
-	If Light50.state=1 then Light1.state=0 else Light1.state=1
-	Light2.state=0
-	Light3.state=0
-	If Light50.state=1 then Light4.state=0 else	Light4.state=1
+  If wv=0 or wv=1 then
+  BumperLight1.state=1
+  LeftSlingLight.state=1
+  BumperLight2.state=0
+  BumperLight3.state=0
+  RightSlingLight.state=0
+  If Light50.state=1 then Mushroomlight1.state=0 else MushroomLight1.state=1
+  MushroomLight2.state=0
+  MushroomLight3.state=0
+  If Light50.state=1 then Mushroomlight4.state=0 else MushroomLight4.state=1
+  If Light50.state=1 then Mushroomlight5.state=0 else MushroomLight5.state=1
+  If Light50.state=1 then Light1.state=0 else Light1.state=1
+  Light2.state=0
+  Light3.state=0
+  If Light50.state=1 then Light4.state=0 else Light4.state=1
     Light8.state=0
     Light9.state=0
     Light10.state=0
@@ -542,20 +542,20 @@ sub wheelcheck
     End if
 
     If wv=2 or wv=3 then
-	BumperLight1.state=1
-	LeftSlingLight.state=1
-	BumperLight2.state=1
-	bumperLight3.state=0
-	RightSlingLight.state=0
-	MushroomLight1.state=0
-	If Light50.state=1 then Mushroomlight2.state=0 else	MushroomLight2.state=1
-	If Light50.state=1 then Mushroomlight3.state=0 else MushroomLight3.state=1
-	MushroomLight4.state=0
-	MushroomLight5.state=0
-	Light1.state=0
-	If Light50.state=1 then Light2.state=0 else Light2.state=1
-	If Light50.state=1 then Light2.state=0 else Light3.state=1
-	Light4.state=0
+  BumperLight1.state=1
+  LeftSlingLight.state=1
+  BumperLight2.state=1
+  bumperLight3.state=0
+  RightSlingLight.state=0
+  MushroomLight1.state=0
+  If Light50.state=1 then Mushroomlight2.state=0 else MushroomLight2.state=1
+  If Light50.state=1 then Mushroomlight3.state=0 else MushroomLight3.state=1
+  MushroomLight4.state=0
+  MushroomLight5.state=0
+  Light1.state=0
+  If Light50.state=1 then Light2.state=0 else Light2.state=1
+  If Light50.state=1 then Light2.state=0 else Light3.state=1
+  Light4.state=0
     Light8.state=1
     Light9.state=1
     Light10.state=1
@@ -565,20 +565,20 @@ sub wheelcheck
     End if
 
     If wv=4 or wv=5 then
-	BumperLight1.state=1
-	LeftSlingLight.state=1
-	BumperLight2.state=1
-	BumperLight3.state=1
-	RightSlingLight.state=1
-	If Light50.state=1 then Mushroomlight1.state=0 else Mushroomlight1.state=1
-	MushroomLight2.state=0
-	MushroomLight3.state=0
-	If Light50.state=1 then Mushroomlight4.state=0 else MushroomLight4.state=1
-	If Light50.state=1 then Mushroomlight5.state=0 else MushroomLight5.state=1
-	If Light50.state=1 then Light1.state=0 else Light1.state=1
-	Light2.state=0
-	Light3.state=0
-	If Light50.state=1 then Light4.state=0 else Light4.state=1
+  BumperLight1.state=1
+  LeftSlingLight.state=1
+  BumperLight2.state=1
+  BumperLight3.state=1
+  RightSlingLight.state=1
+  If Light50.state=1 then Mushroomlight1.state=0 else Mushroomlight1.state=1
+  MushroomLight2.state=0
+  MushroomLight3.state=0
+  If Light50.state=1 then Mushroomlight4.state=0 else MushroomLight4.state=1
+  If Light50.state=1 then Mushroomlight5.state=0 else MushroomLight5.state=1
+  If Light50.state=1 then Light1.state=0 else Light1.state=1
+  Light2.state=0
+  Light3.state=0
+  If Light50.state=1 then Light4.state=0 else Light4.state=1
     Light8.state=0
     Light9.state=0
     Light10.state=0
@@ -588,20 +588,20 @@ sub wheelcheck
     End if
 
     If wv=6 or wv=7 then
-	BumperLight1.state=0
-	LeftSlingLight.state=0
-	BumperLight2.state=1
-	BumperLight3.state=1
-	RightSlingLight.state=1
-	MushroomLight1.state=0
-	If Light50.state=1 then Mushroomlight2.state=0 else MushroomLight2.state=1
-	If Light50.state=1 then Mushroomlight3.state=0 else MushroomLight3.state=1
-	MushroomLight4.state=0
-	MushroomLight5.state=0
-	Light1.state=0
-	If Light50.state=1 then Light2.state=0 else Light2.state=1
-	If Light50.state=1 then Light3.state=0 else Light3.state=1
-	Light4.state=0
+  BumperLight1.state=0
+  LeftSlingLight.state=0
+  BumperLight2.state=1
+  BumperLight3.state=1
+  RightSlingLight.state=1
+  MushroomLight1.state=0
+  If Light50.state=1 then Mushroomlight2.state=0 else MushroomLight2.state=1
+  If Light50.state=1 then Mushroomlight3.state=0 else MushroomLight3.state=1
+  MushroomLight4.state=0
+  MushroomLight5.state=0
+  Light1.state=0
+  If Light50.state=1 then Light2.state=0 else Light2.state=1
+  If Light50.state=1 then Light3.state=0 else Light3.state=1
+  Light4.state=0
     Light8.state=1
     Light9.state=1
     Light10.state=1
@@ -611,20 +611,20 @@ sub wheelcheck
     End if
 
     If wv=8 or wv=9 then
-	BumperLight1.state=0
-	LeftSlingLight.state=0
-	BumperLight2.state=0
-	BumperLight3.state=1
-	RightSlingLight.state=1
-	If Light50.state=1 then Mushroomlight1.state=0 else MushroomLight1.state=1
-	MushroomLight2.state=0
-	MushroomLight3.state=0
-	If Light50.state=1 then Mushroomlight4.state=0 else MushroomLight4.state=1
-	If Light50.state=1 then Mushroomlight5.state=0 else MushroomLight5.state=1
-	If Light50.state=1 then Light1.state=0 else Light1.state=1
-	Light2.state=0
-	Light3.state=0
-	If Light50.state=1 then Light4.state=0 else Light4.state=1
+  BumperLight1.state=0
+  LeftSlingLight.state=0
+  BumperLight2.state=0
+  BumperLight3.state=1
+  RightSlingLight.state=1
+  If Light50.state=1 then Mushroomlight1.state=0 else MushroomLight1.state=1
+  MushroomLight2.state=0
+  MushroomLight3.state=0
+  If Light50.state=1 then Mushroomlight4.state=0 else MushroomLight4.state=1
+  If Light50.state=1 then Mushroomlight5.state=0 else MushroomLight5.state=1
+  If Light50.state=1 then Light1.state=0 else Light1.state=1
+  Light2.state=0
+  Light3.state=0
+  If Light50.state=1 then Light4.state=0 else Light4.state=1
     Light8.state=0
     Light9.state=0
     Light10.state=0
@@ -682,45 +682,45 @@ End Sub
 
 Sub motorcheck
 
-	If mv>2 then mv=0
+  If mv>2 then mv=0
 
-	If mv=0 then
-	Light5.state=1
-	Light6.state=1
-	Light7.state=0
+  If mv=0 then
+  Light5.state=1
+  Light6.state=1
+  Light7.state=0
     End if
 
-	If mv=1 then
-	Light5.state=1
-	Light6.state=0
-	Light7.state=1
+  If mv=1 then
+  Light5.state=1
+  Light6.state=0
+  Light7.state=1
     End if
 
-	If mv=2 then
-	Light5.state=0
-	Light6.state=1
-	Light7.state=1
-	End if
+  If mv=2 then
+  Light5.state=0
+  Light6.state=1
+  Light7.state=1
+  End if
 
 End Sub
 
 
 Sub Lightcheck
-	If sbv1>21 then Light22.State=0: End if
-	If sbv1=21 then Light22.state=1: Light21.state=0: Light20.state=0: Light19.state=0: End if
-	If sbv1=20 then Light21.state=1: Light20.state=0: Light19.state=0: Light18.state=0: End if
-	If sbv1=19 then Light20.state=1: Light19.state=0: Light18.state=0: Light17.state=0: End if
-	If sbv1=18 then Light19.state=1: Light18.state=0: Light17.state=0: End if
-	If sbv1=17 then Light18.state=1: Light17.state=0: End if
-	If sbv1=16 then Light17.state=1: End if
+  If sbv1>21 then Light22.State=0: End if
+  If sbv1=21 then Light22.state=1: Light21.state=0: Light20.state=0: Light19.state=0: End if
+  If sbv1=20 then Light21.state=1: Light20.state=0: Light19.state=0: Light18.state=0: End if
+  If sbv1=19 then Light20.state=1: Light19.state=0: Light18.state=0: Light17.state=0: End if
+  If sbv1=18 then Light19.state=1: Light18.state=0: Light17.state=0: End if
+  If sbv1=17 then Light18.state=1: Light17.state=0: End if
+  If sbv1=16 then Light17.state=1: End if
 
-	If sbv2>21 then Light28.State=0: End if
-	If sbv2=21 then Light28.state=1: Light27.state=0: Light26.state=0: Light25.state=0: End if
-	If sbv2=20 then Light27.state=1: Light26.state=0: Light25.state=0: Light24.state=0: End if
-	If sbv2=19 then Light26.state=1: Light25.state=0: Light24.state=0: Light23.state=0: End if
-	If sbv2=18 then Light25.state=1: Light24.state=0: Light23.state=0: End if
-	If sbv2=17 then Light24.state=1: Light23.state=0: End if
-	If sbv2=16 then Light23.state=1: End if
+  If sbv2>21 then Light28.State=0: End if
+  If sbv2=21 then Light28.state=1: Light27.state=0: Light26.state=0: Light25.state=0: End if
+  If sbv2=20 then Light27.state=1: Light26.state=0: Light25.state=0: Light24.state=0: End if
+  If sbv2=19 then Light26.state=1: Light25.state=0: Light24.state=0: Light23.state=0: End if
+  If sbv2=18 then Light25.state=1: Light24.state=0: Light23.state=0: End if
+  If sbv2=17 then Light24.state=1: Light23.state=0: End if
+  If sbv2=16 then Light23.state=1: End if
 
 End Sub
 
@@ -735,35 +735,35 @@ sub wheelchange_timer
 End Sub
 
 Sub CheckTilt
-	If Tilttimer.Enabled = True Then
-	TiltSens = TiltSens + 1
-	if TiltSens = 2 Then
-	Tilt = True
-	tilttext.text="TILT"
-	If B2SOn Then Controller.B2SSetTilt 1
-	tiltsens = 0
-	playsound "tilt"
-	turnoff
-	End if
-	Else
-	TiltSens = 0
-	Tilttimer.Enabled = True
-	End if
+  If Tilttimer.Enabled = True Then
+  TiltSens = TiltSens + 1
+  if TiltSens = 2 Then
+  Tilt = True
+  tilttext.text="TILT"
+  If B2SOn Then Controller.B2SSetTilt 1
+  tiltsens = 0
+  playsound "tilt"
+  turnoff
+  End if
+  Else
+  TiltSens = 0
+  Tilttimer.Enabled = True
+  End if
 End Sub
 
 Sub MechCheckTilt
-	Tilt = True
-	tilttext.text="TILT"
-	If B2SOn Then Controller.B2SSetTilt 1
-	tiltsens = 0
-	playsound "tilt"
-	LeftFlipper.RotateToStart
-	RightFlipper.RotateToStart
-	turnoff
+  Tilt = True
+  tilttext.text="TILT"
+  If B2SOn Then Controller.B2SSetTilt 1
+  tiltsens = 0
+  playsound "tilt"
+  LeftFlipper.RotateToStart
+  RightFlipper.RotateToStart
+  turnoff
 End Sub
 
 Sub Tilttimer_Timer()
-	Tilttimer.Enabled = False
+  Tilttimer.Enabled = False
 End Sub
 
 sub turnoff
@@ -773,109 +773,109 @@ sub turnoff
 End Sub
 
 Sub Drain_Hit()
-	PlaySoundAt "drainshorter", Drain
-	Light50.state=0
-	Light51.state=0
-	wheelcheck
-	Drain.DestroyBall
-	nextball
+  PlaySoundAt "drainshorter", Drain
+  Light50.state=0
+  Light51.state=0
+  wheelcheck
+  Drain.DestroyBall
+  nextball
 End Sub
 
 sub nextball
-	if tilt=true then
-	tilt=false
-	tilttext.text=" "
-	If B2SOn Then Controller.B2SSetTilt 0:Controller.B2SSetData 81,0
-	tiltseq.stopplay
-	pno.setvalue(playno)
-	End if
-	If B2SOn Then Controller.B2SSetData 81,0
-	ballreltimer.enabled=true
-	scntimer.enabled=False
-	scntimer1.enabled=False
-	scntimer2.enabled=False
-	currpl=currpl+1
-	if B2SOn then Controller.B2SSetPlayerUp currpl
-	if currpl>playno then
-	ballinplay=ballinplay+1
-	if ballinplay>5 then
-	PlaySoundAt "motorleer", Plunger
-	If B2SOn then Controller.B2SSetBallInPlay 0
-	if B2SOn then Controller.B2SSetPlayerUp 0
-	eg=1
-	if sbv1=21 then credit=credit+1: playsound "knocke": qs=qs+2: End if
-	if sbv2=21 then credit=credit+1: playsound "knocke": qs=qs+2: End if
-	credittxt.text=credit
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
-	ballreltimer.enabled=true
-	else
-	if state=true and tilt=false then
-	play(currpl-1).state=0
-	currpl=1
-	play(currpl).state=1
-	if B2SOn then Controller.B2SSetPlayerUp currpl
-	playsound "kickerkick"
-	ballreltimer.enabled=true
-	End if
-	If B2SOn then Controller.B2SSetBallInPlay ballinplay
-	select case (ballinplay)
-	case 1:
-	bip1.text="1"
-	case 2:
-	bip1.text=" "
-	bip2.text="2"
-	case 3:
-	bip2.text=" "
-	bip3.text="3"
-	case 4:
-	bip3.text=" "
-	bip4.text="4"
-	case 5:
-	bip4.text=" "
-	bip5.text="5"
-	end select
-	End if
-	End if
-	if currpl>1 and currpl<(playno+1) then
-	if state=true and tilt=false then
-	play(currpl-1).state=0
-	play(currpl).state=1
-	if B2SOn then Controller.B2SSetPlayerUp currpl
-	playsound "kickerkick"
-	ballreltimer.enabled=true
-	wheelcheck
-	lightcheck
-	End if
-	End if
+  if tilt=true then
+  tilt=false
+  tilttext.text=" "
+  If B2SOn Then Controller.B2SSetTilt 0:Controller.B2SSetData 81,0
+  tiltseq.stopplay
+  pno.setvalue(playno)
+  End if
+  If B2SOn Then Controller.B2SSetData 81,0
+  ballreltimer.enabled=true
+  scntimer.enabled=False
+  scntimer1.enabled=False
+  scntimer2.enabled=False
+  currpl=currpl+1
+  if B2SOn then Controller.B2SSetPlayerUp currpl
+  if currpl>playno then
+  ballinplay=ballinplay+1
+  if ballinplay>5 then
+  PlaySoundAt "motorleer", Plunger
+  If B2SOn then Controller.B2SSetBallInPlay 0
+  if B2SOn then Controller.B2SSetPlayerUp 0
+  eg=1
+  if sbv1=21 then credit=credit+1: playsound "knocke": qs=qs+2: End if
+  if sbv2=21 then credit=credit+1: playsound "knocke": qs=qs+2: End if
+  credittxt.text=credit
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
+  ballreltimer.enabled=true
+  else
+  if state=true and tilt=false then
+  play(currpl-1).state=0
+  currpl=1
+  play(currpl).state=1
+  if B2SOn then Controller.B2SSetPlayerUp currpl
+  playsound "kickerkick"
+  ballreltimer.enabled=true
+  End if
+  If B2SOn then Controller.B2SSetBallInPlay ballinplay
+  select case (ballinplay)
+  case 1:
+  bip1.text="1"
+  case 2:
+  bip1.text=" "
+  bip2.text="2"
+  case 3:
+  bip2.text=" "
+  bip3.text="3"
+  case 4:
+  bip3.text=" "
+  bip4.text="4"
+  case 5:
+  bip4.text=" "
+  bip5.text="5"
+  end select
+  End if
+  End if
+  if currpl>1 and currpl<(playno+1) then
+  if state=true and tilt=false then
+  play(currpl-1).state=0
+  play(currpl).state=1
+  if B2SOn then Controller.B2SSetPlayerUp currpl
+  playsound "kickerkick"
+  ballreltimer.enabled=true
+  wheelcheck
+  lightcheck
+  End if
+  End if
 End Sub
 
 sub ballreltimer_timer
-	if eg=1 then
-	matchnum
-	bip3.text=" "
-	bip5.text=" "
-	state=false
-	for i=1 to 2
-	if truesc(i)>hisc then
-	hisc=truesc(i)
-	hisctxt.text=hisc
-	End if
-	next
-	pno.setvalue(0)
-	play(currpl-1).state=0
-	playno=0
-	gamov.text="GAME OVER"
-	If B2SOn Then
-		Controller.B2SSetGameOver 1
-	End if
+  if eg=1 then
+  matchnum
+  bip3.text=" "
+  bip5.text=" "
+  state=false
+  for i=1 to 2
+  if truesc(i)>hisc then
+  hisc=truesc(i)
+  hisctxt.text=hisc
+  End if
+  next
+  pno.setvalue(0)
+  play(currpl-1).state=0
+  playno=0
+  gamov.text="GAME OVER"
+  If B2SOn Then
+    Controller.B2SSetGameOver 1
+  End if
 
-	savehs
-	ballreltimer.enabled=false
-	else
-	nb.CreateBall
-	nb.kick 90,6
+  savehs
+  ballreltimer.enabled=false
+  else
+  nb.CreateBall
+  nb.kick 90,6
     ballreltimer.enabled=false
     End if
 End Sub
@@ -903,20 +903,20 @@ sub matchnum
     case 9:
     m9.text="9"
     end select
-	If B2SOn Then
+  If B2SOn Then
 
-		if matchnumb=0 then
-			Controller.B2SSetMatch 10
-		else
-			Controller.B2SSetMatch matchnumb
-		End if
-	End if
+    if matchnumb=0 then
+      Controller.B2SSetMatch 10
+    else
+      Controller.B2SSetMatch matchnumb
+    End if
+  End if
     for i=1 to playno
     if matchnumb=(score(i) mod 10) then
     credit=credit+1
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	End if
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  End if
     qs=qs+2
     playsound "knocke"
     credittxt.text= credit
@@ -932,13 +932,13 @@ End Sub
 Dim RStep, Lstep, RStep1, LStep1
 
 Sub RightSlingShot_Slingshot
-	PlaySoundAt "right_slingshot", Sling1
-	RSling.Visible = 0
-	RSling1.Visible = 1
-	sling1.TransZ = -20
-	RStep = 0
-	RightSlingShot.TimerEnabled = 1
-	If RightSlingLight.state=1 then Addscore 10 else Addscore 1
+  PlaySoundAt "right_slingshot", Sling1
+  RSling.Visible = 0
+  RSling1.Visible = 1
+  sling1.TransZ = -20
+  RStep = 0
+  RightSlingShot.TimerEnabled = 1
+  If RightSlingLight.state=1 then Addscore 10 else Addscore 1
 End Sub
 
 Sub RightSlingShot_Timer
@@ -951,13 +951,13 @@ End Sub
 
 
 Sub LeftSlingShot_Slingshot
-	PlaySoundAt "left_slingshot", Sling2
-	LSling.Visible = 0
-	LSling1.Visible = 1
-	sling2.TransZ = -20
-	LStep = 0
-	LeftSlingShot.TimerEnabled = 1
-	If LeftSlingLight.state=1 then Addscore 10 else Addscore 1
+  PlaySoundAt "left_slingshot", Sling2
+  LSling.Visible = 0
+  LSling1.Visible = 1
+  sling2.TransZ = -20
+  LStep = 0
+  LeftSlingShot.TimerEnabled = 1
+  If LeftSlingLight.state=1 then Addscore 10 else Addscore 1
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -1032,16 +1032,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
         rolling(b) = True
@@ -1108,151 +1108,151 @@ End Sub
 ' depending of the speed of the collision.
 
 Sub a_Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Spinner_Spin
-	PlaySoundAt "fx_spinner", a_spinner
+  PlaySoundAt "fx_spinner", a_spinner
 End Sub
 
 Sub a_Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End if
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End if
 End Sub
 
 Sub RubberWheel_hit
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End if
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End if
 End Sub
 
 Sub a_Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End if
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End if
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 sub savehs
-	' Based on Black's Highscore routines
-	Dim FileObj
-	Dim ScoreFile
-	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-	Exit Sub
-	End if
-	Set ScoreFile=FileObj.CreateTextFile(UserDirectory & "2in1.txt",True)
-	scorefile.writeline credit
-	ScoreFile.WriteLine score(0)
-	ScoreFile.WriteLine score(1)
-	scorefile.writeline hisc
-	Scorefile.writeline matchnumb
-	scorefile.writeline wv
-	scorefile.writeline mv
-	scorefile.writeline qs
-	ScoreFile.Close
-	Set ScoreFile=Nothing
-	Set FileObj=Nothing
+  ' Based on Black's Highscore routines
+  Dim FileObj
+  Dim ScoreFile
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+  Exit Sub
+  End if
+  Set ScoreFile=FileObj.CreateTextFile(UserDirectory & "2in1.txt",True)
+  scorefile.writeline credit
+  ScoreFile.WriteLine score(0)
+  ScoreFile.WriteLine score(1)
+  scorefile.writeline hisc
+  Scorefile.writeline matchnumb
+  scorefile.writeline wv
+  scorefile.writeline mv
+  scorefile.writeline qs
+  ScoreFile.Close
+  Set ScoreFile=Nothing
+  Set FileObj=Nothing
 End Sub
 
 sub loadhs
     ' Based on Black's Highscore routines
-	Dim FileObj
-	Dim ScoreFile
-	dim TextStr
-	dim temp1
-	dim temp2
-	dim temp3
-	dim temp4
-	dim temp5
-	dim temp6
-	dim temp7
-	dim temp8
-	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-	Exit Sub
-	End if
-	If Not FileObj.FileExists(UserDirectory & "2in1.txt") then
-	Exit Sub
-	End if
-	Set ScoreFile=FileObj.GetFile(UserDirectory & "2in1.txt")
-	Set TextStr=ScoreFile.OpenAsTextStream(1,0)
-	If (TextStr.AtEndOfStream=True) then
-	Exit Sub
-	End if
-	temp1=TextStr.ReadLine
-	temp2=textstr.readline
-	temp3=textstr.readline
-	temp4=Textstr.ReadLine
-	temp5=Textstr.ReadLine
-	temp6=Textstr.ReadLine
-	temp7=Textstr.ReadLine
-	temp8=Textstr.ReadLine
-	TextStr.Close
-	Credit = CDbl(temp1)
-	score(0) = CDbl(temp2)
-	score(1) = CDbl(temp3)
-	hisc = CDbl(temp4)
-	matchnumb = CDbl(temp5)
+  Dim FileObj
+  Dim ScoreFile
+  dim TextStr
+  dim temp1
+  dim temp2
+  dim temp3
+  dim temp4
+  dim temp5
+  dim temp6
+  dim temp7
+  dim temp8
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+  Exit Sub
+  End if
+  If Not FileObj.FileExists(UserDirectory & "2in1.txt") then
+  Exit Sub
+  End if
+  Set ScoreFile=FileObj.GetFile(UserDirectory & "2in1.txt")
+  Set TextStr=ScoreFile.OpenAsTextStream(1,0)
+  If (TextStr.AtEndOfStream=True) then
+  Exit Sub
+  End if
+  temp1=TextStr.ReadLine
+  temp2=textstr.readline
+  temp3=textstr.readline
+  temp4=Textstr.ReadLine
+  temp5=Textstr.ReadLine
+  temp6=Textstr.ReadLine
+  temp7=Textstr.ReadLine
+  temp8=Textstr.ReadLine
+  TextStr.Close
+  Credit = CDbl(temp1)
+  score(0) = CDbl(temp2)
+  score(1) = CDbl(temp3)
+  hisc = CDbl(temp4)
+  matchnumb = CDbl(temp5)
     wv = CDbl(temp6)
     mv = CDbl(temp7)
     qs = CDbl(temp8)
@@ -1277,180 +1277,180 @@ End Sub
 
 
 Sub Trigger1_Hit()
-	If Light1.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
-	If Light1.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
+  If Light1.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
+  If Light1.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
 
-	Lightcheck
-	If Light13.State=1 then addscore 20 else addscore 10
+  Lightcheck
+  If Light13.State=1 then addscore 20 else addscore 10
 End Sub
 
 Sub Trigger2_Hit()
-	If Light2.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
-	If Light2.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light14.State=1 then addscore 50 else addscore 10
+  If Light2.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
+  If Light2.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light14.State=1 then addscore 50 else addscore 10
 End Sub
 
 Sub Trigger3_Hit()
-	If Light3.state=1 and plno1.state=1 then sbv1=sbv1+3: reel3.addvalue(3): End if
-	If Light3.state=1 and plno2.state=1 then sbv2=sbv2+3: reel4.addvalue(3): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light15.State=1 then addscore 50 else addscore 10
+  If Light3.state=1 and plno1.state=1 then sbv1=sbv1+3: reel3.addvalue(3): End if
+  If Light3.state=1 and plno2.state=1 then sbv2=sbv2+3: reel4.addvalue(3): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light15.State=1 then addscore 50 else addscore 10
 End Sub
 
 Sub Trigger4_Hit()
-	If Light4.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
-	If Light4.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light16.State=1 then addscore 20 else addscore 10
+  If Light4.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
+  If Light4.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light16.State=1 then addscore 20 else addscore 10
 End Sub
 
 Sub Trigger5_Hit()
-	if tilt = false then
-		If Light5.State=1 then addscore 50 else addscore 10
-	End if
+  if tilt = false then
+    If Light5.State=1 then addscore 50 else addscore 10
+  End if
 End Sub
 
 Sub Trigger6_Hit()
-	If tilt = false then
-		If Light50.state=1 then Addscore 10 else addscore 1
-	End if
+  If tilt = false then
+    If Light50.state=1 then Addscore 10 else addscore 1
+  End if
 End Sub
 
 Sub Trigger7_Hit()
-	If tilt = false then
-		If Light51.state=1 then Addscore 10 else addscore 1
-	End if
+  If tilt = false then
+    If Light51.state=1 then Addscore 10 else addscore 1
+  End if
 End Sub
 
 Sub Trigger8_Hit()
-	If Light6.State=1 then addscore 50 else addscore 10
+  If Light6.State=1 then addscore 50 else addscore 10
 End Sub
 
 Sub Trigger9_Hit()
-	If Light7.State=1 then addscore 50 else addscore 10
+  If Light7.State=1 then addscore 50 else addscore 10
 End Sub
 
 Sub Bumper4_Hit()
-	if tilt = false then
-	PlaySoundAt "target", Bumper4
-	If MushroomLight1.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
-	If MushroomLight1.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light8.State=1 then addscore 10 else addscore 1
-	End if
+  if tilt = false then
+  PlaySoundAt "target", Bumper4
+  If MushroomLight1.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
+  If MushroomLight1.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light8.State=1 then addscore 10 else addscore 1
+  End if
 End Sub
 
 Sub Bumper5_Hit()
-	if tilt = false then
-	PlaySoundAt "target", Bumper5
-	If MushroomLight5.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
-	If MushroomLight5.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light9.State=1 then addscore 10 else addscore 1
-	End if
+  if tilt = false then
+  PlaySoundAt "target", Bumper5
+  If MushroomLight5.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
+  If MushroomLight5.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light9.State=1 then addscore 10 else addscore 1
+  End if
 End Sub
 
 Sub Bumper6_Hit()
-	If tilt = false then
-	PlaySoundAt "target", Bumper6
-	If MushroomLight4.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
-	If MushroomLight4.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light10.State=1 then addscore 10 else addscore 1
-	End if
+  If tilt = false then
+  PlaySoundAt "target", Bumper6
+  If MushroomLight4.state=1 and plno1.state=1 then sbv1=sbv1+1: reel3.addvalue(1): End if
+  If MushroomLight4.state=1 and plno2.state=1 then sbv2=sbv2+1: reel4.addvalue(1): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light10.State=1 then addscore 10 else addscore 1
+  End if
 End Sub
 
 Sub Bumper7_Hit()
-	if tilt = false then
-	PlaySoundAt "target", Bumper7
-	If MushroomLight2.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
-	If MushroomLight2.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light11.State=1 then addscore 20 else addscore 1
-	End if
+  if tilt = false then
+  PlaySoundAt "target", Bumper7
+  If MushroomLight2.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
+  If MushroomLight2.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light11.State=1 then addscore 20 else addscore 1
+  End if
 End Sub
 
 Sub Bumper8_Hit()
-	if tilt = false then
-	PlaySoundAt "target", Bumper8
-	If MushroomLight3.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
-	If MushroomLight3.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
-	If B2SOn Then
-		if currpl=1 then
-			Controller.B2SSetScore 3,sbv1
-		Else
-			Controller.B2SSetScore 4,sbv2
-		End if
-	End if
-	Lightcheck
-	If Light12.State=1 then addscore 20 else addscore 1
-	End if
+  if tilt = false then
+  PlaySoundAt "target", Bumper8
+  If MushroomLight3.state=1 and plno1.state=1 then sbv1=sbv1+2: reel3.addvalue(2): End if
+  If MushroomLight3.state=1 and plno2.state=1 then sbv2=sbv2+2: reel4.addvalue(2): End if
+  If B2SOn Then
+    if currpl=1 then
+      Controller.B2SSetScore 3,sbv1
+    Else
+      Controller.B2SSetScore 4,sbv2
+    End if
+  End if
+  Lightcheck
+  If Light12.State=1 then addscore 20 else addscore 1
+  End if
 End Sub
 
 
 Sub LeftSlingShot2_Slingshot()
-	Addscore 1
+  Addscore 1
 End Sub
 
 Sub LeftSlingShot3_Slingshot()
-	Addscore 1
+  Addscore 1
 End Sub
 
 Sub LeftSlingShot4_Slingshot()
@@ -1462,23 +1462,23 @@ Sub RightSlingShot1_Slingshot()
 End Sub
 
 Sub RightSlingShot2_Slingshot()
-	Addscore 1
+  Addscore 1
 End Sub
 
 Sub RightSlingShot3_Slingshot()
-	Addscore 1
+  Addscore 1
 End Sub
 
 Sub RightSlingShot4_Slingshot()
-	Light13.state=1
-	Light14.state=1
-	Light15.state=1
-	Light16.state=1
-	Light1.state=0
-	Light2.state=0
-	Light3.state=0
-	Light4.state=0
-	Playsound "click"
+  Light13.state=1
+  Light14.state=1
+  Light15.state=1
+  Light16.state=1
+  Light1.state=0
+  Light2.state=0
+  Light3.state=0
+  Light4.state=0
+  Playsound "click"
 End Sub
 
 ' *******************************************************************************************************

@@ -20,21 +20,21 @@ Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
 Const BallSize = 50
 
 If Table1.ShowDT = true then
-	Wall28.IsDropped = False
-	Wall30.IsDropped = False
-	Ramp15.visible = True
-	Ramp16.visible = True
-	Ramp17.visible = True
-	Boxers.visible = True
-	For each xx in Digitss:xx.visible = 1: Next
+  Wall28.IsDropped = False
+  Wall30.IsDropped = False
+  Ramp15.visible = True
+  Ramp16.visible = True
+  Ramp17.visible = True
+  Boxers.visible = True
+  For each xx in Digitss:xx.visible = 1: Next
 else
-	Wall28.IsDropped = True
-	Wall30.IsDropped = True
-	Ramp15.visible = False
-	Ramp16.visible = False
-	Ramp17.visible = False
-	Boxers.visible = False
-	For each xx in Digitss:xx.visible = 0: Next
+  Wall28.IsDropped = True
+  Wall30.IsDropped = True
+  Ramp15.visible = False
+  Ramp16.visible = False
+  Ramp17.visible = False
+  Boxers.visible = False
+  For each xx in Digitss:xx.visible = 0: Next
 end if
 
 LoadVPM "01120100", "gts3.vbs", 3.26
@@ -99,16 +99,16 @@ Sub Table1_Init
         .Balls = 3
     End With
 
-	'Kicker
-		Set bsKickerHole = New cvpmBallStack
-	With bsKickerHole
-		.InitSaucer Kicker1,36,210,7
-		.InitEntrySnd "kicker_enter", "SolOn"
-		.InitExitSnd SoundFX("fx_Popper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
-		.KickAngleVar = 2
-	End With
+  'Kicker
+    Set bsKickerHole = New cvpmBallStack
+  With bsKickerHole
+    .InitSaucer Kicker1,36,210,7
+    .InitEntrySnd "kicker_enter", "SolOn"
+    .InitExitSnd SoundFX("fx_Popper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+    .KickAngleVar = 2
+  End With
 
-	'Captive Ball
+  'Captive Ball
 '    Set cbLeft = New cvpmCaptiveBall
 '    With cbLeft
 '        .InitCaptive CaptiveTrigger1, CaptiveWall, Array(Captive1, Captive1a), 355
@@ -119,8 +119,8 @@ Sub Table1_Init
 '        .Start
 '    End With
     Captive1.CreateBall
-	Captive1.kick 180, 4
-	Captive1.enabled = 0
+  Captive1.kick 180, 4
+  Captive1.enabled = 0
 
 '    Set cbRight = New cvpmCaptiveBall
 '    With cbRight
@@ -132,57 +132,57 @@ Sub Table1_Init
 '        .Start
 '    End With
     Captive2.CreateBall
-	Captive2.kick 180, 4
-	Captive2.enabled = 0
+  Captive2.kick 180, 4
+  Captive2.enabled = 0
 
-	'DropTargets
-	     Set dt5Bank = new cvpmdroptarget
+  'DropTargets
+       Set dt5Bank = new cvpmdroptarget
      With dt5Bank
-         .initdrop array(DT17, DT27, DT37, DT47, DT57), array(17, 27, 37, 47, 57)		'set wall and switch arrays
+         .initdrop array(DT17, DT27, DT37, DT47, DT57), array(17, 27, 37, 47, 57)   'set wall and switch arrays
          .InitSnd SoundFX("fx_droptarget",DOFContactors), SoundFX("fx_resetdrop",DOFContactors)
      End With
 
-	     Set dt3Bank = new cvpmdroptarget
+       Set dt3Bank = new cvpmdroptarget
      With dt3Bank
-         .initdrop array (Array(DT15, DT15a), Array(DT25, DT25a), Array(DT35, DT35a)), array(15, 25, 35)		'set wall and switch arrays
+         .initdrop array (Array(DT15, DT15a), Array(DT25, DT25a), Array(DT35, DT35a)), array(15, 25, 35)    'set wall and switch arrays
          .InitSnd SoundFX("fx_droptarget",DOFContactors), SoundFX("fx_resetdrop",DOFContactors)
      End With
 
-	GIon
-	BIP = 0
+  GIon
+  BIP = 0
 
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
 
-	If nightday<5 then
-		For each xx in GI:xx.intensityscale = 1:Next
-		For each xx in controlledgi:xx.intensityscale = 1:Next
-		For each xx in ambientgi:xx.intensityscale = 2: Next
-		For each xx in controlledambientgi:xx.intensityscale = 2:Next
-		For each xx in inserts:xx.intensityscale = 1.2: Next
-	End If
-	If nightday>5 then
-		For each xx in GI:xx.intensityscale = 1:Next
-		For each xx in controlledgi:xx.intensityscale = 1:Next
-		For each xx in ambientgi:xx.intensityscale = 1: Next
-		For each xx in controlledambientgi:xx.intensityscale = 1:Next
-		For each xx in inserts:xx.intensityscale = 1: Next
-	End If
-	If nightday>10 then
-		For each xx in GI:xx.intensityscale = .8:Next
-		For each xx in controlledgi:xx.intensityscale = .8:Next
-		For each xx in ambientgi:xx.intensityscale = .9: Next
-		For each xx in controlledambientgi:xx.intensityscale = .9:Next
-	End If
-	If nightday>40 then
-		For each xx in GI:xx.intensityscale = .5:Next
-		For each xx in controlledgi:xx.intensityscale = .5:Next
-		For each xx in ambientgi:xx.intensityscale = .7: Next
-		For each xx in controlledambientgi:xx.intensityscale = .7:Next
-		For each xx in inserts:xx.intensityscale = .8: Next
-	End If
+  If nightday<5 then
+    For each xx in GI:xx.intensityscale = 1:Next
+    For each xx in controlledgi:xx.intensityscale = 1:Next
+    For each xx in ambientgi:xx.intensityscale = 2: Next
+    For each xx in controlledambientgi:xx.intensityscale = 2:Next
+    For each xx in inserts:xx.intensityscale = 1.2: Next
+  End If
+  If nightday>5 then
+    For each xx in GI:xx.intensityscale = 1:Next
+    For each xx in controlledgi:xx.intensityscale = 1:Next
+    For each xx in ambientgi:xx.intensityscale = 1: Next
+    For each xx in controlledambientgi:xx.intensityscale = 1:Next
+    For each xx in inserts:xx.intensityscale = 1: Next
+  End If
+  If nightday>10 then
+    For each xx in GI:xx.intensityscale = .8:Next
+    For each xx in controlledgi:xx.intensityscale = .8:Next
+    For each xx in ambientgi:xx.intensityscale = .9: Next
+    For each xx in controlledambientgi:xx.intensityscale = .9:Next
+  End If
+  If nightday>40 then
+    For each xx in GI:xx.intensityscale = .5:Next
+    For each xx in controlledgi:xx.intensityscale = .5:Next
+    For each xx in ambientgi:xx.intensityscale = .7: Next
+    For each xx in controlledambientgi:xx.intensityscale = .7:Next
+    For each xx in inserts:xx.intensityscale = .8: Next
+  End If
 End Sub
 
 '**********
@@ -191,30 +191,30 @@ End Sub
 
 Sub table1_KeyDown(ByVal Keycode)
     If keycode = LeftFlipperKey Then
-		 Controller.Switch(4) = 1
-	End If
-	If keycode = RightFlipperkey Then
-		 Controller.Switch(5) = 1
-	End If
+     Controller.Switch(4) = 1
+  End If
+  If keycode = RightFlipperkey Then
+     Controller.Switch(5) = 1
+  End If
     If keycode = PlungerKey Then Plunger.Pullback
     If keycode = LeftTiltKey Then vpmNudge.DoNudge 90, 3:PlaySound SoundFX("fx_nudge",0), 0, 1, -0.1, 0.25
     If keycode = RightTiltKey Then vpmNudge.DoNudge 270, 3:PlaySound SoundFX("fx_nudge",0), 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then vpmNudge.DoNudge 0, 4:PlaySound SoundFX("fx_nudge",0), 0, 1, 0, 0.25
-	If keycode = StartGameKey Then Controller.Switch(3) = 1
+  If keycode = StartGameKey Then Controller.Switch(3) = 1
     If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
     If keycode = LeftFlipperKey Then
-		 Controller.Switch(6) = 0
-		 Controller.Switch(4) = 0
-	End If
-	If keycode = RightFlipperkey Then
-		 Controller.Switch(7) = 0
-		 Controller.Switch(5) = 0
-	End If
+     Controller.Switch(6) = 0
+     Controller.Switch(4) = 0
+  End If
+  If keycode = RightFlipperkey Then
+     Controller.Switch(7) = 0
+     Controller.Switch(5) = 0
+  End If
     If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol SoundFX("SolOn",DOFContactors), Plunger, 1
-	If keycode = StartGameKey Then Controller.Switch(3) = 0
+  If keycode = StartGameKey Then Controller.Switch(3) = 0
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
@@ -222,76 +222,76 @@ End Sub
 ' Solenoids
 ' the commented solenoids are not in used in this script
 '***********
-	'SolCallback(1)  = "vpmSolSound ""Jet"","    	'pop bumper
-	'SolCallback(2)  = "vpmSolSound ""rSling"","	'rightslingshot
-	SolCallback(3)  = "dt5Drop"						'5 bank reset
-	SolCallback(4)  = "dt3Drop"						'3 Bank Reset
-	SolCallback(5)  = "bsKickerHole.SolOut"			'Hole Kicker
-	'SolCallback(6)  = Unused
-	SolCallback(7)  = "SetLamp 170,"				'Bottom Left Flasher
-	SolCallback(8)  = "SetLamp 184,"				'Middle Left Flasher
-	SolCallback(9)  = "SetLamp 181,"				'Top Left Flasher
-	SolCallback(10) = "SetLamp 182,"				'Top Center Flasher
-	SolCallback(11) = "SetLamp 179,"				'Captive Ball Flasher
-	SolCallback(12) = "SetLamp 183,"				'Top Right Flasher
-	SolCallback(13) = "SetLamp 178,"				'Middle Right Flasher
-	SolCallback(14) = "SetLamp 180,"				'5 Bank Flasher
-	SolCallback(15) = "SetLamp 171,"				'Shooter Lane Flasher
-	SolCallBack(16) = "SetLamp 172,"				'Bottom Right Flasher
-	SolCallback(17) = "SolBoxerLeft" 				'Left Boxer
-	SolCallback(18) = "SolBoxerRight" 				'Right Boxer
-	'SolCallback(19) = "SetLamp 174," 				'Backbox Flasher
-	'SolCallback(20) = "SetLamp 175," 				'Backbox Flasher
-	'SolCallback(21) = "SetLamp 175," 				'Backbox Flasher
-	'SolCallback(22) = "SetLamp 175," 				'Backbox Flasher
-	'SolCallback(23) = "SetLamp 175,"				'Backbox Flasher
-	'SolCallback(24) = "SetLamp 175,"				'Backbox Flasher
-	SolCallback(25) = "vpmSolSound ""boxing_bell"","		'Boxing Bell
-	SolCallback(26) = "vpmSolSound ""SolOn"","		'GI Relay A
-	SolCallback(27) = "vpmSolSound ""SolOn"","
-	SolCallback(28) = "bsTrough.SolOut"				'Ball Release
-	SolCallback(29) = "bsTrough.SolIn" 				'Outhole
-	SolCallback(30) = "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"		'Knocker
-	'SolCallBack(31) = "vpmSolSound ""SolOn"","
-	'SolCallback(32) = "vpmNudge.SolGameOn"
-	'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"
-	'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Flipper1,"
+  'SolCallback(1)  = "vpmSolSound ""Jet"","     'pop bumper
+  'SolCallback(2)  = "vpmSolSound ""rSling"","  'rightslingshot
+  SolCallback(3)  = "dt5Drop"           '5 bank reset
+  SolCallback(4)  = "dt3Drop"           '3 Bank Reset
+  SolCallback(5)  = "bsKickerHole.SolOut"     'Hole Kicker
+  'SolCallback(6)  = Unused
+  SolCallback(7)  = "SetLamp 170,"        'Bottom Left Flasher
+  SolCallback(8)  = "SetLamp 184,"        'Middle Left Flasher
+  SolCallback(9)  = "SetLamp 181,"        'Top Left Flasher
+  SolCallback(10) = "SetLamp 182,"        'Top Center Flasher
+  SolCallback(11) = "SetLamp 179,"        'Captive Ball Flasher
+  SolCallback(12) = "SetLamp 183,"        'Top Right Flasher
+  SolCallback(13) = "SetLamp 178,"        'Middle Right Flasher
+  SolCallback(14) = "SetLamp 180,"        '5 Bank Flasher
+  SolCallback(15) = "SetLamp 171,"        'Shooter Lane Flasher
+  SolCallBack(16) = "SetLamp 172,"        'Bottom Right Flasher
+  SolCallback(17) = "SolBoxerLeft"        'Left Boxer
+  SolCallback(18) = "SolBoxerRight"         'Right Boxer
+  'SolCallback(19) = "SetLamp 174,"         'Backbox Flasher
+  'SolCallback(20) = "SetLamp 175,"         'Backbox Flasher
+  'SolCallback(21) = "SetLamp 175,"         'Backbox Flasher
+  'SolCallback(22) = "SetLamp 175,"         'Backbox Flasher
+  'SolCallback(23) = "SetLamp 175,"       'Backbox Flasher
+  'SolCallback(24) = "SetLamp 175,"       'Backbox Flasher
+  SolCallback(25) = "vpmSolSound ""boxing_bell"","    'Boxing Bell
+  SolCallback(26) = "vpmSolSound ""SolOn"","    'GI Relay A
+  SolCallback(27) = "vpmSolSound ""SolOn"","
+  SolCallback(28) = "bsTrough.SolOut"       'Ball Release
+  SolCallback(29) = "bsTrough.SolIn"        'Outhole
+  SolCallback(30) = "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"   'Knocker
+  'SolCallBack(31) = "vpmSolSound ""SolOn"","
+  'SolCallback(32) = "vpmNudge.SolGameOn"
+  'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"
+  'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Flipper1,"
 
     Sub dt3Drop(Enabled)
-		If Enabled Then
-		delaytimer.enabled = 1
-		End if
+    If Enabled Then
+    delaytimer.enabled = 1
+    End if
     End Sub
-	Sub delaytimer_timer
-		dt3Bank.DropSol_On
-		DT1525.IsDropped = 0
-		DT2535.IsDropped = 0
-		delaytimer.enabled = 0
-	End Sub
+  Sub delaytimer_timer
+    dt3Bank.DropSol_On
+    DT1525.IsDropped = 0
+    DT2535.IsDropped = 0
+    delaytimer.enabled = 0
+  End Sub
     Sub dt5Drop(Enabled)
-		If Enabled Then
-			dt5Bank.DropSol_On
-			DT1727.IsDropped = 0
-			DT2737.IsDropped = 0
-			DT3747.IsDropped = 0
-			DT4757.IsDropped = 0
-		End if
+    If Enabled Then
+      dt5Bank.DropSol_On
+      DT1727.IsDropped = 0
+      DT2737.IsDropped = 0
+      DT3747.IsDropped = 0
+      DT4757.IsDropped = 0
+    End if
     End Sub
-	Sub SolBoxerLeft(enabled)
-		if enabled then
-			Boxers.setvalue(2)
-		else
-			Boxers.setvalue(0)
-		end if
-	end sub
+  Sub SolBoxerLeft(enabled)
+    if enabled then
+      Boxers.setvalue(2)
+    else
+      Boxers.setvalue(0)
+    end if
+  end sub
 
-	Sub SolBoxerRight(enabled)
-		if enabled then
-			Boxers.setvalue(1)
-		else
-			Boxers.setvalue(0)
-		end if
-	end sub
+  Sub SolBoxerRight(enabled)
+    if enabled then
+      Boxers.setvalue(1)
+    else
+      Boxers.setvalue(0)
+    end if
+  end sub
 '***************
 '  Slingshots
 '***************
@@ -301,7 +301,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw(11)
+  vpmTimer.PulseSw(11)
     PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -479,11 +479,11 @@ Sub SolLFlipper(Enabled)
     If Enabled Then
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, 1
         LeftFlipper.RotateToEnd
-		LeftFlipper1.RotateToEnd
+    LeftFlipper1.RotateToEnd
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, 1
         LeftFlipper.RotateToStart
-		LeftFlipper1.RotateToStart
+    LeftFlipper1.RotateToStart
     End If
 End Sub
 
@@ -491,13 +491,13 @@ Sub SolRFlipper(Enabled)
     If Enabled Then
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, 1
         RightFlipper.RotateToEnd
-		UpperFlipper.RotateToEnd
-		RightFlipper1.RotateToEnd
+    UpperFlipper.RotateToEnd
+    RightFlipper1.RotateToEnd
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, 1
         RightFlipper.RotateToStart
-		UpperFlipper.RotateToStart
-		RightFlipper1.RotateToStart
+    UpperFlipper.RotateToStart
+    RightFlipper1.RotateToStart
     End If
 End Sub
 
@@ -539,129 +539,129 @@ Sub LampTimer_Timer()
 End Sub
 
 Sub UpdateLamps
-	NFadeL 0, L0
-	NFadeL 1, L1
-	NFadeL 2, L2
-	NFadeL 3, L3
-	NFadeL 4, L4
-	NFadeL 5, L5
-	NFadeL 6, L6
-	NFadeL 7, L7
-	NFadeL 10, L10
-	NFadeL 11, L11
-	NFadeL 13, L13
-	NFadeL 14, L14
-	NFadeL 20, L20
-	NFadeL 21, L21
-	NFadeL 22, L22
-	NFadeL 23, L23
-	NFadeL 24, L24
-	NFadeL 25, L25
-	NFadeL 26, L26
-	NFadeL 27, L27
-	NFadeL 30, L30
-	NFadeL 31, L31
-	NFadeL 32, L32
-	NFadeL 33, L33
-	NFadeL 34, L34
-	NFadeLm 35, L35a
-	NFadeLm 35, L35bulb
-	NFadeL 35, L35
-	NFadeLm 36, L36a
-	NFadeLm 36, L36b
-	NFadeLm 36, L36bulb
-	NFadeL 36, L36
-	NFadeL 37, L37
-	NFadeL 40, L40
-	NFadeL 41, L41
-	NFadeL 42, L42
-	NFadeL 46, L46
-	NFadeL 47, L47
-	NFadeL 50, L50
-	NFadeL 51, L51
-	NFadeL 52, L52
-	NFadeL 53, L53
-	NFadeL 54, L54
-	NFadeL 55, L55
-	NFadeL 56, L56
-	NFadeL 57, L57
-	NFadeL 60, L60
-	NFadeL 63, L63
-	NFadeL 64, L64
-	NFadeL 65, L65
-	NFadeL 66, L66
-	NFadeL 67, L67
-	NFadeLm 70, L70a
-	NFadeLm 70, L70bulb
-	NFadeL 70, L70
-	NFadeLm 71, L71a
-	NFadeLm 71, L71bulb
-	NFadeL 71, L71
-	NFadeLm 72, L72a
-	NFadeLm 72, L72bulb
-	NFadeL 72, L72
-	NFadeLm 73, L73a
-	NFadeLm 73, L73bulb
-	NFadeL 73, L73
-	NFadeLm 74, L74a
-	NFadeLm 74, L74b
-	NFadeLm 74, L74bulb
-	NFadeL 74, L74
-	NFadeLm 75, L75a
-	NFadeLm 75, L75b
-	NFadeLm 75, L75bulb
-	NFadeL 75, L75
-	NFadeLm 76, L76a
-	NFadeLm 76, L76b
-	NFadeL 76, L76
-	NFadeLm 80, L80a
-	NFadeLm 80, L80b
-	NFadeL 80, L80
-	NFadeLm 81, L81a
-	NFadeLm 81, L81b
-	NFadeL 81, L81
-	NFadeLm 82, L82a
-'	NFadeLm 82, L82b
-	NFadeL 82, L82
-	NFadeLm 83, L83a
-'	NFadeLm 83, L83b
-	NFadeL 83, L83
-	NFadeL 84, L84
-	NFadeL 85, L85
+  NFadeL 0, L0
+  NFadeL 1, L1
+  NFadeL 2, L2
+  NFadeL 3, L3
+  NFadeL 4, L4
+  NFadeL 5, L5
+  NFadeL 6, L6
+  NFadeL 7, L7
+  NFadeL 10, L10
+  NFadeL 11, L11
+  NFadeL 13, L13
+  NFadeL 14, L14
+  NFadeL 20, L20
+  NFadeL 21, L21
+  NFadeL 22, L22
+  NFadeL 23, L23
+  NFadeL 24, L24
+  NFadeL 25, L25
+  NFadeL 26, L26
+  NFadeL 27, L27
+  NFadeL 30, L30
+  NFadeL 31, L31
+  NFadeL 32, L32
+  NFadeL 33, L33
+  NFadeL 34, L34
+  NFadeLm 35, L35a
+  NFadeLm 35, L35bulb
+  NFadeL 35, L35
+  NFadeLm 36, L36a
+  NFadeLm 36, L36b
+  NFadeLm 36, L36bulb
+  NFadeL 36, L36
+  NFadeL 37, L37
+  NFadeL 40, L40
+  NFadeL 41, L41
+  NFadeL 42, L42
+  NFadeL 46, L46
+  NFadeL 47, L47
+  NFadeL 50, L50
+  NFadeL 51, L51
+  NFadeL 52, L52
+  NFadeL 53, L53
+  NFadeL 54, L54
+  NFadeL 55, L55
+  NFadeL 56, L56
+  NFadeL 57, L57
+  NFadeL 60, L60
+  NFadeL 63, L63
+  NFadeL 64, L64
+  NFadeL 65, L65
+  NFadeL 66, L66
+  NFadeL 67, L67
+  NFadeLm 70, L70a
+  NFadeLm 70, L70bulb
+  NFadeL 70, L70
+  NFadeLm 71, L71a
+  NFadeLm 71, L71bulb
+  NFadeL 71, L71
+  NFadeLm 72, L72a
+  NFadeLm 72, L72bulb
+  NFadeL 72, L72
+  NFadeLm 73, L73a
+  NFadeLm 73, L73bulb
+  NFadeL 73, L73
+  NFadeLm 74, L74a
+  NFadeLm 74, L74b
+  NFadeLm 74, L74bulb
+  NFadeL 74, L74
+  NFadeLm 75, L75a
+  NFadeLm 75, L75b
+  NFadeLm 75, L75bulb
+  NFadeL 75, L75
+  NFadeLm 76, L76a
+  NFadeLm 76, L76b
+  NFadeL 76, L76
+  NFadeLm 80, L80a
+  NFadeLm 80, L80b
+  NFadeL 80, L80
+  NFadeLm 81, L81a
+  NFadeLm 81, L81b
+  NFadeL 81, L81
+  NFadeLm 82, L82a
+' NFadeLm 82, L82b
+  NFadeL 82, L82
+  NFadeLm 83, L83a
+' NFadeLm 83, L83b
+  NFadeL 83, L83
+  NFadeL 84, L84
+  NFadeL 85, L85
 
-	NFadeLm 170, L170b
-	NFadeLm 170, L170a
-	NFadeL 170, L170
-	NFadeLm 171, L171b
-	NFadeLm 171, L171a
-	NFadeL 171,	 L171
-	NFadeLm 172, L172b
-	NFadeLm 172, L172a
-	NFadeL 172, L172
-	NFadeLm 178, L178b
-	NFadeLm 178, L178a
-	NFadeL 178, L178
-	NFadeLm 179, L179e
-	NFadeLm 179, L179d
-	NFadeLm 179, L179c
-	NFadeLm 179, L179b
-	NFadeLm 179, L179a
-	NFadeL 179, L179
-	NFadeLm 180, L180b
-	NFadeLm 180, L180a
-	NFadeL 180, L180
-	NFadeLm 181, L181b
-	NFadeLm 181, L181a
-	NFadeL 181, L181
-	NFadeLm 182, L182b
-	NFadeLm 182, L182a
-	NFadeL 182, L182
-	NFadeLm 183, L183b
-	NFadeLm 183, L183a
-	NFadeL 183, L183
-	NFadeLm 184, L184b
-	NFadeLm 184, L184a
-	NFadeL 184, L184
+  NFadeLm 170, L170b
+  NFadeLm 170, L170a
+  NFadeL 170, L170
+  NFadeLm 171, L171b
+  NFadeLm 171, L171a
+  NFadeL 171,  L171
+  NFadeLm 172, L172b
+  NFadeLm 172, L172a
+  NFadeL 172, L172
+  NFadeLm 178, L178b
+  NFadeLm 178, L178a
+  NFadeL 178, L178
+  NFadeLm 179, L179e
+  NFadeLm 179, L179d
+  NFadeLm 179, L179c
+  NFadeLm 179, L179b
+  NFadeLm 179, L179a
+  NFadeL 179, L179
+  NFadeLm 180, L180b
+  NFadeLm 180, L180a
+  NFadeL 180, L180
+  NFadeLm 181, L181b
+  NFadeLm 181, L181a
+  NFadeL 181, L181
+  NFadeLm 182, L182b
+  NFadeLm 182, L182a
+  NFadeL 182, L182
+  NFadeLm 183, L183b
+  NFadeLm 183, L183a
+  NFadeL 183, L183
+  NFadeLm 184, L184b
+  NFadeLm 184, L184a
+  NFadeL 184, L184
     'Flashers
 
 End Sub
@@ -862,7 +862,7 @@ End Sub
 
 ' play a looping sound at a location with volume
 Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
-	PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************
@@ -966,7 +966,7 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
         rolling(b) = True
@@ -1036,119 +1036,119 @@ End Sub
 '***Sounds***
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Wood_Hit (idx)
-	PlaySound "fx_woodhit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "fx_woodhit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gate3_Hit ()
-	PlaySoundAtVol "gate4", ActiveBall, 1
+  PlaySoundAtVol "gate4", ActiveBall, 1
 End Sub
 
 Sub Gate2_Hit ()
-	PlaySoundAtVol "gate", ActiveBall, 1
+  PlaySoundAtVol "gate", ActiveBall, 1
 End Sub
 
 Sub Gate1_Hit ()
-	PlaySoundAtVol "gate", ActiveBall, 1
+  PlaySoundAtVol "gate", ActiveBall, 1
 End Sub
 
 Sub physicalrubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub physicalposts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 Sub LeftFlipper1_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 Sub RightFlipper1_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 Sub UpperFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 '*****GI Lights On
 dim xx, BIP
 Sub GIon()
-	For each xx in GI:xx.State = 1: Next
-	For each xx in ambientgi:xx.State = 1: Next
-	For each xx in gibulbs:xx.State = 1: Next
-'	table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
+  For each xx in GI:xx.State = 1: Next
+  For each xx in ambientgi:xx.State = 1: Next
+  For each xx in gibulbs:xx.State = 1: Next
+' table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
 End Sub
 Sub GIoff()
-	For each xx in GI:xx.State = 0: Next
-	For each xx in inserts:xx.intensityscale = 2: Next
-	For each xx in ambientgi:xx.State = 0: Next
-	For each xx in gibulbs:xx.State = 0: Next
-'	table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat3"
+  For each xx in GI:xx.State = 0: Next
+  For each xx in inserts:xx.intensityscale = 2: Next
+  For each xx in ambientgi:xx.State = 0: Next
+  For each xx in gibulbs:xx.State = 0: Next
+' table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat3"
 End Sub
 Sub Trigger1_Hit():BIP=BIP+1:GIon:End Sub
 Sub boxingring_Hit()
-	If BIP>1 Then
-		GIon
-	Else
-		GIoff
-	End If
+  If BIP>1 Then
+    GIon
+  Else
+    GIoff
+  End If
 End Sub
 Sub kickertrigger_Hit()
-	If BIP>1 Then
-		GIon
-	Else
-		GIoff
-	End If
+  If BIP>1 Then
+    GIon
+  Else
+    GIoff
+  End If
 End Sub
 Sub kickertrigger_UnHit():Me.TimerEnabled = 1:End Sub
 Sub kickertrigger_Timer:GIon:Me.TimerEnabled = 0:End Sub
@@ -1157,32 +1157,32 @@ Dim loops, loopa, loopb
 Sub loopstop_Hit():loops = 0:loopa= 0:loopb = 0:End Sub
 Sub Loop1_Hit():loopa = 1:End Sub
 Sub Loop2_Hit()
-	If loops=0 Then
-		If loopa = 1 and loopb = 1 Then
-			loops=1
-		End If
-		If loopa=1 and loopb = 0 Then
-			loopb = 1
-		End If
-	Else
-		loops=loops+1
-	End If
+  If loops=0 Then
+    If loopa = 1 and loopb = 1 Then
+      loops=1
+    End If
+    If loopa=1 and loopb = 0 Then
+      loopb = 1
+    End If
+  Else
+    loops=loops+1
+  End If
 End Sub
 Sub Looptest_Hit()
-	If loops=1 Then
-		GIoff
-	Else
-		If loopa = 1 and loopb = 0 Then
-			loopa = 0
-		End If
-	End If
+  If loops=1 Then
+    GIoff
+  Else
+    If loopa = 1 and loopb = 0 Then
+      loopa = 0
+    End If
+  End If
 End Sub
 
 'Flipper Prims
 Sub FlipperTimer_Timer
-	Primitive147.roty = LeftFlipper.currentangle - 120
-	Primitive149.roty = UpperFlipper.currentangle - 215
-	Primitive148.roty = RightFlipper.currentangle + 120
+  Primitive147.roty = LeftFlipper.currentangle - 120
+  Primitive149.roty = UpperFlipper.currentangle - 215
+  Primitive148.roty = RightFlipper.currentangle + 120
 End Sub
 
 
@@ -1241,15 +1241,15 @@ Digits(46)=Array(LED43,LED44,LED45,LED46,LED47,LED48,LED49)
 Digits(47)=Array(LED50,LED51,LED52,LED53,LED54,LED55,LED56)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLED = Controller.ChangedLEDs(&HFFFFFFFF, &HFFFFFFFF) 'hex of binary (display 111111, or first 6 digits)
-	If Not IsEmpty(ChgLED) Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			For Each obj In Digits(num)
-				If chg And 1 Then obj.State = stat And 1
-				chg = chg\2 : stat = stat\2
-			Next
-		next
-	end if
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLED = Controller.ChangedLEDs(&HFFFFFFFF, &HFFFFFFFF) 'hex of binary (display 111111, or first 6 digits)
+  If Not IsEmpty(ChgLED) Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      For Each obj In Digits(num)
+        If chg And 1 Then obj.State = stat And 1
+        chg = chg\2 : stat = stat\2
+      Next
+    next
+  end if
 End Sub

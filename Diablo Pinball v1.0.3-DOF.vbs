@@ -288,7 +288,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         If keycode = LeftFlipperKey Then SolLFlipper 1:InstantInfoTimer.Enabled = True
         If keycode = RightFlipperKey Then SolRFlipper 1:InstantInfoTimer.Enabled = True
 
-		If keycode = MechanicalTilt Then Tilted = 1:MechCheckTilt:End If
+    If keycode = MechanicalTilt Then Tilted = 1:MechCheckTilt:End If
 
         If keycode = StartGameKey Then
             If((PlayersPlayingGame <MaxPlayers) AND(bOnTheFirstBall = True) ) Then
@@ -602,13 +602,13 @@ Dim OldGiState
 OldGiState = -1   'start witht the Gi off
 
 Sub ChangeGi(col) 'changes the gi color
-	Dim i
-	ActiveDOFCol = 140 + col
-	DOF ActiveDOFCol, DOFOn
-	debug.print ActiveDOFCol
-	For i = 140 to 150
-		If i <> ActiveDOFCol Then DOF i, DOFOff
-	Next
+  Dim i
+  ActiveDOFCol = 140 + col
+  DOF ActiveDOFCol, DOFOn
+  debug.print ActiveDOFCol
+  For i = 140 to 150
+    If i <> ActiveDOFCol Then DOF i, DOFOff
+  Next
     Dim bulb
     For each bulb in aGILights
         SetLightColor bulb, col, -1
@@ -874,8 +874,8 @@ Sub CreateNewBall()
 ' set the bAutoPlunger flag to kick the ball in play automatically
     If BallsOnPlayfield> 1 Then
         DOF 111, DOFPulse
-		DOF 112, DOFPulse
-		DOF 126, DOFPulse
+    DOF 112, DOFPulse
+    DOF 126, DOFPulse
         bMultiBallMode = True
         bAutoPlunger = True
     End If
@@ -1153,7 +1153,7 @@ Sub Drain_Hit()
 
     ' pretend to knock the ball into the ball storage mech
     PlaySoundAtVol "fx_drain", drain, 1
-	DOF 113, DOFPulse
+  DOF 113, DOFPulse
     'if Tilted the end Ball Mode
     If Tilted Then
         StopEndOfBallMode
@@ -1182,11 +1182,11 @@ Sub Drain_Hit()
                     ' you may wish to change any music over at this point and
                     ' turn off any multiball specific lights
                     ' ResetJackpotLights
-					l42.State = 0
-					l43.State = 0
-					l44.State = 0
-					l45.State = 0
-					l46.State = 0
+          l42.State = 0
+          l43.State = 0
+          l44.State = 0
+          l45.State = 0
+          l46.State = 0
                     PlaySong "mu_main"
                 End If
             End If
@@ -1232,7 +1232,7 @@ Sub swPlungerRest_Hit()
         'debug.print "autofire the ball"
         PlungerIM.AutoFire
         DOF 111, DOFPulse
-		DOF 112, DOFPulse
+    DOF 112, DOFPulse
         bAutoPlunger = False
     End If
     ' if there is a need for a ball saver, then start off a timer
@@ -1345,9 +1345,9 @@ Sub AddJackpot(points) 'not used in this table
 ' If(bMultiBallMode = True) Then
 ' Jackpot = Jackpot + points
 ' you may wish to limit the jackpot to a upper limit, ie..
-'	If (Jackpot >= 6000) Then
-'		Jackpot = 6000
-' 	End if
+' If (Jackpot >= 6000) Then
+'   Jackpot = 6000
+'   End if
 'End if
 'End if
 End Sub
@@ -1358,9 +1358,9 @@ Sub AddSuperJackpot(points)
     ' If(bMultiBallMode = True) Then
     '   SuperJackpot = SuperJackpot + points
     ' you may wish to limit the jackpot to a upper limit, ie..
-    '	If (Jackpot >= 6000) Then
-    '		Jackpot = 6000
-    ' 	End if
+    ' If (Jackpot >= 6000) Then
+    '   Jackpot = 6000
+    '   End if
     'End if
     End if
 End Sub
@@ -1400,8 +1400,8 @@ Sub AwardExtraBall()
         DMDBlink "black.jpg", " ", "EXTRA BALL WON", 100, 10
         'DMD "extra-ball.wmv", "", "", 5000
         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
-		DOF 121, DOFPulse
-		DOF 112, DOFPulse
+    DOF 121, DOFPulse
+    DOF 112, DOFPulse
         bExtraBallWonThisBall = True
         GiEffect 1
         LightEffect 2
@@ -1412,8 +1412,8 @@ Sub AwardSpecial()
     DMDBlink "black.jpg", " ", "EXTRA GAME WON", 100, 10
     Credits = Credits + 1
     DOF 114, DOFOn
-	DOF 121, DOFPulse
-	DOF 112, DOFPulse
+  DOF 121, DOFPulse
+  DOF 112, DOFPulse
     GiEffect 1
     LightEffect 1
 End Sub
@@ -1426,10 +1426,10 @@ Sub AwardJackpot() 'award a normal jackpot, double or triple jackpot
     PlaySound "criticalhit"
     AddScore Jackpot
     GiEffect 1
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     LightEffect 2
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
 End Sub
 
 Sub AwardDoubleJackpot() 'in this table the jackpot is always 1 million + 10% of your score
@@ -1438,10 +1438,10 @@ Sub AwardDoubleJackpot() 'in this table the jackpot is always 1 million + 10% of
     PlaySound "criticalhit"
     AddScore Jackpot
     GiEffect 1
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     LightEffect 2
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
 End Sub
 
 Sub AwardSuperJackpot() 'this is actually a tripple jackpot
@@ -1450,10 +1450,10 @@ Sub AwardSuperJackpot() 'this is actually a tripple jackpot
     PlaySound "criticalhit"
     AddScore SuperJackpot
     GiEffect 1
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     LightEffect 2
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
 End Sub
 
 Sub AwardSkillshot()
@@ -1485,7 +1485,7 @@ Sub AwardSkillshot()
     SkillShotValue(CurrentPLayer) = SkillShotValue(CurrentPLayer) + 1000000
     'do some light show
     GiEffect 1
-	DOF 117, DOFPulse
+  DOF 117, DOFPulse
     LightEffect 2
     'enable the start act/battle by opening the chest door
     DropChestDoor
@@ -1937,7 +1937,7 @@ Sub RainbowTimer_Timer 'rainbow led light color changing
 End Sub
 
 '***********************************************************************************
-'         	    JPS DMD - very simple DMD routines using UltraDMD
+'               JPS DMD - very simple DMD routines using UltraDMD
 '***********************************************************************************
 
 Dim UltraDMD
@@ -2500,7 +2500,7 @@ End Sub
 Sub Bumper1_Hit
     If NOT Tilted Then
         PlaySoundAtVol SoundFXDOF("fx_Bumper",107,DOFPulse,DOFContactors), Bumper1, VolBump
-		DOF 129, DOFPulse
+    DOF 129, DOFPulse
         PlaySound "di_sword1"
         ' add some points
         If bBumperFrenzy Then
@@ -2513,7 +2513,7 @@ Sub Bumper1_Hit
         If Mode(0) = 2 Then
             LordStrength = LordStrength - 1 - Level(CurrentPLayer)
             FlashEffect 2
-			DOF 154, DOFPulse
+      DOF 154, DOFPulse
             CheckLordStrength
             ' Restart the Lords life restore timer
             LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2525,7 +2525,7 @@ End Sub
 Sub Bumper2_Hit
     If NOT Tilted Then
         PlaySoundAtVol SoundFXDOF("fx_Bumper",108,DOFPulse,DOFContactors), Bumper2, VolBump
-		DOF 130, DOFPulse
+    DOF 130, DOFPulse
         PlaySound "di_sword2"
         ' add some points
         If bBumperFrenzy Then
@@ -2538,7 +2538,7 @@ Sub Bumper2_Hit
         If Mode(0) = 2 Then
             LordStrength = LordStrength - 1 - Level(CurrentPLayer)
             FlashEffect 2
-			DOF 154, DOFPulse
+      DOF 154, DOFPulse
             CheckLordStrength
             ' Restart the Lords life restore timer
             LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2550,7 +2550,7 @@ End Sub
 Sub Bumper3_Hit
     If NOT Tilted Then
         PlaySoundAtVol SoundFXDOF("fx_Bumper",109,DOFPulse,DOFContactors), Bumper3, VolBump
-		DOF 131, DOFPulse
+    DOF 131, DOFPulse
         PlaySound "di_sword3"
         ' add some points
         If bBumperFrenzy Then
@@ -2563,7 +2563,7 @@ Sub Bumper3_Hit
         If Mode(0) = 2 Then
             LordStrength = LordStrength - 1 - Level(CurrentPLayer)
             FlashEffect 2
-			DOF 154, DOFPulse
+      DOF 154, DOFPulse
             CheckLordStrength
             ' Restart the Lords life restore timer
             LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2587,7 +2587,7 @@ Sub Bumper4_Hit
         If Mode(0) = 2 Then
             LordStrength = LordStrength - 1 - Level(CurrentPLayer)
             FlashEffect 2
-			DOF 154, DOFPulse
+      DOF 154, DOFPulse
             CheckLordStrength
             ' Restart the Lords life restore timer
             LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2650,7 +2650,7 @@ End Sub
 Sub triggertop1_Hit
     ' PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
     PlaySoundAtVol "fx_sensor", triggertop1, 1
-	DOF 122, DOFPulse
+  DOF 122, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     If bskillshotReady Then ResetSkillShotTimer_Timer
@@ -2660,7 +2660,7 @@ Sub triggertop1_Hit
     ' Do some sound or light effect: turn on bumper 1 lights
     If Mode(0) <> 2 Then 'during the Butcher's fight the bumpers are blinking
         FlashForms BumperLight1, 1000, 40, 1:FlashForms BumperLight1a, 1000, 40, 1
-		DOF 138, DOFPulse
+    DOF 138, DOFPulse
     End If
     LastSwitchHit = "triggertop1"
     ' do some check
@@ -2670,7 +2670,7 @@ End Sub
 Sub triggertop2_Hit 'this is the skillshot lane
     ' PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
     PlaySoundAtVol "fx_sensor", triggertop2, 1
-	DOF 123, DOFPulse
+  DOF 123, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     If bskillshotReady Then
@@ -2682,7 +2682,7 @@ Sub triggertop2_Hit 'this is the skillshot lane
     ' Do some sound or light effect: turn on bumper 2 lights
     If Mode(0) <> 2 Then 'during the Butcher's fight the bumpers are blinking
         FlashForms BumperLight2, 1000, 40, 1:FlashForms BumperLight2a, 1000, 40, 1
-		DOF 139, DOFPulse
+    DOF 139, DOFPulse
     End If
     LastSwitchHit = "triggertop2"
     ' do some check
@@ -2692,7 +2692,7 @@ End Sub
 Sub triggertop3_Hit
     ' PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
     PlaySoundAtVol "fx_sensor", triggertop3, 1
-	DOF 124, DOFPulse
+  DOF 124, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     If bskillshotReady Then ResetSkillShotTimer_Timer
@@ -2702,7 +2702,7 @@ Sub triggertop3_Hit
     ' Do some sound or light effect: turn on bumper 3 lights
     If Mode(0) <> 2 Then 'during the Butcher's fight the bumpers are blinking
         FlashForms BumperLight3, 1000, 40, 1:FlashForms BumperLight3a, 1000, 40, 1
-		DOF 140, DOFPulse
+    DOF 140, DOFPulse
     End If
     LastSwitchHit = "triggertop3"
     ' do some check
@@ -2741,7 +2741,7 @@ End Sub
 
 Sub sw1_Hit
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
-	DOF 132, DOFPulse
+  DOF 132, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     l15.State = 1
@@ -2753,7 +2753,7 @@ End Sub
 
 Sub sw2_Hit
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
-	DOF 133, DOFPulse
+  DOF 133, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     l16.State = 1
@@ -2765,7 +2765,7 @@ End Sub
 
 Sub sw3_Hit
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
-	DOF 133, DOFPulse
+  DOF 133, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     l17.State = 1
@@ -2777,7 +2777,7 @@ End Sub
 
 Sub sw4_Hit
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
-	DOF 134, DOFPulse
+  DOF 134, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     l18.State = 1
@@ -2789,7 +2789,7 @@ End Sub
 
 Sub sw5_Hit
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
-	DOF 135, DOFPulse
+  DOF 135, DOFPulse
     If Tilted Then Exit Sub
     LaneBonus = LaneBonus + 1
     l19.State = 1
@@ -2812,9 +2812,9 @@ Sub CheckQUESTLanes() 'use the lane lights
         l19.State = 0
         LightEffect 1
         GIEffect 1
-		DOF 117, DOFPulse
+    DOF 117, DOFPulse
         FlashEffect 1
-		DOF 155, DOFPulse
+    DOF 155, DOFPulse
         DropChestDoor  'open the door to the chest
         AddMultiball 1 'add a multiball
     End If
@@ -2833,7 +2833,7 @@ Sub dt1_Hit
             If l28.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2864,7 +2864,7 @@ Sub dt2_Hit
             If l29.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2895,7 +2895,7 @@ Sub dt3_Hit
             If l30.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
             Else ' the light is off so give back life to Belial
                 LordStrength = LordStrength + 5
@@ -2923,7 +2923,7 @@ Sub dt4_Hit
             If l31.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -2948,7 +2948,7 @@ End Sub
 Sub CheckBASHTargets
     If l28.State + l29.State + l30.State + l31.State = 4 Then
         FlashEffect 2
-		DOF 154, DOFPulse
+    DOF 154, DOFPulse
         ' increment the target bonus
         TargetBonus = TargetBonus + 1
         If TargetBonus = 3 Then 'lit extra ball at the chest
@@ -2990,7 +2990,7 @@ Sub dt5_Hit
             If l35.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -3021,7 +3021,7 @@ Sub dt6_Hit
             If l36.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -3052,7 +3052,7 @@ Sub dt7_Hit
             If l37.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -3083,7 +3083,7 @@ Sub dt8_Hit
             If l40.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -3114,7 +3114,7 @@ Sub dt9_Hit
             If l41.State = 1 Then 'the light is lit so hit Belial
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 GiEffect 2
-				DOF 117, DOFPulse
+        DOF 117, DOFPulse
                 CheckLordStrength
                 ' Restart the Lords life restore timer
                 LordLifeTimer.Interval = LordLifeInterval + Level(CurrentPlayer) * 200
@@ -3139,7 +3139,7 @@ End Sub
 Sub CheckSKILLTargets
     If l35.State + l36.State + l37.State + l40.State + l41.State = 5 Then
         FlashEffect 2
-		DOF 154, DOFPulse
+    DOF 154, DOFPulse
         ' increment the target bonus
         TargetBonus = TargetBonus + 1
         If TargetBonus = 3 Then 'lit extra ball at the chest
@@ -3182,25 +3182,25 @@ End Sub
 
 Sub DropChestDoor
     ChestDoor.IsDropped = 1
-	DOF 116, DOFPulse
+  DOF 116, DOFPulse
     'Play a sound, do some light/flash effect
     GiEffect 1
-	DOF 117, DOFPulse
+  DOF 117, DOFPulse
 End Sub
 
 Sub ResetChestDoor
     ChestDoor.IsDropped = 0
-	DOF 116, DOFPulse
+  DOF 116, DOFPulse
     PlaySound "fx_resetdrop" ' TODO
 End Sub
 
 Sub ChestHole_Hit
-	DOF 128, DOFOn
+  DOF 128, DOFOn
     PlaySoundAtVol "fx_kicker_enter", ChestHole, 1
     ResetChestDoor
     If NOT Tilted Then
         FlashForMs f16, 2000, 50, 0
-		DOF 136, DOFPulse
+    DOF 136, DOFPulse
         If Mode(0) = 0 Then 'we could check here too for the variable bActReady
             StartNextMode
             vpmtimer.addtimer 6000, "ChestExit '"
@@ -3229,14 +3229,14 @@ Sub ChestHole_Hit
 End Sub
 
 Sub ChestExit()
-	DOF 128, DOFOff
-	If B2SOn Then Controller.B2SSetData bsnr,1:Controller.B2SSetData 20,0:Controller.B2SSetData 80,1
+  DOF 128, DOFOff
+  If B2SOn Then Controller.B2SSetData bsnr,1:Controller.B2SSetData 20,0:Controller.B2SSetData 80,1
     FlashForMs f16, 1000, 50, 0
-	DOF 137, DOFPulse
+  DOF 137, DOFPulse
     ChestHole.DestroyBall
     ChestOut.CreateBall
     PlaySoundAtVol SoundFXDOF("fx_popper",115,DOFPulse,DOFContactors), ChestHole, VolKick
-	DOF 112, DOFPulse
+  DOF 112, DOFPulse
     ChestOut.kick 65, 30, 1.56
 End Sub
 
@@ -3306,8 +3306,8 @@ Sub GiveRandomAward() 'from the Chest and the Orbits
         Case 39, 40, 43, 44 'extra multiball
             DMDBlink "black.jpg", "EXTRA", "MULTIBALL", 50, 20
             AddMultiball 1
-		Case 45, 46, 47, 48 ' Ball Save
-			EnableBallSaver 20
+    Case 45, 46, 47, 48 ' Ball Save
+      EnableBallSaver 20
             DMDBlink "black.jpg", "BALL SAVE", "ACTIVATED", 50, 20
         Case 50 'Level up 3
             DMDBlink "black.jpg", " ", "3 LEVELS UP", 50, 20
@@ -3333,7 +3333,7 @@ Sub OrbitTrigger1_Hit
             Select Case Mode(0)
                 Case 1, 3, 5, 7, 9
                     GiEffect 2
-					DOF 125, DOFPulse
+          DOF 125, DOFPulse
                     DMD "leftloop.wmv", "", "", 2000
                     Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                     MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
@@ -3342,7 +3342,7 @@ Sub OrbitTrigger1_Hit
                     UpdateModeLights
                 Case 4, 6, 10
                     FlashEffect 2
-					DOF 154, DOFPulse
+          DOF 154, DOFPulse
                     LordStrength = LordStrength -10 - Level(CurrentPLayer)
                     CheckLordStrength
                     ' Restart the Lords life restore timerted)
@@ -3351,7 +3351,7 @@ Sub OrbitTrigger1_Hit
                 Case 8 'diablo
                     l32.State = 0:l39.State = 2
                     FlashEffect 2
-					DOF 154, DOFPulse
+          DOF 154, DOFPulse
                     LordStrength = LordStrength -10 - Level(CurrentPLayer)
                     CheckLordStrength
                     ' Restart the Lords life restore timerted)
@@ -3382,7 +3382,7 @@ Sub OrbitTrigger2_Hit
             Select Case Mode(0)
                 Case 1, 3, 5, 7, 9
                     GiEffect 2
-					DOF 125, DOFPulse
+          DOF 125, DOFPulse
                     DMD "rightloop.wmv", "", "", 2000
                     Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                     MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
@@ -3391,7 +3391,7 @@ Sub OrbitTrigger2_Hit
                     UpdateModeLights
                 Case 4, 6, 10
                     FlashEffect 2
-					DOF 154, DOFPulse
+          DOF 154, DOFPulse
                     LordStrength = LordStrength -10 - Level(CurrentPLayer)
                     CheckLordStrength
                     ' Restart the Lords life restore timerted)
@@ -3400,7 +3400,7 @@ Sub OrbitTrigger2_Hit
                 Case 8 'diablo
                     l32.State = 2:l39.State = 0
                     FlashEffect 2
-					DOF 154, DOFPulse
+          DOF 154, DOFPulse
                     LordStrength = LordStrength -10 - Level(CurrentPLayer)
                     CheckLordStrength
                     ' Restart the Lords life restore timerted)
@@ -3434,7 +3434,7 @@ Sub LeftRampDone_Hit
         Select Case Mode(0)
             Case 1, 3, 5, 7, 9
                 GiEffect 2
-				DOF 125, DOFPulse
+        DOF 125, DOFPulse
                 DMD "leftramp.wmv", "", "", 2000
                 Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                 MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
@@ -3443,7 +3443,7 @@ Sub LeftRampDone_Hit
                 UpdateModeLights
             Case 4, 6, 8, 10
                 FlashEffect 2
-				DOF 154, DOFPulse
+        DOF 154, DOFPulse
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 CheckLordStrength
                 ' Restart the Lords life restore timerted)
@@ -3452,7 +3452,7 @@ Sub LeftRampDone_Hit
         End Select
     End If
     If LastSwitchHit = "RightRampDone" Then 'give combo
-		DOF 117, DOFPulse
+    DOF 117, DOFPulse
         ComboValue = 100000 + Round(Score(CurrentPlayer) / 10, 0)
         DMDBlink "black.jpg", "COMBO", ComboValue, 100, 10
         AddScore ComboValue
@@ -3479,7 +3479,7 @@ Sub RightRampDone_Hit
         Select Case Mode(0)
             Case 1, 3, 5, 7, 9
                 GiEffect 2
-				DOF 125, DOFPulse
+        DOF 125, DOFPulse
                 DMD "rightramp.wmv", "", "", 2000
                 Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                 MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
@@ -3488,7 +3488,7 @@ Sub RightRampDone_Hit
                 UpdateModeLights
             Case 4, 6, 8, 10
                 FlashEffect 2
-				DOF 154, DOFPulse
+        DOF 154, DOFPulse
                 LordStrength = LordStrength -10 - Level(CurrentPLayer)
                 CheckLordStrength
                 ' Restart the Lords life restore timerted)
@@ -3497,7 +3497,7 @@ Sub RightRampDone_Hit
         End Select
     End If
     If LastSwitchHit = "LeftRampDone" Then 'give combo
-		DOF 117, DOFPulse
+    DOF 117, DOFPulse
         ComboValue = 100000 + Round(Score(CurrentPlayer) / 10, 0)
         DMDBlink "black.jpg", "COMBO", ComboValue, 100, 10
         AddScore ComboValue
@@ -3589,11 +3589,11 @@ Sub StartMode(n)
         Case 9:StartAct5
         Case 10:StartMalthael
     End Select
-	If B2sOn Then
-		Controller.B2SSetData 80,0:Controller.B2SSetData 20,1
-		for ao=1 to 11:Controller.B2SSetData ao,0:next
-		bsnr = n
-	End If
+  If B2sOn Then
+    Controller.B2SSetData 80,0:Controller.B2SSetData 20,1
+    for ao=1 to 11:Controller.B2SSetData ao,0:next
+    bsnr = n
+  End If
 End Sub
 
 Sub StopMode(n) 'called at the end of a ball
@@ -3610,9 +3610,9 @@ Sub StopMode(n) 'called at the end of a ball
         Case 9:StopAct5
         Case 10:StopMalthael
     End Select
-	If B2sOn Then
-		Controller.B2SSetData bsnr,0
-	End If
+  If B2sOn Then
+    Controller.B2SSetData bsnr,0
+  End If
 End Sub
 
 Sub WinMode(n) 'called after completing a mode
@@ -3817,7 +3817,7 @@ Sub WinAct1
     StopSound Song:Song = ""
     DMD "act-complete.wmv", "", "", 12000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(1) = 1
@@ -3884,10 +3884,10 @@ Sub WinButcher
     StopSound Song:Song = ""
     DMD "butcher-defeated.wmv", "", "", 14000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     LightEffect 2
     GiEffect 2
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(2) = 1
@@ -3945,7 +3945,7 @@ Sub WinAct2
     StopSound Song:Song = ""
     DMD "act-complete.wmv", "", "", 12000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(3) = 1
@@ -4005,10 +4005,10 @@ Sub WinBelial
     StopSound Song:Song = ""
     DMD "belial-defeated.wmv", "", "", 14000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     LightEffect 2
     GiEffect 2
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(4) = 1
@@ -4087,7 +4087,7 @@ Sub WinAct3
     StopSound Song:Song = ""
     DMD "act-complete.wmv", "", "", 12000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(5) = 1
@@ -4145,10 +4145,10 @@ Sub WinAzmodan
     StopSound Song:Song = ""
     DMD "azmodan-defeated.wmv", "", "", 14000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     LightEffect 2
     GiEffect 2
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(6) = 1
@@ -4201,7 +4201,7 @@ Sub WinAct4
     StopSound Song:Song = ""
     DMD "act-complete.wmv", "", "", 12000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(7) = 1
@@ -4256,10 +4256,10 @@ Sub WinDiablo
     StopSound Song:Song = ""
     DMD "diablo-defeated.wmv", "", "", 14000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     LightEffect 2
     GiEffect 2
-	DOF 125, DOFPulse
+  DOF 125, DOFPulse
     'setup variables
     Mode(0) = 0
     Mode(8) = 1
@@ -4312,7 +4312,7 @@ Sub WinAct5
     StopSound Song:Song = ""
     DMD "act-complete.wmv", "", "", 12000
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
     ' Score an extra 5 million points
     DMDBlink "black.jpg", "EXTRA SCORE", "5.000.000", 100, 10
     Addscore 5000000
@@ -4379,13 +4379,13 @@ Sub WinMalthael
     DMD "black.jpg", "SHOOT THE CHEST", "TO KILL MALTHAEL", 5000
     MalthaelAttackTimer.Enabled = 0
     ChestDoor.IsDropped = 1
-	DOF 116, DOFPulse
+  DOF 116, DOFPulse
     ' lit the 3 chest lights
     SetLightColor l44, purple, 2
     SetLightColor l34, purple, 2
     SetLightColor l25, purple, 2
     FlashEffect 2
-	DOF 154, DOFPulse
+  DOF 154, DOFPulse
 End Sub
 
 Sub WinMalthael2
@@ -4427,11 +4427,11 @@ Sub MalthaelAttackTimer_Timer
     PlaySound "di_thunder"
     ' flash the flashers
     FlashForMs f2, 5000, 50, 0
-	DOF 151, DOFPulse
+  DOF 151, DOFPulse
     FlashForMs f14, 5000, 50, 0
-	DOF 152, DOFPulse
+  DOF 152, DOFPulse
     FlashForMs f15, 5000, 50, 0
-	DOF 153, DOFPulse
+  DOF 153, DOFPulse
     ' enable the magnets for a few seconds
     EnableMagnets
     vpmtimer.AddTimer 5000, "DisableMagnets '"
@@ -4439,13 +4439,13 @@ End Sub
 
 Sub DisableMagnets
     'debug.print "magnets off"
-	DOF 127, DOFOff
+  DOF 127, DOFOff
     LMagnet.MotorOn = False
     RMagnet.MotorOn = False
 End Sub
 
 Sub EnableMagnets
-	DOF 127, DOFOn
+  DOF 127, DOFOn
     LMagnet.MotorOn = True
     RMagnet.MotorOn = True
 End Sub

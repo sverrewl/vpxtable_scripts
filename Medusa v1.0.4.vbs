@@ -155,10 +155,10 @@ Sub table1_Init
     post2rubber.visible = 0
     Post.Pullback
 
-	' Manually init fast flips
+  ' Manually init fast flips
   ' Doesn't seem to work on 10.6
-	'if not IsEmpty(SolCallback(sLLFlipper)) then vpmFlips.CallBackL = SolCallback(sLLFlipper)
-	'if not IsEmpty(SolCallback(sLRFlipper)) then vpmFlips.CallBackR = SolCallback(sLRFlipper)
+  'if not IsEmpty(SolCallback(sLLFlipper)) then vpmFlips.CallBackL = SolCallback(sLLFlipper)
+  'if not IsEmpty(SolCallback(sLRFlipper)) then vpmFlips.CallBackR = SolCallback(sLRFlipper)
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -327,7 +327,7 @@ Sub UpdateSolenoids
             If Controller.Lamp(34)Then
                 If SolNo = 1 Or SolNo = 2 Or SolNo = 3 Or SolNo = 4 Or Solno = 5 Or Solno = 6 Or Solno = 8 Then solNo = solNo + 24 '1->25 etc
             End If
-			if solNo = GameOnSolenoid then vpmFlips.TiltSol cbool(Changed(ii, CHGSTATE))
+      if solNo = GameOnSolenoid then vpmFlips.TiltSol cbool(Changed(ii, CHGSTATE))
             vpmDoSolCallback solNo, Changed(ii, CHGSTATE)
         Next
     End If

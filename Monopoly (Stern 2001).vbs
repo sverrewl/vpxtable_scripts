@@ -117,36 +117,36 @@ Const cGameName = "monopoly"
 '***********
 SolCallback(1) = "bsTrough.SolOut"      ' Trough Up-Kicker
 SolCallback(2) = "Autofire"             ' AutoLaunch
-'SolCallback(3)	= ""					' Lower Left  Pop (handled in the scrip)
-'SolCallback(4)	= ""					' Lower Right Pop (handled in the scrip)
-'SolCallback(5)	= ""					' Lower Bot   Pop (handled in the scrip)
-SolCallback(6) = "BankClose"    		' Bank Close
-SolCallback(7) = "DropReset"    		' DropTargetReset
-SolCallback(8) = "LockKickBack" 		' Lock Kicker
-'SolCallback(9)	= "ULJet"				' Upper Left  Pop (handled in the scrip)
-'SolCallback(10)	= "URJet"			' Upper Right Pop (handled in the scrip)
-'SolCallback(11)	= "UBJet"			' Upper Bot   Pop (handled in the scrip)
-SolCallback(12) = "bsChance.SolOut" 	' Chance Scoop
-SolCallback(13) = "BankOpen"        	' Bank Open
-'SolCallback(17)	= ""				' Left  Slingshot (handled in the scrip)
-'SolCallback(18)	= ""				' Right Slingshot (handled in the scrip)
+'SolCallback(3) = ""          ' Lower Left  Pop (handled in the scrip)
+'SolCallback(4) = ""          ' Lower Right Pop (handled in the scrip)
+'SolCallback(5) = ""          ' Lower Bot   Pop (handled in the scrip)
+SolCallback(6) = "BankClose"        ' Bank Close
+SolCallback(7) = "DropReset"        ' DropTargetReset
+SolCallback(8) = "LockKickBack"     ' Lock Kicker
+'SolCallback(9) = "ULJet"       ' Upper Left  Pop (handled in the scrip)
+'SolCallback(10)  = "URJet"     ' Upper Right Pop (handled in the scrip)
+'SolCallback(11)  = "UBJet"     ' Upper Bot   Pop (handled in the scrip)
+SolCallback(12) = "bsChance.SolOut"   ' Chance Scoop
+SolCallback(13) = "BankOpen"          ' Bank Open
+'SolCallback(17)  = ""        ' Left  Slingshot (handled in the scrip)
+'SolCallback(18)  = ""        ' Right Slingshot (handled in the scrip)
 SolCallback(19) = "SetLamp 119,"
 SolCallback(20) = "SetLamp 120,"
 SolCallback(21) = "SetLamp 121,"
 SolCallback(22) = "SetLamp 122,"
 SolCallback(23) = "SetLamp 123,"
-SolCallback(25) = "WWMotor"           	' WaterWorks Motor (Handled by Mech Handler)
-SolCallback(26) = "bsSaucerEC.SolOut" 	' Electric Company
-SolCallback(27) = "MRelay"            	' Motor Relay
-SolCallback(28) = "bsSaucerDE.SolOut" 	' Dice Eject
+SolCallback(25) = "WWMotor"             ' WaterWorks Motor (Handled by Mech Handler)
+SolCallback(26) = "bsSaucerEC.SolOut"   ' Electric Company
+SolCallback(27) = "MRelay"              ' Motor Relay
+SolCallback(28) = "bsSaucerDE.SolOut"   ' Dice Eject
 SolCallback(29) = "SetLamp 129,"
-SolCallback(30) = "DivertLeft"        	' Left  Ramp Diverter
-SolCallback(31) = "DivertRight"       	' Right Ramp Diverter
-SolCallback(32) = "UpDown"            	' Top Lane Up/Down Post
-'SolCallback(33)   = "LeftSave"			' Left   Outlane Post (UK)
-'SolCallback(34)   = "CenterSave"		' Center Outlane Post (UK)
-'SolCallback(35)   = "RightSave"		' Right  Outlane Post (UK)
-' SolCallback()    = "RelayAC"			' AC Relay (currently no way to connect to VPM in Stern games)
+SolCallback(30) = "DivertLeft"          ' Left  Ramp Diverter
+SolCallback(31) = "DivertRight"         ' Right Ramp Diverter
+SolCallback(32) = "UpDown"              ' Top Lane Up/Down Post
+'SolCallback(33)   = "LeftSave"     ' Left   Outlane Post (UK)
+'SolCallback(34)   = "CenterSave"   ' Center Outlane Post (UK)
+'SolCallback(35)   = "RightSave"    ' Right  Outlane Post (UK)
+' SolCallback()    = "RelayAC"      ' AC Relay (currently no way to connect to VPM in Stern games)
 
 Dim mMagnet
 
@@ -224,13 +224,13 @@ Sub Table1_Init
         .CreateEvents "bsSaucerWW", kick_29
     End With
 
-	' Magnet  (Water Works)
-	Set mMagnet = New cvpmMagnet
-		With mMagnet
-			.InitMagnet magnetTrigger, 3
-			.CreateEvents "mMagnet"
-			.GrabCenter = False
-		End With
+  ' Magnet  (Water Works)
+  Set mMagnet = New cvpmMagnet
+    With mMagnet
+      .InitMagnet magnetTrigger, 3
+      .CreateEvents "mMagnet"
+      .GrabCenter = False
+    End With
     mMagnet.MagnetOn=True
 
 
@@ -259,13 +259,13 @@ Sub Table1_Init
     controller.switch(36) = True
     UpDnPost.IsDropped = True
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+  End If
 
-	' Pin Blade Slection
+  ' Pin Blade Slection
     leftPinBlade_1.IsDropped = Not(cMoneyBlades)
     leftPinBlade_2.IsDropped = cMoneyBlades
     rightPinBlade_1.IsDropped = Not(cMoneyBlades)
@@ -322,7 +322,7 @@ End Sub
 Sub BankClose(enabled)
     If enabled Then
         BankFlipper.RotateToStart
-		DOF 103, DOFPulse
+    DOF 103, DOFPulse
     End If
 End Sub
 
@@ -337,7 +337,7 @@ End Sub
 Sub BankOpen(enabled)
     If enabled Then
         BankFlipper.RotateToEnd
-		DOF 103, DOFPulse
+    DOF 103, DOFPulse
     End If
 End Sub
 

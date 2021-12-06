@@ -137,13 +137,13 @@ Sub table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-		ramp1.Visible = False
-		ramp2.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+    ramp1.Visible = False
+    ramp2.Visible = False
+  End If
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -318,19 +318,19 @@ Set MotorCallback = GetRef("RealTimeUpdates")
 Sub RealTimeUpdates
     RollingUpdate
     Diverter.RotZ = RightLaneGate.CurrentAngle
-	GIUpdate
+  GIUpdate
 End Sub
 
 Sub GiON
-	For each x in aGiLights
-		x.State = 1
-	Next
+  For each x in aGiLights
+    x.State = 1
+  Next
 End Sub
 
 Sub GiOFF
-	For each x in aGiLights
-		x.State = 0
-	Next
+  For each x in aGiLights
+    x.State = 0
+  Next
 End Sub
 
 Dim OldGiState

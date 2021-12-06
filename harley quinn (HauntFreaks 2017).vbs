@@ -89,7 +89,7 @@ Const SCoin = "fx_coin"
 Const cGameName = "diamond"
 
 Sub table1_Init
-	Dim xx
+  Dim xx
     For each xx in aReels:xx.Visible = DesktopMode:Next
     lrail.Visible = DesktopMode
     rrail.Visible = DesktopMode
@@ -102,12 +102,12 @@ Sub table1_Init
         .ShowDMDOnly = 1
         .ShowFrame = 0
         .ShowTitle = 0
-		.Hidden = 1
+    .Hidden = 1
         If Err Then MsgBox Err.Description
-		On Error Goto 0
-		.SolMask(0) = 0
-		vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
-		.Run GetPlayerHWnd
+    On Error Goto 0
+    .SolMask(0) = 0
+    vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
+    .Run GetPlayerHWnd
      End With
 
     ' Nudging
@@ -481,16 +481,16 @@ End Sub
 Sub GIUpdate
     Dim tmp, x
     tmp = Getballs
-	If UBound(tmp) = -1 Then
-		For each x in aGiLights:x.State = 0:Next
-		SetLamp 199,0
-		If RGBGI=1 Then RGBTimer.Enabled=0
-	Else
-		If RGBGI=1 Then RGBTimer.Enabled=1
-		For each x in aGiLights:x.State = 1:Next
-		SetLamp 199,1
+  If UBound(tmp) = -1 Then
+    For each x in aGiLights:x.State = 0:Next
+    SetLamp 199,0
+    If RGBGI=1 Then RGBTimer.Enabled=0
+  Else
+    If RGBGI=1 Then RGBTimer.Enabled=1
+    For each x in aGiLights:x.State = 1:Next
+    SetLamp 199,1
 
-	End If
+  End If
 End Sub
 
 '***************************************************
@@ -584,51 +584,51 @@ Sub UpdateLamps
     Flashm 199, f50
     Flash 199, f50a
 
-	If RGBInserts=1 Then
-		RGBSimple 3, l3a
-		RGBSimple 3, l3
-		RGBSimple 5, l5
-		RGBSimple 6, l6
-		RGBSimple 7, l7
-		RGBSimple 8, l8
-		RGBSimple 9, l9
-		RGBSimple 10, l10
-		RGBSimple 11, l11
-		RGBSimple 19, l19b
-		RGBSimple 19, l19
-		RGBSimple 19, l19a
-		RGBSimple 20, l20
-		RGBSimple 20, l20a
-		RGBSimple 20, f20a
-		RGBSimple 28, l28
-		RGBSimple 29, l29
-		RGBSimple 30, l30
-		RGBSimple 31, l31
-		RGBSimple 31, l31b
-		RGBSimple 31, l31d
-		RGBSimple 31, f31b
-		RGBSimple 31, f31d
-		RGBSimple 32, l32
-		RGBSimple 33, l33
-		RGBSimple 34, l34
-		RGBSimple 35, l35
-		RGBSimple 36, l36
-		RGBSimple 37, l37
-		RGBSimple 38, l38
-		RGBSimple 39, l39
-		RGBSimple 41, l41
-		RGBSimple 41, f41a
-		RGBSimple 42, l42
-		RGBSimple 42, f42
-		RGBSimple 43, l43
-		RGBSimple 43, f43
-		RGBSimple 44, l44
-		RGBSimple 45, l45
-		RGBSimple 45, l45b
-		RGBSimple 46, l46
-		RGBSimple 47, l47
-		RGBSimple 51, l51
-	End If
+  If RGBInserts=1 Then
+    RGBSimple 3, l3a
+    RGBSimple 3, l3
+    RGBSimple 5, l5
+    RGBSimple 6, l6
+    RGBSimple 7, l7
+    RGBSimple 8, l8
+    RGBSimple 9, l9
+    RGBSimple 10, l10
+    RGBSimple 11, l11
+    RGBSimple 19, l19b
+    RGBSimple 19, l19
+    RGBSimple 19, l19a
+    RGBSimple 20, l20
+    RGBSimple 20, l20a
+    RGBSimple 20, f20a
+    RGBSimple 28, l28
+    RGBSimple 29, l29
+    RGBSimple 30, l30
+    RGBSimple 31, l31
+    RGBSimple 31, l31b
+    RGBSimple 31, l31d
+    RGBSimple 31, f31b
+    RGBSimple 31, f31d
+    RGBSimple 32, l32
+    RGBSimple 33, l33
+    RGBSimple 34, l34
+    RGBSimple 35, l35
+    RGBSimple 36, l36
+    RGBSimple 37, l37
+    RGBSimple 38, l38
+    RGBSimple 39, l39
+    RGBSimple 41, l41
+    RGBSimple 41, f41a
+    RGBSimple 42, l42
+    RGBSimple 42, f42
+    RGBSimple 43, l43
+    RGBSimple 43, f43
+    RGBSimple 44, l44
+    RGBSimple 45, l45
+    RGBSimple 45, l45b
+    RGBSimple 46, l46
+    RGBSimple 47, l47
+    RGBSimple 51, l51
+  End If
     'flashers
     NFadeLm 103, f31
     NFadeLm 103, f3
@@ -651,20 +651,20 @@ End Sub
 Dim RGBColor
 
 Sub RGBSimple (nr,obj)
-	If Lampstate(nr)=1 Then
-	RGBColor=RndNum(1,3)
-		Select Case RGBColor
-			Case 1
-			If TypeName(obj)="Light" Then obj.colorFull=RGB(255,0,0)
-			If TypeName(obj)="Flasher" Then obj.color=RGB(255,0,0)
-			Case 2
-			If TypeName(obj)="Light" Then obj.colorFull=RGB(0,255,0)
-			If TypeName(obj)="Flasher" Then obj.color=RGB(0,255,0)
-			Case 3
-			If TypeName(obj)="Light" Then obj.colorFull=RGB(0,0,255)
-			If TypeName(obj)="Flasher" Then obj.color=RGB(0,0,255)
-		End Select
-	End If
+  If Lampstate(nr)=1 Then
+  RGBColor=RndNum(1,3)
+    Select Case RGBColor
+      Case 1
+      If TypeName(obj)="Light" Then obj.colorFull=RGB(255,0,0)
+      If TypeName(obj)="Flasher" Then obj.color=RGB(255,0,0)
+      Case 2
+      If TypeName(obj)="Light" Then obj.colorFull=RGB(0,255,0)
+      If TypeName(obj)="Flasher" Then obj.color=RGB(0,255,0)
+      Case 3
+      If TypeName(obj)="Light" Then obj.colorFull=RGB(0,0,255)
+      If TypeName(obj)="Flasher" Then obj.color=RGB(0,0,255)
+    End Select
+  End If
 End Sub
 
 ' div lamp subs
@@ -912,132 +912,132 @@ Sub RHelp2_Hit()
 End Sub
 
 Function RndNum(min,max)
-	RndNum = Int(Rnd()*(max-min+1))+min     ' Sets a random number between min AND max
+  RndNum = Int(Rnd()*(max-min+1))+min     ' Sets a random number between min AND max
 End Function
 
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 Sub FlipperTimer_Timer()
-	If FlipperType > 0 Then
-		' *** move glowbats ***
-		GlowBatLightLeft.y = 1535 - 121 + LeftFlipper1.CurrentAngle
-		glowbatleft.objrotz = LeftFlipper1.CurrentAngle
-		GlowBatLightRight.y =1535 - 121 - RightFlipper1.CurrentAngle
-		glowbatright.objrotz = RightFlipper1.CurrentAngle
-	Else
-		' *** move flipper shadows ***
-		FlipperLSh.RotZ = LeftFlipper1.currentangle
-		FlipperRSh.RotZ = RightFlipper1.currentangle
-	End If
+  If FlipperType > 0 Then
+    ' *** move glowbats ***
+    GlowBatLightLeft.y = 1535 - 121 + LeftFlipper1.CurrentAngle
+    glowbatleft.objrotz = LeftFlipper1.CurrentAngle
+    GlowBatLightRight.y =1535 - 121 - RightFlipper1.CurrentAngle
+    glowbatright.objrotz = RightFlipper1.CurrentAngle
+  Else
+    ' *** move flipper shadows ***
+    FlipperLSh.RotZ = LeftFlipper1.currentangle
+    FlipperRSh.RotZ = RightFlipper1.currentangle
+  End If
 
-'	****************** drop target shadow lighting
-	if sw41.isdropped then
-		Lsw41.state=gi16.state
-	  Else
-		Lsw41.state=0
-	end If
-	if sw31.isdropped then
-		Lsw31.state=gi16.state
-	  Else
-		Lsw31.state=0
-	end if
-	if sw20.isdropped Then
-		Lsw20.state=gi9.state
-	  Else
-		Lsw20.state=0
-	end If
-	if sw40.isdropped Then
-		Lsw40.state=gi9.state
-	  Else
-		Lsw40.state=0
-	end If
-	if sw50.isdropped Then
-		Lsw50.state=gi9.state
-	  Else
-		Lsw50.state=0
-	end If
-	if sw60.isdropped Then
-		Lsw60.state=gi9.state
-	  else
-		Lsw60.state=0
-	end if
-	if sw62.isdropped Then
-		Lsw62.state=gi10.state
-	  else
-		Lsw62.state=0
-	end if
-	if sw52.isdropped Then
-		Lsw52.state=gi11.state
-	  else
-		Lsw52.state=0
-	end if
-	if sw42.isdropped Then
-		Lsw42.state=gi11.state
-	  else
-		Lsw42.state=0
-	end if
-	if sw32.isdropped Then
-		Lsw32.state=gi11.state
-	  else
-		Lsw32.state=0
-	end if
+' ****************** drop target shadow lighting
+  if sw41.isdropped then
+    Lsw41.state=gi16.state
+    Else
+    Lsw41.state=0
+  end If
+  if sw31.isdropped then
+    Lsw31.state=gi16.state
+    Else
+    Lsw31.state=0
+  end if
+  if sw20.isdropped Then
+    Lsw20.state=gi9.state
+    Else
+    Lsw20.state=0
+  end If
+  if sw40.isdropped Then
+    Lsw40.state=gi9.state
+    Else
+    Lsw40.state=0
+  end If
+  if sw50.isdropped Then
+    Lsw50.state=gi9.state
+    Else
+    Lsw50.state=0
+  end If
+  if sw60.isdropped Then
+    Lsw60.state=gi9.state
+    else
+    Lsw60.state=0
+  end if
+  if sw62.isdropped Then
+    Lsw62.state=gi10.state
+    else
+    Lsw62.state=0
+  end if
+  if sw52.isdropped Then
+    Lsw52.state=gi11.state
+    else
+    Lsw52.state=0
+  end if
+  if sw42.isdropped Then
+    Lsw42.state=gi11.state
+    else
+    Lsw42.state=0
+  end if
+  if sw32.isdropped Then
+    Lsw32.state=gi11.state
+    else
+    Lsw32.state=0
+  end if
 End Sub
 
 '*****************************************
-'			BALL SHADOW & GLOWING BALL
+'     BALL SHADOW & GLOWING BALL
 '*****************************************
 ReDim BallShadow(tnob-1), Glowing(tnob-1)
 InitShadowAndGlow
 
 Sub InitShadowAndGlow
-	Dim i:For i = 0 to tnob-1
-		ExecuteGlobal "Set Glowing("&i&") = Glowball"&(i+1)&" :"
-		ExecuteGlobal "Set BallShadow("&i&") = BallShadow"&(i+1)&" :"
-	Next
+  Dim i:For i = 0 to tnob-1
+    ExecuteGlobal "Set Glowing("&i&") = Glowball"&(i+1)&" :"
+    ExecuteGlobal "Set BallShadow("&i&") = BallShadow"&(i+1)&" :"
+  Next
 End Sub
 
 Sub BallShadowUpdate_timer()
     Dim BOT, b
     BOT = GetBalls
-    If UBound(BOT)<(tnob-1) Then						' hide shadow and switch off glowlight of deleted balls
-		For b = (UBound(BOT) + 1) to (tnob-1)
-		If IsGlowBall Then Glowing(b).state = 0 Else BallShadow(b).visible = 0 End If
+    If UBound(BOT)<(tnob-1) Then            ' hide shadow and switch off glowlight of deleted balls
+    For b = (UBound(BOT) + 1) to (tnob-1)
+    If IsGlowBall Then Glowing(b).state = 0 Else BallShadow(b).visible = 0 End If
         Next
     End If
 
-    If UBound(BOT) = -1 Then Exit Sub		   			 ' exit the Sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub            ' exit the Sub if no balls on the table
 
     For b = 0 to UBound(BOT)
-		If IsGlowBall Then								' move glowball light
-			If Glowing(b).state = 0 Then
-				Glowing(b).state = 1
-				Select Case BallType
-					Case 2	'green GlowBall
-							Glowing(b).color = RGB(100, 255, 100): Glowing(b).colorfull = RGB(100, 255, 100)
-					Case 3	'blue GlowBall
-							Glowing(b).color = RGB(100, 100, 255): Glowing(b).colorfull = RGB(100, 100, 255)
-					Case 4	'orange GlowBall
-							Glowing(b).color = RGB(255, 0, 72): Glowing(b).colorfull = RGB(255, 0, 72)
-				End Select
-			End If
-			Glowing(b).BulbHaloHeight = BOT(b).z + 51
-			Glowing(b).x = BOT(b).x : Glowing(b).y = BOT(b).y + 15
-		Else					    					' render the shadow for each ball
-			If BOT(b).X < Table1.Width/2 Then
-				BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 13
-			Else
-				BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 13
-			End If
-			ballShadow(b).Y = BOT(b).Y + 10
-			If BOT(b).Z > 20 Then
-				BallShadow(b).visible = 1
-			Else
-				BallShadow(b).visible = 0
-			End If
-		End If
+    If IsGlowBall Then                ' move glowball light
+      If Glowing(b).state = 0 Then
+        Glowing(b).state = 1
+        Select Case BallType
+          Case 2  'green GlowBall
+              Glowing(b).color = RGB(100, 255, 100): Glowing(b).colorfull = RGB(100, 255, 100)
+          Case 3  'blue GlowBall
+              Glowing(b).color = RGB(100, 100, 255): Glowing(b).colorfull = RGB(100, 100, 255)
+          Case 4  'orange GlowBall
+              Glowing(b).color = RGB(255, 0, 72): Glowing(b).colorfull = RGB(255, 0, 72)
+        End Select
+      End If
+      Glowing(b).BulbHaloHeight = BOT(b).z + 51
+      Glowing(b).x = BOT(b).x : Glowing(b).y = BOT(b).y + 15
+    Else                        ' render the shadow for each ball
+      If BOT(b).X < Table1.Width/2 Then
+        BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 13
+      Else
+        BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 13
+      End If
+      ballShadow(b).Y = BOT(b).Y + 10
+      If BOT(b).Z > 20 Then
+        BallShadow(b).visible = 1
+      Else
+        BallShadow(b).visible = 0
+      End If
+    End If
     Next
 End Sub
 
@@ -1084,11 +1084,11 @@ Dim RGBInserts, RGBGI, FlipperType, BallType, IsGlowBall
 
 'REGISTRY LOCATIONS ***************************************************************************************************************************************
 
- Const optOpenAtStart	= &H00001
- Const optRGBInserts	= &H00002
- Const optRGBGI			= &H00004
- Const optFlip			= &H00008
- Const optBall			= &H00040
+ Const optOpenAtStart = &H00001
+ Const optRGBInserts  = &H00002
+ Const optRGBGI     = &H00004
+ Const optFlip      = &H00008
+ Const optBall      = &H00040
 
 'MENU INIT *********************************************************************************************************************************************
 
@@ -1096,165 +1096,165 @@ Dim TableOptions, TableName, optReset
 Private vpmShowDips1, vpmDips1
 
  Sub InitializeOptions
-	Set vpmShowDips = GetRef("editDips")
-	TableName="HarleyQuinn_VPX"									'Replace with your descriptive table name, it will be used to save settings in VPReg.stg file
-	Set vpmShowDips1 = vpmShowDips								'Reassigns vpmShowDips to vpmShowDips1 to allow usage of default dips menu
-	Set vpmShowDips = GetRef("TableShowDips")					'Assigns new sub to vmpShowDips
- 	TableOptions = LoadValue(TableName,"Options")				'Load saved table options
-	Set Controller = CreateObject("VPinMAME.Controller")		'Load vpm controller temporarily so options menu can be loaded if needed
-	If TableOptions = "" Or optReset Then						'If no existing options, reset to default through optReset, then open Options menu
-		TableOptions = optOpenAtStart + 0*optFlip				'clear any existing settings and set table options to default options
-		TableShowOptions
-	ElseIf (TableOptions And optOpenAtStart) Then				'If Enable Next Start was selected then
-		TableOptions = TableOptions - optOpenAtStart			'clear setting to avoid future executions
-		TableShowOptions
-	Else
-		TableSetOptions
-	End If
-	Set Controller = Nothing									'Unload vpm controller so selected controller can be loaded
+  Set vpmShowDips = GetRef("editDips")
+  TableName="HarleyQuinn_VPX"                 'Replace with your descriptive table name, it will be used to save settings in VPReg.stg file
+  Set vpmShowDips1 = vpmShowDips                'Reassigns vpmShowDips to vpmShowDips1 to allow usage of default dips menu
+  Set vpmShowDips = GetRef("TableShowDips")         'Assigns new sub to vmpShowDips
+  TableOptions = LoadValue(TableName,"Options")       'Load saved table options
+  Set Controller = CreateObject("VPinMAME.Controller")    'Load vpm controller temporarily so options menu can be loaded if needed
+  If TableOptions = "" Or optReset Then           'If no existing options, reset to default through optReset, then open Options menu
+    TableOptions = optOpenAtStart + 0*optFlip       'clear any existing settings and set table options to default options
+    TableShowOptions
+  ElseIf (TableOptions And optOpenAtStart) Then       'If Enable Next Start was selected then
+    TableOptions = TableOptions - optOpenAtStart      'clear setting to avoid future executions
+    TableShowOptions
+  Else
+    TableSetOptions
+  End If
+  Set Controller = Nothing                  'Unload vpm controller so selected controller can be loaded
  End Sub
 
 Private Sub TableShowDips
-	vpmShowDips1												'Show original Dips menu
-	TableShowOptions											'Show new options menu
-'	TableShowOptions2											'Add more options menus...
+  vpmShowDips1                        'Show original Dips menu
+  TableShowOptions                      'Show new options menu
+' TableShowOptions2                     'Add more options menus...
 End Sub
 
- Private Sub editDips											'Dip Switches Menu, added by Inkochnito
-	If not IsObject(vpmDips) Then
-		Set vpmDips = New cvpmDips
-		With vpmDips
-			.AddForm 700, 400, "Harley Quinn - DIP switches"
-			.AddFrame 2, 4, 190, "Maximum credits", 49152, Array("8 credits", 0, "10 credits", 32768, "15 credits", &H00004000, "20 credits", 49152)                                                                                  'dip 15&16
-			.AddFrame 2, 80, 190, "Coin chute 1 and 2 control", &H00002000, Array("seperate", 0, "same", &H00002000)                                                                                                                  'dip 14
-			.AddFrame 2, 126, 190, "Playfield special", &H00200000, Array("replay", 0, "extra ball", &H00200000)                                                                                                                      'dip 22
-			.AddFrame 2, 172, 190, "High games to date control", &H00000020, Array("no effect", 0, "reset high games 2-5 on power off", &H00000020)                                                                                   'dip 6
-			.AddFrame 2, 218, 190, "Auto-percentage control", &H00000080, Array("disabled (normal high score mode)", 0, "enabled", &H00000080)                                                                                        'dip 8
-			.AddFrame 2, 264, 190, "Royal flush sequence is", &H40000000, Array("reset royal flush value every ball", 0, "memorize royal flush value every ball", &H40000000)                                                         'dip 31
-			.AddFrame 2, 310, 190, "Game playing time control", &H80000000, Array("shorter", 0, "longer", &H80000000)                                                                                                                 'dip 32
-			.AddFrame 205, 4, 190, "High game to date awards", &H00C00000, Array("not displayed and no award", 0, "displayed and no award", &H00800000, "displayed and 2 replays", &H00400000, "displayed and 3 replays", &H00C00000) 'dip 23&24
-			.AddFrame 205, 80, 190, "Balls per game", &H01000000, Array("5 balls", 0, "3 balls", &H01000000)                                                                                                                          'dip 25
-			.AddFrame 205, 126, 190, "Replay limit", &H04000000, Array("no limit", 0, "one per game", &H04000000)                                                                                                                     'dip 27
-			.AddFrame 205, 172, 190, "Novelty", &H08000000, Array("normal", 0, "extra ball and replay scores 500K", &H08000000)                                                                                                       'dip 28
-			.AddFrame 205, 218, 190, "Game mode", &H10000000, Array("replay", 0, "extra ball", &H10000000)                                                                                                                            'dip 29
-			.AddFrame 205, 264, 190, "3rd coin chute credits control", &H20000000, Array("no effect", 0, "add 9", &H20000000)                                                                                                         'dip 30
-			.AddChk 205, 316, 180, Array("Match feature", &H02000000)                                                                                                                                                                 'dip 26
-			.AddChk 205, 331, 190, Array("Attract sound", &H00000040)                                                                                                                                                                 'dip 7
-			.AddLabel 50, 370, 300, 15,"* Requires restart to apply these settings"
-		End With
-	End If
-	vpmDips.ViewDips
+ Private Sub editDips                     'Dip Switches Menu, added by Inkochnito
+  If not IsObject(vpmDips) Then
+    Set vpmDips = New cvpmDips
+    With vpmDips
+      .AddForm 700, 400, "Harley Quinn - DIP switches"
+      .AddFrame 2, 4, 190, "Maximum credits", 49152, Array("8 credits", 0, "10 credits", 32768, "15 credits", &H00004000, "20 credits", 49152)                                                                                  'dip 15&16
+      .AddFrame 2, 80, 190, "Coin chute 1 and 2 control", &H00002000, Array("seperate", 0, "same", &H00002000)                                                                                                                  'dip 14
+      .AddFrame 2, 126, 190, "Playfield special", &H00200000, Array("replay", 0, "extra ball", &H00200000)                                                                                                                      'dip 22
+      .AddFrame 2, 172, 190, "High games to date control", &H00000020, Array("no effect", 0, "reset high games 2-5 on power off", &H00000020)                                                                                   'dip 6
+      .AddFrame 2, 218, 190, "Auto-percentage control", &H00000080, Array("disabled (normal high score mode)", 0, "enabled", &H00000080)                                                                                        'dip 8
+      .AddFrame 2, 264, 190, "Royal flush sequence is", &H40000000, Array("reset royal flush value every ball", 0, "memorize royal flush value every ball", &H40000000)                                                         'dip 31
+      .AddFrame 2, 310, 190, "Game playing time control", &H80000000, Array("shorter", 0, "longer", &H80000000)                                                                                                                 'dip 32
+      .AddFrame 205, 4, 190, "High game to date awards", &H00C00000, Array("not displayed and no award", 0, "displayed and no award", &H00800000, "displayed and 2 replays", &H00400000, "displayed and 3 replays", &H00C00000) 'dip 23&24
+      .AddFrame 205, 80, 190, "Balls per game", &H01000000, Array("5 balls", 0, "3 balls", &H01000000)                                                                                                                          'dip 25
+      .AddFrame 205, 126, 190, "Replay limit", &H04000000, Array("no limit", 0, "one per game", &H04000000)                                                                                                                     'dip 27
+      .AddFrame 205, 172, 190, "Novelty", &H08000000, Array("normal", 0, "extra ball and replay scores 500K", &H08000000)                                                                                                       'dip 28
+      .AddFrame 205, 218, 190, "Game mode", &H10000000, Array("replay", 0, "extra ball", &H10000000)                                                                                                                            'dip 29
+      .AddFrame 205, 264, 190, "3rd coin chute credits control", &H20000000, Array("no effect", 0, "add 9", &H20000000)                                                                                                         'dip 30
+      .AddChk 205, 316, 180, Array("Match feature", &H02000000)                                                                                                                                                                 'dip 26
+      .AddChk 205, 331, 190, Array("Attract sound", &H00000040)                                                                                                                                                                 'dip 7
+      .AddLabel 50, 370, 300, 15,"* Requires restart to apply these settings"
+    End With
+  End If
+  vpmDips.ViewDips
 End Sub
 
- Private Sub TableShowOptions									'Table options menu, additional menus can be added as well, just follow similar format and add call to TableShowDips
-	If not IsObject(vpmDips1) Then
-		Set vpmDips1 = New cvpmDips
-		With vpmDips1
-			.AddForm 630, 250, "TABLE OPTIONS MENU (Press " & vpmKeyName(keyShowDips) & " to open this menu)"
-			.AddFrameExtra 0,0,155,"Enable RGB Inserts",optRGBInserts, Array("No", 0*optRGBInserts, "Yes", 1*optRGBInserts)
-			.AddFrameExtra 175,0,155,"Enable RGB GI",optRGBGI, Array("No", 0*optRGBGI, "Yes", 1*optRGBGI)
-			.AddFrameExtra 175,50,155,"Flippers Type",3*optFlip, Array("normal", 0*optFlip, "glowbat green", 1*optFlip, "glowbat blue", 2*optFlip, "glowbat pink", 3*optFlip)
-			.AddFrameExtra 0,50,155,"Ball Type",7*optBall, Array("Normal", 0*optBall, "Logo", 1*optBall, "glowball green", 2*optBall, "glowball blue", 3*optBall, "glowball pink", 4*optBall)
-			.AddChkExtra 0,180,155,Array("Enable Menu Next Start", optOpenAtStart)
-			.Addlabel 175,145,125,41,"TIP: To Reset to defaults,open table script and uncomment line 32"
-		End With
-	End If
-	TableOptions=vpmDips1.ViewDipsExtra(TableOptions)
-	TableSetOptions
+ Private Sub TableShowOptions                 'Table options menu, additional menus can be added as well, just follow similar format and add call to TableShowDips
+  If not IsObject(vpmDips1) Then
+    Set vpmDips1 = New cvpmDips
+    With vpmDips1
+      .AddForm 630, 250, "TABLE OPTIONS MENU (Press " & vpmKeyName(keyShowDips) & " to open this menu)"
+      .AddFrameExtra 0,0,155,"Enable RGB Inserts",optRGBInserts, Array("No", 0*optRGBInserts, "Yes", 1*optRGBInserts)
+      .AddFrameExtra 175,0,155,"Enable RGB GI",optRGBGI, Array("No", 0*optRGBGI, "Yes", 1*optRGBGI)
+      .AddFrameExtra 175,50,155,"Flippers Type",3*optFlip, Array("normal", 0*optFlip, "glowbat green", 1*optFlip, "glowbat blue", 2*optFlip, "glowbat pink", 3*optFlip)
+      .AddFrameExtra 0,50,155,"Ball Type",7*optBall, Array("Normal", 0*optBall, "Logo", 1*optBall, "glowball green", 2*optBall, "glowball blue", 3*optBall, "glowball pink", 4*optBall)
+      .AddChkExtra 0,180,155,Array("Enable Menu Next Start", optOpenAtStart)
+      .Addlabel 175,145,125,41,"TIP: To Reset to defaults,open table script and uncomment line 32"
+    End With
+  End If
+  TableOptions=vpmDips1.ViewDipsExtra(TableOptions)
+  TableSetOptions
  End Sub
 
 'MENU ENTRYS *********************************************************************************************************************************************
 
- Sub TableSetOptions		'defines required settings before table is run
-	RGBInserts = (TableOptions And optRGBInserts)\optRGBInserts
-	RGBGI = (TableOptions And optRGBGI)\optRGBGI
-	FlipperType = (TableOptions And 3*optFlip)\optFlip
-	BallType = (TableOptions And 7*optBall)\optBall
-	SaveValue TableName,"Options",TableOptions
-	GetOptions
+ Sub TableSetOptions    'defines required settings before table is run
+  RGBInserts = (TableOptions And optRGBInserts)\optRGBInserts
+  RGBGI = (TableOptions And optRGBGI)\optRGBGI
+  FlipperType = (TableOptions And 3*optFlip)\optFlip
+  BallType = (TableOptions And 7*optBall)\optBall
+  SaveValue TableName,"Options",TableOptions
+  GetOptions
  End Sub
 
 Sub GetOptions
-	Dim xx
-	If RGBInserts=0 Then
-		For each xx in aRGBLights
-			If TypeName(xx)="Light" Then xx.colorfull=RGB(255,255,255)
-			If TypeName(xx)="Flasher" Then xx.color=RGB(224,224,224)
-		Next
-	End If
+  Dim xx
+  If RGBInserts=0 Then
+    For each xx in aRGBLights
+      If TypeName(xx)="Light" Then xx.colorfull=RGB(255,255,255)
+      If TypeName(xx)="Flasher" Then xx.color=RGB(224,224,224)
+    Next
+  End If
 
-	If RGBGI=1 Then
-		For each xx in aGiLights:xx.color=RGB(0,0,0):xx.colorfull=RGB(255,255,255):Next
-	Else
-		RGBTimer.Enabled=0
-		For each xx in aGiLights:xx.color=RGB(255,252,224):xx.colorfull=RGB(255,197,143):Next
-	End If
+  If RGBGI=1 Then
+    For each xx in aGiLights:xx.color=RGB(0,0,0):xx.colorfull=RGB(255,255,255):Next
+  Else
+    RGBTimer.Enabled=0
+    For each xx in aGiLights:xx.color=RGB(255,252,224):xx.colorfull=RGB(255,197,143):Next
+  End If
 
-	Select Case FlipperType
-		Case 0:	LeftFlipper1.visible=1:LeftFlipper2.visible=1:LeftFlipper3.visible=1:LeftFlipper4.visible=1
-				RightFlipper1.visible=1:RightFlipper2.visible=1:RightFlipper3.visible=1:RightFlipper4.visible=1
-				glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0
-				FlipperLSh.visible = 1 : FlipperRSh.visible = 1
+  Select Case FlipperType
+    Case 0: LeftFlipper1.visible=1:LeftFlipper2.visible=1:LeftFlipper3.visible=1:LeftFlipper4.visible=1
+        RightFlipper1.visible=1:RightFlipper2.visible=1:RightFlipper3.visible=1:RightFlipper4.visible=1
+        glowbatleft.visible = 0 : glowbatright.visible = 0 : GlowBatLightLeft.visible = 0 : GlowBatLightRight.visible = 0
+        FlipperLSh.visible = 1 : FlipperRSh.visible = 1
 
-		Case 1:	LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
-				RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
-				glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
-				glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green"
-				GlowBatLightLeft.color = RGB(0,255,0) : GlowBatLightRight.color = RGB(0,255,0)
-				GlowBatLightLeft.colorfull = RGB(0,255,0) : GlowBatLightRight.colorfull = RGB(0,255,0)
-				FlipperLSh.visible = 0 : FlipperRSh.visible = 0
-
-
-		Case 2:	LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
-				RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
-				glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
-				glowbatleft.image = "glowbat blue" : glowbatright.image = "glowbat blue"
-				GlowBatLightLeft.color = RGB(0,0,255) : GlowBatLightRight.color = RGB(0,0,255)
-				GlowBatLightLeft.colorfull = RGB(0,0,255) : GlowBatLightRight.colorfull = RGB(0,0,255)
-				FlipperLSh.visible = 0 : FlipperRSh.visible = 0
+    Case 1: LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
+        RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
+        glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
+        glowbatleft.image = "glowbat green" : glowbatright.image = "glowbat green"
+        GlowBatLightLeft.color = RGB(0,255,0) : GlowBatLightRight.color = RGB(0,255,0)
+        GlowBatLightLeft.colorfull = RGB(0,255,0) : GlowBatLightRight.colorfull = RGB(0,255,0)
+        FlipperLSh.visible = 0 : FlipperRSh.visible = 0
 
 
-		Case 3:	LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
-				RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
-				glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
-				glowbatleft.image = "glowbat pink" : glowbatright.image = "glowbat pink"
-				GlowBatLightLeft.color = RGB(255,0,72) : GlowBatLightRight.color = RGB(255,0,72)
-				GlowBatLightLeft.colorfull = RGB(255,0,72) : GlowBatLightRight.colorfull = RGB(255,0,72)
-				FlipperLSh.visible = 0 : FlipperRSh.visible = 0
-	End Select
+    Case 2: LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
+        RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
+        glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
+        glowbatleft.image = "glowbat blue" : glowbatright.image = "glowbat blue"
+        GlowBatLightLeft.color = RGB(0,0,255) : GlowBatLightRight.color = RGB(0,0,255)
+        GlowBatLightLeft.colorfull = RGB(0,0,255) : GlowBatLightRight.colorfull = RGB(0,0,255)
+        FlipperLSh.visible = 0 : FlipperRSh.visible = 0
 
-	Select Case BallType
-		Case 0	'normal Ball
-			IsGlowBall=False
-			Table1.BallImage="ball0"
-			Table1.BallFrontDecal="JPBall-Scratches"
-			Table1.BallDecalMode=False
-			Table1.DefaultBulbIntensityScale = 1
-		Case 1	'Logo Ball
-			IsGlowBall=False
-			Table1.BallImage="black"
-			Table1.BallFrontDecal="ball_tex"
-			Table1.BallDecalMode=True
-			Table1.DefaultBulbIntensityScale = 3
-		Case 2	'green GlowBall
-			IsGlowBall=True
-			Table1.BallImage="glowball green"
-			Table1.BallFrontDecal=""
-			Table1.BallDecalMode=True
-			Table1.DefaultBulbIntensityScale = 0
-		Case 3	'blue GlowBall
-			IsGlowBall=True
-			Table1.BallImage="glowball blue"
-			Table1.BallFrontDecal=""
-			Table1.BallDecalMode=True
-			Table1.DefaultBulbIntensityScale = 0
-		Case 4	'pink GlowBall
-			IsGlowBall=True
-			Table1.BallImage="glowball pink"
-			Table1.BallFrontDecal=""
-			Table1.BallDecalMode=True
-			Table1.DefaultBulbIntensityScale = 0
-	End Select
+
+    Case 3: LeftFlipper1.visible=0:LeftFlipper2.visible=0:LeftFlipper3.visible=0:LeftFlipper4.visible=0
+        RightFlipper1.visible=0:RightFlipper2.visible=0:RightFlipper3.visible=0:RightFlipper4.visible=0
+        glowbatleft.visible = 1 : glowbatright.visible = 1 : GlowBatLightLeft.visible = 1 : GlowBatLightRight.visible = 1
+        glowbatleft.image = "glowbat pink" : glowbatright.image = "glowbat pink"
+        GlowBatLightLeft.color = RGB(255,0,72) : GlowBatLightRight.color = RGB(255,0,72)
+        GlowBatLightLeft.colorfull = RGB(255,0,72) : GlowBatLightRight.colorfull = RGB(255,0,72)
+        FlipperLSh.visible = 0 : FlipperRSh.visible = 0
+  End Select
+
+  Select Case BallType
+    Case 0  'normal Ball
+      IsGlowBall=False
+      Table1.BallImage="ball0"
+      Table1.BallFrontDecal="JPBall-Scratches"
+      Table1.BallDecalMode=False
+      Table1.DefaultBulbIntensityScale = 1
+    Case 1  'Logo Ball
+      IsGlowBall=False
+      Table1.BallImage="black"
+      Table1.BallFrontDecal="ball_tex"
+      Table1.BallDecalMode=True
+      Table1.DefaultBulbIntensityScale = 3
+    Case 2  'green GlowBall
+      IsGlowBall=True
+      Table1.BallImage="glowball green"
+      Table1.BallFrontDecal=""
+      Table1.BallDecalMode=True
+      Table1.DefaultBulbIntensityScale = 0
+    Case 3  'blue GlowBall
+      IsGlowBall=True
+      Table1.BallImage="glowball blue"
+      Table1.BallFrontDecal=""
+      Table1.BallDecalMode=True
+      Table1.DefaultBulbIntensityScale = 0
+    Case 4  'pink GlowBall
+      IsGlowBall=True
+      Table1.BallImage="glowball pink"
+      Table1.BallFrontDecal=""
+      Table1.BallDecalMode=True
+      Table1.DefaultBulbIntensityScale = 0
+  End Select
 
 End Sub
 
@@ -1301,14 +1301,14 @@ Sub RGBTimer_timer 'rainbow light color changing
                 RGBStep = 0
             End If
     End Select
-	Dim xx:For each xx in aGiLights
-		xx.color=RGB(Red\10, Green\10, Blue\10)
-		xx.colorfull=RGB(Red, Green, Blue)
-	Next
-	For each xx in aDTLights
-		xx.color=RGB(Red\10, Green\10, Blue\10)
-		xx.colorfull=RGB(Red, Green, Blue)
-	Next
+  Dim xx:For each xx in aGiLights
+    xx.color=RGB(Red\10, Green\10, Blue\10)
+    xx.colorfull=RGB(Red, Green, Blue)
+  Next
+  For each xx in aDTLights
+    xx.color=RGB(Red\10, Green\10, Blue\10)
+    xx.colorfull=RGB(Red, Green, Blue)
+  Next
 End Sub
 
 ' *******************************************************************************************************

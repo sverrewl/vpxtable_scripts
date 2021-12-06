@@ -47,7 +47,7 @@ Dim OldScore, NewScore, tempcounter
  'ExecuteGlobal GetTextFile("b2s.vbs")
 
 Sub Table1_Exit
-	If B2SOn Then Controller.Stop
+  If B2SOn Then Controller.Stop
 End Sub
 
 Sub Table1_Init()
@@ -105,7 +105,7 @@ Sub InitGame()
   BumperOn 2
   BumperOn 3
   LBonus=1
-  RBonus=1	'0=10
+  RBonus=1  '0=10
   SetBonusLights
   Y15=0
   G610=0
@@ -1325,7 +1325,7 @@ Sub AddScore (ByVal as1,ByVal as2, ByVal as3)
   LightL10.timerinterval=150
   LightL10.timerenabled=true
   NewScore=Score
-  If B2SOn Then			' SCORE SYSTEM by STAT
+  If B2SOn Then     ' SCORE SYSTEM by STAT
     Controller.B2SSetScorePlayer 1, Score
     if Score > 999 Then
       Controller.B2SSetData 98,1

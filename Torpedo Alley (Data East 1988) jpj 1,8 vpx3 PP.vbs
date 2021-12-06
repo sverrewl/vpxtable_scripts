@@ -50,30 +50,30 @@ Const cGameName="torp_e21",UseSolenoids=2,UseLamps=1,UseSync=0,UseGI=0
 Const cSingleLFlip = 0
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="coin3"
 
-Const sBallRelease=16	'ok
+Const sBallRelease=16 'ok
 Const sSolBRelay=10'Not Used
 Const sGI=11'Not Used
-Const sLSKicker=25		'ok
-Const sLeftKick=26		'ok
-Const sUpKicker=27		'ok
-Const sCenterKicker=28	'ok
-Const s3BankReset=29	'ok
-Const sKnocker=30		'ok
-Const sOutHole=31		'ok
+Const sLSKicker=25    'ok
+Const sLeftKick=26    'ok
+Const sUpKicker=27    'ok
+Const sCenterKicker=28  'ok
+Const s3BankReset=29  'ok
+Const sKnocker=30   'ok
+Const sOutHole=31   'ok
 Const sSinkingShip=32
 
 'SolCallback(3)="vpmFlasher Flasher3L,"
 'SolCallback(8)="vpmFlasher Flash8,"
-SolCallback(sBallRelease)="bsTrough.SolOut"				'Sol16
-SolCallback(sLSKicker)="vpmSolAutoPlunger Plunger1,1,"	'Sol25
+SolCallback(sBallRelease)="bsTrough.SolOut"       'Sol16
+SolCallback(sLSKicker)="vpmSolAutoPlunger Plunger1,1,"  'Sol25
 SolCallback(SGI)="GIUpdate"
-SolCallback(sLeftKick)="bsLeftLock.SolOut"				'Sol26
-SolCallback(sUpKicker)="VUKKick"						'Sol27
-SolCallback(sCenterKicker)="bsRightLock.SolOut"			'Sol28
-'SolCallback(s3BankReset)="dtT.SolDropUp"				'Sol29
-SolCallBack(s3BankReset) = "ResetDrops"					'Sol29 method changed JPJ
-SolCallback(sKnocker)="vpmSolSound SoundFX(""knocker"",DOFKnocker),"		'Sol30
-SolCallback(sOutHole)="bsTrough.SolIn"					'Sol31
+SolCallback(sLeftKick)="bsLeftLock.SolOut"        'Sol26
+SolCallback(sUpKicker)="VUKKick"            'Sol27
+SolCallback(sCenterKicker)="bsRightLock.SolOut"     'Sol28
+'SolCallback(s3BankReset)="dtT.SolDropUp"       'Sol29
+SolCallBack(s3BankReset) = "ResetDrops"         'Sol29 method changed JPJ
+SolCallback(sKnocker)="vpmSolSound SoundFX(""knocker"",DOFKnocker),"    'Sol30
+SolCallback(sOutHole)="bsTrough.SolIn"          'Sol31
 SolCallback(sSinkingShip)="SinkIt"
 
 'FLASHERS
@@ -89,36 +89,36 @@ Const sLeftPair=9
 Const sCenterPair=14
 Const sRightPair=15
 
-SolCallback(sDestroyHotdog)="DESTHD"				'Sol1
-SolCallback(sTorpedoHotdog)="TorpHD"				'Sol2
-SolCallback(sFlagshipHotdog)="FlagHD"				'Sol3
-SolCallback(sAircraftHotdog)="ACHD"					'Sol4
-SolCallback(sSpecialHotdog)="SpecialHD"				'Sol5
-SolCallback(sCruiserHotdog)="CRUISEHD"				'Sol6
-SolCallback(sScope)="ScopeHD"						'Sol7
-'SolCallback(sInsert)="vpmFlasher ,"				'Sol8
-SolCallback(sLeftPair)="SolLeft"					'Sol9
-SolCallback(sCenterPair)="SolCentre"				'Sol14
-SolCallback(sRightPair)="SolRight"					'Sol15
+SolCallback(sDestroyHotdog)="DESTHD"        'Sol1
+SolCallback(sTorpedoHotdog)="TorpHD"        'Sol2
+SolCallback(sFlagshipHotdog)="FlagHD"       'Sol3
+SolCallback(sAircraftHotdog)="ACHD"         'Sol4
+SolCallback(sSpecialHotdog)="SpecialHD"       'Sol5
+SolCallback(sCruiserHotdog)="CRUISEHD"        'Sol6
+SolCallback(sScope)="ScopeHD"           'Sol7
+'SolCallback(sInsert)="vpmFlasher ,"        'Sol8
+SolCallback(sLeftPair)="SolLeft"          'Sol9
+SolCallback(sCenterPair)="SolCentre"        'Sol14
+SolCallback(sRightPair)="SolRight"          'Sol15
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-		 If Enabled Then
-			 PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
-		 Else
-			 PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
-		 End If
-	  End Sub
+     If Enabled Then
+       PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
+     Else
+       PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
+     End If
+    End Sub
 
-	Sub SolRFlipper(Enabled)
-		 If Enabled Then
-			 PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
-		 Else
-			 PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
-		 End If
-	End Sub
+  Sub SolRFlipper(Enabled)
+     If Enabled Then
+       PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
+     Else
+       PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
+     End If
+  End Sub
 
 Dim DTBank
 Dim bsTrough,dtT,bsLeftLock,bsTopLock,bsRightLock
@@ -133,69 +133,69 @@ check = 1
 
 If Table1.ShowDT = False then
     Scoretext.Visible = false
-	Ramp15.Visible = False
-	Ramp16.Visible = False
+  Ramp15.Visible = False
+  Ramp16.Visible = False
 End If
 
 Sub Table1_Init
 vpmInit Me
 On Error Resume Next
-		With Controller
-			.GameName=cGameName
-			If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-			.SplashInfoLine = "Torpedo Alley - Data East" & vbnewline & "Table by Destruk/TAB"
-			.HandleMechanics=0
-			.HandleKeyboard=0
-			.ShowDMDOnly=1
-			.ShowFrame=0
-			.ShowTitle=0
-			.DIP(0)=&H00
-			.Run
- 			.Hidden=1
-			If Err Then MsgBox Err.Description
-		End With
-	On Error Goto 0
+    With Controller
+      .GameName=cGameName
+      If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+      .SplashInfoLine = "Torpedo Alley - Data East" & vbnewline & "Table by Destruk/TAB"
+      .HandleMechanics=0
+      .HandleKeyboard=0
+      .ShowDMDOnly=1
+      .ShowFrame=0
+      .ShowTitle=0
+      .DIP(0)=&H00
+      .Run
+      .Hidden=1
+      If Err Then MsgBox Err.Description
+    End With
+  On Error Goto 0
 
-	vpmNudge.TiltSwitch=1
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+  vpmNudge.TiltSwitch=1
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
-	Set bsTrough=New cvpmBallStack
-	bsTrough.InitSw 10,13,12,11,0,0,0,0
-	bsTrough.InitKick BallRelease,90,6
-	bsTrough.InitEntrySnd "solenoid", "solenoid"
-	bsTrough.InitExitSnd SoundFX("ballrel",DOFContactors), SoundFX("solenoid",DOFContactors)
-	bsTrough.Balls=3
+  Set bsTrough=New cvpmBallStack
+  bsTrough.InitSw 10,13,12,11,0,0,0,0
+  bsTrough.InitKick BallRelease,90,6
+  bsTrough.InitEntrySnd "solenoid", "solenoid"
+  bsTrough.InitExitSnd SoundFX("ballrel",DOFContactors), SoundFX("solenoid",DOFContactors)
+  bsTrough.Balls=3
 
-	Set dtT=New cvpmDropTarget
-	dtT.InitDrop Array(SW29,SW30,SW31),Array(29,30,31)
-	dtT.InitSnd SoundFX("target_drop",DOFDropTargets),SoundFX("reset_drop",DOFContactors)
+  Set dtT=New cvpmDropTarget
+  dtT.InitDrop Array(SW29,SW30,SW31),Array(29,30,31)
+  dtT.InitSnd SoundFX("target_drop",DOFDropTargets),SoundFX("reset_drop",DOFContactors)
 
-	Set bsLeftLock=New cvpmBallStack
-	bsLeftLock.InitSw 0,42,41,0,0,0,0,0
-	bsLeftLock.InitKick Kicker2,45,15
-	bsLeftLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
-	'bsLeftLock.KickBalls=2
+  Set bsLeftLock=New cvpmBallStack
+  bsLeftLock.InitSw 0,42,41,0,0,0,0,0
+  bsLeftLock.InitKick Kicker2,45,15
+  bsLeftLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
+  'bsLeftLock.KickBalls=2
 
-	Set bsTopLock=New cvpmBallStack
-	bsTopLock.InitSw 0,43,0,0,0,0,0,0
-	bsTopLock.InitKick VUK,45,10
-	bsTopLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
+  Set bsTopLock=New cvpmBallStack
+  bsTopLock.InitSw 0,43,0,0,0,0,0,0
+  bsTopLock.InitKick VUK,45,10
+  bsTopLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
 
-	Set bsRightLock=New cvpmBallStack
-	bsRightLock.InitSw 0,45,44,0,0,0,0,0
-	bsRightLock.InitKick Kicker1,45,35
-	bsRightLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
-	bsRightLock.KickBalls=2
+  Set bsRightLock=New cvpmBallStack
+  bsRightLock.InitSw 0,45,44,0,0,0,0,0
+  bsRightLock.InitKick Kicker1,45,35
+  bsRightLock.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solenoid",DOFContactors)
+  bsRightLock.KickBalls=2
 
     SW37A.isdropped = 1
     SW56A.isdropped = 1
     Plunger1.Pullback
-	Sink5.isdropped = 1
-	Sink4.isdropped = 1
-	Sink3.isdropped = 1
-	Sink2.isdropped = 1
-	Sink1.isdropped = 0
+  Sink5.isdropped = 1
+  Sink4.isdropped = 1
+  Sink3.isdropped = 1
+  Sink2.isdropped = 1
+  Sink1.isdropped = 0
     'Shpos = 1
     'SinkShip.enabled = 1
 End Sub
@@ -203,92 +203,92 @@ End Sub
 Sub Table1_KeyDown(ByVal keycode)
 
 
-	If keycode = PlungerKey Then
-		Plunger.PullBack
-		PlaySoundAtVol "plungerpull", plunger, 1
-	End If
+  If keycode = PlungerKey Then
+    Plunger.PullBack
+    PlaySoundAtVol "plungerpull", plunger, 1
+  End If
 
-	If keycode = LeftTiltKey Then
-		SbmLR = -1
-		Nudge 90, 2
-	End If
+  If keycode = LeftTiltKey Then
+    SbmLR = -1
+    Nudge 90, 2
+  End If
 
-	If keycode = RightTiltKey Then
-		SbmLR = 1
-		Nudge 270, 2
-	End If
+  If keycode = RightTiltKey Then
+    SbmLR = 1
+    Nudge 270, 2
+  End If
 
-	If keycode = CenterTiltKey Then
-		Nudge 0, 2
-	End If
+  If keycode = CenterTiltKey Then
+    Nudge 0, 2
+  End If
 
     If KeyCode=LeftFlipperKey Then Controller.Switch(15)=1
-	If KeyCode=RightFlipperKey Then Controller.Switch(16)=1
-	If vpmKeyDown(KeyCode) Then Exit Sub
+  If KeyCode=RightFlipperKey Then Controller.Switch(16)=1
+  If vpmKeyDown(KeyCode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
 
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAtVol "plunger", Plunger, 1
-	End If
-	If KeyCode=LeftFlipperKey Then Controller.Switch(15)=0
-	If KeyCode=RightFlipperKey Then Controller.Switch(16)=0
-	If vpmKeyUp(KeyCode) Then Exit Sub
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySoundAtVol "plunger", Plunger, 1
+  End If
+  If KeyCode=LeftFlipperKey Then Controller.Switch(15)=0
+  If KeyCode=RightFlipperKey Then Controller.Switch(16)=0
+  If vpmKeyUp(KeyCode) Then Exit Sub
 End Sub
 
 Sub Drain_Hit:bsTrough.AddBall Me:PlaySoundAtVol "drain",drain,1:End Sub
 
 
 Sub Plunger_Init()
-	'PlaySound "ballrelease",0,0.5,0.5,0.25
-	'Plunger.CreateBall
-	'BallRelease.CreateBall
-	'BallRelease.Kick 90, 8
+  'PlaySound "ballrelease",0,0.5,0.5,0.25
+  'Plunger.CreateBall
+  'BallRelease.CreateBall
+  'BallRelease.Kick 90, 8
 End Sub
 
 
 Sub Bumper1_Hit
     vpmTimer.PulseSw 50
-	PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper1, VolBump
-	'B1L1.State = 1:B1L2. State = 1
-	Me.TimerEnabled = 1
-	bumper3Flash.state = 1
+  PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper1, VolBump
+  'B1L1.State = 1:B1L2. State = 1
+  Me.TimerEnabled = 1
+  bumper3Flash.state = 1
 End Sub
 
 Sub Bumper1_Timer
-	'B1L1.State = 0:B1L2. State = 0
-	Me.Timerenabled = 0
-	bumper3Flash.state = 0
+  'B1L1.State = 0:B1L2. State = 0
+  Me.Timerenabled = 0
+  bumper3Flash.state = 0
 End Sub
 
 Sub Bumper2_Hit
     vpmTimer.PulseSw 51
-	PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper2, VolBump
-	'B2L1.State = 1:B2L2. State = 1
-	Me.TimerEnabled = 1
-	bumper2Flash.state = 1
+  PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper2, VolBump
+  'B2L1.State = 1:B2L2. State = 1
+  Me.TimerEnabled = 1
+  bumper2Flash.state = 1
 End Sub
 
 Sub Bumper2_Timer
-	'B2L1.State = 0:B2L2. State = 0
-	Me.Timerenabled = 0
-	bumper2Flash.state = 0
+  'B2L1.State = 0:B2L2. State = 0
+  Me.Timerenabled = 0
+  bumper2Flash.state = 0
 End Sub
 
 Sub Bumper3_Hit
     vpmTimer.PulseSw 49
-	PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
-	'B3L1.State = 1:B3L2. State = 1
-	Me.TimerEnabled = 1
-	bumper1Flash.state = 1
+  PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
+  'B3L1.State = 1:B3L2. State = 1
+  Me.TimerEnabled = 1
+  bumper1Flash.state = 1
 End Sub
 
 Sub Bumper3_Timer
-	'B3L1.State = 0:B3L2. State = 0
-	Me.Timerenabled = 0
-	bumper1Flash.state = 0
+  'B3L1.State = 0:B3L2. State = 0
+  Me.Timerenabled = 0
+  bumper1Flash.state = 0
 End Sub
 
 Sub SolCentre(Enabled)
@@ -439,14 +439,14 @@ Sub SW36_hit():vpmTimer.PulseSw 26:SubDown2.Enabled = 1:End Sub
  ' Drop Targets jpj variation (changing lights) - Base from cyberpez code (back to the future)
 
 
-	dim sw29Dir, sw30Dir, sw31Dir
-	dim sw29Pos, sw30Pos, sw31Pos
+  dim sw29Dir, sw30Dir, sw31Dir
+  dim sw29Pos, sw30Pos, sw31Pos
 
-	sw29Dir = 1:sw30Dir = 1:sw30Dir = 1
-	sw29Pos = 0:sw30Pos = 0:sw30Pos = 0
+  sw29Dir = 1:sw30Dir = 1:sw30Dir = 1
+  sw29Pos = 0:sw30Pos = 0:sw30Pos = 0
 
   'Targets Init
-	sw29a.TimerEnabled = 1:sw30a.TimerEnabled = 1:sw31a.TimerEnabled = 1
+  sw29a.TimerEnabled = 1:sw30a.TimerEnabled = 1:sw31a.TimerEnabled = 1
 
 
 
@@ -456,101 +456,101 @@ Sub SW36_hit():vpmTimer.PulseSw 26:SubDown2.Enabled = 1:End Sub
   Sub sw30_Hit:DTBank.Hit 2:sw30Dir = 0:sw30l=0:sw30a.TimerEnabled = 1:check=0:End Sub
   Sub sw31_Hit:DTBank.Hit 3:sw31Dir = 0:sw31l=0:sw31a.TimerEnabled = 1:check=0:End Sub
 
-   	Set DTBank = New cvpmDropTarget
-   	  With DTBank
-   		.InitDrop Array(Array(sw29,sw29a),Array(sw30,sw30a),Array(sw31,sw31a)), Array(29,30,31)
-		.InitSnd SoundFX("target_drop",DOFDropTargets),SoundFX("reset_drop",DOFContactors)
+    Set DTBank = New cvpmDropTarget
+      With DTBank
+      .InitDrop Array(Array(sw29,sw29a),Array(sw30,sw30a),Array(sw31,sw31a)), Array(29,30,31)
+    .InitSnd SoundFX("target_drop",DOFDropTargets),SoundFX("reset_drop",DOFContactors)
        End With
 
 Sub lightchoice
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
-		Lightcvup1a9.state = 1:Lightcvup3aa9.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
-		Lightcvup1a90.state = 1:Lightcvup3aa90.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
-		Lightcvup1a901.state = 1:Lightcvup3aa901.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
-		Lightcvup1a91.state = 1:Lightcvup3aa91.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
-		Lightcvup1a0.state = 1:Lightcvup3aa0.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
-		Lightcvup3a1.state = 1:Lightcvup1aa1.state=1
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
-		Lightcvup1a01.state = 1:Lightcvup3aa01.state=1
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
-		Check=0
-	end if
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=1:Lightcvup2.state=1'default light behind Targets
-		check=1
-	end if
+  if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
+    Lightcvup1a9.state = 1:Lightcvup3aa9.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+  if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
+    Lightcvup1a90.state = 1:Lightcvup3aa90.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+  if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
+    Lightcvup1a901.state = 1:Lightcvup3aa901.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+  if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
+    Lightcvup1a91.state = 1:Lightcvup3aa91.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+    if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
+    Lightcvup1a0.state = 1:Lightcvup3aa0.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+    if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
+    Lightcvup3a1.state = 1:Lightcvup1aa1.state=1
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+    if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
+    Lightcvup1a01.state = 1:Lightcvup3aa01.state=1
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=0:Lightcvup2.state=0'default light behind Targets
+    Check=0
+  end if
+    if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=1:Lightcvup2.state=1'default light behind Targets
+    check=1
+  end if
 
 if check=1 then Lightcvup4.state=1:Lightcvup2.state=1:end If
 if check=0 then Lightcvup4.state=0:Lightcvup2.state=0:end If
@@ -562,17 +562,17 @@ End Sub
 
   Select Case sw29Pos
         Case 0: sw29P.z=0
-				If sw29Dir = 1 then
-					sw29l = 1
-					sw29a.TimerEnabled = 0
-					lightchoice
-				else
-					sw29Dir = 0
-					check = 0
-					Lightcvup4.state=0:Lightcvup2.state=0
-					sw29a.TimerEnabled = 1
-					lightchoice
-				end if
+        If sw29Dir = 1 then
+          sw29l = 1
+          sw29a.TimerEnabled = 0
+          lightchoice
+        else
+          sw29Dir = 0
+          check = 0
+          Lightcvup4.state=0:Lightcvup2.state=0
+          sw29a.TimerEnabled = 1
+          lightchoice
+        end if
         Case 1: sw29P.z=0
         Case 2: sw29P.z=-4
         Case 3: sw29P.z=-8
@@ -587,18 +587,18 @@ End Sub
         Case 12: sw29P.z=-44
         Case 13: sw29P.z=-48:sw29P.ReflectionEnabled = true
         Case 14: sw29P.z=-52:sw29P.ReflectionEnabled = false
-				 If sw29Dir = 1 then
-				 else
-					sw29a.TimerEnabled = 0
-			     end if
+         If sw29Dir = 1 then
+         else
+          sw29a.TimerEnabled = 0
+           end if
 
 
 End Select
-	If sw29Dir = 1 then
-		If sw29pos>0 then sw29pos=sw29pos-1
-	else
-		If sw29pos<14 then sw29pos=sw29pos+1
-	end if
+  If sw29Dir = 1 then
+    If sw29pos>0 then sw29pos=sw29pos-1
+  else
+    If sw29pos<14 then sw29pos=sw29pos+1
+  end if
   End Sub
 
 
@@ -608,17 +608,17 @@ End Select
  Sub sw30a_Timer()
   Select Case sw30Pos
         Case 0: sw30P.z=0
-				 If sw30Dir = 1 then
-					sw30l = 1
-					sw30a.TimerEnabled = 0
-					lightchoice
-				 else
-					sw30Dir = 0
-					check = 0
-					Lightcvup4.state=0:Lightcvup2.state=0
-					sw30a.TimerEnabled = 1
-					lightchoice
-			     end if
+         If sw30Dir = 1 then
+          sw30l = 1
+          sw30a.TimerEnabled = 0
+          lightchoice
+         else
+          sw30Dir = 0
+          check = 0
+          Lightcvup4.state=0:Lightcvup2.state=0
+          sw30a.TimerEnabled = 1
+          lightchoice
+           end if
         Case 1: sw30P.z=0
         Case 2: sw30P.z=-4
         Case 3: sw30P.z=-8
@@ -633,35 +633,35 @@ End Select
         Case 12: sw30P.z=-44
         Case 13: sw30P.z=-48:sw30P.ReflectionEnabled = true
         Case 14: sw30P.z=-52:sw30P.ReflectionEnabled = false
-				 If sw30Dir = 1 then
-				 else
-					sw30a.TimerEnabled = 0
-			     end if
+         If sw30Dir = 1 then
+         else
+          sw30a.TimerEnabled = 0
+           end if
 
 
 End Select
-	If sw30Dir = 1 then
-		If sw30pos>0 then sw30pos=sw30pos-1
-	else
-		If sw30pos<14 then sw30pos=sw30pos+1
-	end if
+  If sw30Dir = 1 then
+    If sw30pos>0 then sw30pos=sw30pos-1
+  else
+    If sw30pos<14 then sw30pos=sw30pos+1
+  end if
   End Sub
 
 
  Sub sw31a_Timer()
   Select Case sw31Pos
         Case 0: sw31P.z=0
-				 If sw31Dir = 1 then
-					sw31l = 1
-					sw31a.TimerEnabled = 0
-					lightchoice
-				 else
-					sw31Dir = 0
-					check = 0
-					Lightcvup4.state=0:Lightcvup2.state=0
-					sw31a.TimerEnabled = 1
-					lightchoice
-			     end if
+         If sw31Dir = 1 then
+          sw31l = 1
+          sw31a.TimerEnabled = 0
+          lightchoice
+         else
+          sw31Dir = 0
+          check = 0
+          Lightcvup4.state=0:Lightcvup2.state=0
+          sw31a.TimerEnabled = 1
+          lightchoice
+           end if
         Case 1: sw31P.z=0
         Case 2: sw31P.z=-4
         Case 3: sw31P.z=-8
@@ -676,40 +676,40 @@ End Select
         Case 12: sw31P.z=-44
         Case 13: sw31P.z=-48:sw31P.ReflectionEnabled = true
         Case 14: sw31P.z=-52:sw31P.ReflectionEnabled = false
-				 If sw31Dir = 1 then
-				 else
-					sw31a.TimerEnabled = 0
-			     end if
+         If sw31Dir = 1 then
+         else
+          sw31a.TimerEnabled = 0
+           end if
 
 
 
 End Select
-	If sw31Dir = 1 then
-		If sw31pos>0 then sw31pos=sw31pos-1
-	else
-		If sw31pos<14 then sw31pos=sw31pos+1
-	end if
+  If sw31Dir = 1 then
+    If sw31pos>0 then sw31pos=sw31pos-1
+  else
+    If sw31pos<14 then sw31pos=sw31pos+1
+  end if
   End Sub
 
 
 
 'DT Subs
    Sub ResetDrops(Enabled)
-		If Enabled Then
-			sw29Dir = 1:sw30Dir = 1:sw31Dir = 1
-			sw29l=1:sw30l=1:sw31l=1
-			check=1
-			sw29a.TimerEnabled = 1:sw30a.TimerEnabled = 1:sw31a.TimerEnabled = 1
-			DTBank.DropSol_On
-		Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
-		Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
-		Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
-		Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
-		Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
-		Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
-		Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
-		Lightcvup4.state=1:Lightcvup2.state=1
-		End if
+    If Enabled Then
+      sw29Dir = 1:sw30Dir = 1:sw31Dir = 1
+      sw29l=1:sw30l=1:sw31l=1
+      check=1
+      sw29a.TimerEnabled = 1:sw30a.TimerEnabled = 1:sw31a.TimerEnabled = 1
+      DTBank.DropSol_On
+    Lightcvup1a01.state = 0:Lightcvup3aa01.state=0
+    Lightcvup3a1.state = 0:Lightcvup1aa1.state=0
+    Lightcvup1a0.state = 0:Lightcvup3aa0.state=0
+    Lightcvup1a91.state = 0:Lightcvup3aa91.state=0
+    Lightcvup1a901.state = 0:Lightcvup3aa901.state=0
+    Lightcvup1a90.state = 0:Lightcvup3aa90.state=0
+    Lightcvup1a9.state = 0:Lightcvup3aa9.state=0
+    Lightcvup4.state=1:Lightcvup2.state=1
+    End if
    End Sub
 
 
@@ -757,62 +757,62 @@ Sub SW56_Timer():SW56.isdropped = 0:SW56a.isdropped = 1:me.timerenabled = 0:End 
 dim xx
 Sub GIUpdate(enabled)
 
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
-				If enabled Then
-					For each xx in GI9:xx.State = 0:Next
-				else
-					For each xx in GI9:xx.State = 1:Next
-				End If
-	end if
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
-				If enabled Then
-					For each xx in GI90:xx.State = 0:Next
-				else
-					For each xx in GI90:xx.State = 1:Next
-				End If
-	end if
-	if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
-				If enabled Then
-					For each xx in GI901:xx.State = 0:Next
-				else
-					For each xx in GI901:xx.State = 1:Next
-				End If
-	end if
-	if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
-				If enabled Then
-					For each xx in GI91:xx.State = 0:Next
-				else
-					For each xx in GI91:xx.State = 1:Next
-				End If
-	end if
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
-				If enabled Then
-					For each xx in GI0:xx.State = 0:Next
-				else
-					For each xx in GI0:xx.State = 1:Next
-				End If
-	end if
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
-				If enabled Then
-					For each xx in GI1:xx.State = 0:Next
-				else
-					For each xx in GI1:xx.State = 1:Next
-				End If
-	end if
-		if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
-				If enabled Then
-					For each xx in GI01:xx.State = 0:Next
-				else
-					For each xx in GI01:xx.State = 1:Next
-				End If
-	end if
-		if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
-				If enabled Then
-					For each xx in GIempty:xx.State = 0:Next
-				else
-					For each xx in GIempty:xx.State = 1:Next
-				End If
-		end if
+  if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 1 then
+        If enabled Then
+          For each xx in GI9:xx.State = 0:Next
+        else
+          For each xx in GI9:xx.State = 1:Next
+        End If
+  end if
+  if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 1 then
+        If enabled Then
+          For each xx in GI90:xx.State = 0:Next
+        else
+          For each xx in GI90:xx.State = 1:Next
+        End If
+  end if
+  if sw29Dir = 0 and sw30Dir = 0 and sw31Dir = 0 then
+        If enabled Then
+          For each xx in GI901:xx.State = 0:Next
+        else
+          For each xx in GI901:xx.State = 1:Next
+        End If
+  end if
+  if sw29Dir = 0 and sw30Dir = 1 and sw31Dir = 0 then
+        If enabled Then
+          For each xx in GI91:xx.State = 0:Next
+        else
+          For each xx in GI91:xx.State = 1:Next
+        End If
+  end if
+    if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 1 then
+        If enabled Then
+          For each xx in GI0:xx.State = 0:Next
+        else
+          For each xx in GI0:xx.State = 1:Next
+        End If
+  end if
+    if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 0 then
+        If enabled Then
+          For each xx in GI1:xx.State = 0:Next
+        else
+          For each xx in GI1:xx.State = 1:Next
+        End If
+  end if
+    if sw29Dir = 1 and sw30Dir = 0 and sw31Dir = 0 then
+        If enabled Then
+          For each xx in GI01:xx.State = 0:Next
+        else
+          For each xx in GI01:xx.State = 1:Next
+        End If
+  end if
+    if sw29Dir = 1 and sw30Dir = 1 and sw31Dir = 1 then
+        If enabled Then
+          For each xx in GIempty:xx.State = 0:Next
+        else
+          For each xx in GIempty:xx.State = 1:Next
+        End If
+    end if
 LightLeftSlingshot.state =0
 LightRightSlingshot.state =0
 
@@ -830,13 +830,13 @@ Dim RStep, Lstep
 Sub RightSlingShot_Slingshot
     vpmTimer.PulseSw 53
     PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), sling1, 1
-	LightRightSlingshot.state =0
+  LightRightSlingshot.state =0
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
     RightSlingShot.TimerEnabled = 1
-	'gi1.State = 0:Gi2.State = 0
+  'gi1.State = 0:Gi2.State = 0
 End Sub
 
 Sub RightSlingShot_Timer
@@ -845,20 +845,20 @@ Sub RightSlingShot_Timer
         Case 4:RSLing2.Visible = 0:RSLing.Visible = 1:sling1.TransZ = 0:RightSlingShot.TimerEnabled = 0
     End Select
     RStep = RStep + 1
-	LightRightSlingshot.state =1
+  LightRightSlingshot.state =1
 if RSLing1.Visible = 0 then LightRightSlingshot.state =0:end If
 End Sub
 
 Sub LeftSlingShot_Slingshot
     vpmTimer.PulseSw 52
     PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling2, 1
-	LightLeftSlingshot.state =0
+  LightLeftSlingshot.state =0
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
     LStep = 0
     LeftSlingShot.TimerEnabled = 1
-	'gi3.State = 0:Gi4.State = 0
+  'gi3.State = 0:Gi4.State = 0
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -867,7 +867,7 @@ Sub LeftSlingShot_Timer
         Case 4:LSLing2.Visible = 0:LSLing.Visible = 1:sling2.TransZ = 0:LeftSlingShot.TimerEnabled = 0
     End Select
     LStep = LStep + 1
-	LightLeftSlingshot.state =1
+  LightLeftSlingshot.state =1
 if LSLing1.Visible = 0 then LightLeftSlingshot.state =0:end If
 End Sub
 
@@ -885,7 +885,7 @@ End If
 
 End Sub
 
-Lights(1)=Array(L1,L1a)		'yellow lights
+Lights(1)=Array(L1,L1a)   'yellow lights
 
 Lights(2)=Array(L2,L2z)
 Lights(3)=Array(L3,L3z)
@@ -911,7 +911,7 @@ Lights(20)=Array(L20,L20z)
 Lights(21)=Array(L21,L21z)
 Lights(22)=Array(L22,L22z)
 
-Lights(23)=Array(L23,L23A)	'yellow lights
+Lights(23)=Array(L23,L23A)  'yellow lights
 
 Set Lights(24)=L24'Set Lights(24)=L24 TEST
 
@@ -954,7 +954,7 @@ Lights(60)=Array(L60,L60z)
 Lights(61)=Array(L61,L61z)
 Lights(62)=Array(L62,L62z)
 Lights(63)=Array(L63,L63z,L63r)
-set Lights(64)=L64			'yellow light
+set Lights(64)=L64      'yellow light
 
 if check=1 then Lightcvup4.state=1:Lightcvup2.state=1:end If
 if check=0 then Lightcvup4.state=0:Lightcvup2.state=0:end If
@@ -968,16 +968,16 @@ lightrocks.enabled = 1
 
 Sub LightRocks_Timer()
 select case L1.state
-	case 0:RockLeft.Image = "RocherLoff"
-	case 1:RockLeft.Image = "RocherLon"
+  case 0:RockLeft.Image = "RocherLoff"
+  case 1:RockLeft.Image = "RocherLon"
 end Select
 select case L23.state or L64.state
-	case 0:RockRight.Image = "RocherRoff"
-	case 1:RockRight.Image = "RocherRon"
+  case 0:RockRight.Image = "RocherRoff"
+  case 1:RockRight.Image = "RocherRon"
 end Select
 select case L23A.state
-	case 0:RockCenter.Image = "RocherCoff"
-	case 1:RockCenter.Image = "RocherCon"
+  case 0:RockCenter.Image = "RocherCoff"
+  case 1:RockCenter.Image = "RocherCon"
 end Select
 End Sub
 
@@ -1042,77 +1042,77 @@ End Function
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rollovers_Hit (idx)
-	PlaySound "rollover", 0, Vol(ActiveBall)*VolRol, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "rollover", 0, Vol(ActiveBall)*VolRol, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRh, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRh, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub MRIN_Hit()
@@ -1134,31 +1134,31 @@ End Sub
 Dim raiseballsw, raiseball, hasbeenhit
 
  Sub VUKKick(Enabled)
-	if(enabled) AND hasbeenhit = 1 then
- 		VUK.destroyball
+  if(enabled) AND hasbeenhit = 1 then
+    VUK.destroyball
         PlaySoundAtVol "Kicker_enter_center", Vuk, 1
-		 'bsRTPop.balls = bsRTPop.balls  -1
-		'VUK.DestroyBall
- 		Set raiseball = VUK.CreateBall
- 		raiseballsw = True
- 		Vukraiseballtimer.Enabled = True
-		'VUK.Enabled=TRUE
-	end if
+     'bsRTPop.balls = bsRTPop.balls  -1
+    'VUK.DestroyBall
+    Set raiseball = VUK.CreateBall
+    raiseballsw = True
+    Vukraiseballtimer.Enabled = True
+    'VUK.Enabled=TRUE
+  end if
 End Sub
 
  Sub Vukraiseballtimer_Timer()
- 	If raiseballsw = True then
- 		raiseball.z = raiseball.z + 10
- 		If raiseball.z > 120 then
- 			VUK.Kick 130, 10
-			PlaySoundAtVol SoundFX("popper",DOFContactors), Vuk, VolKick
- 			Set raiseball = Nothing
- 			Vukraiseballtimer.Enabled = False
- 			raiseballsw = False
-		Controller.Switch(43) = 0
+  If raiseballsw = True then
+    raiseball.z = raiseball.z + 10
+    If raiseball.z > 120 then
+      VUK.Kick 130, 10
+      PlaySoundAtVol SoundFX("popper",DOFContactors), Vuk, VolKick
+      Set raiseball = Nothing
+      Vukraiseballtimer.Enabled = False
+      raiseballsw = False
+    Controller.Switch(43) = 0
         hasbeenhit = 0
- 		End If
- 	End If
+    End If
+  End If
  End Sub
 
 Sub Sinkit(enabled)
@@ -1208,15 +1208,15 @@ SubLR.enabled = 1
 
 Sub SubLR_Timer()
 :debug.print "on est dans le SubLR_Timer"
-	if SbmLR= -1 then Rot = 1:debug.print "OK pour le nudge"end if
-	if SbmLR= 1 then Rot = 10:end if
-	UpdateSbmLR
+  if SbmLR= -1 then Rot = 1:debug.print "OK pour le nudge"end if
+  if SbmLR= 1 then Rot = 10:end if
+  UpdateSbmLR
 
   End Sub
 
 
   Sub UpDateSbmLR
-	select case Rot
+  select case Rot
 'case 0:end Select
 case 1:SbmRotaYY = 82:Rot = 2
 Submarine3.RotZ = SbmRotaYY
@@ -1245,14 +1245,14 @@ case 15:Rot = 16:SbmRotaYY = 88:UpDateSbmLRAction
 case 16:Rot = 17:SbmRotaYY = 85:UpDateSbmLRAction
 case 17:Rot = 18:SbmRotaYY = 88:UpDateSbmLRAction
 case 18:SbmRotaYY = 90:UpDateSbmLRAction:Rot = 0
-	End select
+  End select
 
   End Sub
 
 Sub UpDateSbmLRAction
-	Submarine3.RotZ = SbmRotaYY
-	SubMarine2.RotZ = SbmRotaYY
-	Submarine1.RotZ = SbmRotaYY
+  Submarine3.RotZ = SbmRotaYY
+  SubMarine2.RotZ = SbmRotaYY
+  Submarine1.RotZ = SbmRotaYY
 debug.print SbmRotaYY
 End Sub
 
@@ -1267,21 +1267,21 @@ SbmIntensity = 0
 
 
   Sub SubDown_Timer()
-	if SbmDir= -1 then SbmTransX = SbmTransX - 3:SbmIntensity = SbmIntensity + 1:end if
-	if SbmDir= 1 then SbmTransX = SbmTransX + 3:SbmIntensity = SbmIntensity - 1:end If
-	UpdateSbm
-	If SbmTransX >= 0 then
-		SbmTransX = 0:SubDown.Enabled = 0: SbmDir=-1
-	end if
-	If SbmTransX <= -39 then
-		SbmTransX = -39:SubDown.Enabled = 0: SbmDir=1
-	end if
+  if SbmDir= -1 then SbmTransX = SbmTransX - 3:SbmIntensity = SbmIntensity + 1:end if
+  if SbmDir= 1 then SbmTransX = SbmTransX + 3:SbmIntensity = SbmIntensity - 1:end If
+  UpdateSbm
+  If SbmTransX >= 0 then
+    SbmTransX = 0:SubDown.Enabled = 0: SbmDir=-1
+  end if
+  If SbmTransX <= -39 then
+    SbmTransX = -39:SubDown.Enabled = 0: SbmDir=1
+  end if
   End Sub
 
 
   Sub UpDateSbm
-	Submarine3.TransX = SbmTransX
-	LightSubmarine3.intensity() = SbmIntensity
+  Submarine3.TransX = SbmTransX
+  LightSubmarine3.intensity() = SbmIntensity
 
   End Sub
 
@@ -1297,21 +1297,21 @@ SbmIntensity2 = 0
 
 
   Sub SubDown2_Timer()
-	if SbmDir2= -1 then SbmTransX2 = SbmTransX2 - 3:SbmIntensity2 = SbmIntensity2 + 1:end if
-	if SbmDir2= 1 then SbmTransX2 = SbmTransX2 + 3:SbmIntensity2 = SbmIntensity2 - 1:end If
-	UpdateSbm2
-	If SbmTransX2 >= 0 then
-		SbmTransX2 = 0:SubDown2.Enabled = 0: SbmDir2=-1
-	end if
-	If SbmTransX2 <= -39 then
-		SbmTransX2 = -39:SubDown2.Enabled = 0: SbmDir2=1
-	end if
+  if SbmDir2= -1 then SbmTransX2 = SbmTransX2 - 3:SbmIntensity2 = SbmIntensity2 + 1:end if
+  if SbmDir2= 1 then SbmTransX2 = SbmTransX2 + 3:SbmIntensity2 = SbmIntensity2 - 1:end If
+  UpdateSbm2
+  If SbmTransX2 >= 0 then
+    SbmTransX2 = 0:SubDown2.Enabled = 0: SbmDir2=-1
+  end if
+  If SbmTransX2 <= -39 then
+    SbmTransX2 = -39:SubDown2.Enabled = 0: SbmDir2=1
+  end if
   End Sub
 
 
   Sub UpDateSbm2
-	Submarine2.TransX = SbmTransX2
-	LightSubmarine2.intensity() = SbmIntensity2
+  Submarine2.TransX = SbmTransX2
+  LightSubmarine2.intensity() = SbmIntensity2
 
   End Sub
 
@@ -1327,21 +1327,21 @@ SbmIntensity1 = 0
 
 
   Sub SubDown1_Timer()
-	if SbmDir1= -1 then SbmTransX1 = SbmTransX1 - 3:SbmIntensity1 = SbmIntensity1 + 1:end if
-	if SbmDir1= 1 then SbmTransX1 = SbmTransX1 + 3:SbmIntensity1 = SbmIntensity1 - 1:end If
-	UpdateSbm1
-	If SbmTransX1 >= 0 then
-		SbmTransX1 = 0:SubDown1.Enabled = 0: SbmDir1=-1
-	end if
-	If SbmTransX1 <= -39 then
-		SbmTransX1 = -39:SubDown1.Enabled = 0: SbmDir1=1
-	end if
+  if SbmDir1= -1 then SbmTransX1 = SbmTransX1 - 3:SbmIntensity1 = SbmIntensity1 + 1:end if
+  if SbmDir1= 1 then SbmTransX1 = SbmTransX1 + 3:SbmIntensity1 = SbmIntensity1 - 1:end If
+  UpdateSbm1
+  If SbmTransX1 >= 0 then
+    SbmTransX1 = 0:SubDown1.Enabled = 0: SbmDir1=-1
+  end if
+  If SbmTransX1 <= -39 then
+    SbmTransX1 = -39:SubDown1.Enabled = 0: SbmDir1=1
+  end if
   End Sub
 
 
   Sub UpDateSbm1
-	Submarine1.TransX = SbmTransX1
-	LightSubmarine1.intensity() = SbmIntensity1
+  Submarine1.TransX = SbmTransX1
+  LightSubmarine1.intensity() = SbmIntensity1
 
   End Sub
 
@@ -1349,13 +1349,13 @@ SbmIntensity1 = 0
 
 
 Sub DOF(dofevent, dofstate)
-	'If cController = 3 Then
-		If dofstate = 2 Then
-			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
-		Else
-			Controller.B2SSetData dofevent, dofstate
-		End If
-	'End If
+  'If cController = 3 Then
+    If dofstate = 2 Then
+      Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
+    Else
+      Controller.B2SSetData dofevent, dofstate
+    End If
+  'End If
 End Sub
 
 '-------------------------------
@@ -1372,21 +1372,21 @@ End Sub
 
  Set mMagnet = new cvpmMagnet
  With mMagnet
-	.InitMagnet WobbleMagnet, 1.5
-	.Size = 100
-	.CreateEvents mMagnet
-	.MagnetOn = True
+  .InitMagnet WobbleMagnet, 1.5
+  .Size = 100
+  .CreateEvents mMagnet
+  .MagnetOn = True
  End With
  WobbleInit
 
  Sub RMShake
-	cball.velx = cball.velx + rmball.velx*pMod
-	cball.vely = cball.vely + rmball.vely*pMod
+  cball.velx = cball.velx + rmball.velx*pMod
+  cball.vely = cball.vely + rmball.vely*pMod
  End Sub
 
 Sub RMShake2
-	cball.velx = cball.velx + activeball.velx*.05
-	cball.vely = cball.vely + activeball.vely*.05
+  cball.velx = cball.velx + activeball.velx*.05
+  cball.vely = cball.vely + activeball.vely*.05
  End Sub
 
 Sub RM_Make_Hit()
@@ -1396,33 +1396,33 @@ End Sub
 'Includes stripped down version of my reverse slope scripting for a single ball
  Dim ngrav, ngravmod, pslope, nslope, slopemod
  Sub WobbleInit
-	pslope = Table1.SlopeMin +((Table1.SlopeMax - Table1.SlopeMin) * Table1.GlobalDifficulty)
-	nslope = pslope
-	slopemod = pslope + nslope
-	ngravmod = 60/aWobbleTimer.interval
-	ngrav = slopemod * .0905 * Table1.Gravity / ngravmod
-	pMod = .15					'percentage of hit power transfered to captive wobble ball
-	Set cBall = ckicker.createball:cball.image = "blank":ckicker.Kick 0,0:mMagnet.addball cball
-	aWobbleTimer.enabled = 1
+  pslope = Table1.SlopeMin +((Table1.SlopeMax - Table1.SlopeMin) * Table1.GlobalDifficulty)
+  nslope = pslope
+  slopemod = pslope + nslope
+  ngravmod = 60/aWobbleTimer.interval
+  ngrav = slopemod * .0905 * Table1.Gravity / ngravmod
+  pMod = .15          'percentage of hit power transfered to captive wobble ball
+  Set cBall = ckicker.createball:cball.image = "blank":ckicker.Kick 0,0:mMagnet.addball cball
+  aWobbleTimer.enabled = 1
  End Sub
 
  Sub aWobbleTimer_Timer
-	'BallShake.Enabled = RMBallInMagnet
-	cBall.Vely = cBall.VelY-ngrav					'modifier for slope reversal/cancellation
-	rmmod = (SubMarine3.z+265.5)/265*.6				'.4 is a 40% modifier for ratio of ball movement to head movement
-	SubMarine3.rotx = 90+(ckicker.y - cball.y)*rmmod
-	SubMarine3.rotz = 90 + (cball.x - ckicker.x)*rmmod
-	SubMarine2.rotx = 90+(ckicker.y - cball.y)*rmmod
-	SubMarine2.rotz = 90 + (cball.x - ckicker.x)*rmmod
-	SubMarine1.rotx = 90+(ckicker.y - cball.y)*rmmod
-	SubMarine1.rotz = 90 + (cball.x - ckicker.x)*rmmod
+  'BallShake.Enabled = RMBallInMagnet
+  cBall.Vely = cBall.VelY-ngrav         'modifier for slope reversal/cancellation
+  rmmod = (SubMarine3.z+265.5)/265*.6       '.4 is a 40% modifier for ratio of ball movement to head movement
+  SubMarine3.rotx = 90+(ckicker.y - cball.y)*rmmod
+  SubMarine3.rotz = 90 + (cball.x - ckicker.x)*rmmod
+  SubMarine2.rotx = 90+(ckicker.y - cball.y)*rmmod
+  SubMarine2.rotz = 90 + (cball.x - ckicker.x)*rmmod
+  SubMarine1.rotx = 90+(ckicker.y - cball.y)*rmmod
+  SubMarine1.rotz = 90 + (cball.x - ckicker.x)*rmmod
  End Sub
 
  'Sub BallShake_Timer
-'	If Not IsEmpty(RMMagBall) Then
-'		RMMagBall.y = RMMagnetkicker.y - dsin(SubMarine3.rotx)*265.5
-'		RMMagBall.x = RMMagnetkicker.x + dsin(SubMarine3.roty)*265.5
-'	End If
+' If Not IsEmpty(RMMagBall) Then
+'   RMMagBall.y = RMMagnetkicker.y - dsin(SubMarine3.rotx)*265.5
+'   RMMagBall.x = RMMagnetkicker.x + dsin(SubMarine3.roty)*265.5
+' End If
  'End Sub
 
 '*************  End Shake Scripting  ****************
@@ -1549,10 +1549,10 @@ Sub CollisionTimer_Timer()
 
     ' rolling
 
-	For B = UBound(BOT) +1 to tnob
+  For B = UBound(BOT) +1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
-	Next
+  Next
 
     If UBound(BOT) = -1 Then Exit Sub
 
@@ -1576,7 +1576,7 @@ Sub CollisionTimer_Timer()
         For B2 = B1 + 1 to UBound(BOT)
             dz = INT(ABS((BOT(b1).z - BOT(b2).z) ) )
             radii = BOT(b1).radius + BOT(b2).radius
-			If dz <= radii Then
+      If dz <= radii Then
 
             dx = INT(ABS((BOT(b1).x - BOT(b2).x) ) )
             dy = INT(ABS((BOT(b1).y - BOT(b2).y) ) )
@@ -1592,7 +1592,7 @@ Sub CollisionTimer_Timer()
                     If collision(b2) = b1 Then collision(b2) = -1
                 End If
             End If
-			End If
+      End If
         Next
     Next
 End Sub

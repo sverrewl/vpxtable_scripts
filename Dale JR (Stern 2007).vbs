@@ -52,8 +52,8 @@ Primitive64.visible=1
 else
     UseVPMColoredDMD = False
     VarHidden = 0
-	TextBox1.Visible = 0
-	TextBox5.Visible = 0
+  TextBox1.Visible = 0
+  TextBox5.Visible = 0
 Ramp16.visible=0
 Ramp15.visible=0
 Primitive64.visible=0
@@ -120,13 +120,13 @@ Sub Table1_Init
     End With
 
     ' Pit Road Ball Lock
-		Set bsVLock = New cvpmVLock
-		With bsVLock
-	    .InitVLock Array(sw32, sw27, sw28), Array(k32, k27, k28), Array(32, 27, 28)
-		.ExitDir = 180
-		.ExitForce = 0
-		.CreateEvents "bsVLock"
-	    End With
+    Set bsVLock = New cvpmVLock
+    With bsVLock
+      .InitVLock Array(sw32, sw27, sw28), Array(k32, k27, k28), Array(32, 27, 28)
+    .ExitDir = 180
+    .ExitForce = 0
+    .CreateEvents "bsVLock"
+      End With
 
     ' Left-Midway Eject
     Set bsL = New cvpmBallStack
@@ -182,7 +182,7 @@ Sub Table1_Init
     ' Init other dropwalls - animations
     AutoPlunger.PullBack
     OrbitPost.IsDropped = 1
-	Controller.Switch(20) = 0
+  Controller.Switch(20) = 0
 End Sub
 
 '**********
@@ -235,8 +235,8 @@ SolCallBack(8) = "bsL.SolOut"
 SolCallBack(12) = "SolResetDroptargets"
 SolCallBack(13) = "SolRightDivert" 'Right Ramp Diverter
 SolCallBack(14) = "SolGarageUp"    'Garage Raise - up animation
-'SolCallBack(17)="vpmSolSound ""lsling""," 			'left slingshot
-'SolCallBack(18)="vpmSolSound ""rsling""," 			'right slingshot
+'SolCallBack(17)="vpmSolSound ""lsling"","      'left slingshot
+'SolCallBack(18)="vpmSolSound ""rsling"","      'right slingshot
 SolCallBack(19) = "SetLamp 119,"                   'Upper Right Back Panel
 SolCallback(20) = "TMag"                           'Upper Accelerator Magnet
 SolCallBack(21) = "vpmSolDiverter RDiverter,True," 'Right Track Exit Diverter
@@ -260,11 +260,11 @@ FlagPos = 0
 FlagDir = 0
 
 Sub FlagRotate(Enabled)
-	PlaySoundAtVol SoundFX("fx_Solenoid",DOFContactors), Flag, 1
+  PlaySoundAtVol SoundFX("fx_Solenoid",DOFContactors), Flag, 1
     If Enabled Then
-		Flaganimation.Interval = 8
-		FlagDir = -1
-		FlagAnimation.Enabled = 1
+    Flaganimation.Interval = 8
+    FlagDir = -1
+    FlagAnimation.Enabled = 1
     End If
 End Sub
 
@@ -275,14 +275,14 @@ Sub FlagAnimation_Timer
         FlagPos = 0
     End If
     If FlagPos < -30 Then
-		PlaySoundAtVol SoundFX("fx_Solenoidoff",DOFContactors), Flag, 1
+    PlaySoundAtVol SoundFX("fx_Solenoidoff",DOFContactors), Flag, 1
         FlagPos = -35
     End If
-	If Flagpos = -30 Then PlaySoundAtVol SoundFX("fx_Solenoidoff",DOFContactors), Flag, 1
- 	If FlagPos = -30 Then
-		FlagDir = +1
-		FlagAnimation.Enabled = 1
-	End If
+  If Flagpos = -30 Then PlaySoundAtVol SoundFX("fx_Solenoidoff",DOFContactors), Flag, 1
+  If FlagPos = -30 Then
+    FlagDir = +1
+    FlagAnimation.Enabled = 1
+  End If
 End Sub
 
 Dim Rotorpos, RotorDir, Windmile
@@ -293,11 +293,11 @@ Sub Rotor_Hit:PlaySoundAtVol SoundFX("fx_target",DOFContactors),Rotor, 1:End Sub
 
 Sub RotorRotate(Enabled)
     If Enabled Then
-		Rotoranimation.Interval = 15
-		RotorDir = -1
-		RotorAnimation.Enabled = 1
-	Else
-		RotorAnimation.Enabled = 0
+    Rotoranimation.Interval = 15
+    RotorDir = -1
+    RotorAnimation.Enabled = 1
+  Else
+    RotorAnimation.Enabled = 0
     End If
 End Sub
 
@@ -310,39 +310,39 @@ Sub RotorAnimation_Timer
     If RotorPos < -360 Then
         RotorPos = 0
     End If
-	If RotorPos = -50 Then
-		test.IsDropped = 1
-		Rotor.collidable = false
-	End If
-	If RotorPos = -130 Then
-		test.IsDropped = 0
-		Rotor.collidable = true
-	End If
-	If RotorPos = -230 Then
-		test.IsDropped = 1
-		Rotor.collidable = false
-	End If
-	If RotorPos = -310 Then
-		test.IsDropped = 0
-		Rotor.collidable = true
-	End If
-	If RotorPos = -50 Then
-		Windmile = 1
-	End If
-	If RotorPos = -150 Then
-		Windmile = 0
-	End If
-	If RotorPos = -230 Then
-		Windmile = 1
-	End If
-	If RotorPos = -330 Then
-		Windmile = 0
-	End If
-	If Windmile =1 Then
-		Controller.Switch(20) = 0
-	Else
-		Controller.Switch(20) = 1
-	End If
+  If RotorPos = -50 Then
+    test.IsDropped = 1
+    Rotor.collidable = false
+  End If
+  If RotorPos = -130 Then
+    test.IsDropped = 0
+    Rotor.collidable = true
+  End If
+  If RotorPos = -230 Then
+    test.IsDropped = 1
+    Rotor.collidable = false
+  End If
+  If RotorPos = -310 Then
+    test.IsDropped = 0
+    Rotor.collidable = true
+  End If
+  If RotorPos = -50 Then
+    Windmile = 1
+  End If
+  If RotorPos = -150 Then
+    Windmile = 0
+  End If
+  If RotorPos = -230 Then
+    Windmile = 1
+  End If
+  If RotorPos = -330 Then
+    Windmile = 0
+  End If
+  If Windmile =1 Then
+    Controller.Switch(20) = 0
+  Else
+    Controller.Switch(20) = 1
+  End If
 End Sub
 
 ' Trough
@@ -388,7 +388,7 @@ CarDir = 0
 Sub SolGarageDown(Enabled)
     If Enabled Then
         Controller.Switch(39) = 1
-		PlaySoundAtVol "fx_LiftDown", TestCar, 1
+    PlaySoundAtVol "fx_LiftDown", TestCar, 1
         sw36a.IsDropped = 1
         sw36b.IsDropped = 1
         sw40.IsDropped = 0
@@ -400,7 +400,7 @@ End Sub
 Sub SolGarageUp(Enabled)
     If Enabled Then
         Controller.Switch(39) = 0
-		PlaySoundAtVol "fx_LiftUp", TestCar, 1
+    PlaySoundAtVol "fx_LiftUp", TestCar, 1
         sw36a.IsDropped = 0
         sw36b.IsDropped = 0
         sw40.IsDropped = 1
@@ -411,7 +411,7 @@ End Sub
 
 Sub GarageAnimation_Timer
     TestCar.TransY = CarPos
-	CarSupport.TransZ = CarPos
+  CarSupport.TransZ = CarPos
     Screwcar1.TransZ = CarPos
     Screwcar2.TransZ = CarPos
     t36a.TransY = CarPos
@@ -625,11 +625,11 @@ Sub sw51_Hit:vpmTimer.PulseSw 51:PlaySoundAtVol SoundFX("fx_bumper",DOFContactor
 '*********************
 
 'Sub Sw20_Hit
-'	Controller.Switch(20) = 0 ' (0 = opto sensor detecting ball)
+' Controller.Switch(20) = 0 ' (0 = opto sensor detecting ball)
 'End Sub
 
 'Sub Sw20_UnHit
-'	Controller.Switch(20) = 1 ' (1 = opto sensor not detecting ball)
+' Controller.Switch(20) = 1 ' (1 = opto sensor not detecting ball)
 'End Sub
 
 Sub sw16_Hit:Controller.Switch(16) = 1:PlaySoundAtVol "fx_sensor", sw16, 1:End Sub
@@ -873,78 +873,78 @@ Sub LampTimer_Timer()
         Next
     End If
     UpdateLamps
-	if Gi10.State = 1 then
-		gi10a.visible = 1
-		gi10b.visible = 1
-		gi10c.visible = 1
-		gi10d.visible = 1
-		gi10e.visible = 1
-		gi10f.visible = 1
-		gi10g.visible = 1
-		gi10h.visible = 1
-		gi10i.visible = 1
-		gi10j.visible = 1
-		gi10k.visible = 1
-		else
-		gi10a.visible = 0
-		gi10b.visible = 0
-		gi10c.visible = 0
-		gi10d.visible = 0
-		gi10e.visible = 0
-		gi10f.visible = 0
-		gi10g.visible = 0
-		gi10h.visible = 0
-		gi10i.visible = 0
-		gi10j.visible = 0
-		gi10k.visible = 0
-	end if
-	if l40.State = 1 then
-		f32.visible = 1
-		brightcar1.visible = 1
-		brightcar2.visible = 1
-		else
-		f32.visible = 0
-		brightcar1.visible = 0
-		brightcar2.visible = 0
-	end if
-	if l119.State = 1 then
-		f19.visible = 1
-		f19b.visible = 1
-		else
-		f19.visible = 0
-		f19b.visible = 0
-	end if
-	if l32.State = 1 then
-		BrightTruck.visible = 1
-		l32b.visible = 1
-		l32c.visible = 1
-		else
-		BrightTruck.visible = 0
-		l32b.visible = 0
-		l32c.visible = 0
-	end if
-	if l60b.State = 1 then
-		f30a.state = 1
-		f30.visible = 1
-		f30h.visible = 1
-		f30b.visible = 1
-		else
-		f30a.state = 0
-		f30.visible = 0
-		f30h.visible = 0
-		f30b.visible = 0
-	end if
-	if l60a.State = 1 then
-		f31a.state = 1
-		f31.visible = 1
-		f31h.visible = 1
-		f31b.visible = 1
-		else
-		f31a.state = 0
-		f31.visible = 0
-		f31h.visible = 0
-		f31b.visible = 0
-	end if
+  if Gi10.State = 1 then
+    gi10a.visible = 1
+    gi10b.visible = 1
+    gi10c.visible = 1
+    gi10d.visible = 1
+    gi10e.visible = 1
+    gi10f.visible = 1
+    gi10g.visible = 1
+    gi10h.visible = 1
+    gi10i.visible = 1
+    gi10j.visible = 1
+    gi10k.visible = 1
+    else
+    gi10a.visible = 0
+    gi10b.visible = 0
+    gi10c.visible = 0
+    gi10d.visible = 0
+    gi10e.visible = 0
+    gi10f.visible = 0
+    gi10g.visible = 0
+    gi10h.visible = 0
+    gi10i.visible = 0
+    gi10j.visible = 0
+    gi10k.visible = 0
+  end if
+  if l40.State = 1 then
+    f32.visible = 1
+    brightcar1.visible = 1
+    brightcar2.visible = 1
+    else
+    f32.visible = 0
+    brightcar1.visible = 0
+    brightcar2.visible = 0
+  end if
+  if l119.State = 1 then
+    f19.visible = 1
+    f19b.visible = 1
+    else
+    f19.visible = 0
+    f19b.visible = 0
+  end if
+  if l32.State = 1 then
+    BrightTruck.visible = 1
+    l32b.visible = 1
+    l32c.visible = 1
+    else
+    BrightTruck.visible = 0
+    l32b.visible = 0
+    l32c.visible = 0
+  end if
+  if l60b.State = 1 then
+    f30a.state = 1
+    f30.visible = 1
+    f30h.visible = 1
+    f30b.visible = 1
+    else
+    f30a.state = 0
+    f30.visible = 0
+    f30h.visible = 0
+    f30b.visible = 0
+  end if
+  if l60a.State = 1 then
+    f31a.state = 1
+    f31.visible = 1
+    f31h.visible = 1
+    f31b.visible = 1
+    else
+    f31a.state = 0
+    f31.visible = 0
+    f31h.visible = 0
+    f31b.visible = 0
+  end if
 End Sub
 
 Sub UpdateLamps
@@ -1288,10 +1288,10 @@ Sub aCarTimer_Timer             'start animation
     t36b.transx = - y
     CarSupport.transy = - y
     CarSupport.transx = x
-	Screwcar1.transy = - y
-	Screwcar1.transx = x
-	Screwcar2.transy = - y
-	Screwcar2.transx = x
+  Screwcar1.transy = - y
+  Screwcar1.transx = x
+  Screwcar2.transy = - y
+  Screwcar2.transx = x
 End Sub
 
 Sub bCarTimer_Timer 'stop animation
@@ -1303,16 +1303,16 @@ Sub bCarTimer_Timer 'stop animation
     t36b.transx = 0
     CarSupport.transy = 0
     CarSupport.transx = 0
-	Screwcar1.transy = 0
-	Screwcar1.transx = 0
-	Screwcar2.transy = 0
-	Screwcar2.transx = 0
+  Screwcar1.transy = 0
+  Screwcar1.transx = 0
+  Screwcar2.transy = 0
+  Screwcar2.transx = 0
     aCarTimer.enabled = False
     bCarTimer.enabled = False
 End Sub
 
 '******************************************************
-'       		RealTime Updates
+'           RealTime Updates
 '******************************************************
 
 Set MotorCallback = GetRef("GameTimer")
@@ -1322,8 +1322,8 @@ Sub GameTimer
 End Sub
 
 Sub UpdateMechs
-	LeftBat.RotY=LeftFlipper.currentangle-90
-	RightBat.RotY=RightFlipper.currentangle-90
+  LeftBat.RotY=LeftFlipper.currentangle-90
+  RightBat.RotY=RightFlipper.currentangle-90
 End Sub
 
 ' *******************************************************************************************************

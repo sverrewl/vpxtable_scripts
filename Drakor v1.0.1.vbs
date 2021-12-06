@@ -121,12 +121,12 @@ Sub table1_Init
     set dtbank1 = new cvpmdroptarget
     dtbank1.InitDrop Array(sw32,sw33,sw34), Array(32,33,34)
     dtbank1.initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
-	dtbank1.CreateEvents "dtbank1"
+  dtbank1.CreateEvents "dtbank1"
 
     set dtbank2 = new cvpmdroptarget
     dtbank2.InitDrop Array(sw51,sw52,sw53), Array(51,52,53)
     dtbank2.initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
-	dtbank2.CreateEvents "dtbank2"
+  dtbank2.CreateEvents "dtbank2"
 
     ' Left Magnet
     Set LeftMagnet = New cvpmMagnet

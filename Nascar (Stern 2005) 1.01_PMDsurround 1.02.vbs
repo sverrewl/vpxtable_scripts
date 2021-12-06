@@ -31,8 +31,8 @@ If Table1.ShowDT = true then
 else
     UseVPMColoredDMD = False
     VarHidden = 0
-	TextBox1.Visible = 0
-	TextBox5.Visible = 0
+  TextBox1.Visible = 0
+  TextBox5.Visible = 0
 end if
 
 LoadVPM "01560000", "SEGA.VBS", 3.26
@@ -100,13 +100,13 @@ Sub Table1_Init
     End With
 
     ' Pit Road Ball Lock
-		Set bsVLock = New cvpmVLock
-		With bsVLock
-	    .InitVLock Array(sw32, sw27, sw28), Array(k32, k27, k28), Array(32, 27, 28)
-		.ExitDir = 180
-		.ExitForce = 0
-		.CreateEvents "bsVLock"
-	    End With
+    Set bsVLock = New cvpmVLock
+    With bsVLock
+      .InitVLock Array(sw32, sw27, sw28), Array(k32, k27, k28), Array(32, 27, 28)
+    .ExitDir = 180
+    .ExitForce = 0
+    .CreateEvents "bsVLock"
+      End With
 
     ' Left-Midway Eject
     Set bsL = New cvpmBallStack
@@ -162,7 +162,7 @@ Sub Table1_Init
     ' Init other dropwalls - animations
     AutoPlunger.PullBack
     OrbitPost.IsDropped = 1
-	Controller.Switch(20) = 0
+  Controller.Switch(20) = 0
 End Sub
 
 '**********
@@ -215,8 +215,8 @@ SolCallBack(8) = "bsL.SolOut"
 SolCallBack(12) = "SolResetDroptargets"
 SolCallBack(13) = "SolRightDivert" 'Right Ramp Diverter
 SolCallBack(14) = "SolGarageUp"    'Garage Raise - up animation
-'SolCallBack(17)="vpmSolSound ""lsling""," 			'left slingshot
-'SolCallBack(18)="vpmSolSound ""rsling""," 			'right slingshot
+'SolCallBack(17)="vpmSolSound ""lsling"","      'left slingshot
+'SolCallBack(18)="vpmSolSound ""rsling"","      'right slingshot
 SolCallBack(19) = "SetLamp 119,"                   'Upper Right Back Panel
 SolCallback(20) = "TMag"                           'Upper Accelerator Magnet
 SolCallBack(21) = "vpmSolDiverter RDiverter,True," 'Right Track Exit Diverter
@@ -240,11 +240,11 @@ FlagPos = 0
 FlagDir = 0
 
 Sub FlagRotate(Enabled)
-	PlaySoundAt SoundFX("fx_Solenoid",DOFContactors),sw27
+  PlaySoundAt SoundFX("fx_Solenoid",DOFContactors),sw27
     If Enabled Then
-		Flaganimation.Interval = 8
-		FlagDir = -1
-		FlagAnimation.Enabled = 1
+    Flaganimation.Interval = 8
+    FlagDir = -1
+    FlagAnimation.Enabled = 1
     End If
 End Sub
 
@@ -255,14 +255,14 @@ Sub FlagAnimation_Timer
         FlagPos = 0
     End If
     If FlagPos < -30 Then
-		PlaySoundAt SoundFX("fx_Solenoidoff",DOFContactors),sw27
+    PlaySoundAt SoundFX("fx_Solenoidoff",DOFContactors),sw27
         FlagPos = -35
     End If
-	If Flagpos = -30 Then PlaySoundAt SoundFX("fx_Solenoidoff",DOFContactors),sw27
-	If FlagPos = -30 Then
-		FlagDir = +1
-		FlagAnimation.Enabled = 1
-	End If
+  If Flagpos = -30 Then PlaySoundAt SoundFX("fx_Solenoidoff",DOFContactors),sw27
+  If FlagPos = -30 Then
+    FlagDir = +1
+    FlagAnimation.Enabled = 1
+  End If
 End Sub
 
 Dim Rotorpos, RotorDir, Windmile
@@ -273,11 +273,11 @@ Sub Rotor_Hit:PlaySound SoundFX("fx_target",DOFContactors), 0, Vol(ActiveBall), 
 
 Sub RotorRotate(Enabled)
     If Enabled Then
-		Rotoranimation.Interval = 15
-		RotorDir = -1
-		RotorAnimation.Enabled = 1
-	Else
-		RotorAnimation.Enabled = 0
+    Rotoranimation.Interval = 15
+    RotorDir = -1
+    RotorAnimation.Enabled = 1
+  Else
+    RotorAnimation.Enabled = 0
     End If
 End Sub
 
@@ -290,39 +290,39 @@ Sub RotorAnimation_Timer
     If RotorPos < -360 Then
         RotorPos = 0
     End If
-	If RotorPos = -50 Then
-		test.IsDropped = 1
-		Rotor.collidable = false
-	End If
-	If RotorPos = -130 Then
-		test.IsDropped = 0
-		Rotor.collidable = true
-	End If
-	If RotorPos = -230 Then
-		test.IsDropped = 1
-		Rotor.collidable = false
-	End If
-	If RotorPos = -310 Then
-		test.IsDropped = 0
-		Rotor.collidable = true
-	End If
-	If RotorPos = -50 Then
-		Windmile = 1
-	End If
-	If RotorPos = -150 Then
-		Windmile = 0
-	End If
-	If RotorPos = -230 Then
-		Windmile = 1
-	End If
-	If RotorPos = -330 Then
-		Windmile = 0
-	End If
-	If Windmile =1 Then
-		Controller.Switch(20) = 0
-	Else
-		Controller.Switch(20) = 1
-	End If
+  If RotorPos = -50 Then
+    test.IsDropped = 1
+    Rotor.collidable = false
+  End If
+  If RotorPos = -130 Then
+    test.IsDropped = 0
+    Rotor.collidable = true
+  End If
+  If RotorPos = -230 Then
+    test.IsDropped = 1
+    Rotor.collidable = false
+  End If
+  If RotorPos = -310 Then
+    test.IsDropped = 0
+    Rotor.collidable = true
+  End If
+  If RotorPos = -50 Then
+    Windmile = 1
+  End If
+  If RotorPos = -150 Then
+    Windmile = 0
+  End If
+  If RotorPos = -230 Then
+    Windmile = 1
+  End If
+  If RotorPos = -330 Then
+    Windmile = 0
+  End If
+  If Windmile =1 Then
+    Controller.Switch(20) = 0
+  Else
+    Controller.Switch(20) = 1
+  End If
 End Sub
 
 ' Trough
@@ -368,7 +368,7 @@ CarDir = 0
 Sub SolGarageDown(Enabled)
     If Enabled Then
         Controller.Switch(39) = 1
-		PlaySound "fx_LiftDown"
+    PlaySound "fx_LiftDown"
         sw36a.IsDropped = 1
         sw36b.IsDropped = 1
         sw40.IsDropped = 0
@@ -380,7 +380,7 @@ End Sub
 Sub SolGarageUp(Enabled)
     If Enabled Then
         Controller.Switch(39) = 0
-		PlaySound "fx_LiftUp"
+    PlaySound "fx_LiftUp"
         sw36a.IsDropped = 0
         sw36b.IsDropped = 0
         sw40.IsDropped = 1
@@ -391,7 +391,7 @@ End Sub
 
 Sub GarageAnimation_Timer
     TestCar.TransY = CarPos
-	CarSupport.TransZ = CarPos
+  CarSupport.TransZ = CarPos
     Screwcar1.TransZ = CarPos
     Screwcar2.TransZ = CarPos
     t36a.TransY = CarPos
@@ -485,7 +485,7 @@ Sub TopMagnet_unHit
 End Sub
 
 Sub BottomMagnet_Hit
-	PlaySound "fx_accelerator", 0, 1, pan(BottomMagnet), 0, -50000, 0, 0, AudioFade(BottomMagnet)
+  PlaySound "fx_accelerator", 0, 1, pan(BottomMagnet), 0, -50000, 0, 0, AudioFade(BottomMagnet)
 End Sub
 Sub BottomMagnet_unHit
     If M3 = 1 Then
@@ -606,11 +606,11 @@ Sub sw51_Hit:vpmTimer.PulseSw 51:PlaySoundAt SoundFX("bumper3",DOFContactors),sw
 '*********************
 
 'Sub Sw20_Hit
-'	Controller.Switch(20) = 0 ' (0 = opto sensor detecting ball)
+' Controller.Switch(20) = 0 ' (0 = opto sensor detecting ball)
 'End Sub
 
 'Sub Sw20_UnHit
-'	Controller.Switch(20) = 1 ' (1 = opto sensor not detecting ball)
+' Controller.Switch(20) = 1 ' (1 = opto sensor not detecting ball)
 'End Sub
 
 Sub sw16_Hit:Controller.Switch(16) = 1:PlaySoundAt "fx_sensor",ActiveBall:End Sub
@@ -854,78 +854,78 @@ Sub LampTimer_Timer()
         Next
     End If
     UpdateLamps
-	if Gi10.State = 1 then
-		gi10a.visible = 1
-		gi10b.visible = 1
-		gi10c.visible = 1
-		gi10d.visible = 1
-		gi10e.visible = 1
-		gi10f.visible = 1
-		gi10g.visible = 1
-		gi10h.visible = 1
-		gi10i.visible = 1
-		gi10j.visible = 1
-		gi10k.visible = 1
-		else
-		gi10a.visible = 0
-		gi10b.visible = 0
-		gi10c.visible = 0
-		gi10d.visible = 0
-		gi10e.visible = 0
-		gi10f.visible = 0
-		gi10g.visible = 0
-		gi10h.visible = 0
-		gi10i.visible = 0
-		gi10j.visible = 0
-		gi10k.visible = 0
-	end if
-	if l40.State = 1 then
-		f32.visible = 1
-		brightcar1.visible = 1
-		brightcar2.visible = 1
-		else
-		f32.visible = 0
-		brightcar1.visible = 0
-		brightcar2.visible = 0
-	end if
-	if l119.State = 1 then
-		f19.visible = 1
-		f19b.visible = 1
-		else
-		f19.visible = 0
-		f19b.visible = 0
-	end if
-	if l32.State = 1 then
-		BrightTruck.visible = 1
-		l32b.visible = 1
-		l32c.visible = 1
-		else
-		BrightTruck.visible = 0
-		l32b.visible = 0
-		l32c.visible = 0
-	end if
-	if l60b.State = 1 then
-		f30a.state = 1
-		f30.visible = 1
-		f30h.visible = 1
-		f30b.visible = 1
-		else
-		f30a.state = 0
-		f30.visible = 0
-		f30h.visible = 0
-		f30b.visible = 0
-	end if
-	if l60a.State = 1 then
-		f31a.state = 1
-		f31.visible = 1
-		f31h.visible = 1
-		f31b.visible = 1
-		else
-		f31a.state = 0
-		f31.visible = 0
-		f31h.visible = 0
-		f31b.visible = 0
-	end if
+  if Gi10.State = 1 then
+    gi10a.visible = 1
+    gi10b.visible = 1
+    gi10c.visible = 1
+    gi10d.visible = 1
+    gi10e.visible = 1
+    gi10f.visible = 1
+    gi10g.visible = 1
+    gi10h.visible = 1
+    gi10i.visible = 1
+    gi10j.visible = 1
+    gi10k.visible = 1
+    else
+    gi10a.visible = 0
+    gi10b.visible = 0
+    gi10c.visible = 0
+    gi10d.visible = 0
+    gi10e.visible = 0
+    gi10f.visible = 0
+    gi10g.visible = 0
+    gi10h.visible = 0
+    gi10i.visible = 0
+    gi10j.visible = 0
+    gi10k.visible = 0
+  end if
+  if l40.State = 1 then
+    f32.visible = 1
+    brightcar1.visible = 1
+    brightcar2.visible = 1
+    else
+    f32.visible = 0
+    brightcar1.visible = 0
+    brightcar2.visible = 0
+  end if
+  if l119.State = 1 then
+    f19.visible = 1
+    f19b.visible = 1
+    else
+    f19.visible = 0
+    f19b.visible = 0
+  end if
+  if l32.State = 1 then
+    BrightTruck.visible = 1
+    l32b.visible = 1
+    l32c.visible = 1
+    else
+    BrightTruck.visible = 0
+    l32b.visible = 0
+    l32c.visible = 0
+  end if
+  if l60b.State = 1 then
+    f30a.state = 1
+    f30.visible = 1
+    f30h.visible = 1
+    f30b.visible = 1
+    else
+    f30a.state = 0
+    f30.visible = 0
+    f30h.visible = 0
+    f30b.visible = 0
+  end if
+  if l60a.State = 1 then
+    f31a.state = 1
+    f31.visible = 1
+    f31h.visible = 1
+    f31b.visible = 1
+    else
+    f31a.state = 0
+    f31.visible = 0
+    f31h.visible = 0
+    f31b.visible = 0
+  end if
 End Sub
 
 Sub UpdateLamps
@@ -1187,19 +1187,19 @@ Sub aWoods_Hit(idx):PlaySoundAtBall "fx_Woodhit":End Sub
 ' x is a volume variable. Decimals decrease volume. Whole Numbers increase volume
 '*******************************************************************************************************
 Sub aRubbers_Hit(idx)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		RandomRubberSound()
-	Else
-		PlaySound "fx_rubber", 0, Vol(ActiveBall)*.8, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    RandomRubberSound()
+  Else
+    PlaySound "fx_rubber", 0, Vol(ActiveBall)*.8, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
     End If
 End Sub
 
 Sub RandomRubberSound()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtBallVol "fx_rubber_hit_1",.8
-		Case 2 : PlaySoundAtBallVol "fx_rubber_hit_2",.8
-		Case 3 : PlaySoundAtBallVol "fx_rubber_hit_3",.8
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtBallVol "fx_rubber_hit_1",.8
+    Case 2 : PlaySoundAtBallVol "fx_rubber_hit_2",.8
+    Case 3 : PlaySoundAtBallVol "fx_rubber_hit_3",.8
+  End Select
 End Sub
 
 
@@ -1216,7 +1216,7 @@ End Sub
 
 Sub REnd3_Hit()
     PlaySoundAt "fx_balldrop",ActiveBall
-	PlaySoundAtBall "fx_rollendhit"
+  PlaySoundAtBall "fx_rollendhit"
 End Sub
 
 Sub PlungerEnd_Hit()
@@ -1231,43 +1231,43 @@ Sub RRSound_Hit:PlaySoundAtVol "fx_metalrolling",RRSound,.3:End Sub
 ' Simply add switches to ramps in key bend locations and call them as part of the collection.
 '**********************************************************************************************************
 Sub PlasticRampBumps_Hit(idx)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		RandomPlasticRampBumps()
-	Else
-		PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    RandomPlasticRampBumps()
+  Else
+    PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
     End If
 End Sub
 
 Sub RandomPlasticRampBumps()
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySoundAtBallVol "fx_rampbump1",2
-		Case 2 : PlaySoundAtBallVol "fx_rampbump2",2
-		Case 3 : PlaySoundAtBallVol "fx_rampbump3",2
-		Case 4 : PlaySoundAtBallVol "fx_rampbump4",2
-		Case 5 : PlaySoundAtBallVol "fx_rampbump5",2
-		Case 6 : PlaySoundAtBallVol "fx_rampbump6",2
-		Case 7 : PlaySoundAtBallVol "fx_rampbump7",2
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySoundAtBallVol "fx_rampbump1",2
+    Case 2 : PlaySoundAtBallVol "fx_rampbump2",2
+    Case 3 : PlaySoundAtBallVol "fx_rampbump3",2
+    Case 4 : PlaySoundAtBallVol "fx_rampbump4",2
+    Case 5 : PlaySoundAtBallVol "fx_rampbump5",2
+    Case 6 : PlaySoundAtBallVol "fx_rampbump6",2
+    Case 7 : PlaySoundAtBallVol "fx_rampbump7",2
+  End Select
 End Sub
 
 Sub MetalRampBumps_Hit(idx)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		RandomMetalRampBumps()
-	Else
-		PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    RandomMetalRampBumps()
+  Else
+    PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
     End If
 End Sub
 
 Sub RandomMetalRampBumps()
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySound "fx_rampbump1", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 2 : PlaySound "fx_rampbump2", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 3 : PlaySound "fx_rampbump3", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 4 : PlaySound "fx_rampbump4", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 5 : PlaySound "fx_rampbump5", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 6 : PlaySound "fx_rampbump6", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-		Case 7 : PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySound "fx_rampbump1", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 2 : PlaySound "fx_rampbump2", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 3 : PlaySound "fx_rampbump3", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 4 : PlaySound "fx_rampbump4", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 5 : PlaySound "fx_rampbump5", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 6 : PlaySound "fx_rampbump6", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+    Case 7 : PlaySound "fx_rampbump7", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, 20000, 0, 1, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 '**********************************************************************************************************
@@ -1275,23 +1275,23 @@ End Sub
 ' Simply add switches to ramps in key bend locations and call them as part of the collection.
 '**********************************************************************************************************
 Sub RandomLoopBumps_Hit(idx)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		RandomLoopBumps()
-	Else
-		PlaySound "fx_rampbump7", 0, Vol(ActiveBall)^2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    RandomLoopBumps()
+  Else
+    PlaySound "fx_rampbump7", 0, Vol(ActiveBall)^2, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
     End If
 End Sub
 
 Sub RandomLoopBumps()
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySoundAtBallVol "fx_rampbump1",2
-		Case 2 : PlaySoundAtBallVol "fx_rampbump2",2
-		Case 3 : PlaySoundAtBallVol "fx_rampbump3",2
-		Case 4 : PlaySoundAtBallVol "fx_rampbump4",2
-		Case 5 : PlaySoundAtBallVol "fx_rampbump5",2
-		Case 6 : PlaySoundAtBallVol "fx_rampbump6",2
-		Case 7 : PlaySoundAtBallVol "fx_rampbump7",2
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySoundAtBallVol "fx_rampbump1",2
+    Case 2 : PlaySoundAtBallVol "fx_rampbump2",2
+    Case 3 : PlaySoundAtBallVol "fx_rampbump3",2
+    Case 4 : PlaySoundAtBallVol "fx_rampbump4",2
+    Case 5 : PlaySoundAtBallVol "fx_rampbump5",2
+    Case 6 : PlaySoundAtBallVol "fx_rampbump6",2
+    Case 7 : PlaySoundAtBallVol "fx_rampbump7",2
+  End Select
 End Sub
 
 '******************
@@ -1357,10 +1357,10 @@ Sub aCarTimer_Timer             'start animation
     t36b.transx = - y
     CarSupport.transy = - y
     CarSupport.transx = x
-	Screwcar1.transy = - y
-	Screwcar1.transx = x
-	Screwcar2.transy = - y
-	Screwcar2.transx = x
+  Screwcar1.transy = - y
+  Screwcar1.transx = x
+  Screwcar2.transy = - y
+  Screwcar2.transx = x
 End Sub
 
 Sub bCarTimer_Timer 'stop animation
@@ -1372,10 +1372,10 @@ Sub bCarTimer_Timer 'stop animation
     t36b.transx = 0
     CarSupport.transy = 0
     CarSupport.transx = 0
-	Screwcar1.transy = 0
-	Screwcar1.transx = 0
-	Screwcar2.transy = 0
-	Screwcar2.transx = 0
+  Screwcar1.transy = 0
+  Screwcar1.transx = 0
+  Screwcar2.transy = 0
+  Screwcar2.transx = 0
     aCarTimer.enabled = False
     bCarTimer.enabled = False
 End Sub
@@ -1438,12 +1438,12 @@ End Sub
 Dim HitMetalTrack:HitMetalTrack = Timer()
 
 Sub Primitive62_Hit()
-	HitMetalTrack = Timer()+.01
-End Sub 
+  HitMetalTrack = Timer()+.01
+End Sub
 
 Sub Primitive63_Hit()
-	HitMetalTrack = Timer()+.01
-End Sub 
+  HitMetalTrack = Timer()+.01
+End Sub
 
 Sub RollingTimer_Timer()
     Dim BOT, b
@@ -1461,27 +1461,27 @@ Sub RollingTimer_Timer()
         ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
         If BallVel(BOT(b) ) > 1 Then
-			rolling(b) = True
-			if Timer() < HitMetalTrack then 'Ball is going around outer track
-				If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-						PlaySound "fx_ballrolling" & b, -1, 10000, Pan(BOT(b) ), 0, Pitch(BOT(b) ) -10000, 1, 0, AudioFade(BOT(b) )
-				Else		
-						PlaySound "fx_ballrolling" & b, -1, 10000, Pan(BOT(b) ), 0, Pitch(BOT(b) )+10000, 1, 0
-				End If			
-			elseif BOT(b).z < 30 Then ' Ball on playfield
-				If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-				Else		
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-				End If
-			Else ' Ball on raised ramp
-				If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
-				Else		
-						PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0
-				End If
-			End If 
-		Else
+      rolling(b) = True
+      if Timer() < HitMetalTrack then 'Ball is going around outer track
+        If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+            PlaySound "fx_ballrolling" & b, -1, 10000, Pan(BOT(b) ), 0, Pitch(BOT(b) ) -10000, 1, 0, AudioFade(BOT(b) )
+        Else
+            PlaySound "fx_ballrolling" & b, -1, 10000, Pan(BOT(b) ), 0, Pitch(BOT(b) )+10000, 1, 0
+        End If
+      elseif BOT(b).z < 30 Then ' Ball on playfield
+        If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+        Else
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
+        End If
+      Else ' Ball on raised ramp
+        If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+        Else
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.4, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0
+        End If
+      End If
+    Else
             If rolling(b) = True Then
                 StopSound("fx_ballrolling" & b)
                 rolling(b) = False
@@ -1498,11 +1498,11 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	Else	
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
         PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-	End if 
+  End if
 End Sub
 
 '**************************************************************************
@@ -1514,50 +1514,50 @@ End Sub
 'Set position as table object (Use object or light but NOT wall) and Vol to 1
 
 Sub PlaySoundAt(sound, tableobj)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-	Else
-		PlaySound sound, 1, 1, Pan(tableobj)
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+  Else
+    PlaySound sound, 1, 1, Pan(tableobj)
+  End If
 End Sub
 
 
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(sound)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-	Else
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  Else
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  End If
 End Sub
 
 
 'Set position as table object and Vol manually.
 
 Sub PlaySoundAtVol(sound, tableobj, Vol)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-	Else
-		PlaySound sound, 1, Vol, Pan(tableobj)
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+  Else
+    PlaySound sound, 1, Vol, Pan(tableobj)
+  End If
 End Sub
 
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-	Else
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  Else
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  End If
 End Sub
 
 
 ' Notes:
 '
-' PlaySoundAtBall "sound",ActiveBall 
+' PlaySoundAtBall "sound",ActiveBall
 '   * Sets position as ball and Vol to 1
 
 ' PlaySoundAtBallVol "sound",x
@@ -1566,12 +1566,12 @@ End Sub
 ' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 '   * May us used as shown, or with any manual setting, in place of any above Sound Playback Function.
 '
-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1 
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
 '   * May us used as shown, or with any manual setting, to maintain 10.3 backwards compatability.
 
 
 '******************************************************
-'       		RealTime Updates
+'           RealTime Updates
 '******************************************************
 
 Set MotorCallback = GetRef("GameTimer")
@@ -1581,22 +1581,22 @@ Sub GameTimer
 End Sub
 
 Sub UpdateMechs
-	LeftBat.RotY=LeftFlipper.currentangle-90
-	RightBat.RotY=RightFlipper.currentangle-90
+  LeftBat.RotY=LeftFlipper.currentangle-90
+  RightBat.RotY=RightFlipper.currentangle-90
 End Sub
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 
 End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5,BallShadow6, BallShadow7)

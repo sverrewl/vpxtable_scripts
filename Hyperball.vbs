@@ -27,7 +27,7 @@ On Error Goto 0
 LoadVPM "01320000","S7.VBS",3.1
 
 '***************************************************************
-'*   				        Solenoids          	        	   *
+'*                  Solenoids                        *
 '***************************************************************
 
 SolCallback(21)="SolShootBall"'9 Ball Shooter/Ball Feed Motor
@@ -41,35 +41,35 @@ SolCallback(9)="vpmFlasher Array(LightHyperball,LightHyperball1,LightHyperball2)
 'General Illumination
 SolCallback(12)= "vpmFlasher array(LightA,LightB,LightC,LightD,LightU,LightV,LightW,LightY,LightApronL,LightApronR,LightE,LightF,LightG,LightR,LightSS,LightT,TopLightCenter,TopLightLeft,TopLightRight,HIJLight,KLMLight,NOPLight),"'GI Playfield
 '***************************************************************
-'*   				      Table Init          	        	   *
+'*                Table Init                         *
 '***************************************************************
 
 
 Sub Table1_Init
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine=cCredits
-		.HandleMechanics=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
-		.Run
-		.Hidden=1
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch=1
-	vpmNudge.Sensitivity=5
-'	vpmNudge.TiltObj=Array(Wall1)
-	vpmMapLights AllLights
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine=cCredits
+    .HandleMechanics=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
+    .Run
+    .Hidden=1
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch=1
+  vpmNudge.Sensitivity=5
+' vpmNudge.TiltObj=Array(Wall1)
+  vpmMapLights AllLights
 End Sub
 
 '***************************************************************
-'*   				         Cannon          	        	   *
+'*                   Cannon                        *
 '***************************************************************
 
 
@@ -77,7 +77,7 @@ End Sub
 Dim Angle,Position
 Angle=0:Position=38
 Sub SolShootBall(Enabled)
-	If Enabled Then
+  If Enabled Then
      Ball5.transy = 15
      Ball6.transy = 15
      Ball7.transy = 15
@@ -183,136 +183,136 @@ Else
      Ball43.transy = 0
      Ball44.transy = 0
      Ball45.transy = 0
-		TopRampKicker.CreateSizedBall(12)
+    TopRampKicker.CreateSizedBall(12)
        TopRampKicker.Kick 90,1
-		Shooter.CreateSizedBall(12)
-		Select Case Position
-			Case 0:Shooter.Kick 322,50
-			Case 1:Shooter.Kick 323,50
-			Case 2:Shooter.Kick 324,50
-			Case 3:Shooter.Kick 325,50
-			Case 4:Shooter.Kick 326,50
-			Case 5:Shooter.Kick 327,50
-			Case 6:Shooter.Kick 328,50
-			Case 7:Shooter.Kick 329,50
-			Case 8:Shooter.Kick 330,50
-			Case 9:Shooter.Kick 331,50
-			Case 10:Shooter.Kick 332,50
-			Case 11:Shooter.Kick 333,50
-			Case 12:Shooter.Kick 334,50
-			Case 13:Shooter.Kick 335,50
-			Case 14:Shooter.Kick 336,50
-			Case 15:Shooter.Kick 337,50
-			Case 16:Shooter.Kick 338,50
-			Case 17:Shooter.Kick 339,50
-			Case 18:Shooter.Kick 340,50
-			Case 19:Shooter.Kick 341,50
-			Case 20:Shooter.Kick 342,50
-			Case 21:Shooter.Kick 343,50
-			Case 22:Shooter.Kick 344,50
-			Case 23:Shooter.Kick 345,50
-			Case 24:Shooter.Kick 346,50
-			Case 25:Shooter.Kick 347,50
-			Case 26:Shooter.Kick 348,50
-			Case 27:Shooter.Kick 349,50
-			Case 28:Shooter.Kick 350,50
-			Case 29:Shooter.Kick 351,50
-			Case 30:Shooter.Kick 352,50
-			Case 31:Shooter.Kick 353,50
-			Case 32:Shooter.Kick 354,50
-			Case 33:Shooter.Kick 355,50
-			Case 34:Shooter.Kick 356,50
-			Case 35:Shooter.Kick 357,50
-			Case 36:Shooter.Kick 358,50
-			Case 37:Shooter.Kick 359,50
-			Case 38:Shooter.Kick 0,50
-			Case 39:Shooter.Kick 1,50
-			Case 40:Shooter.Kick 2,50
-			Case 41:Shooter.Kick 3,50
-			Case 42:Shooter.Kick 4,50
-			Case 43:Shooter.Kick 5,50
-			Case 44:Shooter.Kick 6,50
-			Case 45:Shooter.Kick 7,50
-			Case 46:Shooter.Kick 8,50
-			Case 47:Shooter.Kick 9,50
-			Case 48:Shooter.Kick 10,50
-			Case 49:Shooter.Kick 11,50
-			Case 50:Shooter.Kick 12,50
-			Case 51:Shooter.Kick 13,50
-			Case 52:Shooter.Kick 14,50
-			Case 53:Shooter.Kick 15,50
-			Case 54:Shooter.Kick 16,50
-			Case 55:Shooter.Kick 17,50
-			Case 56:Shooter.Kick 18,50
-			Case 57:Shooter.Kick 19,50
-			Case 58:Shooter.Kick 20,50
-			Case 59:Shooter.Kick 21,50
-			Case 60:Shooter.Kick 22,50
-			Case 61:Shooter.Kick 23,50
-			Case 62:Shooter.Kick 24,50
-			Case 63:Shooter.Kick 25,50
-			Case 64:Shooter.Kick 26,50
-			Case 65:Shooter.Kick 27,50
-			Case 66:Shooter.Kick 28,50
-			Case 67:Shooter.Kick 29,50
-			Case 68:Shooter.Kick 30,50
-			Case 69:Shooter.Kick 31,50
-			Case 70:Shooter.Kick 32,50
-			Case 71:Shooter.Kick 33,50
-			Case 72:Shooter.Kick 34,50
-			Case 73:Shooter.Kick 35,50
-			Case 74:Shooter.Kick 36,50
-			Case 75:Shooter.Kick 37,50
-		End Select
-	End If
+    Shooter.CreateSizedBall(12)
+    Select Case Position
+      Case 0:Shooter.Kick 322,50
+      Case 1:Shooter.Kick 323,50
+      Case 2:Shooter.Kick 324,50
+      Case 3:Shooter.Kick 325,50
+      Case 4:Shooter.Kick 326,50
+      Case 5:Shooter.Kick 327,50
+      Case 6:Shooter.Kick 328,50
+      Case 7:Shooter.Kick 329,50
+      Case 8:Shooter.Kick 330,50
+      Case 9:Shooter.Kick 331,50
+      Case 10:Shooter.Kick 332,50
+      Case 11:Shooter.Kick 333,50
+      Case 12:Shooter.Kick 334,50
+      Case 13:Shooter.Kick 335,50
+      Case 14:Shooter.Kick 336,50
+      Case 15:Shooter.Kick 337,50
+      Case 16:Shooter.Kick 338,50
+      Case 17:Shooter.Kick 339,50
+      Case 18:Shooter.Kick 340,50
+      Case 19:Shooter.Kick 341,50
+      Case 20:Shooter.Kick 342,50
+      Case 21:Shooter.Kick 343,50
+      Case 22:Shooter.Kick 344,50
+      Case 23:Shooter.Kick 345,50
+      Case 24:Shooter.Kick 346,50
+      Case 25:Shooter.Kick 347,50
+      Case 26:Shooter.Kick 348,50
+      Case 27:Shooter.Kick 349,50
+      Case 28:Shooter.Kick 350,50
+      Case 29:Shooter.Kick 351,50
+      Case 30:Shooter.Kick 352,50
+      Case 31:Shooter.Kick 353,50
+      Case 32:Shooter.Kick 354,50
+      Case 33:Shooter.Kick 355,50
+      Case 34:Shooter.Kick 356,50
+      Case 35:Shooter.Kick 357,50
+      Case 36:Shooter.Kick 358,50
+      Case 37:Shooter.Kick 359,50
+      Case 38:Shooter.Kick 0,50
+      Case 39:Shooter.Kick 1,50
+      Case 40:Shooter.Kick 2,50
+      Case 41:Shooter.Kick 3,50
+      Case 42:Shooter.Kick 4,50
+      Case 43:Shooter.Kick 5,50
+      Case 44:Shooter.Kick 6,50
+      Case 45:Shooter.Kick 7,50
+      Case 46:Shooter.Kick 8,50
+      Case 47:Shooter.Kick 9,50
+      Case 48:Shooter.Kick 10,50
+      Case 49:Shooter.Kick 11,50
+      Case 50:Shooter.Kick 12,50
+      Case 51:Shooter.Kick 13,50
+      Case 52:Shooter.Kick 14,50
+      Case 53:Shooter.Kick 15,50
+      Case 54:Shooter.Kick 16,50
+      Case 55:Shooter.Kick 17,50
+      Case 56:Shooter.Kick 18,50
+      Case 57:Shooter.Kick 19,50
+      Case 58:Shooter.Kick 20,50
+      Case 59:Shooter.Kick 21,50
+      Case 60:Shooter.Kick 22,50
+      Case 61:Shooter.Kick 23,50
+      Case 62:Shooter.Kick 24,50
+      Case 63:Shooter.Kick 25,50
+      Case 64:Shooter.Kick 26,50
+      Case 65:Shooter.Kick 27,50
+      Case 66:Shooter.Kick 28,50
+      Case 67:Shooter.Kick 29,50
+      Case 68:Shooter.Kick 30,50
+      Case 69:Shooter.Kick 31,50
+      Case 70:Shooter.Kick 32,50
+      Case 71:Shooter.Kick 33,50
+      Case 72:Shooter.Kick 34,50
+      Case 73:Shooter.Kick 35,50
+      Case 74:Shooter.Kick 36,50
+      Case 75:Shooter.Kick 37,50
+    End Select
+  End If
 End Sub
 
 Dim LT,RT
 LT=0:RT=0
 
 Sub UpdatePos_Timer
-	If LT=1 And RT=0 And Position>0 Then
-		Position=Position-1
+  If LT=1 And RT=0 And Position>0 Then
+    Position=Position-1
         Cannon.Rotz = (Position)
-	End If
-	If LT=0 And RT=1 And Position<75 Then
-		Position=Position+1
+  End If
+  If LT=0 And RT=1 And Position<75 Then
+    Position=Position+1
         Cannon.Rotz = (Position)
-	End If
+  End If
 End Sub
 
 '***************************************************************
-'*   				         Keys            	        	   *
+'*                   Keys                          *
 '***************************************************************
 
 ExtraKeyHelp=KeyName(KeyUpperLeft)&vbTab&"Left Fire"&vbNewLine&KeyName(KeyUpperRight)&vbTab&"Right Fire"
 Sub Table1_KeyDown(ByVal KeyCode)
 If KeyName(KeyCode)="K" Then
-	If AATimer.Enabled Then
-		AATimer.Enabled=0
-	Else
-		AATimer.Enabled=1
-	End If
+  If AATimer.Enabled Then
+    AATimer.Enabled=0
+  Else
+    AATimer.Enabled=1
+  End If
 End If
-If KeyCode=2 Then	'1-player start
-	Controller.Switch(3)=1
-	Exit Sub
+If KeyCode=2 Then '1-player start
+  Controller.Switch(3)=1
+  Exit Sub
 End If
-If KeyCode=3 Then	'2-player start
-	Controller.Switch(2)=1
-	Exit Sub
+If KeyCode=3 Then '2-player start
+  Controller.Switch(2)=1
+  Exit Sub
 End If
-	If KeyCode=LeftFlipperKey Then
-		LT=1
-		RT=0
-		Exit Sub
-	End If
-	If KeyCode=RightFlipperKey Then
-		LT=0
-		RT=1
-		Exit Sub
-	End If
-	If KeyCode=PlungerKey Then Controller.Switch(32)=1 'Z-Bomb Switch
+  If KeyCode=LeftFlipperKey Then
+    LT=1
+    RT=0
+    Exit Sub
+  End If
+  If KeyCode=RightFlipperKey Then
+    LT=0
+    RT=1
+    Exit Sub
+  End If
+  If KeyCode=PlungerKey Then Controller.Switch(32)=1 'Z-Bomb Switch
     If KeyCode=LeftMagnaSave Then Controller.Switch(33)=1 'Left Shooter
     If KeyCode=RightMagnaSave Then Controller.Switch(34)=1 'Right Shooter
     If vpmKeyDown(KeyCode) Then Exit Sub
@@ -327,34 +327,34 @@ End Sub
 Sub Table1_KeyUp(ByVal KeyCode)
 
 If KeyCode=2 Then
-	Controller.Switch(3)=0
-	Exit Sub
+  Controller.Switch(3)=0
+  Exit Sub
 End If
 If KeyCode=3 Then
-	Controller.Switch(2)=0
-	Exit Sub
+  Controller.Switch(2)=0
+  Exit Sub
 End If
-	If KeyCode=LeftFlipperKey Then
-		LT=0
-		Exit Sub
-	End If
-	If KeyCode=RightFlipperKey Then
-		RT=0
-		Exit Sub
-	End If
-	If KeyCode=PlungerKey Then Controller.Switch(32)=0 'Z-Bomb Switch
+  If KeyCode=LeftFlipperKey Then
+    LT=0
+    Exit Sub
+  End If
+  If KeyCode=RightFlipperKey Then
+    RT=0
+    Exit Sub
+  End If
+  If KeyCode=PlungerKey Then Controller.Switch(32)=0 'Z-Bomb Switch
     If KeyCode=LeftMagnaSave Then Controller.Switch(33)=0 'Left Shooter
     If KeyCode=RightMagnaSave Then Controller.Switch(34)=0 'Right Shooter
     If vpmKeyUp(KeyCode) Then Exit Sub
 End Sub
 
 '***************************************************************
-'*   		   	      Flap Gate Primitives              	   *
+'*                Flap Gate Primitives                   *
 '***************************************************************
 Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates()
-	 Flap21.Rotz = sw21gate.currentangle
+   Flap21.Rotz = sw21gate.currentangle
      Flap22.Rotz = sw22gate.currentangle
      Flap23.Rotz = sw23gate.currentangle
      Flap24.Rotz = sw24gate.currentangle
@@ -367,7 +367,7 @@ Sub RealTimeUpdates()
 End Sub
 
 '***************************************************************
-'*   				         Kickers           	        	   *
+'*                   Kickers                         *
 '***************************************************************
 
 Sub Kicker9a_Hit:vpmTimer.PulseSw 9:Me.DestroyBall:End Sub
@@ -398,21 +398,21 @@ Sub Drain2_Hit:Me.DestroyBall:End Sub
 Sub Drain3_Hit:Me.DestroyBall:End Sub
 Sub BottomRampKicker_Hit:Me.DestroyBall:End Sub
 '***************************************************************
-'*   				        Displays           	        	   *
+'*                  Displays                         *
 '***************************************************************
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,jj,num,chg,stat,obj,b,x
-	ChgLED = Controller.ChangedLEDs(0, &Hffffffff)
-	If Not IsEmpty(ChgLED) Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-		Next
-	End If
+  Dim ChgLED,ii,jj,num,chg,stat,obj,b,x
+  ChgLED = Controller.ChangedLEDs(0, &Hffffffff)
+  If Not IsEmpty(ChgLED) Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+    Next
+  End If
 End Sub
 
 Dim Digits(29)
@@ -449,19 +449,19 @@ Digits(29)=Array(Light186,Light187,Light188,Light189,Light190,Light191,Light192,
 
 
 '***************************************************************
-'*   				       Desktop Mode       	        	   *
+'*                 Desktop Mode                      *
 '***************************************************************
 Dim xx
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 If DesktopMode = True Then
-		For each xx in DTVisible
-			xx.visible = 1
-		Next
+    For each xx in DTVisible
+      xx.visible = 1
+    Next
 End If
 If DesktopMode = False Then
-		For each xx in DTVisible
-			xx.visible = 0
-		Next
+    For each xx in DTVisible
+      xx.visible = 0
+    Next
 End If
 
 
@@ -584,16 +584,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

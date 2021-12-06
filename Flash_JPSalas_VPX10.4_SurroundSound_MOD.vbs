@@ -395,22 +395,22 @@ Sub RollingUpdate()
     ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
-	If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
-			rolling(b) = True
-			If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-					PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-			Else	
-					PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
-			End If
-		Else
-			If rolling(b) = True Then
-					StopSound("fx_ballrolling" & b)
-					rolling(b) = False
-			End If
-		End If
-	Next
+  If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
+      rolling(b) = True
+      If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+      Else
+          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
+      End If
+    Else
+      If rolling(b) = True Then
+          StopSound("fx_ballrolling" & b)
+          rolling(b) = False
+      End If
+    End If
+  Next
 End Sub
 
 '***********Ball Shadow Update
@@ -532,11 +532,11 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	Else	
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  Else
         PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
-	End if 
+  End if
 End Sub
 
 '**************************************************************************
@@ -548,62 +548,62 @@ End Sub
 'Set position as table object (Use object or light but NOT wall) and Vol to 1
 
 Sub PlaySoundAt(sound, tableobj)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-	Else
-		PlaySound sound, 1, 1, Pan(tableobj)
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+  Else
+    PlaySound sound, 1, 1, Pan(tableobj)
+  End If
 End Sub
 
 
 'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(sound)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-	Else
-		PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  Else
+    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  End If
 End Sub
 
 
 'Set position as table object and Vol manually.
 
 Sub PlaySoundAtVol(sound, tableobj, Vol)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-	Else
-		PlaySound sound, 1, Vol, Pan(tableobj)
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+  Else
+    PlaySound sound, 1, Vol, Pan(tableobj)
+  End If
 End Sub
 
 
 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
 
 Sub PlaySoundAtBallVol(sound, VolMult)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-	Else
-		PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+  Else
+    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
+  End If
 End Sub
 
 
 'Set position as bumper and Vol manually.
 
 Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-	If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
-		PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
-	Else
-		PlaySound sound, 1, Vol, Pan(tableobj)
-	End If
+  If Table1.VersionMinor > 3 OR Table1.VersionMajor > 10 Then
+    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+  Else
+    PlaySound sound, 1, Vol, Pan(tableobj)
+  End If
 End Sub
 
 
 
 ' Notes: To be left in script so others can learn & understand new VPX Surround Code
 '
-' PlaySoundAtBall "sound",ActiveBall 
+' PlaySoundAtBall "sound",ActiveBall
 '   * Sets position as ball and Vol to 1
 
 ' PlaySoundAtBallVol "sound",x
@@ -612,27 +612,27 @@ End Sub
 ' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
 '   * May us used as shown, or with any manual setting, in place of any above Sound Playback Function.
 '
-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1 
+' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1
 '   * May us used as shown, or with any manual setting, to maintain 10.3 backwards compatability.
 
 '**********************************************************************
 
 
-Dim NextOrbitHit:NextOrbitHit = 0 
+Dim NextOrbitHit:NextOrbitHit = 0
 
 Sub MetalWallBumps_Hit(idx)
-	if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
-		RandomBump 3, 20000
-		' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much. 
-		' Lowering these numbers allow more closely-spaced clunks.
-		NextOrbitHit = Timer + .1 + (Rnd * .2)
-	end if 
+  if BallVel(ActiveBall) > .3 and Timer > NextOrbitHit then
+    RandomBump 3, 20000
+    ' Schedule the next possible sound time.  This prevents it from rapid-firing noises too much.
+    ' Lowering these numbers allow more closely-spaced clunks.
+    NextOrbitHit = Timer + .1 + (Rnd * .2)
+  end if
 End Sub
 
 ' Requires fx_wallbump1 to 7 in Sound Manager
 Sub RandomBump(voladj, freq)
-	dim BumpSnd:BumpSnd= "fx_wallbump" & CStr(Int(Rnd*7)+1)
-		PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+  dim BumpSnd:BumpSnd= "fx_wallbump" & CStr(Int(Rnd*7)+1)
+    PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, Pan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
 End Sub
 
 ' Thalamus : Exit in a clean and proper way

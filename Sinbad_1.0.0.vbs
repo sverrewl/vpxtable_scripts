@@ -50,11 +50,11 @@ Randomize
 
 ' BorgDog Freeplay and skillshot Option
 
-Dim FreePlayMod: FreePlayMod = 1			'** set to 1 for freeplay, 0 to coins, 
-											'	hack like real system1 machines where start and credit are jumpered together to improvise freeplay
-											' 	if at zero credits you may have to press twice to start game
+Dim FreePlayMod: FreePlayMod = 1      '** set to 1 for freeplay, 0 to coins,
+                      ' hack like real system1 machines where start and credit are jumpered together to improvise freeplay
+                      '   if at zero credits you may have to press twice to start game
 
-Dim SkillShotMod: SkillShotMod = 1			'fake skill shot add-in
+Dim SkillShotMod: SkillShotMod = 1      'fake skill shot add-in
 Dim skilllight, SkillShot
 
 
@@ -151,93 +151,93 @@ SolCallBack(PTar)="PRaised"   'dtDropP.SolDropUp
 SolCallback(RTar)="RRaised"   'dtDropR.SolDropUp
 
 Sub WYRaised(enabled)
-	debug.print "WYRaised"
-	If enabled Then
-		WYReset.interval=500
-		WYReset.enabled=True
-	End If
+  debug.print "WYRaised"
+  If enabled Then
+    WYReset.interval=500
+    WYReset.enabled=True
+  End If
 End Sub
 
 Sub WYReset_Timer()
-	debug.print "Raise White and Yellow Targets"
-	GIPL37.State=0
-	WYReset.enabled=False
-	dtDropW.DropSol_On
+  debug.print "Raise White and Yellow Targets"
+  GIPL37.State=0
+  WYReset.enabled=False
+  dtDropW.DropSol_On
 End Sub
 
 Sub PRaised(enabled)
-	debug.print "PRaised"
-	If enabled Then
-		PReset.interval=500
-		PReset.enabled=True
-	End If
+  debug.print "PRaised"
+  If enabled Then
+    PReset.interval=500
+    PReset.enabled=True
+  End If
 End Sub
 
 Sub PReset_Timer()
-	debug.print "Raise Purple Targets"
-	GIPL38.State=0:GIPL39.State=0:GIPL40.State=0
-	PReset.enabled=False
-	dtDropP.DropSol_On
+  debug.print "Raise Purple Targets"
+  GIPL38.State=0:GIPL39.State=0:GIPL40.State=0
+  PReset.enabled=False
+  dtDropP.DropSol_On
 End Sub
 
 Sub RRaised(enabled)
-	debug.print "RRaised"
-	If enabled Then
-		RReset.interval=500
-		RReset.enabled=True
-	End If
+  debug.print "RRaised"
+  If enabled Then
+    RReset.interval=500
+    RReset.enabled=True
+  End If
 End Sub
 
 Sub RReset_Timer()
-	debug.print "Raise Red Targets"
-	GIPL30.State=0:GIPL31.State=0:GIPL32.State=0:GIPL33.State=0
-	RReset.enabled=False
-	dtDropR.DropSol_On
+  debug.print "Raise Red Targets"
+  GIPL30.State=0:GIPL31.State=0:GIPL32.State=0:GIPL33.State=0
+  RReset.enabled=False
+  dtDropR.DropSol_On
 End Sub
 
 Sub SolLFlipper(enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("PNK_MH_Flip_L_up",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToEnd:Flipper2.RotateToEnd
-	Else
-		PlaySoundAtVol SoundFX("PNK_MH_Flip_L_down",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToStart:Flipper2.RotateToStart
-	End If
+  If Enabled Then
+    PlaySoundAtVol SoundFX("PNK_MH_Flip_L_up",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToEnd:Flipper2.RotateToEnd
+  Else
+    PlaySoundAtVol SoundFX("PNK_MH_Flip_L_down",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToStart:Flipper2.RotateToStart
+  End If
 End Sub
 
 Sub SolRFlipper(enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("PNK_MH_Flip_R_up",DOFContactors),RightFlipper, VolFlip:RightFlipper.RotateToEnd:Flipper1.RotateToEnd
-	Else
-		PlaySoundAtVol SoundFX("PNK_MH_Flip_R_down",DOFContactors),RightFlipper, VolFlip:RightFlipper.RotateToStart:Flipper1.RotateToStart
-	End If
+  If Enabled Then
+    PlaySoundAtVol SoundFX("PNK_MH_Flip_R_up",DOFContactors),RightFlipper, VolFlip:RightFlipper.RotateToEnd:Flipper1.RotateToEnd
+  Else
+    PlaySoundAtVol SoundFX("PNK_MH_Flip_R_down",DOFContactors),RightFlipper, VolFlip:RightFlipper.RotateToStart:Flipper1.RotateToStart
+  End If
 End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
-	If keycode=PlungerKey Then Plunger.Pullback:playsoundAt "PullbackPlunger", Plunger
-	If keycode=AddCreditKey then PlaySoundAt "CoinReject", Drain:vpmtimer.pulsesw 1
-	If keycode = LeftTiltKey Then Nudge 90, 3:Playsound "fx_nudge_left"			'JPSalas recommended strength = 3
-	If keycode = RightTiltKey Then Nudge 270, 3:Playsound "fx_nudge_right"		'JPSalas recommended strength = 3
-	If keycode = CenterTiltKey Then Nudge 0, 2.5:Playsound "fx_nudge_forward"	'JPSalas recommended strenght = 2.5
+  If keycode=PlungerKey Then Plunger.Pullback:playsoundAt "PullbackPlunger", Plunger
+  If keycode=AddCreditKey then PlaySoundAt "CoinReject", Drain:vpmtimer.pulsesw 1
+  If keycode = LeftTiltKey Then Nudge 90, 3:Playsound "fx_nudge_left"     'JPSalas recommended strength = 3
+  If keycode = RightTiltKey Then Nudge 270, 3:Playsound "fx_nudge_right"    'JPSalas recommended strength = 3
+  If keycode = CenterTiltKey Then Nudge 0, 2.5:Playsound "fx_nudge_forward" 'JPSalas recommended strenght = 2.5
   If keycode = MechanicalTilt Then PlaySound "fx_nudge_forward"  'Can't see how this work - Thalamus
 
-	if keycode = StartGameKey and FreePlayMod=1 then vpmTimer.pulseSW (swCoin1)		'BorgDog freeplay mod
+  if keycode = StartGameKey and FreePlayMod=1 then vpmTimer.pulseSW (swCoin1)   'BorgDog freeplay mod
 
-	If keycode = keyReset then
-		UpdateGI 0:GIT.Enabled=1
-	end if
-	If vpmKeyDown(KeyCode) Then Exit Sub
+  If keycode = keyReset then
+    UpdateGI 0:GIT.Enabled=1
+  end if
+  If vpmKeyDown(KeyCode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If vpmKeyUp(KeyCode) Then Exit Sub
-	If keycode=PlungerKey Then Plunger.Fire:PlaysoundAt "EmptyPlunger", Plunger
+  If vpmKeyUp(KeyCode) Then Exit Sub
+  If keycode=PlungerKey Then Plunger.Fire:PlaysoundAt "EmptyPlunger", Plunger
 End Sub
 
 sub flippertimer_timer()
-	LPFlipper.ObjRotZ = LeftFlipper.CurrentAngle
-	LPFlipper1.ObjRotZ = Flipper2.CurrentAngle
-	RPFlipper.ObjRotZ = RightFlipper.CurrentAngle
-	RPFlipper1.ObjRotZ = Flipper1.CurrentAngle
-	SINspinner.RotZ = (Spinner1.currentangle)
+  LPFlipper.ObjRotZ = LeftFlipper.CurrentAngle
+  LPFlipper1.ObjRotZ = Flipper2.CurrentAngle
+  RPFlipper.ObjRotZ = RightFlipper.CurrentAngle
+  RPFlipper1.ObjRotZ = Flipper1.CurrentAngle
+  SINspinner.RotZ = (Spinner1.currentangle)
 end sub
 
 Dim xx
@@ -246,61 +246,61 @@ Dim GIState
 GIState=0
 
 Sub Table1_Init
-LS74d.State = 1		'lightstate.state --> 0 = off, 1 = on
+LS74d.State = 1   'lightstate.state --> 0 = off, 1 = on
 LS74c.State = 1
 LS74b.State = 1
 LS74a.State = 1
 
-Controller.Games(cGameName).Settings.Value("dmd_red")=0 	'** change the dmd colour to dark blue
+Controller.Games(cGameName).Settings.Value("dmd_red")=0   '** change the dmd colour to dark blue
 Controller.Games(cGameName).Settings.Value("dmd_green")=128 '** pinDMD3 users change the colours to black 0/zero for rainbow mode
 Controller.Games(cGameName).Settings.Value("dmd_blue")=255
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Sinbad (Gottlieb 1978)"&chr(13)&"a pinuck/kruge99 joint"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
-		.hidden = DesktopMode
-		'.Games(cGameName).Settings.Value("dmd_width")=226
-		'.Games(cGameName).Settings.Value("dmd_height")=77
-		'.Games(cGameName).Settings.Value("rol")=0
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-		Controller.SolMask(0)=0
-	vpmTimer.AddTimer 2000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
-		Controller.Run
-	If Err Then MsgBox Err.Description
-	On Error Goto 0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Sinbad (Gottlieb 1978)"&chr(13)&"a pinuck/kruge99 joint"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
+    .hidden = DesktopMode
+    '.Games(cGameName).Settings.Value("dmd_width")=226
+    '.Games(cGameName).Settings.Value("dmd_height")=77
+    '.Games(cGameName).Settings.Value("rol")=0
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+    Controller.SolMask(0)=0
+  vpmTimer.AddTimer 2000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
+    Controller.Run
+  If Err Then MsgBox Err.Description
+  On Error Goto 0
 
- 	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
- 	vpmNudge.TiltSwitch=4
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2)
+  vpmNudge.TiltSwitch=4
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2)
 
- 	Set bsTrough = New cvpmBallStack
-	bsTrough.initnotrough ballrelease, 66, 55, 6
-	bsTrough.InitExitSnd SoundFX("balllaunch",DOFContactors),SoundFX("newball",DOFContactors)
+  Set bsTrough = New cvpmBallStack
+  bsTrough.initnotrough ballrelease, 66, 55, 6
+  bsTrough.InitExitSnd SoundFX("balllaunch",DOFContactors),SoundFX("newball",DOFContactors)
 
- 	Set dtDropW=New cvpmDropTarget'
-	dtDropW.InitDrop Array(TW1,TY1,TY2),Array(20,21,24)
-	dtDropW.InitSnd SoundFX("PNK_MH_Drop_fall_L",DOFContactors),SoundFX("PNK_MH_Drop_reset_L",DOFContactors)
+  Set dtDropW=New cvpmDropTarget'
+  dtDropW.InitDrop Array(TW1,TY1,TY2),Array(20,21,24)
+  dtDropW.InitSnd SoundFX("PNK_MH_Drop_fall_L",DOFContactors),SoundFX("PNK_MH_Drop_reset_L",DOFContactors)
 
-	Set dtDropP=New cvpmDropTarget'
-	dtDropP.InitDrop Array(TP1,TP2,TP3),Array(30,31,34)
-	dtDropP.InitSnd SoundFX("PNK_MH_Drop_fall_R",DOFContactors),SoundFX("PNK_MH_Drop_reset_R",DOFContactors)
+  Set dtDropP=New cvpmDropTarget'
+  dtDropP.InitDrop Array(TP1,TP2,TP3),Array(30,31,34)
+  dtDropP.InitSnd SoundFX("PNK_MH_Drop_fall_R",DOFContactors),SoundFX("PNK_MH_Drop_reset_R",DOFContactors)
 
-	Set dtDropR=New cvpmDropTarget'
-	dtDropR.InitDrop Array(TR1,TR2,TR3,TR4),Array(50,51,60,61)
-	dtDropR.InitSnd SoundFX("PNK_MH_Drop_fall_L",DOFContactors),SoundFX("PNK_MH_Drop_reset_L",DOFContactors)
+  Set dtDropR=New cvpmDropTarget'
+  dtDropR.InitDrop Array(TR1,TR2,TR3,TR4),Array(50,51,60,61)
+  dtDropR.InitSnd SoundFX("PNK_MH_Drop_fall_L",DOFContactors),SoundFX("PNK_MH_Drop_reset_L",DOFContactors)
 
 '**Detect pinwizard
 If Plunger.MotionDevice>0 Then PBWPlunger.Enabled=True
@@ -315,58 +315,58 @@ End Sub
 '************skillshot add in also includes a check on every switch hit in the table (in case you miss the skill shot)
 
 sub startSkillShot
-	SkillShot=1
-	if L5.state<>2 and L6.state<>2 and L7.state<>2 and L9.state<>2 then 
-		soundon.uservalue=0
-		SoundOn.timerenabled=1
-	end if
+  SkillShot=1
+  if L5.state<>2 and L6.state<>2 and L7.state<>2 and L9.state<>2 then
+    soundon.uservalue=0
+    SoundOn.timerenabled=1
+  end if
 end sub
 
 sub SoundOn_timer
-	Select Case SoundOn.uservalue
-		Case 0,4,8,12:
-			L5.state=1:L6.state=0:L7.state=0:L9.state=0
-		Case 1,5,9,13:
-			L5.state=0:L6.state=1:L7.state=0:L9.state=0
-		Case 2,6,10,14:
-			L5.state=0:L6.state=0:L7.state=1:L9.state=0
-		Case 3,7,11,15:
-			L5.state=0:L6.state=0:L7.state=0:L9.state=1
-		Case 16:
-			L5.state=0:L6.state=0:L7.state=0:L9.state=0
-			skilllight=Int(Rnd*4)
-			Select Case skilllight
-				Case 0 : L5.state=2
-				Case 1 : L6.state=2
-				Case 2 : L7.state=2
-				Case 3 : L9.state=2
-			End Select
-			SoundOn.timerenabled=0
-	end Select
-	SoundOn.uservalue=SoundOn.uservalue+1
+  Select Case SoundOn.uservalue
+    Case 0,4,8,12:
+      L5.state=1:L6.state=0:L7.state=0:L9.state=0
+    Case 1,5,9,13:
+      L5.state=0:L6.state=1:L7.state=0:L9.state=0
+    Case 2,6,10,14:
+      L5.state=0:L6.state=0:L7.state=1:L9.state=0
+    Case 3,7,11,15:
+      L5.state=0:L6.state=0:L7.state=0:L9.state=1
+    Case 16:
+      L5.state=0:L6.state=0:L7.state=0:L9.state=0
+      skilllight=Int(Rnd*4)
+      Select Case skilllight
+        Case 0 : L5.state=2
+        Case 1 : L6.state=2
+        Case 2 : L7.state=2
+        Case 3 : L9.state=2
+      End Select
+      SoundOn.timerenabled=0
+  end Select
+  SoundOn.uservalue=SoundOn.uservalue+1
 end Sub
 
 sub awardSkillShot
-	sw70.timerinterval=500
-	sw70.timerenabled=1
+  sw70.timerinterval=500
+  sw70.timerenabled=1
 end Sub
 
 sub sw70_timer
-	vpmTimer.PulseSw(70)
-	stopSkillShot
-	sw70.timerenabled=0
+  vpmTimer.PulseSw(70)
+  stopSkillShot
+  sw70.timerenabled=0
 end Sub
 
 sub stopSkillShot
-	SkillShot=0
-	L5.state=0
-	L6.state=0
-	L7.state=0
-	L9.state=0
+  SkillShot=0
+  L5.state=0
+  L6.state=0
+  L7.state=0
+  L9.state=0
 end sub
 
 Sub SoundOn_hit()
-	if SkillShot<>1 then startSkillShot
+  if SkillShot<>1 then startSkillShot
 End Sub
 
 '************end BorgDog skillshot add-In
@@ -454,11 +454,11 @@ Sub sw54rubbers_Hit(idx):RandomSoundRubber():End Sub
 Sub rollovers_Hit(idx):PlaySound "rollover", 0, Vol(ActiveBall)*VolRol, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "PNK_MH_rubber_hit_1", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "PNK_MH_rubber_hit_2", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "PNK_MH_rubber_hit_3", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "PNK_MH_rubber_hit_1", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "PNK_MH_rubber_hit_2", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "PNK_MH_rubber_hit_3", 0, Vol(ActiveBall)*VolRH, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
@@ -478,22 +478,22 @@ Sub Wall85_Hit():RandomSoundRubber():End Sub
 
 '**********GI Handler
 Sub GIT_Timer():GIT.Enabled=0:UpdateGI 1:End Sub
-	Sub UpdateGI(enabled)
-		If enabled then
-		GIState=1
-'		GIPF.State=1
-		For each xx in GIPL:xx.State=1:Next
-		For each xx in SRO:xx.State=1:Next
-		For each xx in CapLit:xx.State=0:Next
-		For each xx in CapUnlit:xx.State=1:Next
-	Else
-		GIState=0
-'		GIPF.State=0
-		For each xx in GIPL:xx.State=0:Next
-		For each xx in SRO:xx.State=0:Next
-		For each xx in CapLit:xx.State=1:Next
-		For each xx in CapUnlit:xx.State=0:Next
-	End if
+  Sub UpdateGI(enabled)
+    If enabled then
+    GIState=1
+'   GIPF.State=1
+    For each xx in GIPL:xx.State=1:Next
+    For each xx in SRO:xx.State=1:Next
+    For each xx in CapLit:xx.State=0:Next
+    For each xx in CapUnlit:xx.State=1:Next
+  Else
+    GIState=0
+'   GIPF.State=0
+    For each xx in GIPL:xx.State=0:Next
+    For each xx in SRO:xx.State=0:Next
+    For each xx in CapLit:xx.State=1:Next
+    For each xx in CapUnlit:xx.State=0:Next
+  End if
 End Sub
 
 '**update the lights
@@ -516,16 +516,16 @@ LampTimer.Interval = 40
 LampTimer.Enabled = 1
 
 Sub LampTimer_Timer()
-	Dim chgLamp, num, chg, ii
-	chgLamp = Controller.ChangedLamps
-	If Not IsEmpty(chgLamp) Then
-		For ii = 0 To UBound(chgLamp)
-			LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
- 		Next
-	End If
+  Dim chgLamp, num, chg, ii
+  chgLamp = Controller.ChangedLamps
+  If Not IsEmpty(chgLamp) Then
+    For ii = 0 To UBound(chgLamp)
+      LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
+    Next
+  End If
 
-	UpdateLamps
-	DisplayLEDs
+  UpdateLamps
+  DisplayLEDs
 End Sub
 
 Sub UpdateLamps
@@ -570,44 +570,44 @@ N2=Controller.Lamp(2) 'Tilt (Backglass)
 N3=Controller.Lamp(3) 'High Score To Date (Backglass)
 N4=Controller.Lamp(4) 'Same Player Shoots Again (Backglass+Playfield)
 If N1<>O1 Then
- 		If N1 Then
- 			'Textbox2.Text=""
-			BgGO.setvalue 0
- 		Else
- 			'Textbox2.Text="GAME OVER"
-			BgGO.setvalue 1
- 		End If
- 	O1=N1
- 	End If
- 	If N2<>O2 Then
- 		If N2 Then
- 			'Textbox3.Text="TILT"
-			BgTILT.setvalue 1
- 		Else
- 			'Textbox3.Text=""
-			BgTILT.setvalue 0
- 		End If
- 	O2=N2
- 	End If
- 	If N3<>O3 Then
- 		If N3 Then
- 			'HSBox.Text="HIGH SCORE TO DATE"
-			BgHSTD.setvalue 1
- 		Else
- 			'HSBox.Text=""
-			BgHSTD.setvalue 0
- 		End If
- 	O3=N3
- 	End If
- 	If N4<>O4 Then
- 		If N4 Then
- 			'Textbox1.Text="SHOOT AGAIN"
-			BgSPSA.setvalue 1
- 		Else
- 			'Textbox1.Text=""
-			BgSPSA.setvalue 0
- 		End If
- 	O4=N4
+    If N1 Then
+      'Textbox2.Text=""
+      BgGO.setvalue 0
+    Else
+      'Textbox2.Text="GAME OVER"
+      BgGO.setvalue 1
+    End If
+  O1=N1
+  End If
+  If N2<>O2 Then
+    If N2 Then
+      'Textbox3.Text="TILT"
+      BgTILT.setvalue 1
+    Else
+      'Textbox3.Text=""
+      BgTILT.setvalue 0
+    End If
+  O2=N2
+  End If
+  If N3<>O3 Then
+    If N3 Then
+      'HSBox.Text="HIGH SCORE TO DATE"
+      BgHSTD.setvalue 1
+    Else
+      'HSBox.Text=""
+      BgHSTD.setvalue 0
+    End If
+  O3=N3
+  End If
+  If N4<>O4 Then
+    If N4 Then
+      'Textbox1.Text="SHOOT AGAIN"
+      BgSPSA.setvalue 1
+    Else
+      'Textbox1.Text=""
+      BgSPSA.setvalue 0
+    End If
+  O4=N4
 End If
 End Sub
 
@@ -619,26 +619,26 @@ Sub SetLamp(nr, value):LampState(nr) = abs(value) + 4:End Sub
 'Dim lightnum(201) : Dim Tset
 'Initialize all possible light control variables (0 - 200) including extra spaces for flashers or GI control
 'On Error Resume Next
-'	For Tset = 0 To 200
-'		lightnum(Tset) = 0
-'	Next
+' For Tset = 0 To 200
+'   lightnum(Tset) = 0
+' Next
 '
 Sub NFadeL(nr, a)
-	Select Case LampState(nr)
-		Case 4:a.state = 0:LampState(nr) = 0
-		Case 5:a.State = 1:LampState(nr) = 1
-	End Select
+  Select Case LampState(nr)
+    Case 4:a.state = 0:LampState(nr) = 0
+    Case 5:a.State = 1:LampState(nr) = 1
+  End Select
 End Sub
 
 'Sub FadeR(lightnumIn, reelname)
-'	Select Case lightnum(lightnumIn)
-'		Case  5 : reelname.setvalue 1 : lightnum(lightnumIn) = 7
-'		Case  4 : reelname.setvalue 3 : lightnum(lightnumIn) = lightnum(lightnumIn) - 1
-'		Case  3 : reelname.setvalue 2 : lightnum(lightnumIn) = lightnum(lightnumIn) - 1
-'		Case  2 : reelname.setvalue 0 : lightnum(lightnumIn) = 6
-'		Case  1 : reelname.setvalue 1 : lightnum(lightnumIn) = 7
-'		Case  0 : reelname.setvalue 0 : lightnum(lightnumIn) = 6
-'	End Select
+' Select Case lightnum(lightnumIn)
+'   Case  5 : reelname.setvalue 1 : lightnum(lightnumIn) = 7
+'   Case  4 : reelname.setvalue 3 : lightnum(lightnumIn) = lightnum(lightnumIn) - 1
+'   Case  3 : reelname.setvalue 2 : lightnum(lightnumIn) = lightnum(lightnumIn) - 1
+'   Case  2 : reelname.setvalue 0 : lightnum(lightnumIn) = 6
+'   Case  1 : reelname.setvalue 1 : lightnum(lightnumIn) = 7
+'   Case  0 : reelname.setvalue 0 : lightnum(lightnumIn) = 6
+' End Select
 'End Sub
 
 '****************************************
@@ -649,15 +649,15 @@ End Sub
 ' dim ballspeed
 '
 ' Sub BallRollSounds_hit(T) 'ball rolling sounds
-' 	ballspeed=ABS(ActiveBall.vely)+ABS(ActiveBall.velx)
-' '	speedtest.text= ballspeed
-' 	if ballspeed >= 6 then
-' 		Select Case Int(Rnd*3)+1
-' 			Case 1 : PlaySound "PNK_MH_roll_short_1"
-' 			Case 2 : PlaySound "PNK_MH_roll_short_2"
-' 			Case 3 : PlaySound "PNK_MH_roll_short_3"
-' 		End Select
-' 	end if
+'   ballspeed=ABS(ActiveBall.vely)+ABS(ActiveBall.velx)
+' ' speedtest.text= ballspeed
+'   if ballspeed >= 6 then
+'     Select Case Int(Rnd*3)+1
+'       Case 1 : PlaySound "PNK_MH_roll_short_1"
+'       Case 2 : PlaySound "PNK_MH_roll_short_2"
+'       Case 3 : PlaySound "PNK_MH_roll_short_3"
+'     End Select
+'   end if
 ' End Sub
 
 ' Thalamus, replaced by JP's standards
@@ -669,49 +669,49 @@ End Sub
 '
 ' Dim tnopb, nosf
 ' '
-' tnopb = 4	' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
-' nosf = 9	' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
+' tnopb = 4 ' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
+' nosf = 9  ' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
 '
 ' Dim currentball(3), ballStatus(3)
 ' Dim iball, cnt, coff, errMessage
 '
-' XYdata.interval = 1 			' Timer interval starts at 1 for the highest ball data sample rate
-' coff = False				' Collision off set to false
+' XYdata.interval = 1       ' Timer interval starts at 1 for the highest ball data sample rate
+' coff = False        ' Collision off set to false
 '
-' For cnt = 0 to ubound(ballStatus)	' Initialize/clear all ball stats, 1 = active, 0 = non-existant
-' 	ballStatus(cnt) = 0
+' For cnt = 0 to ubound(ballStatus) ' Initialize/clear all ball stats, 1 = active, 0 = non-existant
+'   ballStatus(cnt) = 0
 ' Next
 '
 ' '======================================================
 ' ' <<<<<<<<<<<<<< Ball Identification >>>>>>>>>>>>>>
 ' '======================================================
 ' ' Call this sub from every kicker(or plunger) that creates a ball.
-' Sub NewBallID 						' Assign new ball object and give it ID for tracking
-' 	For cnt = 1 to ubound(ballStatus)		' Loop through all possible ball IDs
-'    	If ballStatus(cnt) = 0 Then			' If ball ID is available...
-'    	Set currentball(cnt) = ActiveBall			' Set ball object with the first available ID
-'    	currentball(cnt).uservalue = cnt			' Assign the ball's uservalue to it's new ID
-'    	ballStatus(cnt) = 1				' Mark this ball status active
-'    	ballStatus(0) = ballStatus(0)+1 		' Increment ballStatus(0), the number of active balls
-' 	If coff = False Then				' If collision off, overrides auto-turn on collision detection
-' 							' If more than one ball active, start collision detection process
-' 	If ballStatus(0) > 1 and XYdata.enabled = False Then XYdata.enabled = True
-' 	End If
-' 	Exit For					' New ball ID assigned, exit loop
-'    	End If
-'    	Next
-' '  	Debugger 					' For demo only, display stats
+' Sub NewBallID             ' Assign new ball object and give it ID for tracking
+'   For cnt = 1 to ubound(ballStatus)   ' Loop through all possible ball IDs
+'     If ballStatus(cnt) = 0 Then     ' If ball ID is available...
+'     Set currentball(cnt) = ActiveBall     ' Set ball object with the first available ID
+'     currentball(cnt).uservalue = cnt      ' Assign the ball's uservalue to it's new ID
+'     ballStatus(cnt) = 1       ' Mark this ball status active
+'     ballStatus(0) = ballStatus(0)+1     ' Increment ballStatus(0), the number of active balls
+'   If coff = False Then        ' If collision off, overrides auto-turn on collision detection
+'               ' If more than one ball active, start collision detection process
+'   If ballStatus(0) > 1 and XYdata.enabled = False Then XYdata.enabled = True
+'   End If
+'   Exit For          ' New ball ID assigned, exit loop
+'     End If
+'     Next
+' '   Debugger          ' For demo only, display stats
 ' End Sub
 '
 ' ' Call this sub from every kicker that destroys a ball, before the ball is destroyed.
 ' Sub ClearBallID
-'   	On Error Resume Next				' Error handling for debugging purposes
-'    	iball = ActiveBall.uservalue			' Get the ball ID to be cleared
-'    	currentball(iball).UserValue = 0 			' Clear the ball ID
-'    	If Err Then Msgbox Err.description & vbCrLf & iball
-'     	ballStatus(iBall) = 0 				' Clear the ball status
-'    	ballStatus(0) = ballStatus(0)-1 		' Subtract 1 ball from the # of balls in play
-'    	On Error Goto 0
+'     On Error Resume Next        ' Error handling for debugging purposes
+'     iball = ActiveBall.uservalue      ' Get the ball ID to be cleared
+'     currentball(iball).UserValue = 0      ' Clear the ball ID
+'     If Err Then Msgbox Err.description & vbCrLf & iball
+'       ballStatus(iBall) = 0         ' Clear the ball status
+'     ballStatus(0) = ballStatus(0)-1     ' Subtract 1 ball from the # of balls in play
+'     On Error Goto 0
 ' End Sub
 '
 ' '=====================================================
@@ -722,46 +722,46 @@ End Sub
 ' Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
 '
 ' Sub XYdata_Timer()
-' 	' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
-' 	' performance, at the end of this timer, if the timer's interval is shorter than the individual
-' 	' computer can handle this timer's interval will increment by 1 millisecond.
-'     xyTime = Timer+(XYdata.interval*.001)	' xyTime is the system timer plus the current interval time
-' 	' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
-' 	' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
-'    	If id2 >= 4 Then id2 = 0						' Loop four times and start over
-'    	id2 = id2+1								' Increment the ball sampler ID
-'    	For id = 1 to ubound(ballStatus)					' Loop once for each possible ball
-'   	If ballStatus(id) = 1 Then						' If ball is active...
-'    		baX(id,id2) = round(currentball(id).x,2)				' Sample x-coord
-'    		baY(id,id2) = round(currentball(id).y,2)				' Sample y-coord
-'    		bVx(id,id2) = round(currentball(id).velx,2)				' Sample x-velocity
-'    		bVy(id,id2) = round(currentball(id).vely,2)				' Sample y-velocity
-'    		TotalVel(id,id2) = (bVx(id,id2)^2+bVy(id,id2)^2) 		' Calculate total velocity
-'  		If TotalVel(id,id2) > TotalVel(0,0) Then TotalVel(0,0) = int(TotalVel(id,id2))
-'    	End If
-'    	Next
-' 	' Collision Detection Loop - check all possible ball combinations for a collision.
-' 	' bDistance automatically sets the distance between two colliding balls. Zero milimeters between
-' 	' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
-' 	' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
-' 	' which is automated with calculations using the balls' velocities.
-' 	' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
-' 	id3 = id2 : B2 = 2 : B1 = 1						' Set up the counters for looping
-' 	Do
-' 	If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then			' If both balls are active...
-' 		bDistance = int((TotalVel(B1,id3)+TotalVel(B2,id3))^1.04)
-' 		If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub
-' 		End If
-' 		B1 = B1+1							' Increment ball1
-' 		If B1 >= ballStatus(0) Then Exit Do				' Exit loop if all ball combinations checked
-' 		If B1 >= B2 then B1 = 1:B2 = B2+1				' If ball1 >= reset ball1 and increment ball2
-' 	Loop
+'   ' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
+'   ' performance, at the end of this timer, if the timer's interval is shorter than the individual
+'   ' computer can handle this timer's interval will increment by 1 millisecond.
+'     xyTime = Timer+(XYdata.interval*.001) ' xyTime is the system timer plus the current interval time
+'   ' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
+'   ' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
+'     If id2 >= 4 Then id2 = 0            ' Loop four times and start over
+'     id2 = id2+1               ' Increment the ball sampler ID
+'     For id = 1 to ubound(ballStatus)          ' Loop once for each possible ball
+'     If ballStatus(id) = 1 Then            ' If ball is active...
+'       baX(id,id2) = round(currentball(id).x,2)        ' Sample x-coord
+'       baY(id,id2) = round(currentball(id).y,2)        ' Sample y-coord
+'       bVx(id,id2) = round(currentball(id).velx,2)       ' Sample x-velocity
+'       bVy(id,id2) = round(currentball(id).vely,2)       ' Sample y-velocity
+'       TotalVel(id,id2) = (bVx(id,id2)^2+bVy(id,id2)^2)    ' Calculate total velocity
+'     If TotalVel(id,id2) > TotalVel(0,0) Then TotalVel(0,0) = int(TotalVel(id,id2))
+'     End If
+'     Next
+'   ' Collision Detection Loop - check all possible ball combinations for a collision.
+'   ' bDistance automatically sets the distance between two colliding balls. Zero milimeters between
+'   ' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
+'   ' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
+'   ' which is automated with calculations using the balls' velocities.
+'   ' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
+'   id3 = id2 : B2 = 2 : B1 = 1           ' Set up the counters for looping
+'   Do
+'   If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then     ' If both balls are active...
+'     bDistance = int((TotalVel(B1,id3)+TotalVel(B2,id3))^1.04)
+'     If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub
+'     End If
+'     B1 = B1+1             ' Increment ball1
+'     If B1 >= ballStatus(0) Then Exit Do       ' Exit loop if all ball combinations checked
+'     If B1 >= B2 then B1 = 1:B2 = B2+1       ' If ball1 >= reset ball1 and increment ball2
+'   Loop
 '
-'  	If ballStatus(0) <= 1 Then XYdata.enabled = False 			' Turn off timer if one ball or less
+'   If ballStatus(0) <= 1 Then XYdata.enabled = False       ' Turn off timer if one ball or less
 '
-' 	If XYdata.interval >= 40 Then coff = True : XYdata.enabled = False	' Auto-shut off
-' 	If Timer > xyTime * 3 Then coff = True : XYdata.enabled = False		' Auto-shut off
-'    	If Timer > xyTime Then XYdata.interval = XYdata.interval+1		' Increment interval if needed
+'   If XYdata.interval >= 40 Then coff = True : XYdata.enabled = False  ' Auto-shut off
+'   If Timer > xyTime * 3 Then coff = True : XYdata.enabled = False   ' Auto-shut off
+'     If Timer > xyTime Then XYdata.interval = XYdata.interval+1    ' Increment interval if needed
 ' End Sub
 '
 ' '=========================================================
@@ -774,25 +774,25 @@ End Sub
 ' ' The Collision Factor(cFactor) uses the maximum total ball velocity and automates the cForce calculation, maximizing the
 ' ' use of all sound files/volume levels. So all the available B2B sound levels are automatically used by adjusting to a
 ' ' player's style and the table's characteristics.
-'  	If TotalVel(0,0)/1.8 > cFactor Then cFactor = int(TotalVel(0,0)/1.8)
+'   If TotalVel(0,0)/1.8 > cFactor Then cFactor = int(TotalVel(0,0)/1.8)
 ' ' The following six lines limit repeated collisions if the balls are close together for any period of time
-'   	avgBallx = (bvX(cb2,1)+bvX(cb2,2)+bvX(cb2,3)+bvX(cb2,4))/4
-'   	If avgBallx < bvX(cb2,id2)+.1 and avgBallx > bvX(cb2,id2)-.1 Then
-'  	If ABS(TotalVel(cb1,id2)-TotalVel(cb2,id2)) < .000005 Then Exit Sub
-'  	End If
-'   	If Timer < cTime Then Exit Sub
-'   	cTime = Timer+.1				' Limits collisions to .1 seconds apart
+'     avgBallx = (bvX(cb2,1)+bvX(cb2,2)+bvX(cb2,3)+bvX(cb2,4))/4
+'     If avgBallx < bvX(cb2,id2)+.1 and avgBallx > bvX(cb2,id2)-.1 Then
+'   If ABS(TotalVel(cb1,id2)-TotalVel(cb2,id2)) < .000005 Then Exit Sub
+'   End If
+'     If Timer < cTime Then Exit Sub
+'     cTime = Timer+.1        ' Limits collisions to .1 seconds apart
 ' ' GetAngle(x-value, y-value, the angle name) calculates any x/y-coords or x/y-velocities and returns named angle in radians
-'  	GetAngle baX(cb1,id3)-baX(cb2,id3), baY(cb1,id3)-baY(cb2,id3),cAngle	' Collision angle via x/y-coordinates
-' 	id3 = id3 - 1 : If id3 = 0 Then id3 = 4		' Step back one xyData sampling for a good velocity reading
-'  	GetAngle bVx(cb1,id3), bVy(cb1,id3), bAngle1	' ball 1 travel direction, via velocity
-'  	GetAngle bVx(cb2,id3), bVy(cb2,id3), bAngle2	' ball 2 travel direction, via velocity
+'   GetAngle baX(cb1,id3)-baX(cb2,id3), baY(cb1,id3)-baY(cb2,id3),cAngle  ' Collision angle via x/y-coordinates
+'   id3 = id3 - 1 : If id3 = 0 Then id3 = 4   ' Step back one xyData sampling for a good velocity reading
+'   GetAngle bVx(cb1,id3), bVy(cb1,id3), bAngle1  ' ball 1 travel direction, via velocity
+'   GetAngle bVx(cb2,id3), bVy(cb2,id3), bAngle2  ' ball 2 travel direction, via velocity
 ' ' The main cForce formula, calculating the strength of a collision
-' 	cForce = Cint((abs(TotalVel(cb1,id3)*Cos(cAngle-bAngle1))+abs(TotalVel(cb2,id3)*Cos(cAngle-bAngle2))))
-'     	If cForce < 4 Then Exit Sub			' Another collision limiter
-'    	cForce = Cint((cForce)/(cFactor/nosf))		' Divides up cForce for the proper sound selection.
-'   	If cForce > nosf-1 Then cForce = nosf-1		' First sound file 0(zero) minus one from number of sound files
-'    	PlaySound("collide" & cForce)			' Combines "collide" with the calculated sound level and play sound
+'   cForce = Cint((abs(TotalVel(cb1,id3)*Cos(cAngle-bAngle1))+abs(TotalVel(cb2,id3)*Cos(cAngle-bAngle2))))
+'       If cForce < 4 Then Exit Sub     ' Another collision limiter
+'     cForce = Cint((cForce)/(cFactor/nosf))    ' Divides up cForce for the proper sound selection.
+'     If cForce > nosf-1 Then cForce = nosf-1   ' First sound file 0(zero) minus one from number of sound files
+'     PlaySound("collide" & cForce)     ' Combines "collide" with the calculated sound level and play sound
 ' End Sub
 '
 ' '=================================================
@@ -800,19 +800,19 @@ End Sub
 ' '=================================================
 ' ' A repeated function which takes any set of coordinates or velocities and calculates an angle in radians.
 ' Dim Xin,Yin,rAngle,Radit,wAngle,Pi
-' Pi = Round(4*Atn(1),6)					'3.1415926535897932384626433832795
+' Pi = Round(4*Atn(1),6)          '3.1415926535897932384626433832795
 '
 ' Sub GetAngle(Xin, Yin, wAngle)
-'  	If Sgn(Xin) = 0 Then
-'  		If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
-'  		If Sgn(Yin) = 0 Then rAngle = 0
-'  	Else
-'  		rAngle = atn(-Yin/Xin)			' Calculates angle in radians before quadrant data
-'  	End If
-'  	If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
-'  	If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
-'  	wAngle = round((Radit + rAngle),4)		' Calculates angle in radians with quadrant data
-' 	'"wAngle = round((180/Pi) * (Radit + rAngle),4)" ' Will convert radian measurements to degrees - to be used in future
+'   If Sgn(Xin) = 0 Then
+'     If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
+'     If Sgn(Yin) = 0 Then rAngle = 0
+'   Else
+'     rAngle = atn(-Yin/Xin)      ' Calculates angle in radians before quadrant data
+'   End If
+'   If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
+'   If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
+'   wAngle = round((Radit + rAngle),4)    ' Calculates angle in radians with quadrant data
+'   '"wAngle = round((180/Pi) * (Radit + rAngle),4)" ' Will convert radian measurements to degrees - to be used in future
 ' End Sub
 
 Sub Flipper2_Collide(parm)
@@ -832,11 +832,11 @@ Sub RightFlipper_Collide(parm)
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAt "PNK_MH_Flip_hit_1", ActiveBall
-		Case 2 : PlaySoundAt "PNK_MH_Flip_hit_2", ActiveBall
-		Case 3 : PlaySoundAt "PNK_MH_Flip_hit_3", ActiveBall
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAt "PNK_MH_Flip_hit_1", ActiveBall
+    Case 2 : PlaySoundAt "PNK_MH_Flip_hit_2", ActiveBall
+    Case 3 : PlaySoundAt "PNK_MH_Flip_hit_3", ActiveBall
+  End Select
 End Sub
 
 'Pacdude's led display, modified from scapinos fathom and borrowed from noah
@@ -898,73 +898,73 @@ Dim ChgLED, ii, stat, TempCount
 ChgLED = Controller.ChangedLEDs(&HFF, &HFFFF) 'hex of binary (display 111111, or first 6 digits)
 
 If Not IsEmpty(ChgLED) Then
-	If DesktopMode = True Then
+  If DesktopMode = True Then
 For ii = 0 To UBound(ChgLED)
 stat = chgLED(ii, 2)
-	Select Case stat
-		Case 0:SixDigitOutput(chgLED(ii, 0) ).SetValue 0 'empty
-		Case 63:SixDigitOutput(chgLED(ii, 0) ).SetValue 1 '0
-		Case 6:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
-		Case 91:SixDigitOutput(chgLED(ii, 0) ).SetValue 3 '2
-		Case 79:SixDigitOutput(chgLED(ii, 0) ).SetValue 4 '3
-		Case 102:SixDigitOutput(chgLED(ii, 0) ).SetValue 5 '4
-		Case 109:SixDigitOutput(chgLED(ii, 0) ).SetValue 6 '5
-		Case 124:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
-		Case 125:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
-		Case 252:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
-		Case 7:SixDigitOutput(chgLED(ii, 0) ).SetValue 8 '7
-		Case 127:SixDigitOutput(chgLED(ii, 0) ).SetValue 9 '8
-		Case 103:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
-		Case 111:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
-		Case 231:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
-		Case 128:SixDigitOutput(chgLED(ii, 0) ).SetValue 0 'empty
-		Case 191:SixDigitOutput(chgLED(ii, 0) ).SetValue 1 '0
-		Case 832:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
-		Case 896:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
-		Case 768:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
-		Case 134:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
-		Case 219:SixDigitOutput(chgLED(ii, 0) ).SetValue 3 '2
-		Case 207:SixDigitOutput(chgLED(ii, 0) ).SetValue 4 '3
-		Case 230:SixDigitOutput(chgLED(ii, 0) ).SetValue 5 '4
-		Case 237:SixDigitOutput(chgLED(ii, 0) ).SetValue 6 '5
-		Case 253:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
-		Case 135:SixDigitOutput(chgLED(ii, 0) ).SetValue 8 '7
-		Case 255:SixDigitOutput(chgLED(ii, 0) ).SetValue 9 '8
-		Case 239:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
-	End Select
+  Select Case stat
+    Case 0:SixDigitOutput(chgLED(ii, 0) ).SetValue 0 'empty
+    Case 63:SixDigitOutput(chgLED(ii, 0) ).SetValue 1 '0
+    Case 6:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
+    Case 91:SixDigitOutput(chgLED(ii, 0) ).SetValue 3 '2
+    Case 79:SixDigitOutput(chgLED(ii, 0) ).SetValue 4 '3
+    Case 102:SixDigitOutput(chgLED(ii, 0) ).SetValue 5 '4
+    Case 109:SixDigitOutput(chgLED(ii, 0) ).SetValue 6 '5
+    Case 124:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
+    Case 125:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
+    Case 252:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
+    Case 7:SixDigitOutput(chgLED(ii, 0) ).SetValue 8 '7
+    Case 127:SixDigitOutput(chgLED(ii, 0) ).SetValue 9 '8
+    Case 103:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
+    Case 111:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
+    Case 231:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
+    Case 128:SixDigitOutput(chgLED(ii, 0) ).SetValue 0 'empty
+    Case 191:SixDigitOutput(chgLED(ii, 0) ).SetValue 1 '0
+    Case 832:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
+    Case 896:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
+    Case 768:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
+    Case 134:SixDigitOutput(chgLED(ii, 0) ).SetValue 2 '1
+    Case 219:SixDigitOutput(chgLED(ii, 0) ).SetValue 3 '2
+    Case 207:SixDigitOutput(chgLED(ii, 0) ).SetValue 4 '3
+    Case 230:SixDigitOutput(chgLED(ii, 0) ).SetValue 5 '4
+    Case 237:SixDigitOutput(chgLED(ii, 0) ).SetValue 6 '5
+    Case 253:SixDigitOutput(chgLED(ii, 0) ).SetValue 7 '6
+    Case 135:SixDigitOutput(chgLED(ii, 0) ).SetValue 8 '7
+    Case 255:SixDigitOutput(chgLED(ii, 0) ).SetValue 9 '8
+    Case 239:SixDigitOutput(chgLED(ii, 0) ).SetValue 10 '9
+  End Select
 'For TempCount = 0 to 10
 'If stat = DisplayPatterns(TempCount) OR stat = (DisplayPatterns(TempCount) + 128) then
 'SevenDigitOutput(chgLED(ii, 0) ).SetValue(TempCount)
 'End If
 'Next
 Next
-	End IF
+  End IF
 End IF
 End Sub
 
 '**dipswitch menu - press F6 to display it
 
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"System 1 - DIP switches"
-		.AddFrame 0,0,190,"Coin chutecontrol",&H00040000,Array("seperate",0,"same",&H00040000)'dip 19
-		.AddFrame 0,46,190,"Game mode",&H00000400,Array("extraball",0,"replay",&H00000400)'dip 11
-		.AddFrame 0,92,190,"High game to date awards",&H00200000,Array("noaward",0,"3 replays",&H00200000)'dip 22
-		.AddFrame 0,138,190,"Balls per game",&H00000100,Array("5 balls",0,"3balls",&H00000100)'dip 9
-		.AddFrame 0,184,190,"Tilt effect",&H00000800,Array("game over",0,"ball in play only",&H00000800)'dip 12
-		.AddFrame 205,0,190,"Maximum credits",&H00030000,Array("5 credits",0,"8 credits",&H00020000,"10 credits",&H00010000,"15 credits",&H00030000)'dip 17&18
-		.AddFrame 205,76,190,"Soundsettings",&H80000000,Array("sounds",0,"tones",&H80000000)'dip 32
-		.AddFrame 205,122,190,"Attract tune",&H10000000,Array("no attract tune",0,"attract tune played every 6 minutes",&H10000000)'dip 29
-		.AddChk 205,175,190,Array("Match feature",&H00000200)'dip 10
-		.AddChk 205,190,190,Array("Credits displayed",&H00001000)'dip 13
-		.AddChk 205,205,190,Array("Play credit button tune",&H00002000)'dip 14
-		.AddChk 205,220,190,Array("Play tones when scoring",&H00080000)'dip 20
-		.AddChk 205,235,190,Array("Play coin switch tune",&H00400000)'dip 23
-		.AddChk 205,250,190,Array("High game to date displayed",&H00100000)'dip 21
-		.AddLabel 50,280,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"System 1 - DIP switches"
+    .AddFrame 0,0,190,"Coin chutecontrol",&H00040000,Array("seperate",0,"same",&H00040000)'dip 19
+    .AddFrame 0,46,190,"Game mode",&H00000400,Array("extraball",0,"replay",&H00000400)'dip 11
+    .AddFrame 0,92,190,"High game to date awards",&H00200000,Array("noaward",0,"3 replays",&H00200000)'dip 22
+    .AddFrame 0,138,190,"Balls per game",&H00000100,Array("5 balls",0,"3balls",&H00000100)'dip 9
+    .AddFrame 0,184,190,"Tilt effect",&H00000800,Array("game over",0,"ball in play only",&H00000800)'dip 12
+    .AddFrame 205,0,190,"Maximum credits",&H00030000,Array("5 credits",0,"8 credits",&H00020000,"10 credits",&H00010000,"15 credits",&H00030000)'dip 17&18
+    .AddFrame 205,76,190,"Soundsettings",&H80000000,Array("sounds",0,"tones",&H80000000)'dip 32
+    .AddFrame 205,122,190,"Attract tune",&H10000000,Array("no attract tune",0,"attract tune played every 6 minutes",&H10000000)'dip 29
+    .AddChk 205,175,190,Array("Match feature",&H00000200)'dip 10
+    .AddChk 205,190,190,Array("Credits displayed",&H00001000)'dip 13
+    .AddChk 205,205,190,Array("Play credit button tune",&H00002000)'dip 14
+    .AddChk 205,220,190,Array("Play tones when scoring",&H00080000)'dip 20
+    .AddChk 205,235,190,Array("Play coin switch tune",&H00400000)'dip 23
+    .AddChk 205,250,190,Array("High game to date displayed",&H00100000)'dip 21
+    .AddLabel 50,280,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
@@ -1087,16 +1087,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

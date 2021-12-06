@@ -62,12 +62,12 @@ CabinetMode = 1             '1 = hides pinball's side and rails in cabinet mode 
 '*********** Desktop/Cabinet settings ************************
 
 If SpaceShuttle.ShowDT = true Then
-	HiddenValue = 0
+  HiddenValue = 0
 Else
-	HiddenValue = 1
-	If CabinetMode = 1 Then
-	Ramp16.visible=0:Ramp15.visible=0:Primitive52.visible=0:Primitive12.visible=0
-	Primitive87.visible=0:Primitive89.visible=0:Primitive88.visible=0:Primitive90.visible=0
+  HiddenValue = 1
+  If CabinetMode = 1 Then
+  Ramp16.visible=0:Ramp15.visible=0:Primitive52.visible=0:Primitive12.visible=0
+  Primitive87.visible=0:Primitive89.visible=0:Primitive88.visible=0:Primitive90.visible=0
 End If
 End If
 
@@ -94,9 +94,9 @@ Const cGameName = "sshtl_l7"
 '************ Space Shuttle Init *****************
 
 Sub SpaceShuttle_Init
-	vpmInit me
-	With Controller
-		.GameName = cGameName
+  vpmInit me
+  With Controller
+    .GameName = cGameName
         .SplashInfoLine = "Space Shuttle - Williams 1984"
         .HandleKeyboard = 0
         .ShowTitle = 0
@@ -108,38 +108,38 @@ Sub SpaceShuttle_Init
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
         On Error Goto 0
-		SolGI(0)
-		Wall119.IsDropped=true : Wall118.IsDropped=false : CPwall.IsDropped=true
-		Astronaut=0
-	    End With
+    SolGI(0)
+    Wall119.IsDropped=true : Wall118.IsDropped=false : CPwall.IsDropped=true
+    Astronaut=0
+      End With
 
 'Nudging
-	vpmNudge.TiltSwitch = swTilt
-	vpmNudge.Sensitivity = 3
+  vpmNudge.TiltSwitch = swTilt
+  vpmNudge.Sensitivity = 3
     vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingShot, RightSlingShot)
 
 'Trough
 Set bsTrough=New cvpmBallStack
-	With bsTrough
-		.InitSw 9,12,11,10,0,0,0,0
-		.InitKick BallRelease,85,7
-		.InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("",DOFContactors)
-		.Balls=3
- 	End With
+  With bsTrough
+    .InitSw 9,12,11,10,0,0,0,0
+    .InitKick BallRelease,85,7
+    .InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("",DOFContactors)
+    .Balls=3
+  End With
 
 'Left Kicker
 Set bsLeftHole=New cvpmBallStack
- 	With bsLeftHole
- 		.InitSaucer sw16,16,190,8
- 		.InitExitSnd SoundFX("",DOFContactors),SoundFX("",DOFContactors)
- 	End With
+  With bsLeftHole
+    .InitSaucer sw16,16,190,8
+    .InitExitSnd SoundFX("",DOFContactors),SoundFX("",DOFContactors)
+  End With
 
 'Right Kicker
  Set bsRightHole=New cvpmBallStack
- 	With bsRightHole
- 		.InitSaucer sw24,24,170,8
- 		.InitExitSnd SoundFX("",DOFContactors),SoundFX("",DOFContactors)
- 	End With
+  With bsRightHole
+    .InitSaucer sw24,24,170,8
+    .InitExitSnd SoundFX("",DOFContactors),SoundFX("",DOFContactors)
+  End With
 
 '3 Bank Target
 Set dtbank = new cvpmdroptarget
@@ -161,13 +161,13 @@ SolCallback(4) = "bsRightHole.SolOut" 'Right Kicker
 SolCallback(5) = "TdtUP"              'T Drop Target
 
 Sub TdtUP(enabled)
-	If enabled Then
-	Controller.Switch(20)=0
-	PlaySound SoundFX("resetdrop",DOFContactors)
-	sw20t.IsDropped=false
-	TDT=0
-	updateTDT.enabled=1
-	End If
+  If enabled Then
+  Controller.Switch(20)=0
+  PlaySound SoundFX("resetdrop",DOFContactors)
+  sw20t.IsDropped=false
+  TDT=0
+  updateTDT.enabled=1
+  End If
 End Sub
 
 SolCallback(6) = "dtbank.SolDropUp"   '3 Bank Target
@@ -177,42 +177,42 @@ SolCallback(9) = "Space"              'Shuttle Flash Lamp
 SolCallback(10) = "Shuttle"           'Space Flash Lamp
 
 Sub Space(enabled)
-	If enabled Then
-	FlashSP.visible=1:FlashSP1.visible=1:FlashSP2.visible=1:Light76.state=1:Light77.state=1:Light78.state=1:Light93.state=1:l1.state=1
-	If ShuttleLightMod=1 Then
-	ShuttleLightON
-	End If
-	Else
-	FlashSP.visible=0:FlashSP1.visible=0:FlashSP2.visible=0:Light76.state=0:Light77.state=0:Light78.state=0:Light93.state=0:l1.state=0
-	If ShuttleLightMod=1 Then
-	ShuttleLightOFF
-	End If
-	End If
+  If enabled Then
+  FlashSP.visible=1:FlashSP1.visible=1:FlashSP2.visible=1:Light76.state=1:Light77.state=1:Light78.state=1:Light93.state=1:l1.state=1
+  If ShuttleLightMod=1 Then
+  ShuttleLightON
+  End If
+  Else
+  FlashSP.visible=0:FlashSP1.visible=0:FlashSP2.visible=0:Light76.state=0:Light77.state=0:Light78.state=0:Light93.state=0:l1.state=0
+  If ShuttleLightMod=1 Then
+  ShuttleLightOFF
+  End If
+  End If
 End Sub
 
 Sub Shuttle(enabled)
-	If enabled Then
-	FlashSH.visible=1:FlashSH1.visible=1:FlashSH2.visible=1:Light79.state=1:Light80.state=1:Light81.state=1:Light94.state=1:l2.state=1
-	Else
-	FlashSH.visible=0:FlashSH1.visible=0:FlashSH2.visible=0:Light79.state=0:Light80.state=0:Light81.state=0:Light94.state=0:l2.state=0
-	End If
+  If enabled Then
+  FlashSH.visible=1:FlashSH1.visible=1:FlashSH2.visible=1:Light79.state=1:Light80.state=1:Light81.state=1:Light94.state=1:l2.state=1
+  Else
+  FlashSH.visible=0:FlashSH1.visible=0:FlashSH2.visible=0:Light79.state=0:Light80.state=0:Light81.state=0:Light94.state=0:l2.state=0
+  End If
 End Sub
 
 SolCallback(11) = "SolGI"
 
 Sub SolGI(enabled)
     If enabled Then
-	For each lights in GI:lights.state=0:Next
-	For each lights in GI2:lights.state=0:Next
-	SpaceShuttle.ColorGradeImage="ColorGradeDark"
-	usal.visible=0:usal1.visible=0:usal2.visible=0:usal3.visible=0
-	Primitive105.image="p1_text":Primitive97.image="p2_text"
+  For each lights in GI:lights.state=0:Next
+  For each lights in GI2:lights.state=0:Next
+  SpaceShuttle.ColorGradeImage="ColorGradeDark"
+  usal.visible=0:usal1.visible=0:usal2.visible=0:usal3.visible=0
+  Primitive105.image="p1_text":Primitive97.image="p2_text"
     Else
     For each lights in GI:lights.state=1:Next
-	For each lights in GI2:lights.state=1:Next
-	SpaceShuttle.ColorGradeImage="ColorGradeBright"
-	usal.visible=1:usal1.visible=1:usal2.visible=1:usal3.visible=1
-	Primitive105.image="p1_textON":Primitive97.image="p2_textON"
+  For each lights in GI2:lights.state=1:Next
+  SpaceShuttle.ColorGradeImage="ColorGradeBright"
+  usal.visible=1:usal1.visible=1:usal2.visible=1:usal3.visible=1
+  Primitive105.image="p1_textON":Primitive97.image="p2_textON"
     End If
 End Sub
 
@@ -222,11 +222,11 @@ SolCallback(13) = "RLdiv"             'Diverter Gate
 SolCallback(15) = "RingingBell"       'Bell
 
 Sub RingingBell(enabled)
-	If enabled Then
-	PlaySound "ringing_bell"
-	Else
-	StopSound "ringing_bell"
-	End If
+  If enabled Then
+  PlaySound "ringing_bell"
+  Else
+  StopSound "ringing_bell"
+  End If
 End Sub
 
 'SolCallback(16) = ""                  Coin LockOut
@@ -238,27 +238,27 @@ End Sub
 'SolCallback(22) = ""                  Not Used
 
 Sub RLdiv(enabled)
-	If enabled Then
-	Primitive11.RotY=7 : Wall119.IsDropped=false : Wall118.IsDropped=true
-	PlaySoundAtVol SoundFX("barrier_click",DOFContactors), Primitive11,1
-	Else
-	Primitive11.RotY=52 : Wall119.IsDropped=true : Wall118.IsDropped=false
-	PlaySoundAtVol SoundFX("barrier_click",DOFContactors), Primitive11,1
-	End If
+  If enabled Then
+  Primitive11.RotY=7 : Wall119.IsDropped=false : Wall118.IsDropped=true
+  PlaySoundAtVol SoundFX("barrier_click",DOFContactors), Primitive11,1
+  Else
+  Primitive11.RotY=52 : Wall119.IsDropped=true : Wall118.IsDropped=false
+  PlaySoundAtVol SoundFX("barrier_click",DOFContactors), Primitive11,1
+  End If
 End Sub
 
 Sub UPpost(enabled)
   If CenterPost.TransZ=0 Then PlaySoundAtVol SoundFX("centerpost",DOFContactors),CenterPost,1:End If
-	If enabled Then
-	CPwall.IsDropped=false : CenterPost.TransZ=25
-	End If
+  If enabled Then
+  CPwall.IsDropped=false : CenterPost.TransZ=25
+  End If
 End Sub
 
 Sub DOWNpost(enabled)
   If CenterPost.TransZ=25 Then PlaySoundAtVol SoundFX("centerpost",DOFContactors),CenterPost,1:End If
-	If enabled Then
-	CPwall.IsDropped=true : CenterPost.TransZ=0
-	End If
+  If enabled Then
+  CPwall.IsDropped=true : CenterPost.TransZ=0
+  End If
 End Sub
 
 'Drain
@@ -273,21 +273,21 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-		 PlaySoundAtVol SoundFX("FlipperUp",DOFContactors), LeftFlipper, VolFlip
-		 LeftFlipper.RotateToEnd
+     PlaySoundAtVol SoundFX("FlipperUp",DOFContactors), LeftFlipper, VolFlip
+     LeftFlipper.RotateToEnd
      Else
-		 PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), LeftFlipper, VolFlip
-		 LeftFlipper.RotateToStart
+     PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), LeftFlipper, VolFlip
+     LeftFlipper.RotateToStart
      End If
  End Sub
 
 Sub SolRFlipper(Enabled)
-	If enabled Then
-		 PlaySoundAtVol SoundFX("FlipperUp",DOFContactors), RightFlipper, VolFlip
-		 RightFlipper.RotateToEnd
+  If enabled Then
+     PlaySoundAtVol SoundFX("FlipperUp",DOFContactors), RightFlipper, VolFlip
+     RightFlipper.RotateToEnd
      Else
-		 PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), RightFlipper, VolFlip
-		 RightFlipper.RotateToStart
+     PlaySoundAtVol SoundFX("FlipperDown",DOFContactors), RightFlipper, VolFlip
+     RightFlipper.RotateToStart
      End If
  End Sub
 
@@ -297,9 +297,9 @@ Sub SolRFlipper(Enabled)
 
 Sub SpaceShuttle_KeyDown(ByVal keycode)
 If keycode = PlungerKey Then
-		Plunger.PullBack
-		PlaySoundAtVol "plungerpull", Plunger, 1
-	End If
+    Plunger.PullBack
+    PlaySoundAtVol "plungerpull", Plunger, 1
+  End If
 If keycode = LeftTiltKey Then PlaySound SoundFX("fx_nudge",0)
 If keycode = RightTiltKey Then PlaySound SoundFX("fx_nudge",0)
 If keycode = CenterTiltKey Then PlaySound SoundFX("fx_nudge",0)
@@ -309,9 +309,9 @@ End Sub
 
 Sub SpaceShuttle_KeyUp(ByVal keycode)
 If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAtVol "plunger", Plunger, 1
-	End If
+    Plunger.Fire
+    PlaySoundAtVol "plunger", Plunger, 1
+  End If
 If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
@@ -352,7 +352,7 @@ Sub sw35_dropped():dtbank.Hit 3:End Sub 'Bank Target 3
 Dim Lstep,RStep
 
 Sub LeftSlingShot_Slingshot
-	VPMTimer.PulseSw 39
+  VPMTimer.PulseSw 39
     PlaySoundAtVol SoundFX("LSling",DOFContactors),sling2,1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -371,7 +371,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub RightSlingShot_Slingshot
-	VPMTimer.PulseSw 40
+  VPMTimer.PulseSw 40
     PlaySoundAtVol SoundFX("RSling",DOFContactors),sling1,1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -399,72 +399,72 @@ Dim dirRing3 : dirRing3 = -1
 Sub Bumper1_Hit
 VPMTimer.PulseSw 25
 Me.TimerEnabled = 1
-	Dim BumpSound
-	BumpSound = Int(rnd*4)+1
-	Select Case BumpSound
-	Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper1, VolBump
-	Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper1, VolBump
-	Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper1, VolBump
-	Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper1, VolBump
-	End Select
+  Dim BumpSound
+  BumpSound = Int(rnd*4)+1
+  Select Case BumpSound
+  Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper1, VolBump
+  Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper1, VolBump
+  Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper1, VolBump
+  Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper1, VolBump
+  End Select
 End Sub
 
 Sub Bumper1_timer()
-	'If Tilt = false Then
-	BumperRing1.Z = BumperRing1.Z + (5 * dirRing)
-	If BumperRing1.Z <= 0 Then dirRing = 1
-	If BumperRing1.Z >= 40 Then
-		dirRing = -1
-		BumperRing1.Z = 40
-		Me.TimerEnabled = 0
-	End If
-	'End If
+  'If Tilt = false Then
+  BumperRing1.Z = BumperRing1.Z + (5 * dirRing)
+  If BumperRing1.Z <= 0 Then dirRing = 1
+  If BumperRing1.Z >= 40 Then
+    dirRing = -1
+    BumperRing1.Z = 40
+    Me.TimerEnabled = 0
+  End If
+  'End If
 End Sub
 
 Sub Bumper2_Hit
 VPMTimer.PulseSw 26
 Me.TimerEnabled = 1
-	Dim BumpSound
-	BumpSound = Int(rnd*4)+1
-	Select Case BumpSound
-	Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper2, VolBump
-	Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper2, VolBump
-	Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper2, VolBump
-	Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper2, VolBump
-	End Select
+  Dim BumpSound
+  BumpSound = Int(rnd*4)+1
+  Select Case BumpSound
+  Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper2, VolBump
+  Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper2, VolBump
+  Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper2, VolBump
+  Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper2, VolBump
+  End Select
 End Sub
 
 Sub Bumper2_timer()
-	BumperRing2.Z = BumperRing2.Z + (5 * dirRing2)
-	If BumperRing2.Z <= 0 Then dirRing2 = 1
-	If BumperRing2.Z >= 40 Then
-		dirRing2 = -1
-		BumperRing2.Z = 40
-		Me.TimerEnabled = 0
-	End If
+  BumperRing2.Z = BumperRing2.Z + (5 * dirRing2)
+  If BumperRing2.Z <= 0 Then dirRing2 = 1
+  If BumperRing2.Z >= 40 Then
+    dirRing2 = -1
+    BumperRing2.Z = 40
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper3_Hit
 VPMTimer.PulseSw 27
 Me.TimerEnabled = 1
-	Dim BumpSound
-	BumpSound = Int(rnd*4)+1
-	Select Case BumpSound
-	Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper3, VolBump
-	Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper3, VolBump
-	Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper3, VolBump
-	Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
-	End Select
+  Dim BumpSound
+  BumpSound = Int(rnd*4)+1
+  Select Case BumpSound
+  Case 1: PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), Bumper3, VolBump
+  Case 2: PlaySoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper3, VolBump
+  Case 3: PlaySoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper3, VolBump
+  Case 4: PlaySoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
+  End Select
 End Sub
 
 Sub Bumper3_timer()
-	BumperRing3.Z = BumperRing3.Z + (5 * dirRing3)
-	If BumperRing3.Z <= 0 Then dirRing3 = 1
-	If BumperRing3.Z >= 40 Then
-		dirRing3 = -1
-		BumperRing3.Z = 40
-		Me.TimerEnabled = 0
-	End If
+  BumperRing3.Z = BumperRing3.Z + (5 * dirRing3)
+  If BumperRing3.Z <= 0 Then dirRing3 = 1
+  If BumperRing3.Z >= 40 Then
+    dirRing3 = -1
+    BumperRing3.Z = 40
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 '***************************************************************
@@ -472,93 +472,93 @@ End Sub
 '*********** Standup Switches ****************
 
 Sub Wall122_Hit
-	VPMTimer.PulseSw 42
-	PlaySound "target" , 1,0.3 ' TODO
-	PlaySound "rubber_hit_3"
-	Rubber2.visible=0
-	Rubber19.visible=1
-	RubberTimer.enabled=1
+  VPMTimer.PulseSw 42
+  PlaySound "target" , 1,0.3 ' TODO
+  PlaySound "rubber_hit_3"
+  Rubber2.visible=0
+  Rubber19.visible=1
+  RubberTimer.enabled=1
 End Sub
 
 Sub RubberTimer_timer()
-	Rubber2.visible=1
-	Rubber19.visible=0
-	RubberTimer.enabled=0
+  Rubber2.visible=1
+  Rubber19.visible=0
+  RubberTimer.enabled=0
 End Sub
 
 Sub Wall123_Hit
-	VPMTimer.PulseSw 43
-	PlaySound "target" , 1,0.3
-	PlaySound "rubber_hit_3"
-	Rubber17.visible=0
-	Rubber20.visible=1
-	RubberTimer1.enabled=1
+  VPMTimer.PulseSw 43
+  PlaySound "target" , 1,0.3
+  PlaySound "rubber_hit_3"
+  Rubber17.visible=0
+  Rubber20.visible=1
+  RubberTimer1.enabled=1
 End Sub
 
 Sub RubberTimer1_timer()
-	Rubber17.visible=1
-	Rubber20.visible=0
-	RubberTimer1.enabled=0
+  Rubber17.visible=1
+  Rubber20.visible=0
+  RubberTimer1.enabled=0
 End Sub
 
 Sub Wall124_Hit
-	VPMTimer.PulseSw 44
-	PlaySound "target" , 1,0.3
-	PlaySound "rubber_hit_3"
-	Rubber16.visible=0
-	Rubber21.visible=1
-	RubberTimer2.enabled=1
+  VPMTimer.PulseSw 44
+  PlaySound "target" , 1,0.3
+  PlaySound "rubber_hit_3"
+  Rubber16.visible=0
+  Rubber21.visible=1
+  RubberTimer2.enabled=1
 End Sub
 
 Sub RubberTimer2_timer()
-	Rubber16.visible=1
-	Rubber21.visible=0
-	RubberTimer2.enabled=0
+  Rubber16.visible=1
+  Rubber21.visible=0
+  RubberTimer2.enabled=0
 End Sub
 
 Sub Wall125_Hit
-	VPMTimer.PulseSw 46
-	PlaySound "target" , 1,0.3
-	PlaySound "rubber_hit_3"
-	Rubber5.visible=0
-	Rubber23.visible=1
-	RubberTimer3.enabled=1
+  VPMTimer.PulseSw 46
+  PlaySound "target" , 1,0.3
+  PlaySound "rubber_hit_3"
+  Rubber5.visible=0
+  Rubber23.visible=1
+  RubberTimer3.enabled=1
 End Sub
 
 Sub RubberTimer3_timer()
-	Rubber5.visible=1
-	Rubber23.visible=0
-	RubberTimer3.enabled=0
+  Rubber5.visible=1
+  Rubber23.visible=0
+  RubberTimer3.enabled=0
 End Sub
 
 Sub Wall126_Hit
-	VPMTimer.PulseSw 47
-	PlaySound "target" , 1,0.3
-	PlaySound "rubber_hit_3"
-	Rubber4.visible=0
-	Rubber22.visible=1
-	RubberTimer4.enabled=1
+  VPMTimer.PulseSw 47
+  PlaySound "target" , 1,0.3
+  PlaySound "rubber_hit_3"
+  Rubber4.visible=0
+  Rubber22.visible=1
+  RubberTimer4.enabled=1
 End Sub
 
 Sub RubberTimer4_timer()
-	Rubber4.visible=1
-	Rubber22.visible=0
-	RubberTimer4.enabled=0
+  Rubber4.visible=1
+  Rubber22.visible=0
+  RubberTimer4.enabled=0
 End Sub
 
 Sub Wall127_Hit
-	VPMTimer.PulseSw 48
-	PlaySound "target" , 1,0.3
-	PlaySound "rubber_hit_3"
-	Rubber1.visible=0
-	Rubber24.visible=1
-	RubberTimer5.enabled=1
+  VPMTimer.PulseSw 48
+  PlaySound "target" , 1,0.3
+  PlaySound "rubber_hit_3"
+  Rubber1.visible=0
+  Rubber24.visible=1
+  RubberTimer5.enabled=1
 End Sub
 
 Sub RubberTimer5_timer()
-	Rubber1.visible=1
-	Rubber24.visible=0
-	RubberTimer5.enabled=0
+  Rubber1.visible=1
+  Rubber24.visible=0
+  RubberTimer5.enabled=0
 End Sub
 
 '************************************
@@ -566,21 +566,21 @@ End Sub
 '********************** InGame Updates ***************************
 
 Sub UpdateWG_timer()
-	GWL.RotZ=Gate.CurrentAngle
-	s_wiregate.RotX=sw32.CurrentAngle-180
-	Primitive50.RotY=Primitive96.RotY
+  GWL.RotZ=Gate.CurrentAngle
+  s_wiregate.RotX=sw32.CurrentAngle-180
+  Primitive50.RotY=Primitive96.RotY
 End Sub
 
 Sub updateTDT_timer()
-	If TDT=0 Then
-	sw20bw.ISDropped=false
-	sw20.IsDropped=false
-	End If
-	If TDT=1 Then
-	sw20bw.ISDropped=true
-	sw20.IsDropped=true
-	End If
-	updateTDT.enabled=0
+  If TDT=0 Then
+  sw20bw.ISDropped=false
+  sw20.IsDropped=false
+  End If
+  If TDT=1 Then
+  sw20bw.ISDropped=true
+  sw20.IsDropped=true
+  End If
+  updateTDT.enabled=0
 End Sub
 
 '*****************************************************************
@@ -597,15 +597,15 @@ Sub ShuttleLightOFF::shuttleprim.image="shuttle_textmap":shuttlelight.state=0:En
 Dim RotVel
 
 Sub RotateAstronaut()
-	RotateAstronautTimer.Enabled = 1
-	RotVel=12
-	Astronaut=1
+  RotateAstronautTimer.Enabled = 1
+  RotVel=12
+  Astronaut=1
 End Sub
 
 Sub RotateAstronautTimer_Timer()
-	Primitive96.RotY =Primitive96.RotY + RotVel
-	If Primitive96.RotY >= 3*360 Then RotVel = RotVel - 0.1
-	If RotVel <= 0 Then RotateAstronautTimer.Enabled = 0 : Primitive96.RotY = Primitive96.RotY : Astronaut=0
+  Primitive96.RotY =Primitive96.RotY + RotVel
+  If Primitive96.RotY >= 3*360 Then RotVel = RotVel - 0.1
+  If RotVel <= 0 Then RotateAstronautTimer.Enabled = 0 : Primitive96.RotY = Primitive96.RotY : Astronaut=0
 End Sub
 
 '*******************************************************
@@ -647,7 +647,7 @@ Sub UpdateLamps
     'NFadeL 5, l5
     'NFadeL 6, l6
     NFadeLm 7, l7:CPL
-	FadeObj 7, CenterPost, "Centerpost4", "Centerpost3", "Centerpost2", "Centerpost"
+  FadeObj 7, CenterPost, "Centerpost4", "Centerpost3", "Centerpost2", "Centerpost"
     NFadeL 8, l8
     NFadeL 9, l9
     NFadeL 10, l10
@@ -656,7 +656,7 @@ Sub UpdateLamps
     NFadeL 13, l13
     NFadeL 14, l14
     NFadeLm 15, l15
-	NFadeL 15, l15a
+  NFadeL 15, l15a
     NFadeL 16, l16
     NFadeL 17, l17
     NFadeL 18, l18
@@ -667,14 +667,14 @@ Sub UpdateLamps
     NFadeL 23, l23
     NFadeL 24, l24
     NFadeLm 25, l25:BCL1
-	NFadeLm 25, l25a
-	FadeObj 25, Bumpercap1, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
+  NFadeLm 25, l25a
+  FadeObj 25, Bumpercap1, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
     NFadeLm 26, l26:BCL2
-	NFadeLm 26, l26a
-	FadeObj 26, Bumpercap2, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
+  NFadeLm 26, l26a
+  FadeObj 26, Bumpercap2, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
     NFadeLm 27, l27:BCL3
-	NFadeLm 27, l27a
-	FadeObj 27, Bumpercap3, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
+  NFadeLm 27, l27a
+  FadeObj 27, Bumpercap3, "bumpercap4", "bumpercap3", "bumpercap2", "bumpercap"
     NFadeL 28, l28
     NFadeL 29, l29
     NFadeL 30, l30
@@ -689,7 +689,7 @@ Sub UpdateLamps
     'NFadeL 39, l39
     'NFadeL 40, l40
     NFadeLm 41, l41
-	NFadeL 41, l41a
+  NFadeL 41, l41a
     NFadeL 42, l42
     NFadeL 43, l43
     NFadeL 44, l44
@@ -895,26 +895,26 @@ End Sub
 ' depending of the speed of the collision.
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "rubber", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "rubber", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
@@ -930,13 +930,13 @@ End Sub
 Sub Trigger1_Hit:me.timerenabled=1:End Sub
 
 Sub Trigger1_timer()
-	Dim HopSound
-	HopSound = Int(rnd*2)+1
-	Select Case HopSound
-	Case 1: PlaySoundAtVol "ballhop", PegPlasticT30, 1
-	Case 2: PlaySoundAtVol "ballhoptwice", PegPlasticT30, 1
-	End Select
-	me.timerenabled=0
+  Dim HopSound
+  HopSound = Int(rnd*2)+1
+  Select Case HopSound
+  Case 1: PlaySoundAtVol "ballhop", PegPlasticT30, 1
+  Case 2: PlaySoundAtVol "ballhoptwice", PegPlasticT30, 1
+  End Select
+  me.timerenabled=0
 End Sub
 
 Sub CPWall_Hit:PlaySound "post_hit":End Sub
@@ -1139,16 +1139,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

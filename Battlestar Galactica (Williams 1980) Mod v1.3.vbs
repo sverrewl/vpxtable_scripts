@@ -42,11 +42,11 @@ Const VolFlip   = 1    ' Flipper volume.
 Const VolBankW  = 1
 
 '**********************************************************
-'********   	OPTIONS		*******************************
+'********     OPTIONS   *******************************
 '**********************************************************
 
-Dim BallShadows: Ballshadows=1  		'******************	set to 1 to turn on Ball shadows
-Dim FlipperShadows: FlipperShadows=1  	'***********		set to 1 to turn on Flipper shadows
+Dim BallShadows: Ballshadows=1      '****************** set to 1 to turn on Ball shadows
+Dim FlipperShadows: FlipperShadows=1    '***********    set to 1 to turn on Flipper shadows
 
 If Table.ShowDT = False then
   light64.visible=False
@@ -125,277 +125,277 @@ FlasherLight10.IntensityScale = 0
 
 '*** white flasher ***
 Sub FlasherFlash1_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash1.TimerEnabled Then
-		FlasherFlash1.TimerEnabled = True
-		FlasherFlash1.visible = 1
-		FlasherLit1.visible = 1
-	End If
-	flashx3 = FlashLevel1 * FlashLevel1 * FlashLevel1
-	Flasherflash1.opacity = 1000 * flashx3
-	FlasherLit1.BlendDisableLighting = 10 * flashx3
-	Flasherbase1.BlendDisableLighting =  flashx3
-	FlasherLight1.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel1)
-	FlasherLit1.material = "domelit" & matdim
-	FlashLevel1 = FlashLevel1 * 0.85 - 0.01
-	If FlashLevel1 < 0.15 Then
-		FlasherLit1.visible = 0
-	Else
-		FlasherLit1.visible = 1
-	end If
-	If FlashLevel1 < 0 Then
-		FlasherFlash1.TimerEnabled = False
-		FlasherFlash1.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash1.TimerEnabled Then
+    FlasherFlash1.TimerEnabled = True
+    FlasherFlash1.visible = 1
+    FlasherLit1.visible = 1
+  End If
+  flashx3 = FlashLevel1 * FlashLevel1 * FlashLevel1
+  Flasherflash1.opacity = 1000 * flashx3
+  FlasherLit1.BlendDisableLighting = 10 * flashx3
+  Flasherbase1.BlendDisableLighting =  flashx3
+  FlasherLight1.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel1)
+  FlasherLit1.material = "domelit" & matdim
+  FlashLevel1 = FlashLevel1 * 0.85 - 0.01
+  If FlashLevel1 < 0.15 Then
+    FlasherLit1.visible = 0
+  Else
+    FlasherLit1.visible = 1
+  end If
+  If FlashLevel1 < 0 Then
+    FlasherFlash1.TimerEnabled = False
+    FlasherFlash1.visible = 0
+  End If
 End Sub
 
 '*** white flasher ***
 Sub FlasherFlash2_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash2.TimerEnabled Then
-		FlasherFlash2.TimerEnabled = True
-		FlasherFlash2.visible = 1
-		FlasherLit2.visible = 1
-	End If
-	flashx3 = FlashLevel2 * FlashLevel2 * FlashLevel2
-	Flasherflash2.opacity = 1000 * flashx3
-	FlasherLit2.BlendDisableLighting = 10 * flashx3
-	Flasherbase2.BlendDisableLighting =  flashx3
-	FlasherLight2.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel2)
-	FlasherLit2.material = "domelit" & matdim
-	FlashLevel2 = FlashLevel2 * 0.85 - 0.01
-	If FlashLevel2 < 0.15 Then
-		FlasherLit2.visible = 0
-	Else
-		FlasherLit2.visible = 1
-	end If
-	If FlashLevel2 < 0 Then
-		FlasherFlash2.TimerEnabled = False
-		FlasherFlash2.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash2.TimerEnabled Then
+    FlasherFlash2.TimerEnabled = True
+    FlasherFlash2.visible = 1
+    FlasherLit2.visible = 1
+  End If
+  flashx3 = FlashLevel2 * FlashLevel2 * FlashLevel2
+  Flasherflash2.opacity = 1000 * flashx3
+  FlasherLit2.BlendDisableLighting = 10 * flashx3
+  Flasherbase2.BlendDisableLighting =  flashx3
+  FlasherLight2.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel2)
+  FlasherLit2.material = "domelit" & matdim
+  FlashLevel2 = FlashLevel2 * 0.85 - 0.01
+  If FlashLevel2 < 0.15 Then
+    FlasherLit2.visible = 0
+  Else
+    FlasherLit2.visible = 1
+  end If
+  If FlashLevel2 < 0 Then
+    FlasherFlash2.TimerEnabled = False
+    FlasherFlash2.visible = 0
+  End If
 End Sub
 
 '*** white flasher ***
 Sub FlasherFlash3_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash3.TimerEnabled Then
-		FlasherFlash3.TimerEnabled = True
-		FlasherFlash3.visible = 1
-		FlasherLit3.visible = 1
-	End If
-	flashx3 = FlashLevel3 * FlashLevel3 * FlashLevel3
-	Flasherflash3.opacity = 1000 * flashx3
-	FlasherLit3.BlendDisableLighting = 10 * flashx3
-	Flasherbase3.BlendDisableLighting =  flashx3
-	FlasherLight3.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel3)
-	FlasherLit3.material = "domelit" & matdim
-	FlashLevel3 = FlashLevel3 * 0.85 - 0.01
-	If FlashLevel3 < 0.15 Then
-		FlasherLit3.visible = 0
-	Else
-		FlasherLit3.visible = 1
-	end If
-	If FlashLevel3 < 0 Then
-		FlasherFlash3.TimerEnabled = False
-		FlasherFlash3.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash3.TimerEnabled Then
+    FlasherFlash3.TimerEnabled = True
+    FlasherFlash3.visible = 1
+    FlasherLit3.visible = 1
+  End If
+  flashx3 = FlashLevel3 * FlashLevel3 * FlashLevel3
+  Flasherflash3.opacity = 1000 * flashx3
+  FlasherLit3.BlendDisableLighting = 10 * flashx3
+  Flasherbase3.BlendDisableLighting =  flashx3
+  FlasherLight3.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel3)
+  FlasherLit3.material = "domelit" & matdim
+  FlashLevel3 = FlashLevel3 * 0.85 - 0.01
+  If FlashLevel3 < 0.15 Then
+    FlasherLit3.visible = 0
+  Else
+    FlasherLit3.visible = 1
+  end If
+  If FlashLevel3 < 0 Then
+    FlasherFlash3.TimerEnabled = False
+    FlasherFlash3.visible = 0
+  End If
 End Sub
 
 '*** white flasher ***
 Sub FlasherFlash4_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash4.TimerEnabled Then
-		FlasherFlash4.TimerEnabled = True
-		FlasherFlash4.visible = 1
-		FlasherLit4.visible = 1
-	End If
-	flashx3 = FlashLevel4 * FlashLevel4 * FlashLevel4
-	Flasherflash4.opacity = 1000 * flashx3
-	FlasherLit4.BlendDisableLighting = 10 * flashx3
-	Flasherbase4.BlendDisableLighting =  flashx3
-	FlasherLight4.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel4)
-	FlasherLit4.material = "domelit" & matdim
-	FlashLevel4 = FlashLevel4 * 0.85 - 0.01
-	If FlashLevel4 < 0.15 Then
-		FlasherLit4.visible = 0
-	Else
-		FlasherLit4.visible = 1
-	end If
-	If FlashLevel4 < 0 Then
-		FlasherFlash4.TimerEnabled = False
-		FlasherFlash4.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash4.TimerEnabled Then
+    FlasherFlash4.TimerEnabled = True
+    FlasherFlash4.visible = 1
+    FlasherLit4.visible = 1
+  End If
+  flashx3 = FlashLevel4 * FlashLevel4 * FlashLevel4
+  Flasherflash4.opacity = 1000 * flashx3
+  FlasherLit4.BlendDisableLighting = 10 * flashx3
+  Flasherbase4.BlendDisableLighting =  flashx3
+  FlasherLight4.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel4)
+  FlasherLit4.material = "domelit" & matdim
+  FlashLevel4 = FlashLevel4 * 0.85 - 0.01
+  If FlashLevel4 < 0.15 Then
+    FlasherLit4.visible = 0
+  Else
+    FlasherLit4.visible = 1
+  end If
+  If FlashLevel4 < 0 Then
+    FlasherFlash4.TimerEnabled = False
+    FlasherFlash4.visible = 0
+  End If
 End Sub
 
 '*** white flasher ***
 Sub FlasherFlash5_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash5.TimerEnabled Then
-		FlasherFlash5.TimerEnabled = True
-		FlasherFlash5.visible = 1
-		FlasherLit5.visible = 1
-	End If
-	flashx3 = FlashLevel5 * FlashLevel5 * FlashLevel5
-	Flasherflash5.opacity = 1000 * flashx3
-	FlasherLit5.BlendDisableLighting = 10 * flashx3
-	Flasherbase5.BlendDisableLighting =  flashx3
-	FlasherLight5.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel5)
-	FlasherLit5.material = "domelit" & matdim
-	FlashLevel5 = FlashLevel5 * 0.85 - 0.01
-	If FlashLevel5 < 0.15 Then
-		FlasherLit5.visible = 0
-	Else
-		FlasherLit5.visible = 1
-	end If
-	If FlashLevel5 < 0 Then
-		FlasherFlash5.TimerEnabled = False
-		FlasherFlash5.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash5.TimerEnabled Then
+    FlasherFlash5.TimerEnabled = True
+    FlasherFlash5.visible = 1
+    FlasherLit5.visible = 1
+  End If
+  flashx3 = FlashLevel5 * FlashLevel5 * FlashLevel5
+  Flasherflash5.opacity = 1000 * flashx3
+  FlasherLit5.BlendDisableLighting = 10 * flashx3
+  Flasherbase5.BlendDisableLighting =  flashx3
+  FlasherLight5.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel5)
+  FlasherLit5.material = "domelit" & matdim
+  FlashLevel5 = FlashLevel5 * 0.85 - 0.01
+  If FlashLevel5 < 0.15 Then
+    FlasherLit5.visible = 0
+  Else
+    FlasherLit5.visible = 1
+  end If
+  If FlashLevel5 < 0 Then
+    FlasherFlash5.TimerEnabled = False
+    FlasherFlash5.visible = 0
+  End If
 End Sub
 
 
 '*** white flasher ***
 Sub FlasherFlash6_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash6.TimerEnabled Then
-		FlasherFlash6.TimerEnabled = True
-		FlasherFlash6.visible = 1
-		FlasherLit6.visible = 1
-	End If
-	flashx3 = FlashLevel6 * FlashLevel6 * FlashLevel6
-	Flasherflash6.opacity = 1000 * flashx3
-	FlasherLit6.BlendDisableLighting = 10 * flashx3
-	Flasherbase6.BlendDisableLighting =  flashx3
-	FlasherLight6.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel6)
-	FlasherLit6.material = "domelit" & matdim
-	FlashLevel6 = FlashLevel6 * 0.85 - 0.01
-	If FlashLevel6 < 0.15 Then
-		FlasherLit6.visible = 0
-	Else
-		FlasherLit6.visible = 1
-	end If
-	If FlashLevel6 < 0 Then
-		FlasherFlash6.TimerEnabled = False
-		FlasherFlash6.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash6.TimerEnabled Then
+    FlasherFlash6.TimerEnabled = True
+    FlasherFlash6.visible = 1
+    FlasherLit6.visible = 1
+  End If
+  flashx3 = FlashLevel6 * FlashLevel6 * FlashLevel6
+  Flasherflash6.opacity = 1000 * flashx3
+  FlasherLit6.BlendDisableLighting = 10 * flashx3
+  Flasherbase6.BlendDisableLighting =  flashx3
+  FlasherLight6.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel6)
+  FlasherLit6.material = "domelit" & matdim
+  FlashLevel6 = FlashLevel6 * 0.85 - 0.01
+  If FlashLevel6 < 0.15 Then
+    FlasherLit6.visible = 0
+  Else
+    FlasherLit6.visible = 1
+  end If
+  If FlashLevel6 < 0 Then
+    FlasherFlash6.TimerEnabled = False
+    FlasherFlash6.visible = 0
+  End If
 End Sub
 
 
 '*** blue flasher ***
 Sub FlasherFlash7_Timer()
-	dim flashx3, matdim
-	If not Flasherflash7.TimerEnabled Then
-		Flasherflash7.TimerEnabled = True
-		Flasherflash7.visible = 1
-		Flasherlit7.visible = 1
-	End If
-	flashx3 = FlashLevel7 * FlashLevel7 * FlashLevel7
-	Flasherflash7.opacity = 8000 * flashx3
-	Flasherlit7.BlendDisableLighting = 10 * flashx3
-	Flasherbase7.BlendDisableLighting =  flashx3
-	Flasherlight7.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel7)
-	Flasherlit7.material = "domelit" & matdim
-	FlashLevel7 = FlashLevel7 * 0.85 - 0.01
-	If FlashLevel7 < 0.15 Then
-		Flasherlit7.visible = 0
-	Else
-		Flasherlit7.visible = 1
-	end If
-	If FlashLevel7 < 0 Then
-		Flasherflash7.TimerEnabled = False
-		Flasherflash7.visible = 0
-	End If
+  dim flashx3, matdim
+  If not Flasherflash7.TimerEnabled Then
+    Flasherflash7.TimerEnabled = True
+    Flasherflash7.visible = 1
+    Flasherlit7.visible = 1
+  End If
+  flashx3 = FlashLevel7 * FlashLevel7 * FlashLevel7
+  Flasherflash7.opacity = 8000 * flashx3
+  Flasherlit7.BlendDisableLighting = 10 * flashx3
+  Flasherbase7.BlendDisableLighting =  flashx3
+  Flasherlight7.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel7)
+  Flasherlit7.material = "domelit" & matdim
+  FlashLevel7 = FlashLevel7 * 0.85 - 0.01
+  If FlashLevel7 < 0.15 Then
+    Flasherlit7.visible = 0
+  Else
+    Flasherlit7.visible = 1
+  end If
+  If FlashLevel7 < 0 Then
+    Flasherflash7.TimerEnabled = False
+    Flasherflash7.visible = 0
+  End If
 End Sub
 
 
 '*** white flasher ***
 Sub FlasherFlash8_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash8.TimerEnabled Then
-		FlasherFlash8.TimerEnabled = True
-		FlasherFlash8.visible = 1
-		FlasherLit8.visible = 1
-	End If
-	flashx3 = FlashLevel8 * FlashLevel8 * FlashLevel8
-	Flasherflash8.opacity = 1000 * flashx3
-	FlasherLit8.BlendDisableLighting = 10 * flashx3
-	Flasherbase8.BlendDisableLighting =  flashx3
-	FlasherLight8.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel8)
-	FlasherLit8.material = "domelit" & matdim
-	FlashLevel8 = FlashLevel8 * 0.85 - 0.01
-	If FlashLevel8 < 0.15 Then
-		FlasherLit8.visible = 0
-	Else
-		FlasherLit8.visible = 1
-	end If
-	If FlashLevel8 < 0 Then
-		FlasherFlash8.TimerEnabled = False
-		FlasherFlash8.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash8.TimerEnabled Then
+    FlasherFlash8.TimerEnabled = True
+    FlasherFlash8.visible = 1
+    FlasherLit8.visible = 1
+  End If
+  flashx3 = FlashLevel8 * FlashLevel8 * FlashLevel8
+  Flasherflash8.opacity = 1000 * flashx3
+  FlasherLit8.BlendDisableLighting = 10 * flashx3
+  Flasherbase8.BlendDisableLighting =  flashx3
+  FlasherLight8.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel8)
+  FlasherLit8.material = "domelit" & matdim
+  FlashLevel8 = FlashLevel8 * 0.85 - 0.01
+  If FlashLevel8 < 0.15 Then
+    FlasherLit8.visible = 0
+  Else
+    FlasherLit8.visible = 1
+  end If
+  If FlashLevel8 < 0 Then
+    FlasherFlash8.TimerEnabled = False
+    FlasherFlash8.visible = 0
+  End If
 End Sub
 
 
 '*** Red flasher ***
 Sub FlasherFlash9_Timer()
-	dim flashx3, matdim
-	If not Flasherflash9.TimerEnabled Then
-		Flasherflash9.TimerEnabled = True
-		Flasherflash9.visible = 1
-		Flasherlit9.visible = 1
-	End If
-	flashx3 = FlashLevel9 * FlashLevel9 * FlashLevel9
-	Flasherflash9.opacity = 1500 * flashx3
-	Flasherlit9.BlendDisableLighting = 10 * flashx3
-	Flasherbase9.BlendDisableLighting =  flashx3
-	Flasherlight9.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel9)
-	Flasherlit9.material = "domelit" & matdim
-	FlashLevel9 = FlashLevel9 * 0.9 - 0.01
-	If FlashLevel9 < 0.15 Then
-		Flasherlit9.visible = 0
-	Else
-		Flasherlit9.visible = 1
-	end If
-	If FlashLevel9 < 0 Then
-		Flasherflash9.TimerEnabled = False
-		Flasherflash9.visible = 0
-	End If
+  dim flashx3, matdim
+  If not Flasherflash9.TimerEnabled Then
+    Flasherflash9.TimerEnabled = True
+    Flasherflash9.visible = 1
+    Flasherlit9.visible = 1
+  End If
+  flashx3 = FlashLevel9 * FlashLevel9 * FlashLevel9
+  Flasherflash9.opacity = 1500 * flashx3
+  Flasherlit9.BlendDisableLighting = 10 * flashx3
+  Flasherbase9.BlendDisableLighting =  flashx3
+  Flasherlight9.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel9)
+  Flasherlit9.material = "domelit" & matdim
+  FlashLevel9 = FlashLevel9 * 0.9 - 0.01
+  If FlashLevel9 < 0.15 Then
+    Flasherlit9.visible = 0
+  Else
+    Flasherlit9.visible = 1
+  end If
+  If FlashLevel9 < 0 Then
+    Flasherflash9.TimerEnabled = False
+    Flasherflash9.visible = 0
+  End If
 End Sub
 
 
 '*** white flasher ***
 Sub FlasherFlash10_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash10.TimerEnabled Then
-		FlasherFlash10.TimerEnabled = True
-		FlasherFlash10.visible = 1
-		FlasherLit10.visible = 1
-	End If
-	flashx3 = FlashLevel10 * FlashLevel10 * FlashLevel10
-	Flasherflash10.opacity = 1000 * flashx3
-	FlasherLit10.BlendDisableLighting = 10 * flashx3
-	Flasherbase10.BlendDisableLighting =  flashx3
-	FlasherLight10.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel10)
-	FlasherLit10.material = "domelit" & matdim
-	FlashLevel10 = FlashLevel10 * 0.85 - 0.01
-	If FlashLevel10 < 0.15 Then
-		FlasherLit10.visible = 0
-	Else
-		FlasherLit10.visible = 1
-	end If
-	If FlashLevel10 < 0 Then
-		FlasherFlash10.TimerEnabled = False
-		FlasherFlash10.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash10.TimerEnabled Then
+    FlasherFlash10.TimerEnabled = True
+    FlasherFlash10.visible = 1
+    FlasherLit10.visible = 1
+  End If
+  flashx3 = FlashLevel10 * FlashLevel10 * FlashLevel10
+  Flasherflash10.opacity = 1000 * flashx3
+  FlasherLit10.BlendDisableLighting = 10 * flashx3
+  Flasherbase10.BlendDisableLighting =  flashx3
+  FlasherLight10.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel10)
+  FlasherLit10.material = "domelit" & matdim
+  FlashLevel10 = FlashLevel10 * 0.85 - 0.01
+  If FlashLevel10 < 0.15 Then
+    FlasherLit10.visible = 0
+  Else
+    FlasherLit10.visible = 1
+  end If
+  If FlashLevel10 < 0 Then
+    FlasherFlash10.TimerEnabled = False
+    FlasherFlash10.visible = 0
+  End If
 End Sub
 
 
@@ -408,163 +408,163 @@ Dim TotalBump, BumpNow, TotalBumpb, Bumpnowb, TotalBumpc, Bumpnowc, TotalBumpd, 
 TotalBumpd = 2
 
 Sub Change8Bump
-	BumpNowd = BumpNowd + 1
-	If BumpNowd > 1 Then
-		WallApron.image = "scorpion-apron-"&BumpNowd
-		WallApronLower.image = "scorpion-apron-"&BumpNowd
-	Else
-		WallApron.image = "scorpion-apron"
-		WallApronLower.image = "scorpion-apron"
-	End If
-	If BumpNowd = TotalBumpd Then BumpNowd = 0
+  BumpNowd = BumpNowd + 1
+  If BumpNowd > 1 Then
+    WallApron.image = "scorpion-apron-"&BumpNowd
+    WallApronLower.image = "scorpion-apron-"&BumpNowd
+  Else
+    WallApron.image = "scorpion-apron"
+    WallApronLower.image = "scorpion-apron"
+  End If
+  If BumpNowd = TotalBumpd Then BumpNowd = 0
 End Sub
 
 
 TotalBumpc = 6
 
 Sub Change6Bump
-	BumpNowc = BumpNowc + 1
-	If BumpNowc > 1 Then
-		Target1.image = "DropTarget-scorpion-"&BumpNowc
-		Target2.image = "DropTarget-scorpion-"&BumpNowc
-		Target3.image = "DropTarget-scorpion-"&BumpNowc
-		Target4.image = "DropTarget-scorpion-"&BumpNowc
-		Target5.image = "DropTarget-scorpion-"&BumpNowc
-		Target6.image = "DropTarget-scorpion-"&BumpNowc
-		Target7.image = "DropTarget-scorpion-"&BumpNowc
-		Target8.image = "DropTarget-scorpion-"&BumpNowc
-		Target9.image = "DropTarget-scorpion-"&BumpNowc
-		Target10.image = "DropTarget-scorpion-"&BumpNowc
-		Target11.image = "DropTarget-scorpion-"&BumpNowc
-	Else
-		Target1.image = "DropTarget-scorpion"
-		Target2.image = "DropTarget-scorpion"
-		Target3.image = "DropTarget-scorpion"
-		Target4.image = "DropTarget-scorpion"
-		Target5.image = "DropTarget-scorpion"
-		Target6.image = "DropTarget-scorpion"
-		Target7.image = "DropTarget-scorpion"
-		Target8.image = "DropTarget-scorpion"
-		Target9.image = "DropTarget-scorpion"
-		Target10.image = "DropTarget-scorpion"
-		Target11.image = "DropTarget-scorpion"
-	End If
-	If BumpNowc = TotalBumpc Then BumpNowc = 0
+  BumpNowc = BumpNowc + 1
+  If BumpNowc > 1 Then
+    Target1.image = "DropTarget-scorpion-"&BumpNowc
+    Target2.image = "DropTarget-scorpion-"&BumpNowc
+    Target3.image = "DropTarget-scorpion-"&BumpNowc
+    Target4.image = "DropTarget-scorpion-"&BumpNowc
+    Target5.image = "DropTarget-scorpion-"&BumpNowc
+    Target6.image = "DropTarget-scorpion-"&BumpNowc
+    Target7.image = "DropTarget-scorpion-"&BumpNowc
+    Target8.image = "DropTarget-scorpion-"&BumpNowc
+    Target9.image = "DropTarget-scorpion-"&BumpNowc
+    Target10.image = "DropTarget-scorpion-"&BumpNowc
+    Target11.image = "DropTarget-scorpion-"&BumpNowc
+  Else
+    Target1.image = "DropTarget-scorpion"
+    Target2.image = "DropTarget-scorpion"
+    Target3.image = "DropTarget-scorpion"
+    Target4.image = "DropTarget-scorpion"
+    Target5.image = "DropTarget-scorpion"
+    Target6.image = "DropTarget-scorpion"
+    Target7.image = "DropTarget-scorpion"
+    Target8.image = "DropTarget-scorpion"
+    Target9.image = "DropTarget-scorpion"
+    Target10.image = "DropTarget-scorpion"
+    Target11.image = "DropTarget-scorpion"
+  End If
+  If BumpNowc = TotalBumpc Then BumpNowc = 0
 End Sub
 
 
 TotalBump = 10
 
 Sub Change4Bump
-	BumpNow = BumpNow + 1
-	If BumpNow > 1 Then
-		PL3.image = "scorpion-bumpercap-"&BumpNow
-		PL2.image = "scorpion-bumpercap-"&BumpNow
-		PL1.image = "scorpion-bumpercap-"&BumpNow
-	Else
-		PL3.image = "scorpion-bumpercap"
-		PL2.image = "scorpion-bumpercap"
-		PL1.image = "scorpion-bumpercap"
-	End If
-	If BumpNow = TotalBump Then BumpNow = 0
+  BumpNow = BumpNow + 1
+  If BumpNow > 1 Then
+    PL3.image = "scorpion-bumpercap-"&BumpNow
+    PL2.image = "scorpion-bumpercap-"&BumpNow
+    PL1.image = "scorpion-bumpercap-"&BumpNow
+  Else
+    PL3.image = "scorpion-bumpercap"
+    PL2.image = "scorpion-bumpercap"
+    PL1.image = "scorpion-bumpercap"
+  End If
+  If BumpNow = TotalBump Then BumpNow = 0
 End Sub
 
 TotalBumpb = 18
 
 Sub Change2Bump
-	BumpNowb = BumpNowb + 1
-	If BumpNowb = 1 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 1:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 2 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 1:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 3 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 1:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 4 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 1:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 5 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 1
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 6 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 1:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 7 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 1:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 8 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 1:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 9 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 1:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 10 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 1:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 11 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 1
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 12 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 1:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 13 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 1:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 14 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 1:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 15 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 1:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 16 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 1:Flasherpic18.visible = 0
-	End If
-	If BumpNowb = 17 Then
-		Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 1
-	End If
+  BumpNowb = BumpNowb + 1
+  If BumpNowb = 1 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 1:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 2 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 1:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 3 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 1:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 4 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 1:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 5 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 1
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 6 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 1:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 7 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 1:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 8 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 1:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 9 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 1:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 10 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 1:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 11 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 1
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 12 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 1:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 13 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 1:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 14 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 1:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 15 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 1:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 16 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 1:Flasherpic18.visible = 0
+  End If
+  If BumpNowb = 17 Then
+    Flasherpic1.visible = 0:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 1
+  End If
 
-	If BumpNowb = TotalBumpb Then BumpNowb = 0
-	If BumpNowb = 0 Then
-		Flasherpic1.visible = 1:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
-		Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
-		Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
-	End If
+  If BumpNowb = TotalBumpb Then BumpNowb = 0
+  If BumpNowb = 0 Then
+    Flasherpic1.visible = 1:Flasherpic2.visible = 0:Flasherpic3.visible = 0:Flasherpic4.visible = 0:Flasherpic5.visible = 0:Flasherpic6.visible = 0
+    Flasherpic7.visible = 0:Flasherpic8.visible = 0:Flasherpic9.visible = 0:Flasherpic10.visible = 0:Flasherpic11.visible = 0:Flasherpic12.visible = 0
+    Flasherpic13.visible = 0:Flasherpic14.visible = 0:Flasherpic15.visible = 0:Flasherpic16.visible = 0:Flasherpic17.visible = 0:Flasherpic18.visible = 0
+  End If
 End Sub
 
 '********************************************
@@ -849,49 +849,49 @@ End Sub
 
 
 Sub Table_Init
-	vpmInit Me
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		.SplashInfoLine="Battlestar Galactica (Williams 1980) v1.3" & vbNewLine & "VPX table by Allknowing2012" & vbNewLine & "Graphics and Sound Mod by Xenonph"
-		.HandleKeyboard=0
-		.ShowTitle=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.Hidden=1
-		.Run
-		'On Error Goto 0
-	End With
+  vpmInit Me
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    .SplashInfoLine="Battlestar Galactica (Williams 1980) v1.3" & vbNewLine & "VPX table by Allknowing2012" & vbNewLine & "Graphics and Sound Mod by Xenonph"
+    .HandleKeyboard=0
+    .ShowTitle=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .Hidden=1
+    .Run
+    'On Error Goto 0
+  End With
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=True:PlayMusic"0BG04.mp3":Target2.timerinterval=77000:Target2.timerenabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=True:PlayMusic"0BG04.mp3":Target2.timerinterval=77000:Target2.timerenabled=1
 
-	vpmNudge.TiltSwitch=swTilt
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingShot,RightSlingShot)
+  vpmNudge.TiltSwitch=swTilt
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingShot,RightSlingShot)
 
-	Set bsTrough=New cvpmBallStack
-	bsTrough.InitSw 0,9,10,0,0,0,0,0
+  Set bsTrough=New cvpmBallStack
+  bsTrough.InitSw 0,9,10,0,0,0,0,0
     bsTrough.InitKick BallRelease,45,6
-	bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("drain",DOFContactors)
+  bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors),SoundFX("drain",DOFContactors)
     bsTrough.Balls=2
 
-	Set dtL=new cvpmDropTarget
-	dtL.InitDrop Array(target1,target2,target3),Array(25,26,27)
-	dtL.InitSnd SoundFX("target",DOFContactors),SoundFX("target",DOFContactors)
+  Set dtL=new cvpmDropTarget
+  dtL.InitDrop Array(target1,target2,target3),Array(25,26,27)
+  dtL.InitSnd SoundFX("target",DOFContactors),SoundFX("target",DOFContactors)
 
-	Set dtR=new cvpmDropTarget
-	dtR.InitDrop Array(target4,target5,target6),Array(28,29,30)
-	dtR.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
-	dtR.AllDownSw=31
+  Set dtR=new cvpmDropTarget
+  dtR.InitDrop Array(target4,target5,target6),Array(28,29,30)
+  dtR.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
+  dtR.AllDownSw=31
     dtR.LinkedTo=dtL
     dtL.LinkedTo=dtR
 
-	Set dtC1=new cvpmDropTarget
-	dtC1.InitDrop Array(target7,target8),Array(33,34)
-	dtC1.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
+  Set dtC1=new cvpmDropTarget
+  dtC1.InitDrop Array(target7,target8),Array(33,34)
+  dtC1.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
 
-	if ballshadows=1 then
+  if ballshadows=1 then
         BallShadowUpdate.enabled=1
       else
         BallShadowUpdate.enabled=0
@@ -905,22 +905,22 @@ Sub Table_Init
         FlipperRSh.visible=0
      end if
 
-	Set dtC2=new cvpmDropTarget
-	dtC2.InitDrop Array(target9,target10,target11),Array(35,36,37)
-	dtC2.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
-	dtC2.AllDownSw=38
+  Set dtC2=new cvpmDropTarget
+  dtC2.InitDrop Array(target9,target10,target11),Array(35,36,37)
+  dtC2.InitSnd SoundFX("target",DOFContactors), SoundFX("target",DOFContactors)
+  dtC2.AllDownSw=38
     dtC2.LinkedTo=dtC1
     dtC1.LinkedTo=dtC2
 
-	Set bsSaucer=New cvpmBallStack
-	bsSaucer.InitSaucer Kicker1,11,165,4
-	bsSaucer.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
-	bsSaucer.KickForceVar=5
+  Set bsSaucer=New cvpmBallStack
+  bsSaucer.InitSaucer Kicker1,11,165,4
+  bsSaucer.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
+  bsSaucer.KickForceVar=5
 
-	Set bsSaucer2=New cvpmBallStack
-	bsSaucer2.InitSaucer Kicker3,12,205,4
-	bsSaucer2.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
-	bsSaucer2.KickForceVar=8.5
+  Set bsSaucer2=New cvpmBallStack
+  bsSaucer2.InitSaucer Kicker3,12,205,4
+  bsSaucer2.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("popper_ball",DOFContactors)
+  bsSaucer2.KickForceVar=8.5
 
     vpmMapLights InsertLights
 
@@ -931,10 +931,10 @@ Sub table_Paused:Controller.Pause = 1:End Sub
 Sub table_unPaused:Controller.Pause = 0:End Sub
 
 Sub table_KeyDown(ByVal keycode)
-	If KeyCode=LeftMagnaSave Then Change2Bump
-	If KeyCode=RightMagnaSave Then Change4Bump
-	If KeyCode=50 Then Change6Bump
-	If KeyCode=49 Then Change8Bump
+  If KeyCode=LeftMagnaSave Then Change2Bump
+  If KeyCode=RightMagnaSave Then Change4Bump
+  If KeyCode=50 Then Change6Bump
+  If KeyCode=49 Then Change8Bump
     If KeyDownHandler(keycode) Then Exit Sub
     If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol "plungerpull", Plunger, 1
 End Sub
@@ -942,97 +942,97 @@ End Sub
 Sub table_KeyUp(ByVal keycode)
 
     If KeyCode = 6 Then
-			Dim s:StopMusic:Target9.timerinterval=300:Target9.timerenabled=1:Target10.timerinterval=2000:Target10.timerenabled=1
-			s = INT(24 * RND(1) )
-			Select Case s
-			Case 0:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC01")
-			Case 1:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC02")
-			Case 2:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC03")
-			Case 3:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC04")
-			Case 4:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC05")
-			Case 5:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC06")
-			Case 6:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC07")
-			Case 7:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC08")
-			Case 8:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC09")
-			Case 9:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC10")
-			Case 10:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC11")
-			Case 11:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC12")
-			Case 12:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC13")
-			Case 13:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC14")
-			Case 14:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC15")
-			Case 15:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC16")
-			Case 16:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC17")
-			Case 17:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC18")
-			Case 18:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC19")
-			Case 19:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC20")
-			Case 20:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC21")
-			Case 21:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC22")
-			Case 22:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC23")
-			Case 23:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC24")
-			End Select
+      Dim s:StopMusic:Target9.timerinterval=300:Target9.timerenabled=1:Target10.timerinterval=2000:Target10.timerenabled=1
+      s = INT(24 * RND(1) )
+      Select Case s
+      Case 0:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC01")
+      Case 1:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC02")
+      Case 2:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC03")
+      Case 3:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC04")
+      Case 4:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC05")
+      Case 5:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC06")
+      Case 6:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC07")
+      Case 7:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC08")
+      Case 8:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC09")
+      Case 9:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC10")
+      Case 10:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC11")
+      Case 11:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC12")
+      Case 12:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC13")
+      Case 13:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC14")
+      Case 14:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC15")
+      Case 15:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC16")
+      Case 16:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC17")
+      Case 17:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC18")
+      Case 18:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC19")
+      Case 19:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC20")
+      Case 20:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC21")
+      Case 21:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC22")
+      Case 22:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC23")
+      Case 23:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC24")
+      End Select
             End If
 
     If KeyCode = 4 Then
-			Dim y:StopMusic:Target9.timerinterval=300:Target9.timerenabled=1:Target10.timerinterval=2000:Target10.timerenabled=1
-			y = INT(24 * RND(1) )
-			Select Case y
-			Case 0: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC01")
-			Case 1: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC02")
-			Case 2: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC03")
-			Case 3: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC04")
-			Case 4: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC05")
-			Case 5: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC06")
-			Case 6: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC07")
-			Case 7: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC08")
-			Case 8: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC09")
-			Case 9: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC10")
-			Case 10:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC11")
-			Case 11:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC12")
-			Case 12:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC13")
-			Case 13:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC14")
-			Case 14:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC15")
-			Case 15:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC16")
-			Case 16:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC17")
-			Case 17:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC18")
-			Case 18:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC19")
-			Case 19:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC20")
-			Case 20:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC21")
-			Case 21:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC22")
-			Case 22:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC23")
-			Case 23:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC24")
-			End Select
+      Dim y:StopMusic:Target9.timerinterval=300:Target9.timerenabled=1:Target10.timerinterval=2000:Target10.timerenabled=1
+      y = INT(24 * RND(1) )
+      Select Case y
+      Case 0: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC01")
+      Case 1: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC02")
+      Case 2: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC03")
+      Case 3: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC04")
+      Case 4: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC05")
+      Case 5: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC06")
+      Case 6: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC07")
+      Case 7: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC08")
+      Case 8: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC09")
+      Case 9: PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC10")
+      Case 10:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC11")
+      Case 11:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC12")
+      Case 12:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC13")
+      Case 13:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC14")
+      Case 14:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC15")
+      Case 15:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC16")
+      Case 16:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC17")
+      Case 17:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC18")
+      Case 18:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC19")
+      Case 19:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC20")
+      Case 20:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC21")
+      Case 21:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC22")
+      Case 22:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC23")
+      Case 23:PlaySoundAtVol "coin", Drain, 1:PlaySound("0BGC24")
+      End Select
             End If
 
-	If KeyCode = 2 Then
-			Dim w:StopMusic:StopSound"0BSGA19":Target1.timerenabled=0:Target2.timerenabled=0:Target3.timerenabled=0:Target4.timerenabled=0:Target6.timerenabled=0
-			w = INT(5 * RND(1) )
-			Select Case w
-			Case 0:PlaySound("0BGCC01")
-			Case 1:PlaySound("0BGCC02")
-			Case 2:PlaySound("0BGCC03")
-			Case 3:PlaySound("0BGCC04")
-			Case 4:PlaySound("0BGCC05")
-			End Select
+  If KeyCode = 2 Then
+      Dim w:StopMusic:StopSound"0BSGA19":Target1.timerenabled=0:Target2.timerenabled=0:Target3.timerenabled=0:Target4.timerenabled=0:Target6.timerenabled=0
+      w = INT(5 * RND(1) )
+      Select Case w
+      Case 0:PlaySound("0BGCC01")
+      Case 1:PlaySound("0BGCC02")
+      Case 2:PlaySound("0BGCC03")
+      Case 3:PlaySound("0BGCC04")
+      Case 4:PlaySound("0BGCC05")
+      End Select
             End If
-	If KeyUpHandler(keycode) Then Exit Sub
+  If KeyUpHandler(keycode) Then Exit Sub
     If keycode = PlungerKey And BIP=1 Then Plunger.Fire:PlaySoundAtVol "Plunger", Plunger, 1
     If keycode = PlungerKey And BIP=0 Then Plunger.Fire:PlaySoundAtVol "plungerreleasefree", Plunger, 1
 End Sub
 
 Sub GIOn
-	dim bulb
-	for each bulb in GILights
-	bulb.state = LightStateOn
-	next
-	Flasher7.visible=1
+  dim bulb
+  for each bulb in GILights
+  bulb.state = LightStateOn
+  next
+  Flasher7.visible=1
 End Sub
 
 Sub GIOff
-	dim bulb
-	for each bulb in GILights
-	bulb.state = LightStateOff
-	next
-	Flasher7.visible=0
+  dim bulb
+  for each bulb in GILights
+  bulb.state = LightStateOff
+  next
+  Flasher7.visible=0
 End Sub
 
 'Set LampCallback=GetRef("UpdateMultipleLamps")
@@ -1072,12 +1072,12 @@ Sub Gate2_Hit:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFla
 Sub Gate1_Hit:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:End Sub
 
 
-'Sub Drain_Hit:bsTrough.AddBall Me:GIOff:End Sub	'switch9 Trough
+'Sub Drain_Hit:bsTrough.AddBall Me:GIOff:End Sub  'switch9 Trough
 Sub Drain_Hit:bsTrough.AddBall Me
               PlaySoundAtVol "drain", Drain, 1
               If dd=0 then EndMusic:Kicker1.timerenabled=0:Drain.timerenabled=0
               If dd=1 then dd=0
-End Sub			'switch9 Thal, don't turn off GI it might be a multiball
+End Sub     'switch9 Thal, don't turn off GI it might be a multiball
 
 Sub Drain_timer
     Dim x
@@ -1116,7 +1116,7 @@ Sub Kicker3_Hit:bsSaucer2.AddBall 0
             If aa=1 and bb=1 then cc=1:FlashLevel9 = 1 : FlasherFlash9_Timer:Target8.timerinterval=300:Target8.timerenabled=1:FlashLevel7 = 1 : FlasherFlash7_Timer:Target7.timerinterval=300:Target7.timerenabled=1
             If cc=1 then StopSounds:EndMusic:PlayMusic"0BG03.mp3":Playsound"0BGK02":aa=0:bb=0:cc=0:dd=1:Drain.timerenabled=0:Kicker1.timerenabled=0:Target6.timerinterval=22000:Target6.timerenabled=1
 
-End Sub			'switch12
+End Sub     'switch12
 Sub Kicker3_UnHit:bb=0:Target8.timerenabled=0:End Sub
 
 Sub Kicker3_timer
@@ -1134,7 +1134,7 @@ Sub Kicker3_timer
 Kicker3.timerenabled=0
 End sub
 
-Sub sw41_Hit:vpmTimer.PulseSw(41):PlaySound"0BGC05":FlashLevel7 = 1 : FlasherFlash7_Timer:End Sub			'switch41
+Sub sw41_Hit:vpmTimer.PulseSw(41):PlaySound"0BGC05":FlashLevel7 = 1 : FlasherFlash7_Timer:End Sub     'switch41
 
 Sub sw41_timer
     Dim x
@@ -1146,7 +1146,7 @@ Sub sw41_timer
 sw41.timerenabled=0
 End sub
 
-Sub sw42_Hit:vpmTimer.PulseSw(42):PlaySound"0BGC05":FlashLevel9 = 1 : FlasherFlash9_Timer:End Sub			'switch42
+Sub sw42_Hit:vpmTimer.PulseSw(42):PlaySound"0BGC05":FlashLevel9 = 1 : FlasherFlash9_Timer:End Sub     'switch42
 
 Sub sw42_timer
     Dim x
@@ -1160,9 +1160,9 @@ Sub sw42_timer
 sw42.timerenabled=0
 End sub
 
-Sub Spinner1_Spin:vpmTimer.PulseSw(32):PlaySoundAtVol "fx_spinner",Spinner1,VolSpin:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:End Sub				'switch32 Left Spinner
+Sub Spinner1_Spin:vpmTimer.PulseSw(32):PlaySoundAtVol "fx_spinner",Spinner1,VolSpin:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:End Sub       'switch32 Left Spinner
 
-Sub target1_Hit:dtL.Hit 1:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch25
+Sub target1_Hit:dtL.Hit 1:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch25
 
 Sub target1_timer
     Dim x
@@ -1177,7 +1177,7 @@ Sub target1_timer
 target1.timerenabled=0
 End sub
 
-Sub target2_Hit:dtL.Hit 2:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch26
+Sub target2_Hit:dtL.Hit 2:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch26
 
 Sub target2_timer
     Dim x
@@ -1200,7 +1200,7 @@ Sub target2_timer
 target2.timerenabled=0
 End sub
 
-Sub target3_Hit:dtL.Hit 3:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch27
+Sub target3_Hit:dtL.Hit 3:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch27
 
 Sub target3_timer
     Dim x
@@ -1214,7 +1214,7 @@ Sub target3_timer
 target3.timerenabled=0
 End sub
 
-Sub target4_Hit:dtR.Hit 1:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch28
+Sub target4_Hit:dtR.Hit 1:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch28
 
 Sub target4_timer
     Dim x
@@ -1237,14 +1237,14 @@ Sub target4_timer
 target4.timerenabled=0
 End sub
 
-Sub target5_Hit:dtR.Hit 2:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch29
+Sub target5_Hit:dtR.Hit 2:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch29
 
 Sub target5_timer
       ff=1
 target5.timerenabled=0
 End sub
 
-Sub target6_Hit:dtR.Hit 3:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch30
+Sub target6_Hit:dtR.Hit 3:FlashLevel6 = 1 : FlasherFlash6_Timer:FlashLevel8 = 1 : FlasherFlash8_Timer:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch30
 
 Sub target6_timer
     Dim x
@@ -1257,20 +1257,20 @@ Sub target6_timer
 target6.timerenabled=0
 End sub
 
-Sub target7_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC1.Hit 1:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch33
+Sub target7_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC1.Hit 1:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub              'switch33
 
 Sub target7_timer
     FlashLevel7 = 1 : FlasherFlash7_Timer
 End sub
 
-Sub target8_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC1.Hit 2:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch34
+Sub target8_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC1.Hit 2:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub              'switch34
 
 Sub target8_timer
     FlashLevel9 = 1 : FlasherFlash9_Timer
 End sub
 
 
-Sub target9_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 1:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch35
+Sub target9_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 1:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub              'switch35
 
 Sub target9_timer
     Dim x
@@ -1287,18 +1287,18 @@ Sub target9_timer
 
 End sub
 
-Sub target10_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 2:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch36
+Sub target10_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 2:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch36
 
 Sub target10_timer
     target9.timerenabled=0
 target10.timerenabled=0
 End sub
 
-Sub target11_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 3:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub							'switch37
+Sub target11_Hit:FlashLevel10 = 1 : FlasherFlash10_Timer:dtC2.Hit 3:GiEffect 2:Timer1.enabled=true:Timer3.enabled=True:Timer3.interval=1000:End Sub             'switch37
 
 '***********************************************
 '***********************************************
-					'Switches
+          'Switches
 '***********************************************
 '***********************************************
 
@@ -1670,12 +1670,12 @@ Sub Bumper1_Hit:vpmTimer.PulseSw 24:bump1 = 1:Me.TimerEnabled = 1
 
 End Sub
 Sub Bumper1_Timer()
-	Select Case bump1
+  Select Case bump1
         Case 1:Ring1.Z = -30:bump1 = 2
         Case 2:Ring1.Z = -20:bump1 = 3
         Case 3:Ring1.Z = -10:bump1 = 4
         Case 4:Ring1.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 Sub Bumper2_Hit:vpmTimer.PulseSw 22:bump2 = 1:Me.TimerEnabled = 1
@@ -1692,12 +1692,12 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 22:bump2 = 1:Me.TimerEnabled = 1
 
 End Sub
 Sub Bumper2_Timer()
-	Select Case bump2
+  Select Case bump2
         Case 1:Ring2.Z = -30:bump2 = 2
         Case 2:Ring2.Z = -20:bump2 = 3
         Case 3:Ring2.Z = -10:bump2 = 4
         Case 4:Ring2.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 Sub Bumper3_Hit:vpmTimer.PulseSw 23:bump3 = 1:Me.TimerEnabled = 1
@@ -1714,12 +1714,12 @@ Sub Bumper3_Hit:vpmTimer.PulseSw 23:bump3 = 1:Me.TimerEnabled = 1
 
 End Sub
 Sub Bumper3_Timer()
-	Select Case bump3
+  Select Case bump3
         Case 1:Ring3.Z = -30:bump3 = 2
         Case 2:Ring3.Z = -20:bump3 = 3
         Case 3:Ring3.Z = -10:bump3 = 4
         Case 4:Ring3.Z = 0:Me.TimerEnabled = 0
-	End Select
+  End Select
 End Sub
 
 
@@ -1781,23 +1781,23 @@ Digits(26) = Array(LED270,LED271,LED272,LED273,LED274,LED275,LED276)
 Digits(27) = Array(LED280,LED281,LED282,LED283,LED284,LED285,LED286)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
-	If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 28) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
+  If Not IsEmpty(ChgLED) Then
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 28) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
 
-			end if
-		next
-		end if
-	end if
+      end if
+    next
+    end if
+  end if
 End Sub
 
 ' *******************************************************************************************************
@@ -1894,7 +1894,7 @@ Function BallVel(ball) 'Calculates the ball speed
 End Function
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -1928,89 +1928,89 @@ End Sub
 
 Sub Pins_Hit (idx)
   ' debug.prnit "pin"
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound SoundFX("target",DOFContactors), 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound SoundFX("target",DOFContactors), 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TargetBankWalls_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolBankW, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolBankW, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
     debug.print "metals_medium"
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
    debug.print "rubber"
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
     debug.print "Posts"
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Rubbers_Hit(idx)
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub Bumpers_Hit(idx)
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySound SoundFx("fx_bumper1",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound SoundFx("fx_bumper2",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound SoundFx("fx_bumper3",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 4 : PlaySound SoundFx("fx_bumper4",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySound SoundFx("fx_bumper1",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound SoundFx("fx_bumper2",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound SoundFx("fx_bumper3",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 4 : PlaySound SoundFx("fx_bumper4",DOFContactors), 0, Vol(ActiveBall)*VolBump, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+  End Select
 End Sub
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
@@ -2099,16 +2099,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -2136,17 +2136,17 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 Sub GraphicsTimer_Timer()
-	batleft.objrotz = LeftFlipper.CurrentAngle + 1
-	batright.objrotz = RightFlipper.CurrentAngle - 1
+  batleft.objrotz = LeftFlipper.CurrentAngle + 1
+  batright.objrotz = RightFlipper.CurrentAngle - 1
     batleft1.objrotz = LeftFlipperUpper.CurrentAngle + 1
-	batright1.objrotz = RightFlipperUpper.CurrentAngle - 1
+  batright1.objrotz = RightFlipperUpper.CurrentAngle - 1
 
-	if FlipperShadows=1 then
-		FlipperLSh.RotZ = batleft.objrotz
-		FlipperLSh1.RotZ = batleft1.objrotz
-		FlipperRSh.RotZ = batright.objrotz
-		FlipperRSh1.RotZ = batright1.objrotz
-	end if
+  if FlipperShadows=1 then
+    FlipperLSh.RotZ = batleft.objrotz
+    FlipperLSh1.RotZ = batleft1.objrotz
+    FlipperRSh.RotZ = batright.objrotz
+    FlipperRSh1.RotZ = batright1.objrotz
+  end if
 
 End Sub
 

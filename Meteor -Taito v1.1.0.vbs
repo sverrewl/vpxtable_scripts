@@ -291,20 +291,20 @@ Sub sw42_Hit:vpmTimer.PulseSw 42:PlaySoundAtVol SoundFX("fx_target", DOFDropTarg
 'Solenoids
 '*********
 
-SolCallback(1)		= "bsTrough.SolOut"
-SolCallback(2)		= "dtbank2.SolDropUp"
-SolCallback(3)		= "dtbank1.SolDropUp"
-SolCallback(4)		= "dtbank3.SolDropUp"
-SolCallback(5)		= "dtbank4.SolDropUp"
-SolCallback(6)		= "dtbank5.SolDropUp"
-SolCallback(8)		= "SolGi" ' Rele-Play
-'SolCallback(9)		= Rele De Alimentacao Tip
-SolCallback(11)		= "dtbank5.SolHit 3,"
-SolCallback(12)		= "dtbank4.SolHit 1,"
-SolCallback(13)		= "dtbank5.SolHit 2,"
-SolCallback(14)		= "dtbank5.SolHit 1,"
-SolCallback(15)		= "dtbank4.SolHit 3,"
-SolCallback(16)		= "dtbank4.SolHit 2,"
+SolCallback(1)    = "bsTrough.SolOut"
+SolCallback(2)    = "dtbank2.SolDropUp"
+SolCallback(3)    = "dtbank1.SolDropUp"
+SolCallback(4)    = "dtbank3.SolDropUp"
+SolCallback(5)    = "dtbank4.SolDropUp"
+SolCallback(6)    = "dtbank5.SolDropUp"
+SolCallback(8)    = "SolGi" ' Rele-Play
+'SolCallback(9)   = Rele De Alimentacao Tip
+SolCallback(11)   = "dtbank5.SolHit 3,"
+SolCallback(12)   = "dtbank4.SolHit 1,"
+SolCallback(13)   = "dtbank5.SolHit 2,"
+SolCallback(14)   = "dtbank5.SolHit 1,"
+SolCallback(15)   = "dtbank4.SolHit 3,"
+SolCallback(16)   = "dtbank4.SolHit 2,"
 SolCallback(18) = "vpmNudge.SolGameOn"
 
 Sub SolGi(enabled)

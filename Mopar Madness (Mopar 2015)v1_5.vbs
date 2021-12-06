@@ -77,7 +77,7 @@ AttractVideo = Array("attract ", 588)
 
 
         With Controller
-   		  cGameName = "blakpyra"
+        cGameName = "blakpyra"
             .GameName = cGameName
             .SplashInfoLine = "Mopar Madness, R&R 1984" & vbNewLine & "by unclewilly vp9"
             .HandleMechanics = 0
@@ -86,7 +86,7 @@ AttractVideo = Array("attract ", 588)
             .ShowFrame = 0
             .ShowTitle = 0
             .Hidden = 0
-  		  'LedStartup ' Initialize LED Panel Display
+        'LedStartup ' Initialize LED Panel Display
             If Err Then MsgBox Err.Description
         End With
         On Error Goto 0
@@ -101,9 +101,9 @@ AttractVideo = Array("attract ", 588)
         Set bsTrough = New cvpmBallStack
         With bsTrough
             .InitSw 0,8,0,0,0,0,0,0
-   		  .InitKick ballrelease, 90, 4
+        .InitKick ballrelease, 90, 4
             .InitExitSnd "ballrelease", "Solenoid"
-   		  .BallImage = "ballDark"
+        .BallImage = "ballDark"
            .Balls = 1
         End With
 
@@ -128,8 +128,8 @@ AttractVideo = Array("attract ", 588)
 
 
   'Init Slings & Bumper Rings
-  	sw3Ra.IsDropped=1:sw3Rb.IsDropped=1:sw3Rc.IsDropped=1
-  	sw4Ra.IsDropped=1:sw4Rb.IsDropped=1:sw4Rc.IsDropped=1
+    sw3Ra.IsDropped=1:sw3Rb.IsDropped=1:sw3Rc.IsDropped=1
+    sw4Ra.IsDropped=1:sw4Rb.IsDropped=1:sw4Rc.IsDropped=1
 
   'Init Standup Targets and rollovers
   ' sw20a.IsDropped=1:sw20wa.IsDropped=1:sw21a.IsDropped=1:sw21wa.IsDropped=1:sw19a.IsDropped=1:sw19wa.IsDropped=1
@@ -139,16 +139,16 @@ AttractVideo = Array("attract ", 588)
    sw22a.IsDropped=1:sw23a.IsDropped=1:sw28a.IsDropped=1
 
   'init swing target
-  	'For each xx in sw5a:xx.IsDropped=1:Next
- 	'For xx = 1 to 10
- 		'sw5(xx).IsDropped=1
- 	'Next
+    'For each xx in sw5a:xx.IsDropped=1:Next
+  'For xx = 1 to 10
+    'sw5(xx).IsDropped=1
+  'Next
 
   'Init GI
-  	UpdateGI 0
+    UpdateGI 0
 
 attractdelay.Interval = 5000
-	attractdelay.Enabled = 1
+  attractdelay.Enabled = 1
 
    End Sub
 
@@ -246,28 +246,28 @@ End Sub
     Sub sw19_Timer:sw19.IsDropped = 0:sw19w.IsDropped = 0:sw19a.IsDropped = 1:sw19wa.IsDropped = 1:Me.TimerEnabled = 0:End Sub
 
  '**Swinging target
- 	Sub sw5p0_Hit():STTimer.Enabled=0:sw5p0.IsDropped=1:sw5p0a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p0_Timer():STTimer.Enabled=1:sw5p0.IsDropped=0:sw5p0a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p1_Hit():STTimer.Enabled=0:sw5p1.IsDropped=1:sw5p1a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p1_Timer():STTimer.Enabled=1:sw5p1.IsDropped=0:sw5p1a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p2_Hit():STTimer.Enabled=0:sw5p2.IsDropped=1:sw5p2a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p2_Timer():STTimer.Enabled=1:sw5p2.IsDropped=0:sw5p2a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p3_Hit():STTimer.Enabled=0:sw5p3.IsDropped=1:sw5p3a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p3_Timer():STTimer.Enabled=1:sw5p3.IsDropped=0:sw5p3a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p4_Hit():STTimer.Enabled=0:sw5p4.IsDropped=1:sw5p4a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p4_Timer():STTimer.Enabled=1:sw5p4.IsDropped=0:sw5p4a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p5_Hit():STTimer.Enabled=0:sw5p5.IsDropped=1:sw5p5a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p5_Timer():STTimer.Enabled=1:sw5p5.IsDropped=0:sw5p5a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p6_Hit():STTimer.Enabled=0:sw5p6.IsDropped=1:sw5p6a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p6_Timer():STTimer.Enabled=1:sw5p6.IsDropped=0:sw5p6a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p7_Hit():STTimer.Enabled=0:sw5p7.IsDropped=1:sw5p7a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p7_Timer():STTimer.Enabled=1:sw5p7.IsDropped=0:sw5p7a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p8_Hit():STTimer.Enabled=0:sw5p8.IsDropped=1:sw5p8a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p8_Timer():STTimer.Enabled=1:sw5p8.IsDropped=0:sw5p8a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p9_Hit():STTimer.Enabled=0:sw5p9.IsDropped=1:sw5p9a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p9_Timer():STTimer.Enabled=1:sw5p9.IsDropped=0:sw5p9a.IsDropped=1:Me.TimerEnabled = 0:End Sub
- 	Sub sw5p10_Hit():STTimer.Enabled=0:sw5p10.IsDropped=1:sw5p10a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
- 	Sub sw5p10_Timer():STTimer.Enabled=1:sw5p10.IsDropped=0:sw5p10a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p0_Hit():STTimer.Enabled=0:sw5p0.IsDropped=1:sw5p0a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p0_Timer():STTimer.Enabled=1:sw5p0.IsDropped=0:sw5p0a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p1_Hit():STTimer.Enabled=0:sw5p1.IsDropped=1:sw5p1a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p1_Timer():STTimer.Enabled=1:sw5p1.IsDropped=0:sw5p1a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p2_Hit():STTimer.Enabled=0:sw5p2.IsDropped=1:sw5p2a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p2_Timer():STTimer.Enabled=1:sw5p2.IsDropped=0:sw5p2a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p3_Hit():STTimer.Enabled=0:sw5p3.IsDropped=1:sw5p3a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p3_Timer():STTimer.Enabled=1:sw5p3.IsDropped=0:sw5p3a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p4_Hit():STTimer.Enabled=0:sw5p4.IsDropped=1:sw5p4a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p4_Timer():STTimer.Enabled=1:sw5p4.IsDropped=0:sw5p4a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p5_Hit():STTimer.Enabled=0:sw5p5.IsDropped=1:sw5p5a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p5_Timer():STTimer.Enabled=1:sw5p5.IsDropped=0:sw5p5a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p6_Hit():STTimer.Enabled=0:sw5p6.IsDropped=1:sw5p6a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p6_Timer():STTimer.Enabled=1:sw5p6.IsDropped=0:sw5p6a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p7_Hit():STTimer.Enabled=0:sw5p7.IsDropped=1:sw5p7a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p7_Timer():STTimer.Enabled=1:sw5p7.IsDropped=0:sw5p7a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p8_Hit():STTimer.Enabled=0:sw5p8.IsDropped=1:sw5p8a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p8_Timer():STTimer.Enabled=1:sw5p8.IsDropped=0:sw5p8a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p9_Hit():STTimer.Enabled=0:sw5p9.IsDropped=1:sw5p9a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p9_Timer():STTimer.Enabled=1:sw5p9.IsDropped=0:sw5p9a.IsDropped=1:Me.TimerEnabled = 0:End Sub
+  Sub sw5p10_Hit():STTimer.Enabled=0:sw5p10.IsDropped=1:sw5p10a.IsDropped=0:vpmTimer.PulseSw 5:PlaySoundAtVol "target",ActiveBall, 1:Me.TimerEnabled = 1:End Sub
+  Sub sw5p10_Timer():STTimer.Enabled=1:sw5p10.IsDropped=0:sw5p10a.IsDropped=1:Me.TimerEnabled = 0:End Sub
 
 
    Sub Gate1_Hit():PlaysoundAtVol "Gate",ActiveBall, 1:End Sub
@@ -323,18 +323,18 @@ End Sub
     End Sub
 
  Sub STTimer_Timer()
- 	sw5(STPos).IsDropped=1
- 	sw5(StPos+STDir).IsDropped=0
- 	STPos=STPos+STDir
- 	If STPos=10 then STDir=-1
- 	If StPos=0 then STDir=1
+  sw5(STPos).IsDropped=1
+  sw5(StPos+STDir).IsDropped=0
+  STPos=STPos+STDir
+  If STPos=10 then STDir=-1
+  If StPos=0 then STDir=1
  End Sub
 
 Dim BIP
 BIP = 0
 
 Sub LeftSlingshot_Slingshot()
-	PlaySoundAtVol "fx_bumper4", ActiveBall, 1
+  PlaySoundAtVol "fx_bumper4", ActiveBall, 1
 End Sub
 
 '**********Sling Shot Animations
@@ -343,14 +343,14 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 1
+  vpmTimer.PulseSw 1
     PlaySoundAtVol "left_slingshot", sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
     RightSlingShot.TimerEnabled = 1
-	gi10.State = 0':Gi2.State = 0
+  gi10.State = 0':Gi2.State = 0
 End Sub
 
 Sub RightSlingShot_Timer
@@ -369,7 +369,7 @@ Sub LeftSlingShot_Slingshot
     sling2.TransZ = -20
     LStep = 0
     LeftSlingShot.TimerEnabled = 1
-	'gi3.State = 0:Gi4.State = 0
+  'gi3.State = 0:Gi4.State = 0
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -424,11 +424,11 @@ If UBound(tmp) <> OldGiState Then
 OldGiState = Ubound(tmp)
 If UBound(tmp) = 1 Then ' since we have 2 captive balls and 1 for the car animation, then Ubound will show 2, so no balls on the table then turn off gi
 For each obj in aGILights
-	obj.State = 0
+  obj.State = 0
 Next
 Else
 For each obj in aGILights
-	obj.State = 1
+  obj.State = 1
 Next
 End If
 End If
@@ -437,75 +437,75 @@ End Sub
 
 
  Sub UpdateGI(enabled)
-		Dim xx
- 	If Enabled then
+    Dim xx
+  If Enabled then
 
 For each xx in GI:xx.State = 1: Next
- 		'GIB1.State=1
- 		'GIB2.State=1
- 		'GIB3.State=1
- 		'GIB4.State=1
- 		'GIB5.State=1
- 		'GIB6.State=1
- 		'GIB7.State=1
- 		'GIB8.State=1
- 		'GIB9.State=1
- 		'GI.State=1
- 		'Light1.State=1
- 		'Light2.State=1
- 		'GI1.IsDropped=0
- 		'GI2.IsDropped=0
- 		'GI3.IsDropped=0
- 		'GI4.IsDropped=0
- 		'GI5.IsDropped=0
- 		'GI6.IsDropped=0
- 		'GI7.IsDropped=0
- 		'GI8.IsDropped=0
- 		'GI9.IsDropped=0
- 		'GI10.IsDropped=0
- 		'GI11.IsDropped=0
- 		'GI12.IsDropped=0
- 		'GI13.IsDropped=0
- 		'GIbw.IsDropped=0
- 	else
-		For each xx in GI:  xx.State = 0:Next
- 		'GIB1.State=0
- 		'GIB2.State=0
- 		'GIB3.State=0
- 		'GIB4.State=0
- 		'GIB5.State=0
- 		'GIB6.State=0
- 		'GIB7.State=0
- 		'GIB8.State=0
- 		'GIB9.State=0
- 		'GI.State=0
- 		'Light1.State=0
- 		'Light2.State=0
- 		'GI1.IsDropped=1
- 		'GI2.IsDropped=1
- 		'GI3.IsDropped=1
- 		'GI4.IsDropped=1
- 		'GI5.IsDropped=1
- 		'GI6.IsDropped=1
- 		'GI7.IsDropped=1
- 		'GI8.IsDropped=1
- 		'GI9.IsDropped=1
- 		'GI10.IsDropped=1
- 		'GI11.IsDropped=1
- 		'GI12.IsDropped=1
- 		'GI13.IsDropped=1
- 		'GIbw.IsDropped=1
-  		 GiTimer.Enabled=1
- 	end if
+    'GIB1.State=1
+    'GIB2.State=1
+    'GIB3.State=1
+    'GIB4.State=1
+    'GIB5.State=1
+    'GIB6.State=1
+    'GIB7.State=1
+    'GIB8.State=1
+    'GIB9.State=1
+    'GI.State=1
+    'Light1.State=1
+    'Light2.State=1
+    'GI1.IsDropped=0
+    'GI2.IsDropped=0
+    'GI3.IsDropped=0
+    'GI4.IsDropped=0
+    'GI5.IsDropped=0
+    'GI6.IsDropped=0
+    'GI7.IsDropped=0
+    'GI8.IsDropped=0
+    'GI9.IsDropped=0
+    'GI10.IsDropped=0
+    'GI11.IsDropped=0
+    'GI12.IsDropped=0
+    'GI13.IsDropped=0
+    'GIbw.IsDropped=0
+  else
+    For each xx in GI:  xx.State = 0:Next
+    'GIB1.State=0
+    'GIB2.State=0
+    'GIB3.State=0
+    'GIB4.State=0
+    'GIB5.State=0
+    'GIB6.State=0
+    'GIB7.State=0
+    'GIB8.State=0
+    'GIB9.State=0
+    'GI.State=0
+    'Light1.State=0
+    'Light2.State=0
+    'GI1.IsDropped=1
+    'GI2.IsDropped=1
+    'GI3.IsDropped=1
+    'GI4.IsDropped=1
+    'GI5.IsDropped=1
+    'GI6.IsDropped=1
+    'GI7.IsDropped=1
+    'GI8.IsDropped=1
+    'GI9.IsDropped=1
+    'GI10.IsDropped=1
+    'GI11.IsDropped=1
+    'GI12.IsDropped=1
+    'GI13.IsDropped=1
+    'GIbw.IsDropped=1
+       GiTimer.Enabled=1
+  end if
   End Sub
 
 
 
    Sub GiTimer_Timer
- 	LampTimer.Interval = 10
- 	LampTimer.Enabled = 1
- 	updateGi 1
- 	GiTimer.Enabled=0
+  LampTimer.Interval = 10
+  LampTimer.Enabled = 1
+  updateGi 1
+  GiTimer.Enabled=0
   End Sub
 
 '***************************************************
@@ -542,7 +542,7 @@ End Sub
 Sub UpdateLamps
 
     NFadeLm 2, B3L1
-	NFadeL 2, B3L2
+  NFadeL 2, B3L2
     NFadeL 3, l3
     NFadeL 4, l4
     NFadeL 15, l15
@@ -551,9 +551,9 @@ Sub UpdateLamps
     NFadeL 7, l7
     NFadeL 8, l8
     NFadeL 19, l19
-	NFadeL 9, l9
+  NFadeL 9, l9
     NFadeL 10, l10
-	NFadeL 11, l11
+  NFadeL 11, l11
     NFadeL 12, l12
     'NFadeL 13, l13
     NFadeL 14, l14
@@ -598,7 +598,7 @@ Sub UpdateLamps
     NFadeL 62, l62
     NFadeL 63, l63
     NFadeL 65, l65
-	NFadeL 66, l66
+  NFadeL 66, l66
 
     NFadeL 81, l81
     NFadeL 82, l82
@@ -617,13 +617,13 @@ End Sub
 Sub InitLamps()
     Dim x
     For x = 0 to 200
-        LampState(x) = 0			' current light state, independent of the fading level. 0 is off and 1 is on
-        FadingLevel(x) = 4			' used to track the fading state
-        FlashSpeedUp(x) = 0.4  		' faster speed when turning on the flasher
-        FlashSpeedDown(x) = 0.2 	' slower speed when turning off the flasher
-        FlashMax(x) = 1		   		' the maximum value when on, usually 1
-        FlashMin(x) = 0				' the minimum value when off, usually 0
-        FlashLevel(x) = 0			' the intensity of the flashers, usually from 0 to 1
+        LampState(x) = 0      ' current light state, independent of the fading level. 0 is off and 1 is on
+        FadingLevel(x) = 4      ' used to track the fading state
+        FlashSpeedUp(x) = 0.4     ' faster speed when turning on the flasher
+        FlashSpeedDown(x) = 0.2   ' slower speed when turning off the flasher
+        FlashMax(x) = 1         ' the maximum value when on, usually 1
+        FlashMin(x) = 0       ' the minimum value when off, usually 0
+        FlashLevel(x) = 0     ' the intensity of the flashers, usually from 0 to 1
     Next
     UpdateLamps
     UpdateLamps
@@ -634,7 +634,7 @@ Sub AllLampsOff
     Dim x
     For x = 0 to 200
         SetLamp x, 0
-	Next
+  Next
     UpdateLamps
     UpdateLamps
     Updatelamps
@@ -668,12 +668,12 @@ End Sub
 
 Sub FadeObj(nr, object, a, b, c, d)
     Select Case FadingLevel(nr)
-        Case 4:object.image = b:FadingLevel(nr) = 6 				'fading to off...
-        Case 5:object.image = a:FadingLevel(nr) = 1 				'ON
-		Case 6,7.8: FadingLevel(nr) =FadingLevel(nr) +1 			'wait
+        Case 4:object.image = b:FadingLevel(nr) = 6         'fading to off...
+        Case 5:object.image = a:FadingLevel(nr) = 1         'ON
+    Case 6,7.8: FadingLevel(nr) =FadingLevel(nr) +1       'wait
         Case 9:object.image = c:FadingLevel(nr) =FadingLevel(nr) +1 'fading...
-		Case 10,11,12: FadingLevel(nr) =FadingLevel(nr) +1 			'wait
-        Case 13:object.image = d:FadingLevel(nr) = 0 				'Off
+    Case 10,11,12: FadingLevel(nr) =FadingLevel(nr) +1      'wait
+        Case 13:object.image = d:FadingLevel(nr) = 0        'Off
     End Select
 End Sub
 
@@ -731,12 +731,12 @@ End Sub
 
 Sub FadeR(nr, object)
     Select Case FadingLevel(nr)
-        Case 4:object.SetValue 1:FadingLevel(nr) = 6 				'fading to off...
-        Case 5:object.SetValue 0:FadingLevel(nr) = 1 				'ON
-		Case 6,7.8: FadingLevel(nr) =FadingLevel(nr) +1 			'wait
+        Case 4:object.SetValue 1:FadingLevel(nr) = 6        'fading to off...
+        Case 5:object.SetValue 0:FadingLevel(nr) = 1        'ON
+    Case 6,7.8: FadingLevel(nr) =FadingLevel(nr) +1       'wait
         Case 9:object.SetValue 2:FadingLevel(nr) =FadingLevel(nr) +1 'fading...
-		Case 10,11,12: FadingLevel(nr) =FadingLevel(nr) +1 			'wait
-        Case 13:object.SetValue 3:FadingLevel(nr) = 0 				'Off
+    Case 10,11,12: FadingLevel(nr) =FadingLevel(nr) +1      'wait
+        Case 13:object.SetValue 3:FadingLevel(nr) = 0         'Off
     End Select
 End Sub
 
@@ -904,27 +904,27 @@ End Sub
 ''''''''Center Target''''''''''''
 '''''''''''''''''''''''''''''''''
 Sub wallfollow_Timer()
-	If PTargetCenter.transz <= -51 and PTargetCenter.transz >= -70 then loc1.isdropped = false else loc1.isdropped = true:End If
-	If PTargetCenter.transz <= -31 and PTargetCenter.transz >= -50 then loc2.isdropped = false else loc2.isdropped = true:End If
-	If PTargetCenter.transz <= -11 and PTargetCenter.transz >= -30 then loc3.isdropped = false else loc3.isdropped = true:End If
-	If PTargetCenter.transz <= -1 and PTargetCenter.transz >= -10 then loc4.isdropped = false else loc4.isdropped = true:End If
-	If PTargetCenter.transz <= 10 and PTargetCenter.transz >= 0 then loc5.isdropped = false else loc5.isdropped = true:End If
-	If PTargetCenter.transz <= 30 and PTargetCenter.transz >= 11 then loc6.isdropped = false else loc6.isdropped = true:End If
-	If PTargetCenter.transz <= 50 and PTargetCenter.transz >= 31 then loc7.isdropped = false else loc7.isdropped = true:End If
-	If PTargetCenter.transz <= 70 and PTargetCenter.transz >= 51 then loc8.isdropped = false else loc8.isdropped = true:End If
+  If PTargetCenter.transz <= -51 and PTargetCenter.transz >= -70 then loc1.isdropped = false else loc1.isdropped = true:End If
+  If PTargetCenter.transz <= -31 and PTargetCenter.transz >= -50 then loc2.isdropped = false else loc2.isdropped = true:End If
+  If PTargetCenter.transz <= -11 and PTargetCenter.transz >= -30 then loc3.isdropped = false else loc3.isdropped = true:End If
+  If PTargetCenter.transz <= -1 and PTargetCenter.transz >= -10 then loc4.isdropped = false else loc4.isdropped = true:End If
+  If PTargetCenter.transz <= 10 and PTargetCenter.transz >= 0 then loc5.isdropped = false else loc5.isdropped = true:End If
+  If PTargetCenter.transz <= 30 and PTargetCenter.transz >= 11 then loc6.isdropped = false else loc6.isdropped = true:End If
+  If PTargetCenter.transz <= 50 and PTargetCenter.transz >= 31 then loc7.isdropped = false else loc7.isdropped = true:End If
+  If PTargetCenter.transz <= 70 and PTargetCenter.transz >= 51 then loc8.isdropped = false else loc8.isdropped = true:End If
 End Sub
 
 
 Sub Timer1_Timer
-	If LampState(13)=1 Then
-		If XLocation>7 Then XDir=0
-		If XLocation<1 Then XDir=1
-		'T(XLocation).IsDropped=1
-		If XDir=1 Then XLocation=XLocation+1
-		If XDir=0 Then XLocation=XLocation-1
-		'T(XLocation).IsDropped=0
-		'CheckXLocation   '''  Added to move center drop Primitive --- CP
-	End If
+  If LampState(13)=1 Then
+    If XLocation>7 Then XDir=0
+    If XLocation<1 Then XDir=1
+    'T(XLocation).IsDropped=1
+    If XDir=1 Then XLocation=XLocation+1
+    If XDir=0 Then XLocation=XLocation-1
+    'T(XLocation).IsDropped=0
+    'CheckXLocation   '''  Added to move center drop Primitive --- CP
+  End If
 End Sub
 
 'Texts
@@ -970,76 +970,76 @@ Set vpmShowDips = GetRef("editDips")
 
 Dim musicNum
 Sub BallRelease_Unhit
-	If musicNum = 0 then PlayMusic "startitup.mp3" End If
+  If musicNum = 0 then PlayMusic "startitup.mp3" End If
     If musicNum = 1 then PlayMusic "mopar or nocar.mp3" End If
     If musicNum = 2 then PlayMusic "mopar madness.mp3" End If
-	musicNum = (musicNum + 1) mod 3
+  musicNum = (musicNum + 1) mod 3
 End Sub
 
 Sub Animation(name, numframes, loops)
-	HSteps = numframes
-	HPos=0
-	Hname = name
-	Hloops = loops
-	posinc = 1
+  HSteps = numframes
+  HPos=0
+  Hname = name
+  Hloops = loops
+  posinc = 1
     holotimer.interval = movieSpeed
-	holotimer.enabled=1
+  holotimer.enabled=1
 End Sub
 
 Dim Hname, Hsteps, Hloops, Hpos, posinc
  Sub holotimer_timer()
-		Dim imagename
-		HPos=(HPos+posinc) mod AttractVideo(1)
-		if HPos = 0 then HPos = 1
-		if HPos < 10 then
-			imagename = Hname & "00" & Hpos
-		elseif HPos < 100 then
-			imagename = Hname & "0" & Hpos
-		else
-			imagename = Hname & Hpos
-		end if
-		Moviewall1.image = imagename
-		Moviewall2.image = imagename
+    Dim imagename
+    HPos=(HPos+posinc) mod AttractVideo(1)
+    if HPos = 0 then HPos = 1
+    if HPos < 10 then
+      imagename = Hname & "00" & Hpos
+    elseif HPos < 100 then
+      imagename = Hname & "0" & Hpos
+    else
+      imagename = Hname & Hpos
+    end if
+    Moviewall1.image = imagename
+    Moviewall2.image = imagename
 debug.print imagename
 end Sub
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 
@@ -1049,38 +1049,38 @@ Sub UpdateFlipperLogo_Timer
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************
@@ -1202,16 +1202,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

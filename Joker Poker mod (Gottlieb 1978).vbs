@@ -36,53 +36,53 @@ Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 '******************* Options *********************
 ' DMD/Backglass Controller Setting
-Const cController = 3		'0=Use value defined in cController.txt, 1=VPinMAME, 2=UVP server, 3=B2S server
+Const cController = 3   '0=Use value defined in cController.txt, 1=VPinMAME, 2=UVP server, 3=B2S server
 '*************************************************
 
 '*************************************************************
 Dim cNewController
 Sub LoadVPM(VPMver, VBSfile, VBSver)
-	Dim FileObj, ControllerFile, TextStr
+  Dim FileObj, ControllerFile, TextStr
 
-	On Error Resume Next
-	If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-	ExecuteGlobal GetTextFile(VBSfile)
-	If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
+  On Error Resume Next
+  If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+  ExecuteGlobal GetTextFile(VBSfile)
+  If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
 
-	cNewController = 1
-	If cController = 0 then
-		Set FileObj=CreateObject("Scripting.FileSystemObject")
-		If Not FileObj.FolderExists(UserDirectory) then
-			Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
-		ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
-			Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-			ControllerFile.WriteLine 1: ControllerFile.Close
-		Else
-			Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
-			Set TextStr=ControllerFile.OpenAsTextStream(1,0)
-			If (TextStr.AtEndOfStream=True) then
-				Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-				ControllerFile.WriteLine 1: ControllerFile.Close
-			Else
-				cNewController=Textstr.ReadLine: TextStr.Close
-			End If
-		End If
-	Else
-		cNewController = cController
-	End If
+  cNewController = 1
+  If cController = 0 then
+    Set FileObj=CreateObject("Scripting.FileSystemObject")
+    If Not FileObj.FolderExists(UserDirectory) then
+      Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
+    ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
+      Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+      ControllerFile.WriteLine 1: ControllerFile.Close
+    Else
+      Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
+      Set TextStr=ControllerFile.OpenAsTextStream(1,0)
+      If (TextStr.AtEndOfStream=True) then
+        Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+        ControllerFile.WriteLine 1: ControllerFile.Close
+      Else
+        cNewController=Textstr.ReadLine: TextStr.Close
+      End If
+    End If
+  Else
+    cNewController = cController
+  End If
 
-	Select Case cNewController
-		Case 1
-			Set Controller = CreateObject("VPinMAME.Controller")
-			If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-			If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
-			If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-		Case 2
-			Set Controller = CreateObject("UltraVP.BackglassServ")
-		Case 3,4
-			Set Controller = CreateObject("B2S.Server")
-	End Select
-	On Error Goto 0
+  Select Case cNewController
+    Case 1
+      Set Controller = CreateObject("VPinMAME.Controller")
+      If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+      If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+      If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+    Case 2
+      Set Controller = CreateObject("UltraVP.BackglassServ")
+    Case 3,4
+      Set Controller = CreateObject("B2S.Server")
+  End Select
+  On Error Goto 0
 End Sub
 '*************************************************************
 
@@ -106,9 +106,9 @@ SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,RightFlipper1,"
 '**********************************************************************************************************
 'Primitive Flipper Code
 Sub FlipperTimer_Timer
-	Lflip.roty = LeftFlipper.currentangle
-	RFlip.roty = RightFlipper.currentangle
-	Rflip1.roty = RightFlipper1.currentangle -90
+  Lflip.roty = LeftFlipper.currentangle
+  RFlip.roty = RightFlipper.currentangle
+  Rflip1.roty = RightFlipper1.currentangle -90
 End Sub
 '**********************************************************************************************************
 
@@ -117,29 +117,29 @@ End Sub
 Dim bsTrough, dtjj, dtqq, dtaa, dtkk
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Joker Poker (Gottlieb)"&chr(13)&"You Suck"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Joker Poker (Gottlieb)"&chr(13)&"You Suck"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .hidden = 1
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-		Controller.SolMask(0)=0
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+    Controller.SolMask(0)=0
       vpmTimer.AddTimer 2000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
-		Controller.Run
-	If Err Then MsgBox Err.Description
-	On Error Goto 0
+    Controller.Run
+  If Err Then MsgBox Err.Description
+  On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
      vpmNudge.TiltSwitch = 4
      vpmNudge.Sensitivity = 2
@@ -147,12 +147,12 @@ Sub Table1_Init
 
   ' Trough
     Set bsTrough = New cvpmBallStack
-		bsTrough.initnotrough ballrelease, 66, 90, 10
-		bsTrough.InitExitSnd "ballrelease","solenoid"
+    bsTrough.initnotrough ballrelease, 66, 90, 10
+    bsTrough.InitExitSnd "ballrelease","solenoid"
 
   ' Drop targets
      set dtjj=New cvpmDropTarget
-		 dtjj.InitDrop Array(sw21,sw22,sw23),Array(21,22,23)
+     dtjj.InitDrop Array(sw21,sw22,sw23),Array(21,22,23)
          dtjj.initsnd "DTDrop","DTReset"
 
      set dtqq=New cvpmDropTarget
@@ -174,14 +174,14 @@ Sub Table1_Init
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull", Plunger, 1
-	If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
+  If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull", Plunger, 1
+  If keycode=AddCreditKey then vpmTimer.pulseSW (swCoin1)
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol"plunger", Plunger, 1
+  If KeyUpHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol"plunger", Plunger, 1
 End Sub
 
 '**********************************************************************************************************
@@ -252,11 +252,11 @@ Sub Drain_Hit:playsoundAtVol"drain", drain, 1:bsTrough.addball me:End Sub
   N1=0:O1=0
   Set LampCallback=GetRef("UpdateMultipleLamps")
   Sub UpdateMultipleLamps
- 	N1=Controller.Lamp(17)
+  N1=Controller.Lamp(17)
     If N1<>O1 Then
-		If N1 Then dtkk.DropSol_On
-	O1=N1
-	End If
+    If N1 Then dtkk.DropSol_On
+  O1=N1
+  End If
   End Sub
 
 
@@ -321,21 +321,21 @@ Digits(26) = Array(f2,f3,f7,f4,f5,f1,f6,n,f23)
 Digits(27) = Array(f9,f17,f22,f19,f20,f8,f21,n,f24)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
 If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 28) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
-			end if
-		next
-		end if
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 28) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
+      end if
+    next
+    end if
 end if
 End Sub
 '**********************************************************************************************************
@@ -343,24 +343,24 @@ End Sub
   'Gottlieb System 1
   'added by Inkochnito
   Sub editDips
- 	Dim vpmDips : Set vpmDips = New cvpmDips
- 	With vpmDips
- 		.AddForm 700,400,"System 1 - DIP switches"
- 		.AddFrame 205,0,190,"Maximum credits",&H00030000,Array("5 credits",0,"8 credits",&H00020000,"10 credits",&H00010000,"15 credits",&H00030000)'dip 17&18
- 		.AddFrame 0,0,190,"Coin chute control",&H00040000,Array("seperate",0,"same",&H00040000)'dip 19
- 		.AddFrame 0,46,190,"Game mode",&H00000400,Array("extra ball",0,"replay",&H00000400)'dip 11
- 		.AddFrame 0,92,190,"High game to date awards",&H00200000,Array("no award",0,"3 replays",&H00200000)'dip 22
- 		.AddFrame 0,138,190,"Balls per game",&H00000100,Array("5 balls",0,"3 balls",&H00000100)'dip 9
- 		.AddFrame 0,184,190,"Tilt effect",&H00000800,Array("game over",0,"ball in play only",&H00000800)'dip 12
- 		.AddChk 205,80,190,Array("Match feature",&H00000200)'dip 10
- 		.AddChk 205,95,190,Array("Credits displayed",&H00001000)'dip 13
- 		.AddChk 205,110,190,Array("Play credit button tune",&H00002000)'dip 14
- 		.AddChk 205,125,190,Array("Play tones when scoring",&H00080000)'dip 20
- 		.AddChk 205,140,190,Array("Play coin switch tune",&H00400000)'dip 23
- 		.AddChk 205,155,190,Array("High game to date displayed",&H00100000)'dip 21
- 		.AddLabel 50,240,300,20,"After hitting OK, press F3 to reset game with new settings."
- 		.ViewDips
- 	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"System 1 - DIP switches"
+    .AddFrame 205,0,190,"Maximum credits",&H00030000,Array("5 credits",0,"8 credits",&H00020000,"10 credits",&H00010000,"15 credits",&H00030000)'dip 17&18
+    .AddFrame 0,0,190,"Coin chute control",&H00040000,Array("seperate",0,"same",&H00040000)'dip 19
+    .AddFrame 0,46,190,"Game mode",&H00000400,Array("extra ball",0,"replay",&H00000400)'dip 11
+    .AddFrame 0,92,190,"High game to date awards",&H00200000,Array("no award",0,"3 replays",&H00200000)'dip 22
+    .AddFrame 0,138,190,"Balls per game",&H00000100,Array("5 balls",0,"3 balls",&H00000100)'dip 9
+    .AddFrame 0,184,190,"Tilt effect",&H00000800,Array("game over",0,"ball in play only",&H00000800)'dip 12
+    .AddChk 205,80,190,Array("Match feature",&H00000200)'dip 10
+    .AddChk 205,95,190,Array("Credits displayed",&H00001000)'dip 13
+    .AddChk 205,110,190,Array("Play credit button tune",&H00002000)'dip 14
+    .AddChk 205,125,190,Array("Play tones when scoring",&H00080000)'dip 20
+    .AddChk 205,140,190,Array("Play coin switch tune",&H00400000)'dip 23
+    .AddChk 205,155,190,Array("High game to date displayed",&H00100000)'dip 21
+    .AddLabel 50,240,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
   End Sub
   Set vpmShowDips = GetRef("editDips")
 '**********************************************************************************************************
@@ -384,7 +384,7 @@ For each xx in GI:xx.State = 1: Next
 Dim Lstep
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 40
+  vpmTimer.PulseSw 40
     PlaySoundAtVol "right_slingshot", sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -438,77 +438,77 @@ End Sub
 ' depending of the speed of the collision.
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************
@@ -628,16 +628,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

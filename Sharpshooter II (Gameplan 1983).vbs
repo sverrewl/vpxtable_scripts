@@ -40,7 +40,7 @@ Dim cCredits
 Dim FlipperShadows
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
-FlipperShadows = 1  	' 1 turns on, 0 turns off flipper shadows.
+FlipperShadows = 1    ' 1 turns on, 0 turns off flipper shadows.
 
 cCredits="Sharpshooter 2"
 Const cGameName="sshootr2",UseSolenoids=2,UseLamps=1,UseGI=0,UseSync=1,SCoin="coin3"',SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"
@@ -55,7 +55,7 @@ sub Encendido_timer
 dim xx
 playsound "encendido"
 For each xx in Ambiente:xx.State = 1: Next
-	me.enabled=false
+  me.enabled=false
 end sub
 
 Const sBallRelease=8
@@ -81,73 +81,73 @@ Dim bump1,bump2,bump3,bump4
 
 Sub Table1_Init
 vpmInit Me
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Sharpshooter II (Gameplan 1983)" & vbNewLine & "VPX Table By Kalavera"
-		.HandleMechanics=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
-		.Run
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Sharpshooter II (Gameplan 1983)" & vbNewLine & "VPX Table By Kalavera"
+    .HandleMechanics=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
+    .Run
         .Hidden=1
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-'	Controller.Dip(0) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '01-08
-'	Controller.Dip(1) = (0*1 + 0*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 1*128) '09-16
-'	Controller.Dip(2) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '17-24
-'	Controller.Dip(3) = (1*1 + 1*2 + 1*4 + 0*8 + 1*16 + 1*32 + 1*64 + 0*128) '25-32
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+' Controller.Dip(0) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '01-08
+' Controller.Dip(1) = (0*1 + 0*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 1*128) '09-16
+' Controller.Dip(2) = (0*1 + 1*2 + 0*4 + 0*8 + 0*16 + 0*32 + 0*64 + 0*128) '17-24
+' Controller.Dip(3) = (1*1 + 1*2 + 1*4 + 0*8 + 1*16 + 1*32 + 1*64 + 0*128) '25-32
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=True
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=True
 
-	vpmNudge.TiltSwitch=swTilt
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot,Sling2,Sling5)
+  vpmNudge.TiltSwitch=swTilt
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot,Sling2,Sling5)
 
-	Set dtdrop = New cvpmDropTarget
-   	  With dtdrop
-   		.InitDrop Array(TargetS,TargetH,TargetO1,TargetO2,TargetT,TargetE,TargetR),Array(31,32,35,36,4,10,17)
+  Set dtdrop = New cvpmDropTarget
+      With dtdrop
+      .InitDrop Array(TargetS,TargetH,TargetO1,TargetO2,TargetT,TargetE,TargetR),Array(31,32,35,36,4,10,17)
          .Initsnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx2_DTReset", DOFContactors)
        End With
 
-	Set bsSaucer = New cvpmBallStack
+  Set bsSaucer = New cvpmBallStack
              With bsSaucer
               .InitSaucer Kicker1,24, 200, 10
-      		 .KickForceVar = 1
-      		 .KickAngleVar = 1
+           .KickForceVar = 1
+           .KickAngleVar = 1
               .InitExitSnd "fx_kicker", "Solenoid"
-    		     .InitAddSnd "fx2_popper_ball"
+             .InitAddSnd "fx2_popper_ball"
              End With
 
-	Set bsTrough = New cvpmBallStack
+  Set bsTrough = New cvpmBallStack
             With bsTrough
              .InitSw 0,11,0,0,0,0,0,0
-      	     .InitKick BallRelease,90,8
+             .InitKick BallRelease,90,8
              bsTrough.InitExitSnd "fx_ballrel", "fx_Solenoid"
              .Balls = 1
             End With
 End Sub
 
-	Sub table1_Paused
-	Controller.Pause=True
-	End Sub
+  Sub table1_Paused
+  Controller.Pause=True
+  End Sub
 
-	Sub table1_UnPaused
-	Controller.Pause=False
-	End Sub
+  Sub table1_UnPaused
+  Controller.Pause=False
+  End Sub
 
-	Sub table1_Exit
-	Controller.Stop
-	End Sub
+  Sub table1_Exit
+  Controller.Stop
+  End Sub
 
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
         PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
-		LeftFlipper.RotateToEnd
+    LeftFlipper.RotateToEnd
     Else
         PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
@@ -165,7 +165,7 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub SolKnocker(Enabled)
-	If Enabled Then PlaySound SoundFX("fx_Knocker",DOFKnocker)
+  If Enabled Then PlaySound SoundFX("fx_Knocker",DOFKnocker)
 End Sub
 
 '**********************************************************************************************************
@@ -173,17 +173,17 @@ End Sub
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull", Plunger, 1: 	End If
-	End Sub
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull", Plunger, 1:   End If
+  End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", ActiveBall, 1
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", ActiveBall, 1
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 If FlipperShadows = 1 then
@@ -238,38 +238,38 @@ Sub T2_Hit:vpmTimer.PulseSw 20:PlaySoundAtVol SoundFX("FX2_Target", DOFDropTarge
 Sub Bumper1_Hit:RandomSoundBumper:vpmTimer.PulseSw 34:bump1 = 1:Me.TimerEnabled = 1:End Sub
  Sub Bumper1_Timer()
  if Bumper01.state=0 then
-	Bumper01a.state=0
-	Bumper01b.state=0
-	Bumper01c.state=0
-	end If
+  Bumper01a.state=0
+  Bumper01b.state=0
+  Bumper01c.state=0
+  end If
  if Bumper01.state=1 then
-	Bumper01a.state=1
-	Bumper01b.state=1
-	Bumper01c.state=1
-	end If
+  Bumper01a.state=1
+  Bumper01b.state=1
+  Bumper01c.state=1
+  end If
   End Sub
 Sub Bumper2_Hit:RandomSoundBumper:vpmTimer.PulseSw 33:bump2 = 1:Me.TimerEnabled = 1:End Sub
  Sub Bumper2_Timer()
  if Bumper02.state=0 then
-	Bumper02a.state=0
-	Bumper02b.state=0
-	Bumper02c.state=0
-	end if
+  Bumper02a.state=0
+  Bumper02b.state=0
+  Bumper02c.state=0
+  end if
  if Bumper02.state=1 then
-	Bumper02a.state=1
-	Bumper02b.state=1
-	Bumper02c.state=1
-	end if
+  Bumper02a.state=1
+  Bumper02b.state=1
+  Bumper02c.state=1
+  end if
 End Sub
 Sub Bumper3_Hit:RandomSoundBumper:vpmTimer.PulseSw 21:bump3 = 1:Me.TimerEnabled = 1:End Sub
 Sub Bumper4_Hit:RandomSoundBumper:vpmTimer.PulseSw 22:bump4 = 1:Me.TimerEnabled = 1:End Sub
 
 Sub RandomSoundBumper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtVol SoundFX("fx2_bumper_1", DOFContactors), ActiveBall, VolTarg
-		Case 2 : PlaySoundAtVol SoundFX("fx2_bumper_2", DOFContactors), ActiveBall, VolTarg
-		Case 3 : PlaySoundAtVol SoundFX("fx2_bumper_3", DOFContactors), ActiveBall, VolTarg
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtVol SoundFX("fx2_bumper_1", DOFContactors), ActiveBall, VolTarg
+    Case 2 : PlaySoundAtVol SoundFX("fx2_bumper_2", DOFContactors), ActiveBall, VolTarg
+    Case 3 : PlaySoundAtVol SoundFX("fx2_bumper_3", DOFContactors), ActiveBall, VolTarg
+  End Select
 End Sub
 
 
@@ -313,10 +313,10 @@ Set Lights(13)=Light13
 Set Lights(14)=Light14
 Set Lights(15)=Light15
 Set Lights(16)=Light16
-Set Lights(17)=Light17		'Special 1
-Set Lights(18)=Light18		'Special 2
-Lights(19)=Array(RollXB,RollXB1,RollXB2,RollXB3)		'Extra Ball 1
-Set Lights(20)=Light20		'Extra Ball 2
+Set Lights(17)=Light17    'Special 1
+Set Lights(18)=Light18    'Special 2
+Lights(19)=Array(RollXB,RollXB1,RollXB2,RollXB3)    'Extra Ball 1
+Set Lights(20)=Light20    'Extra Ball 2
 Set Lights(21)=Light21
 Set Lights(22)=Light22
 Set Lights(23)=Light23
@@ -336,11 +336,11 @@ Set Lights(36)=Light36
 Set Lights(37)=Light37
 Set Lights(38)=Light38
 Lights(39)=Array(Bumper03,Bumper02,Bumper03dt,Bumper02dt)
-Set Lights(40)=Light40		'Tilt
-Lights(41)=Array(GI101,GI102,GI103,Light41)		'High score
+Set Lights(40)=Light40    'Tilt
+Lights(41)=Array(GI101,GI102,GI103,Light41)   'High score
 Set Lights(42)=Light42
 Lights(43)=Array(Bumper01,Bumper04,Bumper01dt,Bumper04dt)
-Set Lights(44)=Light44		'Game over
+Set Lights(44)=Light44    'Game over
 Set Lights(45)=Light45
 Set Lights(46)=Light46
 Set Lights(47)=Light47
@@ -348,15 +348,15 @@ Set Lights(48)=Light48
 Set Lights(49)=Light49
 Set Lights(50)=Light50
 Set Lights(51)=Light51
-Set Lights(52)=Light52		'Shoot again
-Lights(53)=Array(Light53,Light53a)		'Ball in play
+Set Lights(52)=Light52    'Shoot again
+Lights(53)=Array(Light53,Light53a)    'Ball in play
 Set Lights(54)=Light54
 Set Lights(55)=Light55
 Set Lights(56)=Light56
-Set Lights(57)=Light57		'Player1
-Set Lights(58)=Light58		'Player2
-Set Lights(59)=Light59		'Player3
-Set Lights(60)=Light60		'Player4
+Set Lights(57)=Light57    'Player1
+Set Lights(58)=Light58    'Player2
+Set Lights(59)=Light59    'Player3
+Set Lights(60)=Light60    'Player4
 Set Lights(61)=Light61
 Set Lights(62)=Light62
 Set Lights(63)=Light63
@@ -411,21 +411,21 @@ Digits(30) = Array(a211,a212,a213,a214,a215,a216,a217)
 Digits(31) = Array(a218,a219,a220,a221,a222,a223,a224)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
 If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 32) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
-			end if
-		next
-		end if
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 32) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
+      end if
+    next
+    end if
 end if
 End Sub
 
@@ -493,49 +493,49 @@ Sub Sling2_Timer
 End Sub
 
 If DesktopMode = True Then 'Show Desktop components
-	Chapa1.Visible = 1
-	Chapa2.Visible = 1
-	Chapa3.Visible = 1
-	Bumper01.Visible = 0
-	Bumper02.Visible = 0
-	Bumper03.Visible = 0
-	Bumper04.Visible = 0
-	Bumper01dt.Visible = 1
-	Bumper02dt.Visible = 1
-	Bumper03dt.Visible = 1
-	Bumper04dt.Visible = 1
-	Light57.Visible = 1
-	Light58.Visible = 1
-	Light59.Visible = 1
-	Light60.Visible = 1
-	Lightcredits.Visible = 1
-	Light40.Visible = 1
-	Light53a.Visible = 1
-	Light56.Visible = 1
-	Light44.Visible = 1
-	Light41.Visible = 1
+  Chapa1.Visible = 1
+  Chapa2.Visible = 1
+  Chapa3.Visible = 1
+  Bumper01.Visible = 0
+  Bumper02.Visible = 0
+  Bumper03.Visible = 0
+  Bumper04.Visible = 0
+  Bumper01dt.Visible = 1
+  Bumper02dt.Visible = 1
+  Bumper03dt.Visible = 1
+  Bumper04dt.Visible = 1
+  Light57.Visible = 1
+  Light58.Visible = 1
+  Light59.Visible = 1
+  Light60.Visible = 1
+  Lightcredits.Visible = 1
+  Light40.Visible = 1
+  Light53a.Visible = 1
+  Light56.Visible = 1
+  Light44.Visible = 1
+  Light41.Visible = 1
 else
-	Chapa1.Visible = 0
-	Chapa2.Visible = 0
-	Chapa3.Visible = 0
-	Bumper01.Visible = 1
-	Bumper02.Visible = 1
-	Bumper03.Visible = 1
-	Bumper04.Visible = 1
-	Bumper01dt.Visible = 0
-	Bumper02dt.Visible = 0
-	Bumper03dt.Visible = 0
-	Bumper04dt.Visible = 0
-	Light57.Visible = 0
-	Light58.Visible = 0
-	Light59.Visible = 0
-	Light60.Visible = 0
-	Lightcredits.Visible = 0
-	Light40.Visible = 0
-	Light53a.Visible = 0
-	Light56.Visible = 0
-	Light44.Visible = 0
-	Light41.Visible = 0
+  Chapa1.Visible = 0
+  Chapa2.Visible = 0
+  Chapa3.Visible = 0
+  Bumper01.Visible = 1
+  Bumper02.Visible = 1
+  Bumper03.Visible = 1
+  Bumper04.Visible = 1
+  Bumper01dt.Visible = 0
+  Bumper02dt.Visible = 0
+  Bumper03dt.Visible = 0
+  Bumper04dt.Visible = 0
+  Light57.Visible = 0
+  Light58.Visible = 0
+  Light59.Visible = 0
+  Light60.Visible = 0
+  Lightcredits.Visible = 0
+  Light40.Visible = 0
+  Light53a.Visible = 0
+  Light56.Visible = 0
+  Light44.Visible = 0
+  Light41.Visible = 0
 end if
 
 '******************************
@@ -556,7 +556,7 @@ Sub Metals_Thin_Hit (idx):PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal
 Sub Banda_Hit (idx):PlaySound "left_slingshot", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -575,11 +575,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else
@@ -737,12 +737,12 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS
+' ninuzzu's FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 End Sub
 
 '************************************
@@ -786,19 +786,19 @@ End Sub
 'Gameplan Sharpshooter II
  'added by Inkochnito
  Sub EditDips
- 	Dim vpmDips:Set vpmDips=New cvpmDips
- 	With vpmDips
- 		.AddForm  700,400,"Sharpshooter II - DIP switches"
- 		.AddFrame   2,5,150,"Maximum credits",&H07000000,Array("5 credits",0,"10 credits",&H01000000,"15 credits",&H02000000,"20 credits",&H03000000,"25 credits",&H04000000,"30 credits",&H05000000,"35 credits",&H06000000,"40 credits",&H07000000)'dip 25&26&27
- 		.AddFrame   2,135,150,"High game to date award",&HC0000000,Array("no award",0,"1 credit",&H40000000,"2 credits",&H80000000,"3 credits",&HC0000000)'dip 31&32
- 		.AddFrame   170,5,150,"Special award",&H10000000,Array("extra ball",0,"replay",&H10000000)'dip 29
- 		.AddFrame   170,51,150,"Balls per game",&H08000000,Array("3 balls",0,"5 balls",&H08000000)'dip 28
- 		.AddChk   170,157,150,Array("Free play",&H00000080)'dip 8
- 		.AddChk   170,117,150,Array("Play tunes",32768)'dip 16
- 		.AddChk   170,137,150,Array("Match feature",&H20000000)'dip 30
- 		.AddLabel   30,230,300,20,"After hitting OK, press F3 to reset game with new settings."
- 		.ViewDips
- 	End With
+  Dim vpmDips:Set vpmDips=New cvpmDips
+  With vpmDips
+    .AddForm  700,400,"Sharpshooter II - DIP switches"
+    .AddFrame   2,5,150,"Maximum credits",&H07000000,Array("5 credits",0,"10 credits",&H01000000,"15 credits",&H02000000,"20 credits",&H03000000,"25 credits",&H04000000,"30 credits",&H05000000,"35 credits",&H06000000,"40 credits",&H07000000)'dip 25&26&27
+    .AddFrame   2,135,150,"High game to date award",&HC0000000,Array("no award",0,"1 credit",&H40000000,"2 credits",&H80000000,"3 credits",&HC0000000)'dip 31&32
+    .AddFrame   170,5,150,"Special award",&H10000000,Array("extra ball",0,"replay",&H10000000)'dip 29
+    .AddFrame   170,51,150,"Balls per game",&H08000000,Array("3 balls",0,"5 balls",&H08000000)'dip 28
+    .AddChk   170,157,150,Array("Free play",&H00000080)'dip 8
+    .AddChk   170,117,150,Array("Play tunes",32768)'dip 16
+    .AddChk   170,137,150,Array("Match feature",&H20000000)'dip 30
+    .AddLabel   30,230,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 
  End Sub
  Set vpmShowDips=GetRef("EditDips")

@@ -114,11 +114,11 @@ Sub DMD_DisplaySceneEx(bkgnd,toptext,topBrightness, topOutlineBrightness, bottom
 End Sub
 
 
-Sub DMDScene (background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout, prio)		'regular DMD call with priority
-	If prio >= OldDMDPrio Then
-		DMDSceneInt background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout
-		OldDMDPrio = prio
-	End If
+Sub DMDScene (background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout, prio)   'regular DMD call with priority
+  If prio >= OldDMDPrio Then
+    DMDSceneInt background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout
+    OldDMDPrio = prio
+  End If
 End Sub
 
 
@@ -377,27 +377,27 @@ Dim CharacterMode
 
 
 Sub startB2S(aB2S)
-	If B2SOn Then
-		Controller.B2SSetData 1,0
-		Controller.B2SSetData 2,0
-		Controller.B2SSetData 3,0
-		Controller.B2SSetData 4,0
-		Controller.B2SSetData 5,0
-		Controller.B2SSetData 6,0
-		Controller.B2SSetData 7,0
-		Controller.B2SSetData 8,0
-		Controller.B2SSetData 9,0
-		Controller.B2SSetData 10,0
-		Controller.B2SSetData 11,0
-		Controller.B2SSetData 12,0
-		Controller.B2SSetData 13,0
-		Controller.B2SSetData 14,0
-		Controller.B2SSetData 15,0
-		Controller.B2SSetData 16,0
-		Controller.B2SSetData 17,0
-		Controller.B2SSetData 18,0
-		Controller.B2SSetData aB2S,1
-	End If
+  If B2SOn Then
+    Controller.B2SSetData 1,0
+    Controller.B2SSetData 2,0
+    Controller.B2SSetData 3,0
+    Controller.B2SSetData 4,0
+    Controller.B2SSetData 5,0
+    Controller.B2SSetData 6,0
+    Controller.B2SSetData 7,0
+    Controller.B2SSetData 8,0
+    Controller.B2SSetData 9,0
+    Controller.B2SSetData 10,0
+    Controller.B2SSetData 11,0
+    Controller.B2SSetData 12,0
+    Controller.B2SSetData 13,0
+    Controller.B2SSetData 14,0
+    Controller.B2SSetData 15,0
+    Controller.B2SSetData 16,0
+    Controller.B2SSetData 17,0
+    Controller.B2SSetData 18,0
+    Controller.B2SSetData aB2S,1
+  End If
 End Sub
 
 
@@ -408,7 +408,7 @@ End Sub
 ' *********************************************************************
 Dim LMAG, RMAG, UMAG
 Sub MortalKombat_Init()
-	Dim i
+  Dim i
     Randomize
     LoadEM
     LoadUltraDMD
@@ -433,7 +433,7 @@ Sub MortalKombat_Init()
     Set LMAG = New cvpmMagnet
     With LMAG
         .InitMagnet LMagnet, 2
-		.GrabCenter = 0
+    .GrabCenter = 0
         .CreateEvents "LMAG"
     End With
 
@@ -442,7 +442,7 @@ Sub MortalKombat_Init()
     Set RMAG = New cvpmMagnet
     With RMAG
         .InitMagnet RMagnet, 2
-		.GrabCenter = 0
+    .GrabCenter = 0
         .CreateEvents "RMAG"
     End With
 
@@ -450,7 +450,7 @@ Sub MortalKombat_Init()
     Set UMAG = New cvpmMagnet
     With UMAG
         .InitMagnet UMagnet, 2
-		.GrabCenter = 0
+    .GrabCenter = 0
         .CreateEvents "UMAG"
     End With
 
@@ -501,18 +501,18 @@ End Sub
 
 Sub Magnets_Ini
   If bMultiBallMode = True Then
-	LMAG.MagnetOn = 1
-'	PlaySound SoundFX("fx_magnet",DOFShaker)
-	RMAG.MagnetOn = 1
-'	PlaySound SoundFX("fx_magnet",DOFShaker)
-	UMAG.MagnetOn = 1
-'	PlaySound SoundFX("fx_magnet",DOFShaker)
-	DOF 121, DOFOn
+  LMAG.MagnetOn = 1
+' PlaySound SoundFX("fx_magnet",DOFShaker)
+  RMAG.MagnetOn = 1
+' PlaySound SoundFX("fx_magnet",DOFShaker)
+  UMAG.MagnetOn = 1
+' PlaySound SoundFX("fx_magnet",DOFShaker)
+  DOF 121, DOFOn
   Else
     LMAG.MagnetOn = 0
     RMAG.MagnetOn = 0
     UMAG.MagnetOn = 0
-	DOF 121, DOFOff
+  DOF 121, DOFOff
   End If
 End Sub
 
@@ -523,7 +523,7 @@ End Sub
 Sub MortalKombat_KeyDown(ByVal Keycode)
     If Keycode = AddCreditKey Then
         Credits = Credits + 1
-		DOF 126, DOFOn
+    DOF 126, DOFOn
         If(Tilted = False) Then
             DMDFlush
             DMD "_", CenterLine(1, "CREDITS: " & Credits), 0, eNone, eNone, eNone, 500, True, "fx_coin"
@@ -565,7 +565,7 @@ Sub MortalKombat_KeyDown(ByVal Keycode)
                         PlayersPlayingGame = PlayersPlayingGame + 1
                         TotalGamesPlayed = TotalGamesPlayed + 1
                         Credits = Credits - 1
-						If Credits < 1 Then DOF 126, DOFOff
+            If Credits < 1 Then DOF 126, DOFOff
                     Else
                         ' Not Enough Credits to start a game.
                         DMDFlush
@@ -594,7 +594,7 @@ Sub MortalKombat_KeyDown(ByVal Keycode)
                     If(Credits > 0) Then
                         If(BallsOnPlayfield = 0) Then
                             Credits = Credits - 1
-							If Credits < 1 Then DOF 126, DOFOff
+              If Credits < 1 Then DOF 126, DOFOff
                             ResetForNewGame()
                         End If
                     Else
@@ -645,14 +645,14 @@ Sub MortalKombat_unPaused
 End Sub
 
 Sub MortalKombat_Exit():
-	Savehs
-	Controller.Stop
-	If Not UltraDMD is Nothing Then
-		If UltraDMD.IsRendering Then
-			UltraDMD.CancelRendering
-		End If
-		UltraDMD = NULL
-	End If
+  Savehs
+  Controller.Stop
+  If Not UltraDMD is Nothing Then
+    If UltraDMD.IsRendering Then
+      UltraDMD.CancelRendering
+    End If
+    UltraDMD = NULL
+  End If
 End Sub
 
 '********************
@@ -780,8 +780,8 @@ Sub DisableTable(Enabled)
         'Disable slings, bumpers etc
         LeftFlipper.RotateToStart
         RightFlipper.RotateToStart
-		DOF 101, DOFOff
-		DOF 102, DOFOff
+    DOF 101, DOFOff
+    DOF 102, DOFOff
         'Bumper1.Force = 0
 
         LeftSlingshot.Disabled = 1
@@ -887,24 +887,24 @@ Sub GIUpdateTimer_Timer
 End Sub
 
 Sub GiOn
-	DOF 127, DOFOn
+  DOF 127, DOFOn
     Dim bulb
     For each bulb in aGiLights
         bulb.State = 1
     Next
-   	Playsound "fx_relay_on"
+    Playsound "fx_relay_on"
     Primitive58.image = "ShaoKahn_On"
     AyeFlasher1.visible = 1
     AyeFlasher2.visible = 1
 End Sub
 
 Sub GiOff
-	DOF 127, DOFOff
+  DOF 127, DOFOff
     Dim bulb
     For each bulb in aGiLights
         bulb.State = 0
     Next
-	Playsound "fx_relay_off"
+  Playsound "fx_relay_off"
     Primitive58.image = "ShaoKahn_Diff3"
     AyeFlasher1.visible = 0
     AyeFlasher2.visible = 0
@@ -978,7 +978,7 @@ Sub FlashEffectTimer_Timer()
             FlashForms BackFlasher4, 2000, 40, 0
             FlashForms BackFlasher5, 2000, 40, 0
             FlashForms BackFlasher6, 2000, 40, 0
-			DOF 210, DOFPulse
+      DOF 210, DOFPulse
             FlashForms FlasherLeftRamp, 2000, 40, 0:DOF 200, DOFPulse
             FlashForms FlasherRightRamp, 2000, 40, 0:DOF 203, DOFPulse
             FlashForms LJ1, 2000, 40, 0:FlashForms LJ4, 2000, 40, 0
@@ -1044,7 +1044,7 @@ Sub BFlashEffectTimer_Timer()
             FlashForms BackFlasher4, 1500, 40, 0
             FlashForms BackFlasher5, 1500, 40, 0
             FlashForms BackFlasher6, 1500, 40, 0
-			DOF 211, DOFPulse
+      DOF 211, DOFPulse
             BFlashEffectTimer.Enabled = 0
         Case 2
             Select Case INT(RND * 6)
@@ -1055,7 +1055,7 @@ Sub BFlashEffectTimer_Timer()
                 Case 4:FlashForms BackFlasher5, 500, 40, 0
                 Case 5:FlashForms BackFlasher6, 500, 40, 0
             End Select
-			DOF 212, DOFPulse
+      DOF 212, DOFPulse
             If BEStep = 20 then BFlashEffectTimer.Enabled = 0
         Case 3
             Select case BEStep
@@ -1079,7 +1079,7 @@ Sub BFlashEffectTimer_Timer()
                 Case 17:FlashForms BackFlasher6, 200, 40, 0
                 Case 18:BFlashEffectTimer.Enabled = 0
             End Select
-			DOF 213, DOFPulse
+      DOF 213, DOFPulse
         Case 4
             Select case BEStep
                 Case 0:FlashForms BackFlasher6, 200, 40, 0
@@ -1102,7 +1102,7 @@ Sub BFlashEffectTimer_Timer()
                 Case 17:FlashForms BackFlasher1, 200, 40, 0
                 Case 18:BFlashEffectTimer.Enabled = 0
             End Select
-			DOF 213, DOFPulse
+      DOF 213, DOFPulse
     End Select
     BEStep = BEStep + 1
 End Sub
@@ -1290,7 +1290,7 @@ Sub CreateNewBall()
     ' if there is 2 or more balls then set the multibal flag
     If BallsOnPlayfield > 1 Then
         bMultiBallMode = True
-		DOF 132, DOFPulse
+    DOF 132, DOFPulse
         ChangeSong
        ' MagnetsTimer.enabled = 1
             l19.state = 2
@@ -1615,8 +1615,8 @@ Sub swPlungerRest_Hit()
     If bAutoPlunger = True Then
         debug.print "autofire is on"
         PlungerIM.AutoFire
-		DOF 131, DOFPulse
-		DOF 125, DOFPulse
+    DOF 131, DOFPulse
+    DOF 125, DOFPulse
     If bBallSaverActive = False Then
         bAutoPlunger = False
     End If
@@ -1644,9 +1644,9 @@ Sub swPlungerRest_UnHit()
     bBallInPlungerLane = False
     BackFlashEffect 1
     SetFlash 7, 2
-	DOF 205, DOFPulse
-	DOF 131, DOFPulse
-	DOF 125, DOFPulse
+  DOF 205, DOFPulse
+  DOF 131, DOFPulse
+  DOF 125, DOFPulse
 End Sub
 
 Sub EnableBallSaver(seconds)
@@ -1763,9 +1763,9 @@ Sub AddJackpot(points)
         If(bMultiBallMode = True) Then
             Jackpot = Jackpot + points
         ' you may wish to limit the jackpot to a upper limit, ie..
-        '	If (Jackpot >= 6000) Then
-        '		Jackpot = 6000
-        ' 	End if
+        ' If (Jackpot >= 6000) Then
+        '   Jackpot = 6000
+        '   End if
         End if
     End if
 End Sub
@@ -1818,8 +1818,8 @@ Sub IncrementBonus(Amount)
 End Sub
 
 Sub AwardExtraBall()
-	DOF 124, DOFPulse
-	DOF 125, DOFPulse
+  DOF 124, DOFPulse
+  DOF 125, DOFPulse
     If NOT bExtraBallWonThisBall Then
     '    DMDFlush
     '    DMD RightLine(0, ""), CenterLine(1, "_"), 4, eNone, eBlink, eNone, 3000, True, "WellDone"
@@ -1857,7 +1857,7 @@ end sub
 
 
 Sub AwardJackpot()
-	DMDFlush
+  DMDFlush
     DMD RightLine(0, ""), CenterLine(1, ""), 6, eNone, eBlink, eNone, 1000, True, "Excellent"
     DMD_DisplaySceneEx "DMD1.png", "Jackpot", 14, 2, "100000" , -1, -1, UltraDMD_Animation_None, 800, UltraDMD_Animation_None
     AddScore 100000
@@ -1872,7 +1872,7 @@ Sub AwardJackpot()
 End Sub
 
 Sub AwardSuperJackpot()
-	DMDFlush
+  DMDFlush
     DMD RightLine(0, ""), CenterLine(1, ""), 42, eNone, eBlink, eBlink, 800, True, "FlawlessVictory"
     DMD RightLine(1, ""), RightLine(1, ""), 37, eNone, eNone, eBlink, 800, True, "Fatality"
     DMD_DisplaySceneEx "DMD1.png", "Super Jackpot", 14, 2, "500000" , -1, -1, UltraDMD_Animation_None, 800, UltraDMD_Animation_None
@@ -1896,7 +1896,7 @@ Sub AwardSuperJackpot()
 End Sub
 
 Sub JackpotShaoKahnDefeated()
-	DMDFlush
+  DMDFlush
     DMD RightLine(0, ""), CenterLine(1, ""), 42, eNone, eBlink, eBlink, 800, True, "FlawlessVictory"
     DMD RightLine(1, ""), RightLine(1, ""), 37, eNone, eNone, eBlink, 800, True, "Fatality"
     DMD CenterLine(0, FormatScore(Jackpot * characterLevel) ), Centerline(1, ("SHAO KAHN") ), 0, eBlinkFast, eBlinkFast, eNone, 1000, True, ""
@@ -1923,7 +1923,7 @@ Sub JackpotShaoKahnDefeated()
 End Sub
 
 Sub JackpotKintaroDefeated()
-	DMDFlush
+  DMDFlush
     DMD RightLine(0, ""), CenterLine(1, ""), 42, eNone, eBlink, eBlink, 800, True, "FlawlessVictory"
     DMD RightLine(1, ""), RightLine(1, ""), 37, eNone, eNone, eBlink, 800, True, "Fatality"
     DMD CenterLine(0, FormatScore(Jackpot * characterLevel) ), Centerline(1, ("KINTARO") ), 0, eBlinkFast, eBlinkFast, eNone, 1000, True, ""
@@ -1992,7 +1992,7 @@ End Sub
 
 
 Sub AwardSkillshot()
-	DMD CenterLine(0, FormatScore(SkillshotValue) ), Centerline(1, ("SKILLSHOT") ), 0, eBlinkFast, eBlink, eNone, 1000, True, ""
+  DMD CenterLine(0, FormatScore(SkillshotValue) ), Centerline(1, ("SKILLSHOT") ), 0, eBlinkFast, eBlink, eNone, 1000, True, ""
     AddScore SkillshotValue
     ResetSkillShotTimer_Timer
 End Sub
@@ -2083,12 +2083,12 @@ Sub CheckHighscore()
 
     If tmp > HighScore(1) Then 'add 1 credit for beating the highscore
         Credits = Credits + 1
-		DOF 126, DOFOn
+    DOF 126, DOFOn
     End If
 
     If tmp > HighScore(3) Then
         PlaySound SoundFXDOF("fx_knocker",124,DOFPulse,DOFKnocker)
-		DOF 125, DOFPulse
+    DOF 125, DOFPulse
         HighScore(3) = tmp
         'enter player's name
         HighScoreEntryInit()
@@ -2641,7 +2641,7 @@ Sub AllFlashersOff
 End Sub
 
 Sub SetFlash(n, value)
-	If value <> FlashState(n) Then
+  If value <> FlashState(n) Then
         FlashState(n) = value
         FadingLevel(n) = value
     End If
@@ -3110,9 +3110,9 @@ Sub TurnOffPlayfieldLights()
 End Sub
 
 Sub ResetNewBallLights()
-'	LightArrow1.State = 2
-'	LightArrow6.State = 2
-'	l53.State = 2
+' LightArrow1.State = 2
+' LightArrow6.State = 2
+' l53.State = 2
 End Sub
 
 ' *********************************************************************
@@ -3134,7 +3134,7 @@ Dim LStep, RStep
 Sub LeftSlingShot_Slingshot
     If Tilted Then Exit Sub
     PlaySoundAtVol SoundFXDOF("fx_slingshot",103,DOFPulse,DOFContactors), lemk, 1
-	DOF 105, DOFPulse
+  DOF 105, DOFPulse
     LeftSling4.Visible = 1:LeftSling1.Visible = 0
     Lemk.RotX = 26
     LStep = 0
@@ -3159,7 +3159,7 @@ End Sub
 Sub RightSlingShot_Slingshot
     If Tilted Then Exit Sub
     PlaySoundAtVol SoundFXDOF("fx_slingshot",104,DOFPulse,DOFContactors), remk, 1
-	DOF 106, DOFPulse
+  DOF 106, DOFPulse
     RightSling4.Visible = 1:RightSling1.Visible = 0
     Remk.RotX = 26
     RStep = 0
@@ -3187,7 +3187,7 @@ End Sub
 
 Sub Spinner_Spin()
     If Tilted Then Exit Sub
-	PlaySoundAtVol"fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol"fx_spinner", Spinner, VolSpin
     AddScore 1000
 End Sub
 
@@ -3203,7 +3203,7 @@ Sub Bumper1b_Hit
     Bumper1bL.state = 1
     vpmTimer.AddTimer 50, "ResetBumpersLights"
     PlaySoundAtVol SoundFXDOF("fx_bumper",107,DOFPulse,DOFContactors), Bumper1b, VolBump
-	DOF 110, DOFPulse
+  DOF 110, DOFPulse
     AddScore 500 + 4500 * Flashstate(1) 'a bumper scores 100 points and 1000 points when lit
     bumperHits = bumperHits - 1
     DMDFlush
@@ -3218,7 +3218,7 @@ Sub Bumper2b_Hit
     Bumper2bL.state = 1
     vpmTimer.AddTimer 50, "ResetBumpersLights"
     PlaySoundAtVol SoundFXDOF("fx_bumper",109,DOFPulse,DOFContactors), Bumper2b, VolBump
-	DOF 112, DOFPulse
+  DOF 112, DOFPulse
     AddScore 500 + 4500 * Flashstate(2) 'a bumper scores 100 points and 1000 points when lit
     bumperHits = bumperHits - 1
     DMDFlush
@@ -3233,7 +3233,7 @@ Sub Bumper3b_Hit
     Bumper3bL.state = 1
     vpmTimer.AddTimer 50, "ResetBumpersLights"
     PlaySoundAtVol SoundFXDOF("fx_bumper",108,DOFPulse,DOFContactors), Bumper3b, VolBump
-	DOF 111, DOFPulse
+  DOF 111, DOFPulse
     AddScore 500 + 4500 * Flashstate(3) 'a bumper scores 100 points and 1000 points when lit
     bumperHits = bumperHits - 1
     DMDFlush
@@ -3284,7 +3284,7 @@ Sub SwSkillShot_hit()
 End Sub
 
 Sub SwSkillShotUpdate(dummy)
-	DOF 130, DOFPulse
+  DOF 130, DOFPulse
     SwSkillShot.kick 0, 55
     LaserKickP.TransY = 90
     Playsound "bumper_retro"
@@ -3507,8 +3507,8 @@ End Sub
 
 Sub Sw11Update(dummy)
     Sw11.kick 0, 48, 1.5
-	DOF 128, DOFPulse
-	DOF 125, DOFPulse
+  DOF 128, DOFPulse
+  DOF 125, DOFPulse
     Playsound "fx_rampR"
     AddScore 2000
    If bMultiBallMode = True and LJ5.state = 2 Then
@@ -3531,12 +3531,12 @@ Sub Sw12_Hit()
     AddScore 2000
     Me.DestroyBall
     SetFlash 8, 2
-	DOF 209, DOFPulse
+  DOF 209, DOFPulse
   If bMultiBallMode = False Then
  '    startB2S(20)
      StartSlotmachine
      l18.state = 0
-	 If Sw25.Isdropped = 1 Then DOF 114, DOFPulse
+   If Sw25.Isdropped = 1 Then DOF 114, DOFPulse
      Sw25.Isdropped = 0
      CharacterBonus = CharacterBonus + 1
   Else
@@ -3578,8 +3578,8 @@ Sub Sw13_Hit()
 End Sub
 
 Sub Sw13Hole()
-	DOF 129, DOFPulse
-	DOF 125, DOFPulse
+  DOF 129, DOFPulse
+  DOF 125, DOFPulse
     Sw14.createball
     Sw14.kick 0, 38, 1.56
     Playsound "fx_vukout_LAH"
@@ -3621,7 +3621,7 @@ End Sub
 '*********************
 
 Sub Sw15_Hit()
-	DOF 118, DOFPulse
+  DOF 118, DOFPulse
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     AddScore 3000
@@ -3631,7 +3631,7 @@ Sub Sw15_Hit()
 End Sub
 
 Sub Sw16_Hit()
-	DOF 119, DOFPulse
+  DOF 119, DOFPulse
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     AddScore 3000
@@ -3641,7 +3641,7 @@ Sub Sw16_Hit()
 End Sub
 
 Sub Sw17_Hit()
-	DOF 120, DOFPulse
+  DOF 120, DOFPulse
     PlaySoundAtVol "fx_sensor", ActiveBall, 1
     If Tilted Then Exit Sub
     AddScore 10000
@@ -3677,8 +3677,8 @@ Sub Sw20_Hit()
     If Tilted Then Exit Sub
     AddScore 10000
     SetFlash 1, 2:SetFlash 2, 2
-	DOF 206, DOFPulse
-	DOF 207, DOFPulse
+  DOF 206, DOFPulse
+  DOF 207, DOFPulse
     l10.State = 1
 
     If LightSkillShot.state = 0 Then
@@ -3706,8 +3706,8 @@ Sub Sw21_Hit()
     If Tilted Then Exit Sub
     AddScore 10000
     SetFlash 1, 2:SetFlash 2, 2
-	DOF 206, DOFPulse
-	DOF 207, DOFPulse
+  DOF 206, DOFPulse
+  DOF 207, DOFPulse
     LightEffect 3
     l17.State = 1
  '   startB2S(17)
@@ -3771,7 +3771,7 @@ Sub sw26_Hit
     If Tilted Then Exit Sub
     AddScore 2000
     SetFlash 2, 2
-	DOF 207, DOFPulse
+  DOF 207, DOFPulse
 '    startB2S(17)
     vpmTimer.AddTimer 100, "ComboblinkLight"
 '    LightDragon.BlinkInterval = 160
@@ -3830,7 +3830,7 @@ Sub sw24_Hit
     If Tilted Then Exit Sub
     AddScore 2000
     SetFlash 1, 2
-	DOF 206, DOFPulse
+  DOF 206, DOFPulse
 '    startB2S(18)
     vpmTimer.AddTimer 100, "ComboblinkLight"
  '   LightDragon.BlinkInterval = 160
@@ -4344,7 +4344,7 @@ Sub StartSlotmachine() ' uses the HolePos variable
     Dim i
     HologramAnim.enabled = 0
     HologramAnim.enabled = 1
-	DOF 135, DOFOn
+  DOF 135, DOFOn
     SlotPos = 8
     DMDFlush
     For i = SlotPos to SlotPos * 2
@@ -4359,7 +4359,7 @@ Sub GiveSlotAward()
     Dim tmp
     HologramAnim.enabled = 1
     HologramAnim.enabled = 0
-	DOF 135, DOFOff
+  DOF 135, DOFOff
     RamdonUltraDMDOff
     DMDFlush
     tmp = INT(SlotPos + RND * 16)
@@ -4763,7 +4763,7 @@ Sub CharactersDefeatedMultiball()
      SetFlash 3, 0
      SetFlash 4, 0
      SetFlash 5, 0
-	 If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
+   If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
      Sw25.isdropped = 1
      l18.State = 0
      Post.Isdropped= 0
@@ -4839,7 +4839,7 @@ Sub MortalKombatTargets
      bsLocksTargets1 = 0
      bsLocksTargets2 = 0
      bsLocksTargets3 = 0
-	 If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
+   If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
      Sw25.isdropped = 1
      l18.State = 0
      Post.Isdropped= 0
@@ -4862,7 +4862,7 @@ Sub MKMultiball()
     LockedBalls = 0
     bLockEnabled = False
     LockLight.State = 0
-	If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
+  If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
     Sw25.isdropped = 1
     l18.State = 2
     Post.Isdropped = 0
@@ -4903,7 +4903,7 @@ Sub KintaroMultiball()
      SetFlash 3, 0
      SetFlash 4, 0
      SetFlash 5, 0
-	 If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
+   If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
      Sw25.isdropped = 1
      l18.State = 0
      Post.Isdropped= 0
@@ -4938,7 +4938,7 @@ Sub UnknownMultiball()
      SetFlash 3, 0
      SetFlash 4, 0
      SetFlash 5, 0
-	 If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
+   If Sw25.Isdropped = 0 Then DOF 114, DOFPulse
      Sw25.isdropped = 1
      l18.State = 0
      Post.Isdropped= 0

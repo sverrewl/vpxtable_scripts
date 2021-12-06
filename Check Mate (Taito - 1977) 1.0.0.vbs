@@ -1,7 +1,7 @@
 ' ****************************************************************
 '               VISUAL PINBALL X EM Script por JPSalas
 '         Script Básico para juegos EM Script hasta 4 players
-'		     usa el core.vbs para funciones extras
+'        usa el core.vbs para funciones extras
 ' ****************************************************************
 
 Option Explicit
@@ -235,7 +235,7 @@ End Sub
 
 Sub table1_Exit
     Savehs
-	If B2SOn Then Controller.Stop
+  If B2SOn Then Controller.Stop
 End Sub
 
 '********************
@@ -281,7 +281,7 @@ Sub GiOn 'enciende las luces GI
     For each bulb in aGiLights
         bulb.State = 1
     Next
-	If B2SOn Then Controller.B2SSetData 60,1
+  If B2SOn Then Controller.B2SSetData 60,1
 End Sub
 
 Sub GiOff 'apaga las luces GI
@@ -289,7 +289,7 @@ Sub GiOff 'apaga las luces GI
     For each bulb in aGiLights
         bulb.State = 0
     Next
-	If B2SOn Then Controller.B2SSetData 60,0
+  If B2SOn Then Controller.B2SSetData 60,0
 End Sub
 
 '**************
@@ -519,7 +519,7 @@ Sub ResetForNewGame()
     ' enciende las luces GI si estuvieran apagadas
     GiOn
 
-	MatchWheel.enabled=true
+  MatchWheel.enabled=true
 
     CurrentPlayer = 1
     PlayersPlayingGame = 1
@@ -766,7 +766,7 @@ End Sub
 
 Sub EndOfGame()
     'debug.print "EndOfGame"
-	MatchWheel.enabled=false
+  MatchWheel.enabled=false
     bGameInPLay = False
     bJustStarted = False
     If B2SOn then
@@ -811,14 +811,14 @@ End Sub
 '******************
 
 sub MatchWheel_timer
-	IncreaseMatch
-	If B2SOn then
+  IncreaseMatch
+  If B2SOn then
         If Match = 0 then
             Controller.B2SSetMatch 100
         else
             Controller.B2SSetMatch Match
-		end if
-	end if
+    end if
+  end if
 end sub
 
 Sub IncreaseMatch

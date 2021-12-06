@@ -68,86 +68,86 @@ Const SCoin = "Coin"
 ' Table Init
 ' ==================================================================
 Sub Table1_Init
-	vpmInit Me 'new
-	With Controller
-		.GameName = cGameName
-		.Games(cGameName).Settings.Value("rol") = 0
-		.Games(cGameName).Settings.Value("dmd_red") = 0
-		.Games(cGameName).Settings.Value("dmd_green") = 223
-		.Games(cGameName).Settings.Value("dmd_blue") = 223
-		.SplashInfoLine = "Robo-War (Gottlieb 1988)" & vbNewLine & "VPM table by Kevin Lee Drum"
-		.HandleMechanics = 0
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		If DesktopMode AND B2SOn then
-			.Hidden = 0
-		Else
-			If B2SOn then
-				.Hidden = 1
-			Else
-				.Hidden = 0
-			End If
+  vpmInit Me 'new
+  With Controller
+    .GameName = cGameName
+    .Games(cGameName).Settings.Value("rol") = 0
+    .Games(cGameName).Settings.Value("dmd_red") = 0
+    .Games(cGameName).Settings.Value("dmd_green") = 223
+    .Games(cGameName).Settings.Value("dmd_blue") = 223
+    .SplashInfoLine = "Robo-War (Gottlieb 1988)" & vbNewLine & "VPM table by Kevin Lee Drum"
+    .HandleMechanics = 0
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    If DesktopMode AND B2SOn then
+      .Hidden = 0
+    Else
+      If B2SOn then
+        .Hidden = 1
+      Else
+        .Hidden = 0
+      End If
         End If
-		If Err Then MsgBox Err.Description
-		On Error Resume Next
-	End With
+    If Err Then MsgBox Err.Description
+    On Error Resume Next
+  End With
 
-	On Error Goto 0
-	Controller.SolMask(0) = 0
-	vpmTimer.AddTimer 2000, "Controller.SolMask(0) = &Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
-	Controller.Run GetPlayerHWnd
+  On Error Goto 0
+  Controller.SolMask(0) = 0
+  vpmTimer.AddTimer 2000, "Controller.SolMask(0) = &Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
+  Controller.Run GetPlayerHWnd
 
-	' Timers
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  ' Timers
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
-	' Nudging
-	vpmNudge.TiltSwitch = 57
-	vpmNudge.Sensitivity = 1
-	vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+  ' Nudging
+  vpmNudge.TiltSwitch = 57
+  vpmNudge.Sensitivity = 1
+  vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
-	' Ball Stacks
-	Set bsTop = New cvpmBallStack
-	With bsTop
-		.InitSaucer Kicker,76,140,5
-		.InitExitSnd SoundFX("Popper_Ball",DOFContactors), SoundFX(SSolenoidOn,DOFContactors)
-	End With
+  ' Ball Stacks
+  Set bsTop = New cvpmBallStack
+  With bsTop
+    .InitSaucer Kicker,76,140,5
+    .InitExitSnd SoundFX("Popper_Ball",DOFContactors), SoundFX(SSolenoidOn,DOFContactors)
+  End With
 
-	Set bsTrough = New cvpmBallStack
-	With bsTrough
-		.InitNoTrough BallRelease,66,45,10
-		.InitSw 66,0,56,0,0,0,0,0
-		.InitKick BallRelease,45,10
-		.InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX(SSolenoidOn,DOFContactors)
-		'.BallImage = "BallDark"
-		.Balls = 2
-	End With
+  Set bsTrough = New cvpmBallStack
+  With bsTrough
+    .InitNoTrough BallRelease,66,45,10
+    .InitSw 66,0,56,0,0,0,0,0
+    .InitKick BallRelease,45,10
+    .InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX(SSolenoidOn,DOFContactors)
+    '.BallImage = "BallDark"
+    .Balls = 2
+  End With
 
-	' Drop Targets
-	Set dtAlpha1 = New cvpmDropTarget
-	dtAlpha1.InitDrop Alpha1,43
-	dtAlpha1.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
-	dtAlpha1.CreateEvents "dtAlpha1"
+  ' Drop Targets
+  Set dtAlpha1 = New cvpmDropTarget
+  dtAlpha1.InitDrop Alpha1,43
+  dtAlpha1.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
+  dtAlpha1.CreateEvents "dtAlpha1"
 
-	Set dtAlpha2 = New cvpmDropTarget
-	dtAlpha2.InitDrop Array(Alpha2A,Alpha2B), Array(42,52)
-	dtAlpha2.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
-	dtAlpha2.CreateEvents "dtAlpha2"
+  Set dtAlpha2 = New cvpmDropTarget
+  dtAlpha2.InitDrop Array(Alpha2A,Alpha2B), Array(42,52)
+  dtAlpha2.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
+  dtAlpha2.CreateEvents "dtAlpha2"
 
-	Set dtAlpha3 = New cvpmDropTarget
-	dtAlpha3.InitDrop Array(Alpha3A,Alpha3B,Alpha3C), Array(41,51,61)
-	dtAlpha3.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
-	dtAlpha3.CreateEvents "dtAlpha3"
+  Set dtAlpha3 = New cvpmDropTarget
+  dtAlpha3.InitDrop Array(Alpha3A,Alpha3B,Alpha3C), Array(41,51,61)
+  dtAlpha3.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
+  dtAlpha3.CreateEvents "dtAlpha3"
 
-	Set dtBeta = New cvpmDropTarget
-	dtBeta.InitDrop Array(BetaB,BetaE,BetaT,BetaA), Array(40,50,60,70)
-	dtBeta.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
-	dtBeta.CreateEvents "dtBeta"
+  Set dtBeta = New cvpmDropTarget
+  dtBeta.InitDrop Array(BetaB,BetaE,BetaT,BetaA), Array(40,50,60,70)
+  dtBeta.InitSnd SoundFX("TargetDrop",DOFDropTargets), SoundFX(SSolenoidOn,DOFDropTargets)
+  dtBeta.CreateEvents "dtBeta"
 
-	' GI Option
-	' DOF 150,1
+  ' GI Option
+  ' DOF 150,1
 twos = 0
 gion = 1
 End Sub
@@ -177,22 +177,22 @@ End If
 Sub Table1_Paused:Controller.Pause = True:End Sub
 Sub Table1_unPaused:Controller.Pause = False:End Sub
 Sub Table1_KeyDown(ByVal keycode)
-	If KeyCode = RightFlipperKey Then Controller.Switch(46)=1
+  If KeyCode = RightFlipperKey Then Controller.Switch(46)=1
     'If keycode = 3 Then Msgbox Activeball.Y
-	If KeyCode = PlungerKey Then
-		Plunger.Pullback
-		'PDirection = 1:Plunge.Interval = 40:Plunge.Enabled = 1 ' Plunger pull-back animation
-	End If
-	If vpmKeyDown(KeyCode) Then Exit Sub
-	If KeyCode = KeyRules then Rules
+  If KeyCode = PlungerKey Then
+    Plunger.Pullback
+    'PDirection = 1:Plunge.Interval = 40:Plunge.Enabled = 1 ' Plunger pull-back animation
+  End If
+  If vpmKeyDown(KeyCode) Then Exit Sub
+  If KeyCode = KeyRules then Rules
 End Sub
 Sub Table1_KeyUp(ByVal keycode)
-	If KeyCode = RightFlipperKey Then Controller.Switch(46)=0
-	If KeyCode = PlungerKey Then
-		Plunger.Fire:PlaySoundAt "Plunger", Plunger
-		'PDirection = -1:Plunge.Interval = 6:Plunge.Enabled = 1 ' Plunger release animation
-	End If
-	If vpmKeyUp(KeyCode) Then Exit Sub
+  If KeyCode = RightFlipperKey Then Controller.Switch(46)=0
+  If KeyCode = PlungerKey Then
+    Plunger.Fire:PlaySoundAt "Plunger", Plunger
+    'PDirection = -1:Plunge.Interval = 6:Plunge.Enabled = 1 ' Plunger release animation
+  End If
+  If vpmKeyUp(KeyCode) Then Exit Sub
 End Sub
 
 ' Switches
@@ -209,7 +209,7 @@ Sub RightSlingShot_Slingshot
     RStep = 0
     RightSlingShot.TimerEnabled = 1
     RightSlingShot.TimerInterval = 10
-	vpmTimer.PulseSw 33
+  vpmTimer.PulseSw 33
     DOF 111,DOFPulse
     RSS.opacity = 60
 End Sub
@@ -231,7 +231,7 @@ Sub LeftSlingShot_Slingshot
     LStep = 0
     LeftSlingShot.TimerEnabled = 1
     LeftSlingShot.TimerInterval = 10
-	vpmTimer.PulseSw 33
+  vpmTimer.PulseSw 33
     LSS.opacity = 60
     DOF 110, DOFPulse
 End Sub
@@ -252,30 +252,30 @@ Sub Bumper3_Hit:PlaySoundAtVol SoundFX("Bumper",DOFContactors), Bumper3, VolBump
 ' Drain
 Sub Drain_Hit:PlaySoundAt "Drain", Drain:bsTrough.AddBall Me:End Sub
 ' Rollovers
-Sub LaneR_Hit:Controller.Switch(44) = 1:				End Sub
-Sub LaneR_UnHit:Controller.Switch(44) = 0:				End Sub
-Sub LaneO_Hit:Controller.Switch(54) = 1:				End Sub
-Sub LaneO_UnHit:Controller.Switch(54) = 0:				End Sub
-Sub LaneB_Hit:Controller.Switch(64) = 1:				End Sub
-Sub LaneB_UnHit:Controller.Switch(64) = 0:				End Sub
-Sub LaneO2_Hit:Controller.Switch(74) = 1:				End Sub
-Sub LaneO2_UnHit:Controller.Switch(74) = 0:				End Sub
-Sub LeftOutlane_Hit:Controller.Switch(45) = 1:			End Sub
-Sub LeftOutlane_UnHit:Controller.Switch(45) = 0:		End Sub
-Sub LeftInlane_Hit:Controller.Switch(55) = 1:			End Sub
-Sub LeftInlane_UnHit:Controller.Switch(55) = 0:			End Sub
-Sub RightInlane_Hit:Controller.Switch(65) = 1:			End Sub
-Sub RightInlane_UnHit:Controller.Switch(65) = 0:		End Sub
-Sub RightOutlane_Hit:Controller.Switch(75) = 1:			End Sub
-Sub RightOutlane_UnHit:Controller.Switch(75) = 0:		End Sub
-Sub RightLane_Hit:Controller.Switch(35) = 1:			End Sub
-Sub RightLane_UnHit:Controller.Switch(35) = 0:			End Sub
-Sub ShooterLane_Hit:Controller.Switch(36) = 1:			End Sub
-Sub ShooterLane_UnHit:Controller.Switch(36) = 0:    	End Sub
-Sub TopRightRollover_Hit:Controller.Switch(31) = 1:		End Sub
-Sub TopRightRollover_UnHit:Controller.Switch(31) = 0:	End Sub
-Sub StargateRollover_Hit:Controller.Switch(71) = 1:		End Sub
-Sub StargateRollover_UnHit:Controller.Switch(71) = 0:	End Sub
+Sub LaneR_Hit:Controller.Switch(44) = 1:        End Sub
+Sub LaneR_UnHit:Controller.Switch(44) = 0:        End Sub
+Sub LaneO_Hit:Controller.Switch(54) = 1:        End Sub
+Sub LaneO_UnHit:Controller.Switch(54) = 0:        End Sub
+Sub LaneB_Hit:Controller.Switch(64) = 1:        End Sub
+Sub LaneB_UnHit:Controller.Switch(64) = 0:        End Sub
+Sub LaneO2_Hit:Controller.Switch(74) = 1:       End Sub
+Sub LaneO2_UnHit:Controller.Switch(74) = 0:       End Sub
+Sub LeftOutlane_Hit:Controller.Switch(45) = 1:      End Sub
+Sub LeftOutlane_UnHit:Controller.Switch(45) = 0:    End Sub
+Sub LeftInlane_Hit:Controller.Switch(55) = 1:     End Sub
+Sub LeftInlane_UnHit:Controller.Switch(55) = 0:     End Sub
+Sub RightInlane_Hit:Controller.Switch(65) = 1:      End Sub
+Sub RightInlane_UnHit:Controller.Switch(65) = 0:    End Sub
+Sub RightOutlane_Hit:Controller.Switch(75) = 1:     End Sub
+Sub RightOutlane_UnHit:Controller.Switch(75) = 0:   End Sub
+Sub RightLane_Hit:Controller.Switch(35) = 1:      End Sub
+Sub RightLane_UnHit:Controller.Switch(35) = 0:      End Sub
+Sub ShooterLane_Hit:Controller.Switch(36) = 1:      End Sub
+Sub ShooterLane_UnHit:Controller.Switch(36) = 0:      End Sub
+Sub TopRightRollover_Hit:Controller.Switch(31) = 1:   End Sub
+Sub TopRightRollover_UnHit:Controller.Switch(31) = 0: End Sub
+Sub StargateRollover_Hit:Controller.Switch(71) = 1:   End Sub
+Sub StargateRollover_UnHit:Controller.Switch(71) = 0: End Sub
 ' Spinner
 Sub Spinner_Spin:vpmTimer.PulseSw 30:PlaysoundAtVol "fx_spinner", Spinner, VolSpin:End Sub
 ' Drop Targets
@@ -317,13 +317,13 @@ Sub LeftTarget_Hit:vpmTimer.PulseSw 62:PlaySoundAtVol "Bounce",LeftTarget, VolTa
 
 ' Solenoids
 ' ==================================================================
-SolCallback(1) = "SolOne"										' 1 Reset Alpha I / Top Left Flasher 3
-SolCallback(2) = "SolTwo"										' 2 Reset Alpha II / Top Left Flasher 2
-SolCallback(3) = "SolThree"										' 3 Top Kicker / Stargate Flashers
-SolCallback(4) = "SolFour"		' 4 Right Under-Plastic Flasher
-SolCallback(5) = "SolFive"										' 5 Reset Alpha III / Top Left Flasher 1
-SolCallback(6) = "SolSix"										' 6 Reset Beta / Top Right Flasher
-SolCallback(7) = "SolSeven"		' 7 Left Under-Plastic Flasher
+SolCallback(1) = "SolOne"                   ' 1 Reset Alpha I / Top Left Flasher 3
+SolCallback(2) = "SolTwo"                   ' 2 Reset Alpha II / Top Left Flasher 2
+SolCallback(3) = "SolThree"                   ' 3 Top Kicker / Stargate Flashers
+SolCallback(4) = "SolFour"    ' 4 Right Under-Plastic Flasher
+SolCallback(5) = "SolFive"                    ' 5 Reset Alpha III / Top Left Flasher 1
+SolCallback(6) = "SolSix"                   ' 6 Reset Beta / Top Right Flasher
+SolCallback(7) = "SolSeven"   ' 7 Left Under-Plastic Flasher
 SolCallback(8) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 SolCallback(9) = "bsTrough.SolIn"
 'SolCallback(sLLFlipper) = "vpmSolFlipper LeftFlipper,nothing,"
@@ -333,97 +333,97 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
-	Else
-		PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
-	End If
+  If Enabled Then
+    PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
+  Else
+    PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
+  End If
 End Sub
 
 Sub SolRFlipper(Enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToEnd
-	Else
-		PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToStart
-	End If
+  If Enabled Then
+    PlaySoundAtVol SoundFX("FlipperUp",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToEnd
+  Else
+    PlaySoundAtVol SoundFX("FlipperDown",DOFFlippers),RightFlipper,VolFlip:RightFlipper.RotateToStart
+  End If
 End Sub
 
 Dim ltxx
 Sub SolOne(Enabled)
-	If Enabled Then
-		If SRelay = 0 Then
-			dtAlpha1.DropSol_On
+  If Enabled Then
+    If SRelay = 0 Then
+      dtAlpha1.DropSol_On
             DOF 115, DOFPulse
-		Else
+    Else
             For each ltxx in LTFlash:ltxx.state=1:Next
-			SetLamp 163,1
-		End If
-	Else
-		'If SRelay = 1 Then
+      SetLamp 163,1
+    End If
+  Else
+    'If SRelay = 1 Then
         SetLamp 163,0
         For each ltxx in LTFlash:ltxx.state=0:Next
-	'End If
+  'End If
 End If
 End Sub
 
 Dim lmxx, twos
 Sub SolTwo(Enabled)
-	If Enabled Then
-		If SRelay = 0 Then
-			dtAlpha2.DropSol_On
+  If Enabled Then
+    If SRelay = 0 Then
+      dtAlpha2.DropSol_On
             DOF 116, DOFPulse
-		Else
-			SetLamp 162,1:twos = 1
+    Else
+      SetLamp 162,1:twos = 1
             For each lmxx in LMFlash:lmxx.state=1:Next
             If LampState(1) = 1 Then
             LSL.state = 1
             End If
-		End If
-	Else
-		'If SRelay = 1 Then
+    End If
+  Else
+    'If SRelay = 1 Then
         SetLamp 162,0:twos = twos = 0
         For each lmxx in LMFlash:lmxx.state=0:Next
         LSL.State = 0
-	    'End If
+      'End If
 End If
 End Sub
 
 Sub SolThree(Enabled)
-	If Enabled Then
-		If SRelay = 0 Then
-			bsTop.ExitSol_On
-		Else
-			SGP.state = 1
+  If Enabled Then
+    If SRelay = 0 Then
+      bsTop.ExitSol_On
+    Else
+      SGP.state = 1
             SGP1.state = 1
             SGP2.state = 1
-		End If
-	Else
+    End If
+  Else
             SGP.state = 0
             SGP1.state = 0
             SGP2.state = 0
-		If SRelay = 0 Then
-		End If
-	End If
+    If SRelay = 0 Then
+    End If
+  End If
 End Sub
 
 Sub SolFour(Enabled)
-	If Enabled Then
-			RPF.state = 1
+  If Enabled Then
+      RPF.state = 1
             RPF1.state = 1
             RPF2.state = 1
-		Else
+    Else
             RPF.state = 0
             RPF1.state = 0
             RPF2.state = 0
-	End If
+  End If
 End Sub
 
 Sub SolSeven(Enabled)
-	If Enabled Then
-			LPF.state = 1
+  If Enabled Then
+      LPF.state = 1
             LPF1.state = 1
             LPF2.state = 1
-		Else
+    Else
             LPF.state = 0
             LPF1.state = 0
             LPF2.state = 0
@@ -433,42 +433,42 @@ End Sub
 Dim lbxx
 
 Sub SolFive(Enabled)
-	If Enabled Then
-		If SRelay = 0 Then
-			dtAlpha3.DropSol_On
+  If Enabled Then
+    If SRelay = 0 Then
+      dtAlpha3.DropSol_On
             DOF 117, DOFPulse
-		Else
+    Else
              For each lbxx in LBFlash:lbxx.state=1:Next
-			 SetLamp 161,1
-		End If
-	Else
-		'If SRelay = 1 Then
+       SetLamp 161,1
+    End If
+  Else
+    'If SRelay = 1 Then
         SetLamp 161,0
         For each lbxx in LBFlash:lbxx.state=0:Next
-	'End If
+  'End If
 End If
 End Sub
 
 Dim rtxx
 
 Sub SolSix(Enabled)
-	If Enabled Then
-		If SRelay = 0 Then
-			dtBeta.DropSol_On
+  If Enabled Then
+    If SRelay = 0 Then
+      dtBeta.DropSol_On
             DOF 118, DOFPulse
-		Else
-			SetLamp 164,1:twos = 1
+    Else
+      SetLamp 164,1:twos = 1
             For each rtxx in RTFlash:rtxx.state=1:Next
             If LampState(1) = 1 Then
             RSL.state = 1
             End If
-		End If
-	Else
-		'If SRelay = 1 Then
+    End If
+  Else
+    'If SRelay = 1 Then
         SetLamp 164,0:twos = 0
         For each rtxx in RTFlash:rtxx.state=0:Next
         RSL.State = 0
-	End If
+  End If
 End Sub
 
 ' Relays/Lamp Events
@@ -476,72 +476,72 @@ End Sub
 OldQRelay = 0:OldTRelay = 0:OldARelay = 0:OldBallRel = 0:OldSRelay = 1:OldStargateRelay = 1:UpOrDown = 1
 Set LampCallback = GetRef("UpdateRelays")
 Sub UpdateRelays
-	SRelay = LampState(12) ' Used for solenoid multiplexing.
-	If SRelay <> OldSRelay Then OldSRelay = SRelay
+  SRelay = LampState(12) ' Used for solenoid multiplexing.
+  If SRelay <> OldSRelay Then OldSRelay = SRelay
 
-	'If GIAlwaysOn = 0 Then
-		QRelay = LampState(0)
-		If QRelay <> OldQRelay Then
-			If QRelay = 0 Then
-				'SetLamp 101, 0 ' Turn off the GI when not playing ('Q' Relay is off).
-			End If
-			'BallLaunched = 0
-			OldQRelay = QRelay
-		'End If
+  'If GIAlwaysOn = 0 Then
+    QRelay = LampState(0)
+    If QRelay <> OldQRelay Then
+      If QRelay = 0 Then
+        'SetLamp 101, 0 ' Turn off the GI when not playing ('Q' Relay is off).
+      End If
+      'BallLaunched = 0
+      OldQRelay = QRelay
+    'End If
 
-		TRelay = LampState(1)
-		If TRelay <> OldTRelay Then
-			If QRelay = 1 Then
-				If TRelay = 0 Then
-					If SRelay = 1 Then
-						SetLamp 101, 1 ' Turn on the GI when the 'T' Relay is off during play.
-					End If
-				Else
+    TRelay = LampState(1)
+    If TRelay <> OldTRelay Then
+      If QRelay = 1 Then
+        If TRelay = 0 Then
+          If SRelay = 1 Then
+            SetLamp 101, 1 ' Turn on the GI when the 'T' Relay is off during play.
+          End If
+        Else
                         SetLamp 101, 0
-				End If
-			End If
-			OldTRelay = TRelay
-		End If
-	End If
+        End If
+      End If
+      OldTRelay = TRelay
+    End If
+  End If
 
-	ARelay = LampState(13)
-	If ARelay <> OldARelay Then
-		If ARelay = 1 Then
-			AuxLights.Enabled = 1 ' Turn on aux light sequence when 'A' Relay is on.
-		Else
-			AuxLights.Enabled = 0
-			Dim x, y
-			For x = 71 To 100 ' Turn off all aux lights when 'A' Relay is off.
-				SetLamp x, 0
-			Next
-		End If
-	End If
-	OldARelay = ARelay
+  ARelay = LampState(13)
+  If ARelay <> OldARelay Then
+    If ARelay = 1 Then
+      AuxLights.Enabled = 1 ' Turn on aux light sequence when 'A' Relay is on.
+    Else
+      AuxLights.Enabled = 0
+      Dim x, y
+      For x = 71 To 100 ' Turn off all aux lights when 'A' Relay is off.
+        SetLamp x, 0
+      Next
+    End If
+  End If
+  OldARelay = ARelay
 
-	BallRel = LampState(2)
-	If BallRel <> OldBallRel Then
-		If BallRel = 0 Then
-			If bsTrough.Balls Then bsTrough.ExitSol_On ' Release ball when relay 2 is on.
-		End If
-	End If
-	OldBallRel = BallRel
+  BallRel = LampState(2)
+  If BallRel <> OldBallRel Then
+    If BallRel = 0 Then
+      If bsTrough.Balls Then bsTrough.ExitSol_On ' Release ball when relay 2 is on.
+    End If
+  End If
+  OldBallRel = BallRel
 
-	StargateRelay = LampState(14)
-	If StargateRelay <> OldStargateRelay Then
-		If StargateRelay = 0 Then ' Ramp is down when relay 14 is off.
-			UpOrDown = -1
-			If StargateRamp.HeightBottom <> 0 Then RampMove.Enabled = 1
-			StargateInvisible.Collidable = 1
-			Untrapper1.Enabled = 1
-		End If
-		If StargateRelay = 1 Then ' Ramp is up when relay 14 is on.
-			UpOrDown = 1
-			If StargateRamp.HeightBottom <> 60 Then PlaySoundAt SoundFX("RampUp",DOFcontactors), ActiveBall
-			If StargateRamp.HeightBottom <> 60 Then RampMove.Enabled = 1
-			StargateInvisible.Collidable = 0
-		End If
-	OldStargateRelay = StargateRelay
-	End If
+  StargateRelay = LampState(14)
+  If StargateRelay <> OldStargateRelay Then
+    If StargateRelay = 0 Then ' Ramp is down when relay 14 is off.
+      UpOrDown = -1
+      If StargateRamp.HeightBottom <> 0 Then RampMove.Enabled = 1
+      StargateInvisible.Collidable = 1
+      Untrapper1.Enabled = 1
+    End If
+    If StargateRelay = 1 Then ' Ramp is up when relay 14 is on.
+      UpOrDown = 1
+      If StargateRamp.HeightBottom <> 60 Then PlaySoundAt SoundFX("RampUp",DOFcontactors), ActiveBall
+      If StargateRamp.HeightBottom <> 60 Then RampMove.Enabled = 1
+      StargateInvisible.Collidable = 0
+    End If
+  OldStargateRelay = StargateRelay
+  End If
 
 End Sub
 
@@ -550,100 +550,100 @@ End Sub
 ' Thanks to Destruk for the lamp schematic!
 AuxLightsStep = 0
 Sub AuxLights_Timer
-	AuxLightsStep = AuxLightsStep + 1
-	Select Case AuxLightsStep
-		Case 1
-			SetLamp 100,0:SetLamp 89,0:SetLamp 90,0
-			SetLamp 91,1:SetLamp 71,1:SetLamp 72,1
+  AuxLightsStep = AuxLightsStep + 1
+  Select Case AuxLightsStep
+    Case 1
+      SetLamp 100,0:SetLamp 89,0:SetLamp 90,0
+      SetLamp 91,1:SetLamp 71,1:SetLamp 72,1
 DOF 100,0
 DOF 89,0
 DOF 90,0
 DOF 91,2
 DOF 71,2
 DOF 72,2
-		Case 2
-			SetLamp 91,0:SetLamp 71,0:SetLamp 72,0
-			SetLamp 92,1:SetLamp 73,1:SetLamp 74,1
+    Case 2
+      SetLamp 91,0:SetLamp 71,0:SetLamp 72,0
+      SetLamp 92,1:SetLamp 73,1:SetLamp 74,1
 DOF 91,0
 DOF 71,0
 DOF 72,0
 DOF 92,2
 DOF 73,2
 DOF 74,2
-		Case 3
-			SetLamp 92,0:SetLamp 73,0:SetLamp 74,0
-			SetLamp 93,1:SetLamp 75,1:SetLamp 76,1
+    Case 3
+      SetLamp 92,0:SetLamp 73,0:SetLamp 74,0
+      SetLamp 93,1:SetLamp 75,1:SetLamp 76,1
 DOF 92,0
 DOF 73,0
 DOF 74,0
 DOF 93,2
 DOF 75,2
 DOF 76,2
-		Case 4
-			SetLamp 93,0:SetLamp 75,0:SetLamp 76,0
-			SetLamp 94,1:SetLamp 77,1:SetLamp 78,1
+    Case 4
+      SetLamp 93,0:SetLamp 75,0:SetLamp 76,0
+      SetLamp 94,1:SetLamp 77,1:SetLamp 78,1
 DOF 93,0
 DOF 75,0
 DOF 76,0
 DOF 94,2
 DOF 77,2
 DOF 78,2
-		Case 5
-			SetLamp 94,0:SetLamp 77,0:SetLamp 78,0
-			SetLamp 95,1:SetLamp 79,1:SetLamp 80,1
+    Case 5
+      SetLamp 94,0:SetLamp 77,0:SetLamp 78,0
+      SetLamp 95,1:SetLamp 79,1:SetLamp 80,1
 DOF 94,0
 DOF 77,0
 DOF 78,0
 DOF 95,2
 DOF 79,2
 DOF 80,2
-		Case 6
-			SetLamp 95,0:SetLamp 79,0:SetLamp 80,0
-			SetLamp 96,1:SetLamp 81,1:SetLamp 82,1
+    Case 6
+      SetLamp 95,0:SetLamp 79,0:SetLamp 80,0
+      SetLamp 96,1:SetLamp 81,1:SetLamp 82,1
 DOF 95,0
 DOF 79,0
 DOF 80,0
 DOF 96,2
 DOF 81,2
 DOF 82,2
-		Case 7
-			SetLamp 96,0:SetLamp 81,0:SetLamp 82,0
-			SetLamp 97,1:SetLamp 83,1:SetLamp 84,1
+    Case 7
+      SetLamp 96,0:SetLamp 81,0:SetLamp 82,0
+      SetLamp 97,1:SetLamp 83,1:SetLamp 84,1
 DOF 96,0
 DOF 81,0
 DOF 82,0
 DOF 97,2
 DOF 83,2
 DOF 84,2
-		Case 8
-			SetLamp 97,0:SetLamp 83,0:SetLamp 84,0
-			SetLamp 98,1:SetLamp 85,1:SetLamp 86,1
+    Case 8
+      SetLamp 97,0:SetLamp 83,0:SetLamp 84,0
+      SetLamp 98,1:SetLamp 85,1:SetLamp 86,1
 DOF 97,0
 DOF 83,0
 DOF 84,0
 DOF 98,2
 DOF 85,2
 DOF 86,2
-		Case 9
-			SetLamp 98,0:SetLamp 85,0:SetLamp 86,0
-			SetLamp 99,1:SetLamp 87,1:SetLamp 88,1
+    Case 9
+      SetLamp 98,0:SetLamp 85,0:SetLamp 86,0
+      SetLamp 99,1:SetLamp 87,1:SetLamp 88,1
 DOF 98,0
 DOF 85,0
 DOF 86,0
 DOF 99,2
 DOF 87,2
 DOF 88,2
-		Case 10
-			SetLamp 99,0:SetLamp 87,0:SetLamp 88,0
-			SetLamp 100,1:SetLamp 89,1:SetLamp 90,1
+    Case 10
+      SetLamp 99,0:SetLamp 87,0:SetLamp 88,0
+      SetLamp 100,1:SetLamp 89,1:SetLamp 90,1
 DOF 99,0
 DOF 87,0
 DOF 88,0
 DOF 100,2
 DOF 89,2
 DOF 90,2
-	End Select
-	If AuxLightsStep = 10 Then AuxLightsStep = 0
+  End Select
+  If AuxLightsStep = 10 Then AuxLightsStep = 0
 'DOF 93,0
 End Sub
 
@@ -654,7 +654,7 @@ Sub GameTimer
 End Sub
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow
@@ -664,16 +664,16 @@ Sub BallShadowUpdate()
     Dim BOT, b, shadowZ
     BOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		BallShadow(b).X = BOT(b).X
-		BallShadow(b).Y = BOT(b).Y + 20
-		'If BOT(b).Z > 90 and BOT(b).Z < 120 Then
-		'	BallShadow(b).visible = 1
-		'Else
-		'	BallShadow(b).visible = 0
-		'End If
-	Next
+    BallShadow(b).X = BOT(b).X
+    BallShadow(b).Y = BOT(b).Y + 20
+    'If BOT(b).Z > 90 and BOT(b).Z < 120 Then
+    ' BallShadow(b).visible = 1
+    'Else
+    ' BallShadow(b).visible = 0
+    'End If
+  Next
 End Sub
 
 Dim XBallShadow
@@ -685,28 +685,28 @@ Sub XBallShadowUpdate()
     Dim XBOT, c, XshadowZ
     XBOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For c = 0 to UBound(XBOT)
-		XBallShadow(c).X = XBOT(c).X
-		XBallShadow(c).Y = XBOT(c).Y - 10
+    XBallShadow(c).X = XBOT(c).X
+    XBallShadow(c).Y = XBOT(c).Y - 10
         If ballflare = 1 AND twos = 1 AND XBOT(c).VelY > 0 AND XBOT(c).Y < 1800 Then
         XBallShadow(c).visible = 1
-		Else
-		XBallShadow(c).visible = 0
-		End If
+    Else
+    XBallShadow(c).visible = 0
+    End If
         Shad_Rot.Interval = NOT XBOT(c).VelY
-	Next
+  Next
 End Sub
 
 ' Ramp Movement Timer
 ' ==================================================================
 Sub RampMove_Timer
-	Dim x:x = 20 * UpOrDown
-	StargateRamp.HeightBottom = StargateRamp.HeightBottom + x
-	StargateHelper.HeightBottom = StargateHelper.HeightBottom + x
-	StargateHelper.HeightTop = StargateHelper.HeightTop + x
-	RampRefresh.State = 1:RampRefresh.State = 0
-	If StargateRamp.HeightBottom = 0 Or StargateRamp.HeightBottom = 60 Then RampMove.Enabled = 0
+  Dim x:x = 20 * UpOrDown
+  StargateRamp.HeightBottom = StargateRamp.HeightBottom + x
+  StargateHelper.HeightBottom = StargateHelper.HeightBottom + x
+  StargateHelper.HeightTop = StargateHelper.HeightTop + x
+  RampRefresh.State = 1:RampRefresh.State = 0
+  If StargateRamp.HeightBottom = 0 Or StargateRamp.HeightBottom = 60 Then RampMove.Enabled = 0
 End Sub
 
 ' Rules
@@ -714,32 +714,32 @@ End Sub
 ' Based on Inkochnito's Reproduction Card and JP's script
 Dim Msg(20)
 Sub Rules()
-	Msg(0) = "HOW TO PLAY" &Chr(10)
-	Msg(1) = "ROBO-WAR" &Chr(10) &Chr(10)
-	Msg(2) = ""
-	Msg(3) = "SPECIAL: ADD A LETTER TO R-O-B-O-W-A-R BY COMPLETING EITHER THE"
-	Msg(4) = "TOP ROLLOVERS (R-O-B-O), OR BY HITTING THE STROBING"
-	Msg(5) = "DROP TARGETS (B-E-T-A). COMPLETING (R-O-B-O-W-A-R)"
-	Msg(6) = "LIGHTS A SPECIAL."
-	Msg(7) = ""
-	Msg(8) = "EXTRA BALL: COMPLETING THE ALPHA DROP TARGET SEQUENCE LIGHTS"
-	Msg(9) = "AN EXTRA BALL."
-	Msg(10) = ""
-	Msg(11) = "MULTIPLIER: ADVANCE MULTIPLIER ON VARIOUS PLAYFIELD TARGETS"
-	Msg(12) = "WHEN LIT. SCORE 10,000 TIMES MULTIPLIER FOR EACH"
-	Msg(13) = "LETTER AWARDED IN (R-O-B-O-W-A-R) AT THE END OF A BALL"
-	Msg(14) = "IN PLAY."
-	Msg(15) = ""
-	Msg(16) = "MULTI-BONUS: SCORE 5000 TIMES MULTIPLIER FOR EACH DROP TARGET"
-	Msg(17) = "HIT DURING MULTI-BALL PLAY. SCORE MULTI-BONUS VALUE IN"
-	Msg(18) = "HOLE DURING MULTI-BALL PLAY AND AFTER LAST BALL"
-	Msg(19) = "IN PLAY."
-	Msg(20) = ""
-	Dim x
-	For x = 1 To 20
-		Msg(0) = Msg(0) + Msg(X) &Chr(13)
+  Msg(0) = "HOW TO PLAY" &Chr(10)
+  Msg(1) = "ROBO-WAR" &Chr(10) &Chr(10)
+  Msg(2) = ""
+  Msg(3) = "SPECIAL: ADD A LETTER TO R-O-B-O-W-A-R BY COMPLETING EITHER THE"
+  Msg(4) = "TOP ROLLOVERS (R-O-B-O), OR BY HITTING THE STROBING"
+  Msg(5) = "DROP TARGETS (B-E-T-A). COMPLETING (R-O-B-O-W-A-R)"
+  Msg(6) = "LIGHTS A SPECIAL."
+  Msg(7) = ""
+  Msg(8) = "EXTRA BALL: COMPLETING THE ALPHA DROP TARGET SEQUENCE LIGHTS"
+  Msg(9) = "AN EXTRA BALL."
+  Msg(10) = ""
+  Msg(11) = "MULTIPLIER: ADVANCE MULTIPLIER ON VARIOUS PLAYFIELD TARGETS"
+  Msg(12) = "WHEN LIT. SCORE 10,000 TIMES MULTIPLIER FOR EACH"
+  Msg(13) = "LETTER AWARDED IN (R-O-B-O-W-A-R) AT THE END OF A BALL"
+  Msg(14) = "IN PLAY."
+  Msg(15) = ""
+  Msg(16) = "MULTI-BONUS: SCORE 5000 TIMES MULTIPLIER FOR EACH DROP TARGET"
+  Msg(17) = "HIT DURING MULTI-BALL PLAY. SCORE MULTI-BONUS VALUE IN"
+  Msg(18) = "HOLE DURING MULTI-BALL PLAY AND AFTER LAST BALL"
+  Msg(19) = "IN PLAY."
+  Msg(20) = ""
+  Dim x
+  For x = 1 To 20
+    Msg(0) = Msg(0) + Msg(X) &Chr(13)
     Next
-	MsgBox Msg(0), , "         Instructions and Rule Card"
+  MsgBox Msg(0), , "         Instructions and Rule Card"
 End Sub
 
 ' ' Dip Switches
@@ -748,27 +748,27 @@ End Sub
 ' ' originally added by Inkochnito
 ' ' Updated Switches 8, 31, and 32
 ' Sub editDips
-' 	Dim vpmDips : Set vpmDips = New cvpmDips
-' 	With vpmDips
-' 		.AddForm  700,400,"Robo-War - DIP switches"
-' 		.AddFrame 2,4,190,"Maximum Credits",49152,Array("8",0,"10",32768,"15",&H00004000,"20",49152)'dip 15&16
-' 		.AddFrame 2,80,190,"Coin Chute Left and Right Control",&H00002000,Array("Separate",0,"Same",&H00002000)'dip 14
-' 		.AddFrame 2,126,190,"Playfield Special",&H00200000,Array("Special",0,"Extra Ball",&H00200000)'dip 22
-' 		.AddFrame 2,172,190,"Highest Games to Date Control",&H00000020,Array("No Effect",0,"Reset High Games #2-#5 on Power Off",&H00000020)'dip 6
-' 		.AddFrame 2, 218, 190, "Auto-Percentage Control", &H00000080, Array("Disabled (Normal High Score Mode)", 0, "Enabled", &H00000080)'dip 8
+'   Dim vpmDips : Set vpmDips = New cvpmDips
+'   With vpmDips
+'     .AddForm  700,400,"Robo-War - DIP switches"
+'     .AddFrame 2,4,190,"Maximum Credits",49152,Array("8",0,"10",32768,"15",&H00004000,"20",49152)'dip 15&16
+'     .AddFrame 2,80,190,"Coin Chute Left and Right Control",&H00002000,Array("Separate",0,"Same",&H00002000)'dip 14
+'     .AddFrame 2,126,190,"Playfield Special",&H00200000,Array("Special",0,"Extra Ball",&H00200000)'dip 22
+'     .AddFrame 2,172,190,"Highest Games to Date Control",&H00000020,Array("No Effect",0,"Reset High Games #2-#5 on Power Off",&H00000020)'dip 6
+'     .AddFrame 2, 218, 190, "Auto-Percentage Control", &H00000080, Array("Disabled (Normal High Score Mode)", 0, "Enabled", &H00000080)'dip 8
 '         .AddFrame 2, 264, 190, "Alpha Drop Bank Sequence", &H40000000, Array("Also Award ROBOWAR Letter", 0, "Light Extra Ball Only", &H40000000)'dip 31
 '         .AddFrame 2, 310, 190, "Number of Active ADV X Targets", &H80000000, Array("More", 0, "Less", &H80000000)'dip 32
-' 		.AddFrame 205,4,190,"Highest Game to Date Awards",&H00C00000,Array("None (Not Displayed)",0,"None",&H00800000,"2 Replay",&H00400000,"3 Replay",&H00C00000)'dip 23&24
-' 		.AddFrame 205,80,190,"Balls/Game",&H01000000,Array("5",0,"3",&H01000000)'dip 25
-' 		.AddFrame 205,126,190,"Replay Limit",&H04000000,Array("No Limit",0,"1",&H04000000)'dip 27
-' 		.AddFrame 205,172,190,"Novelty",&H08000000,Array("Normal",0,"Score 500,000 in Place of Extra Ball and Special",&H08000000)'dip 28
-' 		.AddFrame 205,218,190,"Game Mode",&H10000000,Array("Replay",0,"Extra Ball",&H10000000)'dip 29
-' 		.AddFrame 205,264,190,"3rd Coin Chute Credit Control",&H20000000,Array("No Effect",0,"Add 9",&H20000000)'dip 30
-' 		.AddChk 205,316,180,Array("Match",&H02000000)'dip 26
-' 		.AddChk 205,331,190,Array("Attract Mode Sound",&H00000040)'dip 7
-' 		.AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."
-' 		.ViewDips
-' 	End With
+'     .AddFrame 205,4,190,"Highest Game to Date Awards",&H00C00000,Array("None (Not Displayed)",0,"None",&H00800000,"2 Replay",&H00400000,"3 Replay",&H00C00000)'dip 23&24
+'     .AddFrame 205,80,190,"Balls/Game",&H01000000,Array("5",0,"3",&H01000000)'dip 25
+'     .AddFrame 205,126,190,"Replay Limit",&H04000000,Array("No Limit",0,"1",&H04000000)'dip 27
+'     .AddFrame 205,172,190,"Novelty",&H08000000,Array("Normal",0,"Score 500,000 in Place of Extra Ball and Special",&H08000000)'dip 28
+'     .AddFrame 205,218,190,"Game Mode",&H10000000,Array("Replay",0,"Extra Ball",&H10000000)'dip 29
+'     .AddFrame 205,264,190,"3rd Coin Chute Credit Control",&H20000000,Array("No Effect",0,"Add 9",&H20000000)'dip 30
+'     .AddChk 205,316,180,Array("Match",&H02000000)'dip 26
+'     .AddChk 205,331,190,Array("Attract Mode Sound",&H00000040)'dip 7
+'     .AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."
+'     .ViewDips
+'   End With
 ' End Sub
 ' Set vpmShowDips = GetRef("editDips")
 
@@ -860,95 +860,95 @@ End Sub
 
 Sub UpdateLamps
 
-	' I had to create lights for each of the relays, or they wouldn't be 100% reliable:
-	XNFadeL 0, l0 ' ['Q' Relay] Game Over Relay
-	XNFadeL 1, l1 ' ['T' Relay] Tilt Relay
-	XNFadeL 2, l2 ' Ball Release
-	' NFadeL 4, l4 ' Sound 16
-	'XNFadeL 12, l12 ' ['S' Relay] Solenoid Multiplexer
+  ' I had to create lights for each of the relays, or they wouldn't be 100% reliable:
+  XNFadeL 0, l0 ' ['Q' Relay] Game Over Relay
+  XNFadeL 1, l1 ' ['T' Relay] Tilt Relay
+  XNFadeL 2, l2 ' Ball Release
+  ' NFadeL 4, l4 ' Sound 16
+  'XNFadeL 12, l12 ' ['S' Relay] Solenoid Multiplexer
     L12.State = LampState(12)
-	XNFadeL 13, l13 ' ['A' Relay] Robo-Unit and Rear Chaser Light Sequences
-	XNFadeL 14, l14 ' Stargate Ramp / Launch Attack
+  XNFadeL 13, l13 ' ['A' Relay] Robo-Unit and Rear Chaser Light Sequences
+  XNFadeL 14, l14 ' Stargate Ramp / Launch Attack
 
-	' These lamps will fade slower during gameplay than they do during the attract sequence.
-	If LampState(0) = 1 Then
-		XNFadeL 3, l3 ' Fight Again
-		XNFadeL 15, l15 ' 1x
-		XNFadeL 16, l16 ' 2x
-		XNFadeL 17, l17 ' 4x
+  ' These lamps will fade slower during gameplay than they do during the attract sequence.
+  If LampState(0) = 1 Then
+    XNFadeL 3, l3 ' Fight Again
+    XNFadeL 15, l15 ' 1x
+    XNFadeL 16, l16 ' 2x
+    XNFadeL 17, l17 ' 4x
        XNFadeL 18, l18
-		XNFadeL 31, l31 ' Base
-		XNFadeL 32, l32 ' III (Alpha)
-		XNFadeL 33, l33 ' II (Alpha)
-		XNFadeL 34, l34 ' I (Alpha)
-		XNFadeL 35, l35 ' Special
-		XNFadeL 36, l36 ' Special
-		XNFadeL 37, l37 ' Special
-		XNFadeL 38, l38 ' Special
-		XNFadeL 39, l39 ' Adv X
-		XNFadeL 40, l40 ' Adv X
-		XNFadeL 41, l41 ' Adv X
-		XNFadeL 42, l42 ' Adv X
-		XNFadeL 43, l43 ' Battle Station
-	Else
-		XNFadeL 3, l3' Fight Again
-		XNFadeL 15, l15 ' 1x
-		XNFadeL 16, l16 ' 2x
-		XNFadeL 17, l17 ' 4x
-		XNFadeL 18, l18
-		XNFadeL 31, l31 ' Base
-		XNFadeLm 32, l32 ' III (Alpha)
+    XNFadeL 31, l31 ' Base
+    XNFadeL 32, l32 ' III (Alpha)
+    XNFadeL 33, l33 ' II (Alpha)
+    XNFadeL 34, l34 ' I (Alpha)
+    XNFadeL 35, l35 ' Special
+    XNFadeL 36, l36 ' Special
+    XNFadeL 37, l37 ' Special
+    XNFadeL 38, l38 ' Special
+    XNFadeL 39, l39 ' Adv X
+    XNFadeL 40, l40 ' Adv X
+    XNFadeL 41, l41 ' Adv X
+    XNFadeL 42, l42 ' Adv X
+    XNFadeL 43, l43 ' Battle Station
+  Else
+    XNFadeL 3, l3' Fight Again
+    XNFadeL 15, l15 ' 1x
+    XNFadeL 16, l16 ' 2x
+    XNFadeL 17, l17 ' 4x
+    XNFadeL 18, l18
+    XNFadeL 31, l31 ' Base
+    XNFadeLm 32, l32 ' III (Alpha)
         XNFadeL 32, l32sc ' III (Alpha)
-		XNFadeL 33, l33 ' II (Alpha)
-		XNFadeL 34, l34 ' I (Alpha)
-		XNFadeLm 35, l35 ' Special
+    XNFadeL 33, l33 ' II (Alpha)
+    XNFadeL 34, l34 ' I (Alpha)
+    XNFadeLm 35, l35 ' Special
         XNFadeL 35, l35sc ' Special
-		XNFadeL 36, l36 ' Special
-		XNFadeLm 37, l37 ' Special
+    XNFadeL 36, l36 ' Special
+    XNFadeLm 37, l37 ' Special
         XNFadeL 37, l37sc ' Special
-		XNFadeLm 38, l38 ' Special
+    XNFadeLm 38, l38 ' Special
         XNFadeL 38, L38sc
-		XNFadeL 39, l39 ' Adv X
-		XNFadeL 40, l40 ' Adv X
-		XNFadeL 41, l41 ' Adv X
-		XNFadeL 42, l42 ' Adv X
-		XNFadeL 43, l43 ' Battle Station
-	End If
+    XNFadeL 39, l39 ' Adv X
+    XNFadeL 40, l40 ' Adv X
+    XNFadeL 41, l41 ' Adv X
+    XNFadeL 42, l42 ' Adv X
+    XNFadeL 43, l43 ' Battle Station
+  End If
 
-	' The rest are always the same speed.
+  ' The rest are always the same speed.
     XNFadeLm 5, l5
     XNFadeL 5, l5a
     XNFadeLm 6, l6
     XNFadeL 6, l6a
-	XNFadeLm 7, l7	' (ro)B(owar)
+  XNFadeLm 7, l7  ' (ro)B(owar)
     XNFadeL 7, l7a
-	XNFadeLm 8, l8	' (rob)O(war)
+  XNFadeLm 8, l8  ' (rob)O(war)
     XNFadeL 8, l8a
-	XNFadeLm 9, l9	' (robo)W(ar)
-	XNFadeL 9, l9a
-    XNFadeLm 10, l10	' (robow)A(r)
+  XNFadeLm 9, l9  ' (robo)W(ar)
+  XNFadeL 9, l9a
+    XNFadeLm 10, l10  ' (robow)A(r)
     XNFadeL 10, l10a
-	XNFadeLm 11, l11	' (robowa)R
+  XNFadeLm 11, l11  ' (robowa)R
     XNFadeL 11, l11a
-	XNFadeLm 19, l19	' Extra Ball 1
-    XNFadeL 19, l19x	' Extra Ball 1
-	XNFadeLm 20, l20	' Extra Ball 2
-    XNFadeL 20, l20x	' Extra Ball 2
-	XNFadeLm 21, l21	' Extra Ball 3
-	XNFadeL 21, l21x	' Extra Ball 2
-    XNFadeLm 22, l22	' Extra Ball 4
-    XNFadeL 22, l22x	' Extra Ball 2
-	XNFadeL 23, l23	' R(obo)
-	XNFadeL 24, l24	' (r)O(bo)
-	XNFadeL 25, l25	' (ro)B(o)
-	XNFadeL 26, l26	' (rob)O
-	XNFadeL 27, l27	' B(eta)
-	XNFadeL 28, l28	' (b)E(ta)
-	XNFadeL 29, l29	' (be)T(a)
-	XNFadeL 30, l30	' (bet)A
-	XNFadeL 44, l44	' Power Surge
+  XNFadeLm 19, l19  ' Extra Ball 1
+    XNFadeL 19, l19x  ' Extra Ball 1
+  XNFadeLm 20, l20  ' Extra Ball 2
+    XNFadeL 20, l20x  ' Extra Ball 2
+  XNFadeLm 21, l21  ' Extra Ball 3
+  XNFadeL 21, l21x  ' Extra Ball 2
+    XNFadeLm 22, l22  ' Extra Ball 4
+    XNFadeL 22, l22x  ' Extra Ball 2
+  XNFadeL 23, l23 ' R(obo)
+  XNFadeL 24, l24 ' (r)O(bo)
+  XNFadeL 25, l25 ' (ro)B(o)
+  XNFadeL 26, l26 ' (rob)O
+  XNFadeL 27, l27 ' B(eta)
+  XNFadeL 28, l28 ' (b)E(ta)
+  XNFadeL 29, l29 ' (be)T(a)
+  XNFadeL 30, l30 ' (bet)A
+  XNFadeL 44, l44 ' Power Surge
 
-	XNFadeLm 45, X45
+  XNFadeLm 45, X45
     XNFadeLm 45, X45a
     XNFadeLm 45, X45b
     XNFadeLm 45, X45c
@@ -970,7 +970,7 @@ Sub UpdateLamps
     XNFadeLm 47, X47
     XNFadeLm 47, X47a
     XNFadeLm 47, X47b
-	XNFadeLm 47, X47c
+  XNFadeLm 47, X47c
     XNFadeL 47, X47d
 
     SetLamp 147,LampState(47)
@@ -995,41 +995,41 @@ Sub UpdateLamps
     Flash 162, LTFDim
     Flash 163, LF63
 
-    	' Flashers
-	'FadeL 161, l61, l61z ' Top Left Flasher 1
-	'FadeL 162, l62, l62z ' Top Left Flasher 2
-	'FadeL 163, l63, l63z ' Top Left Flasher 3
-	'FadeL 164, l64, l64z ' Top Right Flasher
-	'FlashAR 61, l61a, l61b, l61c, FRefresh1, 200, 200 ' Top Left Flasher 1
-	'FlashAR 62, l62a, l62b, l62c, FRefresh1, 200, 200 ' Top Left Flasher 2
-	'FlashAR 63, l63a, l63b, l63c, FRefresh1, 200, 200 ' Top Left Flasher 3
-	'FlashAR 64, l64a, l64b, l64c, FRefresh2, 200, 200 ' Top Right Flasher
-	'FlashAR 65, l65a, l65b, l65c, FRefresh3, 200, 200 ' Right Plastic Flasher
-	'FlashAR 66, l66a, l66b, l66c, FRefresh4, 200, 200  ' Left Plastic Flasher
-	' FlashAR 67 ' Stargate Flasher 1 (Didn't Use)
-	' FlashAR 68 ' Stargate Flasher 2 (Didn't Use)
+      ' Flashers
+  'FadeL 161, l61, l61z ' Top Left Flasher 1
+  'FadeL 162, l62, l62z ' Top Left Flasher 2
+  'FadeL 163, l63, l63z ' Top Left Flasher 3
+  'FadeL 164, l64, l64z ' Top Right Flasher
+  'FlashAR 61, l61a, l61b, l61c, FRefresh1, 200, 200 ' Top Left Flasher 1
+  'FlashAR 62, l62a, l62b, l62c, FRefresh1, 200, 200 ' Top Left Flasher 2
+  'FlashAR 63, l63a, l63b, l63c, FRefresh1, 200, 200 ' Top Left Flasher 3
+  'FlashAR 64, l64a, l64b, l64c, FRefresh2, 200, 200 ' Top Right Flasher
+  'FlashAR 65, l65a, l65b, l65c, FRefresh3, 200, 200 ' Right Plastic Flasher
+  'FlashAR 66, l66a, l66b, l66c, FRefresh4, 200, 200  ' Left Plastic Flasher
+  ' FlashAR 67 ' Stargate Flasher 1 (Didn't Use)
+  ' FlashAR 68 ' Stargate Flasher 2 (Didn't Use)
 
-	' Auxiliary Lights
-	XNFadeL 71, l71
-	XNFadeL 72, l72
-	XNFadeL 73, l73
-	XNFadeL 74, l74
-	XNFadeL 75, l75
-	XNFadeL 76, l76
-	XNFadeL 77, l77
-	XNFadeL 78, l78
-	XNFadeL 79, l79
-	XNFadeL 80, l80
-	XNFadeL 81, l81
-	XNFadeL 82, l82
-	XNFadeL 83, l83
-	XNFadeL 84, l84
-	XNFadeL 85, l85
-	XNFadeL 86, l86
-	XNFadeL 87, l87
-	XNFadeL 88, l88
-	XNFadeL 89, l89
-	XNFadeL 90, l90
+  ' Auxiliary Lights
+  XNFadeL 71, l71
+  XNFadeL 72, l72
+  XNFadeL 73, l73
+  XNFadeL 74, l74
+  XNFadeL 75, l75
+  XNFadeL 76, l76
+  XNFadeL 77, l77
+  XNFadeL 78, l78
+  XNFadeL 79, l79
+  XNFadeL 80, l80
+  XNFadeL 81, l81
+  XNFadeL 82, l82
+  XNFadeL 83, l83
+  XNFadeL 84, l84
+  XNFadeL 85, l85
+  XNFadeL 86, l86
+  XNFadeL 87, l87
+  XNFadeL 88, l88
+  XNFadeL 89, l89
+  XNFadeL 90, l90
 
 XNFadeLm 91, l91a ' Rear Chaser Light
 XNFadeLm 91, l91b ' Rear Chaser Light
@@ -1547,81 +1547,81 @@ Sub Untrapper2_UnHit(): Untrapper2.Enabled = 0 : End Sub
 ' *********************************************************************
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolRPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolRPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TargetBankWalls_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "fx_metalhit", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_metalhit", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "fx_metalclank", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_metalclank", 0, Vol(ActiveBall)*VolMetals, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rolls_Hit (idx)
-	PlaySound "fx_sensor", 0, Vol(ActiveBall)*VolRol, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_sensor", 0, Vol(ActiveBall)*VolRol, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub Shad_Rot_Timer()
@@ -1752,16 +1752,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
         If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 AND BOT(b).z > 0 Then
             rolling(b) = True

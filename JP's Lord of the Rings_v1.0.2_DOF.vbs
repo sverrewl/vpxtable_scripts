@@ -156,13 +156,13 @@ Sub Table1_Init
         .CreateEvents "plungerIM"
     End With
 
-	Set mRingMagnet = New cvpmMagnet
- 	With mRingMagnet
-		.InitMagnet sw47a, 30
-		.GrabCenter = True
- 		.solenoid = 6						'Ring Magnet
+  Set mRingMagnet = New cvpmMagnet
+  With mRingMagnet
+    .InitMagnet sw47a, 30
+    .GrabCenter = True
+    .solenoid = 6           'Ring Magnet
         .CreateEvents "mRingMagnet"
-	End With
+  End With
 
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval

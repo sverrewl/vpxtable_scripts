@@ -143,7 +143,7 @@ Sub Table1_Init
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
     'PinMAMETimer.Enabled = 1:PlaySound"BM02"
-	PinMAMETimer.Enabled = 1:PlayMusic
+  PinMAMETimer.Enabled = 1:PlayMusic
 End Sub
 
 Sub Table1_Paused:Controller.Pause = 1:End Sub
@@ -427,7 +427,7 @@ Sub LampTimer_Timer()
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
         Next
     End If
-	UpdateLeds
+  UpdateLeds
     UpdateLamps
 End Sub
 
@@ -480,29 +480,29 @@ End Sub
     NFadeL 45, l45
 
 
-	NFadeLm 40, bumper3l
-	NFadeL 40, bumper3l1
-	NFadeLm 41, bumper1l
-	NFadeL 41, bumper1l1
-	NFadeLm 42, bumper2l
-	NFadeL 42, bumper2l1
+  NFadeLm 40, bumper3l
+  NFadeL 40, bumper3l1
+  NFadeLm 41, bumper1l
+  NFadeL 41, bumper1l1
+  NFadeLm 42, bumper2l
+  NFadeL 42, bumper2l1
 
    'Backdrop lights
-	NFadeL 50, l50     '50 1 can play
-	NFadeL 51, l51     '51 2 can play
-	NFadeL 52, l52     '53 3 can play
-	NFadeL 53, l53     '54 4 can play
-	NFadeL 57, l57     '57 1 player
-	NFadeL 58, l58     '58 2 player
-	NFadeL 59, l59     '59 3 player
-	NFadeL 60, l60     '60 4 player
+  NFadeL 50, l50     '50 1 can play
+  NFadeL 51, l51     '51 2 can play
+  NFadeL 52, l52     '53 3 can play
+  NFadeL 53, l53     '54 4 can play
+  NFadeL 57, l57     '57 1 player
+  NFadeL 58, l58     '58 2 player
+  NFadeL 59, l59     '59 3 player
+  NFadeL 60, l60     '60 4 player
 
-	NFadeT 54, l54, "MATCH"
-	NFadeT 55, l55, "BALL" & vbNewLine & "In PLAY"
-	NFadeT 61, l61, "TILT"
-	NFadeT 62, l62, "GAME OVER"
-	NFadeT 63, l63, "SAME PLAYER" & vbNewLine & "SHOOTS AGAIN"
-	NFadeT 64, l64, "HIGHEST SCORE"
+  NFadeT 54, l54, "MATCH"
+  NFadeT 55, l55, "BALL" & vbNewLine & "In PLAY"
+  NFadeT 61, l61, "TILT"
+  NFadeT 62, l62, "GAME OVER"
+  NFadeT 63, l63, "SAME PLAYER" & vbNewLine & "SHOOTS AGAIN"
+  NFadeT 64, l64, "HIGHEST SCORE"
 End Sub
 
 ' div lamp subs
@@ -517,7 +517,7 @@ Sub InitLamps()
         FlashMax(x) = 1         ' the maximum value when on, usually 1
         FlashMin(x) = 0         ' the minimum value when off, usually 0
         FlashLevel(x) = 0       ' the intensity of the flashers, usually from 0 to 1
-		FlashRepeat(x) = 20		' how many times the flash repeats
+    FlashRepeat(x) = 20   ' how many times the flash repeats
     Next
 End Sub
 
@@ -627,7 +627,7 @@ Sub FlashBlink(nr, object)
             Object.IntensityScale = FlashLevel(nr)
             If FadingLevel(nr) = 0 AND FlashRepeat(nr) Then                          'repeat the flash
                 FlashRepeat(nr) = FlashRepeat(nr) -1
-				If FlashRepeat(nr) Then FadingLevel(nr) = 5
+        If FlashRepeat(nr) Then FadingLevel(nr) = 5
             End If
         Case 5 ' on
             FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp(nr)
@@ -636,7 +636,7 @@ Sub FlashBlink(nr, object)
                 FadingLevel(nr) = 1 'completely on
             End if
             Object.IntensityScale = FlashLevel(nr)
-			If FadingLevel(nr) = 1 AND FlashRepeat(nr) Then FadingLevel(nr) = 4
+      If FadingLevel(nr) = 1 AND FlashRepeat(nr) Then FadingLevel(nr) = 4
     End Select
 End Sub
 
@@ -720,46 +720,46 @@ Set Digits(26) = e3
 Set Digits(27) = e4
 
 Sub UPdateLEDs
-	On Error Resume Next
-	Dim ChgLED, ii, jj, chg, stat
-	ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
-	If Not IsEmpty(ChgLED) Then
-		For ii = 0 To UBound(ChgLED)
-			chg = chgLED(ii, 1):stat = chgLED(ii, 2)
+  On Error Resume Next
+  Dim ChgLED, ii, jj, chg, stat
+  ChgLED = Controller.ChangedLEDs(&H0000003f, &Hffffffff)
+  If Not IsEmpty(ChgLED) Then
+    For ii = 0 To UBound(ChgLED)
+      chg = chgLED(ii, 1):stat = chgLED(ii, 2)
 
-			Select Case stat
-				Case 0:Digits(chgLED(ii, 0) ).SetValue 0    'empty
-				Case 63:Digits(chgLED(ii, 0) ).SetValue 1   '0
-				Case 6:Digits(chgLED(ii, 0) ).SetValue 2    '1
-				Case 91:Digits(chgLED(ii, 0) ).SetValue 3   '2
-				Case 79:Digits(chgLED(ii, 0) ).SetValue 4   '3
-				Case 102:Digits(chgLED(ii, 0) ).SetValue 5  '4
-				Case 109:Digits(chgLED(ii, 0) ).SetValue 6  '5
-				Case 124:Digits(chgLED(ii, 0) ).SetValue 7  '6
-				Case 125:Digits(chgLED(ii, 0) ).SetValue 7  '6
-				Case 252:Digits(chgLED(ii, 0) ).SetValue 7  '6
-				Case 7:Digits(chgLED(ii, 0) ).SetValue 8    '7
-				Case 127:Digits(chgLED(ii, 0) ).SetValue 9  '8
-				Case 103:Digits(chgLED(ii, 0) ).SetValue 10 '9
-				Case 111:Digits(chgLED(ii, 0) ).SetValue 10 '9
-				Case 231:Digits(chgLED(ii, 0) ).SetValue 10 '9
-				Case 128:Digits(chgLED(ii, 0) ).SetValue 0  'empty
-				Case 191:Digits(chgLED(ii, 0) ).SetValue 1  '0
-				Case 832:Digits(chgLED(ii, 0) ).SetValue 2  '1
-				Case 896:Digits(chgLED(ii, 0) ).SetValue 2  '1
-				Case 768:Digits(chgLED(ii, 0) ).SetValue 2  '1
-				Case 134:Digits(chgLED(ii, 0) ).SetValue 2  '1
-				Case 219:Digits(chgLED(ii, 0) ).SetValue 3  '2
-				Case 207:Digits(chgLED(ii, 0) ).SetValue 4  '3
-				Case 230:Digits(chgLED(ii, 0) ).SetValue 5  '4
-				Case 237:Digits(chgLED(ii, 0) ).SetValue 6  '5
-				Case 253:Digits(chgLED(ii, 0) ).SetValue 7  '6
-				Case 135:Digits(chgLED(ii, 0) ).SetValue 8  '7
-				Case 255:Digits(chgLED(ii, 0) ).SetValue 9  '8
-				Case 239:Digits(chgLED(ii, 0) ).SetValue 10 '9
-			End Select
-		Next
-	End IF
+      Select Case stat
+        Case 0:Digits(chgLED(ii, 0) ).SetValue 0    'empty
+        Case 63:Digits(chgLED(ii, 0) ).SetValue 1   '0
+        Case 6:Digits(chgLED(ii, 0) ).SetValue 2    '1
+        Case 91:Digits(chgLED(ii, 0) ).SetValue 3   '2
+        Case 79:Digits(chgLED(ii, 0) ).SetValue 4   '3
+        Case 102:Digits(chgLED(ii, 0) ).SetValue 5  '4
+        Case 109:Digits(chgLED(ii, 0) ).SetValue 6  '5
+        Case 124:Digits(chgLED(ii, 0) ).SetValue 7  '6
+        Case 125:Digits(chgLED(ii, 0) ).SetValue 7  '6
+        Case 252:Digits(chgLED(ii, 0) ).SetValue 7  '6
+        Case 7:Digits(chgLED(ii, 0) ).SetValue 8    '7
+        Case 127:Digits(chgLED(ii, 0) ).SetValue 9  '8
+        Case 103:Digits(chgLED(ii, 0) ).SetValue 10 '9
+        Case 111:Digits(chgLED(ii, 0) ).SetValue 10 '9
+        Case 231:Digits(chgLED(ii, 0) ).SetValue 10 '9
+        Case 128:Digits(chgLED(ii, 0) ).SetValue 0  'empty
+        Case 191:Digits(chgLED(ii, 0) ).SetValue 1  '0
+        Case 832:Digits(chgLED(ii, 0) ).SetValue 2  '1
+        Case 896:Digits(chgLED(ii, 0) ).SetValue 2  '1
+        Case 768:Digits(chgLED(ii, 0) ).SetValue 2  '1
+        Case 134:Digits(chgLED(ii, 0) ).SetValue 2  '1
+        Case 219:Digits(chgLED(ii, 0) ).SetValue 3  '2
+        Case 207:Digits(chgLED(ii, 0) ).SetValue 4  '3
+        Case 230:Digits(chgLED(ii, 0) ).SetValue 5  '4
+        Case 237:Digits(chgLED(ii, 0) ).SetValue 6  '5
+        Case 253:Digits(chgLED(ii, 0) ).SetValue 7  '6
+        Case 135:Digits(chgLED(ii, 0) ).SetValue 8  '7
+        Case 255:Digits(chgLED(ii, 0) ).SetValue 9  '8
+        Case 239:Digits(chgLED(ii, 0) ).SetValue 10 '9
+      End Select
+    Next
+  End IF
 End Sub
 
 ' *******************************************************************************************************
@@ -973,7 +973,7 @@ Sub GIUpdate
         OldGiState = Ubound(tmp)
         If UBound(tmp) = -1 Then
             GiOff
-			PlayMusic
+      PlayMusic
         Else
             GiOn
         End If
@@ -1014,7 +1014,7 @@ Sub Rules()
     Msg(14) = "Beating highest score scores 3 credits."
     Msg(15) = "Matching last two numbers on score with numbers in match window"
     Msg(16) = "on backglass scores 1 credit"
-	Msg(17) = ""
+  Msg(17) = ""
     Msg(18) = "Difusing bomb 3 times scores 50000"
 
     For X = 1 To 18

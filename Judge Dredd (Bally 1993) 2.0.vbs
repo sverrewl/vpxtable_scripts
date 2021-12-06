@@ -109,10 +109,10 @@ Sub Table1_Init()
 
   'TROUGH
   'Set bsTrough = New cvpmTrough
-  '	With bsTrough
+  ' With bsTrough
   '       .IsTrough = True
-  '	.InitSwitches Array(86,85,84,83,82,81)
-  '	.InitExit BallRelease, 90, 3
+  ' .InitSwitches Array(86,85,84,83,82,81)
+  ' .InitExit BallRelease, 90, 3
   '   .Size = 6
   '.Balls = 6
   '.InitExitSounds "BallRelease","Solenoid"
@@ -172,51 +172,51 @@ End Sub
  Sub table1_unPaused:Controller.Pause = 0:End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyDownHandler(KeyCode) Then Exit Sub
-	If KeyCode=PlungerKey Then Controller.Switch(12)=1
+  If KeyDownHandler(KeyCode) Then Exit Sub
+  If KeyCode=PlungerKey Then Controller.Switch(12)=1
   If KeyCode=3 Then Controller.Switch(31)=1
- 	If keycode = RightMagnaSave Then Controller.Switch(44) = True  ' Super Game        (-)
- 	If keycode = LeftMagnaSave Then Controller.Switch(11) = True   ' Left Fire Button  (z)
+  If keycode = RightMagnaSave Then Controller.Switch(44) = True  ' Super Game        (-)
+  If keycode = LeftMagnaSave Then Controller.Switch(11) = True   ' Left Fire Button  (z)
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyUpHandler(KeyCode) Then Exit Sub
-	If KeyCode=PlungerKey Then Controller.Switch(12)=0
+  If KeyUpHandler(KeyCode) Then Exit Sub
+  If KeyCode=PlungerKey Then Controller.Switch(12)=0
   If KeyCode=3 Then Controller.Switch(31)=0
   If keycode = RightMagnaSave Then Controller.Switch(44) = False ' Super Game        (-)
- 	If keycode = LeftMagnaSave Then Controller.Switch(11) = False  ' Left Fire Button  (z)
+  If keycode = LeftMagnaSave Then Controller.Switch(11) = False  ' Left Fire Button  (z)
 End Sub
 
  '******************************************
  '********* Solenoid Callbacks *************
  '******************************************
 
-SolCallBack(1)	= "GlobeMag"
-SolCallBack(2)	= "VUK2Kick"
-SolCallBack(3)	= "VUKKick"
-SolCallBack(4)	= "GlobeArm"
-SolCallBack(5)	= "jdDrop.solDropUp"
-SolCallBack(6)	= "GlobeMotor"
-SolCallBack(7)	= "vpmSolSound ""Knocker"","
-SolCallBack(8)	= "JDPlunger"
-SolCallBack(9)	= "KickBack"
+SolCallBack(1)  = "GlobeMag"
+SolCallBack(2)  = "VUK2Kick"
+SolCallBack(3)  = "VUKKick"
+SolCallBack(4)  = "GlobeArm"
+SolCallBack(5)  = "jdDrop.solDropUp"
+SolCallBack(6)  = "GlobeMotor"
+SolCallBack(7)  = "vpmSolSound ""Knocker"","
+SolCallBack(8)  = "JDPlunger"
+SolCallBack(9)  = "KickBack"
 SolCallBack(10) = "jdDrop.Hit 3 '"
-SolCallBack(11)	= "Diverter"
-SolCallBack(13)	= "JDTrough"
-'SolCallBack(15)	= "vpmSolSound ""WrongSound"","
-'SolCallBack(16)	= "vpmSolSound ""WrongSound"","
+SolCallBack(11) = "Diverter"
+SolCallBack(13) = "JDTrough"
+'SolCallBack(15)  = "vpmSolSound ""WrongSound"","
+'SolCallBack(16)  = "vpmSolSound ""WrongSound"","
 
-SolCallBack(17)	= "fF17"     	'"SetLamp 100,"     'Judge Fire
-SolCallBack(18)	= "fF18"			'"SetLamp 101,"     'Judge Fear
-SolCallBack(19)	= "fF19"			'"SetLamp 102,"     'Judge Death
-SolCallBack(20)	= "fF20"			'"SetLamp 103,"     'Judge Mortis
-SolCallBack(21)	= "LRF"
-SolCallBack(22)	= "RRF"
+SolCallBack(17) = "fF17"      '"SetLamp 100,"     'Judge Fire
+SolCallBack(18) = "fF18"      '"SetLamp 101,"     'Judge Fear
+SolCallBack(19) = "fF19"      '"SetLamp 102,"     'Judge Death
+SolCallBack(20) = "fF20"      '"SetLamp 103,"     'Judge Mortis
+SolCallBack(21) = "LRF"
+SolCallBack(22) = "RRF"
 SolCallBack(23) = "Flash23"
 
-SolCallBack(24)	= "U_Globe_Flash"
+SolCallBack(24) = "U_Globe_Flash"
 SolCallBack(25) = "Flash25"
-SolCallBack(26)	= "Globe_Flash"
+SolCallBack(26) = "Globe_Flash"
 SolCallBack(27) = "Flash27"
 
 SolCallback(sURFlipper) = "SolFlipper RightFlipper2,Nothing,"
@@ -225,20 +225,20 @@ SolCallback(sULFlipper) = "SolFlipper LeftFlipper2,Nothing,"
 SolCallback(sLRFlipper) = "SolFlipper RightFlipper,Nothing,"
 SolCallback(sLLFlipper) = "SolFlipper LeftFlipper,Nothing,"
 
-'**************		GI		*****************
+'**************   GI    *****************
 
 Set GiCallback2 = GetRef("UpdateGI")
 Dim xxx
 Sub UpdateGI(nr,step)
-		If step=0 Then
-					For each xxx in GI:xxx.state=0:Next
-				Else
-					For each xxx in GI:xxx.state=1:Next
-				End If
-				For each xxx in GI:xxx.IntensityScale = 0.3 * step:next
-		If Step>=7 Then Table1.ColorGradeImage = "ColorGrade8":Else Table1.ColorGradeImage = "ColorGrade_" & (step+1):End If
-        		For each xxx in GI:xxx.state=step:Next
-		If Step>0 Then Table1.ColorGradeImage = "ColorGrade8":Else Table1.ColorGradeImage = "ColorGrade1":End If
+    If step=0 Then
+          For each xxx in GI:xxx.state=0:Next
+        Else
+          For each xxx in GI:xxx.state=1:Next
+        End If
+        For each xxx in GI:xxx.IntensityScale = 0.3 * step:next
+    If Step>=7 Then Table1.ColorGradeImage = "ColorGrade8":Else Table1.ColorGradeImage = "ColorGrade_" & (step+1):End If
+            For each xxx in GI:xxx.state=step:Next
+    If Step>0 Then Table1.ColorGradeImage = "ColorGrade8":Else Table1.ColorGradeImage = "ColorGrade1":End If
 End Sub
 
 'Light Handler - Simple because of inbuilt fading lamps (Thanks Toxie & Fuzzel!)
@@ -416,7 +416,7 @@ End Sub
 
 ' play a looping sound at a location with volume
 Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
-	PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
 End Sub
 
 '*********************************************************************
@@ -520,16 +520,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
         rolling(b) = True
@@ -1034,16 +1034,16 @@ End Sub
 
 'Switch Handlers
 
-Const WallPrefix 		= "T" 'Change this based on your naming convention
-Const PrimitivePrefix 	= "PrimT"'Change this based on your naming convention
+Const WallPrefix    = "T" 'Change this based on your naming convention
+Const PrimitivePrefix   = "PrimT"'Change this based on your naming convention
 Const PrimitiveBumperPrefix = "BumperRing" 'Change this based on your naming convention
 Dim primCnt(100), primDir(100), primBmprDir(100)
 
 '****************************************************************************
 '      Primitive Standup Target Animation
 '****************************************************************************
-'USAGE: 	Sub sw1_Hit: 	PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
-'USAGE: 	Sub Sw1_Timer: 	PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub sw1_Hit:  PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub Sw1_Timer:  PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
 
 Const StandupTgtMovementDir = "TransX"
 Const StandupTgtMovementMax = 6
@@ -1051,36 +1051,36 @@ Const StandupTgtMovementMax = 6
 Sub PrimStandupTgtHit (swnum, wallName, primName)
   PlaySoundAtVol "target", ActiveBall, 1
   vpmTimer.PulseSw swnum
-  primCnt(swnum) = 0 									'Reset count
-  wallName.TimerInterval = 20 	'Set timer interval
-  wallName.TimerEnabled = 1 	'Enable timer
+  primCnt(swnum) = 0                  'Reset count
+  wallName.TimerInterval = 20   'Set timer interval
+  wallName.TimerEnabled = 1   'Enable timer
 End Sub
 
-Sub	PrimStandupTgtMove (swnum, wallName, primName)
+Sub PrimStandupTgtMove (swnum, wallName, primName)
   Select Case StandupTgtMovementDir
     Case "TransX":
       Select Case primCnt(swnum)
-        Case 0: 	primName.TransX = -StandupTgtMovementMax * .5
-        Case 1: 	primName.TransX = -StandupTgtMovementMax
-        Case 2: 	primName.TransX = -StandupTgtMovementMax * .5
-        Case 3: 	primName.TransX = 0
-        Case else: 	wallName.TimerEnabled = 0
+        Case 0:   primName.TransX = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransX = -StandupTgtMovementMax
+        Case 2:   primName.TransX = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransX = 0
+        Case else:  wallName.TimerEnabled = 0
       End Select
     Case "TransY":
       Select Case primCnt(swnum)
-        Case 0: 	primName.TransY = -StandupTgtMovementMax * .5
-        Case 1: 	primName.TransY = -StandupTgtMovementMax
-        Case 2: 	primName.TransY = -StandupTgtMovementMax * .5
-        Case 3: 	primName.TransY = 0
-        Case else: 	wallName.TimerEnabled = 0
+        Case 0:   primName.TransY = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransY = -StandupTgtMovementMax
+        Case 2:   primName.TransY = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransY = 0
+        Case else:  wallName.TimerEnabled = 0
       End Select
     Case "TransZ":
       Select Case primCnt(swnum)
-        Case 0: 	primName.TransZ = -StandupTgtMovementMax * .5
-        Case 1: 	primName.TransZ = -StandupTgtMovementMax
-        Case 2: 	primName.TransZ = -StandupTgtMovementMax * .5
-        Case 3: 	primName.TransZ = 0
-        Case else: 	wallName.TimerEnabled = 0
+        Case 0:   primName.TransZ = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransZ = -StandupTgtMovementMax
+        Case 2:   primName.TransZ = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransZ = 0
+        Case else:  wallName.TimerEnabled = 0
       End Select
   End Select
   primCnt(swnum) = primCnt(swnum) + 1
@@ -1098,11 +1098,11 @@ Sub CapBall3_Unhit()
   me.enabled = 0
 End Sub
 
-Sub sw54_Hit	: playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 1 : End Sub
-Sub sw55_Hit	: playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 2 : End Sub
-Sub sw56_Hit	: playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 3 : End Sub
-Sub sw57_Hit	: playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 4 : End Sub
-Sub sw58_Hit	: playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 5 : End Sub
+Sub sw54_Hit  : playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 1 : End Sub
+Sub sw55_Hit  : playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 2 : End Sub
+Sub sw56_Hit  : playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 3 : End Sub
+Sub sw57_Hit  : playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 4 : End Sub
+Sub sw58_Hit  : playsoundAtVol "fx_droptarget", ActiveBall, 1:jdDrop.hit 5 : End Sub
 
 Sub Dead_Enter_Hit()
   Controller.Switch(63) = 1
@@ -1279,25 +1279,25 @@ Sub BRD_Hit()
   PlaySoundAtVol "ball_bounce", ActiveBall, 1
 End Sub
 
-Sub t18_Hit: 	PrimStandupTgtHit 18, T18, PrimT18: End Sub
+Sub t18_Hit:  PrimStandupTgtHit 18, T18, PrimT18: End Sub
 Sub t18_Timer: PrimStandupTgtMove 18, T18, PrimT18: End Sub
 
-Sub t18a_Hit: 	PrimStandupTgtHit 18, T18a, PrimT18a: End Sub
+Sub t18a_Hit:   PrimStandupTgtHit 18, T18a, PrimT18a: End Sub
 Sub t18a_Timer: PrimStandupTgtMove 18, T18a, PrimT18a: End Sub
 
-Sub t18b_Hit: 	PrimStandupTgtHit 18, T18b, PrimT18b: End Sub
+Sub t18b_Hit:   PrimStandupTgtHit 18, T18b, PrimT18b: End Sub
 Sub t18b_Timer: PrimStandupTgtMove 18, T18b, PrimT18b: End Sub
 
-Sub t68_Hit: 	PrimStandupTgtHit 68, T68, PrimT68: End Sub
+Sub t68_Hit:  PrimStandupTgtHit 68, T68, PrimT68: End Sub
 Sub t68_Timer: PrimStandupTgtMove 68, T68, PrimT68: End Sub
 
-Sub t27_Hit: 	PrimStandupTgtHit 27, T27, PrimT27: End Sub
+Sub t27_Hit:  PrimStandupTgtHit 27, T27, PrimT27: End Sub
 Sub t27_Timer: PrimStandupTgtMove 27, T27, PrimT27: End Sub
 
-Sub t25_Hit: 	PrimStandupTgtHit 25, T25, PrimT25: End Sub
+Sub t25_Hit:  PrimStandupTgtHit 25, T25, PrimT25: End Sub
 Sub t25_Timer: PrimStandupTgtMove 25, T25, PrimT25: End Sub
 
-Sub t36_Hit: 	PrimStandupTgtHit 36, T36, PrimT36: End Sub
+Sub t36_Hit:  PrimStandupTgtHit 36, T36, PrimT36: End Sub
 Sub t36_Timer: PrimStandupTgtMove 36, T36, PrimT36: End Sub
 
 Sub Sol3_hit()
@@ -1639,13 +1639,13 @@ Sub planet_diag_timer()
 End Sub
 
 Sub DOF(dofevent, dofstate)
-	If cController = 3 Then
-		If dofstate = 2 Then
-			Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
-		Else
-			Controller.B2SSetData dofevent, dofstate
-		End If
-	End If
+  If cController = 3 Then
+    If dofstate = 2 Then
+      Controller.B2SSetData dofevent, 1:Controller.B2SSetData dofevent, 0
+    Else
+      Controller.B2SSetData dofevent, dofstate
+    End If
+  End If
 End Sub
 
 Sub Table1_Exit

@@ -289,9 +289,9 @@ SolCallback(15) = "vpmSolSound""Sorcerer_Bell""," ' Bell
 'SolCallback(16)
 'SolCallback(17)     = ""  ' Left Sling
 'SolCallback(18)     = "" ' Right Sling
-'SolCallback(19)	  = ""  				    ' Left Jet Bumper
-'SolCallback(20)	  = ""    				' Bottom Jet Bumper
-'SolCallback(21)	  = ""    				' Right Jet Bumper
+'SolCallback(19)    = ""              ' Left Jet Bumper
+'SolCallback(20)    = ""            ' Bottom Jet Bumper
+'SolCallback(21)    = ""            ' Right Jet Bumper
 SolCallback(23) = "vpmNudge.SolGameOn"
 
 '**************
@@ -343,10 +343,10 @@ End Sub
 
 Sub SolGi(enabled)
     If Enabled Then
-		PlaySound "fx_SolenoidOn", 0, 0.1
+    PlaySound "fx_SolenoidOn", 0, 0.1
         GiOff
     Else
-		PlaySound "fx_SolenoidOff", 0, 0.1
+    PlaySound "fx_SolenoidOff", 0, 0.1
         GiOn
     End If
 End Sub

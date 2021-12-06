@@ -137,14 +137,14 @@ Sub Table1_Init
     vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'"                              'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
     Controller.Run
 
-	' Press F6 during the game to change the dip switches
-	' destruk dip switches - awards extra ball
+  ' Press F6 during the game to change the dip switches
+  ' destruk dip switches - awards extra ball
     'Controller.Dip(0) = (0 * 1 + 1 * 2 + 0 * 4 + 0 * 8 + 0 * 16 + 0 * 32 + 0 * 64 + 0 * 128) '01-08
     'Controller.Dip(1) = (0 * 1 + 0 * 2 + 0 * 4 + 0 * 8 + 0 * 16 + 0 * 32 + 0 * 64 + 1 * 128) '09-16
     'Controller.Dip(2) = (0 * 1 + 1 * 2 + 0 * 4 + 0 * 8 + 0 * 16 + 0 * 32 + 0 * 64 + 0 * 128) '17-24
     'Controller.Dip(3) = (1 * 1 + 1 * 2 + 1 * 4 + 0 * 8 + 0 * 16 + 1 * 32 + 1 * 64 + 0 * 128) '25-32
 
-	' Jolo dip switches - awards extra game
+  ' Jolo dip switches - awards extra game
     'Controller.Dip(0) = (0 * 1 + 0 * 2 + 0 * 4 + 0 * 8 + 0 * 16 + 0 * 32 + 0 * 64 + 0 * 128) '01-08
     'Controller.Dip(1) = (0 * 1 + 0 * 2 + 0 * 4 + 0 * 8 + 1 * 16 + 0 * 32 + 0 * 64 + 1 * 128) '09-16
     'Controller.Dip(2) = (0 * 1 + 1 * 2 + 0 * 4 + 0 * 8 + 0 * 16 + 0 * 32 + 0 * 64 + 0 * 128) '17-24
@@ -189,11 +189,11 @@ Sub Table1_Init
     ' Map lights into array
     vpmMapLights aLights
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+  End If
 End Sub
 
 Sub table1_KeyDown(ByVal Keycode)
@@ -331,7 +331,7 @@ Sub GiON
     For each x in aGiLights
         x.State = 1
     Next
-	l53b.State = 2
+  l53b.State = 2
 End Sub
 
 Sub GiOFF
@@ -339,7 +339,7 @@ Sub GiOFF
     For each x in aGiLights
         x.State = 0
     Next
-	l53b.State = 0
+  l53b.State = 0
 End Sub
 
 Dim OldGiState
@@ -373,19 +373,19 @@ Sub alanes_Hit(idx):PlaySound SoundFX("fx_sensor", DOFContactors), 0, 1, pan(Act
 'Gameplan
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips:Set vpmDips=New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"Gameplan - DIP switches"
-		.AddFrame 2,5,190,"Maximum credits",&H07000000,Array("5 credits",0,"10 credits",&H01000000,"15 credits",&H02000000,"20 credits",&H03000000,"25 credits",&H04000000,"30 credits",&H05000000,"35 credits",&H06000000,"40 credits",&H07000000)'dip 25&26&27
-		.AddFrame 210,97,190,"High game to date award",&HC0000000,Array("no award",0,"1 credit",&H40000000,"2 credits",&H80000000,"3 credits",&HC0000000)'dip 31&32
-		.AddFrame 210,5,190,"Special award",&H10000000,Array("extra ball",0,"replay",&H10000000)'dip 29
-		.AddFrame 210,51,190,"Balls per game",&H08000000,Array("3 balls",0,"5 balls",&H08000000)'dip 28
-		.AddChk 2,140,150,Array("Play tunes",32768)'dip 16
-		.AddChk 2,155,150,Array("Match feature",&H20000000)'dip 30
-		.AddChk 2,170,150,Array("Free play",&H00000080)'dip 8
-		.AddLabel 30,200,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips:Set vpmDips=New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"Gameplan - DIP switches"
+    .AddFrame 2,5,190,"Maximum credits",&H07000000,Array("5 credits",0,"10 credits",&H01000000,"15 credits",&H02000000,"20 credits",&H03000000,"25 credits",&H04000000,"30 credits",&H05000000,"35 credits",&H06000000,"40 credits",&H07000000)'dip 25&26&27
+    .AddFrame 210,97,190,"High game to date award",&HC0000000,Array("no award",0,"1 credit",&H40000000,"2 credits",&H80000000,"3 credits",&HC0000000)'dip 31&32
+    .AddFrame 210,5,190,"Special award",&H10000000,Array("extra ball",0,"replay",&H10000000)'dip 29
+    .AddFrame 210,51,190,"Balls per game",&H08000000,Array("3 balls",0,"5 balls",&H08000000)'dip 28
+    .AddChk 2,140,150,Array("Play tunes",32768)'dip 16
+    .AddChk 2,155,150,Array("Match feature",&H20000000)'dip 30
+    .AddChk 2,170,150,Array("Free play",&H00000080)'dip 8
+    .AddLabel 30,200,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips=GetRef("editDips")
 

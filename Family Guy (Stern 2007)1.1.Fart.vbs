@@ -269,7 +269,7 @@ kicker3.enabled = 0
 kicker4.CreateSizedBallWithMass BallSize/2,Ballmass
 kicker4.kick 180, 1
 kicker4.enabled = 0
-sw55.createsizedball(14.6875)			'minipinball 5/8"
+sw55.createsizedball(14.6875)     'minipinball 5/8"
 MiniPF.AddBall 0
 InitGIColor
 
@@ -293,12 +293,12 @@ Sub table1_exit():Controller.Stop:End sub
 '* SOLENOID CALLS *************************************
 '******************************************************
 
-SolCallback(1)  = "solTrough"				 'BallExit
-SolCallback(2)  = "AutoLaunch"				 'AutoLaunch
-SolCallback(3)  = "BankReset"				 '4-Bank Drop Tragets reset
+SolCallback(1)  = "solTrough"        'BallExit
+SolCallback(2)  = "AutoLaunch"         'AutoLaunch
+SolCallback(3)  = "BankReset"        '4-Bank Drop Tragets reset
 SolCallback(4)  = "CPDSol"                   'Ball Saver Down
-SolCallback(5)  = "DrunkenClam.SolOut"		 'DrunkenClam Exit
-SolCallback(6)  = "DeathReset"				 'Single Drop Targte reset
+SolCallback(5)  = "DrunkenClam.SolOut"     'DrunkenClam Exit
+SolCallback(6)  = "DeathReset"         'Single Drop Targte reset
 'SolCallback(7)  = "LeftSlingHit"            'Left Slingshot
 'SolCallback(8)  = "RightSlingHit"           'Right Slingshot
 'SolCallback(9)  = "Bump1Sol"                'Bottom Bumper
@@ -312,19 +312,19 @@ SolCallback(16) = "RFlipper"
 SolCallback(17) = "Miniflipper_Left"
 SolCallback(18) = "Miniflipper_Right"
 SolCallback(19) = "CastleGuardSol"
-SolCallBack(20) = "StewieMove"				'Stewie Motor Drive
+SolCallBack(20) = "StewieMove"        'Stewie Motor Drive
 SolCallBack(21) = "MiniPFSol"
-SolCallBack(22) = "MegMove"					'Meg Move Solenoid
-SolCallback(23) = "setlamp 193,"			'Flash Lower Left
-SolCallBack(24)= "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"					'Knocker
-SolCallback(25) = "setlamp 195,"			'Flash Backpanel Left
-SolCallback(26) = "setlamp 196,"			'Flash Backpanel Center
-SolCallback(27) = "setlamp 197,"			'Flash Backpanel Right
-SolCallback(28) = "setlamp 198,"			'Flash BeerCan
-SolCallback(29) = "setlamp 199,"			'Flash Fiona
-SolCallback(30) = "setlamp 190,"			'Flash RIght Orbit (Spinner)
-SolCallback(31) = "setlamp 191,"			'Flash Pop Bumpers
-SolCallback(32) = "setlamp 192,"			'Flash Lower Right
+SolCallBack(22) = "MegMove"         'Meg Move Solenoid
+SolCallback(23) = "setlamp 193,"      'Flash Lower Left
+SolCallBack(24)= "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"          'Knocker
+SolCallback(25) = "setlamp 195,"      'Flash Backpanel Left
+SolCallback(26) = "setlamp 196,"      'Flash Backpanel Center
+SolCallback(27) = "setlamp 197,"      'Flash Backpanel Right
+SolCallback(28) = "setlamp 198,"      'Flash BeerCan
+SolCallback(29) = "setlamp 199,"      'Flash Fiona
+SolCallback(30) = "setlamp 190,"      'Flash RIght Orbit (Spinner)
+SolCallback(31) = "setlamp 191,"      'Flash Pop Bumpers
+SolCallback(32) = "setlamp 192,"      'Flash Lower Right
 
 '******************************************************
 '* CASTLE GUARD GATE **********************************
@@ -610,33 +610,33 @@ Sub Bumper2_Hit : vpmTimer.PulseSw 31 : PlaySoundAtVol SoundFX("Stern_Bump2",DOF
 Sub Bumper3_Hit : vpmTimer.PulseSw 30 : PlaySoundAtVol SoundFX("Stern_Bump3",DOFContactors), Bumper3, VolBump : Me.TimerEnabled = 1 : End Sub
 
 Sub Bumper1_timer()
-	BR1.Z = BR1.Z + (5 * dirRing1)
-	If BR1.Z <= -35 Then dirRing1 = 1
-	If BR1.Z >= 0 Then
-		dirRing1 = -1
-		BR1.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BR1.Z = BR1.Z + (5 * dirRing1)
+  If BR1.Z <= -35 Then dirRing1 = 1
+  If BR1.Z >= 0 Then
+    dirRing1 = -1
+    BR1.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper2_timer()
-	BR2.Z = BR2.Z + (5 * dirRing2)
-	If BR2.Z <= -35 Then dirRing2 = 1
-	If BR2.Z >= 0 Then
-		dirRing2 = -1
-		BR2.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BR2.Z = BR2.Z + (5 * dirRing2)
+  If BR2.Z <= -35 Then dirRing2 = 1
+  If BR2.Z >= 0 Then
+    dirRing2 = -1
+    BR2.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper3_timer()
-	BR3.Z = BR3.Z + (5 * dirRing3)
-	If BR3.Z <= -35 Then dirRing3 = 1
-	If BR3.Z >= 0 Then
-		dirRing3 = -1
-		BR3.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BR3.Z = BR3.Z + (5 * dirRing3)
+  If BR3.Z <= -35 Then dirRing3 = 1
+  If BR3.Z >= 0 Then
+    dirRing3 = -1
+    BR3.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 '******************************************************
@@ -1335,71 +1335,71 @@ Dim BallShadow:BallShadow = Array (BallShadow1, BallShadow2, BallShadow3,Ballsha
 Sub BallShadowUpdate()
     Dim BOT, b
     BOT = GetBalls
-	' hide shadow of deleted balls
-	If UBound(BOT)<(tnob-1) Then
-		For b = (UBound(BOT) + 1) to (tnob-1)
-			BallShadow(b).visible = 0
-		Next
-	End If
-	' exit the Sub if no balls on the table
+  ' hide shadow of deleted balls
+  If UBound(BOT)<(tnob-1) Then
+    For b = (UBound(BOT) + 1) to (tnob-1)
+      BallShadow(b).visible = 0
+    Next
+  End If
+  ' exit the Sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
-		End If
-		If BOT(b).Z < 10 and BOT(b).Z>90 then BallShadow(b).Z = 1 else BallShadow(b).Z=BOT(b).z-20
-	    ballShadow(b).Y = BOT(b).Y + 20
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
+    End If
+    If BOT(b).Z < 10 and BOT(b).Z>90 then BallShadow(b).Z = 1 else BallShadow(b).Z=BOT(b).z-20
+      ballShadow(b).Y = BOT(b).Y + 20
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 ' *********************************************************************
-'                      		Sound FX
+'                         Sound FX
 ' *********************************************************************
 
 ' Sub OnBallBallCollision(ball1, ball2, velocity)
-' 	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+'   PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
 ' End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "fx_gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)

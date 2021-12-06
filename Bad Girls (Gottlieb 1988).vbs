@@ -51,15 +51,15 @@ End if
 '*************************************************************
 'Solenoid Call backs
 '**********************************************************************************************************
- SolCallback(1) = "Solenoid1"					'sol1 3 position 7 bank
- SolCallback(2) = "Solenoid2"					'sol2 left upkicker
- SolCallback(3) = "Solenoid3"					'sol3 Large Hat Lights
- SolCallback(4) = "Solenoid4"					'sol4 VariReset
- SolCallback(5) = "Solenoid5"					'sol5 4 position 7 bank
- SolCallback(6) = "Solenoid6"					'sol6 right upkicker
- SolCallback(7) = "Solenoid7"		 			'sol7 EightBall Drop
+ SolCallback(1) = "Solenoid1"         'sol1 3 position 7 bank
+ SolCallback(2) = "Solenoid2"         'sol2 left upkicker
+ SolCallback(3) = "Solenoid3"         'sol3 Large Hat Lights
+ SolCallback(4) = "Solenoid4"         'sol4 VariReset
+ SolCallback(5) = "Solenoid5"         'sol5 4 position 7 bank
+ SolCallback(6) = "Solenoid6"         'sol6 right upkicker
+ SolCallback(7) = "Solenoid7"         'sol7 EightBall Drop
  SolCallback(8) =  "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
- SolCallback(9) = "bsTrough.SolIn"     		  	'sol.9 Outhole
+ SolCallback(9) = "bsTrough.SolIn"            'sol.9 Outhole
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
@@ -85,179 +85,179 @@ End Sub
 '**********************************************************************************************************
 
 Sub solTrough(Enabled) 'controlled by light ID 2
-	If Enabled Then
-		bsTrough.ExitSol_On
-	End If
+  If Enabled Then
+    bsTrough.ExitSol_On
+  End If
  End Sub
 
  Sub Solenoid1(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 151,Enabled 'Upper Left Flahsers X2
-	Else
-		dtL.SolunHit 1,Enabled:
-		dtL.SolunHit 2,Enabled:
-		dtL.SolunHit 3,Enabled:
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 151,Enabled 'Upper Left Flahsers X2
+  Else
+    dtL.SolunHit 1,Enabled:
+    dtL.SolunHit 2,Enabled:
+    dtL.SolunHit 3,Enabled:
+  End If
  End Sub
 
  Sub Solenoid2(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 152, Enabled  ' Flasher Drop Targets X2
-	Else
-		if Controller.switch (45) then
-			playsoundAtVol SoundFX("Popper",DOFContactors), TopVuk, VolKick
-			TopVUK.DestroyBall
-			Set raiseball = TopVUK.CreateBall
-			raiseballsw = True
-			TopVukraiseballtimer.Enabled = True
-			TopVUK.Enabled=TRUE
-			Controller.switch (45) = False
-		else
-			PlaySoundAtVol "Popper", TopVuk, VolKick
-		end if
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 152, Enabled  ' Flasher Drop Targets X2
+  Else
+    if Controller.switch (45) then
+      playsoundAtVol SoundFX("Popper",DOFContactors), TopVuk, VolKick
+      TopVUK.DestroyBall
+      Set raiseball = TopVUK.CreateBall
+      raiseballsw = True
+      TopVukraiseballtimer.Enabled = True
+      TopVUK.Enabled=TRUE
+      Controller.switch (45) = False
+    else
+      PlaySoundAtVol "Popper", TopVuk, VolKick
+    end if
+  End If
  End Sub
 
  Sub Solenoid3(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 153,Enabled  'Flasher Right Drain
-	Else
-		SetLamp 150,Enabled 'red box slingshots X2 + PF
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 153,Enabled  'Flasher Right Drain
+  Else
+    SetLamp 150,Enabled 'red box slingshots X2 + PF
+  End If
  End Sub
 
  Sub Solenoid4(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 154,Enabled  'Flasher Left Drain
-	Else
-		If Enabled Then SolVariReset
-		End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 154,Enabled  'Flasher Left Drain
+  Else
+    If Enabled Then SolVariReset
+    End If
  End Sub
 
  Sub Solenoid5(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 155,Enabled ' red box upper right
-	Else
-		dtL.SolunHit 4,Enabled:
-		dtL.SolunHit 5,Enabled:
-		dtL.SolunHit 6,Enabled:
-		dtL.SolunHit 7,Enabled:
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 155,Enabled ' red box upper right
+  Else
+    dtL.SolunHit 4,Enabled:
+    dtL.SolunHit 5,Enabled:
+    dtL.SolunHit 6,Enabled:
+    dtL.SolunHit 7,Enabled:
+  End If
  End Sub
 
  Sub Solenoid6(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 156,Enabled'Dome Flasher X2
-	Else
-		if Controller.switch (55) then
-			playsoundAtVol SoundFX("Popper",DOFContactors), MidVUKTop, VolKick
-			MidVUKTop.DestroyBall
-			Set dropball = MidVUKTop.CreateBall
-			dropballsw = True
-			MidVukdropballtimer.Enabled = True
-			MidVUKTop.Enabled=TRUE
-			Controller.switch (55) = False
-		else
-			PlaySoundAtVol "Popper", MidVUKTop, VolKick
-		end if
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 156,Enabled'Dome Flasher X2
+  Else
+    if Controller.switch (55) then
+      playsoundAtVol SoundFX("Popper",DOFContactors), MidVUKTop, VolKick
+      MidVUKTop.DestroyBall
+      Set dropball = MidVUKTop.CreateBall
+      dropballsw = True
+      MidVukdropballtimer.Enabled = True
+      MidVUKTop.Enabled=TRUE
+      Controller.switch (55) = False
+    else
+      PlaySoundAtVol "Popper", MidVUKTop, VolKick
+    end if
+  End If
  End Sub
 
  Sub Solenoid7(Enabled)
-	If Controller.Lamp(12) Then 'S Relay enable
-		SetLamp 157,Enabled 'Plunger Lane Flasher X2
-	Else
-		dtT.SolunHit 1,Enabled:
-	End If
+  If Controller.Lamp(12) Then 'S Relay enable
+    SetLamp 157,Enabled 'Plunger Lane Flasher X2
+  Else
+    dtT.SolunHit 1,Enabled:
+  End If
  End Sub
 
 'Playfield GI
 Sub PFGI(Enabled)
-	If Enabled Then
-		dim xx
-		For each xx in GI:xx.State = 0: Next
+  If Enabled Then
+    dim xx
+    For each xx in GI:xx.State = 0: Next
         PlaySound "fx_relay"
 
-	Else
-		For each xx in GI:xx.State = 1: Next
+  Else
+    For each xx in GI:xx.State = 1: Next
         PlaySound "fx_relay"
 
 
-	End If
+  End If
 End Sub
 
 'Left Sequential GI Lights controlled by relay B
 Sub RelayB(Enabled)
-	If Enabled Then
-		Timer1.Enabled = 0
-	Else
+  If Enabled Then
+    Timer1.Enabled = 0
+  Else
         PlaySound "fx_relay"
-	End If
+  End If
 End Sub
 
 Dim AuxRampLamps1, AuxLampCount1
 
 Sub Timer1_Timer
-	AuxLampCount1 = (AuxLampCount1 + 1) Mod 9
-	Select Case AuxLampCount
-		Case 0:
-			 SetLamp 101, 1: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
-		Case 1:
-			 SetLamp 101, 0: SetLamp 102, 1: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
-		Case 3:
-			 SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 1 : SetLamp 104, 0 : SetLamp 105, 0
-		Case 4:
-			 SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 1 : SetLamp 105, 0
-		Case 5:
-			 SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 1
-		Case 6:
-			 SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 1 : SetLamp 105, 0
-		Case 7:
-			 SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 1 : SetLamp 104, 0 : SetLamp 105, 0
-		Case 8:
-			 SetLamp 101, 0: SetLamp 102, 1: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
-	End Select
+  AuxLampCount1 = (AuxLampCount1 + 1) Mod 9
+  Select Case AuxLampCount
+    Case 0:
+       SetLamp 101, 1: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
+    Case 1:
+       SetLamp 101, 0: SetLamp 102, 1: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
+    Case 3:
+       SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 1 : SetLamp 104, 0 : SetLamp 105, 0
+    Case 4:
+       SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 1 : SetLamp 105, 0
+    Case 5:
+       SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 1
+    Case 6:
+       SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 0 : SetLamp 104, 1 : SetLamp 105, 0
+    Case 7:
+       SetLamp 101, 0: SetLamp 102, 0: SetLamp 103, 1 : SetLamp 104, 0 : SetLamp 105, 0
+    Case 8:
+       SetLamp 101, 0: SetLamp 102, 1: SetLamp 103, 0 : SetLamp 104, 0 : SetLamp 105, 0
+  End Select
 End Sub
 
 
 'Backwall Lights controlled by relay Q
 Sub RelayQ(Enabled)
-	If Enabled Then
-		Timer2.Enabled = 1
-		dim xxx
-		For each xxx in BGI:xxx.visible = 1: Next
-	Else
-		Timer2.Enabled = 0
-		For each xxx in BGI:xxx.visible = 0: Next
-	End If
+  If Enabled Then
+    Timer2.Enabled = 1
+    dim xxx
+    For each xxx in BGI:xxx.visible = 1: Next
+  Else
+    Timer2.Enabled = 0
+    For each xxx in BGI:xxx.visible = 0: Next
+  End If
 End Sub
 
 Dim AuxRampLamps, AuxLampCount
 
 Sub Timer2_Timer
-	AuxLampCount = (AuxLampCount + 1) Mod 11
-	Select Case AuxLampCount
-		Case 0:
-			 SetLamp 111, 1: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 1:
-			 SetLamp 111, 0: SetLamp 112, 1: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 3:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 1 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 4:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 1 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 5:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 1 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 6:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 1 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 7:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 1 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 8:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 1 : SetLamp 119, 0 : SetLamp 120, 0
-		Case 9:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 1 : SetLamp 120, 0
-		Case 10:
-			 SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 1
-	End Select
+  AuxLampCount = (AuxLampCount + 1) Mod 11
+  Select Case AuxLampCount
+    Case 0:
+       SetLamp 111, 1: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 1:
+       SetLamp 111, 0: SetLamp 112, 1: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 3:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 1 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 4:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 1 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 5:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 1 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 6:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 1 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 7:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 1 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 8:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 1 : SetLamp 119, 0 : SetLamp 120, 0
+    Case 9:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 1 : SetLamp 120, 0
+    Case 10:
+       SetLamp 111, 0: SetLamp 112, 0: SetLamp 113, 0 : SetLamp 114, 0 : SetLamp 115, 0 : SetLamp 116, 0 : SetLamp 117, 0 : SetLamp 118, 0 : SetLamp 119, 0 : SetLamp 120, 1
+  End Select
 End Sub
 
 
@@ -269,17 +269,17 @@ End Sub
  Dim bsTrough, bsLeftSaucer, bsRightSaucer, dtT, dtL
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Bad Girls Gottlieb/Premier 1990"&chr(13)&"You Suck"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Bad Girls Gottlieb/Premier 1990"&chr(13)&"You Suck"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .hidden = 1
          On Error Resume Next
          .Run GetPlayerHWnd
@@ -288,25 +288,25 @@ Sub Table1_Init
      End With
      On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch = 57
-	vpmNudge.Sensitivity = 2
-	vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch = 57
+  vpmNudge.Sensitivity = 2
+  vpmNudge.TiltObj = Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
-	Set bsTrough = New cvpmBallStack
-		bsTrough.InitSw 65, 76, 75, 0, 0, 0, 0, 0
-		bsTrough.InitKick BallRelease, 90, 15
-		bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsTrough.Balls = 2
+  Set bsTrough = New cvpmBallStack
+    bsTrough.InitSw 65, 76, 75, 0, 0, 0, 0, 0
+    bsTrough.InitKick BallRelease, 90, 15
+    bsTrough.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsTrough.Balls = 2
 
-	Set dtT=New cvpmDropTarget
-		dtT.InitDrop sw70,70
-		dtT.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
+  Set dtT=New cvpmDropTarget
+    dtT.InitDrop sw70,70
+    dtT.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
 
-	Set dtL=New cvpmDropTarget
-		dtL.InitDrop Array(sw0,sw10,sw20,sw30,sw40,sw50,sw60),Array(0,10,20,30,40,50,60)
-		dtL.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
+  Set dtL=New cvpmDropTarget
+    dtL.InitDrop Array(sw0,sw10,sw20,sw30,sw40,sw50,sw60),Array(0,10,20,30,40,50,60)
+    dtL.InitSnd SoundFX("DTDrop",DOFContactors),SoundFX("DTReset",DOFContactors)
 
  End Sub
 
@@ -319,17 +319,17 @@ Sub table1_exit:Controller.stop:End Sub
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull", Plunger, 1
-	If keycode = RightFlipperkey Then Controller.Switch(15) = 1
+  If keycode = PlungerKey Then Plunger.Pullback:playsoundAtVol"plungerpull", Plunger, 1
+  If keycode = RightFlipperkey Then Controller.Switch(15) = 1
 
-	If KeyDownHandler(keycode) Then Exit Sub
+  If KeyDownHandler(keycode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol"plunger", Plunger, 1
-	If keycode = RightFlipperkey Then Controller.Switch(15) = 0
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol"plunger", Plunger, 1
+  If keycode = RightFlipperkey Then Controller.Switch(15) = 0
 
-	If KeyUpHandler(keycode) Then Exit Sub
+  If KeyUpHandler(keycode) Then Exit Sub
 End Sub
 
 '**********************************************************************************************************
@@ -343,21 +343,21 @@ Sub Drain_Hit:bsTrough.addball me : playsoundAtVol"drain",drain, 1 : End Sub
  Dim raiseballsw, raiseball
 
  Sub TopVUK_Hit()
- 	TopVUK.Enabled=FALSE
-	Controller.switch (45) = True
-	playsoundAtVol "popper_ball", TopVUK, VolKick
+  TopVUK.Enabled=FALSE
+  Controller.switch (45) = True
+  playsoundAtVol "popper_ball", TopVUK, VolKick
  End Sub
 
  Sub TopVukraiseballtimer_Timer()
- 	If raiseballsw = True then
- 		raiseball.z = raiseball.z + 10
- 		If raiseball.z > 140 then
- 			TopVUK.Kick 180, 10
- 			Set raiseball = Nothing
- 			TopVukraiseballtimer.Enabled = False
- 			raiseballsw = False
- 		End If
- 	End If
+  If raiseballsw = True then
+    raiseball.z = raiseball.z + 10
+    If raiseball.z > 140 then
+      TopVUK.Kick 180, 10
+      Set raiseball = Nothing
+      TopVukraiseballtimer.Enabled = False
+      raiseballsw = False
+    End If
+  End If
  End Sub
 
  '********************
@@ -366,22 +366,22 @@ Sub Drain_Hit:bsTrough.addball me : playsoundAtVol"drain",drain, 1 : End Sub
  Dim dropballsw, dropball
 
 Sub MidVUKTop_Hit()
-	MidVUKTop.Enabled=FALSE
-	Controller.switch (55) = True
-	playsoundAtVol "popper_ball", MidVUKTop, VolKick
+  MidVUKTop.Enabled=FALSE
+  Controller.switch (55) = True
+  playsoundAtVol "popper_ball", MidVUKTop, VolKick
 End Sub
 
  Sub MidVukdropballtimer_Timer()
- 	If dropballsw = True then
- 		dropball.z = dropball.z + 10
- 		If dropball.z > 100 then
-			MidVUKTop.Kick 45, 10
- 			Set dropball = Nothing
-			PlaySound "fx_ballrampdrop"
- 			MidVukdropballtimer.Enabled = False
- 			dropballsw = False
- 		End If
- 	End If
+  If dropballsw = True then
+    dropball.z = dropball.z + 10
+    If dropball.z > 100 then
+      MidVUKTop.Kick 45, 10
+      Set dropball = Nothing
+      PlaySound "fx_ballrampdrop"
+      MidVukdropballtimer.Enabled = False
+      dropballsw = False
+    End If
+  End If
  End Sub
 
 'Drop Targets
@@ -449,70 +449,70 @@ Sub Trigger4_Hit:PlaySoundAtVol "Wire Ramp",ActiveBall, 1:End Sub
 
  Dim VariResist,VariDir:VariResist = 1.5
  Sub VariTriggers_Hit(idx)
-	If ActiveBall.VelY < -1 Then
-		If idx > 0 Then VariTriggers(idx-1).enabled = 0
-		ActiveBall.VelY = ActiveBall.VelY + (dCos(15)*VariResist)
-		ActiveBall.VelX = ActiveBall.VelX - (dSin(15)*VariResist)
-		VariDir = 1:VariTimer.enabled = 1
-		Vari.rotx = idx + 1
-	End If
+  If ActiveBall.VelY < -1 Then
+    If idx > 0 Then VariTriggers(idx-1).enabled = 0
+    ActiveBall.VelY = ActiveBall.VelY + (dCos(15)*VariResist)
+    ActiveBall.VelX = ActiveBall.VelX - (dSin(15)*VariResist)
+    VariDir = 1:VariTimer.enabled = 1
+    Vari.rotx = idx + 1
+  End If
  End Sub
 
  Sub VariTriggers_UnHit(idx)
-	VariDir = 0
+  VariDir = 0
  End Sub
 
  Sub VariTimer_Timer
    Dim VPos(2)
-	Select Case VariDir
-		Case 0,1
-			VPos(0) = (Vari.rotx - 3)\6 : VPos(1) = (VPos(0)*6) + 3 : VPos(2) = VPos(0)
-			If vari.rotx > 2 Then VPos(2) = VPos(0)+1
-			Select Case VPos(2)
-				Case 1
-					Controller.Switch(2)=1
+  Select Case VariDir
+    Case 0,1
+      VPos(0) = (Vari.rotx - 3)\6 : VPos(1) = (VPos(0)*6) + 3 : VPos(2) = VPos(0)
+      If vari.rotx > 2 Then VPos(2) = VPos(0)+1
+      Select Case VPos(2)
+        Case 1
+          Controller.Switch(2)=1
 
-				Case 3
-					Controller.Switch(2)=1
-					Controller.Switch(12)=1
+        Case 3
+          Controller.Switch(2)=1
+          Controller.Switch(12)=1
 
-				Case 5
-					Controller.Switch(2)=1
-					Controller.Switch(12)=1
-					Controller.Switch(22)=1
+        Case 5
+          Controller.Switch(2)=1
+          Controller.Switch(12)=1
+          Controller.Switch(22)=1
 
-				Case 6
-					Controller.Switch(2)=1
-					Controller.Switch(12)=1
-					Controller.Switch(22)=1
-					Controller.Switch(32)=1
+        Case 6
+          Controller.Switch(2)=1
+          Controller.Switch(12)=1
+          Controller.Switch(22)=1
+          Controller.Switch(32)=1
 
-			End Select
-			If VariDir = 0 Then
-				If Vari.rotx > VPos(1) Then Vari.rotx = Vari.rotx - 1:VariTriggers(vari.rotx).enabled = 1
-				If Vari.rotx = VPos(1) Then me.enabled = 0:Exit Sub
-			End If
-		Case -1
-			If VariDir = -1 Then
-				If Vari.rotx > 6 Then
-					Vari.rotx = Vari.rotx - 7
-				ElseIf Vari.rotx > 0 Then
-					Vari.rotx = 0:PlaySound "metalhit2"
-				End If
-				If Vari.rotx = 0 Then VariDir = 0:me.enabled = 0:Exit Sub
-			End If
-	End Select
+      End Select
+      If VariDir = 0 Then
+        If Vari.rotx > VPos(1) Then Vari.rotx = Vari.rotx - 1:VariTriggers(vari.rotx).enabled = 1
+        If Vari.rotx = VPos(1) Then me.enabled = 0:Exit Sub
+      End If
+    Case -1
+      If VariDir = -1 Then
+        If Vari.rotx > 6 Then
+          Vari.rotx = Vari.rotx - 7
+        ElseIf Vari.rotx > 0 Then
+          Vari.rotx = 0:PlaySound "metalhit2"
+        End If
+        If Vari.rotx = 0 Then VariDir = 0:me.enabled = 0:Exit Sub
+      End If
+  End Select
  End Sub
 
  Sub SolVariReset
    Dim x
-	Controller.Switch(32)=0
-	Controller.Switch(22)=0
-	Controller.Switch(12)=0
-	Controller.Switch(2)=0
+  Controller.Switch(32)=0
+  Controller.Switch(22)=0
+  Controller.Switch(12)=0
+  Controller.Switch(2)=0
 
-	For each x in VariTriggers:x.enabled = 1:Next
-	VariDir = -1:VariTimer.enabled = 1
+  For each x in VariTriggers:x.enabled = 1:Next
+  VariDir = -1:VariTimer.enabled = 1
  End Sub
 
 Function dsin(angle)
@@ -554,15 +554,15 @@ Sub LampTimer_Timer()
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)       'keep the real state in an array
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
 
-			'Special Handling
+      'Special Handling
 
-			If chgLamp(ii,0) = 0 Then RelayQ chgLamp(ii,1) 'Relay Q Game Over
-	'		If chgLamp(ii,0) = 1 Then RelayT chgLamp(ii,1) 'Relay T Tilt
-			If chgLamp(ii,0) = 2 Then solTrough chgLamp(ii,1) 'Ballrelease
-	'		If chgLamp(ii,0) = 12 Then RelayS chgLamp(ii,1) 'Relay S Switching
-	'		If chgLamp(ii,0) = 13 Then RelayA chgLamp(ii,1) 'Relay A Trip
-			If chgLamp(ii,0) = 14 Then RelayB chgLamp(ii,1) 'Relay B Rerack
-	'		If chgLamp(ii,0) = 15 Then RelayC chgLamp(ii,1) 'Relay C Solids / Stripes
+      If chgLamp(ii,0) = 0 Then RelayQ chgLamp(ii,1) 'Relay Q Game Over
+  '   If chgLamp(ii,0) = 1 Then RelayT chgLamp(ii,1) 'Relay T Tilt
+      If chgLamp(ii,0) = 2 Then solTrough chgLamp(ii,1) 'Ballrelease
+  '   If chgLamp(ii,0) = 12 Then RelayS chgLamp(ii,1) 'Relay S Switching
+  '   If chgLamp(ii,0) = 13 Then RelayA chgLamp(ii,1) 'Relay A Trip
+      If chgLamp(ii,0) = 14 Then RelayB chgLamp(ii,1) 'Relay B Rerack
+  '   If chgLamp(ii,0) = 15 Then RelayC chgLamp(ii,1) 'Relay C Solids / Stripes
 
         Next
     End If
@@ -646,64 +646,64 @@ NFadeL 47, L47
 
 'Solenoid Controlled Flasheers
 
-	NFadeLm 151, L151a
-	NFadeLm 151, L151b
-	NFadeLm 151, L151c
-	NFadeL 151, L151d
+  NFadeLm 151, L151a
+  NFadeLm 151, L151b
+  NFadeLm 151, L151c
+  NFadeL 151, L151d
 
-	NFadeLm 152, L152a
-	NFadeLm 152, L152b
-	NFadeLm 152, L152c
-	NFadeL 152, L152d
+  NFadeLm 152, L152a
+  NFadeLm 152, L152b
+  NFadeLm 152, L152c
+  NFadeL 152, L152d
 
-	NFadeLm 153, L153a
-	NFadeL 153, L153b
+  NFadeLm 153, L153a
+  NFadeL 153, L153b
 
     NFadeObjm 150, P150a, "red-gradON", "red-grad"
     NFadeObjm 150, P150b, "red-gradON", "red-grad"
-	NFadeLm 150, L150a
-	NFadeLm 150, L150b
-	NFadeLm 150, L150c
-	NFadeL 150, L150d
+  NFadeLm 150, L150a
+  NFadeLm 150, L150b
+  NFadeLm 150, L150c
+  NFadeL 150, L150d
 
-	NFadeLm 154, L154a
-	NFadeL 154, L154b
+  NFadeLm 154, L154a
+  NFadeL 154, L154b
 
     NFadeObjm 155, P155, "red-gradON", "red-grad"
-	NFadeL 155, L155a
+  NFadeL 155, L155a
 
     NFadeObjm 156, P156a, "dome2_0_clearON", "dome2_0_clear"   ' Right Dome
     NFadeObjm 156, P156b, "dome2_0_clearON", "dome2_0_clear"   ' Right Dome
-	NFadeLm 156, L156a
-	NFadeL 156, L156b
+  NFadeLm 156, L156a
+  NFadeL 156, L156b
 
-	NFadeLm 157, L157a
-	NFadeLm 157, L157b
-	NFadeLm 157, L157c
-	NFadeL 157, L157d
+  NFadeLm 157, L157a
+  NFadeLm 157, L157b
+  NFadeLm 157, L157c
+  NFadeL 157, L157d
 
 'Aux boards
-	NFadeLm 101, Light1
-	NFadeL 101, Light1a
-	NFadeLm 102, Light2
-	NFadeL 102, Light2a
-	NFadeLm 103, Light3a
-	NFadeL 103, Light3
-	NFadeLm 104, Light4a
-	NFadeL 104, Light4
-	NFadeLm 105, Light5a
-	NFadeL 105, Light5
+  NFadeLm 101, Light1
+  NFadeL 101, Light1a
+  NFadeLm 102, Light2
+  NFadeL 102, Light2a
+  NFadeLm 103, Light3a
+  NFadeL 103, Light3
+  NFadeLm 104, Light4a
+  NFadeL 104, Light4
+  NFadeLm 105, Light5a
+  NFadeL 105, Light5
 
-	Flash 111, Flasher1
-	Flash 112, Flasher2
-	Flash 113, Flasher3
-	Flash 114, Flasher4
-	Flash 115, Flasher5
-	Flash 116, Flasher6
-	Flash 117, Flasher7
-	Flash 118, Flasher8
-	Flash 119, Flasher9
-	Flash 120, Flasher10
+  Flash 111, Flasher1
+  Flash 112, Flasher2
+  Flash 113, Flasher3
+  Flash 114, Flasher4
+  Flash 115, Flasher5
+  Flash 116, Flasher6
+  Flash 117, Flasher7
+  Flash 118, Flasher8
+  Flash 119, Flasher9
+  Flash 120, Flasher10
 
 End Sub
 
@@ -865,18 +865,18 @@ End Sub
     Dim ChgLED, ii, jj, num, chg, stat, obj, b, x
     ChgLED=Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
     If Not IsEmpty(ChgLED)Then
-		If DesktopMode = True Then
+    If DesktopMode = True Then
        For ii=0 To UBound(chgLED)
           num=chgLED(ii, 0) : chg=chgLED(ii, 1) : stat=chgLED(ii, 2)
-			if (num < 40) then
+      if (num < 40) then
               For Each obj In Digits(num)
                    If chg And 1 Then obj.State=stat And 1
                    chg=chg\2 : stat=stat\2
                   Next
-			Else
-			       end if
+      Else
+             end if
         Next
-	   end if
+     end if
     End If
  End Sub
 '**********************************************************************************************************
@@ -885,27 +885,27 @@ End Sub
 'Gottlieb Bad Girls
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 500,600,"Bad Girls - DIP switches"
-		.AddFrame 2,4,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"20 credits",49152)'dip 15&16
-		.AddFrame 2,80,190,"Coin chute 1 and 2 control",&H00002000,Array("seperate",0,"same",&H00002000)'dip 14
-		.AddFrame 2,126,190,"Playfield special",&H00200000,Array("replay",0,"extra ball",&H00200000)'dip 22
-		.AddFrame 2,172,190,"Game mode",&H10000000,Array("replay",0,"extra ball",&H10000000)'dip 29
-		.AddFrame 2,218,600,"Playfield freature control",&H80000000,Array("clear 'Rack' lamps, bumper jackpot starts at 12 hits, 'Rack' special after completing 3 racks",0,"restore 'Rack' lamps, bumper jackpot starts at 8 hits, 'Rack' special after completing 4 racks",&H80000000)'dip 32
-		.AddFrame 2,267,600,"Playfield special control",&H40000000,Array("Bozo lights 200K, right upkicker no pool letter, vari-target 10X-50K-special, 'Rerack' special and bonus countdown",0,"Bozo lights 100K, right upkicker spots a pool letter, vari-target 10X-special, 'Rerack' special only",&H40000000)'dip 31
-		.AddFrame 205,4,190,"High game to date awards",&H00C00000,Array("not displayed and no award",0,"displayed and no award",&H00800000,"displayed and 2 replays",&H00400000,"displayed and 3 replays",&H00C00000)'dip 23&24
-		.AddFrame 205,80,190,"Balls per game",&H01000000,Array("5 balls",0,"3 balls",&H01000000)'dip 25
-		.AddFrame 205,126,190,"Replay limit",&H04000000,Array("no limit",0,"one per ball",&H04000000)'dip 27
-		.AddFrame 205,172,190,"Novelty",&H08000000,Array("normal",0,"extra ball and replay scores 500K",&H08000000)'dip 28
-		.AddFrame 410,4,190,"3rd coin chute credits control",&H20000000,Array("no effect",0,"add 9",&H20000000)'dip 30
-		.AddFrame 410,50,190,"High games to date control",&H00000020,Array("no effect",0,"reset high games 2-5 on power off",&H00000020)'dip 6
-		.AddFrame 410,96,190,"Auto-percentage control",&H00000080,Array("disabled (normal high score mode)",0,"enabled",&H00000080)'dip 8
-		.AddChk 410,147,180,Array("Match feature",&H02000000)'dip 26
-		.AddChk 410,162,190,Array("Attract sound",&H00000040)'dip 7
-		.AddLabel 200,320,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 500,600,"Bad Girls - DIP switches"
+    .AddFrame 2,4,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"20 credits",49152)'dip 15&16
+    .AddFrame 2,80,190,"Coin chute 1 and 2 control",&H00002000,Array("seperate",0,"same",&H00002000)'dip 14
+    .AddFrame 2,126,190,"Playfield special",&H00200000,Array("replay",0,"extra ball",&H00200000)'dip 22
+    .AddFrame 2,172,190,"Game mode",&H10000000,Array("replay",0,"extra ball",&H10000000)'dip 29
+    .AddFrame 2,218,600,"Playfield freature control",&H80000000,Array("clear 'Rack' lamps, bumper jackpot starts at 12 hits, 'Rack' special after completing 3 racks",0,"restore 'Rack' lamps, bumper jackpot starts at 8 hits, 'Rack' special after completing 4 racks",&H80000000)'dip 32
+    .AddFrame 2,267,600,"Playfield special control",&H40000000,Array("Bozo lights 200K, right upkicker no pool letter, vari-target 10X-50K-special, 'Rerack' special and bonus countdown",0,"Bozo lights 100K, right upkicker spots a pool letter, vari-target 10X-special, 'Rerack' special only",&H40000000)'dip 31
+    .AddFrame 205,4,190,"High game to date awards",&H00C00000,Array("not displayed and no award",0,"displayed and no award",&H00800000,"displayed and 2 replays",&H00400000,"displayed and 3 replays",&H00C00000)'dip 23&24
+    .AddFrame 205,80,190,"Balls per game",&H01000000,Array("5 balls",0,"3 balls",&H01000000)'dip 25
+    .AddFrame 205,126,190,"Replay limit",&H04000000,Array("no limit",0,"one per ball",&H04000000)'dip 27
+    .AddFrame 205,172,190,"Novelty",&H08000000,Array("normal",0,"extra ball and replay scores 500K",&H08000000)'dip 28
+    .AddFrame 410,4,190,"3rd coin chute credits control",&H20000000,Array("no effect",0,"add 9",&H20000000)'dip 30
+    .AddFrame 410,50,190,"High games to date control",&H00000020,Array("no effect",0,"reset high games 2-5 on power off",&H00000020)'dip 6
+    .AddFrame 410,96,190,"Auto-percentage control",&H00000080,Array("disabled (normal high score mode)",0,"enabled",&H00000080)'dip 8
+    .AddChk 410,147,180,Array("Match feature",&H02000000)'dip 26
+    .AddChk 410,162,190,Array("Attract sound",&H00000040)'dip 7
+    .AddLabel 200,320,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
@@ -921,7 +921,7 @@ Set vpmShowDips = GetRef("editDips")
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 35
+  vpmTimer.PulseSw 35
     PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -939,7 +939,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 25
+  vpmTimer.PulseSw 25
     PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -1068,16 +1068,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -1105,21 +1105,21 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS
+' ninuzzu's FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
-	FlipperRSh1.RotZ = RightFlipper1.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperRSh1.RotZ = RightFlipper1.currentangle
 
-	FlipperT5L.Roty = LeftFlipper.currentangle +240
-	FlipperT5R.Roty = RightFlipper.currentangle +120
-	FlipperT5R1.Roty = RightFlipper1.currentangle +150
+  FlipperT5L.Roty = LeftFlipper.currentangle +240
+  FlipperT5R.Roty = RightFlipper.currentangle +120
+  FlipperT5R1.Roty = RightFlipper1.currentangle +150
 End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -1138,11 +1138,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else
@@ -1191,75 +1191,75 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub

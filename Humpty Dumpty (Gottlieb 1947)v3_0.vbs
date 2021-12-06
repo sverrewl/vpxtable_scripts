@@ -72,17 +72,17 @@ End If
 End Sub
 '********************************************************************
 'Sub Table1_Init()
-	B2SOn=True
+  B2SOn=True
 
 if B2SOn then
-		Set Controller = CreateObject("B2S.Server")
-		Controller.B2SName = "humpty_dumpty"
-		Controller.Run()
-		If Err Then MsgBox "Can't Load B2S.Server."
-	end if
-	 Ball=0
+    Set Controller = CreateObject("B2S.Server")
+    Controller.B2SName = "humpty_dumpty"
+    Controller.Run()
+    If Err Then MsgBox "Can't Load B2S.Server."
+  end if
+   Ball=0
      Balls=5
-	 Controller.B2SSetBallInPlay ball
+   Controller.B2SSetBallInPlay ball
      Controller.B2SSetGameOver 0
 Controller.B2SSetmatch 0
      Controller.B2SSetShootAgain 0
@@ -103,58 +103,58 @@ Const BallSize = 50
 
 Dim VarHidden, UseVPMDMD
 If Table1.ShowDT = true then
-	'UseVPMDMD = True
-	'VarHidden = 0
-	'lockdown.visible = true
-	Hunklight2.visible = true
-	Hunklight1.visible = true
-	Hunklight3.visible = true
-	Hunklight4.visible = true
-	Hunklight5.visible = true
-	Hunklight6.visible = true
-	Hunklight7.visible = true
-	A10KL.visible = true
-	A20KL.visible = true
-	A30KL.visible = true
-	A40KL.visible = true
-	A50KL.visible = true
-	A60KL.visible = true
-	A70KL.visible = true
-	A80KL.visible = true
-	A90KL.visible = true
-	CredBox.visible = true
+  'UseVPMDMD = True
+  'VarHidden = 0
+  'lockdown.visible = true
+  Hunklight2.visible = true
+  Hunklight1.visible = true
+  Hunklight3.visible = true
+  Hunklight4.visible = true
+  Hunklight5.visible = true
+  Hunklight6.visible = true
+  Hunklight7.visible = true
+  A10KL.visible = true
+  A20KL.visible = true
+  A30KL.visible = true
+  A40KL.visible = true
+  A50KL.visible = true
+  A60KL.visible = true
+  A70KL.visible = true
+  A80KL.visible = true
+  A90KL.visible = true
+  CredBox.visible = true
     TiltBox.visible = true
-	Light2.visible = true
+  Light2.visible = true
 
-	'leftrail.visible = true
-	'rightrail.visible = true
+  'leftrail.visible = true
+  'rightrail.visible = true
 else
-	'UseVPMDMD = False
-	'VarHidden = 1
-	'lockdown.visible = false
-	'leftrail.visible = false
-	'rightrail.visible = false
-	Hunklight1.visible = false
-	Hunklight1.visible = false
-	Hunklight2.visible = false
-	Hunklight3.visible = false
-	Hunklight4.visible = false
-	Hunklight5.visible = false
-	Hunklight6.visible = false
-	Hunklight7.visible = false
-	A10KL.visible = false
-	A20KL.visible = false
-	A30KL.visible = false
-	A40KL.visible = false
-	A50KL.visible = false
-	A60KL.visible = false
-	A70KL.visible = false
-	CredBox.visible = false
-	TiltBox.visible = false
-	Light2.visible = false
-	A80KL.visible = false
-	A90KL.visible = false
-	Light10k.visible = false
+  'UseVPMDMD = False
+  'VarHidden = 1
+  'lockdown.visible = false
+  'leftrail.visible = false
+  'rightrail.visible = false
+  Hunklight1.visible = false
+  Hunklight1.visible = false
+  Hunklight2.visible = false
+  Hunklight3.visible = false
+  Hunklight4.visible = false
+  Hunklight5.visible = false
+  Hunklight6.visible = false
+  Hunklight7.visible = false
+  A10KL.visible = false
+  A20KL.visible = false
+  A30KL.visible = false
+  A40KL.visible = false
+  A50KL.visible = false
+  A60KL.visible = false
+  A70KL.visible = false
+  CredBox.visible = false
+  TiltBox.visible = false
+  Light2.visible = false
+  A80KL.visible = false
+  A90KL.visible = false
+  Light10k.visible = false
 
 end if
 Dim Score
@@ -253,37 +253,37 @@ end sub
 
 Sub LoadTrough_Timer()
 DOF 103,2
- 	trough.CreateBall:trough.Kick 0, 1
+  trough.CreateBall:trough.Kick 0, 1
 trough1.CreateBall:trough1.Kick 0, 1
 trough2.CreateBall:trough2.Kick 0, 1
 trough3.CreateBall:trough3.Kick 0, 1
 trough4.CreateBall:trough4.Kick 0, 1
 TroughCount=5
 LoadTrough.Enabled=0
- 	End Sub
+  End Sub
 
 ' Key Map
 Sub Table1_KeyDown(ByVal keycode)
 If PostItHighScoreCheck(keycode) then Exit Sub
-	if keycode = 6 then
+  if keycode = 6 then
         if Credit < 26 then
-     		Credit = Credit + 1
-     		PlaysoundAtVol "coin", drainer, 1
+        Credit = Credit + 1
+        PlaysoundAtVol "coin", drainer, 1
         end if
-		CredBox.Text = Credit
-	end if
-	if keycode = 2 then
+    CredBox.Text = Credit
+  end if
+  if keycode = 2 then
         if GameOn = 0 and Credit > 0 then
            StartGame
 drop.Rotz = -70
         end if
-	end if
-	If keycode = PlungerKey Then
-		Plunger.PullBack
+  end if
+  If keycode = PlungerKey Then
+    Plunger.PullBack
 PlaySoundAtVol "plungerpull", Plunger, 1
-	End If
+  End If
     if (keycode =3 or keycode =RightMagnaSave) and gameon = TRUE and BallsOut<= 5 and hold=0 then
-	drop.Rotz = 0
+  drop.Rotz = 0
 DOF 104,2
        BallsOut=BallsOut+1
        PlaySoundAtVol "balloutr", Plunger, 1
@@ -292,65 +292,65 @@ DOF 104,2
        hold=1
 
     end if
-	If keycode = LeftFlipperKey and tilted = FALSE then
+  If keycode = LeftFlipperKey and tilted = FALSE then
 DOF 101,1
-		Flipper1.RotateToEnd
-		Flipper2.RotateToEnd
-		Flipper3.RotateToEnd
-		PlaySoundAtVol "FlipperUp", Flipper1, VolFlip
-		PlaySoundAtVol "FlipperUp", Flipper2, VolFlip
-		PlaySoundAtVol "FlipperUp", Flipper3, VolFlip
-	End If
-	If keycode = RightFlipperKey and tilted = FALSE then
+    Flipper1.RotateToEnd
+    Flipper2.RotateToEnd
+    Flipper3.RotateToEnd
+    PlaySoundAtVol "FlipperUp", Flipper1, VolFlip
+    PlaySoundAtVol "FlipperUp", Flipper2, VolFlip
+    PlaySoundAtVol "FlipperUp", Flipper3, VolFlip
+  End If
+  If keycode = RightFlipperKey and tilted = FALSE then
 DOF 102,1
-		Flipper4.RotateToEnd
-		Flipper5.RotateToEnd
-		Flipper6.RotateToEnd
-		PlaySoundAtVol "FlipperUp", Flipper4, VolFlip
-		PlaySoundAtVol "FlipperUp", Flipper5, VolFlip
-		PlaySoundAtVol "FlipperUp", Flipper6, VolFlip
-	End If
-	If keycode = LeftTiltKey Then
-		Nudge 90, 2
-		playsound "nudge"
-		TiltCheck
-	End If
-	If keycode = RightTiltKey Then
-		Nudge 270, 2
-		playsound "nudge"
-		TiltCheck
-	End If
-	If keycode = CenterTiltKey Then
-		Nudge 0, 2
-		playsound "nudge"
-		TiltCheck
-	End If
+    Flipper4.RotateToEnd
+    Flipper5.RotateToEnd
+    Flipper6.RotateToEnd
+    PlaySoundAtVol "FlipperUp", Flipper4, VolFlip
+    PlaySoundAtVol "FlipperUp", Flipper5, VolFlip
+    PlaySoundAtVol "FlipperUp", Flipper6, VolFlip
+  End If
+  If keycode = LeftTiltKey Then
+    Nudge 90, 2
+    playsound "nudge"
+    TiltCheck
+  End If
+  If keycode = RightTiltKey Then
+    Nudge 270, 2
+    playsound "nudge"
+    TiltCheck
+  End If
+  If keycode = CenterTiltKey Then
+    Nudge 0, 2
+    playsound "nudge"
+    TiltCheck
+  End If
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.Fire
+  If keycode = PlungerKey Then
+    Plunger.Fire
 PlaySoundAtVol "plunger", Plunger, 1
-	End If
-	If keycode = LeftFlipperKey Then
+  End If
+  If keycode = LeftFlipperKey Then
 DOF 101,0
-		Flipper1.RotateToStart
-		Flipper2.RotateToStart
-		Flipper3.RotateToStart
-		PlaySoundAtVol "FlipperDown", Flipper1, VolFlip
-		PlaySoundAtVol "FlipperDown", Flipper2, VolFlip
-		PlaySoundAtVol "FlipperDown", Flipper3, VolFlip
+    Flipper1.RotateToStart
+    Flipper2.RotateToStart
+    Flipper3.RotateToStart
+    PlaySoundAtVol "FlipperDown", Flipper1, VolFlip
+    PlaySoundAtVol "FlipperDown", Flipper2, VolFlip
+    PlaySoundAtVol "FlipperDown", Flipper3, VolFlip
 
-	End If
-	If keycode = RightFlipperKey Then
+  End If
+  If keycode = RightFlipperKey Then
 DOF 102,0
-		Flipper4.RotateToStart
-		Flipper5.RotateToStart
-		Flipper6.RotateToStart
-		PlaySoundAtVol "FlipperDown", Flipper4, VolFlip
-		PlaySoundAtVol "FlipperDown", Flipper5, VolFlip
-		PlaySoundAtVol "FlipperDown", Flipper6, VolFlip
-	End If
+    Flipper4.RotateToStart
+    Flipper5.RotateToStart
+    Flipper6.RotateToStart
+    PlaySoundAtVol "FlipperDown", Flipper4, VolFlip
+    PlaySoundAtVol "FlipperDown", Flipper5, VolFlip
+    PlaySoundAtVol "FlipperDown", Flipper6, VolFlip
+  End If
 End Sub
 
 ' Tilt Routine
@@ -364,41 +364,41 @@ Sub TiltCheck
       End If
       If Tilts >= 350 and Tilted = FALSE then
          GameOn = FALSE
- 		 Flipper1.RotateToStart
- 		 Flipper2.RotateToStart
-		 Flipper3.RotateToStart
-		 Flipper4.RotateToStart
-		 Flipper5.RotateToStart
-		 Flipper6.RotateToStart
+     Flipper1.RotateToStart
+     Flipper2.RotateToStart
+     Flipper3.RotateToStart
+     Flipper4.RotateToStart
+     Flipper5.RotateToStart
+     Flipper6.RotateToStart
          PlaySound "click"
          Lightb1.State = 0: Primitive110.image = "basedark"
-		 gi1.State = 0
+     gi1.State = 0
          Lightb2.State=  0: Primitive109.image = "basedark"
-		 gi2.State = 0
+     gi2.State = 0
          Lightb3.State = 0: Primitive103.image = "basedark"
-		 gi3.State = 0
+     gi3.State = 0
          Lightb4.State = 0: Primitive105.image = "basedark"
-		 gi4.State = 0
+     gi4.State = 0
          Lightbtopleft.State = 0: Primitive107.image = "basedark"
-		 giLightbtopleft.state = 0
+     giLightbtopleft.state = 0
          Lightbtopright.State = 0: Primitive108.image = "basedark"
-		 giLightbtopright.state = 0
+     giLightbtopright.state = 0
          Lightbbottomleft.State = 0: Primitive104.image = "basedark"
-		 giLightbbottomleft.state = 0
+     giLightbbottomleft.state = 0
          Lightbbottomright.State = 0: Primitive106.image = "basedark"
-		 giLightbbottomright.state = 0
-		 Light1.State = 0
+     giLightbbottomright.state = 0
+     Light1.State = 0
          LightBottom.State = 0
          RSL1.State = 0: Primitive57.image = "redshootcovertexture"
-		 giLighttriangle1.state = 0
+     giLighttriangle1.state = 0
 DOF 144,0
          RSL2.State = 0: Primitive74.image = "redshootcovertexture"
-		 giLighttriangle2.state = 0
+     giLighttriangle2.state = 0
 DOF 125,0
-    	 For X = 1 to 6
-       	     BL(x).State = 0
+       For X = 1 to 6
+             BL(x).State = 0
          Next
-    	 Tilted = TRUE
+       Tilted = TRUE
          TiltBox.Text = "TILT"
 
       End If
@@ -428,13 +428,13 @@ DrainWall.IsDropped = TRUE
     Spec3Award = FALSE
     Spec4Award = FALSE
     lightb1.State = 0: Primitive110.image = "basedark"
-	gi1.State = 0
+  gi1.State = 0
     lightb2.State = 0: Primitive109.image = "basedark"
-	gi2.State = 0
+  gi2.State = 0
     lightb3.State = 0: Primitive103.image = "basedark"
-	gi3.State = 0
+  gi3.State = 0
     lightb4.State = 0: Primitive105.image = "basedark"
-	gi4.State = 0
+  gi4.State = 0
     CRL.state= 1
     crownlight.state= 0
    lefto.state= 0
@@ -446,22 +446,22 @@ DrainWall.IsDropped = TRUE
     Randy = 1
     bv = 2
     Lightbtopleft.State = 1: Primitive107.image = "baseon"
-	giLightbtopleft.State = 1
+  giLightbtopleft.State = 1
     Lightbtopright.State = 1: Primitive108.image = "baseon"
-	giLightbtopright.state = 1
+  giLightbtopright.state = 1
     Lightbbottomleft.State = 1: Primitive104.image = "baseon"
-	giLightbbottomleft.state = 1
+  giLightbbottomleft.state = 1
     Lightbbottomright.State = 1: Primitive106.image = "baseon"
-	giLightbbottomright.state = 1
-	'giLightbtop.state = 1: Primitive111.image = "baseon"
-	'Lightbtop.state = 1
+  giLightbbottomright.state = 1
+  'giLightbtop.state = 1: Primitive111.image = "baseon"
+  'Lightbtop.state = 1
     Light1.State = 0
     LightBottom.State = 0
     RSL1.State = 0: Primitive57.image = "redshootcovertexture"
-	giLighttriangle1.state = 0
+  giLighttriangle1.state = 0
 DOF 144,0
     RSL2.State = 0: Primitive74.image = "redshootcovertexture"
-	giLighttriangle2.state = 0
+  giLighttriangle2.state = 0
 DOF 125,0
     patho = 1
     For X = 1 to 6
@@ -472,26 +472,26 @@ DOF 125,0
     BL(1).State = 1
     For x = 1 to 9
        If x <= 7 then
-			Hunklight(x).State = 0
-			DOF 200+x, 0
-	   End If
+      Hunklight(x).State = 0
+      DOF 200+x, 0
+     End If
        KBox(x).State = 0
-	   DOF 10*x, 0
+     DOF 10*x, 0
     Next
 End Sub
 
 'BallTracking
 Dim BallsLOadedForPlay
-	BallsLoadedForPlay = 0
+  BallsLoadedForPlay = 0
 'BallTracking
 sub drainer_hit()
     drainer.destroyBall
 'BallTracking
-	BallsLoadedForPlay = BallsLoadedForPlay + 1
-	If BallsLoadedForPlay = 5 then
-		BallsLoadedForPlay = 0
-		DrainWall.IsDropped = 0
-	End If
+  BallsLoadedForPlay = BallsLoadedForPlay + 1
+  If BallsLoadedForPlay = 5 then
+    BallsLoadedForPlay = 0
+    DrainWall.IsDropped = 0
+  End If
 'Ball Tracking
     hold=0
     'BH(Ball).CreateBall
@@ -509,7 +509,7 @@ msgbox "gameover"
     Baba=0
     Amos=0
     Otis=0
-	MatchTimer.Enabled=1:PlaySound "MotorLeer"
+  MatchTimer.Enabled=1:PlaySound "MotorLeer"
     CRL.state= 0
    crownlight.state= 0
    lefto.state= 0
@@ -536,17 +536,17 @@ End Sub
 
 sub tbump1_hit()
 
-	bump1 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  bump1 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
 
-	If lightb1.state = 0 then
+  If lightb1.state = 0 then
 lightb1.state = 1: addscore (10000)
 DOF 148,1
  Primitive110.image = "baseon"
 gi1.State = 1
-	Ali=Ali+1
-	end if
+  Ali=Ali+1
+  end if
 advance()
 end sub
 
@@ -586,19 +586,19 @@ end sub
 
 sub tbump2_hit()
 
-	bump2 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  bump2 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
 
 If ali=1 and lightb2.state= 0 then
-	lightb2.state = 1
+  lightb2.state = 1
 DOF 150,1
 addscore (10000)
 advance()
 Primitive109.image = "baseon"
-	gi2.State = 1
+  gi2.State = 1
 Ali=Ali+1
-	end if
+  end if
 end sub
 
 sub TBump2_Timer()
@@ -617,20 +617,20 @@ end sub
 
 sub tbump3_hit()
 
-	bump3 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If ali=2 and lightb3.state= 0 then
-	lightb3.state = 1
+  bump3 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If ali=2 and lightb3.state= 0 then
+  lightb3.state = 1
 DOF 149,1
-	addscore (10000)
+  addscore (10000)
     advance()
-	Primitive103.image = "baseon"
-	gi3.State = 1
-	Ali=Ali+1
+  Primitive103.image = "baseon"
+  gi3.State = 1
+  Ali=Ali+1
 
 
-	end if
+  end if
 end sub
 
 sub TBump3_Timer()
@@ -649,22 +649,22 @@ end sub
 
 sub tbump4_hit()
 
-	bump4 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  bump4 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
 If ali=3 and lightb4.state = 0 and moo=0 then
-	lightb4.state = 1: addscore (10000)
+  lightb4.state = 1: addscore (10000)
 DOF 150,1
-	Primitive105.image = "baseon"
-	gi4.State = 1
-	advance()
-	Baba=Baba+1
+  Primitive105.image = "baseon"
+  gi4.State = 1
+  advance()
+  Baba=Baba+1
    playsound "sequence"
    playsound "sequence"
    playsound "sequence"
-	light1.state=lightstateon
+  light1.state=lightstateon
    lightbottom.state=lightstateon
-	moo=1
+  moo=1
 end if
 
 end sub
@@ -684,16 +684,16 @@ DOF 150,0
 end sub
 
 sub r5_hit(): PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	if rsl1.state= 1 then
+  if rsl1.state= 1 then
 DOF 144,1
-	Primitive57.image = "redshootcovertextureon"
-	giLighttriangle1.state = 1
-	AwardSpecial
-	end if
-	if righto.state= 0 then
-	addscore (10000)
-	end if
-	if righto.state= 1 then
+  Primitive57.image = "redshootcovertextureon"
+  giLighttriangle1.state = 1
+  AwardSpecial
+  end if
+  if righto.state= 0 then
+  addscore (10000)
+  end if
+  if righto.state= 1 then
 
       if f = 0 then
          f = 5
@@ -712,14 +712,14 @@ end sub
 
 sub TopBump_hit()
 
-	bumptop = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If Lightbtop.state = 1 then
+  bumptop = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If Lightbtop.state = 1 then
 DOF 136,1
-	addscore (10000)
+  addscore (10000)
 End If
-	end sub
+  end sub
 
 sub TopBump_Timer()
 
@@ -748,10 +748,10 @@ end sub
 
 
 sub dbump2_hit()
-	bumpcenter = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	if dbl2.state= 1 then
+  bumpcenter = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  if dbl2.state= 1 then
 DOF 149,1
 DOF 151,1
 DOF 152,1
@@ -799,254 +799,254 @@ Dim dw1step, dw2step, dw3step, dw4step, dw5step, dw6step, dw7step, dw8step, dw9s
 '************** Dingwalls
 
 sub dingwall1_hit
-	'addscore 1
-	rdw1.visible=0
-	RDW1a.visible=1
-	dw1step=1
-	Me.timerenabled=1
+  'addscore 1
+  rdw1.visible=0
+  RDW1a.visible=1
+  dw1step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall1_timer
-	select case dw1step
-		Case 1: RDW1a.visible=0: rdw1.visible=1
-		case 2:	rdw1.visible=0: rdw1b.visible=1
-		Case 3: rdw1b.visible=0: rdw1.visible=1: Me.timerenabled=0
-	end Select
-	dw1step=dw1step+1
+  select case dw1step
+    Case 1: RDW1a.visible=0: rdw1.visible=1
+    case 2: rdw1.visible=0: rdw1b.visible=1
+    Case 3: rdw1b.visible=0: rdw1.visible=1: Me.timerenabled=0
+  end Select
+  dw1step=dw1step+1
 end sub
 
 sub dingwall2_hit
-	'addscore 1
-	rdw2.visible=0
-	rdw3.visible=0
-	RDW2a.visible=1
-	dw2step=1
-	Me.timerenabled=1
+  'addscore 1
+  rdw2.visible=0
+  rdw3.visible=0
+  RDW2a.visible=1
+  dw2step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall2_timer
-	select case dw2step
-		Case 1: RDW2a.visible=0: rdw2.visible=1
-		case 2:	rdw2.visible=0: rdw2b.visible=1
-		Case 3: rdw2b.visible=0: rdw2.visible=1: me.timerenabled=0
-	end Select
-	dw2step=dw2step+1
+  select case dw2step
+    Case 1: RDW2a.visible=0: rdw2.visible=1
+    case 2: rdw2.visible=0: rdw2b.visible=1
+    Case 3: rdw2b.visible=0: rdw2.visible=1: me.timerenabled=0
+  end Select
+  dw2step=dw2step+1
 end sub
 
 sub dingwall3_hit
-	'addscore 1
-	Rdw2.visible=0
-	Rdw3.visible=0
-	RDW3a.visible=1
-	dw3step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw2.visible=0
+  Rdw3.visible=0
+  RDW3a.visible=1
+  dw3step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall3_timer
-	select case dw3step
-		Case 1: RDW3a.visible=0: Rdw2.visible=1
-		case 2:	Rdw3.visible=0: rdw3b.visible=1
-		Case 3: rdw3b.visible=0: Rdw3.visible=1: me.timerenabled=0
-	end Select
-	dw3step=dw3step+1
+  select case dw3step
+    Case 1: RDW3a.visible=0: Rdw2.visible=1
+    case 2: Rdw3.visible=0: rdw3b.visible=1
+    Case 3: rdw3b.visible=0: Rdw3.visible=1: me.timerenabled=0
+  end Select
+  dw3step=dw3step+1
 end sub
 
 sub dingwall4_hit
-	'addscore 1
-	Rdw4.visible=0
-	RDW4a.visible=1
-	dw4step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw4.visible=0
+  RDW4a.visible=1
+  dw4step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall4_timer
-	select case dw4step
-		Case 1: RDW4a.visible=0: Rdw4.visible=1
-		case 2:	Rdw4.visible=0: rdw4b.visible=1
-		Case 3: rdw4b.visible=0: Rdw4.visible=1: me.timerenabled=0
-	end Select
-	dw4step=dw4step+1
+  select case dw4step
+    Case 1: RDW4a.visible=0: Rdw4.visible=1
+    case 2: Rdw4.visible=0: rdw4b.visible=1
+    Case 3: rdw4b.visible=0: Rdw4.visible=1: me.timerenabled=0
+  end Select
+  dw4step=dw4step+1
 end sub
 
 sub dingwall5_hit
-	'addscore 1
-	Rdw5.visible=0
-	Rdw6.visible=0
-	RDW5a.visible=1
-	dw5step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw5.visible=0
+  Rdw6.visible=0
+  RDW5a.visible=1
+  dw5step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall5_timer
-	select case dw5step
-		Case 1: RDW5a.visible=0: Rdw5.visible=1
-		case 2:	Rdw5.visible=0: rdw5b.visible=1
-		Case 3: rdw5b.visible=0: Rdw5.visible=1: me.timerenabled=0
-	end Select
-	dw5step=dw5step+1
+  select case dw5step
+    Case 1: RDW5a.visible=0: Rdw5.visible=1
+    case 2: Rdw5.visible=0: rdw5b.visible=1
+    Case 3: rdw5b.visible=0: Rdw5.visible=1: me.timerenabled=0
+  end Select
+  dw5step=dw5step+1
 end sub
 
 sub dingwall6_hit
-	'addscore 1
-	Rdw6.visible=0
-	Rdw5.visible=0
-	RDW6a.visible=1
-	dw6step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw6.visible=0
+  Rdw5.visible=0
+  RDW6a.visible=1
+  dw6step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall6_timer
-	select case dw6step
-		Case 1: RDW6a.visible=0: Rdw6.visible=1
-		case 2:	Rdw6.visible=0: rdw6b.visible=1
-		Case 3: rdw6b.visible=0: Rdw6.visible=1: me.timerenabled=0
-	end Select
-	dw6step=dw6step+1
+  select case dw6step
+    Case 1: RDW6a.visible=0: Rdw6.visible=1
+    case 2: Rdw6.visible=0: rdw6b.visible=1
+    Case 3: rdw6b.visible=0: Rdw6.visible=1: me.timerenabled=0
+  end Select
+  dw6step=dw6step+1
 end sub
 
 sub dingwall7_hit
-	'addscore 1
-	Rdw7.visible=0
-	Rdw7.visible=0
-	RDW7a.visible=1
-	dw7step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw7.visible=0
+  Rdw7.visible=0
+  RDW7a.visible=1
+  dw7step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall7_timer
-	select case dw7step
-		Case 1: RDW7a.visible=0: Rdw7.visible=1
-		case 2:	Rdw7.visible=0: rdw7b.visible=1
-		Case 3: rdw7b.visible=0: Rdw7.visible=1: me.timerenabled=0
-	end Select
-	dw7step=dw7step+1
+  select case dw7step
+    Case 1: RDW7a.visible=0: Rdw7.visible=1
+    case 2: Rdw7.visible=0: rdw7b.visible=1
+    Case 3: rdw7b.visible=0: Rdw7.visible=1: me.timerenabled=0
+  end Select
+  dw7step=dw7step+1
 end sub
 
 sub dingwall8_hit
-	'addscore 1
-	Rdw8.visible=0
-	Rdw7.visible=0
-	RDW8a.visible=1
-	dw8step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw8.visible=0
+  Rdw7.visible=0
+  RDW8a.visible=1
+  dw8step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall8_timer
-	select case dw8step
-		Case 1: RDW8a.visible=0: Rdw8.visible=1
-		case 2:	Rdw8.visible=0: rdw8b.visible=1
-		Case 3: rdw8b.visible=0: Rdw8.visible=1: me.timerenabled=0
-	end Select
-	dw8step=dw8step+1
+  select case dw8step
+    Case 1: RDW8a.visible=0: Rdw8.visible=1
+    case 2: Rdw8.visible=0: rdw8b.visible=1
+    Case 3: rdw8b.visible=0: Rdw8.visible=1: me.timerenabled=0
+  end Select
+  dw8step=dw8step+1
 end sub
 
 
 sub dingwall9_hit
-	'addscore 1
-	Rdw9.visible=0
-	Rdw9.visible=0
-	RDW9a.visible=1
-	dw9step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw9.visible=0
+  Rdw9.visible=0
+  RDW9a.visible=1
+  dw9step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall9_timer
-	select case dw9step
-		Case 1: RDW9a.visible=0: Rdw9.visible=1
-		case 2:	Rdw9.visible=0: rdw9b.visible=1
-		Case 3: rdw9b.visible=0: Rdw9.visible=1: me.timerenabled=0
-	end Select
-	dw9step=dw9step+1
+  select case dw9step
+    Case 1: RDW9a.visible=0: Rdw9.visible=1
+    case 2: Rdw9.visible=0: rdw9b.visible=1
+    Case 3: rdw9b.visible=0: Rdw9.visible=1: me.timerenabled=0
+  end Select
+  dw9step=dw9step+1
 end sub
 
 sub dingwall10_hit
-	'addscore 1
-	Rdw10.visible=0
-	Rdw9.visible=0
-	RDW10a.visible=1
-	dw10step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw10.visible=0
+  Rdw9.visible=0
+  RDW10a.visible=1
+  dw10step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall10_timer
-	select case dw10step
-		Case 1: RDW10a.visible=0: Rdw10.visible=1
-		case 2:	Rdw10.visible=0: rdw10b.visible=1
-		Case 3: rdw10b.visible=0: Rdw10.visible=1: me.timerenabled=0
-	end Select
-	dw10step=dw10step+1
+  select case dw10step
+    Case 1: RDW10a.visible=0: Rdw10.visible=1
+    case 2: Rdw10.visible=0: rdw10b.visible=1
+    Case 3: rdw10b.visible=0: Rdw10.visible=1: me.timerenabled=0
+  end Select
+  dw10step=dw10step+1
 end sub
 
 sub dingwall11_hit
-	'addscore 1
-	Rdw11.visible=0
-	Rdw11.visible=0
-	RDW11a.visible=1
-	dw11step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw11.visible=0
+  Rdw11.visible=0
+  RDW11a.visible=1
+  dw11step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall11_timer
-	select case dw11step
-		Case 1: RDW11a.visible=0: Rdw11.visible=1
-		case 2:	Rdw11.visible=0: rdw11b.visible=1
-		Case 3: rdw11b.visible=0: Rdw11.visible=1: me.timerenabled=0
-	end Select
-	dw11step=dw11step+1
+  select case dw11step
+    Case 1: RDW11a.visible=0: Rdw11.visible=1
+    case 2: Rdw11.visible=0: rdw11b.visible=1
+    Case 3: rdw11b.visible=0: Rdw11.visible=1: me.timerenabled=0
+  end Select
+  dw11step=dw11step+1
 end sub
 
 sub dingwall12_hit
-	'addscore 1
-	Rdw12.visible=0
-	Rdw11.visible=0
-	RDW12a.visible=1
-	dw12step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw12.visible=0
+  Rdw11.visible=0
+  RDW12a.visible=1
+  dw12step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall12_timer
-	select case dw12step
-		Case 1: RDW12a.visible=0: Rdw12.visible=1
-		case 2:	Rdw12.visible=0: rdw12b.visible=1
-		Case 3: rdw12b.visible=0: Rdw12.visible=1: me.timerenabled=0
-	end Select
-	dw12step=dw12step+1
+  select case dw12step
+    Case 1: RDW12a.visible=0: Rdw12.visible=1
+    case 2: Rdw12.visible=0: rdw12b.visible=1
+    Case 3: rdw12b.visible=0: Rdw12.visible=1: me.timerenabled=0
+  end Select
+  dw12step=dw12step+1
 end sub
 
 sub dingwall13_hit
-	'addscore 1
-	Rdw13.visible=0
-	Rdw13.visible=0
-	RDW13a.visible=1
-	dw13step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw13.visible=0
+  Rdw13.visible=0
+  RDW13a.visible=1
+  dw13step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall13_timer
-	select case dw13step
-		Case 1: RDW13a.visible=0: Rdw13.visible=1
-		case 2:	Rdw13.visible=0: rdw13b.visible=1
-		Case 3: rdw13b.visible=0: Rdw13.visible=1: me.timerenabled=0
-	end Select
-	dw13step=dw13step+1
+  select case dw13step
+    Case 1: RDW13a.visible=0: Rdw13.visible=1
+    case 2: Rdw13.visible=0: rdw13b.visible=1
+    Case 3: rdw13b.visible=0: Rdw13.visible=1: me.timerenabled=0
+  end Select
+  dw13step=dw13step+1
 end sub
 
 sub dingwall14_hit
-	'addscore 1
-	Rdw14.visible=0
-	Rdw13.visible=0
-	RDW14a.visible=1
-	dw14step=1
-	Me.timerenabled=1
+  'addscore 1
+  Rdw14.visible=0
+  Rdw13.visible=0
+  RDW14a.visible=1
+  dw14step=1
+  Me.timerenabled=1
 end sub
 
 sub dingwall14_timer
-	select case dw14step
-		Case 1: RDW14a.visible=0: Rdw14.visible=1
-		case 2:	Rdw14.visible=0: rdw14b.visible=1
-		Case 3: rdw14b.visible=0: Rdw14.visible=1: me.timerenabled=0
-	end Select
-	dw14step=dw14step+1
+  select case dw14step
+    Case 1: RDW14a.visible=0: Rdw14.visible=1
+    case 2: Rdw14.visible=0: rdw14b.visible=1
+    Case 3: rdw14b.visible=0: Rdw14.visible=1: me.timerenabled=0
+  end Select
+  dw14step=dw14step+1
 end sub
 
 '********** Rubber non-scoring wall animations
@@ -1054,67 +1054,67 @@ end sub
 '********** Rubber non-scoring wall animations
 
 sub Rwall1_hit
-	Rw1.visible=0
-	RW1a.visible=1
-	rw1step=1
-	Me.timerenabled=1
+  Rw1.visible=0
+  RW1a.visible=1
+  rw1step=1
+  Me.timerenabled=1
 end sub
 
 sub Rwall1_timer
-	select case rw1step
-		Case 1: RW1a.visible=0: Rw1.visible=1
-		case 2:	RW1.visible=0: rw1b.visible=1
-		Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
-	end Select
-	rw1step=rw1step+1
+  select case rw1step
+    Case 1: RW1a.visible=0: Rw1.visible=1
+    case 2: RW1.visible=0: rw1b.visible=1
+    Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
+  end Select
+  rw1step=rw1step+1
 end sub
 
 sub Rwall2_hit
-	Rw2.visible=0
-	RW2a.visible=1
-	rw2step=1
-	Me.timerenabled=1
+  Rw2.visible=0
+  RW2a.visible=1
+  rw2step=1
+  Me.timerenabled=1
 end sub
 
 sub Rwall2_timer
-	select case rw2step
-		Case 1: RW2a.visible=0: Rw2.visible=1
-		case 2:	RW2.visible=0: rw2b.visible=1
-		Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
-	end Select
-	rw2step=rw2step+1
+  select case rw2step
+    Case 1: RW2a.visible=0: Rw2.visible=1
+    case 2: RW2.visible=0: rw2b.visible=1
+    Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
+  end Select
+  rw2step=rw2step+1
 end sub
 
 sub Rwall1_hit
-	Rw1.visible=0
-	RW1a.visible=1
-	rw1step=1
-	Me.timerenabled=1
+  Rw1.visible=0
+  RW1a.visible=1
+  rw1step=1
+  Me.timerenabled=1
 end sub
 
 sub Rwall1_timer
-	select case rw1step
-		Case 1: RW1a.visible=0: Rw1.visible=1
-		case 2:	RW1.visible=0: rw1b.visible=1
-		Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
-	end Select
-	rw1step=rw1step+1
+  select case rw1step
+    Case 1: RW1a.visible=0: Rw1.visible=1
+    case 2: RW1.visible=0: rw1b.visible=1
+    Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
+  end Select
+  rw1step=rw1step+1
 end sub
 
 sub Rwall2_hit
-	Rw2.visible=0
-	RW2a.visible=1
-	rw2step=1
-	Me.timerenabled=1
+  Rw2.visible=0
+  RW2a.visible=1
+  rw2step=1
+  Me.timerenabled=1
 end sub
 
 sub Rwall2_timer
-	select case rw2step
-		Case 1: RW2a.visible=0: Rw2.visible=1
-		case 2:	RW2.visible=0: rw2b.visible=1
-		Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
-	end Select
-	rw2step=rw2step+1
+  select case rw2step
+    Case 1: RW2a.visible=0: Rw2.visible=1
+    case 2: RW2.visible=0: rw2b.visible=1
+    Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
+  end Select
+  rw2step=rw2step+1
 end sub
 
 
@@ -1126,17 +1126,17 @@ end sub
 
 sub bb1_hit()
 
-	bumpbb1 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If Lightbtopleft.state = 1 then
+  bumpbb1 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If Lightbtopleft.state = 1 then
 DOF 129,1
-	Primitive107.image = "basedark"
-	giLightbtopleft.state = 0
-	Lightbtopleft.state = 0
-	sb = 1
+  Primitive107.image = "basedark"
+  giLightbtopleft.state = 0
+  Lightbtopleft.state = 0
+  sb = 1
     bonusbumptimer.enabled = true
-	End If
+  End If
 end sub
 
 sub bb1_Timer()
@@ -1156,15 +1156,15 @@ end sub
 
 sub bb2_hit()
 
-	bumpbb2 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If Lightbtopright.state = 1 then
+  bumpbb2 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If Lightbtopright.state = 1 then
 DOF 139,1
-	Primitive108.image = "basedark"
-	giLightbtopright.state = 0
-	Lightbtopright.state = 0
-	sb = 1
+  Primitive108.image = "basedark"
+  giLightbtopright.state = 0
+  Lightbtopright.state = 0
+  sb = 1
     bonusbumptimer.enabled = true
 End If
 end sub
@@ -1185,17 +1185,17 @@ end sub
 
 sub bb3_hit()
 
-	bumpbb3 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If Lightbbottomleft.state = 1 then
+  bumpbb3 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If Lightbbottomleft.state = 1 then
 DOF 132,1
-	Primitive104.image = "basedark"
-	giLightbbottomleft.state = 0
-	Lightbbottomleft.state = 0
-	sb = 1
+  Primitive104.image = "basedark"
+  giLightbbottomleft.state = 0
+  Lightbbottomleft.state = 0
+  sb = 1
     bonusbumptimer.enabled = true
-	End If
+  End If
 end sub
 
 sub bb3_Timer()
@@ -1214,15 +1214,15 @@ end sub
 
 sub bb4_hit()
 
-	bumpbb4 = 1
-	Me.TimerEnabled = 1
-	PlaySoundAtVol "fx_bumper", ActiveBall, 1
-	If Lightbbottomright.state = 1 then
+  bumpbb4 = 1
+  Me.TimerEnabled = 1
+  PlaySoundAtVol "fx_bumper", ActiveBall, 1
+  If Lightbbottomright.state = 1 then
 DOF 142,1
-	Primitive106.image = "basedark"
-	giLightbbottomright.state = 0
-	Lightbbottomright.state = 0
-	sb = 1
+  Primitive106.image = "basedark"
+  giLightbbottomright.state = 0
+  Lightbbottomright.state = 0
+  sb = 1
     bonusbumptimer.enabled = true
 
 End If
@@ -1256,8 +1256,8 @@ sub AdvButton_hit()
     playsoundAtVol "metal", ActiveBall, 1
     Addscore 10000
     wall7x.isdropped=True
-	timer2.enabled=True
-	timer2.interval=600
+  timer2.enabled=True
+  timer2.interval=600
     advance()
 end sub
 
@@ -1288,15 +1288,15 @@ sub kicker1_Timer()
 
            Select Case kick
                Case 1:kick1.z = -43:kick = 2
-			   Case 2:kick1.objrotx = 2:kick = 3
+         Case 2:kick1.objrotx = 2:kick = 3
                Case 3:kick1.z = -39:kick = 4
-			   Case 4:kick1.objrotx = 4:kick = 5
+         Case 4:kick1.objrotx = 4:kick = 5
                Case 5:kick1.z = -33:kick = 6
-			   Case 6:kick1.objrotx = 6:kick = 7
+         Case 6:kick1.objrotx = 6:kick = 7
                Case 7:kick1.z = -33:kick = 8
-			   Case 8:kick1.objrotx = 4:kick = 9
+         Case 8:kick1.objrotx = 4:kick = 9
                Case 9:kick1.z = -39:kick = 10
-			   Case 10:kick1.objrotx = 2:kick = 11
+         Case 10:kick1.objrotx = 2:kick = 11
                Case 11:kick1.z = -43:kick = 12
                case 12:Me.TimerEnabled = 0
            End Select
@@ -1343,15 +1343,15 @@ sub kicker2_Timer()
 
            Select Case kick3
                Case 1:kick2.z = -43:kick3 = 2
-			   Case 2:kick2.objrotx = 2:kick3 = 3
+         Case 2:kick2.objrotx = 2:kick3 = 3
                Case 3:kick2.z = -39:kick3 = 4
-			   Case 4:kick2.objrotx = 4:kick3 = 5
+         Case 4:kick2.objrotx = 4:kick3 = 5
                Case 5:kick2.z = -33:kick3 = 6
-			   Case 6:kick2.objrotx = 6:kick3 = 7
+         Case 6:kick2.objrotx = 6:kick3 = 7
                Case 7:kick2.z = -33:kick3 = 8
-			   Case 8:kick2.objrotx = 4:kick3 = 9
+         Case 8:kick2.objrotx = 4:kick3 = 9
                Case 9:kick2.z = -39:kick3 = 10
-			   Case 10:kick2.objrotx = 2:kick3 = 11
+         Case 10:kick2.objrotx = 2:kick3 = 11
                Case 11:kick2.z = -43:kick3 = 12
                case 12:Me.TimerEnabled = 0
            End Select
@@ -1386,28 +1386,28 @@ Sub AddScore(points)
  If Tilted = FALSE and Scoring = FALSE then
 If Score = 0 then DrainWall.IsDropped = FALSE
     ChangeScore
-  	Scoring = TRUE
+    Scoring = TRUE
     PlaySound "score"
 
 
 
-	Lightbtopleft.state = 0: Primitive107.image = "basedark"
-	giLightbtopleft.state = 0
+  Lightbtopleft.state = 0: Primitive107.image = "basedark"
+  giLightbtopleft.state = 0
 
 
-	giLightbtopright.state = 0: Primitive108.image = "basedark"
-	Lightbtopright.state = 0
+  giLightbtopright.state = 0: Primitive108.image = "basedark"
+  Lightbtopright.state = 0
 
-	Lightbbottomleft.state = 0: Primitive104.image = "basedark"
-	giLightbbottomleft.state = 0
+  Lightbbottomleft.state = 0: Primitive104.image = "basedark"
+  giLightbbottomleft.state = 0
 
-	Lightbbottomright.state = 0: Primitive106.image = "basedark"
-	giLightbbottomright.state = 0
+  Lightbbottomright.state = 0: Primitive106.image = "basedark"
+  giLightbbottomright.state = 0
 
 
-  	Lightbtop.State = 0: Primitive111.image = "basedark"
-	giLightbtop.state = 0
-  	ScoreTimer.Enabled = TRUE
+    Lightbtop.State = 0: Primitive111.image = "basedark"
+  giLightbtop.state = 0
+    ScoreTimer.Enabled = TRUE
  End If
 End Sub
 
@@ -1417,23 +1417,23 @@ Sub Add50KTimer_Timer()
           PlaySound "50k"
 
 
-	Lightbtopleft.state = 0: Primitive107.image = "basedark"
-	giLightbtopleft.state = 0
+  Lightbtopleft.state = 0: Primitive107.image = "basedark"
+  giLightbtopleft.state = 0
 
 
-	giLightbtopright.state = 0: Primitive108.image = "basedark"
-	Lightbtopright.state = 0
+  giLightbtopright.state = 0: Primitive108.image = "basedark"
+  Lightbtopright.state = 0
 
-	Lightbbottomleft.state = 0: Primitive104.image = "basedark"
-	giLightbbottomleft.state = 0
+  Lightbbottomleft.state = 0: Primitive104.image = "basedark"
+  giLightbbottomleft.state = 0
 
-	Lightbbottomright.state = 0: Primitive106.image = "basedark"
-	giLightbbottomright.state = 0
+  Lightbbottomright.state = 0: Primitive106.image = "basedark"
+  giLightbbottomright.state = 0
 
 
 
-  	    Lightbtop.State = 0: Primitive111.image = "basedark"
-		giLightbtop.state = 0
+        Lightbtop.State = 0: Primitive111.image = "basedark"
+    giLightbtop.state = 0
 
        End If
        ChangeScore
@@ -1443,26 +1443,26 @@ Sub Add50KTimer_Timer()
        Scoring = FALSE
 
 
-	Lightbtopleft.state = 1: Primitive107.image = "baseon"
-	giLightbtopleft.state = 1
+  Lightbtopleft.state = 1: Primitive107.image = "baseon"
+  giLightbtopleft.state = 1
 
 
-	giLightbtopright.state = 1: Primitive108.image = "baseon"
-	Lightbtopright.state = 1
+  giLightbtopright.state = 1: Primitive108.image = "baseon"
+  Lightbtopright.state = 1
 
-	Lightbbottomleft.state = 1: Primitive104.image = "baseon"
-	giLightbbottomleft.state = 1
+  Lightbbottomleft.state = 1: Primitive104.image = "baseon"
+  giLightbbottomleft.state = 1
 
-	Lightbbottomright.state = 1: Primitive106.image = "baseon"
-	giLightbbottomright.state = 1
+  Lightbbottomright.state = 1: Primitive106.image = "baseon"
+  giLightbbottomright.state = 1
 
 
 
-  	 Lightbtop.State = 1: Primitive111.image = "baseon"
-	 giLightbtop.state = 1
+     Lightbtop.State = 1: Primitive111.image = "baseon"
+   giLightbtop.state = 1
      DBL2.State = 0
-	 pbasecenter.image = "centerbasedark"
-	 giLightcenter.state = 0
+   pbasecenter.image = "centerbasedark"
+   giLightcenter.state = 0
     End If
 End Sub
 
@@ -1486,96 +1486,96 @@ Sub ScoreTimer_Timer()
     If Tilted = TRUE then Exit Sub
 
 
-	Lightbtopleft.state = 1: Primitive107.image = "baseon"
-	giLightbtopleft.state = 1
+  Lightbtopleft.state = 1: Primitive107.image = "baseon"
+  giLightbtopleft.state = 1
 
 
-	giLightbtopright.state = 1: Primitive108.image = "baseon"
-	Lightbtopright.state = 1
+  giLightbtopright.state = 1: Primitive108.image = "baseon"
+  Lightbtopright.state = 1
 
-	Lightbbottomleft.state = 1: Primitive104.image = "baseon"
-	giLightbbottomleft.state = 1
+  Lightbbottomleft.state = 1: Primitive104.image = "baseon"
+  giLightbbottomleft.state = 1
 
-	Lightbbottomright.state = 1: Primitive106.image = "baseon"
-	giLightbbottomright.state = 1
+  Lightbbottomright.state = 1: Primitive106.image = "baseon"
+  giLightbbottomright.state = 1
 
 
 
-  	Lightbtop.State = 1: Primitive111.image = "baseon"
-	giLightbtop.state = 1
+    Lightbtop.State = 1: Primitive111.image = "baseon"
+  giLightbtop.state = 1
     Randomize
     Candy = Int(Rnd(1)* 12) + 1
        If candy<8 then
        DBL2.State= 1
-		pbasecenter.image = "centerbaseon"
-		giLightcenter.state = 1
+    pbasecenter.image = "centerbaseon"
+    giLightcenter.state = 1
        rsl2.state= 0: Primitive74.image = "redshootcovertexture"
-		giLighttriangle2.state = 0
+    giLighttriangle2.state = 0
 DOF 125,0
        rsl1.state= 0: Primitive57.image = "redshootcovertexture"
-		giLighttriangle1.state = 0
+    giLighttriangle1.state = 0
 DOF 144,0
        end if
        If candy=8 then
        DBL2.State= 0
-		pbasecenter.image = "centerbasedark"
-		giLightcenter.state = 0
+    pbasecenter.image = "centerbasedark"
+    giLightcenter.state = 0
        rsl2.state= 0: Primitive74.image = "redshootcovertexture"
-		giLighttriangle2.state = 0
+    giLighttriangle2.state = 0
 DOF 125,0
        rsl1.state= 0: Primitive57.image = "redshootcovertexture"
-		giLighttriangle1.state = 0
+    giLighttriangle1.state = 0
 DOF 144,0
        end if
               If candy=9 then
        DBL2.State= 0
-		pbasecenter.image = "centerbasedark"
-		giLightcenter.state = 0
+    pbasecenter.image = "centerbasedark"
+    giLightcenter.state = 0
        rsl2.state= 0: Primitive74.image = "redshootcovertexture"
-		giLighttriangle2.state = 0
+    giLighttriangle2.state = 0
 DOF 125,0
        rsl1.state= 0: Primitive57.image = "redshootcovertexture"
-		giLighttriangle1.state = 0
+    giLighttriangle1.state = 0
 DOF 144,0
        end if
               If candy>9 then
        DBL2.State= 0
-		pbasecenter.image = "centerbasedark"
-		giLightcenter.state = 0
+    pbasecenter.image = "centerbasedark"
+    giLightcenter.state = 0
        rsl2.state= 1: Primitive74.image = "redshootcovertextureon"
 DOF 125,1
-		giLighttriangle2.state = 1
+    giLighttriangle2.state = 1
        rsl1.state= 1: Primitive57.image = "redshootcovertextureon"
 DOF 144,1
-		giLighttriangle1.state = 1
+    giLighttriangle1.state = 1
        end if
 End Sub
 
 Sub ChangeScore()
     If Tilted = TRUE then Exit Sub
-	Score = Score + 10000
-	' Lite-Up Scoring 10k's
+  Score = Score + 10000
+  ' Lite-Up Scoring 10k's
     If Score < 790000 then
        TenKs = (Score Mod 100000) / 10000
        For X = 1 to 9
          KBox(x).State = 0
-		 DOF 10*x, 0
+     DOF 10*x, 0
        Next
        If Tenks<>0 then
-			Kbox(Tenks).State = 1
-			DOF 10*Tenks, 1
-	   End If
+      Kbox(Tenks).State = 1
+      DOF 10*Tenks, 1
+     End If
    ' Lite Up Scoring 100K's
        HunKs = Int(Score/100000)
        Hunks = Hunks Mod 10
        For X = 1 to 7
           HunkLight(x).State = 0
-		  DOF 200+x, 0
+      DOF 200+x, 0
        Next
        If Hunks<>0 then
-			HunkLight(Hunks).State = 1
-			DOF 200+Hunks, 1
-	   End IF
+      HunkLight(Hunks).State = 1
+      DOF 200+Hunks, 1
+     End IF
      'Else
        'AuxBox.Text = "Score"
        'AuxSc.Text = FormatNumber(score, 0, -1, 0, -1)
@@ -1598,7 +1598,7 @@ End Sub
 
 
 Sub OutGate_Hit()
-	Hold = 0
+  Hold = 0
     PlaySoundAtVol "gater", ActiveBall, VolGates
     If Tilted = TRUE  and Ball = Ballsout then
        GameOn = FALSE
@@ -1606,7 +1606,7 @@ Sub OutGate_Hit()
     End If
     If Tilted = FALSE then
        Ball = Ball + 1
-	'MSGBOX BALL & " SOCRE " & score
+  'MSGBOX BALL & " SOCRE " & score
 
        If Ball > 5 then
           GameOn = FALSE
@@ -1616,15 +1616,15 @@ Sub OutGate_Hit()
          If score > hiscore then
             hiscore = score
 
-			'savehs
+      'savehs
             'HSBox.text = FormatNumber(hiscore, 0, -1, 0, -1)
          End If
-	   end if
+     end if
     end if
 End Sub
 
 Sub timergate_Timer
-	primitive95.rotz=gate.CurrentAngle
+  primitive95.rotz=gate.CurrentAngle
 End Sub
 
 Sub Gate_hit : PlaySoundAtVol "Gate", ActiveBall, VolGates : End Sub
@@ -1632,42 +1632,42 @@ Sub Gate_hit : PlaySoundAtVol "Gate", ActiveBall, VolGates : End Sub
 
 ' High Score To Date Routines
 sub savehs
-	' Based on Black's Highscore routines
-	Dim FileObj
-	Dim ScoreFile
-	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.CreateTextFile(UserDirectory & "hmpty.txt",True)
-		ScoreFile.WriteLine hiscore
-		ScoreFile.Close
-	Set ScoreFile=Nothing
-	Set FileObj=Nothing
+  ' Based on Black's Highscore routines
+  Dim FileObj
+  Dim ScoreFile
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.CreateTextFile(UserDirectory & "hmpty.txt",True)
+    ScoreFile.WriteLine hiscore
+    ScoreFile.Close
+  Set ScoreFile=Nothing
+  Set FileObj=Nothing
 end sub
 
 sub loadhs
     ' Based on Black's Highscore routines
-	Dim FileObj
-	Dim ScoreFile
+  Dim FileObj
+  Dim ScoreFile
     dim temp1
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	If Not FileObj.FileExists(UserDirectory & "hmpty.txt") then
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.GetFile(UserDirectory & "hmpty.txt")
-	Set TextStr=ScoreFile.OpenAsTextStream(1,0)
-		If (TextStr.AtEndOfStream=True) then
-			Exit Sub
-		End if
-		temp1=TextStr.ReadLine
-		TextStr.Close
-	    hiscore = CDbl(temp1)
-	    Set ScoreFile=Nothing
-	    Set FileObj=Nothing
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  If Not FileObj.FileExists(UserDirectory & "hmpty.txt") then
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.GetFile(UserDirectory & "hmpty.txt")
+  Set TextStr=ScoreFile.OpenAsTextStream(1,0)
+    If (TextStr.AtEndOfStream=True) then
+      Exit Sub
+    End if
+    temp1=TextStr.ReadLine
+    TextStr.Close
+      hiscore = CDbl(temp1)
+      Set ScoreFile=Nothing
+      Set FileObj=Nothing
 End Sub
 
 Sub UpdateFlipperLogo_Timer
@@ -1696,20 +1696,20 @@ end sub
 
 '  4. Change the HighScoreFilename, "xxxxHighscorePostIt.txt" below - must be unique for each table
 
-'  5. Add this line to the top of the KeyDown sub: 	If PostItHighScoreCheck(keycode) then Exit Sub
+'  5. Add this line to the top of the KeyDown sub:  If PostItHighScoreCheck(keycode) then Exit Sub
 
 '  6. Add one of the following lines below to the bottom of the Game Over sub of the table.
 '     Note:  Each table is different, you will have to figure out the scoring variable and the game over/match over subroutine
 '     Replace xxxx with the variable used to track scoring, usually Score, Score(1), Score1, PlayerScore, etc
-'    CheckNewHighScorePostIt1Player xxxx 					'1 player table
-'    CheckNewHighScorePostIt2Player xxx1, xxx2 				'2 player table
-'    CheckNewHighScorePostIt3Player xxx1, xxx2, xxx3		'3 player table
-'    CheckNewHighScorePostIt4Player xxx1, xxx2, xxx3, xxx4	'4 player table
+'    CheckNewHighScorePostIt1Player xxxx          '1 player table
+'    CheckNewHighScorePostIt2Player xxx1, xxx2        '2 player table
+'    CheckNewHighScorePostIt3Player xxx1, xxx2, xxx3    '3 player table
+'    CheckNewHighScorePostIt4Player xxx1, xxx2, xxx3, xxx4  '4 player table
 '****************************************
 Const HighScoreFilename = "HumptyDumpty.txt"
 
 Dim HSAHighScore, HSA1, HSA2, HSA3
-Dim HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex	'Define 5 different score values for each reel to use
+Dim HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex  'Define 5 different score values for each reel to use
 Dim HSEnterMode, hsLetterFlash, hsEnteredDigits(3), hsCurrentDigit, hsCurrentLetter
 Const hsFlashDelay = 4
 Const DefaultHighScore = 20000
@@ -1719,235 +1719,235 @@ Const DefaultHSA3 = 78
 
 LoadHighScore
 Sub LoadHighScore
-	Dim FileObj
-	Dim ScoreFile
-	Dim TextStr
+  Dim FileObj
+  Dim ScoreFile
+  Dim TextStr
     Dim SavedDataTemp3 'HighScore
     Dim SavedDataTemp4 'HSA1
     Dim SavedDataTemp5 'HSA2
     Dim SavedDataTemp6 'HSA3
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	If Not FileObj.FileExists(UserDirectory & HighScoreFilename) then
-		SetDefaultHSTD:UpdatePostIt:SaveHighScore
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.GetFile(UserDirectory & HighScoreFilename)
-	Set TextStr=ScoreFile.OpenAsTextStream(1,0)
-		If (TextStr.AtEndOfStream=True) then
-			SetDefaultHSTD:UpdatePostIt:SaveHighScore
-			Exit Sub
-		End if
-		SavedDataTemp3=Textstr.ReadLine ' HighScore
-		SavedDataTemp4=Textstr.ReadLine ' HSA1
-		SavedDataTemp5=Textstr.ReadLine ' HSA2
-		SavedDataTemp6=Textstr.ReadLine ' HSA3
-		TextStr.Close
-		HSAHighScore=SavedDataTemp3
-		HSA1=SavedDataTemp4
-		HSA2=SavedDataTemp5
-		HSA3=SavedDataTemp6
-		UpdatePostIt
-	    Set ScoreFile = Nothing
-	    Set FileObj = Nothing
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  If Not FileObj.FileExists(UserDirectory & HighScoreFilename) then
+    SetDefaultHSTD:UpdatePostIt:SaveHighScore
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.GetFile(UserDirectory & HighScoreFilename)
+  Set TextStr=ScoreFile.OpenAsTextStream(1,0)
+    If (TextStr.AtEndOfStream=True) then
+      SetDefaultHSTD:UpdatePostIt:SaveHighScore
+      Exit Sub
+    End if
+    SavedDataTemp3=Textstr.ReadLine ' HighScore
+    SavedDataTemp4=Textstr.ReadLine ' HSA1
+    SavedDataTemp5=Textstr.ReadLine ' HSA2
+    SavedDataTemp6=Textstr.ReadLine ' HSA3
+    TextStr.Close
+    HSAHighScore=SavedDataTemp3
+    HSA1=SavedDataTemp4
+    HSA2=SavedDataTemp5
+    HSA3=SavedDataTemp6
+    UpdatePostIt
+      Set ScoreFile = Nothing
+      Set FileObj = Nothing
 End Sub
 
 Sub SetDefaultHSTD  'bad data or missing file - reset and resave
-	HSAHighScore = DefaultHighScore
-	HSA1 = DefaultHSA1
-	HSA2 = DefaultHSA2
-	HSA3 = DefaultHSA3
-	SaveHighScore
+  HSAHighScore = DefaultHighScore
+  HSA1 = DefaultHSA1
+  HSA2 = DefaultHSA2
+  HSA3 = DefaultHSA3
+  SaveHighScore
 End Sub
 
 Sub LastScoreReels
-		HSScorex = LastScore
-		HSScore100K=Int (HSScorex/100000)'Calculate the value for the 100,000's digit
-		HSScore10K=Int ((HSScorex-(HSScore100k*100000))/10000) 'Calculate the value for the 10,000's digit
-		HSScoreK=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000))/1000) 'Calculate the value for the 1000's digit
-		HSScore100=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000))/100) 'Calculate the value for the 100's digit
-		HSScore10=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100))/10) 'Calculate the value for the 10's digit
-		HSScore1=Int(HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100)-(HSScore10*10)) 'Calculate the value for the 1's digit
+    HSScorex = LastScore
+    HSScore100K=Int (HSScorex/100000)'Calculate the value for the 100,000's digit
+    HSScore10K=Int ((HSScorex-(HSScore100k*100000))/10000) 'Calculate the value for the 10,000's digit
+    HSScoreK=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000))/1000) 'Calculate the value for the 1000's digit
+    HSScore100=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000))/100) 'Calculate the value for the 100's digit
+    HSScore10=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100))/10) 'Calculate the value for the 10's digit
+    HSScore1=Int(HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100)-(HSScore10*10)) 'Calculate the value for the 1's digit
 
 End Sub
 
 Sub UpdatePostIt
-		HSScorex = HSAHighScore
-		HSScore100K=Int (HSScorex/100000)'Calculate the value for the 100,000's digit
-		HSScore10K=Int ((HSScorex-(HSScore100k*100000))/10000) 'Calculate the value for the 10,000's digit
-		HSScoreK=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000))/1000) 'Calculate the value for the 1000's digit
-		HSScore100=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000))/100) 'Calculate the value for the 100's digit
-		HSScore10=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100))/10) 'Calculate the value for the 10's digit
-		HSScore1=Int(HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100)-(HSScore10*10)) 'Calculate the value for the 1's digit
-		EMReelHSNum1.SetValue(HSScore100K):If HSScorex<100000 Then EMReelHSNum1.SetValue 10
-		EMReelHSNum2.SetValue(HSScore10K):If HSScorex<10000 Then EMReelHSNum2.SetValue 10
-		EMReelHSNum3.SetValue(HSScoreK):If HSScorex<1000 Then EMReelHSNum3.SetValue 10:EMReelHSComma.SetValue 0:Else EMReelHSComma.SetValue 1
-		EMReelHSNum4.SetValue(HSScore100):If HSScorex<100 Then EMReelHSNum4.SetValue 10
-		EMReelHSNum5.SetValue(HSScore10):If HSScorex<10 Then EMReelHSNum5.SetValue 10
-		EMReelHSNum6.SetValue(HSScore1)
-		EMReelHSName1.SetValue HSA1
-		EMReelHSName2.SetValue HSA2
-		EMReelHSName3.SetValue HSA3
+    HSScorex = HSAHighScore
+    HSScore100K=Int (HSScorex/100000)'Calculate the value for the 100,000's digit
+    HSScore10K=Int ((HSScorex-(HSScore100k*100000))/10000) 'Calculate the value for the 10,000's digit
+    HSScoreK=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000))/1000) 'Calculate the value for the 1000's digit
+    HSScore100=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000))/100) 'Calculate the value for the 100's digit
+    HSScore10=Int((HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100))/10) 'Calculate the value for the 10's digit
+    HSScore1=Int(HSScorex-(HSScore100k*100000)-(HSScore10K*10000)-(HSScoreK*1000)-(HSScore100*100)-(HSScore10*10)) 'Calculate the value for the 1's digit
+    EMReelHSNum1.SetValue(HSScore100K):If HSScorex<100000 Then EMReelHSNum1.SetValue 10
+    EMReelHSNum2.SetValue(HSScore10K):If HSScorex<10000 Then EMReelHSNum2.SetValue 10
+    EMReelHSNum3.SetValue(HSScoreK):If HSScorex<1000 Then EMReelHSNum3.SetValue 10:EMReelHSComma.SetValue 0:Else EMReelHSComma.SetValue 1
+    EMReelHSNum4.SetValue(HSScore100):If HSScorex<100 Then EMReelHSNum4.SetValue 10
+    EMReelHSNum5.SetValue(HSScore10):If HSScorex<10 Then EMReelHSNum5.SetValue 10
+    EMReelHSNum6.SetValue(HSScore1)
+    EMReelHSName1.SetValue HSA1
+    EMReelHSName2.SetValue HSA2
+    EMReelHSName3.SetValue HSA3
 End Sub
 
 Sub SaveHighScore
-	Dim FileObj
-	Dim ScoreFile
-	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.CreateTextFile(UserDirectory & HighScoreFilename,True)
-		ScoreFile.WriteLine HSAHighScore
-		ScoreFile.WriteLine HSA1
-		ScoreFile.WriteLine HSA2
-		ScoreFile.WriteLine HSA3
-		ScoreFile.Close
-	Set ScoreFile=Nothing
-	Set FileObj=Nothing
+  Dim FileObj
+  Dim ScoreFile
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.CreateTextFile(UserDirectory & HighScoreFilename,True)
+    ScoreFile.WriteLine HSAHighScore
+    ScoreFile.WriteLine HSA1
+    ScoreFile.WriteLine HSA2
+    ScoreFile.WriteLine HSA3
+    ScoreFile.Close
+  Set ScoreFile=Nothing
+  Set FileObj=Nothing
 End Sub
 
 Sub HighScoreEntryInit()
-	HSEnterMode = True
-	hsCurrentDigit = 0
-	hsCurrentLetter = 1:HSA1=1
-	HighScoreFlashTimer.Interval = 250
-	HighScoreFlashTimer.Enabled = True
-	hsLetterFlash = hsFlashDelay
+  HSEnterMode = True
+  hsCurrentDigit = 0
+  hsCurrentLetter = 1:HSA1=1
+  HighScoreFlashTimer.Interval = 250
+  HighScoreFlashTimer.Enabled = True
+  hsLetterFlash = hsFlashDelay
 End Sub
 
 Sub HighScoreFlashTimer_Timer()
-	hsLetterFlash = hsLetterFlash-1
-	If hsLetterFlash=1 then 'switch to underscore
-		Select Case hsCurrentLetter
-			Case 1:
-				EMReelHSName1.SetValue 28
-			Case 2:
-				EMReelHSName2.SetValue 28
-			Case 3:
-				EMReelHSName3.SetValue 28
-		End Select
-	End If
-	If hsLetterFlash=0 then 'switch back
-		hsLetterFlash = hsFlashDelay
-		Select Case hsCurrentLetter
-			Case 1:
-				EMReelHSName1.SetValue HSA1
-			Case 2:
-				EMReelHSName2.SetValue HSA2
-			Case 3:
-				EMReelHSName3.SetValue HSA3
-		End Select
-	End If
+  hsLetterFlash = hsLetterFlash-1
+  If hsLetterFlash=1 then 'switch to underscore
+    Select Case hsCurrentLetter
+      Case 1:
+        EMReelHSName1.SetValue 28
+      Case 2:
+        EMReelHSName2.SetValue 28
+      Case 3:
+        EMReelHSName3.SetValue 28
+    End Select
+  End If
+  If hsLetterFlash=0 then 'switch back
+    hsLetterFlash = hsFlashDelay
+    Select Case hsCurrentLetter
+      Case 1:
+        EMReelHSName1.SetValue HSA1
+      Case 2:
+        EMReelHSName2.SetValue HSA2
+      Case 3:
+        EMReelHSName3.SetValue HSA3
+    End Select
+  End If
 End Sub
 
 Sub HighScoreProcessKey(keycode)
     If keycode = LeftFlipperKey Then
-		hsLetterFlash = hsFlashDelay
-		Select Case hsCurrentLetter
-			Case 1:
-				HSA1=HSA1-1:If HSA1=-1 Then HSA1=26 'no backspace on 1st digit
-				UpdatePostIt
-			Case 2:
-				HSA2=HSA2-1:If HSA2=-1 Then HSA2=27
-				UpdatePostIt
-			Case 3:
-				HSA3=HSA3-1:If HSA3=-1 Then HSA3=27
-				UpdatePostIt
-		 End Select
+    hsLetterFlash = hsFlashDelay
+    Select Case hsCurrentLetter
+      Case 1:
+        HSA1=HSA1-1:If HSA1=-1 Then HSA1=26 'no backspace on 1st digit
+        UpdatePostIt
+      Case 2:
+        HSA2=HSA2-1:If HSA2=-1 Then HSA2=27
+        UpdatePostIt
+      Case 3:
+        HSA3=HSA3-1:If HSA3=-1 Then HSA3=27
+        UpdatePostIt
+     End Select
     End If
 
-	If keycode = RightFlipperKey Then
-		hsLetterFlash = hsFlashDelay
-		Select Case hsCurrentLetter
-			Case 1:
-				HSA1=HSA1+1:If HSA1>27 Then HSA1=0
-				UpdatePostIt
-			Case 2:
-				HSA2=HSA2+1:If HSA2>27 Then HSA2=0
-				UpdatePostIt
-			Case 3:
-				HSA3=HSA3+1:If HSA3>27 Then HSA3=0
-				UpdatePostIt
-		 End Select
-	End If
+  If keycode = RightFlipperKey Then
+    hsLetterFlash = hsFlashDelay
+    Select Case hsCurrentLetter
+      Case 1:
+        HSA1=HSA1+1:If HSA1>27 Then HSA1=0
+        UpdatePostIt
+      Case 2:
+        HSA2=HSA2+1:If HSA2>27 Then HSA2=0
+        UpdatePostIt
+      Case 3:
+        HSA3=HSA3+1:If HSA3>27 Then HSA3=0
+        UpdatePostIt
+     End Select
+  End If
 
     If keycode = StartGameKey Then
-		Select Case hsCurrentLetter
-			Case 1:
-				hsCurrentLetter=2 'ok to advance
-				HSA2=HSA1 'start at same alphabet spot
-				EMReelHSName1.SetValue HSA1:EMReelHSName2.SetValue HSA2
-			Case 2:
-				If HSA2=27 Then 'bksp
-					HSA2=0
-					hsCurrentLetter=1
-				Else
-					hsCurrentLetter=3 'enter it
-					HSA3=HSA2 'start at same alphabet spot
-				End If
-				EMReelHSName2.SetValue HSA2:EMReelHSName3.SetValue HSA3
-			Case 3:
-				If HSA3=27 Then 'bksp
-					HSA3=0
-					hsCurrentLetter=2
-				Else
-					SaveHighScore 'enter it
-					HighScoreFlashTimer.Enabled = False
-					HSEnterMode = False
+    Select Case hsCurrentLetter
+      Case 1:
+        hsCurrentLetter=2 'ok to advance
+        HSA2=HSA1 'start at same alphabet spot
+        EMReelHSName1.SetValue HSA1:EMReelHSName2.SetValue HSA2
+      Case 2:
+        If HSA2=27 Then 'bksp
+          HSA2=0
+          hsCurrentLetter=1
+        Else
+          hsCurrentLetter=3 'enter it
+          HSA3=HSA2 'start at same alphabet spot
+        End If
+        EMReelHSName2.SetValue HSA2:EMReelHSName3.SetValue HSA3
+      Case 3:
+        If HSA3=27 Then 'bksp
+          HSA3=0
+          hsCurrentLetter=2
+        Else
+          SaveHighScore 'enter it
+          HighScoreFlashTimer.Enabled = False
+          HSEnterMode = False
 
-					UpdatePostIt
-					EMReelHSTitle.SetValue 0
-				End If
-				EMReelHSName3.SetValue HSA3
-		End Select
+          UpdatePostIt
+          EMReelHSTitle.SetValue 0
+        End If
+        EMReelHSName3.SetValue HSA3
+    End Select
     End If
 End Sub
 
 Function PostItHighScoreCheck (keycode)
-	PostItHighScoreCheck = 0
+  PostItHighScoreCheck = 0
     If HSEnterMode Then
-		HighScoreProcessKey(keycode)
+    HighScoreProcessKey(keycode)
 
-		Select Case keycode
-			Case LeftFlipperKey, RightFlipperKey, 2, StartGameKey
-				PostItHighScoreCheck = 1
-		End Select
-	End If
+    Select Case keycode
+      Case LeftFlipperKey, RightFlipperKey, 2, StartGameKey
+        PostItHighScoreCheck = 1
+    End Select
+  End If
 End Function
 
 Sub CheckNewHighScorePostIt (newScore)
-		If CLng(newScore) > CLng(HSAHighScore) Then
-			HSAHighScore=newScore:HSA1 = 0:HSA2 = 0:HSA3 = 0:UpdatePostIt
-			EMReelHSTitle.SetValue 1
-			HighScoreEntryInit()
-		End If
+    If CLng(newScore) > CLng(HSAHighScore) Then
+      HSAHighScore=newScore:HSA1 = 0:HSA2 = 0:HSA3 = 0:UpdatePostIt
+      EMReelHSTitle.SetValue 1
+      HighScoreEntryInit()
+    End If
 End Sub
 Sub CheckNewHighScorePostIt1Player (newScore1)
-	CheckNewHighScorePostIt newScore1
+  CheckNewHighScorePostIt newScore1
 End Sub
 Sub CheckNewHighScorePostIt2Player (newScore1, newScore2)
-	Dim bestscore
-	bestscore = newScore1
-	If newScore2 > bestscore then bestscore = newScore2
-	CheckNewHighScorePostIt bestscore
+  Dim bestscore
+  bestscore = newScore1
+  If newScore2 > bestscore then bestscore = newScore2
+  CheckNewHighScorePostIt bestscore
 End Sub
 Sub CheckNewHighScorePostIt3Player (newScore1, newScore2, newScore3)
-	Dim bestscore
-	bestscore = newScore1
-	If newScore2 > bestscore then bestscore = newScore2
-	If newScore3 > bestscore then bestscore = newScore3
-	CheckNewHighScorePostIt bestscore
+  Dim bestscore
+  bestscore = newScore1
+  If newScore2 > bestscore then bestscore = newScore2
+  If newScore3 > bestscore then bestscore = newScore3
+  CheckNewHighScorePostIt bestscore
 End Sub
 Sub CheckNewHighScorePostIt4Player (newScore1, newScore2, newScore3, newScore4)
-	Dim bestscore
-	bestscore = newScore1
-	If newScore2 > bestscore then bestscore = newScore2
-	If newScore3 > bestscore then bestscore = newScore3
-	If newScore4 > bestscore then bestscore = newScore4
-	CheckNewHighScorePostIt bestscore
+  Dim bestscore
+  bestscore = newScore1
+  If newScore2 > bestscore then bestscore = newScore2
+  If newScore3 > bestscore then bestscore = newScore3
+  If newScore4 > bestscore then bestscore = newScore4
+  CheckNewHighScorePostIt bestscore
 End Sub
 
 '************************************
@@ -2006,77 +2006,77 @@ End Sub
 ' then there is no collision and then set the collision property of the ball to False (-1).
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 1 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 1 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 1 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 1 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub Table1_Exit
@@ -2205,10 +2205,10 @@ Sub CollisionTimer_Timer()
 
     ' rolling
 
-	For B = UBound(BOT) +1 to tnob
+  For B = UBound(BOT) +1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
-	Next
+  Next
 
     If UBound(BOT) = -1 Then Exit Sub
 

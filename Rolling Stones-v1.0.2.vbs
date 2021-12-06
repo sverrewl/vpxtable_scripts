@@ -254,9 +254,9 @@ Sub sw13_Dropped:Controller.Switch(13) = 1:PlaySoundAtVol SoundFX("fx_droptarget
 ' Targets
 Sub sw12_Hit:vpmTimer.PulseSw 12:PlaySoundAtVol SoundFX("fx_target", DOFTargets),ActiveBall,VolTarg:End Sub
 Sub sw28_Hit
-	vpmTimer.PulseSw 28
-	PlaySoundAtVol SoundFX("fx_target", DOFTargets), ActiveBall, VolTarg
-	If l51.State = 1 Then GiEffect
+  vpmTimer.PulseSw 28
+  PlaySoundAtVol SoundFX("fx_target", DOFTargets), ActiveBall, VolTarg
+  If l51.State = 1 Then GiEffect
 End Sub
 Sub sw29_Hit:vpmTimer.PulseSw 29:PlaySoundAtVol SoundFX("fx_target", DOFTargets),ActiveBall,VolTarg:End Sub
 Sub sw30_Hit:vpmTimer.PulseSw 30:PlaySoundAtVol SoundFX("fx_target", DOFTargets),ActiveBall,VolTarg:End Sub

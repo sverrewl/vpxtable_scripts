@@ -99,13 +99,13 @@ Sub TableWPC94_Init
         F85.x = F85.x - 20
         F85.y = F85.y + 50
 
-		F71A.height = 260.0
-		F76.height = 170
-		F78A.height = 215
+    F71A.height = 260.0
+    F76.height = 170
+    F78A.height = 215
 
-		F77.height = 140
-		F78.height = 180
-		F71.height = 225
+    F77.height = 140
+    F78.height = 180
+    F71.height = 225
 
     end if
 
@@ -205,17 +205,17 @@ Sub TableWPC94_Init
         .Start
     End With
 
-	if not KDBall then
-		Set mBall = new cvpmMech : With mBall
-			.Sol1 = sBallClockwise : .Sol2 = sBallCounterCW
-			.MType = vpmMechLinear + vpmMechCircle + vpmMechTwoDirSol
-			.Acc = 60 : .Ret = 2
-			.Length = 12
-			.Steps = 24
-			.Callback = GetRef("UpdateBall")
-			.Start
-		End With
-	end if
+  if not KDBall then
+    Set mBall = new cvpmMech : With mBall
+      .Sol1 = sBallClockwise : .Sol2 = sBallCounterCW
+      .MType = vpmMechLinear + vpmMechCircle + vpmMechTwoDirSol
+      .Acc = 60 : .Ret = 2
+      .Length = 12
+      .Steps = 24
+      .Callback = GetRef("UpdateBall")
+      .Start
+    End With
+  end if
 
     Set MotorCallback = GetRef("UpdateFlipperLogos")
 
@@ -329,11 +329,11 @@ Sub DrawGoalie(aCurrPos,aSpeed,aLast)
 End Sub
 
 Sub UpdateBall(aCurrPos,aSpeed,aLast)
-	if not KDBall then
-		ttBall.MotorOn = aSpeed <> 0
-		ttBall.Speed = aSpeed
-		SoccerBall.rotz = SoccerBall.rotz + aSpeed/1.5
-	end if
+  if not KDBall then
+    ttBall.MotorOn = aSpeed <> 0
+    ttBall.Speed = aSpeed
+    SoccerBall.rotz = SoccerBall.rotz + aSpeed/1.5
+  end if
     'SoccerBall.TriggerSingleUpdate
 End Sub
 
@@ -422,16 +422,16 @@ Sub AnimateBallTimer_Timer()
          SoccerBall.RotZ = SoccerBall.RotZ + ttBall.Speed * (SoccerMaxVisibleSpeed / SoccerMaxSpeed)
         If SoccerBall.RotZ > 360 Then SoccerBall.RotZ = SoccerBall.RotZ - 360
         If SoccerBall.RotZ < -360 Then SoccerBall.RotZ = SoccerBall.RotZ + 360
-	' Experimental blur code.  Reallly need re-textured ball for this.
-	'	if ttBall.Speed > SoccerMaxSpeed * 0.5 Then
-	'		SoccerBall.Material = "SoccerBlur1"
-	'		SoccerBallBlur.RotZ = SoccerBall.RotZ - 30
-	'		SoccerBallBlur.Visible =true
-	'	Else
-	'		SoccerBall.Material = "Plastic with an image"
-	'		SoccerBallBlur.Visible =false
-	'	end if
-	End If
+  ' Experimental blur code.  Reallly need re-textured ball for this.
+  ' if ttBall.Speed > SoccerMaxSpeed * 0.5 Then
+  '   SoccerBall.Material = "SoccerBlur1"
+  '   SoccerBallBlur.RotZ = SoccerBall.RotZ - 30
+  '   SoccerBallBlur.Visible =true
+  ' Else
+  '   SoccerBall.Material = "Plastic with an image"
+  '   SoccerBallBlur.Visible =false
+  ' end if
+  End If
 End Sub
 
 Function Min(value1, value2)
@@ -866,20 +866,20 @@ Sub SolRampDiverter(enabled)
 End Sub
 
 'Sub SolLockRelease(enabled)
-'	If enabled then
-'		PernoLock.TransY= -29
-'		Playsound "DiverterLock"
-'		'lockrelease.isdropped = true
-'		vlLock.SolExit enabled
-'		LockReleaseTimer.Enabled = True
-'	End If
+' If enabled then
+'   PernoLock.TransY= -29
+'   Playsound "DiverterLock"
+'   'lockrelease.isdropped = true
+'   vlLock.SolExit enabled
+'   LockReleaseTimer.Enabled = True
+' End If
 'End Sub
 '
-'Sub LockReleaseTimer_Timer()				'Give LockRelease more time to be down
-'	PernoLock.TransY= 0
-'	Playsound "DiverterLock"
-'	'LockRelease.IsDropped = False
-'	LockReleaseTimer.Enabled = False
+'Sub LockReleaseTimer_Timer()       'Give LockRelease more time to be down
+' PernoLock.TransY= 0
+' Playsound "DiverterLock"
+' 'LockRelease.IsDropped = False
+' LockReleaseTimer.Enabled = False
 'End Sub
 
 'Below was a suggested solution for the commented above
@@ -909,9 +909,9 @@ Sub KickBackDisableTimer_Timer()
 End Sub
 
 Sub CornerKicker_Hit()
-	ClearBallid
-	CornerKicker.DestroyBall
-	CreateBallID(CornerKicker)
+  ClearBallid
+  CornerKicker.DestroyBall
+  CreateBallID(CornerKicker)
     CornerKicker.kick 0, 45 'ERA 45
     vpPlay "Rilancio", CornerKicker
 End Sub
@@ -1231,18 +1231,18 @@ End Sub
     FadeModLamp 126, F126,1
     FadeModLamp 127, F127A,1
     FadeModLamp 127, F127,1
-	FadeModLamp 128, F128, 1
-	FadeModLamp 128, F128A, 1
+  FadeModLamp 128, F128, 1
+  FadeModLamp 128, F128A, 1
 
-	if BrightFlashers then
-		'FadeModLamp 126, F126B, 1
-		FadeModLamp 117, F117B, 1
-		FadeModLamp 119, F119B, 1
-		FadeModLamp 128, F128B, 1
-		FadeModLamp 128, F128C, 1
-		FadeModLamp 127, F127C,1
-		FadeModLamp 127, F127B,1
-	End if
+  if BrightFlashers then
+    'FadeModLamp 126, F126B, 1
+    FadeModLamp 117, F117B, 1
+    FadeModLamp 119, F119B, 1
+    FadeModLamp 128, F128B, 1
+    FadeModLamp 128, F128C, 1
+    FadeModLamp 127, F127C,1
+    FadeModLamp 127, F127B,1
+  End if
 
 '    Flashm 128, F128A
 '    Flash 128, F128
@@ -1343,21 +1343,21 @@ End Sub
 
 Sub SetModLamp(nr, value)
     If value > 0 Then
-		LampState(nr) = 1
-	Else
-		LampState(nr) = 0
-	End If
-	FadingLevel(nr) = value
+    LampState(nr) = 1
+  Else
+    LampState(nr) = 0
+  End If
+  FadingLevel(nr) = value
 End Sub
 
 Sub FadeModLamp(nr, object, factor)
-	Object.IntensityScale = FadingLevel(nr) * factor/255
-	If TypeName(object) = "Light" Then
-		Object.State = LampState(nr)
-	End If
-	If TypeName(object) = "Flasher" Then
-		Object.visible = LampState(nr)
-	End If
+  Object.IntensityScale = FadingLevel(nr) * factor/255
+  If TypeName(object) = "Light" Then
+    Object.State = LampState(nr)
+  End If
+  If TypeName(object) = "Flasher" Then
+    Object.visible = LampState(nr)
+  End If
 End Sub
 
 '******************
@@ -1533,10 +1533,10 @@ Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
     if tablewpc94.VersionMinor > 3 OR tablewpc94.VersionMajor > 10 Then
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
-	else
-		PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-	end if
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  else
+    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+  end if
 End Sub
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -1624,19 +1624,19 @@ Sub Dampen(dt,df,r)                     'dt is threshold speed, df is dampen fac
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1"
-		Case 2 : PlaySound "flip_hit_2"
-		Case 3 : PlaySound "flip_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1"
+    Case 2 : PlaySound "flip_hit_2"
+    Case 3 : PlaySound "flip_hit_3"
+  End Select
 End Sub
 
 

@@ -123,11 +123,11 @@ Sub DMD_DisplaySceneEx(bkgnd,toptext,topBrightness, topOutlineBrightness, bottom
     End If
 End Sub
 
-Sub DMDScene (background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout, prio)		'regular DMD call with priority
-	If prio >= OldDMDPrio Then
-		DMDSceneInt background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout
-		OldDMDPrio = prio
-	End If
+Sub DMDScene (background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout, prio)   'regular DMD call with priority
+  If prio >= OldDMDPrio Then
+    DMDSceneInt background, toptext, topbright, bottomtext, bottombright, animatein, pause, animateout
+    OldDMDPrio = prio
+  End If
 End Sub
 
 Sub AttractAnimUltraDND_Timer
@@ -165,7 +165,7 @@ Sub JackpotT250_Timer
 End Sub
 
 Sub Jackpot250()
-	DOF 145, DOFPulse
+  DOF 145, DOFPulse
     JackpotT250.enabled = 1
 End sub
 
@@ -184,7 +184,7 @@ Sub OrbitAnin()
 End sub
 
 Sub Targets250T_Timer
-	DOF 145, DOFPulse
+  DOF 145, DOFPulse
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     250000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
@@ -199,7 +199,7 @@ Sub TargetsAnim250()
 End sub
 
 Sub Targets150T_Timer
-	DOF 145, DOFPulse
+  DOF 145, DOFPulse
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     150000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
@@ -214,7 +214,7 @@ Sub TargetsAnim150()
 End sub
 
 Sub Targets50T_Timer
-	DOF 145, DOFPulse
+  DOF 145, DOFPulse
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     50000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
@@ -229,7 +229,7 @@ Sub TargetsAnim50()
 End sub
 
 Sub Targets10T_Timer
-	DOF 145, DOFPulse
+  DOF 145, DOFPulse
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "     10000     ", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "TARGETS COMPLETE", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
@@ -279,7 +279,7 @@ Sub StopAnimUDMD
 Dim iScene
     UltraDMD.CancelRendering
   Select Case iScene
-         Case 1 : 	DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnUp, 5000, UltraDMD_Animation_ScrollOffDown
+         Case 1 :   DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnUp, 5000, UltraDMD_Animation_ScrollOffDown
          Case 2 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_ScrollOffDown
          Case 3 :   DMD_DisplaySceneEx "DMD1.png", "CREATED BY", 15, 4, "ROM", -1, -1, UltraDMD_Animation_ScrollOnLeft, 3000, UltraDMD_Animation_ScrollOffRight
          Case 4 :   DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_ScrollOnUp, 500, UltraDMD_Animation_ScrollOffDown
@@ -295,21 +295,21 @@ End Sub
 '////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Sub startB2S(aB2S)
-	If B2SOn Then
-		Controller.B2SSetData 1,0
-		Controller.B2SSetData 2,0
-		Controller.B2SSetData 3,0
-		Controller.B2SSetData 4,0
-		Controller.B2SSetData 5,0
-		Controller.B2SSetData 6,0
-		Controller.B2SSetData 7,0
-		Controller.B2SSetData 8,0
-		Controller.B2SSetData 9,0
-		Controller.B2SSetData 10,0
-		Controller.B2SSetData 11,0
-		Controller.B2SSetData 12,0
-		Controller.B2SSetData aB2S,1
-	End If
+  If B2SOn Then
+    Controller.B2SSetData 1,0
+    Controller.B2SSetData 2,0
+    Controller.B2SSetData 3,0
+    Controller.B2SSetData 4,0
+    Controller.B2SSetData 5,0
+    Controller.B2SSetData 6,0
+    Controller.B2SSetData 7,0
+    Controller.B2SSetData 8,0
+    Controller.B2SSetData 9,0
+    Controller.B2SSetData 10,0
+    Controller.B2SSetData 11,0
+    Controller.B2SSetData 12,0
+    Controller.B2SSetData aB2S,1
+  End If
 End Sub
 
 ' Define any Constants
@@ -416,7 +416,7 @@ Sub Table1_Init()
     bBallSaverReady = False
     bMultiBallMode = False
     bGameInPlay = False
-	bAutoPlunger = False
+  bAutoPlunger = False
     bMusicOn = True
     BallsOnPlayfield = 0
     BallsInLock = 0
@@ -426,7 +426,7 @@ Sub Table1_Init()
     TiltSensitivity = 6
     Tilted = False
     EndOfGame()
-	If Credits > 0 Then DOF 128, DOFOn
+  If Credits > 0 Then DOF 128, DOFOn
 End Sub
 
 '******
@@ -436,7 +436,7 @@ End Sub
 Sub Table1_KeyDown(ByVal Keycode)
     If Keycode = AddCreditKey Then
         Credits = Credits + 1
-		DOF 128, DOFOn
+    DOF 128, DOFOn
         If(Tilted = False) Then
             StopAnimUDMD
             DMD_DisplaySceneEx "DMD1.png", "CREDITS: "& Credits, 15, 4, "PRESS START", -1, -1, UltraDMD_Animation_None, 1000, UltraDMD_Animation_None
@@ -456,7 +456,7 @@ Sub Table1_KeyDown(ByVal Keycode)
 
     If keycode = PlungerKey Then
         PlungerIM.AutoFire
-		If bBallInPlungerLane Then DOF 109, DOFPulse
+    If bBallInPlungerLane Then DOF 109, DOFPulse
     End If
     If bGameInPlay AND NOT Tilted Then
         If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
@@ -479,7 +479,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                         PlayersPlayingGame = PlayersPlayingGame + 1
                         TotalGamesPlayed = TotalGamesPlayed + 1
                         Credits = Credits - 1
-						If Credits < 1 Then DOF 128, DOFOff
+            If Credits < 1 Then DOF 128, DOFOff
                     Else
                         ' Not Enough Credits to start a game.
                         StopAnimUDMD
@@ -508,7 +508,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                     If(Credits > 0) Then
                         If(BallsOnPlayfield = 0) Then
                             Credits = Credits - 1
-							If Credits < 1 Then DOF 128, DOFOff
+              If Credits < 1 Then DOF 128, DOFOff
                             ResetForNewGame()
                         End If
                     Else
@@ -553,14 +553,14 @@ Sub table1_unPaused
 End Sub
 
 Sub Table1_Exit():
-	Savehs
-	Controller.Stop
-	If Not UltraDMD is Nothing Then
-		If UltraDMD.IsRendering Then
-			UltraDMD.CancelRendering
-		End If
-		UltraDMD = NULL
-	End If
+  Savehs
+  Controller.Stop
+  If Not UltraDMD is Nothing Then
+    If UltraDMD.IsRendering Then
+      UltraDMD.CancelRendering
+    End If
+    UltraDMD = NULL
+  End If
 End Sub
 
 '********************
@@ -761,7 +761,7 @@ Sub GIUpdateTimer_Timer
 End Sub
 
 Sub GiOn
-	DOF 133, DOFOn
+  DOF 133, DOFOn
     Dim bulb
     For each bulb in aGiLights
         bulb.State = 1
@@ -770,7 +770,7 @@ Sub GiOn
 End Sub
 
 Sub GiOff
-	DOF 133, DOFOff
+  DOF 133, DOFOff
     Dim bulb
     For each bulb in aGiLights
         bulb.State = 0
@@ -1124,13 +1124,13 @@ Sub ResetForNewPlayerBall()
 
 if WIZARD.state = 0 then
 
-	' Bumperlanes reset:
+  ' Bumperlanes reset:
 Bumperscore1.state = 0
 Bumperscore2.state = 0
 Bumperscore3.state = 0
 Bumperscore4.state = 0
 
-	' Minions reset:************************
+  ' Minions reset:************************
 
 'MinionPOPUP3DOWN.set true, 1
 'MinionPOPUP2DOWN.set true, 1
@@ -1153,14 +1153,14 @@ Sub CreateNewBall()
     ' kick it out..
     PlaySoundAtVol SoundFXDOF("fx_Ballrel",108,DOFPulse,DOFContactors), Primitive34, 1
     BallRelease.Kick 90, 4
-	startB2S(5)
+  startB2S(5)
 
     ' if there is 2 or more balls then set the multibal flag (remember to check for locked balls and other balls used for animations)
-	' set the bAutoPlunger flag to kick the ball in play automatically
+  ' set the bAutoPlunger flag to kick the ball in play automatically
     If BallsOnPlayfield > 1 Then
-		DOF 132, DOFPulse
+    DOF 132, DOFPulse
         bMultiBallMode = True
-		bAutoPlunger = True
+    bAutoPlunger = True
         ChangeSong
     End If
 End Sub
@@ -1387,7 +1387,7 @@ End Function
 '
 Sub Drain_Hit()
     startB2S(9)
-	DOF 126, DOFPulse
+  DOF 126, DOFPulse
       TiltT.enabled = 0
       StopAnimUDMD
     ' Destroy the ball
@@ -1426,10 +1426,10 @@ end if
             ' yep, create a new ball in the shooters lane
             ' we use the Addmultiball in case the multiballs are being ejected
             AddMultiball 1
-			' we kick the ball with the autoplunger
-			bAutoPlunger = True
+      ' we kick the ball with the autoplunger
+      bAutoPlunger = True
             ' you may wish to put something on a display or play a sound at this point
- 	 '       DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_ScrollOnUp, 1200, UltraDMD_Animation_ScrollOffDown
+   '       DMD_DisplaySceneEx "DMD1.png", "", 14, 2, "BALL SAVED", -1, -1, UltraDMD_Animation_ScrollOnUp, 1200, UltraDMD_Animation_ScrollOffDown
             BallSaverAnim
             DMD "_", CenterLine(1, "BALL SAVED"), 0, eNone, eBlinkfast, eNone, 800, True, ""
         Else
@@ -1471,7 +1471,7 @@ End Sub
 Sub swPlungerRest_Hit()
     'debug.print "ball in plunger lane"
     ' some sound according to the ball position
-	DOF 129, DOFOn
+  DOF 129, DOFOn
     PlaySoundAtVol "fx_sensor", Primitive34, 1
     bBallInPlungerLane = True
     ' turn on Launch light is there is one
@@ -1480,8 +1480,8 @@ Sub swPlungerRest_Hit()
     If bAutoPlunger Then
         'debug.print "autofire the ball"
         PlungerIM.AutoFire
-		DOF 109, DOFPulse
-		bAutoPlunger = False
+    DOF 109, DOFPulse
+    bAutoPlunger = False
     End If
     ' if there is a need for a ball saver, then start off a timer
     ' only start if it is ready, and it is currently not running, else it will reset the time period
@@ -1503,7 +1503,7 @@ End Sub
 ' The ball is released from the plunger turn off some flags and check for skillshot
 
 Sub swPlungerRest_UnHit()
-	DOF 129, DOFOff
+  DOF 129, DOFOff
     startB2S(5)
     bBallInPlungerLane = False
     LaserKickP.TransY = 120
@@ -1617,9 +1617,9 @@ Sub AddJackpot(points)
         If(bMultiBallMode = True) Then
             Jackpot = Jackpot + points
         ' you may wish to limit the jackpot to a upper limit, ie..
-        '	If (Jackpot >= 6000) Then
-        '		Jackpot = 6000
-        ' 	End if
+        ' If (Jackpot >= 6000) Then
+        '   Jackpot = 6000
+        '   End if
         End if
     End if
 End Sub
@@ -1684,7 +1684,7 @@ End Sub
 Sub AwardSpecial()
     DMD "_", Centerline(1, ("EXTRA GAME WON") ), 0, eNone, eBlink, eNone, 1000, True, SoundFXDOF("fx_knocker",127,DOFPulse,DOFKnocker)
     Credits = Credits + 1
-	DOF 128, DOFOn
+  DOF 128, DOFOn
     GiEffect 1
     LightEffect 1
 End Sub
@@ -1780,12 +1780,12 @@ Sub CheckHighscore()
 
     If tmp > HighScore(1) Then 'add 1 credit for beating the highscore
         Credits = Credits + 1
-		DOF 128, DOFOn
+    DOF 128, DOFOn
     End If
 
     If tmp > HighScore(3) Then
         PlaySound SoundFXDOF("fx_knocker",127,DOFPulse,DOFKnocker)
-		DOF 117, DOFPulse
+    DOF 117, DOFPulse
         HighScore(3) = tmp
         'enter player's name
         HighScoreEntryInit()
@@ -2407,7 +2407,7 @@ Sub ShowTableInfo
 
     DMD_DisplaySceneEx "DMD1.png", "JAVIER", 15, 4, "PRESENT", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
- 	DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
+  DMD_DisplaySceneEx "DMD1.png", "MINIONS", 15, 4, "PINBALL", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 100, UltraDMD_Animation_None
     DMD_DisplaySceneEx "DMD1.png", "CREATED BY", 15, 4, "ROM", -1, -1, UltraDMD_Animation_ScrollOnLeft, 2000, UltraDMD_Animation_ScrollOffLeft
     DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "", -1, -1, UltraDMD_Animation_None, 500, UltraDMD_Animation_None
@@ -2780,7 +2780,7 @@ Sub LeftSlingShot_Slingshot
     ' remember last trigger hit by the ball
     LastSwitchHit = "LeftSlingShot"
     FlashForms SlingFlashL, 100, 10, 0
-	DOF 140, DOFPulse
+  DOF 140, DOFPulse
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -2808,7 +2808,7 @@ Sub RightSlingShot_Slingshot
     ' remember last trigger hit by the ball
     LastSwitchHit = "RightSlingShot"
     FlashForms SlingFlashR, 100, 10, 0
-	DOF 141, DOFPulse
+  DOF 141, DOFPulse
 End Sub
 
 Sub RightSlingShot_Timer
@@ -2826,9 +2826,9 @@ dim tempstateherolights 'to rotate lights
 
 
 Sub LeftOutLaneTrigger_Hit()
-	startB2S(7)
-	DOF 110, DOFPulse
-	Addscore(1000)
+  startB2S(7)
+  DOF 110, DOFPulse
+  Addscore(1000)
 if ballsonplayfield = 1 then
 'effectmusic 1, fadevolume, 0, 500
 'musicin.set true, 2000
@@ -2836,14 +2836,14 @@ if ballsonplayfield = 1 then
 Playsound "aaaauaaa"
 end if
 if SP1.state = 0 and SP2.state = 1 and SP3.state = 1 and SP4.state = 1  and SP5.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
-'			' set our game flag
-'			bBallSaverActive = TRUE
-'			' start the timer
-'			BallSaverTimer.Interval = constBallSaverTime
-'			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this
-'			' point (or make it flash)
-'			LightShootAgain.State = 2
+'     ' set our game flag
+'     bBallSaverActive = TRUE
+'     ' start the timer
+'     BallSaverTimer.Interval = constBallSaverTime
+'     BallSaverTimer.Enabled = TRUE
+'     ' if you have a ball saver light you might want to turn it on at this
+'     ' point (or make it flash)
+'     LightShootAgain.State = 2
 EnableBallSaver 15
 
 SP1.state = 0
@@ -2854,25 +2854,25 @@ SP4.state = 0
 playsound "FXx"
 SP5.state = 2
 end if
-	If SP5.state = 0 and (SP1.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
-		SP1.State = 1
-	End If
+  If SP5.state = 0 and (SP1.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
+    SP1.State = 1
+  End If
 End Sub
 
 Sub LeftInLaneTrigger_Hit()
-	startB2S(7)
+  startB2S(7)
     startB2S(5)
-	DOF 111, DOFPulse
-	Addscore(1000)
+  DOF 111, DOFPulse
+  Addscore(1000)
 if SP1.state = 1 and SP2.state = 0 and SP3.state = 1 and SP4.state = 1  and SP5.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
-'			' set our game flag
-'			bBallSaverActive = TRUE
-'			' start the timer
-'			BallSaverTimer.Interval = constBallSaverTime
-'			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this
-'			' point (or make it flash)
-'			LightShootAgain.State = 2
+'     ' set our game flag
+'     bBallSaverActive = TRUE
+'     ' start the timer
+'     BallSaverTimer.Interval = constBallSaverTime
+'     BallSaverTimer.Enabled = TRUE
+'     ' if you have a ball saver light you might want to turn it on at this
+'     ' point (or make it flash)
+'     LightShootAgain.State = 2
 EnableBallSaver 15
 SP1.state = 0
 SP2.state = 0
@@ -2882,25 +2882,25 @@ SP4.state = 0
 playsound "FXx"
 SP5.state = 2
 end if
-	If SP5.state = 0 and (SP2.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
-		SP2.State=1
-	End If
+  If SP5.state = 0 and (SP2.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
+    SP2.State=1
+  End If
 End Sub
 
 Sub RightInLaneTrigger_Hit()
-	startB2S(8)
+  startB2S(8)
     startB2S(5)
-	DOF 112, DOFPulse
-	Addscore(1000)
+  DOF 112, DOFPulse
+  Addscore(1000)
 if SP1.state = 1 and SP2.state = 1 and SP3.state = 0 and SP4.state = 1  and SP5.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
-'			' set our game flag
-'			bBallSaverActive = TRUE
-'			' start the timer
-'			BallSaverTimer.Interval = constBallSaverTime
-'			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this
-'			' point (or make it flash)
-'			LightShootAgain.State = 2
+'     ' set our game flag
+'     bBallSaverActive = TRUE
+'     ' start the timer
+'     BallSaverTimer.Interval = constBallSaverTime
+'     BallSaverTimer.Enabled = TRUE
+'     ' if you have a ball saver light you might want to turn it on at this
+'     ' point (or make it flash)
+'     LightShootAgain.State = 2
 EnableBallSaver 15
 SP1.state = 0
 SP2.state = 0
@@ -2910,29 +2910,29 @@ SP4.state = 0
 playsound "FXx"
 SP5.state = 2
 end if
-	If SP5.state = 0 and (SP3.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
-		SP3.State=1
-	End If
+  If SP5.state = 0 and (SP3.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
+    SP3.State=1
+  End If
 End Sub
 
 Sub RightOutLaneTrigger_Hit()
-	startB2S(8)
-	DOF 113, DOFPulse
-	Addscore(1000)
+  startB2S(8)
+  DOF 113, DOFPulse
+  Addscore(1000)
 if ballsonplayfield = 1 then
 'effectmusic 1, fadevolume, 0, 500
 'musicin.set true, 1000
 playsound "WHAAT"
 end if
 if SP1.state = 1 and SP2.state = 1 and SP3.state = 1 and SP4.state = 0  and SP5.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
-'			' set our game flag
-'			bBallSaverActive = TRUE
-'			' start the timer
-'			BallSaverTimer.Interval = constBallSaverTime
-'			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this
-'			' point (or make it flash)
-'			LightShootAgain.State = 2
+'     ' set our game flag
+'     bBallSaverActive = TRUE
+'     ' start the timer
+'     BallSaverTimer.Interval = constBallSaverTime
+'     BallSaverTimer.Enabled = TRUE
+'     ' if you have a ball saver light you might want to turn it on at this
+'     ' point (or make it flash)
+'     LightShootAgain.State = 2
 EnableBallSaver 15
 SP1.state = 0
 SP2.state = 0
@@ -2942,9 +2942,9 @@ SP4.state = 0
 playsound "FXx"
 SP5.state = 2
 end if
-	If SP5.state = 0 and (SP4.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
-		SP4.State=1
-	End If
+  If SP5.state = 0 and (SP4.State=0) and WIZARD.state = 0 and ballsonplayfield = 1 then
+    SP4.State=1
+  End If
 End Sub
 
 '*************
@@ -2979,7 +2979,7 @@ BackFlashEffect 2
 'DispDmd2.QueueText "[f3][xc][y5]10000[y18]10000", deFlip, 10000, True
 'scoreupdate = false
 'flushdmdtimer.set true , 2000
- 	DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "10000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
+  DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "10000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
         DMD CenterLine(0, "10000"), CenterLine(1,  FormatScore("10000")), 0, eBlink, eBlinkFast, eNone, 1000, True, ""
 end if
 
@@ -3037,7 +3037,7 @@ BackFlashEffect 2
 'DispDmd2.QueueText "[f3][xc][y5]30000[y18]30000", deFlip, 10000, True
 'scoreupdate = false
 'flushdmdtimer.set true , 2000
- 	DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "30000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
+  DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "30000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
 DMD CenterLine(0, "30000"), CenterLine(1,  FormatScore("30000")), 0, eBlink, eBlinkFast, eNone, 1000, True, ""
 end if
 
@@ -3071,7 +3071,7 @@ BackFlashEffect 2
 'DispDmd2.QueueText "[f3][xc][y5]100000[y18]100000", deFlip, 10000, True
 'scoreupdate = false
 'flushdmdtimer.set true , 2000
- 	DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "100000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
+  DMD_DisplaySceneEx "DMD1.png", "", 15, 4, "100000", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
 DMD CenterLine(0, "100000"), CenterLine(1,  FormatScore("100000")), 0, eBlink, eBlinkFast, eNone, 1000, True, ""
 
 end if
@@ -3257,7 +3257,7 @@ BackFlashEffect 2
 'DispDmd2.QueueText "[f3][xc][y5]JACKPOT[y18]250000", deFlip, 10000, True
 'scoreupdate = false
 'flushdmdtimer.set true , 2000
- Jackpot250()'	DMD_DisplaySceneEx "DMD1.png", "250000", 15, 4, "JACKPOT", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
+ Jackpot250()'  DMD_DisplaySceneEx "DMD1.png", "250000", 15, 4, "JACKPOT", -1, -1, UltraDMD_Animation_ScrollOnUp, 1000, UltraDMD_Animation_ScrollOffDown
 DMD CenterLine(0, "JACKPOT"), CenterLine(1,  FormatScore("250000")), 0, eBlink, eBlinkFast, eNone, 1000, True, ""
 Playsound "jack6"
 'playmusic 4, "jack6", false, 1.0
@@ -3707,7 +3707,7 @@ end sub
 
 ' MULTIBALL SCRIPT *********************************************************************
 sub T1_hit()
-	startB2S(11)
+  startB2S(11)
 DOF 124, DOFPulse
 playsound "FX01"
 if Lightlock1.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
@@ -3717,7 +3717,7 @@ end if
 end sub
 
 sub T2_hit()
-	startB2S(12)
+  startB2S(12)
 DOF 124, DOFPulse
 playsound "FX02"
 if Lightlock2.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
@@ -3737,7 +3737,7 @@ end if
 end sub
 
 sub T4_hit()
-	startB2S(11)
+  startB2S(11)
 DOF 125, DOFPulse
 playsound "FX02"
 if Lightlock4.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
@@ -3747,7 +3747,7 @@ end if
 end sub
 
 sub T5_hit()
-	startB2S(12)
+  startB2S(12)
 DOF 125, DOFPulse
 playsound "FX01"
 if Lightlock5.state = 0 and ballsonplayfield = 1 and WIZARD.state = 0 then
@@ -4452,7 +4452,7 @@ Sub Minion4Init
 End Sub
 
 Sub Minion4Timer_Timer
-	DOF 146, DOFPulse
+  DOF 146, DOFPulse
     cball.vely = 350: FlashForMs Flasher4, 800, 50, 0:DOF 143, DOFPulse
     playsound "motorpulse"
     vpmtimer.addtimer 1500, "Minion4Timer1 '"
@@ -4460,19 +4460,19 @@ Sub Minion4Timer_Timer
 End Sub
 
 Sub Minion4Timer1
-	DOF 146, DOFPulse
+  DOF 146, DOFPulse
     cball.vely = 300: FlashForMs Flasher4, 800, 50, 0:DOF 143, DOFPulse
     playsound "motorpulse"
     vpmtimer.addtimer 1500, "Minion4Timer2 '"
 End Sub
 Sub Minion4Timer2
-	DOF 146, DOFPulse
+  DOF 146, DOFPulse
     cball.vely = 300: FlashForMs Flasher4, 800, 50, 0:DOF 143, DOFPulse
     playsound "motorpulse"
     vpmtimer.addtimer 1500, "Minion4Timer3 '"
 End Sub
 Sub Minion4Timer3
-	DOF 146, DOFPulse
+  DOF 146, DOFPulse
     cball.vely = 300: FlashForMs Flasher4, 800, 50, 0:DOF 143, DOFPulse
     playsound "motorpulse"
     MinionsRamdon.enabled = 1
@@ -4579,19 +4579,19 @@ MinionPOPUP3DOWNTimer.enabled = 1
 '******RESET FOR NEW PLAYER BALL*****
 '******RESET FOR NEW PLAYER BALL*****
 
-	' In and Outlanes reset:
+  ' In and Outlanes reset:
 SP1.state = 0
 SP2.state = 0
 SP3.state = 0
 SP4.state = 0
 
-	' Bumperlanes reset:
+  ' Bumperlanes reset:
 Bumperscore1.state = 0
 Bumperscore2.state = 0
 Bumperscore3.state = 0
 Bumperscore4.state = 0
 
-	' Orbits reset:
+  ' Orbits reset:
 OR1.state = 2
 OR2.state = 0
 OR3.state = 0
@@ -4599,7 +4599,7 @@ OL1.state = 0
 OL2.state = 0
 OL3.state = 0
 
-	' Ramps reset:
+  ' Ramps reset:
 RR1.state = 2
 RR2.state = 0
 RR3.state = 0
@@ -4976,13 +4976,13 @@ LightSeqAttract1.Play SeqUpOn, 80, 1
 DMD_DisplaySceneEx "DMD1.png", "SHOOT HIDEOUT", 15, 4, "FOR 50 MILLION", -1, -1, UltraDMD_Animation_ScrollOnUp, 3000, UltraDMD_Animation_ScrollOffDown
 DMD CenterLine(0, "SHOOT HIDEOUT"), CenterLine(1, "FOR 50 MILLION "), 0, eNone, eNone, eNone, 3000, True, ""
 'DMD "_", CenterLine(1, ("SHOOT HIDEOUT FOR 50 MILLION") ), 0, eNone, eBlinkFast, eNone, 2000, True, ""
-'			bBallSaverActive = TRUE'
-'			' start the timer
-'			BallSaverTimer.Interval = constBallSaverTime
-'			BallSaverTimer.Enabled = TRUE
-'			' if you have a ball saver light you might want to turn it on at this
-'			' point (or make it flash)
-'			LightShootAgain.State = 2
+'     bBallSaverActive = TRUE'
+'     ' start the timer
+'     BallSaverTimer.Interval = constBallSaverTime
+'     BallSaverTimer.Enabled = TRUE
+'     ' if you have a ball saver light you might want to turn it on at this
+'     ' point (or make it flash)
+'     LightShootAgain.State = 2
 EnableBallSaver 15
 end if
 end sub

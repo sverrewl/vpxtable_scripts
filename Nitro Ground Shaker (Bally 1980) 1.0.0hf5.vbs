@@ -330,7 +330,7 @@ Sub SolGi(enabled)
 End Sub
 
 Sub GiON
-	shadowGI.visible=1
+  shadowGI.visible=1
     For each x in aGiLights
         x.State = 1
     Next
@@ -340,7 +340,7 @@ Sub GiON
 End Sub
 
 Sub GiOFF
-	shadowGI.visible=0
+  shadowGI.visible=0
     For each x in aGiLights
         x.State = 0
     Next
@@ -770,17 +770,17 @@ End Function
 
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 
 End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)

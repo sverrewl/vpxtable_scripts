@@ -21,12 +21,12 @@ On Error Goto 0
 Dim UseVPMDMD, DesktopMode
 DesktopMode = Time_Machine.ShowDT
 If NOT DesktopMode Then
-	UseVPMDMD = False		'hides the internal VPMDMD when using the color ROM or when table is in Full Screen and color ROM is not in use
-	metalsides.visible = False
-	leftside.visible = True'put True or False if you want to see or not the wood side in fullscreen mod
-	rightside.visible = True 'put True or False if you want to see or not the wood side in fullscreen mod
+  UseVPMDMD = False   'hides the internal VPMDMD when using the color ROM or when table is in Full Screen and color ROM is not in use
+  metalsides.visible = False
+  leftside.visible = True'put True or False if you want to see or not the wood side in fullscreen mod
+  rightside.visible = True 'put True or False if you want to see or not the wood side in fullscreen mod
 end if
-If DesktopMode Then UseVPMDMD = True							'shows the internal VPMDMD when in desktop mode
+If DesktopMode Then UseVPMDMD = True              'shows the internal VPMDMD when in desktop mode
 '*********************************************************************************************************
 
  LoadVPM "00990300", "DE.VBS", 3.10
@@ -57,7 +57,7 @@ vlaa=0:vlbb=0:vlcc=0
  Const SCoin="Coin"
 
 '********    FLippers DE Anim and shadows     ******
-	shfl.enabled = 1'             ****Activation****
+  shfl.enabled = 1'             ****Activation****
 '***************************************************
 
 Dim FlashLevel1, FlashLevel2, FlashLevel3, FlashLevel4
@@ -97,20 +97,20 @@ RainbowTimer.enabled = 1
 '*********** Led Mod ********************************************
 Led = 1' 1 for Rainbow's mod 0 for normal and bonus rainbow's mod
 '****************************************************************
-	dim z
+  dim z
 
 
  '******************************************************
  ' Automatic screw rotation ;) by JPJ
  '******************************************************
     For Each x in AutomaticRot
-	z = Int(Rnd*360)+1
-		x.RotZ = z
-	Next
+  z = Int(Rnd*360)+1
+    x.RotZ = z
+  Next
     For Each x in AutomaticRot2
-	z = Int(Rnd*360)+1
-		x.RotY = z
-	Next
+  z = Int(Rnd*360)+1
+    x.RotY = z
+  Next
 '******************************************************
 
 '**** Fastflips
@@ -147,10 +147,10 @@ Led = 1' 1 for Rainbow's mod 0 for normal and bonus rainbow's mod
         .ShowFrame = 0
         .ShowTitle = 0
       End With
-   	  Controller.Hidden = 0
+      Controller.Hidden = 0
       On Error Resume Next
 
-  	  Controller.Run
+      Controller.Run
 
 
 
@@ -223,14 +223,14 @@ Led = 1' 1 for Rainbow's mod 0 for normal and bonus rainbow's mod
  End Sub
 
 Sub ballinPL_UnHit:
-	BallinPlunger = 1
+  BallinPlunger = 1
 End Sub
 Sub Gate1_Hit:BallinPlunger = 0:End Sub
 Sub swPlunger_Hit:Controller.Switch(14) = 1:End Sub 'in this sub you may add a switch, for example Controller.Switch(14) = 1
 
 Sub swPlunger_UnHit:Controller.Switch(14) = 0:End Sub 'in this sub you may add a switch, for example Controller.Switch(14) = 0
 sub rubberrotation_hit
-	tubberRot.ObjRotz=Int(Rnd*360)+1
+  tubberRot.ObjRotz=Int(Rnd*360)+1
 end Sub
 
 
@@ -300,15 +300,15 @@ end Sub
     vpmTimer.PulseSw 44
     ClearBallID
     Switch44.Destroyball
-	TRC=0:TRCC=0:stopsound "Plasticramp3"
-	playsound "underballrolling"
-	SW45Wait.enabled = 1
+  TRC=0:TRCC=0:stopsound "Plasticramp3"
+  playsound "underballrolling"
+  SW45Wait.enabled = 1
 '    bsVUK.AddBall 0
  End Sub
 
 sub SW45Wait_timer()
     bsVUK.AddBall 0
-		SW45Wait.enabled = 0
+    SW45Wait.enabled = 0
 end sub
  '**************
  ' Flipper Subs
@@ -350,28 +350,28 @@ end sub
  SolCallback(sLLFlipper) = "SolLFlipper" 'Fastflips
 
 Sub SolLFlipper(Enabled)
-		 If Enabled Then
-			 PlaySound SoundFX("LFlipperUp",DOFFlippers)
-			LeftFlipper.RotateToEnd
-			Controller.Switch(15)=True
-	else
-			PlaySound SoundFX("LFlipperRel",DOFFlippers)
-			LeftFlipper.RotateToStart
-			Controller.Switch(15)=False
-		 End If
-	  End Sub
+     If Enabled Then
+       PlaySound SoundFX("LFlipperUp",DOFFlippers)
+      LeftFlipper.RotateToEnd
+      Controller.Switch(15)=True
+  else
+      PlaySound SoundFX("LFlipperRel",DOFFlippers)
+      LeftFlipper.RotateToStart
+      Controller.Switch(15)=False
+     End If
+    End Sub
 
-	Sub SolRFlipper(Enabled)
-		 If Enabled Then
-			 PlaySound SoundFX("RFlipperUp",DOFFlippers)
-			RightFlipper.RotateToEnd
-			Controller.Switch(16)=True
-		 Else
-			 PlaySound SoundFX("RFlipperRel",DOFFlippers)
-			RightFlipper.RotateToStart
-			Controller.Switch(16)=False
-		 End If
-	End Sub
+  Sub SolRFlipper(Enabled)
+     If Enabled Then
+       PlaySound SoundFX("RFlipperUp",DOFFlippers)
+      RightFlipper.RotateToEnd
+      Controller.Switch(16)=True
+     Else
+       PlaySound SoundFX("RFlipperRel",DOFFlippers)
+      RightFlipper.RotateToStart
+      Controller.Switch(16)=False
+     End If
+  End Sub
 
 Sub SolKickBack(enabled)
     If enabled Then
@@ -384,7 +384,7 @@ End Sub
 
  Sub SolTrough(Enabled)
    If Enabled Then
-	If (ABS(bsTrough.Balls)+ABS(VLock.Balls)=3) And Not Timer2.Enabled Then bsTrough.ExitSol_On:Solanim.enabled = 1
+  If (ABS(bsTrough.Balls)+ABS(VLock.Balls)=3) And Not Timer2.Enabled Then bsTrough.ExitSol_On:Solanim.enabled = 1
    End If
   End Sub
 
@@ -409,36 +409,36 @@ End Sub
     Timer2.Enabled=0
     Timer2.Enabled=1
     vLock.SolExit True
-	Solanim.enabled=1
-	vl=vl-1
+  Solanim.enabled=1
+  vl=vl-1
    Else
     Timer2.Enabled=0
     Timer2.Enabled=1
     vLock.SolExit False
-	vl=vl+1
+  vl=vl+1
    End If
   End Sub
 
   Sub Timer2_Timer
-	debug.print vl
+  debug.print vl
    Timer2.Enabled=0
   End Sub
 
 Dim xx
 Sub GIUpdate(enabled)
-	If enabled Then
+  If enabled Then
 'Primitive47.visible = 0
 Primitive47.image = "shadowsn"
 Leftside.image = "leftsidetext3"
 Rightside.image = "Rightsidetext3"
-		For each xx in GI:xx.State = 0:Next
-	else
+    For each xx in GI:xx.State = 0:Next
+  else
 'Primitive47.visible = 1
 Primitive47.image = "shadows"
 Leftside.image = "leftsidetext4"
 Rightside.image = "Rightsidetext4"
-		For each xx in GI:xx.State = 1:Next
-	End If
+    For each xx in GI:xx.State = 1:Next
+  End If
 End Sub
 
  '*********
@@ -452,13 +452,13 @@ End Sub
  '********************* Bumpers ****************************
 
  Sub Switch46_Hit() : PlaySoundAt SoundFX("bumperyellow",DOFContactors), Switch46 : vpmTimer.PulseSw 46 : : bump1=1 : Me.TimerEnabled=1 : End Sub
- Sub Switch46_Timer():	Me.Timerenabled = 0 : End Sub
+ Sub Switch46_Timer():  Me.Timerenabled = 0 : End Sub
 
  Sub Switch48_Hit() : PlaySoundAt SoundFX("bumperblue",DOFContactors), Switch48 : vpmTimer.PulseSw 48 : bump2=1 : Me.TimerEnabled=1 : End Sub
- Sub Switch48_Timer():	Me.Timerenabled = 0 : End Sub
+ Sub Switch48_Timer():  Me.Timerenabled = 0 : End Sub
 
  Sub Switch47_Hit() : PlaySoundAt SoundFX("bumperred",DOFContactors), Switch47 : vpmTimer.PulseSw 47 : Me.TimerEnabled=1 : End Sub
- Sub Switch47_Timer():	Me.Timerenabled = 0 : End Sub
+ Sub Switch47_Timer():  Me.Timerenabled = 0 : End Sub
 
  '***********************************************************
 
@@ -575,7 +575,7 @@ Sub SW40_Timer():sw40p.transx = 0:Me.TimerEnabled = 0:End Sub
  '*************
 
  Sub SolLockRelease(enabled)
-	solanim.enabled = 1
+  solanim.enabled = 1
     vLock.SolExit enabled
  End Sub
 
@@ -601,14 +601,14 @@ Sub LampTimer_Timer()
     If Not IsEmpty(chgLamp) Then
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-		If l52h.state = 1 then BumpCircle.enabled = 1
-		If l53h.state = 1 then BumpCircle1.enabled = 1
-		If l54h.state = 1 then BumpCircle2.enabled = 1
+    If l52h.state = 1 then BumpCircle.enabled = 1
+    If l53h.state = 1 then BumpCircle1.enabled = 1
+    If l54h.state = 1 then BumpCircle2.enabled = 1
         Next
     End If
-		If l52h.state = 0 then BumpCircle.enabled = 0:Primitive6.image = "bumpCircle0":circle = 0:end if
-		If l53h.state = 0 then BumpCircle1.enabled = 0:Primitive7.image = "bumpCircle0":circle1=0:end if
-		If l54h.state = 1 then BumpCircle2.enabled = 0:Primitive9.image = "bumpCircle0":circle2=0:end if
+    If l52h.state = 0 then BumpCircle.enabled = 0:Primitive6.image = "bumpCircle0":circle = 0:end if
+    If l53h.state = 0 then BumpCircle1.enabled = 0:Primitive7.image = "bumpCircle0":circle1=0:end if
+    If l54h.state = 1 then BumpCircle2.enabled = 0:Primitive9.image = "bumpCircle0":circle2=0:end if
     UpdateLamps
 End Sub
 
@@ -625,53 +625,53 @@ Sub UpdateLamps
     FadeLm 107, f3b, f3b1 '
     FadeLm 107, f3c, f3c1 '
     FadeL 107, f3d, f3d1 '
-	NFadeL 108, L108State
+  NFadeL 108, L108State
     if L108State.State = 1 Then
-		FlashLevel3 = 1 : FlasherFlash3_Timer
-		FlashLevel4 = 1 : FlasherFlash4_Timer
-			flasha5.Amount = 100
-			flasha5.IntensityScale = 5
-			flasha6.Amount = 60
-			flasha6.IntensityScale = 3
-			flasha7.Amount = 100
-			flasha7.IntensityScale = 5
-			flasha8.Amount = 60
-			flasha8.IntensityScale = 3
-	end If
+    FlashLevel3 = 1 : FlasherFlash3_Timer
+    FlashLevel4 = 1 : FlasherFlash4_Timer
+      flasha5.Amount = 100
+      flasha5.IntensityScale = 5
+      flasha6.Amount = 60
+      flasha6.IntensityScale = 3
+      flasha7.Amount = 100
+      flasha7.IntensityScale = 5
+      flasha8.Amount = 60
+      flasha8.IntensityScale = 3
+  end If
     if L108State.State = 0 Then
-			flasha5.Amount = 0
-			flasha5.IntensityScale = 0
-			flasha6.Amount = 0
-			flasha6.IntensityScale = 0
-			flasha7.Amount = 0
-			flasha7.IntensityScale = 0
-			flasha8.Amount = 0
-			flasha8.IntensityScale = 0
-	end If
-	NFadeL 109, L109State
+      flasha5.Amount = 0
+      flasha5.IntensityScale = 0
+      flasha6.Amount = 0
+      flasha6.IntensityScale = 0
+      flasha7.Amount = 0
+      flasha7.IntensityScale = 0
+      flasha8.Amount = 0
+      flasha8.IntensityScale = 0
+  end If
+  NFadeL 109, L109State
     if L109State.State = 1 Then
-			FlashLevel1 = 1 : FlasherFlash1_Timer
-			FlashLevel2 = 1 : FlasherFlash2_Timer
-			flasha1.Amount = 100
-			flasha1.IntensityScale = 5
-			flasha2.Amount = 60
-			flasha2.IntensityScale = 3
-			flasha3.Amount = 100
-			flasha3.IntensityScale = 5
-			flasha4.Amount = 60
-			flasha4.IntensityScale = 3
-	end If
+      FlashLevel1 = 1 : FlasherFlash1_Timer
+      FlashLevel2 = 1 : FlasherFlash2_Timer
+      flasha1.Amount = 100
+      flasha1.IntensityScale = 5
+      flasha2.Amount = 60
+      flasha2.IntensityScale = 3
+      flasha3.Amount = 100
+      flasha3.IntensityScale = 5
+      flasha4.Amount = 60
+      flasha4.IntensityScale = 3
+  end If
     if L109State.State = 0 Then
-			flasha1.Amount = 0
-			flasha1.IntensityScale = 0
-			flasha2.Amount = 0
-			flasha2.IntensityScale = 0
-			flasha3.Amount = 0
-			flasha3.IntensityScale = 0
-			flasha4.Amount = 0
-			flasha4.IntensityScale = 0
-	end If
-	MNFadeLm 112, f12a,39
+      flasha1.Amount = 0
+      flasha1.IntensityScale = 0
+      flasha2.Amount = 0
+      flasha2.IntensityScale = 0
+      flasha3.Amount = 0
+      flasha3.IntensityScale = 0
+      flasha4.Amount = 0
+      flasha4.IntensityScale = 0
+  end If
+  MNFadeLm 112, f12a,39
     MNFadeL 112, f12b, 63
     MNFadeLm 113, f13a,40
     MNFadeL 113, f13b, 64
@@ -682,32 +682,32 @@ Sub UpdateLamps
 
 
     if Not Desktopmode then
-		FadeOldL 1, l1, l1a, l1b
-		FadeOldL 2, l2, l2a, l2b
-		FadeOldL 3, l3, l3a, l3b
-		FadeOldL 4, l4, l4a, l4b
-		FadeOldL 5, l5, l5a, l5b
-		FadeOldL 6, l6, l6a, l6b
-		FadeOldL 7, l7, l7a, l7b
-		FadeOldL 8, l8, l8a, l8b
-	else
-		FadeOldLm 1, l1, l1a, l1b
-		NFadeL 1, l1z
-		FadeOldLm 2, l2, l2a, l2b
-		NFadeL 2, l2z
-		FadeOldLm 3, l3, l3a, l3b
-		NFadeL 3, l3z
-		FadeOldLm 4, l4, l4a, l4b
-		NFadeL 4, l4z
-		FadeOldLm 5, l5, l5a, l5b
-		NFadeL 5, l5z
-		FadeOldLm 6, l6, l6a, l6b
-		NFadeL 6, l6z
-		FadeOldLm 7, l7, l7a, l7b
-		NFadeL 7, l7z
-		FadeOldLm 8, l8, l8a, l8b
-		NFadeL 8, l8z
-	end if
+    FadeOldL 1, l1, l1a, l1b
+    FadeOldL 2, l2, l2a, l2b
+    FadeOldL 3, l3, l3a, l3b
+    FadeOldL 4, l4, l4a, l4b
+    FadeOldL 5, l5, l5a, l5b
+    FadeOldL 6, l6, l6a, l6b
+    FadeOldL 7, l7, l7a, l7b
+    FadeOldL 8, l8, l8a, l8b
+  else
+    FadeOldLm 1, l1, l1a, l1b
+    NFadeL 1, l1z
+    FadeOldLm 2, l2, l2a, l2b
+    NFadeL 2, l2z
+    FadeOldLm 3, l3, l3a, l3b
+    NFadeL 3, l3z
+    FadeOldLm 4, l4, l4a, l4b
+    NFadeL 4, l4z
+    FadeOldLm 5, l5, l5a, l5b
+    NFadeL 5, l5z
+    FadeOldLm 6, l6, l6a, l6b
+    NFadeL 6, l6z
+    FadeOldLm 7, l7, l7a, l7b
+    NFadeL 7, l7z
+    FadeOldLm 8, l8, l8a, l8b
+    NFadeL 8, l8z
+  end if
 
     FadeL 9, l9, l9a
     FadeL 10, l10, l10a
@@ -725,12 +725,12 @@ Sub UpdateLamps
     FadeL 22, l22, l22a
     FadeL 23, l23, l23a
     FadeL 24, l24, l24a
-	NFadeL 25, l25c
-	NFadeL 26, l26c
-	NFadeL 27, l27c
-	NFadeL 28, l28c
-	NFadeL 29, l29c
-	NFadeL 30, l30c
+  NFadeL 25, l25c
+  NFadeL 26, l26c
+  NFadeL 27, l27c
+  NFadeL 28, l28c
+  NFadeL 29, l29c
+  NFadeL 30, l30c
     FadeL 31, l31, l31a
     FadeL 32, l32, l32a
     FadeL 33, l33, l33a
@@ -920,7 +920,7 @@ End Sub
 Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates()
-	RollingSound
+  RollingSound
 End Sub
 
 ' kickers used in creating balls
@@ -933,49 +933,49 @@ Sub Switch45_Unhit: newBallID: End Sub
 '****************************************
  Dim tnopb, nosf
 
- tnopb = 3 	' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
- nosf = 7	' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
+ tnopb = 3  ' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
+ nosf = 7 ' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
 
  Dim currentball(3), ballStatus(3)
  Dim iball, cnt, coff, errMessage
 
- XYdata.interval = 1 			' Timer interval starts at 1 for the highest ball data sample rate
- coff = False				' Collision off set to false
+ XYdata.interval = 1      ' Timer interval starts at 1 for the highest ball data sample rate
+ coff = False       ' Collision off set to false
 
- For cnt = 0 to ubound(ballStatus)	' Initialize/clear all ball stats, 1 = active, 0 = non-existant
- 	ballStatus(cnt) = 0
+ For cnt = 0 to ubound(ballStatus)  ' Initialize/clear all ball stats, 1 = active, 0 = non-existant
+  ballStatus(cnt) = 0
  Next
 
  '======================================================
  ' <<<<<<<<<<<<<< Ball Identification >>>>>>>>>>>>>>
  '======================================================
  ' Call this sub from every kicker(or plunger) that creates a ball.
- Sub NewBallID 						' Assign new ball object and give it ID for tracking
- 	For cnt = 1 to ubound(ballStatus)		' Loop through all possible ball IDs
-    	If ballStatus(cnt) = 0 Then			' If ball ID is available...
-    	Set currentball(cnt) = ActiveBall			' Set ball object with the first available ID
-    	currentball(cnt).uservalue = cnt			' Assign the ball's uservalue to it's new ID
-    	ballStatus(cnt) = 1				' Mark this ball status active
-    	ballStatus(0) = ballStatus(0)+1 		' Increment ballStatus(0), the number of active balls
- 	If coff = False Then				' If collision off, overrides auto-turn on collision detection
- 							' If more than one ball active, start collision detection process
- 	If ballStatus(0) > 1 and XYdata.enabled = False Then XYdata.enabled = True
- 	End If
- 	Exit For					' New ball ID assigned, exit loop
-    	End If
-    	Next
-   	'Debugger 					' For demo only, display stats
+ Sub NewBallID            ' Assign new ball object and give it ID for tracking
+  For cnt = 1 to ubound(ballStatus)   ' Loop through all possible ball IDs
+      If ballStatus(cnt) = 0 Then     ' If ball ID is available...
+      Set currentball(cnt) = ActiveBall     ' Set ball object with the first available ID
+      currentball(cnt).uservalue = cnt      ' Assign the ball's uservalue to it's new ID
+      ballStatus(cnt) = 1       ' Mark this ball status active
+      ballStatus(0) = ballStatus(0)+1     ' Increment ballStatus(0), the number of active balls
+  If coff = False Then        ' If collision off, overrides auto-turn on collision detection
+              ' If more than one ball active, start collision detection process
+  If ballStatus(0) > 1 and XYdata.enabled = False Then XYdata.enabled = True
+  End If
+  Exit For          ' New ball ID assigned, exit loop
+      End If
+      Next
+    'Debugger           ' For demo only, display stats
  End Sub
 
  ' Call this sub from every kicker that destroys a ball, before the ball is destroyed.
  Sub ClearBallID
-   	On Error Resume Next				' Error handling for debugging purposes
-    	iball = ActiveBall.uservalue			' Get the ball ID to be cleared
-    	currentball(iball).UserValue = 0 			' Clear the ball ID
-    	If Err Then Msgbox Err.description & vbCrLf & iball
-     	ballStatus(iBall) = 0 				' Clear the ball status
-    	ballStatus(0) = ballStatus(0)-1 		' Subtract 1 ball from the # of balls in play
-    	On Error Goto 0
+    On Error Resume Next        ' Error handling for debugging purposes
+      iball = ActiveBall.uservalue      ' Get the ball ID to be cleared
+      currentball(iball).UserValue = 0      ' Clear the ball ID
+      If Err Then Msgbox Err.description & vbCrLf & iball
+      ballStatus(iBall) = 0         ' Clear the ball status
+      ballStatus(0) = ballStatus(0)-1     ' Subtract 1 ball from the # of balls in play
+      On Error Goto 0
  End Sub
 
  '=====================================================
@@ -986,46 +986,46 @@ Sub Switch45_Unhit: newBallID: End Sub
  Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
 
  Sub XYdata_Timer()
- 	' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
- 	' performance, at the end of this timer, if the timer's interval is shorter than the individual
- 	' computer can handle this timer's interval will increment by 1 millisecond.
-     xyTime = Timer+(XYdata.interval*.001)	' xyTime is the system timer plus the current interval time
- 	' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
- 	' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
-    	If id2 >= 4 Then id2 = 0						' Loop four times and start over
-    	id2 = id2+1								' Increment the ball sampler ID
-    	For id = 1 to ubound(ballStatus)					' Loop once for each possible ball
-   	If ballStatus(id) = 1 Then						' If ball is active...
-    		baX(id,id2) = round(currentball(id).x,2)				' Sample x-coord
-    		baY(id,id2) = round(currentball(id).y,2)				' Sample y-coord
-    		bVx(id,id2) = round(currentball(id).velx,2)				' Sample x-velocity
-    		bVy(id,id2) = round(currentball(id).vely,2)				' Sample y-velocity
-    		TotalVel(id,id2) = (bVx(id,id2)^2+bVy(id,id2)^2) 		' Calculate total velocity
-  		If TotalVel(id,id2) > TotalVel(0,0) Then TotalVel(0,0) = int(TotalVel(id,id2))
-    	End If
-    	Next
- 	' Collision Detection Loop - check all possible ball combinations for a collision.
- 	' bDistance automatically sets the distance between two colliding balls. Zero milimeters between
- 	' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
- 	' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
- 	' which is automated with calculations using the balls' velocities.
- 	' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
- 	id3 = id2 : B2 = 2 : B1 = 1						' Set up the counters for looping
- 	Do
- 	If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then			' If both balls are active...
- 		bDistance = int((TotalVel(B1,id3)+TotalVel(B2,id3))^1.04)
- 		If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub
- 		End If
- 		B1 = B1+1							' Increment ball1
- 		If B1 >= ballStatus(0) Then Exit Do				' Exit loop if all ball combinations checked
- 		If B1 >= B2 then B1 = 1:B2 = B2+1				' If ball1 >= reset ball1 and increment ball2
- 	Loop
+  ' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
+  ' performance, at the end of this timer, if the timer's interval is shorter than the individual
+  ' computer can handle this timer's interval will increment by 1 millisecond.
+     xyTime = Timer+(XYdata.interval*.001)  ' xyTime is the system timer plus the current interval time
+  ' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
+  ' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
+      If id2 >= 4 Then id2 = 0            ' Loop four times and start over
+      id2 = id2+1               ' Increment the ball sampler ID
+      For id = 1 to ubound(ballStatus)          ' Loop once for each possible ball
+    If ballStatus(id) = 1 Then            ' If ball is active...
+        baX(id,id2) = round(currentball(id).x,2)        ' Sample x-coord
+        baY(id,id2) = round(currentball(id).y,2)        ' Sample y-coord
+        bVx(id,id2) = round(currentball(id).velx,2)       ' Sample x-velocity
+        bVy(id,id2) = round(currentball(id).vely,2)       ' Sample y-velocity
+        TotalVel(id,id2) = (bVx(id,id2)^2+bVy(id,id2)^2)    ' Calculate total velocity
+      If TotalVel(id,id2) > TotalVel(0,0) Then TotalVel(0,0) = int(TotalVel(id,id2))
+      End If
+      Next
+  ' Collision Detection Loop - check all possible ball combinations for a collision.
+  ' bDistance automatically sets the distance between two colliding balls. Zero milimeters between
+  ' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
+  ' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
+  ' which is automated with calculations using the balls' velocities.
+  ' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
+  id3 = id2 : B2 = 2 : B1 = 1           ' Set up the counters for looping
+  Do
+  If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then     ' If both balls are active...
+    bDistance = int((TotalVel(B1,id3)+TotalVel(B2,id3))^1.04)
+    If ((baX(B1,id3)-baX(B2,id3))^2+(baY(B1,id3)-baY(B2,id3))^2)<2800+bDistance Then collide B1,B2 : Exit Sub
+    End If
+    B1 = B1+1             ' Increment ball1
+    If B1 >= ballStatus(0) Then Exit Do       ' Exit loop if all ball combinations checked
+    If B1 >= B2 then B1 = 1:B2 = B2+1       ' If ball1 >= reset ball1 and increment ball2
+  Loop
 
-  	If ballStatus(0) <= 1 Then XYdata.enabled = False 			' Turn off timer if one ball or less
+    If ballStatus(0) <= 1 Then XYdata.enabled = False       ' Turn off timer if one ball or less
 
- 	If XYdata.interval >= 40 Then coff = True : XYdata.enabled = False	' Auto-shut off
- 	If Timer > xyTime * 3 Then coff = True : XYdata.enabled = False		' Auto-shut off
-    	If Timer > xyTime Then XYdata.interval = XYdata.interval+1		' Increment interval if needed
+  If XYdata.interval >= 40 Then coff = True : XYdata.enabled = False  ' Auto-shut off
+  If Timer > xyTime * 3 Then coff = True : XYdata.enabled = False   ' Auto-shut off
+      If Timer > xyTime Then XYdata.interval = XYdata.interval+1    ' Increment interval if needed
  End Sub
 
  ' Ball data collection and B2B Collision detection. jpsalas: added height check
@@ -1051,9 +1051,9 @@ Sub XYdata_Timer()
     Do
         If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then
             bDistance = int((TotalVel(B1, id3) + TotalVel(B2, id3) ) ^1.04)
-			If ABS(baZ(B1, id3) - baZ(B2, id3)) < 50 Then
-				If((baX(B1, id3) - baX(B2, id3) ) ^2 + (baY(B1, id3) - baY(B2, id3) ) ^2) < 2800 + bDistance Then collide B1, B2:Exit Sub
-			End If
+      If ABS(baZ(B1, id3) - baZ(B2, id3)) < 50 Then
+        If((baX(B1, id3) - baX(B2, id3) ) ^2 + (baY(B1, id3) - baY(B2, id3) ) ^2) < 2800 + bDistance Then collide B1, B2:Exit Sub
+      End If
         End If
         B1 = B1 + 1
         If B1 >= ballStatus(0) Then Exit Do
@@ -1109,19 +1109,19 @@ End Sub
  ' <<<<<<<< GetAngle(X, Y, Anglename) >>>>>>>>
  '=================================================
  ' A repeated function which takes any set of coordinates or velocities and calculates an angle in radians.
- Pi = Round(4*Atn(1),6)					'3.1415926535897932384626433832795
+ Pi = Round(4*Atn(1),6)         '3.1415926535897932384626433832795
 
  Sub GetAngle(Xin, Yin, wAngle)
-  	If Sgn(Xin) = 0 Then
-  		If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
-  		If Sgn(Yin) = 0 Then rAngle = 0
-  	Else
-  		rAngle = atn(-Yin/Xin)			' Calculates angle in radians before quadrant data
-  	End If
-  	If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
-  	If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
-  	wAngle = round((Radit + rAngle),4)		' Calculates angle in radians with quadrant data
- 	'"wAngle = round((180/Pi) * (Radit + rAngle),4)" ' Will convert radian measurements to degrees - to be used in future
+    If Sgn(Xin) = 0 Then
+      If Sgn(Yin) = 1 Then rAngle = 3 * Pi/2 Else rAngle = Pi/2
+      If Sgn(Yin) = 0 Then rAngle = 0
+    Else
+      rAngle = atn(-Yin/Xin)      ' Calculates angle in radians before quadrant data
+    End If
+    If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
+    If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
+    wAngle = round((Radit + rAngle),4)    ' Calculates angle in radians with quadrant data
+  '"wAngle = round((180/Pi) * (Radit + rAngle),4)" ' Will convert radian measurements to degrees - to be used in future
  End Sub
 
 
@@ -1129,86 +1129,86 @@ End Sub
  '**   sounds    **
  '*****************
 
-	Sub Rhelp_Hit() : PlaySoundAt "ballhit", ActiveBall : End Sub
-	Sub Lhelp_Hit() : PlaySoundAt "ballhit", ActiveBall : End Sub
-'	Sub Targets_Hit(idx):PlaySound"SwitchTarget":End Sub
+  Sub Rhelp_Hit() : PlaySoundAt "ballhit", ActiveBall : End Sub
+  Sub Lhelp_Hit() : PlaySoundAt "ballhit", ActiveBall : End Sub
+' Sub Targets_Hit(idx):PlaySound"SwitchTarget":End Sub
 
-	Sub Gates_Hit(idx):PlaySoundAt "Gate", ActiveBall:End Sub
+  Sub Gates_Hit(idx):PlaySoundAt "Gate", ActiveBall:End Sub
 
-	Sub Metal_Hit (idx):RandomSoundMetal():End Sub
-	Sub RandomSoundMetal()
-		Select Case Int(Rnd*4)+1
-			Case 1 : PlaySound "metal_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-			Case 2 : PlaySound "metal_2", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-			Case 3 : PlaySound "metal_3", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-			Case 4 : PlaySound "metal_4", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		End Select
-	End Sub
-	Sub Rubbers_Hit(idx)
-		dim finalspeed
-		finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
-		If finalspeed > 20 then
-			PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		End if
-		If finalspeed >= 1 AND finalspeed <= 20 then
-			RandomSoundRubber()
-		End If
-	End Sub
-	Sub RandomSoundRubber()
-		Select Case Int(Rnd*3)+1
-			Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-			Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-			Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
-		End Select
-	End Sub
+  Sub Metal_Hit (idx):RandomSoundMetal():End Sub
+  Sub RandomSoundMetal()
+    Select Case Int(Rnd*4)+1
+      Case 1 : PlaySound "metal_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+      Case 2 : PlaySound "metal_2", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+      Case 3 : PlaySound "metal_3", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+      Case 4 : PlaySound "metal_4", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+    End Select
+  End Sub
+  Sub Rubbers_Hit(idx)
+    dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+    If finalspeed > 20 then
+      PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+    End if
+    If finalspeed >= 1 AND finalspeed <= 20 then
+      RandomSoundRubber()
+    End If
+  End Sub
+  Sub RandomSoundRubber()
+    Select Case Int(Rnd*3)+1
+      Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+      Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+      Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*GlobalSoundLevel , pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+    End Select
+  End Sub
 
 Sub TriggerRampA_Hit:
-	if TRA=0 and TRAA=0 then playsound "Plasticramp", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):TRA=1:exit sub
-	if (TRA=1 and TRAA=1) or (TRA=1 and TRAA=0) then stopsound "Plasticramp":TRA=0:TRAA=0
+  if TRA=0 and TRAA=0 then playsound "Plasticramp", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):TRA=1:exit sub
+  if (TRA=1 and TRAA=1) or (TRA=1 and TRAA=0) then stopsound "Plasticramp":TRA=0:TRAA=0
 End Sub
 Sub TriggerRampAA_Unhit:
-	TRAA=1
+  TRAA=1
 End Sub
 Sub TriggerRampA1_Hit:
-	stopsound "Plasticramp":TRA=0:TRAA=0
+  stopsound "Plasticramp":TRA=0:TRAA=0
 End Sub
 Sub TRAAS_Unhit:
-	TRA=0:TRAA=0:stopsound "Plasticramp"
-	playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  TRA=0:TRAA=0:stopsound "Plasticramp"
+  playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerRampB_Hit:
-	if TRB=0 and TRBB=0 then playsound "Plasticramp2", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0,AudioFade(ActiveBall):TRB=1:exit sub
-	if (TRB=1 and TRBB=1) or (TRB=1 and TRBB=0) then stopsound "Plasticramp2":TRB=0:TRBB=0
+  if TRB=0 and TRBB=0 then playsound "Plasticramp2", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0,AudioFade(ActiveBall):TRB=1:exit sub
+  if (TRB=1 and TRBB=1) or (TRB=1 and TRBB=0) then stopsound "Plasticramp2":TRB=0:TRBB=0
 End Sub
 Sub TriggerRampBB_Unhit:
-	TRBB=1
+  TRBB=1
 End Sub
 Sub TriggerRampB1_Hit:
-	stopsound "Plasticramp2":TRB=0:TRBB=0
+  stopsound "Plasticramp2":TRB=0:TRBB=0
 End Sub
 Sub TRBBS_hit:
-	TRB=0:TRBB=0:stopsound "Plasticramp2"
-	playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  TRB=0:TRBB=0:stopsound "Plasticramp2"
+  playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 Sub TRBBS1_hit:
-	debug.print "metal2 ok"
-	playsound "Wireramp_Stop", 0, Vol(ActiveBall)+5, Pan(ActiveBall), 0, Pitch(ActiveBall)+10, 1, 0, AudioFade(ActiveBall)
+  debug.print "metal2 ok"
+  playsound "Wireramp_Stop", 0, Vol(ActiveBall)+5, Pan(ActiveBall), 0, Pitch(ActiveBall)+10, 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerRampC_Hit:
-	if TRC=0 and TRCC=0 then playsound "Plasticramp3", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):TRC=1:exit sub
-	if (TRC=1 and TRCC=1) or (TRC=1 and TRCC=0) then stopsound "Plasticramp3":TRC=0:TRCC=0
+  if TRC=0 and TRCC=0 then playsound "Plasticramp3", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):TRC=1:exit sub
+  if (TRC=1 and TRCC=1) or (TRC=1 and TRCC=0) then stopsound "Plasticramp3":TRC=0:TRCC=0
 End Sub
 Sub TriggerRampCC_Unhit:
-	TRCC=1
+  TRCC=1
 End Sub
 Sub TriggerRampA1_Hit:
-	stopsound "Plasticramp3":TRC=0:TRCC=0
+  stopsound "Plasticramp3":TRC=0:TRCC=0
 End Sub
 Sub TRCCS_Unhit:
-	TRC=0:TRCC=0:stopsound "Plasticramp3"
-	playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  TRC=0:TRCC=0:stopsound "Plasticramp3"
+  playsound "Wirerampright", 2, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub MetTrig01_Hit()
@@ -1395,110 +1395,110 @@ End Sub
 
 '*** white flasher ***
 Sub FlasherFlash1_Timer()
-	dim flashx3, matdim
-	If not FlasherFlash1.TimerEnabled Then
-		FlasherFlash1.TimerEnabled = True
-		FlasherFlash1.visible = 1
-		FlasherLit1.visible = 1
-	End If
-	flashx3 = FlashLevel1 * FlashLevel1 * FlashLevel1
-	Flasherflash1.opacity = 1000 * flashx3
-	FlasherLit1.BlendDisableLighting = 10 * flashx3
-	Flasherbase1.BlendDisableLighting =  flashx3
-	FlasherLight1.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel1)
-	FlasherLit1.material = "domelit" & matdim
-	FlashLevel1 = FlashLevel1 * 0.85 - 0.01
-	If FlashLevel1 < 0.15 Then
-		FlasherLit1.visible = 0
-	Else
-		FlasherLit1.visible = 1
-	end If
-	If FlashLevel1 < 0 Then
-		FlasherFlash1.TimerEnabled = False
-		FlasherFlash1.visible = 0
-	End If
+  dim flashx3, matdim
+  If not FlasherFlash1.TimerEnabled Then
+    FlasherFlash1.TimerEnabled = True
+    FlasherFlash1.visible = 1
+    FlasherLit1.visible = 1
+  End If
+  flashx3 = FlashLevel1 * FlashLevel1 * FlashLevel1
+  Flasherflash1.opacity = 1000 * flashx3
+  FlasherLit1.BlendDisableLighting = 10 * flashx3
+  Flasherbase1.BlendDisableLighting =  flashx3
+  FlasherLight1.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel1)
+  FlasherLit1.material = "domelit" & matdim
+  FlashLevel1 = FlashLevel1 * 0.85 - 0.01
+  If FlashLevel1 < 0.15 Then
+    FlasherLit1.visible = 0
+  Else
+    FlasherLit1.visible = 1
+  end If
+  If FlashLevel1 < 0 Then
+    FlasherFlash1.TimerEnabled = False
+    FlasherFlash1.visible = 0
+  End If
 End Sub
 
 '*** Red flasher ***
 Sub FlasherFlash2_Timer()
-	dim flashx3, matdim
-	If not Flasherflash2.TimerEnabled Then
-		Flasherflash2.TimerEnabled = True
-		Flasherflash2.visible = 1
-		Flasherlit2.visible = 1
-	End If
-	flashx3 = FlashLevel2 * FlashLevel2 * FlashLevel2
-	Flasherflash2.opacity = 1500 * flashx3
-	Flasherlit2.BlendDisableLighting = 10 * flashx3
-	Flasherbase2.BlendDisableLighting =  flashx3
-	Flasherlight2.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel2)
-	Flasherlit2.material = "domelit" & matdim
-	FlashLevel2 = FlashLevel2 * 0.9 - 0.01
-	If FlashLevel2 < 0.15 Then
-		Flasherlit2.visible = 0
-	Else
-		Flasherlit2.visible = 1
-	end If
-	If FlashLevel2 < 0 Then
-		Flasherflash2.TimerEnabled = False
-		Flasherflash2.visible = 0
-	End If
+  dim flashx3, matdim
+  If not Flasherflash2.TimerEnabled Then
+    Flasherflash2.TimerEnabled = True
+    Flasherflash2.visible = 1
+    Flasherlit2.visible = 1
+  End If
+  flashx3 = FlashLevel2 * FlashLevel2 * FlashLevel2
+  Flasherflash2.opacity = 1500 * flashx3
+  Flasherlit2.BlendDisableLighting = 10 * flashx3
+  Flasherbase2.BlendDisableLighting =  flashx3
+  Flasherlight2.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel2)
+  Flasherlit2.material = "domelit" & matdim
+  FlashLevel2 = FlashLevel2 * 0.9 - 0.01
+  If FlashLevel2 < 0.15 Then
+    Flasherlit2.visible = 0
+  Else
+    Flasherlit2.visible = 1
+  end If
+  If FlashLevel2 < 0 Then
+    Flasherflash2.TimerEnabled = False
+    Flasherflash2.visible = 0
+  End If
 End Sub
 
 '*** blue flasher ***
 Sub FlasherFlash3_Timer()
-	dim flashx3, matdim
-	If not Flasherflash3.TimerEnabled Then
-		Flasherflash3.TimerEnabled = True
-		Flasherflash3.visible = 1
-		Flasherlit3.visible = 1
-	End If
-	flashx3 = FlashLevel3 * FlashLevel3 * FlashLevel3
-	Flasherflash3.opacity = 8000 * flashx3
-	Flasherlit3.BlendDisableLighting = 10 * flashx3
-	Flasherbase3.BlendDisableLighting =  flashx3
-	Flasherlight3.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel3)
-	Flasherlit3.material = "domelit" & matdim
-	FlashLevel3 = FlashLevel3 * 0.85 - 0.01
-	If FlashLevel3 < 0.15 Then
-		Flasherlit3.visible = 0
-	Else
-		Flasherlit3.visible = 1
-	end If
-	If FlashLevel3 < 0 Then
-		Flasherflash3.TimerEnabled = False
-		Flasherflash3.visible = 0
-	End If
+  dim flashx3, matdim
+  If not Flasherflash3.TimerEnabled Then
+    Flasherflash3.TimerEnabled = True
+    Flasherflash3.visible = 1
+    Flasherlit3.visible = 1
+  End If
+  flashx3 = FlashLevel3 * FlashLevel3 * FlashLevel3
+  Flasherflash3.opacity = 8000 * flashx3
+  Flasherlit3.BlendDisableLighting = 10 * flashx3
+  Flasherbase3.BlendDisableLighting =  flashx3
+  Flasherlight3.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel3)
+  Flasherlit3.material = "domelit" & matdim
+  FlashLevel3 = FlashLevel3 * 0.85 - 0.01
+  If FlashLevel3 < 0.15 Then
+    Flasherlit3.visible = 0
+  Else
+    Flasherlit3.visible = 1
+  end If
+  If FlashLevel3 < 0 Then
+    Flasherflash3.TimerEnabled = False
+    Flasherflash3.visible = 0
+  End If
 End Sub
 
 '*** blue flasher vertical (script is the same as for blue Flasher) ***
 Sub FlasherFlash4_Timer()
-	dim flashx3, matdim
-	If not Flasherflash4.TimerEnabled Then
-		Flasherflash4.TimerEnabled = True
-		Flasherflash4.visible = 1
-		Flasherlit4.visible = 1
-	End If
-	flashx3 = FlashLevel4 * FlashLevel4 * FlashLevel4
-	Flasherflash4.opacity = 8000 * flashx3
-	Flasherlit4.BlendDisableLighting = 10 * flashx3
-	Flasherbase4.BlendDisableLighting =  flashx3
-	Flasherlight4.IntensityScale = flashx3
-	matdim = Round(10 * FlashLevel4)
-	Flasherlit4.material = "domelit" & matdim
-	FlashLevel4 = FlashLevel4 * 0.85 - 0.01
-	If FlashLevel4 < 0.15 Then
-		Flasherlit4.visible = 0
-	Else
-		Flasherlit4.visible = 1
-	end If
-	If FlashLevel4 < 0 Then
-		Flasherflash4.TimerEnabled = False
-		Flasherflash4.visible = 0
-	End If
+  dim flashx3, matdim
+  If not Flasherflash4.TimerEnabled Then
+    Flasherflash4.TimerEnabled = True
+    Flasherflash4.visible = 1
+    Flasherlit4.visible = 1
+  End If
+  flashx3 = FlashLevel4 * FlashLevel4 * FlashLevel4
+  Flasherflash4.opacity = 8000 * flashx3
+  Flasherlit4.BlendDisableLighting = 10 * flashx3
+  Flasherbase4.BlendDisableLighting =  flashx3
+  Flasherlight4.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel4)
+  Flasherlit4.material = "domelit" & matdim
+  FlashLevel4 = FlashLevel4 * 0.85 - 0.01
+  If FlashLevel4 < 0.15 Then
+    Flasherlit4.visible = 0
+  Else
+    Flasherlit4.visible = 1
+  end If
+  If FlashLevel4 < 0 Then
+    Flasherflash4.TimerEnabled = False
+    Flasherflash4.visible = 0
+  End If
 End Sub
 
 
@@ -1509,39 +1509,39 @@ End Sub
 '***************************************
 
 Sub shfl_Timer()
-	LeftFlipperP.RotZ = LeftFlipper.CurrentAngle
-	LeftFlipperSh.RotZ = LeftFlipper.currentangle
-	RightFlipperP.RotZ = RightFlipper.CurrentAngle
-	RightFlipperSh.RotZ = RightFlipper.currentangle
+  LeftFlipperP.RotZ = LeftFlipper.CurrentAngle
+  LeftFlipperSh.RotZ = LeftFlipper.currentangle
+  RightFlipperP.RotZ = RightFlipper.CurrentAngle
+  RightFlipperSh.RotZ = RightFlipper.currentangle
 
-	if ABS(Vlock.balls) = 1 and vla = 0 then
-			PlaySoundAtVol "Wirestop", Switch38Kick, GlobalSoundLevel
-		vla=1:vlb=0:vlc=0:vlaa=0:vlbb=0:vlcc=0
-	end if
+  if ABS(Vlock.balls) = 1 and vla = 0 then
+      PlaySoundAtVol "Wirestop", Switch38Kick, GlobalSoundLevel
+    vla=1:vlb=0:vlc=0:vlaa=0:vlbb=0:vlcc=0
+  end if
 
-	if ABS(Vlock.balls) = 2 and vla = 1 and vlb = 0 then
-		PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
-		vla=1:vlb=1:vlc=0:vlaa=0:vlbb=0:vlcc=0
-	end if
-	if ABS(Vlock.balls) = 3 and vla = 1 and vlb = 1 and vlc = 0 then
-		PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
-		vla=1:vlb=1:vlc=1:vlaa=0:vlbb=0:vlcc=1
-	end if
+  if ABS(Vlock.balls) = 2 and vla = 1 and vlb = 0 then
+    PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
+    vla=1:vlb=1:vlc=0:vlaa=0:vlbb=0:vlcc=0
+  end if
+  if ABS(Vlock.balls) = 3 and vla = 1 and vlb = 1 and vlc = 0 then
+    PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
+    vla=1:vlb=1:vlc=1:vlaa=0:vlbb=0:vlcc=1
+  end if
 
-	if ABS(Vlock.balls) = 1 and vla = 1 and vlb = 1 and vlc=0 and vlbb=1 then
-			PlaySoundAtVol "Wirestop", Switch38Kick, GlobalSoundLevel
-		vla=1:vlb=0:vlc=0:vlcc=0:vlbb=0:vlaa=1
-	end if
+  if ABS(Vlock.balls) = 1 and vla = 1 and vlb = 1 and vlc=0 and vlbb=1 then
+      PlaySoundAtVol "Wirestop", Switch38Kick, GlobalSoundLevel
+    vla=1:vlb=0:vlc=0:vlcc=0:vlbb=0:vlaa=1
+  end if
 
-	if ABS(Vlock.balls) = 2 and vla = 1 and vlb = 1 and vlc=1 and vlcc=1 then
-		PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
-		vla=1:vlb=1:vlc=0:vlcc=0:vlbb=1
-	end if
-	if ABS(Vlock.balls) = 0 then
-		vla=0:vlb=0:vlc=0:vlcc=0:vlbb=0:vlaa=0
-	end if
+  if ABS(Vlock.balls) = 2 and vla = 1 and vlb = 1 and vlc=1 and vlcc=1 then
+    PlaySoundAtVol "Wirestopball", Switch38Kick, GlobalSoundLevel
+    vla=1:vlb=1:vlc=0:vlcc=0:vlbb=1
+  end if
+  if ABS(Vlock.balls) = 0 then
+    vla=0:vlb=0:vlc=0:vlcc=0:vlbb=0:vlaa=0
+  end if
 
-	'If l52h.state = 1 then BumpCircle.enabled = 1
+  'If l52h.state = 1 then BumpCircle.enabled = 1
 End Sub
 
 
@@ -1555,306 +1555,306 @@ circle2=0
 
 Sub BumpCircle_Timer()
 Select Case circle
-		Case 0
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle1"
-		Case 1
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle2"
-		Case 2
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle1"
-		Case 3
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle2"
-		Case 4
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle2"
-		Case 5
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle2"
-		Case 6
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle1"
-		Case 7
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle0"
-		Case 8
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle2"
-		Case 9
-			z0=Int(Rnd*360)+1
-			primitive6.roty=z0
-			Primitive6.image = "bumpcircle0"
-	End Select
-			circle=circle+1
-	if circle = 10 then circle = 0:me.enabled = 0:end If
+    Case 0
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle1"
+    Case 1
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle2"
+    Case 2
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle1"
+    Case 3
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle2"
+    Case 4
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle2"
+    Case 5
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle2"
+    Case 6
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle1"
+    Case 7
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle0"
+    Case 8
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle2"
+    Case 9
+      z0=Int(Rnd*360)+1
+      primitive6.roty=z0
+      Primitive6.image = "bumpcircle0"
+  End Select
+      circle=circle+1
+  if circle = 10 then circle = 0:me.enabled = 0:end If
 End Sub
 
 Sub BumpCircle1_Timer()
 Select Case circle1
-		Case 0
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle1"
-		Case 1
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle2"
-		Case 2
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle1"
-		Case 3
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle1"
-		Case 4
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle1"
-		Case 5
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle2"
-		Case 6
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle2"
-		Case 7
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle1"
-		Case 8
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle2"
-		Case 9
-			z1=Int(Rnd*360)+1
-			primitive7.roty=z1
-			Primitive7.image = "bumpcircle0"
-	End Select
-			circle1=circle1+1
-	if circle1 = 10 then circle1 = 0:me.enabled = 0:end If
+    Case 0
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle1"
+    Case 1
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle2"
+    Case 2
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle1"
+    Case 3
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle1"
+    Case 4
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle1"
+    Case 5
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle2"
+    Case 6
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle2"
+    Case 7
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle1"
+    Case 8
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle2"
+    Case 9
+      z1=Int(Rnd*360)+1
+      primitive7.roty=z1
+      Primitive7.image = "bumpcircle0"
+  End Select
+      circle1=circle1+1
+  if circle1 = 10 then circle1 = 0:me.enabled = 0:end If
 End Sub
 
 Sub BumpCircle2_Timer()
 Select Case circle2
-		Case 0
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle1"
-		Case 1
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle0"
-		Case 2
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle1"
-		Case 3
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle2"
-		Case 4
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle2"
-		Case 5
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle2"
-		Case 6
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle1"
-		Case 7
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle1"
-		Case 8
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle2"
-		Case 9
-			z2=Int(Rnd*360)+1
-			primitive9.roty=z2
-			Primitive9.image = "bumpcircle0"
-	End Select
-			circle2=circle2+1
-	if circle2 = 10 then circle2 = 0:me.enabled = 0:end If
+    Case 0
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle1"
+    Case 1
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle0"
+    Case 2
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle1"
+    Case 3
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle2"
+    Case 4
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle2"
+    Case 5
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle2"
+    Case 6
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle1"
+    Case 7
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle1"
+    Case 8
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle2"
+    Case 9
+      z2=Int(Rnd*360)+1
+      primitive9.roty=z2
+      Primitive9.image = "bumpcircle0"
+  End Select
+      circle2=circle2+1
+  if circle2 = 10 then circle2 = 0:me.enabled = 0:end If
 End Sub
 
 
 '********************************************
-'*	Led part, adapted from JP Salas script  *
+'*  Led part, adapted from JP Salas script  *
 '********************************************
 
 Dim obj, rGreen, rRed, rBlue, RGBFactor, RGBStep
 
 Sub RainbowTimer_Timer 'rainbow led light color changing
-	RGBFactor =20
-						Select Case RGBStep
-							Case 0 'Green
-								rGreen = rGreen + RGBFactor
-								If rGreen > 255 then
-									rGreen = 255
-									RGBStep = 1
-								End If
-							Case 1 'Red
-								rRed = rRed - RGBFactor
-								If rRed < 0 then
-									rRed = 0
-									RGBStep = 2
-								End If
-							Case 2 'Blue
-								rBlue = rBlue + RGBFactor
-								If rBlue > 255 then
-									rBlue = 255
-									RGBStep = 3
-								End If
-							Case 3 'Green
-								rGreen = rGreen - RGBFactor
-								If rGreen < 0 then
-									rGreen = 0
-									RGBStep = 4
-								End If
-							Case 4 'Red
-								rRed = rRed + RGBFactor
-								If rRed > 255 then
-									rRed = 255
-									RGBStep = 5
-								End If
-							Case 5 'Blue
-								rBlue = rBlue - RGBFactor
-								If rBlue < 0 then
-									rBlue = 0
-									RGBStep = 0
-								End If
-						End Select
+  RGBFactor =20
+            Select Case RGBStep
+              Case 0 'Green
+                rGreen = rGreen + RGBFactor
+                If rGreen > 255 then
+                  rGreen = 255
+                  RGBStep = 1
+                End If
+              Case 1 'Red
+                rRed = rRed - RGBFactor
+                If rRed < 0 then
+                  rRed = 0
+                  RGBStep = 2
+                End If
+              Case 2 'Blue
+                rBlue = rBlue + RGBFactor
+                If rBlue > 255 then
+                  rBlue = 255
+                  RGBStep = 3
+                End If
+              Case 3 'Green
+                rGreen = rGreen - RGBFactor
+                If rGreen < 0 then
+                  rGreen = 0
+                  RGBStep = 4
+                End If
+              Case 4 'Red
+                rRed = rRed + RGBFactor
+                If rRed > 255 then
+                  rRed = 255
+                  RGBStep = 5
+                End If
+              Case 5 'Blue
+                rBlue = rBlue - RGBFactor
+                If rBlue < 0 then
+                  rBlue = 0
+                  RGBStep = 0
+                End If
+            End Select
 
 
-		if BallinPlunger=1 then
-							For each obj in Led1
-								obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
-								obj.colorfull = RGB(rRed, rGreen, rBlue)
-							Next
-					PRefresh.State = 1
-				Else
-					PRefresh.state = 0
-		end if
-	If led = 1 Then
-				For each obj in RainbowLights
-					obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
-					obj.colorfull = RGB(rRed, rGreen, rBlue)
-				Next
-				exit Sub
-	end if
+    if BallinPlunger=1 then
+              For each obj in Led1
+                obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+                obj.colorfull = RGB(rRed, rGreen, rBlue)
+              Next
+          PRefresh.State = 1
+        Else
+          PRefresh.state = 0
+    end if
+  If led = 1 Then
+        For each obj in RainbowLights
+          obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+          obj.colorfull = RGB(rRed, rGreen, rBlue)
+        Next
+        exit Sub
+  end if
 
-	if led = 0 and f3a.state = 1 or f1b.state = 1 or f2a.state = 1 then
-					For each obj in RainbowLights
-						obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
-						obj.colorfull = RGB(rRed, rGreen, rBlue)
-					Next
-		else
-			if led = 0 and f3a.state = 0 and f1b.state = 0 and f2a.state = 0 and l18.state = 0 then
-					For each obj in RainbowLights
-						obj.color = RGB(210, 251, 255)
-						obj.colorfull = RGB(255, 255, 255)
-					Next
-			end if
-		end if
+  if led = 0 and f3a.state = 1 or f1b.state = 1 or f2a.state = 1 then
+          For each obj in RainbowLights
+            obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+            obj.colorfull = RGB(rRed, rGreen, rBlue)
+          Next
+    else
+      if led = 0 and f3a.state = 0 and f1b.state = 0 and f2a.state = 0 and l18.state = 0 then
+          For each obj in RainbowLights
+            obj.color = RGB(210, 251, 255)
+            obj.colorfull = RGB(255, 255, 255)
+          Next
+      end if
+    end if
 
-			if led = 0 and l18.state=1 and bstrough.balls<3 then
-					For each obj in RainbowLights
-						obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
-						obj.colorfull = RGB(rRed, rGreen, rBlue)
-					Next
-		else
-			if led = 0 and l18.state = 0 and f3a.state = 0 and f1b.state = 0 and f2a.state = 0 then
-					For each obj in RainbowLights
-						obj.color = RGB(210, 251, 255)
-						obj.colorfull = RGB(255, 255, 255)
-					Next
-			end if
-		end if
+      if led = 0 and l18.state=1 and bstrough.balls<3 then
+          For each obj in RainbowLights
+            obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+            obj.colorfull = RGB(rRed, rGreen, rBlue)
+          Next
+    else
+      if led = 0 and l18.state = 0 and f3a.state = 0 and f1b.state = 0 and f2a.state = 0 then
+          For each obj in RainbowLights
+            obj.color = RGB(210, 251, 255)
+            obj.colorfull = RGB(255, 255, 255)
+          Next
+      end if
+    end if
 End Sub
 
 
 Sub solanim_timer()
-	Select Case animA
-		Case 0
-			Primitive49.rotx=80
-			SolMetal.TransZ = 5
-			SolSpring.Size_Z = 90
-		Case 1
-			Primitive49.rotx=85
-			SolMetal.TransZ = 10
-			SolSpring.Size_Z = 79
-		Case 2
-			Primitive49.rotx=90
-			SolMetal.TransZ = 15
-			SolSpring.Size_Z = 69
-		Case 3
-			Primitive49.rotx=95
-			SolMetal.TransZ = 20
-			SolSpring.Size_Z = 58
-		Case 4
-			Primitive49.rotx=100
-			SolMetal.TransZ = 25
-			SolSpring.Size_Z = 48
-		Case 5
-			Primitive49.rotx=105
-			SolMetal.TransZ = 30
-			SolSpring.Size_Z = 37
-		Case 6
-			Primitive49.rotx=110
-			SolMetal.TransZ = 35
-			SolSpring.Size_Z = 27
-		Case 7
-			Primitive49.rotx=115
-			SolMetal.TransZ = 35
-			SolSpring.Size_Z = 25
-		Case 8
-			Primitive49.rotx=107
-			SolMetal.TransZ = 30
-			SolSpring.Size_Z = 37
-		Case 9
-			Primitive49.rotx=100
-			SolMetal.TransZ = 25
-			SolSpring.Size_Z = 48
-		Case 10
-			Primitive49.rotx=95
-			SolMetal.TransZ = 20
-			SolSpring.Size_Z = 58
-		Case 11
-			Primitive49.rotx=90
-			SolMetal.TransZ = 15
-			SolSpring.Size_Z = 69
-		Case 12
-			Primitive49.rotx=85
-			SolMetal.TransZ = 10
-			SolSpring.Size_Z = 79
-		Case 13
-			Primitive49.rotx=80
-			SolMetal.TransZ = 5
-			SolSpring.Size_Z = 90
-		Case 14
-			Primitive49.rotx=75
-			SolMetal.TransZ = 0
-			SolSpring.Size_Z = 100
-	End Select
-			animA=animA+1
-	if animA = 15 then animA = 0:me.enabled = 0:end If
+  Select Case animA
+    Case 0
+      Primitive49.rotx=80
+      SolMetal.TransZ = 5
+      SolSpring.Size_Z = 90
+    Case 1
+      Primitive49.rotx=85
+      SolMetal.TransZ = 10
+      SolSpring.Size_Z = 79
+    Case 2
+      Primitive49.rotx=90
+      SolMetal.TransZ = 15
+      SolSpring.Size_Z = 69
+    Case 3
+      Primitive49.rotx=95
+      SolMetal.TransZ = 20
+      SolSpring.Size_Z = 58
+    Case 4
+      Primitive49.rotx=100
+      SolMetal.TransZ = 25
+      SolSpring.Size_Z = 48
+    Case 5
+      Primitive49.rotx=105
+      SolMetal.TransZ = 30
+      SolSpring.Size_Z = 37
+    Case 6
+      Primitive49.rotx=110
+      SolMetal.TransZ = 35
+      SolSpring.Size_Z = 27
+    Case 7
+      Primitive49.rotx=115
+      SolMetal.TransZ = 35
+      SolSpring.Size_Z = 25
+    Case 8
+      Primitive49.rotx=107
+      SolMetal.TransZ = 30
+      SolSpring.Size_Z = 37
+    Case 9
+      Primitive49.rotx=100
+      SolMetal.TransZ = 25
+      SolSpring.Size_Z = 48
+    Case 10
+      Primitive49.rotx=95
+      SolMetal.TransZ = 20
+      SolSpring.Size_Z = 58
+    Case 11
+      Primitive49.rotx=90
+      SolMetal.TransZ = 15
+      SolSpring.Size_Z = 69
+    Case 12
+      Primitive49.rotx=85
+      SolMetal.TransZ = 10
+      SolSpring.Size_Z = 79
+    Case 13
+      Primitive49.rotx=80
+      SolMetal.TransZ = 5
+      SolSpring.Size_Z = 90
+    Case 14
+      Primitive49.rotx=75
+      SolMetal.TransZ = 0
+      SolSpring.Size_Z = 100
+  End Select
+      animA=animA+1
+  if animA = 15 then animA = 0:me.enabled = 0:end If
 end Sub
 
 

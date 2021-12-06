@@ -167,10 +167,10 @@ Sub Table1_Init
     End With
 
 'Fast Flips
-	On Error Resume Next 
-	InitVpmFFlipsSAM
-	If Err Then MsgBox "You need the latest sam.vbs in order to run this table, available with vp10.5"
-	On Error Goto 0
+  On Error Resume Next
+  InitVpmFFlipsSAM
+  If Err Then MsgBox "You need the latest sam.vbs in order to run this table, available with vp10.5"
+  On Error Goto 0
 End Sub
 
 '**********

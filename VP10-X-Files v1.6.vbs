@@ -65,15 +65,15 @@ Dim DesktopMode: DesktopMode = Table1.ShowDT
 ' Table init.
 '************
   If DesktopMode = True Then
-		RRail.Visible = 1
-		LRail.Visible = 1
-		Primitive149.visible = 1
-		Primitive148.visible = 1
+    RRail.Visible = 1
+    LRail.Visible = 1
+    Primitive149.visible = 1
+    Primitive148.visible = 1
   Else
-		RRail.Visible = 0
-		LRail.Visible = 0
-		Primitive149.visible = 0
-		Primitive148.visible = 0
+    RRail.Visible = 0
+    LRail.Visible = 0
+    Primitive149.visible = 0
+    Primitive148.visible = 0
   End If
 
 Sub Table1_Init
@@ -133,7 +133,7 @@ Sub Table1_Init
     PinMAMETimer.Interval = PinMameInterval
     PinMAMETimer.Enabled = 1
 
-	'other Init
+  'other Init
     plunger.pullback
     Trapdoor1.Collidable = 0:Trapdoor2.IsDropped = 1:Trapdoor3.IsDropped = 1
 End Sub
@@ -230,13 +230,13 @@ Sub sw21_Hit:vpmTimer.PulseSw 21:sw21.TransY = -5:TargetTimer.Enabled = 1:PlaySo
 Sub sw22_Hit:vpmTimer.PulseSw 22:sw22.TransY = -5:TargetTimer.Enabled = 1:PlaySoundAtVol "target",ActiveBall, VolTarg:End Sub
 
 Sub TargetTimer_Timer
-	sw17.TransY = 0
-	sw18.TransY = 0
-	sw19.transy = 0
-	sw20.TransY = 0
-	sw21.transY = 0
-	sw22.TransY = 0
-	TargetTimer.Enabled = 0
+  sw17.TransY = 0
+  sw18.TransY = 0
+  sw19.transy = 0
+  sw20.TransY = 0
+  sw21.transY = 0
+  sw22.TransY = 0
+  TargetTimer.Enabled = 0
 end Sub
 
 '*********
@@ -256,57 +256,57 @@ SolCallback(25) = "Flasher25" 'Flash RT Ramp Top x 1
 SolCallback(26) = "Flasher26"   'Flash Pops x2
 SolCallback(27) = "Flasher27"   'Flash LT Ramp x2
 SolCallback(28) = "Flasher28"   'Flash Bot LT x2
-SolCallback(29) = "Flasher29"	'Flash Bot RT x1
-SolCallback(30) = "Flasher30"	'Flash RT Ramp Top x1
+SolCallback(29) = "Flasher29" 'Flash Bot RT x1
+SolCallback(30) = "Flasher30" 'Flash RT Ramp Top x1
 SolCallback(31) = "Flasher31" 'Flash RT Ramp BOT x1
 SolCallback(32) = "Flasher32" 'Flash Miniloop x1
 
 Sub SolTrapdoor(Enabled)
     If Enabled Then
         trapdoor1.Collidable = 1
-		TDCase = 1
-		sw42a.timerenabled = 1
+    TDCase = 1
+    sw42a.timerenabled = 1
         trapdoor2.isdropped = false
         trapdoor3.isdropped = false
         sw42a.Enabled = true
         controller.switch(40) = true
-		Trappdoorlight.state = 1
+    Trappdoorlight.state = 1
 
     Else
         trapdoor1.Collidable = 0
-		TDCase = 3
-		sw42a.timerenabled = 1
+    TDCase = 3
+    sw42a.timerenabled = 1
         trapdoor2.isdropped = true
         trapdoor3.isdropped = true
         sw42a.Enabled = false
         controller.switch(40) = false
-		Trappdoorlight.state = 0
+    Trappdoorlight.state = 0
     End If
 End Sub
 
 Dim TDCase
 Sub sw42a_timer
-	Select Case TDCase
-			Case 1: TrapDoor.objRotX = 10:TrapDoor.objRotY = 2: TDCase = 2
-			Case 2: TrapDoor.ObjRotX = 25:TrapDoor.objRotY = 5: PlaySoundAtVol SoundFX("Trapdoor",DOFContactors),TrapDoor,1: Sw42a.TimerEnabled = 0
-			Case 3:	TrapDoor.ObjRotX = 10:TrapDoor.objRotY = 2: TDCase = 4
-			Case 4: TrapDoor.ObjRotX = 0:TrapDoor.objRotY = 0: PlaySoundAtVol SoundFX("Trapdoor",DOFContactors),TrapDoor,1: sw42a.timerEnabled = 0
-	End Select
+  Select Case TDCase
+      Case 1: TrapDoor.objRotX = 10:TrapDoor.objRotY = 2: TDCase = 2
+      Case 2: TrapDoor.ObjRotX = 25:TrapDoor.objRotY = 5: PlaySoundAtVol SoundFX("Trapdoor",DOFContactors),TrapDoor,1: Sw42a.TimerEnabled = 0
+      Case 3: TrapDoor.ObjRotX = 10:TrapDoor.objRotY = 2: TDCase = 4
+      Case 4: TrapDoor.ObjRotX = 0:TrapDoor.objRotY = 0: PlaySoundAtVol SoundFX("Trapdoor",DOFContactors),TrapDoor,1: sw42a.timerEnabled = 0
+  End Select
 End Sub
 
 Sub VUK(enabled)
-	sw48.kickz 0, 86, 0, 175
-	PlaysoundAtVol SoundFX("solenoid",DOFContactors), sw48,VolKick
-	controller.Switch(48)=0
+  sw48.kickz 0, 86, 0, 175
+  PlaysoundAtVol SoundFX("solenoid",DOFContactors), sw48,VolKick
+  controller.Switch(48)=0
 End Sub
 
 Sub SolRampdiv(Enabled)
     If Enabled Then
         Diverter1.isdropped = false
-		diverter.ObjRoty = 0
+    diverter.ObjRoty = 0
     Else
         Diverter1.isdropped = true
-		diverter.ObjRotY = 15
+    diverter.ObjRotY = 15
     End If
 End Sub
 
@@ -358,34 +358,34 @@ Dim FCFlashOn, FCCurrPos, FCLastPos
 FCFlashOn = 0:FCCurrPos = 0
 
 Sub UpdateFC(aCurrPos, aSpeed, aLastPos)
-	PlaySoundAtVol SoundFX("Motor1",DOFGear), FileCabinet, 1
+  PlaySoundAtVol SoundFX("Motor1",DOFGear), FileCabinet, 1
     FCCurrPos = aCurrPos
-	FileCabinet.transY = (aCurrPos -135)
-	FileCabinetDoor.Z = (aCurrPos +75)
-	CabLightG.TransY = (aCurrPos -135)
-	CabLightR.TransY = (aCurrPos -135)
-	CabLightSrew1.TransY = (aCurrPos -135)
-	CabLightSrew2.TransY = (aCurrPos -135)
-	l73.bulbHaloHeight = aCurrPos +135
-	l74.bulbhaloHeight = aCurrPos +135
-	If aCurrPos < 4 Then CabFront.isDropped = 1
-	If aCurrPos > 4 Then CabFront.isDropped = 0
+  FileCabinet.transY = (aCurrPos -135)
+  FileCabinetDoor.Z = (aCurrPos +75)
+  CabLightG.TransY = (aCurrPos -135)
+  CabLightR.TransY = (aCurrPos -135)
+  CabLightSrew1.TransY = (aCurrPos -135)
+  CabLightSrew2.TransY = (aCurrPos -135)
+  l73.bulbHaloHeight = aCurrPos +135
+  l74.bulbhaloHeight = aCurrPos +135
+  If aCurrPos < 4 Then CabFront.isDropped = 1
+  If aCurrPos > 4 Then CabFront.isDropped = 0
 end Sub
 
 Sub cabtimer_Timer
-		If controller.Switch(45) = True Then
-		CabFront.isdropped = 1
-	Else
-		CabFront.isdropped = 0
-	End If
-	me.enabled = 0
+    If controller.Switch(45) = True Then
+    CabFront.isdropped = 1
+  Else
+    CabFront.isdropped = 0
+  End If
+  me.enabled = 0
 End Sub
 
 Sub CabFront_Hit
-	UpdateGI = 0
-	UpdateGITimer
-	PlaySound "PlastikHit", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	GIFlash.enabled = 1
+  UpdateGI = 0
+  UpdateGITimer
+  PlaySound "PlastikHit", 0, Vol(ActiveBall)*2, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  GIFlash.enabled = 1
 End Sub
 
 '*****************
@@ -398,157 +398,157 @@ Dim PrimCase1, PrimCase2, PrimCase3, PrimCase4
 
 
 Sub Flasher22(Enabled)
-	If Enabled Then
-	F22.State = 1
-	F22a.State = 1
-	F22b.State = 1
-	F22c.State = 1
-	Else
-	F22.State = 0
-	F22a.State = 0
-	F22b.State = 0
-	F22c.State = 0
-	End If
+  If Enabled Then
+  F22.State = 1
+  F22a.State = 1
+  F22b.State = 1
+  F22c.State = 1
+  Else
+  F22.State = 0
+  F22a.State = 0
+  F22b.State = 0
+  F22c.State = 0
+  End If
 End Sub
 
 Sub Flasher25(Enabled)
-	If Enabled Then
-	F1.State = 1
-	F1a.State = 1
-	Else
-	F1.State = 0
-	F1a.State = 0
-	End If
+  If Enabled Then
+  F1.State = 1
+  F1a.State = 1
+  Else
+  F1.State = 0
+  F1a.State = 0
+  End If
 End Sub
 
 Sub Flasher26(Enabled)
-	If Enabled Then
-		F2.State = 1
-		F2a.State = 1
-		F2b.State = 1
-		F2c.State = 1
-	Else
-		F2.State = 0
-		F2a.State = 0
-		F2b.State = 0
-		F2c.State = 0
-	End If
+  If Enabled Then
+    F2.State = 1
+    F2a.State = 1
+    F2b.State = 1
+    F2c.State = 1
+  Else
+    F2.State = 0
+    F2a.State = 0
+    F2b.State = 0
+    F2c.State = 0
+  End If
 End Sub
 
 Sub Flasher27(Enabled)
-	If Enabled Then
-		Light27.State = 1
-		Light27a.State = 1
-		Light27a1.State = 1
-		Light27b.State = 1
-		Flasher2.visible = 1
-		PrimCase1 = 1
-		FTimer27.Enabled = 1
-		Light28.State = 1
-		Light28a.State = 1
-		Light28a1.State = 1
-		Light28b.State = 1
-		Flasher1.visible = 1
-		PrimCase2 = 1
-		FTimer28.Enabled = 1
-	Else
-		Light27.State = 0
-		Light27a.State = 0
-		Light27a1.State = 0
-		Light27b.State = 0
-		Flasher2.visible = 0
-		PrimCase1 = 4
-		FTimer27.Enabled = 1
-		Light28.State = 0
-		Light28a.State = 0
-		Light28a1.State = 0
-		Light28b.State = 0
-		Flasher1.visible = 0
-		PrimCase2 = 4
-		FTimer28.Enabled = 1
-	End If
+  If Enabled Then
+    Light27.State = 1
+    Light27a.State = 1
+    Light27a1.State = 1
+    Light27b.State = 1
+    Flasher2.visible = 1
+    PrimCase1 = 1
+    FTimer27.Enabled = 1
+    Light28.State = 1
+    Light28a.State = 1
+    Light28a1.State = 1
+    Light28b.State = 1
+    Flasher1.visible = 1
+    PrimCase2 = 1
+    FTimer28.Enabled = 1
+  Else
+    Light27.State = 0
+    Light27a.State = 0
+    Light27a1.State = 0
+    Light27b.State = 0
+    Flasher2.visible = 0
+    PrimCase1 = 4
+    FTimer27.Enabled = 1
+    Light28.State = 0
+    Light28a.State = 0
+    Light28a1.State = 0
+    Light28b.State = 0
+    Flasher1.visible = 0
+    PrimCase2 = 4
+    FTimer28.Enabled = 1
+  End If
 End Sub
 
 Sub Flasher28(Enabled)
-	If Enabled Then
-	F4.State = 1
-	F4a.State = 1
-	Else
-	F4.State = 0
-	F4a.State = 0
-	End If
+  If Enabled Then
+  F4.State = 1
+  F4a.State = 1
+  Else
+  F4.State = 0
+  F4a.State = 0
+  End If
 End Sub
 
 Sub Flasher29(Enabled)
-	If Enabled Then
-	F5.State = 1
-	F5a.State = 1
-	Else
-	F5.State = 0
-	F5a.State = 0
-	End If
+  If Enabled Then
+  F5.State = 1
+  F5a.State = 1
+  Else
+  F5.State = 0
+  F5a.State = 0
+  End If
 End Sub
 
 
 Sub Flasher30(Enabled)
-	If Enabled Then
-		Light30.State = 1
-		Light30a.State = 1
-		Light30a1.State = 1
-		Light30b.State = 1
-		Flasher3.visible = 1
-		Flukeman.image = "FlukemanB_ON1"
-		PrimCase4 = 1
-		FTimer30.Enabled = 1
-	Else
-		Light30.State = 0
-		Light30a.State = 0
-		Light30a1.State = 0
-		Light30b.State = 0
-		Flasher3.visible = 0
-		Flukeman.image = "Flukeman_CompleteMap"
-		PrimCase4 = 4
-		FTimer30.Enabled = 1
-	End If
+  If Enabled Then
+    Light30.State = 1
+    Light30a.State = 1
+    Light30a1.State = 1
+    Light30b.State = 1
+    Flasher3.visible = 1
+    Flukeman.image = "FlukemanB_ON1"
+    PrimCase4 = 1
+    FTimer30.Enabled = 1
+  Else
+    Light30.State = 0
+    Light30a.State = 0
+    Light30a1.State = 0
+    Light30b.State = 0
+    Flasher3.visible = 0
+    Flukeman.image = "Flukeman_CompleteMap"
+    PrimCase4 = 4
+    FTimer30.Enabled = 1
+  End If
 End Sub
 
 Sub Flasher31(Enabled)
-	If Enabled Then
-		Light31.State = 1
-		Light31a.State = 1
-		Light31a1.State = 1
-		Light31b.State = 1
-		Flasher4.visible = 1
-		Flukeman.image = "Flukeman_ON1"
-		Tunnel.image = "FTunnel_ON1"
-		PrimCase3 = 1
-		FTimer31.Enabled = 1
-	Else
-		Light31.State = 0
-		Light31a.State = 0
-		Light31a1.State = 0
-		Light31b.State = 0
-		Flasher4.visible = 0
-		Flukeman.image = "Flukeman_CompleteMap"
-		Tunnel.image = "FTunnel_CompleteMap"
-		PrimCase3 = 4
-		FTimer31.Enabled = 1
-	End If
+  If Enabled Then
+    Light31.State = 1
+    Light31a.State = 1
+    Light31a1.State = 1
+    Light31b.State = 1
+    Flasher4.visible = 1
+    Flukeman.image = "Flukeman_ON1"
+    Tunnel.image = "FTunnel_ON1"
+    PrimCase3 = 1
+    FTimer31.Enabled = 1
+  Else
+    Light31.State = 0
+    Light31a.State = 0
+    Light31a1.State = 0
+    Light31b.State = 0
+    Flasher4.visible = 0
+    Flukeman.image = "Flukeman_CompleteMap"
+    Tunnel.image = "FTunnel_CompleteMap"
+    PrimCase3 = 4
+    FTimer31.Enabled = 1
+  End If
 End Sub
 
 Sub Flasher32(Enabled)
-	If Enabled Then
-	F8.State = 1
-	F8a.State = 1
-	Else
-	F8.State = 0
-	F8a.State = 0
-	End If
+  If Enabled Then
+  F8.State = 1
+  F8a.State = 1
+  Else
+  F8.State = 0
+  F8a.State = 0
+  End If
 End Sub
 
 Sub FTimer27_Timer()
     Select Case PrimCase1
-		Case 1:Prim27.image = "dome3_clear_B":PrimCase1 = 2
+    Case 1:Prim27.image = "dome3_clear_B":PrimCase1 = 2
         Case 2:Prim27.image = "dome3_clear_A":PrimCase1 = 3
         Case 3:Prim27.image = "dome3_clear_ON":Me.Enabled = 0
         Case 4:Prim27.image = "dome3_clear_A":PrimCase1 = 5
@@ -591,135 +591,135 @@ Sub FTimer31_Timer()
 End Sub
 
 Set LampCallback = GetRef("Lamps") ' individual lampcallbacks instead of using vpmMapLights (no reason, just because)
-	Sub Lamps
-		L1.State = Controller.Lamp(1)
-		L2.State = Controller.Lamp(2)
-		L3.State = Controller.Lamp(3)
-		L4.State = Controller.Lamp(4)
-		L5.State = Controller.Lamp(5)
-		L6.State = Controller.Lamp(6)
-		L7.State = Controller.Lamp(7)
-		L8.State = Controller.Lamp(8)
-		L9.State = Controller.Lamp(9)
-		l9a.State = Controller.Lamp(9)
-		L10.State = Controller.Lamp(10)
-		l10a.State = Controller.Lamp(10)
-		L11.State = Controller.Lamp(11)
-		l11a.State = Controller.Lamp(11)
-		L12.State = Controller.Lamp(12)
-		l12a.State = Controller.Lamp(12)
-		L13.State = Controller.Lamp(13)
-		l13a.State = Controller.Lamp(13)
-		L14.State = Controller.Lamp(14)
-		l14a.State = Controller.Lamp(14)
-		L15.State = Controller.Lamp(15)
-		l15a.State = Controller.Lamp(15)
-		L16.State = Controller.Lamp(16)
-		l16a.State = Controller.Lamp(16)
-		L17.State = Controller.Lamp(17)
-		l17a.State = Controller.Lamp(17)
-		L18.State = Controller.Lamp(18)
-		l18a.State = Controller.Lamp(18)
-		L19.State = Controller.Lamp(19)
-		l19a.State = Controller.Lamp(19)
-		L20.State = Controller.Lamp(20)
-		l20a.State = Controller.Lamp(20)
-		L21.State = Controller.Lamp(21)
-		l21a.State = Controller.Lamp(21)
-		L22.State = Controller.Lamp(22)
-		l22a.State = Controller.Lamp(22)
-		L23.State = Controller.Lamp(23)
-		l23a.State = Controller.Lamp(23)
-		L24.State = Controller.Lamp(24)
-		l24a.State = Controller.Lamp(24)
-		L25.State = Controller.Lamp(25)
-		l25a.State = Controller.Lamp(25)
-		L26.State = Controller.Lamp(26)
-		l26a.State = Controller.Lamp(26)
-		L27.State = Controller.Lamp(27)
-		l27a.State = Controller.Lamp(27)
-		L28.State = Controller.Lamp(28)
-		l28a.State = Controller.Lamp(28)
-		L29.State = Controller.Lamp(29)
-		l29a.State = Controller.Lamp(29)
-		L30.State = Controller.Lamp(30)
-		l30a.State = Controller.Lamp(30)
-		L31.State = Controller.Lamp(31)
-		l31a.State = Controller.Lamp(31)
-		L32.State = Controller.Lamp(32)
-		l32a.State = Controller.Lamp(32)
-		L33.State = Controller.Lamp(33)
-		l33a.State = Controller.Lamp(33)
-		L34.State = Controller.Lamp(34)
-		l34a.State = Controller.Lamp(34)
-		L35.State = Controller.Lamp(35)
-		l35a.State = Controller.Lamp(35)
-		L36.State = Controller.Lamp(36)
-		l36a.State = Controller.Lamp(36)
-		L37.State = Controller.Lamp(37)
-		l37a.State = Controller.Lamp(37)
-		L38.State = Controller.Lamp(38)
-		l38a.State = Controller.Lamp(38)
-		L39.State = Controller.Lamp(39)
-		l39a.State = Controller.Lamp(39)
-		L40.State = Controller.Lamp(40)
-		l40a.State = Controller.Lamp(40)
-		L41.State = Controller.Lamp(41)
-		l41a.State = Controller.Lamp(41)
-		L42.State = Controller.Lamp(42)
-		l42a.State = Controller.Lamp(42)
-		L43.State = Controller.Lamp(43)
-		l43a.State = Controller.Lamp(43)
-		L44.State = Controller.Lamp(44)
-		l44a.State = Controller.Lamp(44)
-		L45.State = Controller.Lamp(45)
-		l45a.State = Controller.Lamp(45)
-		L46.State = Controller.Lamp(46)
-		l46a.State = Controller.Lamp(46)
-		L47.State = Controller.Lamp(47)
-		l47a.State = Controller.Lamp(47)
-		L48.State = Controller.Lamp(48)
-		L49.State = Controller.Lamp(49)
-		l49a.State = Controller.Lamp(49)
-		L50.State = Controller.Lamp(50)
-		l50a.State = Controller.Lamp(50)
-		L51.State = Controller.Lamp(51)
-		l51a.State = Controller.Lamp(51)
-		L52.State = Controller.Lamp(52)
-		L53.State = Controller.Lamp(53)
-		L54.State = Controller.Lamp(54)
-		L55.State = Controller.Lamp(55) 'Left Spotlight
-		L55b.state = Controller.Lamp(55)'Left Spotlight
-		L55b1.state = Controller.Lamp(55)'Left Spotlight
-		L55b2.state = Controller.Lamp(55)'Left Spotlight
-		L56.State = Controller.Lamp(56) 'Right Spotlight
-		L56b.state = Controller.Lamp(56)'Right Spotlight
-		L56b1.state = Controller.Lamp(56)'Right Spotlight
-		L57.State = Controller.Lamp(57)
-		L57a.State = Controller.Lamp(57)
-		L58.State = Controller.Lamp(58)
-		L58a.State = Controller.Lamp(58)
-		L59.State = Controller.Lamp(59)
-		L59a.State = Controller.Lamp(59)
-		L60.State = Controller.Lamp(60)
-		L60a.State = Controller.Lamp(60)
-		L61.State = Controller.Lamp(61)
-		L61a.State = Controller.Lamp(61)
-		L62.State = Controller.Lamp(62)
-		L62a.State = Controller.Lamp(62)
-		L63.State = Controller.Lamp(63)
-		L63a.State = Controller.Lamp(63)
-		L64.State = Controller.Lamp(64)
-		l64a.State = Controller.Lamp(64)
-		L65.State = Controller.Lamp(65)
-		L66.State = Controller.Lamp(66)
-		L66a.State = Controller.Lamp(66)
-		L68.State = Controller.Lamp(68)
-		L68a.State = Controller.Lamp(68)
-		L71.State = Controller.Lamp(71)
-		l71a.State = Controller.Lamp(71)
-		L73.State = Controller.Lamp(73)
-		L74.State = Controller.Lamp(74)
+  Sub Lamps
+    L1.State = Controller.Lamp(1)
+    L2.State = Controller.Lamp(2)
+    L3.State = Controller.Lamp(3)
+    L4.State = Controller.Lamp(4)
+    L5.State = Controller.Lamp(5)
+    L6.State = Controller.Lamp(6)
+    L7.State = Controller.Lamp(7)
+    L8.State = Controller.Lamp(8)
+    L9.State = Controller.Lamp(9)
+    l9a.State = Controller.Lamp(9)
+    L10.State = Controller.Lamp(10)
+    l10a.State = Controller.Lamp(10)
+    L11.State = Controller.Lamp(11)
+    l11a.State = Controller.Lamp(11)
+    L12.State = Controller.Lamp(12)
+    l12a.State = Controller.Lamp(12)
+    L13.State = Controller.Lamp(13)
+    l13a.State = Controller.Lamp(13)
+    L14.State = Controller.Lamp(14)
+    l14a.State = Controller.Lamp(14)
+    L15.State = Controller.Lamp(15)
+    l15a.State = Controller.Lamp(15)
+    L16.State = Controller.Lamp(16)
+    l16a.State = Controller.Lamp(16)
+    L17.State = Controller.Lamp(17)
+    l17a.State = Controller.Lamp(17)
+    L18.State = Controller.Lamp(18)
+    l18a.State = Controller.Lamp(18)
+    L19.State = Controller.Lamp(19)
+    l19a.State = Controller.Lamp(19)
+    L20.State = Controller.Lamp(20)
+    l20a.State = Controller.Lamp(20)
+    L21.State = Controller.Lamp(21)
+    l21a.State = Controller.Lamp(21)
+    L22.State = Controller.Lamp(22)
+    l22a.State = Controller.Lamp(22)
+    L23.State = Controller.Lamp(23)
+    l23a.State = Controller.Lamp(23)
+    L24.State = Controller.Lamp(24)
+    l24a.State = Controller.Lamp(24)
+    L25.State = Controller.Lamp(25)
+    l25a.State = Controller.Lamp(25)
+    L26.State = Controller.Lamp(26)
+    l26a.State = Controller.Lamp(26)
+    L27.State = Controller.Lamp(27)
+    l27a.State = Controller.Lamp(27)
+    L28.State = Controller.Lamp(28)
+    l28a.State = Controller.Lamp(28)
+    L29.State = Controller.Lamp(29)
+    l29a.State = Controller.Lamp(29)
+    L30.State = Controller.Lamp(30)
+    l30a.State = Controller.Lamp(30)
+    L31.State = Controller.Lamp(31)
+    l31a.State = Controller.Lamp(31)
+    L32.State = Controller.Lamp(32)
+    l32a.State = Controller.Lamp(32)
+    L33.State = Controller.Lamp(33)
+    l33a.State = Controller.Lamp(33)
+    L34.State = Controller.Lamp(34)
+    l34a.State = Controller.Lamp(34)
+    L35.State = Controller.Lamp(35)
+    l35a.State = Controller.Lamp(35)
+    L36.State = Controller.Lamp(36)
+    l36a.State = Controller.Lamp(36)
+    L37.State = Controller.Lamp(37)
+    l37a.State = Controller.Lamp(37)
+    L38.State = Controller.Lamp(38)
+    l38a.State = Controller.Lamp(38)
+    L39.State = Controller.Lamp(39)
+    l39a.State = Controller.Lamp(39)
+    L40.State = Controller.Lamp(40)
+    l40a.State = Controller.Lamp(40)
+    L41.State = Controller.Lamp(41)
+    l41a.State = Controller.Lamp(41)
+    L42.State = Controller.Lamp(42)
+    l42a.State = Controller.Lamp(42)
+    L43.State = Controller.Lamp(43)
+    l43a.State = Controller.Lamp(43)
+    L44.State = Controller.Lamp(44)
+    l44a.State = Controller.Lamp(44)
+    L45.State = Controller.Lamp(45)
+    l45a.State = Controller.Lamp(45)
+    L46.State = Controller.Lamp(46)
+    l46a.State = Controller.Lamp(46)
+    L47.State = Controller.Lamp(47)
+    l47a.State = Controller.Lamp(47)
+    L48.State = Controller.Lamp(48)
+    L49.State = Controller.Lamp(49)
+    l49a.State = Controller.Lamp(49)
+    L50.State = Controller.Lamp(50)
+    l50a.State = Controller.Lamp(50)
+    L51.State = Controller.Lamp(51)
+    l51a.State = Controller.Lamp(51)
+    L52.State = Controller.Lamp(52)
+    L53.State = Controller.Lamp(53)
+    L54.State = Controller.Lamp(54)
+    L55.State = Controller.Lamp(55) 'Left Spotlight
+    L55b.state = Controller.Lamp(55)'Left Spotlight
+    L55b1.state = Controller.Lamp(55)'Left Spotlight
+    L55b2.state = Controller.Lamp(55)'Left Spotlight
+    L56.State = Controller.Lamp(56) 'Right Spotlight
+    L56b.state = Controller.Lamp(56)'Right Spotlight
+    L56b1.state = Controller.Lamp(56)'Right Spotlight
+    L57.State = Controller.Lamp(57)
+    L57a.State = Controller.Lamp(57)
+    L58.State = Controller.Lamp(58)
+    L58a.State = Controller.Lamp(58)
+    L59.State = Controller.Lamp(59)
+    L59a.State = Controller.Lamp(59)
+    L60.State = Controller.Lamp(60)
+    L60a.State = Controller.Lamp(60)
+    L61.State = Controller.Lamp(61)
+    L61a.State = Controller.Lamp(61)
+    L62.State = Controller.Lamp(62)
+    L62a.State = Controller.Lamp(62)
+    L63.State = Controller.Lamp(63)
+    L63a.State = Controller.Lamp(63)
+    L64.State = Controller.Lamp(64)
+    l64a.State = Controller.Lamp(64)
+    L65.State = Controller.Lamp(65)
+    L66.State = Controller.Lamp(66)
+    L66a.State = Controller.Lamp(66)
+    L68.State = Controller.Lamp(68)
+    L68a.State = Controller.Lamp(68)
+    L71.State = Controller.Lamp(71)
+    l71a.State = Controller.Lamp(71)
+    L73.State = Controller.Lamp(73)
+    L74.State = Controller.Lamp(74)
 End Sub
 
 '*******
@@ -727,98 +727,98 @@ End Sub
 '*******
 Dim ig, ig2, ig3
 Sub UpdateGITimer
-	For each ig in GI
-		If updateGI = 1 then
-		ig.state = 1
-		ElseIf UpdateGI = 2 Then
-		ig.state = 2
-		Else
-		ig.state = 0
-		End If
-	Next
-	For each ig2 in GI2
-		If updateGI = 1 then
-		ig2.state = 1
-		ElseIf UpdateGI = 2 Then
-		ig2.state = 2
-		Else
-		ig2.state = 0
-		End If
-	Next
-	For each ig3 in GI3
-		If updateGI = 1 then
-		ig3.state = 1
-		ElseIf UpdateGI = 2 Then
-		ig3.state = 2
-		Else
-		ig3.state = 0
-		End If
-	Next
-	GILite.enabled = 1
+  For each ig in GI
+    If updateGI = 1 then
+    ig.state = 1
+    ElseIf UpdateGI = 2 Then
+    ig.state = 2
+    Else
+    ig.state = 0
+    End If
+  Next
+  For each ig2 in GI2
+    If updateGI = 1 then
+    ig2.state = 1
+    ElseIf UpdateGI = 2 Then
+    ig2.state = 2
+    Else
+    ig2.state = 0
+    End If
+  Next
+  For each ig3 in GI3
+    If updateGI = 1 then
+    ig3.state = 1
+    ElseIf UpdateGI = 2 Then
+    ig3.state = 2
+    Else
+    ig3.state = 0
+    End If
+  Next
+  GILite.enabled = 1
 End Sub
 
 Sub GILite_Timer
-	UpdateGI = 1
-	UpdateGITimer
-	me.enabled = 0
+  UpdateGI = 1
+  UpdateGITimer
+  me.enabled = 0
 End Sub
 
 Sub GIFlash_Timer
-	UpdateGI = 1
-	UpdateGITimer
-	me.enabled = 0
+  UpdateGI = 1
+  UpdateGITimer
+  me.enabled = 0
 End Sub
 
 'extra subs
 Sub GateTimer_Timer
-	Gate3Prim.RotX = Gate3.currentangle * -.85
-	Sw25prim.RotX = Sw25.currentangle * -.85
-	Gate4Prim.RotX = Gate4.currentangle * -.85
-	Sw27prim.RotX = sw27.currentangle * -.85
-	FileCabinetDoor.RotX = Gate6.currentAngle
+  Gate3Prim.RotX = Gate3.currentangle * -.85
+  Sw25prim.RotX = Sw25.currentangle * -.85
+  Gate4Prim.RotX = Gate4.currentangle * -.85
+  Sw27prim.RotX = sw27.currentangle * -.85
+  FileCabinetDoor.RotX = Gate6.currentAngle
 'Alien baby Texture swapping
-	If L68.State = -1 AND L66.State = 0 Then
-		Primitive7.image = "GlassmapR"
-		Primitive_AlienHead.image = "AlienHead_RRED_2"
-		Primitive_AlienBody.image = "AlienBody_RRED2"
-	ElseIf L66.state = -1 AND L68.State = 0 Then
-		Primitive7.image = "GlassmapL"
-		Primitive_AlienHead.image = "AlienHead_LRED_2"
-		Primitive_AlienBody.image = "AlienBody_LRED2"
-	ElseIf L66.State = -1 AND L68.State = -1 Then
-		Primitive7.image = "GlassmapON"
-		Primitive_AlienHead.image = "AlienHead_dualRED_2"
-		Primitive_AlienBody.image = "AlienBody_DualRED2"
-	Else
-		Primitive7.image = "GlassMapOff"
-		Primitive_AlienHead.image = "AlienHead_CompleteMapPale"
-		Primitive_AlienBody.image = "AlienBody_CompleteMapPale"
-	End If
+  If L68.State = -1 AND L66.State = 0 Then
+    Primitive7.image = "GlassmapR"
+    Primitive_AlienHead.image = "AlienHead_RRED_2"
+    Primitive_AlienBody.image = "AlienBody_RRED2"
+  ElseIf L66.state = -1 AND L68.State = 0 Then
+    Primitive7.image = "GlassmapL"
+    Primitive_AlienHead.image = "AlienHead_LRED_2"
+    Primitive_AlienBody.image = "AlienBody_LRED2"
+  ElseIf L66.State = -1 AND L68.State = -1 Then
+    Primitive7.image = "GlassmapON"
+    Primitive_AlienHead.image = "AlienHead_dualRED_2"
+    Primitive_AlienBody.image = "AlienBody_DualRED2"
+  Else
+    Primitive7.image = "GlassMapOff"
+    Primitive_AlienHead.image = "AlienHead_CompleteMapPale"
+    Primitive_AlienBody.image = "AlienBody_CompleteMapPale"
+  End If
 
 'File Cabinet Texture Swapping
-	If F22.State = 1 Then
-		FileCabinet.image = "CabinetMap_FlasherON"
-		FileCabinetDoor.image = "CabinetMap_FlasherON"
-	Elseif F22.State = 0 Then
-		If L55.State = -1 AND L56.State = 0 Then
-			FileCabinet.Image = "CabinetMap_LON"
-			FileCabinetDoor.Image = "CabinetMap_LON"
-		ElseIf L55.State = 0 AND L56.State = -1 Then
-			FileCabinet.Image = "CabinetMap_RON"
-			FileCabinetDoor.Image = "CabinetMap_RON"
-		ElseIf L55.State = -1 AND L56.State = -1 Then
-			FileCabinet.Image = "CabinetMap_L+RON"
-			FileCabinetDoor.Image = "CabinetMap_L+RON"
-		Else
-			FileCabinet.Image = "CabinetMap"
-			FileCabinetDoor.Image = "CabinetMap"
-		End If
-	End If
+  If F22.State = 1 Then
+    FileCabinet.image = "CabinetMap_FlasherON"
+    FileCabinetDoor.image = "CabinetMap_FlasherON"
+  Elseif F22.State = 0 Then
+    If L55.State = -1 AND L56.State = 0 Then
+      FileCabinet.Image = "CabinetMap_LON"
+      FileCabinetDoor.Image = "CabinetMap_LON"
+    ElseIf L55.State = 0 AND L56.State = -1 Then
+      FileCabinet.Image = "CabinetMap_RON"
+      FileCabinetDoor.Image = "CabinetMap_RON"
+    ElseIf L55.State = -1 AND L56.State = -1 Then
+      FileCabinet.Image = "CabinetMap_L+RON"
+      FileCabinetDoor.Image = "CabinetMap_L+RON"
+    Else
+      FileCabinet.Image = "CabinetMap"
+      FileCabinetDoor.Image = "CabinetMap"
+    End If
+  End If
 End Sub
 
 ' Extra Sounds
 Sub Metals_Hit (idx)
-	PlaySound "metalhit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gate1_Hit:PlaySoundAtVol "gate",ActiveBall, 1:End Sub
@@ -832,49 +832,49 @@ Sub RHelp3_Hit:PlaySound "BallHit":End Sub
 Sub RHelp4_Hit:PlaySound "BallHit":End Sub
 
 Sub Rubber_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
@@ -1013,16 +1013,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

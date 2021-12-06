@@ -87,8 +87,8 @@ Dropfix = 0
  'setup display
 dim xx
 If DesktopMode then
-	For each xx in Display:xx.X = xx.X - 150: xx.Y = xx.Y - 400: xx.rotX = -55: xx.height = xx.height + 320: Next
-	For each xx in Display2:xx.Y = xx.y - 20: xx.X = xx.X - 6: xx.height = xx.height - 30: Next
+  For each xx in Display:xx.X = xx.X - 150: xx.Y = xx.Y - 400: xx.rotX = -55: xx.height = xx.height + 320: Next
+  For each xx in Display2:xx.Y = xx.y - 20: xx.X = xx.X - 6: xx.height = xx.height - 30: Next
 end if
 
 
@@ -116,66 +116,66 @@ Set MotorCallback = GetRef("RollingUpdate") 'realtime updates - rolling sound
 '**********
 
 Sub Genesis_Init
-	vpmInit Me
+  vpmInit Me
 
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Genesis (Gottlieb 1986)" & vbNewLine & "VP9 table by JPSalas"
-'		.Games(cGameName).Settings.Value("dmd_red") = 0
-'		.Games(cGameName).Settings.Value("dmd_green") = 128
-'		.Games(cGameName).Settings.Value("dmd_blue") = 255
-'		.Games(cGameName).Settings.Value("rol") = 0
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-'		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 0
-		.Hidden = 1
-		'.SetDisplayPosition 0,0,GetPlayerHWnd 'if you can't see the DMD then uncomment this line
-		On Error Resume Next
-		Controller.SolMask(0) = 0
-		vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
-		Controller.Run GetPlayerHwnd
-		If Err Then MsgBox Err.Description
-		On Error Goto 0
-	End With
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Genesis (Gottlieb 1986)" & vbNewLine & "VP9 table by JPSalas"
+'   .Games(cGameName).Settings.Value("dmd_red") = 0
+'   .Games(cGameName).Settings.Value("dmd_green") = 128
+'   .Games(cGameName).Settings.Value("dmd_blue") = 255
+'   .Games(cGameName).Settings.Value("rol") = 0
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+'   .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 0
+    .Hidden = 1
+    '.SetDisplayPosition 0,0,GetPlayerHWnd 'if you can't see the DMD then uncomment this line
+    On Error Resume Next
+    Controller.SolMask(0) = 0
+    vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
+    Controller.Run GetPlayerHwnd
+    If Err Then MsgBox Err.Description
+    On Error Goto 0
+  End With
 
-	' Nudging
-	vpmNudge.TiltSwitch = 57 'swTilt
-	vpmNudge.Sensitivity = 5
-	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, Bumper4, LeftSlingshot, RightSlingshot)
+  ' Nudging
+  vpmNudge.TiltSwitch = 57 'swTilt
+  vpmNudge.Sensitivity = 5
+  vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, Bumper4, LeftSlingshot, RightSlingshot)
 
-	'Saucers Declaration
-	Set bsArmsLock = New cvpmSaucer
-	with bsArmsLock
-		.InitKicker Armslock, 43, 185, 8, 8	' LeftKickout '160, 5 ,8
-		.InitExitVariance 1, 0
-		.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("Popper",DOFContactors)
-		.createevents "bsArmsLock", Armslock
-	end with
+  'Saucers Declaration
+  Set bsArmsLock = New cvpmSaucer
+  with bsArmsLock
+    .InitKicker Armslock, 43, 185, 8, 8 ' LeftKickout '160, 5 ,8
+    .InitExitVariance 1, 0
+    .InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("Popper",DOFContactors)
+    .createevents "bsArmsLock", Armslock
+  end with
 
-	Set bsLegsLock = New cvpmSaucer
-	with bsLegsLock
-		.InitKicker Legslock, 73, 346, 18, 8	' RightKickout '320, 16, 20
-		.InitExitVariance 2, 2
-		.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("Popper",DOFContactors)
-		.createevents "bsLegsLock", LegsLock
-	end with
-
-
-	Set dtM = New cvpmDropTarget
-	dtM.InitDrop Array(dt1, dt2, dt3), Array(41, 51, 61)
-	dtM.InitSnd SoundFX("droptarget",DOFContactors), SoundFX("resetdrop",DOFContactors)
-	dtM.CreateEvents "dtM"
+  Set bsLegsLock = New cvpmSaucer
+  with bsLegsLock
+    .InitKicker Legslock, 73, 346, 18, 8  ' RightKickout '320, 16, 20
+    .InitExitVariance 2, 2
+    .InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("Popper",DOFContactors)
+    .createevents "bsLegsLock", LegsLock
+  end with
 
 
-	'Trough Declaration
-	Set bsTrough = New cvpmBallStack
-	bsTrough.InitSw 55, 0, 74, 0, 0, 0, 0, 0
-	bsTrough.InitKick Ballrelease, 80, 6
-	bsTrough.InitExitSnd SoundFX("ballrel",DOFContactors), SoundFX("Solenoid",DOFContactors)
-	bsTrough.Balls = 2
+  Set dtM = New cvpmDropTarget
+  dtM.InitDrop Array(dt1, dt2, dt3), Array(41, 51, 61)
+  dtM.InitSnd SoundFX("droptarget",DOFContactors), SoundFX("resetdrop",DOFContactors)
+  dtM.CreateEvents "dtM"
+
+
+  'Trough Declaration
+  Set bsTrough = New cvpmBallStack
+  bsTrough.InitSw 55, 0, 74, 0, 0, 0, 0, 0
+  bsTrough.InitKick Ballrelease, 80, 6
+  bsTrough.InitExitSnd SoundFX("ballrel",DOFContactors), SoundFX("Solenoid",DOFContactors)
+  bsTrough.Balls = 2
 
     ' New style Trough that didn't quite work out
 '    Set bsTrough = New cvpmTrough
@@ -188,32 +188,32 @@ Sub Genesis_Init
 '        .Balls = 2
 '    End With
 
-	'Init Target Walls animation
-	RightKick.IsDropped = 1:LeftKick.IsDropped = 1
-	RightKick2.IsDropped = 0:LeftKick2.IsDropped = 0
+  'Init Target Walls animation
+  RightKick.IsDropped = 1:LeftKick.IsDropped = 1
+  RightKick2.IsDropped = 0:LeftKick2.IsDropped = 0
 
-	'Init Robot Lights
-	StopRobotLights
+  'Init Robot Lights
+  StopRobotLights
 
-	'Other variables
-	Last12 = 0
-	Current12 = 0
-	Last13 = 0
-	Current13 = 0
-	Last14 = 0
-	Current14 = 0
+  'Other variables
+  Last12 = 0
+  Current12 = 0
+  Last13 = 0
+  Current13 = 0
+  Last14 = 0
+  Current14 = 0
 
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
-	'StartShake
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
+  'StartShake
 
-	SolGI 0:SolLeft 0:SolRight 0
+  SolGI 0:SolLeft 0:SolRight 0
 
-	'display Option
-	if not DesktopMode and fullscreendisplay <> 2 then
-	For each xx in Display:xx.visible = 0: Next
-	Displaytimer.enabled = 0
-	end If
+  'display Option
+  if not DesktopMode and fullscreendisplay <> 2 then
+  For each xx in Display:xx.visible = 0: Next
+  Displaytimer.enabled = 0
+  end If
 
 End Sub
 
@@ -223,39 +223,39 @@ Sub Genesis_unPaused:Controller.Pause = 0:End Sub
 ' keys
 
 Sub Genesis_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Pullback
-	If keycode = LeftTiltKey Then PlaySound SoundFX("nudge_left",0)
-	If keycode = RightTiltKey Then PlaySound SoundFX("nudge_right",0)
-	If keycode = CenterTiltKey Then PlaySound SoundFX("nudge_forward",0)
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = KeyRules Then Rules
-	If keycode=31 then 'test debug
-'	kicker1.createball
-'	kicker1.kick -10, 35
-		'l13.state=1
-'	gi1.state = 0
-'	Rubber_Straightb10.size_x = 85
-'	Rubber_Straightb8.size_x = 85
-'	Rubber_Straightb14.size_x = 85
-'	rubberanim.enabled = 1
-	End If
+  If keycode = PlungerKey Then Plunger.Pullback
+  If keycode = LeftTiltKey Then PlaySound SoundFX("nudge_left",0)
+  If keycode = RightTiltKey Then PlaySound SoundFX("nudge_right",0)
+  If keycode = CenterTiltKey Then PlaySound SoundFX("nudge_forward",0)
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = KeyRules Then Rules
+  If keycode=31 then 'test debug
+' kicker1.createball
+' kicker1.kick -10, 35
+    'l13.state=1
+' gi1.state = 0
+' Rubber_Straightb10.size_x = 85
+' Rubber_Straightb8.size_x = 85
+' Rubber_Straightb14.size_x = 85
+' rubberanim.enabled = 1
+  End If
 End Sub
 
 
 Sub Genesis_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		If(BallinPlunger = 1) then 'the ball is in the plunger lane
-			PlaySoundAtVol "Plunger2", Plunger, 1
-		else
-			PlaySoundAtVol "Plunger", Plunger, 1
-		end if
-	End If
-'	If keycode = LeftTiltKey Then PlaySound "nudge_left"
-	If vpmKeyUp(KeyCode) Then Exit Sub
-'	If keycode=31 then 'light test
-'		l13.state=0
-'	End If
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    If(BallinPlunger = 1) then 'the ball is in the plunger lane
+      PlaySoundAtVol "Plunger2", Plunger, 1
+    else
+      PlaySoundAtVol "Plunger", Plunger, 1
+    end if
+  End If
+' If keycode = LeftTiltKey Then PlaySound "nudge_left"
+  If vpmKeyUp(KeyCode) Then Exit Sub
+' If keycode=31 then 'light test
+'   l13.state=0
+' End If
 End Sub
 
 '***********************
@@ -294,39 +294,39 @@ drop3 = dt3.isdropped
 
 'Drop Delay
 Sub DropDelaysub(enabled)
-	If Dropfix = 1 then
-		DropDelay.Enabled = 1
-	Else
-		dtM.DropSol_On
-		drop1 = 0
-		drop2 = 0
-		drop3 = 0
-		updateGI
-	End If
+  If Dropfix = 1 then
+    DropDelay.Enabled = 1
+  Else
+    dtM.DropSol_On
+    drop1 = 0
+    drop2 = 0
+    drop3 = 0
+    updateGI
+  End If
 End Sub
 
 Sub DropDelay_Timer()
-	dtM.DropSol_On
-	me.interval = 20
-	me.enabled = 0
-	drop1 = 0
-	drop2 = 0
-	drop3 = 0
-	updateGI
+  dtM.DropSol_On
+  me.interval = 20
+  me.enabled = 0
+  drop1 = 0
+  drop2 = 0
+  drop3 = 0
+  updateGI
 End Sub
 
 'Solenoids Subs
 
 Sub SolGI(Enabled)
-	If Enabled Then
-'	textbox1.text = Enabled
-		gi1.state=1:gi2.state=1:gi3.state=1:gi4.state=1:gi5.state=1:gi6.state=1:gi7.state=1:gi8.state=1:gi9.state=1:gi10.state=1:gi11.state=1:gi12.state=1:gi13.state=1:gi_ambient.state=1:gi15.state=1
-		UpdateGi
-	Else
-'	textbox1.text = Enabled
-		gi1.state=0:gi2.state=0:gi3.state=0:gi4.state=0:gi5.state=0:gi6.state=0:gi7.state=0:gi8.state=0:gi9.state=0:gi10.state=0:gi11.state=0:gi12.state=0:gi13.state=0:gi_ambient.state=0:gi15.state=0
-		UpdateGi
-	End If
+  If Enabled Then
+' textbox1.text = Enabled
+    gi1.state=1:gi2.state=1:gi3.state=1:gi4.state=1:gi5.state=1:gi6.state=1:gi7.state=1:gi8.state=1:gi9.state=1:gi10.state=1:gi11.state=1:gi12.state=1:gi13.state=1:gi_ambient.state=1:gi15.state=1
+    UpdateGi
+  Else
+' textbox1.text = Enabled
+    gi1.state=0:gi2.state=0:gi3.state=0:gi4.state=0:gi5.state=0:gi6.state=0:gi7.state=0:gi8.state=0:gi9.state=0:gi10.state=0:gi11.state=0:gi12.state=0:gi13.state=0:gi_ambient.state=0:gi15.state=0
+    UpdateGi
+  End If
 End Sub
 
 Sub UpdateGI
@@ -346,35 +346,35 @@ end sub
 'End Sub
 
 Sub SolLeft(Enabled)
-	If Enabled Then
-		Fl2.state = 2:fl3.state = 2:playsoundAtVol "lswitch", PrimitiveNut16, 1
-'		textbox1.text = "ON"
-	Else
-		Fl2.state=0:fl3.state=0
-'		textbox1.text = "OFF"
-	End If
+  If Enabled Then
+    Fl2.state = 2:fl3.state = 2:playsoundAtVol "lswitch", PrimitiveNut16, 1
+'   textbox1.text = "ON"
+  Else
+    Fl2.state=0:fl3.state=0
+'   textbox1.text = "OFF"
+  End If
 End Sub
 
 
 
 Sub SolRight(Enabled)
-	If Enabled Then
-		fr2.state = 2
-		fr3.State = 2
-		playsoundAtVol "lswitch", PrimitiveNut16, 1
-'		textbox2.text = "ON"
-	Else
-		fr2.state = 0
-		fr3.State = 0
-'		textbox2.text = "OFF"
-	End If
+  If Enabled Then
+    fr2.state = 2
+    fr3.State = 2
+    playsoundAtVol "lswitch", PrimitiveNut16, 1
+'   textbox2.text = "ON"
+  Else
+    fr2.state = 0
+    fr3.State = 0
+'   textbox2.text = "OFF"
+  End If
 End Sub
 
 Sub SolOuthole(enabled)
-	if enabled then
-		bsTrough.EntrySol_On
-'		bsTrough.ExitSol_On
-	end if
+  if enabled then
+    bsTrough.EntrySol_On
+'   bsTrough.ExitSol_On
+  end if
 End Sub
 
 '*************
@@ -386,48 +386,48 @@ Dim RobotLightStep, RobotLightsOn, EndIt
 RobotLightStep = 0:RobotLightsOn = 0
 
 Sub StartRobotLights
-'	If Robotlightson=1 then
-'		Exit Sub
-'	End If
-'	'light2.state=1
-'	RobotLightStep = 0
+' If Robotlightson=1 then
+'   Exit Sub
+' End If
+' 'light2.state=1
+' RobotLightStep = 0
 '    RobotLightsOn = 1
-'	RobotLights.Enabled = 1
-	ll1.state=2:rl1.state=2:ll2.state=2:rl2.state=2:ll3.state=2:rl3.state=2:ll4.state=2:rl4.state=2:ll5.state=2:rl5.state=2
-	cl1.state = 2: cl2.state = 2: cl3.state = 2: cl4.state = 2: cl5.state = 2
+' RobotLights.Enabled = 1
+  ll1.state=2:rl1.state=2:ll2.state=2:rl2.state=2:ll3.state=2:rl3.state=2:ll4.state=2:rl4.state=2:ll5.state=2:rl5.state=2
+  cl1.state = 2: cl2.state = 2: cl3.state = 2: cl4.state = 2: cl5.state = 2
 End Sub
 
-'Sub maybestoprobotlights	' I think this prevents the lightshow from ending early during the robot reveal sequence
-'	If CurrentRot=0 then LightSeqTimer.Enabled=1 End If	'lightseqtimer judges if the lights should be on or not..
-'	If CurrentRot<0 then
-'	StopRobotLights
-'	End If
+'Sub maybestoprobotlights ' I think this prevents the lightshow from ending early during the robot reveal sequence
+' If CurrentRot=0 then LightSeqTimer.Enabled=1 End If 'lightseqtimer judges if the lights should be on or not..
+' If CurrentRot<0 then
+' StopRobotLights
+' End If
 'end Sub
 
 'the way I scripted this makes my head hurt
 
 Sub StopRobotLights
-'	RobotLightStep=65
-	'light2.state=0
-	ll1.state=0:rl1.state=0:ll2.state=0:rl2.state=0:ll3.state=0:rl3.state=0:ll4.state=0:rl4.state=0:ll5.state=0:rl5.state=0
-	cl1.state = 0: cl2.state = 0: cl3.state = 0: cl4.state = 0: cl5.state = 0
+' RobotLightStep=65
+  'light2.state=0
+  ll1.state=0:rl1.state=0:ll2.state=0:rl2.state=0:ll3.state=0:rl3.state=0:ll4.state=0:rl4.state=0:ll5.state=0:rl5.state=0
+  cl1.state = 0: cl2.state = 0: cl3.state = 0: cl4.state = 0: cl5.state = 0
 '    RobotLightsOn = 0
 End Sub
 
-'Sub RobotLights_Timer	'replaced by blink pattern 'interval was 70
-'	Select Case RobotLightStep
-'		Case 0:Ll1.State=1:Rl1.state=1
-'		Case 1:Ll2.state=1:Rl2.state=1
-'		Case 2:ll1.state=0:rl1.state=0:ll3.state=1:rl3.state=1
-'		Case 3:ll2.state=0:rl2.state=0:ll4.state=1:rl4.state=1
-'		Case 4:ll3.state=0:rl3.state=0:ll5.state=1:rl5.state=1
-'		Case 5:ll4.state=0:rl4.state=0
-'		Case 6:ll5.state=0:rl5.state=0
-'		Case 66:ll1.state=0:rl1.state=0:ll2.state=0:rl2.state=0:ll3.state=0:rl3.state=0:ll4.state=0:rl4.state=0:ll5.state=0:rl5.state=0
-'		Case 67:RobotLights.Enabled=0:RobotLightStep=1
-'	End Select
-'	RobotLightStep = RobotLightStep + 1
-'	If RobotLightStep = 7 Then RobotLightStep = 0
+'Sub RobotLights_Timer  'replaced by blink pattern 'interval was 70
+' Select Case RobotLightStep
+'   Case 0:Ll1.State=1:Rl1.state=1
+'   Case 1:Ll2.state=1:Rl2.state=1
+'   Case 2:ll1.state=0:rl1.state=0:ll3.state=1:rl3.state=1
+'   Case 3:ll2.state=0:rl2.state=0:ll4.state=1:rl4.state=1
+'   Case 4:ll3.state=0:rl3.state=0:ll5.state=1:rl5.state=1
+'   Case 5:ll4.state=0:rl4.state=0
+'   Case 6:ll5.state=0:rl5.state=0
+'   Case 66:ll1.state=0:rl1.state=0:ll2.state=0:rl2.state=0:ll3.state=0:rl3.state=0:ll4.state=0:rl4.state=0:ll5.state=0:rl5.state=0
+'   Case 67:RobotLights.Enabled=0:RobotLightStep=1
+' End Select
+' RobotLightStep = RobotLightStep + 1
+' If RobotLightStep = 7 Then RobotLightStep = 0
 'End Sub
 
 '****************
@@ -442,22 +442,22 @@ StartRotation=0
 EndRotation=-360
 
 Sub StartRobotAnimation
-	CurrentRot=0
-	'Light1.State=1 'Light1 + Light 2 are additional ambient lighting
-	SpinTimer.Enabled=1
+  CurrentRot=0
+  'Light1.State=1 'Light1 + Light 2 are additional ambient lighting
+  SpinTimer.Enabled=1
 End Sub
 
 Sub SpinTimer_Timer()
-	If Currentrot=EndRotation then
-		currentrot=StartRotation 'back to 0
-		me.Enabled=0
-		'Light1.State=0
-		Exit Sub
-	End If
-	'If CurrentRot< -180 then Light1.State=0 End If
-	If currentrot> EndRotation then currentrot=currentrot-0.28 End If
-	Goldy.roty=CurrentRot
-	Goldy2.roty=CurrentRot
+  If Currentrot=EndRotation then
+    currentrot=StartRotation 'back to 0
+    me.Enabled=0
+    'Light1.State=0
+    Exit Sub
+  End If
+  'If CurrentRot< -180 then Light1.State=0 End If
+  If currentrot> EndRotation then currentrot=currentrot-0.28 End If
+  Goldy.roty=CurrentRot
+  Goldy2.roty=CurrentRot
 End Sub
 
 '**************
@@ -468,55 +468,55 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	Controller.Switch(75) = ABS(enabled)
-	If Enabled Then
-		'PlaySound "flipperup":LeftFlipper.RotateToEnd
-		LeftFlipper.RotateToEnd
-		If LeftFlipper.CurrentAngle<80 Then		'If weak flip...
-		PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), LeftFlipper, 0.1
-		Else PlaySoundAtVol SoundFx("FlipperUp",DOFContactors),LeftFlipper,VoLFlip
-		End If
-	Else
-		PlaySoundAtVol SoundFx("Flipperdown",DOFContactors),LeftFlipper, 0.05:LeftFlipper.RotateToStart
-	End If
+  Controller.Switch(75) = ABS(enabled)
+  If Enabled Then
+    'PlaySound "flipperup":LeftFlipper.RotateToEnd
+    LeftFlipper.RotateToEnd
+    If LeftFlipper.CurrentAngle<80 Then   'If weak flip...
+    PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), LeftFlipper, 0.1
+    Else PlaySoundAtVol SoundFx("FlipperUp",DOFContactors),LeftFlipper,VoLFlip
+    End If
+  Else
+    PlaySoundAtVol SoundFx("Flipperdown",DOFContactors),LeftFlipper, 0.05:LeftFlipper.RotateToStart
+  End If
 End Sub
 
 Sub SolRFlipper(Enabled)
-	Controller.Switch(75) = ABS(enabled)
-	If Enabled Then
-		'PlaySound "flipperup":RightFlipper.RotateToEnd
-		RightFlipper.RotateToEnd
-		If RightFlipper.CurrentAngle > (80*-1) Then	'If weak flip...
-		PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), RightFlipper, 0.1
-		Else PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), RightFlipper, VolFlip
-		End If
-	Else
-		PlaySoundAtVol SoundFx("Flipperdown",DOFContactors),RightFlipper, 0.05:RightFlipper.RotateToStart
-	End If
+  Controller.Switch(75) = ABS(enabled)
+  If Enabled Then
+    'PlaySound "flipperup":RightFlipper.RotateToEnd
+    RightFlipper.RotateToEnd
+    If RightFlipper.CurrentAngle > (80*-1) Then 'If weak flip...
+    PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), RightFlipper, 0.1
+    Else PlaySoundAtVol SoundFx("FlipperUp",DOFContactors), RightFlipper, VolFlip
+    End If
+  Else
+    PlaySoundAtVol SoundFx("Flipperdown",DOFContactors),RightFlipper, 0.05:RightFlipper.RotateToStart
+  End If
 End Sub
 
 'SoundFx("Flipperdown",DOFContactors),
 
 Sub LeftFlipper_Collide(parm)
-	PlaySound "rubber_flipper"
+  PlaySound "rubber_flipper"
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	PlaySound "rubber_flipper"
+  PlaySound "rubber_flipper"
 End Sub
 
 'Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub FlipperTimer_Timer()
-	UpdateLeftFlipperLogo
-	UpdateRightFlipperLogo
+  UpdateLeftFlipperLogo
+  UpdateRightFlipperLogo
 End Sub
 
 Sub UpdateLeftFlipperLogo()
-	LFLogo.RotY = LeftFlipper.CurrentAngle
+  LFLogo.RotY = LeftFlipper.CurrentAngle
 End Sub
 Sub UpdateRightFlipperLogo()
-	RFLogo.RotY = RightFlipper.CurrentAngle
+  RFLogo.RotY = RightFlipper.CurrentAngle
 End Sub
 
 
@@ -537,30 +537,30 @@ CFA = Flipper2.currentangle
 Y = -9
 
 sub Invari_hit()
-	me.timerenabled = 0
-	me.timerinterval = 500
-	VariChecker.enabled = 1
+  me.timerenabled = 0
+  me.timerinterval = 500
+  VariChecker.enabled = 1
 end sub
 
 sub Invari_unhit()
-	me.timerinterval = 500
-	me.timerenabled = 1
-'	VariChecker.enabled = 0
+  me.timerinterval = 500
+  me.timerenabled = 1
+' VariChecker.enabled = 0
 
 end sub
 
 sub invari_timer()
-	if y < -8.5 then varichecker.enabled = 0: me.timerenabled = 0 end if
+  if y < -8.5 then varichecker.enabled = 0: me.timerenabled = 0 end if
 end sub
 
 
-'sub 	set variball = BallcntOver
+'sub  set variball = BallcntOver
 Sub Varichecker_timer()
-	CFA = Flipper2.currentangle
-	y = ((7 * CFA) / 36) + (143 / 9)
-	Varitarget.rotX = Y
-'	textbox2.text = Y
-'	textbox3.text = flipper2.currentangle & flipper2.startangle & flipper2.endangle
+  CFA = Flipper2.currentangle
+  y = ((7 * CFA) / 36) + (143 / 9)
+  Varitarget.rotX = Y
+' textbox2.text = Y
+' textbox3.text = flipper2.currentangle & flipper2.startangle & flipper2.endangle
 
 
 'I am bad at maths
@@ -573,62 +573,62 @@ v1 = 0:v2 = 0:v3=0:v4=0
 'Varitimer is 200ms
 
 Sub Varitarget1_Hit
-	If ActiveBall.VelY <0 Then
-		Controller.Switch(40) = 1
-		V1 = 1
-		V2 = 0
-	end if
+  If ActiveBall.VelY <0 Then
+    Controller.Switch(40) = 1
+    V1 = 1
+    V2 = 0
+  end if
 End Sub
 
 Sub Varitarget1_UnHit
-	If ActiveBall.VelY> 0 Then VariTimer.Enabled = 1
+  If ActiveBall.VelY> 0 Then VariTimer.Enabled = 1
 End Sub
 
 
 Sub Varitarget2_Hit
-	If ActiveBall.VelY <0 Then
-		Controller.Switch(50) = 1
-		V2 = 1
-		V3 = 0
-	end if
+  If ActiveBall.VelY <0 Then
+    Controller.Switch(50) = 1
+    V2 = 1
+    V3 = 0
+  end if
 End Sub
 
 Sub Varitarget3_Hit
-	If ActiveBall.VelY <0 Then
-		Controller.Switch(60) = 1
-		V3 = 1
-		V4 = 0
-	end if
+  If ActiveBall.VelY <0 Then
+    Controller.Switch(60) = 1
+    V3 = 1
+    V4 = 0
+  end if
 End Sub
 
 Sub Varitarget4_Hit
-	Controller.Switch(70) = 1
+  Controller.Switch(70) = 1
 End Sub
 
 Sub VariTimer_Timer
-	If v4 = 0 Then
-		Controller.Switch(70) = 0
-		V4 = 1
-		V3 = 0
-		Exit Sub
-	End If
+  If v4 = 0 Then
+    Controller.Switch(70) = 0
+    V4 = 1
+    V3 = 0
+    Exit Sub
+  End If
 
-	If v3 = 0 Then
-		Controller.Switch(60) = 0
-		V3 = 1
-		V2 = 0
-		Exit Sub
-	End If
+  If v3 = 0 Then
+    Controller.Switch(60) = 0
+    V3 = 1
+    V2 = 0
+    Exit Sub
+  End If
 
-	If v2 = 0 Then
-		Controller.Switch(50) = 0
-		V2 = 1
-		V1 = 0
-		Exit Sub
-	End If
+  If v2 = 0 Then
+    Controller.Switch(50) = 0
+    V2 = 1
+    V1 = 0
+    Exit Sub
+  End If
 
-	Controller.Switch(40) = 0
-	VariTimer.Enabled = 0
+  Controller.Switch(40) = 0
+  VariTimer.Enabled = 0
 End Sub
 
 
@@ -669,26 +669,26 @@ Dim TopDown
 TopDown=False
 
 Sub OneWaySwitch_Hit()
-	OneWayTimer.Enabled=1
-	TopDown=True
+  OneWayTimer.Enabled=1
+  TopDown=True
 End Sub
 
 Sub OneWayTimer_Timer()
-	TopDown=False
-	OneWayTimer.Enabled=0
+  TopDown=False
+  OneWayTimer.Enabled=0
 End Sub
 
 Sub sw63_Hit()
-	If TopDown=False then Controller.switch(63) = 1':playsoundAtVol "Diverter", sw63, 1
+  If TopDown=False then Controller.switch(63) = 1':playsoundAtVol "Diverter", sw63, 1
 End Sub
 
 Sub sw63_UnHit() 'extra switch juice
-	me.timerenabled=1
+  me.timerenabled=1
 End Sub
 
 Sub sw63_Timer() 'extra switch juice
-	Controller.switch(63) = 0
-	me.Timerenabled=0
+  Controller.switch(63) = 0
+  me.Timerenabled=0
 End Sub
 
 'Drop-Targets
@@ -708,7 +708,7 @@ Sub dt3_dropped():drop3 = 1:updategi:End Sub
 Dim RStep, Lstep
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw(72)
+  vpmTimer.PulseSw(72)
     PlaySoundAtVol SoundFXDOF("slingshot",112,DOFPulse,DOFContactors), sling2, 1
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -728,7 +728,7 @@ End Sub
 'Right Slingshot
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw(72)
+  vpmTimer.PulseSw(72)
     PlaySoundAtVol SoundFXDOF("slingshot",113,DOFPulse,DOFContactors), sling1, 1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -792,7 +792,7 @@ End Sub
 'Outhole
 
 Sub Drain_Hit():PlaysoundAtVol "drain", Drain, 1:bsTrough.AddBall Me:End Sub
-'Sub Drain_Hit():Playsound "drain":me.destroyball:End Sub	'Debug
+'Sub Drain_Hit():Playsound "drain":me.destroyball:End Sub 'Debug
 
 'Ramps Top
 
@@ -817,48 +817,48 @@ Set LampCallback = GetRef("UpdateMultipleLamps")
 
 Sub UpdateMultipleLamps
 
-	' Robot animation
+  ' Robot animation
 
-	Current12 = l12.State
-	if Current12 <> Last12 Then
-'		if RobotLightsOn = 1 then
-'			StartRobotAnimation
-'			StartRobotLights
-'		end if
-			StartRobotAnimation
-	end if
-	Last12 = Current12
+  Current12 = l12.State
+  if Current12 <> Last12 Then
+'   if RobotLightsOn = 1 then
+'     StartRobotAnimation
+'     StartRobotLights
+'   end if
+      StartRobotAnimation
+  end if
+  Last12 = Current12
 
-	' Robot lights
+  ' Robot lights
 
-'	Current13 = l13.State
-'	if Current13 <> Last13 Then
-'		if Current13 = 1 then
-'			StartRobotLights
-'			LightSeqTimer.Enabled=0
-'			LightSeqTimer.Interval=1000
-'		else								'StopRobotLights
-'		maybestoprobotlights
-'		'If CurrentRot<0 then StopRobotLights else LightSeqTimer.enabled=1
-'		end if
-'	end if
-'	Last13 = Current13
+' Current13 = l13.State
+' if Current13 <> Last13 Then
+'   if Current13 = 1 then
+'     StartRobotLights
+'     LightSeqTimer.Enabled=0
+'     LightSeqTimer.Interval=1000
+'   else                'StopRobotLights
+'   maybestoprobotlights
+'   'If CurrentRot<0 then StopRobotLights else LightSeqTimer.enabled=1
+'   end if
+' end if
+' Last13 = Current13
 
 
-	'Check BallTrough
-	Current14 = l14.State
-	if Current14 <> Last14 Then
-		if Current14 = 1 then
-			if bsTrough.Balls then bsTrough.ExitSol_On
-		end if
-	end if
-	Last14 = Current14
+  'Check BallTrough
+  Current14 = l14.State
+  if Current14 <> Last14 Then
+    if Current14 = 1 then
+      if bsTrough.Balls then bsTrough.ExitSol_On
+    end if
+  end if
+  Last14 = Current14
 End Sub
 
-	'Robot Light Sequence Protector
-'Sub	LightSeqTimer_Timer()
-'	StopRobotLights
-'	Me.Enabled=0
+  'Robot Light Sequence Protector
+'Sub  LightSeqTimer_Timer()
+' StopRobotLights
+' Me.Enabled=0
 'End Sub
 
 
@@ -887,73 +887,73 @@ Sub LampTimer_Timer()
 End Sub
 
 Sub UpdateLamps
-	NFadeL 2, l2 'FadeL
-	NFadeL 3, l3 'FadeL
-	NFadeL 5, l5 'FadeL
-	NFadeL 6, l6 'FadeL
-	NFadeL 7, l7 'FadeL
-	NFadeL 8, l8 'FadeL
-	NFadeL 9, l9 'FadeL
-	NFadeL 10, l10 'FadeL
-	NFadeL 11, l11 'FadeL
-	NFadeL 12, l12 'start robot animation
+  NFadeL 2, l2 'FadeL
+  NFadeL 3, l3 'FadeL
+  NFadeL 5, l5 'FadeL
+  NFadeL 6, l6 'FadeL
+  NFadeL 7, l7 'FadeL
+  NFadeL 8, l8 'FadeL
+  NFadeL 9, l9 'FadeL
+  NFadeL 10, l10 'FadeL
+  NFadeL 11, l11 'FadeL
+  NFadeL 12, l12 'start robot animation
 
-'	NFadeL 13, l13 'start robot flash lights
-	NFadeLS 13, l13 'start robot flash lights
+' NFadeL 13, l13 'start robot flash lights
+  NFadeLS 13, l13 'start robot flash lights
 
-	NFadeL 14, l14 'check balltrough
-	NFadeL 15, l15 'FadeL
-	NFadeL 16, l16 'FadeL
-	NFadeL 17, l17 'FadeL
-	NFadeL 18, l18 'FadeL
-	NFadeL 19, l19 'FadeL
+  NFadeL 14, l14 'check balltrough
+  NFadeL 15, l15 'FadeL
+  NFadeL 16, l16 'FadeL
+  NFadeL 17, l17 'FadeL
+  NFadeL 18, l18 'FadeL
+  NFadeL 19, l19 'FadeL
 
-'	NFadeL 20, l20 'FadeL
-'	NFadeL 21, l21 'FadeL
-'	NFadeL 22, l22 'FadeL
-'	NFadeL 23, l23 'FadeL
-	NFadeL 24, l24 'FadeL
+' NFadeL 20, l20 'FadeL
+' NFadeL 21, l21 'FadeL
+' NFadeL 22, l22 'FadeL
+' NFadeL 23, l23 'FadeL
+  NFadeL 24, l24 'FadeL
 
-	NFadeLm 20, l20 'FadeL
-	NFadeLm 21, l21 'FadeL
-	NFadeLm 22, l22 'FadeL
-	NFadeLm 23, l23 'FadeL
-	NFadeLm 20, l20a 'FadeL
-	NFadeLm 21, l21a 'FadeL
-	NFadeLm 22, l22a 'FadeL
-	NFadeLm 23, l23a 'FadeL
+  NFadeLm 20, l20 'FadeL
+  NFadeLm 21, l21 'FadeL
+  NFadeLm 22, l22 'FadeL
+  NFadeLm 23, l23 'FadeL
+  NFadeLm 20, l20a 'FadeL
+  NFadeLm 21, l21a 'FadeL
+  NFadeLm 22, l22a 'FadeL
+  NFadeLm 23, l23a 'FadeL
 
-'	NFadeL 25, l25 'FadeL
-'	NFadeL 26, l26 'FadeL
-'	NFadeL 27, l27 'FadeL
-	NFadeLwf2 25, l25, l25F, l25F2 'FadeL
-	NFadeLwf2 26, l26, l26F, l26F2 'FadeL
-	NFadeLwf2 27, l27, l27F, l27F2 'FadeL
+' NFadeL 25, l25 'FadeL
+' NFadeL 26, l26 'FadeL
+' NFadeL 27, l27 'FadeL
+  NFadeLwf2 25, l25, l25F, l25F2 'FadeL
+  NFadeLwf2 26, l26, l26F, l26F2 'FadeL
+  NFadeLwf2 27, l27, l27F, l27F2 'FadeL
 
-	Flash 28, A_RMS
-	Flash 29, AR_MS
-	Flash 30, ARM_S
-	Flash 31, ARMS_
-	Flash 32, B_RAIN
-	Flash 33, BR_AIN
-	Flash 34, BRA_IN
-	Flash 35, BRAI_N
-	Flash 36, BRAIN_
-	Flash 37, B_ODY
-	Flash 38, BO_DY
-	Flash 39, BOD_Y
-	Flash 40, BODY_
-	Flash 41, L_EGS
-	Flash 42, LE_GS
-	Flash 43, LEG_S
-	Flash 44, LEGS_
+  Flash 28, A_RMS
+  Flash 29, AR_MS
+  Flash 30, ARM_S
+  Flash 31, ARMS_
+  Flash 32, B_RAIN
+  Flash 33, BR_AIN
+  Flash 34, BRA_IN
+  Flash 35, BRAI_N
+  Flash 36, BRAIN_
+  Flash 37, B_ODY
+  Flash 38, BO_DY
+  Flash 39, BOD_Y
+  Flash 40, BODY_
+  Flash 41, L_EGS
+  Flash 42, LE_GS
+  Flash 43, LEG_S
+  Flash 44, LEGS_
 
-	NFadeL 45, l45 'FadeL
-	NFadeL 46, l46 'FadeL
-	NFadeLm 47, l47b 'FadeLm
-	NFadeL 47, l47 'FadeL
-	NFadeLm 51, l51b'FadeLm
-	NFadeL 51, l51 'FadeL
+  NFadeL 45, l45 'FadeL
+  NFadeL 46, l46 'FadeL
+  NFadeLm 47, l47b 'FadeLm
+  NFadeL 47, l47 'FadeL
+  NFadeLm 51, l51b'FadeLm
+  NFadeL 51, l51 'FadeL
 End Sub
 
 Sub InitLamps()
@@ -1003,8 +1003,8 @@ Sub NFadeLS(nr, object)
 End Sub
 
 Sub LightSeqTimer_Timer()
-	StopRobotLights
-	me.enabled = 0
+  StopRobotLights
+  me.enabled = 0
 end sub
 
 'LightSeqTimer
@@ -1020,13 +1020,13 @@ Sub NFadeLm(nr, object) ' used for multiple lights
 End Sub
 
 Sub FadeLm(nr, a, b) 'Old
-	Select Case LampState(nr)
-		Case 2:b.state = 0
-		Case 3:b.state = 1
-		Case 4:a.state = 0
-		Case 5:b.state = 1
-		Case 6:a.state = 1
-	End Select
+  Select Case LampState(nr)
+    Case 2:b.state = 0
+    Case 3:b.state = 1
+    Case 4:a.state = 0
+    Case 5:b.state = 1
+    Case 6:a.state = 1
+  End Select
 End Sub
 
 'Lights, Ramps & Primitives used as 4 step fading lights
@@ -1095,35 +1095,35 @@ End Sub
 
 Sub NFadeLwF(nr, object1, object2)
     Select Case FadingLevel(nr)
-'		Case 0:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + (object1.fadespeeddown * -1) *2 end if
-'		Case 1:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + (object1.fadespeedup) *2 end if
+'   Case 0:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + (object1.fadespeeddown * -1) *2 end if
+'   Case 1:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + (object1.fadespeedup) *2 end if
 
-		Case 0:object2.intensityscale = 0
-		Case 1:object2.intensityscale = 1
+    Case 0:object2.intensityscale = 0
+    Case 1:object2.intensityscale = 1
         Case 4:object1.state = 0:FadingLevel(nr) = 16
-        Case 5:object1.state = 1:FadingLevel(nr) = 6':TextBox4.text = object1.fadespeedup	'to 6
+        Case 5:object1.state = 1:FadingLevel(nr) = 6':TextBox4.text = object1.fadespeedup 'to 6
 '0.1 up, 0.1 down
-		Case 6, 7, 8, 9, 10, 11, 12, 13, 14:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = FadingLevel(nr) + 1
-		Case 15:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = 1':TextBox4.text = "Case 11"
-		Case 16, 17, 18, 19, 20, 21, 22, 23, 24:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = FadingLevel(nr) + 1
-		Case 25:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = 0':TextBox4.text = "Case 26"
+    Case 6, 7, 8, 9, 10, 11, 12, 13, 14:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = FadingLevel(nr) + 1
+    Case 15:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = 1':TextBox4.text = "Case 11"
+    Case 16, 17, 18, 19, 20, 21, 22, 23, 24:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = FadingLevel(nr) + 1
+    Case 25:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = 0':TextBox4.text = "Case 26"
     End Select
 End Sub
 
-Sub NFadeLwF2(nr, object1, object2, object3)	'one light two flashers
+Sub NFadeLwF2(nr, object1, object2, object3)  'one light two flashers
     Select Case FadingLevel(nr)
 
-		Case 0:object2.intensityscale = 0:object3.intensityscale = object2.intensityscale
-		Case 1:object2.intensityscale = 1:object3.intensityscale = object2.intensityscale
+    Case 0:object2.intensityscale = 0:object3.intensityscale = object2.intensityscale
+    Case 1:object2.intensityscale = 1:object3.intensityscale = object2.intensityscale
         Case 4:object1.state = 0:FadingLevel(nr) = 16
-        Case 5:object1.state = 1:FadingLevel(nr) = 6':TextBox4.text = object1.fadespeedup	'to 6
+        Case 5:object1.state = 1:FadingLevel(nr) = 6':TextBox4.text = object1.fadespeedup 'to 6
 '0.1 up, 0.1 down
-		Case 6, 7, 8, 9, 10, 11, 12, 13, 14:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:object3.intensityscale = object2.intensityscale: FadingLevel(nr) = FadingLevel(nr) + 1
-		Case 15:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = 1:object3.intensityscale = object2.intensityscale':TextBox4.text = "Case 11"
-		Case 16, 17, 18, 19, 20, 21, 22, 23, 24:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:object3.intensityscale = object2.intensityscale :FadingLevel(nr) = FadingLevel(nr) + 1
-		Case 25:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = 0:object3.intensityscale = object2.intensityscale':TextBox4.text = "Case 26"
+    Case 6, 7, 8, 9, 10, 11, 12, 13, 14:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:object3.intensityscale = object2.intensityscale: FadingLevel(nr) = FadingLevel(nr) + 1
+    Case 15:If object2.intensityscale < 1 then Object2.intensityscale = object2.intensityscale + 0.1 end if:FadingLevel(nr) = 1:object3.intensityscale = object2.intensityscale':TextBox4.text = "Case 11"
+    Case 16, 17, 18, 19, 20, 21, 22, 23, 24:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:object3.intensityscale = object2.intensityscale :FadingLevel(nr) = FadingLevel(nr) + 1
+    Case 25:If object2.intensityscale > 0 then Object2.intensityscale = object2.intensityscale + -0.1 end if:FadingLevel(nr) = 0:object3.intensityscale = object2.intensityscale':TextBox4.text = "Case 26"
 
-	end select
+  end select
 End Sub
 
 ' Desktop Objects: Reels & texts (you may also use lights on the desktop)
@@ -1172,113 +1172,113 @@ End Sub
 
 
 Sub PlasticRamps_Hit (idx)
-	PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolPlast, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolPlast, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Hit (idx) 'Inlanes & shooter lane
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*(VolMetal*2), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*(VolMetal*2), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub RubberBands_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySoundl "fx_rubber2", 0, Vol(ActiveBall)*VolRB, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySoundl "fx_rubber2", 0, Vol(ActiveBall)*VolRB, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RubberSlings_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RubberPosts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
 'Animated rubbers
 'Sub Rubber_Straightb8_hit()
-'	Rubber_Straightb8.size_x = 90
-'	Rubberanim.enabled = 1
+' Rubber_Straightb8.size_x = 90
+' Rubberanim.enabled = 1
 'End Sub
 
 'Sub Rubber_Straightb14_hit()
-'	Rubber_Straightb14.size_x = 90
-'	Rubberanim.enabled = 1
+' Rubber_Straightb14.size_x = 90
+' Rubberanim.enabled = 1
 'End Sub
 
 'Sub Rubber_Straightb10_hit()
-'	Rubber_Straightb10.size_x = 90
-'	Rubberanim.enabled = 1
+' Rubber_Straightb10.size_x = 90
+' Rubberanim.enabled = 1
 'End Sub
 'Sub Rubber_Straightb5_hit()
-'	Rubber_Straightb5.size_x = 90
-'	Rubberanim.enabled = 1
+' Rubber_Straightb5.size_x = 90
+' Rubberanim.enabled = 1
 'End Sub
 
 'Sub Rubberanim_timer()
-'	Rubber_Straightb8.size_x = 100
-'	Rubber_Straightb14.size_x = 100
-'	Rubber_Straightb10.size_x = 100
-'	Rubber_Straightb5.size_x = 100
-'	me.enabled = 0
+' Rubber_Straightb8.size_x = 100
+' Rubber_Straightb14.size_x = 100
+' Rubber_Straightb10.size_x = 100
+' Rubber_Straightb5.size_x = 100
+' me.enabled = 0
 'End Sub
 
 ' Eala's rutine
@@ -1346,69 +1346,69 @@ End Sub
 'Gottlieb Genesis
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips:Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 700, 400, "Genesis - DIP switches"
-		.AddFrame 2, 4, 190, "Maximum credits", 49152, Array("8 credits", 0, "10 credits", 32768, "15 credits", &H00004000, "20 credits", 49152)                                                                                  'dip 15&16
-		.AddFrame 2, 80, 190, "Coin chute 1 and 2 control", &H00002000, Array("seperate", 0, "same", &H00002000)                                                                                                                  'dip 14
-		.AddFrame 2, 126, 190, "Playfield special", &H00200000, Array("replay", 0, "extra ball", &H00200000)                                                                                                                      'dip 22
-		.AddFrame 2, 172, 190, "High games to date control", &H00000020, Array("no effect", 0, "reset high games 2-5 on power off", &H00000020)                                                                                   'dip 6
-		.AddFrame 2, 218, 190, "Completing drop target sequence", &H00000080, Array("adds a letter to most complete part", 0, "spots a letter to each part", &H00000080)                                                          'dip 8
-		.AddFrame 2, 264, 190, "Special lights after", &H40000000, Array("Hitting 'Lifeforce' when flashing", 0, "completing all body parts", &H40000000)                                                                         'dip 31
-		.AddFrame 2, 310, 190, "Extra ball after completing", &H80000000, Array("4 body parts during the same ball", 0, "3 body parts during the same ball", &H80000000)                                                          'dip 32
-		.AddFrame 205, 4, 190, "High game to date awards", &H00C00000, Array("not displayed and no award", 0, "displayed and no award", &H00800000, "displayed and 2 replays", &H00400000, "displayed and 3 replays", &H00C00000) 'dip 23&24
-		.AddFrame 205, 80, 190, "Balls per game", &H01000000, Array("5 balls", 0, "3 balls", &H01000000)                                                                                                                          'dip 25
-		.AddFrame 205, 126, 190, "Replay limit", &H04000000, Array("no limit", 0, "one per game", &H04000000)                                                                                                                     'dip 27
-		.AddFrame 205, 172, 190, "Novelty", &H08000000, Array("normal", 0, "extra ball and replay scores points", &H08000000)                                                                                                     'dip 28
-		.AddFrame 205, 218, 190, "Game mode", &H10000000, Array("replay", 0, "extra ball", &H10000000)                                                                                                                            'dip 29
-		.AddFrame 205, 264, 190, "3rd coin chute credits control", &H20000000, Array("no effect", 0, "add 9", &H20000000)                                                                                                         'dip 30
-		.AddChk 205, 316, 180, Array("Match feature", &H02000000)                                                                                                                                                                 'dip 26
-		.AddChk 205, 331, 190, Array("Attract sound", &H00000040)                                                                                                                                                                 'dip 7
-		.AddLabel 50, 360, 300, 20, "After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips:Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 700, 400, "Genesis - DIP switches"
+    .AddFrame 2, 4, 190, "Maximum credits", 49152, Array("8 credits", 0, "10 credits", 32768, "15 credits", &H00004000, "20 credits", 49152)                                                                                  'dip 15&16
+    .AddFrame 2, 80, 190, "Coin chute 1 and 2 control", &H00002000, Array("seperate", 0, "same", &H00002000)                                                                                                                  'dip 14
+    .AddFrame 2, 126, 190, "Playfield special", &H00200000, Array("replay", 0, "extra ball", &H00200000)                                                                                                                      'dip 22
+    .AddFrame 2, 172, 190, "High games to date control", &H00000020, Array("no effect", 0, "reset high games 2-5 on power off", &H00000020)                                                                                   'dip 6
+    .AddFrame 2, 218, 190, "Completing drop target sequence", &H00000080, Array("adds a letter to most complete part", 0, "spots a letter to each part", &H00000080)                                                          'dip 8
+    .AddFrame 2, 264, 190, "Special lights after", &H40000000, Array("Hitting 'Lifeforce' when flashing", 0, "completing all body parts", &H40000000)                                                                         'dip 31
+    .AddFrame 2, 310, 190, "Extra ball after completing", &H80000000, Array("4 body parts during the same ball", 0, "3 body parts during the same ball", &H80000000)                                                          'dip 32
+    .AddFrame 205, 4, 190, "High game to date awards", &H00C00000, Array("not displayed and no award", 0, "displayed and no award", &H00800000, "displayed and 2 replays", &H00400000, "displayed and 3 replays", &H00C00000) 'dip 23&24
+    .AddFrame 205, 80, 190, "Balls per game", &H01000000, Array("5 balls", 0, "3 balls", &H01000000)                                                                                                                          'dip 25
+    .AddFrame 205, 126, 190, "Replay limit", &H04000000, Array("no limit", 0, "one per game", &H04000000)                                                                                                                     'dip 27
+    .AddFrame 205, 172, 190, "Novelty", &H08000000, Array("normal", 0, "extra ball and replay scores points", &H08000000)                                                                                                     'dip 28
+    .AddFrame 205, 218, 190, "Game mode", &H10000000, Array("replay", 0, "extra ball", &H10000000)                                                                                                                            'dip 29
+    .AddFrame 205, 264, 190, "3rd coin chute credits control", &H20000000, Array("no effect", 0, "add 9", &H20000000)                                                                                                         'dip 30
+    .AddChk 205, 316, 180, Array("Match feature", &H02000000)                                                                                                                                                                 'dip 26
+    .AddChk 205, 331, 190, Array("Attract sound", &H00000040)                                                                                                                                                                 'dip 7
+    .AddLabel 50, 360, 300, 20, "After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 
 Set vpmShowDips = GetRef("editDips")
 
 ' Rules
 Sub Rules()
-	Dim Msg(32)
-	Msg(0) = "Genesis - Gottlieb 1986" &Chr(10) &Chr(10)
-	Msg(1) = ""
-	Msg(2) = "SPECIAL: Completing all Body Parts lights LIFEFORCE"
-	Msg(3) = "  Hitting the Vari-Target all the way back lights SPECIAL"
-	Msg(4) = ""
-	Msg(5) = "EXTRA BALL: Completing 3 Body Parts lights EXTRA BALL"
-	Msg(6) = "  Completing next Body Part awards EXTRA BALL"
-	Msg(7) = ""
-	Msg(8) = "SCORING MULTIPLIER: Completing Body Parts when needed"
-	Msg(9) = "  advances Scoreing Multiplier"
-	Msg(10) = ""
-	Msg(11) = "MULTI-MULTIPLIER: Scoring Multiplier is doubled during Multi-Ball play"
-	Msg(12) = ""
-	Msg(13) = "BODY PARTS LETTERS: Letters awarded bt hitting Vari-target"
-	Msg(14) = "  all the way back or by scoring Flashing Targets or Sequences."
-	Msg(15) = "  Return Rollovers flash Vari-Target for a period of time."
-	Msg(16) = "  Hitting Vari-Target all the way back when flashing"
-	Msg(17) = "  awards a letter in all Body Parts."
-	Msg(18) = "  Completing the Drop Target Sequence (1-2-3) awards"
-	Msg(19) = "  a letter in the most complete Body Part."
-	Msg(20) = ""
-	Msg(21) = "LIFEFORCE: Expose Robot by hitting Vari-target all the way back"
-	Msg(22) = "  when LIFEFORCE is flashing."
-	Msg(23) = ""
-	Msg(24) = "MULTIBALL: Completing Body Part when needed enables ramp for capture"
-	Msg(25) = ""
-	Msg(26) = "ENTERING INITIALS: Enter letter by presing Flippers and Credit Button."
-	Msg(27) = ""
-	Msg(28) = ""
+  Dim Msg(32)
+  Msg(0) = "Genesis - Gottlieb 1986" &Chr(10) &Chr(10)
+  Msg(1) = ""
+  Msg(2) = "SPECIAL: Completing all Body Parts lights LIFEFORCE"
+  Msg(3) = "  Hitting the Vari-Target all the way back lights SPECIAL"
+  Msg(4) = ""
+  Msg(5) = "EXTRA BALL: Completing 3 Body Parts lights EXTRA BALL"
+  Msg(6) = "  Completing next Body Part awards EXTRA BALL"
+  Msg(7) = ""
+  Msg(8) = "SCORING MULTIPLIER: Completing Body Parts when needed"
+  Msg(9) = "  advances Scoreing Multiplier"
+  Msg(10) = ""
+  Msg(11) = "MULTI-MULTIPLIER: Scoring Multiplier is doubled during Multi-Ball play"
+  Msg(12) = ""
+  Msg(13) = "BODY PARTS LETTERS: Letters awarded bt hitting Vari-target"
+  Msg(14) = "  all the way back or by scoring Flashing Targets or Sequences."
+  Msg(15) = "  Return Rollovers flash Vari-Target for a period of time."
+  Msg(16) = "  Hitting Vari-Target all the way back when flashing"
+  Msg(17) = "  awards a letter in all Body Parts."
+  Msg(18) = "  Completing the Drop Target Sequence (1-2-3) awards"
+  Msg(19) = "  a letter in the most complete Body Part."
+  Msg(20) = ""
+  Msg(21) = "LIFEFORCE: Expose Robot by hitting Vari-target all the way back"
+  Msg(22) = "  when LIFEFORCE is flashing."
+  Msg(23) = ""
+  Msg(24) = "MULTIBALL: Completing Body Part when needed enables ramp for capture"
+  Msg(25) = ""
+  Msg(26) = "ENTERING INITIALS: Enter letter by presing Flippers and Credit Button."
+  Msg(27) = ""
+  Msg(28) = ""
 
-	For X = 1 To 28
-		Msg(0) = Msg(0) + Msg(X) &Chr(13)
-	Next
+  For X = 1 To 28
+    Msg(0) = Msg(0) + Msg(X) &Chr(13)
+  Next
 
-	MsgBox Msg(0), , "         Instructions and Rule Card"
+  MsgBox Msg(0), , "         Instructions and Rule Card"
 End Sub
 
 ' *******************************************************************************************************

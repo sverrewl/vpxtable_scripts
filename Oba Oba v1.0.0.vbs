@@ -428,7 +428,7 @@ Sub UpdateLamps()
     NFadeL 103, li103
     NFadeL 109, li109
     NFadeL 11, li11
-	NFadeL 110, li110
+  NFadeL 110, li110
     NFadeL 113, li113
     NFadeL 12, li12
     NFadeL 123, li123
@@ -459,16 +459,16 @@ Sub UpdateLamps()
     NFadeL 90, li90
     NFadeL 93, li93
     NFadeL 99, li99
-	' bumpers
-	NfadeLm 161, LiBumper1a
-	NfadeLm 161, LiBumper1b
-	NfadeL 161, LiBumper1c
-	NfadeLm 162, LiBumper2a
-	NfadeLm 162, LiBumper2b
-	NfadeL 162, LiBumper2c
-	NfadeLm 163, LiBumper3a
-	NfadeLm 163, LiBumper3b
-	NfadeL 163, LiBumper3c
+  ' bumpers
+  NfadeLm 161, LiBumper1a
+  NfadeLm 161, LiBumper1b
+  NfadeL 161, LiBumper1c
+  NfadeLm 162, LiBumper2a
+  NfadeLm 162, LiBumper2b
+  NfadeL 162, LiBumper2c
+  NfadeLm 163, LiBumper3a
+  NfadeLm 163, LiBumper3b
+  NfadeL 163, LiBumper3c
     'backdrop lights
     If VarHidden Then
         NFadeL 139, li139

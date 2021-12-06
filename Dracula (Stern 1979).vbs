@@ -53,18 +53,18 @@ Dim bsTrough,bsSaucer,dtL,dtT,HiddenValue
 '*********** Desktop/Cabinet settings ************************
 
 If Table1.ShowDT = true Then
-	HiddenValue = 0
+  HiddenValue = 0
 Else
-	HiddenValue = 1
+  HiddenValue = 1
 End If
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
          PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToEnd:LeftFlipper1.RotateToEnd
-		 PlaySoundAtVol "fx_Flipperup",LeftFlipper1, VolFlip
+     PlaySoundAtVol "fx_Flipperup",LeftFlipper1, VolFlip
      Else
          PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors),LeftFlipper, VolFlip:LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
-		 PlaySoundAtVol "fx_Flipperdown",LeftFlipper1, VolFlip
+     PlaySoundAtVol "fx_Flipperdown",LeftFlipper1, VolFlip
      End If
   End Sub
 
@@ -86,121 +86,121 @@ SolCallback(6)="Solknocker"
 SolCallback(7)="bsTrough.SolOut"
 SolCallback(9)="bsSaucer.SolOut"
 SolCallback(10)="SolTopTargetReset"
-'SolCallback(11)="vpmSolSound ""jet3"","	'bumper1
-'SolCallback(12)="vpmSolSound ""jet3"","	'bumper2
-'SolCallback(13)="vpmSolSound ""jet3"","	'bumper3
-'SolCallback(14)="vpmSolSound ""sling"","	'right sling
-'SolCallback(15)="vpmSolSound ""sling"","	'left sling
+'SolCallback(11)="vpmSolSound ""jet3"","  'bumper1
+'SolCallback(12)="vpmSolSound ""jet3"","  'bumper2
+'SolCallback(13)="vpmSolSound ""jet3"","  'bumper3
+'SolCallback(14)="vpmSolSound ""sling""," 'right sling
+'SolCallback(15)="vpmSolSound ""sling""," 'left sling
 SolCallback(19)="vpmNudge.SolGameOn"
 
 SolCallback(sLLFlipper)="SolLFlipper"
 SolCallback(sLRFlipper)="SolRFlipper"
 
 'Sub FlipperTimer_Timer
-'	LFLogo1.RotY=LeftFlipper.CurrentAngle
-'	LFLogo2.RotY=LeftFlipper1.CurrentAngle
-'	RFLogo1.RotY=RightFlipper.CurrentAngle
+' LFLogo1.RotY=LeftFlipper.CurrentAngle
+' LFLogo2.RotY=LeftFlipper1.CurrentAngle
+' RFLogo1.RotY=RightFlipper.CurrentAngle
 'End Sub
 
 Sub bell10(enabled)
-	If enabled Then
-	PlaySoundAt "fx3_em_bell10", PegPlasticT46
-	Else
-	StopSoundAt "fx3_em_bell10", PegPlasticT46
-	End If
+  If enabled Then
+  PlaySoundAt "fx3_em_bell10", PegPlasticT46
+  Else
+  StopSoundAt "fx3_em_bell10", PegPlasticT46
+  End If
 End Sub
 
 Sub bell100(enabled)
-	If enabled Then
-	PlaySoundAt "fx3_em_bell100", PegPlasticT46
-	Else
-	StopSoundAt "fx3_em_bell100", PegPlasticT46
-	End If
+  If enabled Then
+  PlaySoundAt "fx3_em_bell100", PegPlasticT46
+  Else
+  StopSoundAt "fx3_em_bell100", PegPlasticT46
+  End If
 End Sub
 
 Sub bell1000(enabled)
-	If enabled Then
-	PlaySoundAt "fx3_em_bell1000", PegPlasticT46
-	Else
-	StopSoundAt "fx3_em_bell1000", PegPlasticT46
-	End If
+  If enabled Then
+  PlaySoundAt "fx3_em_bell1000", PegPlasticT46
+  Else
+  StopSoundAt "fx3_em_bell1000", PegPlasticT46
+  End If
 End Sub
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Dracula"&chr(13)&"(Stern 1979)"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Dracula"&chr(13)&"(Stern 1979)"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .Hidden = HiddenValue
         .Run
          If Err Then MsgBox Err.Description
          On Error Goto 0
      End With
 
-	PinmameTimer.Interval=PinMameInterval
-	PinmameTimer.Enabled=1
+  PinmameTimer.Interval=PinMameInterval
+  PinmameTimer.Enabled=1
 
-	Set bsTrough=New cvpmBallstack
-	with bsTrough
-		.InitSw 0,8,0,0,0,0,0,0
-'		.InitNoTrough BallRelease,8,125,3
-		.InitKick BallRelease,90,7
-		.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
-		.Balls=1
-	end with
+  Set bsTrough=New cvpmBallstack
+  with bsTrough
+    .InitSw 0,8,0,0,0,0,0,0
+'   .InitNoTrough BallRelease,8,125,3
+    .InitKick BallRelease,90,7
+    .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+    .Balls=1
+  end with
 
-	Set bsSaucer=New cvpmBallStack
-	with bsSaucer
-		.InitSaucer sw40,40,165,8
-		.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
-		.CreateEvents "bsSaucer", sw40
- 	end with
+  Set bsSaucer=New cvpmBallStack
+  with bsSaucer
+    .InitSaucer sw40,40,165,8
+    .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+    .CreateEvents "bsSaucer", sw40
+  end with
 
-	Set dtL=New cvpmDropTarget
-	dtL.InitDrop Array(sw29,sw21,sw37),Array(29,21,37)
-	dtL.InitSnd SoundFX("fx2_droptarget",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
+  Set dtL=New cvpmDropTarget
+  dtL.InitDrop Array(sw29,sw21,sw37),Array(29,21,37)
+  dtL.InitSnd SoundFX("fx2_droptarget",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
 
-	Set dtT=New cvpmDropTarget
-	dtT.InitDrop Array(sw12,sw20,sw28,sw36),Array(12,20,28,36)
-	dtT.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset2",DOFContactors)
+  Set dtT=New cvpmDropTarget
+  dtT.InitDrop Array(sw12,sw20,sw28,sw36),Array(12,20,28,36)
+  dtT.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset2",DOFContactors)
 
 '*****Drop Lights Off
-	dim xx
+  dim xx
 
-	For each xx in DTLeftLights: xx.state=0:Next
-	For each xx in DTTopLights: xx.state=0:Next
+  For each xx in DTLeftLights: xx.state=0:Next
+  For each xx in DTTopLights: xx.state=0:Next
 
-	GILights 1
+  GILights 1
 
-	vpmNudge.TiltSwitch=7
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(sw18,sw33,sw34,sw35,LeftSlingshot,RightSlingshot)
+  vpmNudge.TiltSwitch=7
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(sw18,sw33,sw34,sw35,LeftSlingshot,RightSlingshot)
 End Sub
 
 Sub GILights (enabled)
-	Dim light
-	For each light in GI:light.State = Enabled: Next
+  Dim light
+  For each light in GI:light.State = Enabled: Next
 End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAt "fx_plungerpull", Plunger: 	End If
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAt "fx_plungerpull", Plunger:   End If
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAt "fx_plunger", Plunger
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAt "fx_plunger", Plunger
+  If vpmKeyUp(keycode) Then Exit Sub
 
 End Sub
 
@@ -211,7 +211,7 @@ Sub BallRelease_UnHit
 End Sub
 
 Sub Drain_Hit()
-	PlaySoundAt "fx2_drain2", Drain : bstrough.addball me
+  PlaySoundAt "fx2_drain2", Drain : bstrough.addball me
 End Sub
 
 Sub sw40_Hit():PlaySoundAtVol "fx_hole-enter", sw40, 3: Controller.Switch(40) = 1:End Sub 'Left Kicker
@@ -227,19 +227,19 @@ Sub sw40_Hit():PlaySoundAtVol "fx_hole-enter", sw40, 3: Controller.Switch(40) = 
  Sub Sw37_Dropped:dtL.Hit 3 : LDrop1.state=1 : End Sub
 
 Sub SolTopTargetReset(enabled)
-	dim xx
-	if enabled then
-		dtT.SolDropUp enabled
-		For each xx in DTTopLights: xx.state=0:Next
-	end if
+  dim xx
+  if enabled then
+    dtT.SolDropUp enabled
+    For each xx in DTTopLights: xx.state=0:Next
+  end if
 End Sub
 
 Sub SolLeftTargetReset(enabled)
-	dim xx
-	if enabled then
-		dtL.SolDropUp enabled
-		For each xx in DTLeftLights: xx.state=0:Next
-	end if
+  dim xx
+  if enabled then
+    dtL.SolDropUp enabled
+    For each xx in DTLeftLights: xx.state=0:Next
+  end if
 End Sub
 
 'Bumpers
@@ -288,7 +288,7 @@ Sub sw23_Hit:vpmTimer.PulseSw (23):End Sub
 Sub sw24_Hit:vpmTimer.PulseSw (24):End Sub
 
 Sub SolKnocker(Enabled)
-	If Enabled Then PlaySound SoundFX("Fx2_Knocker",DOFKnocker)
+  If Enabled Then PlaySound SoundFX("Fx2_Knocker",DOFKnocker)
 End Sub
 
 '**********Sling Shot Animations
@@ -298,7 +298,7 @@ Dim RStep, Lstep, AStep, BStep, RWall1Step, RWall2Step
 
 Sub RightSlingShot_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors), sling1
-  	vpmtimer.PulseSw(38)
+    vpmtimer.PulseSw(38)
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -317,7 +317,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors),sling2
-	vpmtimer.pulsesw(39)
+  vpmtimer.pulsesw(39)
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -465,18 +465,18 @@ Set Lights(60) = l60
 Set vpmShowDips = GetRef("editDips")
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperLSh1.RotZ = LeftFlipper1.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperLSh1.RotZ = LeftFlipper1.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 
 End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -673,16 +673,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

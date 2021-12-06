@@ -80,13 +80,13 @@ LoadVPM "01560000", "sam.VBS", 3.10
         .ShowFrame = 0
         .HandleMechanics = 1
         .Hidden = 0
-		.Games(cGameName).Settings.Value("sound") = 1
+    .Games(cGameName).Settings.Value("sound") = 1
         On Error Resume Next
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
     End With
 
-	InitVpmFFlipsSAM
+  InitVpmFFlipsSAM
     On Error Goto 0
 
     Const IMPowerSetting = 50
@@ -275,11 +275,11 @@ Sub SolRFlipper(Enabled)
 Sub SolULFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFXDOF("",102,DOFOn,DOFFlippers)
-		     PlaySoundAt "flipperupleft", UpLeftFlipper
+         PlaySoundAt "flipperupleft", UpLeftFlipper
          UpLeftFlipper.RotateToEnd
      Else
          PlaySound SoundFXDOF("",102,DOFOff,DOFFlippers)
-		     PlaySoundAt "flipperdown", UpLeftFlipper
+         PlaySoundAt "flipperdown", UpLeftFlipper
          UpLeftFlipper.RotateToStart
      End If
  End Sub
@@ -287,11 +287,11 @@ Sub SolULFlipper(Enabled)
 Sub SolURFlipper(Enabled)
      If Enabled Then
          PlaySound SoundFXDOF("",103,DOFOn,DOFFlippers)
-		     PlaySoundAt "flipperupright", UpRightFlipper
+         PlaySoundAt "flipperupright", UpRightFlipper
          UpRightFlipper.RotateToEnd
      Else
          PlaySound SoundFXDOF("",103,DOFOff,DOFFlippers)
-		     PlaySoundAt "flipperdown", UpRightFlipper
+         PlaySoundAt "flipperdown", UpRightFlipper
          UpRightFlipper.RotateToStart
     End If
  End Sub
@@ -1263,14 +1263,14 @@ Dim ballsavelight
 Dim MultiballFlag
 
 Sub UpdateGI(no, Enabled)
-	Select Case no
-		Case 0 'Top
-			If Enabled Then
-				GI_AllOn
-			Else
-				GI_AllOff
-			End If
-	End Select
+  Select Case no
+    Case 0 'Top
+      If Enabled Then
+        GI_AllOn
+      Else
+        GI_AllOff
+      End If
+  End Select
 End Sub
 
 set GICallback = GetRef("UpdateGI")
@@ -1663,16 +1663,16 @@ End Sub
 Dim Led128:Led128 = True
 
 Sub DisplayTimer_Timer
-	Dim ChgLED, ii, num, chg, stat, obj
-	If Led128 Then 'If B2S not enabled, use 128 bit LED mode
-		On Error Resume Next
-		ChgLed = Controller.ChangedLEDs (&HFFFFFFFF, &HFFFFFFFF, &HFFFFFFFF, &HFFFFFFFF) 'displays both rows, dupe leds
-		On Error Goto 0
-		If Err.Number<>0 Then
-			Led128 = False
-			Exit Sub
-		End If
-		If Not IsEmpty (ChgLED) Then
+  Dim ChgLED, ii, num, chg, stat, obj
+  If Led128 Then 'If B2S not enabled, use 128 bit LED mode
+    On Error Resume Next
+    ChgLed = Controller.ChangedLEDs (&HFFFFFFFF, &HFFFFFFFF, &HFFFFFFFF, &HFFFFFFFF) 'displays both rows, dupe leds
+    On Error Goto 0
+    If Err.Number<>0 Then
+      Led128 = False
+      Exit Sub
+    End If
+    If Not IsEmpty (ChgLED) Then
 
             For ii = 0 To UBound (chgLED)
                 'LEDs
@@ -1876,31 +1876,31 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
@@ -1964,7 +1964,7 @@ Sub BallDropSound(dummy):PlaySound "BallDrop":End Sub
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
 Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-	PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
 End Sub
 
 ' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
@@ -1985,10 +1985,10 @@ End Sub
 '*********************************************************************
 
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "Table" is the name of the table
-	Dim tmp
+  Dim tmp
     tmp = tableobj.y * 2 / table.height-1
     If tmp > 0 Then
-		AudioFade = Csng(tmp ^10)
+    AudioFade = Csng(tmp ^10)
     Else
         AudioFade = Csng(-((- tmp) ^10) )
     End If

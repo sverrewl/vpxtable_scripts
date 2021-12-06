@@ -94,7 +94,7 @@ Sub table1_Init
         .HandleMechanics = 0
         .Hidden = VarHidden
         .Games(cGameName).Settings.Value("rol") = 0 '1= rotated display, 0= normal
-		.Games(cGameName).Settings.Value("sound")=1
+    .Games(cGameName).Settings.Value("sound")=1
         '.SetDisplayPosition 0,0, GetPlayerHWnd 'restore dmd window position
         On Error Resume Next
         Controller.SolMask(0) = 0
@@ -149,7 +149,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
     If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", plunger, 1:Plunger.Pullback
-	If keycode=AddCreditKey then PlaysoundAtVol "fx_coin",drain,1: vpmTimer.pulseSW (swCoin1): End if
+  If keycode=AddCreditKey then PlaysoundAtVol "fx_coin",drain,1: vpmTimer.pulseSW (swCoin1): End if
     If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 

@@ -75,77 +75,77 @@ Sub Table1_Init
          On Error Goto 0
      End With
 
-   	Set bsTrough=New cvpmBallStack
- 	with bsTrough
-		.InitSw 0,11,0,0,0,0,0,0
-		.InitKick BallRelease,90,7
-		bsTrough.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
-		.Balls=1
- 	end with
+    Set bsTrough=New cvpmBallStack
+  with bsTrough
+    .InitSw 0,11,0,0,0,0,0,0
+    .InitKick BallRelease,90,7
+    bsTrough.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+    .Balls=1
+  end with
 
-	Set bsSaucer=New cvpmBallStack
-	with bsSaucer
-		.InitSaucer Kicker1,19,150,15
-		.KickAngleVar=2.5
-		.InitExitSnd "fx_kicker","fx_kicker_enter"
-	end with
+  Set bsSaucer=New cvpmBallStack
+  with bsSaucer
+    .InitSaucer Kicker1,19,150,15
+    .KickAngleVar=2.5
+    .InitExitSnd "fx_kicker","fx_kicker_enter"
+  end with
 
-	Set bsSaucer2=New cvpmBallStack
-	with bsSaucer2
-		.InitSaucer Kicker2,20,210,15
-		.KickAngleVar=2.5
-		.InitExitSnd "fx_kicker","fx_kicker_enter"
-	end with
+  Set bsSaucer2=New cvpmBallStack
+  with bsSaucer2
+    .InitSaucer Kicker2,20,210,15
+    .KickAngleVar=2.5
+    .InitExitSnd "fx_kicker","fx_kicker_enter"
+  end with
 
      vpmNudge.TiltSwitch = 8
      vpmNudge.Sensitivity = 1
      vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
-	GILights 1
-	special = 0
+  GILights 1
+  special = 0
 
-	PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
-	vpmMapLights aLights
+  vpmMapLights aLights
 
-	If Table1.ShowDT = False then
-	for each objekt in backdropstuff:objekt.visible = False:Next
-	End If
+  If Table1.ShowDT = False then
+  for each objekt in backdropstuff:objekt.visible = False:Next
+  End If
 
 End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull", Plunger, 1: 	End If
-	If FlippersAlwaysOn =1 Then
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
-	End If
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull", Plunger, 1:   End If
+  If FlippersAlwaysOn =1 Then
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
+  End If
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
-	If FlippersAlwaysOn =1 Then
-		If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
-		If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, VolFlip
-	End If
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
+  If FlippersAlwaysOn =1 Then
+    If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
+    If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, VolFlip
+  End If
 
-	If vpmKeyUp(keycode) Then Exit Sub
+  If vpmKeyUp(keycode) Then Exit Sub
 
 End Sub
 
 Sub BallRelease_UnHit
-	SpinWheel
+  SpinWheel
 End Sub
 
 
 Sub GILights (enabled)
-	Dim light
-	For each light in GI:light.State = Enabled: Next
+  Dim light
+  For each light in GI:light.State = Enabled: Next
 End Sub
 
 
@@ -156,7 +156,7 @@ Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), sling1, 1
-	vpmTimer.PulseSw 24
+  vpmTimer.PulseSw 24
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -174,7 +174,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot",DOFContactors), sling2, 1
-	vpmTimer.PulseSw 15
+  vpmTimer.PulseSw 15
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -266,11 +266,11 @@ Sub Trigger6_Hit:Controller.Switch(34)=1:End Sub
 Sub Trigger6_unHit:Controller.Switch(34)=0:End Sub
 
 Sub RandomSoundBumper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtVol "Bumper1", ActiveBall, VolBump
-		Case 2 : PlaySoundAtVol "Bumper2", ActiveBall, VolBump
-		Case 3 : PlaySoundAtVol "Bumper3", ActiveBall, VolBump
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtVol "Bumper1", ActiveBall, VolBump
+    Case 2 : PlaySoundAtVol "Bumper2", ActiveBall, VolBump
+    Case 3 : PlaySoundAtVol "Bumper3", ActiveBall, VolBump
+  End Select
 End Sub
 
 '*********************************************************************
@@ -278,47 +278,47 @@ End Sub
 '*********************************************************************
 
 Sub SpinWheel
-	Do While Wheel=OldValue
-	Randomize
-	Wheel=INT(RND*6+1)'randomize starting value of wheel
-	Loop
-	NewValue=Wheel+12
-	playsound "wheelclick" ' TODO
-	WheelTimer.Enabled=1
+  Do While Wheel=OldValue
+  Randomize
+  Wheel=INT(RND*6+1)'randomize starting value of wheel
+  Loop
+  NewValue=Wheel+12
+  playsound "wheelclick" ' TODO
+  WheelTimer.Enabled=1
 
 End Sub
 
 Sub WheelTimer_Timer
-	NewValue=NewValue-1
-	If NewValue>0 Then
-	Select Case OldValue
-		Case 1:Controller.Switch(35)=0: SkyLabWheel.ObjRotZ = 100:Special = 0
-		Case 2:Controller.Switch(36)=0: SkyLabWheel.ObjRotZ = 130:Special = 1
-		Case 3:Controller.Switch(37)=0: SkyLabWheel.ObjRotZ = 160:Special = 0
-		Case 4:Controller.Switch(38)=0: SkyLabWheel.ObjRotZ = 190:Special = 0
-		Case 5:Controller.Switch(39)=0: SkyLabWheel.ObjRotZ = 40:Special = 0
-		Case 6:Controller.Switch(40)=0: SkyLabWheel.ObjRotZ = 70:Special = 0
-	End Select
-	OldValue=OldValue+1
-	If OldValue>6 Then OldValue=1
-	Select Case OldValue
-		Case 1:Controller.Switch(35)=1: SkyLabWheel.ObjRotZ = 100:Special = 0
-		Case 2:Controller.Switch(36)=1: SkyLabWheel.ObjRotZ = 130:Special = 1
-		Case 3:Controller.Switch(37)=1: SkyLabWheel.ObjRotZ = 160:Special = 0
-		Case 4:Controller.Switch(38)=1: SkyLabWheel.ObjRotZ = 190:Special = 0
-		Case 5:Controller.Switch(39)=1: SkyLabWheel.ObjRotZ = 40:Special = 0
-		Case 6:Controller.Switch(40)=1: SkyLabWheel.ObjRotZ = 70:Special = 0
-	End Select
-	Else
-	WheelTimer.Enabled=0
-	End If
+  NewValue=NewValue-1
+  If NewValue>0 Then
+  Select Case OldValue
+    Case 1:Controller.Switch(35)=0: SkyLabWheel.ObjRotZ = 100:Special = 0
+    Case 2:Controller.Switch(36)=0: SkyLabWheel.ObjRotZ = 130:Special = 1
+    Case 3:Controller.Switch(37)=0: SkyLabWheel.ObjRotZ = 160:Special = 0
+    Case 4:Controller.Switch(38)=0: SkyLabWheel.ObjRotZ = 190:Special = 0
+    Case 5:Controller.Switch(39)=0: SkyLabWheel.ObjRotZ = 40:Special = 0
+    Case 6:Controller.Switch(40)=0: SkyLabWheel.ObjRotZ = 70:Special = 0
+  End Select
+  OldValue=OldValue+1
+  If OldValue>6 Then OldValue=1
+  Select Case OldValue
+    Case 1:Controller.Switch(35)=1: SkyLabWheel.ObjRotZ = 100:Special = 0
+    Case 2:Controller.Switch(36)=1: SkyLabWheel.ObjRotZ = 130:Special = 1
+    Case 3:Controller.Switch(37)=1: SkyLabWheel.ObjRotZ = 160:Special = 0
+    Case 4:Controller.Switch(38)=1: SkyLabWheel.ObjRotZ = 190:Special = 0
+    Case 5:Controller.Switch(39)=1: SkyLabWheel.ObjRotZ = 40:Special = 0
+    Case 6:Controller.Switch(40)=1: SkyLabWheel.ObjRotZ = 70:Special = 0
+  End Select
+  Else
+  WheelTimer.Enabled=0
+  End If
 End Sub
-		'35 SpinLab Orion X3
-		'36 SpinLab Special
-		'37 SpinLab Extra Ball
-		'38 SpinLab 50,000
-		'39 SpinLab Ursa X3
-		'40 SpinLab Comet 500
+    '35 SpinLab Orion X3
+    '36 SpinLab Special
+    '37 SpinLab Extra Ball
+    '38 SpinLab 50,000
+    '39 SpinLab Ursa X3
+    '40 SpinLab Comet 500
 
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
@@ -470,17 +470,17 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS (SPINNER)
+' ninuzzu's FLIPPER SHADOWS (SPINNER)
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
-	SpinnerShadow.RotZ = Spinner1.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
+  SpinnerShadow.RotZ = Spinner1.currentangle
 End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -499,11 +499,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else
@@ -524,19 +524,19 @@ Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolPlast, A
 Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 '************************************

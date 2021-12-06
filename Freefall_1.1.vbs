@@ -142,11 +142,11 @@ Sub table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+  End If
 End Sub
 
 '**********
@@ -289,7 +289,7 @@ Sub sw25_Hit:vpmTimer.PulseSw 25:PlaySoundAtVol SoundFX("fx_target", DOFTargets)
 Sub sw26b_Hit:vpmTimer.PulseSw 26:PlaySoundAtVol SoundFXDOF("fx_target",111,DOFPulse,DOFTargets), ActiveBall, VolTarg:End Sub
 
 '********************
-' 	  Solenoids
+'     Solenoids
 '********************
 
 'SolCallback(1)="vpmSolSound ""bumper"","
@@ -445,7 +445,7 @@ End Sub
 Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates
-	MgateP.RotZ = Mgate.CurrentAngle
+  MgateP.RotZ = Mgate.CurrentAngle
     RollingUpdate
     GIUpdate
 End Sub

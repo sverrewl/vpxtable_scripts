@@ -192,13 +192,13 @@ Sub Table1_Init
     Set bsLeftLock = New cvpmBallStack
         bsLeftLock.InitSw 0,0,40,0,0,0,0,0
         bsLeftLock.InitSaucer LKick,40, 0,25
-		bsLeftLock.KickforceVar = 5
+    bsLeftLock.KickforceVar = 5
         bsLeftLock.InitExitSnd SoundFX("kicker2",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
      Set bsRightLock = New cvpmBallStack
         bsRightLock.InitSw 0,0,48,0,0,0,0,0
         bsRightLock.InitSaucer RKick,48,0,25
-		bsRightLock.KickforceVar = 5
+    bsRightLock.KickforceVar = 5
         bsRightLock.InitExitSnd SoundFX("kicker2",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
     Plunger1.Pullback
@@ -376,7 +376,7 @@ end if
 
     NFadeLm 4, l4
     NFadeLm 4, L4a
-	Flash 4, Flasher8
+  Flash 4, Flasher8
     NFadeLm 5, l5
     NFadeLm 5, L5a
 
@@ -390,11 +390,11 @@ NFadeLm 7, L7a
 NFadeLm 8, L8a
 NFadeLm 8, L8b
     NFadeLm 9, L9
-	NFadeLm 9, L9a
+  NFadeLm 9, L9a
  NFadeLm 9, L9b
 Flash 9, f4
 Flash 9, f2
-	 NFadeLm 9, L9b1
+   NFadeLm 9, L9b1
     NFadeLm 10, L10
 NFadeLm 10, L10a
 NFadeLm 10, L10b
@@ -405,60 +405,60 @@ NFadeLm 11, L11b
 NFadeLm 12, L12a
     NFadeLm 13, l13
 NFadeLm 13, L13a
-	Flash 13, Flasher6
+  Flash 13, Flasher6
     NFadeLm 14, l14
 NFadeLm 14,  L14a
    NFadeLm 105, F105b
-	Flash 14, Flasher5
+  Flash 14, Flasher5
     NFadeLm 15, l15
     NFadeLm 15, L15a
 
 
-	Flash 15, Flasher4
+  Flash 15, Flasher4
     NFadeLm 16, l16
     NFadeLm 16, L16a
-	Flash 16, Flasher9
+  Flash 16, Flasher9
     NFadeLm 17, L17
  NFadeLm 17, L17a
-	Flash 17, Flasher15
+  Flash 17, Flasher15
     NFadeLm 18, L18
  NFadeLm 18, L18a
-	Flash 18, Flasher16
+  Flash 18, Flasher16
     NFadeLm 19, L19
  NFadeLm 19, L19a
-	Flash 19, Flasher17
+  Flash 19, Flasher17
     NFadeLm  20, l20
 NFadeLm 20, L20a
-	NFadeLm 21, L21
+  NFadeLm 21, L21
  NFadeLm 21, L21a
 NFadeLm 21, L21b
     NFadeLm 22, l22
 NFadeLm 22, L22a
-	Flash 22, Flasher3
+  Flash 22, Flasher3
     NFadeLm 23, l23
 NFadeLm 23, L23a
-	Flash 23, Flasher2
+  Flash 23, Flasher2
     NFadeLm 24, l24
     NFadeLm 24, L24a
-	Flash 24, Flasher1
+  Flash 24, Flasher1
     NFadeLm 25, l25
 NFadeLm 25, L25a
-	Flash 25, Flasher11
+  Flash 25, Flasher11
     NFadeLm 26, l26
 NFadeLm 26, L26a
-	Flash 26, Flasher10
+  Flash 26, Flasher10
     NFadeLm 27, l27
 NFadeLm 27, L27a
-	Flash 27, Flasher7
+  Flash 27, Flasher7
      NFadeLm 28, L28
 NFadeLm 28, L28a
-	Flash 28, Flasher12
+  Flash 28, Flasher12
      NFadeLm 29, l29
 NFadeLm 29, L29a
-	Flash 29, Flasher13
+  Flash 29, Flasher13
      NFadeLm 30, L30
 NFadeLm 30, L30a
-	Flash 30, Flasher14
+  Flash 30, Flasher14
      NFadeLm 31, l31
 NFadeLm 31, L31a
      NFadeLm 32, l32

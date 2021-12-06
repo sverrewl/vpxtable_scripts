@@ -184,7 +184,7 @@ Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot", DOFContactors), Lemk, 1
-	DOF 101, DOFPulse
+  DOF 101, DOFPulse
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
@@ -203,7 +203,7 @@ End Sub
 
 Sub RightSlingShot_Slingshot
     PlaySoundAtVol SoundFX("fx_slingshot", DOFContactors), Remk, 1
-	DOF 102, DOFPulse
+  DOF 102, DOFPulse
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0

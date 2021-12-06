@@ -34,25 +34,25 @@ end if
 'if B2SOn = true then VarHidden = 1
 
 '***************************************************************
-'*   				   Keyboard Handlers        	    	   *
+'*             Keyboard Handlers                   *
 '***************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyCode=LeftFlipperKey Then Controller.Switch(4)=1
-	If KeyCode=RightFlipperKey Then Controller.Switch(5)=1
+  If KeyCode=LeftFlipperKey Then Controller.Switch(4)=1
+  If KeyCode=RightFlipperKey Then Controller.Switch(5)=1
 If KeyCode=PlungerKey Then Plunger.PullBack:Controller.Switch(10)=True
 If vpmKeyDown(KeyCode) Then Exit Sub
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyCode=LeftFlipperKey Then Controller.Switch(4)=0
-	If KeyCode=RightFlipperKey Then Controller.Switch(5)=0
+  If KeyCode=LeftFlipperKey Then Controller.Switch(4)=0
+  If KeyCode=RightFlipperKey Then Controller.Switch(5)=0
 If KeyCode=PlungerKey Then Plunger.Fire:PlaySoundAt "Plunger", plunger:Controller.Switch(10)=False
 If vpmKeyUp(KeyCode) Then Exit Sub
 End Sub
 
 '***************************************************************
-'*   			       	   Solenoids        	    	       *
+'*                   Solenoids                       *
 '***************************************************************
 
 'SolCallback(17)="flasher17"
@@ -62,16 +62,16 @@ End Sub
 'SolCallback(21)="vpmFlasher Light675,"
 'SolCallback(22)="vpmFlasher Light676,"
 'SolCallback(23)="vpmSolSound ""bell"","
-'SolCallback(24)=""									'coin meter
+'SolCallback(24)=""                 'coin meter
 'SolCallback(26)="vpmFlasher BGFlasher,"
-'SolCallback(27)=""									'ticket dispenser
+'SolCallback(27)=""                 'ticket dispenser
 SolCallback(28)="solpin"
 'SolCallback(30)="vpmSolSound ""knocker"","
-'SolCallback(31)="vpmNudge.SolGameOn"				'Tilt Relay (T)
+'SolCallback(31)="vpmNudge.SolGameOn"       'Tilt Relay (T)
 
 
 '***************************************************************
-'*   				        Ball Gate           	    	   *
+'*                  Ball Gate                      *
 '***************************************************************
 dim foon, fo
 Sub Solpin(Enabled)
@@ -85,7 +85,7 @@ Sub Solpin(Enabled)
 End Sub
 
 '***************************************************************
-'*   				    Animate Top Gate                	   *
+'*              Animate Top Gate                     *
 '***************************************************************
 
 Sub GateTimer_Timer()
@@ -93,46 +93,46 @@ Sub GateTimer_Timer()
 End Sub
 
 '***************************************************************
-'*   				      Table Init        	        	   *
+'*                Table Init                       *
 '***************************************************************
 
 Sub Table1_Init
-	On Error Resume Next
-	With Controller
-		.GameName=cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-		'.SplashInfoLine="Nudge It" & vbnewline & "Table by Destruk"
-		.ShowFrame=0
-		.ShowTitle=0
-		.ShowDMDOnly=1
-		.HandleMechanics=0
-		.HandleKeyboard=0
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
+    '.SplashInfoLine="Nudge It" & vbnewline & "Table by Destruk"
+    .ShowFrame=0
+    .ShowTitle=0
+    .ShowDMDOnly=1
+    .HandleMechanics=0
+    .HandleKeyboard=0
         .Hidden = VarHidden
-		.Games(cGameName).Settings.Value("dmd_pos_x")=128
-		.Games(cGameName).Settings.Value("dmd_pos_y")=330
-		.Games(cGameName).Settings.Value("dmd_width")=300
-		.Games(cGameName).Settings.Value("dmd_height")=65
+    .Games(cGameName).Settings.Value("dmd_pos_x")=128
+    .Games(cGameName).Settings.Value("dmd_pos_y")=330
+    .Games(cGameName).Settings.Value("dmd_width")=300
+    .Games(cGameName).Settings.Value("dmd_height")=65
 
-	End With
-	Controller.Run
-	If Err Then MsgBox Err.Description
-	On Error Goto 0
+  End With
+  Controller.Run
+  If Err Then MsgBox Err.Description
+  On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
-	'vpmNudge.TiltSwitch=151
-	'vpmNudge.TiltObj=Array()
-	'vpmNudge.Sensitivity=3
+  'vpmNudge.TiltSwitch=151
+  'vpmNudge.TiltObj=Array()
+  'vpmNudge.Sensitivity=3
 
-	vpmMapLights ALights
-	Kicker.CreateSizedBall(29)
-	Kicker.Kick 90,1
+  vpmMapLights ALights
+  Kicker.CreateSizedBall(29)
+  Kicker.Kick 90,1
 
 End Sub
 
 '***************************************************************
-'*   				   Rollover Switches        	    	   *
+'*             Rollover Switches                   *
 '***************************************************************
 
 Sub sw1_Hit():PlaySoundAt "rollover", ActiveBall:Controller.Switch(11) = 1:End Sub
@@ -270,16 +270,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

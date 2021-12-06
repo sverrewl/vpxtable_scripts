@@ -30,14 +30,14 @@ On Error Goto 0
 LoadVPM "01120100","gts3.vbs",3.10
 
 Dim VarRol
-If Table1.ShowDT = true then 
-	VarRol=0 
-	Wall8.IsDropped=False
-	Wall9.IsDropped=False
-Else 
-	VarRol=1
-	Wall8.IsDropped=True
-	Wall9.IsDropped=True
+If Table1.ShowDT = true then
+  VarRol=0
+  Wall8.IsDropped=False
+  Wall9.IsDropped=False
+Else
+  VarRol=1
+  Wall8.IsDropped=True
+  Wall9.IsDropped=True
 End If
 
 Const UseSolenoids=2,UseLamps=1,UseSync=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp"
@@ -121,131 +121,131 @@ End Sub
 Dim bsTrough,bsLK,bsRK
 
 Sub setlampF10(Enabled)
-	If Enabled then F10.State=1 Else F10.State=0
+  If Enabled then F10.State=1 Else F10.State=0
 End Sub
 
 Sub setlampF11(Enabled)
-	If Enabled then F11.State=1 Else F11.State=0
+  If Enabled then F11.State=1 Else F11.State=0
 End Sub
 
 Sub setlampF12(Enabled)
-	If Enabled then F12.State=1 Else F12.State=0
+  If Enabled then F12.State=1 Else F12.State=0
 End Sub
 
 Sub setlampF13(Enabled)
-	If Enabled then F13.State=1 Else F13.State=0
+  If Enabled then F13.State=1 Else F13.State=0
 End Sub
 
 Sub setlampF14(Enabled)
-	If Enabled then F14.State=1 Else F14.State=0
+  If Enabled then F14.State=1 Else F14.State=0
 End Sub
 
 Sub setlampF16(Enabled)
-	If Enabled then F16.State=1:F16a.visible=1 Else F16.State=0:F16a.visible=0
+  If Enabled then F16.State=1:F16a.visible=1 Else F16.State=0:F16a.visible=0
 End Sub
 
 Sub setlampF17(Enabled)
-	If Enabled then F17.State=1:F17a.visible=1 Else F17.State=0:F17a.visible=0
+  If Enabled then F17.State=1:F17a.visible=1 Else F17.State=0:F17a.visible=0
 End Sub
 
 Sub setlampF18(Enabled)
-	If Enabled then F18.State=1:F18a.visible=1 Else F18.State=0:F18a.visible=0
+  If Enabled then F18.State=1:F18a.visible=1 Else F18.State=0:F18a.visible=0
 End Sub
 
 Sub setlampF19(Enabled)
-	If Enabled then F19.State=1:F19b.State=1:F19c.visible=1 Else F19.State=0:F19b.State=0:F19c.visible=0
+  If Enabled then F19.State=1:F19b.State=1:F19c.visible=1 Else F19.State=0:F19b.State=0:F19c.visible=0
 End Sub
 
 Sub setlampF10(Enabled)
-	If Enabled then F10.State=1 Else F10.State=0
+  If Enabled then F10.State=1 Else F10.State=0
 End Sub
 
 Sub setlampF20(Enabled)
-	If Enabled then F20.State=1:F20b.State=1:F20c.visible=1 Else F20.State=0:F20b.State=0:F20c.visible=0
+  If Enabled then F20.State=1:F20b.State=1:F20c.visible=1 Else F20.State=0:F20b.State=0:F20c.visible=0
 End Sub
 
 'Sub setlampF21(Enabled)
-	'If Enabled then F21.State=1 Else F21.State=0
+  'If Enabled then F21.State=1 Else F21.State=0
 'End Sub
 
 Sub setlampF22(Enabled)
-	If Enabled then F22.State=1:F22b.State=1:F22c.visible=1 Else F22.State=0:F22b.State=0:F22c.visible=0
+  If Enabled then F22.State=1:F22b.State=1:F22c.visible=1 Else F22.State=0:F22b.State=0:F22c.visible=0
 End Sub
 
 Sub setlampF23(Enabled)
-	If Enabled then F23.State=1:F23b.State=1:F23c.visible=1 Else F23.State=0:F23b.State=0:F23c.visible=0
+  If Enabled then F23.State=1:F23b.State=1:F23c.visible=1 Else F23.State=0:F23b.State=0:F23c.visible=0
 End Sub
 
 Sub setlampF24(Enabled)
-	If Enabled then F24.State=1:F24c.visible=1 Else F24.State=0:F24c.visible=0
+  If Enabled then F24.State=1:F24c.visible=1 Else F24.State=0:F24c.visible=0
 End Sub
 
 Sub Table1_Init
 Wall111.IsDropped=1
 Kicker7.Enabled=0
-	vpmInit Me
-	Plunger1.PullBack
- 	On Error Resume Next
- 	With Controller
-		.GameName=cGameName
-		If Err Then MsgBox"Can't start Game"&cGameName&vbNewLine&Err.Description:Exit Sub
-		.SplashInfoLine="Barb Wire - Gottlieb 1991"
-		.HandleKeyboard=0
-		.ShowTitle=0
-		.ShowDMDOnly=1
-		.HandleMechanics=0
-		.ShowFrame=0
-		.Games(cGameName).Settings.Value("rol") = VarRol
-		.Run GetPlayerHwnd
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch=151
-	vpmNudge.Sensitivity=6
-	vpmNudge.TiltObj=Array(Bumper1,Leftslingshot,Rightslingshot)
+  vpmInit Me
+  Plunger1.PullBack
+  On Error Resume Next
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox"Can't start Game"&cGameName&vbNewLine&Err.Description:Exit Sub
+    .SplashInfoLine="Barb Wire - Gottlieb 1991"
+    .HandleKeyboard=0
+    .ShowTitle=0
+    .ShowDMDOnly=1
+    .HandleMechanics=0
+    .ShowFrame=0
+    .Games(cGameName).Settings.Value("rol") = VarRol
+    .Run GetPlayerHwnd
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch=151
+  vpmNudge.Sensitivity=6
+  vpmNudge.TiltObj=Array(Bumper1,Leftslingshot,Rightslingshot)
 
-	vpmMapLights AllLights
+  vpmMapLights AllLights
 
-	Set bsTrough=New cvpmBallStack
-		bsTrough.InitSw 16,0,0,26,0,0,0,0
-		bsTrough.InitKick BallRelease,120,2
-		bsTrough.InitEntrySnd "SolOn","SolOn"
-		bsTrough.InitExitSnd SoundFX("BallRel",DOFContactors),SoundFX("SolOn",DOFContactors)
-		bsTrough.Balls=3
+  Set bsTrough=New cvpmBallStack
+    bsTrough.InitSw 16,0,0,26,0,0,0,0
+    bsTrough.InitKick BallRelease,120,2
+    bsTrough.InitEntrySnd "SolOn","SolOn"
+    bsTrough.InitExitSnd SoundFX("BallRel",DOFContactors),SoundFX("SolOn",DOFContactors)
+    bsTrough.Balls=3
 
- 	Set bsLK=New cvpmBallStack
-		bsLK.InitSw 0,50,0,0,0,0,0,0
-		bsLK.InitKick LUK,150,7
-		bsLK.InitExitSnd SoundFX("Popper",DOFContactors),SoundFX("SolOn",DOFContactors)
+  Set bsLK=New cvpmBallStack
+    bsLK.InitSw 0,50,0,0,0,0,0,0
+    bsLK.InitKick LUK,150,7
+    bsLK.InitExitSnd SoundFX("Popper",DOFContactors),SoundFX("SolOn",DOFContactors)
 
-	Set bsRK=New cvpmBallStack
-		bsRK.InitSw 0,25,0,0,0,0,0,0
-		bsRK.InitKick RUK,233,7
-		bsRK.InitExitSnd SoundFX("Popper",DOFContactors),SoundFX("SolOn",DOFContactors)
+  Set bsRK=New cvpmBallStack
+    bsRK.InitSw 0,25,0,0,0,0,0,0
+    bsRK.InitKick RUK,233,7
+    bsRK.InitExitSnd SoundFX("Popper",DOFContactors),SoundFX("SolOn",DOFContactors)
 
-	vpmCreateEvents AllSwitches
-	Kicker1.CreateBall
-	Kicker1.Kick 150,2
- 	Kicker2.CreateBall
-	Kicker2.Kick 180,1
+  vpmCreateEvents AllSwitches
+  Kicker1.CreateBall
+  Kicker1.Kick 150,2
+  Kicker2.CreateBall
+  Kicker2.Kick 180,1
 End Sub
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyCode=KeyFront Then Controller.Switch(1)=1'Buy-In
-	If KeyCode=LeftFlipperKey Then Controller.Switch(42)=1
-	If KeyCode=RightFlipperkey Then Controller.Switch(43)=1
+  If KeyCode=KeyFront Then Controller.Switch(1)=1'Buy-In
+  If KeyCode=LeftFlipperKey Then Controller.Switch(42)=1
+  If KeyCode=RightFlipperkey Then Controller.Switch(43)=1
   If vpmKeyDown(KeyCode) Then Exit Sub
-	If KeyCode=PlungerKey Then Plunger.Pullback
+  If KeyCode=PlungerKey Then Plunger.Pullback
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyCode=KeyFront Then Controller.Switch(1)=0
-	If KeyCode=LeftFlipperKey Then Controller.Switch(42)=0
-	If KeyCode=RightFlipperkey Then	Controller.Switch(43)=0
-	If vpmKeyUp(KeyCode) Then Exit Sub
-	if KeyCode=PlungerKey Then Plunger.Fire:PlaySoundAtVol"Plunger", Plunger, 1
+  If KeyCode=KeyFront Then Controller.Switch(1)=0
+  If KeyCode=LeftFlipperKey Then Controller.Switch(42)=0
+  If KeyCode=RightFlipperkey Then Controller.Switch(43)=0
+  If vpmKeyUp(KeyCode) Then Exit Sub
+  if KeyCode=PlungerKey Then Plunger.Fire:PlaySoundAtVol"Plunger", Plunger, 1
 End Sub
 
 Sub Bumper1_Hit:vpmTimer.PulseSw 10:PlaySoundAtBall SoundFX("Jet3",DOFContactors):End Sub
@@ -263,26 +263,26 @@ Dim FatsoPos,FatsoDir
 FatsoPos=0:FatsoDir=1
 
 Sub MoveFatso(Enabled)
-	If Enabled Then
-		If FatsoDir=-1 Then
-			FatsoDir=1
-		Else
-			FatsoDir=-1
-		End If
-		FatsoTimer.Enabled=1
-	Else
-		FatsoTimer.Enabled=0
-	End If
+  If Enabled Then
+    If FatsoDir=-1 Then
+      FatsoDir=1
+    Else
+      FatsoDir=-1
+    End If
+    FatsoTimer.Enabled=1
+  Else
+    FatsoTimer.Enabled=0
+  End If
 End Sub
 
 Sub FatsoTimer_Timer
-	Primitive2.TransZ=Primitive2.TransZ+FatsoDir
-	If Primitive2.TransZ = -100 Then FatsoPos=1:FatsoTimer.Enabled=False
-	If Primitive2.TransZ = 0 Then FatsoPos=0:FatsoTimer.Enabled=False
-	Select Case FatsoPos
-		Case 0:Controller.Switch(27)=1:Controller.Switch(17)=0:BigFatso.IsDropped=0
-		Case 1:Controller.Switch(27)=0:Controller.Switch(17)=1:BigFatso.IsDropped=1
-	End Select
+  Primitive2.TransZ=Primitive2.TransZ+FatsoDir
+  If Primitive2.TransZ = -100 Then FatsoPos=1:FatsoTimer.Enabled=False
+  If Primitive2.TransZ = 0 Then FatsoPos=0:FatsoTimer.Enabled=False
+  Select Case FatsoPos
+    Case 0:Controller.Switch(27)=1:Controller.Switch(17)=0:BigFatso.IsDropped=0
+    Case 1:Controller.Switch(27)=0:Controller.Switch(17)=1:BigFatso.IsDropped=1
+  End Select
 End Sub
 
 Sub BigFatso_Hit:vpmTimer.PulseSw 70:End Sub
@@ -358,11 +358,11 @@ count=ubound(chg)
 On Error Resume Next
 if count>0 then
 For X=0 To count
-	If chg(x,1) Then
-		L(chg(x,0)).IsDropped=0
-	else
-		L(chg(x,0)).IsDropped=1
-	end if
+  If chg(x,1) Then
+    L(chg(x,0)).IsDropped=0
+  else
+    L(chg(x,0)).IsDropped=1
+  end if
 Next
 Light0.State=ABS(Controller.Lamp(0))
 L57.State=ABS(Controller.Lamp(57))
@@ -373,9 +373,9 @@ End If
 End Sub
 
 Sub flippers_Timer()
-	LeftFlipperP.objRotZ = LeftFlipper.CurrentAngle-90
-	LeftFlipperP1.objRotZ = Flipper1.CurrentAngle-90
-	RightFlipperP.objRotZ = RightFlipper.CurrentAngle-90
+  LeftFlipperP.objRotZ = LeftFlipper.CurrentAngle-90
+  LeftFlipperP1.objRotZ = Flipper1.CurrentAngle-90
+  RightFlipperP.objRotZ = RightFlipper.CurrentAngle-90
 End Sub
 
 ' *******************************************************************************************************
@@ -495,7 +495,7 @@ Sub RollingTimer_Timer()
   Dim BOT, b
   BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
   For b = UBound(BOT) + 1 to tnob
     rolling(b) = False
     StopSound("fx_ballrolling" & b)
@@ -540,31 +540,31 @@ End Sub
 ' ************
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 ' Thalamus : Exit in a clean and proper way

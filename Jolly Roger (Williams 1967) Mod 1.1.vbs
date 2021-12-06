@@ -69,7 +69,7 @@ If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
 
 sub JollyRoger_init
-	LoadEM
+  LoadEM
     set play(1)=plno1
     set play(2)=plno2
     set play(3)=plno3
@@ -92,189 +92,189 @@ sub JollyRoger_init
     replay4=6500
     loadhs
     if creel="" then creel=30
-	creelP.rotx=((creel/10)-1)*36
+  creelP.rotx=((creel/10)-1)*36
     if hisc="" then hisc=1000
     hisctxt.text=hisc
     if credit="" then credit=0
-	CreditReel.setvalue credit
+  CreditReel.setvalue credit
     if matchnumb="" then matchnumb=int(rnd(1)*9)
-	MatchReel.setvalue matchnumb
+  MatchReel.setvalue matchnumb
     for i=1 to 4
-		currpl=i
-		reel(i).setvalue(score(i))
+    currpl=i
+    reel(i).setvalue(score(i))
     next
-	GameOverReel.setvalue 1
+  GameOverReel.setvalue 1
     currpl=0
 
-	If B2SOn Then
-		for each objekt in backdropstuff: objekt.visible=0: next
-		if matchnumb=0 then
-			Controller.B2SSetMatch 10
-		else
-			Controller.B2SSetMatch matchnumb
-		end if
-		Controller.B2SSetScoreRolloverPlayer1 0
-		Controller.B2SSetScoreRolloverPlayer2 0
-		Controller.B2SSetScoreRolloverPlayer3 0
-		Controller.B2SSetScoreRolloverPlayer4 0
+  If B2SOn Then
+    for each objekt in backdropstuff: objekt.visible=0: next
+    if matchnumb=0 then
+      Controller.B2SSetMatch 10
+    else
+      Controller.B2SSetMatch matchnumb
+    end if
+    Controller.B2SSetScoreRolloverPlayer1 0
+    Controller.B2SSetScoreRolloverPlayer2 0
+    Controller.B2SSetScoreRolloverPlayer3 0
+    Controller.B2SSetScoreRolloverPlayer4 0
 
-		Controller.B2SSetTilt 1
-		Controller.B2SSetCredits Credit
-		Controller.B2SSetGameOver 1
-		Controller.B2SSetData 81,0
-		Controller.B2SSetData 82,0
-		Controller.B2SSetData 83,0
-		Controller.B2SSetData 84,0
-		for i=1 to 4
-			Controller.B2SSetScorePlayer i, 0
-		next
-	End If
+    Controller.B2SSetTilt 1
+    Controller.B2SSetCredits Credit
+    Controller.B2SSetGameOver 1
+    Controller.B2SSetData 81,0
+    Controller.B2SSetData 82,0
+    Controller.B2SSetData 83,0
+    Controller.B2SSetData 84,0
+    for i=1 to 4
+      Controller.B2SSetScorePlayer i, 0
+    next
+  End If
 
-	If credit > 0 Then DOF 130, DOFOn
+  If credit > 0 Then DOF 130, DOFOn
 
 end sub
 
 
 Sub JollyRoger_KeyDown(ByVal keycode)
 
-	If keycode = PlungerKey Then
-	Plunger.PullBack
-	End If
+  If keycode = PlungerKey Then
+  Plunger.PullBack
+  End If
 
-	if keycode = AddCreditKey then
+  if keycode = AddCreditKey then
     credit=credit+4
-	DOF 130, DOFOn
-	playsoundAtVol "coin3", drain, 1
-	coindelay.enabled=true
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	end if
-	end if
+  DOF 130, DOFOn
+  playsoundAtVol "coin3", drain, 1
+  coindelay.enabled=true
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  end if
+  end if
 
-	if keycode = 5 then
-	playsoundAtVol "coin3", drain, 1
-	coindelay.enabled=true
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	end if
-	end if
+  if keycode = 5 then
+  playsoundAtVol "coin3", drain, 1
+  coindelay.enabled=true
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  end if
+  end if
 
-	if keycode = StartGameKey and credit>0 and state=false and playno=0 then
-	credit=credit-1
-	If credit < 1 Then DOF 130, DOFOff
-	eg=0
-	CreditReel.setvalue credit
-	playno=1
-	CanPlayReel.setvalue 1
-	currpl=1
-	play(currpl).state=1
+  if keycode = StartGameKey and credit>0 and state=false and playno=0 then
+  credit=credit-1
+  If credit < 1 Then DOF 130, DOFOff
+  eg=0
+  CreditReel.setvalue credit
+  playno=1
+  CanPlayReel.setvalue 1
+  currpl=1
+  play(currpl).state=1
     playsound "click"
     playsound "initialize"
     rst=0
     ballinplay=1
     resettimer.enabled=true
-		If B2SOn Then
-			Controller.B2SSetTilt 0
-			Controller.B2SSetGameOver 0
-			Controller.B2SSetMatch 0
-			Controller.B2SSetCredits Credit
-			Controller.B2SSetScore 3,hisc
-			Controller.B2SSetCanPlay 1
-			Controller.B2SSetPlayerUp 1
-			Controller.B2SSetData 81,1
-			Controller.B2SSetData 82,0
-			Controller.B2SSetData 83,0
-			Controller.B2SSetData 84,0
-			Controller.B2SSetBallInPlay BallInPlay
-			Controller.B2SSetScoreRolloverPlayer1 0
+    If B2SOn Then
+      Controller.B2SSetTilt 0
+      Controller.B2SSetGameOver 0
+      Controller.B2SSetMatch 0
+      Controller.B2SSetCredits Credit
+      Controller.B2SSetScore 3,hisc
+      Controller.B2SSetCanPlay 1
+      Controller.B2SSetPlayerUp 1
+      Controller.B2SSetData 81,1
+      Controller.B2SSetData 82,0
+      Controller.B2SSetData 83,0
+      Controller.B2SSetData 84,0
+      Controller.B2SSetBallInPlay BallInPlay
+      Controller.B2SSetScoreRolloverPlayer1 0
 
-		End If
+    End If
     end if
 
     if keycode = StartGameKey and credit>0 and state=true and playno>0 and playno<4 and ballinplay<2 then
-		credit=credit-1
-		If credit < 1 Then DOF 130, DOFOff
-		CreditReel.setvalue credit
-		playno=playno+1
-		CanPlayReel.setvalue playno
-		playsound "click"
-		If B2SOn Then
-			Controller.B2SSetCredits Credit
-			Controller.B2SSetCanPlay playno
-		end if
+    credit=credit-1
+    If credit < 1 Then DOF 130, DOFOff
+    CreditReel.setvalue credit
+    playno=playno+1
+    CanPlayReel.setvalue playno
+    playsound "click"
+    If B2SOn Then
+      Controller.B2SSetCredits Credit
+      Controller.B2SSetCanPlay playno
+    end if
     end if
 
     if state=true and tilt=false then
 
-		If keycode = LeftFlipperKey Then
-		LeftFlipper.RotateToEnd
-		PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
-		End If
+    If keycode = LeftFlipperKey Then
+    LeftFlipper.RotateToEnd
+    PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
+    End If
 
-		If keycode = RightFlipperKey Then
-		RightFlipper.RotateToEnd
-		PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
-		End If
+    If keycode = RightFlipperKey Then
+    RightFlipper.RotateToEnd
+    PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), RightFlipper, VolFlip
+    End If
 
-		If keycode = LeftTiltKey Then
-		Nudge 90, 2
-		checktilt
-		End If
+    If keycode = LeftTiltKey Then
+    Nudge 90, 2
+    checktilt
+    End If
 
-		If keycode = RightTiltKey Then
-		Nudge 270, 2
-		checktilt
-		End If
+    If keycode = RightTiltKey Then
+    Nudge 270, 2
+    checktilt
+    End If
 
-		If keycode = CenterTiltKey Then
-			Nudge 0, 2
-			checktilt
-		End If
+    If keycode = CenterTiltKey Then
+      Nudge 0, 2
+      checktilt
+    End If
 
-		If keycode = MechanicalTilt Then
-			gametilted
-		End If
+    If keycode = MechanicalTilt Then
+      gametilted
+    End If
 
-	End If
+  End If
 
 End Sub
 
 sub flippertimer_timer()
-	LFlip.RotY = LeftFlipper.CurrentAngle-90
-	RFlip.RotY = RightFlipper.CurrentAngle+90
+  LFlip.RotY = LeftFlipper.CurrentAngle-90
+  RFlip.RotY = RightFlipper.CurrentAngle+90
 end sub
 
 Sub JollyRoger_KeyUp(ByVal keycode)
 
-	If keycode = PlungerKey Then
-	Plunger.Fire
-	playsoundAtVol "plungerrelease", plunger, 1
-	End If
+  If keycode = PlungerKey Then
+  Plunger.Fire
+  playsoundAtVol "plungerrelease", plunger, 1
+  End If
 
-	If keycode = LeftFlipperKey Then
-	LeftFlipper.RotateToStart
-	stopsound "buzz"
-	if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
-	End If
+  If keycode = LeftFlipperKey Then
+  LeftFlipper.RotateToStart
+  stopsound "buzz"
+  if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
+  End If
 
-	If keycode = RightFlipperKey Then
-	RightFlipper.RotateToStart
-	stopsound "buzz"
-	if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
-	End If
+  If keycode = RightFlipperKey Then
+  RightFlipper.RotateToStart
+  stopsound "buzz"
+  if state=true and tilt=false then PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
+  End If
 
 End Sub
 
 sub coindelay_timer
-	playsound "click"
-	credit=credit+1
-	DOF 130, DOFOn
-	if credit>15 then credit=15
-	CreditReel.setvalue credit
+  playsound "click"
+  credit=credit+1
+  DOF 130, DOFOn
+  if credit>15 then credit=15
+  CreditReel.setvalue credit
     coindelay.enabled=false
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	end if
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  end if
 end sub
 
 sub resettimer_timer
@@ -283,12 +283,12 @@ sub resettimer_timer
     reel2.resettozero
     reel3.resettozero
     reel4.resettozero
-	If B2SOn Then
-		Controller.B2SSetScorePlayer1 0
-		Controller.B2SSetScorePlayer2 0
-		Controller.B2SSetScorePlayer3 0
-		Controller.B2SSetScorePlayer4 0
-	end if
+  If B2SOn Then
+    Controller.B2SSetScorePlayer1 0
+    Controller.B2SSetScorePlayer2 0
+    Controller.B2SSetScorePlayer3 0
+    Controller.B2SSetScorePlayer4 0
+  end if
     if rst=14 then
     playsound "kickerkick" ' TODO
     end if
@@ -301,147 +301,147 @@ end sub
 
 sub addscore(points)
     if tilt=false then
-		bell=0
-		if points = 1 or points = 10 or points = 100 then scn=1
-		if points=10 or points=1 then
-			matchnumb=matchnumb+1
-		end if
+    bell=0
+    if points = 1 or points = 10 or points = 100 then scn=1
+    if points=10 or points=1 then
+      matchnumb=matchnumb+1
+    end if
 
-		if matchnumb=10 then matchnumb=0
+    if matchnumb=10 then matchnumb=0
 
-		if score(currpl)>9999 then
-			score(currpl)=score(currpl)-10000
-			rep(currpl)=0
-		end if
+    if score(currpl)>9999 then
+      score(currpl)=score(currpl)-10000
+      rep(currpl)=0
+    end if
 
-		if score(currpl)=>replay1 and rep(currpl)=0 then
-			credit=credit+1
-			DOF 130, DOFOn
-			if credit>15 then credit=15
-			playsound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
-			CreditReel.setvalue credit
-			If B2SOn Then
-				Controller.B2SSetCredits Credit
-			end if
-			rep(currpl)=1
-			playsound "click"
-		end if
+    if score(currpl)=>replay1 and rep(currpl)=0 then
+      credit=credit+1
+      DOF 130, DOFOn
+      if credit>15 then credit=15
+      playsound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
+      CreditReel.setvalue credit
+      If B2SOn Then
+        Controller.B2SSetCredits Credit
+      end if
+      rep(currpl)=1
+      playsound "click"
+    end if
 
     if score(currpl)=>replay2 and rep(currpl)=1 then
-		credit=credit+1
-		DOF 130, DOFOn
-		if credit>15 then credit=15
-		PlaySound SoundFXDOF("knocke",128,DOFPulse,DOFKnocker):DOF 129, DOFPulse
-		CreditReel.setvalue credit
-		If B2SOn Then
-			Controller.B2SSetCredits Credit
-		end if
-		rep(currpl)=2
-		playsound "click"
+    credit=credit+1
+    DOF 130, DOFOn
+    if credit>15 then credit=15
+    PlaySound SoundFXDOF("knocke",128,DOFPulse,DOFKnocker):DOF 129, DOFPulse
+    CreditReel.setvalue credit
+    If B2SOn Then
+      Controller.B2SSetCredits Credit
+    end if
+    rep(currpl)=2
+    playsound "click"
     end if
 
     if score(currpl)=>replay3 and rep(currpl)=2 then
-		credit=credit+1
-		DOF 130, DOFOn
-		if credit>15 then credit=15
-		PlaySound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
-		CreditReel.setvalue credit
-		If B2SOn Then
-			Controller.B2SSetCredits Credit
-		end if
-		rep(currpl)=3
-		playsound "click"
+    credit=credit+1
+    DOF 130, DOFOn
+    if credit>15 then credit=15
+    PlaySound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
+    CreditReel.setvalue credit
+    If B2SOn Then
+      Controller.B2SSetCredits Credit
+    end if
+    rep(currpl)=3
+    playsound "click"
     end if
 
     if score(currpl)=>replay4 and rep(currpl)=3 then
-		credit=credit+1
-		DOF 130, DOFOn
-		if credit>15 then credit=15
-		PlaySound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
-		CreditReel.setvalue credit
-		If B2SOn Then
-			Controller.B2SSetCredits Credit
-		end if
-		rep(currpl)=4
-		playsound "click"
+    credit=credit+1
+    DOF 130, DOFOn
+    if credit>15 then credit=15
+    PlaySound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
+    CreditReel.setvalue credit
+    If B2SOn Then
+      Controller.B2SSetCredits Credit
+    end if
+    rep(currpl)=4
+    playsound "click"
     end if
 
     if points = 100 then
-		reel(currpl).addvalue(100)
-		bell=100
+    reel(currpl).addvalue(100)
+    bell=100
     end if
 
     if points = 10 then
-		reel(currpl).addvalue(10)
-		bell=10
+    reel(currpl).addvalue(10)
+    bell=10
     end if
 
     if points = 1 then
-		reel(currpl).addvalue(1)
-		bell=1
+    reel(currpl).addvalue(1)
+    bell=1
     end if
 
     if points = 500 then
-		reel(currpl).addvalue(500)
-		scn=5
-		bell=100
+    reel(currpl).addvalue(500)
+    scn=5
+    bell=100
     end if
 
     if points = 400 then
-		reel(currpl).addvalue(400)
-		scn=4
-		bell=100
+    reel(currpl).addvalue(400)
+    scn=4
+    bell=100
     end if
 
     if points = 300 then
-		reel(currpl).addvalue(300)
-		scn=3
-		bell=100
+    reel(currpl).addvalue(300)
+    scn=3
+    bell=100
     end if
 
     if points = 200 then
-		reel(currpl).addvalue(200)
-		scn=2
-		bell=100
+    reel(currpl).addvalue(200)
+    scn=2
+    bell=100
     end if
 
     if points = 50 then
-		reel(currpl).addvalue(50)
-		scn=5
-		bell=10
+    reel(currpl).addvalue(50)
+    scn=5
+    bell=10
     end if
 
     if points = 40 then
-		bell=10
-		reel(currpl).addvalue(40)
-		scn=4
-		bell=10
+    bell=10
+    reel(currpl).addvalue(40)
+    scn=4
+    bell=10
     end if
 
     if points = 30 then
-		reel(currpl).addvalue(30)
-		scn=3
-		bell=10
+    reel(currpl).addvalue(30)
+    scn=3
+    bell=10
     end if
 
     if points = 20 then
-		reel(currpl).addvalue(20)
-		scn=2
-		bell=10
+    reel(currpl).addvalue(20)
+    scn=2
+    bell=10
     end if
 
     scn1=0
     scntimer.enabled=true
     score(currpl)=score(currpl)+points
     truesc(currpl)=truesc(currpl)+points
-	If B2SOn Then
-		Controller.B2SSetScore currpl,score(currpl)
-	end if
+  If B2SOn Then
+    Controller.B2SSetScore currpl,score(currpl)
+  end if
   end if
 End Sub
 
 sub upperl1_hit
-	DOF 115, DOFPulse
+  DOF 115, DOFPulse
     if (upper1l.state)=1 then
     addscore 100
     else
@@ -450,7 +450,7 @@ sub upperl1_hit
 end sub
 
 sub upperl2_hit
-	DOF 116, DOFPulse
+  DOF 116, DOFPulse
     if (upper2l.state)=1 then
     addscore 100
     else
@@ -459,7 +459,7 @@ sub upperl2_hit
 end sub
 
 sub upperl3_hit
-	DOF 117, DOFPulse
+  DOF 117, DOFPulse
     if (upper3l.state)=1 then
     addscore 100
     else
@@ -468,7 +468,7 @@ sub upperl3_hit
 end sub
 
 sub upperl4_hit
-	DOF 118, DOFPulse
+  DOF 118, DOFPulse
     if (upper4l.state)=1 then
     addscore 100
     else
@@ -481,7 +481,7 @@ sub upperll1_hit
 end sub
 
 sub upperr2_hit
-	DOF 124, DOFPulse
+  DOF 124, DOFPulse
     if (upperr2l.state)=1 then
     addscore 100
     else
@@ -522,132 +522,132 @@ sub top3_hit
 end sub
 
 sub targetl_hit
-	DOF 121, DOFPulse
+  DOF 121, DOFPulse
     addscore 10
-	advancecreel
+  advancecreel
 end sub
 
 sub targetm_hit
-	DOF 122, DOFPulse
-	if (targetml.state)=1 then
-		addscore (creel*10)
-		upperr2l.state=0
-		targetml.state=0
-		upper1l.state=1
-		upper2l.state=0
-		upper3l.state=1
-		upper4l.state=0
-		bumperlight1.state=0
-		bumperlight2.state=1
-		bumperlight3.state=1
-		bumperlight4.state=0
-		topl1.state=1
-		topl2.state=1
-		topl3.state=1
+  DOF 122, DOFPulse
+  if (targetml.state)=1 then
+    addscore (creel*10)
+    upperr2l.state=0
+    targetml.state=0
+    upper1l.state=1
+    upper2l.state=0
+    upper3l.state=1
+    upper4l.state=0
+    bumperlight1.state=0
+    bumperlight2.state=1
+    bumperlight3.state=1
+    bumperlight4.state=0
+    topl1.state=1
+    topl2.state=1
+    topl3.state=1
     else
-		addscore (creel)
+    addscore (creel)
     end if
 end sub
 
 sub targetr_hit
-	DOF 123, DOFPulse
+  DOF 123, DOFPulse
     addscore 10
-	advancecreel
+  advancecreel
 end sub
 
 sub canon1_hit
     if (canon1l.state)=1 then
-		addscore 10
-		canon1l.state=0
-		canon2l.state=1
-		Bumperlight1.state=0
-		Bumperlight2.state=1
-		Bumperlight3.state=1
-		Bumperlight4.state=0
-		upper1l.state=0
-		upper2l.state=1
-		upper3l.state=0
-		upper4l.state=1
+    addscore 10
+    canon1l.state=0
+    canon2l.state=1
+    Bumperlight1.state=0
+    Bumperlight2.state=1
+    Bumperlight3.state=1
+    Bumperlight4.state=0
+    upper1l.state=0
+    upper2l.state=1
+    upper3l.state=0
+    upper4l.state=1
     else
-		addscore 1
+    addscore 1
     end if
 end sub
 
 sub canon2_hit
     if (canon2l.state)=1 then
-		addscore 10
-		canon2l.state=0
-		canon3l.state=1
-		Bumperlight1.state=1
-		Bumperlight2.state=0
-		Bumperlight3.state=0
-		Bumperlight4.state=1
-		upper1l.state=1
-		upper2l.state=0
-		upper3l.state=1
-		upper4l.state=0
+    addscore 10
+    canon2l.state=0
+    canon3l.state=1
+    Bumperlight1.state=1
+    Bumperlight2.state=0
+    Bumperlight3.state=0
+    Bumperlight4.state=1
+    upper1l.state=1
+    upper2l.state=0
+    upper3l.state=1
+    upper4l.state=0
     else
-		addscore 1
+    addscore 1
     end if
 end sub
 
 sub canon3_hit
     if (canon3l.state)=1 then
-		addscore 10
-		canon3l.state=0
-		canon4l.state=1
-		Bumperlight1.state=0
-		Bumperlight2.state=1
-		Bumperlight3.state=1
-		Bumperlight4.state=0
-		upper1l.state=0
-		upper2l.state=1
-		upper3l.state=0
-		upper4l.state=1
+    addscore 10
+    canon3l.state=0
+    canon4l.state=1
+    Bumperlight1.state=0
+    Bumperlight2.state=1
+    Bumperlight3.state=1
+    Bumperlight4.state=0
+    upper1l.state=0
+    upper2l.state=1
+    upper3l.state=0
+    upper4l.state=1
     else
-		addscore 1
+    addscore 1
     end if
 end sub
 
 sub canon4_hit
     if (canon4l.state)=1 then
-		addscore 10
-		canon4l.state=0
-		canon5l.state=1
-		Bumperlight1.state=1
-		Bumperlight2.state=1
-		Bumperlight3.state=1
-		Bumperlight4.state=1
-		upper1l.state=1
-		upper2l.state=1
-		upper3l.state=1
-		upper4l.state=1
-		upperr2l.state=1
-		LeftOutlanel1.state=1
-		RightOutlanel1.state=1
-		ebll.state=1
+    addscore 10
+    canon4l.state=0
+    canon5l.state=1
+    Bumperlight1.state=1
+    Bumperlight2.state=1
+    Bumperlight3.state=1
+    Bumperlight4.state=1
+    upper1l.state=1
+    upper2l.state=1
+    upper3l.state=1
+    upper4l.state=1
+    upperr2l.state=1
+    LeftOutlanel1.state=1
+    RightOutlanel1.state=1
+    ebll.state=1
     else
-		addscore 1
+    addscore 1
     end if
 end sub
 
 sub canon5_hit
     if (canon5l.state)=1 then
-		addscore 10
-		canon5l.state=0
-		canon1l.state=1
-		LeftOutlanel1.state=0
-		RightOutlanel1.state=0
-		ebll.state=0
-		upperr2l.state=1
-		targetml.state=1
+    addscore 10
+    canon5l.state=0
+    canon1l.state=1
+    LeftOutlanel1.state=0
+    RightOutlanel1.state=0
+    ebll.state=0
+    upperr2l.state=1
+    targetml.state=1
     else
-		addscore 1
+    addscore 1
     end if
 end sub
 
 sub ebl_hit
-	DOF 131, DOFPulse
+  DOF 131, DOFPulse
     if (ebll.state)=1 then
     shootagain.state=1
     ebll.state=0
@@ -656,7 +656,7 @@ end sub
 
 
 sub LeftOutlane_hit
-	DOF 119, DOFPulse
+  DOF 119, DOFPulse
     if (LeftOutlanel1.state)=1 then
     addscore 300
     else
@@ -665,7 +665,7 @@ sub LeftOutlane_hit
 end sub
 
 sub RightOutlane_hit
-	DOF 120, DOFPulse
+  DOF 120, DOFPulse
     if (RightOutlanel1.state)=1 then
     addscore 300
     else
@@ -674,13 +674,13 @@ sub RightOutlane_hit
 end sub
 
 Sub LeftSlingShot_Slingshot()
-	if tilt=false then PlaySoundAtVol SoundFXDOF("slingshot",103,DOFPulse,DOFContactors), ActiveBall, 1:DOF 104, DOFPulse
+  if tilt=false then PlaySoundAtVol SoundFXDOF("slingshot",103,DOFPulse,DOFContactors), ActiveBall, 1:DOF 104, DOFPulse
     addscore 1
 End Sub
 
 Sub RightSlingShot_Slingshot()
-	if tilt=false then PlaySoundAtVol SoundFXDOF("slingshot",105,DOFPulse,DOFContactors), ActiveBall, 1:DOF 106, DOFPulse
-	addscore 1
+  if tilt=false then PlaySoundAtVol SoundFXDOF("slingshot",105,DOFPulse,DOFContactors), ActiveBall, 1:DOF 106, DOFPulse
+  addscore 1
 End Sub
 
 sub bumper1_hit
@@ -705,7 +705,7 @@ end sub
 
 sub LeftSlingShot1_Slingshot()
     addscore 1
-	advancecreel
+  advancecreel
 end sub
 
 sub LeftSlingShot2_Slingshot()
@@ -722,7 +722,7 @@ end sub
 
 sub RightSlingShot1_Slingshot()
     addscore 1
-	advancecreel
+  advancecreel
 end sub
 
 sub RightSlingShot2_Slingshot()
@@ -732,281 +732,281 @@ end sub
 sub advancecreel
     creel=creel+10
     if creel>50 then creel=10
-	CRtimer.enabled=1
+  CRtimer.enabled=1
 end sub
 
 Sub CRTimer_Timer()
-	DOF 132, DOFPulse
-	CreelP.RotX = CreelP.rotx+6
-	If CreelP.RotX = 360 Then:CRTimer.Enabled=0:CreelP.RotX=0:End If
-	If CreelP.RotX =  36 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX =  72 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 108 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 144 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 180 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 216 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 252 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 288 Then:CRTimer.Enabled=0:End If
-	If CreelP.RotX = 324 Then:CRTimer.Enabled=0:End If
+  DOF 132, DOFPulse
+  CreelP.RotX = CreelP.rotx+6
+  If CreelP.RotX = 360 Then:CRTimer.Enabled=0:CreelP.RotX=0:End If
+  If CreelP.RotX =  36 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX =  72 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 108 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 144 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 180 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 216 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 252 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 288 Then:CRTimer.Enabled=0:End If
+  If CreelP.RotX = 324 Then:CRTimer.Enabled=0:End If
 End Sub
 
 sub newgame
-	state=true
-	rep(1)=0
-	rep(2)=0
-	rep(3)=0
-	rep(4)=0
-	eg=0
-	score(1)=0
-	score(2)=0
-	score(3)=0
-	score(4)=0
-	truesc(1)=0
-	truesc(2)=0
-	truesc(3)=0
-	truesc(4)=0
-	bumper1.hashitevent=1
-	bumper2.hashitevent=1
-	bumper3.hashitevent=1
-	bumper4.hashitevent=1
-	bumperlight1.state=1
-	bumperlight2.state=0
-	bumperlight3.state=0
-	bumperlight4.state=1
-	canon1l.state=1
-	canon2l.state=0
-	canon3l.state=0
-	canon4l.state=0
-	canon5l.state=0
-	upper1l.state=1
-	upper2l.state=0
-	upper3l.state=1
-	upper4l.state=0
-	topl1.state=1
-	topl2.state=1
-	topl3.state=1
-	upperr2l.state=0
-	shootagain.state=0
-	ebll.state=0
-	LeftOutlanel1.state=0
-	RightOutlanel1.state=0
-	targetml.state=0
-	BIPReel.setvalue 1
-	MatchReel.setvalue 10
-	TiltReel.setvalue 0
-	GameOverReel.setvalue 0
-	tilt=false
-	tiltsens=0
-	ballinplay=1
-	nb.CreateBall
-	nb.kick 90,6
-	If B2SOn then Controller.B2SSetBallInPlay 1
+  state=true
+  rep(1)=0
+  rep(2)=0
+  rep(3)=0
+  rep(4)=0
+  eg=0
+  score(1)=0
+  score(2)=0
+  score(3)=0
+  score(4)=0
+  truesc(1)=0
+  truesc(2)=0
+  truesc(3)=0
+  truesc(4)=0
+  bumper1.hashitevent=1
+  bumper2.hashitevent=1
+  bumper3.hashitevent=1
+  bumper4.hashitevent=1
+  bumperlight1.state=1
+  bumperlight2.state=0
+  bumperlight3.state=0
+  bumperlight4.state=1
+  canon1l.state=1
+  canon2l.state=0
+  canon3l.state=0
+  canon4l.state=0
+  canon5l.state=0
+  upper1l.state=1
+  upper2l.state=0
+  upper3l.state=1
+  upper4l.state=0
+  topl1.state=1
+  topl2.state=1
+  topl3.state=1
+  upperr2l.state=0
+  shootagain.state=0
+  ebll.state=0
+  LeftOutlanel1.state=0
+  RightOutlanel1.state=0
+  targetml.state=0
+  BIPReel.setvalue 1
+  MatchReel.setvalue 10
+  TiltReel.setvalue 0
+  GameOverReel.setvalue 0
+  tilt=false
+  tiltsens=0
+  ballinplay=1
+  nb.CreateBall
+  nb.kick 90,6
+  If B2SOn then Controller.B2SSetBallInPlay 1
 end sub
 
 Sub Drain_Hit()
-	DOF 125, DOFPulse
-	playsoundAtVol "drainshorter", Drain, 1
-	Drain.DestroyBall
-	nextball
+  DOF 125, DOFPulse
+  playsoundAtVol "drainshorter", Drain, 1
+  Drain.DestroyBall
+  nextball
 End Sub
 
 sub nextball
-	if tilt=true then
-		tilt=false
-		If B2SOn Then Controller.B2SSetTilt 0
-		TiltReel.setvalue 0
-		bumper1.hashitevent=1
-		bumper2.hashitevent=1
-		bumper3.hashitevent=1
-		bumper4.hashitevent=1
-		bumperlight1.state=1
-		bumperlight2.state=0
-		bumperlight3.state=0
-		bumperlight4.state=1
-'		canon1l.state=1
-'		canon2l.state=0
-'		canon3l.state=0
-'		canon4l.state=0
-'		canon5l.state=0
-		upperr2l.state=0
-		shootagain.state=0
-		LeftOutlanel1.state=0
-		RightOutlanel1.state=0
-		topl1.state=1
-		topl2.state=1
-		topl3.state=1
-		upper1l.state=1
-		upper2l.state=0
-		upper3l.state=1
-		upper4l.state=0
-		ebll.state=0
-		targetml.state=0
-		tiltseq.stopplay
-	end if
+  if tilt=true then
+    tilt=false
+    If B2SOn Then Controller.B2SSetTilt 0
+    TiltReel.setvalue 0
+    bumper1.hashitevent=1
+    bumper2.hashitevent=1
+    bumper3.hashitevent=1
+    bumper4.hashitevent=1
+    bumperlight1.state=1
+    bumperlight2.state=0
+    bumperlight3.state=0
+    bumperlight4.state=1
+'   canon1l.state=1
+'   canon2l.state=0
+'   canon3l.state=0
+'   canon4l.state=0
+'   canon5l.state=0
+    upperr2l.state=0
+    shootagain.state=0
+    LeftOutlanel1.state=0
+    RightOutlanel1.state=0
+    topl1.state=1
+    topl2.state=1
+    topl3.state=1
+    upper1l.state=1
+    upper2l.state=0
+    upper3l.state=1
+    upper4l.state=0
+    ebll.state=0
+    targetml.state=0
+    tiltseq.stopplay
+  end if
 
-	if (shootagain.state)=1 then
-	playsound SoundFXDOF("kickerkick",126, DOFPulse,DOFContactors)
-	newball
-	ballreltimer.enabled=true
-	else
-	currpl=currpl+1
-	If B2SOn Then
-		Controller.B2SSetData 81,0
-		Controller.B2SSetData 82,0
-		Controller.B2SSetData 83,0
-		Controller.B2SSetData 84,0
-		Controller.B2SSetData (80+currpl),1
-	end If
-	end if
+  if (shootagain.state)=1 then
+  playsound SoundFXDOF("kickerkick",126, DOFPulse,DOFContactors)
+  newball
+  ballreltimer.enabled=true
+  else
+  currpl=currpl+1
+  If B2SOn Then
+    Controller.B2SSetData 81,0
+    Controller.B2SSetData 82,0
+    Controller.B2SSetData 83,0
+    Controller.B2SSetData 84,0
+    Controller.B2SSetData (80+currpl),1
+  end If
+  end if
 
-	if currpl>playno then
-	ballinplay=ballinplay+1
-	if ballinplay>5 then
-	playsound "motorleer"
-	If B2SOn then Controller.B2SSetBallInPlay 0
-	eg=1
-	ballreltimer.enabled=true
-	else
-	if state=true and tilt=false then
+  if currpl>playno then
+  ballinplay=ballinplay+1
+  if ballinplay>5 then
+  playsound "motorleer"
+  If B2SOn then Controller.B2SSetBallInPlay 0
+  eg=1
+  ballreltimer.enabled=true
+  else
+  if state=true and tilt=false then
 
-	play(currpl-1).state=0
-	currpl=1
-	play(currpl).state=1
-	If B2SOn Then
-		Controller.B2SSetData 81,0
-		Controller.B2SSetData 82,0
-		Controller.B2SSetData 83,0
-		Controller.B2SSetData 84,0
-		Controller.B2SSetData (80+currpl),1
-	end If
-	newball
-	playsound "kickerkick"
-	ballreltimer.enabled=true
-	end if
-	If B2SOn then Controller.B2SSetBallInPlay ballinplay
-	BIPReel.setvalue ballinplay
-	end if
-	end if
-	if currpl>1 and currpl<(playno+1) then
-	if state=true and tilt=false then
-	play(currpl-1).state=0
-	play(currpl).state=1
-	If B2SOn Then
-		Controller.B2SSetData 81,0
-		Controller.B2SSetData 82,0
-		Controller.B2SSetData 83,0
-		Controller.B2SSetData 84,0
-		Controller.B2SSetData (80+currpl),1
-	end If
-	newball
-	playsound "kickerkick"
-	ballreltimer.enabled=true
-	end if
-	end if
+  play(currpl-1).state=0
+  currpl=1
+  play(currpl).state=1
+  If B2SOn Then
+    Controller.B2SSetData 81,0
+    Controller.B2SSetData 82,0
+    Controller.B2SSetData 83,0
+    Controller.B2SSetData 84,0
+    Controller.B2SSetData (80+currpl),1
+  end If
+  newball
+  playsound "kickerkick"
+  ballreltimer.enabled=true
+  end if
+  If B2SOn then Controller.B2SSetBallInPlay ballinplay
+  BIPReel.setvalue ballinplay
+  end if
+  end if
+  if currpl>1 and currpl<(playno+1) then
+  if state=true and tilt=false then
+  play(currpl-1).state=0
+  play(currpl).state=1
+  If B2SOn Then
+    Controller.B2SSetData 81,0
+    Controller.B2SSetData 82,0
+    Controller.B2SSetData 83,0
+    Controller.B2SSetData 84,0
+    Controller.B2SSetData (80+currpl),1
+  end If
+  newball
+  playsound "kickerkick"
+  ballreltimer.enabled=true
+  end if
+  end if
 end Sub
 
 sub ballreltimer_timer
-	if eg=1 then
-	matchnum
-	BIPReel.setvalue 0
-	state=false
-	for i=1 to 4
-	if truesc(i)>hisc then
-	hisc=truesc(i)
-	hisctxt.text=hisc
-	end if
-	next
-	play(currpl-1).state=0
-	playno=0
-	GameOverReel.setvalue 1
-	If B2SOn Then
-		Controller.B2SSetGameOver 1
-	end if
-	savehs
-	ballreltimer.enabled=false
-	else
-	nb.CreateBall
-	nb.kick 90,6
-	ballreltimer.enabled=false
-	end if
+  if eg=1 then
+  matchnum
+  BIPReel.setvalue 0
+  state=false
+  for i=1 to 4
+  if truesc(i)>hisc then
+  hisc=truesc(i)
+  hisctxt.text=hisc
+  end if
+  next
+  play(currpl-1).state=0
+  playno=0
+  GameOverReel.setvalue 1
+  If B2SOn Then
+    Controller.B2SSetGameOver 1
+  end if
+  savehs
+  ballreltimer.enabled=false
+  else
+  nb.CreateBall
+  nb.kick 90,6
+  ballreltimer.enabled=false
+  end if
 end sub
 
 sub newball
-'	canon1l.state=1
-'	canon2l.state=0
-'	canon3l.state=0
-'	canon4l.state=0
-'	canon5l.state=0
-	upper1l.state=0
-	upper2l.state=0
-	upper3l.state=0
-	upper4l.state=0
-	topl1.state=1
-	topl2.state=1
-	topl3.state=1
-	bumperlight1.state=1
-	bumperlight2.state=0
-	bumperlight3.state=0
-	bumperlight4.state=1
-	upper1l.state=1
-	upper2l.state=0
-	upper3l.state=1
-	upper4l.state=0
-	upperr2l.state=0
-	shootagain.state=0
-	LeftOutlanel1.state=0
-	RightOutlanel1.state=0
-	ebll.state=0
-	targetml.state=0
+' canon1l.state=1
+' canon2l.state=0
+' canon3l.state=0
+' canon4l.state=0
+' canon5l.state=0
+  upper1l.state=0
+  upper2l.state=0
+  upper3l.state=0
+  upper4l.state=0
+  topl1.state=1
+  topl2.state=1
+  topl3.state=1
+  bumperlight1.state=1
+  bumperlight2.state=0
+  bumperlight3.state=0
+  bumperlight4.state=1
+  upper1l.state=1
+  upper2l.state=0
+  upper3l.state=1
+  upper4l.state=0
+  upperr2l.state=0
+  shootagain.state=0
+  LeftOutlanel1.state=0
+  RightOutlanel1.state=0
+  ebll.state=0
+  targetml.state=0
 end sub
 
 sub matchnum
 
-	MatchReel.setvalue matchnumb
-	If B2SOn Then
+  MatchReel.setvalue matchnumb
+  If B2SOn Then
 
-		if matchnumb=0 then
-			Controller.B2SSetMatch 10
-		else
-			Controller.B2SSetMatch matchnumb
-		end if
-	end if
+    if matchnumb=0 then
+      Controller.B2SSetMatch 10
+    else
+      Controller.B2SSetMatch matchnumb
+    end if
+  end if
     for i=1 to playno
     if (matchnumb*10)=(score(i) mod 10) then
     credit=credit+1
-	DOF 130, DOFOn
-	if credit>15 then credit=15
-	If B2SOn Then
-		Controller.B2SSetCredits Credit
-	end if
+  DOF 130, DOFOn
+  if credit>15 then credit=15
+  If B2SOn Then
+    Controller.B2SSetCredits Credit
+  end if
     PlaySound SoundFXDOF("knocke",128, DOFPulse,DOFKnocker):DOF 129, DOFPulse
-	CreditReel.setvalue credit
+  CreditReel.setvalue credit
     playsound "click"
     end if
     next
 end sub
 
 Sub CheckTilt
-	If Tilttimer.Enabled = True Then
-		TiltSens = TiltSens + 1
-		if TiltSens = 3 Then GameTilted
-	Else
-		TiltSens = 0
-		Tilttimer.Enabled = True
-	End If
+  If Tilttimer.Enabled = True Then
+    TiltSens = TiltSens + 1
+    if TiltSens = 3 Then GameTilted
+  Else
+    TiltSens = 0
+    Tilttimer.Enabled = True
+  End If
 End Sub
 
 Sub Tilttimer_Timer()
-	Tilttimer.Enabled = False
+  Tilttimer.Enabled = False
 End Sub
 
 Sub GameTilted
-	Tilt = True
-	TiltReel.setvalue 1
-			tiltsens = 0
-	If B2SOn Then Controller.B2SSetTilt 1
-	playsound "tilt"
-	turnoff
+  Tilt = True
+  TiltReel.setvalue 1
+      tiltsens = 0
+  If B2SOn Then Controller.B2SSetTilt 1
+  playsound "tilt"
+  turnoff
 End Sub
 
 sub turnoff
@@ -1026,12 +1026,12 @@ sub savehs
     savevalue "JollyRoger", "score2", score(2)
     savevalue "JollyRoger", "score3", score(3)
     savevalue "JollyRoger", "score4", score(4)
-	savevalue "JollyRoger", "creel", creel
+  savevalue "JollyRoger", "creel", creel
 end sub
 
 sub loadhs
     dim temp
-	temp = LoadValue("JollyRoger", "credit")
+  temp = LoadValue("JollyRoger", "credit")
     If (temp <> "") then credit = CDbl(temp)
     temp = LoadValue("JollyRoger", "hiscore")
     If (temp <> "") then hisc = CDbl(temp)
@@ -1054,7 +1054,7 @@ sub ballhome_hit
 end sub
 
 Sub Shooter_Unhit
-	DOF 127, DOFPulse
+  DOF 127, DOFPulse
 End Sub
 
 sub ballout_hit
@@ -1070,9 +1070,9 @@ sub ballrel_hit
 end sub
 
 Sub JollyRoger_Exit()
-	Savehs
-	turnoff
-	If B2SOn Then Controller.stop
+  Savehs
+  turnoff
+  If B2SOn Then Controller.stop
 End Sub
 
 
@@ -1154,89 +1154,89 @@ Dim RStep, Lstep
 ' depending of the speed of the collision.
 
 Sub a_Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub a_Spinner_Spin
-	PlaySoundAtVol "fx_spinner", a_Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", a_Spinner, VolSpin
 End Sub
 
 
 Sub a_Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RubberWheel_hit
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End sub
 
 Sub a_Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************
@@ -1357,16 +1357,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

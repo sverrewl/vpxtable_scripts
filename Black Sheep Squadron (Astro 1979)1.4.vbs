@@ -55,7 +55,7 @@ Dim DesktopMode: DesktopMode = Table1.ShowDT
  Solcallback(5) = "vpmSolSound SoundFX(""ChimeExtra"",DOFChimes),"
  SolCallback(6) = "vpmSolSound SoundFX(""knocker"",DOFKnocker),"
  SolCallback(7) = "bsTrough.SolOut"
- SolCallBack(10) = "SolSaucer"		'"bsSaucer.SolOut"
+ SolCallBack(10) = "SolSaucer"    '"bsSaucer.SolOut"
  SolCallback(19) = "vpmNudge.SolGameOn"
 
 '**************

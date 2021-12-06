@@ -294,19 +294,19 @@ Sub SMagnet_Hit
 End Sub
 
 Sub SMagnet_unHit
-	Controller.Switch(23) = 0
-	mShrunkenMag.RemoveBall ActiveBall
+  Controller.Switch(23) = 0
+  mShrunkenMag.RemoveBall ActiveBall
 End Sub
 
 Sub SolUpperMagnet(Enabled)
-	Dim ball
+  Dim ball
     If Enabled Then
         mShrunkenMag.MagnetOn = 1
     Else
         mShrunkenMag.MagnetOn = 0
-		For Each ball in mShrunkenMag.Balls
-			ball.VelY = -19
-		Next
+    For Each ball in mShrunkenMag.Balls
+      ball.VelY = -19
+    Next
     End If
 End Sub
 
@@ -901,17 +901,17 @@ End Sub
 Sub RSound1_Hit:PlaySoundAtVol "fx_metalrolling", ActiveBall, VolMetal:End Sub
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 
 End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -930,11 +930,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else

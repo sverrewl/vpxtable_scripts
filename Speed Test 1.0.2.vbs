@@ -321,7 +321,7 @@ SolCallback(7) = "dtbankCenter.SolHit 1,"
 SolCallback(8) = "dtbankCenter.SolHit 2,"
 SolCallback(9) = "dtbankCenter.SolHit 3,"
 SolCallback(10) = "dtbankCenter.SolHit 4,"
-SolCallback(12)	= "dtbankCenter.SolDropUp"
+SolCallback(12) = "dtbankCenter.SolDropUp"
 SolCallback(17) = "SolGi" '17=relay
 SolCallback(18) = "vpmNudge.SolGameOn"
 

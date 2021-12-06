@@ -115,8 +115,8 @@ Sub Fireball2_Init
     vpmNudge.Sensitivity = 3
     vpmNudge.TiltObj = Array(Bumper1B, Bumper2B, Bumper3B, LeftSlingshot, RightSlingshot)
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
 
     ' Trough
@@ -186,7 +186,7 @@ Sub SolPostKicker(enabled)
      rubberpost.IsDropped = 1
      PostKicker4.Visible = 1:PostKicker1.Visible = 0:PostKicker.TransZ = 20
      Plunger1.Fire
-	 PlaySound"fx_popper"
+   PlaySound"fx_popper"
    Else
      PostKicker4.Visible = 0:PostKicker1.Visible = 1:PostKicker.TransZ = 0
      rubberpost.IsDropped = 0
@@ -198,13 +198,13 @@ End Sub
 
 
 Sub SolFireballEnable(Enabled)
-	If Enabled Then
-		KickerBottom1.Kick 0,15
-		PlaySound"fx_kicker"
+  If Enabled Then
+    KickerBottom1.Kick 0,15
+    PlaySound"fx_kicker"
         FFireball.state = 1
      Else
         FFireball.state = 0
-	End If
+  End If
 End Sub
 
 
@@ -453,68 +453,68 @@ End Sub
 
 Sub UpdateLamps
 '    On Error Resume Next
-	nFadeL 1, Light1
-	nFadeL 2, Light2
-	nFadeL 3, Light3
-	nFadeL 4, Light4
-	nFadeL 5, Light5
-	nFadeL 6, Light6
-	nFadeL 7, Light7
-	nFadeL 8, Light8
-	nFadeL 12, Light12
-	nFadeLm 15, Light15
-	NFadeLm 15, Light15a
-	nFadeL 17, Light17
-	nFadeL 18, Light18
-	nFadeL 19, Light19
-	nFadeL 20, Light20
-	nFadeL 21, Light21
-	nFadeL 22, Light22
-	nFadeL 23, Light23
-	nFadeL 24, Light24
-	nFadeL 28, Light28
-	nFadeLm 31, Light31
-	nFadeLm 31, Light31a
-	nFadeL 33, Light33
-	nFadeL 34, Light34
-	nFadeL 35, Light35
-	nFadeL 36, Light36
-	nFadeL 37, Light37
-	nFadeL 38, Light38
-	nFadeL 39, Light39
-	nFadeL 40, Light40
-	nFadeL 41, Light41
-	nFadeL 42, Light42
-	nFadeL 43, Light43
-	nFadeL 44, Light44
-	nFadeL 46, Light46
-	nFadeLm 47, Light47
-	nFadeLm 47, Light47a
-	nFadeL 49, Light49
-	nFadeL 50, Light50
-	nFadeL 51, Light51
-	nFadeL 52, Light52
-	nFadeL 53, Light53
-	nFadeL 54, Light54
-	nFadeL 55, Light55
-	nFadeL 56, Light56
-	nFadeL 57, Light57
-	nFadeL 58, Light58
-	nFadeL 59, Light59
-	nFadeL 60, Light60
-	nFadeL 62, Light62
-	nFadeL 65, Light65
-	nFadeL 66, Light66
-	nFadeL 67, Light67
-	nFadeL 81, Light81
-	nFadeL 82, Light82
-	nFadeL 83, Light83
-	nFadeL 97, Light97
-	nFadeL 98, Light98
-	nFadeL 99, Light99
-	nFadeL 113, Light113
-	nFadeL 114, Light114
-	nFadeL 115, Light115
+  nFadeL 1, Light1
+  nFadeL 2, Light2
+  nFadeL 3, Light3
+  nFadeL 4, Light4
+  nFadeL 5, Light5
+  nFadeL 6, Light6
+  nFadeL 7, Light7
+  nFadeL 8, Light8
+  nFadeL 12, Light12
+  nFadeLm 15, Light15
+  NFadeLm 15, Light15a
+  nFadeL 17, Light17
+  nFadeL 18, Light18
+  nFadeL 19, Light19
+  nFadeL 20, Light20
+  nFadeL 21, Light21
+  nFadeL 22, Light22
+  nFadeL 23, Light23
+  nFadeL 24, Light24
+  nFadeL 28, Light28
+  nFadeLm 31, Light31
+  nFadeLm 31, Light31a
+  nFadeL 33, Light33
+  nFadeL 34, Light34
+  nFadeL 35, Light35
+  nFadeL 36, Light36
+  nFadeL 37, Light37
+  nFadeL 38, Light38
+  nFadeL 39, Light39
+  nFadeL 40, Light40
+  nFadeL 41, Light41
+  nFadeL 42, Light42
+  nFadeL 43, Light43
+  nFadeL 44, Light44
+  nFadeL 46, Light46
+  nFadeLm 47, Light47
+  nFadeLm 47, Light47a
+  nFadeL 49, Light49
+  nFadeL 50, Light50
+  nFadeL 51, Light51
+  nFadeL 52, Light52
+  nFadeL 53, Light53
+  nFadeL 54, Light54
+  nFadeL 55, Light55
+  nFadeL 56, Light56
+  nFadeL 57, Light57
+  nFadeL 58, Light58
+  nFadeL 59, Light59
+  nFadeL 60, Light60
+  nFadeL 62, Light62
+  nFadeL 65, Light65
+  nFadeL 66, Light66
+  nFadeL 67, Light67
+  nFadeL 81, Light81
+  nFadeL 82, Light82
+  nFadeL 83, Light83
+  nFadeL 97, Light97
+  nFadeL 98, Light98
+  nFadeL 99, Light99
+  nFadeL 113, Light113
+  nFadeL 114, Light114
+  nFadeL 115, Light115
 
 End Sub
 
@@ -654,29 +654,29 @@ Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(Acti
 'Bally Fireball 2
 'added by Inkochnito
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 700,400,"Fireball II - DIP switches"
-		.AddChk 7,10,180,Array("Match feature",&H08000000)'dip 28
-		.AddChk 205,10,115,Array("Credits display",&H04000000)'dip 27
-		.AddFrame 2,30,190,"Maximum credits",&H03000000,Array("10 credits",0,"15 credits",&H01000000,"25 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
-		.AddFrame 2,106,190,"Outlane special lites",&H00000020,Array("after doomsday special is collected",0,"with doomsday special",&H00000020)'dip 6
-		.AddFrame 2,152,190,"Making C or D lane",&H00000040,Array("only puts that lane out",0,"puts both lites out",&H00000040)'dip 7
-		.AddFrame 2,198,190,"Doomsday special lite",&H00000080,Array("collect special after 2nd 39,000",0,"collect special after 1st 39,000",&H00000080)'dip 8
-		.AddFrame 2,244,190,"Fireball bonus units limit",&H00002000,Array("12 units",0,"23 units",&H00002000)'dip 14
-		.AddFrame 2,290,190,"Center 15,000 lite adjust",&H00004000,Array("15,000 is off at start of game",0,"15,000 is on at start of game",&H00004000)'dip 15
-		.AddFrame 2,336,190,"Game over attract",32768,Array("no voice",0,"voice says: Fireball awaits you",32768)'dip 16
-		.AddFrame 205,30,190,"Balls per game",&HC0000000,Array("2 balls",&HC0000000,"3 balls",0,"4 balls",&H80000000,"5 balls",&H40000000)'dip 31&32
-		.AddFrame 205,106,190,"Fireball 2X,3X,4X,5X bonus lite",&H00100000,Array("will reset each ball",0,"in memory",&H00100000)'dip 21
-		.AddFrame 205,152,190,"Odin and Wotan saucer arrow",&H00200000,Array("will reset each ball",0,"in memory",&H00200000)'dip 22
-		.AddFrame 205,198,190,"Odin and Wotan3 target arrow lite",&H00400000,Array("will reset each ball",0,"in memory",&H00400000)'dip 23
-		.AddFrame 205,244,190,"A-B-C-D land arrow lite",&H00800000,Array("will reset each ball",0,"in memory",&H00800000)'dip 24
-		.AddFrame 205,290,190,"Replay limit",&H10000000,Array("1 replay per game",0,"unlimited replays",&H10000000)'dip 29
-		.AddFrame 205,336,190,"Collect Fireball bonus in outhole adjust",&H20000000,Array("only regular bonus collected",0,"Fireball and regular bonus collected",&H20000000)'dip 30
-		.AddLabel 50,400,350,20,"Set selftest position 16,17,18 and 19 to 03 for the best gameplay."
-		.AddLabel 50,420,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 700,400,"Fireball II - DIP switches"
+    .AddChk 7,10,180,Array("Match feature",&H08000000)'dip 28
+    .AddChk 205,10,115,Array("Credits display",&H04000000)'dip 27
+    .AddFrame 2,30,190,"Maximum credits",&H03000000,Array("10 credits",0,"15 credits",&H01000000,"25 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
+    .AddFrame 2,106,190,"Outlane special lites",&H00000020,Array("after doomsday special is collected",0,"with doomsday special",&H00000020)'dip 6
+    .AddFrame 2,152,190,"Making C or D lane",&H00000040,Array("only puts that lane out",0,"puts both lites out",&H00000040)'dip 7
+    .AddFrame 2,198,190,"Doomsday special lite",&H00000080,Array("collect special after 2nd 39,000",0,"collect special after 1st 39,000",&H00000080)'dip 8
+    .AddFrame 2,244,190,"Fireball bonus units limit",&H00002000,Array("12 units",0,"23 units",&H00002000)'dip 14
+    .AddFrame 2,290,190,"Center 15,000 lite adjust",&H00004000,Array("15,000 is off at start of game",0,"15,000 is on at start of game",&H00004000)'dip 15
+    .AddFrame 2,336,190,"Game over attract",32768,Array("no voice",0,"voice says: Fireball awaits you",32768)'dip 16
+    .AddFrame 205,30,190,"Balls per game",&HC0000000,Array("2 balls",&HC0000000,"3 balls",0,"4 balls",&H80000000,"5 balls",&H40000000)'dip 31&32
+    .AddFrame 205,106,190,"Fireball 2X,3X,4X,5X bonus lite",&H00100000,Array("will reset each ball",0,"in memory",&H00100000)'dip 21
+    .AddFrame 205,152,190,"Odin and Wotan saucer arrow",&H00200000,Array("will reset each ball",0,"in memory",&H00200000)'dip 22
+    .AddFrame 205,198,190,"Odin and Wotan3 target arrow lite",&H00400000,Array("will reset each ball",0,"in memory",&H00400000)'dip 23
+    .AddFrame 205,244,190,"A-B-C-D land arrow lite",&H00800000,Array("will reset each ball",0,"in memory",&H00800000)'dip 24
+    .AddFrame 205,290,190,"Replay limit",&H10000000,Array("1 replay per game",0,"unlimited replays",&H10000000)'dip 29
+    .AddFrame 205,336,190,"Collect Fireball bonus in outhole adjust",&H20000000,Array("only regular bonus collected",0,"Fireball and regular bonus collected",&H20000000)'dip 30
+    .AddLabel 50,400,350,20,"Set selftest position 16,17,18 and 19 to 03 for the best gameplay."
+    .AddLabel 50,420,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
@@ -731,21 +731,21 @@ Digits(30) = Array(LED39,LED37,LED48,LED49,LED47,LED29,LED38)
 Digits(31) = Array(LED67,LED58,LED69,LED77,LED68,LED57,LED59)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
 If Not IsEmpty(ChgLED) Then
-		If DesktopMode = True Then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 32) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
-			end if
-		next
-		end if
+    If DesktopMode = True Then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 32) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
+      end if
+    next
+    end if
 end if
 End Sub
 

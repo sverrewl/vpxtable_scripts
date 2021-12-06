@@ -50,11 +50,11 @@ Dim UltraDMD
 Sub LoadUltraDMD
     Set UltraDMD = CreateObject("UltraDMD.DMDObject")
     UltraDMD.Init
-	uDMDScoreTimer.Enabled = 1
+  uDMDScoreTimer.Enabled = 1
 End Sub
 
 Sub uDMDScoreTimer_Timer
-	UltraDMD.DisplayScoreboard PlayersPlayingGame, CurrentPlayer, Score(1), Score(2), Score(3), Score(4), "Ball " & Balls, "Credits " & Credits
+  UltraDMD.DisplayScoreboard PlayersPlayingGame, CurrentPlayer, Score(1), Score(2), Score(3), Score(4), "Ball " & Balls, "Credits " & Credits
 End Sub
 
 Const cGameName = "jp_ghostbusters"
@@ -285,7 +285,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                         DMD "", eNone, "_", eNone, CenterLine(2, PlayersPlayingGame & " PLAYERS"), eBlink, "", eNone, 500, True, ""
                     Else
                         ' Not Enough Credits to start a game.
-						DOF 140, DOFOff
+            DOF 140, DOFOff
                         DMDFlush
                         DMD "", eNone, CenterLine(1, "CREDITS " & Credits), eNone, CenterLine(2, "INSERT COIN"), eNone, "", eNone, 500, True, ""
                     End If
@@ -307,7 +307,7 @@ Sub Table1_KeyDown(ByVal Keycode)
                         End If
                     Else
                         ' Not Enough Credits to start a game.
-						DOF 140, DOFOff
+            DOF 140, DOFOff
                         DMDFlush
                         DMD "", eNone, CenterLine(1, "CREDITS " & Credits), eNone, CenterLine(2, "INSERT COIN"), eBlink, "", eNone, 500, True, ""
                         ShowTableInfo
@@ -381,14 +381,14 @@ End Sub
 
 Sub table1_Exit
   Savehs
-	Controller.Pause = False
-	Controller.Stop
-	If Not UltraDMD is Nothing Then
-		If UltraDMD.IsRendering Then
-			UltraDMD.CancelRendering
-		End If
-		UltraDMD = NULL
-	End If
+  Controller.Pause = False
+  Controller.Stop
+  If Not UltraDMD is Nothing Then
+    If UltraDMD.IsRendering Then
+      UltraDMD.CancelRendering
+    End If
+    UltraDMD = NULL
+  End If
 End Sub
 
 '********************
@@ -1335,9 +1335,9 @@ Sub AddJackpot(points) 'not used in this table
 ' If(bMultiBallMode = True) Then
 ' Jackpot = Jackpot + points
 ' you may wish to limit the jackpot to a upper limit, ie..
-'	If (Jackpot >= 6000) Then
-'		Jackpot = 6000
-' 	End if
+' If (Jackpot >= 6000) Then
+'   Jackpot = 6000
+'   End if
 'End if
 'End if
 End Sub
@@ -1348,9 +1348,9 @@ Sub AddSuperJackpot(points)
         ' If(bMultiBallMode = True) Then
         SuperJackpot = SuperJackpot + points
     ' you may wish to limit the jackpot to a upper limit, ie..
-    '	If (Jackpot >= 6000) Then
-    '		Jackpot = 6000
-    ' 	End if
+    ' If (Jackpot >= 6000) Then
+    '   Jackpot = 6000
+    '   End if
     'End if
     End if
 End Sub
@@ -4237,11 +4237,11 @@ End Sub
 ' Collecting Gear
 '*****************
 'Every ghostbuster needs the following gear:
-'  · Proton Pack 	Gear(1)
-'  · Ghost Trap		Gear(2)
-'  · PKE Meter		Gear(3)
-'  · Ecto Goggles	Gear(4)
-'  · Jump Suit		Gear(5)
+'  · Proton Pack  Gear(1)
+'  · Ghost Trap   Gear(2)
+'  · PKE Meter    Gear(3)
+'  · Ecto Goggles Gear(4)
+'  · Jump Suit    Gear(5)
 ' To collect the gear:
 ' -shoot proton targets to collect the proton pack
 ' -defeat Slimer twice to collect the Ghost Trap
@@ -5113,9 +5113,9 @@ Dim Modes(12)
 
 ' mini wizard modes
 ' 10 we came we saw we kicked its...  This modes starts after completing a ladder
-' 11 we are ready to believe you	  This mode starts after completing the 3 ladders
+' 11 we are ready to believe you    This mode starts after completing the 3 ladders
 
-' 12 are you a God? 				  This mode starts after everything is completed.
+' 12 are you a God?           This mode starts after everything is completed.
 
 Sub LitNextModes()                             'turns on the lamps of the modes that can be started
     If(Modes(0) > 0)Then Exit Sub               'exit as there is an active mode

@@ -101,14 +101,14 @@ Sub Table1_Init()
   ballinplay=false
 
   If Table1.ShowDT = false then
-	'Cabinet Mode
-	for each object in backdropstuff : object.visible = 0 : next
+  'Cabinet Mode
+  for each object in backdropstuff : object.visible = 0 : next
   Else
-	'Desktop Mode
+  'Desktop Mode
     for each object in backdropstuff : object.visible = 1 : next
   End If
 
-  Set mHole = New cvpmMagnet	'Upper Hole (Using low powered Magnet to simulate drop in
+  Set mHole = New cvpmMagnet  'Upper Hole (Using low powered Magnet to simulate drop in
   With mHole                    'playfield surface around the saucer)/Thanks JPSalas!
       .InitMagnet Umagnet, 2.85
       .GrabCenter = 0
@@ -122,10 +122,10 @@ Sub Table1_Init()
   targetd = false
 
   Reset
-  For each obj in AllLights	'Turn all the lights off at table initialisation
+  For each obj in AllLights 'Turn all the lights off at table initialisation
      obj.State=0
   Next
-  Loops=0						'Used to loop sounds
+  Loops=0           'Used to loop sounds
 
  'Init Bumper rings
   ringa.IsDropped=1:ringb.IsDropped=1:ringc.IsDropped=1
@@ -133,7 +133,7 @@ Sub Table1_Init()
   postitval=0
   Tilts = 0
 
-  SetBackGlass 45, 1	' Start BG light animation
+  SetBackGlass 45, 1  ' Start BG light animation
 End Sub
 
 
@@ -212,18 +212,18 @@ End Sub
 
 
 Sub SetBackGlass(id, value)
-	If B2SOn Then
+  If B2SOn Then
         Controller.B2SSetData id, value
     End If
 End Sub
 
 Sub SetCredits()
     Dim credit10, credit1
-	If B2SOn Then
+  If B2SOn Then
         credit10 = int(credit/10)
         credit1 = int(credit - credit10*10)
-		Controller.B2SSetCredits 28, credit10
-		Controller.B2SSetCredits 29, credit1
+    Controller.B2SSetCredits 28, credit10
+    Controller.B2SSetCredits 29, credit1
     End If
     CreditReel.SetValue(credit)
     If credit > 0 then
@@ -237,7 +237,7 @@ End Sub
 Sub UpdateFlipperLogo_Timer
     LFLogo.RotY = LeftFlipper.CurrentAngle
     RFlogo.RotY = RightFlipper.CurrentAngle
-	'LFLogoUP.RotY = LeftFlipper1.CurrentAngle
+  'LFLogoUP.RotY = LeftFlipper1.CurrentAngle
 End Sub
 
 
@@ -250,7 +250,7 @@ Sub TiltCheck
       Tilts = Tilts + int(rnd*200)
     End If
     If Tilts >= 300 and Tilted = FALSE then
- 	  Tilted = TRUE
+    Tilted = TRUE
       PlaySound "tilt"
       SetBackGlass TILT_ID, 1
       tiltreel.setvalue(1)
@@ -258,7 +258,7 @@ Sub TiltCheck
       bumper1.force=0
       target153.disabled=true
       target169.disabled=true
- 	  gameover()
+    gameover()
       End If
     End If
 End Sub
@@ -272,7 +272,7 @@ Sub MechCheckTilt
       bumper1.force=0
       target153.disabled=true
       target169.disabled=true
- 	  gameover()
+    gameover()
 End Sub
 
 Sub TiltTimer_Timer()
@@ -284,7 +284,7 @@ Sub TiltTimer_Timer()
 End Sub
 
 
-Sub Reset()		'Called at table initialisation and game start
+Sub Reset()   'Called at table initialisation and game start
   If B2SOn Then
     Controller.B2SSetScoreRolloverPlayer1 0
     Controller.B2SSetScorePlayer1 0
@@ -303,17 +303,17 @@ Sub Reset()		'Called at table initialisation and game start
   scoretext.text = formatnumber(score,0,-1,0,-1)
   balltext.text = formatnumber(ball,0,-1,0,-1)
 
-  For each obj in AllLights	'Set all lights off
-  	obj.State=0
+  For each obj in AllLights 'Set all lights off
+    obj.State=0
   Next
-  For each obj in PinLights	'Set all pin lights on
-  	obj.State=1
+  For each obj in PinLights 'Set all pin lights on
+    obj.State=1
   Next
-  For each obj in DTargLights	'Set all Drop Target Lights On
-  	obj.State=1
+  For each obj in DTargLights 'Set all Drop Target Lights On
+    obj.State=1
   Next
-  For each obj in DTargs		'Raise all Drop Targets
-  	obj.IsDropped=false
+  For each obj in DTargs    'Raise all Drop Targets
+    obj.IsDropped=false
   Next
 
   bumper1.force = 8
@@ -356,7 +356,7 @@ End Sub
 Sub StartGame()
   backglassTimer.Enabled=False
   Reset
-  ball = Balls	'Option Menu Link - Number of Balls
+  ball = Balls  'Option Menu Link - Number of Balls
   balltext.text = formatnumber(ball,0,-1,0,-1)
   ballkickertimer2.enabled=true
   credit = credit -1
@@ -516,14 +516,14 @@ End sub
 ' Rail hit sounds
 Sub wall159_hit
      speedx=ballspeed.velx: speedy=ballspeed.vely
-  	finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
-  	if finalspeed > 2 then PlaySoundAtVol "metalhit", ActiveBall, VolMetal
+    finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
+    if finalspeed > 2 then PlaySoundAtVol "metalhit", ActiveBall, VolMetal
 end sub
 
 Sub wall133_hit
      speedx=ballspeed.velx: speedy=ballspeed.vely
-  	finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
-  	if finalspeed > 2 then PlaySoundAtVol "metalhit", ActiveBall, VolMetal
+    finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
+    if finalspeed > 2 then PlaySoundAtVol "metalhit", ActiveBall, VolMetal
 end sub
 
 
@@ -533,9 +533,9 @@ Sub gate3_hit:PlaySoundAtVol "gate",gate3,VolGates:end sub
 
 ' rubber sounds
 Sub WallHit(finalspeedcheck)
- 	speedx=ballspeed.velx: speedy=ballspeed.vely
-  	finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
-  	if finalspeed > finalspeedcheck then PlaySoundAtVol "rubber", ActiveBall, 1 else PlaySoundAtVol "rubberS", ActiveBall, 1:end if
+  speedx=ballspeed.velx: speedy=ballspeed.vely
+    finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
+    if finalspeed > finalspeedcheck then PlaySoundAtVol "rubber", ActiveBall, 1 else PlaySoundAtVol "rubberS", ActiveBall, 1:end if
 End Sub
 
 Sub wall140_hit:WallHit(11):End Sub
@@ -581,25 +581,25 @@ End Sub
 ' if they are then reset lights & add bonus light
 Sub checkpins()
   For each obj in PinLights
-  	If obj.state=1 then Exit Sub
+    If obj.state=1 then Exit Sub
   Next
   For each obj in PinLights
-  	obj.state=1
+    obj.state=1
   Next
 
   PlaySound "lightreset"
   DOF 123, DOFPulse
   If lightbonus1.state=1 then
-  	If lightbonus2.state=1 then
-  		lightbonus3.state=1
-  		PlaySound "bonus-advance"
-  	Else
-  		lightbonus2.state=1
-  		PlaySound "bonus-advance"
-  	End If
+    If lightbonus2.state=1 then
+      lightbonus3.state=1
+      PlaySound "bonus-advance"
+    Else
+      lightbonus2.state=1
+      PlaySound "bonus-advance"
+    End If
   Else
-  	lightbonus1.state=1
-  	PlaySound "bonus-advance"
+    lightbonus1.state=1
+    PlaySound "bonus-advance"
   End If
 End Sub
 
@@ -619,16 +619,16 @@ Sub DTargs_hit(T) 'drop targets  hit
   checktargets
   If Tilted = false then
     PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
-	AddScore 1000
+  AddScore 1000
   End If
 End Sub
 
 
-Sub checkextraball()	' check extra ball
- 	For each obj in DTargLights
-  		If obj.state=1 Then Exit Sub
-  	Next
-  	If leftlight.state=lightstateon then
+Sub checkextraball()  ' check extra ball
+  For each obj in DTargLights
+      If obj.state=1 Then Exit Sub
+    Next
+    If leftlight.state=lightstateon then
        DOF 108, DOFPulse:addball = addball + 1
        If ball<5 Then ball = ball+1
        extraballlight.state=lightstateon
@@ -637,80 +637,80 @@ Sub checkextraball()	' check extra ball
     End If
 End Sub
 
-Sub checkabcd()	' Check abcd lights
- 	For each obj in DTargLights
-  		If obj.state=1 Then Exit Sub
-  	Next
-  	For each obj in DTargLights
-  		obj.state=1
-  	Next
-  	starlight1.state=lightstateon
- 	starlight2.state=lightstateon
- 	starlight3.state=lightstateon
- 	tenxlight.state=lightstateon
- 	leftlight.state=lightstateon
- 	rightlight.state=lightstateon
+Sub checkabcd() ' Check abcd lights
+  For each obj in DTargLights
+      If obj.state=1 Then Exit Sub
+    Next
+    For each obj in DTargLights
+      obj.state=1
+    Next
+    starlight1.state=lightstateon
+  starlight2.state=lightstateon
+  starlight3.state=lightstateon
+  tenxlight.state=lightstateon
+  leftlight.state=lightstateon
+  rightlight.state=lightstateon
 end sub
 
 
-Sub checktargets()	' check targets
-  	For each obj in DTargs
-  		If obj.IsDropped=False Then Exit Sub
-  	Next
-  	dtargettimer.enabled=true
+Sub checktargets()  ' check targets
+    For each obj in DTargs
+      If obj.IsDropped=False Then Exit Sub
+    Next
+    dtargettimer.enabled=true
 end sub
 
 
 ' Added timer for abcd target reset
 Sub dtargettimer_timer
-    For each obj in DTargs		'Raise all Drop Targets
-  	    obj.IsDropped=false
+    For each obj in DTargs    'Raise all Drop Targets
+        obj.IsDropped=false
     Next
     SetBackGlass 41, 0:SetBackGlass 42, 0:SetBackGlass 43, 0:SetBackGlass 44, 0
     PlaySound SoundFX("dropreset", DOFDropTargets) ' TODO
-	if targeta = true then DOF 115, DOFPulse
-	if targetb = true then DOF 116, DOFPulse
-	if targetc = true then DOF 117, DOFPulse
-	if targetd = true then DOF 118, DOFPulse
-	targeta = false
-	targetb = false
-	targetc = false
-	targetd = false
-  	dtargettimer.enabled=false
+  if targeta = true then DOF 115, DOFPulse
+  if targetb = true then DOF 116, DOFPulse
+  if targetc = true then DOF 117, DOFPulse
+  if targetd = true then DOF 118, DOFPulse
+  targeta = false
+  targetb = false
+  targetc = false
+  targetd = false
+    dtargettimer.enabled=false
 End Sub
 
 Sub kicker1_hit()'Kicker at the top of the playfield
-  	dim speedx
-  	dim speedy
-  	dim finalspeed
-  	speedx=ballspeed.velx: speedy=ballspeed.vely
-  	finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
- 	If Tilted = true then
- 	  kicker1.timerenabled=true
- 	  exit sub
+    dim speedx
+    dim speedy
+    dim finalspeed
+    speedx=ballspeed.velx: speedy=ballspeed.vely
+    finalspeed=SQR(ballspeed.velx * ballspeed.velx + ballspeed.vely * ballspeed.vely)
+  If Tilted = true then
+    kicker1.timerenabled=true
+    exit sub
     end if
     if finalspeed > 11 then
-  	  Kicker1.kick 0,0
-  	  ballspeed.vely=speedy   ' If the ball is going faster than '10',
-  	  ballspeed.velx=speedx   ' then continue on its path and bump it up in the air speed 9, and hit glass
- 	  ballspeed.velz=10
- 	  playsoundAtVol "collide6", Kicker1, 1
-    end if
-  	if finalspeed > 8 then
       Kicker1.kick 0,0
-  	  ballspeed.vely=speedy  ' If the ball is going faster than '8', then continue on its path and bump
-  	  ballspeed.velx=speedx  ' it up in the air speed 4
- 	  ballspeed.velz=5
+      ballspeed.vely=speedy   ' If the ball is going faster than '10',
+      ballspeed.velx=speedx   ' then continue on its path and bump it up in the air speed 9, and hit glass
+    ballspeed.velz=10
+    playsoundAtVol "collide6", Kicker1, 1
+    end if
+    if finalspeed > 8 then
+      Kicker1.kick 0,0
+      ballspeed.vely=speedy  ' If the ball is going faster than '8', then continue on its path and bump
+      ballspeed.velx=speedx  ' it up in the air speed 4
+    ballspeed.velz=5
     else
       kicker1.timerenabled=true
- 	  if tenxlight.state=lightstateoff then
-  	    LoopSound
- 	  end if
- 	  if tenxlight.state=lightstateon then
-        AddBonus1Kb 5	' OK I know it's not a bonus, but it uses the exact same code
+    if tenxlight.state=lightstateoff then
+        LoopSound
+    end if
+    if tenxlight.state=lightstateon then
+        AddBonus1Kb 5 ' OK I know it's not a bonus, but it uses the exact same code
       end if
- 	  checktoplights  ' HAD to make a new addbonus sub because it conflicted with ball release.
- 	  toplight1.state=lightstateon
+    checktoplights  ' HAD to make a new addbonus sub because it conflicted with ball release.
+    toplight1.state=lightstateon
     end if
 End Sub
 
@@ -735,21 +735,21 @@ Sub checktoplights()
     if toplight1.state=lightstateon then toplight2.state=lightstateon
 End Sub
 
-Sub LoopSound()		'Used to loop the bell sound 5 times when the ball lands in the kicker
-  	Loops=0
-  	LoopSoundTimer.Interval=400
-  	LoopSoundTimer.Enabled=true
+Sub LoopSound()   'Used to loop the bell sound 5 times when the ball lands in the kicker
+    Loops=0
+    LoopSoundTimer.Interval=400
+    LoopSoundTimer.Enabled=true
 End Sub
 
-Sub LoopSoundTimer_Timer()	'Used to loop the bell sound 5 times when the ball lands in the kicker
+Sub LoopSoundTimer_Timer()  'Used to loop the bell sound 5 times when the ball lands in the kicker
     PlaySound SoundFXDOF("bell100",142,DOFPulse,DOFChimes)
- 	Playsound "bonus-scan"
+  Playsound "bonus-scan"
 
-  	LoopSoundTimer.Interval=80
-  	If loops=4 then LoopSoundTimer.Enabled=false
-  	'if loops=0 then AddScore (500):Score=Score+500:scoretext.text = formatnumber(score,0,-1,0,-1): end if
+    LoopSoundTimer.Interval=80
+    If loops=4 then LoopSoundTimer.Enabled=false
+    'if loops=0 then AddScore (500):Score=Score+500:scoretext.text = formatnumber(score,0,-1,0,-1): end if
     'Gave a pause to EM reel for 500 points in top kicker
-   	Loops=Loops+1
+    Loops=Loops+1
     AddScore (100)
 End Sub
 
@@ -763,74 +763,74 @@ End Sub
 
 
 Sub kicker1_timer
- 	kicker1.kick 189+INT(RND*9),16+INT(RND*4)
-  	Playsound SoundFXDOF("eject",107,DOFPulse,DOFContactors)
- 	kicker1.timerenabled=false
+  kicker1.kick 189+INT(RND*9),16+INT(RND*4)
+    Playsound SoundFXDOF("eject",107,DOFPulse,DOFContactors)
+  kicker1.timerenabled=false
 End Sub
 
 
 Sub StarTriggers_Hit(T)
- 		if tilted = true then exit sub         ' Star triggers
-	DOF 130 + T, DOFPulse
-  	If StarLights(T).State=0 then
-  		AddScore 100
+    if tilted = true then exit sub         ' Star triggers
+  DOF 130 + T, DOFPulse
+    If StarLights(T).State=0 then
+      AddScore 100
         PlaySound SoundFXDOF("bell100",142,DOFPulse,DOFChimes)
-  	Else
-  		AddScore 1000
+    Else
+      AddScore 1000
         PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
-  	End If
+    End If
 End Sub
 
 
 ' lane triggers
 sub lefttrigger1_hit()
     DOF 111, DOFPulse
- 	if tilted = true then exit sub
+  if tilted = true then exit sub
     PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	if speciallight.state=0 then
- 		AddScore 1000
+  if speciallight.state=0 then
+    AddScore 1000
         PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	end if
- 	if speciallight.state=1 then
- 		AddScore 10000
- 	end if
+  end if
+  if speciallight.state=1 then
+    AddScore 10000
+  end if
 end sub
 
 sub lefttrigger2_hit()
     DOF 112, DOFPulse
- 	if tilted = true then exit sub
- 	if leftlight.state=1 then
- 		AddScore 1000
+  if tilted = true then exit sub
+  if leftlight.state=1 then
+    AddScore 1000
         PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	end if
- 	if leftlight.state=0 then
- 		AddScore 100
+  end if
+  if leftlight.state=0 then
+    AddScore 100
         PlaySound SoundFXDOF("bell100",142,DOFPulse,DOFChimes)
- 	end if
+  end if
 end sub
 
 sub righttrigger1_hit():DOF 113, DOFPulse
- 	if tilted = true then exit sub
- 	if leftlight.state=1 then
- 		AddScore 1000
+  if tilted = true then exit sub
+  if leftlight.state=1 then
+    AddScore 1000
         PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	end if
- 	if leftlight.state=0 then
- 		AddScore 100
+  end if
+  if leftlight.state=0 then
+    AddScore 100
         PlaySound SoundFXDOF("bell100",142,DOFPulse,DOFChimes)
- 	end if
+  end if
 end sub
 
 sub righttrigger2_hit():DOF 114, DOFPulse
- 	if tilted = true then exit sub
+  if tilted = true then exit sub
     PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	AddScore 1000
+  AddScore 1000
 end sub
 
 
 ' Keys
 Sub Table1_KeyDown(ByVal keycode)
- 	If keycode = PlungerKey Then Plunger.PullBack: End If
+  If keycode = PlungerKey Then Plunger.PullBack: End If
 
     If keycode = AddcreditKey Then PlaySoundAtVol "CoinIn", drain, 1: knockertimer.enabled=true: End If
 
@@ -839,8 +839,8 @@ Sub Table1_KeyDown(ByVal keycode)
         OptionMenuKeyDownCheck(keycode)
     Else
 
-  	  If keycode = LeftFlipperKey Then
- 		If GameOn = TRUE then
+      If keycode = LeftFlipperKey Then
+    If GameOn = TRUE then
             If Tilted = FALSE Then
                 LeftFlipper.RotateToEnd
                 PlaySoundAtVol SoundFXDOF("Flipperup2", 103, DOFOn, DOFFlippers), LeftFlipper, VolFlip
@@ -849,7 +849,7 @@ Sub Table1_KeyDown(ByVal keycode)
         end if
       end if
 
- 	  If keycode = RightFlipperKey Then
+    If keycode = RightFlipperKey Then
         If GameOn = TRUE then
             If Tilted = FALSE then
                 RightFlipper.RotateToEnd
@@ -860,16 +860,16 @@ Sub Table1_KeyDown(ByVal keycode)
       end if
 
       If keycode = LeftTiltKey and tilted = false and ballinplay=true Then      'and ballspeed.x >500 ????
- 		if ballspeed.y <500 then
+    if ballspeed.y <500 then
             nudge 90,.45
             tiltcheck
- 		else
+    else
             Nudge 90, 1
             tiltcheck
         End If
- 	  end if
-  	  If keycode = RightTiltKey and tilted = false and ballinplay=true Then
- 		if ballspeed.y <500 then
+    end if
+      If keycode = RightTiltKey and tilted = false and ballinplay=true Then
+    if ballspeed.y <500 then
             Nudge 270, .45
             tiltcheck
         else
@@ -880,44 +880,44 @@ Sub Table1_KeyDown(ByVal keycode)
             Nudge 0, 1.08
             tiltcheck
         End If
- 	  End If
+    End If
 
-	If keycode = MechanicalTilt Then
-		mechchecktilt
-	End If
+  If keycode = MechanicalTilt Then
+    mechchecktilt
+  End If
 
     End If
 End Sub
 
 
 Sub Table1_KeyUp(ByVal keycode)
- 	If keycode = PlungerKey Then Plunger.Fire
+  If keycode = PlungerKey Then Plunger.Fire
 
-  	If keycode = StartGameKey and gameon=false and ball <= 0 and credit >0  Then
+    If keycode = StartGameKey and gameon=false and ball <= 0 and credit >0  Then
         gameon=true
         StartGame
-  	End If
+    End If
 
- 	If keycode = LeftFlipperKey Then
+  If keycode = LeftFlipperKey Then
 
         ' Option Menu Link - Timer Turn Off
         OperatorMenuTimer.Enabled = false
 
         If GameOn = TRUE then
-		  If Tilted = FALSE then
- 		    LeftFlipper.RotateToStart
+      If Tilted = FALSE then
+        LeftFlipper.RotateToStart
             PlaySoundAtVol SoundFXDOF("Flipperdown2", 103, DOFOff, DOFFlippers), LeftFlipper, VolFlip
- 		    stopSound "Flipperbuzz2"
- 	      end if
+        stopSound "Flipperbuzz2"
+        end if
         end if
     end if
- 	If keycode = RightFlipperKey Then
+  If keycode = RightFlipperKey Then
        If GameOn = TRUE then
-		If Tilted = FALSE then
- 		  RightFlipper.RotateToStart
+    If Tilted = FALSE then
+      RightFlipper.RotateToStart
           PlaySoundAtVol SoundFXDOF("Flipperdown2", 104, DOFOff, DOFFlippers), RightFlipper, VolFlip
- 		  stopSound "Flipperbuzz1"
- 	    end if
+      stopSound "Flipperbuzz1"
+      end if
       end if
     end if
 
@@ -955,7 +955,7 @@ Sub Drain_Hit()
     SetBackGlass GAMEOVER_ID, 1
     gameoverreel.setvalue(1)
   else
- 	singlepinbonus
+  singlepinbonus
     checkstrikelights
   end if
   ballinplay=false
@@ -990,26 +990,26 @@ End sub
 'BONUS SYSTEM
 'Added a singlepin bonus system to come before the bonus system
 sub singlepinbonus
-   	a=0
- 	 For each obj in PinLights
+    a=0
+   For each obj in PinLights
       a=a+1
-   		If obj.State=0 Then:PinBonus(a)=1:Else PinBonus(a)=0:End If
-  	next
-  	a=0
-  	b=10
-  	pinBonusTimer.Enabled=True
+      If obj.State=0 Then:PinBonus(a)=1:Else PinBonus(a)=0:End If
+    next
+    a=0
+    b=10
+    pinBonusTimer.Enabled=True
 end sub
 
 Sub pinbonusTimer_Timer()
-  	a=a+1
-  	PlaySound"motorstep"
-  	Playsound "bonus-scan"
-  	If Pinbonus(a)=1 Then PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes):AddScore 1000
-  	If a=10 Then
-  		pinbonusTimer.Enabled=False
+    a=a+1
+    PlaySound"motorstep"
+    Playsound "bonus-scan"
+    If Pinbonus(a)=1 Then PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes):AddScore 1000
+    If a=10 Then
+      pinbonusTimer.Enabled=False
         a=0
         Bonuspausetimer.enabled=true
-  	End If
+    End If
 End Sub
 
 sub Bonuspausetimer_timer()         ' Adds a pause between single pin bonus and strike bonus
@@ -1018,45 +1018,45 @@ sub Bonuspausetimer_timer()         ' Adds a pause between single pin bonus and 
 end sub
 
 sub bonus()
-  	BonusScore=0
+    BonusScore=0
     if lightbonus1.state=0 then afterBonusTimer.Enabled=true           'for kicking out the ball when no strikes are lit
- 	If lightbonus3.state=1 then		'Check bonus lights & add 10K, 20K or 30K bonus as appropriate
-  		 BonusScore=BonusScore+30
-  	Else
-  		if lightbonus2.state=1 then
-  			BonusScore=BonusScore+20
- 		Else
-  			if lightbonus1.state=1 then BonusScore=BonusScore+10
-  		End If
-  	End If
- 	AddBonus1K BonusScore			'Run add bonus routine (plays sounds & updates score reel)
+  If lightbonus3.state=1 then   'Check bonus lights & add 10K, 20K or 30K bonus as appropriate
+       BonusScore=BonusScore+30
+    Else
+      if lightbonus2.state=1 then
+        BonusScore=BonusScore+20
+    Else
+        if lightbonus1.state=1 then BonusScore=BonusScore+10
+      End If
+    End If
+  AddBonus1K BonusScore     'Run add bonus routine (plays sounds & updates score reel)
 end sub
 
 
 Sub afterbonustimer_timer
-  	bonusholdcheck
+    bonusholdcheck
     playsound "lightreset"
 
- 	toplight1.state=0				'If not game over then reset lights
- 	toplight2.state=0
- 	toplight3.state=0
- 	toplight4.state=0
- 	toplight5.state=0
- 	starlight1.state=0
- 	starlight2.state=0
- 	starlight3.state=0
- 	leftlight.state=0
- 	rightlight.state=0
- 	bonuslight.state=0
- 	speciallight.state=0
- 	tenxlight.state=0
+  toplight1.state=0       'If not game over then reset lights
+  toplight2.state=0
+  toplight3.state=0
+  toplight4.state=0
+  toplight5.state=0
+  starlight1.state=0
+  starlight2.state=0
+  starlight3.state=0
+  leftlight.state=0
+  rightlight.state=0
+  bonuslight.state=0
+  speciallight.state=0
+  tenxlight.state=0
     If addball=0 Then
         SetBackGlass SAMESHOOTER, 0
         sameplayerreel.resettozero
     End If
-  	If Ball <= 0 then
-    	gameover()
- 	    stopsound "flipperbuzz2"
+    If Ball <= 0 then
+      gameover()
+      stopsound "flipperbuzz2"
         SetBackGlass GAMEOVER_ID, 1
         gameoverreel.setvalue(1)
         Topscore
@@ -1068,24 +1068,24 @@ End Sub
 
 sub topscore
   if clng (score) > clng (highscore) then
-  	highscore=score:postitscore=postitval
+    highscore=score:postitscore=postitval
     savehs
- 	textbox1.text=highscore
+  textbox1.text=highscore
   End if
   backglassTimer.Interval=5000
   backglassTimer.Enabled=True
 end sub
 
 
-Sub bonusholdcheck()				'Only reset pin lights if bonus hold is not lit
+Sub bonusholdcheck()        'Only reset pin lights if bonus hold is not lit
   If bonuslight.state=0 and Ball > 0 then  'only if bonus light is off, pinlights and strikes turn off
-  		For each obj in PinLights
- 			obj.state=1
- 		Next
-  		PlaySound "lightreset"  ' lightreset sound, comes before ball eject
- 		lightbonus1.state=0
- 		lightbonus2.state=0
- 		lightbonus3.state=0
+      For each obj in PinLights
+      obj.state=1
+    Next
+      PlaySound "lightreset"  ' lightreset sound, comes before ball eject
+    lightbonus1.state=0
+    lightbonus2.state=0
+    lightbonus3.state=0
   End If
   ' This checks the value of the hold light and turns the strike light back on if holds bonus was on
   If bonuslight.state=1 then
@@ -1101,12 +1101,12 @@ End Sub
 
 Sub ballkickertimer2_timer
    if ball =>1 then
-  	 	set ballspeed=kicker2.createball
- 		ballinplay=true                       ' longer starup for first ball
- 		kicker2.kick 30,17
- 	    ballkickertimer2.enabled=false
+      set ballspeed=kicker2.createball
+    ballinplay=true                       ' longer starup for first ball
+    kicker2.kick 30,17
+      ballkickertimer2.enabled=false
         PlaySoundAtVol SoundFXDOF("loader-ballroll", 109, DOFPulse, DOFContactors), kicker2, VolKick
- 	End If
+  End If
 end sub
 
 
@@ -1155,23 +1155,23 @@ sub ballkickertimer_timer
 end sub
 
 
-Sub AddBonus1Kb(Total)				'Add 1000's in bonus, play sound & update score reel
-  	BonusCount=0
-  	BonusCountMax=Total
-  	'if total=0 then BonusTimer.Enabled=true
-  	If Total=0 then exit sub          'afterbonustimer.enabled=true : ' added this to spit out ball
-  	BonusTimerb.Interval=400			'Slow start to bonus timer
-  	BonusTimerb.Enabled=true
+Sub AddBonus1Kb(Total)        'Add 1000's in bonus, play sound & update score reel
+    BonusCount=0
+    BonusCountMax=Total
+    'if total=0 then BonusTimer.Enabled=true
+    If Total=0 then exit sub          'afterbonustimer.enabled=true : ' added this to spit out ball
+    BonusTimerb.Interval=400      'Slow start to bonus timer
+    BonusTimerb.Enabled=true
 End Sub
 
 
-Sub AddBonus1K(Total)				'Add 1000's in bonus, play sound & update score reel
-  	BonusCount=0
-  	BonusCountMax=Total
-  	'if total=0 then BonusTimer.Enabled=true
-  	If Total=0 then exit sub          'afterbonustimer.enabled=true : ' added this to spit out ball
-  	BonusTimer.Interval=400			'Slow start to bonus timer
-  	BonusTimer.Enabled=true
+Sub AddBonus1K(Total)       'Add 1000's in bonus, play sound & update score reel
+    BonusCount=0
+    BonusCountMax=Total
+    'if total=0 then BonusTimer.Enabled=true
+    If Total=0 then exit sub          'afterbonustimer.enabled=true : ' added this to spit out ball
+    BonusTimer.Interval=400     'Slow start to bonus timer
+    BonusTimer.Enabled=true
 End Sub
 
 ' This checks to see if the strike lights are on and adds a value for the bonus hold check
@@ -1185,26 +1185,26 @@ Sub checkstrikelights
 End Sub
 
 Sub BonusTimerb_timer()
-  	PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	Playsound "bonus-scan"
- 	AddScore 1000
- 	BonusCount=BonusCount+1
+    PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
+  Playsound "bonus-scan"
+  AddScore 1000
+  BonusCount=BonusCount+1
 
     'add a space in between 5 counts
     if bonuscount mod 5 =0 then
         bonustimerb.interval=220
     else bonustimerb.interval=80
     end if
-  	If BonusCount=BonusCountMax then BonusTimerb.Enabled=false	'end the timer when all the bonus is counted
+    If BonusCount=BonusCountMax then BonusTimerb.Enabled=false  'end the timer when all the bonus is counted
 End Sub
 
 
 Sub BonusTimer_timer()
-  	PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
- 	Playsound "motorstep"
-  	Playsound "bonus-scan"
- 	AddScore 1000
- 	BonusCount=BonusCount+1
+    PlaySound SoundFXDOF("bell1000",143,DOFPulse,DOFChimes)
+  Playsound "motorstep"
+    Playsound "bonus-scan"
+  AddScore 1000
+  BonusCount=BonusCount+1
 
     'add a space in between 5 counts
     if bonuscount mod 5 =0 then
@@ -1222,7 +1222,7 @@ Sub BonusTimer_timer()
 
     if bonuscount =30 and lightbonus1.state=1 then lightbonus1.state=0
 
-    If BonusCount=BonusCountMax then BonusTimer.Enabled=false	'end the timer when all the bonus is counted
+    If BonusCount=BonusCountMax then BonusTimer.Enabled=false 'end the timer when all the bonus is counted
     If BonusCount=BonusCountMax then afterbonustimer.enabled=true       ' Timer to shutoff bonus lights and spit out ball
 End Sub
 
@@ -1247,101 +1247,101 @@ Dim OppositeMap(10)
 
 Sub OptionMenu_Init
    'Check for legal option parameter values
-	if balls="" or  (balls<>3 and balls<>5) then balls=5	' Legal Values 3 or 5
-	if replays="" or replays<1 or replays>2 then replays=2	' Legal Values 1 or 2
-	if liberal="" or liberal<0 or liberal>2 then liberal=0	' Legal Values 0 or 1 or 2
+  if balls="" or  (balls<>3 and balls<>5) then balls=5  ' Legal Values 3 or 5
+  if replays="" or replays<1 or replays>2 then replays=2  ' Legal Values 1 or 2
+  if liberal="" or liberal<0 or liberal>2 then liberal=0  ' Legal Values 0 or 1 or 2
 
    'Replay Score Thresholds
     SetReplayScores
     SetOppositeMap
 
-	RepCard.image = "ReplayCard"&replays
-	OptionBalls.image="OptionsBalls"&balls
-	OptionReplays.image="OptionsReplays"&replays
-	OptionLiberal.image="OptionsLiberal"&liberal
-	if balls=3 then
-		InstCard.image="InstCard3balls"
-	  else
-		InstCard.image="InstCard5balls"
-	end if
-    game_state=gameon	'Link to State of Play - Menu Not Active During Gameplay
+  RepCard.image = "ReplayCard"&replays
+  OptionBalls.image="OptionsBalls"&balls
+  OptionReplays.image="OptionsReplays"&replays
+  OptionLiberal.image="OptionsLiberal"&liberal
+  if balls=3 then
+    InstCard.image="InstCard3balls"
+    else
+    InstCard.image="InstCard5balls"
+  end if
+    game_state=gameon 'Link to State of Play - Menu Not Active During Gameplay
 End Sub
 
 
 Sub OptionMenuKeyDownCheck(keycode)
-    game_state=gameon	'Link to State of Play - Menu Not Active During Gameplay
-	If keycode=LeftFlipperKey and game_state = false and OperatorMenu=0 then
-		OperatorMenuTimer.Enabled = true
-	end if
+    game_state=gameon 'Link to State of Play - Menu Not Active During Gameplay
+  If keycode=LeftFlipperKey and game_state = false and OperatorMenu=0 then
+    OperatorMenuTimer.Enabled = true
+  end if
 
-	If keycode=LeftFlipperKey and game_state = false and OperatorMenu=1 then
-		Options=Options+1
-		If Options=5 then Options=1
-		Select Case (Options)
-			Case 1:
-				Option1.visible=true
-				Option4.visible=False
-			Case 2:
-				Option2.visible=true
-				Option1.visible=False
-			Case 3:
-				Option3.visible=true
-				Option2.visible=False
-			Case 4:
-				Option4.visible=true
-				Option3.visible=False
-		End Select
-	end if
-	If keycode=RightFlipperKey and game_state = false and OperatorMenu=1 then
-	  Select Case (Options)
-		Case 1:
-			if balls=3 then
-				balls=5
-				InstCard.image="InstCard5balls"
-			  else
-				balls=3
-				InstCard.image="InstCard3balls"
-			end if
-			OptionBalls.image = "OptionsBalls"&balls
-		Case 2:
+  If keycode=LeftFlipperKey and game_state = false and OperatorMenu=1 then
+    Options=Options+1
+    If Options=5 then Options=1
+    Select Case (Options)
+      Case 1:
+        Option1.visible=true
+        Option4.visible=False
+      Case 2:
+        Option2.visible=true
+        Option1.visible=False
+      Case 3:
+        Option3.visible=true
+        Option2.visible=False
+      Case 4:
+        Option4.visible=true
+        Option3.visible=False
+    End Select
+  end if
+  If keycode=RightFlipperKey and game_state = false and OperatorMenu=1 then
+    Select Case (Options)
+    Case 1:
+      if balls=3 then
+        balls=5
+        InstCard.image="InstCard5balls"
+        else
+        balls=3
+        InstCard.image="InstCard3balls"
+      end if
+      OptionBalls.image = "OptionsBalls"&balls
+    Case 2:
             Liberal = Liberal + 1
             If Liberal>2 Then Liberal = 0
-			OptionLiberal.image= "OptionsLiberal"&Liberal
-		Case 3:
-			replays=replays+1
-			if replays>2 then
-				replays=1
-			end if
+      OptionLiberal.image= "OptionsLiberal"&Liberal
+    Case 3:
+      replays=replays+1
+      if replays>2 then
+        replays=1
+      end if
             SetReplayScores
-			OptionReplays.image = "OptionsReplays"&replays
-			repcard.image = "ReplayCard"&replays
-		Case 4:
-			OperatorMenu=0
-			savehs		' Save Configured Options
-			HideOptions
-	  End Select
-	End If
+      OptionReplays.image = "OptionsReplays"&replays
+      repcard.image = "ReplayCard"&replays
+    Case 4:
+      OperatorMenu=0
+      savehs    ' Save Configured Options
+      HideOptions
+    End Select
+  End If
 end Sub
 
 
 Sub OperatorMenuTimer_Timer
-	OperatorMenu=1
-	Displayoptions
-	Options=1
+  OperatorMenu=1
+  Displayoptions
+  Options=1
 End Sub
 
 Sub DisplayOptions
-	OptionsBack.visible = true
-	Option1.visible = True
-	OptionBalls.visible = True
+  OptionsBack.visible = true
+  Option1.visible = True
+  OptionBalls.visible = True
     OptionReplays.visible = True
-	OptionLiberal.visible = True
+  OptionLiberal.visible = True
 End Sub
 
 Sub HideOptions
-	for each object In OptionMenu
-		object.visible = false
-	next
+  for each object In OptionMenu
+    object.visible = false
+  next
 End Sub
 
 Sub SetReplayScores
@@ -1491,16 +1491,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

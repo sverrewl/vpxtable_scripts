@@ -65,85 +65,85 @@ Dim InvaderMod, MysticSeerMod, TargetMod, TVMod, LampMod, LampLightColor, TownSq
 '* TABLE OPTIONS **************************************************************************
 '******************************************************************************************
 
-'***********	Choose the ROM	  *********************************************************
+'***********  Choose the ROM    *********************************************************
 
-Romset = 0			'arcade rom with credits,  1 = home rom (free play)
+Romset = 0      'arcade rom with credits,  1 = home rom (free play)
 
-'***********	Set the Powerball Starting Location		************************************
+'***********  Set the Powerball Starting Location   ************************************
 
-PowerBallStart = 7		'1-3 = gumball machine, 4-6 = trough, 0 = random, 7 = random gumball
+PowerBallStart = 7    '1-3 = gumball machine, 4-6 = trough, 0 = random, 7 = random gumball
 
-'***********	Show cabinet sidewalls custom artwork	************************************
+'***********  Show cabinet sidewalls custom artwork ************************************
 
-CabinetSide = 1			'0 = no , 1 = yes
+CabinetSide = 1     '0 = no , 1 = yes
 
-'***********	Set the Flippers Type	***************************************************
+'***********  Set the Flippers Type ***************************************************
 
-FlipperType = 0 		'0 = yellow , 1 = spiral , 2 = random
+FlipperType = 0     '0 = yellow , 1 = spiral , 2 = random
 
-'***********	Render the Wireramp shadow on the playfield	*******************************
+'***********  Render the Wireramp shadow on the playfield *******************************
 
-RampShadow = 0 			'0 = no , 1 = yes
+RampShadow = 0      '0 = no , 1 = yes
 
-'***********	Red Light under the scoop 		*******************************************
+'***********  Red Light under the scoop     *******************************************
 
-ScoopLight = 1			'0 = no , 1 = yes
+ScoopLight = 1      '0 = no , 1 = yes
 
-'***********	Enable RGB LEDS inside the Gumball Machine ********************************
+'***********  Enable RGB LEDS inside the Gumball Machine ********************************
 
-GumballRGB = 1			'0 = no , 1 = yes
+GumballRGB = 1      '0 = no , 1 = yes
 
-'***********	Render the Slot Machine Toy		*******************************************
+'***********  Render the Slot Machine Toy   *******************************************
 
-SlotMachineMod = 1 		'0 = no , 1 = yes
+SlotMachineMod = 1    '0 = no , 1 = yes
 
-'***********	Render the Pyramid Toy with customizable light	***************************
+'***********  Render the Pyramid Toy with customizable light  ***************************
 
 PyramidMod = 1
-PyramidTopLight = 4 	'0 = red, 1 = green, 2 = blue, 3 = yellow, 4 = purple, 5= cyan
+PyramidTopLight = 4   '0 = red, 1 = green, 2 = blue, 3 = yellow, 4 = purple, 5= cyan
 
-'***********	Render the Mini Clock at ramps entrance	 **********************************
+'***********  Render the Mini Clock at ramps entrance  **********************************
 
-MiniClockMod = 1 			'0 = no , 1 = yes
+MiniClockMod = 1      '0 = no , 1 = yes
 
-'***********	Render the Invader Toy  ***************************************************
+'***********  Render the Invader Toy  ***************************************************
 
-InvaderMod = 1 			'0 = no , 1 = yes
+InvaderMod = 1      '0 = no , 1 = yes
 
-'***********	Render the Mystic Seer	Toy 	*******************************************
+'***********  Render the Mystic Seer  Toy   *******************************************
 
-MysticSeerMod = 1 			'0 = no , 1 = yes
+MysticSeerMod = 1       '0 = no , 1 = yes
 
-'***********	Enable TargetMod (Targets with themed decals) 	***************************
+'***********  Enable TargetMod (Targets with themed decals)   ***************************
 
-TargetMod = 0 			'0 = disabled , 1 = enabled
+TargetMod = 0       '0 = disabled , 1 = enabled
 
-'***********	Enable TV Mod 	***********************************************************
+'***********  Enable TV Mod   ***********************************************************
 
-TVMod = 1				'0 = disabled , 1 = enabled
+TVMod = 1       '0 = disabled , 1 = enabled
 
-'***********	Enable Lamp Mod (new lamp model with customizable color		***************
+'***********  Enable Lamp Mod (new lamp model with customizable color   ***************
 
-LampMod = 1				'1 = no, 1 = silver metal, 2 = gold metal
-LampLightColor = 1		'0 = yellow , 1= blue
+LampMod = 1       '1 = no, 1 = silver metal, 2 = gold metal
+LampLightColor = 1    '0 = yellow , 1= blue
 
-'***********	Enable Town Square Mod	***************************************************
+'***********  Enable Town Square Mod  ***************************************************
 
-TownSquarePostMod = 1 	'0 = disabled , 1 = enabled
+TownSquarePostMod = 1   '0 = disabled , 1 = enabled
 
-'***********	Enable the Spiral Animated Cover Mod	***********************************
+'***********  Enable the Spiral Animated Cover Mod  ***********************************
 
-SpiralMod = 1 			'0 = disabled , 1 = enabled
+SpiralMod = 1       '0 = disabled , 1 = enabled
 
-'***********	Enable Bumper Posts Mod	***************************************************
+'***********  Enable Bumper Posts Mod ***************************************************
 
 'the game will be harder if you enable this
 
-BumperPostsMod = 1 		'0 = disabled , 1 = enabled
+BumperPostsMod = 1    '0 = disabled , 1 = enabled
 
-'***********	Enable 3rd magnet	*******************************************************
+'***********  Enable 3rd magnet *******************************************************
 
-ExtraMagnet = 1			'0 = disabled , 1 = enabled
+ExtraMagnet = 1     '0 = disabled , 1 = enabled
 
 '******************************************************************************************
 '* END OF TABLE OPTIONS *******************************************************************
@@ -186,7 +186,7 @@ Set GiCallback2 = GetRef("UpdateGI")
 '**********   Keys   ************************
 '********************************************
 
-Dim BIPL				'balls in plunger
+Dim BIPL        'balls in plunger
 
 Sub Table1_KeyDown(ByVal keycode)
     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
@@ -220,20 +220,20 @@ If PowerballStart = 0 then PowerballStart = RndNum(1, 6) end if
 If PowerballStart = 7 then PowerballStart = RndNum(1, 3) end if
 
 Sub Scramble
-	If powerballstart = 1 Then Set PowerBallLocation = Gumball1
-	If powerballstart = 2 Then Set PowerBallLocation = Gumball2
-	If powerballstart = 3 Then Set PowerBallLocation = Gumball3
-	If powerballstart = 4 Then Set PowerBallLocation = sw17
-	If powerballstart = 5 Then Set PowerBallLocation = sw16
-	If powerballstart = 6 Then Set PowerBallLocation = sw15
-	PowerBallLocation.Destroyball
-	Set PowerBall = PowerBallLocation.CreateSizedBall(Ballsize/2)
-	With PowerBall
-		.image = "powerball"
-		.color = RGB(255,255,255)
-		.id = 666
-		.Mass = 0.8*Ballmass
-	End With
+  If powerballstart = 1 Then Set PowerBallLocation = Gumball1
+  If powerballstart = 2 Then Set PowerBallLocation = Gumball2
+  If powerballstart = 3 Then Set PowerBallLocation = Gumball3
+  If powerballstart = 4 Then Set PowerBallLocation = sw17
+  If powerballstart = 5 Then Set PowerBallLocation = sw16
+  If powerballstart = 6 Then Set PowerBallLocation = sw15
+  PowerBallLocation.Destroyball
+  Set PowerBall = PowerBallLocation.CreateSizedBall(Ballsize/2)
+  With PowerBall
+    .image = "powerball"
+    .color = RGB(255,255,255)
+    .id = 666
+    .Mass = 0.8*Ballmass
+  End With
 End sub
 
 '**************************************************************
@@ -243,7 +243,7 @@ End sub
 Dim bsSlot, bsAutoPlunger, bsRocket, mLeftMini, mRightMini, mslot, mLeftMagnet, mLowerRightMagnet, mUpperRightMagnet
 
 Sub Table1_Init
-	vpmInit Me
+  vpmInit Me
     With Controller
         .GameName = cGameName
         .SplashInfoLine = "Twilight Zone (Bally 1992)"
@@ -261,34 +261,34 @@ Sub Table1_Init
 
     '************  Main Timer init  ********************
 
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
     '************   Nudging   **************************
 
-	vpmNudge.TiltSwitch = 14
-	vpmNudge.Sensitivity = 4
-	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, Leftslingshot, Rightslingshot)
+  vpmNudge.TiltSwitch = 14
+  vpmNudge.Sensitivity = 4
+  vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, Leftslingshot, Rightslingshot)
 
     '************   AutoPlunger   ******************
 
     Set bsAutoPlunger = new cvpmSaucer
     With bsAutoPlunger
         .InitKicker AutoPlungerKicker, 72, 0, 40, 0
-		.InitExitVariance 0, 8
+    .InitExitVariance 0, 8
         .InitSounds "", SoundFX("fx_AutoPlunger",DOFContactors), SoundFX("fx_launch",DOFContactors)
     End With
 
     '************   SlotMachine   ******************
 
-	Set bsSlot = new cvpmSaucer
-	With bsSlot
-		.InitKicker sw58, 58, 4.8, 45, 0
-		.InitSounds "fx_kicker_catch", SoundFX(SSolenoidOn,DOFContactors), SoundFX("fx_SlotM_exit",DOFContactors)
-		.createevents "bsSlot", sw58
-	End With
+  Set bsSlot = new cvpmSaucer
+  With bsSlot
+    .InitKicker sw58, 58, 4.8, 45, 0
+    .InitSounds "fx_kicker_catch", SoundFX(SSolenoidOn,DOFContactors), SoundFX("fx_SlotM_exit",DOFContactors)
+    .createevents "bsSlot", sw58
+  End With
 
-    Set mSlot = New cvpmMagnet			'Helps two balls get out, see sub slotmachinekickout
+    Set mSlot = New cvpmMagnet      'Helps two balls get out, see sub slotmachinekickout
     With mSlot
         .InitMagnet Slothelper, -75
         .CreateEvents "mSlot"
@@ -300,7 +300,7 @@ Sub Table1_Init
   Set bsRocket = new cvpmSaucer
     With bsRocket
         .InitKicker RocketKicker, 28, 280, 55, 0
-		.InitExitVariance 3, 10
+    .InitExitVariance 3, 10
         .InitSounds "fx_rocket_enter",  SoundFX(SSolenoidOn,DOFContactors), SoundFX("fx_rocket_exit",DOFContactors)
     End With
 
@@ -308,14 +308,14 @@ Sub Table1_Init
 
     Set mLeftMini = New cvpmMagnet
     With mLeftMini
-        .InitMagnet TLMiniFlip, 70 		' Left Powerfield Real Magnet Strength (adjust to taste)
+        .InitMagnet TLMiniFlip, 70    ' Left Powerfield Real Magnet Strength (adjust to taste)
         .GrabCenter = False: .Size = 195
         .CreateEvents "mLeftMini"
     End With
 
     Set mRightMini = New cvpmMagnet
     With mRightMini
-        .InitMagnet TRMiniFlip, 70 		' Right Powerfield Real Magnet Strength (adjust to taste)
+        .InitMagnet TRMiniFlip, 70    ' Right Powerfield Real Magnet Strength (adjust to taste)
         .GrabCenter = False: .Size = 195
         .CreateEvents "mRightMini"
     End With
@@ -343,16 +343,16 @@ Sub Table1_Init
 
     '****************   Trough   ******************
 
-	sw17.CreateSizedBallWithMass Ballsize/2, BallMass
-	sw16.CreateSizedBallWithMass Ballsize/2, BallMass
-	sw15.CreateSizedBallWithMass Ballsize/2, BallMass
+  sw17.CreateSizedBallWithMass Ballsize/2, BallMass
+  sw16.CreateSizedBallWithMass Ballsize/2, BallMass
+  sw15.CreateSizedBallWithMass Ballsize/2, BallMass
 
     '****************   Gumball   ******************
 
-	gumball1.CreateSizedBallWithMass Ballsize/2, BallMass
-	gumball2.CreateSizedBallWithMass Ballsize/2, BallMass
-	gumball3.CreateSizedBallWithMass Ballsize/2, BallMass
-	Controller.Switch(55) = 0
+  gumball1.CreateSizedBallWithMass Ballsize/2, BallMass
+  gumball2.CreateSizedBallWithMass Ballsize/2, BallMass
+  gumball3.CreateSizedBallWithMass Ballsize/2, BallMass
+  Controller.Switch(55) = 0
 
     '****************   Init GI   ******************
 
@@ -363,49 +363,49 @@ End Sub
 ' SOLENOIDS
 '**************************************************************
 
-'	  (*) - only in prototype, supported by rom 9.4
-'	 (**) - the additional GUM and BALL flashers were removed ro reduce cost
-'	(***) - Gumball and Clock Mechanics are handled by vpm classes
+'   (*) - only in prototype, supported by rom 9.4
+'  (**) - the additional GUM and BALL flashers were removed ro reduce cost
+' (***) - Gumball and Clock Mechanics are handled by vpm classes
 
 'standard coils
-SolCallback(1) = "SlotMachineKickout"									'(01) Slot Kickout
-SolCallback(2) = "bsRocket.SolOut"										'(02) Rocket Kicker
-SolCallback(3) = "bsAutoPlunger.SolOut"									'(03) Auto-Fire Kicker
-SolCallback(4) = "SolGumballPopper"										'(04) Gumball Popper
-SolCallback(5) = "SolRightRampDiverter"									'(05) Right Ramp Diverter
-SolCallback(6) = "SolGumballDiverter"									'(06) Gumball Diverter
-SolCallback(7) = "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"		'(07) Knocker
-SolCallback(8) = "SolOuthole"											'(08) Outhole
-SolCallback(9) = "SolBallRelease"										'(09) Ball Release
-'SolCallback(10) = "SolRightSling"										'(10) Right Slingshot
-'SolCallback(11) = "SolLeftSling"										'(11) Left Slingshot
-'SolCallback(12) = "SolLowerBumper"										'(12) Lower Jet Bumper
-'SolCallback(13) = "SolLeftBumper"										'(13) Left Jet Bumper
-'SolCallback(14) = "SolRightBumper"										'(14) Right Jet Bumper
-SolCallback(15) = "LockKickout"											'(15) Lock Release nf
-SolCallback(16) = "SolShootDiverter"									'(16) Shooter Diverter
-SolModCallback(17) = "SetModLamp 117,"										'(17) Flasher bumpers x2	
-SolModCallback(18) = "SetModLamp 118,"										'(18) Flasher Power Payoff x2
-SolModCallback(19) = "SetModLamp 119,"										'(19) Flasher Mini-Playfield x2
-SolModCallback(20) = "SetModLamp 120,"										'(20) Flasher Upper Left Ramp x2 (**)
-SolCallback(21) = "SolLeftMagnet"										'(21) Left Magnet
-SolCallback(22) = "SolUpperRightMagnet"									'(22) Upper Right Magnet (*)
-SolCallback(23) = "SolLowerRightMagnet"									'(23) Lower Right Magnet
-SolCallback(24) = "SolGumballMotor"										'(24) Gumball Motor
-SolCallback(25) = "SolMiniMagnet mLeftMini,"							'(25) Left Mini-Playfield Magnet
-SolCallback(26) = "SolMiniMagnet mRightMini,"							'(26) Right Mini-Playfield Magnet
-SolCallback(27) = "SolLeftRampDiverter"									'(27) Left Ramp Diverter
-SolCallback(28) = "setlamp 128,"										'(28) Flasher Inside Ramp
+SolCallback(1) = "SlotMachineKickout"                 '(01) Slot Kickout
+SolCallback(2) = "bsRocket.SolOut"                    '(02) Rocket Kicker
+SolCallback(3) = "bsAutoPlunger.SolOut"                 '(03) Auto-Fire Kicker
+SolCallback(4) = "SolGumballPopper"                   '(04) Gumball Popper
+SolCallback(5) = "SolRightRampDiverter"                 '(05) Right Ramp Diverter
+SolCallback(6) = "SolGumballDiverter"                 '(06) Gumball Diverter
+SolCallback(7) = "vpmSolSound SoundFX(""fx_knocker"",DOFKnocker),"    '(07) Knocker
+SolCallback(8) = "SolOuthole"                     '(08) Outhole
+SolCallback(9) = "SolBallRelease"                   '(09) Ball Release
+'SolCallback(10) = "SolRightSling"                    '(10) Right Slingshot
+'SolCallback(11) = "SolLeftSling"                   '(11) Left Slingshot
+'SolCallback(12) = "SolLowerBumper"                   '(12) Lower Jet Bumper
+'SolCallback(13) = "SolLeftBumper"                    '(13) Left Jet Bumper
+'SolCallback(14) = "SolRightBumper"                   '(14) Right Jet Bumper
+SolCallback(15) = "LockKickout"                     '(15) Lock Release nf
+SolCallback(16) = "SolShootDiverter"                  '(16) Shooter Diverter
+SolModCallback(17) = "SetModLamp 117,"                    '(17) Flasher bumpers x2
+SolModCallback(18) = "SetModLamp 118,"                    '(18) Flasher Power Payoff x2
+SolModCallback(19) = "SetModLamp 119,"                    '(19) Flasher Mini-Playfield x2
+SolModCallback(20) = "SetModLamp 120,"                    '(20) Flasher Upper Left Ramp x2 (**)
+SolCallback(21) = "SolLeftMagnet"                   '(21) Left Magnet
+SolCallback(22) = "SolUpperRightMagnet"                 '(22) Upper Right Magnet (*)
+SolCallback(23) = "SolLowerRightMagnet"                 '(23) Lower Right Magnet
+SolCallback(24) = "SolGumballMotor"                   '(24) Gumball Motor
+SolCallback(25) = "SolMiniMagnet mLeftMini,"              '(25) Left Mini-Playfield Magnet
+SolCallback(26) = "SolMiniMagnet mRightMini,"             '(26) Right Mini-Playfield Magnet
+SolCallback(27) = "SolLeftRampDiverter"                 '(27) Left Ramp Diverter
+SolCallback(28) = "setlamp 128,"                    '(28) Flasher Inside Ramp
 'aux board coils
-SolModCallback(51) = "SetModLamp 137,"										'(37) Flasher Upper Right Flipper
-SolModCallback(52) = "SetModLamp 138,"										'(38) Flasher Gumball Machine Higher
-SolModCallback(53) = "SetModLamp 139,"										'(39) Flasher Gumball Machine Middle
-SolModCallback(54) = "SetModLamp 140,"										'(40) Flasher Gumball Machine Lower
-SolModCallback(55) = "SetModLamp 141,"										'(41) Flasher Upper Right Ramp x2 (**)
-'SolCallback(56) = ""													'(42) Clock Reverse (***)
-'SolCallback(57) = ""													'(43) Clock Forward (***)
-'SolCallback(58) = ""													'(44) Clock Switch Strobe (***)
-SolCallback(59) = "SolGumRelease"										'(??) Gumball Release (***)
+SolModCallback(51) = "SetModLamp 137,"                    '(37) Flasher Upper Right Flipper
+SolModCallback(52) = "SetModLamp 138,"                    '(38) Flasher Gumball Machine Higher
+SolModCallback(53) = "SetModLamp 139,"                    '(39) Flasher Gumball Machine Middle
+SolModCallback(54) = "SetModLamp 140,"                    '(40) Flasher Gumball Machine Lower
+SolModCallback(55) = "SetModLamp 141,"                    '(41) Flasher Upper Right Ramp x2 (**)
+'SolCallback(56) = ""                         '(42) Clock Reverse (***)
+'SolCallback(57) = ""                         '(43) Clock Forward (***)
+'SolCallback(58) = ""                         '(44) Clock Switch Strobe (***)
+SolCallback(59) = "SolGumRelease"                   '(??) Gumball Release (***)
 'fliptronic board
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
@@ -432,27 +432,27 @@ End Sub
 
 '***********   Gumball Popper   ******************************
 
-Dim BIK:BIK=0		'ball in kicker
+Dim BIK:BIK=0   'ball in kicker
 
 sub GumballPopper_Hit()
-	Controller.Switch(74) = 1
-	BIK=BIK+1
-	Playsound "fx_kicker_catch"
+  Controller.Switch(74) = 1
+  BIK=BIK+1
+  Playsound "fx_kicker_catch"
 end sub
 
 sub GumballPopper_UnHit()
-	Controller.Switch(74) = 0
-	BIK=BIK-1
+  Controller.Switch(74) = 0
+  BIK=BIK-1
 end sub
 
 Sub GumballPopperHole_Hit
-	Playsoundat "fx_Hole", GumballPopperHole
+  Playsoundat "fx_Hole", GumballPopperHole
     vpmTimer.PulseSw 51
 End Sub
 
-Sub SolGumballPopper(enabled)	'VUK
+Sub SolGumballPopper(enabled) 'VUK
     If enabled Then
-		GumballPopper.Kick 0, 65, 1.5
+    GumballPopper.Kick 0, 65, 1.5
         If BIK = 0 Then
             PlaySound SoundFX(SSolenoidOn,DOFContactors)
         Else
@@ -463,45 +463,45 @@ End Sub
 
 '**************   Drain  and Release  ************************************
 
-Dim BIP:BIP = 0				'Balls In Play
+Dim BIP:BIP = 0       'Balls In Play
 
 sub sw18_hit()
-	Controller.Switch(18) = 1:Playsound "fx_drain":BIP = BIP - 1
+  Controller.Switch(18) = 1:Playsound "fx_drain":BIP = BIP - 1
     If TVMod = 1 then TVTimer.enabled = 0:Frame.imageA = "tv_gameover"
 end sub
 
 sub sw18_unhit():controller.Switch(18) = 0:end sub
 
 Sub SolOuthole(enabled)
-	If Enabled Then
-		sw18.kick 85, 11
-		Updatetrough
-		Playsoundat SoundFX(SSolenoidOn,DOFContactors), sw18
-	End If
+  If Enabled Then
+    sw18.kick 85, 11
+    Updatetrough
+    Playsoundat SoundFX(SSolenoidOn,DOFContactors), sw18
+  End If
 end sub
 
 Sub SolBallrelease(enabled)
-	If Enabled Then
-		sw15.kick 58, 10
-		Updatetrough					'this is important to reset trough intervals
-		BIP = BIP + 1
-	End If
+  If Enabled Then
+    sw15.kick 58, 10
+    Updatetrough          'this is important to reset trough intervals
+    BIP = BIP + 1
+  End If
 End sub
 
 '******************************************************************
-'** NFOZZY'S BALLTROUGH AND LOCK	*******************************
+'** NFOZZY'S BALLTROUGH AND LOCK  *******************************
 '******************************************************************
 
-sub boottrough_timer()				'starts up the trough
-	controller.Switch(17) = 1
-	controller.Switch(16) = 1
-	controller.Switch(15) = 1
-	if powerballstart <> 6 then
-		controller.Switch(26) = 1	'Trough sensor, needs to start on unless the powerball spawns in the forward trough position
-	end if
-	me.enabled = 0
-	updatetrough
-	Scramble	'Powerball insertion
+sub boottrough_timer()        'starts up the trough
+  controller.Switch(17) = 1
+  controller.Switch(16) = 1
+  controller.Switch(15) = 1
+  if powerballstart <> 6 then
+    controller.Switch(26) = 1 'Trough sensor, needs to start on unless the powerball spawns in the forward trough position
+  end if
+  me.enabled = 0
+  updatetrough
+  Scramble  'Powerball insertion
 end sub
 
 sub sw25_hit():controller.Switch(25) = 1:end sub
@@ -514,34 +514,34 @@ sub sw16_hit():controller.Switch(16) = 1:end sub
 sub sw16_unhit():controller.Switch(16) = 0:updatetrough:end sub
 
 sub sw15_hit()
-if activeball.id = 666 then 	'opto handler
-	controller.Switch(26) = 0	'if powerball
-Else	
-	controller.Switch(26) = 1	'if regular ball
+if activeball.id = 666 then   'opto handler
+  controller.Switch(26) = 0 'if powerball
+Else
+  controller.Switch(26) = 1 'if regular ball
 end if
 controller.Switch(15) = 1
 end sub
-sub sw15_unhit():controller.Switch(15) = 0:controller.switch(26) = 0:playsoundat SoundFX("fx_ballrel",DOFContactors), sw15:updatetrough:end sub	'if empty
+sub sw15_unhit():controller.Switch(15) = 0:controller.switch(26) = 0:playsoundat SoundFX("fx_ballrel",DOFContactors), sw15:updatetrough:end sub 'if empty
 
 sub sw26_hit
-	if activeball.id = 666 then
-		set powerballnf = activeball
-	end if
+  if activeball.id = 666 then
+    set powerballnf = activeball
+  end if
 end Sub
 
 'order-
 '25, 17, 16, 15
 
 sub Updatetrough()
-	updatetroughTimer.interval = 300
-	updatetroughTimer.enabled = 1
+  updatetroughTimer.interval = 300
+  updatetroughTimer.enabled = 1
 end sub
 
 sub updatetroughTimer_timer()
-	if sw15.BallCntOver = 0 then sw16.kick 58, 8 end If
-	if sw16.BallCntOver = 0 then sw17.kick 58, 8 end If
-	if sw17.BallCntOver = 0 then sw25.Kick 58, 8 end If
-	me.enabled = 0
+  if sw15.BallCntOver = 0 then sw16.kick 58, 8 end If
+  if sw16.BallCntOver = 0 then sw17.kick 58, 8 end If
+  if sw17.BallCntOver = 0 then sw25.Kick 58, 8 end If
+  me.enabled = 0
 end sub
 
 '*******************   Lock   ******************
@@ -554,22 +554,22 @@ sub sw88_hit():controller.Switch(88) = 1:updatelock:end sub
 sub sw88_unhit():controller.Switch(88) = 0:end sub
 
 sub updatelock
-	updatelocktimer.interval = 32
-	updatelocktimer.enabled = 1
+  updatelocktimer.interval = 32
+  updatelocktimer.enabled = 1
 end sub
 
 sub updatelocktimer_timer()
-	if sw88.BallCntOver = 0 then sw84.kick 180, 2 end If
-	if sw84.BallCntOver = 0 then sw85.kick 180, 2 end if
-	me.enabled = 0
+  if sw88.BallCntOver = 0 then sw84.kick 180, 2 end If
+  if sw84.BallCntOver = 0 then sw85.kick 180, 2 end if
+  me.enabled = 0
 end sub
 
 sub LockKickout(enabled)
-	If enabled then
-	sw88.kick 88, 10
-	Playsoundat SoundFX("fx_Lock_exit",DOFContactors), sw88
-	updatelock
-	End If
+  If enabled then
+  sw88.kick 88, 10
+  Playsoundat SoundFX("fx_Lock_exit",DOFContactors), sw88
+  updatelock
+  End If
 end sub
 
 '******************************************************************
@@ -577,18 +577,18 @@ end sub
 '******************************************************************
 
 Sub SubwaySound(dummy)
-	PlaySound "fx_subway"
+  PlaySound "fx_subway"
 End sub
 
-'********	Slot Machine	****************************************
+'******** Slot Machine  ****************************************
 
 Sub SlotMachine_Hit()
     PlaySound "fx_SlotM_enter"
 End Sub
 
-Sub sw57_Hit()											'submarine switch, Tslot proximity
+Sub sw57_Hit()                      'submarine switch, Tslot proximity
 if activeball.id = 666 then
-	set powerballnf = activeball
+  set powerballnf = activeball
 else
 controller.Switch(57) = 1
 end if
@@ -597,41 +597,41 @@ end Sub
 Sub sw57_UnHit():controller.Switch(57) = 0:end Sub
 
 sub slotmachinekickout(enabled)
-	if enabled Then
-		bsSlot.SolOut enabled
-		slotMachine.enabled = 0							'let's disable and reanable it again so the ball can pass
-		vpmtimer.addtimer 250, "slotmachine.enabled = 1'"
-		if SlotBall2.BallCntOver > 0 then
-			mslot.MagnetOn=1
-		end if
-	Else
-		mslot.MagnetOn=0
-	end if
+  if enabled Then
+    bsSlot.SolOut enabled
+    slotMachine.enabled = 0             'let's disable and reanable it again so the ball can pass
+    vpmtimer.addtimer 250, "slotmachine.enabled = 1'"
+    if SlotBall2.BallCntOver > 0 then
+      mslot.MagnetOn=1
+    end if
+  Else
+    mslot.MagnetOn=0
+  end if
 end sub
 
-'********	Shooter Lane	***************************************
+'******** Shooter Lane  ***************************************
 
 Sub ShooterLaneKicker_Hit
     PlaySoundAt "fx_hole", ShooterLaneKicker
-	vpmtimer.addtimer 100, "SubwaySound"
+  vpmtimer.addtimer 100, "SubwaySound"
 End Sub
 
 '********   Dead End   ********************************************
 
 Sub DeadEnd_Hit
     vpmTimer.PulseSw 41
-	PlaySoundAt "fx_DeadEnd", DeadEnd
-	vpmtimer.addtimer 100, "SubwaySound"
+  PlaySoundAt "fx_DeadEnd", DeadEnd
+  vpmtimer.addtimer 100, "SubwaySound"
 End Sub
 
 '********   Camera   ***********************************************
 
 Sub CameraKicker_Hit
-	PlaySoundAt "fx_hole", CameraKicker
-	vpmtimer.addtimer 100, "SubwaySound"
+  PlaySoundAt "fx_hole", CameraKicker
+  vpmtimer.addtimer 100, "SubwaySound"
 End Sub
 
-Sub sw42_Hit():controller.Switch(42) = 1:end Sub		'submarine switch, camera / upper playfield
+Sub sw42_Hit():controller.Switch(42) = 1:end Sub    'submarine switch, camera / upper playfield
 Sub sw42_UnHit():controller.Switch(42) = 0:end Sub
 
 '********  Piano   *************************************************
@@ -640,7 +640,7 @@ Sub Piano_Hit()
     PlaySound "fx_Piano"
 End Sub
 
-Sub sw43_Hit():controller.Switch(43) = 1:end Sub		'submarine switch, piano
+Sub sw43_Hit():controller.Switch(43) = 1:end Sub    'submarine switch, piano
 Sub sw43_UnHit():controller.Switch(43) = 0:end Sub
 
 ''************************************************************************************
@@ -668,7 +668,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub RightSlingShot_Slingshot
-	PlaySound SoundFX("fx_slingshotR",DOFContactors)
+  PlaySound SoundFX("fx_slingshotR",DOFContactors)
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -745,30 +745,30 @@ Sub solShootDiverter(Enabled)
         shooterdiverter.rotatetoend : Playsound SoundFX("fx_DivSS",DOFContactors)
     Else
         shooterdiverter.rotatetostart
-	End If
+  End If
 End Sub
 
 Sub SolGumballDiverter (enabled)
     If Enabled Then
-		GumballDiverter.rotatetoend : Playsound SoundFX("fx_DivGM",DOFContactors)
-	Else
-		GumballDiverter.rotatetostart
-	End If
+    GumballDiverter.rotatetoend : Playsound SoundFX("fx_DivGM",DOFContactors)
+  Else
+    GumballDiverter.rotatetostart
+  End If
 End Sub
 
 '********  Left Ramp Diverter   **********************
 
 Sub SolLeftRampDiverter(enabled)
     If Enabled Then
-		Playsound SoundFX("fx_DivLR",DOFContactors)
-		RampDivWall.IsDropped=1
+    Playsound SoundFX("fx_DivLR",DOFContactors)
+    RampDivWall.IsDropped=1
         RampDiverter.RotatetoEnd
-		Plunger1.pullback
+    Plunger1.pullback
     Else
-		RampDivWall.IsDropped=0
+    RampDivWall.IsDropped=0
         RampDiverter.Rotatetostart
-		Plunger1.fire
-	End If
+    Plunger1.fire
+  End If
 End Sub
 
 '********  Right Ramp Diverter   **********************
@@ -783,7 +783,7 @@ End Sub
 
 Sub SolRightRampDiverter(enabled)
     If enabled Then
-		Playsound SoundFX("fx_DivRR",DOFContactors)
+    Playsound SoundFX("fx_DivRR",DOFContactors)
         DivKicker.Kick 0, 10, 34
         divDir = 9
     Else
@@ -943,7 +943,7 @@ Sub SolURFlipper(Enabled)
 End Sub
 
 '********************************************************************************
-'*******************		REATIME UPDATES		*********************************
+'*******************    REATIME UPDATES   *********************************
 '********************************************************************************
 
 Sub GameTimer
@@ -953,15 +953,15 @@ Sub GameTimer
 End Sub
 
 Sub UpdateMechs
-	FlipperL.RotZ = LeftFlipper.CurrentAngle
-	FlipperR.RotZ = RightFlipper.CurrentAngle
-	FlipperL1.RotY = LeftMiniFlipper.CurrentAngle
-	FlipperR1.RotZ = RightMiniFlipper.CurrentAngle
-	ShooterDiv.RotY = ShooterDiverter.CurrentAngle
-	DiverterP.RotZ = RampDiverter.CurrentAngle
-	DiverterP1.RotZ = GumballDiverter.CurrentAngle
-	sw53p.RotX = LRampG.CurrentAngle
-	sw54p.RotX = LRampSw.CurrentAngle
+  FlipperL.RotZ = LeftFlipper.CurrentAngle
+  FlipperR.RotZ = RightFlipper.CurrentAngle
+  FlipperL1.RotY = LeftMiniFlipper.CurrentAngle
+  FlipperR1.RotZ = RightMiniFlipper.CurrentAngle
+  ShooterDiv.RotY = ShooterDiverter.CurrentAngle
+  DiverterP.RotZ = RampDiverter.CurrentAngle
+  DiverterP1.RotZ = GumballDiverter.CurrentAngle
+  sw53p.RotX = LRampG.CurrentAngle
+  sw54p.RotX = LRampSw.CurrentAngle
 End Sub
 
 '********************************************************************************
@@ -975,35 +975,35 @@ sub Gumball3_hit():updategumballs:end Sub
 sub Gumball3_Unhit():updategumballs:end Sub
 
 sub updategumballs
-	gumballupdate.interval = 50
-	gumballupdate.enabled = 1
+  gumballupdate.interval = 50
+  gumballupdate.enabled = 1
 End sub
 
 sub Gumballupdate_timer()
-	if gumball3.BallCntOver = 0 then gumball2.kick 170, 1 end If
-	if gumball2.BallCntOver = 0 then gumball1.kick 170, 1 end If
-	if gumball1.BallCntOver = 0 then gumball0.kick 170, 1 end If
-	me.enabled = 0		'Might cause problems
+  if gumball3.BallCntOver = 0 then gumball2.kick 170, 1 end If
+  if gumball2.BallCntOver = 0 then gumball1.kick 170, 1 end If
+  if gumball1.BallCntOver = 0 then gumball0.kick 170, 1 end If
+  me.enabled = 0    'Might cause problems
 end sub
 
 Sub SolGumRelease(enabled)
     If enabled Then
-		gumball3.kick 170, 1
-		updategumballs
-		vpmTimer.AddTimer 100, "GumKnobTimer.enabled = 1'"
-		vpmtimer.PulseSw 55
+    gumball3.kick 170, 1
+    updategumballs
+    vpmTimer.AddTimer 100, "GumKnobTimer.enabled = 1'"
+    vpmtimer.PulseSw 55
     End If
 End Sub
 
 Sub SolGumballMotor(enabled)
-	If enabled Then 
-		PlaySound SoundFX("fx_GumMachine",DOFGear)
-	End If
+  If enabled Then
+    PlaySound SoundFX("fx_GumMachine",DOFGear)
+  End If
 End Sub
 
 Sub GumKnobTimer_Timer()
-	GumballMachineKnob.RotY= GumballMachineKnob.RotY + 20
-	If GumballMachineKnob.RotY >  360 then GumKnobTimer.enabled = 0 : GumballMachineKnob.RotY = 0
+  GumballMachineKnob.RotY= GumballMachineKnob.RotY + 20
+  If GumballMachineKnob.RotY >  360 then GumKnobTimer.enabled = 0 : GumballMachineKnob.RotY = 0
 End Sub
 
 '********************************************************************
@@ -1016,14 +1016,14 @@ Sub UpdateClock
     Dim Time, Min, Hour, temp
     Time = CInt(Controller.GetMech(0) )
     If Time <> LastTime Then
-		Min = (Time Mod 60)
-		Hour = Int(Time / 2)
-		ClockShort.RotY = Hour - 45
-		ClockLarge.RotY = min * 6
-		Clock_mech.RotY = min * 6
-		LastTime = Time
-		PlaySound SoundFXDOF("fx_motor",101,DOFPulse,DOFGear), -1, 1, 0.05, 0, 0, 1, 0
-	Else Stopsound "fx_motor"
+    Min = (Time Mod 60)
+    Hour = Int(Time / 2)
+    ClockShort.RotY = Hour - 45
+    ClockLarge.RotY = min * 6
+    Clock_mech.RotY = min * 6
+    LastTime = Time
+    PlaySound SoundFXDOF("fx_motor",101,DOFPulse,DOFGear), -1, 1, 0.05, 0, 0, 1, 0
+  Else Stopsound "fx_motor"
     End If
 End Sub
 
@@ -1033,9 +1033,9 @@ End Sub
 
 Sub SolMiniMagnet(aMag, enabled)
     If enabled Then
-		PlaySound SoundFX("fx_magnet",DOFShaker)
+    PlaySound SoundFX("fx_magnet",DOFShaker)
         With aMag
-			.removeball powerballnf
+      .removeball powerballnf
             .MagnetOn = True
             .Update
             .MagnetOn = False
@@ -1051,56 +1051,56 @@ End Sub
 '**********************************************************************
 
 Sub sw81_help_unhit
-	If activeball.vely > 28 then  activeball.vely = RndNum (26,27)			'-ninuzzu- Let's slow down the ball a bit so the magnets can
-	If activeball.vely < - 28 then  activeball.vely = - RndNum (26,27)		'catch the ball
-	If mLowerRightMagnet.MagnetOn = 1 and activeball.id <> 666 then
-		activeball.vely = activeball.vely * -0.2
-		activeball.velx = activeball.velx * -0.2
-	End If
+  If activeball.vely > 28 then  activeball.vely = RndNum (26,27)      '-ninuzzu- Let's slow down the ball a bit so the magnets can
+  If activeball.vely < - 28 then  activeball.vely = - RndNum (26,27)    'catch the ball
+  If mLowerRightMagnet.MagnetOn = 1 and activeball.id <> 666 then
+    activeball.vely = activeball.vely * -0.2
+    activeball.velx = activeball.velx * -0.2
+  End If
 End Sub
 
 Sub sw82_help_unhit
-	If mUpperRightMagnet.MagnetOn = 1 and activeball.id <> 666 then
-		activeball.vely = activeball.vely * -0.2
-		activeball.velx = activeball.velx * -0.2
+  If mUpperRightMagnet.MagnetOn = 1 and activeball.id <> 666 then
+    activeball.vely = activeball.vely * -0.2
+    activeball.velx = activeball.velx * -0.2
     End If
 End Sub
 
 Sub sw83_help_unhit
-	If mLeftMagnet.MagnetOn = 1 and activeball.id <> 666 then
-		activeball.vely = activeball.vely * -0.2
-		activeball.velx = activeball.velx * -0.2
-	End If
+  If mLeftMagnet.MagnetOn = 1 and activeball.id <> 666 then
+    activeball.vely = activeball.vely * -0.2
+    activeball.velx = activeball.velx * -0.2
+  End If
 End Sub
 
 Sub SolLeftMagnet(enabled)
-	If enabled Then
-		mLeftMagnet.MagnetOn = 1
-		mleftmagnet.removeball powerballnf
-		PlaySound SoundFX("fx_magnet_catch",DOFShaker)
-	Else
-		mLeftMagnet.MagnetOn = 0
-	End If
+  If enabled Then
+    mLeftMagnet.MagnetOn = 1
+    mleftmagnet.removeball powerballnf
+    PlaySound SoundFX("fx_magnet_catch",DOFShaker)
+  Else
+    mLeftMagnet.MagnetOn = 0
+  End If
 End Sub
 
 Sub SolUpperRightMagnet(enabled)
-	If enabled Then
-		mUpperRightMagnet.MagnetOn = 1
-		mUpperRightMagnet.removeball powerballnf
-		PlaySound SoundFX("fx_magnet_catch",DOFShaker)
-	Else
-		mUpperRightMagnet.MagnetOn = 0
-	End If
+  If enabled Then
+    mUpperRightMagnet.MagnetOn = 1
+    mUpperRightMagnet.removeball powerballnf
+    PlaySound SoundFX("fx_magnet_catch",DOFShaker)
+  Else
+    mUpperRightMagnet.MagnetOn = 0
+  End If
 End Sub
 
 Sub SolLowerRightMagnet(enabled)
-	If enabled Then
-		mLowerRightMagnet.MagnetOn = 1
-		mLowerRightMagnet.removeball powerballnf
-		PlaySound SoundFX("fx_magnet_catch",DOFShaker)
-	Else
-		mLowerRightMagnet.MagnetOn = 0
-	End If
+  If enabled Then
+    mLowerRightMagnet.MagnetOn = 1
+    mLowerRightMagnet.removeball powerballnf
+    PlaySound SoundFX("fx_magnet_catch",DOFShaker)
+  Else
+    mLowerRightMagnet.MagnetOn = 0
+  End If
 End Sub
 
 '***************************************************
@@ -1149,16 +1149,16 @@ Sub UpdateLamps
     NFadeL 11, l11
     NFadeL 12, l12
     NFadeLm 13, l13
-    NFadeLm 13, l13a	'Robbie lights
-    NFadeL 13, l13b		'Robbie lights
+    NFadeLm 13, l13a  'Robbie lights
+    NFadeL 13, l13b   'Robbie lights
     NFadeL 14, l14
     NFadeL 15, l15
     NFadeL 16, l16
     NFadeLm 17, l17
-    NFadeLm 17, l17a  	'TownSquarePost lights
-    NFadeLm 17, l17a1 	'TownSquarePost lights
-    NFadeLm 17, l17a2 	'TownSquarePost lights
-    Flash 17, l17r		'TownSquarePost lights
+    NFadeLm 17, l17a    'TownSquarePost lights
+    NFadeLm 17, l17a1   'TownSquarePost lights
+    NFadeLm 17, l17a2   'TownSquarePost lights
+    Flash 17, l17r    'TownSquarePost lights
     NFadeL 18, l18
 
     NFadeL 21, l21
@@ -1168,11 +1168,11 @@ Sub UpdateLamps
     NFadeL 25, l25
     NFadeL 26, l26
     NFadeLm 27, l27
-    NFadeLm 27, l27a	'SlotMachine Lights
-    Flash 27, l27b		'SlotMachine Lights
+    NFadeLm 27, l27a  'SlotMachine Lights
+    Flash 27, l27b    'SlotMachine Lights
     NFadeLm 28, l28
-    NFadeLm 28, l28a	'Robbie lights
-    NFadeL 28, l28b		'Robbie lights
+    NFadeLm 28, l28a  'Robbie lights
+    NFadeL 28, l28b   'Robbie lights
 
     NFadeL 31, l31
     NFadeL 32, l32
@@ -1180,8 +1180,8 @@ Sub UpdateLamps
     NFadeL 34, l34
     NFadeL 35, l35
     NFadeLm 36, l36
-    NFadeLm 36, l36a	'Robbie lights
-    NFadeL 36, l36b		'Robbie lights
+    NFadeLm 36, l36a  'Robbie lights
+    NFadeL 36, l36b   'Robbie lights
     NFadeL 37, l37
     NFadeL 38, l38
 
@@ -1194,19 +1194,19 @@ Sub UpdateLamps
     NFadeL 47, l47
     NFadeL 48, l48
 
-	NFadeL 51, l51
-	NFadeL 52, l52
-	NFadeL 53, l53
-	NFadeL 54, l54
-	NFadeLm 55, l55
-	NFadeLm 55, l55a	'Camera lights
-	NFadeLm 55, l55b	'Camera lights
-	Flash 55, l55c		'Camera lights
-	NFadeLm 56, l56
-	Flashm 56, l56a		'Pyramid lights
-	Flash 56, l56b		'Pyramid lights
-    NFadeLm 57, l57		'Robbie lights
-    Flashm 57, l57a		'Robbie lights
+  NFadeL 51, l51
+  NFadeL 52, l52
+  NFadeL 53, l53
+  NFadeL 54, l54
+  NFadeLm 55, l55
+  NFadeLm 55, l55a  'Camera lights
+  NFadeLm 55, l55b  'Camera lights
+  Flash 55, l55c    'Camera lights
+  NFadeLm 56, l56
+  Flashm 56, l56a   'Pyramid lights
+  Flash 56, l56b    'Pyramid lights
+    NFadeLm 57, l57   'Robbie lights
+    Flashm 57, l57a   'Robbie lights
     Flash 57, l57b
     NFadeL 58, l58
 
@@ -1237,63 +1237,63 @@ Sub UpdateLamps
     NFadeLm 81, l81
     Flash 81, l81a
     NFadeLm 82, l82
-    NFadeLm 82, l82a 	'Clock Toy Mod lights
-    Flash 82, l82r   	'Clock Toy Mod lights
+    NFadeLm 82, l82a  'Clock Toy Mod lights
+    Flash 82, l82r    'Clock Toy Mod lights
     NFadeLm 83, l83
     NFadeL 83, l83a
     NFadeLm 84, l84
     NFadeL 84, l84a
     NFadeLm 85, l85
-    Flashm 85, l85a		'SlotMachine Lights
-    Flash 85, l85b		'SlotMachine Lights
+    Flashm 85, l85a   'SlotMachine Lights
+    Flash 85, l85b    'SlotMachine Lights
     NFadeLm 86, l86
     Flash 86, l86r
 
     'Flashers
-	NFadeLModm 117, f17
-	NFadeLMod 117, f17a
-	NFadeLModm 118, f18
-	NFadeLModm 118, f18a
-	NFadeLModm 118, f18b
-	NFadeLModm 118, f18c
-	NFadeLModm 118, f18d
-	Flash 118, f18e
-	NFadeLModm 119, f19
-	NFadeLModm 119, f19a
-	Flash 119, f19b			'Pyramid lights
-	NFadeLModm 120, f20
-	NFadeLModm 120, f20a
-	NFadeLModm 120, f20b
-	NFadeLModm 120, f20c
-	NFadeLModm 120, f20d
-	Flashm 120, f20e
-	Flash 120, f20r
-	NFadeLModm 128, f28
-	NFadeLModm 128, f28a
-	NFadeLModm 128, f28b
-	Flashm 128, f28c
-	Flash 128, f28r
-	NFadeLModm 137, f37
-	NFadeLModm 137, f37a		'Rocket lights
-	NFadeLMod 137, f37b		'Rocket lights
-	NFadeLModm 138, f38
-	NFadeLModm 138, f38a
-	Flashm 138, f38b
-	Flash 138, f38r
-	NFadeLModm 139, f39
-	NFadeLModm 139, f39a
-	Flashm 139, f39b
-	Flash 139, f39r
-	NFadeLModm 140, f40
-	NFadeLModm 140, f40a
-	Flashm 140, f40b
-	Flash 140, f40r
-	NFadeLModm 141, f41
-	NFadeLModm 141, f41a
-	NFadeLModm 141, f41b
-	NFadeLModm 141, f41c
-	NFadeLModm 141, f41d
-	Flashm 141, f41e
+  NFadeLModm 117, f17
+  NFadeLMod 117, f17a
+  NFadeLModm 118, f18
+  NFadeLModm 118, f18a
+  NFadeLModm 118, f18b
+  NFadeLModm 118, f18c
+  NFadeLModm 118, f18d
+  Flash 118, f18e
+  NFadeLModm 119, f19
+  NFadeLModm 119, f19a
+  Flash 119, f19b     'Pyramid lights
+  NFadeLModm 120, f20
+  NFadeLModm 120, f20a
+  NFadeLModm 120, f20b
+  NFadeLModm 120, f20c
+  NFadeLModm 120, f20d
+  Flashm 120, f20e
+  Flash 120, f20r
+  NFadeLModm 128, f28
+  NFadeLModm 128, f28a
+  NFadeLModm 128, f28b
+  Flashm 128, f28c
+  Flash 128, f28r
+  NFadeLModm 137, f37
+  NFadeLModm 137, f37a    'Rocket lights
+  NFadeLMod 137, f37b   'Rocket lights
+  NFadeLModm 138, f38
+  NFadeLModm 138, f38a
+  Flashm 138, f38b
+  Flash 138, f38r
+  NFadeLModm 139, f39
+  NFadeLModm 139, f39a
+  Flashm 139, f39b
+  Flash 139, f39r
+  NFadeLModm 140, f40
+  NFadeLModm 140, f40a
+  Flashm 140, f40b
+  Flash 140, f40r
+  NFadeLModm 141, f41
+  NFadeLModm 141, f41a
+  NFadeLModm 141, f41b
+  NFadeLModm 141, f41c
+  NFadeLModm 141, f41d
+  Flashm 141, f41e
     Flash 141, f41r
 
     If BIP > 0 AND SpiralMod = 1 Then SpiralMove.enabled = LampState(68)
@@ -1301,8 +1301,8 @@ End Sub
 
 
 Sub SetModLamp(nr, level)
-	debug.print nr & ": " & level
-	FadingLevel(nr) = level
+  debug.print nr & ": " & level
+  FadingLevel(nr) = level
 End Sub
 
 Sub SetLamp(nr, value)
@@ -1314,14 +1314,14 @@ End Sub
 
 ' Lights: used for VP10 standard lights, the fading is handled by VP itself
 
-Sub NFadeLMod(nr, object)	'3 lights
+Sub NFadeLMod(nr, object) '3 lights
     object.Intensity = FadingLevel(nr) / 10
-	object.state = 1
+  object.state = 1
     object.visible = 1
 End Sub
 
 Sub NFadeLModm(nr, object) ' used for multiple lights
-	NFadeLMod nr, Object
+  NFadeLMod nr, Object
 End Sub
 
 Sub NFadeL(nr, object)
@@ -1455,10 +1455,10 @@ End Sub
 '*********************************************************************
 
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
-	Dim tmp
+  Dim tmp
     tmp = tableobj.y * 2 / table1.height-1
     If tmp > 0 Then
-		AudioFade = Csng(tmp ^10)
+    AudioFade = Csng(tmp ^10)
     Else
         AudioFade = Csng(-((- tmp) ^10) )
     End If
@@ -1734,8 +1734,8 @@ Else
 End If
 
 Select Case Romset
-			Case 0:	cGameName = "tz_94ch"
-			Case 1:	cGameName = "tz_94h"
+      Case 0: cGameName = "tz_94ch"
+      Case 1: cGameName = "tz_94h"
 End Select
 
 Select Case FlipperType
@@ -1754,51 +1754,51 @@ Select Case FlipperType
 End Select
 
 Select Case PyramidTopLight
-	'Red
-		Case 0 :	l56a.color = RGB (255,0,0):l56a.colorfull = RGB (255,170,170)
-					l56b.color = RGB (255,0,0):f19b.color = RGB (255,0,0)
-	'Green
-		Case 1 :	l56a.color = RGB (0,255,0):l56a.colorfull = RGB (170,255,170)
-					l56b.color = RGB (0,255,0):f19b.color = RGB (0,255,0)
-	'Blue
-		Case 2 :	l56a.color = RGB (0,0,255):l56a.colorfull = RGB (170,170,255)
-					l56b.color = RGB (0,0,255):f19b.color = RGB (0,0,255)
-	'Yellow
-		Case 3 :	l56a.color = RGB (255,255,0):l56a.colorfull = RGB (255,255,170)
-					l56b.color = RGB (255,255,0):f19b.color = RGB (255,255,0)
-	'Magenta
-		Case 4 :	l56a.color = RGB (255,0,255):l56a.colorfull = RGB (255,170,255)
-					l56b.color = RGB (255,0,255):f19b.color = RGB (255,0,255)
-	'Cyan
-		Case 5 :	l56a.color = RGB (0,255,255):l56a.colorfull = RGB (170,255,255)
-					l56b.color = RGB (0,255,255):f19b.color = RGB (0,255,255)
+  'Red
+    Case 0 :  l56a.color = RGB (255,0,0):l56a.colorfull = RGB (255,170,170)
+          l56b.color = RGB (255,0,0):f19b.color = RGB (255,0,0)
+  'Green
+    Case 1 :  l56a.color = RGB (0,255,0):l56a.colorfull = RGB (170,255,170)
+          l56b.color = RGB (0,255,0):f19b.color = RGB (0,255,0)
+  'Blue
+    Case 2 :  l56a.color = RGB (0,0,255):l56a.colorfull = RGB (170,170,255)
+          l56b.color = RGB (0,0,255):f19b.color = RGB (0,0,255)
+  'Yellow
+    Case 3 :  l56a.color = RGB (255,255,0):l56a.colorfull = RGB (255,255,170)
+          l56b.color = RGB (255,255,0):f19b.color = RGB (255,255,0)
+  'Magenta
+    Case 4 :  l56a.color = RGB (255,0,255):l56a.colorfull = RGB (255,170,255)
+          l56b.color = RGB (255,0,255):f19b.color = RGB (255,0,255)
+  'Cyan
+    Case 5 :  l56a.color = RGB (0,255,255):l56a.colorfull = RGB (170,255,255)
+          l56b.color = RGB (0,255,255):f19b.color = RGB (0,255,255)
 End Select
 
 Select Case LampMod
-		Case 0 :	TopPFLamp.visible=1
-					TopPFLampMod.visible=0
-					light46.visible=0
-					light47.visible=0
-		Case 1 :	TopPFLamp.visible=0
-					TopPFLampMod.visible=1
-					light46.visible=1
-					light47.visible=1
-		Case 2 :	TopPFLamp.visible=0
-					TopPFLampMod.visible=1
-					TopPFLampMod.image="gold"
-					light46.visible=1
-					light47.visible=1
+    Case 0 :  TopPFLamp.visible=1
+          TopPFLampMod.visible=0
+          light46.visible=0
+          light47.visible=0
+    Case 1 :  TopPFLamp.visible=0
+          TopPFLampMod.visible=1
+          light46.visible=1
+          light47.visible=1
+    Case 2 :  TopPFLamp.visible=0
+          TopPFLampMod.visible=1
+          TopPFLampMod.image="gold"
+          light46.visible=1
+          light47.visible=1
 End Select
 
 If LampLightColor = 1 then
-					light68.color = RGB (0,0,255):light68.colorfull = RGB (85,85,255)
-					light19.color = RGB (0,0,255):light19.colorfull = RGB (85,85,255)
-					light17.color = RGB (0,0,255):light17.colorfull = RGB (85,85,255)
-					light44.color = RGB (0,0,255):light44.colorfull = RGB (85,85,255)
-					light45.color = RGB (0,0,255):light45.colorfull = RGB (85,85,255)
-					light46.color = RGB (0,0,255)
-					light47.color = RGB (0,0,255)
-					light48.color = RGB (0,0,255):light45.colorfull = RGB (85,85,255)
+          light68.color = RGB (0,0,255):light68.colorfull = RGB (85,85,255)
+          light19.color = RGB (0,0,255):light19.colorfull = RGB (85,85,255)
+          light17.color = RGB (0,0,255):light17.colorfull = RGB (85,85,255)
+          light44.color = RGB (0,0,255):light44.colorfull = RGB (85,85,255)
+          light45.color = RGB (0,0,255):light45.colorfull = RGB (85,85,255)
+          light46.color = RGB (0,0,255)
+          light47.color = RGB (0,0,255)
+          light48.color = RGB (0,0,255):light45.colorfull = RGB (85,85,255)
 End If
 
 Sub swSlotReel_Hit:SlotReelTimer.enabled = 1:End Sub
@@ -1825,18 +1825,18 @@ Sub SpiralMove_Timer()
 End Sub
 
 Select Case BumperPostsMod
-		Case 0:		PegPlastic7.visible = 1
-					PegPlastic8.visible = 1
-					Rubber9.visible = 1
-					Rubber29.visible = 1
-					Rubber9.collidable = 1
-					Rubber29.collidable = 1
-		Case 1:		PegPlastic7.visible = 0
-					PegPlastic8.visible = 0
-					Rubber9.visible = 0
-					Rubber29.visible = 0
-					Rubber9.collidable = 0
-					Rubber29.collidable = 0
+    Case 0:   PegPlastic7.visible = 1
+          PegPlastic8.visible = 1
+          Rubber9.visible = 1
+          Rubber29.visible = 1
+          Rubber9.collidable = 1
+          Rubber29.collidable = 1
+    Case 1:   PegPlastic7.visible = 0
+          PegPlastic8.visible = 0
+          Rubber9.visible = 0
+          Rubber29.visible = 0
+          Rubber9.collidable = 0
+          Rubber29.collidable = 0
 End Select
 
 
@@ -1847,60 +1847,60 @@ Sub RGBTimer_timer 'rainbow light color changing
             If Green > 255 then
                 Green = 255
                 RGBStep = 1
-				led1.state=0
-				led2.state=0
+        led1.state=0
+        led2.state=0
             End If
         Case 1 'Red
             Red = Red - RGBFactor
             If Red < 0 then
                 Red = 0
                 RGBStep = 2
-				led1.state=1
-				led2.state=1
+        led1.state=1
+        led2.state=1
             End If
         Case 2 'Blue
             Blue = Blue + RGBFactor
             If Blue > 255 then
                 Blue = 255
                 RGBStep = 3
-				led1.state=0
-				led2.state=0
+        led1.state=0
+        led2.state=0
             End If
         Case 3 'Green
             Green = Green - RGBFactor
             If Green < 0 then
                 Green = 0
                 RGBStep = 4
-				led1.state=1
-				led2.state=1
+        led1.state=1
+        led2.state=1
             End If
         Case 4 'Red
             Red = Red + RGBFactor
             If Red > 255 then
                 Red = 255
                 RGBStep = 5
-				led1.state=0
-				led2.state=0
+        led1.state=0
+        led2.state=0
             End If
         Case 5 'Blue
             Blue = Blue - RGBFactor
             If Blue < 0 then
                 Blue = 0
                 RGBStep = 0
-				led1.state=1
-				led2.state=1
+        led1.state=1
+        led2.state=1
             End If
     End Select
     'RGBLed.color = RGB(Red\10, Green\10, Blue\10)
     RGBLed.colorfull = RGB(Red, Green, Blue)
-	RGBLed1.colorfull = RGB(Red, Green, Blue)
-	RGBLed2.colorfull = RGB(Red, Green, Blue)
-	RGBLed3.colorfull = RGB(Red, Green, Blue)
-	RGBLed4.colorfull = RGB(Red, Green, Blue)
-	RGBLed5.colorfull = RGB(Red, Green, Blue)
-	RGBLed6.colorfull = RGB(Red, Green, Blue)
-	RGBLed7.colorfull = RGB(Red, Green, Blue)
-	RGBLed8.colorfull = RGB(Red, Green, Blue)
-	RGBLed9.colorfull = RGB(Red, Green, Blue)
-	RGBLed10.colorfull = RGB(Red, Green, Blue)
+  RGBLed1.colorfull = RGB(Red, Green, Blue)
+  RGBLed2.colorfull = RGB(Red, Green, Blue)
+  RGBLed3.colorfull = RGB(Red, Green, Blue)
+  RGBLed4.colorfull = RGB(Red, Green, Blue)
+  RGBLed5.colorfull = RGB(Red, Green, Blue)
+  RGBLed6.colorfull = RGB(Red, Green, Blue)
+  RGBLed7.colorfull = RGB(Red, Green, Blue)
+  RGBLed8.colorfull = RGB(Red, Green, Blue)
+  RGBLed9.colorfull = RGB(Red, Green, Blue)
+  RGBLed10.colorfull = RGB(Red, Green, Blue)
 End Sub

@@ -22,57 +22,57 @@ Const VolFlip = 2      ' Flipper volume
 Const BallSize = 55
 Const BallMass = 1.1
 
-Const GIOnDuringAttractMode		= 0					'1 - GI on during attract, 0 - GI off during attract
+Const GIOnDuringAttractMode   = 0         '1 - GI on during attract, 0 - GI off during attract
 
 '******************* Options *********************
 ' DMD/Backglass Controller Setting (by gtxjoe)
-Const cController = 0		'0=Use value defined in cController.txt, 1=VPinMAME, 2=UVP server, 3=B2S server, 4=B2S with DOF (disable VP mech sounds)
+Const cController = 0   '0=Use value defined in cController.txt, 1=VPinMAME, 2=UVP server, 3=B2S server, 4=B2S with DOF (disable VP mech sounds)
 '*************************************************
 
 Dim cNewController
 LoadVPM "01500000", "SEGA.VBS", 3.10
 Sub LoadVPM(VPMver, VBSfile, VBSver)
-	Dim FileObj, ControllerFile, TextStr
+  Dim FileObj, ControllerFile, TextStr
 
-	On Error Resume Next
-	If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-	ExecuteGlobal GetTextFile(VBSfile)
-	If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
+  On Error Resume Next
+  If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+  ExecuteGlobal GetTextFile(VBSfile)
+  If Err Then MsgBox "Unable to open " & VBSfile & ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description
 
-	cNewController = 1
-	If cController = 0 then
-		Set FileObj=CreateObject("Scripting.FileSystemObject")
-		If Not FileObj.FolderExists(UserDirectory) then
-			Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
-		ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
-			Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-			ControllerFile.WriteLine 1: ControllerFile.Close
-		Else
-			Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
-			Set TextStr=ControllerFile.OpenAsTextStream(1,0)
-			If (TextStr.AtEndOfStream=True) then
-				Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
-				ControllerFile.WriteLine 1: ControllerFile.Close
-			Else
-				cNewController=Textstr.ReadLine: TextStr.Close
-			End If
-		End If
-	Else
-		cNewController = cController
-	End If
+  cNewController = 1
+  If cController = 0 then
+    Set FileObj=CreateObject("Scripting.FileSystemObject")
+    If Not FileObj.FolderExists(UserDirectory) then
+      Msgbox "Visual Pinball\User directory does not exist. Defaulting to vPinMame"
+    ElseIf Not FileObj.FileExists(UserDirectory & "cController.txt") then
+      Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+      ControllerFile.WriteLine 1: ControllerFile.Close
+    Else
+      Set ControllerFile=FileObj.GetFile(UserDirectory & "cController.txt")
+      Set TextStr=ControllerFile.OpenAsTextStream(1,0)
+      If (TextStr.AtEndOfStream=True) then
+        Set ControllerFile=FileObj.CreateTextFile(UserDirectory & "cController.txt",True)
+        ControllerFile.WriteLine 1: ControllerFile.Close
+      Else
+        cNewController=Textstr.ReadLine: TextStr.Close
+      End If
+    End If
+  Else
+    cNewController = cController
+  End If
 
-	Select Case cNewController
-		Case 1
-			Set Controller = CreateObject("VPinMAME.Controller")
-			If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-			If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
-			If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-		Case 2
-			Set Controller = CreateObject("UltraVP.BackglassServ")
-		Case 3,4
-			Set Controller = CreateObject("B2S.Server")
-	End Select
-	On Error Goto 0
+  Select Case cNewController
+    Case 1
+      Set Controller = CreateObject("VPinMAME.Controller")
+      If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+      If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & " required."
+      If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+    Case 2
+      Set Controller = CreateObject("UltraVP.BackglassServ")
+    Case 3,4
+      Set Controller = CreateObject("B2S.Server")
+  End Select
+  On Error Goto 0
 End Sub
 
 '*************************************************************
@@ -89,81 +89,81 @@ End Function
 
 'LoadVPM "01500000", "SEGA.VBS", 3.10
 'Sub LoadVPM(VPMver, VBSfile, VBSver)
-'	On Error Resume Next
-'		If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
-'		ExecuteGlobal GetTextFile(VBSfile)
-'		If Err Then MsgBox "Unable to open " & VBSfile & _
-'		". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description : Err.Clear
-'		Set Controller = CreateObject("VPinMAME.Controller")
-'		If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
-'		If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & _
-'		" required." : Err.Clear
-'		If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
-'	On Error Goto 0
+' On Error Resume Next
+'   If ScriptEngineMajorVersion < 5 Then MsgBox "VB Script Engine 5.0 or higher required"
+'   ExecuteGlobal GetTextFile(VBSfile)
+'   If Err Then MsgBox "Unable to open " & VBSfile & _
+'   ". Ensure that it is in the same folder as this table. " & vbNewLine & Err.Description : Err.Clear
+'   Set Controller = CreateObject("VPinMAME.Controller")
+'   If Err Then MsgBox "Can't Load VPinMAME." & vbNewLine & Err.Description
+'   If VPMver>"" Then If Controller.Version < VPMver Or Err Then MsgBox "VPinMAME ver " & VPMver & _
+'   " required." : Err.Clear
+'   If VPinMAMEDriverVer < VBSver Or Err Then MsgBox VBSFile & " ver " & VBSver & " or higher required."
+' On Error Goto 0
 'End Sub
 
-Const UseSolenoids	= 2
-Const UseLamps		= 0
-Const UseSync		= True
-Const UseGI			= False 		'Only WPC games have special GI circuit.
+Const UseSolenoids  = 2
+Const UseLamps    = 0
+Const UseSync   = True
+Const UseGI     = False     'Only WPC games have special GI circuit.
 
-Const SSolenoidOn	= "SolOn"       'Solenoid activates
-Const SSolenoidOff	= "SolOff"      'Solenoid deactivates
-Const SFlipperOn	= "FlipperUp"   'Flipper activated
-Const SFlipperOff	= "FlipperDown" 'Flipper deactivated
-Const SCoin			= "Quarter"     'Coin inserted
+Const SSolenoidOn = "SolOn"       'Solenoid activates
+Const SSolenoidOff  = "SolOff"      'Solenoid deactivates
+Const SFlipperOn  = "FlipperUp"   'Flipper activated
+Const SFlipperOff = "FlipperDown" 'Flipper deactivated
+Const SCoin     = "Quarter"     'Coin inserted
 
 Sub table1_KeyDown(ByVal keycode)
-	If KeyCode=LeftMagnaSave Then Controller.Switch(1)=1 'Aux Solenoid 1 left post save
-	If KeyCode=RightMagnaSave Then Controller.Switch(8)=1 'Aux Solenoid 3 right post save
-	If KeyDownHandler(keycode) Then Exit Sub
-	'If keycode = PlungerKey Then Plunger.Pullback
+  If KeyCode=LeftMagnaSave Then Controller.Switch(1)=1 'Aux Solenoid 1 left post save
+  If KeyCode=RightMagnaSave Then Controller.Switch(8)=1 'Aux Solenoid 3 right post save
+  If KeyDownHandler(keycode) Then Exit Sub
+  'If keycode = PlungerKey Then Plunger.Pullback
     If keycode = PlungerKey Then Plunger.Pullback
 
 End Sub
 
 Sub table1_KeyUp(ByVal keycode)
-	If KeyCode=LeftMagnaSave Then Controller.Switch(1)=0
-	If KeyCode=RightMagnaSave Then Controller.Switch(8)=0
-	If KeyUpHandler(keycode) Then Exit Sub
-	'If keycode = PlungerKey Then Plunger.Fire:PlaySound"Plunger"
+  If KeyCode=LeftMagnaSave Then Controller.Switch(1)=0
+  If KeyCode=RightMagnaSave Then Controller.Switch(8)=0
+  If KeyUpHandler(keycode) Then Exit Sub
+  'If keycode = PlungerKey Then Plunger.Fire:PlaySound"Plunger"
     If keycode = PlungerKey Then
-		Plunger.Fire
-	End If
+    Plunger.Fire
+  End If
 End Sub
 
 SolCallBack(1)      = "SolTrough"
-SolCallBack(2)		= "SolAutofire"
-SolCallback(3)		= "bsVUK.SolOut"
-SolCallback(4)		= "dtSingle.SolHit 1,"
-SolCallback(5)		= "dtDrop.SolDropUp"
-SolCallback(6)		= "dtSingle.SolDropUp"
-'SolCallback(7)		= "SetFlash 107," '107 108 121 122 123 132
+SolCallBack(2)    = "SolAutofire"
+SolCallback(3)    = "bsVUK.SolOut"
+SolCallback(4)    = "dtSingle.SolHit 1,"
+SolCallback(5)    = "dtDrop.SolDropUp"
+SolCallback(6)    = "dtSingle.SolDropUp"
+'SolCallback(7)   = "SetFlash 107," '107 108 121 122 123 132
 SolCallback(7)      = "Multi107"
-SolCallback(8)		= "SolFlasher"
-'SolCallback(9)		= "vpmSolSound ""jet3"","
-'SolCallback(10)		= "vpmSolSound ""jet3"","
-'SolCallback(11)		= "vpmSolSound ""jet3"","
-'SolCallBack(12)	= 'Top Orbit Magnet
-'SolCallBack(13)	= 'Mystery Magnet
-SolCallBack(17)		= "vpmSolSound ""sling"","
-SolCallBack(18)		= "vpmSolSound ""sling"","
-SolCallBack(19) 	= "LoopPost.IsDropped=Not"
-'SolCallBack(20)	= 'Motor Driver Relay Board
-'SolCallBack(21)	= "SetFlash 121,"
+SolCallback(8)    = "SolFlasher"
+'SolCallback(9)   = "vpmSolSound ""jet3"","
+'SolCallback(10)    = "vpmSolSound ""jet3"","
+'SolCallback(11)    = "vpmSolSound ""jet3"","
+'SolCallBack(12)  = 'Top Orbit Magnet
+'SolCallBack(13)  = 'Mystery Magnet
+SolCallBack(17)   = "vpmSolSound ""sling"","
+SolCallBack(18)   = "vpmSolSound ""sling"","
+SolCallBack(19)   = "LoopPost.IsDropped=Not"
+'SolCallBack(20)  = 'Motor Driver Relay Board
+'SolCallBack(21)  = "SetFlash 121,"
 SolCallback(21) = "Multi121"
-SolCallBack(22)	= "SetLamp 122," 'pf insert
-SolCallBack(23)	= "SolFlasherB"
-'SolCallBack(23)	= "sol23flasher"
-'SolCallBack(24)	= 'Optional Coin Meter
-SolCallBack(25)		= "dtDrop.SolHit 1,"
-SolCallBack(26)		= "dtDrop.SolHit 2,"
-SolCallBack(27)		= "dtDrop.SolHit 3,"
-SolCallBack(28)		= "dtDrop.SolHit 4,"
-SolCallBack(29)		= "dtDrop.SolHit 5,"
-SolCallBack(30)		= "dtDrop.SolHit 6,"
-SolCallBack(31)		= "dtDrop.SolHit 7,"
-SolCallback(32)	= "SolFlasherC" 'pf insert
+SolCallBack(22) = "SetLamp 122," 'pf insert
+SolCallBack(23) = "SolFlasherB"
+'SolCallBack(23)  = "sol23flasher"
+'SolCallBack(24)  = 'Optional Coin Meter
+SolCallBack(25)   = "dtDrop.SolHit 1,"
+SolCallBack(26)   = "dtDrop.SolHit 2,"
+SolCallBack(27)   = "dtDrop.SolHit 3,"
+SolCallBack(28)   = "dtDrop.SolHit 4,"
+SolCallBack(29)   = "dtDrop.SolHit 5,"
+SolCallBack(30)   = "dtDrop.SolHit 6,"
+SolCallBack(31)   = "dtDrop.SolHit 7,"
+SolCallback(32) = "SolFlasherC" 'pf insert
 'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Nothing,"
 'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Flipper1,"
 SolCallback(sLRFlipper)="SolRFlipper"
@@ -175,66 +175,66 @@ SolCallback(35)="RightPost.IsDropped=Not"
 
 
 Sub SolTrough(Enabled)
-	If Enabled Then
-		bsTrough.ExitSol_On
-		vpmTimer.PulseSw 15
-	End If
+  If Enabled Then
+    bsTrough.ExitSol_On
+    vpmTimer.PulseSw 15
+  End If
 End Sub
 
 Sub Multi107(Enabled)
-	If Enabled Then
-		SetFlash 107, 1
-		l107a.State = 1
-		l107b.state = 1
-	Else
-		SetFlash 107, 0
-		l107a.State = 0
-		l107b.state = 0
-	End If
+  If Enabled Then
+    SetFlash 107, 1
+    l107a.State = 1
+    l107b.state = 1
+  Else
+    SetFlash 107, 0
+    l107a.State = 0
+    l107b.state = 0
+  End If
 End Sub
 
 Sub Multi121(Enabled)
-	If Enabled Then
-		SetFlash 121, 1
-		l121.State = 1
-	Else
-		SetFlash 121, 0
-		l121.State = 0
-	End If
+  If Enabled Then
+    SetFlash 121, 1
+    l121.State = 1
+  Else
+    SetFlash 121, 0
+    l121.State = 0
+  End If
 End Sub
 
 Sub SolFlasher(Enabled)
-	If Enabled Then
-		SetLamp 108, 1
-		SetLamp 118, 1
-	Else
-		SetLamp 108, 0
-		SetLamp 118, 0
-	End If
+  If Enabled Then
+    SetLamp 108, 1
+    SetLamp 118, 1
+  Else
+    SetLamp 108, 0
+    SetLamp 118, 0
+  End If
 End Sub
 
 Sub SolFlasherB(Enabled)
-	If Enabled Then
-		mball1.state = 1
-		mball2.state = 1
-	Else
-		mball1.state = 0
-		mball2.state = 0
-	End If
+  If Enabled Then
+    mball1.state = 1
+    mball2.state = 1
+  Else
+    mball1.state = 0
+    mball2.state = 0
+  End If
 End Sub
 
 Sub SolFlasherC(Enabled)
-	If Enabled Then
-		SetLamp 132, 1
-	Else
-		SetLamp 132, 0
-	End If
+  If Enabled Then
+    SetLamp 132, 1
+  Else
+    SetLamp 132, 0
+  End If
 End Sub
 
 Sub solAutofire(Enabled)
-	If Enabled Then
-		PlungerIM.AutoFire
-	End If
+  If Enabled Then
+    PlungerIM.AutoFire
+  End If
 End Sub
 
 Sub SetFlash(nr, stat)
@@ -246,45 +246,45 @@ End Sub
  'Dim LStep, RStep
 
  Sub LeftSlingShot_Slingshot
-	Leftsling = True
-	Controller.Switch(26) = 1
- 	PlaySoundAtVol "slingshot",ActiveBall, 1:LeftSlingshot.TimerEnabled = 1
+  Leftsling = True
+  Controller.Switch(26) = 1
+  PlaySoundAtVol "slingshot",ActiveBall, 1:LeftSlingshot.TimerEnabled = 1
   End Sub
 
 Dim Leftsling:Leftsling = False
 
 Sub LS_Timer()
-	If Leftsling = True and Left1.ObjRotZ < -7 then Left1.ObjRotZ = Left1.ObjRotZ + 2
-	If Leftsling = False and Left1.ObjRotZ > -20 then Left1.ObjRotZ = Left1.ObjRotZ - 2
-	If Left1.ObjRotZ >= -7 then Leftsling = False
-	If Leftsling = True and Left2.ObjRotZ > -212.5 then Left2.ObjRotZ = Left2.ObjRotZ - 2
-	If Leftsling = False and Left2.ObjRotZ < -199.5 then Left2.ObjRotZ = Left2.ObjRotZ + 2
-	If Left2.ObjRotZ <= -212.5 then Leftsling = False
-	If Leftsling = True and Left3.TransZ > -23 then Left3.TransZ = Left3.TransZ - 4
-	If Leftsling = False and Left3.TransZ < -0 then Left3.TransZ = Left3.TransZ + 4
-	If Left3.TransZ <= -23 then Leftsling = False
+  If Leftsling = True and Left1.ObjRotZ < -7 then Left1.ObjRotZ = Left1.ObjRotZ + 2
+  If Leftsling = False and Left1.ObjRotZ > -20 then Left1.ObjRotZ = Left1.ObjRotZ - 2
+  If Left1.ObjRotZ >= -7 then Leftsling = False
+  If Leftsling = True and Left2.ObjRotZ > -212.5 then Left2.ObjRotZ = Left2.ObjRotZ - 2
+  If Leftsling = False and Left2.ObjRotZ < -199.5 then Left2.ObjRotZ = Left2.ObjRotZ + 2
+  If Left2.ObjRotZ <= -212.5 then Leftsling = False
+  If Leftsling = True and Left3.TransZ > -23 then Left3.TransZ = Left3.TransZ - 4
+  If Leftsling = False and Left3.TransZ < -0 then Left3.TransZ = Left3.TransZ + 4
+  If Left3.TransZ <= -23 then Leftsling = False
 End Sub
 
  Sub LeftSlingShot_Timer:Me.TimerEnabled = 0:Controller.Switch(26) = 0:End Sub
 
  Sub RightSlingShot_Slingshot
-	Rightsling = True
-	Controller.Switch(27) = 1
- 	PlaySoundAtVol "slingshot",ActiveBall, 1:RightSlingshot.TimerEnabled = 1
+  Rightsling = True
+  Controller.Switch(27) = 1
+  PlaySoundAtVol "slingshot",ActiveBall, 1:RightSlingshot.TimerEnabled = 1
   End Sub
 
  Dim Rightsling:Rightsling = False
 
 Sub RS_Timer()
-	If Rightsling = True and Right1.ObjRotZ > 7 then Right1.ObjRotZ = Right1.ObjRotZ - 2
-	If Rightsling = False and Right1.ObjRotZ < 20 then Right1.ObjRotZ = Right1.ObjRotZ + 2
-	If Right1.ObjRotZ <= 7 then Rightsling = False
-	If Rightsling = True and Right2.ObjRotZ < 212.5 then Right2.ObjRotZ = Right2.ObjRotZ + 2
-	If Rightsling = False and Right2.ObjRotZ > 199.5 then Right2.ObjRotZ = Right2.ObjRotZ - 2
-	If Right2.ObjRotZ >= 212.5 then Rightsling = False
-	If Rightsling = True and Right3.TransZ > -23 then Right3.TransZ = Right3.TransZ - 4
-	If Rightsling = False and Right3.TransZ < -0 then Right3.TransZ = Right3.TransZ + 4
-	If Right3.TransZ <= -23 then Rightsling = False
+  If Rightsling = True and Right1.ObjRotZ > 7 then Right1.ObjRotZ = Right1.ObjRotZ - 2
+  If Rightsling = False and Right1.ObjRotZ < 20 then Right1.ObjRotZ = Right1.ObjRotZ + 2
+  If Right1.ObjRotZ <= 7 then Rightsling = False
+  If Rightsling = True and Right2.ObjRotZ < 212.5 then Right2.ObjRotZ = Right2.ObjRotZ + 2
+  If Rightsling = False and Right2.ObjRotZ > 199.5 then Right2.ObjRotZ = Right2.ObjRotZ - 2
+  If Right2.ObjRotZ >= 212.5 then Rightsling = False
+  If Rightsling = True and Right3.TransZ > -23 then Right3.TransZ = Right3.TransZ - 4
+  If Rightsling = False and Right3.TransZ < -0 then Right3.TransZ = Right3.TransZ + 4
+  If Right3.TransZ <= -23 then Rightsling = False
 End Sub
 
  Sub RightSlingShot_Timer:Me.TimerEnabled = 0:Controller.Switch(27) = 0:End Sub
@@ -294,9 +294,9 @@ End Sub
 '''bumper rings init
 
 Dim Bump1, Bump2, Bump3
-'	Ring1a.IsDropped = 1:Ring1b.IsDropped = 1
-' 	Ring2a.IsDropped = 1:Ring2b.IsDropped = 1
-' 	Ring3a.IsDropped = 1:Ring3b.IsDropped = 1
+' Ring1a.IsDropped = 1:Ring1b.IsDropped = 1
+'   Ring2a.IsDropped = 1:Ring2b.IsDropped = 1
+'   Ring3a.IsDropped = 1:Ring3b.IsDropped = 1
 
 
 
@@ -319,25 +319,25 @@ End Sub
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
-		PlaySoundAtVol "flipperup", LeftFlipper, VolFlip
-		PlaySoundAtVol "flipperup", Flipper1, VolFlip
-		LeftFlipper.RotateToEnd
-		Flipper1.RotateToEnd
+    PlaySoundAtVol "flipperup", LeftFlipper, VolFlip
+    PlaySoundAtVol "flipperup", Flipper1, VolFlip
+    LeftFlipper.RotateToEnd
+    Flipper1.RotateToEnd
      Else
-		PlaySoundAtVol "flipperdown", LeftFlipper, VolFlip
-		PlaySoundAtVol "flipperdown", Flipper1, VolFlip
-		LeftFlipper.RotateToStart
-		Flipper1.RotateToStart
+    PlaySoundAtVol "flipperdown", LeftFlipper, VolFlip
+    PlaySoundAtVol "flipperdown", Flipper1, VolFlip
+    LeftFlipper.RotateToStart
+    Flipper1.RotateToStart
      End If
  End Sub
 
 Sub SolRFlipper(Enabled)
      If Enabled Then
-		 PlaySoundAtVol "flipperup", RightFlipper, VolFlip
-		 RightFlipper.RotateToEnd
+     PlaySoundAtVol "flipperup", RightFlipper, VolFlip
+     RightFlipper.RotateToEnd
      Else
-		 PlaySoundAtVol "flipperdown", RightFlipper, VolFlip
-		 RightFlipper.RotateToStart
+     PlaySoundAtVol "flipperdown", RightFlipper, VolFlip
+     RightFlipper.RotateToStart
     End If
  End Sub
 
@@ -369,50 +369,50 @@ LeftPost.IsDropped=1
 RightPost.IsDropped=1
 Post.IsDropped=1
 LoopPost.IsDropped=1
-	table1.Yieldtime=1
-	Controller.GameName="shrkysht"
-	Controller.SplashInfoLine="Sharkey's Shootout - Stern 2000" & vbnewline & "Table by freneticamnesic"
-	Controller.ShowTitle=0
-	Controller.ShowDMDOnly=1
-	Controller.ShowFrame=0
-	Controller.HandleMechanics=0
-	Controller.HandleKeyboard=0
+  table1.Yieldtime=1
+  Controller.GameName="shrkysht"
+  Controller.SplashInfoLine="Sharkey's Shootout - Stern 2000" & vbnewline & "Table by freneticamnesic"
+  Controller.ShowTitle=0
+  Controller.ShowDMDOnly=1
+  Controller.ShowFrame=0
+  Controller.HandleMechanics=0
+  Controller.HandleKeyboard=0
 
      'Controller.Games("shrkysht")
-	On Error Resume Next
-		Controller.Run
-		If Err Then MsgBox Err.Description
-	On Error Goto 0
-	PinMAMETimer.Interval=PinMAMEInterval:PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch=56
-	vpmNudge.Sensitivity=5
-	vpmNudge.TiltObj=Array(Bumper1b,Bumper2b,Bumper3b,LeftSlingshot,RightSlingshot)
+  On Error Resume Next
+    Controller.Run
+    If Err Then MsgBox Err.Description
+  On Error Goto 0
+  PinMAMETimer.Interval=PinMAMEInterval:PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch=56
+  vpmNudge.Sensitivity=5
+  vpmNudge.TiltObj=Array(Bumper1b,Bumper2b,Bumper3b,LeftSlingshot,RightSlingshot)
     'vpmMapLights AllLights
 
 
-	Set Mag=New cvpmMagnet
-	Mag.InitMagnet MyMag,40
-	Mag.CreateEvents "Mag"
-	Mag.GrabCenter=True
-	Mag.Solenoid=13
+  Set Mag=New cvpmMagnet
+  Mag.InitMagnet MyMag,40
+  Mag.CreateEvents "Mag"
+  Mag.GrabCenter=True
+  Mag.Solenoid=13
 
-	Set OMag=New cvpmMagnet
-	OMag.InitMagnet OrbitMag,25
-	OMag.CreateEvents "OMag"
-	OMag.GrabCenter=False
-	OMag.Solenoid=12
+  Set OMag=New cvpmMagnet
+  OMag.InitMagnet OrbitMag,25
+  OMag.CreateEvents "OMag"
+  OMag.GrabCenter=False
+  OMag.Solenoid=12
 
     Set bsTrough = New cvpmBallStack
-	bsTrough.InitSw 0,14,13,12,11,10,0,0
-	bsTrough.InitKick BallRelease,90,3
-	bsTrough.InitEntrySnd "Solenoid", "Solenoid"
-	bsTrough.InitExitSnd "BallRel", "Solenoid"
-	bsTrough.Balls=4
+  bsTrough.InitSw 0,14,13,12,11,10,0,0
+  bsTrough.InitKick BallRelease,90,3
+  bsTrough.InitEntrySnd "Solenoid", "Solenoid"
+  bsTrough.InitExitSnd "BallRel", "Solenoid"
+  bsTrough.Balls=4
 
-'	Set bsVUK=New cvpmBallStack
-'	bsVUK.InitSaucer Kicker3,44,271,12
-'	bsVUK.InitExitSnd "popper", "popper"
-'	bsVUK.KickForceVar=2
+' Set bsVUK=New cvpmBallStack
+' bsVUK.InitSaucer Kicker3,44,271,12
+' bsVUK.InitExitSnd "popper", "popper"
+' bsVUK.KickForceVar=2
 
     Set bsVUK = New cvpmBallStack
     With bsVUK
@@ -420,40 +420,40 @@ LoopPost.IsDropped=1
         .InitKick Kicker3, 271, 12
         .KickZ = 0.4
         .InitExitSnd "scoopexit", "scoopexit"
-		.InitAddSnd "scoopenter"
+    .InitAddSnd "scoopenter"
         '.KickForceVar = 2
         .KickAngleVar = 2
         .KickBalls = 1
     End With
 
-	set dtDrop=new cvpmDropTarget
-	dtDrop.InitDrop Array(B1,B2,B3,B4,B5,B6,B7),Array(17,18,19,20,21,22,23)
-	dtDrop.InitSnd "flapclos","flapopen"
+  set dtDrop=new cvpmDropTarget
+  dtDrop.InitDrop Array(B1,B2,B3,B4,B5,B6,B7),Array(17,18,19,20,21,22,23)
+  dtDrop.InitSnd "flapclos","flapopen"
 
-	set dtSingle=new cvpmDropTarget
-	dtSingle.InitDrop W8,24
-	dtSingle.InitSnd "flapclos","flapopen"
+  set dtSingle=new cvpmDropTarget
+  dtSingle.InitDrop W8,24
+  dtSingle.InitSnd "flapclos","flapopen"
 
-	set mMystery=new cvpmMech
-	mMystery.MType=vpmMechOneSol+vpmMechCircle+vpmMechLinear
-	mMystery.Sol1=20
-	mMystery.Length=120
-	mMystery.Steps=8
-	mMystery.Callback=GetRef("UpdateMystery")
-	mMystery.Start
+  set mMystery=new cvpmMech
+  mMystery.MType=vpmMechOneSol+vpmMechCircle+vpmMechLinear
+  mMystery.Sol1=20
+  mMystery.Length=120
+  mMystery.Steps=8
+  mMystery.Callback=GetRef("UpdateMystery")
+  mMystery.Start
 
 'Plunger1.PullBack
 Controller.Switch(9)=1 'playfield glass
 Controller.Switch(10)=1 'lockdown
 
-	If GIOnDuringAttractMode = 1 Then GI_AllOn
+  If GIOnDuringAttractMode = 1 Then GI_AllOn
 
 End Sub
 
 Sub Kicker3_Hit
     PlaySoundAtVol "scoopenter", ActiveBall, 1
     'ClearBallId
-	Kicker3.DestroyBall
+  Kicker3.DestroyBall
     bsVUK.AddBall 0
 End Sub
 
@@ -469,55 +469,55 @@ End Sub
 
 Sub UpdateMystery(aNewPos,aSpeed,aLastPos)
 Select Case aNewPos
-	Case 0:Controller.Switch(33)=1:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=0'Hurry Up
-	Case 1:Controller.Switch(33)=1:Controller.Switch(34)=1:Controller.Switch(35)=0:Controller.Switch(36)=0'Myst Mil's
-	Case 2:Controller.Switch(33)=0:Controller.Switch(34)=1:Controller.Switch(35)=0:Controller.Switch(36)=0'Prize Money
-	Case 3:Controller.Switch(33)=0:Controller.Switch(34)=1:Controller.Switch(35)=1:Controller.Switch(36)=0'Jackpot
-	Case 4:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=1:Controller.Switch(36)=0'Mystery
-	Case 5:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=1:Controller.Switch(36)=1'Multiball
-	Case 6:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=1'Extra Ball
-	Case 7:Controller.Switch(33)=1:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=1'Post Save
+  Case 0:Controller.Switch(33)=1:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=0'Hurry Up
+  Case 1:Controller.Switch(33)=1:Controller.Switch(34)=1:Controller.Switch(35)=0:Controller.Switch(36)=0'Myst Mil's
+  Case 2:Controller.Switch(33)=0:Controller.Switch(34)=1:Controller.Switch(35)=0:Controller.Switch(36)=0'Prize Money
+  Case 3:Controller.Switch(33)=0:Controller.Switch(34)=1:Controller.Switch(35)=1:Controller.Switch(36)=0'Jackpot
+  Case 4:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=1:Controller.Switch(36)=0'Mystery
+  Case 5:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=1:Controller.Switch(36)=1'Multiball
+  Case 6:Controller.Switch(33)=0:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=1'Extra Ball
+  Case 7:Controller.Switch(33)=1:Controller.Switch(34)=0:Controller.Switch(35)=0:Controller.Switch(36)=1'Post Save
 End Select
 End Sub
 
 'Sub PrimT_Timer
-'	If B1.isdropped = true then sw17f.rotatetoend:dtw1a.isdropped = true:end if
-'	if B1.isdropped = false then sw17f.rotatetostart:dtw1a.isdropped = false:end if
-'	If B2.isdropped = true then sw18f.rotatetoend:dtw2a.isdropped = true:dtw2b.isdropped = true:end if
-'	if B2.isdropped = false then sw18f.rotatetostart:dtw2a.isdropped = false:dtw2b.isdropped = false:end if
-'	If B3.isdropped = true then sw19f.rotatetoend:dtw3a.isdropped = true:dtw2b.isdropped = true:end if
-'	if B3.isdropped = false then sw19f.rotatetostart:dtw3a.isdropped = false:dtw2b.isdropped = false:end if
-'	If B4.isdropped = true then sw20f.rotatetoend:dtw4a.isdropped = true:dtw2b.isdropped = true:end if
-'	if B4.isdropped = false then sw20f.rotatetostart:dtw4a.isdropped = false:dtw2b.isdropped = false:end if
-'	If B5.isdropped = true then sw21f.rotatetoend:dtw5a.isdropped = true:dtw2b.isdropped = true:end if
-'	if B5.isdropped = false then sw21f.rotatetostart:dtw5a.isdropped = false:dtw2b.isdropped = false:end if
-'	If B6.isdropped = true then sw22f.rotatetoend:dtw6a.isdropped = true:dtw2b.isdropped = true:end if
-'	if B6.isdropped = false then sw22f.rotatetostart:dtw6a.isdropped = false:dtw2b.isdropped = false:end if
-'	If B7.isdropped = true then sw23f.rotatetoend:dtw7a.isdropped = true:end if
-'	if B7.isdropped = false then sw23f.rotatetostart:dtw7a.isdropped = false:end if
-''	If b1.isdropped = 1 then dtw1a.isdropped = 1 else dtw1a.isdropped = 0:end if
-''	If b2.isdropped = 1 then dtw2a.isdropped = 1:dtw2b.isdropped = 1 else dtw2a.isdropped = 0:dtw2b.isdropped = 0:end if
-''	If b3.isdropped = 1 then dtw3a.isdropped = 1:dtw3b.isdropped = 1 else dtw3a.isdropped = 0:dtw3b.isdropped = 0:end if
-''	If b4.isdropped = 1 then dtw4a.isdropped = 1:dtw4b.isdropped = 1 else dtw4a.isdropped = 0:dtw4b.isdropped = 0:end if
-''	If b5.isdropped = 1 then dtw5a.isdropped = 1:dtw5b.isdropped = 1 else dtw5a.isdropped = 0:dtw5b.isdropped = 0:end if
-''	If b6.isdropped = 1 then dtw6a.isdropped = 1 else dtw6a.isdropped = 0:end if
-''	If b7.isdropped = 1 then dtw7a.isdropped = 1 else dtw7a.isdropped = 0:end if
-'	If W8.isdropped = true then w8f.rotatetoend
-'	if W8.isdropped = false then w8f.rotatetostart
-'	sw17p.transy = sw17f.currentangle
-'	sw18p.transy = sw18f.currentangle
-'	sw19p.transy = sw19f.currentangle
-'	sw20p.transy = sw20f.currentangle
-'	sw21p.transy = sw21f.currentangle
-'	sw22p.transy = sw22f.currentangle
-'	sw23p.transy = sw23f.currentangle
-'	w8p.transy = w8f.currentangle
+' If B1.isdropped = true then sw17f.rotatetoend:dtw1a.isdropped = true:end if
+' if B1.isdropped = false then sw17f.rotatetostart:dtw1a.isdropped = false:end if
+' If B2.isdropped = true then sw18f.rotatetoend:dtw2a.isdropped = true:dtw2b.isdropped = true:end if
+' if B2.isdropped = false then sw18f.rotatetostart:dtw2a.isdropped = false:dtw2b.isdropped = false:end if
+' If B3.isdropped = true then sw19f.rotatetoend:dtw3a.isdropped = true:dtw2b.isdropped = true:end if
+' if B3.isdropped = false then sw19f.rotatetostart:dtw3a.isdropped = false:dtw2b.isdropped = false:end if
+' If B4.isdropped = true then sw20f.rotatetoend:dtw4a.isdropped = true:dtw2b.isdropped = true:end if
+' if B4.isdropped = false then sw20f.rotatetostart:dtw4a.isdropped = false:dtw2b.isdropped = false:end if
+' If B5.isdropped = true then sw21f.rotatetoend:dtw5a.isdropped = true:dtw2b.isdropped = true:end if
+' if B5.isdropped = false then sw21f.rotatetostart:dtw5a.isdropped = false:dtw2b.isdropped = false:end if
+' If B6.isdropped = true then sw22f.rotatetoend:dtw6a.isdropped = true:dtw2b.isdropped = true:end if
+' if B6.isdropped = false then sw22f.rotatetostart:dtw6a.isdropped = false:dtw2b.isdropped = false:end if
+' If B7.isdropped = true then sw23f.rotatetoend:dtw7a.isdropped = true:end if
+' if B7.isdropped = false then sw23f.rotatetostart:dtw7a.isdropped = false:end if
+''  If b1.isdropped = 1 then dtw1a.isdropped = 1 else dtw1a.isdropped = 0:end if
+''  If b2.isdropped = 1 then dtw2a.isdropped = 1:dtw2b.isdropped = 1 else dtw2a.isdropped = 0:dtw2b.isdropped = 0:end if
+''  If b3.isdropped = 1 then dtw3a.isdropped = 1:dtw3b.isdropped = 1 else dtw3a.isdropped = 0:dtw3b.isdropped = 0:end if
+''  If b4.isdropped = 1 then dtw4a.isdropped = 1:dtw4b.isdropped = 1 else dtw4a.isdropped = 0:dtw4b.isdropped = 0:end if
+''  If b5.isdropped = 1 then dtw5a.isdropped = 1:dtw5b.isdropped = 1 else dtw5a.isdropped = 0:dtw5b.isdropped = 0:end if
+''  If b6.isdropped = 1 then dtw6a.isdropped = 1 else dtw6a.isdropped = 0:end if
+''  If b7.isdropped = 1 then dtw7a.isdropped = 1 else dtw7a.isdropped = 0:end if
+' If W8.isdropped = true then w8f.rotatetoend
+' if W8.isdropped = false then w8f.rotatetostart
+' sw17p.transy = sw17f.currentangle
+' sw18p.transy = sw18f.currentangle
+' sw19p.transy = sw19f.currentangle
+' sw20p.transy = sw20f.currentangle
+' sw21p.transy = sw21f.currentangle
+' sw22p.transy = sw22f.currentangle
+' sw23p.transy = sw23f.currentangle
+' w8p.transy = w8f.currentangle
 'End Sub
 
 
 Sub sw43_Hit
     sw43.DestroyBall
-	bsVUK.AddBall Me
+  bsVUK.AddBall Me
 End Sub
 
 'solcallback(23) = sol23flasher
@@ -529,79 +529,79 @@ End Sub
 '    end if
 'End Sub
 
-'Sub Drain_Hit:bsTrough.AddBall Me:End Sub						'11-15
-'Sub swPlunger_Hit:Controller.Switch(16)=1:End Sub				'16
+'Sub Drain_Hit:bsTrough.AddBall Me:End Sub            '11-15
+'Sub swPlunger_Hit:Controller.Switch(16)=1:End Sub        '16
 'Sub swPlunger_unHit:Controller.Switch(16)=0:End Sub
-Sub sw16_Hit:Controller.Switch(16)=1:End Sub				'16
+Sub sw16_Hit:Controller.Switch(16)=1:End Sub        '16
 Sub sw16_unHit:Controller.Switch(16)=0:End Sub
-Sub B1_Hit:dtDrop.Hit 1:End Sub									'17
-Sub B2_Hit:dtDrop.Hit 2:End Sub									'18
-Sub B3_Hit:dtDrop.Hit 3:End Sub									'19
-Sub B4_Hit:dtDrop.Hit 4:End Sub									'20
-Sub B5_Hit:dtDrop.Hit 5:End Sub									'21
-Sub B6_Hit:dtDrop.Hit 6:End Sub									'22
-Sub B7_Hit:dtDrop.Hit 7:End Sub									'23
-Sub W8_Hit:dtSingle.Hit 1:End Sub								'24
-Sub W1_Hit:vpmTimer.PulseSw 25:End Sub							'25
-Sub W2_Hit:vpmTimer.PulseSw 26:End Sub							'26
-Sub W3_Hit:vpmTimer.PulseSw 27:End Sub							'27
-Sub W4_Hit:vpmTimer.PulseSw 28:End Sub							'28
-Sub W5_Hit:vpmTimer.PulseSw 29:End Sub							'29
-Sub W6_Hit:vpmTimer.PulseSw 30:End Sub							'30
-Sub LL_Hit:Controller.Switch(31)=1:End Sub						'31
+Sub B1_Hit:dtDrop.Hit 1:End Sub                 '17
+Sub B2_Hit:dtDrop.Hit 2:End Sub                 '18
+Sub B3_Hit:dtDrop.Hit 3:End Sub                 '19
+Sub B4_Hit:dtDrop.Hit 4:End Sub                 '20
+Sub B5_Hit:dtDrop.Hit 5:End Sub                 '21
+Sub B6_Hit:dtDrop.Hit 6:End Sub                 '22
+Sub B7_Hit:dtDrop.Hit 7:End Sub                 '23
+Sub W8_Hit:dtSingle.Hit 1:End Sub               '24
+Sub W1_Hit:vpmTimer.PulseSw 25:End Sub              '25
+Sub W2_Hit:vpmTimer.PulseSw 26:End Sub              '26
+Sub W3_Hit:vpmTimer.PulseSw 27:End Sub              '27
+Sub W4_Hit:vpmTimer.PulseSw 28:End Sub              '28
+Sub W5_Hit:vpmTimer.PulseSw 29:End Sub              '29
+Sub W6_Hit:vpmTimer.PulseSw 30:End Sub              '30
+Sub LL_Hit:Controller.Switch(31)=1:End Sub            '31
 Sub LL_unHit:Controller.Switch(31)=0:End Sub
-Sub Trigger2_Hit:Controller.Switch(32)=1:End Sub				'32
+Sub Trigger2_Hit:Controller.Switch(32)=1:End Sub        '32
 Sub Trigger2_unHit:Controller.Switch(32)=0:End Sub
-Sub LLoop_Spin:vpmTimer.PulseSw 38:End Sub					'38
-Sub Trigger7_Hit:Controller.Switch(39)=1:End Sub				'39
+Sub LLoop_Spin:vpmTimer.PulseSw 38:End Sub          '38
+Sub Trigger7_Hit:Controller.Switch(39)=1:End Sub        '39
 Sub Trigger7_unHit:Controller.Switch(39)=0:End Sub
-Sub Trigger3_Hit:Controller.Switch(40)=1:End Sub				'40
+Sub Trigger3_Hit:Controller.Switch(40)=1:End Sub        '40
 Sub Trigger3_unHit:Controller.Switch(40)=0:End Sub
-Sub Trigger4_Hit:Controller.Switch(41)=1:End Sub				'41
+Sub Trigger4_Hit:Controller.Switch(41)=1:End Sub        '41
 Sub Trigger4_unHit:Controller.Switch(41)=0:End Sub
-Sub Trigger5_Hit:Controller.Switch(42)=1:End Sub				'42
+Sub Trigger5_Hit:Controller.Switch(42)=1:End Sub        '42
 Sub Trigger5_unHit:Controller.Switch(42)=0:End Sub
-Sub Trigger8_Hit:Controller.Switch(43)=1:End Sub				'43
+Sub Trigger8_Hit:Controller.Switch(43)=1:End Sub        '43
 Sub Trigger8_unHit:Controller.Switch(43)=0:End Sub
-'Sub Kicker3_Hit:bsVUK.AddBall 0:End Sub							'44 SuperVUK
-Sub Trigger1_Hit:Controller.Switch(45)=1:End Sub				'45
+'Sub Kicker3_Hit:bsVUK.AddBall 0:End Sub              '44 SuperVUK
+Sub Trigger1_Hit:Controller.Switch(45)=1:End Sub        '45
 Sub Trigger1_unHit:Controller.Switch(45)=0:End Sub
-Sub trigLaneA_Hit:Controller.Switch(46)=1:End Sub				'46
+Sub trigLaneA_Hit:Controller.Switch(46)=1:End Sub       '46
 Sub trigLaneA_unHit:Controller.Switch(46)=0:End Sub
-Sub trigLaneB_Hit:Controller.Switch(47)=1:End Sub				'47
+Sub trigLaneB_Hit:Controller.Switch(47)=1:End Sub       '47
 Sub trigLaneB_unHit:Controller.Switch(47)=0:End Sub
-Sub TrigLaneC_Hit:Controller.Switch(48)=1:End Sub				'48
+Sub TrigLaneC_Hit:Controller.Switch(48)=1:End Sub       '48
 Sub TrigLaneC_unHit:Controller.Switch(48)=0:End Sub
-'Sub Bumper1b_Hit:vpmTimer.PulseSw 49:Playsound "bumper1":End Sub						'49
-'Sub Bumper2b_Hit:vpmTimer.PulseSw 50:Playsound "bumper1":End Sub						'50
-'Sub Bumper3b_Hit:vpmTimer.PulseSw 51:Playsound "bumper1":End Sub						'51
-Sub CTARGET_Hit:vpmTimer.PulseSw 53:End Sub						'53
-'Sub LeftSlingshot_Slingshot:vpmTimer.PulseSw 59:End Sub			'59
-Sub LeftOutlane_Hit:Controller.Switch(57)=1:End Sub				'57
+'Sub Bumper1b_Hit:vpmTimer.PulseSw 49:Playsound "bumper1":End Sub           '49
+'Sub Bumper2b_Hit:vpmTimer.PulseSw 50:Playsound "bumper1":End Sub           '50
+'Sub Bumper3b_Hit:vpmTimer.PulseSw 51:Playsound "bumper1":End Sub           '51
+Sub CTARGET_Hit:vpmTimer.PulseSw 53:End Sub           '53
+'Sub LeftSlingshot_Slingshot:vpmTimer.PulseSw 59:End Sub      '59
+Sub LeftOutlane_Hit:Controller.Switch(57)=1:End Sub       '57
 Sub LeftOutlane_unHit:Controller.Switch(57)=0:End Sub
-Sub LeftInlane_Hit:Controller.Switch(58)=1:End Sub				'58
+Sub LeftInlane_Hit:Controller.Switch(58)=1:End Sub        '58
 Sub LeftInlane_unHit:Controller.Switch(58)=0:End Sub
-Sub RightOutlane_Hit:Controller.Switch(60)=1:End Sub			'60
+Sub RightOutlane_Hit:Controller.Switch(60)=1:End Sub      '60
 Sub RightOutlane_unHit:Controller.Switch(60)=0:End Sub
-Sub RightInlane_Hit:Controller.Switch(61)=1:End Sub				'61
+Sub RightInlane_Hit:Controller.Switch(61)=1:End Sub       '61
 Sub RightInlane_unHit:Controller.Switch(61)=0:End Sub
-'Sub RightSlingshot_Slingshot:vpmTimer.PulseSw 62:End Sub		'62
+'Sub RightSlingshot_Slingshot:vpmTimer.PulseSw 62:End Sub   '62
 
 
 Sub Drain_Hit
-	PlaySoundAtVol "Drain", Drain, 1
-	bsTrough.AddBall Me
-	Drain.TimerInterval = 200
-	Drain.TimerEnabled = 1
+  PlaySoundAtVol "Drain", Drain, 1
+  bsTrough.AddBall Me
+  Drain.TimerInterval = 200
+  Drain.TimerEnabled = 1
 End Sub
 
 
 Sub Drain_Timer
-	'Debug.print GI_TroughCheck & " " & Lampstate(4) & " " & Ballsavelight
-	If GI_TroughCheck = 4 And LampState(23) = 0 Then
-		GI_AllOff 0
-	End If
-	Drain.TimerEnabled = False
+  'Debug.print GI_TroughCheck & " " & Lampstate(4) & " " & Ballsavelight
+  If GI_TroughCheck = 4 And LampState(23) = 0 Then
+    GI_AllOff 0
+  End If
+  Drain.TimerEnabled = False
 End Sub
 
 Sub BallRelease_UnHit(): GI_AllOn:End Sub
@@ -636,7 +636,7 @@ Sub LampTimer_Timer()
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-			FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      FlashState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
         Next
     End If
 
@@ -649,13 +649,13 @@ End Sub
 '     If Not IsEmpty(chgLamp) Then
 '         For ii = 0 To UBound(chgLamp)
 '             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-'			 FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
-'			 FadingState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
+'      FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
+'      FadingState(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4
 '         Next
 '     End If
 '
 '     UpdateLamps
-' 	 'UpdateLeds
+'    'UpdateLeds
 ' End Sub
 
 Sub FlashInit
@@ -678,92 +678,92 @@ Sub AllFlashOff
 End Sub
 
   Sub UpdateLamps()
-		NFadeLm 1, l1b
-		NFadeL 1, l1a
-		NFadeLm 2, l2b
-		NFadeL 2, l2a
-		NFadeLm 3, l3b
-		NFadeL 3, l3a
-		NFadeLm 4, l4b
-		NFadeL 4, l4a
-		NFadeLm 5, l5b
-		NFadeL 5, l5a
-		NFadeLm 6, l6b
-		NFadeL 6, l6a
-		NFadeL 7, l7
-		NFadeL 8, l8
-		NFadeL 9, l9
-		NFadeL 10, l10
-		NFadeL 11, l11
-		NFadeL 12, l12
-		NFadeL 13, l13
-		NFadeL 14, l14
-		NFadeL 15, l15
-		NFadeL 16, l16
-		NFadeL 17, l17
-		NFadeL 18, l18
-		NFadeL 19, l19
-		NFadeL 20, l20
-		NFadeL 21, l21
-		NFadeL 22, l22
-		NFadeL 23, l23
-'		NFadeL 24, l24
-		NFadeL 25, l25
-		NFadeL 26, l26
-		NFadeL 27, l27
-		NFadeL 28, l28
-		NFadeL 29, l29
-		NFadeL 30, l30
-		NFadeL 31, l31
-		NFadeL 32, l32
-		NFadeL 33, l33
-		NFadeL 34, l34
-		NFadeL 35, l35
-		NFadeL 36, l36
-		NFadeL 37, l37
-		NFadeL 38, l38
-		NFadeL 39, l39
-		NFadeL 40, l40
-		NFadeL 41, l41
-		NFadeL 42, l42
-		NFadeL 43, l43
-		NFadeL 44, l44
-		NFadeL 45, l45
-		NFadeL 46, l46
-		NFadeL 47, l47
-		NFadeL 48, l48
-		NFadeL 49, l49
-		NFadeL 50, l50
-		NFadeL 51, l51
-		NFadeL 52, l52
-		NFadeL 53, l53
-		NFadeL 54, l54
-		NFadeL 55, l55
-		NFadeL 56, l56
-		NFadeL 57, l57
-		NFadeL 58, l58
-		NFadeL 59, l59
-		NFadeL 60, l60
-		NFadeL 61, l61
-		NFadeL 62, l62
-		NFadeL 63, l63
-		NFadeL 64, l64
-		NFadeL 65, l65
-		NFadeL 66, l66
-		NFadeL 67, l67
-'		NFadeL 68, l68
-'		NFadeL 69, l69
-'		NFadeL 70, l70
-'		NFadeL 71, l71
-'		NFadeL 72, l72
-'		NFadeL 73, l73
-'		NFadeL 74, l74
-'		NFadeL 75, l75
-'		NFadeL 76, l76
-'		NFadeL 77, l77
-'		NFadeL 78, l78
-'		NFadeL 79, l79
-'		NFadeL 80, l80
+    NFadeLm 1, l1b
+    NFadeL 1, l1a
+    NFadeLm 2, l2b
+    NFadeL 2, l2a
+    NFadeLm 3, l3b
+    NFadeL 3, l3a
+    NFadeLm 4, l4b
+    NFadeL 4, l4a
+    NFadeLm 5, l5b
+    NFadeL 5, l5a
+    NFadeLm 6, l6b
+    NFadeL 6, l6a
+    NFadeL 7, l7
+    NFadeL 8, l8
+    NFadeL 9, l9
+    NFadeL 10, l10
+    NFadeL 11, l11
+    NFadeL 12, l12
+    NFadeL 13, l13
+    NFadeL 14, l14
+    NFadeL 15, l15
+    NFadeL 16, l16
+    NFadeL 17, l17
+    NFadeL 18, l18
+    NFadeL 19, l19
+    NFadeL 20, l20
+    NFadeL 21, l21
+    NFadeL 22, l22
+    NFadeL 23, l23
+'   NFadeL 24, l24
+    NFadeL 25, l25
+    NFadeL 26, l26
+    NFadeL 27, l27
+    NFadeL 28, l28
+    NFadeL 29, l29
+    NFadeL 30, l30
+    NFadeL 31, l31
+    NFadeL 32, l32
+    NFadeL 33, l33
+    NFadeL 34, l34
+    NFadeL 35, l35
+    NFadeL 36, l36
+    NFadeL 37, l37
+    NFadeL 38, l38
+    NFadeL 39, l39
+    NFadeL 40, l40
+    NFadeL 41, l41
+    NFadeL 42, l42
+    NFadeL 43, l43
+    NFadeL 44, l44
+    NFadeL 45, l45
+    NFadeL 46, l46
+    NFadeL 47, l47
+    NFadeL 48, l48
+    NFadeL 49, l49
+    NFadeL 50, l50
+    NFadeL 51, l51
+    NFadeL 52, l52
+    NFadeL 53, l53
+    NFadeL 54, l54
+    NFadeL 55, l55
+    NFadeL 56, l56
+    NFadeL 57, l57
+    NFadeL 58, l58
+    NFadeL 59, l59
+    NFadeL 60, l60
+    NFadeL 61, l61
+    NFadeL 62, l62
+    NFadeL 63, l63
+    NFadeL 64, l64
+    NFadeL 65, l65
+    NFadeL 66, l66
+    NFadeL 67, l67
+'   NFadeL 68, l68
+'   NFadeL 69, l69
+'   NFadeL 70, l70
+'   NFadeL 71, l71
+'   NFadeL 72, l72
+'   NFadeL 73, l73
+'   NFadeL 74, l74
+'   NFadeL 75, l75
+'   NFadeL 76, l76
+'   NFadeL 77, l77
+'   NFadeL 78, l78
+'   NFadeL 79, l79
+'   NFadeL 80, l80
 ''l1.State = LampState(1)
 ''l2.State = LampState(2)
 ''l3.State = LampState(3)
@@ -1150,7 +1150,7 @@ End If
 
 Sub PBWPlunger_Timer()
     If Plunger.MotionDevice> 0 Then
-		'If Plunger.Position>24 then exit sub
+    'If Plunger.Position>24 then exit sub
         'Plungers(AnPlOldPos).WidthBottom = 0:Plungers(AnPlOldPos).WidthTop = 0
         AnPlNewPos = Plunger.Position \ 2
         'Plungers(AnPlNewPos).WidthBottom = 45:Plungers(AnPlNewPos).WidthTop = 45 'change to the width of the ramps
@@ -1164,13 +1164,13 @@ Sub Table1_Exit
 End Sub
 
 Sub DTLightTimer_Timer()
-'	If b1.isdropped = 1 then dtw1a.isdropped = 1 else dtw1a.isdropped = 0:end if
-'	If b2.isdropped = 1 then dtw2a.isdropped = 1:dtw2b.isdropped = 1 else dtw2a.isdropped = 0:dtw2b.isdropped = 0:end if
-'	If b3.isdropped = 1 then dtw3a.isdropped = 1:dtw3b.isdropped = 1 else dtw3a.isdropped = 0:dtw3b.isdropped = 0:end if
-'	If b4.isdropped = 1 then dtw4a.isdropped = 1:dtw4b.isdropped = 1 else dtw4a.isdropped = 0:dtw4b.isdropped = 0:end if
-'	If b5.isdropped = 1 then dtw5a.isdropped = 1:dtw5b.isdropped = 1 else dtw5a.isdropped = 0:dtw5b.isdropped = 0:end if
-'	If b6.isdropped = 1 then dtw6a.isdropped = 1 else dtw6a.isdropped = 0:end if
-'	If b7.isdropped = 1 then dtw7a.isdropped = 1 else dtw7a.isdropped = 0:end if
+' If b1.isdropped = 1 then dtw1a.isdropped = 1 else dtw1a.isdropped = 0:end if
+' If b2.isdropped = 1 then dtw2a.isdropped = 1:dtw2b.isdropped = 1 else dtw2a.isdropped = 0:dtw2b.isdropped = 0:end if
+' If b3.isdropped = 1 then dtw3a.isdropped = 1:dtw3b.isdropped = 1 else dtw3a.isdropped = 0:dtw3b.isdropped = 0:end if
+' If b4.isdropped = 1 then dtw4a.isdropped = 1:dtw4b.isdropped = 1 else dtw4a.isdropped = 0:dtw4b.isdropped = 0:end if
+' If b5.isdropped = 1 then dtw5a.isdropped = 1:dtw5b.isdropped = 1 else dtw5a.isdropped = 0:dtw5b.isdropped = 0:end if
+' If b6.isdropped = 1 then dtw6a.isdropped = 1 else dtw6a.isdropped = 0:end if
+' If b7.isdropped = 1 then dtw7a.isdropped = 1 else dtw7a.isdropped = 0:end if
 End Sub
 
 ''***** GI routines
@@ -1181,205 +1181,205 @@ Dim MultiballFlag
 
 
 Sub GI_AllOff (time) 'Turn GI Off
-	'debug.print "GI OFF " & time
-	'UpdateGI 0,0
-	'RampsOff
-	GILightsOff
-	If time > 0 Then
-		GI_AllOnT.Interval = time
-		GI_AllOnT.Enabled = 0
-		GI_AllOnT.Enabled = 1
-	End If
+  'debug.print "GI OFF " & time
+  'UpdateGI 0,0
+  'RampsOff
+  GILightsOff
+  If time > 0 Then
+    GI_AllOnT.Interval = time
+    GI_AllOnT.Enabled = 0
+    GI_AllOnT.Enabled = 1
+  End If
 End Sub
 
 Sub GI_AllOn 'Turn GI On
-	'UpdateGI 0,8
-	'RampsOn
-	'FlippersOn
-	GILightsOn
-	'OptoOn
+  'UpdateGI 0,8
+  'RampsOn
+  'FlippersOn
+  GILightsOn
+  'OptoOn
 End Sub
 
 Sub GI_AllOnT_Timer 'Turn GI On timer
-	'UpdateGI 0,8
-	'RampsOn
-	'FlippersOn
-	GILightsOn
-	GI_AllOnT.Enabled = 0
+  'UpdateGI 0,8
+  'RampsOn
+  'FlippersOn
+  GILightsOn
+  GI_AllOnT.Enabled = 0
 End Sub
 
 Function GI_TroughCheck
-	Dim Ballcount: 	Ballcount = 0
-	If Controller.Switch(11) = TRUE then Ballcount = Ballcount + 1
+  Dim Ballcount:  Ballcount = 0
+  If Controller.Switch(11) = TRUE then Ballcount = Ballcount + 1
     If Controller.Switch(12) = TRUE then Ballcount = Ballcount + 1
     If Controller.Switch(13) = TRUE then Ballcount = Ballcount + 1
     If Controller.Switch(14) = TRUE then Ballcount = Ballcount + 1
-	If Ballcount < 3 Then 'Keep track of multiball mode
-		MultiballFlag = 1
-	Else
-		MultiballFlag = 0
-	End If
+  If Ballcount < 3 Then 'Keep track of multiball mode
+    MultiballFlag = 1
+  Else
+    MultiballFlag = 0
+  End If
 
-	GI_TroughCheck = Ballcount
+  GI_TroughCheck = Ballcount
 
-	'debug.print "Troughcheck " & ballcount & " Multiball " & MultiballFlag
+  'debug.print "Troughcheck " & ballcount & " Multiball " & MultiballFlag
 
-	If ballcount = 4 then
-		GameOverTimerCheck.Enabled = 1 'no ball in play
-		'debug.print timer & "Game Over?"
-	Else
-		GameOverTimerCheck.Enabled = 0 'ball in play
-		'debug.print timer & "Game Not Over"
-	End If
+  If ballcount = 4 then
+    GameOverTimerCheck.Enabled = 1 'no ball in play
+    'debug.print timer & "Game Over?"
+  Else
+    GameOverTimerCheck.Enabled = 0 'ball in play
+    'debug.print timer & "Game Not Over"
+  End If
 
 End Function
 
 GameOverTimerCheck.Interval = 30000
 
 Sub GameOverTimerCheck_Timer
-	debug.print timer & "Game Over!"
-	If GIOnDuringAttractMode = 1 Then GI_AllOn
-	GameOverTimerCheck.Enabled = 0
+  debug.print timer & "Game Over!"
+  If GIOnDuringAttractMode = 1 Then GI_AllOn
+  GameOverTimerCheck.Enabled = 0
 End Sub
 
 Sub GILightsOn
-	UFLogo.image = "flipper-l2"
-	LFLogo.image = "flipper-l2"
-	RFLogo.image = "flipper-r2"
-	Primitive66.image = "gold"
-	Primitive20.image = "[chrome-gold]"
-	Primitive21.image = "[chrome-gold]"
-	Primitive22.image = "[chrome-gold]"
-	Primitive91.image = "[chrome-gold]"
-	Primitive90.image = "[chrome-gold]"
-	Primitive127.image = "[chrome-gold]"
-	Primitive128.image = "[chrome-gold]"
-	Primitive129.image = "[chrome-gold]"
-	Primitive130.image = "[chrome-gold]"
-	Primitive132.image = "[chrome-gold]"
-	Primitive133.image = "[chrome-gold]"
-	Primitive147.image = "[chrome-gold]"
-	Primitive63.image = "[chrome-gold]"
-	Primitive121.image = "[chrome-gold]"
-	Primitive124.image = "[chrome-gold]"
-	Primitive148.image = "[chrome-gold]"
-	Primitive67.image = "gold"
-	Primitive151.image = "gold"
-	Primitive153.image = "gold"
+  UFLogo.image = "flipper-l2"
+  LFLogo.image = "flipper-l2"
+  RFLogo.image = "flipper-r2"
+  Primitive66.image = "gold"
+  Primitive20.image = "[chrome-gold]"
+  Primitive21.image = "[chrome-gold]"
+  Primitive22.image = "[chrome-gold]"
+  Primitive91.image = "[chrome-gold]"
+  Primitive90.image = "[chrome-gold]"
+  Primitive127.image = "[chrome-gold]"
+  Primitive128.image = "[chrome-gold]"
+  Primitive129.image = "[chrome-gold]"
+  Primitive130.image = "[chrome-gold]"
+  Primitive132.image = "[chrome-gold]"
+  Primitive133.image = "[chrome-gold]"
+  Primitive147.image = "[chrome-gold]"
+  Primitive63.image = "[chrome-gold]"
+  Primitive121.image = "[chrome-gold]"
+  Primitive124.image = "[chrome-gold]"
+  Primitive148.image = "[chrome-gold]"
+  Primitive67.image = "gold"
+  Primitive151.image = "gold"
+  Primitive153.image = "gold"
 
-	'GI_Light.State = 1
-	newlighttest1.state = 1
-	newlighttest2.state = 1
-	newlighttest3.state = 1
-	newlighttest4.state = 1
-	newlighttest5.state = 1
-	newlighttest6.state = 1
-	newlighttest7.state = 1
-	newlighttest11.state = 1
-	Light1.state = 1
-	Light2.state = 1
-	Light3.state = 1
-	Light4.state = 1
-	Light5.state = 1
-	Light6.state = 1
-	Light7.state = 1
-	Light8.state = 1
-	Light9.state = 1
-	Light10.state = 1
-	Light11.state = 1
-	Light12.state = 1
-	Light13.state = 1
-	Light14.state = 1
-	Light15.state = 1
-	Light16.state = 1
-	Light17.state = 1
-	Light18.state = 1
-	Light19.state = 1
-	Light20.state = 1
-	Light21.state = 1
-	Light22.state = 1
-	Light40.state = 1
-	Light41.state = 1
-	Light42.state = 1
-	Light43.state = 1
-	GILight1.state = 1
-	GILight2.state = 1
-	GILight3.state = 1
-	GILight4.state = 1
-	Light24.state = 1
-	Light25.state = 1
-	Light50.state = 1
-	Light52.state = 1
+  'GI_Light.State = 1
+  newlighttest1.state = 1
+  newlighttest2.state = 1
+  newlighttest3.state = 1
+  newlighttest4.state = 1
+  newlighttest5.state = 1
+  newlighttest6.state = 1
+  newlighttest7.state = 1
+  newlighttest11.state = 1
+  Light1.state = 1
+  Light2.state = 1
+  Light3.state = 1
+  Light4.state = 1
+  Light5.state = 1
+  Light6.state = 1
+  Light7.state = 1
+  Light8.state = 1
+  Light9.state = 1
+  Light10.state = 1
+  Light11.state = 1
+  Light12.state = 1
+  Light13.state = 1
+  Light14.state = 1
+  Light15.state = 1
+  Light16.state = 1
+  Light17.state = 1
+  Light18.state = 1
+  Light19.state = 1
+  Light20.state = 1
+  Light21.state = 1
+  Light22.state = 1
+  Light40.state = 1
+  Light41.state = 1
+  Light42.state = 1
+  Light43.state = 1
+  GILight1.state = 1
+  GILight2.state = 1
+  GILight3.state = 1
+  GILight4.state = 1
+  Light24.state = 1
+  Light25.state = 1
+  Light50.state = 1
+  Light52.state = 1
 End Sub
 
 Sub GILightsOff
-	UFLogo.image = "flipper-l2off"
-	LFLogo.image = "flipper-l2off"
-	RFLogo.image = "flipper-r2off"
-	Primitive66.image = "gold-off"
-	Primitive20.image = "[chrome-gold-off]"
-	Primitive21.image = "[chrome-gold-off]"
-	Primitive22.image = "[chrome-gold-off]"
-	Primitive91.image = "[chrome-gold-off]"
-	Primitive90.image = "[chrome-gold-off]"
-	Primitive127.image = "[chrome-gold-off]"
-	Primitive128.image = "[chrome-gold-off]"
-	Primitive129.image = "[chrome-gold-off]"
-	Primitive130.image = "[chrome-gold-off]"
-	Primitive132.image = "[chrome-gold-off]"
-	Primitive133.image = "[chrome-gold-off]"
-	Primitive147.image = "[chrome-gold-off]"
-	Primitive63.image = "[chrome-gold-off]"
-	Primitive121.image = "[chrome-gold-off]"
-	Primitive124.image = "[chrome-gold-off]"
-	Primitive148.image = "[chrome-gold-off]"
-	Primitive67.image = "gold-off"
-	Primitive151.image = "gold-off"
-	Primitive153.image = "gold-off"
+  UFLogo.image = "flipper-l2off"
+  LFLogo.image = "flipper-l2off"
+  RFLogo.image = "flipper-r2off"
+  Primitive66.image = "gold-off"
+  Primitive20.image = "[chrome-gold-off]"
+  Primitive21.image = "[chrome-gold-off]"
+  Primitive22.image = "[chrome-gold-off]"
+  Primitive91.image = "[chrome-gold-off]"
+  Primitive90.image = "[chrome-gold-off]"
+  Primitive127.image = "[chrome-gold-off]"
+  Primitive128.image = "[chrome-gold-off]"
+  Primitive129.image = "[chrome-gold-off]"
+  Primitive130.image = "[chrome-gold-off]"
+  Primitive132.image = "[chrome-gold-off]"
+  Primitive133.image = "[chrome-gold-off]"
+  Primitive147.image = "[chrome-gold-off]"
+  Primitive63.image = "[chrome-gold-off]"
+  Primitive121.image = "[chrome-gold-off]"
+  Primitive124.image = "[chrome-gold-off]"
+  Primitive148.image = "[chrome-gold-off]"
+  Primitive67.image = "gold-off"
+  Primitive151.image = "gold-off"
+  Primitive153.image = "gold-off"
 
-	'GI_Light.State = 0
-	newlighttest1.state = 0
-	newlighttest2.state = 0
-	newlighttest3.state = 0
-	newlighttest4.state = 0
-	newlighttest5.state = 0
-	newlighttest6.state = 0
-	newlighttest7.state = 0
-	newlighttest11.state = 0
-	Light1.state = 0
-	Light2.state = 0
-	Light3.state = 0
-	Light4.state = 0
-	Light5.state = 0
-	Light6.state = 0
-	Light7.state = 0
-	Light8.state = 0
-	Light9.state = 0
-	Light10.state = 0
-	Light11.state = 0
-	Light12.state = 0
-	Light13.state = 0
-	Light14.state = 0
-	Light15.state = 0
-	Light16.state = 0
-	Light17.state = 0
-	Light18.state = 0
-	Light19.state = 0
-	Light20.state = 0
-	Light21.state = 0
-	Light22.state = 0
-	Light40.state = 0
-	Light41.state = 0
-	Light42.state = 0
-	Light43.state = 0
-	GILight1.state = 0
-	GILight2.state = 0
-	GILight3.state = 0
-	GILight4.state = 0
-	Light24.state = 0
-	Light25.state = 0
-	Light50.state = 0
-	Light52.state = 0
+  'GI_Light.State = 0
+  newlighttest1.state = 0
+  newlighttest2.state = 0
+  newlighttest3.state = 0
+  newlighttest4.state = 0
+  newlighttest5.state = 0
+  newlighttest6.state = 0
+  newlighttest7.state = 0
+  newlighttest11.state = 0
+  Light1.state = 0
+  Light2.state = 0
+  Light3.state = 0
+  Light4.state = 0
+  Light5.state = 0
+  Light6.state = 0
+  Light7.state = 0
+  Light8.state = 0
+  Light9.state = 0
+  Light10.state = 0
+  Light11.state = 0
+  Light12.state = 0
+  Light13.state = 0
+  Light14.state = 0
+  Light15.state = 0
+  Light16.state = 0
+  Light17.state = 0
+  Light18.state = 0
+  Light19.state = 0
+  Light20.state = 0
+  Light21.state = 0
+  Light22.state = 0
+  Light40.state = 0
+  Light41.state = 0
+  Light42.state = 0
+  Light43.state = 0
+  GILight1.state = 0
+  GILight2.state = 0
+  GILight3.state = 0
+  GILight4.state = 0
+  Light24.state = 0
+  Light25.state = 0
+  Light50.state = 0
+  Light52.state = 0
 End Sub
 
 Sub RLS_Timer()

@@ -370,8 +370,8 @@ Sub SolSaucer(Enabled)
 If Enabled Then
     Lemk2.RotX = 26
     SStep = 0
-	sw2.TimerEnabled = 1
-	bsSaucer.ExitSol_On
+  sw2.TimerEnabled = 1
+  bsSaucer.ExitSol_On
 End If
 End Sub
 
@@ -457,7 +457,7 @@ Sub GiEffect(enabled)
         For each x in aGiLights
             x.Duration 2, 1000, 1
         Next
-	strobe.Duration 2, 1000, 0 'backglass effect
+  strobe.Duration 2, 1000, 0 'backglass effect
     End If
 End Sub
 
@@ -527,11 +527,11 @@ Sub UpdateLamps()
     NFadeL 119, L119
     NFadeL 12, l12
     NFadeLm 120, l120
-	Flash 120, l120a
+  Flash 120, l120a
     NFadeLm 121, l121
-	Flash 121, l121a
+  Flash 121, l121a
     NFadeLm 122, l122
-	Flash 122, l122a
+  Flash 122, l122a
     NFadeL 123, l123
     NFadeL 129, l129
     NFadeLm 133, l133
@@ -540,30 +540,30 @@ Sub UpdateLamps()
     NFadeL 141, l141
     NFadeL 142, l142
     NFadeLm 143, l143
-	Flash 143, l143a
+  Flash 143, l143a
     NFadeL 153, l153
     NFadeL 2, l2
     NFadeL 20, l20
     NFadeL 30, l30
     NFadeLm 31, l31
-	Flash 31, l31a
+  Flash 31, l31a
     NFadeLm 32, l32
-	Flash 32, l32a
+  Flash 32, l32a
     NFadeL 40, l40
     NFadeL 41, l41
     NFadeL 42, l42
     NFadeLm 50, l50
-	Flash 50, l50a
+  Flash 50, l50a
     NFadeLm 51, l51
-	Flash 51, l51a
+  Flash 51, l51a
     NFadeLm 52, l52
-	Flash 52, l52a
+  Flash 52, l52a
     NFadeLm 60, l60
-	Flash 60, l60a
+  Flash 60, l60a
     NFadeLm 61, l61
-	Flash 61, l61a
+  Flash 61, l61a
     NFadeLm 62, l62
-	Flash 62, l62a
+  Flash 62, l62a
     NFadeL 70, l70
     NFadeL 71, l71
     NFadeL 72, l72

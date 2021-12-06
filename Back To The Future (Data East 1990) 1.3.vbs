@@ -45,7 +45,7 @@ Dim DesktopMode: DesktopMode = bttf.ShowDT
 
 '***************************************************************************'
 '***************************************************************************'
-'								OPTIONS
+'               OPTIONS
 '***************************************************************************'
 '***************************************************************************'
 
@@ -179,7 +179,7 @@ enableBallControl = 0
 
 '***************************************************************************'
 '***************************************************************************'
-'								OPTIONS
+'               OPTIONS
 '***************************************************************************'
 '***************************************************************************'
 
@@ -239,7 +239,7 @@ Sub bttf_Init
         .ShowDMDOnly = 1
         .ShowFrame = 0
         .HandleMechanics = 0
-	  If DesktopMode = true then .hidden = 0 Else .hidden = 1 End If
+    If DesktopMode = true then .hidden = 0 Else .hidden = 1 End If
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
         On Error Goto 0
@@ -252,10 +252,10 @@ Sub bttf_Init
 
 
     ' Drop Targets
-   	Set DTBank = New cvpmDropTarget
-   	  With DTBank
-  		.InitDrop Array(Array(sw41),Array(sw42),Array(sw43)), Array(41,42,43)
-		.InitSnd SoundFX("_droptarget",DOFDropTargets),SoundFX("resetdrop",DOFContactors)
+    Set DTBank = New cvpmDropTarget
+      With DTBank
+      .InitDrop Array(Array(sw41),Array(sw42),Array(sw43)), Array(41,42,43)
+    .InitSnd SoundFX("_droptarget",DOFDropTargets),SoundFX("resetdrop",DOFContactors)
        End With
 
     ' Top Right Saucer
@@ -275,29 +275,29 @@ Sub bttf_Init
 
     bump1 = 0:bump2 = 0:bump3 = 0
     SolGi 1
-	CheckInstructionCards
-	SetFlipperColor
-	SetGIColor
-	StartLevel
-	SetHillValleyColorMod
-	SetDeloreanColorMod
-	SetRubberColor
-	Backdrop_Init
+  CheckInstructionCards
+  SetFlipperColor
+  SetGIColor
+  StartLevel
+  SetHillValleyColorMod
+  SetDeloreanColorMod
+  SetRubberColor
+  Backdrop_Init
 
-	vpmInit me
+  vpmInit me
 
 ' ball through system
-	MaxBalls=3
-	InitTime=61
-	EjectTime=0
-	TroughEject=1
-	TroughCount=0
-	iBall = 3
-	fgBall = false
+  MaxBalls=3
+  InitTime=61
+  EjectTime=0
+  TroughEject=1
+  TroughCount=0
+  iBall = 3
+  fgBall = false
 
     CreatBalls
 
-	PrevGameOver = 0
+  PrevGameOver = 0
 
 End Sub
 
@@ -311,57 +311,57 @@ Sub bttf_unPaused:Controller.Pause = 0:End Sub
 Sub bttf_KeyDown(ByVal Keycode)
     If keycode = PlungerKey Then Plunger.Pullback:'Pcount = 0:'PTime.Enabled = 1
     If keycode = LeftTiltKey Then
-		LeftNudge 270, 5
-	End If
+    LeftNudge 270, 5
+  End If
     If keycode = RightTiltKey Then
-		RightNudge 90, 5
-	End If
+    RightNudge 90, 5
+  End If
     If keycode = CenterTiltKey Then
-		CenterNudge 0, 5
-	End If
+    CenterNudge 0, 5
+  End If
 
-	'* Test Kicker
-'	If keycode = 37 Then TestKick ' K
-'	If keycode = 19 Then return_to_test ' R return ball to kicker
-'	If keycode = 46 Then create_testball ' C create ball ball in test kicker
-'	If keycode = 205 Then TKickAngle = TKickAngle + 3:fKickDirection.Visible=1:fKickDirection.RotZ=TKickAngle'+90 ' right arrow
-'	If keycode = 203 Then TKickAngle = TKickAngle - 3:fKickDirection.Visible=1:fKickDirection.RotZ=TKickAngle'+90 'left arrow
-'	If keycode = 200 Then TKickPower = TKickPower + 2:debug.print "TKickPower: "&TKickPower ' up arrow
-'	If keycode = 208 Then TKickPower = TKickPower - 2:debug.print "TKickPower: "&TKickPower ' down arrow
+  '* Test Kicker
+' If keycode = 37 Then TestKick ' K
+' If keycode = 19 Then return_to_test ' R return ball to kicker
+' If keycode = 46 Then create_testball ' C create ball ball in test kicker
+' If keycode = 205 Then TKickAngle = TKickAngle + 3:fKickDirection.Visible=1:fKickDirection.RotZ=TKickAngle'+90 ' right arrow
+' If keycode = 203 Then TKickAngle = TKickAngle - 3:fKickDirection.Visible=1:fKickDirection.RotZ=TKickAngle'+90 'left arrow
+' If keycode = 200 Then TKickPower = TKickPower + 2:debug.print "TKickPower: "&TKickPower ' up arrow
+' If keycode = 208 Then TKickPower = TKickPower - 2:debug.print "TKickPower: "&TKickPower ' down arrow
 
-	'* Ball Control
-	If enableBallControl Then
-		if keycode = 46 then	 			' C Key
-			If contball = 1 Then
-				contball = 0
-			Else
-				contball = 1
-			End If
-		End If
-		if keycode = 48 then 				'B Key
-			If bcboost = 1 Then
-				bcboost = bcboostmulti
-			Else
-				bcboost = 1
-			End If
-		End If
-		if keycode = 203 then bcleft = 1		' Left Arrow
-		if keycode = 200 then bcup = 1			' Up Arrow
-		if keycode = 208 then bcdown = 1		' Down Arrow
-		if keycode = 205 then bcright = 1		' Right Arrow
-	End If
+  '* Ball Control
+  If enableBallControl Then
+    if keycode = 46 then        ' C Key
+      If contball = 1 Then
+        contball = 0
+      Else
+        contball = 1
+      End If
+    End If
+    if keycode = 48 then        'B Key
+      If bcboost = 1 Then
+        bcboost = bcboostmulti
+      Else
+        bcboost = 1
+      End If
+    End If
+    if keycode = 203 then bcleft = 1    ' Left Arrow
+    if keycode = 200 then bcup = 1      ' Up Arrow
+    if keycode = 208 then bcdown = 1    ' Down Arrow
+    if keycode = 205 then bcright = 1   ' Right Arrow
+  End If
 
     If vpmKeyDown(keycode) Then Exit Sub
 
-	If keycode = 21 then  ''''''''''''''''''''y Key used for testing
-		pCRLock.collidable = false
-		pCRLock.RotZ = 50
-	End If
+  If keycode = 21 then  ''''''''''''''''''''y Key used for testing
+    pCRLock.collidable = false
+    pCRLock.RotZ = 50
+  End If
 
-	If keycode = 22 then  ''''''''''''''''''''u Key used for testing
-		WobbleCount = 5
-		tWobblePlastic.Enabled = true
-	End If
+  If keycode = 22 then  ''''''''''''''''''''u Key used for testing
+    WobbleCount = 5
+    tWobblePlastic.Enabled = true
+  End If
 
 End Sub
 
@@ -369,22 +369,22 @@ Sub bttf_KeyUp(ByVal Keycode)
     If KeyUpHandler(KeyCode) Then Exit Sub
     If keycode = PlungerKey Then Plunger.Fire:'PTime.Enabled = 0:Pcount = 0:PTime2.Enabled = 1
 
-	'* Test Kicker
-'	If keycode = 205 Then fKickDirection.Visible=0 ' right arrow
-'	If keycode = 203 Then fKickDirection.Visible=0 'left arrow
+  '* Test Kicker
+' If keycode = 205 Then fKickDirection.Visible=0 ' right arrow
+' If keycode = 203 Then fKickDirection.Visible=0 'left arrow
 
-	'* Ball Control
-	If enableBallControl Then
-		if keycode = 203 then bcleft = 0		' Left Arrow
-		if keycode = 200 then bcup = 0			' Up Arrow
-		if keycode = 208 then bcdown = 0		' Down Arrow
-		if keycode = 205 then bcright = 0		' Right Arrow
-	End If
+  '* Ball Control
+  If enableBallControl Then
+    if keycode = 203 then bcleft = 0    ' Left Arrow
+    if keycode = 200 then bcup = 0      ' Up Arrow
+    if keycode = 208 then bcdown = 0    ' Down Arrow
+    if keycode = 205 then bcright = 0   ' Right Arrow
+  End If
 
 End Sub
 
 '******************************************************
-'					Test Kicker
+'         Test Kicker
 '******************************************************
 
 Dim TKickAngle, TKickPower, TKickBall
@@ -392,7 +392,7 @@ TKickAngle = 0
 TKickPower = 10
 
 Sub testkick()
-	test.kick TKickAngle,TKickPower
+  test.kick TKickAngle,TKickPower
 End Sub
 
 Sub create_testball():Set TKickBall = test.CreateBall:End Sub
@@ -406,24 +406,24 @@ Sub return_to_test():TKickBall.velx=0:TKickBall.vely=0:TKickBall.x=test.x:TKickB
 Const PI = 3.14
 Dim Gate3Angle, Gate4Angle
 
-'***********	Ball Control
+'***********  Ball Control
 Sub StartControl_Hit()
-	Set ControlBall = ActiveBall
-	contballinplay = true
+  Set ControlBall = ActiveBall
+  contballinplay = true
 End Sub
 
 Sub StopControl_Hit()
-	contballinplay = false
+  contballinplay = false
 End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
 
-bcboost = 1		'Do Not Change - default setting
-bcvel = 4		'Controls the speed of the ball movement
-bcyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-bcboostmulti = 3	'Boost multiplier to ball veloctiy (toggled with the B key)
-'***********	Ball Control
+bcboost = 1   'Do Not Change - default setting
+bcvel = 4   'Controls the speed of the ball movement
+bcyveloffset = -0.01  'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
+bcboostmulti = 3  'Boost multiplier to ball veloctiy (toggled with the B key)
+'***********  Ball Control
 
 Dim prevgameover
 
@@ -434,54 +434,54 @@ Sub Timer_Timer()
     p_gate2.Rotx = gate2.CurrentAngle
     p_gate3.Rotx = gate3.CurrentAngle' + 90
 
-	Gate3Angle = Int(gate3.CurrentAngle)
-	If Gate3Angle > 0 then
-	pGate3_switch.ObjRotY = sin( (Gate3Angle * 1) * (2*PI/180)) * 10
-	Else
-	pGate3_switch.ObjRotY = sin( (Gate3Angle * -1) * (2*PI/180)) * 10
-	End If
+  Gate3Angle = Int(gate3.CurrentAngle)
+  If Gate3Angle > 0 then
+  pGate3_switch.ObjRotY = sin( (Gate3Angle * 1) * (2*PI/180)) * 10
+  Else
+  pGate3_switch.ObjRotY = sin( (Gate3Angle * -1) * (2*PI/180)) * 10
+  End If
 
-	Gate4Angle = Int(gate4.CurrentAngle)
-	If Gate4Angle > 0 then
-	pGate4_switch.ObjRotY = sin( (Gate4Angle * -1) * (2*PI/180)) * 10
-	Else
-	pGate4_switch.ObjRotY = sin( (Gate4Angle * 1) * (2*PI/180)) * 10
-	End If
+  Gate4Angle = Int(gate4.CurrentAngle)
+  If Gate4Angle > 0 then
+  pGate4_switch.ObjRotY = sin( (Gate4Angle * -1) * (2*PI/180)) * 10
+  Else
+  pGate4_switch.ObjRotY = sin( (Gate4Angle * 1) * (2*PI/180)) * 10
+  End If
 
 
 
     p_gate4.Rotx = gate4.CurrentAngle' + 90
 
-	pLeftFlipperLogo.Roty = LeftFlipper.Currentangle' + 180
-	pLSS.Roty = LeftFlipper.Currentangle - 90
+  pLeftFlipperLogo.Roty = LeftFlipper.Currentangle' + 180
+  pLSS.Roty = LeftFlipper.Currentangle - 90
 
-	pRightFlipperLogo.Roty = RightFlipper.Currentangle' + 180
-	pRSS.Roty = RightFlipper.Currentangle - 90
+  pRightFlipperLogo.Roty = RightFlipper.Currentangle' + 180
+  pRSS.Roty = RightFlipper.Currentangle - 90
 
-	pSpinner.RotX = sw28.Currentangle * -1
+  pSpinner.RotX = sw28.Currentangle * -1
 
-	pSpinnerRod.TransX = sin( (sw28.CurrentAngle+180) * (2*PI/360)) * 5
-	pSpinnerRod.TransY = sin( (SW28.CurrentAngle- 90) * (2*PI/360)) * 5
+  pSpinnerRod.TransX = sin( (sw28.CurrentAngle+180) * (2*PI/360)) * 5
+  pSpinnerRod.TransY = sin( (SW28.CurrentAngle- 90) * (2*PI/360)) * 5
 
-	'***********	Ball Control
-	If Contball and ContBallInPlay then
-		If bcright = 1 Then
-			ControlBall.velx = bcvel*bcboost
-		ElseIf bcleft = 1 Then
-			ControlBall.velx = - bcvel*bcboost
-		Else
-			ControlBall.velx=0
-		End If
+  '***********  Ball Control
+  If Contball and ContBallInPlay then
+    If bcright = 1 Then
+      ControlBall.velx = bcvel*bcboost
+    ElseIf bcleft = 1 Then
+      ControlBall.velx = - bcvel*bcboost
+    Else
+      ControlBall.velx=0
+    End If
 
-		If bcup = 1 Then
-			ControlBall.vely = -bcvel*bcboost
-		ElseIf bcdown = 1 Then
-			ControlBall.vely = bcvel*bcboost
-		Else
-			ControlBall.vely= bcyveloffset
-		End If
-	End If
-	'***********	Ball Control
+    If bcup = 1 Then
+      ControlBall.vely = -bcvel*bcboost
+    ElseIf bcdown = 1 Then
+      ControlBall.vely = bcvel*bcboost
+    Else
+      ControlBall.vely= bcyveloffset
+    End If
+  End If
+  '***********  Ball Control
 
 
 
@@ -497,25 +497,25 @@ Dim lBallY, lBallX
 Sub StartLevel()
 
 'Y
-	kLevel.Enabled = 1
-	Set lBallY = kLevel.CreateSizedBallWithMass(4, .008)
-	kLevel.kick 0, 0
-	kLevel.Enabled = 0
+  kLevel.Enabled = 1
+  Set lBallY = kLevel.CreateSizedBallWithMass(4, .008)
+  kLevel.kick 0, 0
+  kLevel.Enabled = 0
 
 
 'X
-	kLevel1.Enabled = 1
-	Set lBallX = kLevel1.CreateSizedBallWithMass(4, .008)
-	kLevel1.kick 0, 0
-	kLevel1.Enabled = 0
+  kLevel1.Enabled = 1
+  Set lBallX = kLevel1.CreateSizedBallWithMass(4, .008)
+  kLevel1.kick 0, 0
+  kLevel1.Enabled = 0
 
 End Sub
 
 Sub Level_Timer()
 
 
-	xBubble.x = lBallX.x
-	yBubble.y = lBallY.y
+  xBubble.x = lBallX.x
+  yBubble.y = lBallY.y
 
 End Sub
 
@@ -533,10 +533,10 @@ End Sub
 
 Sub CenterNudge(angle, strength)
     Dim a
-	kLevel.Enabled = 1
+  kLevel.Enabled = 1
     lBallY.vely = 2*(RND(1)-RND(1))
-	PlaySound SoundFX("knocker",DOFKnocker)
-	kLevel.Enabled = 0
+  PlaySound SoundFX("knocker",DOFKnocker)
+  kLevel.Enabled = 0
 End Sub
 
 
@@ -545,55 +545,55 @@ End Sub
 '******************************
 
 Sub Backdrop_Init
-	Dim bdl
-	If DesktopMode = True then
+  Dim bdl
+  If DesktopMode = True then
 
-		l56c.visible = true
-		l34.visible = true
-		l35.visible = true
-		l36.visible = true
-		l37.visible = true
-		l38.visible = true
-		l39.visible = true
-		l47c.visible = true
-
-
-''''Delorean Lights
-
-		l25d.BulbHaloHeight = 185
-		l26d.BulbHaloHeight = 185
-		l27d.BulbHaloHeight = 185
-		l28d.BulbHaloHeight = 185
-		l29d.BulbHaloHeight = 185
-		l30d.BulbHaloHeight = 185
-		l31d.BulbHaloHeight = 185
-		l32d.BulbHaloHeight = 185
-
-	Else
-
-
-		l56c.visible = false
-		l34.visible = false
-		l35.visible = false
-		l36.visible = false
-		l37.visible = false
-		l38.visible = false
-		l39.visible = false
-		l47c.visible = false
+    l56c.visible = true
+    l34.visible = true
+    l35.visible = true
+    l36.visible = true
+    l37.visible = true
+    l38.visible = true
+    l39.visible = true
+    l47c.visible = true
 
 
 ''''Delorean Lights
 
-		l25d.BulbHaloHeight = 175
-		l26d.BulbHaloHeight = 175
-		l27d.BulbHaloHeight = 175
-		l28d.BulbHaloHeight = 175
-		l29d.BulbHaloHeight = 175
-		l30d.BulbHaloHeight = 175
-		l31d.BulbHaloHeight = 175
-		l32d.BulbHaloHeight = 175
+    l25d.BulbHaloHeight = 185
+    l26d.BulbHaloHeight = 185
+    l27d.BulbHaloHeight = 185
+    l28d.BulbHaloHeight = 185
+    l29d.BulbHaloHeight = 185
+    l30d.BulbHaloHeight = 185
+    l31d.BulbHaloHeight = 185
+    l32d.BulbHaloHeight = 185
 
-	End If
+  Else
+
+
+    l56c.visible = false
+    l34.visible = false
+    l35.visible = false
+    l36.visible = false
+    l37.visible = false
+    l38.visible = false
+    l39.visible = false
+    l47c.visible = false
+
+
+''''Delorean Lights
+
+    l25d.BulbHaloHeight = 175
+    l26d.BulbHaloHeight = 175
+    l27d.BulbHaloHeight = 175
+    l28d.BulbHaloHeight = 175
+    l29d.BulbHaloHeight = 175
+    l30d.BulbHaloHeight = 175
+    l31d.BulbHaloHeight = 175
+    l32d.BulbHaloHeight = 175
+
+  End If
 End Sub
 
 
@@ -609,52 +609,52 @@ Dim InstructionCardsLeftType, InstructionCardsRightType
 Sub CheckInstructionCards()
 
 If InstructionCardsLeft = 0 Then
-	InstructionCardsLeftType = Int(Rnd*3)+1
+  InstructionCardsLeftType = Int(Rnd*3)+1
 Else
-	InstructionCardsLeftType = InstructionCardsLeft
+  InstructionCardsLeftType = InstructionCardsLeft
 End If
 
-	If InstructionCardsLeftType = -1 Then
-		pInstructionCardLeft.visible = False
-	End If
-	If InstructionCardsLeftType = 1 Then
-		pInstructionCardLeft.image = "bttf_InstructionCardLeft1"
-	End If
-	If InstructionCardsLeftType = 2 Then
-		pInstructionCardLeft.image = "bttf_InstructionCardLeft2"
-	End If
-	If InstructionCardsLeftType = 3 Then
-		pInstructionCardLeft.image = "bttf_InstructionCardLeft3"
-	End If
+  If InstructionCardsLeftType = -1 Then
+    pInstructionCardLeft.visible = False
+  End If
+  If InstructionCardsLeftType = 1 Then
+    pInstructionCardLeft.image = "bttf_InstructionCardLeft1"
+  End If
+  If InstructionCardsLeftType = 2 Then
+    pInstructionCardLeft.image = "bttf_InstructionCardLeft2"
+  End If
+  If InstructionCardsLeftType = 3 Then
+    pInstructionCardLeft.image = "bttf_InstructionCardLeft3"
+  End If
 
 
 If InstructionCardsRight = 0 Then
-	InstructionCardsRightType = Int(Rnd*3)+1
+  InstructionCardsRightType = Int(Rnd*3)+1
 Else
-	InstructionCardsRightType = InstructionCardsRight
+  InstructionCardsRightType = InstructionCardsRight
 End If
 
-	If InstructionCardsRight = -1  Then
-		pInstructionCardRight.visible = False
-	End If
-	If InstructionCardsRightType = 1  Then
-		pInstructionCardRight.image = "bttf_InstructionCardRight1"
-	End If
-	If InstructionCardsRightType = 2  Then
-		pInstructionCardRight.image = "bttf_InstructionCardRight2"
-	End If
-	If InstructionCardsRightType = 3  Then
-		pInstructionCardRight.image = "bttf_InstructionCardRight3"
-	End If
+  If InstructionCardsRight = -1  Then
+    pInstructionCardRight.visible = False
+  End If
+  If InstructionCardsRightType = 1  Then
+    pInstructionCardRight.image = "bttf_InstructionCardRight1"
+  End If
+  If InstructionCardsRightType = 2  Then
+    pInstructionCardRight.image = "bttf_InstructionCardRight2"
+  End If
+  If InstructionCardsRightType = 3  Then
+    pInstructionCardRight.image = "bttf_InstructionCardRight3"
+  End If
 
 
 'Hologram Photo
 
-	If HologramPhoto = 1 then
-		pHologram.Visible = True
-	Else
-		pHologram.Visible = False
-	End If
+  If HologramPhoto = 1 then
+    pHologram.Visible = True
+  Else
+    pHologram.Visible = False
+  End If
 
 
 End Sub
@@ -666,99 +666,99 @@ Dim FlipperColorType
 Sub SetFlipperColor()
 
 If FlipperColor = 0 Then
-	FlipperColorType = Int(Rnd*9)+1
+  FlipperColorType = Int(Rnd*9)+1
 Else
-	FlipperColorType = FlipperColor
+  FlipperColorType = FlipperColor
 End If
 
 If FlipperColorType = 1 Then
-	RightFlipper.Material = "Plastic White"
-	RightFlipper.RubberMaterial = "Rubber Black"
-	pRightFlipperLogo.Material = "Plastic White"
+  RightFlipper.Material = "Plastic White"
+  RightFlipper.RubberMaterial = "Rubber Black"
+  pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White"
-	LeftFlipper.RubberMaterial = "Rubber Black"
-	pLeftFlipperLogo.Material = "Plastic White"
+  LeftFlipper.Material = "Plastic White"
+  LeftFlipper.RubberMaterial = "Rubber Black"
+  pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 2 Then
-	RightFlipper.Material = "Plastic White"
-	RightFlipper.RubberMaterial = "Rubber Red"
-	pRightFlipperLogo.Material = "Plastic White"
+  RightFlipper.Material = "Plastic White"
+  RightFlipper.RubberMaterial = "Rubber Red"
+  pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White"
-	LeftFlipper.RubberMaterial = "Rubber Red"
-	pLeftFlipperLogo.Material = "Plastic White"
+  LeftFlipper.Material = "Plastic White"
+  LeftFlipper.RubberMaterial = "Rubber Red"
+  pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 3 Then
-	RightFlipper.Material = "Plastic White"
-	RightFlipper.RubberMaterial = "Rubber Yellow"
-	pRightFlipperLogo.Material = "Plastic White"
+  RightFlipper.Material = "Plastic White"
+  RightFlipper.RubberMaterial = "Rubber Yellow"
+  pRightFlipperLogo.Material = "Plastic White"
 
-	LeftFlipper.Material = "Plastic White"
-	LeftFlipper.RubberMaterial = "Rubber Yellow"
-	pLeftFlipperLogo.Material = "Plastic White"
+  LeftFlipper.Material = "Plastic White"
+  LeftFlipper.RubberMaterial = "Rubber Yellow"
+  pLeftFlipperLogo.Material = "Plastic White"
 End If
 
 If FlipperColorType = 4 Then
-	RightFlipper.Material = "Plastic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Black"
-	pRightFlipperLogo.Material = "Plastic Yellow"
+  RightFlipper.Material = "Plastic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Black"
+  pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Black"
-	pLeftFlipperLogo.Material = "Plastic Yellow"
+  LeftFlipper.Material = "Plastic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Black"
+  pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 5 Then
-	RightFlipper.Material = "Plastic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Red"
-	pRightFlipperLogo.Material = "Plastic Yellow"
+  RightFlipper.Material = "Plastic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Red"
+  pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Red"
-	pLeftFlipperLogo.Material = "Plastic Yellow"
+  LeftFlipper.Material = "Plastic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Red"
+  pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 6 Then
-	RightFlipper.Material = "Plastic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Yellow"
-	pRightFlipperLogo.Material = "Plastic Yellow"
+  RightFlipper.Material = "Plastic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Yellow"
+  pRightFlipperLogo.Material = "Plastic Yellow"
 
-	LeftFlipper.Material = "Plastic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Yellow"
-	pLeftFlipperLogo.Material = "Plastic Yellow"
+  LeftFlipper.Material = "Plastic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Yellow"
+  pLeftFlipperLogo.Material = "Plastic Yellow"
 End If
 
 If FlipperColorType = 7 Then
-	RightFlipper.Material = "Plastic Metalic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Black"
-	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
+  RightFlipper.Material = "Plastic Metalic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Black"
+  pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Black"
-	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
+  LeftFlipper.Material = "Plastic Metalic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Black"
+  pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
 
 If FlipperColorType = 8 Then
-	RightFlipper.Material = "Plastic Metalic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Red"
-	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
+  RightFlipper.Material = "Plastic Metalic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Red"
+  pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Red"
-	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
+  LeftFlipper.Material = "Plastic Metalic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Red"
+  pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
 
 If FlipperColorType = 9 Then
-	RightFlipper.Material = "Plastic Metalic Yellow"
-	RightFlipper.RubberMaterial = "Rubber Yellow"
-	pRightFlipperLogo.Material = "Plastic Metalic Yellow"
+  RightFlipper.Material = "Plastic Metalic Yellow"
+  RightFlipper.RubberMaterial = "Rubber Yellow"
+  pRightFlipperLogo.Material = "Plastic Metalic Yellow"
 
-	LeftFlipper.Material = "Plastic Metalic Yellow"
-	LeftFlipper.RubberMaterial = "Rubber Yellow"
-	pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
+  LeftFlipper.Material = "Plastic Metalic Yellow"
+  LeftFlipper.RubberMaterial = "Rubber Yellow"
+  pLeftFlipperLogo.Material = "Plastic Metalic Yellow"
 End If
 
 
@@ -767,41 +767,41 @@ Dim SolidStateSitckerType
 'Solid State Sitcker
 
 If SolidStateSitcker = 0 Then
-	SolidStateSitckerType = Int(Rnd*4)+1
+  SolidStateSitckerType = Int(Rnd*4)+1
 Else
-	SolidStateSitckerType = SolidStateSitcker
+  SolidStateSitckerType = SolidStateSitcker
 End If
 
 If SolidStateSitckerType = 1 Then
-	pLSS.Visible = False
-	pRSS.Visible = False
+  pLSS.Visible = False
+  pRSS.Visible = False
 
-	pLSS.Image = "SolidStateBlackLeft_texture"
-	pRSS.Image = "SolidStateBlackRight_texture"
+  pLSS.Image = "SolidStateBlackLeft_texture"
+  pRSS.Image = "SolidStateBlackRight_texture"
 End If
 
 If SolidStateSitckerType = 2 Then
-	pLSS.Visible = true
-	pRSS.Visible = true
+  pLSS.Visible = true
+  pRSS.Visible = true
 
-	pLSS.Image = "SolidStateBlackLeft_texture"
-	pRSS.Image = "SolidStateBlackRight_texture"
+  pLSS.Image = "SolidStateBlackLeft_texture"
+  pRSS.Image = "SolidStateBlackRight_texture"
 End If
 
 If SolidStateSitckerType = 3 Then
-	pLSS.Visible = true
-	pRSS.Visible = true
+  pLSS.Visible = true
+  pRSS.Visible = true
 
-	pLSS.Image = "SolidStateRedLeft_texture"
-	pRSS.Image = "SolidStateRedRight_texture"
+  pLSS.Image = "SolidStateRedLeft_texture"
+  pRSS.Image = "SolidStateRedRight_texture"
 End If
 
 If SolidStateSitckerType = 4 Then
-	pLSS.Visible = true
-	pRSS.Visible = true
+  pLSS.Visible = true
+  pRSS.Visible = true
 
-	pLSS.Image = "SolidStateYellowLeft_texture"
-	pRSS.Image = "SolidStateYellowRight_texture"
+  pLSS.Image = "SolidStateYellowLeft_texture"
+  pRSS.Image = "SolidStateYellowRight_texture"
 End If
 
 
@@ -810,37 +810,37 @@ End If
 Dim PlasticProtectorsType
 
 If PlasticProtectors = 0 Then
-	PlasticProtectorsType = Int(Rnd*4)+1
+  PlasticProtectorsType = Int(Rnd*4)+1
 Else
-	PlasticProtectorsType = PlasticProtectors
+  PlasticProtectorsType = PlasticProtectors
 End If
 
 If PlasticProtectorsType = 1 Then
-	pPlasticProtectorsA.Material = "AcrylicClear2"
-	pPlasticProtectorsA.DisableLighting = False
-	pPlasticProtectorsB.Material = "AcrylicClear2"
-	pPlasticProtectorsB.DisableLighting = False
+  pPlasticProtectorsA.Material = "AcrylicClear2"
+  pPlasticProtectorsA.DisableLighting = False
+  pPlasticProtectorsB.Material = "AcrylicClear2"
+  pPlasticProtectorsB.DisableLighting = False
 End If
 
 If PlasticProtectorsType = 2 Then
-	pPlasticProtectorsA.Material = "AcrilicBLYellow"
-	pPlasticProtectorsA.DisableLighting = True
-	pPlasticProtectorsB.Material = "AcrilicBLYellow"
-	pPlasticProtectorsB.DisableLighting = True
+  pPlasticProtectorsA.Material = "AcrilicBLYellow"
+  pPlasticProtectorsA.DisableLighting = True
+  pPlasticProtectorsB.Material = "AcrilicBLYellow"
+  pPlasticProtectorsB.DisableLighting = True
 End If
 
 If PlasticProtectorsType = 3 Then
-	pPlasticProtectorsA.Material = "AcrylicBLRed"
-	pPlasticProtectorsA.DisableLighting = True
-	pPlasticProtectorsB.Material = "AcrylicBLRed"
-	pPlasticProtectorsB.DisableLighting = True
+  pPlasticProtectorsA.Material = "AcrylicBLRed"
+  pPlasticProtectorsA.DisableLighting = True
+  pPlasticProtectorsB.Material = "AcrylicBLRed"
+  pPlasticProtectorsB.DisableLighting = True
 End If
 
 If PlasticProtectorsType = 4 Then
-	pPlasticProtectorsA.Material = "AcrylicBLOrange"
-	pPlasticProtectorsA.DisableLighting = True
-	pPlasticProtectorsB.Material = "AcrylicBLOrange"
-	pPlasticProtectorsB.DisableLighting = True
+  pPlasticProtectorsA.Material = "AcrylicBLOrange"
+  pPlasticProtectorsA.DisableLighting = True
+  pPlasticProtectorsB.Material = "AcrylicBLOrange"
+  pPlasticProtectorsB.DisableLighting = True
 End If
 
 End Sub
@@ -901,195 +901,195 @@ Sub SetGIColor()
 
 
 If GIColorMod = 0 Then
-	GIColorModType = Int(Rnd*3)+1
+  GIColorModType = Int(Rnd*3)+1
 Else
-	GIColorModType = GIColorMod
+  GIColorModType = GIColorMod
 End If
 
-	If GIColorModType = 1 Then
+  If GIColorModType = 1 Then
 
-	End If
+  End If
 
 
-	If GIColorModType = 2 Then
-		gi1a.colorfull = BlueFull 'Blue
-		gi1a.color = Blue 'Blue
-		gi1b.colorfull = BlueFull 'Blue
-		gi1b.color = Blue 'Blue
-		gi1c.colorfull = BlueFull 'Blue
-		gi1c.color = Blue 'Blue
-		gi1a.Intensity = BlueI 'Blue
+  If GIColorModType = 2 Then
+    gi1a.colorfull = BlueFull 'Blue
+    gi1a.color = Blue 'Blue
+    gi1b.colorfull = BlueFull 'Blue
+    gi1b.color = Blue 'Blue
+    gi1c.colorfull = BlueFull 'Blue
+    gi1c.color = Blue 'Blue
+    gi1a.Intensity = BlueI 'Blue
 
-		gi2a.colorfull = YellowFull 'Yellow
-		gi2a.color = Yellow ' Yellow
-		gi2b.colorfull = YellowFull 'Yellow
-		gi2b.color = Yellow ' Yellow
-		gi2c.colorfull = YellowFull 'Yellow
-		gi2c.color = Yellow ' Yellow
-		gi2a.intensity = YellowI
-'		gi2b.intensity = 13
+    gi2a.colorfull = YellowFull 'Yellow
+    gi2a.color = Yellow ' Yellow
+    gi2b.colorfull = YellowFull 'Yellow
+    gi2b.color = Yellow ' Yellow
+    gi2c.colorfull = YellowFull 'Yellow
+    gi2c.color = Yellow ' Yellow
+    gi2a.intensity = YellowI
+'   gi2b.intensity = 13
 
-		gi3a.colorfull = YellowFull 'Yellow
-		gi3a.color = YellowFull 'Yellow
-		gi3b.colorfull = YellowFull 'Yellow
-		gi3b.color = Yellow 'Yellow
-		gi3a.intensity = YellowI
-'		gi3b.intensity = 13
-		gi3c.colorfull = YellowFull 'Yellow
-		gi3c.color = Yellow 'Yellow
+    gi3a.colorfull = YellowFull 'Yellow
+    gi3a.color = YellowFull 'Yellow
+    gi3b.colorfull = YellowFull 'Yellow
+    gi3b.color = Yellow 'Yellow
+    gi3a.intensity = YellowI
+'   gi3b.intensity = 13
+    gi3c.colorfull = YellowFull 'Yellow
+    gi3c.color = Yellow 'Yellow
 
-		gi4a.colorfull = BlueFull 'Blue
-		gi4a.color = Blue 'Blue
-		gi4b.colorfull = BlueFull 'Blue
-		gi4b.color = Blue 'Blue
-		gi4c.colorfull = BlueFull 'Blue
-		gi4c.color = Blue 'Blue
-		gi4a.Intensity = BlueI 'Blue
+    gi4a.colorfull = BlueFull 'Blue
+    gi4a.color = Blue 'Blue
+    gi4b.colorfull = BlueFull 'Blue
+    gi4b.color = Blue 'Blue
+    gi4c.colorfull = BlueFull 'Blue
+    gi4c.color = Blue 'Blue
+    gi4a.Intensity = BlueI 'Blue
 
-		gi5a.colorfull = YellowFull 'Yellow
-		gi5a.color = Yellow ' Yellow
-		gi5b.colorfull = YellowFull 'Yellow
-		gi5b.color = Yellow ' Yellow
-		gi5c.colorfull = YellowFull 'Yellow
-		gi5c.color = Yellow ' Yellow
-		gi5a.intensity = YellowI
+    gi5a.colorfull = YellowFull 'Yellow
+    gi5a.color = Yellow ' Yellow
+    gi5b.colorfull = YellowFull 'Yellow
+    gi5b.color = Yellow ' Yellow
+    gi5c.colorfull = YellowFull 'Yellow
+    gi5c.color = Yellow ' Yellow
+    gi5a.intensity = YellowI
 
-		gi6a.colorfull = YellowFull 'Yellow
-		gi6a.color = Yellow ' Yellow
-		gi6b.colorfull = YellowFull 'Yellow
-		gi6b.color = Yellow ' Yellow
-		gi6c.colorfull = YellowFull 'Yellow
-		gi6c.color = Yellow ' Yellow
-		gi6a.intensity = YellowI
+    gi6a.colorfull = YellowFull 'Yellow
+    gi6a.color = Yellow ' Yellow
+    gi6b.colorfull = YellowFull 'Yellow
+    gi6b.color = Yellow ' Yellow
+    gi6c.colorfull = YellowFull 'Yellow
+    gi6c.color = Yellow ' Yellow
+    gi6a.intensity = YellowI
 
-		gi8a.colorfull = YellowFull 'Yellow
-		gi8a.color = Yellow ' Yellow
-		gi8b.colorfull = YellowFull 'Yellow
-		gi8b.color = Yellow ' Yellow
-		gi8c.colorfull = YellowFull 'Yellow
-		gi8c.color = Yellow ' Yellow
-		gi8a.intensity = YellowI
+    gi8a.colorfull = YellowFull 'Yellow
+    gi8a.color = Yellow ' Yellow
+    gi8b.colorfull = YellowFull 'Yellow
+    gi8b.color = Yellow ' Yellow
+    gi8c.colorfull = YellowFull 'Yellow
+    gi8c.color = Yellow ' Yellow
+    gi8a.intensity = YellowI
 
-		gi9a.colorfull = YellowFull 'Yellow
-		gi9a.color = Yellow ' Yellow
-		gi9b.colorfull = YellowFull 'Yellow
-		gi9b.color = Yellow ' Yellow
-		gi9c.colorfull = YellowFull 'Yellow
-		gi9c.color = Yellow ' Yellow
-		gi9a.intensity = YellowI
+    gi9a.colorfull = YellowFull 'Yellow
+    gi9a.color = Yellow ' Yellow
+    gi9b.colorfull = YellowFull 'Yellow
+    gi9b.color = Yellow ' Yellow
+    gi9c.colorfull = YellowFull 'Yellow
+    gi9c.color = Yellow ' Yellow
+    gi9a.intensity = YellowI
 
-		gi12a.colorfull = RedFull 'Red
-		gi12a.color = Red ' Red
-		gi12b.colorfull = RedFull 'Red
-		gi12b.color = Red ' Red
-		gi12c.colorfull = RedFull 'Red
-		gi12c.color = Red ' Red
-		gi12a.intensity = RedI
+    gi12a.colorfull = RedFull 'Red
+    gi12a.color = Red ' Red
+    gi12b.colorfull = RedFull 'Red
+    gi12b.color = Red ' Red
+    gi12c.colorfull = RedFull 'Red
+    gi12c.color = Red ' Red
+    gi12a.intensity = RedI
 
-		gi13a.colorfull = RedFull 'Red
-		gi13a.color = Red ' Red
-		gi13b.colorfull = RedFull 'Red
-		gi13b.color = Red ' Red
-		gi13c.colorfull = RedFull 'Red
-		gi13c.color = Red ' Red
-		gi13a.intensity = RedI
+    gi13a.colorfull = RedFull 'Red
+    gi13a.color = Red ' Red
+    gi13b.colorfull = RedFull 'Red
+    gi13b.color = Red ' Red
+    gi13c.colorfull = RedFull 'Red
+    gi13c.color = Red ' Red
+    gi13a.intensity = RedI
 
-		gi15.colorfull = rgb(0,128,255) 'Blue
-		gi15.color = rgb(0,255,255) 'Blue
+    gi15.colorfull = rgb(0,128,255) 'Blue
+    gi15.color = rgb(0,255,255) 'Blue
 
-		gi16.colorfull = rgb(0,128,255) 'Blue
-		gi16.color = rgb(0,255,255) 'Blue
+    gi16.colorfull = rgb(0,128,255) 'Blue
+    gi16.color = rgb(0,255,255) 'Blue
 
-	End If
+  End If
 
-	If GIColorModType = 3 Then
+  If GIColorModType = 3 Then
 
-		gi1a.Color=Blue
-		gi1a.ColorFull=BlueFull
-		gi1b.Color=Blue
-		gi1b.ColorFull=BlueFull
-		gi1c.Color=Blue
-		gi1c.ColorFull=BlueFull
-		gi1a.Intensity = BlueI
+    gi1a.Color=Blue
+    gi1a.ColorFull=BlueFull
+    gi1b.Color=Blue
+    gi1b.ColorFull=BlueFull
+    gi1c.Color=Blue
+    gi1c.ColorFull=BlueFull
+    gi1a.Intensity = BlueI
 
-		gi2a.Color=Pink
-		gi2a.ColorFull=PinkFull
-		gi2b.Color=Pink
-		gi2b.ColorFull=PinkFull
-		gi2c.Color=Pink
-		gi2c.ColorFull=PinkFull
-		gi2a.Intensity = PinkI
+    gi2a.Color=Pink
+    gi2a.ColorFull=PinkFull
+    gi2b.Color=Pink
+    gi2b.ColorFull=PinkFull
+    gi2c.Color=Pink
+    gi2c.ColorFull=PinkFull
+    gi2a.Intensity = PinkI
 
-		gi3a.Color=Pink
-		gi3a.ColorFull=PinkFull
-		gi3b.Color=Pink
-		gi3b.ColorFull=PinkFull
-		gi3c.Color=Pink
-		gi3c.ColorFull=PinkFull
-		gi3a.Intensity = PinkI
+    gi3a.Color=Pink
+    gi3a.ColorFull=PinkFull
+    gi3b.Color=Pink
+    gi3b.ColorFull=PinkFull
+    gi3c.Color=Pink
+    gi3c.ColorFull=PinkFull
+    gi3a.Intensity = PinkI
 
-		gi4a.Color=Blue
-		gi4a.ColorFull=BlueFull
-		gi4b.Color=Blue
-		gi4b.ColorFull=BlueFull
-		gi4c.Color=Blue
-		gi4c.ColorFull=BlueFull
-		gi4a.Intensity = BlueI
+    gi4a.Color=Blue
+    gi4a.ColorFull=BlueFull
+    gi4b.Color=Blue
+    gi4b.ColorFull=BlueFull
+    gi4c.Color=Blue
+    gi4c.ColorFull=BlueFull
+    gi4a.Intensity = BlueI
 
-		gi5a.Color=Pink
-		gi5a.ColorFull=PinkFull
-		gi5b.Color=Pink
-		gi5b.ColorFull=PinkFull
-		gi5c.Color=Pink
-		gi5c.ColorFull=PinkFull
-		gi5a.Intensity = PinkI
+    gi5a.Color=Pink
+    gi5a.ColorFull=PinkFull
+    gi5b.Color=Pink
+    gi5b.ColorFull=PinkFull
+    gi5c.Color=Pink
+    gi5c.ColorFull=PinkFull
+    gi5a.Intensity = PinkI
 
-		gi6a.Color=Pink
-		gi6a.ColorFull=PinkFull
-		gi6b.Color=Pink
-		gi6b.ColorFull=PinkFull
-		gi6c.Color=Pink
-		gi6c.ColorFull=PinkFull
-		gi6a.Intensity = PinkI
+    gi6a.Color=Pink
+    gi6a.ColorFull=PinkFull
+    gi6b.Color=Pink
+    gi6b.ColorFull=PinkFull
+    gi6c.Color=Pink
+    gi6c.ColorFull=PinkFull
+    gi6a.Intensity = PinkI
 
-		gi8a.colorfull = YellowFull 'Yellow
-		gi8a.color = Yellow ' Yellow
-		gi8b.colorfull = YellowFull 'Yellow
-		gi8b.color = Yellow ' Yellow
-		gi8c.colorfull = YellowFull 'Yellow
-		gi8c.color = Yellow ' Yellow
-		gi8a.intensity = YellowI
+    gi8a.colorfull = YellowFull 'Yellow
+    gi8a.color = Yellow ' Yellow
+    gi8b.colorfull = YellowFull 'Yellow
+    gi8b.color = Yellow ' Yellow
+    gi8c.colorfull = YellowFull 'Yellow
+    gi8c.color = Yellow ' Yellow
+    gi8a.intensity = YellowI
 
-		gi9a.colorfull = YellowFull 'Yellow
-		gi9a.color = Yellow ' Yellow
-		gi9b.colorfull = YellowFull 'Yellow
-		gi9b.color = Yellow ' Yellow
-		gi9c.colorfull = YellowFull 'Yellow
-		gi9c.color = Yellow ' Yellow
-		gi9a.intensity = YellowI
+    gi9a.colorfull = YellowFull 'Yellow
+    gi9a.color = Yellow ' Yellow
+    gi9b.colorfull = YellowFull 'Yellow
+    gi9b.color = Yellow ' Yellow
+    gi9c.colorfull = YellowFull 'Yellow
+    gi9c.color = Yellow ' Yellow
+    gi9a.intensity = YellowI
 
-		gi12a.colorfull = RedFull 'Red
-		gi12a.color = Red ' Red
-		gi12b.colorfull = RedFull 'Red
-		gi12b.color = Red ' Red
-		gi12c.colorfull = RedFull 'Red
-		gi12c.color = Red ' Red
-		gi12a.intensity = RedI
+    gi12a.colorfull = RedFull 'Red
+    gi12a.color = Red ' Red
+    gi12b.colorfull = RedFull 'Red
+    gi12b.color = Red ' Red
+    gi12c.colorfull = RedFull 'Red
+    gi12c.color = Red ' Red
+    gi12a.intensity = RedI
 
-		gi13a.colorfull = RedFull 'Red
-		gi13a.color = Red ' Red
-		gi13b.colorfull = RedFull 'Red
-		gi13b.color = Red ' Red
-		gi13c.colorfull = RedFull 'Red
-		gi13c.color = Red ' Red
-		gi13a.intensity = RedI
+    gi13a.colorfull = RedFull 'Red
+    gi13a.color = Red ' Red
+    gi13b.colorfull = RedFull 'Red
+    gi13b.color = Red ' Red
+    gi13c.colorfull = RedFull 'Red
+    gi13c.color = Red ' Red
+    gi13a.intensity = RedI
 
-		gi15.colorfull = rgb(0,128,255) 'Blue
-		gi15.color = rgb(0,255,255) 'Blue
+    gi15.colorfull = rgb(0,128,255) 'Blue
+    gi15.color = rgb(0,255,255) 'Blue
 
-		gi16.colorfull = rgb(0,128,255) 'Blue
-		gi16.color = rgb(0,255,255) 'Blue
-	End If
+    gi16.colorfull = rgb(0,128,255) 'Blue
+    gi16.color = rgb(0,255,255) 'Blue
+  End If
 
 
 End Sub
@@ -1099,58 +1099,58 @@ End Sub
 
 Sub SetHillValleyColorMod()
 
-	If LeftHillValleyMod = 1 Then
-		l15.colorfull = rgb(255,255,128) 'Yellow
-		l15.color = rgb(255,255,0) ' Yellow
-		l15a.colorfull = rgb(255,255,128) 'Yellow
-		l15a.color = rgb(255,255,0) ' Yellow
-		l56.colorfull = rgb(255,255,128) 'Yellow
-		l56.color = rgb(255,255,0) ' Yellow
-		l56a.colorfull = rgb(255,255,128) 'Yellow
-		l56a.color = rgb(255,255,0) ' Yellow
-		l60.colorfull = rgb(255,255,128) 'Yellow
-		l60.color = rgb(255,255,0) ' Yellow
-		l60a.colorfull = rgb(255,255,128) 'Yellow
-		l60a.color = rgb(255,255,0) ' Yellow
-	End If
+  If LeftHillValleyMod = 1 Then
+    l15.colorfull = rgb(255,255,128) 'Yellow
+    l15.color = rgb(255,255,0) ' Yellow
+    l15a.colorfull = rgb(255,255,128) 'Yellow
+    l15a.color = rgb(255,255,0) ' Yellow
+    l56.colorfull = rgb(255,255,128) 'Yellow
+    l56.color = rgb(255,255,0) ' Yellow
+    l56a.colorfull = rgb(255,255,128) 'Yellow
+    l56a.color = rgb(255,255,0) ' Yellow
+    l60.colorfull = rgb(255,255,128) 'Yellow
+    l60.color = rgb(255,255,0) ' Yellow
+    l60a.colorfull = rgb(255,255,128) 'Yellow
+    l60a.color = rgb(255,255,0) ' Yellow
+  End If
 
-	If RightHillValleyMod = 1 Then
-		l46.colorfull = rgb(0,128,255) 'Blue
-		l46.color = rgb(0,255,255) 'Blue
-		l46a.colorfull = rgb(0,128,255) 'Blue
-		l46a.color = rgb(0,255,255) 'Blue
-		l47.colorfull = rgb(0,128,255) 'Blue
-		l47.color = rgb(0,255,255) 'Blue
-		l47a.colorfull = rgb(0,128,255) 'Blue
-		l47a.color = rgb(0,255,255) 'Blue
-		l48.colorfull = rgb(0,128,255) 'Blue
-		l48.color = rgb(0,255,255) 'Blue
-		l48a.colorfull = rgb(0,128,255) 'Blue
-		l48a.color = rgb(0,255,255) 'Blue
-	End If
+  If RightHillValleyMod = 1 Then
+    l46.colorfull = rgb(0,128,255) 'Blue
+    l46.color = rgb(0,255,255) 'Blue
+    l46a.colorfull = rgb(0,128,255) 'Blue
+    l46a.color = rgb(0,255,255) 'Blue
+    l47.colorfull = rgb(0,128,255) 'Blue
+    l47.color = rgb(0,255,255) 'Blue
+    l47a.colorfull = rgb(0,128,255) 'Blue
+    l47a.color = rgb(0,255,255) 'Blue
+    l48.colorfull = rgb(0,128,255) 'Blue
+    l48.color = rgb(0,255,255) 'Blue
+    l48a.colorfull = rgb(0,128,255) 'Blue
+    l48a.color = rgb(0,255,255) 'Blue
+  End If
 
 End Sub
 
 
 Sub SetDeloreanColorMod()
-	If DeloreanColorMod = 1 Then
-		l25d.colorfull = rgb(255,0,0) 'Red
-		l25d.color = rgb(255,0,0) ' Red
-		l26d.colorfull = rgb(255,0,0) 'Red
-		l26d.color = rgb(255,0,0) ' Red
-		l27d.colorfull = rgb(255,0,0) 'Red
-		l27d.color = rgb(255,0,0) ' Red
-		l28d.colorfull = rgb(255,0,0) 'Red
-		l28d.color = rgb(255,0,0) ' Red
-		l29d.colorfull = rgb(255,0,0) 'Red
-		l29d.color = rgb(255,0,0) ' Red
-		l30d.colorfull = rgb(255,0,0) 'Red
-		l30d.color = rgb(255,0,0) ' Red
-		l31d.colorfull = rgb(255,0,0) 'Red
-		l31d.color = rgb(255,0,0) ' Red
-		l32d.colorfull = rgb(255,0,0) 'Red
-		l32d.color = rgb(255,0,0) ' Red
-	End If
+  If DeloreanColorMod = 1 Then
+    l25d.colorfull = rgb(255,0,0) 'Red
+    l25d.color = rgb(255,0,0) ' Red
+    l26d.colorfull = rgb(255,0,0) 'Red
+    l26d.color = rgb(255,0,0) ' Red
+    l27d.colorfull = rgb(255,0,0) 'Red
+    l27d.color = rgb(255,0,0) ' Red
+    l28d.colorfull = rgb(255,0,0) 'Red
+    l28d.color = rgb(255,0,0) ' Red
+    l29d.colorfull = rgb(255,0,0) 'Red
+    l29d.color = rgb(255,0,0) ' Red
+    l30d.colorfull = rgb(255,0,0) 'Red
+    l30d.color = rgb(255,0,0) ' Red
+    l31d.colorfull = rgb(255,0,0) 'Red
+    l31d.color = rgb(255,0,0) ' Red
+    l32d.colorfull = rgb(255,0,0) 'Red
+    l32d.color = rgb(255,0,0) ' Red
+  End If
 End Sub
 
 '''''''''''''''''''''''''''''
@@ -1160,13 +1160,13 @@ End Sub
 Dim CRBLStep, WPStep, WP2Step, PlasticWobbling
 
 Sub sw40_Hit()
-	Psw40.rotY = 20
-	Controller.Switch(40) = 1
-	BallsLocked = BallsLocked + 1
-	If HologramPhoto = 1 Then
-		HologramUpdateStep = HologramUpdateStep +1
-		HologramUpdate
-	End If
+  Psw40.rotY = 20
+  Controller.Switch(40) = 1
+  BallsLocked = BallsLocked + 1
+  If HologramPhoto = 1 Then
+    HologramUpdateStep = HologramUpdateStep +1
+    HologramUpdate
+  End If
 End Sub
 Sub sw40_UnHit:Psw40.rotY = 0:Controller.Switch(40) = 0:End Sub
 
@@ -1174,74 +1174,74 @@ Sub sw39_Hit:Psw39.rotY = 20:Controller.Switch(39) = 1:End Sub
 Sub sw39_UnHit:Psw39.rotY = 0:Controller.Switch(39) = 0:End Sub
 
 Sub sw38_Hit()
-	Psw38.rotY = 20
-	Controller.Switch(38) = 1
-	If WobblePlastic = 1 then
-		If PlasticWobbling = 1 then
-		Else
+  Psw38.rotY = 20
+  Controller.Switch(38) = 1
+  If WobblePlastic = 1 then
+    If PlasticWobbling = 1 then
+    Else
 
-			WobbleCount = 3
-			tWobblePlastic.Enabled = True
-		End If
-	End If
-	PlaySoundAtVol "metalhit_medium", sw38, VolMetal
+      WobbleCount = 3
+      tWobblePlastic.Enabled = True
+    End If
+  End If
+  PlaySoundAtVol "metalhit_medium", sw38, VolMetal
 End Sub
 Sub sw38_UnHit:Psw38.rotY = 0:Controller.Switch(38) = 0:End Sub
 
 
 Sub CRBallLock(Enabled)
-		PlaySoundAtVol SoundFX("fx_Rudysol1",DOFContactors), pCRLock, 1
-		pCRLock.collidable = false
-		pCRLock.RotZ = 50
-		If WobblePlastic = 1 then
-			PlasticWobbling = 1
-			WobbleCount = 5
-			tWobblePlastic.Enabled = True
-		End If
-		CRBallLockTimer.Enabled = true
+    PlaySoundAtVol SoundFX("fx_Rudysol1",DOFContactors), pCRLock, 1
+    pCRLock.collidable = false
+    pCRLock.RotZ = 50
+    If WobblePlastic = 1 then
+      PlasticWobbling = 1
+      WobbleCount = 5
+      tWobblePlastic.Enabled = True
+    End If
+    CRBallLockTimer.Enabled = true
 End Sub
 
 
 Sub CRBallLockTimer_Timer()
-	Select Case CRBLStep
-		Case 0:
-		Case 1:
-		Case 2:
-		Case 3:
-		Case 4:
-		Case 5:pCRLock.collidable = true:pCRLock.RotZ = 0:CRBallLockTimer.Enabled = false:CRBLStep = 0
-	End Select
-	CRBLStep = CRBLStep + 1
+  Select Case CRBLStep
+    Case 0:
+    Case 1:
+    Case 2:
+    Case 3:
+    Case 4:
+    Case 5:pCRLock.collidable = true:pCRLock.RotZ = 0:CRBallLockTimer.Enabled = false:CRBLStep = 0
+  End Select
+  CRBLStep = CRBLStep + 1
 
 End Sub
 
 '******************************************
-'			Plastic Wobble
+'     Plastic Wobble
 '******************************************
 
 Dim WobbleStep, WobbleCount, Wdir
 
-WobbleStep = 0.5	' Controls the size of the wobble
-WobbleCount = 5		' Controls the number of wobbles
+WobbleStep = 0.5  ' Controls the size of the wobble
+WobbleCount = 5   ' Controls the number of wobbles
 WDir = 1
 tWobblePlastic.interval = 15 ' Controls the speed of the wobble
 
 Sub tWobblePlastic_timer()
 
-	pWabblePlastic0.rotx=pWabblePlastic0.rotx + WDir*WobbleStep
+  pWabblePlastic0.rotx=pWabblePlastic0.rotx + WDir*WobbleStep
 
-	If WDIR = 1 And PWabblePlastic0.rotx > 89.99 + WobbleCount * WobbleStep Then
-		WobbleCount = WobbleCount - 1
-		WDir = -1
-	ElseIf WDir = -1 And PWabblePlastic0.rotx < 90.01 Then
-		WDir = 1
-		If WobbleCount = 0 Then
-			tWobblePlastic.Enabled = false
-			PlasticWobbling = 0
-'			WobbleCount = 5
-		End If
-	End If
-	pWabbleScrews.Rotx = pWabblePlastic0.rotx
+  If WDIR = 1 And PWabblePlastic0.rotx > 89.99 + WobbleCount * WobbleStep Then
+    WobbleCount = WobbleCount - 1
+    WDir = -1
+  ElseIf WDir = -1 And PWabblePlastic0.rotx < 90.01 Then
+    WDir = 1
+    If WobbleCount = 0 Then
+      tWobblePlastic.Enabled = false
+      PlasticWobbling = 0
+'     WobbleCount = 5
+    End If
+  End If
+  pWabbleScrews.Rotx = pWabblePlastic0.rotx
 End Sub
 
 
@@ -1252,14 +1252,14 @@ End Sub
 
 Sub HologramUpdate ()
     Select Case HologramUpdateStep
-        Case 0:pHologram.Image = "bttf_photo_8"						'Default
-        Case 1:pHologram.Image = "bttf_photo_7"						'Animation
-        Case 2:pHologram.Image = "bttf_photo_6"						'Lock1
-        Case 3:pHologram.Image = "bttf_photo_5"						'Animation
-        Case 4:pHologram.Image = "bttf_photo_4"						'Lock2
-		Case 5:pHologram.Image = "bttf_photo_3"						'Animation
-		Case 6:pHologram.Image = "bttf_photo_2":IsItMultiball = 1	'Lock3
-		Case 7:pHologram.Image = "bttf_photo_1"						'Multiball
+        Case 0:pHologram.Image = "bttf_photo_8"           'Default
+        Case 1:pHologram.Image = "bttf_photo_7"           'Animation
+        Case 2:pHologram.Image = "bttf_photo_6"           'Lock1
+        Case 3:pHologram.Image = "bttf_photo_5"           'Animation
+        Case 4:pHologram.Image = "bttf_photo_4"           'Lock2
+    Case 5:pHologram.Image = "bttf_photo_3"           'Animation
+    Case 6:pHologram.Image = "bttf_photo_2":IsItMultiball = 1 'Lock3
+    Case 7:pHologram.Image = "bttf_photo_1"           'Multiball
     End Select
 
 End Sub
@@ -1273,7 +1273,7 @@ Sub IsItMultiballTimer_Timer()
         Case 2:
         Case 3:
         Case 4:If BallsLocked > 1 then IsItMultiball = 0:HologramUpdateStep = 4:HologramUpdate: Else HologramUpdateStep = 7:HologramUpdate: End If
-		Case 5:IsItMultiballTimer.Enabled = false:IsItMultiballTimerStep = 0
+    Case 5:IsItMultiballTimer.Enabled = false:IsItMultiballTimerStep = 0
     End Select
 
     IsItMultiballTimerStep = IsItMultiballTimerStep + 1
@@ -1325,7 +1325,7 @@ End Sub
 Dim wRubber1aStep, wRubber1bStep, wRubber2Step, wRubber4Step
 
 Sub wRubber1a_hit()
-	Rubber1.visible = false:Rubber1a.visible = true:me.timerEnabled = true
+  Rubber1.visible = false:Rubber1a.visible = true:me.timerEnabled = true
 End Sub
 
 Sub wRubber1a_Timer
@@ -1339,7 +1339,7 @@ Sub wRubber1a_Timer
 End Sub
 
 Sub wRubber1b_hit()
-	Rubber1.visible = false:Rubber1b.visible = true:me.timerEnabled = true
+  Rubber1.visible = false:Rubber1b.visible = true:me.timerEnabled = true
 End Sub
 
 Sub wRubber1b_Timer
@@ -1353,7 +1353,7 @@ Sub wRubber1b_Timer
 End Sub
 
 Sub wRubber2_hit()
-	Rubber2.visible = false:Rubber2b.visible = true:me.timerEnabled = true
+  Rubber2.visible = false:Rubber2b.visible = true:me.timerEnabled = true
 End Sub
 
 Sub wRubber2_Timer
@@ -1367,7 +1367,7 @@ Sub wRubber2_Timer
 End Sub
 
 Sub wRubber4_hit()
-	Rubber4.visible = false:Rubber4b.visible = true:me.timerEnabled = true
+  Rubber4.visible = false:Rubber4b.visible = true:me.timerEnabled = true
 End Sub
 
 Sub wRubber4_Timer
@@ -1416,43 +1416,43 @@ Sub sw45_UnHit:Psw45.TransY = 0:If WobblePlastic = 1 then:PlasticWobbling = 1:Wo
 
 'VUK Lock
 Sub sw29_Hit()
-	PlaySoundAtVol "kicker_enter", sw29, VolKick
-	Controller.Switch(29) = 1
-	If HologramPhoto = 1 Then
-		HologramUpdateStep = HologramUpdateStep +1
-		HologramUpdate
-	End If
+  PlaySoundAtVol "kicker_enter", sw29, VolKick
+  Controller.Switch(29) = 1
+  If HologramPhoto = 1 Then
+    HologramUpdateStep = HologramUpdateStep +1
+    HologramUpdate
+  End If
 End Sub
 
 Sub KickBallUp(Enabled)
-	PlaysoundAtVol SoundFX("Solenoid",DOFContactors), sw29, VolKick
-	sw29.timerenabled = 1
- 	sw29.Kick 0,60,1.50
-	Controller.Switch(29) = 0
-	If WobblePlastic = 1 then
-		PlasticWobbling = 1
-		WobbleCount = 5:
-		tWobblePlastic.Enabled = True
-	End If:
+  PlaysoundAtVol SoundFX("Solenoid",DOFContactors), sw29, VolKick
+  sw29.timerenabled = 1
+  sw29.Kick 0,60,1.50
+  Controller.Switch(29) = 0
+  If WobblePlastic = 1 then
+    PlasticWobbling = 1
+    WobbleCount = 5:
+    tWobblePlastic.Enabled = True
+  End If:
 End Sub
 
 Dim sw29step
 
 Sub sw29_timer()
-	Select Case sw29step
-		Case 0:pUpKicker.TransY = 10
-		Case 1:pUpKicker.TransY = 20
-		Case 2:pUpKicker.TransY = 30
-		Case 3:
-		Case 4:
-		Case 5:pUpKicker.TransY = 25
-		Case 6:pUpKicker.TransY = 20
-		Case 7:pUpKicker.TransY = 15
-		Case 8:pUpKicker.TransY = 10
-		Case 9:pUpKicker.TransY = 5
-		Case 10:pUpKicker.TransY = 0:sw29.timerEnabled = 0:sw29step = 0
-	End Select
-	sw29step = sw29step + 1
+  Select Case sw29step
+    Case 0:pUpKicker.TransY = 10
+    Case 1:pUpKicker.TransY = 20
+    Case 2:pUpKicker.TransY = 30
+    Case 3:
+    Case 4:
+    Case 5:pUpKicker.TransY = 25
+    Case 6:pUpKicker.TransY = 20
+    Case 7:pUpKicker.TransY = 15
+    Case 8:pUpKicker.TransY = 10
+    Case 9:pUpKicker.TransY = 5
+    Case 10:pUpKicker.TransY = 0:sw29.timerEnabled = 0:sw29step = 0
+  End Select
+  sw29step = sw29step + 1
 End Sub
 
 ' Rollovers & Ramp Switches
@@ -1481,32 +1481,32 @@ Sub sw14_Unhit:Controller.Switch(14) = 0:End Sub
 '   Drop Targets
 '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	dim sw41Dir, sw42Dir, sw43Dir
-	dim sw41Pos, sw42Pos, sw43Pos
-	Dim sw41step, sw42step, sw43step
+  dim sw41Dir, sw42Dir, sw43Dir
+  dim sw41Pos, sw42Pos, sw43Pos
+  Dim sw41step, sw42step, sw43step
 
-	sw41Dir = 1:sw42Dir = 1:sw43Dir = 1
-	sw41Pos = 0:sw42Pos = 0:sw43Pos = 0
+  sw41Dir = 1:sw42Dir = 1:sw43Dir = 1
+  sw41Pos = 0:sw42Pos = 0:sw43Pos = 0
 
   'Targets Init
-	sw41.TimerEnabled = 1:sw42.timerEnabled = 1:sw43.TimerEnabled = 1
+  sw41.TimerEnabled = 1:sw42.timerEnabled = 1:sw43.TimerEnabled = 1
 
 
-	Sub sw41_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
-	Sub sw42_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
-	Sub sw43_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
+  Sub sw41_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
+  Sub sw42_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
+  Sub sw43_Hit:me.timerEnabled = 1:If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 1:tWobblePlastic.Enabled = True:End If:End Sub
 
 
 Sub sw41_timer()
-	Select Case sw41step
-		Case 0:
-		Case 1:sw41P.RotX = 2
-		Case 2:sw41P.RotX = 5
-		Case 3:DTBank.Hit 1:sw41Dir = 0:sw41a.Enabled = 1
-		Case 4:sw41P.RotX = 3
-		Case 5:sw41P.RotX = 0:me.timerEnabled = 0:sw41step = 0
-	End Select
-	sw41step = sw41step + 1
+  Select Case sw41step
+    Case 0:
+    Case 1:sw41P.RotX = 2
+    Case 2:sw41P.RotX = 5
+    Case 3:DTBank.Hit 1:sw41Dir = 0:sw41a.Enabled = 1
+    Case 4:sw41P.RotX = 3
+    Case 5:sw41P.RotX = 0:me.timerEnabled = 0:sw41step = 0
+  End Select
+  sw41step = sw41step + 1
 End Sub
 
 
@@ -1516,10 +1516,10 @@ End Sub
  Sub sw41a_Timer()
   Select Case sw41Pos
         Case 0: sw41P.TransZ=0
-				 If sw41Dir = 1 then
-					sw41a.Enabled = 0
-				 else
-			     end if
+         If sw41Dir = 1 then
+          sw41a.Enabled = 0
+         else
+           end if
         Case 1: sw41P.TransZ=0
         Case 2: sw41P.TransZ=-6
         Case 3: sw41P.TransZ=-8
@@ -1530,41 +1530,41 @@ End Sub
         Case 8: sw41P.TransZ=-42
         Case 9: sw41P.TransZ=-48
         Case 10: sw41P.TransZ=-52
-				 If sw41Dir = 1 then
-				 else
-					sw41a.Enabled = 0
-			     end if
+         If sw41Dir = 1 then
+         else
+          sw41a.Enabled = 0
+           end if
 
 
 End Select
-	If sw41Dir = 1 then
-		If sw41pos>0 then sw41pos=sw41pos-1
-	else
-		If sw41pos<10 then sw41pos=sw41pos+1
-	end if
+  If sw41Dir = 1 then
+    If sw41pos>0 then sw41pos=sw41pos-1
+  else
+    If sw41pos<10 then sw41pos=sw41pos+1
+  end if
   End Sub
 
 
 Sub sw42_timer()
-	Select Case sw42step
-		Case 0:
-		Case 1:sw42P.RotX = 2
-		Case 2:sw42P.RotX = 5
-		Case 3:DTBank.Hit 2:sw42Dir = 0:sw42a.Enabled = 1
-		Case 4:sw42P.RotX = 3
-		Case 5:sw42P.RotX = 0:me.timerEnabled = 0:sw42step = 0
-	End Select
-	sw42step = sw42step + 1
+  Select Case sw42step
+    Case 0:
+    Case 1:sw42P.RotX = 2
+    Case 2:sw42P.RotX = 5
+    Case 3:DTBank.Hit 2:sw42Dir = 0:sw42a.Enabled = 1
+    Case 4:sw42P.RotX = 3
+    Case 5:sw42P.RotX = 0:me.timerEnabled = 0:sw42step = 0
+  End Select
+  sw42step = sw42step + 1
 End Sub
 
 
  Sub sw42a_Timer()
   Select Case sw42Pos
         Case 0: sw42P.TransZ=0
-				 If sw42Dir = 1 then
-					sw42a.Enabled = 0
-				 else
-			     end if
+         If sw42Dir = 1 then
+          sw42a.Enabled = 0
+         else
+           end if
         Case 1: sw42P.TransZ=0
         Case 2: sw42P.TransZ=-6
         Case 3: sw42P.TransZ=-12
@@ -1575,40 +1575,40 @@ End Sub
         Case 8: sw42P.TransZ=-42
         Case 9: sw42P.TransZ=-48
         Case 10: sw42P.TransZ=-52
-				 If sw42Dir = 1 then
-				 else
-					sw42a.Enabled = 0
-			     end if
+         If sw42Dir = 1 then
+         else
+          sw42a.Enabled = 0
+           end if
 
 
 End Select
-	If sw42Dir = 1 then
-		If sw42pos>0 then sw42pos=sw42pos-1
-	else
-		If sw42pos<10 then sw42pos=sw42pos+1
-	end if
+  If sw42Dir = 1 then
+    If sw42pos>0 then sw42pos=sw42pos-1
+  else
+    If sw42pos<10 then sw42pos=sw42pos+1
+  end if
   End Sub
 
 Sub sw43_timer()
-	Select Case sw43step
-		Case 0:
-		Case 1:sw43P.RotX = 2
-		Case 2:sw43P.RotX = 5
-		Case 3:DTBank.Hit 3:sw43Dir = 0:sw43a.Enabled = 1
-		Case 4:sw43P.RotX = 3
-		Case 5:sw43P.RotX = 0:me.timerEnabled = 0:sw43step = 0
-	End Select
-	sw43step = sw43step + 1
+  Select Case sw43step
+    Case 0:
+    Case 1:sw43P.RotX = 2
+    Case 2:sw43P.RotX = 5
+    Case 3:DTBank.Hit 3:sw43Dir = 0:sw43a.Enabled = 1
+    Case 4:sw43P.RotX = 3
+    Case 5:sw43P.RotX = 0:me.timerEnabled = 0:sw43step = 0
+  End Select
+  sw43step = sw43step + 1
 End Sub
 
 
 Sub sw43a_Timer()
-	Select Case sw43Pos
+  Select Case sw43Pos
         Case 0: sw43P.TransZ=0
-				 If sw43Dir = 1 then
-					sw43a.Enabled = 0
-				 else
-			     end if
+         If sw43Dir = 1 then
+          sw43a.Enabled = 0
+         else
+           end if
         Case 1: sw43P.TransZ=0
         Case 2: sw43P.TransZ=-6
         Case 3: sw43P.TransZ=-12
@@ -1619,26 +1619,26 @@ Sub sw43a_Timer()
         Case 8: sw43P.TransZ=-42
         Case 9: sw43P.TransZ=-48
         Case 10: sw43P.TransZ=-52
-				 If sw43Dir = 1 then
-				 else
-					sw43a.Enabled = 0
-			     end if
-	End Select
-	If sw43Dir = 1 then
-		If sw43pos>0 then sw43pos=sw43pos-1
-	else
-		If sw43pos<10 then sw43pos=sw43pos+1
-	end if
+         If sw43Dir = 1 then
+         else
+          sw43a.Enabled = 0
+           end if
+  End Select
+  If sw43Dir = 1 then
+    If sw43pos>0 then sw43pos=sw43pos-1
+  else
+    If sw43pos<10 then sw43pos=sw43pos+1
+  end if
 End Sub
 
 'DT Subs
    Sub ResetDrops(Enabled)
-		If Enabled Then
-			sw41Dir = 1:sw42Dir = 1:sw43Dir = 1
-			sw41a.Enabled = 1:sw42a.Enabled = 1:sw43a.Enabled = 1
-			DTBank.DropSol_On
-			If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 2:tWobblePlastic.Enabled = True:End If:
-		End if
+    If Enabled Then
+      sw41Dir = 1:sw42Dir = 1:sw43Dir = 1
+      sw41a.Enabled = 1:sw42a.Enabled = 1:sw43a.Enabled = 1
+      DTBank.DropSol_On
+      If WobblePlastic = 1 then:PlasticWobbling = 1:WobbleCount = 2:tWobblePlastic.Enabled = True:End If:
+    End if
    End Sub
 
 '***************************************
@@ -1649,90 +1649,90 @@ Dim Target25Step, Target26Step, Target27Step, Target33Step, Target34Step, Target
 
 Sub sw25_Hit:vpmTimer.PulseSw(25):P_Target25.TransX = -5:Target25Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets), ActiveBall, VolTarg:End Sub
 Sub sw25_timer()
-	Select Case Target25Step
-		Case 1:P_Target25.TransX = 3
+  Select Case Target25Step
+    Case 1:P_Target25.TransX = 3
         Case 2:P_Target25.TransX = -2
         Case 3:P_Target25.TransX = 1
         Case 4:P_Target25.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target25Step = Target25Step + 1
+  Target25Step = Target25Step + 1
 End Sub
 
 Sub sw26_Hit:vpmTimer.PulseSw(26):P_Target26.TransX = -5:Target26Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw26_timer()
-	Select Case Target26Step
-		Case 1:P_Target26.TransX = 3
+  Select Case Target26Step
+    Case 1:P_Target26.TransX = 3
         Case 2:P_Target26.TransX = -2
         Case 3:P_Target26.TransX = 1
         Case 4:P_Target26.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target26Step = Target26Step + 1
+  Target26Step = Target26Step + 1
 End Sub
 
 Sub sw27_Hit:vpmTimer.PulseSw(27):P_Target27.TransX = -5:Target27Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw27_timer()
-	Select Case Target27Step
-		Case 1:P_Target27.TransX = 3
+  Select Case Target27Step
+    Case 1:P_Target27.TransX = 3
         Case 2:P_Target27.TransX = -2
         Case 3:P_Target27.TransX = 1
         Case 4:P_Target27.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target27Step = Target27Step + 1
+  Target27Step = Target27Step + 1
 End Sub
 
 Sub sw33_Hit:vpmTimer.PulseSw(33):P_Target33.TransX = -5:Target33Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw33_timer()
-	Select Case Target33Step
-		Case 1:P_Target33.TransX = 3
+  Select Case Target33Step
+    Case 1:P_Target33.TransX = 3
         Case 2:P_Target33.TransX = -2
         Case 3:P_Target33.TransX = 1
         Case 4:P_Target33.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target33Step = Target33Step + 1
+  Target33Step = Target33Step + 1
 End Sub
 
 Sub sw34_Hit:vpmTimer.PulseSw(34):P_Target34.TransX = -5:Target34Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw34_timer()
-	Select Case Target34Step
-		Case 1:P_Target34.TransX = 3
+  Select Case Target34Step
+    Case 1:P_Target34.TransX = 3
         Case 2:P_Target34.TransX = -2
         Case 3:P_Target34.TransX = 1
         Case 4:P_Target34.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target34Step = Target34Step + 1
+  Target34Step = Target34Step + 1
 End Sub
 
 Sub sw35_Hit:vpmTimer.PulseSw(35):P_Target35.TransX = -5:Target35Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw35_timer()
-	Select Case Target35Step
-		Case 1:P_Target35.TransX = 3
+  Select Case Target35Step
+    Case 1:P_Target35.TransX = 3
         Case 2:P_Target35.TransX = -2
         Case 3:P_Target35.TransX = 1
         Case 4:P_Target35.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target35Step = Target35Step + 1
+  Target35Step = Target35Step + 1
 End Sub
 
 Sub sw36_Hit:vpmTimer.PulseSw(36):P_Target36.TransX = -5:Target36Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw36_timer()
-	Select Case Target36Step
-		Case 1:P_Target36.TransX = 3
+  Select Case Target36Step
+    Case 1:P_Target36.TransX = 3
         Case 2:P_Target36.TransX = -2
         Case 3:P_Target36.TransX = 1
         Case 4:P_Target36.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target36Step = Target36Step + 1
+  Target36Step = Target36Step + 1
 End Sub
 
 Sub sw37_Hit:vpmTimer.PulseSw(37):P_Target37.TransX = -5:Target37Step = 1:Me.TimerEnabled = 1:PlaySoundAtVol SoundFX("_spottarget",DOFTargets),ActiveBall, VolTarg:End Sub
 Sub sw37_timer()
-	Select Case Target37Step
-		Case 1:P_Target37.TransX = 3
+  Select Case Target37Step
+    Case 1:P_Target37.TransX = 3
         Case 2:P_Target37.TransX = -2
         Case 3:P_Target37.TransX = 1
         Case 4:P_Target37.TransX = 0:Me.TimerEnabled = 0
      End Select
-	Target37Step = Target37Step + 1
+  Target37Step = Target37Step + 1
 End Sub
 
 ' Spinners
@@ -1782,7 +1782,7 @@ SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
-		PlaySoundAtVol SoundFX("flipperup_l",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
+    PlaySoundAtVol SoundFX("flipperup_l",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
     Else
 
         PlaySoundAtVol SoundFX("flipperdown",DOFFlippers),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
@@ -1814,11 +1814,11 @@ Sub SolGi(Enabled)
     If Enabled Then
 
 SetLamp 200, 0
-		Playsound "fx_relay_off"
+    Playsound "fx_relay_off"
     Else
 
 SetLamp 200, 1
-		Playsound "fx_relay_on"
+    Playsound "fx_relay_on"
     End If
 End Sub
 
@@ -1836,18 +1836,18 @@ Dim cBall1, cBall2, cBall3
 dim bstatus
 
 Sub CreatBalls()
-	Controller.Switch(11) = 1
-	Controller.Switch(12) = 1
-	Controller.Switch(13) = 1
-	Set cBall1 = Kicker1.CreateSizedballWithMass(BallRadius,Ballmass)
-	Set cBall2 = Kicker2.CreateSizedballWithMass(BallRadius,Ballmass)
-	Set cBall3 = Kicker3.CreateSizedballWithMass(BallRadius,Ballmass)
+  Controller.Switch(11) = 1
+  Controller.Switch(12) = 1
+  Controller.Switch(13) = 1
+  Set cBall1 = Kicker1.CreateSizedballWithMass(BallRadius,Ballmass)
+  Set cBall2 = Kicker2.CreateSizedballWithMass(BallRadius,Ballmass)
+  Set cBall3 = Kicker3.CreateSizedballWithMass(BallRadius,Ballmass)
 
-	If BallMod = 1 Then
-		cBall1.Image = "PinballLaserLemon"
-		cBall2.Image = "PinballOutrageousOrange"
-		cBall3.Image = "PinballRadicalRed"
-	End If
+  If BallMod = 1 Then
+    cBall1.Image = "PinballLaserLemon"
+    cBall2.Image = "PinballOutrageousOrange"
+    cBall3.Image = "PinballRadicalRed"
+  End If
 End Sub
 
 
@@ -1859,62 +1859,62 @@ Sub Kicker1_Hit():Controller.Switch(13) = 1:UpdateTrough:End Sub
 Sub Kicker1_UnHit():Controller.Switch(13) = 0:UpdateTrough:End Sub
 
 Sub UpdateTrough()
-	CheckBallStatus.Interval = 300
-	CheckBallStatus.Enabled = 1
+  CheckBallStatus.Interval = 300
+  CheckBallStatus.Enabled = 1
 End Sub
 
 Sub CheckBallStatus_timer()
-	If Kicker1.BallCntOver = 0 Then Kicker2.kick 60, 9
-	If Kicker2.BallCntOver = 0 Then Kicker3.kick 60, 9
-	Me.Enabled = 0
+  If Kicker1.BallCntOver = 0 Then Kicker2.kick 60, 9
+  If Kicker2.BallCntOver = 0 Then Kicker3.kick 60, 9
+  Me.Enabled = 0
 End Sub
 
 Dim Kicker1active, Kicker2active, Kicker3active, Kicker4active, Kicker5active, Kicker6active
 
 
 '******************************************************
-'				DRAIN & RELEASE
+'       DRAIN & RELEASE
 '******************************************************
 
 Sub Drain_Hit()
-	PlaySoundAtVol "drain", Drain, 1
-	UpdateTrough
-	Controller.Switch(10) = 1
-	fgBall = true
-	iBall = iBall + 1
-	BallsInPlay = BallsInPlay - 1
-	If BallsInPlay = 1 and IsItMultiball = 1 Then IsItMultiball = 0:HologramUpdateStep = 0:HologramUpdate: End If
+  PlaySoundAtVol "drain", Drain, 1
+  UpdateTrough
+  Controller.Switch(10) = 1
+  fgBall = true
+  iBall = iBall + 1
+  BallsInPlay = BallsInPlay - 1
+  If BallsInPlay = 1 and IsItMultiball = 1 Then IsItMultiball = 0:HologramUpdateStep = 0:HologramUpdate: End If
 End Sub
 
 Sub Drain_UnHit()
-	Controller.Switch(10) = 0
+  Controller.Switch(10) = 0
 End Sub
 
 sub kisort(enabled)
-	If enabled then
-		if fgBall then
-			Drain.Kick 70,20
-			iBall = iBall + 1
-			fgBall = false
-		end if
-	end if
+  If enabled then
+    if fgBall then
+      Drain.Kick 70,20
+      iBall = iBall + 1
+      fgBall = false
+    end if
+  end if
 end sub
 
 Sub KickBallToLane(Enabled)
-	if enabled then
-		StopSound "intro"
-		PlaySoundAtVol SoundFX("BallRelease",DOFContactors), Kicker1, VolKick
-		Kicker1.Kick 70,40
-		If WobblePlastic = 1 then
-			PlasticWobbling = 1
-			WobbleCount = 2
-			tWobblePlastic.Enabled = True
-		End If
-		iBall = iBall - 1
-		fgBall = false
-		BallsInPlay = BallsInPlay + 1
-		UpdateTrough
-	end if
+  if enabled then
+    StopSound "intro"
+    PlaySoundAtVol SoundFX("BallRelease",DOFContactors), Kicker1, VolKick
+    Kicker1.Kick 70,40
+    If WobblePlastic = 1 then
+      PlasticWobbling = 1
+      WobbleCount = 2
+      tWobblePlastic.Enabled = True
+    End If
+    iBall = iBall - 1
+    fgBall = false
+    BallsInPlay = BallsInPlay + 1
+    UpdateTrough
+  end if
 End Sub
 
 
@@ -2093,159 +2093,159 @@ GiCompensationSingle 200, aLampsAll, GIscale(0)
 FadeLUTsingle 200, "LUTCont_", 28
 SubtleDL 200, pColorRamp
 
-	If LampState(3) = 1 Then
-		If MusicSnippet = 1 And PrevGameOver = 0 Then
-			PlaySound "intro"
-			PrevGameOver = 1
-		End If
-	else
+  If LampState(3) = 1 Then
+    If MusicSnippet = 1 And PrevGameOver = 0 Then
+      PlaySound "intro"
+      PrevGameOver = 1
+    End If
+  else
 
-	End If
+  End If
 
 
- 	NFadeL 1, l1
-	NFadeL 2, l2
-	NFadeL 3, l3
-	NFadeL 4, l4
-	NFadeL 5, l5
-	NFadeL 6, l6
-	NFadeL 7, l7
-	NFadeL 8, l8
-	NFadeL 9, l9
-	NFadeL 10, l10
-	NFadeL 11, l11
-	NFadeL 12, l12
-	NFadeL 13, l13
-	NFadeL 14, l14
-	FadeMaterialP 15, pHillSignLeftA, TextureArray1
-	NFadeLm 15, l15a
-	NFadeL 15, l15
-	NFadeL 16, l16
-	NFadeL 17, l17
-	NFadeL 18, l18
-	NFadeL 19, l19
-	NFadeL 20, l20
-	NFadeL 21, l21
-	NFadeL 22, l22
-	NFadeL 23, l23
-	NFadeL 24, l24
-	NfadeL 25, l25d
-	NfadeL 26, l26d
-	NfadeL 27, l27d
-	NfadeL 28, l28d
-	NfadeL 29, l29d
-	NfadeL 30, l30d
-	NfadeL 31, l31d
-	NfadeL 32, l32d
-	NFadeL 33, l33
+  NFadeL 1, l1
+  NFadeL 2, l2
+  NFadeL 3, l3
+  NFadeL 4, l4
+  NFadeL 5, l5
+  NFadeL 6, l6
+  NFadeL 7, l7
+  NFadeL 8, l8
+  NFadeL 9, l9
+  NFadeL 10, l10
+  NFadeL 11, l11
+  NFadeL 12, l12
+  NFadeL 13, l13
+  NFadeL 14, l14
+  FadeMaterialP 15, pHillSignLeftA, TextureArray1
+  NFadeLm 15, l15a
+  NFadeL 15, l15
+  NFadeL 16, l16
+  NFadeL 17, l17
+  NFadeL 18, l18
+  NFadeL 19, l19
+  NFadeL 20, l20
+  NFadeL 21, l21
+  NFadeL 22, l22
+  NFadeL 23, l23
+  NFadeL 24, l24
+  NfadeL 25, l25d
+  NfadeL 26, l26d
+  NfadeL 27, l27d
+  NfadeL 28, l28d
+  NfadeL 29, l29d
+  NfadeL 30, l30d
+  NfadeL 31, l31d
+  NfadeL 32, l32d
+  NFadeL 33, l33
     FadeR 34, l34
     FadeR 35, l35
     FadeR 36, l36
     FadeR 37, l37
     FadeR 38, l38
     FadeR 39, l39
-	NFadeL 40, l40
-	NFadeL 41, l41
-	NFadeL 42, l42
-	NFadeL 43, l43
-	NFadeL 44, l44
-	NFadeL 45, l45
-	FadeMaterialP 46, pHillSignRightA, TextureArray1
-	NFadeLm 46, l46a
-	NFadeL 46, l46
+  NFadeL 40, l40
+  NFadeL 41, l41
+  NFadeL 42, l42
+  NFadeL 43, l43
+  NFadeL 44, l44
+  NFadeL 45, l45
+  FadeMaterialP 46, pHillSignRightA, TextureArray1
+  NFadeLm 46, l46a
+  NFadeL 46, l46
     FadeRm 47, l47c
-	FadeMaterialP 47, pHillSignRightA, TextureArray1
-	NFadeLm 47, l47a
-	NFadeL 47, l47
-	FadeMaterialP 48, pHillSignRightA, TextureArray1
-	NFadeLm 48, l48a
-	NFadeL 48, l48
-	NFadeL 49, l49
-	NFadeL 50, l50
-	NFadeL 51, l51
-	NFadeL 52, l52
-	NFadeL 53, l53
-	NFadeL 54, l54
-	NFadeL 55, l55
+  FadeMaterialP 47, pHillSignRightA, TextureArray1
+  NFadeLm 47, l47a
+  NFadeL 47, l47
+  FadeMaterialP 48, pHillSignRightA, TextureArray1
+  NFadeLm 48, l48a
+  NFadeL 48, l48
+  NFadeL 49, l49
+  NFadeL 50, l50
+  NFadeL 51, l51
+  NFadeL 52, l52
+  NFadeL 53, l53
+  NFadeL 54, l54
+  NFadeL 55, l55
     FadeRm 56, l56c
-	FadeMaterialP 56, pHillSignLeftA, TextureArray1
-	NFadeLm 56, l56a
-	NFadeL 56, l56
-	NFadeL 57, l57
-	NFadeL 58, l58
-	NFadeL 59, l59
-	FadeMaterialP 60, pHillSignLeftA, TextureArray1
-	NFadeLm 60, l60a
-	NFadeL 60, l60
-	NFadeL 61, l61
-	NFadeL 62, l62
-	NFadeL 63, l63
-	NFadeL 64, l64
+  FadeMaterialP 56, pHillSignLeftA, TextureArray1
+  NFadeLm 56, l56a
+  NFadeL 56, l56
+  NFadeL 57, l57
+  NFadeL 58, l58
+  NFadeL 59, l59
+  FadeMaterialP 60, pHillSignLeftA, TextureArray1
+  NFadeLm 60, l60a
+  NFadeL 60, l60
+  NFadeL 61, l61
+  NFadeL 62, l62
+  NFadeL 63, l63
+  NFadeL 64, l64
 
     'Flashers
-	NFadeLm 101, f1a
-	NFadeLm 101, f1b
-	NFadeLm 101, f1c
-	NFadeL 101, f1d
+  NFadeLm 101, f1a
+  NFadeLm 101, f1b
+  NFadeLm 101, f1c
+  NFadeL 101, f1d
 
-	NFadeLm 102, f2a
-	NFadeLm 102, f2b
-	NFadeLm 102, f2c
-	NFadeL 102, f2d
+  NFadeLm 102, f2a
+  NFadeLm 102, f2b
+  NFadeLm 102, f2c
+  NFadeL 102, f2d
 
-	NFadeLm 103, f3a
-	NFadeLm 103, f3b
-	NFadeLm 103, f3c
-	NFadeL 103, f3d
+  NFadeLm 103, f3a
+  NFadeLm 103, f3b
+  NFadeLm 103, f3c
+  NFadeL 103, f3d
 
-	FadeMaterial2P 104, pWabblePlastic0, TextureArray1
-	FadeDisableLighting 104, Primitive10
-	FadeMaterialP 104, Primitive10, TextureArray1
-	NFadeLm 104, f4a
-	NFadeL 104, f4b
+  FadeMaterial2P 104, pWabblePlastic0, TextureArray1
+  FadeDisableLighting 104, Primitive10
+  FadeMaterialP 104, Primitive10, TextureArray1
+  NFadeLm 104, f4a
+  NFadeL 104, f4b
 
-	FadeDisableLighting 105, Primitive3
-	FadeMaterialP 105, Primitive3, TextureArray1
-	NFadeLm 105, f5a
-	NFadeL 105, f5b
+  FadeDisableLighting 105, Primitive3
+  FadeMaterialP 105, Primitive3, TextureArray1
+  NFadeLm 105, f5a
+  NFadeL 105, f5b
 
-	NFadeLm 106, f6d1
-	NFadeLm 106, f6d2
-	NFadeLm 106, f6c1
-	NFadeLm 106, f6c2
-	NFadeLm 106, f6a
-	NFadeL 106, f6b
+  NFadeLm 106, f6d1
+  NFadeLm 106, f6d2
+  NFadeLm 106, f6c1
+  NFadeLm 106, f6c2
+  NFadeLm 106, f6a
+  NFadeL 106, f6b
 
-	FadeDisableLighting 108, pPlasticClockTower
-	FadeMaterial2P 108, pPlasticClockTower, TextureArray1
-	FadeDisableLighting 108, Primitive2
-	FadeMaterialP 108, Primitive2, TextureArray1
+  FadeDisableLighting 108, pPlasticClockTower
+  FadeMaterial2P 108, pPlasticClockTower, TextureArray1
+  FadeDisableLighting 108, Primitive2
+  FadeMaterialP 108, Primitive2, TextureArray1
 
-	NFadeLm 108, f8ca
-	NFadeL 108, f8cb
+  NFadeLm 108, f8ca
+  NFadeL 108, f8cb
 
-	NFadeLm 109, f9d1
-	NFadeLm 109, f9d2
-	NFadeLm 109, f9c1
-	NFadeLm 109, f9c2
-	NFadeLm 109, f9a
-	NFadeL 109, f9b
+  NFadeLm 109, f9d1
+  NFadeLm 109, f9d2
+  NFadeLm 109, f9c1
+  NFadeLm 109, f9c2
+  NFadeLm 109, f9a
+  NFadeL 109, f9b
 
-	FadeDisableLighting 112, Primitive1
-	FadeMaterialP 112, Primitive1, TextureArray1
-	NFadeLm 112, f12a
-	NFadeL 112, f12b
+  FadeDisableLighting 112, Primitive1
+  FadeMaterialP 112, Primitive1, TextureArray1
+  NFadeLm 112, f12a
+  NFadeL 112, f12b
 
 
 
-	NFadeL 113, f13
-	NFadeL 114, f14
-	NFadeL 115, f15
+  NFadeL 113, f13
+  NFadeL 114, f14
+  NFadeL 115, f15
 
-	FadeDisableLighting 116, Primitive16
-	FadeMaterialP 116, Primitive16, TextureArray1
-	NFadeLm 116, f16a
-	NFadeL 116, f16b
+  FadeDisableLighting 116, Primitive16
+  FadeMaterialP 116, Primitive16, TextureArray1
+  NFadeLm 116, f16a
+  NFadeL 116, f16b
 
     End Sub
 
@@ -2267,10 +2267,10 @@ End Sub
 Sub SubtleDL(nr, aa)
     Select Case FadingLevel(nr)
 
-		Case 0:aa.DisableLighting = 0
-		Case 1:aa.DisableLighting = .01
-		Case 2:aa.DisableLighting = .02
-		Case 3:aa.DisableLighting = .03
+    Case 0:aa.DisableLighting = 0
+    Case 1:aa.DisableLighting = .01
+    Case 2:aa.DisableLighting = .02
+    Case 3:aa.DisableLighting = .03
         Case 4:aa.DisableLighting = .04
         Case 5:aa.DisableLighting = .05
     End Select
@@ -2729,11 +2729,11 @@ Class cvpmVLock2
         For ii = 0 To mBalls-1
             mKick(ii).Enabled = False:If mSw(ii) Then Controller.Switch(mSw(ii) ) = False
         Next
-        '		If ExitForce > 0 Then ' Up
-        '			mRealForce = ExitForce + (Rnd - 0.5)*KickForceVar : mKick(mBalls-1).Kick ExitDir, mRealForce
-        '		Else ' Down
+        '   If ExitForce > 0 Then ' Up
+        '     mRealForce = ExitForce + (Rnd - 0.5)*KickForceVar : mKick(mBalls-1).Kick ExitDir, mRealForce
+        '   Else ' Down
         mRealForce = ExitForce + (Rnd - 0.5) * KickForceVar:mKick(0).Kick ExitDir, mRealForce
-    '		End If
+    '   End If
     End Sub
 
     Public Sub Reset
@@ -2779,73 +2779,73 @@ End Class
 
 
 '******************************************************
-' 				JP's Sound Routines
+'         JP's Sound Routines
 '******************************************************
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", Spinner, VolSpin
+  PlaySound "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub aRubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' ''Flux Ramp Sounds
@@ -2865,16 +2865,16 @@ Sub PlasticRampHit5_Hit:PlaySoundAtVol "PlasticRamp_Hit3", ActiveBall, 1: End Su
 ''Color Ramp Sounds
 Sub Sound1_Hit:PlaySound "rail_low_slower", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):End Sub
 Sub Sound2_Hit()
-	PlaySound "rail_low_slower", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):
-	BallsLocked = BallsLocked - 1
-	If HologramPhoto = 1 Then
-		If IsItMultiball = 1 then
-			IsItMultiballTimer.Enabled = true
-		Else
-			HologramUpdateStep = HologramUpdateStep - 2
-			HologramUpdate
-		End If
-	End If
+  PlaySound "rail_low_slower", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):
+  BallsLocked = BallsLocked - 1
+  If HologramPhoto = 1 Then
+    If IsItMultiball = 1 then
+      IsItMultiballTimer.Enabled = true
+    Else
+      HologramUpdateStep = HologramUpdateStep - 2
+      HologramUpdate
+    End If
+  End If
 End Sub
 
 ' *******************************************************************************************************
@@ -2986,13 +2986,13 @@ Sub CollisionTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
     ' play the rolling sound for each ball

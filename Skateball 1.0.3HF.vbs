@@ -785,17 +785,17 @@ Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(Active
 Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 
 End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -856,30 +856,30 @@ Set vpmShowDips = GetRef("editDips")
 BankTargetAnimation
 Dim targetCntr, targetLoopCntr
 Sub BankTargetAnimation  'Drop all 11 targets - one at a time during init
-	sw20.timerinterval = 500: 	sw20.timerEnabled = 1: 	targetCntr = 0: 	targetLoopCntr = 1
+  sw20.timerinterval = 500:   sw20.timerEnabled = 1:  targetCntr = 0:   targetLoopCntr = 1
 End Sub
 
 Sub Sw20_Timer()  'Add since there is time before vpinmame rom starts
-	Select Case targetCntr
-		Case 0: targetCntr = targetCntr+1:sw20.timerinterval = 400
-		Case 1:	dtbankL.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw24, VolTarg
-		Case 2:	dtbankL.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw23, VolTarg
-		Case 3: dtbankL.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw22, VolTarg
-		Case 4: dtbankL.Hit(4): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw21, VolTarg
-		Case 5:	dtbankL.Hit(5): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw20, VolTarg
-		Case 6: dtBankT.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw4, VolTarg
-		Case 7:	dtBankT.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw3, VolTarg
-		Case 8:	dtBankT.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw2, VolTarg
-		Case 9:	dtbankM.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw28, VolTarg
-		Case 10: dtbankM.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw27, VolTarg
-		Case 11: dtbankM.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw26, VolTarg
-		Case 12: targetCntr = targetCntr+1
-			If targetLoopCntr = 1 then
-				dtbankM.DropSol_On:dtbankT.DropSol_On:dtbankL.DropSol_On:sw20.timerinterval = 200: targetLoopCntr = 2: targetCntr = 1
-			Else
-				sw20.timerEnabled = 0
-			End If
-	End Select
+  Select Case targetCntr
+    Case 0: targetCntr = targetCntr+1:sw20.timerinterval = 400
+    Case 1: dtbankL.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw24, VolTarg
+    Case 2: dtbankL.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw23, VolTarg
+    Case 3: dtbankL.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw22, VolTarg
+    Case 4: dtbankL.Hit(4): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw21, VolTarg
+    Case 5: dtbankL.Hit(5): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw20, VolTarg
+    Case 6: dtBankT.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw4, VolTarg
+    Case 7: dtBankT.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw3, VolTarg
+    Case 8: dtBankT.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw2, VolTarg
+    Case 9: dtbankM.Hit(1): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw28, VolTarg
+    Case 10: dtbankM.Hit(2): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw27, VolTarg
+    Case 11: dtbankM.Hit(3): targetCntr = targetCntr+1:PlaySoundAtVol SoundFX("fx_droptarget", DOFDropTargets), sw26, VolTarg
+    Case 12: targetCntr = targetCntr+1
+      If targetLoopCntr = 1 then
+        dtbankM.DropSol_On:dtbankT.DropSol_On:dtbankL.DropSol_On:sw20.timerinterval = 200: targetLoopCntr = 2: targetCntr = 1
+      Else
+        sw20.timerEnabled = 0
+      End If
+  End Select
 End Sub
 
 ' *******************************************************************************************************

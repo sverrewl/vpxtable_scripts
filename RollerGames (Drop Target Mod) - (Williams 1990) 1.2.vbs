@@ -153,19 +153,19 @@ End If
 
 ' Solenoid Callbacks
 ' ------------------
-SolCallback(1)     		= "bsTrough.SolIn"							      ' ball into outhole
-SolCallback(2)    		= "bsTrough.SolOut"							      ' ball into shooter lane
-SolCallback(3)    		= "DTLbank.soldropup"
-SolCallback(4)			= "bsVuk.SolOut" 								  ' Pit popper
-SolCallback(6) 			= "dtDrop.SolDropUp"							  ' Drop "W-A-R" targets
+SolCallback(1)        = "bsTrough.SolIn"                    ' ball into outhole
+SolCallback(2)        = "bsTrough.SolOut"                   ' ball into shooter lane
+SolCallback(3)        = "DTLbank.soldropup"
+SolCallback(4)      = "bsVuk.SolOut"                  ' Pit popper
+SolCallback(6)      = "dtDrop.SolDropUp"                ' Drop "W-A-R" targets
 SolCallback(7)          = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
-SolCallback(8) 	        = "vpmSolDiverter LockDiverter,true," 		      ' 8 - Lock Diverter
-SolCallback(11) 		= "SolGi"								          ' 11 - GI circuit
-SolCallBack(13)         = "bsULock.SolOut"		                          ' UpperKickBack fire
-SolCallback(14)         = "solKickback"								      ' Eject balls from lock
+SolCallback(8)          = "vpmSolDiverter LockDiverter,true,"           ' 8 - Lock Diverter
+SolCallback(11)     = "SolGi"                         ' 11 - GI circuit
+SolCallBack(13)         = "bsULock.SolOut"                              ' UpperKickBack fire
+SolCallback(14)         = "solKickback"                     ' Eject balls from lock
 SolCallback(20)         = "SolAutoPlunge"
-'SolCallBack(18)	    	= "vpmSolgate Array(Gate, Gate3),""fx_diverter"","' 18, Ramp Diverter
-SolCallBack(18)	    	= "flipdiverters"' 18, Ramp Diverter
+'SolCallBack(18)        = "vpmSolgate Array(Gate, Gate3),""fx_diverter"","' 18, Ramp Diverter
+SolCallBack(18)       = "flipdiverters"' 18, Ramp Diverter
 
 
 
@@ -183,7 +183,7 @@ Dim bsTrough, Iman, bsVuk, dtDrop, bslLock, bsULock
 
 Dim x
 Sub RollerGames_Init
-	vpmInit Me
+  vpmInit Me
     With Controller
         .GameName = romname
         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -204,7 +204,7 @@ Sub RollerGames_Init
     ' Nudging
     vpmNudge.TiltSwitch = swTilt
   '  vpmNudge.Sensitivity = 1
-	vpmNudge.TiltObj = Array(Bumper1b,Bumper2b,Bumper3b,LeftslingShot,RightslingShot)
+  vpmNudge.TiltObj = Array(Bumper1b,Bumper2b,Bumper3b,LeftslingShot,RightslingShot)
 
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
@@ -221,27 +221,27 @@ Protect.isdropped=1
         .Balls = 3
     End With
 
-	' Lock Section
-	Set bslLock = New cvpmBallStack
-	With bslLock
-	     .initsw 0,53,54,0,0,0,0,0
-	     .InitKick KickBack, 0, 55
-	     .KickBalls=3
+  ' Lock Section
+  Set bslLock = New cvpmBallStack
+  With bslLock
+       .initsw 0,53,54,0,0,0,0,0
+       .InitKick KickBack, 0, 55
+       .KickBalls=3
     End With
 
-	Set bsULock = New cvpmBallStack
-	With bsULock
-	     .InitSaucer UpperKickBack, 14, 0, 70
-	    .InitEntrySnd "Solenoid", "Solenoid"
+  Set bsULock = New cvpmBallStack
+  With bsULock
+       .InitSaucer UpperKickBack, 14, 0, 70
+      .InitEntrySnd "Solenoid", "Solenoid"
          .InitExitSnd "bumper_retro", "Solenoid"
     End With
 
-	'Setup magnets
-	Set Iman = New cvpmMagnet
-	With Iman
-	     .InitMagnet imanT, 70
-	     .Solenoid = 22
-	     .CreateEvents "Iman"
+  'Setup magnets
+  Set Iman = New cvpmMagnet
+  With Iman
+       .InitMagnet imanT, 70
+       .Solenoid = 22
+       .CreateEvents "Iman"
     End With
 
     'vuk
@@ -249,7 +249,7 @@ Protect.isdropped=1
     With bsVuk
         .InitSaucer Sw16, 16, 0, 32
         .KickZ = 1.56
-	    .InitEntrySnd "fx_kicker2", "Solenoid"
+      .InitEntrySnd "fx_kicker2", "Solenoid"
         .InitExitSnd "fx_vukout_LAH", "Solenoid"
     End With
 
@@ -266,14 +266,14 @@ End Sub
 
 ' Right KickBack Lock
 Sub SolKickBack(Enabled)
-	If Enabled Then
-		bslLock.ExitSol_On
+  If Enabled Then
+    bslLock.ExitSol_On
         LaserKickP1.TransY = 90
         PlaysoundAtVol "bumper_retro", LaserKickP1, VolKick
       Else
         LaserKickP1.TransY = 0
         PlaySoundAtVol "fx_rubber", LaserKickP1, VolKick
-	End If
+  End If
 End Sub
 Sub KickBack_Hit: bslLock.AddBall Me: End Sub
 Sub KickBack_UnHit: Playsound "fx_railShort": End Sub ' TODO
@@ -283,10 +283,10 @@ Sub KickBack_UnHit: Playsound "fx_railShort": End Sub ' TODO
 Sub SolUpperKickBack(dummy)
 Dim KickBack: KickBack = 1
     bsULock.AddBall 0
-	If KickBack = 1 Then
+  If KickBack = 1 Then
         UpperKickBack1.TransY = 90
         vpmTimer.AddTimer 700, "UpperKickBackRes"
-	End If
+  End If
 End Sub
 Sub UpperKickBackRes(dummy):UpperKickBack1.TransY = 0:Playsound "fx_rubber" End Sub
 Sub UpperKickBack_Hit: vpmTimer.AddTimer 1500, "SolUpperKickBack": End Sub
@@ -295,14 +295,14 @@ Sub UpperKickBack_Hit: vpmTimer.AddTimer 1500, "SolUpperKickBack": End Sub
 
 ' LaserKick
 Sub SolAutoPlunge(Enabled)
-	If Enabled Then
+  If Enabled Then
         PlaysoundAtVol "bumper_retro", LaserKickP, VolKick
-		LaserKick.Enabled=True
+    LaserKick.Enabled=True
         LaserKickP.TransY = 100
-	Else
-		LaserKick.Enabled=False
+  Else
+    LaserKick.Enabled=False
         vpmTimer.AddTimer 800, "AutoPlungeRes"
-	End If
+  End If
 End Sub
 Sub AutoPlungeRes(dummy):LaserKickP.TransY = 0:PlaysoundAtVol "fx_rubber", LaserKickP,1 End Sub
 Sub LaserKick_Hit: Me.Kick 0,40 End Sub
@@ -310,15 +310,15 @@ Sub LaserKick_Hit: Me.Kick 0,40 End Sub
 
 'Diverters
 Sub Flipdiverters(enabled)
-	If Enabled Then
-		RampDiverter.RotateToEnd
-		RampDiverter2.RotateToEnd
-		playsoundAtVol "fx_diverter", RampDiverter, 1
-	Else
-		RampDiverter.RotateToStart
-		RampDiverter2.RotateToStart
-		playsoundAtVol "fx_diverter", RampDiverter2, 1
-	End If
+  If Enabled Then
+    RampDiverter.RotateToEnd
+    RampDiverter2.RotateToEnd
+    playsoundAtVol "fx_diverter", RampDiverter, 1
+  Else
+    RampDiverter.RotateToStart
+    RampDiverter2.RotateToStart
+    playsoundAtVol "fx_diverter", RampDiverter2, 1
+  End If
 End Sub
 
 
@@ -500,10 +500,10 @@ dim dtLbank
 
 
 Sub LBankReset(enabled)
- 		If enabled Then
- 			dtLBank.SolDropUp enabled
- 		End If
- 	End Sub
+    If enabled Then
+      dtLBank.SolDropUp enabled
+    End If
+  End Sub
 
 'Drop Target Reset Safeguard
 Sub LTcheck_Timer()
@@ -551,7 +551,7 @@ Sub LeftSlingShot_Slingshot
     LeftSling4.Visible = 1
     Lemk.RotX = 26
     LStep = 0
-	MBmag
+  MBmag
     vpmTimer.PulseSw 33
     LeftSlingShot.TimerEnabled = 1
 End Sub
@@ -571,7 +571,7 @@ Sub RightSlingShot_Slingshot
     RightSling4.Visible = 1
     Remk.RotX = 26
     RStep = 0
-	MBmag
+  MBmag
     vpmTimer.PulseSw 34
     RightSlingShot.TimerEnabled = 1
 End Sub
@@ -719,7 +719,7 @@ Sub LampTimer_Timer()
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
         Next
     End If
-	UpdateLamps
+  UpdateLamps
 End Sub
 
 Sub InitLamps()
@@ -740,74 +740,74 @@ End Sub
 Sub UpdateLamps
 '    On Error Resume Next
 
-	nFadeL 1, Light1
-	nFadeL 2, Light2
-	nFadeL 3, Light3
-	nFadeL 4, Light4
-	nFadeL 5, Light5
-	nFadeL 6, Light6
-	nFadeL 7, Light7
-	nFadeL 8, Light8
+  nFadeL 1, Light1
+  nFadeL 2, Light2
+  nFadeL 3, Light3
+  nFadeL 4, Light4
+  nFadeL 5, Light5
+  nFadeL 6, Light6
+  nFadeL 7, Light7
+  nFadeL 8, Light8
 
-	nFadeL 9, Light9
-	nFadeL 10, Light10
-	nFadeL 11, Light11
-	nFadeL 12, Light12
-	nFadeL 13, Light13
-	nFadeL 14, Light14
-	nFadeL 15, Light15
-	nFadeL 16, Light16
-	nFadeL 17, Light17
-	nFadeL 18, Light18
-	nFadeL 19, Light19
-	nFadeL 20, Light20
-	nFadeL 21, Light21
-	nFadeL 22, Light22
-	nFadeL 23, Light23
-	nFadeL 24, Light24
-	nFadeL 25, Light25
-	nFadeL 26, Light26
-	nFadeL 27, Light27
-	nFadeL 28, Light28
-	nFadeL 29, Light29
-	nFadeL 30, Light30
-	nFadeL 31, Light31
-	nFadeL 32, Light32
-	nFadeL 33, Light33
-	nFadeL 34, Light34
-	nFadeL 35, Light35
-	nFadeL 36, Light36
-	nFadeL 37, Light37
-	nFadeL 38, Light38
-	nFadeL 39, Light39
-	NFadeLm 40, Light40
-	NFadeLm 40, Light40a
-	nFadeL 41, Light41
-	nFadeL 42, Light42
-	nFadeL 43, Light43
-	nFadeL 44, Light44
-	nFadeL 45, Light66
-	nFadeL 45, Light45
-	nFadeL 46, Light46
-	nFadeL 47, Light47
-	nFadeL 48, Light48
-	nFadeL 49, Light49
-	nFadeL 50, Light50
-	nFadeL 51, Light51
-	nFadeL 52, Light52
-	nFadeL 53, Light53
-	nFadeL 54, Light54
-	nFadeLm 55, Light55
-	nFadeL 55, Light67
-	nFadeL 56, Light56
-	nFadeL 57, Light57
-	nFadeL 58, Light58
-	nFadeL 59, Light59
-	nFadeL 60, Light60
-	nFadeL 61, Light61
-	nFadeL 62, Light62
-	nFadeL 63, Light63
-	nFadeL 64, Light64
+  nFadeL 9, Light9
+  nFadeL 10, Light10
+  nFadeL 11, Light11
+  nFadeL 12, Light12
+  nFadeL 13, Light13
+  nFadeL 14, Light14
+  nFadeL 15, Light15
+  nFadeL 16, Light16
+  nFadeL 17, Light17
+  nFadeL 18, Light18
+  nFadeL 19, Light19
+  nFadeL 20, Light20
+  nFadeL 21, Light21
+  nFadeL 22, Light22
+  nFadeL 23, Light23
+  nFadeL 24, Light24
+  nFadeL 25, Light25
+  nFadeL 26, Light26
+  nFadeL 27, Light27
+  nFadeL 28, Light28
+  nFadeL 29, Light29
+  nFadeL 30, Light30
+  nFadeL 31, Light31
+  nFadeL 32, Light32
+  nFadeL 33, Light33
+  nFadeL 34, Light34
+  nFadeL 35, Light35
+  nFadeL 36, Light36
+  nFadeL 37, Light37
+  nFadeL 38, Light38
+  nFadeL 39, Light39
+  NFadeLm 40, Light40
+  NFadeLm 40, Light40a
+  nFadeL 41, Light41
+  nFadeL 42, Light42
+  nFadeL 43, Light43
+  nFadeL 44, Light44
+  nFadeL 45, Light66
+  nFadeL 45, Light45
+  nFadeL 46, Light46
+  nFadeL 47, Light47
+  nFadeL 48, Light48
+  nFadeL 49, Light49
+  nFadeL 50, Light50
+  nFadeL 51, Light51
+  nFadeL 52, Light52
+  nFadeL 53, Light53
+  nFadeL 54, Light54
+  nFadeLm 55, Light55
+  nFadeL 55, Light67
+  nFadeL 56, Light56
+  nFadeL 57, Light57
+  nFadeL 58, Light58
+  nFadeL 59, Light59
+  nFadeL 60, Light60
+  nFadeL 61, Light61
+  nFadeL 62, Light62
+  nFadeL 63, Light63
+  nFadeL 64, Light64
 
 End Sub
 
@@ -939,15 +939,15 @@ End Sub
 
 Sub SetLampMod(nr, value)
     If value > 0 Then
-		LampState(nr) = 1
-	Else
-		LampState(nr) = 0
-	End If
-	FadingLevel(nr) = value
+    LampState(nr) = 1
+  Else
+    LampState(nr) = 0
+  End If
+  FadingLevel(nr) = value
 End Sub
 
 Sub FlashMod(nr, object)
-	Object.IntensityScale = FadingLevel(nr)/255
+  Object.IntensityScale = FadingLevel(nr)/255
 End Sub
 
 Sub LampMod(nr, object)
@@ -961,12 +961,12 @@ End Sub
 Sub SolGi(enabled)
   If enabled Then
      GiOFF
-	Playsound "fx_relay_off"
-	RollerGames.ColorGradeImage = "ColorGrade_1"
+  Playsound "fx_relay_off"
+  RollerGames.ColorGradeImage = "ColorGrade_1"
    Else
      GiON
-	Playsound "fx_relay_on"
-	RollerGames.ColorGradeImage = "ColorGrade_8"
+  Playsound "fx_relay_on"
+  RollerGames.ColorGradeImage = "ColorGrade_8"
  End If
 End Sub
 
@@ -1003,33 +1003,33 @@ End Sub
 
 ' Sub aMetals_Hit(idx):PlaySound "fx_MetalHit":End Sub
 Sub aMetals_Hit (idx)
-	PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 ' Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber":End Sub
 Sub aRubber_Posts_Hit(idx)
-	PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 
 'Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber":End Sub
 Sub aRubber_Bands_Hit(idx)
-	PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 '  Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit":End Sub
 Sub aPlastics_Hit(idx)
-	PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "fx_PlasticHit", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 'Sub aWoods_Hit(idx):PlaySound "fx_Woodhit":End Sub
 Sub  a_Woods_Hit(idx)
-	PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 'Sub aGates_Hit(idx):PlaySound "fx_Gate":End Sub
 Sub aGates_Hit (idx)
-	PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 ' Ramp Soundss

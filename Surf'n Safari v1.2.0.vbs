@@ -1,9 +1,9 @@
 '*******************************************************************************************************
 '
-'					   	    	 Surf'n Safari Premier 1991 VPX v1.2.0
-'								http://www.ipdb.org/machine.cgi?id=2461
+'                    Surf'n Safari Premier 1991 VPX v1.2.0
+'               http://www.ipdb.org/machine.cgi?id=2461
 '
-'											Created by Kiwi
+'                     Created by Kiwi
 '
 '*******************************************************************************************************
 
@@ -65,7 +65,7 @@ Dim DMDHidden
 
 Const BallSize    = 50
 
-'Const BallMass    = 1.025		'Mass=(53.11^3)/125000 ,(BallSize^3)/125000
+'Const BallMass    = 1.025    'Mass=(53.11^3)/125000 ,(BallSize^3)/125000
 
 '******************************************** Flashers Level
 
@@ -84,54 +84,54 @@ Const GlassesColor = 1
 '******************************************** FSS Init
 
  If Table1.ShowFSS = False Then
-	flb1.Visible = 0
-	flb2.Visible = 0
-	flb3.Visible = 0
-	flb4.Visible = 0
-	flb5.Visible = 0
-	flb6.Visible = 0
-	flb7.Visible = 0
-	flb8.Visible = 0
-	flb9.Visible = 0
-	flb10.Visible = 0
-	flb11.Visible = 0
-	flb12.Visible = 0
-	flb13.Visible = 0
-	flb14.Visible = 0
-	flb15.Visible = 0
-	flb16.Visible = 0
-	flb17.Visible = 0
-	flb18.Visible = 0
-	flb19.Visible = 0
-	flb20.Visible = 0
-	flb21.Visible = 0
-	flb22.Visible = 0
-	flb23.Visible = 0
-	flb24.Visible = 0
-	flb25.Visible = 0
-	flb26.Visible = 0
-	flb27.Visible = 0
-	flb28.Visible = 0
-	f131.Visible = 0
-	f131a.Visible = 0
-	f132.Visible = 0
-	f132a.Visible = 0
-	f133.Visible = 0
-	f133a.Visible = 0
-	f134.Visible = 0
-	f134a.Visible = 0
+  flb1.Visible = 0
+  flb2.Visible = 0
+  flb3.Visible = 0
+  flb4.Visible = 0
+  flb5.Visible = 0
+  flb6.Visible = 0
+  flb7.Visible = 0
+  flb8.Visible = 0
+  flb9.Visible = 0
+  flb10.Visible = 0
+  flb11.Visible = 0
+  flb12.Visible = 0
+  flb13.Visible = 0
+  flb14.Visible = 0
+  flb15.Visible = 0
+  flb16.Visible = 0
+  flb17.Visible = 0
+  flb18.Visible = 0
+  flb19.Visible = 0
+  flb20.Visible = 0
+  flb21.Visible = 0
+  flb22.Visible = 0
+  flb23.Visible = 0
+  flb24.Visible = 0
+  flb25.Visible = 0
+  flb26.Visible = 0
+  flb27.Visible = 0
+  flb28.Visible = 0
+  f131.Visible = 0
+  f131a.Visible = 0
+  f132.Visible = 0
+  f132a.Visible = 0
+  f133.Visible = 0
+  f133a.Visible = 0
+  f134.Visible = 0
+  f134a.Visible = 0
 
-	f60.Visible = 0
-	f61.Visible = 0
-	f62.Visible = 0
-	f63.Visible = 0
-	f64.Visible = 0
-	f65.Visible = 0
-	f77.Visible = 0
-	f87.Visible = 0
-	f97.Visible = 0
-	f107.Visible = 0
-	f117.Visible = 0
+  f60.Visible = 0
+  f61.Visible = 0
+  f62.Visible = 0
+  f63.Visible = 0
+  f64.Visible = 0
+  f65.Visible = 0
+  f77.Visible = 0
+  f87.Visible = 0
+  f97.Visible = 0
+  f107.Visible = 0
+  f117.Visible = 0
 
 End If
 
@@ -167,79 +167,79 @@ Const swFrontDoor = 6
 '************
 
 Sub Table1_Init
-	vpmInit me
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Surf'n Safari Premier (Gottlieb 1991)" & vbNewLine & "VPX table by Kiwi 1.2.0"
-		.HandleMechanics = 0
-		.HandleKeyboard = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.ShowTitle = 0
-		.Hidden = DMDHidden
-'		.DoubleSize = 1
-'		.Games(cGameName).Settings.Value("dmd_pos_x")=0
-'		.Games(cGameName).Settings.Value("dmd_pos_y")=0
-'		.Games(cGameName).Settings.Value("dmd_width")=400
-'		.Games(cGameName).Settings.Value("dmd_height")=92
-'		.Games(cGameName).Settings.Value("rol") = 0
-'		.Games(cGameName).Settings.Value("sound") = 1
-'		.Games(cGameName).Settings.Value("ddraw") = 1
-		.Games(cGameName).Settings.Value("dmd_red")=60
-		.Games(cGameName).Settings.Value("dmd_green")=180
-		.Games(cGameName).Settings.Value("dmd_blue")=255
+  vpmInit me
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Surf'n Safari Premier (Gottlieb 1991)" & vbNewLine & "VPX table by Kiwi 1.2.0"
+    .HandleMechanics = 0
+    .HandleKeyboard = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .ShowTitle = 0
+    .Hidden = DMDHidden
+'   .DoubleSize = 1
+'   .Games(cGameName).Settings.Value("dmd_pos_x")=0
+'   .Games(cGameName).Settings.Value("dmd_pos_y")=0
+'   .Games(cGameName).Settings.Value("dmd_width")=400
+'   .Games(cGameName).Settings.Value("dmd_height")=92
+'   .Games(cGameName).Settings.Value("rol") = 0
+'   .Games(cGameName).Settings.Value("sound") = 1
+'   .Games(cGameName).Settings.Value("ddraw") = 1
+    .Games(cGameName).Settings.Value("dmd_red")=60
+    .Games(cGameName).Settings.Value("dmd_green")=180
+    .Games(cGameName).Settings.Value("dmd_blue")=255
          On Error Resume Next
          .Run GetPlayerHWnd
          If Err Then MsgBox Err.Description
          On Error Goto 0
      End With
 
-	' Nudging
-	vpmNudge.TiltSwitch = 151
-	vpmNudge.Sensitivity = 2
-	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingShot, RightSlingShot, sw15)
+  ' Nudging
+  vpmNudge.TiltSwitch = 151
+  vpmNudge.Sensitivity = 2
+  vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingShot, RightSlingShot, sw15)
 
-	' Trough
-	Set bsTrough = New cvpmBallStack
-	With bsTrough
-		.InitSw 5, 0, 0, 25, 0, 0, 0, 0
-		.InitKick BallRelease, 68, 6
-		.InitEntrySnd "Solenoid", "Solenoid"
-		.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		.Balls = 3
-	End With
+  ' Trough
+  Set bsTrough = New cvpmBallStack
+  With bsTrough
+    .InitSw 5, 0, 0, 25, 0, 0, 0, 0
+    .InitKick BallRelease, 68, 6
+    .InitEntrySnd "Solenoid", "Solenoid"
+    .InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    .Balls = 3
+  End With
 
-	' Top Upkicker
-	Set bsUK = New cvpmBallStack
-	With bsUK
-		.InitSaucer sw21, 21, 0, 32
-		.KickZ = 1.56
-		.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-	End With
+  ' Top Upkicker
+  Set bsUK = New cvpmBallStack
+  With bsUK
+    .InitSaucer sw21, 21, 0, 32
+    .KickZ = 1.56
+    .InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+  End With
 
-	' Left Upkicker
-	Set bsLK = New cvpmBallStack
-	With bsLK
-		.InitSaucer sw35, 35, 0, 35
-		.KickZ = 1.56
-		.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-	End With
+  ' Left Upkicker
+  Set bsLK = New cvpmBallStack
+  With bsLK
+    .InitSaucer sw35, 35, 0, 35
+    .KickZ = 1.56
+    .InitExitSnd SoundFX("popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+  End With
 
-	' Drop targets
-	set cdtBank = new cvpmdroptarget
-	With cdtBank
-		.initdrop array(sw16, sw26, sw36), array(16, 26, 36)
-'		.initsnd SoundFX("DROPTARG",DOFContactors), SoundFX("DTResetB",DOFContactors)
-	End With
+  ' Drop targets
+  set cdtBank = new cvpmdroptarget
+  With cdtBank
+    .initdrop array(sw16, sw26, sw36), array(16, 26, 36)
+'   .initsnd SoundFX("DROPTARG",DOFContactors), SoundFX("DTResetB",DOFContactors)
+  End With
 
-	set ddtBank = new cvpmdroptarget
-	With ddtBank
-		.initdrop array(sw17, sw27, sw37), array(17, 27, 37)
-'		.initsnd SoundFX("DROPTARG",DOFContactors), SoundFX("DTResetB",DOFContactors)
-	End With
+  set ddtBank = new cvpmdroptarget
+  With ddtBank
+    .initdrop array(sw17, sw27, sw37), array(17, 27, 37)
+'   .initsnd SoundFX("DROPTARG",DOFContactors), SoundFX("DTResetB",DOFContactors)
+  End With
 
-	' Low powered Magnet , Left VUK
+  ' Low powered Magnet , Left VUK
     Set mHole = New cvpmMagnet
     With mHole
         .initMagnet MagTrigger, 3
@@ -251,7 +251,7 @@ Sub Table1_Init
         .CreateEvents "mHole"
     End With
 
-	' Low powered Magnet1 , Skill Shot
+  ' Low powered Magnet1 , Skill Shot
     Set mHole1 = New cvpmMagnet
     With mHole1
         .initMagnet MagTrigger1, 4
@@ -263,7 +263,7 @@ Sub Table1_Init
         .CreateEvents "mHole1"
     End With
 
-	' Low powered Magnet2 , Whirlpool
+  ' Low powered Magnet2 , Whirlpool
     Set mHole2 = New cvpmMagnet
     With mHole2
         .initMagnet MagTrigger2, 1
@@ -276,99 +276,99 @@ Sub Table1_Init
     End With
 
 ' Main Timer init
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
 ' GI Delay Timer
-	GIDelay.Enabled = 1
+  GIDelay.Enabled = 1
 
 ' Init Droptargets
-	Arm.IsDropped=1
-	Arm2.IsDropped=1
+  Arm.IsDropped=1
+  Arm2.IsDropped=1
 
-	If ShowDT=True Then
-		RailSx.visible=1
-		RailDx.visible=1
-		Trim.visible=1
-		TrimS1.visible=1
-		TrimS2.visible=1
-		TrimS3.visible=1
-		TrimS4.visible=1
+  If ShowDT=True Then
+    RailSx.visible=1
+    RailDx.visible=1
+    Trim.visible=1
+    TrimS1.visible=1
+    TrimS2.visible=1
+    TrimS3.visible=1
+    TrimS4.visible=1
 
-		fgit1L.visible=1
-		fgit1R.visible=1
-		f43a.visible=1
-		f50a.visible=1
-		f56a.visible=1
-		f57a.visible=1
-		Bulb10b.visible=1
-	Else
-		RailSx.visible=RailsLights
-		RailDx.visible=RailsLights
-		Trim.visible=RailsLights
-		TrimS1.visible=RailsLights
-		TrimS2.visible=RailsLights
-		TrimS3.visible=RailsLights
-		TrimS4.visible=RailsLights
+    fgit1L.visible=1
+    fgit1R.visible=1
+    f43a.visible=1
+    f50a.visible=1
+    f56a.visible=1
+    f57a.visible=1
+    Bulb10b.visible=1
+  Else
+    RailSx.visible=RailsLights
+    RailDx.visible=RailsLights
+    Trim.visible=RailsLights
+    TrimS1.visible=RailsLights
+    TrimS2.visible=RailsLights
+    TrimS3.visible=RailsLights
+    TrimS4.visible=RailsLights
 
-		fgit1L.visible=RailsLights
-		fgit1R.visible=RailsLights
-		f43a.visible=RailsLights
-		f50a.visible=RailsLights
-		f56a.visible=RailsLights
-		f57a.visible=RailsLights
-		Bulb10b.visible=RailsLights
-	End If
+    fgit1L.visible=RailsLights
+    fgit1R.visible=RailsLights
+    f43a.visible=RailsLights
+    f50a.visible=RailsLights
+    f56a.visible=RailsLights
+    f57a.visible=RailsLights
+    Bulb10b.visible=RailsLights
+  End If
 
 ' Backbox
 
-	f60.Y = 1:f61.Y = 1:f62.Y = 1:f63.Y = 1:f64.Y = 1:f65.Y = 1:f77.Y = 1:f87.Y = 1:f97.Y = 1:f107.Y = 1:f117.Y = 1
-	f131.Y = 1:f131a.Y = 1:f132.Y = 1:f132a.Y = 1:f133.Y = 1:f133a.Y = 1:f134.Y = 1:f134a.Y = 1
-	flb1.Y = 1:flb2.Y = 1:flb3.Y = 1:flb4.Y = 1:flb5.Y = 1:flb6.Y = 1:flb7.Y = 1:flb8.Y = 1:flb9.Y = 1
-	flb10.Y = 1:flb11.Y = 1:flb12.Y = 1:flb13.Y = 1:flb14.Y = 1:flb15.Y = 1:flb16.Y = 1:flb17.Y = 1:flb18.Y = 1:flb19.Y = 1
-	flb20.Y = 1:flb21.Y = 1:flb22.Y = 1:flb23.Y = 1:flb24.Y = 1:flb25.Y = 1:flb26.Y = 1:flb27.Y = 1:flb28.Y = 1
+  f60.Y = 1:f61.Y = 1:f62.Y = 1:f63.Y = 1:f64.Y = 1:f65.Y = 1:f77.Y = 1:f87.Y = 1:f97.Y = 1:f107.Y = 1:f117.Y = 1
+  f131.Y = 1:f131a.Y = 1:f132.Y = 1:f132a.Y = 1:f133.Y = 1:f133a.Y = 1:f134.Y = 1:f134a.Y = 1
+  flb1.Y = 1:flb2.Y = 1:flb3.Y = 1:flb4.Y = 1:flb5.Y = 1:flb6.Y = 1:flb7.Y = 1:flb8.Y = 1:flb9.Y = 1
+  flb10.Y = 1:flb11.Y = 1:flb12.Y = 1:flb13.Y = 1:flb14.Y = 1:flb15.Y = 1:flb16.Y = 1:flb17.Y = 1:flb18.Y = 1:flb19.Y = 1
+  flb20.Y = 1:flb21.Y = 1:flb22.Y = 1:flb23.Y = 1:flb24.Y = 1:flb25.Y = 1:flb26.Y = 1:flb27.Y = 1:flb28.Y = 1
 
-	a00.Y = 1:a01.Y = 1:a02.Y = 1:a03.Y = 1:a04.Y = 1:a05.Y = 1:a06.Y = 1:a07.Y = 1:a08.Y = 1:a09.Y = 1:a0a.Y = 1:a0b.Y = 1:a0c.Y = 1:a0d.Y = 1:a0e.Y = 1:a0f.Y = 1
-	a10.Y = 1:a11.Y = 1:a12.Y = 1:a13.Y = 1:a14.Y = 1:a15.Y = 1:a16.Y = 1:a17.Y = 1:a18.Y = 1:a19.Y = 1:a1a.Y = 1:a1b.Y = 1:a1c.Y = 1:a1d.Y = 1:a1e.Y = 1:a1f.Y = 1
-	a20.Y = 1:a21.Y = 1:a22.Y = 1:a23.Y = 1:a24.Y = 1:a25.Y = 1:a26.Y = 1:a27.Y = 1:a28.Y = 1:a29.Y = 1:a2a.Y = 1:a2b.Y = 1:a2c.Y = 1:a2d.Y = 1:a2e.Y = 1:a2f.Y = 1
-	a30.Y = 1:a31.Y = 1:a32.Y = 1:a33.Y = 1:a34.Y = 1:a35.Y = 1:a36.Y = 1:a37.Y = 1:a38.Y = 1:a39.Y = 1:a3a.Y = 1:a3b.Y = 1:a3c.Y = 1:a3d.Y = 1:a3e.Y = 1:a3f.Y = 1
-	a40.Y = 1:a41.Y = 1:a42.Y = 1:a43.Y = 1:a44.Y = 1:a45.Y = 1:a46.Y = 1:a47.Y = 1:a48.Y = 1:a49.Y = 1:a4a.Y = 1:a4b.Y = 1:a4c.Y = 1:a4d.Y = 1:a4e.Y = 1:a4f.Y = 1
-	a50.Y = 1:a51.Y = 1:a52.Y = 1:a53.Y = 1:a54.Y = 1:a55.Y = 1:a56.Y = 1:a57.Y = 1:a58.Y = 1:a59.Y = 1:a5a.Y = 1:a5b.Y = 1:a5c.Y = 1:a5d.Y = 1:a5e.Y = 1:a5f.Y = 1
-	a60.Y = 1:a61.Y = 1:a62.Y = 1:a63.Y = 1:a64.Y = 1:a65.Y = 1:a66.Y = 1:a67.Y = 1:a68.Y = 1:a69.Y = 1:a6a.Y = 1:a6b.Y = 1:a6c.Y = 1:a6d.Y = 1:a6e.Y = 1:a6f.Y = 1
-	a70.Y = 1:a71.Y = 1:a72.Y = 1:a73.Y = 1:a74.Y = 1:a75.Y = 1:a76.Y = 1:a77.Y = 1:a78.Y = 1:a79.Y = 1:a7a.Y = 1:a7b.Y = 1:a7c.Y = 1:a7d.Y = 1:a7e.Y = 1:a7f.Y = 1
-	a80.Y = 1:a81.Y = 1:a82.Y = 1:a83.Y = 1:a84.Y = 1:a85.Y = 1:a86.Y = 1:a87.Y = 1:a88.Y = 1:a89.Y = 1:a8a.Y = 1:a8b.Y = 1:a8c.Y = 1:a8d.Y = 1:a8e.Y = 1:a8f.Y = 1
-	a90.Y = 1:a91.Y = 1:a92.Y = 1:a93.Y = 1:a94.Y = 1:a95.Y = 1:a96.Y = 1:a97.Y = 1:a98.Y = 1:a99.Y = 1:a9a.Y = 1:a9b.Y = 1:a9c.Y = 1:a9d.Y = 1:a9e.Y = 1:a9f.Y = 1
-	aa0.Y = 1:aa1.Y = 1:aa2.Y = 1:aa3.Y = 1:aa4.Y = 1:aa5.Y = 1:aa6.Y = 1:aa7.Y = 1:aa8.Y = 1:aa9.Y = 1:aaa.Y = 1:aab.Y = 1:aac.Y = 1:aad.Y = 1:aae.Y = 1:aaf.Y = 1
-	ab0.Y = 1:ab1.Y = 1:ab2.Y = 1:ab3.Y = 1:ab4.Y = 1:ab5.Y = 1:ab6.Y = 1:ab7.Y = 1:ab8.Y = 1:ab9.Y = 1:aba.Y = 1:abb.Y = 1:abc.Y = 1:abd.Y = 1:abe.Y = 1:abf.Y = 1
-	ac0.Y = 1:ac1.Y = 1:ac2.Y = 1:ac3.Y = 1:ac4.Y = 1:ac5.Y = 1:ac6.Y = 1:ac7.Y = 1:ac8.Y = 1:ac9.Y = 1:aca.Y = 1:acb.Y = 1:acc.Y = 1:acd.Y = 1:ace.Y = 1:acf.Y = 1
-	ad0.Y = 1:ad1.Y = 1:ad2.Y = 1:ad3.Y = 1:ad4.Y = 1:ad5.Y = 1:ad6.Y = 1:ad7.Y = 1:ad8.Y = 1:ad9.Y = 1:ada.Y = 1:adb.Y = 1:adc.Y = 1:add.Y = 1:ade.Y = 1:adf.Y = 1
-	ae0.Y = 1:ae1.Y = 1:ae2.Y = 1:ae3.Y = 1:ae4.Y = 1:ae5.Y = 1:ae6.Y = 1:ae7.Y = 1:ae8.Y = 1:ae9.Y = 1:aea.Y = 1:aeb.Y = 1:aec.Y = 1:aed.Y = 1:aee.Y = 1:aef.Y = 1
-	af0.Y = 1:af1.Y = 1:af2.Y = 1:af3.Y = 1:af4.Y = 1:af5.Y = 1:af6.Y = 1:af7.Y = 1:af8.Y = 1:af9.Y = 1:afa.Y = 1:afb.Y = 1:afc.Y = 1:afd.Y = 1:afe.Y = 1:aff.Y = 1
-	b00.Y = 1:b01.Y = 1:b02.Y = 1:b03.Y = 1:b04.Y = 1:b05.Y = 1:b06.Y = 1:b07.Y = 1:b08.Y = 1:b09.Y = 1:b0a.Y = 1:b0b.Y = 1:b0c.Y = 1:b0d.Y = 1:b0e.Y = 1:b0f.Y = 1
-	b10.Y = 1:b11.Y = 1:b12.Y = 1:b13.Y = 1:b14.Y = 1:b15.Y = 1:b16.Y = 1:b17.Y = 1:b18.Y = 1:b19.Y = 1:b1a.Y = 1:b1b.Y = 1:b1c.Y = 1:b1d.Y = 1:b1e.Y = 1:b1f.Y = 1
-	b20.Y = 1:b21.Y = 1:b22.Y = 1:b23.Y = 1:b24.Y = 1:b25.Y = 1:b26.Y = 1:b27.Y = 1:b28.Y = 1:b29.Y = 1:b2a.Y = 1:b2b.Y = 1:b2c.Y = 1:b2d.Y = 1:b2e.Y = 1:b2f.Y = 1
-	b30.Y = 1:b31.Y = 1:b32.Y = 1:b33.Y = 1:b34.Y = 1:b35.Y = 1:b36.Y = 1:b37.Y = 1:b38.Y = 1:b39.Y = 1:b3a.Y = 1:b3b.Y = 1:b3c.Y = 1:b3d.Y = 1:b3e.Y = 1:b3f.Y = 1
+  a00.Y = 1:a01.Y = 1:a02.Y = 1:a03.Y = 1:a04.Y = 1:a05.Y = 1:a06.Y = 1:a07.Y = 1:a08.Y = 1:a09.Y = 1:a0a.Y = 1:a0b.Y = 1:a0c.Y = 1:a0d.Y = 1:a0e.Y = 1:a0f.Y = 1
+  a10.Y = 1:a11.Y = 1:a12.Y = 1:a13.Y = 1:a14.Y = 1:a15.Y = 1:a16.Y = 1:a17.Y = 1:a18.Y = 1:a19.Y = 1:a1a.Y = 1:a1b.Y = 1:a1c.Y = 1:a1d.Y = 1:a1e.Y = 1:a1f.Y = 1
+  a20.Y = 1:a21.Y = 1:a22.Y = 1:a23.Y = 1:a24.Y = 1:a25.Y = 1:a26.Y = 1:a27.Y = 1:a28.Y = 1:a29.Y = 1:a2a.Y = 1:a2b.Y = 1:a2c.Y = 1:a2d.Y = 1:a2e.Y = 1:a2f.Y = 1
+  a30.Y = 1:a31.Y = 1:a32.Y = 1:a33.Y = 1:a34.Y = 1:a35.Y = 1:a36.Y = 1:a37.Y = 1:a38.Y = 1:a39.Y = 1:a3a.Y = 1:a3b.Y = 1:a3c.Y = 1:a3d.Y = 1:a3e.Y = 1:a3f.Y = 1
+  a40.Y = 1:a41.Y = 1:a42.Y = 1:a43.Y = 1:a44.Y = 1:a45.Y = 1:a46.Y = 1:a47.Y = 1:a48.Y = 1:a49.Y = 1:a4a.Y = 1:a4b.Y = 1:a4c.Y = 1:a4d.Y = 1:a4e.Y = 1:a4f.Y = 1
+  a50.Y = 1:a51.Y = 1:a52.Y = 1:a53.Y = 1:a54.Y = 1:a55.Y = 1:a56.Y = 1:a57.Y = 1:a58.Y = 1:a59.Y = 1:a5a.Y = 1:a5b.Y = 1:a5c.Y = 1:a5d.Y = 1:a5e.Y = 1:a5f.Y = 1
+  a60.Y = 1:a61.Y = 1:a62.Y = 1:a63.Y = 1:a64.Y = 1:a65.Y = 1:a66.Y = 1:a67.Y = 1:a68.Y = 1:a69.Y = 1:a6a.Y = 1:a6b.Y = 1:a6c.Y = 1:a6d.Y = 1:a6e.Y = 1:a6f.Y = 1
+  a70.Y = 1:a71.Y = 1:a72.Y = 1:a73.Y = 1:a74.Y = 1:a75.Y = 1:a76.Y = 1:a77.Y = 1:a78.Y = 1:a79.Y = 1:a7a.Y = 1:a7b.Y = 1:a7c.Y = 1:a7d.Y = 1:a7e.Y = 1:a7f.Y = 1
+  a80.Y = 1:a81.Y = 1:a82.Y = 1:a83.Y = 1:a84.Y = 1:a85.Y = 1:a86.Y = 1:a87.Y = 1:a88.Y = 1:a89.Y = 1:a8a.Y = 1:a8b.Y = 1:a8c.Y = 1:a8d.Y = 1:a8e.Y = 1:a8f.Y = 1
+  a90.Y = 1:a91.Y = 1:a92.Y = 1:a93.Y = 1:a94.Y = 1:a95.Y = 1:a96.Y = 1:a97.Y = 1:a98.Y = 1:a99.Y = 1:a9a.Y = 1:a9b.Y = 1:a9c.Y = 1:a9d.Y = 1:a9e.Y = 1:a9f.Y = 1
+  aa0.Y = 1:aa1.Y = 1:aa2.Y = 1:aa3.Y = 1:aa4.Y = 1:aa5.Y = 1:aa6.Y = 1:aa7.Y = 1:aa8.Y = 1:aa9.Y = 1:aaa.Y = 1:aab.Y = 1:aac.Y = 1:aad.Y = 1:aae.Y = 1:aaf.Y = 1
+  ab0.Y = 1:ab1.Y = 1:ab2.Y = 1:ab3.Y = 1:ab4.Y = 1:ab5.Y = 1:ab6.Y = 1:ab7.Y = 1:ab8.Y = 1:ab9.Y = 1:aba.Y = 1:abb.Y = 1:abc.Y = 1:abd.Y = 1:abe.Y = 1:abf.Y = 1
+  ac0.Y = 1:ac1.Y = 1:ac2.Y = 1:ac3.Y = 1:ac4.Y = 1:ac5.Y = 1:ac6.Y = 1:ac7.Y = 1:ac8.Y = 1:ac9.Y = 1:aca.Y = 1:acb.Y = 1:acc.Y = 1:acd.Y = 1:ace.Y = 1:acf.Y = 1
+  ad0.Y = 1:ad1.Y = 1:ad2.Y = 1:ad3.Y = 1:ad4.Y = 1:ad5.Y = 1:ad6.Y = 1:ad7.Y = 1:ad8.Y = 1:ad9.Y = 1:ada.Y = 1:adb.Y = 1:adc.Y = 1:add.Y = 1:ade.Y = 1:adf.Y = 1
+  ae0.Y = 1:ae1.Y = 1:ae2.Y = 1:ae3.Y = 1:ae4.Y = 1:ae5.Y = 1:ae6.Y = 1:ae7.Y = 1:ae8.Y = 1:ae9.Y = 1:aea.Y = 1:aeb.Y = 1:aec.Y = 1:aed.Y = 1:aee.Y = 1:aef.Y = 1
+  af0.Y = 1:af1.Y = 1:af2.Y = 1:af3.Y = 1:af4.Y = 1:af5.Y = 1:af6.Y = 1:af7.Y = 1:af8.Y = 1:af9.Y = 1:afa.Y = 1:afb.Y = 1:afc.Y = 1:afd.Y = 1:afe.Y = 1:aff.Y = 1
+  b00.Y = 1:b01.Y = 1:b02.Y = 1:b03.Y = 1:b04.Y = 1:b05.Y = 1:b06.Y = 1:b07.Y = 1:b08.Y = 1:b09.Y = 1:b0a.Y = 1:b0b.Y = 1:b0c.Y = 1:b0d.Y = 1:b0e.Y = 1:b0f.Y = 1
+  b10.Y = 1:b11.Y = 1:b12.Y = 1:b13.Y = 1:b14.Y = 1:b15.Y = 1:b16.Y = 1:b17.Y = 1:b18.Y = 1:b19.Y = 1:b1a.Y = 1:b1b.Y = 1:b1c.Y = 1:b1d.Y = 1:b1e.Y = 1:b1f.Y = 1
+  b20.Y = 1:b21.Y = 1:b22.Y = 1:b23.Y = 1:b24.Y = 1:b25.Y = 1:b26.Y = 1:b27.Y = 1:b28.Y = 1:b29.Y = 1:b2a.Y = 1:b2b.Y = 1:b2c.Y = 1:b2d.Y = 1:b2e.Y = 1:b2f.Y = 1
+  b30.Y = 1:b31.Y = 1:b32.Y = 1:b33.Y = 1:b34.Y = 1:b35.Y = 1:b36.Y = 1:b37.Y = 1:b38.Y = 1:b39.Y = 1:b3a.Y = 1:b3b.Y = 1:b3c.Y = 1:b3d.Y = 1:b3e.Y = 1:b3f.Y = 1
 
-	b40.Y = 1:b41.Y = 1:b42.Y = 1:b43.Y = 1:b44.Y = 1:b45.Y = 1:b46.Y = 1:b47.Y = 1:b48.Y = 1:b49.Y = 1:b4a.Y = 1:b4b.Y = 1:b4c.Y = 1:b4d.Y = 1:b4e.Y = 1:b4f.Y = 1
-	b50.Y = 1:b51.Y = 1:b52.Y = 1:b53.Y = 1:b54.Y = 1:b55.Y = 1:b56.Y = 1:b57.Y = 1:b58.Y = 1:b59.Y = 1:b5a.Y = 1:b5b.Y = 1:b5c.Y = 1:b5d.Y = 1:b5e.Y = 1:b5f.Y = 1
-	b60.Y = 1:b61.Y = 1:b62.Y = 1:b63.Y = 1:b64.Y = 1:b65.Y = 1:b66.Y = 1:b67.Y = 1:b68.Y = 1:b69.Y = 1:b6a.Y = 1:b6b.Y = 1:b6c.Y = 1:b6d.Y = 1:b6e.Y = 1:b6f.Y = 1
-	b70.Y = 1:b71.Y = 1:b72.Y = 1:b73.Y = 1:b74.Y = 1:b75.Y = 1:b76.Y = 1:b77.Y = 1:b78.Y = 1:b79.Y = 1:b7a.Y = 1:b7b.Y = 1:b7c.Y = 1:b7d.Y = 1:b7e.Y = 1:b7f.Y = 1
-	b80.Y = 1:b81.Y = 1:b82.Y = 1:b83.Y = 1:b84.Y = 1:b85.Y = 1:b86.Y = 1:b87.Y = 1:b88.Y = 1:b89.Y = 1:b8a.Y = 1:b8b.Y = 1:b8c.Y = 1:b8d.Y = 1:b8e.Y = 1:b8f.Y = 1
-	b90.Y = 1:b91.Y = 1:b92.Y = 1:b93.Y = 1:b94.Y = 1:b95.Y = 1:b96.Y = 1:b97.Y = 1:b98.Y = 1:b99.Y = 1:b9a.Y = 1:b9b.Y = 1:b9c.Y = 1:b9d.Y = 1:b9e.Y = 1:b9f.Y = 1
-	ba0.Y = 1:ba1.Y = 1:ba2.Y = 1:ba3.Y = 1:ba4.Y = 1:ba5.Y = 1:ba6.Y = 1:ba7.Y = 1:ba8.Y = 1:ba9.Y = 1:baa.Y = 1:bab.Y = 1:bac.Y = 1:bad.Y = 1:bae.Y = 1:baf.Y = 1
-	bb0.Y = 1:bb1.Y = 1:bb2.Y = 1:bb3.Y = 1:bb4.Y = 1:bb5.Y = 1:bb6.Y = 1:bb7.Y = 1:bb8.Y = 1:bb9.Y = 1:bba.Y = 1:bbb.Y = 1:bbc.Y = 1:bbd.Y = 1:bbe.Y = 1:bbf.Y = 1
-	bc0.Y = 1:bc1.Y = 1:bc2.Y = 1:bc3.Y = 1:bc4.Y = 1:bc5.Y = 1:bc6.Y = 1:bc7.Y = 1:bc8.Y = 1:bc9.Y = 1:bca.Y = 1:bcb.Y = 1:bcc.Y = 1:bcd.Y = 1:bce.Y = 1:bcf.Y = 1
-	bd0.Y = 1:bd1.Y = 1:bd2.Y = 1:bd3.Y = 1:bd4.Y = 1:bd5.Y = 1:bd6.Y = 1:bd7.Y = 1:bd8.Y = 1:bd9.Y = 1:bda.Y = 1:bdb.Y = 1:bdc.Y = 1:bdd.Y = 1:bde.Y = 1:bdf.Y = 1
-	be0.Y = 1:be1.Y = 1:be2.Y = 1:be3.Y = 1:be4.Y = 1:be5.Y = 1:be6.Y = 1:be7.Y = 1:be8.Y = 1:be9.Y = 1:bea.Y = 1:beb.Y = 1:bec.Y = 1:bed.Y = 1:bee.Y = 1:bef.Y = 1
-	bf0.Y = 1:bf1.Y = 1:bf2.Y = 1:bf3.Y = 1:bf4.Y = 1:bf5.Y = 1:bf6.Y = 1:bf7.Y = 1:bf8.Y = 1:bf9.Y = 1:bfa.Y = 1:bfb.Y = 1:bfc.Y = 1:bfd.Y = 1:bfe.Y = 1:bff.Y = 1
-	c00.Y = 1:c01.Y = 1:c02.Y = 1:c03.Y = 1:c04.Y = 1:c05.Y = 1:c06.Y = 1:c07.Y = 1:c08.Y = 1:c09.Y = 1:c0a.Y = 1:c0b.Y = 1:c0c.Y = 1:c0d.Y = 1:c0e.Y = 1:c0f.Y = 1
-	c10.Y = 1:c11.Y = 1:c12.Y = 1:c13.Y = 1:c14.Y = 1:c15.Y = 1:c16.Y = 1:c17.Y = 1:c18.Y = 1:c19.Y = 1:c1a.Y = 1:c1b.Y = 1:c1c.Y = 1:c1d.Y = 1:c1e.Y = 1:c1f.Y = 1
-	c20.Y = 1:c21.Y = 1:c22.Y = 1:c23.Y = 1:c24.Y = 1:c25.Y = 1:c26.Y = 1:c27.Y = 1:c28.Y = 1:c29.Y = 1:c2a.Y = 1:c2b.Y = 1:c2c.Y = 1:c2d.Y = 1:c2e.Y = 1:c2f.Y = 1
-	c30.Y = 1:c31.Y = 1:c32.Y = 1:c33.Y = 1:c34.Y = 1:c35.Y = 1:c36.Y = 1:c37.Y = 1:c38.Y = 1:c39.Y = 1:c3a.Y = 1:c3b.Y = 1:c3c.Y = 1:c3d.Y = 1:c3e.Y = 1:c3f.Y = 1
-	c40.Y = 1:c41.Y = 1:c42.Y = 1:c43.Y = 1:c44.Y = 1:c45.Y = 1:c46.Y = 1:c47.Y = 1:c48.Y = 1:c49.Y = 1:c4a.Y = 1:c4b.Y = 1:c4c.Y = 1:c4d.Y = 1:c4e.Y = 1:c4f.Y = 1
-	c50.Y = 1:c51.Y = 1:c52.Y = 1:c53.Y = 1:c54.Y = 1:c55.Y = 1:c56.Y = 1:c57.Y = 1:c58.Y = 1:c59.Y = 1:c5a.Y = 1:c5b.Y = 1:c5c.Y = 1:c5d.Y = 1:c5e.Y = 1:c5f.Y = 1
-	c60.Y = 1:c61.Y = 1:c62.Y = 1:c63.Y = 1:c64.Y = 1:c65.Y = 1:c66.Y = 1:c67.Y = 1:c68.Y = 1:c69.Y = 1:c6a.Y = 1:c6b.Y = 1:c6c.Y = 1:c6d.Y = 1:c6e.Y = 1:c6f.Y = 1
-	c70.Y = 1:c71.Y = 1:c72.Y = 1:c73.Y = 1:c74.Y = 1:c75.Y = 1:c76.Y = 1:c77.Y = 1:c78.Y = 1:c79.Y = 1:c7a.Y = 1:c7b.Y = 1:c7c.Y = 1:c7d.Y = 1:c7e.Y = 1:c7f.Y = 1
+  b40.Y = 1:b41.Y = 1:b42.Y = 1:b43.Y = 1:b44.Y = 1:b45.Y = 1:b46.Y = 1:b47.Y = 1:b48.Y = 1:b49.Y = 1:b4a.Y = 1:b4b.Y = 1:b4c.Y = 1:b4d.Y = 1:b4e.Y = 1:b4f.Y = 1
+  b50.Y = 1:b51.Y = 1:b52.Y = 1:b53.Y = 1:b54.Y = 1:b55.Y = 1:b56.Y = 1:b57.Y = 1:b58.Y = 1:b59.Y = 1:b5a.Y = 1:b5b.Y = 1:b5c.Y = 1:b5d.Y = 1:b5e.Y = 1:b5f.Y = 1
+  b60.Y = 1:b61.Y = 1:b62.Y = 1:b63.Y = 1:b64.Y = 1:b65.Y = 1:b66.Y = 1:b67.Y = 1:b68.Y = 1:b69.Y = 1:b6a.Y = 1:b6b.Y = 1:b6c.Y = 1:b6d.Y = 1:b6e.Y = 1:b6f.Y = 1
+  b70.Y = 1:b71.Y = 1:b72.Y = 1:b73.Y = 1:b74.Y = 1:b75.Y = 1:b76.Y = 1:b77.Y = 1:b78.Y = 1:b79.Y = 1:b7a.Y = 1:b7b.Y = 1:b7c.Y = 1:b7d.Y = 1:b7e.Y = 1:b7f.Y = 1
+  b80.Y = 1:b81.Y = 1:b82.Y = 1:b83.Y = 1:b84.Y = 1:b85.Y = 1:b86.Y = 1:b87.Y = 1:b88.Y = 1:b89.Y = 1:b8a.Y = 1:b8b.Y = 1:b8c.Y = 1:b8d.Y = 1:b8e.Y = 1:b8f.Y = 1
+  b90.Y = 1:b91.Y = 1:b92.Y = 1:b93.Y = 1:b94.Y = 1:b95.Y = 1:b96.Y = 1:b97.Y = 1:b98.Y = 1:b99.Y = 1:b9a.Y = 1:b9b.Y = 1:b9c.Y = 1:b9d.Y = 1:b9e.Y = 1:b9f.Y = 1
+  ba0.Y = 1:ba1.Y = 1:ba2.Y = 1:ba3.Y = 1:ba4.Y = 1:ba5.Y = 1:ba6.Y = 1:ba7.Y = 1:ba8.Y = 1:ba9.Y = 1:baa.Y = 1:bab.Y = 1:bac.Y = 1:bad.Y = 1:bae.Y = 1:baf.Y = 1
+  bb0.Y = 1:bb1.Y = 1:bb2.Y = 1:bb3.Y = 1:bb4.Y = 1:bb5.Y = 1:bb6.Y = 1:bb7.Y = 1:bb8.Y = 1:bb9.Y = 1:bba.Y = 1:bbb.Y = 1:bbc.Y = 1:bbd.Y = 1:bbe.Y = 1:bbf.Y = 1
+  bc0.Y = 1:bc1.Y = 1:bc2.Y = 1:bc3.Y = 1:bc4.Y = 1:bc5.Y = 1:bc6.Y = 1:bc7.Y = 1:bc8.Y = 1:bc9.Y = 1:bca.Y = 1:bcb.Y = 1:bcc.Y = 1:bcd.Y = 1:bce.Y = 1:bcf.Y = 1
+  bd0.Y = 1:bd1.Y = 1:bd2.Y = 1:bd3.Y = 1:bd4.Y = 1:bd5.Y = 1:bd6.Y = 1:bd7.Y = 1:bd8.Y = 1:bd9.Y = 1:bda.Y = 1:bdb.Y = 1:bdc.Y = 1:bdd.Y = 1:bde.Y = 1:bdf.Y = 1
+  be0.Y = 1:be1.Y = 1:be2.Y = 1:be3.Y = 1:be4.Y = 1:be5.Y = 1:be6.Y = 1:be7.Y = 1:be8.Y = 1:be9.Y = 1:bea.Y = 1:beb.Y = 1:bec.Y = 1:bed.Y = 1:bee.Y = 1:bef.Y = 1
+  bf0.Y = 1:bf1.Y = 1:bf2.Y = 1:bf3.Y = 1:bf4.Y = 1:bf5.Y = 1:bf6.Y = 1:bf7.Y = 1:bf8.Y = 1:bf9.Y = 1:bfa.Y = 1:bfb.Y = 1:bfc.Y = 1:bfd.Y = 1:bfe.Y = 1:bff.Y = 1
+  c00.Y = 1:c01.Y = 1:c02.Y = 1:c03.Y = 1:c04.Y = 1:c05.Y = 1:c06.Y = 1:c07.Y = 1:c08.Y = 1:c09.Y = 1:c0a.Y = 1:c0b.Y = 1:c0c.Y = 1:c0d.Y = 1:c0e.Y = 1:c0f.Y = 1
+  c10.Y = 1:c11.Y = 1:c12.Y = 1:c13.Y = 1:c14.Y = 1:c15.Y = 1:c16.Y = 1:c17.Y = 1:c18.Y = 1:c19.Y = 1:c1a.Y = 1:c1b.Y = 1:c1c.Y = 1:c1d.Y = 1:c1e.Y = 1:c1f.Y = 1
+  c20.Y = 1:c21.Y = 1:c22.Y = 1:c23.Y = 1:c24.Y = 1:c25.Y = 1:c26.Y = 1:c27.Y = 1:c28.Y = 1:c29.Y = 1:c2a.Y = 1:c2b.Y = 1:c2c.Y = 1:c2d.Y = 1:c2e.Y = 1:c2f.Y = 1
+  c30.Y = 1:c31.Y = 1:c32.Y = 1:c33.Y = 1:c34.Y = 1:c35.Y = 1:c36.Y = 1:c37.Y = 1:c38.Y = 1:c39.Y = 1:c3a.Y = 1:c3b.Y = 1:c3c.Y = 1:c3d.Y = 1:c3e.Y = 1:c3f.Y = 1
+  c40.Y = 1:c41.Y = 1:c42.Y = 1:c43.Y = 1:c44.Y = 1:c45.Y = 1:c46.Y = 1:c47.Y = 1:c48.Y = 1:c49.Y = 1:c4a.Y = 1:c4b.Y = 1:c4c.Y = 1:c4d.Y = 1:c4e.Y = 1:c4f.Y = 1
+  c50.Y = 1:c51.Y = 1:c52.Y = 1:c53.Y = 1:c54.Y = 1:c55.Y = 1:c56.Y = 1:c57.Y = 1:c58.Y = 1:c59.Y = 1:c5a.Y = 1:c5b.Y = 1:c5c.Y = 1:c5d.Y = 1:c5e.Y = 1:c5f.Y = 1
+  c60.Y = 1:c61.Y = 1:c62.Y = 1:c63.Y = 1:c64.Y = 1:c65.Y = 1:c66.Y = 1:c67.Y = 1:c68.Y = 1:c69.Y = 1:c6a.Y = 1:c6b.Y = 1:c6c.Y = 1:c6d.Y = 1:c6e.Y = 1:c6f.Y = 1
+  c70.Y = 1:c71.Y = 1:c72.Y = 1:c73.Y = 1:c74.Y = 1:c75.Y = 1:c76.Y = 1:c77.Y = 1:c78.Y = 1:c79.Y = 1:c7a.Y = 1:c7b.Y = 1:c7c.Y = 1:c7d.Y = 1:c7e.Y = 1:c7f.Y = 1
 
 End Sub
 
@@ -378,9 +378,9 @@ Sub Table1_unPaused:Controller.Pause = 0:End Sub
 
 ' GI Init
 Sub GIDelay_Timer()
-	SetLamp 160, 1
-	SetLamp 126, 1
-	GIDelay.Enabled = 0
+  SetLamp 160, 1
+  SetLamp 126, 1
+  GIDelay.Enabled = 0
 End Sub
 
 ' Glasses Color
@@ -397,13 +397,13 @@ End Sub
 '**********
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyCode = LeftFlipperKey Then Controller.Switch(6) = 1
-	If KeyCode = RightFlipperKey Then  Controller.Switch(7) = 1
-	If KeyCode = PlungerKey Then Plunger.Pullback
-	If KeyCode = LeftTiltKey Then Nudge 90, 4:PlaySound SoundFX("nudge_left",0)
-	If KeyCode = RightTiltKey Then Nudge 270, 4:PlaySound SoundFX("nudge_right",0)
-	If KeyCode = CenterTiltKey Then Nudge 0, 5:PlaySound SoundFX("nudge_forward",0)
-	If vpmKeyDown(KeyCode) Then Exit Sub
+  If KeyCode = LeftFlipperKey Then Controller.Switch(6) = 1
+  If KeyCode = RightFlipperKey Then  Controller.Switch(7) = 1
+  If KeyCode = PlungerKey Then Plunger.Pullback
+  If KeyCode = LeftTiltKey Then Nudge 90, 4:PlaySound SoundFX("nudge_left",0)
+  If KeyCode = RightTiltKey Then Nudge 270, 4:PlaySound SoundFX("nudge_right",0)
+  If KeyCode = CenterTiltKey Then Nudge 0, 5:PlaySound SoundFX("nudge_forward",0)
+  If vpmKeyDown(KeyCode) Then Exit Sub
     'debug key
     If KeyCode = "3" Then
         SetLamp 171, 1
@@ -419,10 +419,10 @@ Sub Table1_KeyDown(ByVal KeyCode)
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyCode = LeftFlipperKey Then Controller.Switch(6) = 0
-	If KeyCode = RightFlipperKey Then Controller.Switch(7) = 0
-	If KeyCode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "plunger2", Plunger, 1
-	If vpmKeyUp(KeyCode) Then Exit Sub
+  If KeyCode = LeftFlipperKey Then Controller.Switch(6) = 0
+  If KeyCode = RightFlipperKey Then Controller.Switch(7) = 0
+  If KeyCode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "plunger2", Plunger, 1
+  If vpmKeyUp(KeyCode) Then Exit Sub
     'debug key
     If KeyCode = "3" Then
         SetLamp 171, 0
@@ -446,56 +446,56 @@ Dim LStep, RStep
 
 Sub LeftSlingshot_Slingshot:If PinPlay=1 Then:vpmTimer.PulseSw 13:LeftSling.Visible=1:SxEmKickerT1.TransX=-28:LStep=0:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("Slingshot",DOFContactors), SxEmKickerT1, 1:End If:End Sub
 Sub LeftSlingshot_Timer
-	Select Case LStep
-		Case 0:LeftSling.Visible = 1
-		Case 1: 'pause
-		Case 2:LeftSling.Visible = 0 :LeftSling1.Visible = 1:SxEmKickerT1.TransX=-23
-		Case 3:LeftSling1.Visible = 0:LeftSling2.Visible = 1:SxEmKickerT1.TransX=-18.5
-		Case 4:LeftSling2.Visible = 0:Me.TimerEnabled = 0:SxEmKickerT1.TransX=0
-	End Select
-	LStep = LStep + 1
+  Select Case LStep
+    Case 0:LeftSling.Visible = 1
+    Case 1: 'pause
+    Case 2:LeftSling.Visible = 0 :LeftSling1.Visible = 1:SxEmKickerT1.TransX=-23
+    Case 3:LeftSling1.Visible = 0:LeftSling2.Visible = 1:SxEmKickerT1.TransX=-18.5
+    Case 4:LeftSling2.Visible = 0:Me.TimerEnabled = 0:SxEmKickerT1.TransX=0
+  End Select
+  LStep = LStep + 1
 End Sub
 
 Sub RightSlingshot_Slingshot:If PinPlay=1 Then:vpmTimer.PulseSw 14:RightSling.Visible=1:DxEmKickerT1.TransX=-28:RStep=0:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("Slingshot",DOFContactors), DxEmKickerT1, 1:End If:End Sub
 Sub RightSlingshot_Timer
-	Select Case RStep
-		Case 0:RightSling.Visible = 1
-		Case 1: 'pause
-		Case 2:RightSling.Visible = 0 :RightSling1.Visible = 1:DxEmKickerT1.TransX=-23
-		Case 3:RightSling1.Visible = 0:RightSling2.Visible = 1:DxEmKickerT1.TransX=-18.5
-		Case 4:RightSling2.Visible = 0:Me.TimerEnabled = 0:DxEmKickerT1.TransX=0
-	End Select
-	RStep = RStep + 1
+  Select Case RStep
+    Case 0:RightSling.Visible = 1
+    Case 1: 'pause
+    Case 2:RightSling.Visible = 0 :RightSling1.Visible = 1:DxEmKickerT1.TransX=-23
+    Case 3:RightSling1.Visible = 0:RightSling2.Visible = 1:DxEmKickerT1.TransX=-18.5
+    Case 4:RightSling2.Visible = 0:Me.TimerEnabled = 0:DxEmKickerT1.TransX=0
+  End Select
+  RStep = RStep + 1
 End Sub
 
 ' Bumpers
 Sub Bumper1_Hit
-	If PinPlay=1 Then
-	vpmTimer.PulseSw 10:Me.TimerEnabled=0:Ring1.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
+  If PinPlay=1 Then
+  vpmTimer.PulseSw 10:Me.TimerEnabled=0:Ring1.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
 End If
 End Sub
 Sub Bumper1_Timer()
-	Ring1.Z = Ring1.Z +2
+  Ring1.Z = Ring1.Z +2
  If Ring1.Z = 50 Then:Me.TimerEnabled = 0
 End Sub
 
 Sub Bumper2_Hit
-	If PinPlay=1 Then
-	vpmTimer.PulseSw 11:Me.TimerEnabled=0:Ring2.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
+  If PinPlay=1 Then
+  vpmTimer.PulseSw 11:Me.TimerEnabled=0:Ring2.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
 End If
 End Sub
 Sub Bumper2_Timer()
-	Ring2.Z = Ring2.Z +2
+  Ring2.Z = Ring2.Z +2
  If Ring2.Z = 50 Then:Me.TimerEnabled = 0
 End Sub
 
 Sub Bumper3_Hit
-	If PinPlay=1 Then
-	vpmTimer.PulseSw 12:Me.TimerEnabled=0:Ring3.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
+  If PinPlay=1 Then
+  vpmTimer.PulseSw 12:Me.TimerEnabled=0:Ring3.Z = 20:Me.TimerEnabled=1:PlaySoundAtVol SoundFX("jet1",DOFContactors), ActiveBall, VolBump
 End If
 End Sub
 Sub Bumper3_Timer()
-	Ring3.Z = Ring3.Z +2
+  Ring3.Z = Ring3.Z +2
  If Ring3.Z = 50 Then:Me.TimerEnabled = 0
 End Sub
 
@@ -553,31 +553,31 @@ Sub sw36_Dropped:cdtbank.Hit 3:End Sub
 
 Sub sw17_Hit():PlaySoundAtVol SoundFX("DROPTARG",DOFContactors), ActiveBall, 1
  If Bulb12.State=1 Then
-	Bulb12T17.State=1
+  Bulb12T17.State=1
 Else
-	Bulb12T17.State=0
+  Bulb12T17.State=0
 End If
-	Drop17T=1
+  Drop17T=1
 End Sub
 Sub sw17_Dropped:ddtbank.Hit 1:End Sub
 
 Sub sw27_Hit():PlaySoundAtVol SoundFX("DROPTARG",DOFContactors), ActiveBall, 1
  If Bulb12.State=1 Then
-	Bulb12T27.State=1
+  Bulb12T27.State=1
 Else
-	Bulb12T27.State=0
+  Bulb12T27.State=0
 End If
-	Drop27T=1
+  Drop27T=1
 End Sub
 Sub sw27_Dropped:ddtbank.Hit 2:End Sub
 
 Sub sw37_Hit():PlaySoundAtVol SoundFX("DROPTARG",DOFContactors), ActiveBall, 1
  If Bulb11.State=1 Then
-	Bulb11T37.State=1
+  Bulb11T37.State=1
 Else
-	Bulb11T37.State=0
+  Bulb11T37.State=0
 End If
-	Drop37T=1
+  Drop37T=1
 End Sub
 Sub sw37_Dropped:ddtbank.Hit 3:End Sub
 
@@ -623,7 +623,7 @@ SolCallback(12) = "setlamp 132,"
 SolCallback(13) = "setlamp 133,"
 SolCallback(14) = "setlamp 134,"
 SolCallback(15) = "setlamp 125,"
-SolCallback(16) = "setlamp 150,"	'lamp
+SolCallback(16) = "setlamp 150,"  'lamp
 SolCallback(17) = "setlamp 197,"
 SolCallback(18) = "setlamp 198,"
 SolCallback(19) = "setlamp 199,"
@@ -633,7 +633,7 @@ SolCallback(22) = "setlamp 172,"
 SolCallback(23) = "setlamp 122,"
 SolCallback(24) = "setlamp 151,"
 SolCallback(25) = "setlamp 175,"
-SolCallback(26) = "Lightbox"	' Lightbox Insert Illum. Relay (A)
+SolCallback(26) = "Lightbox"  ' Lightbox Insert Illum. Relay (A)
 SolCallback(28) = "bsTrough.SolOut"
 SolCallback(29) = "bsTrough.SolIn"
 SolCallback(30) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
@@ -642,42 +642,42 @@ Solcallback(32) = "SolRun"
 
 Sub dtcbank(Enabled)
  If Enabled Then
-	cdtbank.DropSol_On
+  cdtbank.DropSol_On
 End If
-	PlaySound SoundFX("DTResetB",DOFContactors) ' TODO
+  PlaySound SoundFX("DTResetB",DOFContactors) ' TODO
 End Sub
 
 Sub dtdbank(Enabled)
  If Enabled Then
-	ddtbank.DropSol_On
+  ddtbank.DropSol_On
 End If
-	Drop17T=0
-	Drop27T=0
-	Drop37T=0
-	Bulb12T17.TimerEnabled=1
-	PlaySound SoundFX("DTResetB",DOFContactors),0,1,0.2
+  Drop17T=0
+  Drop27T=0
+  Drop37T=0
+  Bulb12T17.TimerEnabled=1
+  PlaySound SoundFX("DTResetB",DOFContactors),0,1,0.2
 End Sub
 
 Sub bsLKBallRelease(Enabled)
  If Enabled Then
-	bsLK.ExitSol_On
-	Arm.IsDropped=0
-	Arm.TimerEnabled=1
-	Arm2.IsDropped=0
+  bsLK.ExitSol_On
+  Arm.IsDropped=0
+  Arm.TimerEnabled=1
+  Arm2.IsDropped=0
 End If
 End Sub
 
 Sub Arm_Timer
-	Arm.IsDropped=1
-	Arm.TimerEnabled=0
-	Arm2.IsDropped=1
+  Arm.IsDropped=1
+  Arm.TimerEnabled=0
+  Arm2.IsDropped=1
 End Sub
 
 Sub Bulb12T17_Timer()
-	Bulb12T17.State=0
-	Bulb12T27.State=0
-	Bulb11T37.State=0
-	Bulb12T17.TimerEnabled=0
+  Bulb12T17.State=0
+  Bulb12T27.State=0
+  Bulb11T37.State=0
+  Bulb12T17.TimerEnabled=0
 End Sub
 
 '**************
@@ -686,35 +686,35 @@ End Sub
 
 Dim Drop17T, Drop27T, Drop37T
 Sub GIRelay(Enabled)
-	Dim GIoffon
-	GIoffon = ABS(ABS(Enabled) -1)
-	SetLamp 160, GIoffon
+  Dim GIoffon
+  GIoffon = ABS(ABS(Enabled) -1)
+  SetLamp 160, GIoffon
  If Drop17T=1 Then
-	Bulb12T17.State=GIoffon
+  Bulb12T17.State=GIoffon
 End If
  If Drop27T=1 Then
-	Bulb12T27.State=GIoffon
+  Bulb12T27.State=GIoffon
 End If
  If Drop37T=1 Then
-	Bulb11T37.State=GIoffon
+  Bulb11T37.State=GIoffon
 End If
 End Sub
 
 Sub SolRun(Enabled)
-	vpmNudge.SolGameOn Enabled
+  vpmNudge.SolGameOn Enabled
  If Enabled Then
-	PinPlay=1
+  PinPlay=1
 Else
-	PinPlay=0
-'	LeftFlipper.RotateToStart
-'	RightFlipper.RotateToStart
+  PinPlay=0
+' LeftFlipper.RotateToStart
+' RightFlipper.RotateToStart
 End If
 End Sub
 
 Sub Lightbox(Enabled)
-	Dim GIoffon
-	GIoffon = ABS(ABS(Enabled) -1)
-	SetLamp 126, GIoffon
+  Dim GIoffon
+  GIoffon = ABS(ABS(Enabled) -1)
+  SetLamp 126, GIoffon
 End Sub
 
 '**************
@@ -725,27 +725,27 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("flipperup_left",DOFContactors),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
-	Else
+  If Enabled Then
+    PlaySoundAtVol SoundFX("flipperup_left",DOFContactors),LeftFlipper,VolFlip:LeftFlipper.RotateToEnd
+  Else
         PlaySoundAtVol SoundFX("flipperdown_left",DOFContactors),LeftFlipper,VolFlip:LeftFlipper.RotateToStart
-	End If
+  End If
 End Sub
 
 Sub SolRFlipper(Enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("flipperup_right",DOFContactors),RightFlipper,VolFlip:RightFlipper.RotateToEnd
-	Else
+  If Enabled Then
+    PlaySoundAtVol SoundFX("flipperup_right",DOFContactors),RightFlipper,VolFlip:RightFlipper.RotateToEnd
+  Else
         PlaySoundAtVol SoundFX("flipperdown_right",DOFContactors),RightFlipper,VolFlip:RightFlipper.RotateToStart
-	End If
+  End If
 End Sub
 
 Sub LeftFlipper_Collide(parm)
-	PlaySoundAtBallVol "rubber_flipper",1
+  PlaySoundAtBallVol "rubber_flipper",1
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	PlaySoundAtBallVol "rubber_flipper",1
+  PlaySoundAtBallVol "rubber_flipper",1
 End Sub
 
 '**********************************
@@ -779,215 +779,215 @@ Sub LampTimer_Timer()
 End Sub
 
 Sub UpdateLamps
-'	FadeL 0, l0, "On", "F66", "F33", "Off"
-	NFadeL 0, l0
-	NFadeL 1, l1
-	NFadeL 2, l2
-	NFadeL 3, l3
-	NFadeL 4, l4
-	NFadeL 5, l5
-	NFadeL 6, l6
-	NFadeL 7, l7
-	NFadeL 10, l10
-	NFadeL 11, l11
-	NFadeL 12, l12
-	NFadeL 13, l13
-	NFadeL 14, l14
-	NFadeL 15, l15
-	NFadeL 16, l16
-	NFadeL 17, l17
-	NFadeL 20, l20
-	NFadeL 21, l21
-	NFadeL 22, l22
-	NFadeL 23, l23
-	NFadeL 24, l24
-	NFadeL 25, l25
-	NFadeL 26, l26
-	NFadeL 27, l27
-	NFadeL 30, l30
-	NFadeL 31, l31
-	NFadeL 32, l32
-	NFadeL 33, l33
-	NFadeL 34, l34
-	NFadeL 35, l35
-	NFadeL 36, l36
-	NFadeL 37, l37
-	NFadeL 40, l40
-	NFadeL 41, l41
+' FadeL 0, l0, "On", "F66", "F33", "Off"
+  NFadeL 0, l0
+  NFadeL 1, l1
+  NFadeL 2, l2
+  NFadeL 3, l3
+  NFadeL 4, l4
+  NFadeL 5, l5
+  NFadeL 6, l6
+  NFadeL 7, l7
+  NFadeL 10, l10
+  NFadeL 11, l11
+  NFadeL 12, l12
+  NFadeL 13, l13
+  NFadeL 14, l14
+  NFadeL 15, l15
+  NFadeL 16, l16
+  NFadeL 17, l17
+  NFadeL 20, l20
+  NFadeL 21, l21
+  NFadeL 22, l22
+  NFadeL 23, l23
+  NFadeL 24, l24
+  NFadeL 25, l25
+  NFadeL 26, l26
+  NFadeL 27, l27
+  NFadeL 30, l30
+  NFadeL 31, l31
+  NFadeL 32, l32
+  NFadeL 33, l33
+  NFadeL 34, l34
+  NFadeL 35, l35
+  NFadeL 36, l36
+  NFadeL 37, l37
+  NFadeL 40, l40
+  NFadeL 41, l41
 
-	NFadeL 67, l67
-	NFadeL 70, l70
-	NFadeL 71, l71
-	NFadeL 72, l72
-	NFadeL 73, l73
-	NFadeL 74, l74
-	NFadeL 75, l75
-	NFadeL 76, l76
-	NFadeL 80, l80
-	NFadeL 81, l81
-	NFadeL 82, l82
-	NFadeL 83, l83
-	NFadeL 84, l84
-	NFadeL 85, l85
-	NFadeL 86, l86
-	NFadeL 90, l90
-	NFadeL 91, l91
-	NFadeL 92, l92
-	NFadeL 93, l93
-	NFadeL 94, l94
-	NFadeL 95, l95
-	NFadeL 96, l96
-	NFadeL 100, l100
-	NFadeL 101, l101
-	NFadeL 102, l102
-	NFadeL 103, l103
-	NFadeL 104, l104
-	NFadeL 105, l105
-	NFadeL 106, l106
-	NFadeL 110, l110
-	NFadeL 111, l111
-	NFadeL 112, l112
-	NFadeL 113, l113
-	NFadeL 114, l114
-	NFadeL 115, l115
-	NFadeL 116, l116
-	NFadeL 122, l122
-	NFadeL 125, l125
+  NFadeL 67, l67
+  NFadeL 70, l70
+  NFadeL 71, l71
+  NFadeL 72, l72
+  NFadeL 73, l73
+  NFadeL 74, l74
+  NFadeL 75, l75
+  NFadeL 76, l76
+  NFadeL 80, l80
+  NFadeL 81, l81
+  NFadeL 82, l82
+  NFadeL 83, l83
+  NFadeL 84, l84
+  NFadeL 85, l85
+  NFadeL 86, l86
+  NFadeL 90, l90
+  NFadeL 91, l91
+  NFadeL 92, l92
+  NFadeL 93, l93
+  NFadeL 94, l94
+  NFadeL 95, l95
+  NFadeL 96, l96
+  NFadeL 100, l100
+  NFadeL 101, l101
+  NFadeL 102, l102
+  NFadeL 103, l103
+  NFadeL 104, l104
+  NFadeL 105, l105
+  NFadeL 106, l106
+  NFadeL 110, l110
+  NFadeL 111, l111
+  NFadeL 112, l112
+  NFadeL 113, l113
+  NFadeL 114, l114
+  NFadeL 115, l115
+  NFadeL 116, l116
+  NFadeL 122, l122
+  NFadeL 125, l125
 
-	Flash 42, f42
-	Flashm 43, f43
-	Flash 43, f43a
-	FastFlash 44, f44
-	FastFlash 45, f45
-	FastFlash 46, f46
-	FastFlash 47, f47
-	Flashm 50, f50
-	Flash 50, f50a
-	Flash 51, f51
-	FastFlash 52, f52
-	FastFlash 53, f53
-	FastFlash 54, f54
-	FastFlash 55, f55
-	Flashm 56, f56
-	Flash 56, f56a
-	Flashm 57, f57
-	Flash 57, f57a
-	FastFlashm 66, f66
-	FastFlash 66, f66a
-	NFadeLm 150, fur1
-	NFadeLm 150, fur2
-	Flashm 150, fur1a
-	Flash 150, fur2a
-	NFadeLm 151, f151
-	NFadeL 151, f151a
+  Flash 42, f42
+  Flashm 43, f43
+  Flash 43, f43a
+  FastFlash 44, f44
+  FastFlash 45, f45
+  FastFlash 46, f46
+  FastFlash 47, f47
+  Flashm 50, f50
+  Flash 50, f50a
+  Flash 51, f51
+  FastFlash 52, f52
+  FastFlash 53, f53
+  FastFlash 54, f54
+  FastFlash 55, f55
+  Flashm 56, f56
+  Flash 56, f56a
+  Flashm 57, f57
+  Flash 57, f57a
+  FastFlashm 66, f66
+  FastFlash 66, f66a
+  NFadeLm 150, fur1
+  NFadeLm 150, fur2
+  Flashm 150, fur1a
+  Flash 150, fur2a
+  NFadeLm 151, f151
+  NFadeL 151, f151a
 
-	NFadeLm 160, Bulb1
-	NFadeLm 160, Bulb1a
-	NFadeLm 160, Bulb2
-	NFadeLm 160, Bulb2a
-	NFadeLm 160, Bulb3
-	NFadeLm 160, Bulb3a
-	NFadeLm 160, Bulb4
-	NFadeLm 160, Bulb4a
-	NFadeLm 160, Bulb5
-	NFadeLm 160, Bulb5a
-	NFadeLm 160, Bulb6
-	NFadeLm 160, Bulb6a
-	NFadeLm 160, Bulb7
-	NFadeLm 160, Bulb7a
-	NFadeLm 160, Bulb8
-	NFadeLm 160, Bulb8a
-	NFadeLm 160, Bulb9
-	NFadeLm 160, Bulb9a
-	NFadeLm 160, Bulb10
-	NFadeLm 160, Bulb10a
-	NFadeLm 160, Bulb11
-	NFadeLm 160, Bulb11a
-	NFadeLm 160, Bulb12
-	NFadeLm 160, Bulb12a
-	NFadeLm 160, Bulb13
-	NFadeLm 160, Bulb13a
-	NFadeLm 160, Bulb14
-	NFadeLm 160, Bulb14a
+  NFadeLm 160, Bulb1
+  NFadeLm 160, Bulb1a
+  NFadeLm 160, Bulb2
+  NFadeLm 160, Bulb2a
+  NFadeLm 160, Bulb3
+  NFadeLm 160, Bulb3a
+  NFadeLm 160, Bulb4
+  NFadeLm 160, Bulb4a
+  NFadeLm 160, Bulb5
+  NFadeLm 160, Bulb5a
+  NFadeLm 160, Bulb6
+  NFadeLm 160, Bulb6a
+  NFadeLm 160, Bulb7
+  NFadeLm 160, Bulb7a
+  NFadeLm 160, Bulb8
+  NFadeLm 160, Bulb8a
+  NFadeLm 160, Bulb9
+  NFadeLm 160, Bulb9a
+  NFadeLm 160, Bulb10
+  NFadeLm 160, Bulb10a
+  NFadeLm 160, Bulb11
+  NFadeLm 160, Bulb11a
+  NFadeLm 160, Bulb12
+  NFadeLm 160, Bulb12a
+  NFadeLm 160, Bulb13
+  NFadeLm 160, Bulb13a
+  NFadeLm 160, Bulb14
+  NFadeLm 160, Bulb14a
 
-	Flashm 160, fgit1
-	Flashm 160, fgit1L
-	Flashm 160, fgit1R
-	Flashm 160, fgit2
-	Flashm 160, fgit3
-	Flashm 160, fgit4
-	Flashm 160, fgit5
-	Flashm 160, fgit6
-	Flashm 160, fgit7
-	Flashm 160, fgit8
-	Flashm 160, fgit9
-	Flashm 160, fgit10
-	Flashm 160, fgit11
-	Flashm 160, fgit12
-	Flashm 160, fgit13
-	Flashm 160, fgit14
-	Flash 160, Bulb10b
-	Flash 171, f171
-	Flash 172, f172
-	Flash 175, f175
-	Flash 190, f190
-	Flash 197, f197
-	Flash 198, f198
-	NFadeLm 199, l199
-	Flash 199, f199
+  Flashm 160, fgit1
+  Flashm 160, fgit1L
+  Flashm 160, fgit1R
+  Flashm 160, fgit2
+  Flashm 160, fgit3
+  Flashm 160, fgit4
+  Flashm 160, fgit5
+  Flashm 160, fgit6
+  Flashm 160, fgit7
+  Flashm 160, fgit8
+  Flashm 160, fgit9
+  Flashm 160, fgit10
+  Flashm 160, fgit11
+  Flashm 160, fgit12
+  Flashm 160, fgit13
+  Flashm 160, fgit14
+  Flash 160, Bulb10b
+  Flash 171, f171
+  Flash 172, f172
+  Flash 175, f175
+  Flash 190, f190
+  Flash 197, f197
+  Flash 198, f198
+  NFadeLm 199, l199
+  Flash 199, f199
 
 ' Backbox
 
-	Flash 60, f60
-	Flash 61, f61
-	Flash 62, f62
-	Flash 63, f63
-	Flash 64, f64
-	Flash 65, f65
+  Flash 60, f60
+  Flash 61, f61
+  Flash 62, f62
+  Flash 63, f63
+  Flash 64, f64
+  Flash 65, f65
 
-	Flash 77, f77
-	Flash 87, f87
-	Flash 97, f97
-	Flash 107, f107
-	Flash 117, f117
+  Flash 77, f77
+  Flash 87, f87
+  Flash 97, f97
+  Flash 107, f107
+  Flash 117, f117
 
-	Flashm 131, f131
-	Flash 131, f131a
-	Flashm 132, f132
-	Flash 132, f132a
-	Flashm 133, f133
-	Flash 133, f133a
-	Flashm 134, f134
-	Flash 134, f134a
+  Flashm 131, f131
+  Flash 131, f131a
+  Flashm 132, f132
+  Flash 132, f132a
+  Flashm 133, f133
+  Flash 133, f133a
+  Flashm 134, f134
+  Flash 134, f134a
 
-	Flashm 126, flb1
-	Flashm 126, flb2
-	Flashm 126, flb3
-	Flashm 126, flb4
-	Flashm 126, flb5
-	Flashm 126, flb6
-	Flashm 126, flb7
-	Flashm 126, flb8
-	Flashm 126, flb9
-	Flashm 126, flb10
-	Flashm 126, flb11
-	Flashm 126, flb12
-	Flashm 126, flb13
-	Flashm 126, flb14
-	Flashm 126, flb15
-	Flashm 126, flb16
-	Flashm 126, flb17
-	Flashm 126, flb18
-	Flashm 126, flb19
-	Flashm 126, flb20
-	Flashm 126, flb21
-	Flashm 126, flb22
-	Flashm 126, flb23
-	Flashm 126, flb24
-	Flashm 126, flb25
-	Flashm 126, flb26
-	Flashm 126, flb27
-	Flash 126, flb28
+  Flashm 126, flb1
+  Flashm 126, flb2
+  Flashm 126, flb3
+  Flashm 126, flb4
+  Flashm 126, flb5
+  Flashm 126, flb6
+  Flashm 126, flb7
+  Flashm 126, flb8
+  Flashm 126, flb9
+  Flashm 126, flb10
+  Flashm 126, flb11
+  Flashm 126, flb12
+  Flashm 126, flb13
+  Flashm 126, flb14
+  Flashm 126, flb15
+  Flashm 126, flb16
+  Flashm 126, flb17
+  Flashm 126, flb18
+  Flashm 126, flb19
+  Flashm 126, flb20
+  Flashm 126, flb21
+  Flashm 126, flb22
+  Flashm 126, flb23
+  Flashm 126, flb24
+  Flashm 126, flb25
+  Flashm 126, flb26
+  Flashm 126, flb27
+  Flash 126, flb28
 
 End Sub
 
@@ -999,7 +999,7 @@ Sub InitLamps()
         LampState(x) = 0        ' current light state, independent of the fading level. 0 is off and 1 is on
         FadingLevel(x) = 4      ' used to track the fading state
         FlashSpeedUp(x) = 0.5   ' faster speed when turning on the flasher
-        FlashSpeedDown(x) = 0.07	' slower speed when turning off the flasher
+        FlashSpeedDown(x) = 0.07  ' slower speed when turning off the flasher
         FlashMax(x) = 1         ' the maximum value when on, usually 1
         FlashMin(x) = 0         ' the minimum value when off, usually 0
         FlashLevel(x) = 0       ' the intensity of the flashers, usually from 0 to 1
@@ -1021,7 +1021,7 @@ Sub SetLamp(nr, value)
 End Sub
 
 Sub SetModLamp(nr, level)
-	FlashLevel(nr) = level /150 'lights & flashers
+  FlashLevel(nr) = level /150 'lights & flashers
 End Sub
 
 ' Lights: old method, using 4 images
@@ -1064,7 +1064,7 @@ End Sub
 
 Sub LightMod(nr, object) ' modulated lights used as flashers
     Object.IntensityScale = FlashLevel(nr)
-	Object.State = 1
+  Object.State = 1
 End Sub
 
 'Ramps & Primitives used as 4 step fading lights
@@ -1135,17 +1135,17 @@ End Sub
 
 Sub FastFlash(nr, object)
     Select Case FadingLevel(nr)
-		Case 4:object.Visible = 0:FadingLevel(nr) = 0 'off
-		Case 5:object.Visible = 1:FadingLevel(nr) = 1 'on
-		Object.IntensityScale = Lumen*FlashMax(nr)
+    Case 4:object.Visible = 0:FadingLevel(nr) = 0 'off
+    Case 5:object.Visible = 1:FadingLevel(nr) = 1 'on
+    Object.IntensityScale = Lumen*FlashMax(nr)
     End Select
 End Sub
 
 Sub FastFlashm(nr, object)
     Select Case FadingLevel(nr)
-		Case 4:object.Visible = 0 'off
-		Case 5:object.Visible = 1 'on
-		Object.IntensityScale = Lumen*FlashMax(nr)
+    Case 4:object.Visible = 0 'off
+    Case 5:object.Visible = 1 'on
+    Object.IntensityScale = Lumen*FlashMax(nr)
     End Select
 End Sub
 
@@ -1190,7 +1190,7 @@ Sub NFadeTm(nr, object, b)
 End Sub
 
 ' *********************************************************************
-' 					Wall, rubber and metal hit sounds
+'           Wall, rubber and metal hit sounds
 ' *********************************************************************
 
 Sub Rubbers_Hit(idx):PlaySoundAtVol "rubber1", ActiveBall, 1 :End Sub
@@ -1321,7 +1321,7 @@ Sub RollingUpdate()
     ' play the rolling sound for each ball
     For b = lob to UBound(BOT)
         If BallVel(BOT(b))> 1 Then
-            If BOT(b).z <87 Then		'Z Rolling limit
+            If BOT(b).z <87 Then    'Z Rolling limit
                 ballpitch = Pitch(BOT(b))
             Else
                 ballpitch = Pitch(BOT(b)) + 15000 'increase the pitch on a ramp or elevated surface
@@ -1342,7 +1342,7 @@ End Sub
 '**********************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
 '******************
@@ -1351,20 +1351,20 @@ End Sub
 Set MotorCallback = GetRef("GameTimer")
 
 Sub GameTimer
-	UpdateFlipperLogos
-	RollingUpdate
-	TrackSounds
+  UpdateFlipperLogos
+  RollingUpdate
+  TrackSounds
 End Sub
 
 Dim PI
 PI = Round(4 * Atn(1), 6) '3.1415926535897932384626433832795
 
 Sub UpdateFlipperLogos
-	FlipperSx.RotZ = LeftFlipper.CurrentAngle
-	FlipperDx.RotZ = RightFlipper.CurrentAngle
-	pSpinnerRod.TransY = sin( (sw20.CurrentAngle+180) * (2*PI/360)) * 8
-	pSpinnerRod.TransZ = sin( (sw20.CurrentAngle- 90) * (2*PI/360)) * 8
-	pSpinnerRod.RotX = sin( sw20.CurrentAngle * (2*PI/360)) * 6
+  FlipperSx.RotZ = LeftFlipper.CurrentAngle
+  FlipperDx.RotZ = RightFlipper.CurrentAngle
+  pSpinnerRod.TransY = sin( (sw20.CurrentAngle+180) * (2*PI/360)) * 8
+  pSpinnerRod.TransZ = sin( (sw20.CurrentAngle- 90) * (2*PI/360)) * 8
+  pSpinnerRod.RotX = sin( sw20.CurrentAngle * (2*PI/360)) * 6
 End Sub
 
 '*****************
@@ -1420,7 +1420,7 @@ Sub UpdateLeds
     Dim ChgLED, ii, num, chg, stat, obj
     ChgLED = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
     If Not IsEmpty(ChgLED)Then
-	If Table1.ShowFSS = True Then
+  If Table1.ShowFSS = True Then
         For ii = 0 To UBound(chgLED)
             num = chgLED(ii, 0):chg = chgLED(ii, 1):stat = chgLED(ii, 2)
             For Each obj In Digits(num)
@@ -1456,51 +1456,51 @@ End Sub
 Dim AnimStep
 Sub ShootGently:AnimStep=1:TimerJaw.Enabled=1:End Sub
 Sub TimerJaw_Timer()
-	Select Case AnimStep
-		Case 1:Jaw.RotX = Jaw.RotX - 1
-			If Jaw.RotX = -8 Then:AnimStep=2:End If
-		Case 2:Jaw.RotX = Jaw.RotX + 1
-			If Jaw.RotX = 0 Then:AnimStep=3:End If
-		Case 3:Jaw.RotX = Jaw.RotX - 1
-			If Jaw.RotX = -8 Then:AnimStep=4:End If
-		Case 4:Jaw.RotX = Jaw.RotX + 1
-			If Jaw.RotX = 0 Then:AnimStep=5:End If
-		Case 5:Jaw.RotX = Jaw.RotX - 1
-			If Jaw.RotX = -8 Then:AnimStep=6:End If
-		Case 6:Jaw.RotX = Jaw.RotX + 1
-			If Jaw.RotX = 0 Then:TimerJaw.Enabled = 0:End If
-	End Select
+  Select Case AnimStep
+    Case 1:Jaw.RotX = Jaw.RotX - 1
+      If Jaw.RotX = -8 Then:AnimStep=2:End If
+    Case 2:Jaw.RotX = Jaw.RotX + 1
+      If Jaw.RotX = 0 Then:AnimStep=3:End If
+    Case 3:Jaw.RotX = Jaw.RotX - 1
+      If Jaw.RotX = -8 Then:AnimStep=4:End If
+    Case 4:Jaw.RotX = Jaw.RotX + 1
+      If Jaw.RotX = 0 Then:AnimStep=5:End If
+    Case 5:Jaw.RotX = Jaw.RotX - 1
+      If Jaw.RotX = -8 Then:AnimStep=6:End If
+    Case 6:Jaw.RotX = Jaw.RotX + 1
+      If Jaw.RotX = 0 Then:TimerJaw.Enabled = 0:End If
+  End Select
 End Sub
 
 Dim AnimStep1
 Sub LegsAnim:AnimStep1=1:TimerLegs.Enabled=1:End Sub
 Sub TimerLegs_Timer()
-	Select Case AnimStep1
-		Case 1:LegSx.RotX = LegSx.RotX - 1:LegDx.RotX = LegDx.RotX + 1
-			If LegSx.RotX = -60 Then:AnimStep1=2:End If
-		Case 2:LegSx.RotX = LegSx.RotX + 2:LegDx.RotX = LegDx.RotX - 2
-			If LegSx.RotX = -40 Then:AnimStep1=3:End If
-		Case 3:LegSx.RotX = LegSx.RotX - 2:LegDx.RotX = LegDx.RotX + 2
-			If LegSx.RotX = -70 Then:AnimStep1=4:End If
-		Case 4:LegSx.RotX = LegSx.RotX + 1:LegDx.RotX = LegDx.RotX - 1
-			If LegSx.RotX = -0 Then:TimerLegs.Enabled = 0:End If
-	End Select
+  Select Case AnimStep1
+    Case 1:LegSx.RotX = LegSx.RotX - 1:LegDx.RotX = LegDx.RotX + 1
+      If LegSx.RotX = -60 Then:AnimStep1=2:End If
+    Case 2:LegSx.RotX = LegSx.RotX + 2:LegDx.RotX = LegDx.RotX - 2
+      If LegSx.RotX = -40 Then:AnimStep1=3:End If
+    Case 3:LegSx.RotX = LegSx.RotX - 2:LegDx.RotX = LegDx.RotX + 2
+      If LegSx.RotX = -70 Then:AnimStep1=4:End If
+    Case 4:LegSx.RotX = LegSx.RotX + 1:LegDx.RotX = LegDx.RotX - 1
+      If LegSx.RotX = -0 Then:TimerLegs.Enabled = 0:End If
+  End Select
 End Sub
 
 'He he heeee
 'Dim AnimStep1
 'Sub Heheheeee:AnimStep1=1:TimerJaw.Enabled=1:End Sub
 'Sub TimerJaw_Timer
-'	Select Case AnimStep1
-'		Case 1:Jaw.RotX = -6:AnimStep1=2
-'		Case 2:Jaw.RotX = 0 :AnimStep1=3
-'		Case 3:Jaw.RotX = -6:AnimStep1=4
-'		Case 4:Jaw.RotX = 0 :AnimStep1=5
-'		Case 5:Jaw.RotX = -6:AnimStep1=6
-'		Case 6:AnimStep1=7 'pause
-'		Case 7:AnimStep1=8 'pause
-'		Case 8:Jaw.RotX = 0:TimerJaw.Enabled = 0
-'	End Select
+' Select Case AnimStep1
+'   Case 1:Jaw.RotX = -6:AnimStep1=2
+'   Case 2:Jaw.RotX = 0 :AnimStep1=3
+'   Case 3:Jaw.RotX = -6:AnimStep1=4
+'   Case 4:Jaw.RotX = 0 :AnimStep1=5
+'   Case 5:Jaw.RotX = -6:AnimStep1=6
+'   Case 6:AnimStep1=7 'pause
+'   Case 7:AnimStep1=8 'pause
+'   Case 8:Jaw.RotX = 0:TimerJaw.Enabled = 0
+' End Select
 'End Sub
 
 

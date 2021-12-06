@@ -194,13 +194,13 @@ Sub Table1_Init
     lampSpinSpeed = 0:lampLastPos = -1:SpinTimer.Enabled = True ' force update
     UpdateGI 0, 1:UpdateGI 1, 1:UpdateGI 2, 1
 
-	' Remove the cabinet rails if in FS mode
-	If Table1.ShowDT = False then
-		lrail.Visible = False
-		rrail.Visible = False
-		'ramp4.Visible = False
-		'ramp5.Visible = False
-	End If
+  ' Remove the cabinet rails if in FS mode
+  If Table1.ShowDT = False then
+    lrail.Visible = False
+    rrail.Visible = False
+    'ramp4.Visible = False
+    'ramp5.Visible = False
+  End If
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -215,7 +215,7 @@ Sub UpdateGI(no, step)
     Dim ii
     If step = 0 then exit sub 'only values from 1 to 8 are visible and reliable. 0 is not reliable and 7 & 8 are the same so...
     gistep = (step-1) / 7
-	DOF 200, gistep
+  DOF 200, gistep
     Select Case no
         Case 0
             For each ii in aGiLLights
@@ -619,7 +619,7 @@ Const cBallSpeedDampeningEffect = 0.45 ' 45 - The ball retains this fraction of 
 
 ' Draw lamp
 Sub SpinTimer_Timer
-	DOF 103,DOFOn
+  DOF 103,DOFOn
     Dim curPos
     Dim oldLampSpeed:oldLampSpeed = lampSpinSpeed
     lampPosition = lampPosition + lampSpinSpeed * Me.Interval / 1000
@@ -656,7 +656,7 @@ Sub SpinTimer_Timer
     If Abs(lampSpinSpeed) < cLampMinSpeed Then
         lampSpinSpeed = 0:Me.Enabled = False
     End If
-	DOF 103, DOFOff
+  DOF 103, DOFOff
 End Sub
 
 Sub colLampPoles_Hit(idx)
@@ -964,7 +964,7 @@ Sub SetLamp(nr, value)
 End Sub
 
 Sub SetModLamp(nr, level)
-	FlashLevel(nr) = level /150 'lights & flashers
+  FlashLevel(nr) = level /150 'lights & flashers
 End Sub
 
 ' Lights: used for VP10 standard lights, the fading is handled by VP itself
@@ -985,7 +985,7 @@ End Sub
 
 Sub LightMod(nr, object) ' modulated lights used as flashers
     Object.IntensityScale = FlashLevel(nr)
-	Object.State = 1
+  Object.State = 1
 End Sub
 
 'Lights, Ramps & Primitives used as 4 step fading lights

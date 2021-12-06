@@ -176,10 +176,10 @@ Sub GameTimer_Timer
     b3p.TransZ = - bumper3f.CurrentAngle
     LeftFlipperP.Rotz = LeftFlipper.CurrentAngle
     RightFlipperP.Rotz = RightFlipper.CurrentAngle
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
     DummyUpdate
-	RocketUpdate
+  RocketUpdate
 End Sub
 
 '*********
@@ -368,11 +368,11 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
 End Sub
 
 Sub LeftFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
 End Sub
 
 Sub RandomSoundFlipper()
@@ -480,7 +480,7 @@ Sub SolBackPopper(Enabled)
         Controller.Switch(41) = 0
         sw41.CreateBall
         sw41.Kick 190, 26
-		RocketShake
+    RocketShake
         if Controller.Switch(31) then
             Controller.Switch(31) = 0
             Controller.Switch(41) = 1
@@ -919,17 +919,17 @@ Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(Active
 Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 '
 'sub FlipperTimer_Timer()
-'	FlipperLSh.RotZ = LeftFlipper.currentangle
-'	FlipperRSh.RotZ = RightFlipper.currentangle
+' FlipperLSh.RotZ = LeftFlipper.currentangle
+' FlipperRSh.RotZ = RightFlipper.currentangle
 '
 'End Sub
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5,BallShadow6,BallShadow7,BallShadow8)

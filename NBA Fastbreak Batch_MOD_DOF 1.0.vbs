@@ -69,14 +69,14 @@ Const SCoin = "fx_coin"
 Set GiCallback2 = GetRef("UpdateGI")
 
 sub updategi (no, Enabled)
-	if Enabled Then
-		DOF 101, DOFOn
-		debug.print "ON"
-	Else
-		DOF 101, DOFOff
-		debug.print "OFF"
-	End if
-'	Eval("textbox"&no).text=enabled
+  if Enabled Then
+    DOF 101, DOFOn
+    debug.print "ON"
+  Else
+    DOF 101, DOFOff
+    debug.print "OFF"
+  End if
+' Eval("textbox"&no).text=enabled
 end sub
 
 Set MotorCallback = GetRef("GameTimer") 'realtime updates - flipper logos, rolling sound
@@ -450,19 +450,19 @@ Sub sw28_Timer:sw28.IsDropped = 0:sw28a.IsDropped = 1:Me.TimerEnabled = 0:End Su
 '***********
 
 SolCallBack(1) = "Auto_Plunger"
-'SolCallBack(2)	= Not Used
+'SolCallBack(2) = Not Used
 SolCallBack(3) = "vpmSolWall Diverter2,True,"
 SolCallBack(4) = "vpmSolWall Diverter1,True,"
 SolCallBack(5) = "bsEject.SolOut"
 SolCallBack(6) = "RightGate.Open ="
 'SolCallBack(7) = "SolBasket"
-'SolCallBack(8)	' magnet - handled in the magnet definition
+'SolCallBack(8) ' magnet - handled in the magnet definition
 SolCallBack(9) = "bsTrough.SolOut"
-'SolCallBack(10)	= "vpmSolSound ""lSling"","
-'SolCallBack(11)	= "vpmSolSound ""lSling"","
-'SolCallBack(12)	= "vpmSolSound ""Jet1"","
-'SolCallBack(13)	= "vpmSolSound ""Jet1"","
-'SolCallBack(14)	= "vpmSolSound ""Jet1"","
+'SolCallBack(10)  = "vpmSolSound ""lSling"","
+'SolCallBack(11)  = "vpmSolSound ""lSling"","
+'SolCallBack(12)  = "vpmSolSound ""Jet1"","
+'SolCallBack(13)  = "vpmSolSound ""Jet1"","
+'SolCallBack(14)  = "vpmSolSound ""Jet1"","
 
 SolCallBack(15) = "PassRight2"
 SolCallBack(16) = "PassLeft2"
@@ -483,8 +483,8 @@ SolCallBack(33) = "bsSaucer1.SolOut"
 SolCallBack(34) = "bsSaucer2.SolOut"
 SolCallBack(35) = "bsSaucer3.SolOut"
 SolCallBack(36) = "bsSaucer4.SolOut"
-'SolCallBack(37)	= Motor Enable (defender) - handled in the mech
-'SolCallBack(38)	= Motor Direction (defender) - handled in the mech
+'SolCallBack(37)  = Motor Enable (defender) - handled in the mech
+'SolCallBack(38)  = Motor Direction (defender) - handled in the mech
 SolCallBack(39) = "ClockEnable"
 SolCallBack(40) = "ClockCount"
 
@@ -832,16 +832,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -999,20 +999,20 @@ flash 78,f78
 
     ' flashers old
 '   fadeobj 117, f17, "rf_on", "rf_a", "rf_b", "empty"
-'	NFadeLm 118, bumper1
-'	fadeobj 118, f18, "rf_on", "rf_a", "rf_b", "empty"
+' NFadeLm 118, bumper1
+' fadeobj 118, f18, "rf_on", "rf_a", "rf_b", "empty"
 '   fadeobj 119, f19, "wf_on", "wf_a", "wf_b", "empty"
 '   fadeobj 120, f20, "bf_on", "bf_a", "bf_b", "empty"
 '   fadeobjm 124, f24, "wf_on", "wf_a", "wf_b", "empty"
 '   fadeobj 124, f24b, "bf_on", "bf_a", "bf_b", "empty"
 
-'	flashers new
-	flash 117,f17
-	flash 118,f18
-	flash 119,f19
-	flash 120,f20
-	flashm 124,f24b
-	flash 124,f24
+' flashers new
+  flash 117,f17
+  flash 118,f18
+  flash 119,f19
+  flash 120,f20
+  flashm 124,f24b
+  flash 124,f24
 End Sub
 
 ' div lamp subs

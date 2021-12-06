@@ -62,7 +62,7 @@ SolCallback(1)  = "bsTrough.SolIn"
 SolCallback(2)  = "bsTrough.SolOut"
 SolCallback(4)  = "bsLScoop.SolOut"
 SolCallback(5)  = "bsRScoop.SolOut"
-SolCallback(6)	= "dtMDrop.SolDropUp"
+SolCallback(6)  = "dtMDrop.SolDropUp"
 SolCallback(7)  = "dtRDrop.SolDropUp"
 SolCallback(9)  = "SolFlasher9"
 SolCallback(10) = "SolGi"
@@ -95,30 +95,30 @@ Sub Table1_Init
         .GameName = cGameName
         If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
         .SplashInfoLine = "Lethal Weapon 3" & vbNewLine & "VPX table by Javier v1.0"
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 1
-		.Hidden = 0
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 1
+    .Hidden = 0
         .Games(cGameName).Settings.Value("sound") = 1
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-	End With
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+  End With
     On Error Goto 0
 
 
 
     ' Nudging
     vpmNudge.TiltSwitch = 1
-	vpmNudge.Sensitivity = 2
+  vpmNudge.Sensitivity = 2
     vpmNudge.tiltobj = Array(LeftSlingShot,RightSlingShot,LBumper,RBumper,BBumper)
 
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
-	'Drain & BallRelease
+  'Drain & BallRelease
      Set bsTrough=new cvpmBallStack
      With bsTrough
         .InitSw 10,13,12,11,0,0,0,0
@@ -142,18 +142,18 @@ Sub Table1_Init
     End With
 
      ' Scoop Right
-	Set bsRScoop = New cvpmBallStack
-	With bsRScoop
-	    .InitSaucer Sw32, 32, 270, 17
+  Set bsRScoop = New cvpmBallStack
+  With bsRScoop
+      .InitSaucer Sw32, 32, 270, 17
         .KickZ = 0.33
         .InitExitSnd "salidadebola", SoundFX("fx_Solenoid",DOFContactors)
     End With
 
 
      ' Scoop Left
-	Set bsLScoop = New cvpmBallStack
-	With bsLScoop
-	     .InitSaucer Sw40, 40, 172, 17
+  Set bsLScoop = New cvpmBallStack
+  With bsLScoop
+       .InitSaucer Sw40, 40, 172, 17
         .KickZ = 0.33
         .InitExitSnd "salidadebola", SoundFX("fx_Solenoid",DOFContactors)
     End With
@@ -168,16 +168,16 @@ Sub Table1_Init
     End With
 
 
-  	Set dtMDrop=New cvpmDropTarget
+    Set dtMDrop=New cvpmDropTarget
     With dtMDrop
-	    .InitDrop Array(Sw25,Sw26,Sw27), Array(25,26,27)
-	    .InitSnd SoundFX("fx_target",DOFContactors),SoundFX("fx_resetdrop",DOFContactors)
+      .InitDrop Array(Sw25,Sw26,Sw27), Array(25,26,27)
+      .InitSnd SoundFX("fx_target",DOFContactors),SoundFX("fx_resetdrop",DOFContactors)
     End With
 
-  	Set dtRDrop=New cvpmDropTarget
+    Set dtRDrop=New cvpmDropTarget
     With dtRDrop
-	    .InitDrop Array(Sw33,Sw34,Sw35), Array(33,34,35)
-	    .InitSnd SoundFX("fx_target",DOFContactors),SoundFX("fx_resetdrop",DOFContactors)
+      .InitDrop Array(Sw33,Sw34,Sw35), Array(33,34,35)
+      .InitSnd SoundFX("fx_target",DOFContactors),SoundFX("fx_resetdrop",DOFContactors)
     End With
 
 
@@ -205,14 +205,14 @@ End Sub
 
 ' KarateKid
 Sub SolKickBack(Enabled)
-	If Enabled Then
+  If Enabled Then
         PlaysoundAtVol "bumper_retro", LaserKickP1, 1
-		LaserKick.Enabled=True
+    LaserKick.Enabled=True
         LaserKickP1.TransY = 90
-	Else
-		LaserKick.Enabled=False
+  Else
+    LaserKick.Enabled=False
         vpmtimer.addtimer 500, "LaserKickRes '"
-	End If
+  End If
 End Sub
 Sub LaserKick_Hit: Me.Kick 0,35 End Sub
 
@@ -648,7 +648,7 @@ Sub LampTimer_Timer()
             FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
         Next
     End If
-	UpdateLamps
+  UpdateLamps
 End Sub
 
 Sub InitLamps()
@@ -847,15 +847,15 @@ End Sub
 
 Sub SetLampMod(nr, value)
     If value > 0 Then
-		LampState(nr) = 1
-	Else
-		LampState(nr) = 0
-	End If
-	FadingLevel(nr) = value
+    LampState(nr) = 1
+  Else
+    LampState(nr) = 0
+  End If
+  FadingLevel(nr) = value
 End Sub
 
 Sub FlashMod(nr, object)
-	Object.IntensityScale = FadingLevel(nr)/255
+  Object.IntensityScale = FadingLevel(nr)/255
 End Sub
 
 Sub LampMod(nr, object)

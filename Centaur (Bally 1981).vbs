@@ -42,7 +42,7 @@ LoadVPM "01000100", "Bally.VBS", 2.24
 
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
-Dim BallShadows: Ballshadows=1  		'******************set to 1 to turn on Ball shadows
+Dim BallShadows: Ballshadows=1      '******************set to 1 to turn on Ball shadows
 Dim FlipperShadows: FlipperShadows=1  '***********set to 1 to turn on Flipper shadows
 
 If DesktopMode = True Then 'Show Desktop components
@@ -58,40 +58,40 @@ EnableBallControl = false 'Change to true to enable manual ball control (or pres
 
 'Solenoid Call backs
 '**********************************************************************************************************
-SolCallback(1)	=  "dtM.soldropup"
-SolCallback(2)	= "Drop1"
-SolCallback(3)	= "Drop2"
-SolCallback(4)	= "Drop3"
-SolCallback(5)	= "Drop4"
+SolCallback(1)  =  "dtM.soldropup"
+SolCallback(2)  = "Drop1"
+SolCallback(3)  = "Drop2"
+SolCallback(4)  = "Drop3"
+SolCallback(5)  = "Drop4"
 SolCallback(6)  = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
-SolCallback(7)	= "SRelease"
-SolCallback(8)	=  "dtLLdrop"
-SolCallback(9)	=  "dtLRdrop"
-SolCallback(14)	= "OrbsOut"
-SolCallback(15)	= "BRelease"
-SolCallback(19)	= "vpmNudge.SolGameOn"
-'SolCallback(20)	= "Rmag"
+SolCallback(7)  = "SRelease"
+SolCallback(8)  =  "dtLLdrop"
+SolCallback(9)  =  "dtLRdrop"
+SolCallback(14) = "OrbsOut"
+SolCallback(15) = "BRelease"
+SolCallback(19) = "vpmNudge.SolGameOn"
+'SolCallback(20)  = "Rmag"
 'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,nothing,"
 'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,nothing,"
 
-	SolCallback(sLRFlipper) = "SolRFlipper"
-	SolCallback(sLLFlipper) = "SolLFlipper"
+  SolCallback(sLRFlipper) = "SolRFlipper"
+  SolCallback(sLLFlipper) = "SolLFlipper"
 
-	Sub SolLFlipper(Enabled)
-		 If Enabled Then
-			 PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToEnd
-		 Else
-			 PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToStart
-		 End If
-	  End Sub
+  Sub SolLFlipper(Enabled)
+     If Enabled Then
+       PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToEnd
+     Else
+       PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), LeftFlipper, VolFlip:LeftFlipper.RotateToStart
+     End If
+    End Sub
 
-	Sub SolRFlipper(Enabled)
-		 If Enabled Then
-			 PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToEnd
-		 Else
-			 PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToStart
-		 End If
-	End Sub
+  Sub SolRFlipper(Enabled)
+     If Enabled Then
+       PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToEnd
+     Else
+       PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipper, VolFlip:RightFlipper.RotateToStart
+     End If
+  End Sub
 
 'Solenoid Controlled toys
 '**********************************************************************************************************
@@ -102,82 +102,82 @@ Sub Drop4(enabled) : If enabled Then: PlaySoundAt SoundFX("DTReset",DOFDropTarge
 
 Sub SRelease(enabled)
  If enabled Then
-	If bsTrough.balls > 0 Then
-		If bsTroughO.balls = 4 Then
-			bsTrough.SolOut 1
-			BallRelease.Createball
-			BallRelease.Kick 150,7
+  If bsTrough.balls > 0 Then
+    If bsTroughO.balls = 4 Then
+      bsTrough.SolOut 1
+      BallRelease.Createball
+      BallRelease.Kick 150,7
  Else
-			bsTrough.SolOut 1
-			bsTroughO.AddBall 1
-		End If
+      bsTrough.SolOut 1
+      bsTroughO.AddBall 1
+    End If
   End If
  End If
 End Sub
 
 Sub BRelease(enabled)
-	If enabled and bsTroughO.balls > 0 Then
-		bsTroughO.SolOut 1
-		bsTroughE.Addball 1
-	End If
+  If enabled and bsTroughO.balls > 0 Then
+    bsTroughO.SolOut 1
+    bsTroughE.Addball 1
+  End If
 End Sub
 
  Sub OrbsOut(enabled)
-	If enabled Then
-		If bsTroughE.balls > 0 Then
-			vpmtimer.addtimer 800,"OrbEject"
-		End If
-	End If
+  If enabled Then
+    If bsTroughE.balls > 0 Then
+      vpmtimer.addtimer 800,"OrbEject"
+    End If
+  End If
 End Sub
 
  'Orb Ejection and End of Trough Switch
 Sub OrbEject(aSw)
-	If bsTroughE.balls > 0 Then
-		bsTroughE.SolOut 1
-		PlaySoundAt "wireramp", multiguard_prim ', -1, 0.1, 0.5
-		Release2.CreateBall
-		Release2.Kick 0,(57+(5*Rnd))
-		vpmtimer.pulsesw 33 ' End of Trough Switch
+  If bsTroughE.balls > 0 Then
+    bsTroughE.SolOut 1
+    PlaySoundAt "wireramp", multiguard_prim ', -1, 0.1, 0.5
+    Release2.CreateBall
+    Release2.Kick 0,(57+(5*Rnd))
+    vpmtimer.pulsesw 33 ' End of Trough Switch
       end If
 End Sub
 
 Sub DTLLdrop(enabled)
-	if enabled then
-		dtLL.SolDropUp enabled
-	bank1shadow.Image="bank2"
-	bank2shadow.Image="bank3"
-	bank3shadow.Image="bank4"
-	end if
+  if enabled then
+    dtLL.SolDropUp enabled
+  bank1shadow.Image="bank2"
+  bank2shadow.Image="bank3"
+  bank3shadow.Image="bank4"
+  end if
 End Sub
 
 Sub DTLRdrop(enabled)
-	if enabled then
-		dtLR.SolDropUp enabled
-	drop1shadow.Image="drop1"
-	drop2shadow.Image="drop2"
-	drop3shadow.Image="drop3"
-	drop4shadow.Image="drop4"
-	end if
+  if enabled then
+    dtLR.SolDropUp enabled
+  drop1shadow.Image="drop1"
+  drop2shadow.Image="drop2"
+  drop3shadow.Image="drop3"
+  drop4shadow.Image="drop4"
+  end if
 End Sub
 
 Sub Trigger1_hit
-	me.timerenabled=1
+  me.timerenabled=1
 End sub
 
 Sub Trigger1_timer
-	multiguard_prim.objrotx=-8
-	me.timerenabled=0
+  multiguard_prim.objrotx=-8
+  me.timerenabled=0
 End sub
 
 Sub Trigger2_hit
-	stopsound "wireramp"
-	trigger1.timerenabled=0
-	me.timerenabled=1
+  stopsound "wireramp"
+  trigger1.timerenabled=0
+  me.timerenabled=1
 end sub
 
 Sub Trigger2_timer
-	multiguard_prim.objrotx=0
-	me.timerenabled=0
+  multiguard_prim.objrotx=0
+  me.timerenabled=0
 End sub
 
 '**********************************************************************************************************
@@ -188,71 +188,71 @@ End sub
 Dim bsTrough, bsTroughE, bsTroughO, dtLR, dtM, dtLL, RMag
 
 Sub Table1_Init
-	vpmInit Me
-'	On Error Resume Next
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Centaur (Bally 1981)"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+' On Error Resume Next
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Centaur (Bally 1981)"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .hidden = 1
-		If Err Then MsgBox Err.Description
-	End With
-	On Error Goto 0
-		Controller.SolMask(0)=0
+    If Err Then MsgBox Err.Description
+  End With
+  On Error Goto 0
+    Controller.SolMask(0)=0
       vpmTimer.AddTimer 2000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
-		Controller.Run
-	If Err Then MsgBox Err.Description
-	On Error Goto 0
+    Controller.Run
+  If Err Then MsgBox Err.Description
+  On Error Goto 0
 
 
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
-	vpmNudge.TiltSwitch = 15
-	vpmNudge.Sensitivity = 3
-	vpmNudge.TiltObj = Array(Bumper1,Bumper2,LeftSlingshot,RightSlingshot)
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
+  vpmNudge.TiltSwitch = 15
+  vpmNudge.Sensitivity = 3
+  vpmNudge.TiltObj = Array(Bumper1,Bumper2,LeftSlingshot,RightSlingshot)
 
- 	Set bsTrough = New cvpmBallStack
-		bsTrough.Initsw 0,8,0,0,0,0,0,0
-	    bsTrough.InitExitSnd SoundFX("BallRelease",DOFContactors),SoundFX("solenoid",DOFContactors)
-		bsTrough.Balls = 1
-		bsTrough.CreateEvents "bsTrough", Drain
+  Set bsTrough = New cvpmBallStack
+    bsTrough.Initsw 0,8,0,0,0,0,0,0
+      bsTrough.InitExitSnd SoundFX("BallRelease",DOFContactors),SoundFX("solenoid",DOFContactors)
+    bsTrough.Balls = 1
+    bsTrough.CreateEvents "bsTrough", Drain
 
-	Set bsTroughE = New cvpmBallStack
-		bsTroughE.Initsw 0,0,0,0,0,0,0,0
-	    bsTroughE.InitExitSnd SoundFX("BallRelease",DOFContactors),SoundFX("solenoid",DOFContactors)
+  Set bsTroughE = New cvpmBallStack
+    bsTroughE.Initsw 0,0,0,0,0,0,0,0
+      bsTroughE.InitExitSnd SoundFX("BallRelease",DOFContactors),SoundFX("solenoid",DOFContactors)
 
-	Set bsTroughO = New cvpmBallStack
-		bsTroughO.Initsw 0,17,0,0,1,2,0,0
-		bsTroughO.IsTrough = 1
-		bsTroughO.Balls = 4
+  Set bsTroughO = New cvpmBallStack
+    bsTroughO.Initsw 0,17,0,0,1,2,0,0
+    bsTroughO.IsTrough = 1
+    bsTroughO.Balls = 4
 
- 	Set dtLR=New cvpmDropTarget
-		dtLR.InitDrop Array(sw25,sw26,sw27,sw28),Array(25,26,27,28)
-		dtLR.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
+  Set dtLR=New cvpmDropTarget
+    dtLR.InitDrop Array(sw25,sw26,sw27,sw28),Array(25,26,27,28)
+    dtLR.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
 
- 	Set dtM=New cvpmDropTarget
-		dtM.InitDrop Array(sw29,sw30,sw31,sw32),Array(29,30,31,32)
-		dtM.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
+  Set dtM=New cvpmDropTarget
+    dtM.InitDrop Array(sw29,sw30,sw31,sw32),Array(29,30,31,32)
+    dtM.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
 
-  	Set dtLL=New cvpmDropTarget
-		dtLL.InitDrop Array(sw41,sw42,sw43,sw44),Array(41,42,43,44)
-		dtLL.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
+    Set dtLL=New cvpmDropTarget
+    dtLL.InitDrop Array(sw41,sw42,sw43,sw44),Array(41,42,43,44)
+    dtLL.InitSnd SoundFX("DTDrop",DOFDropTargets),SoundFX("DTReset",DOFContactors)
 
- 	Set RMag = New cvpmMagnet
-		with Rmag
-	    .initMagnet MagTrigger, 18
-		.GrabCenter=False
-'	    .X = 836
-'	    .Y = 318
+  Set RMag = New cvpmMagnet
+    with Rmag
+      .initMagnet MagTrigger, 18
+    .GrabCenter=False
+'     .X = 836
+'     .Y = 318
 '        .Size = 60
-		.solenoid = 20
-		.CreateEvents "Rmag"
-		end with
+    .solenoid = 20
+    .CreateEvents "Rmag"
+    end with
 
 '    Set mTLMag= New cvpmMagnet
 '    With mTLMag
@@ -263,8 +263,8 @@ Sub Table1_Init
 '        .CreateEvents "mTLMag"
 '    End With
 
-	CapKicker.CreateBall
-	CapKicker.Kick 180,2
+  CapKicker.CreateBall
+  CapKicker.Kick 180,2
 End Sub
 
 '**********************************************************************************************************
@@ -272,53 +272,53 @@ End Sub
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-'if keycode=rightmagnasave then					'***********used for testing power orb ramp
+'if keycode=rightmagnasave then         '***********used for testing power orb ramp
 '    PlaySound "wireramp" ', -1, 0.1, 0.5
-'  	Release2.CreateBall
-'	Release2.Kick 0,(57+(5*Rnd))
+'   Release2.CreateBall
+' Release2.Kick 0,(57+(5*Rnd))
 'end if
-	if keycode = RightFlipperKey then Controller.Switch(21) = false
-	if keycode = LeftFlipperKey then Controller.Switch(21) = false
-	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:playsoundat "plungerpull", Plunger
+  if keycode = RightFlipperKey then Controller.Switch(21) = false
+  if keycode = LeftFlipperKey then Controller.Switch(21) = false
+  If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:playsoundat "plungerpull", Plunger
 
    ' Manual Ball Control
-	If keycode = 46 Then	 				' C Key
-		If EnableBallControl = 1 Then
-			EnableBallControl = 0
-		Else
-			EnableBallControl = 1
-		End If
-	End If
+  If keycode = 46 Then          ' C Key
     If EnableBallControl = 1 Then
-		If keycode = 48 Then 				' B Key
-			If BCboost = 1 Then
-				BCboost = BCboostmulti
-			Else
-				BCboost = 1
-			End If
-		End If
-		If keycode = 203 Then BCleft = 1	' Left Arrow
-		If keycode = 200 Then BCup = 1		' Up Arrow
-		If keycode = 208 Then BCdown = 1	' Down Arrow
-		If keycode = 205 Then BCright = 1	' Right Arrow
-	End If
+      EnableBallControl = 0
+    Else
+      EnableBallControl = 1
+    End If
+  End If
+    If EnableBallControl = 1 Then
+    If keycode = 48 Then        ' B Key
+      If BCboost = 1 Then
+        BCboost = BCboostmulti
+      Else
+        BCboost = 1
+      End If
+    End If
+    If keycode = 203 Then BCleft = 1  ' Left Arrow
+    If keycode = 200 Then BCup = 1    ' Up Arrow
+    If keycode = 208 Then BCdown = 1  ' Down Arrow
+    If keycode = 205 Then BCright = 1 ' Right Arrow
+  End If
 
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	if keycode = RightFlipperKey then Controller.Switch(21) = true
-	if keycode = LeftFlipperKey then Controller.Switch(21) = true
-	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
+  if keycode = RightFlipperKey then Controller.Switch(21) = true
+  if keycode = LeftFlipperKey then Controller.Switch(21) = true
+  If KeyUpHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
 
     'Manual Ball Control
-	If EnableBallControl = 1 Then
-		If keycode = 203 Then BCleft = 0	' Left Arrow
-		If keycode = 200 Then BCup = 0		' Up Arrow
-		If keycode = 208 Then BCdown = 0	' Down Arrow
-		If keycode = 205 Then BCright = 0	' Right Arrow
-	End If
+  If EnableBallControl = 1 Then
+    If keycode = 203 Then BCleft = 0  ' Left Arrow
+    If keycode = 200 Then BCup = 0    ' Up Arrow
+    If keycode = 208 Then BCdown = 0  ' Down Arrow
+    If keycode = 205 Then BCright = 0 ' Right Arrow
+  End If
 
 End Sub
 '**********************************************************************************************************
@@ -393,96 +393,96 @@ End Sub
  N1=0:O1=0:N2=0:O2=0:N3=0:O3=0:
  Set LampCallback=GetRef("UpdateMultipleLamps")
  Sub UpdateMultipleLamps
- 	N1=Controller.Lamp(1) 'upper PF
-  	N2=Controller.Lamp(66) 'Right lower PF
- 	N3=Controller.Lamp(82) 'Left lower PF
- 	If N1<>O1 Then
- 		If N1 Then
-			dim xx
-			GION=1
-			For each xx in GI1:xx.State = 1: Next
-			metalright_prm.image="rightmetal"
-			plasticsedgesGI1_prim.image="edgegi1"
-			outerback_prim.image="outerback"
-			woodlrightupper_prim.image="woodtopright"
-			reargatebracket_prim.image="backgate"
-			bumperring1_prim.image="bumperring1GION"
-			bumperring2_prim.image="bumperring2GION"
-			brackets_prim.image="gatebrackets"
-			leftgatebracket_prim.image="leftgate"
-			If l115.state=1 Then
-				metalouter_prm.image="outermetalLAIRON"
-			Else
-				metalouter_prm.image="outermetal"
-			End If
-			If l100.state=0 Then
-				metalrear_prm.image="backmetalSTAROFF"
-			Else
-				metalrear_prm.image="backmetal"
-			End If
-		Else
-			For each xx in GI1:xx.State = 0: Next
-			GION=0
-			metalright_prm.image="rightmetalGIOFF"
-			plasticsedgesGI1_prim.image="edgegi1GIOFF"
-			outerback_prim.image="outerbackGIOFF"
-			woodlrightupper_prim.image="woodtoprightGIOFF"
-			reargatebracket_prim.image="backgateGIOFF"
-			bumperring1_prim.image="bumperring1GIOFF"
-			bumperring2_prim.image="bumperring2GIOFF"
-			brackets_prim.image="gatebracketsGIOFF"
-			leftgatebracket_prim.image="leftgateGIOFF"
-			If l115.state=1 Then
-				metalouter_prm.image="outermetalGIOFFLAIRON"
-			Else
-				metalouter_prm.image="outermetalGIOFF"
-			End If
-			If l100.state=0 Then
-				metalrear_prm.image="backmetalGIOFFSTAROFF"
-			Else
-				metalrear_prm.image="backmetalGIOFF"
-			End If
-		End If
- 	O1=N1
-	End If
- 	If N2<>O2 Then
- 		If N2 Then
-			dim mm
-			For each mm in GI2:mm.State = 1: Next
-			plasticsedgesGI2_prim.image="edgegi2"
-			outerright_prim.image="outerright"
-			woodlrightlower_prim.image="rightwood"
-			plasticsedgeslowerGI2_prim.image="edgelowerGI2"
-'			flasher1.visible=1
-'			flasher2.visible=0
-		Else
-			For each mm in GI2:mm.State = 0: Next
-			plasticsedgesGI2_prim.image="edgegi2GIOFF"
-			outerright_prim.image="outerrightGIOFF"
-			woodlrightlower_prim.image="rightwoodGIOFF"
-			plasticsedgeslowerGI2_prim.image="edgelowerGI2GIOFF"
-'			flasher1.visible=0
-'			flasher2.visible=1
-		End If
- 	O2=N2
-	End If
- 	If N3<>O3 Then
- 		If N3 Then
-			dim nn
-			For each nn in GI3:nn.State = 1: Next
-			plasticsedgesGI3_prim.image="edgegi3"
-			woodleftlow_prim.image="leftwoodlow"
-			outerleft_prim.image="outerleft"
-			plasticsedgeslowerGI3_prim.image="edgelowerGI3"
-		Else
-			For each nn in GI3:nn.State = 0: Next
-			plasticsedgesGI3_prim.image="edgegi3GIOFF"
-			woodleftlow_prim.image="leftwoodlowGIOFF"
-			outerleft_prim.image="outerleftGIOFF"
-			plasticsedgeslowerGI3_prim.image="edgelowerGI3"
-		End If
- 	O3=N3
-	End If
+  N1=Controller.Lamp(1) 'upper PF
+    N2=Controller.Lamp(66) 'Right lower PF
+  N3=Controller.Lamp(82) 'Left lower PF
+  If N1<>O1 Then
+    If N1 Then
+      dim xx
+      GION=1
+      For each xx in GI1:xx.State = 1: Next
+      metalright_prm.image="rightmetal"
+      plasticsedgesGI1_prim.image="edgegi1"
+      outerback_prim.image="outerback"
+      woodlrightupper_prim.image="woodtopright"
+      reargatebracket_prim.image="backgate"
+      bumperring1_prim.image="bumperring1GION"
+      bumperring2_prim.image="bumperring2GION"
+      brackets_prim.image="gatebrackets"
+      leftgatebracket_prim.image="leftgate"
+      If l115.state=1 Then
+        metalouter_prm.image="outermetalLAIRON"
+      Else
+        metalouter_prm.image="outermetal"
+      End If
+      If l100.state=0 Then
+        metalrear_prm.image="backmetalSTAROFF"
+      Else
+        metalrear_prm.image="backmetal"
+      End If
+    Else
+      For each xx in GI1:xx.State = 0: Next
+      GION=0
+      metalright_prm.image="rightmetalGIOFF"
+      plasticsedgesGI1_prim.image="edgegi1GIOFF"
+      outerback_prim.image="outerbackGIOFF"
+      woodlrightupper_prim.image="woodtoprightGIOFF"
+      reargatebracket_prim.image="backgateGIOFF"
+      bumperring1_prim.image="bumperring1GIOFF"
+      bumperring2_prim.image="bumperring2GIOFF"
+      brackets_prim.image="gatebracketsGIOFF"
+      leftgatebracket_prim.image="leftgateGIOFF"
+      If l115.state=1 Then
+        metalouter_prm.image="outermetalGIOFFLAIRON"
+      Else
+        metalouter_prm.image="outermetalGIOFF"
+      End If
+      If l100.state=0 Then
+        metalrear_prm.image="backmetalGIOFFSTAROFF"
+      Else
+        metalrear_prm.image="backmetalGIOFF"
+      End If
+    End If
+  O1=N1
+  End If
+  If N2<>O2 Then
+    If N2 Then
+      dim mm
+      For each mm in GI2:mm.State = 1: Next
+      plasticsedgesGI2_prim.image="edgegi2"
+      outerright_prim.image="outerright"
+      woodlrightlower_prim.image="rightwood"
+      plasticsedgeslowerGI2_prim.image="edgelowerGI2"
+'     flasher1.visible=1
+'     flasher2.visible=0
+    Else
+      For each mm in GI2:mm.State = 0: Next
+      plasticsedgesGI2_prim.image="edgegi2GIOFF"
+      outerright_prim.image="outerrightGIOFF"
+      woodlrightlower_prim.image="rightwoodGIOFF"
+      plasticsedgeslowerGI2_prim.image="edgelowerGI2GIOFF"
+'     flasher1.visible=0
+'     flasher2.visible=1
+    End If
+  O2=N2
+  End If
+  If N3<>O3 Then
+    If N3 Then
+      dim nn
+      For each nn in GI3:nn.State = 1: Next
+      plasticsedgesGI3_prim.image="edgegi3"
+      woodleftlow_prim.image="leftwoodlow"
+      outerleft_prim.image="outerleft"
+      plasticsedgeslowerGI3_prim.image="edgelowerGI3"
+    Else
+      For each nn in GI3:nn.State = 0: Next
+      plasticsedgesGI3_prim.image="edgegi3GIOFF"
+      woodleftlow_prim.image="leftwoodlowGIOFF"
+      outerleft_prim.image="outerleftGIOFF"
+      plasticsedgeslowerGI3_prim.image="edgelowerGI3"
+    End If
+  O3=N3
+  End If
  End Sub
 
 '***************************************************
@@ -515,406 +515,406 @@ Sub LampTimer_Timer()
 End Sub
 
 Sub UpdateLamps
-	NFadeLm 2, l2
-   	NFadeLm 2, l2a
-	NFadeLm 2, l2z
-	NFadeLm 3, l3
-   	NFadeLm 3, l3a
-	NFadeLm 3, l3z
-	NFadeLm 4, l4
-   	NFadeLm 4, l4a
-	NFadeLm 4, l4z
-	NFadeLm 5, l5
-   	NFadeLm 5, l5a
-	NFadeLm 5, l5z
-	NFadeLm 6, l6
-   	NFadeLm 6, l6a
-   	NFadeLm 6, l6b
-	NFadeLm 6, l6z
-	NFadeLm 7, l7
-   	NFadeLm 7, l7a
-	NFadeLm 7, l7z
-	NFadeLm 8, l8
-   	NFadeLm 8, l8a
-	NFadeLm 8, l8z
-	NFadeLm 9, l9
-   	NFadeLm 9, l9a
-	NFadeLm 9, l9z
-   	NFadeLm 10, l10
-   	NFadeLm 10, l10a
-   	NFadeLm 10, l10z
-   	NFadeLm 12, l12
-   	NFadeLm 12, l12a
-   	NFadeLm 12, l12z
-   	NFadeLm 14, l14
-   	NFadeLm 14, l14a
-   	NFadeLm 14, l14z
-   	NFadeLm 15, l15
-   	NFadeLm 15, l15a
-   	NFadeLm 15, l15b
-   	NFadeLm 15, l15z
-   	NFadeLm 17, l17
-   	NFadeLm 17, l17a
-   	NFadeLm 17, l17y
-   	NFadeLm 17, l17z
-   	NFadeLm 18, l18
-   	NFadeLm 18, l18a
-   	NFadeLm 18, l18z
-   	NFadeLm 19, l19
-   	NFadeLm 19, l19a
-   	NFadeLm 19, l19z
-   	NFadeLm 20, l20
-   	NFadeLm 20, l20a
-   	NFadeLm 20, l20z
-   	NFadeLm 21, l21
-   	NFadeLm 21, l21a
-   	NFadeLm 21, l21z
-   	NFadeLm 22, l22
-   	NFadeLm 22, l22a
-   	NFadeLm 22, l22z
-   	NFadeLm 23, l23
-   	NFadeLm 23, l23a
-   	NFadeLm 23, l23z
-   	NFadeLm 24, l24
-   	NFadeLm 24, l24a
-   	NFadeLm 24, l24z
-   	NFadeLm 25, l25
-   	NFadeLm 25, l25a
-   	NFadeLm 25, l25z
-   	NFadeLm 26, l26
-   	NFadeLm 26, l26a
-   	NFadeLm 26, l26z
-   	NFadeLm 28, l28
-   	NFadeLm 28, l28a
-   	NFadeLm 28, l28z
-   	NFadeLm 30, l30
-   	NFadeLm 30, l30a
-   	NFadeLm 30, l30z
-   	NFadeLm 31, l31
-   	NFadeLm 31, l31a
-   	NFadeLm 31, l31b
-   	NFadeLm 31, l31z
-   	NFadeLm 33, l33
-   	NFadeLm 33, l33a
-   	NFadeLm 33, l33z
-   	NFadeLm 34, l34
-   	NFadeLm 34, l34a
-   	NFadeLm 34, l34z
-   	NFadeLm 35, l35
-   	NFadeLm 35, l35a
-   	NFadeLm 35, l35z
-	NFadeLm 36, l36
-	NFadeLm 36, l36a
-	NFadeLm 36, l36b
-	NFadeLm 36, l36c
-	NFadeLm 36, l36z
-   	NFadeLm 37, l37
-   	NFadeLm 37, l37a
-   	NFadeLm 37, l37z
-   	NFadeLm 38, l38
-   	NFadeLm 38, l38a
-   	NFadeLm 38, l38b
-   	NFadeLm 38, l38z
-   	NFadeLm 39, l39
-   	NFadeLm 39, l39a
-   	NFadeLm 39, l39z
-   	NFadeLm 40, l40
-   	NFadeLm 40, l40a
-   	NFadeLm 40, l40z
-   	NFadeLm 41, l41
-   	NFadeLm 41, l41a
-   	NFadeLm 41, l41z
-   	NFadeLm 42, l42
-   	NFadeLm 42, l42a
-   	NFadeLm 42, l42z
-   	NFadeLm 44, l44
-   	NFadeLm 44, l44a
-   	NFadeLm 44, l44z
-   	NFadeLm 46, l46
-   	NFadeLm 46, l46a
-   	NFadeLm 46, l46z
-   	NFadeLm 47, l47
-   	NFadeLm 47, l47a
-   	NFadeLm 47, l47b
-   	NFadeLm 47, l47z
-   	NFadeLm 49, l49
-   	NFadeLm 49, l49a
-   	NFadeLm 49, l49z
-   	NFadeLm 50, l50
-   	NFadeLm 50, l50a
-   	NFadeLm 50, l50z
-   	NFadeLm 51, l51
-   	NFadeLm 51, l51a
-   	NFadeLm 51, l51z
-	NFadeLm 52, l52
-	NFadeLm 52, l52a
-	NFadeLm 52, l52b
-	NFadeLm 52, l52z
-   	NFadeLm 53, l53
-   	NFadeLm 53, l53a
-   	NFadeLm 53, l53z
-   	NFadeLm 54, l54
-   	NFadeLm 54, l54a
-   	NFadeLm 54, l54z
-   	NFadeLm 55, l55
-   	NFadeLm 55, l55a
-   	NFadeLm 55, l55z
-   	NFadeLm 56, l56
-   	NFadeLm 56, l56a
-   	NFadeLm 56, l56z
-	NFadeLm 57, l57
-	NFadeLm 57, l57a
-	NFadeLm 57, l57z
-   	NFadeLm 58, l58
-   	NFadeLm 58, l58a
-   	NFadeLm 58, l58z
-   	NFadeLm 59, l59
-   	NFadeLm 60, l60
-   	NFadeLm 60, l60a
-   	NFadeLm 60, l60z
-   	NFadeLm 62, l62
-   	NFadeLm 62, l62a
-   	NFadeLm 62, l62z
-   	NFadeLm 63, l63
-   	NFadeLm 63, l63a
-	NFadeLm 63, l63b
-   	NFadeLm 63, l63z
-   	NFadeLm 65, l65
-   	NFadeLm 65, l65a
-   	NFadeLm 65, l65z
-	Flash 66, Flasher1
-	SetLamp 166, 1-LampState(66)
-	Flash 166, Flasher2
-	Nfadelm 67, l67
-	Nfadelm 67, l67a
-	Nfadelm 67, l67b
-	Nfadelm 67, l67c
-	If l67.state=1 Then
-		If l83.state=0 Then
-			If l99.state=0 Then
-				If sw41.isdropped=0 Then
-					bank1shadow.image="bank1l1"
-					bank2shadow.image="bank2l1"
-					bank3shadow.image="bank3l1"
-				Else
-					If sw42.isdropped=0 Then
-						bank2shadow.image="bank2l1"
-						bank3shadow.image="bank3l1"
-					Else
-						If sw43.isdropped=0 Then
-							bank3shadow.image="bank3l1"
-						Else
-							bank3shadow.image="blank"
-						End If
-						bank2shadow.image="blank"
-					End If
-					bank1shadow.image="blank"
-				End If
-				plasticsedgesLair_prim.image="edgeslairL67"
-				bankshadow.image="bankL1"
-				bank4shadow.image="blank"
-			Else
-				If sw42.isdropped=0 Then
-					bank2shadow.image="bank2"
-					bank3shadow.image="bank3"
-				Else
-					If sw43.isdropped=0 Then
-						bank3shadow.image="bank3"
-					Else
-						bank3shadow.image="blank"
-					End If
-					bank2shadow.image="blank"
-				End If
-				bank1shadow.image="blank"
-				bank4shadow.image="bank4"
-				bankshadow.image="bankON"
-				plasticsedgesLair_prim.image="edgeslair"
-			End If
-		End If
-	End If
-   	NFadeLm 68, l68
-   	NFadeLm 68, l68a
-   	NFadeLm 68, l68z
-   	NFadeLm 81, l81
-   	NFadeLm 81, l81a
-   	NFadeLm 81, l81z
-	Nfadelm 83, l83
-	Nfadelm 83, l83a
-	Nfadelm 83, l83b
-	Nfadelm 83, l83c
-	If l83.state=1 Then
-		If l67.state=0 Then
-			If l115.state=0 Then
-				If sw41.isdropped=0 Then
-					bank1shadow.image="bank1l2"
-					bank2shadow.image="bank2l2"
-					bank3shadow.image="bank3l2"
-				Else
-					If sw42.isdropped=0 Then
-						bank2shadow.image="bank2l2"
-						bank3shadow.image="bank3l2"
-					Else
-						If sw43.isdropped=0 Then
-							bank3shadow.image="bank3l2"
-						Else
-							bank3shadow.image="blank"
-						End If
-						bank2shadow.image="blank"
-					End If
-					bank1shadow.image="blank"
-				End If
-				plasticsedgesLair_prim.image="edgeslairL83"
-				bankshadow.image="bankL2"
-				bank4shadow.image="blank"
-			Else
-				If sw42.isdropped=0 Then
-					bank2shadow.image="bank2"
-					bank3shadow.image="bank3"
-				Else
-					If sw43.isdropped=0 Then
-						bank3shadow.image="bank3"
-					Else
-						bank3shadow.image="blank"
-					End If
-					bank2shadow.image="blank"
-				End If
-				bank4shadow.image="bank4"
-				bankshadow.image="bankON"
-				plasticsedgesLair_prim.image="edgeslair"
-			End If
-		End If
-		bank1shadow.image="blank"
-	End If
-   	NFadeLm 84, l84
-   	NFadeLm 84, l84a
-   	NFadeLm 84, l84z
-	If l84.state=1 Then
-		FadeObjm 84, metalleft_prm, "leftmetal", "leftmetal", "leftmetal", "leftmetalstaroff"
-	Else
-		metalleft_prm.image="leftmetalstaroff"
-	End if
-	NFadeLm 97, l97
-   	NFadeLm 97, l97a
-   	NFadeLm 97, l97z
-	NFadeLM 98, L98
-			If l98.state=1 Then
-				If	bumperring2_prim.image="bumperring2GION" Then
-					bumpercap2_prim.image="bumpercap2ONGION"
-				Else
-					bumpercap2_prim.image="bumpercap2ONGIOFF"
-				End If
-			End If
-			If l98.state=0 Then
-				If	bumperring2_prim.image="bumperring2GION" Then
-					bumpercap2_prim.image="bumpercap2OFFGION"
-				Else
-					bumpercap2_prim.image="bumpercap2OFFGIOFF"
-				End If
-			End If
-	Nfadelm 99, l99
-	Nfadelm 99, l99a
-	Nfadelm 99, l99b
-	Nfadelm 99, l99c
-	If l99.state=1 Then
-		If l83.state=0 Then
-			If l67.state=0 Then
-				If sw42.isdropped=0 Then
-					bank2shadow.image="bank2l3"
-					bank3shadow.image="bank3l3"
-				Else
-					If sw43.isdropped=0 Then
-						bank3shadow.image="bank3l3"
-					Else
-						bank3shadow.image="blank"
-					End If
-					bank2shadow.image="blank"
-					bank1shadow.image="blank"
-				End If
-				plasticsedgesLair_prim.image="edgeslairL99"
-				bankshadow.image="bankL3"
-				bank1shadow.image="blank"
-				bank4shadow.image="blank"
-			Else
-				If sw42.isdropped=0 Then
-					bank2shadow.image="bank2"
-					bank3shadow.image="bank3"
-				Else
-					If sw43.isdropped=0 Then
-						bank3shadow.image="bank3"
-					Else
-						bank3shadow.image="blank"
-					End If
-					bank2shadow.image="blank"
-				End If
-				bankshadow.image="bankON"
-				bank4shadow.image="bank4"
-				plasticsedgesLair_prim.image="edgeslair"
-			End If
-		End If
-		bank1shadow.image="blank"
-	End If
-	NFadeLm 100, l100
-   	NFadeLm 100, l100a
-	NFadeLm 100, l100z
-	NFadeLM 114, L114
-			If l114.state=1 Then
-				If	bumperring1_prim.image="bumperring1GION" Then
-					bumpercap1_prim.image="bumpercap1ONGION"
-				Else
-					bumpercap1_prim.image="bumpercap1ONGIOFF"
-				End If
-			End If
-			If l114.state=0 Then
-				If	bumperring1_prim.image="bumperring1GION" Then
-					bumpercap1_prim.image="bumpercap1OFFGION"
-				Else
-					bumpercap1_prim.image="bumpercap1OFFGIOFF"
-				End If
-			End If
+  NFadeLm 2, l2
+    NFadeLm 2, l2a
+  NFadeLm 2, l2z
+  NFadeLm 3, l3
+    NFadeLm 3, l3a
+  NFadeLm 3, l3z
+  NFadeLm 4, l4
+    NFadeLm 4, l4a
+  NFadeLm 4, l4z
+  NFadeLm 5, l5
+    NFadeLm 5, l5a
+  NFadeLm 5, l5z
+  NFadeLm 6, l6
+    NFadeLm 6, l6a
+    NFadeLm 6, l6b
+  NFadeLm 6, l6z
+  NFadeLm 7, l7
+    NFadeLm 7, l7a
+  NFadeLm 7, l7z
+  NFadeLm 8, l8
+    NFadeLm 8, l8a
+  NFadeLm 8, l8z
+  NFadeLm 9, l9
+    NFadeLm 9, l9a
+  NFadeLm 9, l9z
+    NFadeLm 10, l10
+    NFadeLm 10, l10a
+    NFadeLm 10, l10z
+    NFadeLm 12, l12
+    NFadeLm 12, l12a
+    NFadeLm 12, l12z
+    NFadeLm 14, l14
+    NFadeLm 14, l14a
+    NFadeLm 14, l14z
+    NFadeLm 15, l15
+    NFadeLm 15, l15a
+    NFadeLm 15, l15b
+    NFadeLm 15, l15z
+    NFadeLm 17, l17
+    NFadeLm 17, l17a
+    NFadeLm 17, l17y
+    NFadeLm 17, l17z
+    NFadeLm 18, l18
+    NFadeLm 18, l18a
+    NFadeLm 18, l18z
+    NFadeLm 19, l19
+    NFadeLm 19, l19a
+    NFadeLm 19, l19z
+    NFadeLm 20, l20
+    NFadeLm 20, l20a
+    NFadeLm 20, l20z
+    NFadeLm 21, l21
+    NFadeLm 21, l21a
+    NFadeLm 21, l21z
+    NFadeLm 22, l22
+    NFadeLm 22, l22a
+    NFadeLm 22, l22z
+    NFadeLm 23, l23
+    NFadeLm 23, l23a
+    NFadeLm 23, l23z
+    NFadeLm 24, l24
+    NFadeLm 24, l24a
+    NFadeLm 24, l24z
+    NFadeLm 25, l25
+    NFadeLm 25, l25a
+    NFadeLm 25, l25z
+    NFadeLm 26, l26
+    NFadeLm 26, l26a
+    NFadeLm 26, l26z
+    NFadeLm 28, l28
+    NFadeLm 28, l28a
+    NFadeLm 28, l28z
+    NFadeLm 30, l30
+    NFadeLm 30, l30a
+    NFadeLm 30, l30z
+    NFadeLm 31, l31
+    NFadeLm 31, l31a
+    NFadeLm 31, l31b
+    NFadeLm 31, l31z
+    NFadeLm 33, l33
+    NFadeLm 33, l33a
+    NFadeLm 33, l33z
+    NFadeLm 34, l34
+    NFadeLm 34, l34a
+    NFadeLm 34, l34z
+    NFadeLm 35, l35
+    NFadeLm 35, l35a
+    NFadeLm 35, l35z
+  NFadeLm 36, l36
+  NFadeLm 36, l36a
+  NFadeLm 36, l36b
+  NFadeLm 36, l36c
+  NFadeLm 36, l36z
+    NFadeLm 37, l37
+    NFadeLm 37, l37a
+    NFadeLm 37, l37z
+    NFadeLm 38, l38
+    NFadeLm 38, l38a
+    NFadeLm 38, l38b
+    NFadeLm 38, l38z
+    NFadeLm 39, l39
+    NFadeLm 39, l39a
+    NFadeLm 39, l39z
+    NFadeLm 40, l40
+    NFadeLm 40, l40a
+    NFadeLm 40, l40z
+    NFadeLm 41, l41
+    NFadeLm 41, l41a
+    NFadeLm 41, l41z
+    NFadeLm 42, l42
+    NFadeLm 42, l42a
+    NFadeLm 42, l42z
+    NFadeLm 44, l44
+    NFadeLm 44, l44a
+    NFadeLm 44, l44z
+    NFadeLm 46, l46
+    NFadeLm 46, l46a
+    NFadeLm 46, l46z
+    NFadeLm 47, l47
+    NFadeLm 47, l47a
+    NFadeLm 47, l47b
+    NFadeLm 47, l47z
+    NFadeLm 49, l49
+    NFadeLm 49, l49a
+    NFadeLm 49, l49z
+    NFadeLm 50, l50
+    NFadeLm 50, l50a
+    NFadeLm 50, l50z
+    NFadeLm 51, l51
+    NFadeLm 51, l51a
+    NFadeLm 51, l51z
+  NFadeLm 52, l52
+  NFadeLm 52, l52a
+  NFadeLm 52, l52b
+  NFadeLm 52, l52z
+    NFadeLm 53, l53
+    NFadeLm 53, l53a
+    NFadeLm 53, l53z
+    NFadeLm 54, l54
+    NFadeLm 54, l54a
+    NFadeLm 54, l54z
+    NFadeLm 55, l55
+    NFadeLm 55, l55a
+    NFadeLm 55, l55z
+    NFadeLm 56, l56
+    NFadeLm 56, l56a
+    NFadeLm 56, l56z
+  NFadeLm 57, l57
+  NFadeLm 57, l57a
+  NFadeLm 57, l57z
+    NFadeLm 58, l58
+    NFadeLm 58, l58a
+    NFadeLm 58, l58z
+    NFadeLm 59, l59
+    NFadeLm 60, l60
+    NFadeLm 60, l60a
+    NFadeLm 60, l60z
+    NFadeLm 62, l62
+    NFadeLm 62, l62a
+    NFadeLm 62, l62z
+    NFadeLm 63, l63
+    NFadeLm 63, l63a
+  NFadeLm 63, l63b
+    NFadeLm 63, l63z
+    NFadeLm 65, l65
+    NFadeLm 65, l65a
+    NFadeLm 65, l65z
+  Flash 66, Flasher1
+  SetLamp 166, 1-LampState(66)
+  Flash 166, Flasher2
+  Nfadelm 67, l67
+  Nfadelm 67, l67a
+  Nfadelm 67, l67b
+  Nfadelm 67, l67c
+  If l67.state=1 Then
+    If l83.state=0 Then
+      If l99.state=0 Then
+        If sw41.isdropped=0 Then
+          bank1shadow.image="bank1l1"
+          bank2shadow.image="bank2l1"
+          bank3shadow.image="bank3l1"
+        Else
+          If sw42.isdropped=0 Then
+            bank2shadow.image="bank2l1"
+            bank3shadow.image="bank3l1"
+          Else
+            If sw43.isdropped=0 Then
+              bank3shadow.image="bank3l1"
+            Else
+              bank3shadow.image="blank"
+            End If
+            bank2shadow.image="blank"
+          End If
+          bank1shadow.image="blank"
+        End If
+        plasticsedgesLair_prim.image="edgeslairL67"
+        bankshadow.image="bankL1"
+        bank4shadow.image="blank"
+      Else
+        If sw42.isdropped=0 Then
+          bank2shadow.image="bank2"
+          bank3shadow.image="bank3"
+        Else
+          If sw43.isdropped=0 Then
+            bank3shadow.image="bank3"
+          Else
+            bank3shadow.image="blank"
+          End If
+          bank2shadow.image="blank"
+        End If
+        bank1shadow.image="blank"
+        bank4shadow.image="bank4"
+        bankshadow.image="bankON"
+        plasticsedgesLair_prim.image="edgeslair"
+      End If
+    End If
+  End If
+    NFadeLm 68, l68
+    NFadeLm 68, l68a
+    NFadeLm 68, l68z
+    NFadeLm 81, l81
+    NFadeLm 81, l81a
+    NFadeLm 81, l81z
+  Nfadelm 83, l83
+  Nfadelm 83, l83a
+  Nfadelm 83, l83b
+  Nfadelm 83, l83c
+  If l83.state=1 Then
+    If l67.state=0 Then
+      If l115.state=0 Then
+        If sw41.isdropped=0 Then
+          bank1shadow.image="bank1l2"
+          bank2shadow.image="bank2l2"
+          bank3shadow.image="bank3l2"
+        Else
+          If sw42.isdropped=0 Then
+            bank2shadow.image="bank2l2"
+            bank3shadow.image="bank3l2"
+          Else
+            If sw43.isdropped=0 Then
+              bank3shadow.image="bank3l2"
+            Else
+              bank3shadow.image="blank"
+            End If
+            bank2shadow.image="blank"
+          End If
+          bank1shadow.image="blank"
+        End If
+        plasticsedgesLair_prim.image="edgeslairL83"
+        bankshadow.image="bankL2"
+        bank4shadow.image="blank"
+      Else
+        If sw42.isdropped=0 Then
+          bank2shadow.image="bank2"
+          bank3shadow.image="bank3"
+        Else
+          If sw43.isdropped=0 Then
+            bank3shadow.image="bank3"
+          Else
+            bank3shadow.image="blank"
+          End If
+          bank2shadow.image="blank"
+        End If
+        bank4shadow.image="bank4"
+        bankshadow.image="bankON"
+        plasticsedgesLair_prim.image="edgeslair"
+      End If
+    End If
+    bank1shadow.image="blank"
+  End If
+    NFadeLm 84, l84
+    NFadeLm 84, l84a
+    NFadeLm 84, l84z
+  If l84.state=1 Then
+    FadeObjm 84, metalleft_prm, "leftmetal", "leftmetal", "leftmetal", "leftmetalstaroff"
+  Else
+    metalleft_prm.image="leftmetalstaroff"
+  End if
+  NFadeLm 97, l97
+    NFadeLm 97, l97a
+    NFadeLm 97, l97z
+  NFadeLM 98, L98
+      If l98.state=1 Then
+        If  bumperring2_prim.image="bumperring2GION" Then
+          bumpercap2_prim.image="bumpercap2ONGION"
+        Else
+          bumpercap2_prim.image="bumpercap2ONGIOFF"
+        End If
+      End If
+      If l98.state=0 Then
+        If  bumperring2_prim.image="bumperring2GION" Then
+          bumpercap2_prim.image="bumpercap2OFFGION"
+        Else
+          bumpercap2_prim.image="bumpercap2OFFGIOFF"
+        End If
+      End If
+  Nfadelm 99, l99
+  Nfadelm 99, l99a
+  Nfadelm 99, l99b
+  Nfadelm 99, l99c
+  If l99.state=1 Then
+    If l83.state=0 Then
+      If l67.state=0 Then
+        If sw42.isdropped=0 Then
+          bank2shadow.image="bank2l3"
+          bank3shadow.image="bank3l3"
+        Else
+          If sw43.isdropped=0 Then
+            bank3shadow.image="bank3l3"
+          Else
+            bank3shadow.image="blank"
+          End If
+          bank2shadow.image="blank"
+          bank1shadow.image="blank"
+        End If
+        plasticsedgesLair_prim.image="edgeslairL99"
+        bankshadow.image="bankL3"
+        bank1shadow.image="blank"
+        bank4shadow.image="blank"
+      Else
+        If sw42.isdropped=0 Then
+          bank2shadow.image="bank2"
+          bank3shadow.image="bank3"
+        Else
+          If sw43.isdropped=0 Then
+            bank3shadow.image="bank3"
+          Else
+            bank3shadow.image="blank"
+          End If
+          bank2shadow.image="blank"
+        End If
+        bankshadow.image="bankON"
+        bank4shadow.image="bank4"
+        plasticsedgesLair_prim.image="edgeslair"
+      End If
+    End If
+    bank1shadow.image="blank"
+  End If
+  NFadeLm 100, l100
+    NFadeLm 100, l100a
+  NFadeLm 100, l100z
+  NFadeLM 114, L114
+      If l114.state=1 Then
+        If  bumperring1_prim.image="bumperring1GION" Then
+          bumpercap1_prim.image="bumpercap1ONGION"
+        Else
+          bumpercap1_prim.image="bumpercap1ONGIOFF"
+        End If
+      End If
+      If l114.state=0 Then
+        If  bumperring1_prim.image="bumperring1GION" Then
+          bumpercap1_prim.image="bumpercap1OFFGION"
+        Else
+          bumpercap1_prim.image="bumpercap1OFFGIOFF"
+        End If
+      End If
 
-	Nfadelm 115, l115
-	Nfadelm 115, l115a
-	Nfadelm 115, l115b
-	Nfadelm 115, l115c
-	If l115.state=1 Then
-		If GION=0 then metalouter_prm.image="outermetalGIOFFLairon"
-		If l99.state=0 Then
-			If l83.state=0 Then
-				If sw43.isdropped=0 Then
-					bank3shadow.image="bank3l3"
-					bank4shadow.image="bank4l4"
-				Else
-					If sw44.isdropped=0 Then
-						bank4shadow.image="bank4l4"
-					Else
-						bank4shadow.image="blank"
-					End If
-					bank3shadow.image="blank"
-				End If
-				plasticsedgesLair_prim.image="edgeslairL115"
-				bankshadow.image="bankL4"
-			Else
-				If sw43.isdropped=0 Then
-					bank3shadow.image="bank3"
-					bank4shadow.image="bank4"
-				Else
-					If sw44.isdropped=0 Then
-						bank4shadow.image="bank4"
-					Else
-						bank4shadow.image="blank"
-					End If
-					bank3shadow.image="blank"
-				End If
-				bankshadow.image="bankON"
-				bank4shadow.image="bank4"
-				plasticsedgesLair_prim.image="edgeslair"
-			End If
-		Else
-		bank1shadow.image="blank"
-		End If
-	Else
-	If GION=0 then metalouter_prm.image="outermetalGIOFF"
-	End If
+  Nfadelm 115, l115
+  Nfadelm 115, l115a
+  Nfadelm 115, l115b
+  Nfadelm 115, l115c
+  If l115.state=1 Then
+    If GION=0 then metalouter_prm.image="outermetalGIOFFLairon"
+    If l99.state=0 Then
+      If l83.state=0 Then
+        If sw43.isdropped=0 Then
+          bank3shadow.image="bank3l3"
+          bank4shadow.image="bank4l4"
+        Else
+          If sw44.isdropped=0 Then
+            bank4shadow.image="bank4l4"
+          Else
+            bank4shadow.image="blank"
+          End If
+          bank3shadow.image="blank"
+        End If
+        plasticsedgesLair_prim.image="edgeslairL115"
+        bankshadow.image="bankL4"
+      Else
+        If sw43.isdropped=0 Then
+          bank3shadow.image="bank3"
+          bank4shadow.image="bank4"
+        Else
+          If sw44.isdropped=0 Then
+            bank4shadow.image="bank4"
+          Else
+            bank4shadow.image="blank"
+          End If
+          bank3shadow.image="blank"
+        End If
+        bankshadow.image="bankON"
+        bank4shadow.image="bank4"
+        plasticsedgesLair_prim.image="edgeslair"
+      End If
+    Else
+    bank1shadow.image="blank"
+    End If
+  Else
+  If GION=0 then metalouter_prm.image="outermetalGIOFF"
+  End If
 End Sub
 
 ' div lamp subs
@@ -1112,22 +1112,22 @@ Digits(30) = Array(LED39,LED37,LED48,LED49,LED47,LED29,LED38)
 Digits(31) = Array(LED67,LED58,LED69,LED77,LED68,LED57,LED59)
 
 Sub DisplayTimer_Timer
-	Dim ChgLED,ii,num,chg,stat,obj
-	ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+  Dim ChgLED,ii,num,chg,stat,obj
+  ChgLed = Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
 If Not IsEmpty(ChgLED) Then
-		If not B2SOn then
-		For ii = 0 To UBound(chgLED)
-			num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
-			if (num < 32) then
-				For Each obj In Digits(num)
-					If chg And 1 Then obj.State = stat And 1
-					chg = chg\2 : stat = stat\2
-				Next
-			else
+    If not B2SOn then
+    For ii = 0 To UBound(chgLED)
+      num = chgLED(ii, 0) : chg = chgLED(ii, 1) : stat = chgLED(ii, 2)
+      if (num < 32) then
+        For Each obj In Digits(num)
+          If chg And 1 Then obj.State = stat And 1
+          chg = chg\2 : stat = stat\2
+        Next
+      else
 
-			end if
-		next
-		end if
+      end if
+    next
+    end if
 end if
 End Sub
 
@@ -1138,29 +1138,29 @@ End Sub
 'added by Gaston
 'corrected by Inkochnito
 Sub editDips
-	Dim vpmDips : Set vpmDips = New cvpmDips
-	With vpmDips
-		.AddForm 315,220,"Centaur - DIP switches"
-		.AddFrame 2,5,88,"Balls in play",&HC0000000,Array("2 balls",&HC0000000,"3 balls",0,"4 balls",&H80000000,"5 balls",&H40000000)'dip 31&32
-		.AddFrame 2,85,88,"Tilt settings",&H00400000, Array("Ball Tilt",&H00400000,"Game Tilt",0)'dip 23
-		.AddFrame 2,137,88,"Max. credits",&H03000000,Array("10 credits",0,"15 credits",&H01000000,"25 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
-		.AddFrame 104,5,88,"Guardian release",&H000F8F1F,Array("Each time",&H58001,"Once per ball",&H50001)'dip 16
-		.AddFrame 104,52,88,"Drop targets",&H00000080,Array("Store dropped",&H00000080,"Reset always",0)'dip 8
-		.AddFrame 104,99,88,"Drop tgt. bonus",&H00002000,Array("Stored",&H00002000,"Not stored",0)'dip 14
-		.AddChk 105,150,95,Array("Store orbs",&H00004000)'dip 15
-		.AddChk 105,166,95,Array("Store multiplier",&H00000020)'dip 6
-	    .AddChk 105,182,95,Array("Store bonus",&H00000040)'dip 7
-		.AddChk 105,198,200,Array("Fires ball every 15 min. at Game Over",&H20000000)'dip 30
-		.AddFrame 206,5,88,"Last ball release",&H00100000,Array("On",&H00100000,"Off",0)'dip 21
-		.AddFrame 206,52,88,"Right release",&H00800000,Array("Stays on",&H00800000,"Off",0)'dip 24
-		.AddFrame 206,99,88,"Initial orbs lit",&H00200000,Array("One",&H00200000,"None",0)'dip 22
-		.AddChk 207,150,95,Array("Match feature",&H08000000)'dip 28
-		.AddChk 207,166,95,Array("Credits display",&H04000000)'dip 27
-		.AddChk 207,182,100,Array("Unlimited replays",&H10000000)'dip 29
-		.AddLabel 2,220,308,20,"Set selftest position 16,17,18 and 19 to 03 for the best gameplay."
-		.AddLabel 2,240,300,20,"After hitting OK, press F3 to reset game with new settings."
-		.ViewDips
-	End With
+  Dim vpmDips : Set vpmDips = New cvpmDips
+  With vpmDips
+    .AddForm 315,220,"Centaur - DIP switches"
+    .AddFrame 2,5,88,"Balls in play",&HC0000000,Array("2 balls",&HC0000000,"3 balls",0,"4 balls",&H80000000,"5 balls",&H40000000)'dip 31&32
+    .AddFrame 2,85,88,"Tilt settings",&H00400000, Array("Ball Tilt",&H00400000,"Game Tilt",0)'dip 23
+    .AddFrame 2,137,88,"Max. credits",&H03000000,Array("10 credits",0,"15 credits",&H01000000,"25 credits",&H02000000,"40 credits",&H03000000)'dip 25&26
+    .AddFrame 104,5,88,"Guardian release",&H000F8F1F,Array("Each time",&H58001,"Once per ball",&H50001)'dip 16
+    .AddFrame 104,52,88,"Drop targets",&H00000080,Array("Store dropped",&H00000080,"Reset always",0)'dip 8
+    .AddFrame 104,99,88,"Drop tgt. bonus",&H00002000,Array("Stored",&H00002000,"Not stored",0)'dip 14
+    .AddChk 105,150,95,Array("Store orbs",&H00004000)'dip 15
+    .AddChk 105,166,95,Array("Store multiplier",&H00000020)'dip 6
+      .AddChk 105,182,95,Array("Store bonus",&H00000040)'dip 7
+    .AddChk 105,198,200,Array("Fires ball every 15 min. at Game Over",&H20000000)'dip 30
+    .AddFrame 206,5,88,"Last ball release",&H00100000,Array("On",&H00100000,"Off",0)'dip 21
+    .AddFrame 206,52,88,"Right release",&H00800000,Array("Stays on",&H00800000,"Off",0)'dip 24
+    .AddFrame 206,99,88,"Initial orbs lit",&H00200000,Array("One",&H00200000,"None",0)'dip 22
+    .AddChk 207,150,95,Array("Match feature",&H08000000)'dip 28
+    .AddChk 207,166,95,Array("Credits display",&H04000000)'dip 27
+    .AddChk 207,182,100,Array("Unlimited replays",&H10000000)'dip 29
+    .AddLabel 2,220,308,20,"Set selftest position 16,17,18 and 19 to 03 for the best gameplay."
+    .AddLabel 2,240,300,20,"After hitting OK, press F3 to reset game with new settings."
+    .ViewDips
+  End With
 End Sub
 Set vpmShowDips = GetRef("editDips")
 '**********************************************************************************************************
@@ -1175,7 +1175,7 @@ Set vpmShowDips = GetRef("editDips")
 Dim RStep, Lstep, LAstep, LBstep, LB2step, LCstep, LC2step, RCstep, RAStep, RA2Step, RBStep, RB2Step
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 37
+  vpmTimer.PulseSw 37
     PlaySoundAt SoundFX("left_slingshot",DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -1193,7 +1193,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 38
+  vpmTimer.PulseSw 38
     PlaySoundAt SoundFX("right_slingshot",DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -1227,7 +1227,7 @@ End Sub
 '
 Sub sw34a_Hit
     vpmTimer.PulseSw 34
-	playsoundat "target", ActiveBall
+  playsoundat "target", ActiveBall
     RubberLB.Visible = 0
     RubberLB1.Visible = 1
     LBstep = 0
@@ -1244,7 +1244,7 @@ End Sub
 
 Sub sw34b_Hit
     vpmTimer.PulseSw 34
-	playsoundAt SoundFX("target",DOFTargets), ActiveBall
+  playsoundAt SoundFX("target",DOFTargets), ActiveBall
     RubberLB.Visible = 0
     RubberLB3.Visible = 1
     LB2step = 0
@@ -1291,7 +1291,7 @@ End Sub
 
 Sub Wall2RA_Hit
     vpmTimer.PulseSw 34
-	playsoundAt SoundFX("target",DOFTargets), ActiveBall
+  playsoundAt SoundFX("target",DOFTargets), ActiveBall
     RubberRA.Visible = 0
     RubberRA2.Visible = 1
     RA2step = 0
@@ -1308,7 +1308,7 @@ End Sub
 
 Sub sw34c_Hit
     vpmTimer.PulseSw 34
-	playsoundat SoundFX("target",DOFTargets), ActiveBall
+  playsoundat SoundFX("target",DOFTargets), ActiveBall
     RubberRB.Visible = 0
     RubberRB1.Visible = 1
     RBstep = 0
@@ -1325,7 +1325,7 @@ End Sub
 
 Sub sw34d_Hit
     vpmTimer.PulseSw 34
-	playsoundat SoundFX("target",DOFTargets), ActiveBall
+  playsoundat SoundFX("target",DOFTargets), ActiveBall
     RubberRB.Visible = 0
     RubberRB2.Visible = 1
     RB2step = 0
@@ -1355,56 +1355,56 @@ Sub WallRC_Timer
     RCstep = RCstep + 1
 End Sub
 
-Const WallPrefix 		= "T" 'Change this based on your naming convention
-Const PrimitivePrefix 	= "PrimT"'Change this based on your naming convention
+Const WallPrefix    = "T" 'Change this based on your naming convention
+Const PrimitivePrefix   = "PrimT"'Change this based on your naming convention
 Const PrimitiveBumperPrefix = "BumperRing" 'Change this based on your naming convention
 Dim primCnt(120), primDir(120), primBmprDir(120)
 
 '****************************************************************************
 '***** Primitive Standup Target Animation
 '****************************************************************************
-'USAGE: 	Sub sw1_Hit: 	PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
-'USAGE: 	Sub Sw1_Timer: 	PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub sw1_Hit:  PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub Sw1_Timer:  PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
 
 Const StandupTgtMovementDir = "TransY"
 Const StandupTgtMovementMax = 6
 
 Sub PrimStandupTgtHit (swnum, wallName, primName)
-	PlaySoundat SoundFX("target",DOFContactors), ActiveBall
-	vpmTimer.PulseSw swnum
-	primCnt(swnum) = 0 									'Reset count
-	wallName.TimerInterval = 20 	'Set timer interval
-	wallName.TimerEnabled = 1 	'Enable timer
+  PlaySoundat SoundFX("target",DOFContactors), ActiveBall
+  vpmTimer.PulseSw swnum
+  primCnt(swnum) = 0                  'Reset count
+  wallName.TimerInterval = 20   'Set timer interval
+  wallName.TimerEnabled = 1   'Enable timer
 End Sub
 
-Sub	PrimStandupTgtMove (swnum, wallName, primName)
-	Select Case StandupTgtMovementDir
-		Case "TransX":
-			Select Case primCnt(swnum)
-				Case 0: 	primName.TransX = -StandupTgtMovementMax * .5
-				Case 1: 	primName.TransX = -StandupTgtMovementMax
-				Case 2: 	primName.TransX = -StandupTgtMovementMax * .5
-				Case 3: 	primName.TransX = 0
-				Case else: 	wallName.TimerEnabled = 0
-			End Select
-		Case "TransY":
-			Select Case primCnt(swnum)
-				Case 0: 	primName.TransY = -StandupTgtMovementMax * .5
-				Case 1: 	primName.TransY = -StandupTgtMovementMax
-				Case 2: 	primName.TransY = -StandupTgtMovementMax * .5
-				Case 3: 	primName.TransY = 0
-				Case else: 	wallName.TimerEnabled = 0
-			End Select
-		Case "TransZ":
-			Select Case primCnt(swnum)
-				Case 0: 	primName.TransZ = -StandupTgtMovementMax * .5
-				Case 1: 	primName.TransZ = -StandupTgtMovementMax
-				Case 2: 	primName.TransZ = -StandupTgtMovementMax * .5
-				Case 3: 	primName.TransZ = 0
-				Case else: 	wallName.TimerEnabled = 0
-			End Select
-	End Select
-	primCnt(swnum) = primCnt(swnum) + 1
+Sub PrimStandupTgtMove (swnum, wallName, primName)
+  Select Case StandupTgtMovementDir
+    Case "TransX":
+      Select Case primCnt(swnum)
+        Case 0:   primName.TransX = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransX = -StandupTgtMovementMax
+        Case 2:   primName.TransX = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransX = 0
+        Case else:  wallName.TimerEnabled = 0
+      End Select
+    Case "TransY":
+      Select Case primCnt(swnum)
+        Case 0:   primName.TransY = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransY = -StandupTgtMovementMax
+        Case 2:   primName.TransY = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransY = 0
+        Case else:  wallName.TimerEnabled = 0
+      End Select
+    Case "TransZ":
+      Select Case primCnt(swnum)
+        Case 0:   primName.TransZ = -StandupTgtMovementMax * .5
+        Case 1:   primName.TransZ = -StandupTgtMovementMax
+        Case 2:   primName.TransZ = -StandupTgtMovementMax * .5
+        Case 3:   primName.TransZ = 0
+        Case else:  wallName.TimerEnabled = 0
+      End Select
+  End Select
+  primCnt(swnum) = primCnt(swnum) + 1
 End Sub
 
 '*****************************************
@@ -1415,71 +1415,71 @@ Dim BCup, BCdown, BCleft, BCright
 Dim ControlBallInPlay, ControlActiveBall
 Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 
-BCboost = 1				'Do Not Change - default setting
-BCvel = 4				'Controls the speed of the ball movement
-BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
+BCboost = 1       'Do Not Change - default setting
+BCvel = 4       'Controls the speed of the ball movement
+BCyveloffset = -0.01  'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
+BCboostmulti = 3    'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
 Sub StartBallControl_Hit()
-	Set ControlActiveBall = ActiveBall
-	ControlBallInPlay = true
+  Set ControlActiveBall = ActiveBall
+  ControlBallInPlay = true
 End Sub
 
 Sub StopBallControl_Hit()
-	ControlBallInPlay = false
+  ControlBallInPlay = false
 End Sub
 
 Sub BallControlTimer_Timer()
-	If EnableBallControl and ControlBallInPlay then
-		If BCright = 1 Then
-			ControlActiveBall.velx =  BCvel*BCboost
-		ElseIf BCleft = 1 Then
-			ControlActiveBall.velx = -BCvel*BCboost
-		Else
-			ControlActiveBall.velx = 0
-		End If
+  If EnableBallControl and ControlBallInPlay then
+    If BCright = 1 Then
+      ControlActiveBall.velx =  BCvel*BCboost
+    ElseIf BCleft = 1 Then
+      ControlActiveBall.velx = -BCvel*BCboost
+    Else
+      ControlActiveBall.velx = 0
+    End If
 
-		If BCup = 1 Then
-			ControlActiveBall.vely = -BCvel*BCboost
-		ElseIf BCdown = 1 Then
-			ControlActiveBall.vely =  BCvel*BCboost
-		Else
-			ControlActiveBall.vely = bcyveloffset
-		End If
-	End If
+    If BCup = 1 Then
+      ControlActiveBall.vely = -BCvel*BCboost
+    ElseIf BCdown = 1 Then
+      ControlActiveBall.vely =  BCvel*BCboost
+    Else
+      ControlActiveBall.vely = bcyveloffset
+    End If
+  End If
 End Sub
 
 if flippershadows=1 then
-	FlipperLSh.visible=1
-	FlipperRSh.visible=1
+  FlipperLSh.visible=1
+  FlipperRSh.visible=1
 else
-	FlipperLSh.visible=0
-	FlipperRSh.visible=0
+  FlipperLSh.visible=0
+  FlipperRSh.visible=0
 end if
 
 '*****************************************
-'			FLIPPER SHADOWS
+'     FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
     flipperleft_prim.rotz = leftflipper.currentangle
     flipperright_prim.rotz = rightflipper.currentangle
-	plungegateleft_prim.RotX = Gate9.CurrentAngle + 60
-	plungegateright_prim.RotX = Gate8.CurrentAngle + 60
+  plungegateleft_prim.RotX = Gate9.CurrentAngle + 60
+  plungegateright_prim.RotX = Gate8.CurrentAngle + 60
 End Sub
 
 if ballshadows=1 then
-	BallShadowUpdate.enabled=1
+  BallShadowUpdate.enabled=1
 else
-	BallShadowUpdate.enabled=0
+  BallShadowUpdate.enabled=0
 end if
 
 '*****************************************
-'			BALL SHADOW
+'     BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5,BallShadow6,BallShadow7,BallShadow8,BallShadow9,BallShadow10)
@@ -1549,77 +1549,77 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VoLRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub table1_Paused:Controller.Pause = 1:End Sub
@@ -1747,16 +1747,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

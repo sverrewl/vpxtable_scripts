@@ -73,17 +73,17 @@ On Error Goto 0
 ' Configuration
 '-----------------------------------
 cGameName = "jy_12"
-Const DimFlashers = -0.4		'set between -1 and 0 to dim or brighten the Flashers (minus is darker)
-Const OutLanePosts = 1			'1=Easy, 2=Medium, 3=Hard
-Const ApronShopping = True		'Show WindowShopping ontop of the apron
-const RollingSoundFactor = 23	'set sound level factor here for Ball Rolling Sound, 1=default level
-Const BallSize = 51				'default 50, 52 plays well, above 55 the ball will get stuck
+Const DimFlashers = -0.4    'set between -1 and 0 to dim or brighten the Flashers (minus is darker)
+Const OutLanePosts = 1      '1=Easy, 2=Medium, 3=Hard
+Const ApronShopping = True    'Show WindowShopping ontop of the apron
+const RollingSoundFactor = 23 'set sound level factor here for Ball Rolling Sound, 1=default level
+Const BallSize = 51       'default 50, 52 plays well, above 55 the ball will get stuck
 
 ' Standard Sounds and Settings
 Const SSolenoidOn="Solon",SSolenoidOff="Soloff",SFlipperOn="",SFlipperOff=""
 Const UseSolenoids=2,UseLamps=True
 
-InitWreckerBall						'must be called before LoadVPM becaus of B2s caused delay on trigger code
+InitWreckerBall           'must be called before LoadVPM becaus of B2s caused delay on trigger code
 
 LoadVPM "01560000","WPC.VBS",3.2
 
@@ -91,193 +91,193 @@ LoadVPM "01560000","WPC.VBS",3.2
 ' Solenoids
 '-----------------------------------
 
-SolCallBack(1)	= "AutoPlunger"
-SolCallBack(2)	= "bsFridgePopper.SolOut"
-SolCallBack(3)	= "SolPowerCrane"
-SolCallBack(5)	= "ScoopDown"
-SolCallBack(6)	= "BusDiverter"
-SolCallBack(7)	= "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
-SolCallBack(9)	= "SolTrough"
-SolCallBack(10)	= "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
-SolCallBack(11)	= "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
-SolCallBack(15)	= "SolHoldCrane"
-SolCallBack(16)	= "SpikeBark"						     'Move Dog
-SolCallBack(17)	= "SolFlash17"               'Dog Face Flasher
-'SolCallBack(18)	= "SolWindowShopFlasher"
-SolCallBack(19)	= "vpmFlasher Sol19,"		     'Autofire Flasher
-SolCallBack(20)	= "SolFlash20"					     'Left red flasher
-SolCallBack(21)	= "ScoopUp"
-SolCallBack(22)	= "SolFlash22"						   'Under Crane Flasher
-SolCallBack(23)	= "SolFlash23"						   'Back Left Flasher
-SolCallBack(24)	= "SolFlash24"						   'Back Right Flasher
-SolCallBack(25)	= "SolFlash25"						   'Shooter Flasher
-SolCallBack(26)	= "SolFlash26"						   'Scoop Flasher
-SolCallBack(27)	= "SolFlash27"						   'Dog House Flasher
-SolCallBack(28)	= "SolFlash28"						   'Car Flashers (2)
+SolCallBack(1)  = "AutoPlunger"
+SolCallBack(2)  = "bsFridgePopper.SolOut"
+SolCallBack(3)  = "SolPowerCrane"
+SolCallBack(5)  = "ScoopDown"
+SolCallBack(6)  = "BusDiverter"
+SolCallBack(7)  = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
+SolCallBack(9)  = "SolTrough"
+SolCallBack(10) = "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
+SolCallBack(11) = "vpmSolSound SoundFX(""Slingshot"",DOFContactors),"
+SolCallBack(15) = "SolHoldCrane"
+SolCallBack(16) = "SpikeBark"                'Move Dog
+SolCallBack(17) = "SolFlash17"               'Dog Face Flasher
+'SolCallBack(18)  = "SolWindowShopFlasher"
+SolCallBack(19) = "vpmFlasher Sol19,"        'Autofire Flasher
+SolCallBack(20) = "SolFlash20"               'Left red flasher
+SolCallBack(21) = "ScoopUp"
+SolCallBack(22) = "SolFlash22"               'Under Crane Flasher
+SolCallBack(23) = "SolFlash23"               'Back Left Flasher
+SolCallBack(24) = "SolFlash24"               'Back Right Flasher
+SolCallBack(25) = "SolFlash25"               'Shooter Flasher
+SolCallBack(26) = "SolFlash26"               'Scoop Flasher
+SolCallBack(27) = "SolFlash27"               'Dog House Flasher
+SolCallBack(28) = "SolFlash28"               'Car Flashers (2)
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
 
 Set GICallBack = GetRef("UpdateGI")
 
 Sub Autoplunger(enabled)
-	if enabled then
-		if controller.switch(18) then
+  if enabled then
+    if controller.switch(18) then
       PlaySoundAt SoundFX("plunger",DOFContactors), Plunger
-			Auto_Plunger.Pullback
-			Auto_Plunger.Fire
-		end if
-	Else
-		Auto_Plunger.Pullback
-	end If
+      Auto_Plunger.Pullback
+      Auto_Plunger.Fire
+    end if
+  Else
+    Auto_Plunger.Pullback
+  end If
 End Sub
 
 Sub SolTrough(Enabled)
-	If Enabled then
-		if not TestWall.isdropped Then
-			TestWall.isdropped = True
-		end If
-		bsTrough.ExitSol_On
-		vpmTimer.PulseSw 31
+  If Enabled then
+    if not TestWall.isdropped Then
+      TestWall.isdropped = True
+    end If
+    bsTrough.ExitSol_On
+    vpmTimer.PulseSw 31
     End If
 End Sub
 
 Sub BusDiverter(Enabled)
-	If Enabled then
+  If Enabled then
     PlaySound SoundFX("Solon",DOFContactors)
-		Sol6.IsDropped = False
+    Sol6.IsDropped = False
     PlaySound SoundFX("Soloff",DOFContactors)
-		Sol6.IsDropped = True
-	End If
+    Sol6.IsDropped = True
+  End If
 End Sub
 
 Sub ScoopDown(Enabled)
-	If Enabled Then
+  If Enabled Then
     PlaySoundAt SoundFX("Solon",DOFContactors), Primitive19
-		Controller.Switch(72) = True
-		P_Fork1.RotX = 17
-		P_Fork2.RotX = 17
-		P_Fork1.collidable = False
-		P_Fork2.collidable = False
-	End If
+    Controller.Switch(72) = True
+    P_Fork1.RotX = 17
+    P_Fork2.RotX = 17
+    P_Fork1.collidable = False
+    P_Fork2.collidable = False
+  End If
 End Sub
 
 Sub ScoopUp(Enabled)
-	If Enabled Then
+  If Enabled Then
     PlaySoundAt SoundFX("Solon",DOFContactors), Primitive19
-		Controller.Switch(72) = False
-		P_Fork1.RotX = 0
-		P_Fork2.RotX = 0
-		P_Fork1.collidable = True
-		P_Fork2.collidable = True
-	End If
+    Controller.Switch(72) = False
+    P_Fork1.RotX = 0
+    P_Fork2.RotX = 0
+    P_Fork1.collidable = True
+    P_Fork2.collidable = True
+  End If
 End Sub
 
 dim spikeOut:spikeOut=1
 Sub SpikeBark(Enabled)
-	SpikeTimer.Enabled=Enabled
-	if Enabled=0 then
-		spike.transy=0
-   	    spikeOut=1
-	end if
+  SpikeTimer.Enabled=Enabled
+  if Enabled=0 then
+    spike.transy=0
+        spikeOut=1
+  end if
 End Sub
 
 Sub SpikeTimer_Timer()
     PlaySoundAtVol SoundFX("motor",DOFGear), Spike, 1
-	if spikeOut=1 then
-		spike.transy=spike.transy-8
-		if spike.transy<-50 then
-			spike.transy=-50
-			spikeOut=0
-		end if
-	else
-		spike.transy=spike.transy+8
-		if spike.transy>0 then
-			spike.transy=0
-			spikeOut=1
-		end if
-	end if
+  if spikeOut=1 then
+    spike.transy=spike.transy-8
+    if spike.transy<-50 then
+      spike.transy=-50
+      spikeOut=0
+    end if
+  else
+    spike.transy=spike.transy+8
+    if spike.transy>0 then
+      spike.transy=0
+      spikeOut=1
+    end if
+  end if
 end sub
 
 Sub SolFlash17(Enabled)
-	if enabled then
-		setflash 4,1
-	else
-		setflash 4,0
-	end if
+  if enabled then
+    setflash 4,1
+  else
+    setflash 4,0
+  end if
 End Sub
 
 Sub SolFlash20(Enabled)
-	if enabled then
-		P_FridgeFlasher.image = "dome2_0_red"
-		setflash 0,1
-	else
-		P_FridgeFlasher.image = "dome2_0_red_dark"
-		setflash 0,0
-	end if
+  if enabled then
+    P_FridgeFlasher.image = "dome2_0_red"
+    setflash 0,1
+  else
+    P_FridgeFlasher.image = "dome2_0_red_dark"
+    setflash 0,0
+  end if
 End Sub
 
 Sub SolFlash22(Enabled)
     if enabled then
-		CraneFlasherLight.state = Lightstateon
-		setflash 6,1
-	else
-		CraneFlasherLight.state = Lightstateoff
-		setflash 6,0
-	end if
+    CraneFlasherLight.state = Lightstateon
+    setflash 6,1
+  else
+    CraneFlasherLight.state = Lightstateoff
+    setflash 6,0
+  end if
 End Sub
 
 Sub SolFlash23(Enabled)
-	if enabled then
-		P_BackLeftFlasher.image = "dome2_0_clear"
-		setflash 2,1
-	else
-		P_BackLeftFlasher.image = "dome2_0_clear_dark"
-		setflash 2,0
-	end if
+  if enabled then
+    P_BackLeftFlasher.image = "dome2_0_clear"
+    setflash 2,1
+  else
+    P_BackLeftFlasher.image = "dome2_0_clear_dark"
+    setflash 2,0
+  end if
 End Sub
 
 Sub SolFlash24(Enabled)
-	if enabled then
-		P_BackRightFlasher.image = "dome2_0_clear"
-		setflash 3,1
-	else
-		P_BackRightFlasher.image = "dome2_0_clear_dark"
-		setflash 3,0
-	end if
+  if enabled then
+    P_BackRightFlasher.image = "dome2_0_clear"
+    setflash 3,1
+  else
+    P_BackRightFlasher.image = "dome2_0_clear_dark"
+    setflash 3,0
+  end if
 End Sub
 
 Sub SolFlash25(Enabled)
-	if enabled then
-		setflash 5,1
-	else
-		setflash 5,0
-	end if
+  if enabled then
+    setflash 5,1
+  else
+    setflash 5,0
+  end if
 End Sub
 
 Sub SolFlash26(Enabled)
-	if enabled then
-		P_DogScoopFlasher.image = "dome2_0_red"
-		setflash 1,1
-	else
-		P_DogScoopFlasher.image = "dome2_0_red_dark"
-		setflash 1,0
-	end if
+  if enabled then
+    P_DogScoopFlasher.image = "dome2_0_red"
+    setflash 1,1
+  else
+    P_DogScoopFlasher.image = "dome2_0_red_dark"
+    setflash 1,0
+  end if
 End Sub
 
 Sub SolFlash27(Enabled)
-	if enabled then
-		setflash 7,1
-	else
-		setflash 7,0
-	end if
+  if enabled then
+    setflash 7,1
+  else
+    setflash 7,0
+  end if
 End Sub
 
 Sub SolFlash28(Enabled)
-	if enabled then
-		setflash 8,1
-	else
-		setflash 8,0
-	end if
+  if enabled then
+    setflash 8,1
+  else
+    setflash 8,0
+  end if
 End Sub
 
 
@@ -288,116 +288,116 @@ End Sub
 Dim bsTrough,bsFridgePopper,cGameName,RightDrain,WindowUp
 
 Sub JunkYard_Init()
-	if JunkYard.ShowDT then
-		Flasher1.Rotx = -30
-		Flasher1.Roty = 50
-		Flasher1.height = 240
-		Flasher1a.Rotx = -40
-		Flasher1a.height = 220
-		Flasher1b.Rotx = -40
-		Flasher1b.height = 225
-		Flasher2.Rotx = -40
-		Flasher2.height = 225
-		Flasher2a.Rotx = -40
-		Flasher2a.height = 220
-		Flasher2b.Rotx = -40
-		Flasher2b.height = 250
-		Flasher3.Rotx = -20
-		Flasher3a.Rotx = -20
-		Flasher4.Rotx = -20
-		Flasher4a.Rotx = -20
-	Else
-		Ramp9.widthbottom = 0
-		Ramp9.widthtop = 0
-		Ramp15.widthbottom = 0
-		Ramp15.widthtop = 0
-		Ramp13.widthbottom = 0
-		Ramp13.widthtop = 0
-		Ramp16.widthbottom = 0
-		Ramp16.widthtop = 0
-	End If
+  if JunkYard.ShowDT then
+    Flasher1.Rotx = -30
+    Flasher1.Roty = 50
+    Flasher1.height = 240
+    Flasher1a.Rotx = -40
+    Flasher1a.height = 220
+    Flasher1b.Rotx = -40
+    Flasher1b.height = 225
+    Flasher2.Rotx = -40
+    Flasher2.height = 225
+    Flasher2a.Rotx = -40
+    Flasher2a.height = 220
+    Flasher2b.Rotx = -40
+    Flasher2b.height = 250
+    Flasher3.Rotx = -20
+    Flasher3a.Rotx = -20
+    Flasher4.Rotx = -20
+    Flasher4a.Rotx = -20
+  Else
+    Ramp9.widthbottom = 0
+    Ramp9.widthtop = 0
+    Ramp15.widthbottom = 0
+    Ramp15.widthtop = 0
+    Ramp13.widthbottom = 0
+    Ramp13.widthtop = 0
+    Ramp16.widthbottom = 0
+    Ramp16.widthtop = 0
+  End If
 
-	if Apronshopping Then
-		WindowUp = True
-		P_Window.TransZ = 3
-		P_Window1.TransZ = 0
-	end If
+  if Apronshopping Then
+    WindowUp = True
+    P_Window.TransZ = 3
+    P_Window1.TransZ = 0
+  end If
 
-	select case OutLanePosts
-		case 2: 	'Medium Position
-			P_RightRingHard.visible = False
-			P_RightPostHard.visible = False
-			RightPostHard.isdropped = True
-			P_RightRingMedium.visible = True
-			P_RightPostMedium.visible = True
-			RightPostMedium.isdropped = False
-			P_RightRingEasy.visible = False
-			P_RightPostEasy.visible = False
-			RightPostEasy.isdropped = True
+  select case OutLanePosts
+    case 2:   'Medium Position
+      P_RightRingHard.visible = False
+      P_RightPostHard.visible = False
+      RightPostHard.isdropped = True
+      P_RightRingMedium.visible = True
+      P_RightPostMedium.visible = True
+      RightPostMedium.isdropped = False
+      P_RightRingEasy.visible = False
+      P_RightPostEasy.visible = False
+      RightPostEasy.isdropped = True
 
-			P_LeftRingHard.visible = False
-			P_LeftPostHard.visible = False
-			LeftPostHard.isdropped = True
-			P_LeftRingMedium.visible = True
-			P_LeftPostMedium.visible = True
-			LeftPostMedium.isdropped = False
-			P_LeftRingEasy.visible = False
-			P_LeftPostEasy.visible = False
-			LeftPostEasy.isdropped = True
-		case 3: 	'Hard Position
-			P_RightRingHard.visible = True
-			P_RightPostHard.visible = True
-			RightPostHard.isdropped = False
-			P_RightRingMedium.visible = False
-			P_RightPostMedium.visible = False
-			RightPostMedium.isdropped = True
-			P_RightRingEasy.visible = False
-			P_RightPostEasy.visible = False
-			RightPostEasy.isdropped = True
+      P_LeftRingHard.visible = False
+      P_LeftPostHard.visible = False
+      LeftPostHard.isdropped = True
+      P_LeftRingMedium.visible = True
+      P_LeftPostMedium.visible = True
+      LeftPostMedium.isdropped = False
+      P_LeftRingEasy.visible = False
+      P_LeftPostEasy.visible = False
+      LeftPostEasy.isdropped = True
+    case 3:   'Hard Position
+      P_RightRingHard.visible = True
+      P_RightPostHard.visible = True
+      RightPostHard.isdropped = False
+      P_RightRingMedium.visible = False
+      P_RightPostMedium.visible = False
+      RightPostMedium.isdropped = True
+      P_RightRingEasy.visible = False
+      P_RightPostEasy.visible = False
+      RightPostEasy.isdropped = True
 
-			P_LeftRingHard.visible = True
-			P_LeftPostHard.visible = True
-			LeftPostHard.isdropped = False
-			P_LeftRingMedium.visible = False
-			P_LeftPostMedium.visible = False
-			LeftPostMedium.isdropped = True
-			P_LeftRingEasy.visible = False
-			P_LeftPostEasy.visible = False
-			LeftPostEasy.isdropped = True
-		case Else 	'Easy Position
-			P_RightRingHard.visible = False
-			P_RightPostHard.visible = False
-			RightPostHard.isdropped = True
-			P_RightRingMedium.visible = False
-			P_RightPostMedium.visible = False
-			RightPostMedium.isdropped = True
-			P_RightRingEasy.visible = True
-			P_RightPostEasy.visible = True
-			RightPostEasy.isdropped = False
+      P_LeftRingHard.visible = True
+      P_LeftPostHard.visible = True
+      LeftPostHard.isdropped = False
+      P_LeftRingMedium.visible = False
+      P_LeftPostMedium.visible = False
+      LeftPostMedium.isdropped = True
+      P_LeftRingEasy.visible = False
+      P_LeftPostEasy.visible = False
+      LeftPostEasy.isdropped = True
+    case Else   'Easy Position
+      P_RightRingHard.visible = False
+      P_RightPostHard.visible = False
+      RightPostHard.isdropped = True
+      P_RightRingMedium.visible = False
+      P_RightPostMedium.visible = False
+      RightPostMedium.isdropped = True
+      P_RightRingEasy.visible = True
+      P_RightPostEasy.visible = True
+      RightPostEasy.isdropped = False
 
-			P_LeftRingHard.visible = False
-			P_LeftPostHard.visible = False
-			LeftPostHard.isdropped = True
-			P_LeftRingMedium.visible = False
-			P_LeftPostMedium.visible = False
-			LeftPostMedium.isdropped = True
-			P_LeftRingEasy.visible = True
-			P_LeftPostEasy.visible = True
-			LeftPostEasy.isdropped = False
-	end select
+      P_LeftRingHard.visible = False
+      P_LeftPostHard.visible = False
+      LeftPostHard.isdropped = True
+      P_LeftRingMedium.visible = False
+      P_LeftPostMedium.visible = False
+      LeftPostMedium.isdropped = True
+      P_LeftRingEasy.visible = True
+      P_LeftPostEasy.visible = True
+      LeftPostEasy.isdropped = False
+  end select
 
-	vpminit me
+  vpminit me
 
-	On Error Resume Next
+  On Error Resume Next
 
     Controller.GameName=cGameName
     Controller.Games(cGameName).Settings.Value("samples")=0
-	Controller.SplashInfoLine	= "Junk Yard, Williams 1996" & vbNewLine & "Created by mfuegemann"
-	Controller.ShowDMDOnly		= True
-    Controller.HandleKeyboard	= False
-	Controller.ShowTitle		= False
-    Controller.ShowFrame 		= False
-	Controller.HandleMechanics 	= False
+  Controller.SplashInfoLine = "Junk Yard, Williams 1996" & vbNewLine & "Created by mfuegemann"
+  Controller.ShowDMDOnly    = True
+    Controller.HandleKeyboard = False
+  Controller.ShowTitle    = False
+    Controller.ShowFrame    = False
+  Controller.HandleMechanics  = False
 
     ' DMD position for 3 Monitor Setup
     'Controller.Games(cGameName).Settings.Value("dmd_pos_x")=3850
@@ -405,52 +405,52 @@ Sub JunkYard_Init()
     'Controller.Games(cGameName).Settings.Value("dmd_width")=505
     'Controller.Games(cGameName).Settings.Value("dmd_height")=155
     'Controller.Games(cGameName).Settings.Value("rol")=0
-	'Controller.Games(cGameName).Settings.Value("ddraw") = 1             'set to 0 if You have problems with DMD showing or table stutter
+  'Controller.Games(cGameName).Settings.Value("ddraw") = 1             'set to 0 if You have problems with DMD showing or table stutter
 
-	Controller.Run
-	If Err Then MsgBox Err.Description
-	On Error Goto 0
+  Controller.Run
+  If Err Then MsgBox Err.Description
+  On Error Goto 0
 
-	PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Interval=PinMAMEInterval
 
-	vpmNudge.TiltSwitch = 14
-	vpmNudge.Sensitivity = 4
+  vpmNudge.TiltSwitch = 14
+  vpmNudge.Sensitivity = 4
 
-	vpmMapLights AllLights
+  vpmMapLights AllLights
 
-	'Bus diverter starts down
-	Sol6.IsDropped = True
+  'Bus diverter starts down
+  Sol6.IsDropped = True
 
-	'Scoop Init (Up)
-	controller.switch(72) = False
-	P_Fork1.RotX = 0
-	P_Fork2.RotX = 0
-	P_Fork1.collidable = True
-	P_Fork2.collidable = True
+  'Scoop Init (Up)
+  controller.switch(72) = False
+  P_Fork1.RotX = 0
+  P_Fork2.RotX = 0
+  P_Fork1.collidable = True
+  P_Fork2.collidable = True
 
-	'Crane Init (Down)
-	controller.switch(28) = True
+  'Crane Init (Down)
+  controller.switch(28) = True
 
-	'Fridge Popper
-	Set bsFridgePopper = New cvpmBallStack
-	bsFridgePopper.InitSw 0,37,36,43,0,0,0,0
-	bsFridgePopper.InitKick Sol2, 180, 6
-	bsFridgePopper.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solon",DOFContactors)
-	bsFridgePopper.Balls = 1
+  'Fridge Popper
+  Set bsFridgePopper = New cvpmBallStack
+  bsFridgePopper.InitSw 0,37,36,43,0,0,0,0
+  bsFridgePopper.InitKick Sol2, 180, 6
+  bsFridgePopper.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solon",DOFContactors)
+  bsFridgePopper.Balls = 1
 
-	'Trough
-	Set bsTrough = New cvpmBallStack
-	bsTrough.InitSw 0,32,33,34,35,0,0,0
-	bsTrough.InitKick BallRelease, 95, 5
-	bsTrough.InitEntrySnd SoundFX("BallRelease",DOFContactors), "Solon"
-	bsTrough.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solon",DOFContactors)
-	bsTrough.Balls = 3
+  'Trough
+  Set bsTrough = New cvpmBallStack
+  bsTrough.InitSw 0,32,33,34,35,0,0,0
+  bsTrough.InitKick BallRelease, 95, 5
+  bsTrough.InitEntrySnd SoundFX("BallRelease",DOFContactors), "Solon"
+  bsTrough.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solon",DOFContactors)
+  bsTrough.Balls = 3
 
-	Auto_Plunger.Pullback
+  Auto_Plunger.Pullback
 End Sub
 
 Sub JunkYard_Exit
-	Controller.Stop
+  Controller.Stop
 End Sub
 
 
@@ -459,13 +459,13 @@ End Sub
 '-----------------------------------
 
 Sub JunkYard_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Pullback
-	If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback
+  If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub JunkYard_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 '-----------------------------------
@@ -475,7 +475,7 @@ End Sub
 ' Trough Handler
 Sub Drain_Hit()
   PlaySoundAt "Drain5", Drain
-	bsTrough.AddBall Me
+  bsTrough.AddBall Me
 End Sub
 
 ' Past Spinner
@@ -506,15 +506,15 @@ End Sub
 
 ' Crane Hole
 Sub CraneHole_Hit
-	playsoundAt "Drain5", CraneHole
-	Me.DestroyBall
-	CraneEntry.createBall
-	CraneEntry.kick 180,5
+  playsoundAt "Drain5", CraneHole
+  Me.DestroyBall
+  CraneEntry.createBall
+  CraneEntry.kick 180,5
 End Sub
 
 ' Subway Handler
 Sub FridgeEnter_Hit
-	bsFridgePopper.Addball me
+  bsFridgePopper.Addball me
 End Sub
 
 
@@ -565,8 +565,8 @@ Sub switch77_Hit:vpmTimer.PulseSw 77:End Sub
 Sub switch78_Hit:vpmTimer.PulseSw 78:End Sub
 
 Sub Switch45_Timer
-	Switch45.timerenabled = False
-	Primitive_SwitchArm.objrotx = -20
+  Switch45.timerenabled = False
+  Primitive_SwitchArm.objrotx = -20
 End Sub
 
 Sub ScoopMade_Hit:PlaySoundAt "WireRamp1", ScoopMade:End Sub
@@ -575,23 +575,23 @@ Sub ToiletBowlSwitch_Hit:ActiveBall.VelY = ActiveBall.VelY * 0.6:End Sub
 
 Sub BusRampEnd_UnHit:PlaySoundAt "fx_collide", BusRampEnd:End Sub
 Sub FridgeRampEnd_Hit
-	FridgeRampEnd.timerenabled = True
+  FridgeRampEnd.timerenabled = True
 End Sub
 Sub FridgeRampEnd1_Hit
-	if FridgeRampEnd.timerenabled Then
-		FridgeRampEnd.timerenabled = False
-		playsound "fx_collide",0,0.1,-0.15,0.25 ' TODO
-	end If
+  if FridgeRampEnd.timerenabled Then
+    FridgeRampEnd.timerenabled = False
+    playsound "fx_collide",0,0.1,-0.15,0.25 ' TODO
+  end If
 End Sub
 
 Sub RightRampEnd_UnHit
-	RightRampEnd.timerenabled = True
+  RightRampEnd.timerenabled = True
 End Sub
 Sub RightRampEnd1_Hit
-	if RightRampEnd.timerenabled Then
-		RightRampEnd.timerenabled = False
+  if RightRampEnd.timerenabled Then
+    RightRampEnd.timerenabled = False
     PlaySoundAt "fx_collide", RightRampEnd1
-	end If
+  end If
 End Sub
 
 
@@ -609,13 +609,13 @@ WreckBallCenterY = WreckerCenterTrigger.Y
 ScaleFactor = 0.65    'length of wrecker ball chain
 
 Sub InitWreckerBall
-	WreckerBallSize = Ballsize
-	set Wrecker = WreckBallKicker1.createsizedball(Wreckerballsize / 2)
-	WreckBallKicker1.kick 0,0
-	set Wrecker2 = WreckBallKicker.createball
-	Wrecker2.visible = False
-	WreckBallKicker.kick 0,0
-	WreckBallKicker.timerEnabled = true
+  WreckerBallSize = Ballsize
+  set Wrecker = WreckBallKicker1.createsizedball(Wreckerballsize / 2)
+  WreckBallKicker1.kick 0,0
+  set Wrecker2 = WreckBallKicker.createball
+  Wrecker2.visible = False
+  WreckBallKicker.kick 0,0
+  WreckBallKicker.timerEnabled = true
 End Sub
 
 Dim ORotX,ORotY,TransZValue
@@ -633,115 +633,115 @@ const ChainOrigin=162
 const CraneUp=100
 
 Sub WreckBallKicker_timer()
-	if Wrecker2.z > 350 Then
-		Wrecker2.z = 350
-	end If
+  if Wrecker2.z > 350 Then
+    Wrecker2.z = 350
+  end If
 
-	Wrecker2.Velx = Wrecker2.Velx + Wrecker.velx * 1.7
-	Wrecker2.Vely = Wrecker2.Vely + Wrecker.vely * 1.7
-	Wrecker2.Velz = Wrecker2.Velz + Wrecker.velz * 1.3
+  Wrecker2.Velx = Wrecker2.Velx + Wrecker.velx * 1.7
+  Wrecker2.Vely = Wrecker2.Vely + Wrecker.vely * 1.7
+  Wrecker2.Velz = Wrecker2.Velz + Wrecker.velz * 1.3
 
     Wrecker.velx = 0
     Wrecker.vely = 0
     Wrecker.velZ = 0
 
-	XBallX = (Wrecker2.X - WreckerCenterTrigger1.X)
-	YBallX = (Wrecker2.Y - WreckerCenterTrigger1.Y)
+  XBallX = (Wrecker2.X - WreckerCenterTrigger1.X)
+  YBallX = (Wrecker2.Y - WreckerCenterTrigger1.Y)
 
     Wrecker.X = WreckBallCenterX + XBallX
     Wrecker.Y = WreckBallCenterY + YBallX
     Wrecker.Z = Wrecker2.Z + BottomLimit - 30
 
-	if abs(XballX) > 10 then
-		if abs(XballX) > 30 then
-			if XballX > 0 then
-				PCraneArm.RotZ = 2.7
-			end if
-			if XballX < 0 then
-				PCraneArm.RotZ = 3.3
-			end if
-		else
-			if abs(XballX) > 20 then
-				if XballX > 0 then
-					PCraneArm.RotZ = 2.8
-				end if
-				if XballX < 0 then
-					PCraneArm.RotZ = 3.2
-				end if
-			else
-				if XballX > 0 then
-					PCraneArm.RotZ = 2.9
-				end if
-				if XballX < 0 then
-					PCraneArm.RotZ = 3.1
-				end if
-			end if
-		end if
-	else
-		PCraneArm.RotZ = 3
-	end if
-	PWBallCylinder.X = Wrecker.X
-	PWBallCylinder.Y = Wrecker.Y
-	PWBallCylinder.Z = Wrecker.Z
-	PWBallCylinder.TransZ = 25
+  if abs(XballX) > 10 then
+    if abs(XballX) > 30 then
+      if XballX > 0 then
+        PCraneArm.RotZ = 2.7
+      end if
+      if XballX < 0 then
+        PCraneArm.RotZ = 3.3
+      end if
+    else
+      if abs(XballX) > 20 then
+        if XballX > 0 then
+          PCraneArm.RotZ = 2.8
+        end if
+        if XballX < 0 then
+          PCraneArm.RotZ = 3.2
+        end if
+      else
+        if XballX > 0 then
+          PCraneArm.RotZ = 2.9
+        end if
+        if XballX < 0 then
+          PCraneArm.RotZ = 3.1
+        end if
+      end if
+    end if
+  else
+    PCraneArm.RotZ = 3
+  end if
+  PWBallCylinder.X = Wrecker.X
+  PWBallCylinder.Y = Wrecker.Y
+  PWBallCylinder.Z = Wrecker.Z
+  PWBallCylinder.TransZ = 25
 
-	PChain1.X = WreckBallCenterX + (XBallX * ScaleFactor *.87)
-	PChain1.Y = WreckBallCenterY + (YBallX * ScaleFactor *.87)
-	PChain2.X = WreckBallCenterX + (XBallX * ScaleFactor *.79)
-	PChain2.Y = WreckBallCenterY + (YBallX * ScaleFactor *.79)
-	PChain3.X = WreckBallCenterX + (XBallX * ScaleFactor *.71)
-	PChain3.Y = WreckBallCenterY + (YBallX * ScaleFactor *.71)
-	PChain4.X = WreckBallCenterX + (XBallX * ScaleFactor *.63)
-	PChain4.Y = WreckBallCenterY + (YBallX * ScaleFactor *.63)
-	PChain5.X = WreckBallCenterX + (XBallX * ScaleFactor *.55)
-	PChain5.Y = WreckBallCenterY + (YBallX * ScaleFactor *.55)
-	PChain6.X = WreckBallCenterX + (XBallX * ScaleFactor *.47)
-	PChain6.Y = WreckBallCenterY + (YBallX * ScaleFactor *.47)
-	PChain7.X = WreckBallCenterX + (XBallX * ScaleFactor *.39)
-	PChain7.Y = WreckBallCenterY + (YBallX * ScaleFactor *.39)
-	PChain8.X = WreckBallCenterX + (XBallX * ScaleFactor *.31)
-	PChain8.Y = WreckBallCenterY + (YBallX * ScaleFactor *.31)
-	PChain9.X = WreckBallCenterX + (XBallX * ScaleFactor *.23)
-	PChain9.Y = WreckBallCenterY + (YBallX * ScaleFactor *.23)
-	PChain10.X = WreckBallCenterX + (XBallX * ScaleFactor *.15)
-	PChain10.Y = WreckBallCenterY + (YBallX * ScaleFactor *.15)
+  PChain1.X = WreckBallCenterX + (XBallX * ScaleFactor *.87)
+  PChain1.Y = WreckBallCenterY + (YBallX * ScaleFactor *.87)
+  PChain2.X = WreckBallCenterX + (XBallX * ScaleFactor *.79)
+  PChain2.Y = WreckBallCenterY + (YBallX * ScaleFactor *.79)
+  PChain3.X = WreckBallCenterX + (XBallX * ScaleFactor *.71)
+  PChain3.Y = WreckBallCenterY + (YBallX * ScaleFactor *.71)
+  PChain4.X = WreckBallCenterX + (XBallX * ScaleFactor *.63)
+  PChain4.Y = WreckBallCenterY + (YBallX * ScaleFactor *.63)
+  PChain5.X = WreckBallCenterX + (XBallX * ScaleFactor *.55)
+  PChain5.Y = WreckBallCenterY + (YBallX * ScaleFactor *.55)
+  PChain6.X = WreckBallCenterX + (XBallX * ScaleFactor *.47)
+  PChain6.Y = WreckBallCenterY + (YBallX * ScaleFactor *.47)
+  PChain7.X = WreckBallCenterX + (XBallX * ScaleFactor *.39)
+  PChain7.Y = WreckBallCenterY + (YBallX * ScaleFactor *.39)
+  PChain8.X = WreckBallCenterX + (XBallX * ScaleFactor *.31)
+  PChain8.Y = WreckBallCenterY + (YBallX * ScaleFactor *.31)
+  PChain9.X = WreckBallCenterX + (XBallX * ScaleFactor *.23)
+  PChain9.Y = WreckBallCenterY + (YBallX * ScaleFactor *.23)
+  PChain10.X = WreckBallCenterX + (XBallX * ScaleFactor *.15)
+  PChain10.Y = WreckBallCenterY + (YBallX * ScaleFactor *.15)
 
-	OrotX = YBallX * 0.85 					'reduce MaxRotation to 55 degrees
-	OrotY = -XBallX * 0.85
-	PWBallCylinder.RotX = ORotX * 0.8
-	PWBallCylinder.RotY = ORotY * 0.8
-	PChain1.RotX = ORotX * 1.3	 			'add some distortion to chain angle for each link
-	PChain1.RotY = ORotY * 1.3
-	PChain2.RotX = ORotX * 1.2
-	PChain2.RotY = ORotY * 1.2
-	PChain3.RotX = ORotX * 1.1
-	PChain3.RotY = ORotY * 1.1
-	PChain4.RotX = ORotX * 1.05
-	PChain4.RotY = ORotY * 1.05
-	PChain5.RotX = ORotX
-	PChain5.RotY = ORotY
-	PChain6.RotX = ORotX * 0.95
-	PChain6.RotY = ORotY * 0.95
-	PChain7.RotX = ORotX * 0.9
-	PChain7.RotY = ORotY * 0.9
-	PChain8.RotX = ORotX * 0.85
-	PChain8.RotY = ORotY * 0.85
-	PChain9.RotX = ORotX * 0.7
-	PChain9.RotY = ORotY * 0.7
-	PChain10.RotX = ORotX * 0.7
-	PChain10.RotY = ORotY * 0.7
+  OrotX = YBallX * 0.85           'reduce MaxRotation to 55 degrees
+  OrotY = -XBallX * 0.85
+  PWBallCylinder.RotX = ORotX * 0.8
+  PWBallCylinder.RotY = ORotY * 0.8
+  PChain1.RotX = ORotX * 1.3        'add some distortion to chain angle for each link
+  PChain1.RotY = ORotY * 1.3
+  PChain2.RotX = ORotX * 1.2
+  PChain2.RotY = ORotY * 1.2
+  PChain3.RotX = ORotX * 1.1
+  PChain3.RotY = ORotY * 1.1
+  PChain4.RotX = ORotX * 1.05
+  PChain4.RotY = ORotY * 1.05
+  PChain5.RotX = ORotX
+  PChain5.RotY = ORotY
+  PChain6.RotX = ORotX * 0.95
+  PChain6.RotY = ORotY * 0.95
+  PChain7.RotX = ORotX * 0.9
+  PChain7.RotY = ORotY * 0.9
+  PChain8.RotX = ORotX * 0.85
+  PChain8.RotY = ORotY * 0.85
+  PChain9.RotX = ORotX * 0.7
+  PChain9.RotY = ORotY * 0.7
+  PChain10.RotX = ORotX * 0.7
+  PChain10.RotY = ORotY * 0.7
 
-	TransZValue = (ChainOrigin + (bottomlimit-lowerbottomlimit) * Craneup / (upperbottomlimit-lowerbottomlimit) - Wrecker.Z)/10
-	PChain1.Z = Wrecker.Z + 25 + 0.7*TransZValue
-	PChain2.Z = Wrecker.Z + 25 + 1.8*TransZValue
-	PChain3.Z = Wrecker.Z + 25 + 2.9*TransZValue
-	PChain4.Z = Wrecker.Z + 25 + 4*TransZValue
-	PChain5.Z = Wrecker.Z + 25 + 5*TransZValue
-	PChain6.Z = Wrecker.Z + 25 + 6*TransZValue
-	PChain7.Z = Wrecker.Z + 25 + 7*TransZValue
-	PChain8.Z = Wrecker.Z + 25 + 8*TransZValue
-	PChain9.Z = Wrecker.Z + 25 + 9*TransZValue
-	PChain10.Z = Wrecker.Z + 25 + 10*TransZValue
+  TransZValue = (ChainOrigin + (bottomlimit-lowerbottomlimit) * Craneup / (upperbottomlimit-lowerbottomlimit) - Wrecker.Z)/10
+  PChain1.Z = Wrecker.Z + 25 + 0.7*TransZValue
+  PChain2.Z = Wrecker.Z + 25 + 1.8*TransZValue
+  PChain3.Z = Wrecker.Z + 25 + 2.9*TransZValue
+  PChain4.Z = Wrecker.Z + 25 + 4*TransZValue
+  PChain5.Z = Wrecker.Z + 25 + 5*TransZValue
+  PChain6.Z = Wrecker.Z + 25 + 6*TransZValue
+  PChain7.Z = Wrecker.Z + 25 + 7*TransZValue
+  PChain8.Z = Wrecker.Z + 25 + 8*TransZValue
+  PChain9.Z = Wrecker.Z + 25 + 9*TransZValue
+  PChain10.Z = Wrecker.Z + 25 + 10*TransZValue
 End Sub
 
 Dim DirX, DirY
@@ -750,85 +750,85 @@ const CraneDownAngle = -11
 
 Sub SolPowerCrane(enabled)
   PlaySoundAt SoundFX("Crane",DOFShaker), WreckBallKicker1
-	If  enabled then
-		CraneUpTimer.enabled = True
-		CraneDownTimer.enabled = False
-		DirX = Wrecker.velx
-		DirY = Wrecker.vely
-		if DirX <> 0 then
-			DirX = DirX/ABS(DirX)
-		else
-			DirX = -1
-		end if
-		if DirY <> 0 then
-			DirY = DirY/ABS(DirY)
-		else
-			DirY = 1
-		end if
+  If  enabled then
+    CraneUpTimer.enabled = True
+    CraneDownTimer.enabled = False
+    DirX = Wrecker.velx
+    DirY = Wrecker.vely
+    if DirX <> 0 then
+      DirX = DirX/ABS(DirX)
+    else
+      DirX = -1
+    end if
+    if DirY <> 0 then
+      DirY = DirY/ABS(DirY)
+    else
+      DirY = 1
+    end if
 
-		Wrecker.velx = Wrecker.velx + (2.5 * DirX)		' If crane is pulled up, increase current movement
-		Wrecker.vely = Wrecker.vely + (2.5 * DirY)
+    Wrecker.velx = Wrecker.velx + (2.5 * DirX)    ' If crane is pulled up, increase current movement
+    Wrecker.vely = Wrecker.vely + (2.5 * DirY)
 
-	Else
-		If HoldCrane = False Then
-			CraneUpTimer.enabled = False
-			CraneDownTimer.enabled = True
-		end if
-	End If
+  Else
+    If HoldCrane = False Then
+      CraneUpTimer.enabled = False
+      CraneDownTimer.enabled = True
+    end if
+  End If
 End Sub
 
 Sub SolHoldCrane(enabled)
-	PlaySoundAt "Crane", PCraneArm
-	If enabled then
-		HoldCrane = True
-		CraneUpTimer.enabled = True
-		CraneDownTimer.enabled = False
-		DirX = Wrecker.velx
-		DirY = Wrecker.vely
-		if DirX <> 0 then
-			DirX = DirX/ABS(DirX)
-		else
-			DirX = 1
-		end if
-		if DirY <> 0 then
-			DirY = DirY/ABS(DirY)
-		else
-			DirY = -1
-		end if
+  PlaySoundAt "Crane", PCraneArm
+  If enabled then
+    HoldCrane = True
+    CraneUpTimer.enabled = True
+    CraneDownTimer.enabled = False
+    DirX = Wrecker.velx
+    DirY = Wrecker.vely
+    if DirX <> 0 then
+      DirX = DirX/ABS(DirX)
+    else
+      DirX = 1
+    end if
+    if DirY <> 0 then
+      DirY = DirY/ABS(DirY)
+    else
+      DirY = -1
+    end if
 
-		Wrecker.velx = Wrecker.velx + 2.5 * DirX		' If crane is pulled up, increase current movement
-		Wrecker.vely = Wrecker.vely + 2.5 * DirY
-	Else
-		HoldCrane = False
-		CraneUpTimer.enabled = False
-		CraneDownTimer.enabled = True
-	End If
+    Wrecker.velx = Wrecker.velx + 2.5 * DirX    ' If crane is pulled up, increase current movement
+    Wrecker.vely = Wrecker.vely + 2.5 * DirY
+  Else
+    HoldCrane = False
+    CraneUpTimer.enabled = False
+    CraneDownTimer.enabled = True
+  End If
 End Sub
 
 Sub CraneUpTimer_Timer
-	PCraneArm.RotX = PCraneArm.RotX + 1
-	PCraneArm.TransZ = PCraneArm.TransZ + 1
-	BottomLimit = BottomLimit + 9
-	if PCraneArm.RotX >= CraneUpAngle then
-		CraneUpTimer.enabled = false
-		PCraneArm.RotX = CraneUpAngle
-		PCraneArm.TransZ = 10
-		BottomLimit = UpperBottomLimit
-		controller.switch(28) = False
-	end if
+  PCraneArm.RotX = PCraneArm.RotX + 1
+  PCraneArm.TransZ = PCraneArm.TransZ + 1
+  BottomLimit = BottomLimit + 9
+  if PCraneArm.RotX >= CraneUpAngle then
+    CraneUpTimer.enabled = false
+    PCraneArm.RotX = CraneUpAngle
+    PCraneArm.TransZ = 10
+    BottomLimit = UpperBottomLimit
+    controller.switch(28) = False
+  end if
 End Sub
 
 Sub CraneDownTimer_Timer
-	PCraneArm.RotX = PCraneArm.RotX - 1
-	PCraneArm.TransZ = PCraneArm.TransZ - 1
-	BottomLimit = BottomLimit - 9
-	if PCraneArm.RotX <= CraneDownAngle then
-		CraneDownTimer.enabled = false
-		PCraneArm.RotX = CraneDownAngle
-		PCraneArm.TransZ = 0
-		BottomLimit = LowerBottomLimit
-		controller.switch(28) = true
-	end if
+  PCraneArm.RotX = PCraneArm.RotX - 1
+  PCraneArm.TransZ = PCraneArm.TransZ - 1
+  BottomLimit = BottomLimit - 9
+  if PCraneArm.RotX <= CraneDownAngle then
+    CraneDownTimer.enabled = false
+    PCraneArm.RotX = CraneDownAngle
+    PCraneArm.TransZ = 0
+    BottomLimit = LowerBottomLimit
+    controller.switch(28) = true
+  end if
 End Sub
 
 Sub SWCar1_Hit:vpmTimer.PulseSw 46:MoveCar1:End Sub
@@ -838,130 +838,130 @@ Sub SWCar4_Hit:vpmTimer.PulseSw 53:MoveCar4:End Sub
 Sub SWCar5_Hit:vpmTimer.PulseSw 54:MoveCar5:End Sub
 
 Sub MoveCar1
-	P_Car1.TransZ = 5
-	P_Car1.ObjRotX = -3
-	P_Car1.ObjRotY = 6
-	SWCar1.Timerenabled = False
-	SWCar1.Timerenabled = True
+  P_Car1.TransZ = 5
+  P_Car1.ObjRotX = -3
+  P_Car1.ObjRotY = 6
+  SWCar1.Timerenabled = False
+  SWCar1.Timerenabled = True
 End Sub
 Sub SWCar1_Timer
-	SWCar1.Timerenabled = False
-	P_Car1.TransZ = 0
-	P_Car1.ObjRotX = 0
-	P_Car1.ObjRotY = 0
+  SWCar1.Timerenabled = False
+  P_Car1.TransZ = 0
+  P_Car1.ObjRotX = 0
+  P_Car1.ObjRotY = 0
 End Sub
 
 Sub MoveCar2
-	P_Car2.TransZ = 5
-	P_Car2.ObjRotX = -6
-	P_Car2.ObjRotY = 3
-	SWCar2.Timerenabled = False
-	SWCar2.Timerenabled = True
+  P_Car2.TransZ = 5
+  P_Car2.ObjRotX = -6
+  P_Car2.ObjRotY = 3
+  SWCar2.Timerenabled = False
+  SWCar2.Timerenabled = True
 End Sub
 Sub SWCar2_Timer
-	SWCar2.Timerenabled = False
-	P_Car2.TransZ = 0
-	P_Car2.ObjRotX = 0
-	P_Car2.ObjRotY = 0
+  SWCar2.Timerenabled = False
+  P_Car2.TransZ = 0
+  P_Car2.ObjRotX = 0
+  P_Car2.ObjRotY = 0
 End Sub
 
 Sub MoveCar3
-	P_Car3.TransZ = 5
-	P_Car3.ObjRotX = -7
-	SWCar3.Timerenabled = False
-	SWCar3.Timerenabled = True
+  P_Car3.TransZ = 5
+  P_Car3.ObjRotX = -7
+  SWCar3.Timerenabled = False
+  SWCar3.Timerenabled = True
 End Sub
 Sub SWCar3_Timer
-	SWCar3.Timerenabled = False
-	P_Car3.TransZ = 0
-	P_Car3.ObjRotX = 0
+  SWCar3.Timerenabled = False
+  P_Car3.TransZ = 0
+  P_Car3.ObjRotX = 0
 End Sub
 
 Sub MoveCar4
-	P_Car4.TransZ = 5
-	P_Car4.ObjRotX = -6
-	P_Car4.ObjRotY = -4
-	SWCar4.Timerenabled = False
-	SWCar4.Timerenabled = True
+  P_Car4.TransZ = 5
+  P_Car4.ObjRotX = -6
+  P_Car4.ObjRotY = -4
+  SWCar4.Timerenabled = False
+  SWCar4.Timerenabled = True
 End Sub
 Sub SWCar4_Timer
-	SWCar4.Timerenabled = False
-	P_Car4.TransZ = 0
-	P_Car4.ObjRotX = 0
-	P_Car4.ObjRotY = 0
+  SWCar4.Timerenabled = False
+  P_Car4.TransZ = 0
+  P_Car4.ObjRotX = 0
+  P_Car4.ObjRotY = 0
 End Sub
 
 Sub MoveCar5
-	P_Car5.TransZ = 5
-	P_Car5.ObjRotX = -3
-	P_Car5.ObjRotY = -6
-	SWCar5.Timerenabled = False
-	SWCar5.Timerenabled = True
+  P_Car5.TransZ = 5
+  P_Car5.ObjRotX = -3
+  P_Car5.ObjRotY = -6
+  SWCar5.Timerenabled = False
+  SWCar5.Timerenabled = True
 End Sub
 Sub SWCar5_Timer
-	SWCar5.Timerenabled = False
-	P_Car5.TransZ = 0
-	P_Car5.ObjRotX = 0
-	P_Car5.ObjRotY = 0
+  SWCar5.Timerenabled = False
+  P_Car5.TransZ = 0
+  P_Car5.ObjRotX = 0
+  P_Car5.ObjRotY = 0
 End Sub
 
 '-----------------------------------
 ' Flipper Primitives
 '-----------------------------------
 sub FlipperTimer_Timer()
-	pleftFlipper.rotz=leftFlipper.CurrentAngle
-	prightFlipper.rotz=rightFlipper.CurrentAngle
+  pleftFlipper.rotz=leftFlipper.CurrentAngle
+  prightFlipper.rotz=rightFlipper.CurrentAngle
 
-	P_Spinner.rotx = -Switch115.currentangle
-	P_Spinnerrod.rotx = -Switch115.currentangle
+  P_Spinner.rotx = -Switch115.currentangle
+  P_Spinnerrod.rotx = -Switch115.currentangle
 end sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
     PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), LeftFlipper, VolFlip
-		 LeftFlipper.RotateToEnd
+     LeftFlipper.RotateToEnd
     Else
     PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), LeftFlipper, VolFlip
-		 LeftFlipper.RotateToStart
-	End If
+     LeftFlipper.RotateToStart
+  End If
 End Sub
 
 Sub SolRFlipper(Enabled)
-	If Enabled Then
+  If Enabled Then
      PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors), RightFlipper, VolFlip
-		 RightFlipper.RotateToEnd
+     RightFlipper.RotateToEnd
     Else
      PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors), RightFlipper, VolFlip
-		 RightFlipper.RotateToStart
+     RightFlipper.RotateToStart
     End If
 End Sub
 
 Sub LampTimer_Timer
-	if Controller.Lamp(81) and WindowUp Then
-		F_81.intensityscale = 1
-	Else
-		F_81.intensityscale = 0
-	End If
-	if Controller.Lamp(82) and WindowUp  Then
-		F_82.intensityscale = 1
-	Else
-		F_82.intensityscale = 0
-	End If
-	if Controller.Lamp(83) and WindowUp  Then
-		F_83.intensityscale = 1
-	Else
-		F_83.intensityscale = 0
-	End If
-	if Controller.Lamp(84) and WindowUp  Then
-		F_84.intensityscale = 1
-	Else
-		F_84.intensityscale = 0
-	End If
-	if Controller.Lamp(85) and WindowUp  Then
-		F_85.intensityscale = 1
-	Else
-		F_85.intensityscale = 0
-	End If
+  if Controller.Lamp(81) and WindowUp Then
+    F_81.intensityscale = 1
+  Else
+    F_81.intensityscale = 0
+  End If
+  if Controller.Lamp(82) and WindowUp  Then
+    F_82.intensityscale = 1
+  Else
+    F_82.intensityscale = 0
+  End If
+  if Controller.Lamp(83) and WindowUp  Then
+    F_83.intensityscale = 1
+  Else
+    F_83.intensityscale = 0
+  End If
+  if Controller.Lamp(84) and WindowUp  Then
+    F_84.intensityscale = 1
+  Else
+    F_84.intensityscale = 0
+  End If
+  if Controller.Lamp(85) and WindowUp  Then
+    F_85.intensityscale = 1
+  Else
+    F_85.intensityscale = 0
+  End If
 End Sub
 
 '-----------------------------------
@@ -969,32 +969,32 @@ End Sub
 '-----------------------------------
 dim obj
 Sub UpdateGI(GINo,Status)
-	select case GINo
-		case 0: if status then
-					for each obj in GIString1
-						obj.state = lightstateon
-					next
-				else
-					for each obj in GIString1
-						obj.state = lightstateoff
-					next
-				end if
-		case 1: if status then
-					for each obj in GIString2
-						obj.state = lightstateon
-					next
-				else
-					for each obj in GIString2
-						obj.state = lightstateoff
-					next
-				end if
+  select case GINo
+    case 0: if status then
+          for each obj in GIString1
+            obj.state = lightstateon
+          next
+        else
+          for each obj in GIString1
+            obj.state = lightstateoff
+          next
+        end if
+    case 1: if status then
+          for each obj in GIString2
+            obj.state = lightstateon
+          next
+        else
+          for each obj in GIString2
+            obj.state = lightstateoff
+          next
+        end if
 
-		case 2: if status then
-					'BackGlass "Junk Yard" logo On
-				else
-					'BackGlass "Junk Yard" logo Off
-				end if
-	end select
+    case 2: if status then
+          'BackGlass "Junk Yard" logo On
+        else
+          'BackGlass "Junk Yard" logo Off
+        end if
+  end select
 End Sub
 
 
@@ -1008,7 +1008,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSwitch 52, 0, 0
+  vpmTimer.PulseSwitch 52, 0, 0
     PlaySoundAt SoundFX("left_slingshot",DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -1026,7 +1026,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSwitch 51, 0, 0
+  vpmTimer.PulseSwitch 51, 0, 0
     PlaySoundAt SoundFX("right_slingshot",DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -1099,27 +1099,27 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
@@ -1127,49 +1127,49 @@ Sub Spinner_Spin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
+  Select Case Int(Rnd*3)+1
     Case 1 : PlaySoundAtBallVol "rubber_hit_1", VolRH
     Case 2 : PlaySoundAtBallVol "rubber_hit_2", VolRH
     Case 3 : PlaySoundAtBallVol "rubber_hit_3", VolRH
-	End Select
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
+  Select Case Int(Rnd*3)+1
     Case 1 : PlaySoundAtBallVol "flip_hit_1", VolFlip
     Case 2 : PlaySoundAtBallVol "flip_hit_2", VolFlip
     Case 3 : PlaySoundAtBallVol "flip_hit_3", VolFlip
-	End Select
+  End Select
 End Sub
 
 
@@ -1201,14 +1201,14 @@ Sub FlashInit
     ' for example
     ' Flasher1.Image = "fr"
 
-	'added by mfuegemann to apply Dim settings
-	FlashMaxAlpha = 1
-	if DimFlashers < 0 then
-		FlashMaxAlpha = FlashMaxAlpha + DimFlashers
-		if FlashMaxAlpha < 0 then
-			FlashMaxAlpha = 0
-		end if
-	end if
+  'added by mfuegemann to apply Dim settings
+  FlashMaxAlpha = 1
+  if DimFlashers < 0 then
+    FlashMaxAlpha = FlashMaxAlpha + DimFlashers
+    if FlashMaxAlpha < 0 then
+      FlashMaxAlpha = 0
+    end if
+  end if
 
     AllFlashOff()
 End Sub
@@ -1221,23 +1221,23 @@ Sub AllFlashOff
 End Sub
 
 Sub FlasherTimer_Timer()
-	flashm 0,Flasher1a
-	flashm 0,Flasher1b
-	flash 0, Flasher1
-	flashm 1,Flasher2a
-	flashm 1,Flasher2b
-	flash 1, Flasher2
-	flashm 2,Flasher3a
-	flash 2, Flasher3
-	flashm 3,Flasher4a
-	flash 3, Flasher4
-	Flashm 4, Flasher17a
-	flash 4, Flasher17
-	flash 5, Flasher25
-	flash 6, Flasher22
-	flash 7, Flasher27
-	flashm 8,Flasher28a
-	flash 8, Flasher28
+  flashm 0,Flasher1a
+  flashm 0,Flasher1b
+  flash 0, Flasher1
+  flashm 1,Flasher2a
+  flashm 1,Flasher2b
+  flash 1, Flasher2
+  flashm 2,Flasher3a
+  flash 2, Flasher3
+  flashm 3,Flasher4a
+  flash 3, Flasher4
+  Flashm 4, Flasher17a
+  flash 4, Flasher17
+  flash 5, Flasher25
+  flash 6, Flasher22
+  flash 7, Flasher27
+  flashm 8,Flasher28a
+  flash 8, Flasher28
 End Sub
 
 Sub SetFlash(nr, stat)
@@ -1255,8 +1255,8 @@ Sub Flash(nr, object)
             Object.intensityscale = FlashLevel(nr)
         Case 1 ' on
             FlashLevel(nr) = FlashLevel(nr) + FlashSpeedUp
-            If FlashLevel(nr) > FlashMaxAlpha Then				'1 original JP code
-                FlashLevel(nr) = FlashMaxAlpha					'1 original JP code
+            If FlashLevel(nr) > FlashMaxAlpha Then        '1 original JP code
+                FlashLevel(nr) = FlashMaxAlpha          '1 original JP code
                 FlashState(nr) = -2 'completely on
             End if
             Object.intensityscale = FlashLevel(nr)
@@ -1264,7 +1264,7 @@ Sub Flash(nr, object)
 End Sub
 
 Sub Flashm(nr, object) 'multiple flashers, it doesn't change the flashstate
-	Object.intensityscale = FlashLevel(nr)
+  Object.intensityscale = FlashLevel(nr)
 '    Select Case FlashState(nr)
 '        Case 0         'off
 '            Object.intensityscale = FlashLevel(nr)
@@ -1376,7 +1376,7 @@ End Function
 '    JP's VP10 Collision & Rolling Sounds
 '*****************************************
 
-Const tnob = 6 ' total number of balls		(JY: 4 + Wrecker + Wrecker2)
+Const tnob = 6 ' total number of balls    (JY: 4 + Wrecker + Wrecker2)
 ReDim rolling(tnob)
 ReDim collision(tnob)
 Initcollision
@@ -1394,16 +1394,16 @@ Sub CollisionTimer_Timer()
     BOT = GetBalls
 
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

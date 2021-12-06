@@ -49,7 +49,7 @@ Const UseLamps      = 1
 
 Const SSolenoidOn   ="fx_solenoid"
 Const SSolenoidOff  ="fx_solenoidoff"
-Const SCoin			="fx_coin"
+Const SCoin     ="fx_coin"
 
 '**********************************************************************************************************
 'Initiate Table
@@ -60,18 +60,18 @@ Dim bsTrough, LMAG, RMAG, RStep, Lstep, URStep, dtLL, dtLR, dtUP, LowerKicker, U
 Const cGameName = "jngld_l2"
 
 Sub Table1_Init
-	vpmInit Me
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Jungle Lord (Williams 1981)"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Jungle Lord (Williams 1981)"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .Hidden = False
-		If Err Then MsgBox Err.Description
+    If Err Then MsgBox Err.Description
         On Error Resume Next
         .SolMask(0) = 0
         vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
@@ -81,9 +81,9 @@ Sub Table1_Init
     End With
 End Sub
 
-	'Main Timer
-	PinMAMETimer.Interval=PinMAMEInterval
-	PinMAMETimer.Enabled=1
+  'Main Timer
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled=1
 
     ' Nudging
     vpmNudge.TiltSwitch = 1
@@ -247,13 +247,13 @@ Set Lights(64)=Light64
 Dim xx, UpdateGI
 
 Sub UpdateGITimer
-	If UpdateGI = 0 then
-		For each xx in GI:xx.State = 0: Next
-		PlaySound "fx_relay"
-	Else
-		For each xx in GI:xx.State = 1: Next
-		PlaySound "fx_relay"
-	End If
+  If UpdateGI = 0 then
+    For each xx in GI:xx.State = 0: Next
+    PlaySound "fx_relay"
+  Else
+    For each xx in GI:xx.State = 1: Next
+    PlaySound "fx_relay"
+  End If
 End Sub
 
 '**********************************************************************************************************
@@ -266,7 +266,7 @@ Sub RightSlingShot_Slingshot
     RSling1.Visible = 1
     SLING1.TransZ = -20
     RStep = 0
-	vpmtimer.pulsesw 28
+  vpmtimer.pulsesw 28
     RightSlingShot.TimerEnabled = 1
 End Sub
 
@@ -284,7 +284,7 @@ Sub LeftSlingShot_Slingshot
     LSling1.Visible = 1
     SLING2.TransZ = -20
     LStep = 0
-	vpmtimer.pulsesw 12
+  vpmtimer.pulsesw 12
     LeftSlingShot.TimerEnabled = 1
 End Sub
 
@@ -302,7 +302,7 @@ Sub UpperRightSlingShot_Slingshot
     URSling1.Visible = 1
     SLING3.TransZ = -20
     URStep = 0
-	vpmtimer.pulsesw 40
+  vpmtimer.pulsesw 40
     UpperRightSlingShot.TimerEnabled = 1
 End Sub
 
@@ -350,11 +350,11 @@ Sub dtUPreset(Enabled):Timer1.Enabled = true:End Sub
 Sub Timer1_Timer()
     Timer1.Enabled = false
     Controller.Switch(33) = true
-	Controller.Switch(34) = true
-	Controller.Switch(35) = true
-	Controller.Switch(36) = true
-	Controller.Switch(37) = true
-	sw33.isdropped = true
+  Controller.Switch(34) = true
+  Controller.Switch(35) = true
+  Controller.Switch(36) = true
+  Controller.Switch(37) = true
+  sw33.isdropped = true
     sw34.isdropped = true
     sw35.isdropped = true
     sw36.isdropped = true
@@ -371,8 +371,8 @@ Sub dtLLreset(Enabled):Timer2.Enabled = true:End Sub
 Sub Timer2_Timer()
     Timer2.Enabled = false
     Controller.Switch(29) = false
-	Controller.Switch(30) = false
-	Controller.Switch(31) = false
+  Controller.Switch(30) = false
+  Controller.Switch(31) = false
     sw29.isdropped = false
     sw30.isdropped = false
     sw31.isdropped = false
@@ -430,7 +430,7 @@ Sub sw16_UnHit:Controller.Switch(16) = 0:End Sub
 'Kickers
 '**********************************************************************************************************
 
-	Kicker3.CreateSizedBall (16)
+  Kicker3.CreateSizedBall (16)
 
 Sub Kicker1_Hit:LowerKicker.AddBall 0:UpdateGI = 0:UpdateGITimer:End Sub
 Sub Kicker1_UnHit:UpdateGI = 1:UpdateGITimer:End Sub
@@ -449,7 +449,7 @@ Sub Kicker2_UnHit:UpdateGI = 1:UpdateGITimer:End Sub
 Sub MiniKicker(Enabled)
     MBLaunch = 6*rnd(1)
     MBLaunch = Int(MBLaunch)
-	Kicker3.Kick 0, MBLaunch +12
+  Kicker3.Kick 0, MBLaunch +12
     PlaysoundAtVol "fx_solenoid", kicker3, VolKick
 End Sub
 
@@ -486,50 +486,50 @@ SolCallback(20) = "MiniKicker"
 '**********************************************************************************************************
 
 Sub Metals_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "fx_gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_gate", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Woods_Hit(idx)
-	PlaySound "fx_woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "fx_woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber_band", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber_band", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' *******************************************************************************************************

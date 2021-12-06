@@ -95,8 +95,8 @@ Const sGameOverRelay = 32
 
 'sol mapping
 
-'SolCallback(sLLFlipper)		= "SolFlipper LeftFlipper,Nothing,"
-'SolCallback(sLRFlipper) 	= "SolFlipper RightFlipper,RightFlipper1,"
+'SolCallback(sLLFlipper)    = "SolFlipper LeftFlipper,Nothing,"
+'SolCallback(sLRFlipper)  = "SolFlipper RightFlipper,RightFlipper1,"
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
@@ -139,9 +139,9 @@ SolCallBack(18) = "Sol18"
 SolCallBack(19) = "Sol19"
 SolCallBack(20) = "Sol20"
 SolCallback(21) = "MBulb"
-SolCallback(22) = "BallLiftMotor" '							Do not use these - they are in mechanics handlers
-SolCallback(23) = "Blades_Motor" '              					Do not use these - they are in mechanics handlers
-SolCallback(24) = "HeliArm" '					Do not use these - they are in mechanics handlers
+SolCallback(22) = "BallLiftMotor" '             Do not use these - they are in mechanics handlers
+SolCallback(23) = "Blades_Motor" '                        Do not use these - they are in mechanics handlers
+SolCallback(24) = "HeliArm" '         Do not use these - they are in mechanics handlers
 SolCallback(25) = "HeliArmRelay" '                   Do not use these - they are in mechanics handlers
 'SolCallback(26)  = "GI_Update"
 'SolCallback(27)  = "vpmSolSound ""solon"","
@@ -235,7 +235,7 @@ Sub Table1_Init()
     Controller.ShowDMDOnly = 1
     Controller.ShowFrame = 0
     Controller.HandleMechanics = 0
-	Controller.Hidden = UseVPMDMD
+  Controller.Hidden = UseVPMDMD
     Controller.Games("rescu911").Settings.Value("rol") = 0
     On Error Resume Next
     Controller.Run
@@ -248,7 +248,7 @@ Sub Table1_Init()
     vpmNudge.TiltSwitch = 151
     vpmNudge.Sensitivity = 5
 
-	set bsTrough=New cvpmBallStack
+  set bsTrough=New cvpmBallStack
      bsTrough.InitSw 0, 33, 0, 0, 0, 0, 0, 0
      bsTrough.InitKick BallRelease, 110, 8
      bsTrough.InitEntrySnd "solenoid", "solOn"
@@ -256,7 +256,7 @@ Sub Table1_Init()
      bsTrough.Balls = 3
 
     Set bsSewer = New cvpmBallStack
-	With bsSewer
+  With bsSewer
         .InitSw 0, 23, 0, 0, 0, 0, 0, 0
         .InitKick KUT, 180, 5
         '.InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
@@ -266,17 +266,17 @@ Sub Table1_Init()
     Controller.Switch(34) = 1
     PUBlock.isdropped = 1
 
-	set bsVUK = New cvpmBallStack
-	bsVUK.InitSw 0, 91, 0, 0, 0, 0, 0, 0
+  set bsVUK = New cvpmBallStack
+  bsVUK.InitSw 0, 91, 0, 0, 0, 0, 0, 0
     bsVUK.InitKick Kicker_VUK, 139, 3
     bsVUK.InitEntrySnd "solenoid", "solenoid"
     bsVUK.InitExitSnd SoundFX("ballrel", DOFContactors), SoundFX("solenoid", DOFContactors)
 
-   	set dtLDrop = New cvpmDropTarget
-	dtlDrop.InitDrop Array(sw20, sw30), Array(20, 30)
+    set dtLDrop = New cvpmDropTarget
+  dtlDrop.InitDrop Array(sw20, sw30), Array(20, 30)
     dtlDrop.InitSnd SoundFX("target_drop", DOFContactors), SoundFX("flapopen", DOFContactors)
 
-	Set cbCaptive = New cvpmCaptiveBall : With cbCaptive
+  Set cbCaptive = New cvpmCaptiveBall : With cbCaptive
         .InitCaptive CaptiveTrigger1, CaptiveWall, Array(Captive1, Captive2, Captive3), 360
         .Start
     Captive1.CreateSizedBall(23).Image = "JPBall-Dark2"
@@ -520,72 +520,72 @@ Sub heli_animation_timer()
 
     Select Case cmechpos
         Case 1 ' Take off
-			PUBlock.isdropped = 0
+      PUBlock.isdropped = 0
             If hinitialrot < 180 Then
-				 hinitialrot = hinitialrot + hrotspeed
+         hinitialrot = hinitialrot + hrotspeed
                  Chopper2.ObjRotz = Chopper2.ObjRotz + hrotspeed
-				 ChopperS.ObjRotz = ChopperS.ObjRotz + hrotspeed
+         ChopperS.ObjRotz = ChopperS.ObjRotz + hrotspeed
             End If
             If a > 270+178 Then
                 cmechpos = 3
-			Else
-				a = a + hspeed
-				x = Cos(a * 6.28318 / 360) * r + 190
-				y = Sin(a * 6.28318 / 360) * r + 580
-				PrimBlades.X = x
-				PrimBlades.Y = y
+      Else
+        a = a + hspeed
+        x = Cos(a * 6.28318 / 360) * r + 190
+        y = Sin(a * 6.28318 / 360) * r + 580
+        PrimBlades.X = x
+        PrimBlades.Y = y
                 PrimBlades1.X = x
-				PrimBlades1.Y = y
-				Heli_Hub.ObjRotZ = Heli_Hub.ObjRotZ + hspeed
-				Heli_Shaft.ObjRotz = Heli_Shaft.ObjRotz + hspeed
-				Heli_Base.ObjRotz = Heli_Base.ObjRotz + hspeed
-				Heli_Wire.ObjRotz = Heli_Wire.ObjRotz + hspeed
-				Chopper2.ObjRotz = Chopper2.ObjRotz + hspeed
-				ChopperS.ObjRotz = ChopperS.ObjRotz + hspeed
-				Chopper2.X = x
-				Chopper2.Y = y
+        PrimBlades1.Y = y
+        Heli_Hub.ObjRotZ = Heli_Hub.ObjRotZ + hspeed
+        Heli_Shaft.ObjRotz = Heli_Shaft.ObjRotz + hspeed
+        Heli_Base.ObjRotz = Heli_Base.ObjRotz + hspeed
+        Heli_Wire.ObjRotz = Heli_Wire.ObjRotz + hspeed
+        Chopper2.ObjRotz = Chopper2.ObjRotz + hspeed
+        ChopperS.ObjRotz = ChopperS.ObjRotz + hspeed
+        Chopper2.X = x
+        Chopper2.Y = y
                 ChopperS.X = x
-				ChopperS.Y = y
+        ChopperS.Y = y
             End If
         Case 3 ' Waiting for pickup
             If mdirection = 0 Then
                 cmechpos = 4
-				Lower_Post.enabled = 1
-				Heli_Kick.enabled = 1
+        Lower_Post.enabled = 1
+        Heli_Kick.enabled = 1
             End If
         Case 4 ' Leaving with ball
             if hinitialrot > 0 then
-				Chopper2.ObjRotz = Chopper2.ObjRotz - hrotspeed
+        Chopper2.ObjRotz = Chopper2.ObjRotz - hrotspeed
                 ChopperS.ObjRotz = ChopperS.ObjRotz - hrotspeed
-				hinitialrot = hinitialrot - hrotspeed
-			end if
+        hinitialrot = hinitialrot - hrotspeed
+      end if
             r = 405
             If a < 270 Then
                 cmechpos = 6
-			Else
-				a = a - hspeed
-				x = Cos(a * 6.28318 / 360) * r + 190
-				y = Sin(a * 6.28318 / 360) * r + 580
-				PrimBlades.X = x
-				PrimBlades.Y = y
-				PrimBlades1.X = x
-				PrimBlades1.Y = y
-				Heli_Hub.ObjRotZ = Heli_Hub.ObjRotZ - hspeed
-				Heli_Shaft.ObjRotz = Heli_Shaft.ObjRotz - hspeed
-				Heli_Base.ObjRotz = Heli_Base.ObjRotz - hspeed
-				Heli_Wire.ObjRotz = Heli_Wire.ObjRotz - hspeed
-				Chopper2.ObjRotz = Chopper2.ObjRotz - hspeed
+      Else
+        a = a - hspeed
+        x = Cos(a * 6.28318 / 360) * r + 190
+        y = Sin(a * 6.28318 / 360) * r + 580
+        PrimBlades.X = x
+        PrimBlades.Y = y
+        PrimBlades1.X = x
+        PrimBlades1.Y = y
+        Heli_Hub.ObjRotZ = Heli_Hub.ObjRotZ - hspeed
+        Heli_Shaft.ObjRotz = Heli_Shaft.ObjRotz - hspeed
+        Heli_Base.ObjRotz = Heli_Base.ObjRotz - hspeed
+        Heli_Wire.ObjRotz = Heli_Wire.ObjRotz - hspeed
+        Chopper2.ObjRotz = Chopper2.ObjRotz - hspeed
                 ChopperS.ObjRotz = ChopperS.ObjRotz - hspeed
-				Chopper2.X = x
-				Chopper2.Y = y
-				ChopperS.X = x
-				ChopperS.Y = y
-				If b3active = 1 And hbout = 0 Then
-					bfx = Cos((Chopper2.ObjRotz+100) * 6.28318 / 360) * hballr + x
-					bfy = Sin((Chopper2.ObjRotz+100) * 6.28318 / 360) * hballr + y
-					cball.X = bfx
-					cball.Y = bfy
-				End If
+        Chopper2.X = x
+        Chopper2.Y = y
+        ChopperS.X = x
+        ChopperS.Y = y
+        If b3active = 1 And hbout = 0 Then
+          bfx = Cos((Chopper2.ObjRotz+100) * 6.28318 / 360) * hballr + x
+          bfy = Sin((Chopper2.ObjRotz+100) * 6.28318 / 360) * hballr + y
+          cball.X = bfx
+          cball.Y = bfy
+        End If
             End If
         Case 6 ' Finished.  Reset
             Chopper2.ObjRotZ = 80
@@ -595,29 +595,29 @@ Sub heli_animation_timer()
             PrimBlades.X = 183.25
             PrimBlades.Y = 183.25
             PrimBlades1.X = 183.25
-			PrimBlades1.Y = 183.25
+      PrimBlades1.Y = 183.25
             Heli_Shaft.ObjRotz = 0
             Heli_Hub.ObjRotz = 0
             Heli_Base.ObjRotz = 0
             Heli_Wire.ObjRotz = 0
-			hinitialrot = 0
+      hinitialrot = 0
             cmechpos = 1
             a = 270 '4.68
             r = 400
 
             If emon = 1 Then
                 PlaySound SoundFX("popper_ball", DOFContactors) ' TODO
-				PlaySound "subway"
-				Heli_Raise.destroyball
+        PlaySound "subway"
+        Heli_Raise.destroyball
                 Heli_Raise.enabled = 1
                 Heli_Kick.enabled = 0
                 Kicker6.createball
                 Kicker6.kick 180, 2
-				emon = 0
+        emon = 0
             End If
             hbout = 1
             b3active = 1
-			me.enabled = 0
+      me.enabled = 0
     End Select
 End Sub
 
@@ -670,7 +670,7 @@ End Sub
 
 Sub Lower_Post_Timer()
     If Ball_Raise.Z <= -170 Then
-		drop_pause.enabled = 1
+    drop_pause.enabled = 1
         Controller.Switch(34) = 1
         Me.enabled = 0
     End If
@@ -681,9 +681,9 @@ Sub Lower_Post_Timer()
 End Sub
 
 Sub drop_pause_timer()
-	Ball_Raise.Z = -170
+  Ball_Raise.Z = -170
     PUBlock.isdropped = 1
-	Heli_Kick.Enabled = 1
+  Heli_Kick.Enabled = 1
     Me.enabled = 0
 End Sub
 
@@ -714,7 +714,7 @@ End Sub
 
 Sub HeliArm(enabled)
     If enabled Then
-		heli_animation.enabled = 1
+    heli_animation.enabled = 1
     End If
 End Sub
 
@@ -756,8 +756,8 @@ End Sub
 Sub BallLiftMotor(Enabled)
     If Enabled And hbin = 1 Then
         Heli_Raise.DestroyBall
-		Set cball = Heli_Raise.createball
-		Raise_Post.enabled = 1
+    Set cball = Heli_Raise.createball
+    Raise_Post.enabled = 1
         Heli_Raise.enabled = 0
     End If
 End Sub
@@ -1122,8 +1122,8 @@ Dim primCnt(120), primDir(120), primBmprDir(120)
 '****************************************************************************
 '***** Primitive Standup Target Animation
 '****************************************************************************
-'USAGE: 	Sub sw1_Hit: 	PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
-'USAGE: 	Sub Sw1_Timer: 	PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub sw1_Hit:  PrimStandupTgtHit  1, Sw1, PrimSw1: End Sub
+'USAGE:   Sub Sw1_Timer:  PrimStandupTgtMove 1, Sw1, PrimSw1: End Sub
 
 Const StandupTgtMovementDir = "TransX"
 Const StandupTgtMovementMax = 6
@@ -1202,7 +1202,7 @@ Sub Wall39_Unhit()
 End Sub
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow
@@ -1213,22 +1213,22 @@ Sub BallShadowUpdate()
     Dim BOT, b
     BOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		If BOT(b).X < table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (table1.Width/2))/7)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (table1.Width/2))/7)) - 10
-		End If
+    If BOT(b).X < table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (table1.Width/2))/7)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (table1.Width/2))/7)) - 10
+    End If
 
-			BallShadow(b).Y = BOT(b).Y + 10
-			BallShadow(b).Z = 1
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+      BallShadow(b).Y = BOT(b).Y + 10
+      BallShadow(b).Z = 1
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 ' *******************************************************************************************************

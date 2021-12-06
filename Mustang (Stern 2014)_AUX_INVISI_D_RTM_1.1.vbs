@@ -111,7 +111,7 @@ Const UseVPMModSol = 1
 
    LoadVPM "01560000", "sam.VBS", 3.10
 
-	 vpmflips.Delay = 100 ' Thalamus - trying to get rid of dying flippers.
+   vpmflips.Delay = 100 ' Thalamus - trying to get rid of dying flippers.
 
      Sub LoadVPM(VPMver, VBSfile, VBSver)
        On Error Resume Next
@@ -138,7 +138,7 @@ Const UseVPMModSol = 1
 '********************
      'Const B2SOn = 1
 
-	 Const cGameName = "mt_145hc" 'change the romname here
+   Const cGameName = "mt_145hc" 'change the romname here
 
      Const UseSolenoids = 1
      Const UseLamps = 0
@@ -156,24 +156,24 @@ Const UseVPMModSol = 1
    'Variables
     Dim xx, x
     Dim Bump1, Bump2, Bump3, Bump4, Mech3bank,bsTrough,bsRHole,DTBank5,turntable, cbRight, XTurn, mspinmagnet
-	Dim PlungerIM, B2SOn
+  Dim PlungerIM, B2SOn
 
   Sub Table_Init
-	With Controller
+  With Controller
         vpmInit Me
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Mustang (Stern 2014)"
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 1
-		.Hidden = VarHidden
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-	End With
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Mustang (Stern 2014)"
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 1
+    .Hidden = VarHidden
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+  End With
   InitVpmFFlipsSAM
     On Error Goto 0
 
@@ -185,7 +185,7 @@ Const UseVPMModSol = 1
     bsTrough.InitExitSnd "ballrelease", "Solenoid"
     bsTrough.Balls = 6
 
-	'***Right Hole bsRHole
+  '***Right Hole bsRHole
      'Set bsRHole = New cvpmBallStack
      'With bsRHole
       '   .InitSw 0, 43, 0, 0, 0, 0, 0, 0
@@ -196,17 +196,17 @@ Const UseVPMModSol = 1
      'End With
 
    Set bsRHole = New cvpmBallStack
-	With bsRHole
-		.InitSaucer sw43, 43, 185, 20
-		.KickZ = 0.4
-		.InitExitSnd "fx_solenoid", "Solenoid"
-		.KickForceVar = 2
-	End With
+  With bsRHole
+    .InitSaucer sw43, 43, 185, 20
+    .KickZ = 0.4
+    .InitExitSnd "fx_solenoid", "Solenoid"
+    .KickForceVar = 2
+  End With
 
       Set cbRight = New cvpmCaptiveBall
      With cbRight
          .InitCaptive RCaptTrigger, RCaptWall, Array(RCaptKicker1, RCaptKicker1a), 10
-		 .RestSwitch = 9
+     .RestSwitch = 9
          .NailedBalls = 1
          .ForceTrans = 1
          .MinForce = 7
@@ -225,15 +225,15 @@ Const UseVPMModSol = 1
 
 
 '**Nudging
-    	vpmNudge.TiltSwitch=-7
-    	vpmNudge.Sensitivity=1
-    	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot)
+      vpmNudge.TiltSwitch=-7
+      vpmNudge.Sensitivity=1
+      vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,Bumper4,LeftSlingshot,RightSlingshot)
 
 'DropTargets
 
       '**Main Timer init
-	PinMAMETimer.Interval = PinMAMEInterval
-	PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
 
   'Slings
     For each xx in RhammerA:xx.IsDropped=1:Next
@@ -244,27 +244,27 @@ Const UseVPMModSol = 1
     For each xx in LhammerC:xx.IsDropped=1:Next
 
 'DropTargets
-	Set DTBank5 = New cvpmDropTarget
-	With DTBank5
-	   .InitDrop Array(sw34,sw35,sw36,sw37,sw38), Array(34,35,36,37,38)
-	   .InitSnd"DTL", "DTResetL"
-	End With
+  Set DTBank5 = New cvpmDropTarget
+  With DTBank5
+     .InitDrop Array(sw34,sw35,sw36,sw37,sw38), Array(34,35,36,37,38)
+     .InitSnd"DTL", "DTResetL"
+  End With
 
    'Rollovers
 
   'StandUp Init
-	sw1a.IsDropped=1
-	sw2a.IsDropped=1
-	sw3a.IsDropped=1
-	sw4a.IsDropped=1
-	sw5a.IsDropped=1
-	sw41a.IsDropped=1
-	sw42a.IsDropped=1
-	sw54a.IsDropped=1
-	sw55a.IsDropped=1
+  sw1a.IsDropped=1
+  sw2a.IsDropped=1
+  sw3a.IsDropped=1
+  sw4a.IsDropped=1
+  sw5a.IsDropped=1
+  sw41a.IsDropped=1
+  sw42a.IsDropped=1
+  sw54a.IsDropped=1
+  sw55a.IsDropped=1
 
     'Gi_On
-	Plunger1.Pullback
+  Plunger1.Pullback
  'mSpinMagnet.MagnetOn = True
 
  If erratic_scoop = 1 Then
@@ -288,10 +288,10 @@ Sub Table_KeyDown(ByVal keycode)
   If Keycode = StartGameKey Then Controller.Switch(16) = 1
   If Keycode = 3 Then Controller.Switch(15) = 1
   If Keycode = RightMagnasave Then Controller.Switch(71) = 1
-  '	If Keycode = LeftFlipperKey then
-  '	End If
-  '	If Keycode = RightFlipperKey then
-  '	End If
+  ' If Keycode = LeftFlipperKey then
+  ' End If
+  ' If Keycode = RightFlipperKey then
+  ' End If
   If keycode = PlungerKey Then Plunger.Pullback
   'If keycode = LeftTiltKey Then LeftNudge 80, 1, 20
   'If keycode = RightTiltKey Then RightNudge 280, 1, 20
@@ -737,23 +737,23 @@ Sub RCaptKicker1a_Hit:cbRight.BallReturn Me:End Sub
 'Dim LFTCount:LFTCount=1
 '
 'Sub LeftFlipperTimer_Timer()
-'	If LFTCount < 6 Then
-'		LFTCount = LFTCount + 1
-'		LeftFlipper.Strength = StartLeftFlipperStrength*(LFTCount/6)
-'	Else
-'		Me.Enabled=0
-'	End If
+' If LFTCount < 6 Then
+'   LFTCount = LFTCount + 1
+'   LeftFlipper.Strength = StartLeftFlipperStrength*(LFTCount/6)
+' Else
+'   Me.Enabled=0
+' End If
 'End Sub
 '
 Dim RFTCount:RFTCount=1
 '
 'Sub RightFlipperTimer_Timer()
-'	If RFTCount < 6 Then
-'		RFTCount = RFTCount + 1
-'		RightFlipper.Strength = StartRightFlipperStrength*(RFTCount/6)
-'	Else
-'		Me.Enabled=0
-'	End If
+' If RFTCount < 6 Then
+'   RFTCount = RFTCount + 1
+'   RightFlipper.Strength = StartRightFlipperStrength*(RFTCount/6)
+' Else
+'   Me.Enabled=0
+' End If
 'End Sub
 
 
@@ -773,7 +773,7 @@ Sub SolRFlipper(Enabled)
     PlaySoundAtVol "flipperup", RightFlipper, VolFlip
     RightFlipper.RotateToEnd
   Else
-    '		 RFTCount=1
+    '    RFTCount=1
     PlaySoundAtVol "flipperdown", RightFlipper, VolFlip
     RightFlipper.RotateToStart
   End If
@@ -951,8 +951,8 @@ Sub Bumper4_Hit:vpmTimer.PulseSw 31:PlaySoundAtVol "bumper", bumper4, VolBump:En
  dim speedy
  dim finalspeed
   Sub Rubbers_Hit(IDX)
- 	finalspeed=SQR(ActiveBall.velx * ActiveBall.velx + ActiveBall.vely * ActiveBall.vely)
- 	if finalspeed > 11 then PlaySoundAt "rubber", ActiveBall else PlaySoundAt "rubberFlipper", ActiveBall:end if
+  finalspeed=SQR(ActiveBall.velx * ActiveBall.velx + ActiveBall.vely * ActiveBall.vely)
+  if finalspeed > 11 then PlaySoundAt "rubber", ActiveBall else PlaySoundAt "rubberFlipper", ActiveBall:end if
    End Sub
   Sub Gates_Hit(IDX):PlaySoundAtVol "Gate", ActiveBall, VolGates:End Sub
   Sub LeftFlipper_Collide(parm)
@@ -976,10 +976,10 @@ Sub LampTimer_Timer()
     If Not IsEmpty(chgLamp) Then
         For ii = 0 To UBound(chgLamp)
 
-			LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
+      LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)
 
-			'Print Light state changes
-			debug.print "Lamp " & chgLamp(ii, 0) & ": " & chgLamp(ii, 1)
+      'Print Light state changes
+      debug.print "Lamp " & chgLamp(ii, 0) & ": " & chgLamp(ii, 1)
 
 
         Next
@@ -990,18 +990,18 @@ End Sub
 Sub AllLampsOff()
     On Error Resume Next
 
-	Dim x
-	For x = 0 to 360
-		LampState(x) = 0
-	Next
+  Dim x
+  For x = 0 to 360
+    LampState(x) = 0
+  Next
 
-	UpdateLamps:UpdateLamps:Updatelamps
+  UpdateLamps:UpdateLamps:Updatelamps
 End Sub
 
 Sub SetLamp(nr, value)
-	If value <> LampState(nr) Then
-		LampState(nr) = abs(value)
-	End If
+  If value <> LampState(nr) Then
+    LampState(nr) = abs(value)
+  End If
 End Sub
 
 
@@ -1244,20 +1244,20 @@ End Sub
 
 
 Sub Trigger1_hit
-	PlaySound "DROP_LEFT"
+  PlaySound "DROP_LEFT"
  End Sub
 
  Sub Trigger2_hit
-	PlaySound "DROP_RIGHT"
+  PlaySound "DROP_RIGHT"
  End Sub
 
  Sub RHD_hit
-	PlaySound "DROP_RIGHT"
+  PlaySound "DROP_RIGHT"
  End Sub
 
 Sub Table_exit()
-	Controller.Pause = False
-	Controller.Stop
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 
 

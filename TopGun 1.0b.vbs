@@ -2,14 +2,14 @@
 '              --o--           `\\             //'      .____-/.\-____.
 '                                \\           //             ~`-'~
 '                                 \\. __-__ .//
-'                       ___/-_.-.__`/~     ~\'__.-._-\___                    
+'                       ___/-_.-.__`/~     ~\'__.-._-\___
 '.|.       ___________.'__/__ ~-[ \.\'-----'/./ ]-~ __\__`.___________       .|.
 '~o~~~~~~~--------______-~~~~~-_/_/ |   .   | \_\_-~~~~~-______--------~~~~~~~o~
 '' `               + + +  (X)(X)  ~--\__ __/--~  (X)(X)  + + +               ' `
-'                             (X) `/.\' ~ `/.\' (X)  
+'                             (X) `/.\' ~ `/.\' (X)
 '                                 "\_/"   "\_/"
 '
-'							 T   O   P      G   U   N
+'              T   O   P      G   U   N
 
 
 ' Top Gun Table MOD / 4 Players
@@ -32,10 +32,10 @@
 
 ' TO DO:
 
-'	- Message me if you have script fixes o improvements
-'	- Bug Fixes (Game Over PUP, ball lock activation, multiball activation)
-'	- Create TILT
-' 	- Merge BallinPlay/Contball into 1 (double up)
+' - Message me if you have script fixes o improvements
+' - Bug Fixes (Game Over PUP, ball lock activation, multiball activation)
+' - Create TILT
+'   - Merge BallinPlay/Contball into 1 (double up)
 
 ' ************************************************
 
@@ -46,19 +46,19 @@ Randomize
 ' Player Options
 ' ************************************************************************************************
 
-	soundtrackvol = 78 'Set the background audio volume to whatever you'd like out of 100
-	videovol = 100 'set the volme you'd like for the videos
-	calloutlowermusicvol = 1 'set to 1 if you want music volume lowered during audio callouts
+  soundtrackvol = 78 'Set the background audio volume to whatever you'd like out of 100
+  videovol = 100 'set the volme you'd like for the videos
+  calloutlowermusicvol = 1 'set to 1 if you want music volume lowered during audio callouts
 
 ' ************************************************************************************************
 
-	
 
-	' Define Global Variables
-	Dim soundtrackvol
-	Dim videovol
-	Dim calloutlowermusicvol
-	Dim BallinPlay
+
+  ' Define Global Variables
+  Dim soundtrackvol
+  Dim videovol
+  Dim calloutlowermusicvol
+  Dim BallinPlay
 
 
 
@@ -111,128 +111,128 @@ Const SCoin = "fx_coin"
 '   Change HasPuP = True if using PinUp Player Videos
 '**************************
 
-	Dim HasPup:HasPuP = True
+  Dim HasPup:HasPuP = True
 
-	Dim PuPlayer
-	Dim Scores(26)
-	Dim testobject
-	
-		Const numberfont="digital-7"
+  Dim PuPlayer
+  Dim Scores(26)
+  Dim testobject
 
-		Const pDMD=1
-		Const pBackglass=2
-		Const pPlayfield=3
-		Const pMusic=4
-		Const pAudio=7
-		Const pCallouts=8
+    Const numberfont="digital-7"
 
-	if HasPuP Then
-	on error resume next
-	Set PuPlayer = CreateObject("PinUpPlayer.PinDisplay") 
-	on error goto 0
-	if not IsObject(PuPlayer) then HasPuP = False
-	end If
+    Const pDMD=1
+    Const pBackglass=2
+    Const pPlayfield=3
+    Const pMusic=4
+    Const pAudio=7
+    Const pCallouts=8
 
-	PuPlayer.Init pBackglass,"TopGun"
-	PuPlayer.Init pMusic,"TopGun"
-	PuPlayer.Init pCallouts,"TopGun"
+  if HasPuP Then
+  on error resume next
+  Set PuPlayer = CreateObject("PinUpPlayer.PinDisplay")
+  on error goto 0
+  if not IsObject(PuPlayer) then HasPuP = False
+  end If
 
-	PuPlayer.SetScreenex pBackglass,0,0,0,0,0       'Set TO Always ON    <screen number> , xpos, ypos, width, height, POPUP
+  PuPlayer.Init pBackglass,"TopGun"
+  PuPlayer.Init pMusic,"TopGun"
+  PuPlayer.Init pCallouts,"TopGun"
 
-	PuPlayer.playlistadd pBackglass,"DefaultBackglass",1,0
-	PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,1
-	PuPlayer.SetBackground pBackglass,1
-	
-	PuPlayer.SetScreenex pAudio,0,0,0,0,2
-	PuPlayer.hide pAudio
-	PuPlayer.SetScreenex pMusic,0,0,0,0,2
-	PuPlayer.hide pMusic
-	PuPlayer.SetScreenex pCallouts,0,0,0,0,2
-	PuPlayer.hide pCallouts
+  PuPlayer.SetScreenex pBackglass,0,0,0,0,0       'Set TO Always ON    <screen number> , xpos, ypos, width, height, POPUP
 
-	Sub chilloutthemusic 'Lowers volume for PUP videos
-		If calloutlowermusicvol = 1 Then
-			PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":40 }"
-			ChillTimer.Enabled = True
-		End If
-	End Sub
+  PuPlayer.playlistadd pBackglass,"DefaultBackglass",1,0
+  PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,1
+  PuPlayer.SetBackground pBackglass,1
+
+  PuPlayer.SetScreenex pAudio,0,0,0,0,2
+  PuPlayer.hide pAudio
+  PuPlayer.SetScreenex pMusic,0,0,0,0,2
+  PuPlayer.hide pMusic
+  PuPlayer.SetScreenex pCallouts,0,0,0,0,2
+  PuPlayer.hide pCallouts
+
+  Sub chilloutthemusic 'Lowers volume for PUP videos
+    If calloutlowermusicvol = 1 Then
+      PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":40 }"
+      ChillTimer.Enabled = True
+    End If
+  End Sub
 
 Sub ChillTimer_Timer
-	ChillTimer.Enabled = False
-	turnitbackup
+  ChillTimer.Enabled = False
+  turnitbackup
 End Sub
 
 Sub chilloutthemusicTG 'Lowers volume for TOPGUN Bonus video
-		If calloutlowermusicvol = 1 Then
-			PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":50 }"
-			ChillTimerTG.Enabled = True
-		End If
-	End Sub
+    If calloutlowermusicvol = 1 Then
+      PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":50 }"
+      ChillTimerTG.Enabled = True
+    End If
+  End Sub
 
 Sub ChillTimerTG_Timer
-	ChillTimerTG.Enabled = False
-	turnitbackup
+  ChillTimerTG.Enabled = False
+  turnitbackup
 End Sub
-	
 
-	Sub turnitbackup
-		If calloutlowermusicvol = 1 Then
-			PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":"&(soundtrackvol)&" }"
-		End If
-	End Sub
+
+  Sub turnitbackup
+    If calloutlowermusicvol = 1 Then
+      PuPlayer.SendMSG "{ ""mt"":301, ""SN"": 4, ""FN"":11, ""VL"":"&(soundtrackvol)&" }"
+    End If
+  End Sub
 
     PuPlayer.LabelInit pBackglass
 
-	'Setup Pages.  Note if you use fonts they must be in FONTS folder of the pupVideos\tablename\FONTS
-	'syntax - PuPlayer.LabelNew <screen# or pDMD>,<Labelname>,<fontName>,<size %>,<colour>,<rotation>,<xAlign>,<yAlign>,<xpos>,<ypos>,<PageNum>,<visible>
+  'Setup Pages.  Note if you use fonts they must be in FONTS folder of the pupVideos\tablename\FONTS
+  'syntax - PuPlayer.LabelNew <screen# or pDMD>,<Labelname>,<fontName>,<size %>,<colour>,<rotation>,<xAlign>,<yAlign>,<xpos>,<ypos>,<PageNum>,<visible>
 
-	'Page 1 (default score display)
-	
-	PuPlayer.playlistadd pMusic,"MusicGameplay",0,65	 'music rests for 65 seconds before a reset is available
-	PuPlayer.playlistadd pMusic,"audioclear",0,0
-	PuPlayer.playlistadd pDMD,"DMD",0,0
-	PuPlayer.playlistadd pBackglass,"AttractMode",0,0
-	PuPlayer.playlistadd pBackglass,"DefaultBackglass",0,0
-	PuPlayer.playlistadd pBackglass,"GameOver",0,0
-	PuPlayer.playlistadd pBackglass,"MiddleRamp",0,20
-	PuPlayer.playlistadd pBackglass,"MultiBall",0,0
-	PuPlayer.playlistadd pBackglass,"Multipliers",0,5
-	PuPlayer.playlistadd pBackglass,"RightRamp",0,13
-	PuPlayer.playlistadd pBackglass,"StartGame",17,30
-	PuPlayer.playlistadd pBackglass,"TopGun",0,65
-	PuPlayer.playlistadd pBackglass,"BallDrain",0,20
-	PuPlayer.playlistadd pBackglass,"BallLock",0,0
+  'Page 1 (default score display)
 
-	PuPlayer.LabelNew pBackglass,"Play1",numberfont,		4,52224  ,0,0,1,5,85,1,0
-	PuPlayer.LabelNew pBackglass,"Play1score",numberfont,	10,59648  ,0,0,1,9,85,1,1
-	PuPlayer.LabelNew pBackglass,"Play2",numberfont,		4,52224  ,0,0,1,5,94,1,0
-	PuPlayer.LabelNew pBackglass,"Play2score",numberfont,	10,59648  ,0,0,1,9,94,1,1
-	PuPlayer.LabelNew pBackglass,"Play3",numberfont,		4,52224  ,0,0,1,74,85,1,0
-	PuPlayer.LabelNew pBackglass,"Play3score",numberfont,	10,59648  ,0,0,1,78,85,1,1
-	PuPlayer.LabelNew pBackglass,"Play4",numberfont,		4,52224  ,0,0,1,74,94,1,0
-	PuPlayer.LabelNew pBackglass,"Play4score",numberfont,	10,59648  ,0,0,1,78,94,1,1
-	PuPlayer.LabelNew pBackglass,"TFuel",numberfont,		2,52224  ,0,0,1,48,87,1,0
-	PuPlayer.LabelNew pBackglass,"Credits",numberfont,		7,59648  ,0,1,1,52,87,1,1
-	PuPlayer.LabelNew pBackglass,"TBall",numberfont,		2,52224  ,0,0,1,54,87,1,0
-	PuPlayer.LabelNew pBackglass,"Balls",numberfont,		7,59648  ,0,1,1,58,87,1,1
-	PuPlayer.LabelShowPage pBackglass,1,0,""
+  PuPlayer.playlistadd pMusic,"MusicGameplay",0,65   'music rests for 65 seconds before a reset is available
+  PuPlayer.playlistadd pMusic,"audioclear",0,0
+  PuPlayer.playlistadd pDMD,"DMD",0,0
+  PuPlayer.playlistadd pBackglass,"AttractMode",0,0
+  PuPlayer.playlistadd pBackglass,"DefaultBackglass",0,0
+  PuPlayer.playlistadd pBackglass,"GameOver",0,0
+  PuPlayer.playlistadd pBackglass,"MiddleRamp",0,20
+  PuPlayer.playlistadd pBackglass,"MultiBall",0,0
+  PuPlayer.playlistadd pBackglass,"Multipliers",0,5
+  PuPlayer.playlistadd pBackglass,"RightRamp",0,13
+  PuPlayer.playlistadd pBackglass,"StartGame",17,30
+  PuPlayer.playlistadd pBackglass,"TopGun",0,65
+  PuPlayer.playlistadd pBackglass,"BallDrain",0,20
+  PuPlayer.playlistadd pBackglass,"BallLock",0,0
+
+  PuPlayer.LabelNew pBackglass,"Play1",numberfont,    4,52224  ,0,0,1,5,85,1,0
+  PuPlayer.LabelNew pBackglass,"Play1score",numberfont, 10,59648  ,0,0,1,9,85,1,1
+  PuPlayer.LabelNew pBackglass,"Play2",numberfont,    4,52224  ,0,0,1,5,94,1,0
+  PuPlayer.LabelNew pBackglass,"Play2score",numberfont, 10,59648  ,0,0,1,9,94,1,1
+  PuPlayer.LabelNew pBackglass,"Play3",numberfont,    4,52224  ,0,0,1,74,85,1,0
+  PuPlayer.LabelNew pBackglass,"Play3score",numberfont, 10,59648  ,0,0,1,78,85,1,1
+  PuPlayer.LabelNew pBackglass,"Play4",numberfont,    4,52224  ,0,0,1,74,94,1,0
+  PuPlayer.LabelNew pBackglass,"Play4score",numberfont, 10,59648  ,0,0,1,78,94,1,1
+  PuPlayer.LabelNew pBackglass,"TFuel",numberfont,    2,52224  ,0,0,1,48,87,1,0
+  PuPlayer.LabelNew pBackglass,"Credits",numberfont,    7,59648  ,0,1,1,52,87,1,1
+  PuPlayer.LabelNew pBackglass,"TBall",numberfont,    2,52224  ,0,0,1,54,87,1,0
+  PuPlayer.LabelNew pBackglass,"Balls",numberfont,    7,59648  ,0,1,1,58,87,1,1
+  PuPlayer.LabelShowPage pBackglass,1,0,""
 
 'Set Background video on DMD
-		PuPlayer.playlistplayex pDMD,"DMD","DMD.png",0,1
+    PuPlayer.playlistplayex pDMD,"DMD","DMD.png",0,1
 
 Sub pUpdateScores
-	PuPlayer.LabelSet pBackglass,"Play1","P1>",1,""
-	PuPlayer.LabelSet pBackglass,"Play2","P2>",1,""
-	PuPlayer.LabelSet pBackglass,"Play3","P3>",1,""
-	PuPlayer.LabelSet pBackglass,"Play4","P4>",1,""
-	PuPlayer.LabelSet pBackglass,"Play1score",scores(0) & scores(1) & scores(2) & " " & scores(3) & scores(4) & scores(5),1,""
-	PuPlayer.LabelSet pBackglass,"Play2score",scores(6) & scores(7) & scores(8) & " " & scores(9) & scores(10) & scores(11),1,""
-	PuPlayer.LabelSet pBackglass,"Play3score",scores(12) & scores(13) & scores(14) & " " & scores(15) & scores(16) & scores(17),1,""
-	PuPlayer.LabelSet pBackglass,"Play4score",scores(18) & scores(19) & scores(20) & " " & scores(21) & scores(22) & scores(23),1,""
-	PuPlayer.LabelSet pBackglass,"TFuel","FUEL",1,""
-	PuPlayer.LabelSet pBackglass,"TBall","BALL",1,""
-	PuPlayer.LabelSet pBackglass,"Balls",scores(24),1,""
-	PuPlayer.LabelSet pBackglass,"Credits",scores(25),1,""
+  PuPlayer.LabelSet pBackglass,"Play1","P1>",1,""
+  PuPlayer.LabelSet pBackglass,"Play2","P2>",1,""
+  PuPlayer.LabelSet pBackglass,"Play3","P3>",1,""
+  PuPlayer.LabelSet pBackglass,"Play4","P4>",1,""
+  PuPlayer.LabelSet pBackglass,"Play1score",scores(0) & scores(1) & scores(2) & " " & scores(3) & scores(4) & scores(5),1,""
+  PuPlayer.LabelSet pBackglass,"Play2score",scores(6) & scores(7) & scores(8) & " " & scores(9) & scores(10) & scores(11),1,""
+  PuPlayer.LabelSet pBackglass,"Play3score",scores(12) & scores(13) & scores(14) & " " & scores(15) & scores(16) & scores(17),1,""
+  PuPlayer.LabelSet pBackglass,"Play4score",scores(18) & scores(19) & scores(20) & " " & scores(21) & scores(22) & scores(23),1,""
+  PuPlayer.LabelSet pBackglass,"TFuel","FUEL",1,""
+  PuPlayer.LabelSet pBackglass,"TBall","BALL",1,""
+  PuPlayer.LabelSet pBackglass,"Balls",scores(24),1,""
+  PuPlayer.LabelSet pBackglass,"Credits",scores(25),1,""
 
 end Sub
 
@@ -255,7 +255,7 @@ Sub table1_Init
         .HandleMechanics = 0
         .Hidden = VarHidden
         .Games(cGameName).Settings.Value("rol") = 0 '1= rotated display, 0= normal
-		.Games(cGameName).Settings.Value("sound") = 0
+    .Games(cGameName).Settings.Value("sound") = 0
         '.SetDisplayPosition 0,0, GetPlayerHWnd 'restore dmd window position
         On Error Resume Next
         Controller.SolMask(0) = 0
@@ -295,7 +295,7 @@ Sub table1_Init
     dtCbank.InitDrop sw43, 43
     dtCbank.initsnd SoundFX("", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
     dtCbank.CreateEvents "dtCbank"
-	
+
 
     set dtRbank = new cvpmdroptarget
     dtRbank.InitDrop Array(sw4, sw14, sw24), Array(4, 14, 24)
@@ -371,12 +371,12 @@ End Sub
 Sub StartControl_Hit()
     Set ControlBall = ActiveBall
     contballinplay = true
-	BallinPlay = 1
+  BallinPlay = 1
 End Sub
 
 Sub StopControl_Hit()
-	contballinplay = false
-	BallinPlay = 0
+  contballinplay = false
+  BallinPlay = 0
 End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
@@ -489,12 +489,12 @@ Sub sw51_Hit:Controller.Switch(51) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBa
 Sub sw51_UnHit:Controller.Switch(51) = 0:End Sub
 
 Sub sw61_Hit:Controller.Switch(61) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
-		if scores(24) = 5 And TheGate = 0 And MultiBallOn = False Then
-		PlaySound "top_GutterDrain"
-		ElseIf TheGate = 0 Then
-		PuPlayer.playlistplayex pBackglass,"BallDrain","",100,33
-		chilloutthemusic
-	End If
+    if scores(24) = 5 And TheGate = 0 And MultiBallOn = False Then
+    PlaySound "top_GutterDrain"
+    ElseIf TheGate = 0 Then
+    PuPlayer.playlistplayex pBackglass,"BallDrain","",100,33
+    chilloutthemusic
+  End If
 End Sub
 
 Sub sw61_UnHit:Controller.Switch(61) = 0:End Sub
@@ -503,12 +503,12 @@ Sub sw52_Hit:Controller.Switch(52) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBa
 Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
 
 Sub sw62_Hit:Controller.Switch(62) = 1:PlaySound "top_GutterDrain":PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
-		if scores(24) = 5 And MultiBallOn = False Then
-		PlaySound "top_GutterDrain"
-	Else
-		PuPlayer.playlistplayex pBackglass,"BallDrain","",100,33
-		chilloutthemusic
-	End If
+    if scores(24) = 5 And MultiBallOn = False Then
+    PlaySound "top_GutterDrain"
+  Else
+    PuPlayer.playlistplayex pBackglass,"BallDrain","",100,33
+    chilloutthemusic
+  End If
 End Sub
 
 Sub sw62_UnHit:Controller.Switch(62) = 0:End Sub
@@ -523,8 +523,8 @@ Sub sw25_Hit:Controller.Switch(25) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBa
 Sub sw25_UnHit:Controller.Switch(25) = 0:End Sub
 
 Sub sw44_Hit:Controller.Switch(44) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall)
-	PuPlayer.playlistplayex pBackglass,"MiddleRamp","",100,16
-	chilloutthemusic
+  PuPlayer.playlistplayex pBackglass,"MiddleRamp","",100,16
+  chilloutthemusic
 End Sub
 Sub sw44_UnHit:Controller.Switch(44) = 0:End Sub
 
@@ -553,7 +553,7 @@ Sub Trigger002_Hit:Playsound "top_GutterDrain":End Sub
 
 '****************************************************************************************
 
-Dim pReset(5) 
+Dim pReset(5)
 Dim pStatement(5) 'holds future scripts
 Dim FX
 
@@ -565,24 +565,24 @@ next
 DIM pTriggerCounter:pTriggerCounter=pTriggerScript.interval
 
 Sub pTriggerScript_Timer()
-for fx=0 to 5 
-if pReset(fx)>0 Then 
-pReset(fx)=pReset(fx)-pTriggerCounter 
+for fx=0 to 5
+if pReset(fx)>0 Then
+pReset(fx)=pReset(fx)-pTriggerCounter
 if pReset(fx)<=0 Then
 pReset(fx)=0
 execute(pStatement(fx))
-end if 
+end if
 End if
 next
 End Sub
 
 Sub TriggerScript(pTimeMS,pScript)
-for fx=0 to 5 
+for fx=0 to 5
 if pReset(fx)=0 Then
 pReset(fx)=pTimeMS
 pStatement(fx)=pScript
 Exit Sub
-End If 
+End If
 next
 end Sub
 
@@ -603,10 +603,10 @@ Dim P4Score
 
 
 Sub PUPCheck_Timer()
-	AttractMode
-	Multipliers
-	TopGunBonus
-	PlayerActivity
+  AttractMode
+  Multipliers
+  TopGunBonus
+  PlayerActivity
 End Sub
 
 
@@ -615,17 +615,17 @@ End Sub
 '--------------------------
 
 Sub AttractMode
-		
-	if scores(24) = 0 Then
-		'PuPlayer.playlistplayex pMusic,"audioclear","clear.mp3",100, 1
-		PuPlayer.playlistplayex pBackglass,"AttractMode","AttractMode-1.mp4",100,16
-		PuPlayer.SetLoop 2,1
-		MultiBallOn = False
-		P1Score = 0
-		P2Score = 0
-		P3Score = 0
-		P4Score = 0
-	End If
+
+  if scores(24) = 0 Then
+    'PuPlayer.playlistplayex pMusic,"audioclear","clear.mp3",100, 1
+    PuPlayer.playlistplayex pBackglass,"AttractMode","AttractMode-1.mp4",100,16
+    PuPlayer.SetLoop 2,1
+    MultiBallOn = False
+    P1Score = 0
+    P2Score = 0
+    P3Score = 0
+    P4Score = 0
+  End If
 End Sub
 
 '--------------------------
@@ -634,33 +634,33 @@ End Sub
 
 
 Sub sw64_Hit
-	Controller.Switch(64) = 1
+  Controller.Switch(64) = 1
 
-		if scores(24) = 1 Then
-		PuPlayer.playlistplayex pMusic,"MusicGameplay","",soundtrackvol,50
-		PuPlayer.SetLoop 4,1
-		PuPlayer.SetLoop 2,0
-		PuPlayer.playlistplayex pBackglass,"StartGame","",100,32
-		missileLight1.State = 0
-		missileLight2.State = 0
-		MultiBallCount = 0
-	End If
-		
-		if scores(24) = 5 Then
-		GameContinue
-		Else
-		PuPlayer.playlistplayex pMusic,"MusicGameplay","",soundtrackvol,50
-		PuPlayer.SetLoop 4,1
-		PuPlayer.SetLoop 2,0
-		MultiBallCount = 0
-		' START Game / Launch Ball
-		PuPlayer.playlistplayex pBackglass,"StartGame","",100,17
-		missileLight1.State = 0
-		missileLight2.State = 0
-		chilloutthemusic
-		MultiBallCount = 0
-	
-	End If
+    if scores(24) = 1 Then
+    PuPlayer.playlistplayex pMusic,"MusicGameplay","",soundtrackvol,50
+    PuPlayer.SetLoop 4,1
+    PuPlayer.SetLoop 2,0
+    PuPlayer.playlistplayex pBackglass,"StartGame","",100,32
+    missileLight1.State = 0
+    missileLight2.State = 0
+    MultiBallCount = 0
+  End If
+
+    if scores(24) = 5 Then
+    GameContinue
+    Else
+    PuPlayer.playlistplayex pMusic,"MusicGameplay","",soundtrackvol,50
+    PuPlayer.SetLoop 4,1
+    PuPlayer.SetLoop 2,0
+    MultiBallCount = 0
+    ' START Game / Launch Ball
+    PuPlayer.playlistplayex pBackglass,"StartGame","",100,17
+    missileLight1.State = 0
+    missileLight2.State = 0
+    chilloutthemusic
+    MultiBallCount = 0
+
+  End If
 End Sub
 
 
@@ -669,14 +669,14 @@ End Sub
 '--------------------------
 
 Sub GameContinue
-	PuPlayer.playresume 4
+  PuPlayer.playresume 4
 
 ' START Game / Launch Ball
-	PuPlayer.playlistplayex pBackglass,"StartGame","",100,32
-	missileLight1.State = 0
-	missileLight2.State = 0
-	MultiBallCount = 0
-	chilloutthemusic	
+  PuPlayer.playlistplayex pBackglass,"StartGame","",100,32
+  missileLight1.State = 0
+  missileLight2.State = 0
+  MultiBallCount = 0
+  chilloutthemusic
 End Sub
 
 
@@ -685,8 +685,8 @@ End Sub
 '--------------------------
 
 Sub Trigger005_Hit
-	PuPlayer.playstop 2 'stops PUP video
-	turnitbackup ' resume music
+  PuPlayer.playstop 2 'stops PUP video
+  turnitbackup ' resume music
 
 End Sub
 
@@ -697,33 +697,33 @@ End Sub
 
 Sub Multipliers
 
-		if li103.State = 1 And li20.State = 0 And BallinPlay = 1 And gi1.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-2x.mp4",100,5
-	End If
+    if li103.State = 1 And li20.State = 0 And BallinPlay = 1 And gi1.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-2x.mp4",100,5
+  End If
 
-		if li20.State = 1 And li21.State = 0 And BallinPlay = 1  And gi1.State = 1 And li103.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-3x.mp4",100,6
-	End If
+    if li20.State = 1 And li21.State = 0 And BallinPlay = 1  And gi1.State = 1 And li103.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-3x.mp4",100,6
+  End If
 
-		if li21.State = 1 And li22.State = 0  And BallinPlay = 1  And gi1.State = 1 And li20.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-4x.mp4",100,7
-		chilloutthemusic
-	End If
+    if li21.State = 1 And li22.State = 0  And BallinPlay = 1  And gi1.State = 1 And li20.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-4x.mp4",100,7
+    chilloutthemusic
+  End If
 
-		if li22.State = 1 And li113.State = 0  And BallinPlay = 1  And gi1.State = 1 And li21.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-5x.mp4",100,8
-		chilloutthemusic
-	End If
+    if li22.State = 1 And li113.State = 0  And BallinPlay = 1  And gi1.State = 1 And li21.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-5x.mp4",100,8
+    chilloutthemusic
+  End If
 
-		if li113.State = 1 And li30.State = 0  And BallinPlay = 1  And gi1.State = 1 And li22.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-6x.mp4",100,9
-		chilloutthemusic
-	End If
+    if li113.State = 1 And li30.State = 0  And BallinPlay = 1  And gi1.State = 1 And li22.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-6x.mp4",100,9
+    chilloutthemusic
+  End If
 
-		if li30.State = 1 And li103.State = 1 And li20.State = 1 And li21.State = 1 And li22.State = 1 And li113.State = 1 And BallinPlay = 1 And gi1.State = 1 Then
-		PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-7x.mp4",100,10
-		chilloutthemusic
-	End If
+    if li30.State = 1 And li103.State = 1 And li20.State = 1 And li21.State = 1 And li22.State = 1 And li113.State = 1 And BallinPlay = 1 And gi1.State = 1 Then
+    PuPlayer.playlistplayex pBackglass,"Multipliers","multiplier-7x.mp4",100,10
+    chilloutthemusic
+  End If
 
 End Sub
 
@@ -733,13 +733,13 @@ End Sub
 '--------------------------
 
 Sub TopGunBonus
-		if BallinPlay = 1 And li112.State = 1 And li111.State = 1 And li110.State = 1 And li121.State = 1 And li120.State = 1 And li119.State = 1 And ChillTimerTG.Enabled = True Then
-		PuPlayer.playlistplayex pBackglass,"TopGun","",100,16
+    if BallinPlay = 1 And li112.State = 1 And li111.State = 1 And li110.State = 1 And li121.State = 1 And li120.State = 1 And li119.State = 1 And ChillTimerTG.Enabled = True Then
+    PuPlayer.playlistplayex pBackglass,"TopGun","",100,16
 
-		elseIf BallinPlay = 1 And li112.State = 1 And li111.State = 1 And li110.State = 1 And li121.State = 1 And li120.State = 1 And li119.State = 1 And ChillTimerTG.Enabled = False Then
-		PuPlayer.playlistplayex pBackglass,"TopGun","",100,16
-		chilloutthemusicTG 
-	End If
+    elseIf BallinPlay = 1 And li112.State = 1 And li111.State = 1 And li110.State = 1 And li121.State = 1 And li120.State = 1 And li119.State = 1 And ChillTimerTG.Enabled = False Then
+    PuPlayer.playlistplayex pBackglass,"TopGun","",100,16
+    chilloutthemusicTG
+  End If
 End Sub
 
 
@@ -748,10 +748,10 @@ End Sub
 '--------------------------
 
 Sub TriggerLL_Hit:PuPlayer.playlistplayex pBackglass,"BallLock","",100,34:LockLeft = 1:End Sub
-Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockLeft = 0:End Sub	
+Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockLeft = 0:End Sub
 
 Sub TriggerLR_Hit:PuPlayer.playlistplayex pBackglass,"BallLock","",100,34:LockRight = 1:End Sub
-Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockRight = 0:End Sub	
+Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockRight = 0:End Sub
 
 
 '--------------------------
@@ -759,17 +759,17 @@ Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","Defau
 '--------------------------
 
 Sub TriggerMulti_Hit
-	If LockLeft = 1 And LockRight = 1 Then
-	PuPlayer.playlistplayex pBackglass,"MultiBall","",100,36
-	MultiBallOn = True
-	FireMissiles
-	End if
+  If LockLeft = 1 And LockRight = 1 Then
+  PuPlayer.playlistplayex pBackglass,"MultiBall","",100,36
+  MultiBallOn = True
+  FireMissiles
+  End if
 End Sub
 
 Sub FireMissiles 'Lights up the rockets and chills the music
-	missileLight1.State = 2
-	missileLight2.State = 2
-	chilloutthemusic
+  missileLight1.State = 2
+  missileLight2.State = 2
+  chilloutthemusic
 End Sub
 
 
@@ -779,10 +779,10 @@ End Sub
 '--------------------------
 
 Sub PlayerActivity
-	P1Score = "0" + scores(0) + scores(2) + scores(3) + scores(4) + scores(4) + scores(5)
-	P2Score = "0" + scores(6) + scores(7) + scores(8) + scores(9) + scores(10) + scores(11)
-	P3Score = "0" + scores(12) + scores(13) + scores(14) + scores(15) + scores(16) + scores(17)
-	P4Score = "0" + scores(18) + scores(19) + scores(20) + scores(21) + scores(22) + scores(23)
+  P1Score = "0" + scores(0) + scores(2) + scores(3) + scores(4) + scores(4) + scores(5)
+  P2Score = "0" + scores(6) + scores(7) + scores(8) + scores(9) + scores(10) + scores(11)
+  P3Score = "0" + scores(12) + scores(13) + scores(14) + scores(15) + scores(16) + scores(17)
+  P4Score = "0" + scores(18) + scores(19) + scores(20) + scores(21) + scores(22) + scores(23)
 End Sub
 
 
@@ -793,103 +793,103 @@ End Sub
 Sub StopControl_Hit
 
 ' Count Multiball Drains
-		if MultiBallOn = True Then
-		MultiBallCount = MultiBallCount + 1
-	End If
-		if scores(24) = 5 And MultiBallOn = False Then
-		CheckPlayers1
-	End If
-		if scores(24) = 5 And MultiBallOn = True And MultiBallCount <= 2 Then
-		Playsound "fx_drain"
-	End If
-		if scores(24) = 5 And MultiBallOn = True And MultiBallCount >= 3 And Controller.Switch(64) = 0 Then
-		CheckPlayers2
-	End If
+    if MultiBallOn = True Then
+    MultiBallCount = MultiBallCount + 1
+  End If
+    if scores(24) = 5 And MultiBallOn = False Then
+    CheckPlayers1
+  End If
+    if scores(24) = 5 And MultiBallOn = True And MultiBallCount <= 2 Then
+    Playsound "fx_drain"
+  End If
+    if scores(24) = 5 And MultiBallOn = True And MultiBallCount >= 3 And Controller.Switch(64) = 0 Then
+    CheckPlayers2
+  End If
 
 End Sub
 
 Sub CheckPlayers1 'Check if other players are active
 
-		if P2Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver
-	End If
-		if P3Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver
-	End If
-		if P4Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver
-	End If
-		if P4Score >=1 Then
-		PuPlayer.playpause 4
-		GameIsOver
-	End If
+    if P2Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver
+  End If
+    if P3Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver
+  End If
+    if P4Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver
+  End If
+    if P4Score >=1 Then
+    PuPlayer.playpause 4
+    GameIsOver
+  End If
 
 End Sub
 
 Sub CheckPlayers2 'Check if other players are active during multiball
 
-		if P2Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver2
-	End If	
-		if P3Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver2
-	End If	
-		if P4Score <=0 Then
-		PuPlayer.playpause 4
-		GameIsOver2
-	End If
-		if P4Score >=1 Then
-		PuPlayer.playpause 4
-		GameIsOver2
-	End If
+    if P2Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver2
+  End If
+    if P3Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver2
+  End If
+    if P4Score <=0 Then
+    PuPlayer.playpause 4
+    GameIsOver2
+  End If
+    if P4Score >=1 Then
+    PuPlayer.playpause 4
+    GameIsOver2
+  End If
 
 End Sub
 
 
 Sub GameIsOver
-		missileLight1.State = 0
-		missileLight2.State = 0
-		MultiBallOn = False
-		MultiBallCount = 0
-		PuPlayer.playstop 4
-		PuPlayer.SetLoop 2,0
-		PuPlayer.playlistplayex pBackglass,"GameOver","",100,31
-		TriggerScript 43000,"PriorityClear'"
+    missileLight1.State = 0
+    missileLight2.State = 0
+    MultiBallOn = False
+    MultiBallCount = 0
+    PuPlayer.playstop 4
+    PuPlayer.SetLoop 2,0
+    PuPlayer.playlistplayex pBackglass,"GameOver","",100,31
+    TriggerScript 43000,"PriorityClear'"
 End Sub
 
 Sub GameIsOver2
-		missileLight1.State = 0
-		missileLight2.State = 0
-		MultiBallOn = False
-		MultiBallCount = 0
-		PuPlayer.playstop 4
-		PuPlayer.SetLoop 2,0
-		PuPlayer.playlistplayex pBackglass,"GameOver","",100,37
-		TriggerScript 43000,"PriorityClear'"
+    missileLight1.State = 0
+    missileLight2.State = 0
+    MultiBallOn = False
+    MultiBallCount = 0
+    PuPlayer.playstop 4
+    PuPlayer.SetLoop 2,0
+    PuPlayer.playlistplayex pBackglass,"GameOver","",100,37
+    TriggerScript 43000,"PriorityClear'"
 End Sub
 
 Sub PriorityClear
-		'PuPlayer.playlistplayex pBackglass,"DefaultBackglass","VideoClear.mp4",0,50
-		PuPlayer.playstop 2
-		TriggerScript 9000,"AttractModeOver'"
+    'PuPlayer.playlistplayex pBackglass,"DefaultBackglass","VideoClear.mp4",0,50
+    PuPlayer.playstop 2
+    TriggerScript 9000,"AttractModeOver'"
 End Sub
-	
+
 
 Sub AttractModeOver
-		PuPlayer.playlistplayex pMusic,"audioclear","clear.mp3",100, 1
-		PuPlayer.playlistplayex pBackglass,"AttractMode","AttractMode-1.mp4",100,16
-		PuPlayer.SetLoop 2,1
-		MultiBallOn = False
-		MultiBallCount = 0
-		P1Score = 0
-		P2Score = 0
-		P3Score = 0
-		P4Score = 0
+    PuPlayer.playlistplayex pMusic,"audioclear","clear.mp3",100, 1
+    PuPlayer.playlistplayex pBackglass,"AttractMode","AttractMode-1.mp4",100,16
+    PuPlayer.SetLoop 2,1
+    MultiBallOn = False
+    MultiBallCount = 0
+    P1Score = 0
+    P2Score = 0
+    P3Score = 0
+    P4Score = 0
 End Sub
 
 
@@ -901,9 +901,9 @@ End Sub
 '****************************************************************************************
 
 Sub Kicker1_Hit
-  	Kicker1.DestroyBall
-	Kicker2.CreateBall
- 	Kicker2.Kick -90,20 'Direction and speed
+    Kicker1.DestroyBall
+  Kicker2.CreateBall
+  Kicker2.Kick -90,20 'Direction and speed
  End Sub
 
 
@@ -919,21 +919,21 @@ Sub Trigger004_Hit:ActiveBall.VelX = ActiveBall.VelX*4:End Sub 'Speed up ball on
 
 '****************************************************************************************
 
-' MOVE F14 Animation 
+' MOVE F14 Animation
 
 '****************************************************************************************
 
 
 Sub sw43_Hit
-	PlaySound "top_LockOn6"
-	sw43.IsDropped = True
-	FighterJet.RotY = 60:FighterJet.RotZ = 100:FighterJet.TransX = 50:FighterJet.TransY = 35:FighterJet.TransZ = 55:FighterJet.ObjRotZ = 21
-	gi901.State=0:gi002.State=0:gi003.State=0	'F14 lights off
-	gi007.State=1:gi003.State=0	'red cockpit light on
-	ThrustL2.State = 1:ThrustL1.State = 2:ThrustL3.State = 1	'Afterburner on
-	PlaySound"fx_SolenoidOn"
+  PlaySound "top_LockOn6"
+  sw43.IsDropped = True
+  FighterJet.RotY = 60:FighterJet.RotZ = 100:FighterJet.TransX = 50:FighterJet.TransY = 35:FighterJet.TransZ = 55:FighterJet.ObjRotZ = 21
+  gi901.State=0:gi002.State=0:gi003.State=0 'F14 lights off
+  gi007.State=1:gi003.State=0 'red cockpit light on
+  ThrustL2.State = 1:ThrustL1.State = 2:ThrustL3.State = 1  'Afterburner on
+  PlaySound"fx_SolenoidOn"
 
-	End Sub
+  End Sub
 
 
 ' ***************************************************************************************
@@ -1004,14 +1004,14 @@ SolCallback(18) = "vpmNudge.SolGameOn"
 '****************************************************************************************
 
 Sub ResetdtCbank(Enabled)
-	If Enabled Then
-		dtCbank.DropSol_on
-		FighterJet.RotY = 85:FighterJet.RotZ = 100:FighterJet.TransX = 0:FighterJet.TransY = 0:FighterJet.TransZ = 0:FighterJet.ObjRotZ = 20
-		gi901.State=2:gi002.State=2:gi003.State=1	'F14 lights on
-		gi007.State=0:gi003.State=1	'red cockpit light off
-		ThrustL2.State = 0:ThrustL1.State = 0:ThrustL3.State = 0	'Afterburner off
-		PlaySound"fx_SolenoidOff"
-	End If
+  If Enabled Then
+    dtCbank.DropSol_on
+    FighterJet.RotY = 85:FighterJet.RotZ = 100:FighterJet.TransX = 0:FighterJet.TransY = 0:FighterJet.TransZ = 0:FighterJet.ObjRotZ = 20
+    gi901.State=2:gi002.State=2:gi003.State=1 'F14 lights on
+    gi007.State=0:gi003.State=1 'red cockpit light off
+    ThrustL2.State = 0:ThrustL1.State = 0:ThrustL3.State = 0  'Afterburner off
+    PlaySound"fx_SolenoidOff"
+  End If
 End Sub
 
 '****************************************************************************************
@@ -1028,14 +1028,14 @@ End Sub
 Sub SolPost(Enabled)
     If Enabled Then
         PostFlipper.RotateToStart
-		Popupwall.IsDropped = 0
-		PlaySound"fx_SolenoidOn"
-		li42.State=0:li001.State=2
+    Popupwall.IsDropped = 0
+    PlaySound"fx_SolenoidOn"
+    li42.State=0:li001.State=2
     Else
         PostFlipper.RotateToEnd
-		Popupwall.IsDropped = 1
-		PlaySound"fx_SolenoidOff"
-		li001.State=0
+    Popupwall.IsDropped = 1
+    PlaySound"fx_SolenoidOff"
+    li001.State=0
     End If
 End Sub
 
@@ -1043,13 +1043,13 @@ Dim TheGate
 
 Sub SolGate(Enabled)
     If Enabled Then
-		PlaySound"fx_SolenoidOn"
+    PlaySound"fx_SolenoidOn"
         DiverterFlipper.RotateToEnd
-		TheGate = 1
+    TheGate = 1
     Else
-		PlaySound"fx_SolenoidOff"
+    PlaySound"fx_SolenoidOff"
         DiverterFlipper.RotateToStart
-		TheGate = 0
+    TheGate = 0
     End If
 End Sub
 
@@ -1165,7 +1165,7 @@ Sub LampTimer_Timer()
     GIUpdate
     RollingUpdate
     Diverter.RotZ = DiverterFlipper.CurrentAngle
-	Popup.Z = PostFlipper.CurrentAngle
+  Popup.Z = PostFlipper.CurrentAngle
 End Sub
 
 Sub UpdateLamps()
@@ -1500,36 +1500,36 @@ Sub UpdateLeds
             For jj = 0 to 10
                 If stat = Patterns(jj)OR stat = Patterns2(jj)then Digits(chgLED(ii, 0)).SetValue jj
             Next
-			Select Case (statdupe and 255)
-				Case 0   : scores(num) = " "
-				Case 63  : scores(num) = "0"
-				Case 6   : scores(num) = "1"
-				Case 91  : scores(num) = "2"
-				Case 79  : scores(num) = "3"
-				Case 102 : scores(num) = "4"
-				Case 109 : scores(num) = "5"
-				Case 125 : scores(num) = "6"
-				Case 7   : scores(num) = "7"
-				Case 127 : scores(num) = "8"
-				Case 111 : scores(num) = "9"
-				Case 128 : scores(ii) = " ":debug.print " "
-				Case 191 : scores(ii) = "0":debug.print "0"
-				Case 134 : scores(ii) = "1":debug.print "1"
-				Case 219 : scores(ii) = "2":debug.print "2"
-				Case 207 : scores(ii) = "3":debug.print "3"
-				Case 237 : scores(ii) = "4":debug.print "4"
-				Case 230 : scores(ii) = "5":debug.print "5"
-				Case 253 : scores(ii) = "6":debug.print "6"
-				Case 135 : scores(ii) = "7":debug.print "7"
-				Case 255 : scores(ii) = "8":debug.print "8"
-				Case 239 : scores(ii) = "9":debug.print "9"
-			End Select
-			If num=5 Then
-				TestObject=statdupe
-			End If
+      Select Case (statdupe and 255)
+        Case 0   : scores(num) = " "
+        Case 63  : scores(num) = "0"
+        Case 6   : scores(num) = "1"
+        Case 91  : scores(num) = "2"
+        Case 79  : scores(num) = "3"
+        Case 102 : scores(num) = "4"
+        Case 109 : scores(num) = "5"
+        Case 125 : scores(num) = "6"
+        Case 7   : scores(num) = "7"
+        Case 127 : scores(num) = "8"
+        Case 111 : scores(num) = "9"
+        Case 128 : scores(ii) = " ":debug.print " "
+        Case 191 : scores(ii) = "0":debug.print "0"
+        Case 134 : scores(ii) = "1":debug.print "1"
+        Case 219 : scores(ii) = "2":debug.print "2"
+        Case 207 : scores(ii) = "3":debug.print "3"
+        Case 237 : scores(ii) = "4":debug.print "4"
+        Case 230 : scores(ii) = "5":debug.print "5"
+        Case 253 : scores(ii) = "6":debug.print "6"
+        Case 135 : scores(ii) = "7":debug.print "7"
+        Case 255 : scores(ii) = "8":debug.print "8"
+        Case 239 : scores(ii) = "9":debug.print "9"
+      End Select
+      If num=5 Then
+        TestObject=statdupe
+      End If
         Next
     End IF
-	pUpdateScores
+  pUpdateScores
 
 'check for PUP activations
 

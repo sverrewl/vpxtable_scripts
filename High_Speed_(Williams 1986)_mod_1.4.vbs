@@ -71,49 +71,49 @@ Dim RubberFlipperSoundFactor
 Dim WallImpactSoundFactor
 Dim RollingSoundFactor
 
-FlipperLeftHitParm = FlipperUpSoundLevel								'sound helper; not configurable
-FlipperRightHitParm = FlipperUpSoundLevel								'sound helper; not configurable
+FlipperLeftHitParm = FlipperUpSoundLevel                'sound helper; not configurable
+FlipperRightHitParm = FlipperUpSoundLevel               'sound helper; not configurable
 
-FlipperBallGuideSoundFactor = 40										'volume multiplier; must not be zero
+FlipperBallGuideSoundFactor = 40                    'volume multiplier; must not be zero
 
 '/////////////////////////////  FLIPPER BALL GUIDE  ////////////////////////////
 Sub RandomSoundFlipperBallGuide()
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
- 		Select Case Int(Rnd*2)+1
-			Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Hard_1"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Hard_2"),  Vol(ActiveBall) * 0.8 * FlipperBallGuideSoundFactor
-		End Select
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		Select Case Int(Rnd*3)+1
-			Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_1"),  Vol(ActiveBall)
-			Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_2"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 3 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_3"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-		End Select
- 	End If
-	If finalspeed < 6 Then
- 		Select Case Int(Rnd*7)+1
-			Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_1"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_2"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 3 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_3"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 4 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_4"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 5 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_5"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 6 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_6"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-			Case 7 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_7"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
-		End Select
-	End if
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    Select Case Int(Rnd*2)+1
+      Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Hard_1"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Hard_2"),  Vol(ActiveBall) * 0.8 * FlipperBallGuideSoundFactor
+    End Select
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    Select Case Int(Rnd*3)+1
+      Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_1"),  Vol(ActiveBall)
+      Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_2"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 3 : PlaySoundAtLevelActiveBall ("TOM_Apron_Medium_3"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+    End Select
+  End If
+  If finalspeed < 6 Then
+    Select Case Int(Rnd*7)+1
+      Case 1 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_1"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 2 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_2"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 3 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_3"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 4 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_4"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 5 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_5"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 6 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_6"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+      Case 7 : PlaySoundAtLevelActiveBall ("TOM_Apron_Soft_7"),  Vol(ActiveBall) * FlipperBallGuideSoundFactor
+    End Select
+  End if
 End Sub
 
 Sub SolLFlipper(Enabled)
      If Enabled Then
          LeftFlipper.RotateToEnd
-		 RandomSoundFlipperUpLeft()
+     RandomSoundFlipperUpLeft()
      Else
          RandomSoundFlipperDownLeft()
          FlipperLeftHitParm = FlipperUpSoundLevel
-		 LeftFlipper.RotateToStart
+     LeftFlipper.RotateToStart
 
          LeftFlipper.TimerEnabled = 1
          LeftFlipper.TimerInterval = 16
@@ -129,13 +129,13 @@ Sub SolRFlipper(Enabled)
      Else
          RandomSoundFlipperDownRight()
 FlipperRightHitParm = FlipperUpSoundLevel
-		 RightFlipper.RotateToStart:RightFlipper1.RotateToStart
+     RightFlipper.RotateToStart:RightFlipper1.RotateToStart
 
          rightflipper.TimerEnabled = 1
          rightflipper.TimerInterval = 16
          rightflipper.return = returnspeed * 0.5
 
-	 End If
+   End If
 End Sub
 
 
@@ -258,13 +258,13 @@ Sub Table1_Init
     Set bsLeftLock = New cvpmBallStack
         bsLeftLock.InitSw 0,0,40,0,0,0,0,0
         bsLeftLock.InitSaucer LKick,40, 0,25
-		bsLeftLock.KickforceVar = 5
+    bsLeftLock.KickforceVar = 5
         bsLeftLock.InitExitSnd SoundFX("kicker2",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
      Set bsRightLock = New cvpmBallStack
         bsRightLock.InitSw 0,0,48,0,0,0,0,0
         bsRightLock.InitSaucer RKick,48,0,25
-		bsRightLock.KickforceVar = 5
+    bsRightLock.KickforceVar = 5
         bsRightLock.InitExitSnd SoundFX("kicker2",DOFContactors), SoundFX("Solenoid",DOFContactors)
 
     Plunger1.Pullback
@@ -322,40 +322,40 @@ Sub Trigger112_Hit():PlaySoundAtVol "fx_lr3", ActiveBall, 1: End Sub
 Sub Trigger113_Hit():PlaySoundAtVol "fx_lr4", ActiveBall, 1: End Sub
 Sub Trigger114_Hit():PlaySoundAtVol "fx_lr2", ActiveBall, 1: End Sub
 
-RubberStrongSoundFactor = 0.8							'volume multiplier; must not be zero
-RubberWeakSoundFactor = 0.9					'volume multiplier; must not be zero
+RubberStrongSoundFactor = 0.8             'volume multiplier; must not be zero
+RubberWeakSoundFactor = 0.9         'volume multiplier; must not be zero
 RubberFlipperSoundFactor = 0.2
 
 
 '/////////////////////////////  RUBBERS AND POSTS - STRONG IMPACTS  ////////////////////////////
 Sub RandomSoundRubberStrong()
-	Select Case Int(Rnd*10)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_1"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_2"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_3"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_4"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_5"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_6"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_7"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 8 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_8"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 9 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_9"), Vol(ActiveBall) * RubberStrongSoundFactor
-		Case 10 : PlaySoundAtLevelActiveBall ("TOM_Rubber_1_Hard"), Vol(ActiveBall) * RubberStrongSoundFactor * 0.6
-	End Select
+  Select Case Int(Rnd*10)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_1"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_2"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_3"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_4"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_5"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_6"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_7"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 8 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_8"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 9 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Slingshot_Strong_9"), Vol(ActiveBall) * RubberStrongSoundFactor
+    Case 10 : PlaySoundAtLevelActiveBall ("TOM_Rubber_1_Hard"), Vol(ActiveBall) * RubberStrongSoundFactor * 0.6
+  End Select
 End Sub
 
 '/////////////////////////////  RUBBERS AND POSTS - WEAK IMPACTS  ////////////////////////////
 Sub RandomSoundRubberWeak()
-	Select Case Int(Rnd*9)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_1"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_2"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_3"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_3"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_5"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_6"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_7"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 8 : PlaySoundAtLevelActiveBall ("TOM_Rubber_8"), Vol(ActiveBall) * RubberWeakSoundFactor
-		Case 9 : PlaySoundAtLevelActiveBall ("TOM_Rubber_9"), Vol(ActiveBall) * RubberWeakSoundFactor
-	End Select
+  Select Case Int(Rnd*9)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_1"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_2"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_3"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_3"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_5"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_6"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_7"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 8 : PlaySoundAtLevelActiveBall ("TOM_Rubber_8"), Vol(ActiveBall) * RubberWeakSoundFactor
+    Case 9 : PlaySoundAtLevelActiveBall ("TOM_Rubber_9"), Vol(ActiveBall) * RubberWeakSoundFactor
+  End Select
 End Sub
 
 Dim MetalImpactSoundFactor
@@ -364,87 +364,87 @@ MetalImpactSoundFactor = 0.2
 
 '/////////////////////////////  METAL TOUCH SOUNDS  ////////////////////////////
 Sub RandomSoundMetal()
-	Select Case Int(Rnd*13)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_1"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_2"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_3"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_4"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_5"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_6"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_7"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 8 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_8"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 9 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_9"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 10 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_10"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 11 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_11"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 12 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_12"), Vol(ActiveBall) * MetalImpactSoundFactor
-		Case 13 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_13"), Vol(ActiveBall) * MetalImpactSoundFactor
-	End Select
+  Select Case Int(Rnd*13)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_1"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_2"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_3"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_4"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_5"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_6"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_7"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 8 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_8"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 9 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_9"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 10 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_10"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 11 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_11"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 12 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_12"), Vol(ActiveBall) * MetalImpactSoundFactor
+    Case 13 : PlaySoundAtLevelActiveBall ("TOM_Metal_Touch_13"), Vol(ActiveBall) * MetalImpactSoundFactor
+  End Select
 End Sub
 
 
 '/////////////////////////////  WALL IMPACTS EVENTS  ////////////////////////////
 Sub Wall21_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall26_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall449_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall375_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall374_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall3_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall6_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall519_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall4_Hit()
-	RandomSoundFlipperBallGuide()
+  RandomSoundFlipperBallGuide()
 End Sub
 
 Sub Wall28_Hit()
-	RandomSoundFlipperBallGuide()
+  RandomSoundFlipperBallGuide()
 End Sub
 
 Sub Wall36_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall6_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 'Sub Wall454_Hit()
-'	RandomSoundFlipperBallGuide()
+' RandomSoundFlipperBallGuide()
 'End Sub
 
 Sub Wall520_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall42_Hit()
-	RandomSoundMetal()
+  RandomSoundMetal()
 End Sub
 
 Sub Wall12_Hit()
-	RandomSoundFlipperBallGuide()
+  RandomSoundFlipperBallGuide()
 End Sub
 
 
@@ -466,124 +466,124 @@ sub Sw47_unhit:controller.Switch(47) = 0 : end sub
 
 'Stand Up Targets
 
-TargetSoundFactor = 0.005							'volume multiplier; must not be zero
-BallBouncePlayfieldSoftFactor = 0.005			'volume multiplier; must not be zero
+TargetSoundFactor = 0.005             'volume multiplier; must not be zero
+BallBouncePlayfieldSoftFactor = 0.005     'volume multiplier; must not be zero
 
 Sub sw17_Hit
-	vpmTimer.PulseSw 17
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 17
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw18_Hit
-	vpmTimer.PulseSw 18
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 18
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw19_Hit
-	vpmTimer.PulseSw 19
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 19
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw13_Hit
-	vpmTimer.PulseSw 13
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 13
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw14_Hit
-	vpmTimer.PulseSw 14
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 14
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw15_Hit
-	vpmTimer.PulseSw 15
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 15
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw22_Hit
-	vpmTimer.PulseSw 22
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 22
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw23_Hit
-	vpmTimer.PulseSw 23
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 23
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw24_Hit
-	vpmTimer.PulseSw 24
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 24
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Dim BallBouncePlayfieldSoftFactor
@@ -591,170 +591,170 @@ Dim BallBouncePlayfieldHardFactor
 Dim TargetSoundFactor
 
 Sub PlaySoundAtLevelActiveBall(playsoundparams, aVol)
-	PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 0, 0, AudioFade(ActiveBall)
+  PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 0, 0, AudioFade(ActiveBall)
 End Sub
 
 
 '/////////////////////////////  TARGET HIT SOUNDS  ////////////////////////////
 Sub RandomSoundTargetHitStrong()
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_5",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_6",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_7",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_8",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_5",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_6",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_7",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_8",DOFTargets), 100*Vol(ActiveBall) * 0.45 * TargetSoundFactor
+  End Select
 End Sub
 
 Sub RandomSoundTargetHitWeak()
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_1",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_2",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_3",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_4",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_1",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_2",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_3",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall SoundFX("TOM_Target_Hit_4",DOFTargets), 100*Vol(ActiveBall) * TargetSoundFactor
+  End Select
 End Sub
 
 '/////////////////////////////  BALL BOUNCE SOUNDS  ////////////////////////////
 Sub RandomSoundBallBouncePlayfieldSoft()
-	Select Case Int(Rnd*9)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.5
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_3"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.8
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_4"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.5
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
-		Case 8 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
-		Case 9 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_7"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.3
-	End Select
+  Select Case Int(Rnd*9)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.5
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_3"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.8
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_4"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.5
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Soft_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
+    Case 8 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.2
+    Case 9 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_7"), 100*Vol(ActiveBall) * BallBouncePlayfieldSoftFactor * 0.3
+  End Select
 End Sub
 
 Sub RandomSoundBallBouncePlayfieldHard()
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_3"),100* Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_4"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_6"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_7"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_1"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_2"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_3"),100* Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_4"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_5"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_6"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Ball_Bounce_Playfield_Hard_7"), 100*Vol(ActiveBall) * BallBouncePlayfieldHardFactor
+  End Select
 End Sub
 
 
 Sub sw25_Hit
-	vpmTimer.PulseSw 25
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 25
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw26_Hit
-	vpmTimer.PulseSw 26
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 26
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw27_Hit
-	vpmTimer.PulseSw 27
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 27
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw28_Hit
-	vpmTimer.PulseSw 28
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 28
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
  Sub sw29_Hit
-	vpmTimer.PulseSw 29
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 29
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 Sub sw30_Hit
-	vpmTimer.PulseSw 30
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 10 then
- 		RandomSoundTargetHitStrong()
-		RandomSoundBallBouncePlayfieldSoft()
-	End if
-	If finalspeed <= 10 then
- 		RandomSoundTargetHitWeak()
- 	End If
+  vpmTimer.PulseSw 30
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 10 then
+    RandomSoundTargetHitStrong()
+    RandomSoundBallBouncePlayfieldSoft()
+  End if
+  If finalspeed <= 10 then
+    RandomSoundTargetHitWeak()
+  End If
 End Sub
 
 
 '/////////////////////////////  BUMPER SOLENOID SOUNDS  ////////////////////////////
 Sub RandomSoundBumperA()
-	Select Case Int(Rnd*5)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
-	End Select
+  Select Case Int(Rnd*5)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Top_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper1
+  End Select
 End Sub
 
 Sub RandomSoundBumperB()
-	Select Case Int(Rnd*5)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
-	End Select
+  Select Case Int(Rnd*5)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Middle_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper2
+  End Select
 End Sub
 
 Sub RandomSoundBumperC()
-	Select Case Int(Rnd*5)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
-	End Select
+  Select Case Int(Rnd*5)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_1",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_2",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_3",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_4",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Bumpers_Reworked_v2_Bottom_5",DOFContactors), Vol(ActiveBall) * BumperSoundFactor, Bumper3
+  End Select
 End Sub
 
 
 '******************************************************
-'					BUMPERS
+'         BUMPERS
 '******************************************************
 
 Dim dirRing1 : dirRing1 = -1
@@ -778,35 +778,35 @@ RandomSoundBumperC()
 End Sub
 
 Sub Bumper1_timer()
-	BR1.Z = BR1.Z + (5 * dirRing1)
-	BR4.Y = mdistY - SQR((ABS(BR1.Y)-mdistY)^2 +(BR1.Z)^2) * dCos(mangle) + BR1.Z * dSin(mangle)
-	BR4.Z = BR1.Z * dCos(mangle) + SQR((ABS(BR1.Y)-mdistY)^2 +(BR1.Z)^2) * dSin(mangle)
-	If BR1.Z <= 0 Then dirRing1 = 1
-	If BR1.Z >= 40 Then
-		dirRing1 = -1
-		BR1.Z = 40
-		Me.TimerEnabled = 0
-	End If
+  BR1.Z = BR1.Z + (5 * dirRing1)
+  BR4.Y = mdistY - SQR((ABS(BR1.Y)-mdistY)^2 +(BR1.Z)^2) * dCos(mangle) + BR1.Z * dSin(mangle)
+  BR4.Z = BR1.Z * dCos(mangle) + SQR((ABS(BR1.Y)-mdistY)^2 +(BR1.Z)^2) * dSin(mangle)
+  If BR1.Z <= 0 Then dirRing1 = 1
+  If BR1.Z >= 40 Then
+    dirRing1 = -1
+    BR1.Z = 40
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper2_timer()
-	BR2.Z = BR2.Z + (5 * dirRing2)
-	If BR2.Z <= 0 Then dirRing2 = 1
-	If BR2.Z >= 40 Then
-		dirRing2 = -1
-		BR2.Z = 40
-		Me.TimerEnabled = 0
-	End If
+  BR2.Z = BR2.Z + (5 * dirRing2)
+  If BR2.Z <= 0 Then dirRing2 = 1
+  If BR2.Z >= 40 Then
+    dirRing2 = -1
+    BR2.Z = 40
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper3_timer()
-	BR3.Z = BR3.Z + (5 * dirRing3)
-	If BR3.Z <= 0 Then dirRing3 = 1
-	If BR3.Z >= 40 Then
-		dirRing3 = -1
-		BR3.Z = 40
-		Me.TimerEnabled = 0
-	End If
+  BR3.Z = BR3.Z + (5 * dirRing3)
+  If BR3.Z <= 0 Then dirRing3 = 1
+  If BR3.Z >= 40 Then
+    dirRing3 = -1
+    BR3.Z = 40
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 'Ramp Triggers
@@ -818,21 +818,21 @@ Sub SW43_unHit:Controller.Switch(43)=0:End Sub
 '
 ' '/////////////////////////////  SPINNER  ////////////////////////////
 ' Sub SoundSpinner()
-' 	PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw44
+'   PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw44
 ' End Sub
 '
 ' '/////////////////////////////  SPINNER  ////////////////////////////
 ' Sub SoundSpinner()
-' 	PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw45
+'   PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw45
 ' End Sub
 '
 ' '/////////////////////////////  SPINNER  ////////////////////////////
 ' Sub SoundSpinner()
-' 	PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw46
+'   PlaySoundAtLevelStatic ("TOM_NK_Spinner_12"), SpinnerSoundLevel, sw46
 ' End Sub
 '
 '
-' SpinnerSoundLevel = 0.01											'volume level; range [0, 1]
+' SpinnerSoundLevel = 0.01                      'volume level; range [0, 1]
 
 
 'Spinner
@@ -872,51 +872,51 @@ Const RelaysPosition = 2
 
 '/////////////////////////////  SUPPORTING BALL & SOUND FUNCTIONS  ////////////////////////////
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
-	Dim tmp
-	Select Case PositionalSoundPlaybackConfiguration
-		Case 1
-			AudioFade = 0
-		Case 2
-			AudioFade = 0
-		Case 3
-			tmp = tableobj.y * 2 / tableheight-1
-			'tmp = tableobj.x * 2 / table1.height-1
-			If tmp > 0 Then
-				AudioFade = Csng(tmp ^10)
-			Else
-				AudioFade = Csng(-((- tmp) ^10) )
-			End If
-	End Select
+  Dim tmp
+  Select Case PositionalSoundPlaybackConfiguration
+    Case 1
+      AudioFade = 0
+    Case 2
+      AudioFade = 0
+    Case 3
+      tmp = tableobj.y * 2 / tableheight-1
+      'tmp = tableobj.x * 2 / table1.height-1
+      If tmp > 0 Then
+        AudioFade = Csng(tmp ^10)
+      Else
+        AudioFade = Csng(-((- tmp) ^10) )
+      End If
+  End Select
 End Function
 
 Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
-	Dim tmp
-	Select Case PositionalSoundPlaybackConfiguration
-		Case 1
-			AudioPan = 0
-		Case 2
-			tmp = tableobj.x * 2 / tablewidth-1
-		    'tmp = tableobj.x * 2 / table1.width-1
-			If tmp > 0 Then
-				AudioPan = Csng(tmp ^10)
-			Else
-				AudioPan = Csng(-((- tmp) ^10) )
-			End If
-		Case 3
-			tmp = tableobj.x * 2 / tablewidth-1
-			'tmp = tableobj.x * 2 / table1.width-1
-			If tmp > 0 Then
-				AudioPan = Csng(tmp ^10)
-			Else
-				AudioPan = Csng(-((- tmp) ^10) )
-			End If
-	End Select
+  Dim tmp
+  Select Case PositionalSoundPlaybackConfiguration
+    Case 1
+      AudioPan = 0
+    Case 2
+      tmp = tableobj.x * 2 / tablewidth-1
+        'tmp = tableobj.x * 2 / table1.width-1
+      If tmp > 0 Then
+        AudioPan = Csng(tmp ^10)
+      Else
+        AudioPan = Csng(-((- tmp) ^10) )
+      End If
+    Case 3
+      tmp = tableobj.x * 2 / tablewidth-1
+      'tmp = tableobj.x * 2 / table1.width-1
+      If tmp > 0 Then
+        AudioPan = Csng(tmp ^10)
+      Else
+        AudioPan = Csng(-((- tmp) ^10) )
+      End If
+  End Select
 End Function
 
 Function Vol(ball) ' Calculates the volume of the sound based on the ball speed
-	Vol = Csng(BallVel(ball) ^2)
-	'Vol = Csng(BallVel(ball) ^2/55)
-	'Vol = Csng(BallVel(ball) ^2)
+  Vol = Csng(BallVel(ball) ^2)
+  'Vol = Csng(BallVel(ball) ^2/55)
+  'Vol = Csng(BallVel(ball) ^2)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
@@ -928,11 +928,11 @@ Function BallVel(ball) 'Calculates the ball speed
 End Function
 
 Function VolPlayfieldRoll(ball) ' Calculates the roll volume of the sound based on the ball speed
-	VolPlayfieldRoll = RollingSoundFactor * 0.0005 * Csng(BallVel(ball) ^3)
+  VolPlayfieldRoll = RollingSoundFactor * 0.0005 * Csng(BallVel(ball) ^3)
 End Function
 
 Function VolPlasticRampRoll(ball) ' Calculates the roll volume of the sound based on the ball speed
-	VolPlasticRampRoll = RollingSoundFactor * 0.0005 * Csng(BallVel(ball) ^3)
+  VolPlasticRampRoll = RollingSoundFactor * 0.0005 * Csng(BallVel(ball) ^3)
 End Function
 
 Function PitchPlayfieldRoll(ball) ' Calculates the roll pitch of the sound based on the ball speed
@@ -970,19 +970,19 @@ Sub PlaySoundAtLevelStaticRandomPitch(playsoundparams, aVol, randomPitch, tableo
 End Sub
 
 Sub PlaySoundAtLevelActiveBall(playsoundparams, aVol)
-	PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 0, 0, AudioFade(ActiveBall)
+  PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub PlaySoundAtLevelExistingActiveBall(playsoundparams, aVol)
-	PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 1, 0, AudioFade(ActiveBall)
+  PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ActiveBall), 0, 0, 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub PlaySoundAtLeveTimerActiveBall(playsoundparams, aVol, ballvariable)
-	PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ballvariable), 0, 0, 0, 0, AudioFade(ballvariable)
+  PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ballvariable), 0, 0, 0, 0, AudioFade(ballvariable)
 End Sub
 
 Sub PlaySoundAtLevelTimerExistingActiveBall(playsoundparams, aVol, ballvariable)
-	PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ballvariable), 0, 0, 1, 0, AudioFade(ballvariable)
+  PlaySound playsoundparams, 0, aVol * VolumeDial, AudioPan(ballvariable), 0, 0, 1, 0, AudioFade(ballvariable)
 End Sub
 
 Sub PlaySoundAtLevelRoll(playsoundparams, aVol, pitch)
@@ -991,18 +991,18 @@ End Sub
 
 
 '******************************************************
-'				SLINGSHOTS
+'       SLINGSHOTS
 '******************************************************
 Dim BumperSoundFactor
 BumperSoundFactor = 15
 Dim SlingshotSoundLevel
-SlingshotSoundLevel = 0.95												'volume level; range [0, 1]
+SlingshotSoundLevel = 0.95                        'volume level; range [0, 1]
 
 Dim LStep, RStep
 
 Sub LeftSlingshot_Slingshot
     RandomSoundSlingshotLeft()
-	'RandomSoundRubberStrong()
+  'RandomSoundRubberStrong()
     vpmTimer.PulseSw 49
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -1022,7 +1022,7 @@ End Sub
 
 Sub RightSlingshot_Slingshot
     RandomSoundSlingshotRight()
-	'RandomSoundRubberStrong()
+  'RandomSoundRubberStrong()
     vpmTimer.PulseSw 50
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -1042,31 +1042,31 @@ End Sub
 
 '/////////////////////////////  SLINGSHOT SOLENOID SOUNDS  ////////////////////////////
 Sub RandomSoundSlingshotLeft()
-	Select Case Int(Rnd*10)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L1_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L2_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L3_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L4_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L5_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L6_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L7_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L8_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L9_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-		Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L10_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
-	End Select
+  Select Case Int(Rnd*10)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L1_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L2_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L3_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L4_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L5_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L6_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L7_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L8_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L9_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+    Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_L10_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING2
+  End Select
 End Sub
 
 Sub RandomSoundSlingshotRight()
-	Select Case Int(Rnd*8)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R1_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R2_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R3_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R4_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R5_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R6_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R7_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-		Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R9_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
-	End Select
+  Select Case Int(Rnd*8)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R1_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R2_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R3_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R4_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R5_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R6_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R7_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+    Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Sling_Rework_R9_Strong_Layered",DOFContactors), SlingshotSoundLevel, SLING1
+  End Select
 End Sub
 
 
@@ -1115,7 +1115,7 @@ end if
 
     NFadeLm 4, l4
     NFadeLm 4, L4a
-	Flash 4, Flasher8
+  Flash 4, Flasher8
     NFadeLm 5, l5
     NFadeLm 5, L5a
 
@@ -1129,11 +1129,11 @@ NFadeLm 7, L7a
 NFadeLm 8, L8a
 NFadeLm 8, L8b
     NFadeLm 9, L9
-	NFadeLm 9, L9a
+  NFadeLm 9, L9a
  NFadeLm 9, L9b
 Flash 9, f4
 Flash 9, f2
-	 NFadeLm 9, L9b1
+   NFadeLm 9, L9b1
     NFadeLm 10, L10
 NFadeLm 10, L10a
 NFadeLm 10, L10b
@@ -1144,60 +1144,60 @@ NFadeLm 11, L11b
 NFadeLm 12, L12a
     NFadeLm 13, l13
 NFadeLm 13, L13a
-	Flash 13, Flasher6
+  Flash 13, Flasher6
     NFadeLm 14, l14
 NFadeLm 14,  L14a
    NFadeLm 105, F105b
-	Flash 14, Flasher5
+  Flash 14, Flasher5
     NFadeLm 15, l15
     NFadeLm 15, L15a
 
 
-	Flash 15, Flasher4
+  Flash 15, Flasher4
     NFadeLm 16, l16
     NFadeLm 16, L16a
-	Flash 16, Flasher9
+  Flash 16, Flasher9
     NFadeLm 17, L17
  NFadeLm 17, L17a
-	Flash 17, Flasher15
+  Flash 17, Flasher15
     NFadeLm 18, L18
  NFadeLm 18, L18a
-	Flash 18, Flasher16
+  Flash 18, Flasher16
     NFadeLm 19, L19
  NFadeLm 19, L19a
-	Flash 19, Flasher17
+  Flash 19, Flasher17
     NFadeLm  20, l20
 NFadeLm 20, L20a
-	NFadeLm 21, L21
+  NFadeLm 21, L21
  NFadeLm 21, L21a
 NFadeLm 21, L21b
     NFadeLm 22, l22
 NFadeLm 22, L22a
-	Flash 22, Flasher3
+  Flash 22, Flasher3
     NFadeLm 23, l23
 NFadeLm 23, L23a
-	Flash 23, Flasher2
+  Flash 23, Flasher2
     NFadeLm 24, l24
     NFadeLm 24, L24a
-	Flash 24, Flasher1
+  Flash 24, Flasher1
     NFadeLm 25, l25
 NFadeLm 25, L25a
-	Flash 25, Flasher11
+  Flash 25, Flasher11
     NFadeLm 26, l26
 NFadeLm 26, L26a
-	Flash 26, Flasher10
+  Flash 26, Flasher10
     NFadeLm 27, l27
 NFadeLm 27, L27a
-	Flash 27, Flasher7
+  Flash 27, Flasher7
      NFadeLm 28, L28
 NFadeLm 28, L28a
-	Flash 28, Flasher12
+  Flash 28, Flasher12
      NFadeLm 29, l29
 NFadeLm 29, L29a
-	Flash 29, Flasher13
+  Flash 29, Flasher13
      NFadeLm 30, L30
 NFadeLm 30, L30a
-	Flash 30, Flasher14
+  Flash 30, Flasher14
      NFadeLm 31, l31
 NFadeLm 31, L31a
      NFadeLm 32, l32
@@ -1844,14 +1844,14 @@ End Sub
 '/////////////////////////////  RUBBERS AND POSTS  ////////////////////////////
 '/////////////////////////////  RUBBERS - EVENTS  ////////////////////////////
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 5 then
- 		RandomSoundRubberStrong()
-	End if
-	If finalspeed <= 5 then
- 		RandomSoundRubberWeak()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 5 then
+    RandomSoundRubberStrong()
+  End if
+  If finalspeed <= 5 then
+    RandomSoundRubberWeak()
+  End If
 End Sub
 
 
@@ -1869,14 +1869,14 @@ End Sub
 
 '/////////////////////////////  POSTS - EVENTS  ////////////////////////////
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 5 then
- 		RandomSoundRubberStrong()
-	End if
-	If finalspeed <= 5 then
- 		RandomSoundRubberWeak()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 5 then
+    RandomSoundRubberStrong()
+  End if
+  If finalspeed <= 5 then
+    RandomSoundRubberWeak()
+  End If
 End Sub
 
 
@@ -1899,71 +1899,71 @@ End Sub
 '    End Select
 'End Sub
 
-FlipperUpAttackMinimumSoundLevel = 0.010           						'volume level; range [0, 1]
-FlipperUpAttackMaximumSoundLevel = 0.635								'volume level; range [0, 1]
-FlipperUpSoundLevel = 0.5                       						'volume level; range [0, 1]
-FlipperDownSoundLevel = 0.25                      						'volume level; range [0, 1]
+FlipperUpAttackMinimumSoundLevel = 0.010                      'volume level; range [0, 1]
+FlipperUpAttackMaximumSoundLevel = 0.635                'volume level; range [0, 1]
+FlipperUpSoundLevel = 0.5                                   'volume level; range [0, 1]
+FlipperDownSoundLevel = 0.25                                  'volume level; range [0, 1]
 FlipperLeftHitParm = FlipperUpSoundLevel
-FlipperRightHitParm = FlipperUpSoundLevel								'sound helper; not configurable
+FlipperRightHitParm = FlipperUpSoundLevel               'sound helper; not configurable
 
 
 '/////////////////////////////  FLIPPER BATS SOLENOID CORE SOUND  ////////////////////////////
 Sub RandomSoundFlipperUpLeft()
-	Select Case Int(Rnd*11)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L01",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L02",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L07",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L08",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L09",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L10",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L12",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L14",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L18",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L20",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-		Case 11 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L26",DOFFlippers), FlipperLeftHitParm, LeftFlipper
-	End Select
+  Select Case Int(Rnd*11)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L01",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L02",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L07",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L08",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L09",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L10",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L12",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L14",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L18",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L20",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+    Case 11 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_L26",DOFFlippers), FlipperLeftHitParm, LeftFlipper
+  End Select
 End Sub
 
 Sub RandomSoundFlipperUpRight()
-	Select Case Int(Rnd*11)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R01",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R02",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R03",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R04",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R05",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R06",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R07",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R08",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R09",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R10",DOFFlippers), FlipperRightHitParm, RightFlipper
-		Case 11 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R11",DOFFlippers), FlipperRightHitParm, RightFlipper
-	End Select
+  Select Case Int(Rnd*11)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R01",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 2 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R02",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 3 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R03",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 4 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R04",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 5 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R05",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 6 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R06",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 7 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R07",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 8 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R08",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 9 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R09",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 10 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R10",DOFFlippers), FlipperRightHitParm, RightFlipper
+    Case 11 : PlaySoundAtLevelStatic SoundFX("TOM_Calle_Flipper_R11",DOFFlippers), FlipperRightHitParm, RightFlipper
+  End Select
 End Sub
 
 
 Sub RandomSoundFlipperDownLeft()
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_1_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 2 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_2_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 3 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_3_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 4 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_4_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 5 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_5_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 6 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_6_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-		Case 7 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_7_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_1_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 2 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_2_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 3 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_3_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 4 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_4_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 5 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_5_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 6 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_6_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+    Case 7 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Left_Down_7_Bass",DOFFlippers), FlipperDownSoundLevel, LeftFlipper
+  End Select
 End Sub
 
 Sub RandomSoundFlipperDownRight()
-	Select Case Int(Rnd*8)+1
-		Case 1 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_1_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 2 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_2_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 3 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_3_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 4 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_4_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 5 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_5_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 6 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_6_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 7 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_7_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-		Case 8 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_8_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
-	End Select
+  Select Case Int(Rnd*8)+1
+    Case 1 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_1_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 2 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_2_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 3 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_3_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 4 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_4_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 5 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_5_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 6 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_6_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 7 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_7_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+    Case 8 : PlaySoundAtLevelStatic SoundFX("WD_TOM_Flipper_Right_Down_8_Bass",DOFFlippers), FlipperDownSoundLevel, RightFlipper
+  End Select
 End Sub
 
 
@@ -1973,35 +1973,35 @@ angdamp = 0.2
 veldamp = 0.3
 
 Sub LeftFlipper_Collide(parm)
-	If parm > 4  and leftflipper.currentangle < 90 Then
-		activeball.angmomx=activeball.angmomx*angdamp
-		activeball.angmomy=activeball.angmomy*angdamp
-		activeball.angmomz=activeball.angmomz*angdamp
-		If  activeball.velx > 0 Then activeball.velx = activeball.velx * veldamp
-	End If
+  If parm > 4  and leftflipper.currentangle < 90 Then
+    activeball.angmomx=activeball.angmomx*angdamp
+    activeball.angmomy=activeball.angmomy*angdamp
+    activeball.angmomz=activeball.angmomz*angdamp
+    If  activeball.velx > 0 Then activeball.velx = activeball.velx * veldamp
+  End If
 
-	FlipperLeftHitParm = parm/10
-	If FlipperLeftHitParm > 1 Then
-		FlipperLeftHitParm = 1
-	End If
-	FlipperLeftHitParm = FlipperUpSoundLevel * FlipperLeftHitParm
-	RandomSoundRubberFlipper(parm)
+  FlipperLeftHitParm = parm/10
+  If FlipperLeftHitParm > 1 Then
+    FlipperLeftHitParm = 1
+  End If
+  FlipperLeftHitParm = FlipperUpSoundLevel * FlipperLeftHitParm
+  RandomSoundRubberFlipper(parm)
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	If parm > 4  and rightflipper.currentangle > -90 Then
-		activeball.angmomx=activeball.angmomx*angdamp
-		activeball.angmomy=activeball.angmomy*angdamp
-		activeball.angmomz=activeball.angmomz*angdamp
-		If  activeball.velx < 0 Then activeball.velx = activeball.velx * veldamp
-	End If
+  If parm > 4  and rightflipper.currentangle > -90 Then
+    activeball.angmomx=activeball.angmomx*angdamp
+    activeball.angmomy=activeball.angmomy*angdamp
+    activeball.angmomz=activeball.angmomz*angdamp
+    If  activeball.velx < 0 Then activeball.velx = activeball.velx * veldamp
+  End If
 
-	FlipperRightHitParm = parm/10
-	If FlipperRightHitParm > 1 Then
-		FlipperRightHitParm = 1
-	End If
-	FlipperRightHitParm = FlipperUpSoundLevel * FlipperRightHitParm
- 	RandomSoundRubberFlipper(parm)
+  FlipperRightHitParm = parm/10
+  If FlipperRightHitParm > 1 Then
+    FlipperRightHitParm = 1
+  End If
+  FlipperRightHitParm = FlipperUpSoundLevel * FlipperRightHitParm
+  RandomSoundRubberFlipper(parm)
 End Sub
 
 Sub LeftFlipper_Collide(parm)
@@ -2014,15 +2014,15 @@ End Sub
 
 
 Sub RandomSoundRubberFlipper(parm)
-	Select Case Int(Rnd*7)+1
-		Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_1"), parm / 10 * RubberFlipperSoundFactor
-		Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_2"), parm / 10 * RubberFlipperSoundFactor
-		Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_3"), parm / 10 * RubberFlipperSoundFactor
-		Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_4"), parm / 10 * RubberFlipperSoundFactor
-		Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_5"), parm / 10 * RubberFlipperSoundFactor
-		Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_6"), parm / 10 * RubberFlipperSoundFactor
-		Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_7"), parm / 10 * RubberFlipperSoundFactor
-	End Select
+  Select Case Int(Rnd*7)+1
+    Case 1 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_1"), parm / 10 * RubberFlipperSoundFactor
+    Case 2 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_2"), parm / 10 * RubberFlipperSoundFactor
+    Case 3 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_3"), parm / 10 * RubberFlipperSoundFactor
+    Case 4 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_4"), parm / 10 * RubberFlipperSoundFactor
+    Case 5 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_5"), parm / 10 * RubberFlipperSoundFactor
+    Case 6 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_6"), parm / 10 * RubberFlipperSoundFactor
+    Case 7 : PlaySoundAtLevelActiveBall ("TOM_Rubber_Flipper_Normal_7"), parm / 10 * RubberFlipperSoundFactor
+  End Select
 End Sub
 
 

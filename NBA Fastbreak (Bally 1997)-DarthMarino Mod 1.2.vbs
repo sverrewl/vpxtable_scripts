@@ -89,7 +89,7 @@ Set GiCallback2 = GetRef("UpdateGI")
 
 sub updategi (no, Enabled)
 
-'	Eval("textbox"&no).text=enabled
+' Eval("textbox"&no).text=enabled
 
 end sub
 
@@ -124,12 +124,12 @@ controller.run
     Controller.Switch(24) = 1 'and keep it close
 
 If ArenaMod=1 then
-	Wall80.isdropped=false
-	Wall123.isdropped=false
+  Wall80.isdropped=false
+  Wall123.isdropped=false
 
 else
-	Wall80.isdropped=True
-	Wall123.isdropped=True
+  Wall80.isdropped=True
+  Wall123.isdropped=True
 End If
 
     ' Nudging
@@ -243,9 +243,9 @@ End If
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 If DesktopMode = True Then
-	EMreel1.visible=true
+  EMreel1.visible=true
 Else
-	EMreel1.visible=false
+  EMreel1.visible=false
 end If
 End Sub
 
@@ -497,19 +497,19 @@ Sub sw28_Timer:sw28.IsDropped = 0:sw28a.IsDropped = 1:Me.TimerEnabled = 0:End Su
 '***********
 
 SolCallBack(1) = "Auto_Plunger"
-'SolCallBack(2)	= Not Used
+'SolCallBack(2) = Not Used
 SolCallBack(3) = "vpmSolWall Diverter2,True,"
 SolCallBack(4) = "vpmSolWall Diverter1,True,"
 SolCallBack(5) = "bsEject.SolOut"
 SolCallBack(6) = "RightGate.Open ="
 SolCallBack(7) = "SolBasket"
-'SolCallBack(8)	' magnet - handled in the magnet definition
+'SolCallBack(8) ' magnet - handled in the magnet definition
 SolCallBack(9) = "bsTrough.SolOut"
-'SolCallBack(10)	= "vpmSolSound ""lSling"","
-'SolCallBack(11)	= "vpmSolSound ""lSling"","
-'SolCallBack(12)	= "vpmSolSound ""Jet1"","
-'SolCallBack(13)	= "vpmSolSound ""Jet1"","
-'SolCallBack(14)	= "vpmSolSound ""Jet1"","
+'SolCallBack(10)  = "vpmSolSound ""lSling"","
+'SolCallBack(11)  = "vpmSolSound ""lSling"","
+'SolCallBack(12)  = "vpmSolSound ""Jet1"","
+'SolCallBack(13)  = "vpmSolSound ""Jet1"","
+'SolCallBack(14)  = "vpmSolSound ""Jet1"","
 
 SolCallBack(15) = "PassRight2"
 SolCallBack(16) = "PassLeft2"
@@ -530,8 +530,8 @@ SolCallBack(33) = "bsSaucer1.SolOut"
 SolCallBack(34) = "bsSaucer2.SolOut"
 SolCallBack(35) = "bsSaucer3.SolOut"
 SolCallBack(36) = "bsSaucer4.SolOut"
-'SolCallBack(37)	= Motor Enable (defender) - handled in the mech
-'SolCallBack(38)	= Motor Direction (defender) - handled in the mech
+'SolCallBack(37)  = Motor Enable (defender) - handled in the mech
+'SolCallBack(38)  = Motor Direction (defender) - handled in the mech
 'SolCallBack(39) = "ClockEnable"
 'SolCallBack(40) = "ClockCount"
 
@@ -551,8 +551,8 @@ End Sub
 
 Sub BackBall1_Hit
     BackBall1.Destroyball
-	BallReturn1.CreateSizedBall(20).Image = "BasketBall"
-	BallReturn1.Kick 100, 15
+  BallReturn1.CreateSizedBall(20).Image = "BasketBall"
+  BallReturn1.Kick 100, 15
 End Sub
 Sub BallReturn2_Hit
 BallReturn2.Destroyball
@@ -834,16 +834,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -871,31 +871,31 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
 End Sub
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 '***************************************************
@@ -1003,20 +1003,20 @@ flash 78,f78
 
     ' flashers old
 '   fadeobj 117, f17, "rf_on", "rf_a", "rf_b", "empty"
-'	NFadeLm 118, bumper1
-'	fadeobj 118, f18, "rf_on", "rf_a", "rf_b", "empty"
+' NFadeLm 118, bumper1
+' fadeobj 118, f18, "rf_on", "rf_a", "rf_b", "empty"
 '   fadeobj 119, f19, "wf_on", "wf_a", "wf_b", "empty"
 '   fadeobj 120, f20, "bf_on", "bf_a", "bf_b", "empty"
 '   fadeobjm 124, f24, "wf_on", "wf_a", "wf_b", "empty"
 '   fadeobj 124, f24b, "bf_on", "bf_a", "bf_b", "empty"
 
-'	flashers new
-	flash 117,f17
-	flash 118,f18
-	flash 119,f19
-	flash 120,f20
-	flashm 124,f24b
-	flash 124,f24
+' flashers new
+  flash 117,f17
+  flash 118,f18
+  flash 119,f19
+  flash 120,f20
+  flashm 124,f24b
+  flash 124,f24
 End Sub
 
 ' div lamp subs

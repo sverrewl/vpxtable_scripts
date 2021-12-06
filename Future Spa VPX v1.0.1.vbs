@@ -133,7 +133,7 @@ Sub table1_Init
     Const IMPowerSetting = 27 ' Plunger Power
     Const IMTime = 0.6        ' Time in seconds for Full Plunge
     Set plungerIM = New cvpmImpulseP
-	With plungerIM
+  With plungerIM
         .InitImpulseP sw28, IMPowerSetting, IMTime
         .switch 28
         .Random 0.3

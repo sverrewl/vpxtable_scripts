@@ -18,18 +18,18 @@
  '*********************************************************************
 
  'V1.2
-		'new ramps made by flupper (thanks!!!)
-		'cleaned up script
-		'fewer timers for better performance
-		'small changes with the physics
-		'claw animation improved by shoopity (thanks for all the explaination!)
-		'bug fixes with pballs
-		'added missing sounds
-		'new enviroment, new lightning
+    'new ramps made by flupper (thanks!!!)
+    'cleaned up script
+    'fewer timers for better performance
+    'small changes with the physics
+    'claw animation improved by shoopity (thanks for all the explaination!)
+    'bug fixes with pballs
+    'added missing sounds
+    'new enviroment, new lightning
 
  'V1.1
-		'Added controller.vbs
-		'Bug Fixes
+    'Added controller.vbs
+    'Bug Fixes
 
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
@@ -93,10 +93,10 @@ On Error Goto 0
          On Error Goto 0
          .Switch(22) = 1 'close coin door
          .Switch(24) = 1 'and keep it close
-			PinMAMETimer.Interval = PinMAMEInterval
-			PinMAMETimer.Enabled = true
-			vpmNudge.TiltSwitch = 14
-			vpmNudge.Sensitivity = 2
+      PinMAMETimer.Interval = PinMAMEInterval
+      PinMAMETimer.Enabled = true
+      vpmNudge.TiltSwitch = 14
+      vpmNudge.Sensitivity = 2
      End With
 
 
@@ -107,7 +107,7 @@ On Error Goto 0
      With bsTrough
          .InitSw 0, 31, 32, 33, 34, 35, 0, 0
          .InitKick BallRelease, 90, 10
-		 .InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+     .InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
          .Balls = 5
 '         .IsTrough = 1
      End With
@@ -117,13 +117,13 @@ On Error Goto 0
  '***********
 
 Set retinascan = New cvpmCaptiveBall
-	With retinascan
-		.InitCaptive RetinaTrigger, RetinaWall, RetinaKicker, 345
-		.ForceTrans = .9
-		.MinForce = 2
-		.CreateEvents "retinascan"
-		.Start
-	End With
+  With retinascan
+    .InitCaptive RetinaTrigger, RetinaWall, RetinaKicker, 345
+    .ForceTrans = .9
+    .MinForce = 2
+    .CreateEvents "retinascan"
+    .Start
+  End With
 
  '***************
  'Claw & Elevator
@@ -143,16 +143,16 @@ set clawmech = new cvpmmech
  end with
 
 Set elevatormech = new cvpmMech
-	with elevatormech
-		.mtype = vpmMechOneSol + vpmMechReverse + vpmMechLinear
-		.Sol1 = 18
-		.Length = 15
-		.steps = 70
-		.addsw 67,0,2
-		.addsw 74,65,70
-		.Callback = getRef("UpdateElevator")
-		.Start
-	End with
+  with elevatormech
+    .mtype = vpmMechOneSol + vpmMechReverse + vpmMechLinear
+    .Sol1 = 18
+    .Length = 15
+    .steps = 70
+    .addsw 67,0,2
+    .addsw 74,65,70
+    .Callback = getRef("UpdateElevator")
+    .Start
+  End with
 
 
  '***********
@@ -160,12 +160,12 @@ Set elevatormech = new cvpmMech
  '***********
 
 Set bsTopPopper = New cvpmBallStack
-	with bsTopPopper
-	.InitSaucer sw73, 73, 182, 18
-	.InitExitSnd SoundFX("EjectKick",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
-	.KickForceVar = 1
-	.KickAngleVar = 0.5
-	End With
+  with bsTopPopper
+  .InitSaucer sw73, 73, 182, 18
+  .InitExitSnd SoundFX("EjectKick",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+  .KickForceVar = 1
+  .KickAngleVar = 0.5
+  End With
 
 
  '*************
@@ -173,12 +173,12 @@ Set bsTopPopper = New cvpmBallStack
  '*************
 
 Set BottomPopper = New cvpmBallStack
-	With BottomPopper
-		.InitSw 0, 76, 0, 0, 0, 0, 0, 0
-		.InitKick sw76, 58, 73
-		.KickZ = 60
-		.InitExitSnd SoundFX("BottomPopper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
-	End With
+  With BottomPopper
+    .InitSw 0, 76, 0, 0, 0, 0, 0, 0
+    .InitKick sw76, 58, 73
+    .KickZ = 60
+    .InitExitSnd SoundFX("BottomPopper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+  End With
 
 
  '*****
@@ -186,11 +186,11 @@ Set BottomPopper = New cvpmBallStack
  '*****
 
 Set bsEject = New cvpmBallStack
-	With bsEject
-	.InitSaucer sw66, 66, 180, 2
-	.InitExitSnd SoundFX("EjectKick",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
-	.KickForceVar = 1
-	.KickAngleVar = 0.5
+  With bsEject
+  .InitSaucer sw66, 66, 180, 2
+  .InitExitSnd SoundFX("EjectKick",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+  .KickForceVar = 1
+  .KickAngleVar = 0.5
 End With
 
  '************
@@ -198,14 +198,14 @@ End With
  '************
 
 Set RedCar = New cvpmCaptiveBall
-	With RedCar
-		.InitCaptive OldsmobileTrigger, OldsmobileWall, OldsmobileKicker, 345
-		.ForceTrans = .9
-		.MinForce = 3.5
-'		.RestSwitch = 71
-		.CreateEvents "RedCar"
-		.Start
-	End With
+  With RedCar
+    .InitCaptive OldsmobileTrigger, OldsmobileWall, OldsmobileKicker, 345
+    .ForceTrans = .9
+    .MinForce = 3.5
+'   .RestSwitch = 71
+    .CreateEvents "RedCar"
+    .Start
+  End With
 
 
 DiverterOn.isdropped = 1
@@ -218,12 +218,12 @@ DiverterOff.isdropped = 0
 
 
  If table1.ShowDT = False then
-	LeftSideRail.WidthTop = 0
-	LeftSideRail.WidthBottom = 0
-	RightSideRail.WidthTop = 0
-	RightSideRail.WidthBottom = 0
-	Korpus.Size_Y = 1.7
-'	Korpus.visible = False
+  LeftSideRail.WidthTop = 0
+  LeftSideRail.WidthBottom = 0
+  RightSideRail.WidthTop = 0
+  RightSideRail.WidthBottom = 0
+  Korpus.Size_Y = 1.7
+' Korpus.visible = False
  End if
 End Sub
 
@@ -234,34 +234,34 @@ End Sub
 
 'Oldsmobile
 
-	Set Oldsmobileball = CapKicker1.CreateBall
-	Oldsmobileball.Visible = False
-	CapKicker1.Kick 0,0
-	CapKicker1.Enabled = false
-	Controller.Switch(71) = 1
+  Set Oldsmobileball = CapKicker1.CreateBall
+  Oldsmobileball.Visible = False
+  CapKicker1.Kick 0,0
+  CapKicker1.Enabled = false
+  Controller.Switch(71) = 1
 
 Sub OldsmobileTimer_Timer()
-	Oldsmobile.x = Oldsmobileball.x:Oldsmobile.y = Oldsmobileball.y
+  Oldsmobile.x = Oldsmobileball.x:Oldsmobile.y = Oldsmobileball.y
 End Sub
 
 'GM Ultralite
 
-	Set GMUltraliteball = CapKicker2.CreateBall
-	GMUltraliteball.Visible = False
-	CapKicker2.Kick 0,0
-	CapKicker2.Enabled = false
-	Controller.Switch(72) = 1
+  Set GMUltraliteball = CapKicker2.CreateBall
+  GMUltraliteball.Visible = False
+  CapKicker2.Kick 0,0
+  CapKicker2.Enabled = false
+  Controller.Switch(72) = 1
 
 Sub GMUltraliteTimer_Timer()
-	GMUltralite.x = GMUltraliteball.x:GMUltralite.y = GMUltraliteball.y
+  GMUltralite.x = GMUltraliteball.x:GMUltralite.y = GMUltraliteball.y
 End Sub
 
 
 
-Sub sw72_Hit:Controller.Switch(72) = 0:End Sub		'GMUltralite Restswitch
+Sub sw72_Hit:Controller.Switch(72) = 0:End Sub    'GMUltralite Restswitch
 Sub sw72_UnHit:Controller.Switch(72) = 1: End Sub
 
-Sub sw71_Hit:Controller.Switch(71) = 0:End Sub		'Oldsmobil Restswitch
+Sub sw71_Hit:Controller.Switch(71) = 0:End Sub    'Oldsmobil Restswitch
 Sub sw71_UnHit:Controller.Switch(71) = 1: End Sub
 
  '*********
@@ -310,22 +310,22 @@ Sub sw71_UnHit:Controller.Switch(71) = 1: End Sub
 
 
 'Sub UpdateClaw(aNewPos,aSpeed,aLastPos)
-'	PlaySound SoundFX("ClawMotor",DOFGear)
-'	Claw.RotY = -107 +clawmech.position
-'	BallP1.RotY = -107 +clawmech.position
+' PlaySound SoundFX("ClawMotor",DOFGear)
+' Claw.RotY = -107 +clawmech.position
+' BallP1.RotY = -107 +clawmech.position
 'End Sub
 
 
 Sub UpdateClaw(aNewPos,aSpeed,aLastPos)
-	ClawTimer.Enabled = 1
+  ClawTimer.Enabled = 1
 End Sub
 
 Sub SolClawMotorLeft(Enabled)
-	If enabled then
-		PlaySound SoundFX("Motor",DofGear)
-	Else
-		StopSound SoundFX("Motor",DofGear)
-	End if
+  If enabled then
+    PlaySound SoundFX("Motor",DofGear)
+  Else
+    StopSound SoundFX("Motor",DofGear)
+  End if
 End Sub
 
 
@@ -343,52 +343,52 @@ BallP1.RotY = Claw.RotY
 End Sub
 
 Sub UpdateElevator(aNewPos,aSpeed,aLastPos)
-	PlaySound SoundFX("ElevatorMotor",DOFGear)
-	Elevator.TransY = elevatormech.Position
-	BallP.TransY = elevatormech.Position
+  PlaySound SoundFX("ElevatorMotor",DOFGear)
+  Elevator.TransY = elevatormech.Position
+  BallP.TransY = elevatormech.Position
 End Sub
 
 Sub sw74_Hit
-	controller.Switch(74) = True
+  controller.Switch(74) = True
 End Sub
 
 Sub ElevatorKicker_Hit()
-	me.DestroyBall
-	BallP.Visible = True
-	ClawKicker1.Enabled = True
-	ClawKicker2.Enabled = True
-	ClawKicker3.Enabled = True
-	ClawKicker4.Enabled = True
-	ClawKicker5.Enabled = True
-	BallinClaw = True
+  me.DestroyBall
+  BallP.Visible = True
+  ClawKicker1.Enabled = True
+  ClawKicker2.Enabled = True
+  ClawKicker3.Enabled = True
+  ClawKicker4.Enabled = True
+  ClawKicker5.Enabled = True
+  BallinClaw = True
 End Sub
 
 
 Sub ClawMagnetOn(Enabled)
-	If Enabled And BallinClaw = True Then
-		vpmTimer.AddTimer 700, "BallP.Visible = False'"
-		vpmTimer.AddTImer 700, "BallP1.Visible = True'"
-	Else
-		ClawOff
-	End if
+  If Enabled And BallinClaw = True Then
+    vpmTimer.AddTimer 700, "BallP.Visible = False'"
+    vpmTimer.AddTImer 700, "BallP1.Visible = True'"
+  Else
+    ClawOff
+  End if
 End Sub
 
 Sub ClawOff()
-	BallP1.Visible = False
-	If BallinClaw = True then
-		if Claw.RotY >= 11 Then ClawKicker5.CreateSizedBall(25.5): ClawKicker5.Kick 185, 1
-		if Claw.RotY <= 10.99 And Claw.RotY >= -9.99 Then ClawKicker4.CreateSizedBall(25.5): ClawKicker4.Kick 180, 1
-		if Claw.RotY <= -10 And Claw.RotY >= -28.99 Then ClawKicker3.CreateSizedBall(25.5): ClawKicker3.Kick 161, 1
-		if Claw.RotY <= -29 And Claw.RotY >= -52.99 Then ClawKicker2.CreateSizedBall(25.5): ClawKicker2.Kick 143, 1
-		if Claw.Roty <= -53 And Claw.RotY >= -95.99 Then ClawKicker1.CreateSizedBall(25.5): ClawKicker1.Enabled = False: ClawKicker1.Kick 0, 1
-	Else
-		ClawKicker1.Enabled = False
-		ClawKicker2.Enabled = False
-		ClawKicker3.Enabled = False
-		ClawKicker4.Enabled = False
-		ClawKicker5.Enabled = False
-		BallinClaw = False
-	End if
+  BallP1.Visible = False
+  If BallinClaw = True then
+    if Claw.RotY >= 11 Then ClawKicker5.CreateSizedBall(25.5): ClawKicker5.Kick 185, 1
+    if Claw.RotY <= 10.99 And Claw.RotY >= -9.99 Then ClawKicker4.CreateSizedBall(25.5): ClawKicker4.Kick 180, 1
+    if Claw.RotY <= -10 And Claw.RotY >= -28.99 Then ClawKicker3.CreateSizedBall(25.5): ClawKicker3.Kick 161, 1
+    if Claw.RotY <= -29 And Claw.RotY >= -52.99 Then ClawKicker2.CreateSizedBall(25.5): ClawKicker2.Kick 143, 1
+    if Claw.Roty <= -53 And Claw.RotY >= -95.99 Then ClawKicker1.CreateSizedBall(25.5): ClawKicker1.Enabled = False: ClawKicker1.Kick 0, 1
+  Else
+    ClawKicker1.Enabled = False
+    ClawKicker2.Enabled = False
+    ClawKicker3.Enabled = False
+    ClawKicker4.Enabled = False
+    ClawKicker5.Enabled = False
+    BallinClaw = False
+  End if
 End Sub
 
 
@@ -405,16 +405,16 @@ Dim EyeBallM
 
 
 Sub EyeballTrigger_Hit()
-	Set EyeballM = ActiveBall
-	EyeballTimer.Enabled = True
+  Set EyeballM = ActiveBall
+  EyeballTimer.Enabled = True
 End Sub
 
 
 Sub EyeBallTimer_Timer()
-	EyeballP.x = Eyeballm.x: EyeballP.y = EyeballM.y
-	If EyeBallm.VelY <= -1 Then EyeballP.Roty = EyeballP.Roty +30
-	If EyeBallm.VelY >= 1 Then EyeballP.Roty = EyeballP.Roty +30
-'	If EyeBallm.VelY = 0 Then EyeballP.Roty = EyeballP.Roty 0
+  EyeballP.x = Eyeballm.x: EyeballP.y = EyeballM.y
+  If EyeBallm.VelY <= -1 Then EyeballP.Roty = EyeballP.Roty +30
+  If EyeBallm.VelY >= 1 Then EyeballP.Roty = EyeballP.Roty +30
+' If EyeBallm.VelY = 0 Then EyeballP.Roty = EyeballP.Roty 0
 End Sub
 
 
@@ -445,29 +445,29 @@ End Sub
 
 
 Sub BottomPopperHole_Hit()
-	RandomSoundHole
-	BottomPopper.AddBall Me
+  RandomSoundHole
+  BottomPopper.AddBall Me
 End Sub
 
 Sub BottomPopperHole1_Hit()
-	RandomSoundHole
-	BottomPopper.AddBall Me
+  RandomSoundHole
+  BottomPopper.AddBall Me
 End Sub
 
 Sub ClawRampKicker_Hit()
-	RandomSoundHole
-	vpmTimer.PulseSw 81
-	BottomPopper.AddBall Me
+  RandomSoundHole
+  vpmTimer.PulseSw 81
+  BottomPopper.AddBall Me
 End Sub
 
 Sub sw66_Hit()
-	PlaySound ""
-	bsEject.AddBall Me
+  PlaySound ""
+  bsEject.AddBall Me
 End Sub
 
 Sub Drain_Hit
-	bsTrough.AddBall Me
-	PlaySound "drain",0,0.5,0
+  bsTrough.AddBall Me
+  PlaySound "drain",0,0.5,0
 End Sub
 
 
@@ -476,10 +476,10 @@ End Sub
 '**********
 
  Sub table1_KeyDown(ByVal Keycode)
-	If KeyCode=MechanicalTilt Then
-		vpmTimer.PulseSw vpmNudge.TiltSwitch
-		Exit Sub
-	End if
+  If KeyCode=MechanicalTilt Then
+    vpmTimer.PulseSw vpmNudge.TiltSwitch
+    Exit Sub
+  End if
 
     If keycode = PlungerKey Then Controller.Switch(11) = 1: Controller.Switch(12) = 1
 '    If keycode = LeftMagnaSave Or RightMagnaSave Then Controller.Switch(12) = 1
@@ -528,17 +528,17 @@ End Sub
 Dim AP
 
 Sub AutoPlunge(Enabled)
-	if enabled then
-		AP = True
-		Kicker1.Kick 1,50
-		PlaySound SoundFX("Plunger",DOFContactors)
-	End if
+  if enabled then
+    AP = True
+    Kicker1.Kick 1,50
+    PlaySound SoundFX("Plunger",DOFContactors)
+  End if
 End Sub
 
-	Sub PlungerPTimer()
-	if AP = True and PlungerP.TransZ < 45 then PlungerP.TransZ = PlungerP.TransZ +10
-	if AP = False and PlungerP.TransZ > 0 then PlungerP.TransZ = PlungerP.TransZ -10
-	if PlungerP.TransZ >= 45 then AP = False
+  Sub PlungerPTimer()
+  if AP = True and PlungerP.TransZ < 45 then PlungerP.TransZ = PlungerP.TransZ +10
+  if AP = False and PlungerP.TransZ > 0 then PlungerP.TransZ = PlungerP.TransZ -10
+  if PlungerP.TransZ >= 45 then AP = False
 End Sub
 
 
@@ -547,71 +547,71 @@ End Sub
  '*********
 
 
-Sub sw27_Hit:Controller.Switch(27) = 1:sw27wire.RotX = 15:PlaySound "metalhit_thin":End Sub		'shooterlane
+Sub sw27_Hit:Controller.Switch(27) = 1:sw27wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'shooterlane
 Sub sw27_UnHit:Controller.Switch(27) = 0:sw27wire.RotX = 0: End Sub
-Sub sw15_Hit:Controller.Switch(15) = 1:sw15wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'left outlane
+Sub sw15_Hit:Controller.Switch(15) = 1:sw15wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'left outlane
 Sub sw15_UnHit:Controller.Switch(15) = 0:sw15wire.RotX = 0:End Sub
-Sub sw16_Hit:Controller.Switch(16) = 1:sw16wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'left inlane
+Sub sw16_Hit:Controller.Switch(16) = 1:sw16wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'left inlane
 Sub sw16_UnHit:Controller.Switch(16) = 0:sw16wire.RotX = 0:End Sub
-Sub sw17_Hit:Controller.Switch(17) = 1:sw17wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'right inlane
+Sub sw17_Hit:Controller.Switch(17) = 1:sw17wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'right inlane
 Sub sw17_UnHit:Controller.Switch(17) = 0:sw17wire.RotX = 0:End Sub
-Sub sw18_Hit:Controller.Switch(18) = 1:sw18wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'right outlane
+Sub sw18_Hit:Controller.Switch(18) = 1:sw18wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'right outlane
 Sub sw18_UnHit:Controller.Switch(18) = 0:sw18wire.RotX = 0:End Sub
-Sub sw63_Hit:Controller.Switch(63) = 1:sw63wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'leftrollover
+Sub sw63_Hit:Controller.Switch(63) = 1:sw63wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'leftrollover
 Sub sw63_UnHit:Controller.Switch(63) = 0:sw63wire.RotX = 0:End Sub
-Sub sw64_Hit:Controller.Switch(64) = 1:sw64wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'centerrollover
+Sub sw64_Hit:Controller.Switch(64) = 1:sw64wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'centerrollover
 Sub sw64_UnHit:Controller.Switch(64) = 0:sw64wire.RotX = 0:End Sub
-Sub sw65_Hit:Controller.Switch(65) = 1:sw65wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'rightrollover
+Sub sw65_Hit:Controller.Switch(65) = 1:sw65wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'rightrollover
 Sub sw65_UnHit:Controller.Switch(65) = 0:sw65wire.RotX = 0:End Sub
-Sub sw48_Hit:Controller.Switch(48) = 1:sw48wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'Right freeway
+Sub sw48_Hit:Controller.Switch(48) = 1:sw48wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'Right freeway
 Sub sw48_UnHit:Controller.Switch(48) = 0:sw48wire.RotX = 0:End Sub
-Sub sw55_Hit:Controller.Switch(55) = 1:sw55wire.RotX = 15:PlaySound "metalhit_thin":End Sub 	'leftloop
+Sub sw55_Hit:Controller.Switch(55) = 1:sw55wire.RotX = 15:PlaySound "metalhit_thin":End Sub   'leftloop
 Sub sw55_UnHit:Controller.Switch(55) = 0:sw55wire.RotX = 0:End Sub
-Sub sw86_Hit:Controller.Switch(86) = 1:End Sub 		'upperleftflippergate
+Sub sw86_Hit:Controller.Switch(86) = 1:End Sub    'upperleftflippergate
 Sub sw86_UnHit:Controller.Switch(86) = 0:End Sub
-Sub sw46_Hit:Controller.Switch(46) = 1:End Sub 		'rightrampenter
+Sub sw46_Hit:Controller.Switch(46) = 1:End Sub    'rightrampenter
 Sub sw46_UnHit:Controller.Switch(46) = 0:End Sub
-Sub sw47_Hit:Controller.Switch(47) = 1:End Sub 		'rightrampexit
+Sub sw47_Hit:Controller.Switch(47) = 1:End Sub    'rightrampexit
 Sub sw47_UnHit:Controller.Switch(47) = 0:End Sub
-Sub sw75_Hit:Controller.Switch(75) = 1: End Sub 		'elevatorramp
+Sub sw75_Hit:Controller.Switch(75) = 1: End Sub     'elevatorramp
 Sub sw75_UnHit:Controller.Switch(75) = 0:End Sub
-Sub sw53_Hit:Controller.Switch(53) = 1:End Sub 		'centerramp
+Sub sw53_Hit:Controller.Switch(53) = 1:End Sub    'centerramp
 Sub sw53_UnHit:Controller.Switch(53) = 0:End Sub
-Sub sw51_Hit:Controller.Switch(51) = 1:End Sub 		'leftrampenter
+Sub sw51_Hit:Controller.Switch(51) = 1:End Sub    'leftrampenter
 Sub sw51_UnHit:Controller.Switch(51) = 0:End Sub
-Sub sw52_Hit:Controller.Switch(52) = 1:End Sub 		'leftrampexit
+Sub sw52_Hit:Controller.Switch(52) = 1:End Sub    'leftrampexit
 Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
-Sub sw61_Hit:Controller.Switch(61) = 1:End Sub 		'siderampenter
+Sub sw61_Hit:Controller.Switch(61) = 1:End Sub    'siderampenter
 Sub sw61_UnHit:Controller.Switch(61) = 0:End Sub
-Sub sw62_Hit:Controller.Switch(62) = 1:End Sub 		'siderampexit
+Sub sw62_Hit:Controller.Switch(62) = 1:End Sub    'siderampexit
 Sub sw62_UnHit:Controller.Switch(62) = 0:End Sub
 
 
-Sub sw82_Hit:Controller.Switch(82) = 1:sw82wire.RotX = 75:PlaySound "metalhit_thin":End Sub		'Claw SuperJets
+Sub sw82_Hit:Controller.Switch(82) = 1:sw82wire.RotX = 75:PlaySound "metalhit_thin":End Sub   'Claw SuperJets
 Sub sw82_UnHit:Controller.Switch(82) = 0:sw82wire.RotX = 90: End Sub
 
-Sub sw83_Hit:Controller.Switch(83) = 1:sw83wire.RotX = 70:PlaySound "metalhit_thin":End Sub		'Claw PrisonBreak
+Sub sw83_Hit:Controller.Switch(83) = 1:sw83wire.RotX = 70:PlaySound "metalhit_thin":End Sub   'Claw PrisonBreak
 Sub sw83_UnHit:Controller.Switch(83) = 0:sw83wire.RotX = 90: End Sub
 
-Sub sw84_Hit:Controller.Switch(84) = 1:sw84wire.RotX = 75:PlaySound "metalhit_thin":End Sub		'Claw Freeze
+Sub sw84_Hit:Controller.Switch(84) = 1:sw84wire.RotX = 75:PlaySound "metalhit_thin":End Sub   'Claw Freeze
 Sub sw84_UnHit:Controller.Switch(84) = 0:sw84wire.RotX = 90: End Sub
 
-Sub sw85_Hit:Controller.Switch(85) = 1:sw85wire.RotX = 75:PlaySound "metalhit_thin":End Sub		'Claw ACMAG
+Sub sw85_Hit:Controller.Switch(85) = 1:sw85wire.RotX = 75:PlaySound "metalhit_thin":End Sub   'Claw ACMAG
 Sub sw85_UnHit:Controller.Switch(85) = 0:sw85wire.RotX = 90: End Sub
 
 
 
 
 Sub GateTimer()
-	upperleftflipperspinnerp.RotX = upperleftflipperspinner.currentangle +90
-	rightrampenterspinnerp.RotX = rightrampenterspinner.currentangle +95
-	rightrampexitspinnerp.RotX = rightrampexitspinner.currentangle +90
-	centerrampspinnerp.RotX = centerrampspinner.currentangle +90
-	leftrampenterspinnerp.RotX = leftrampenterspinner.currentangle +90
-	leftrampexitspinnerp.RotX = leftrampexitspinner.currentangle +90
-	siderampenterspinnerp.RotX = siderampenterspinner.currentangle +95
-	siderampexitspinnerp.RotZ = siderampexitspinner.currentangle
-	retinagatep.RotX = retinagate.currentangle +90
+  upperleftflipperspinnerp.RotX = upperleftflipperspinner.currentangle +90
+  rightrampenterspinnerp.RotX = rightrampenterspinner.currentangle +95
+  rightrampexitspinnerp.RotX = rightrampexitspinner.currentangle +90
+  centerrampspinnerp.RotX = centerrampspinner.currentangle +90
+  leftrampenterspinnerp.RotX = leftrampenterspinner.currentangle +90
+  leftrampexitspinnerp.RotX = leftrampexitspinner.currentangle +90
+  siderampenterspinnerp.RotX = siderampenterspinner.currentangle +95
+  siderampexitspinnerp.RotZ = siderampexitspinner.currentangle
+  retinagatep.RotX = retinagate.currentangle +90
 End Sub
 
 
@@ -621,7 +621,7 @@ End Sub
  '*********
 
 
-	'RampSounds
+  'RampSounds
 
 Dim SoundBall
 
@@ -683,17 +683,17 @@ Sub WireStopSuperJets_Hit(): StopSound "WireRamp": PlaySound "BallDrop": End Sub
  '********
 
 Sub DiverterRight(Enabled)
-	If Enabled then
+  If Enabled then
         DiverterR.rotatetoend
-		DiverterOff.isdropped = 1
-		DiverterOn.isdropped = 0
-		PlaySound SoundFX ("DiverterRight",DOFContactors)
-		Else
-		DiverterOff.isdropped = 0
-		DiverterOn.isdropped = 1
-		DiverterR.rotatetostart
-		Playsound SoundFX ("DiverterRight",DOFContactors)
-	End if
+    DiverterOff.isdropped = 1
+    DiverterOn.isdropped = 0
+    PlaySound SoundFX ("DiverterRight",DOFContactors)
+    Else
+    DiverterOff.isdropped = 0
+    DiverterOn.isdropped = 1
+    DiverterR.rotatetostart
+    Playsound SoundFX ("DiverterRight",DOFContactors)
+  End if
 End Sub
 
  '***************
@@ -784,29 +784,29 @@ End Sub
 
 
 Sub TopSlingShot_Slingshot
-	PlaySound SoundFX ("right_slingshot",DOFContactors),0,1,0,0.05
-	TSling.Visible = 0
-	TSling1.Visible = 1
-	Sling3.TransZ = -20
-	TStep = 0
-	TopSlingshot.TimerEnabled = 1
-	vpmTimer.PulseSw 44
+  PlaySound SoundFX ("right_slingshot",DOFContactors),0,1,0,0.05
+  TSling.Visible = 0
+  TSling1.Visible = 1
+  Sling3.TransZ = -20
+  TStep = 0
+  TopSlingshot.TimerEnabled = 1
+  vpmTimer.PulseSw 44
 End Sub
 
 Sub TopSlingShot_Timer
-	Select Case TStep
-		Case 3:TSling1.Visible = 0:TSling2.Visible = 1:sling3.TransZ = -10
-		Case 4:TSling2.Visible = 0:TSling.Visible = 1:Sling3.TransZ = 0:TopSlingShot.TimerEnabled = 0
-	End Select
-	TStep = TStep +1
+  Select Case TStep
+    Case 3:TSling1.Visible = 0:TSling2.Visible = 1:sling3.TransZ = -10
+    Case 4:TSling2.Visible = 0:TSling.Visible = 1:Sling3.TransZ = 0:TopSlingShot.TimerEnabled = 0
+  End Select
+  TStep = TStep +1
 End Sub
 
 Sub UpperRebound_Slingshot
-	vpmTimer.PulseSw 54
+  vpmTimer.PulseSw 54
 End Sub
 
 Sub LowerRebound_Slingshot
-	vpmTimer.PulseSw 88
+  vpmTimer.PulseSw 88
 End Sub
 
 
@@ -884,20 +884,20 @@ End Sub
 
 
   Sub UpdateMultipleLamps()
-		If l11a.state = 1 then l11b.state = 1: else l11b.state = 0
-		If l36.state = 1 then targetcars.image = "target1on": Else targetcars.image = "target1"
-		If l61.state = 1 then bulbcover61.visible = false: bulbcover61a.visible = true:f61.visible = true: else bulbcover61.visible = true: bulbcover61a.visible = false:f61.visible = false
-		If l62.state = 1 then bulbcover62.visible = false: bulbcover62a.visible = true:f62.visible = true: else bulbcover62.visible = true: bulbcover62a.visible = false:f62.visible = false
-		If l63.state = 1 then bulbcover63.visible = false: bulbcover63a.visible = true:f63.visible = true: else bulbcover63.visible = true: bulbcover63a.visible = false:f63.visible = false
-		If l64.state = 1 then bulbcover64.visible = false: bulbcover64a.visible = true:f64.visible = true: else bulbcover64.visible = true: bulbcover64a.visible = false:f64.visible = false
-		If l65.state = 1 then bulbcover65.visible = false: bulbcover65a.visible = true:f65.visible = true: else bulbcover65.visible = true: bulbcover65a.visible = false:f65.visible = false
-		If l71.state = 1 then bulbcoverred.visible = false: bulbcoverreda.visible = true:f71.visible = true: else bulbcoverred.visible = true: bulbcoverreda.visible = false:f71.visible = false
-		If l72.state = 1 then bulbcoveryellow.visible = false: bulbcoveryellowa.visible = true: f72.visible = true: else bulbcoveryellow.visible = true: bulbcoveryellowa.visible = false: f72.visible = false
-		If l73.state = 1 then bulbcoverblue.visible = false: bulbcoverbluea.visible = true: f73.visible = true: else bulbcoverblue.visible = true: bulbcoverbluea.visible = false: f73.visible = false
-		If l78.state = 1 then targetretina.image = "target2On": Else targetretina.image = "target2"
-		If l82.state = 1 then l82a.state = 1: else l82a.state = 0
-		If l83.state = 1 then l83a.state = 1: else l83a.state = 0
-		If l81.state = 1 OR l82.state = 1 OR l83.state = 1 OR l82a.state = 1 OR l83a.state = 1 Then Centerlight.state = 1: Else Centerlight.state = 0
+    If l11a.state = 1 then l11b.state = 1: else l11b.state = 0
+    If l36.state = 1 then targetcars.image = "target1on": Else targetcars.image = "target1"
+    If l61.state = 1 then bulbcover61.visible = false: bulbcover61a.visible = true:f61.visible = true: else bulbcover61.visible = true: bulbcover61a.visible = false:f61.visible = false
+    If l62.state = 1 then bulbcover62.visible = false: bulbcover62a.visible = true:f62.visible = true: else bulbcover62.visible = true: bulbcover62a.visible = false:f62.visible = false
+    If l63.state = 1 then bulbcover63.visible = false: bulbcover63a.visible = true:f63.visible = true: else bulbcover63.visible = true: bulbcover63a.visible = false:f63.visible = false
+    If l64.state = 1 then bulbcover64.visible = false: bulbcover64a.visible = true:f64.visible = true: else bulbcover64.visible = true: bulbcover64a.visible = false:f64.visible = false
+    If l65.state = 1 then bulbcover65.visible = false: bulbcover65a.visible = true:f65.visible = true: else bulbcover65.visible = true: bulbcover65a.visible = false:f65.visible = false
+    If l71.state = 1 then bulbcoverred.visible = false: bulbcoverreda.visible = true:f71.visible = true: else bulbcoverred.visible = true: bulbcoverreda.visible = false:f71.visible = false
+    If l72.state = 1 then bulbcoveryellow.visible = false: bulbcoveryellowa.visible = true: f72.visible = true: else bulbcoveryellow.visible = true: bulbcoveryellowa.visible = false: f72.visible = false
+    If l73.state = 1 then bulbcoverblue.visible = false: bulbcoverbluea.visible = true: f73.visible = true: else bulbcoverblue.visible = true: bulbcoverbluea.visible = false: f73.visible = false
+    If l78.state = 1 then targetretina.image = "target2On": Else targetretina.image = "target2"
+    If l82.state = 1 then l82a.state = 1: else l82a.state = 0
+    If l83.state = 1 then l83a.state = 1: else l83a.state = 0
+    If l81.state = 1 OR l82.state = 1 OR l83.state = 1 OR l82a.state = 1 OR l83a.state = 1 Then Centerlight.state = 1: Else Centerlight.state = 0
 End Sub
 
 
@@ -969,188 +969,188 @@ End Sub
  'Flasher
  '*********
 
- SolCallback(17) = "Multi117" 			'ClawFlasher
- SolCallback(21) = "Multi121" 			'JetFlasher + Insert
- SolCallback(22) = "Multi122" 			'SideRampFlasher
- SolCallback(23) = "Multi123" 			'LeftRampUpperFlasher
- SolCallback(24) = "Multi124" 			'LeftRampLowerFlasher
- SolCallback(25) = "Multi125" 			'CarChaseCenterFlasher
- SolCallback(26) = "Multi126" 			'CarChaseLowerFlasher
- SolCallback(27) = "Multi127" 			'RightRampFlasher
- SolCallback(28) = "Multi128" 			'EjectFlasher
+ SolCallback(17) = "Multi117"       'ClawFlasher
+ SolCallback(21) = "Multi121"       'JetFlasher + Insert
+ SolCallback(22) = "Multi122"       'SideRampFlasher
+ SolCallback(23) = "Multi123"       'LeftRampUpperFlasher
+ SolCallback(24) = "Multi124"       'LeftRampLowerFlasher
+ SolCallback(25) = "Multi125"       'CarChaseCenterFlasher
+ SolCallback(26) = "Multi126"       'CarChaseLowerFlasher
+ SolCallback(27) = "Multi127"       'RightRampFlasher
+ SolCallback(28) = "Multi128"       'EjectFlasher
 
- SolCallback(51) = "Multi137" 			'CarChaseUpperFlasher
- SolCallback(52) = "Multi138" 			'LowerReboundFlasher
- SolCallback(53) = "Multi139" 			'EyeBallFlasher
- SolCallback(54) = "Multi140" 			'CenterRampFlasher
- SolCallback(55) = "Multi141" 			'Elevator2Flasher
- SolCallback(56) = "Multi142" 			'Elevator1Flasher
- SolCallback(57) = "Multi143" 			'DiverterFlasher
- SolCallback(58) = "Multi144" 			'RightRampUpperFlasher
+ SolCallback(51) = "Multi137"       'CarChaseUpperFlasher
+ SolCallback(52) = "Multi138"       'LowerReboundFlasher
+ SolCallback(53) = "Multi139"       'EyeBallFlasher
+ SolCallback(54) = "Multi140"       'CenterRampFlasher
+ SolCallback(55) = "Multi141"       'Elevator2Flasher
+ SolCallback(56) = "Multi142"       'Elevator1Flasher
+ SolCallback(57) = "Multi143"       'DiverterFlasher
+ SolCallback(58) = "Multi144"       'RightRampUpperFlasher
 
 
 Sub Multi117(Enabled)
-	If Enabled Then
-	f17.Visible = 1
-	l117.State = 1
-	Else
-	f17.Visible = 0
-	l117.State = 0
-	End if
+  If Enabled Then
+  f17.Visible = 1
+  l117.State = 1
+  Else
+  f17.Visible = 0
+  l117.State = 0
+  End if
 End Sub
 
 Sub Multi121(Enabled)
-	If Enabled Then
-	l121.State = 1
-	l121a.State = 1
-	Else
-	l121.State = 0
-	l121a.State = 0
-	End if
+  If Enabled Then
+  l121.State = 1
+  l121a.State = 1
+  Else
+  l121.State = 0
+  l121a.State = 0
+  End if
 End Sub
 
 Sub Multi122(Enabled)
-	If Enabled Then
-	l122.State = 1
-	Else
-	l122.State = 0
-	End if
+  If Enabled Then
+  l122.State = 1
+  Else
+  l122.State = 0
+  End if
 End Sub
 
 Sub Multi124(Enabled)
-	If Enabled Then
-	l124.State = 1
-	Else
-	l124.State = 0
-	End if
+  If Enabled Then
+  l124.State = 1
+  Else
+  l124.State = 0
+  End if
 End Sub
 
 Sub Multi125(Enabled)
-	If Enabled Then
-	l125.State = 1
-	Else
-	l125.State = 0
-	End if
+  If Enabled Then
+  l125.State = 1
+  Else
+  l125.State = 0
+  End if
 End Sub
 
 Sub Multi126(Enabled)
-	If Enabled Then
-	l126.State = 1
-	l126a.State = 1
-	Else
-	l126.State = 0
-	l126a.State = 0
-	End if
+  If Enabled Then
+  l126.State = 1
+  l126a.State = 1
+  Else
+  l126.State = 0
+  l126a.State = 0
+  End if
 End Sub
 
 Sub Multi127(Enabled)
-	If Enabled Then
-	l127.State = 1
-	Else
-	l127.State = 0
-	End if
+  If Enabled Then
+  l127.State = 1
+  Else
+  l127.State = 0
+  End if
 End Sub
 
 Sub Multi128(Enabled)
-	If Enabled Then
-	l128.State = 1
-	Else
-	l128.State = 0
-	End if
+  If Enabled Then
+  l128.State = 1
+  Else
+  l128.State = 0
+  End if
 End Sub
 
 Sub Multi137(Enabled)
-	If Enabled Then
-	l137.State = 1
-	Else
-	l137.State = 0
-	End if
+  If Enabled Then
+  l137.State = 1
+  Else
+  l137.State = 0
+  End if
 End Sub
 
 Sub Multi138(Enabled)
-	If Enabled Then
-	l138.State = 1
-	Else
-	l138.State = 0
-	End if
+  If Enabled Then
+  l138.State = 1
+  Else
+  l138.State = 0
+  End if
 End Sub
 
 
 Sub Multi139(Enabled)
-	If Enabled Then
-	l139.State = 1
-	Else
-	l139.State = 0
-	End if
+  If Enabled Then
+  l139.State = 1
+  Else
+  l139.State = 0
+  End if
 End Sub
 
 Sub Multi140(Enabled)
-	If Enabled Then
-	l140.State = 1
-	Else
-	l140.State = 0
-	End if
+  If Enabled Then
+  l140.State = 1
+  Else
+  l140.State = 0
+  End if
 End Sub
 
 Sub Multi141(Enabled)
-	If Enabled Then
-	f41.Visible = 1
-	f41a.Visible = 1
-	l141.State = 1
-	l141a.State = 1
-	Else
-	f41.Visible = 0
-	f41a.Visible = 0
-	l141.State = 0
-	l141a.State = 0
-	End if
+  If Enabled Then
+  f41.Visible = 1
+  f41a.Visible = 1
+  l141.State = 1
+  l141a.State = 1
+  Else
+  f41.Visible = 0
+  f41a.Visible = 0
+  l141.State = 0
+  l141a.State = 0
+  End if
 End Sub
 
 Sub Multi142(Enabled)
-	If Enabled Then
-	f42.Visible = 1
-	l142.State = 1
-	Else
-	f42.Visible = 0
-	l142.State = 0
-	End if
+  If Enabled Then
+  f42.Visible = 1
+  l142.State = 1
+  Else
+  f42.Visible = 0
+  l142.State = 0
+  End if
 End Sub
 
 Sub Multi143(Enabled)
-	If Enabled Then
-	l143.State = 1
-	Flashercap2.image = "flashercapredON"
-	RedS.State = 1
-	Else
-	l143.State = 0
-	Flashercap2.image = "flashercapred"
-	RedS.State = 0
-	End if
+  If Enabled Then
+  l143.State = 1
+  Flashercap2.image = "flashercapredON"
+  RedS.State = 1
+  Else
+  l143.State = 0
+  Flashercap2.image = "flashercapred"
+  RedS.State = 0
+  End if
 End Sub
 
 
 Sub Multi144(Enabled)
-	If Enabled Then
-	l144.State = 1
-	Flashercap1.image = "flashercapredON"
-	RedS.State = 1
-	Else
-	l144.State = 0
-	Flashercap1.image = "flashercapred"
-	RedS.State = 0
-	End if
+  If Enabled Then
+  l144.State = 1
+  Flashercap1.image = "flashercapredON"
+  RedS.State = 1
+  Else
+  l144.State = 0
+  Flashercap1.image = "flashercapred"
+  RedS.State = 0
+  End if
 End Sub
 
 Sub Multi123(Enabled)
-	If Enabled Then
-	l123.State = 1
-	Flashercap3.image = "flashercapredON"
-	RedS.State = 1
-	Else
-	l123.State = 0
-	Flashercap3.image = "flashercapred"
-	RedS.State = 0
-	End if
+  If Enabled Then
+  l123.State = 1
+  Flashercap3.image = "flashercapredON"
+  RedS.State = 1
+  Else
+  l123.State = 0
+  Flashercap3.image = "flashercapred"
+  RedS.State = 0
+  End if
 End Sub
 
 
@@ -1168,38 +1168,38 @@ Sub UpdateGI(no, step)
     If step = 0 OR step = 7 then exit sub
     Select Case no
 
-		'Upper Right String
+    'Upper Right String
         Case 1
             For each xx in GIString2:xx.IntensityScale = gistep * step:next
 
-		'Upper Left String
-		Case 2
+    'Upper Left String
+    Case 2
             For each xx in GIString3:xx.IntensityScale = gistep * step:next
 
 
-		'Lower Right String
-		Case 3
+    'Lower Right String
+    Case 3
             For each xx in GIString4:xx.IntensityScale = gistep * step:next
-					if step = 1 then Table1.ColorGradeImage = "-70"
-					if step = 2 then Table1.ColorGradeImage = "-60"
-					if step = 3 then Table1.ColorGradeImage = "-50"
-					if step = 4 then Table1.ColorGradeImage = "-40"
-					if step = 5 then Table1.ColorGradeImage = "-30"
-					if step = 6 then Table1.ColorGradeImage = "-20"
-					if step = 7 then Table1.ColorGradeImage = "-10"
-					if step = 8 then Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
+          if step = 1 then Table1.ColorGradeImage = "-70"
+          if step = 2 then Table1.ColorGradeImage = "-60"
+          if step = 3 then Table1.ColorGradeImage = "-50"
+          if step = 4 then Table1.ColorGradeImage = "-40"
+          if step = 5 then Table1.ColorGradeImage = "-30"
+          if step = 6 then Table1.ColorGradeImage = "-20"
+          if step = 7 then Table1.ColorGradeImage = "-10"
+          if step = 8 then Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
 
-		'Lower Left String
-		Case 4
+    'Lower Left String
+    Case 4
             For each xx in GIString5:xx.IntensityScale = gistep * step:next
-					if step = 1 then Table1.ColorGradeImage = "-70"
-					if step = 2 then Table1.ColorGradeImage = "-60"
-					if step = 3 then Table1.ColorGradeImage = "-50"
-					if step = 4 then Table1.ColorGradeImage = "-40"
-					if step = 5 then Table1.ColorGradeImage = "-30"
-					if step = 6 then Table1.ColorGradeImage = "-20"
-					if step = 7 then Table1.ColorGradeImage = "-10"
-					if step = 8 then Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
+          if step = 1 then Table1.ColorGradeImage = "-70"
+          if step = 2 then Table1.ColorGradeImage = "-60"
+          if step = 3 then Table1.ColorGradeImage = "-50"
+          if step = 4 then Table1.ColorGradeImage = "-40"
+          if step = 5 then Table1.ColorGradeImage = "-30"
+          if step = 6 then Table1.ColorGradeImage = "-20"
+          if step = 7 then Table1.ColorGradeImage = "-10"
+          if step = 8 then Table1.ColorGradeImage = "ColorGradeLUT256x16_ConSat"
     End Select
 End Sub
 
@@ -1218,7 +1218,7 @@ Sub RealTimeUpdates
 ' Plunger update
     PlungerPTimer
 ' ramp gate
-	GateTimer
+  GateTimer
 ' diverter
     DiverterP.RotY = DiverterR.CurrentAngle
 End Sub
@@ -1229,74 +1229,74 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner",0,.25,0,0.25
+  PlaySound "fx_spinner",0,.25,0,0.25
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, 1, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub RandomSoundHole()

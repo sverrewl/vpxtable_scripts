@@ -58,7 +58,7 @@ Const SFlipperOff = ""
 Const SCoin = "fx_Coin"
 
 '************************************************************************
-'						 INIT TABLE
+'            INIT TABLE
 '************************************************************************
 
 Sub Table1_Init
@@ -116,10 +116,10 @@ End With
     ' Catapult
     Set bsCat = New cvpmTrough
     With bsCat
-		.size = 1
-		.initSwitches Array(38)
-		.Initexit sw38a, 0, 45
-		.InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFx("fx_scoop_out",DOFContactors)
+    .size = 1
+    .initSwitches Array(38)
+    .Initexit sw38a, 0, 45
+    .InitExitSounds SoundFX("fx_Solenoid",DOFContactors), SoundFx("fx_scoop_out",DOFContactors)
     End With
 
     ' Moat
@@ -132,33 +132,33 @@ End With
         .InitExitVariance 1, 1
     End With
 
-	SolCastle 0
-	SolMod17 0
-	SolMod18 0
-	SolMod19 0
-	SolMod20 0
-	SolMod21 0
-	SolMod22 0
-	SolMod23 0
-	SolMod24 0
-	SolMod25 0
-	LockPost.IsDropped=1
-	LockPostP.IsDropped=1
-	TrollP1X.IsDropped = 1
-	sw45.IsDropped = 1
-	TrollP2X.IsDropped = 1
-	sw46.IsDropped = 1
-	BW1.isdropped = 1
-	BW2.isdropped = 1
-	InitOptions
-	InitLamps
-	UpdateGI 0,0
-	UpdateGI 1,0
-	UpdateGI 2,0
+  SolCastle 0
+  SolMod17 0
+  SolMod18 0
+  SolMod19 0
+  SolMod20 0
+  SolMod21 0
+  SolMod22 0
+  SolMod23 0
+  SolMod24 0
+  SolMod25 0
+  LockPost.IsDropped=1
+  LockPostP.IsDropped=1
+  TrollP1X.IsDropped = 1
+  sw45.IsDropped = 1
+  TrollP2X.IsDropped = 1
+  sw46.IsDropped = 1
+  BW1.isdropped = 1
+  BW2.isdropped = 1
+  InitOptions
+  InitLamps
+  UpdateGI 0,0
+  UpdateGI 1,0
+  UpdateGI 2,0
 End Sub
 
 '************************************************************************
-'							KEYS
+'             KEYS
 '************************************************************************
 
 Sub Table1_KeyDown(ByVal Keycode)
@@ -183,49 +183,49 @@ Sub Table1_unPaused:Controller.Pause = False:End Sub
 Sub Table1_exit():Controller.Pause = False:Controller.Stop:End Sub
 
 '************************************************************************
-'						 SOLENOIDS
+'            SOLENOIDS
 '************************************************************************
 
-SolCallback(1) = "Auto_Plunger"							'AutoPlunger
-SolCallback(2) = "SolBallRelease"						'Trough Eject
-SolCallback(3) = "bsMo.SolOut"							'Left Popper
-SolCallback(4) = "SolCastle"							'Castle	Towers
-SolCallback(5) = "SolCastlegatePow"						'Castle Gate Power
-SolCallback(6) = "SolCastlegateHold"					'Castle Gate Hold
+SolCallback(1) = "Auto_Plunger"             'AutoPlunger
+SolCallback(2) = "SolBallRelease"           'Trough Eject
+SolCallback(3) = "bsMo.SolOut"              'Left Popper
+SolCallback(4) = "SolCastle"              'Castle Towers
+SolCallback(5) = "SolCastlegatePow"           'Castle Gate Power
+SolCallback(6) = "SolCastlegateHold"          'Castle Gate Hold
 SolCallback(7) = "vpmSolSound SoundFX(""fx_Knocker"",DOFKnocker),"
-SolCallback(8) = "SolCatapult"							'Catapult
-SolCallback(9) = "bsMe.SolOut"							'Right Eject
-'SolCallback(10)=""										'Lsling
-'SolCallback(11)=""										'Rsling
-'SolCallback(12)=""										'LBump
-'SolCallback(13)=""										'TBump
-'SolCallback(14)=""										'RBump
-SolCallback(15)= "SolTowerDivPow"						'Tower Diverter Power
-SolCallback(16)= "SolTowerDivHold"						'Tower Diverter Hold
-SolModcallback(17) = "SolMod17"							'Left Side Low Flasher + Insert Panel
-SolModcallback(18) = "SolMod18"							'Left Ramp Flasher + Insert Panel
-SolModcallback(19) = "SolMod19"							'Left Side High Flasher + Insert Panel
-SolModcallback(20) = "SolMod20"							'Right Side High Flasher + Insert Panel
-SolModcallback(21) = "SolMod21"							'Right Ramp Flasher + Insert Panel
-SolModcallback(22) = "SolMod22"							'Castle Right Side Flasher + Backpanel
-SolModcallback(23) = "SolMod23"							'Right Side Low Flashers
-SolModcallback(24) = "SolMod24"							'Moat Flashers
-SolModcallback(25) = "SolMod25"							'Castle Left Side Flashers + BackPanel
-Solcallback(26) = "SolTowerLock"						'Tower Lock Post
-SolCallback(27) = "gate3.open ="						'Right Gate
-Solcallback(28) = "gate2.open ="						'Left Gate
+SolCallback(8) = "SolCatapult"              'Catapult
+SolCallback(9) = "bsMe.SolOut"              'Right Eject
+'SolCallback(10)=""                   'Lsling
+'SolCallback(11)=""                   'Rsling
+'SolCallback(12)=""                   'LBump
+'SolCallback(13)=""                   'TBump
+'SolCallback(14)=""                   'RBump
+SolCallback(15)= "SolTowerDivPow"           'Tower Diverter Power
+SolCallback(16)= "SolTowerDivHold"            'Tower Diverter Hold
+SolModcallback(17) = "SolMod17"             'Left Side Low Flasher + Insert Panel
+SolModcallback(18) = "SolMod18"             'Left Ramp Flasher + Insert Panel
+SolModcallback(19) = "SolMod19"             'Left Side High Flasher + Insert Panel
+SolModcallback(20) = "SolMod20"             'Right Side High Flasher + Insert Panel
+SolModcallback(21) = "SolMod21"             'Right Ramp Flasher + Insert Panel
+SolModcallback(22) = "SolMod22"             'Castle Right Side Flasher + Backpanel
+SolModcallback(23) = "SolMod23"             'Right Side Low Flashers
+SolModcallback(24) = "SolMod24"             'Moat Flashers
+SolModcallback(25) = "SolMod25"             'Castle Left Side Flashers + BackPanel
+Solcallback(26) = "SolTowerLock"            'Tower Lock Post
+SolCallback(27) = "gate3.open ="            'Right Gate
+Solcallback(28) = "gate2.open ="            'Left Gate
 
-Solcallback(33) = "SolLeftTrollPow"						'Left Troll Power
-Solcallback(34) = "SolLeftTrollHold"					'Left Troll Hold
-Solcallback(35) = "SolRightTrollPow"					'Right Troll Power
-Solcallback(36) = "SolRightTrollHold"					'Right Troll Hold
-Solcallback(37) = "SolDrawBridge"						'Drawbridge Motor
+Solcallback(33) = "SolLeftTrollPow"           'Left Troll Power
+Solcallback(34) = "SolLeftTrollHold"          'Left Troll Hold
+Solcallback(35) = "SolRightTrollPow"          'Right Troll Power
+Solcallback(36) = "SolRightTrollHold"         'Right Troll Hold
+Solcallback(37) = "SolDrawBridge"           'Drawbridge Motor
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 '******************************************************
-'				NFOZZY'S FLIPPERS
+'       NFOZZY'S FLIPPERS
 '******************************************************
 
 Dim returnspeed, lfstep, rfstep
@@ -260,40 +260,40 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub LeftFlipper_timer()
-	select case lfstep
-		Case 1: LeftFlipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
-		Case 2: LeftFlipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
-		Case 3: LeftFlipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
-		Case 4: LeftFlipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
-		Case 5: LeftFlipper.return = returnspeed * 1 :lfstep = lfstep + 1
-		Case 6: LeftFlipper.timerenabled = 0 : lfstep = 1
-	end select
+  select case lfstep
+    Case 1: LeftFlipper.return = returnspeed * 0.6 :lfstep = lfstep + 1
+    Case 2: LeftFlipper.return = returnspeed * 0.7 :lfstep = lfstep + 1
+    Case 3: LeftFlipper.return = returnspeed * 0.8 :lfstep = lfstep + 1
+    Case 4: LeftFlipper.return = returnspeed * 0.9 :lfstep = lfstep + 1
+    Case 5: LeftFlipper.return = returnspeed * 1 :lfstep = lfstep + 1
+    Case 6: LeftFlipper.timerenabled = 0 : lfstep = 1
+  end select
 end sub
 
 Sub RightFlipper_timer()
-	select case rfstep
-		Case 1: RightFlipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
-		Case 2: RightFlipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
-		Case 3: RightFlipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
-		Case 4: RightFlipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
-		Case 5: RightFlipper.return = returnspeed * 1 :rfstep = rfstep + 1
-		Case 6: RightFlipper.timerenabled = 0 : rfstep = 1
-	end select
+  select case rfstep
+    Case 1: RightFlipper.return = returnspeed * 0.6 :rfstep = rfstep + 1
+    Case 2: RightFlipper.return = returnspeed * 0.7 :rfstep = rfstep + 1
+    Case 3: RightFlipper.return = returnspeed * 0.8 :rfstep = rfstep + 1
+    Case 4: RightFlipper.return = returnspeed * 0.9 :rfstep = rfstep + 1
+    Case 5: RightFlipper.return = returnspeed * 1 :rfstep = rfstep + 1
+    Case 6: RightFlipper.timerenabled = 0 : rfstep = 1
+  end select
 end sub
 
 '************************************************************************
-'						 AUTOPLUNGER
+'            AUTOPLUNGER
 '************************************************************************
 
 Sub Auto_Plunger(Enabled)
     If Enabled Then
        Plunger.Fire
        PlaySoundAt SoundFX("fx_AutoPlunger",DOFContactors),sw18
-	End If
+  End If
 End Sub
 
 '************************************************************************
-'						 DRAIN AND RELEASE
+'            DRAIN AND RELEASE
 '************************************************************************
 
 Sub SolBallRelease(Enabled)
@@ -307,8 +307,8 @@ End Sub
 
 Sub Drain_Hit
 bsTrough.AddBall Me
-If ballsaver = False Then			'ballsaver off
-If dragonup = True AND bsTrough.Balls = 2 then		 ' drago ritorna
+If ballsaver = False Then     'ballsaver off
+If dragonup = True AND bsTrough.Balls = 2 then     ' drago ritorna
 vers=-0.002
 quota=-0.4
 dragonup= False
@@ -325,52 +325,52 @@ vel=0:per=0:brake=0
 
 Sub SolCastle(Enabled)
 If Enabled Then
-	PlaySoundAt SoundFX("fx_AutoPlunger",DOFContactors),sw37
-	brake=0
-	cnt4off=0
-	explosion.enabled=1
-	Else
-	cnt4on=0
-	StopSound "fx_AutoPlunger"
+  PlaySoundAt SoundFX("fx_AutoPlunger",DOFContactors),sw37
+  brake=0
+  cnt4off=0
+  explosion.enabled=1
+  Else
+  cnt4on=0
+  StopSound "fx_AutoPlunger"
 End If
 End Sub
 
 Sub explosion_timer()
-	If Controller.Solenoid(4) then cnt4on=cnt4on+1
-	If NOT Controller.Solenoid(4) then cnt4off=cnt4off+1
-	If Controller.Solenoid(4) and cnt4on>15 then
-		LUtower.roty=(-20)*0.75
-		LDtower.roty=(-70)*0.75
-		URtower.roty=(40)*0.75
-		URtower.rotx=(-40)*0.75
-		Ctower.roty=(-20)*0.75
-		Ctower.rotx=(-20)*0.75
-		brake=0.09
-		vel=0.9
+  If Controller.Solenoid(4) then cnt4on=cnt4on+1
+  If NOT Controller.Solenoid(4) then cnt4off=cnt4off+1
+  If Controller.Solenoid(4) and cnt4on>15 then
+    LUtower.roty=(-20)*0.75
+    LDtower.roty=(-70)*0.75
+    URtower.roty=(40)*0.75
+    URtower.rotx=(-40)*0.75
+    Ctower.roty=(-20)*0.75
+    Ctower.rotx=(-20)*0.75
+    brake=0.09
+    vel=0.9
     End If
 
-	If brake<1 then  vel=vel+0.1:brake=brake+0.01
-	If LUtower.roty>0 then per=0:vel=0
-	per=(cos(vel)-brake)
-	LUtower.roty=LUtower.roty-(per*2)
-	LDtower.roty=LDtower.roty-(per*7)
-	URtower.roty=URtower.roty+(per*4)
-	URtower.rotx=URtower.rotx-(per*4)
-	Ctower.roty=Ctower.roty-(per*2)
-	Ctower.rotx=Ctower.rotx-(per*2)
+  If brake<1 then  vel=vel+0.1:brake=brake+0.01
+  If LUtower.roty>0 then per=0:vel=0
+  per=(cos(vel)-brake)
+  LUtower.roty=LUtower.roty-(per*2)
+  LDtower.roty=LDtower.roty-(per*7)
+  URtower.roty=URtower.roty+(per*4)
+  URtower.rotx=URtower.rotx-(per*4)
+  Ctower.roty=Ctower.roty-(per*2)
+  Ctower.rotx=Ctower.rotx-(per*2)
 If NOT Controller.Solenoid(4) AND cnt4off>100 Then
-	LUtower.roty=0
-	LDtower.roty=0
-	URtower.roty=0
-	URtower.rotx=0
-	Ctower.roty=0
-	Ctower.rotx=0
-	Me.Enabled=0
+  LUtower.roty=0
+  LDtower.roty=0
+  URtower.roty=0
+  URtower.rotx=0
+  Ctower.roty=0
+  Ctower.rotx=0
+  Me.Enabled=0
 End If
 End Sub
 
 '************************************************************************
-'						 CASTLE GATE
+'            CASTLE GATE
 '************************************************************************
 
 Dim IronGateDir
@@ -385,34 +385,34 @@ End If
 End Sub
 
 Sub SolCastlegateHold(Enabled)
-	If Enabled Then
-		DOF 102, DOFPulse
-	End If
-	If NOT Enabled AND IronGateDir = 1 Then
-		IronGateDir = -1
-		CastleGateTimer.Enabled = 1
-		PlaySoundAt SoundFX("fx_gateDown",DOFContactors),sw37
-		DOF 102, DOFPulse
+  If Enabled Then
+    DOF 102, DOFPulse
+  End If
+  If NOT Enabled AND IronGateDir = 1 Then
+    IronGateDir = -1
+    CastleGateTimer.Enabled = 1
+    PlaySoundAt SoundFX("fx_gateDown",DOFContactors),sw37
+    DOF 102, DOFPulse
     End If
 End Sub
 
 Sub CastleGateTimer_Timer
-	DOF 101, DOFOn
-	gate.Z = gate.Z + IronGateDir
+  DOF 101, DOFOn
+  gate.Z = gate.Z + IronGateDir
         If gate.Z <= 15 Then
-			door2.IsDropped = 0
-			DOF 101, DOFOff
+      door2.IsDropped = 0
+      DOF 101, DOFOff
             Me.Enabled = 0
         End If
         If gate.Z >= 115 Then
-			door2.IsDropped = 1
-			DOF 101, DOFOff
+      door2.IsDropped = 1
+      DOF 101, DOFOff
             Me.Enabled = 0
         End If
 End Sub
 
 '************************************************************************
-'							Catapult
+'             Catapult
 '************************************************************************
 
 Dim catdir
@@ -436,7 +436,7 @@ End Sub
 Sub sw38_Hit:PlaySoundAt "fx_kicker_enter",sw38:bsCat.AddBall Me: sw38.createSizedballWithMass Ballsize/2,BallMass : End Sub
 
 '************************************************************************
-'						 TOWER DIVERTER
+'            TOWER DIVERTER
 '************************************************************************
 
 Dim DiverterDir
@@ -451,22 +451,22 @@ End If
 End Sub
 
 Sub SolTowerDivHold(Enabled)
-	If NOT Enabled AND DiverterDir = 1 Then
-		Diverter.IsDropped=0
-		DiverterDir = -1
-		Diverter.TimerEnabled = 1
-		PlaySoundAt SoundFX("fx_DiverterDown",DOFContactors),DiverterP
+  If NOT Enabled AND DiverterDir = 1 Then
+    Diverter.IsDropped=0
+    DiverterDir = -1
+    Diverter.TimerEnabled = 1
+    PlaySoundAt SoundFX("fx_DiverterDown",DOFContactors),DiverterP
     End If
 End Sub
 
 Sub Diverter_Timer
-	DiverterP.Z = DiverterP.Z - 5*DiverterDir
+  DiverterP.Z = DiverterP.Z - 5*DiverterDir
         If DiverterP.Z <= 87 Then Me.TimerEnabled = 0
         If DiverterP.Z >= 137 Then Me.TimerEnabled = 0
 End Sub
 
 '************************************************************************
-'						 DRAW BRIDGE
+'            DRAW BRIDGE
 '************************************************************************
 
 Dim dbpos
@@ -478,53 +478,53 @@ End Sub
 
 Sub dbridge_timer()
 Select Case dbpos
-	Case 1:			'bridge is going down
-		drawbridgep.RotX = drawbridgep.Rotx - 1
-		DBdecal.rotx=DBdecal.rotx-1
-		braket.rotx=braket.rotx-1
-		If drawbridgep.RotX <= -90 Then
-			DOF 104, DOFOff
-			drawbridgep.RotX= -90
-			DBdecal.rotx=-90
-			braket.rotx=-90
-			XXX.enabled = 0
-			XXX1.enabled = 0
-			Door1.isdropped = 1
-			BridgeRamp.collidable = 1
-			Ramp22.collidable = 0
-			BW1.isdropped = 0
-			BW2.isdropped = 0
-			Me.Enabled = 0
-			StopSound "Bridge_Move"
-			PlaysoundAt SoundFX("Bridge_Stop", 0), sw37
-		End If
+  Case 1:     'bridge is going down
+    drawbridgep.RotX = drawbridgep.Rotx - 1
+    DBdecal.rotx=DBdecal.rotx-1
+    braket.rotx=braket.rotx-1
+    If drawbridgep.RotX <= -90 Then
+      DOF 104, DOFOff
+      drawbridgep.RotX= -90
+      DBdecal.rotx=-90
+      braket.rotx=-90
+      XXX.enabled = 0
+      XXX1.enabled = 0
+      Door1.isdropped = 1
+      BridgeRamp.collidable = 1
+      Ramp22.collidable = 0
+      BW1.isdropped = 0
+      BW2.isdropped = 0
+      Me.Enabled = 0
+      StopSound "Bridge_Move"
+      PlaysoundAt SoundFX("Bridge_Stop", 0), sw37
+    End If
 
-	Case 2:			'bridge is going up
-		drawbridgep.RotX = drawbridgep.Rotx + 1
-		DBdecal.rotx=DBdecal.rotx+1
-		braket.rotx=braket.rotx+1
-		If drawbridgep.RotX >= 0 Then
-			DOF 104, DOFOff
-			drawbridgep.RotX= 0
-			DBdecal.rotx=0
-			braket.rotx=0
-			XXX.enabled = 1
-			XXX1.enabled = 1
-			Door1.isdropped = 0
-			BridgeRamp.collidable = 0
-			Ramp22.collidable = 1
-			BW1.isdropped = 1
-			BW2.isdropped = 1
-			Me.Enabled = 0
-			StopSound "Bridge_Move"
-			PlaysoundAt SoundFX("Bridge_Stop", 0), sw37
-		End If
+  Case 2:     'bridge is going up
+    drawbridgep.RotX = drawbridgep.Rotx + 1
+    DBdecal.rotx=DBdecal.rotx+1
+    braket.rotx=braket.rotx+1
+    If drawbridgep.RotX >= 0 Then
+      DOF 104, DOFOff
+      drawbridgep.RotX= 0
+      DBdecal.rotx=0
+      braket.rotx=0
+      XXX.enabled = 1
+      XXX1.enabled = 1
+      Door1.isdropped = 0
+      BridgeRamp.collidable = 0
+      Ramp22.collidable = 1
+      BW1.isdropped = 1
+      BW2.isdropped = 1
+      Me.Enabled = 0
+      StopSound "Bridge_Move"
+      PlaysoundAt SoundFX("Bridge_Stop", 0), sw37
+    End If
 End Select
 End Sub
 
 
 '************************************************************************
-'				Drawbridge and Castle Door Shake
+'       Drawbridge and Castle Door Shake
 '************************************************************************
 
 Sub Door1_Hit()
@@ -543,16 +543,16 @@ sub doorshake_timer()
         doorbrake=doorbrake+0.1
         doors=doors+0.5
         doorsh=sin(doors)*(3-(doorbrake))
-		if gateshake=0 then drawbridgep.RotX = drawbridgep.Rotx +doorsh
-		if gateshake=0 then DBdecal.rotx=DBdecal.rotx+doorsh
+    if gateshake=0 then drawbridgep.RotX = drawbridgep.Rotx +doorsh
+    if gateshake=0 then DBdecal.rotx=DBdecal.rotx+doorsh
 
 
         if gateshake=1 then gate.transz=doorsh
        end if
-'		braket.rotx=braket.rotx+50
+'   braket.rotx=braket.rotx+50
        if doorbrake>3  then
-				if gateshake=0 then drawbridgep.RotX = 0
-				if gateshake=0 then DBdecal.rotx=0
+        if gateshake=0 then drawbridgep.RotX = 0
+        if gateshake=0 then DBdecal.rotx=0
 
         if gateshake=1 then gate.transz=0
 
@@ -573,7 +573,7 @@ TwrShake
 End Sub
 
 '************************************************************************
-'						TOWERS SHAKE
+'           TOWERS SHAKE
 '************************************************************************
 
 dim vel2,per2,brake2
@@ -589,44 +589,44 @@ Sub towersshake_timer()
         if LUtower.roty>0 then per2=0:vel2=0
         per2=cos(vel2)-brake2
 
-	LUtower.roty=LUtower.roty-(per2*0.2)
-	LDtower.roty=LDtower.roty-(per2*0.2)
-	URtower.roty=URtower.roty+(per2*0.2)
-	URtower.rotx=URtower.rotx-(per2*0.2)
-	Ctower.roty=Ctower.roty-(per2*0.2)
-	Ctower.rotx=Ctower.rotx-(per2*0.2)
+  LUtower.roty=LUtower.roty-(per2*0.2)
+  LDtower.roty=LDtower.roty-(per2*0.2)
+  URtower.roty=URtower.roty+(per2*0.2)
+  URtower.rotx=URtower.rotx-(per2*0.2)
+  Ctower.roty=Ctower.roty-(per2*0.2)
+  Ctower.rotx=Ctower.rotx-(per2*0.2)
 
    if brake2>0.9 then me.enabled=0 : per2=0:vel2=0:brake2=0:LUtower.roty=0 :LDtower.roty=0 : URtower.roty=0: Ctower.roty=0:Ctower.rotx=0 : URtower.rotx=0
 
 End Sub
 
 '************************************************************************
-' 							Tower Lock
+'               Tower Lock
 '************************************************************************
 
 Sub SolTowerLock(Enabled)
-	StopSound "fx_Postup":PlaySoundAt SoundFX("fx_Postup",DOFContactors),sw58
-	LockPost.IsDropped=NOT Enabled
-	LockPostP.IsDropped=NOT Enabled
+  StopSound "fx_Postup":PlaySoundAt SoundFX("fx_Postup",DOFContactors),sw58
+  LockPost.IsDropped=NOT Enabled
+  LockPostP.IsDropped=NOT Enabled
 End Sub
 
 Sub sw58_Hit: Controller.Switch(58)=1:End Sub
 Sub sw58_UnHit: Controller.Switch(58)=0:vpmTimer.AddTimer 200, "BallDropSound":End Sub
 
 '************************************************************************
-'					Slingshots Animation
+'         Slingshots Animation
 '************************************************************************
 
 Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
-	PlaySoundAt SoundFX("LeftSlingshot",DOFContactors),sling1
-	vpmTimer.PulseSw 51
-	LSling.Visible = 0
-	LSling1.Visible = 1
-	sling1.TransZ = -20
-	LStep = 0
-	LeftSlingShot.TimerEnabled = 1
+  PlaySoundAt SoundFX("LeftSlingshot",DOFContactors),sling1
+  vpmTimer.PulseSw 51
+  LSling.Visible = 0
+  LSling1.Visible = 1
+  sling1.TransZ = -20
+  LStep = 0
+  LeftSlingShot.TimerEnabled = 1
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -639,13 +639,13 @@ End Sub
 
 
 Sub RightSlingShot_Slingshot
-	PlaySoundAt SoundFX("RightSlingshot",DOFContactors),SLING2
-	vpmTimer.PulseSw 52
-	RSling.Visible = 0
-	RSling1.Visible = 1
-	sling2.TransZ = -20
-	RStep = 0
-	RightSlingShot.TimerEnabled = 1
+  PlaySoundAt SoundFX("RightSlingshot",DOFContactors),SLING2
+  vpmTimer.PulseSw 52
+  RSling.Visible = 0
+  RSling1.Visible = 1
+  sling2.TransZ = -20
+  RStep = 0
+  RightSlingShot.TimerEnabled = 1
 End Sub
 
 Sub RightSlingShot_Timer
@@ -657,7 +657,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 '************************************************************************
-'						Bumpers Animation
+'           Bumpers Animation
 '************************************************************************
 
 Dim dirRing1:dirRing1 = -1
@@ -671,92 +671,92 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 54:PlaySoundAt SoundFX("RightBumper_Hit",DOFCon
 Sub Bumper3_Hit:vpmTimer.PulseSw 55:PlaySoundAt SoundFX("TopBumper_Hit",DOFContactors),Bumper3:Me.TimerEnabled = 1:me.timerinterval = 10:End Sub
 
 Sub Bumper1_timer()
-	BumperRing1.Z = BumperRing1.Z + (5 * dirRing1)
-	If BumperRing1.Z <= -35 Then dirRing1 = 1
-	If BumperRing1.Z >= 0 Then
-		dirRing1 = -1
-		BumperRing1.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BumperRing1.Z = BumperRing1.Z + (5 * dirRing1)
+  If BumperRing1.Z <= -35 Then dirRing1 = 1
+  If BumperRing1.Z >= 0 Then
+    dirRing1 = -1
+    BumperRing1.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper2_timer()
-	BumperRing2.Z = BumperRing2.Z + (5 * dirRing2)
-	If BumperRing2.Z <= -35 Then dirRing2 = 1
-	If BumperRing2.Z >= 0 Then
-		dirRing2 = -1
-		BumperRing2.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BumperRing2.Z = BumperRing2.Z + (5 * dirRing2)
+  If BumperRing2.Z <= -35 Then dirRing2 = 1
+  If BumperRing2.Z >= 0 Then
+    dirRing2 = -1
+    BumperRing2.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 Sub Bumper3_timer()
-	BumperRing3.Z = BumperRing3.Z + (5 * dirRing3)
-	If BumperRing3.Z <= -35 Then dirRing3 = 1
-	If BumperRing3.Z >= 0 Then
-		dirRing3 = -1
-		BumperRing3.Z = 0
-		Me.TimerEnabled = 0
-	End If
+  BumperRing3.Z = BumperRing3.Z + (5 * dirRing3)
+  If BumperRing3.Z <= -35 Then dirRing3 = 1
+  If BumperRing3.Z >= 0 Then
+    dirRing3 = -1
+    BumperRing3.Z = 0
+    Me.TimerEnabled = 0
+  End If
 End Sub
 
 '************************************************************************
-'								Trolls
+'               Trolls
 '************************************************************************
 
 Sub SolLeftTrollPow(Enabled)
     If Enabled then
-		PlaySound SoundFX("fx_TrollUp",DOFContactors), 0, 1, -.01, 0, 0, 0, 1
+    PlaySound SoundFX("fx_TrollUp",DOFContactors), 0, 1, -.01, 0, 0, 0, 1
         ltroll.Z = -8
         liftL.Z = ltroll.Z
         TrollP1X.IsDropped = 0
         sw45.IsDropped = 0
         Controller.Switch(74) = 1
-		LTP.Enabled=1
+    LTP.Enabled=1
     End If
-	If NOT Enabled AND ltroll.Z = -8 Then
-		TrollP1X.TimerEnabled=1
-		TrollP1X.TimerInterval=10
-	End If
+  If NOT Enabled AND ltroll.Z = -8 Then
+    TrollP1X.TimerEnabled=1
+    TrollP1X.TimerInterval=10
+  End If
 End Sub
 
 Sub SolLeftTrollHold(Enabled)
-	If NOT Enabled AND ltroll.Z = -8 Then
-		ltroll.Z = -104
-		liftL.Z = ltroll.z
-		TrollP1X.IsDropped = 1
-		sw45.IsDropped = 1
-		Controller.Switch(74) = 0
-		PlaySound SoundFX("fx_TrollDown",DOFContactors), 0, 1, -.01, 0, 0, 0, 1
-		LTP.Enabled=0
+  If NOT Enabled AND ltroll.Z = -8 Then
+    ltroll.Z = -104
+    liftL.Z = ltroll.z
+    TrollP1X.IsDropped = 1
+    sw45.IsDropped = 1
+    Controller.Switch(74) = 0
+    PlaySound SoundFX("fx_TrollDown",DOFContactors), 0, 1, -.01, 0, 0, 0, 1
+    LTP.Enabled=0
     End If
 End Sub
 
 Sub SolRightTrollPow(Enabled)
     If Enabled then
-		PlaySound SoundFX("fx_TrollUp",DOFContactors), 0, 1, .01, 0, 0, 0, 1
+    PlaySound SoundFX("fx_TrollUp",DOFContactors), 0, 1, .01, 0, 0, 0, 1
         rtroll.Z = -8
         liftR.Z = rtroll.Z
         TrollP2X.IsDropped = 0
         sw46.IsDropped = 0
         Controller.Switch(75) = 1
-		RTP.Enabled=1
+    RTP.Enabled=1
     End If
-	If NOT Enabled AND rtroll.Z = -8 Then
-		TrollP2X.TimerEnabled=1
-		TrollP2X.TimerInterval=10
+  If NOT Enabled AND rtroll.Z = -8 Then
+    TrollP2X.TimerEnabled=1
+    TrollP2X.TimerInterval=10
     End If
 End Sub
 
 Sub SolRightTrollHold(Enabled)
-	If NOT Enabled AND rtroll.Z = -8 Then
+  If NOT Enabled AND rtroll.Z = -8 Then
         rtroll.Z = -104
         liftR.Z = rtroll.Z
         TrollP2X.IsDropped = 1
         sw46.IsDropped = 1
         Controller.Switch(75) = 0
-		PlaySound SoundFX("fx_TrollDown",DOFContactors), 0, 1, .01, 0, 0, 0, 1
-		RTP.Enabled=0
+    PlaySound SoundFX("fx_TrollDown",DOFContactors), 0, 1, .01, 0, 0, 0, 1
+    RTP.Enabled=0
     End If
 End Sub
 
@@ -764,27 +764,27 @@ dim lshake,rshake
 lshake=0:rshake=0
 
 Sub TrollP1X_timer
-	lshake=lshake+1
+  lshake=lshake+1
     If lshake<12 then
-		LiftL.transz=1 + Sin(lshake)
-		ltroll.transz=1 + Sin(lshake)
-	Else
-		me.TimerEnabled=0
-		lshake=0
-		LiftL.transz=0
-	End If
+    LiftL.transz=1 + Sin(lshake)
+    ltroll.transz=1 + Sin(lshake)
+  Else
+    me.TimerEnabled=0
+    lshake=0
+    LiftL.transz=0
+  End If
 End Sub
 
 Sub TrollP2X_timer
-	rshake=rshake+1
+  rshake=rshake+1
     if rshake<12 then
-		LiftR.transz=1 + Sin(rshake)
-		rtroll.transz=1 + Sin(rshake)
-	Else
-		me.TimerEnabled=0
-		rshake=0
-		LiftR.transz=0
-	End If
+    LiftR.transz=1 + Sin(rshake)
+    rtroll.transz=1 + Sin(rshake)
+  Else
+    me.TimerEnabled=0
+    rshake=0
+    LiftR.transz=0
+  End If
 End Sub
 
 'Shake Trolls when hit
@@ -823,17 +823,17 @@ Sub sw46_Timer()
 end sub
 
 Sub LTP_Hit
-	activeball.z = activeball.z + 50
-	PlaySoundAt "fx_BallDrop",LTP
+  activeball.z = activeball.z + 50
+  PlaySoundAt "fx_BallDrop",LTP
 End Sub
 
 Sub RTP_Hit
-	activeball.z = activeball.z + 50
-	PlaySoundAt "fx_BallDrop",RTP
+  activeball.z = activeball.z + 50
+  PlaySoundAt "fx_BallDrop",RTP
 End Sub
 
 '************************************************************************
-'					Switches
+'         Switches
 '************************************************************************
 ' Eject holes
 
@@ -944,14 +944,14 @@ me.TimerInterval=7
 End Sub
 
 Sub GateT_timer()
-	If brakew <7 then rotat=rotat+0.07:brakew=brakew+0.003 else Lock_Door.rotX=0:me.TimerEnabled = 0
-	Lock_Door.rotX=(cos(rotat+90)*100)/brakew^3
+  If brakew <7 then rotat=rotat+0.07:brakew=brakew+0.003 else Lock_Door.rotX=0:me.TimerEnabled = 0
+  Lock_Door.rotX=(cos(rotat+90)*100)/brakew^3
 End Sub
 
 Sub sw44_Hit():vpmtimer.PulseSw 44:PlaySoundAt "fx_gate",sw44: End Sub
 
 '************************************************************************
-'						Modulated Flashers
+'           Modulated Flashers
 '************************************************************************
 
 Dim xxst, xxet, xxnt, xxtw, xxto, xxtt, xxt3, xxmf, xxtf
@@ -963,11 +963,11 @@ Else
 For each xxst in BL_Flash:xxst.State = 0:next
 End If
 For each xxst in BL_Flash:xxst.IntensityScale = value/160:next
-F_lt1.color=RGB(255,0,0)			'troll reflection
-F_lt2.color=RGB(255,0,0)			'troll reflection
-f17b.IntensityScale=value/160		'ambient reflection
-f17c.IntensityScale=value/160		'dome lit
-f17d.IntensityScale=value/160		'dome lit
+F_lt1.color=RGB(255,0,0)      'troll reflection
+F_lt2.color=RGB(255,0,0)      'troll reflection
+f17b.IntensityScale=value/160   'ambient reflection
+f17c.IntensityScale=value/160   'dome lit
+f17d.IntensityScale=value/160   'dome lit
 If ltroll.Z > -50 Then
 F_lt1.IntensityScale=value/160
 F_lt2.IntensityScale=value/160
@@ -984,10 +984,10 @@ Else
 For each xxet in LR_Flash:xxet.State = 0:next
 End If
 For each xxet in LR_Flash:xxet.IntensityScale = value/160:next
-F_lt1.color=RGB(255,200,145)			'troll reflection
-F_lt2.color=RGB(255,200,145)			'troll reflection
-f18.intensityscale=value/160			'castle reflection
-F18a.intensityscale=value/160			'merlin decal
+F_lt1.color=RGB(255,200,145)      'troll reflection
+F_lt2.color=RGB(255,200,145)      'troll reflection
+f18.intensityscale=value/160      'castle reflection
+F18a.intensityscale=value/160     'merlin decal
 If ltroll.Z > -50 Then
 F_lt1.IntensityScale=value/160
 F_lt2.IntensityScale=value/160
@@ -1024,13 +1024,13 @@ Else
 For each xxto in RR_Flash:xxto.State = 0:next
 End If
 For each xxto in RR_Flash:xxto.IntensityScale = value/160:next
-F_rt1.color=RGB(255,200,145)			'troll reflection
-F_rt2.color=RGB(255,200,145)			'troll reflection
-f21.intensityscale=value/160			'castle reflection
-f21a.intensityscale=value/160			'merlin decal
-f21b.intensityscale=value/160			'dragon
-f21c.intensityscale=value/160			'dragon
-f21d.intensityscale=value/160			'dragon
+F_rt1.color=RGB(255,200,145)      'troll reflection
+F_rt2.color=RGB(255,200,145)      'troll reflection
+f21.intensityscale=value/160      'castle reflection
+f21a.intensityscale=value/160     'merlin decal
+f21b.intensityscale=value/160     'dragon
+f21c.intensityscale=value/160     'dragon
+f21d.intensityscale=value/160     'dragon
 If rtroll.Z > -50 Then
 F_rt1.IntensityScale=value/160
 F_rt2.IntensityScale=value/160
@@ -1047,9 +1047,9 @@ Else
 For each xxtt in CR_Flash:xxtt.State = 0:next
 End If
 For each xxtt in CR_Flash:xxtt.IntensityScale = value/160:next
-F22.IntensityScale=value/160			'castle reflection
-F22a.IntensityScale=value/160			'dome lit
-F22b.IntensityScale=value/160			'dome lit
+F22.IntensityScale=value/160      'castle reflection
+F22a.IntensityScale=value/160     'dome lit
+F22b.IntensityScale=value/160     'dome lit
 End Sub
 
 Sub SolMod23(value)
@@ -1059,12 +1059,12 @@ Else
 For each xxt3 in BR_Flash:xxt3.State = 0:next
 End If
 For each xxt3 in BR_Flash:xxt3.IntensityScale=value/160:next
-F_rt1.color=RGB(255,0,0)				'troll reflection
-F_rt2.color=RGB(255,0,0)				'troll reflection
-f23.IntensityScale=value/160			'dragon
-f23a.IntensityScale=value/160			'dome lit
-f23b.IntensityScale=value/160			'dome lit
-f23c.IntensityScale=value/160			'dome lit
+F_rt1.color=RGB(255,0,0)        'troll reflection
+F_rt2.color=RGB(255,0,0)        'troll reflection
+f23.IntensityScale=value/160      'dragon
+f23a.IntensityScale=value/160     'dome lit
+f23b.IntensityScale=value/160     'dome lit
+f23c.IntensityScale=value/160     'dome lit
 If rtroll.Z > -50 Then
 F_rt1.IntensityScale=value/160
 F_rt2.IntensityScale=value/160
@@ -1081,8 +1081,8 @@ Else
 For each xxmf in Moat_Flash:xxmf.State = 0:next
 End If
 For each xxmf in Moat_Flash:xxmf.IntensityScale=value/160:next
-F24.IntensityScale=value/160			'castle reflection
-F24a.IntensityScale=value/160			'merlin decal
+F24.IntensityScale=value/160      'castle reflection
+F24a.IntensityScale=value/160     'merlin decal
 End Sub
 
 Sub SolMod25(value)
@@ -1092,9 +1092,9 @@ Else
 For each xxtf in CL_Flash:xxtf.State = 0:next
 End If
 For each xxtf in CL_Flash:xxtf.IntensityScale=value/160:next
-F25.IntensityScale=value/160			'castle reflection
-F25a.IntensityScale=value/160			'dome lit
-F25b.IntensityScale=value/160			'dome lit
+F25.IntensityScale=value/160      'castle reflection
+F25a.IntensityScale=value/160     'dome lit
+F25b.IntensityScale=value/160     'dome lit
 End Sub
 
 '**************
@@ -1153,40 +1153,40 @@ gistep = 1/8
 Sub UpdateGI(no, step)
 Select Case no
 Case 0 'bottom
-	If step = 0 Then
-		For each xx in GIB:xx.State = 0:Next
-	Else
-		For each xx in GIB:xx.State = 1:Next
-	End If
-	For each xx in GIB:xx.IntensityScale = gistep * step:next
+  If step = 0 Then
+    For each xx in GIB:xx.State = 0:Next
+  Else
+    For each xx in GIB:xx.State = 1:Next
+  End If
+  For each xx in GIB:xx.IntensityScale = gistep * step:next
 Case 1 'middle
-	If step = 0 Then
-		DOF 103, DOFOff
-		For each xx in GIM:xx.State = 0:Next
-	Else
-		DOF 103, DOFOn
-		For each xx in GIM:xx.State = 1:Next
-	End If
-	For each xx in GIM:xx.IntensityScale = gistep * step:next
+  If step = 0 Then
+    DOF 103, DOFOff
+    For each xx in GIM:xx.State = 0:Next
+  Else
+    DOF 103, DOFOn
+    For each xx in GIM:xx.State = 1:Next
+  End If
+  For each xx in GIM:xx.IntensityScale = gistep * step:next
 Case 2 'top
-	If step = 0 Then
-		For each xx in GIT:xx.State = 0:Next
-		For each xx in bump1:xx.State = 0:Next
-		For each xx in bump2:xx.State = 0:Next
-		For each xx in bump3:xx.State = 0:Next
-	Else
-		For each xx in GIT:xx.State = 1:Next
-		For each xx in bump1:xx.State = 1:Next
-		For each xx in bump2:xx.State = 1:Next
-		For each xx in bump3:xx.State = 1:Next
-	End If
-	If step>4 then
-		Prim_Spot1.image= "spot_map (black version)on"
-		Prim_Spot2.image= "spot_map (black version)on"
-	Else
-		Prim_Spot1.image= "spot_map (black version)"
-		Prim_Spot2.image= "spot_map (black version)"
-	End If
+  If step = 0 Then
+    For each xx in GIT:xx.State = 0:Next
+    For each xx in bump1:xx.State = 0:Next
+    For each xx in bump2:xx.State = 0:Next
+    For each xx in bump3:xx.State = 0:Next
+  Else
+    For each xx in GIT:xx.State = 1:Next
+    For each xx in bump1:xx.State = 1:Next
+    For each xx in bump2:xx.State = 1:Next
+    For each xx in bump3:xx.State = 1:Next
+  End If
+  If step>4 then
+    Prim_Spot1.image= "spot_map (black version)on"
+    Prim_Spot2.image= "spot_map (black version)on"
+  Else
+    Prim_Spot1.image= "spot_map (black version)"
+    Prim_Spot2.image= "spot_map (black version)"
+  End If
 For each xx in CastleGI:xx.IntensityScale = gistep * step:next
 For each xx in GIT:xx.IntensityScale = gistep * step:next
 For each xx in bump1:xx.IntensityScale = gistep * step:next
@@ -1228,13 +1228,13 @@ End Sub
 Sub BallDropSound(dummy):PlaySoundAt "fx_BallDrop",sw41:End Sub
 
 Sub ShooterEnd_Hit
-If ActiveBall.Z > 30  Then			'ball is flying
+If ActiveBall.Z > 30  Then      'ball is flying
 vpmTimer.AddTimer 100, "BallDropSound"
 End If
 End Sub
 
 Sub LHP1_Hit()
-If ActiveBall.velY < 0  Then		'ball is going up
+If ActiveBall.velY < 0  Then    'ball is going up
 PlaySoundAt "fx_rrenterL",LHP1
 Else
 StopSound "fx_rrenter"
@@ -1243,7 +1243,7 @@ End Sub
 
 Sub RHP1_Hit()
 dragonfire.enabled=1:dfire=0
-If ActiveBall.velY < 0  Then		'ball is going up
+If ActiveBall.velY < 0  Then    'ball is going up
 PlaySoundAt "fx_rrenter",RHP1
 Else
 StopSound "fx_rrenter"
@@ -1273,13 +1273,13 @@ PlaySoundAt "fx_metalrolling",CHM
 End Sub
 
 Sub LHD_Hit()
-	StopSound "fx_metalrolling"
-	vpmtimer.addtimer 200, "BallDropSound"
+  StopSound "fx_metalrolling"
+  vpmtimer.addtimer 200, "BallDropSound"
 End Sub
 
 Sub RHD_Hit()
-	StopSound "fx_metalrolling"
-	vpmtimer.addtimer 200, "BallDropSound"
+  StopSound "fx_metalrolling"
+  vpmtimer.addtimer 200, "BallDropSound"
 End Sub
 
 Sub Trigger8_Hit(): StopSound "fx_metalrolling":vpmtimer.addtimer 250, "BallDropSound":End Sub
@@ -1289,7 +1289,7 @@ Sub Trigger4_Hit():RandomSoundMetal:End Sub
 Sub LHelp_Hit: ActiveBall.VelY = ActiveBall.VelY * 0.8: End Sub
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow,ttrollL,thshakeL,trollLtiming,ttrollR,thshakeR,trollRtimin
@@ -1329,21 +1329,21 @@ Sub BallShadowUpdate()
 
 
 
-	' render the shadow for each ball
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
-		End If
+  ' render the shadow for each ball
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
+    End If
 
-			BallShadow(b).Y = BOT(b).Y + 10
-			BallShadow(b).Z = 1
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+      BallShadow(b).Y = BOT(b).Y + 10
+      BallShadow(b).Z = 1
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 '**********************
@@ -1351,70 +1351,70 @@ End Sub
 '**********************
 
 Sub MoatK_Hit(idx)
-	RandomSoundHole()
+  RandomSoundHole()
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then 
-		PlaySoundAtBall "fx_rubber"
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySoundAtBall "fx_rubber"
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then 
-		PlaySoundAtBall "fx_rubber"
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySoundAtBall "fx_rubber"
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtBall "fx_rubber_hit_1"
-		Case 2 : PlaySoundAtBall "fx_rubber_hit_2"
-		Case 3 : PlaySoundAtBall "fx_rubber_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtBall "fx_rubber_hit_1"
+    Case 2 : PlaySoundAtBall "fx_rubber_hit_2"
+    Case 3 : PlaySoundAtBall "fx_rubber_hit_3"
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtBall "fx_flip_hit_1"
-		Case 2 : PlaySoundAtBall "fx_flip_hit_2"
-		Case 3 : PlaySoundAtBall "fx_flip_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtBall "fx_flip_hit_1"
+    Case 2 : PlaySoundAtBall "fx_flip_hit_2"
+    Case 3 : PlaySoundAtBall "fx_flip_hit_3"
+  End Select
 End Sub
 
 Sub RandomSoundHole()
-	Select Case Int(Rnd*4)+1
-		Case 1 : PlaySoundAtBall "fx_Hole1"
-		Case 2 : PlaySoundAtBall "fx_Hole2"
-		Case 3 : PlaySoundAtBall "fx_Hole3"
-		Case 4 : PlaySoundAtBall "fx_Hole4"
-	End Select
+  Select Case Int(Rnd*4)+1
+    Case 1 : PlaySoundAtBall "fx_Hole1"
+    Case 2 : PlaySoundAtBall "fx_Hole2"
+    Case 3 : PlaySoundAtBall "fx_Hole3"
+    Case 4 : PlaySoundAtBall "fx_Hole4"
+  End Select
 End Sub
 
 Sub RandomSoundMetal()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySoundAtBall "fx_metal_hit_1"
-		Case 2 : PlaySoundAtBall "fx_metal_hit_2"
-		Case 3 : PlaySoundAtBall "fx_metal_hit_3"
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySoundAtBall "fx_metal_hit_1"
+    Case 2 : PlaySoundAtBall "fx_metal_hit_2"
+    Case 3 : PlaySoundAtBall "fx_metal_hit_3"
+  End Select
 End Sub
 '**********************OPTIONS***************************
 
@@ -1453,9 +1453,9 @@ CheckBallsaver
 End Sub
 
 sub dragonfire_timer()
-	if dfire=0 then playsound "Dragon_Roaring"
-	if dfire> 160 and dfire<500 then test.enabled=1:flasherF1.visible=1:flasherF2.visible=1:flasherD.height=(dragon.z+(cos(ali+91)*20)*increm)+10:flasherD.opacity=(cos(dfire*40)*50)+100 else flasherD.opacity=0:test.enabled=0:flasherF.opacity=0:flasherF1.visible=0:flasherF2.visible=0
-	dfire=dfire+1
+  if dfire=0 then playsound "Dragon_Roaring"
+  if dfire> 160 and dfire<500 then test.enabled=1:flasherF1.visible=1:flasherF2.visible=1:flasherD.height=(dragon.z+(cos(ali+91)*20)*increm)+10:flasherD.opacity=(cos(dfire*40)*50)+100 else flasherD.opacity=0:test.enabled=0:flasherF.opacity=0:flasherF1.visible=0:flasherF2.visible=0
+  dfire=dfire+1
 end sub
 
 
@@ -1633,16 +1633,16 @@ Sub RollingSoundUpdate()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

@@ -57,12 +57,12 @@ Dim bsTrough, dtL, dtR, bump1, bump2, plLane1, plLane2, hiddenvalue
 Dim VarHidden
 If Table1.ShowDT = true then
     VarHidden = 0
-	CabinetRailLeft.visible=1
-	CabinetRailRight.visible=1
+  CabinetRailLeft.visible=1
+  CabinetRailRight.visible=1
 else
     VarHidden = 1
-	CabinetRailLeft.visible=0
-	CabinetRailRight.visible=0
+  CabinetRailLeft.visible=0
+  CabinetRailRight.visible=0
 end if
 
 Sub SolLFlipper(Enabled)
@@ -86,25 +86,25 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub FlipperTimer_Timer
-	'Add flipper, gate and spinner rotations here
-	LFLogo1.RotY = LeftFlipper.CurrentAngle
-	RFLogo1.RotY = RightFlipper.CurrentAngle
-	FlipperLSh.RotZ = LeftFlipper.CurrentAngle
-	FlipperRSh.RotZ = RightFlipper.CurrentAngle
-	If sw29.isdropped=0 then dropplate1.image="t2shadow"
-	If sw29.isdropped=1 then dropplate1.image="blank"
-	If sw30.isdropped=0 then dropplate2.image="t3shadow"
-	If sw30.isdropped=1 then dropplate2.image="blank"
-	If sw31.isdropped=0 then dropplate3.image="t4shadow"
-	If sw31.isdropped=1 then dropplate3.image="blank"
-	If sw32.isdropped=0 then dropplate4.image="t5shadow"
-	If sw32.isdropped=1 then dropplate4.image="blank"
-	If sw25.isdropped=0 then dropplate5.image="spin1shadow"
-	If sw25.isdropped=1 then dropplate5.image="blank"
-	If sw26.isdropped=0 then dropplate6.image="spin2shadow"
-	If sw26.isdropped=1 then dropplate6.image="blank"
-	If sw27.isdropped=0 then dropplate7.image="spin3shadow"
-	If sw27.isdropped=1 then dropplate7.image="blank"
+  'Add flipper, gate and spinner rotations here
+  LFLogo1.RotY = LeftFlipper.CurrentAngle
+  RFLogo1.RotY = RightFlipper.CurrentAngle
+  FlipperLSh.RotZ = LeftFlipper.CurrentAngle
+  FlipperRSh.RotZ = RightFlipper.CurrentAngle
+  If sw29.isdropped=0 then dropplate1.image="t2shadow"
+  If sw29.isdropped=1 then dropplate1.image="blank"
+  If sw30.isdropped=0 then dropplate2.image="t3shadow"
+  If sw30.isdropped=1 then dropplate2.image="blank"
+  If sw31.isdropped=0 then dropplate3.image="t4shadow"
+  If sw31.isdropped=1 then dropplate3.image="blank"
+  If sw32.isdropped=0 then dropplate4.image="t5shadow"
+  If sw32.isdropped=1 then dropplate4.image="blank"
+  If sw25.isdropped=0 then dropplate5.image="spin1shadow"
+  If sw25.isdropped=1 then dropplate5.image="blank"
+  If sw26.isdropped=0 then dropplate6.image="spin2shadow"
+  If sw26.isdropped=1 then dropplate6.image="blank"
+  If sw27.isdropped=0 then dropplate7.image="spin3shadow"
+  If sw27.isdropped=1 then dropplate7.image="blank"
 End Sub
 
 Sub Table1_Init
@@ -117,7 +117,7 @@ Sub Table1_Init
          .ShowDMDOnly = 1
          .ShowFrame = 0
          .HandleMechanics = False
-		 .Hidden = varhidden
+     .Hidden = varhidden
          On Error Resume Next
          .Run GetPlayerHWnd
          If Err Then MsgBox Err.Description
@@ -157,14 +157,14 @@ SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 'Trough
-   	Set bsTrough=New cvpmBallStack
- 	with bsTrough
-		.InitSw 0,33,34,35,0,0,0,0
-		.InitKick BallRelease,90,7
-		.InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
-		.IsTrough = 1
-		.Balls=3
- 	end with
+    Set bsTrough=New cvpmBallStack
+  with bsTrough
+    .InitSw 0,33,34,35,0,0,0,0
+    .InitKick BallRelease,90,7
+    .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+    .IsTrough = 1
+    .Balls=3
+  end with
 
 ' Lane1 Impulse Plunger (by JP Salas)
     Const IMPowerSetting = 36 'Plunger Power
@@ -195,35 +195,35 @@ SolCallback(sLLFlipper) = "SolLFlipper"
      vpmNudge.Sensitivity = 2
      vpmNudge.TiltObj = Array(leftslingshot1, leftslingshot2, rightslingshot1, sw13, sw14)
 
- 	Set dtL=New cvpmDropTarget
-		dtL.InitDrop Array(sw28,sw29,sw30,sw31,sw32),Array(28,29,30,31,32)
-		dtL.InitSnd SoundFX("fx2_droptarget",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
+  Set dtL=New cvpmDropTarget
+    dtL.InitDrop Array(sw28,sw29,sw30,sw31,sw32),Array(28,29,30,31,32)
+    dtL.InitSnd SoundFX("fx2_droptarget",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
 
- 	Set dtR=New cvpmDropTarget
-		dtR.InitDrop Array(sw25,sw26,sw27),Array(25,26,27)
-		dtR.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
+  Set dtR=New cvpmDropTarget
+    dtR.InitDrop Array(sw25,sw26,sw27),Array(25,26,27)
+    dtR.InitSnd SoundFX("fx2_droptarget2",DOFContactors),SoundFX("fx2_DTReset",DOFContactors)
 
 GILights 1
 
  End Sub
 
 Sub GILights (enabled)
-	Dim light
-	For each light in GI:light.State = Enabled: Next
+  Dim light
+  For each light in GI:light.State = Enabled: Next
 End Sub
 
 Sub Table1_KeyDown(ByVal keycode)
-	If keycode = LeftTiltKey Then Nudge 90, 2
-	If keycode = RightTiltKey Then Nudge 270, 2
-	If keycode = CenterTiltKey Then	Nudge 0, 2
+  If keycode = LeftTiltKey Then Nudge 90, 2
+  If keycode = RightTiltKey Then Nudge 270, 2
+  If keycode = CenterTiltKey Then Nudge 0, 2
 
-	If vpmKeyDown(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAt "fx_plungerpull", Plunger: 	End If
+  If vpmKeyDown(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAt "fx_plungerpull", Plunger:   End If
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then Plunger.Fire: PlaySoundAt "fx_plunger", Plunger
-	If vpmKeyUp(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAt "fx_plunger", Plunger
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 Sub ShooterLane_Hit
@@ -233,7 +233,7 @@ Sub BallRelease_UnHit
 End Sub
 
 Sub Drain_Hit()
-	PlaySoundAt "fx2_drain2", Drain : bstrough.addball me
+  PlaySoundAt "fx2_drain2", Drain : bstrough.addball me
 End Sub
 
  '*****************
@@ -265,17 +265,17 @@ Sub Sw26_Dropped:dtR.Hit 2 : End Sub
 Sub Sw27_Dropped:dtR.Hit 3 : End Sub
 
 Sub SolRightTargetReset(enabled)
-	dim xx
-	if enabled then
-		dtR.SolDropUp enabled
-	end if
+  dim xx
+  if enabled then
+    dtR.SolDropUp enabled
+  end if
 End Sub
 
 Sub SolLeftTargetReset(enabled)
-	dim xx
-	if enabled then
-		dtL.SolDropUp enabled
-	end if
+  dim xx
+  if enabled then
+    dtL.SolDropUp enabled
+  end if
 End Sub
 
 'Bumpers
@@ -318,7 +318,7 @@ Sub sw4_Spin : vpmTimer.PulseSw (4) :PlaySoundAtVol "fx_spinner", sw4, VolSpin: 
 Sub sw5_Spin : vpmTimer.PulseSw (5) :PlaySoundAtVol "fx_spinner", sw5, VolSpin: End Sub
 
 Sub SolKnocker(Enabled)
-	If Enabled Then PlaySound SoundFX("FX2_Knocker",DOFKnocker)
+  If Enabled Then PlaySound SoundFX("FX2_Knocker",DOFKnocker)
 End Sub
 
 '**********Sling Shot Animations
@@ -328,7 +328,7 @@ Dim RStep1, RStep2, LStep1, RRStep, LUStep, LURStep, RLStep, RLaStep, RLa2Step, 
 
 Sub RightSlingShot1_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors), sling1
-	vpmtimer.PulseSw(12)
+  vpmtimer.PulseSw(12)
     RSling.Visible = 0
     RSling1.Visible = 1
     sling1.Rotx = 38
@@ -346,7 +346,7 @@ End Sub
 
 Sub RightSlingShot2_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors), sling4
-	vpmtimer.PulseSw(10)
+  vpmtimer.PulseSw(10)
     RUSling.Visible = 0
     RUSling1.Visible = 1
     sling4.Rotx = 38
@@ -379,7 +379,7 @@ End Sub
 
 Sub LeftSlingShot1_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors), sling2
-	vpmtimer.PulseSw(11)
+  vpmtimer.PulseSw(11)
     LSling.Visible = 0
     LSling1.Visible = 1
     sling2.Rotx = 37
@@ -397,7 +397,7 @@ End Sub
 
 Sub LeftSlingShot2_Slingshot
     PlaySoundAt SoundFX("fx_slingshot",DOFContactors), sling3
-	vpmtimer.PulseSw(9)
+  vpmtimer.PulseSw(9)
     LUSling.Visible = 0
     LUSling1.Visible = 1
     sling3.Rotx = 38
@@ -467,7 +467,7 @@ End Sub
 Sub Rubber2DropSling_Timer
     Select Case R2Dropstep
         Case 3:Rubber2Drop1.Visible = 0:Rubber2Drop2.Visible = 1
-		Case 4:Rubber2Drop2.Visible = 0:Rubber2Drop3.Visible = 1
+    Case 4:Rubber2Drop2.Visible = 0:Rubber2Drop3.Visible = 1
         Case 5:Rubber2Drop3.Visible = 0:Rubber2Drop.Visible = 1:Rubber2DropSling.TimerEnabled = 0
     End Select
     R2DropStep = R2DropStep + 1
@@ -678,13 +678,13 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -744,7 +744,7 @@ Set Lights(9)  = l9
 Set Lights(10) = l10
 Set Lights(11) = l11
 Set Lights(12) = l12
-'Set Lights(13) = l13	High Score to Date
+'Set Lights(13) = l13 High Score to Date
 Set Lights(14) = l14
 Set Lights(15) = l15
 'Set Lights(16) = l16
@@ -776,7 +776,7 @@ Set Lights(41) = l41
 Set Lights(42) = l42
 Set Lights(43) = l43
 Set Lights(44) = l44
-'Set Lights(45) = l45	Game Over
+'Set Lights(45) = l45 Game Over
 Set Lights(46) = l46
 'Set Lights(47) = l47
 'Set Lights(48) = l48
@@ -792,9 +792,9 @@ Set Lights(57) = l57
 Set Lights(58) = l58
 Set Lights(59) = l59
 Set Lights(60) = l60
-'Set Lights(61) = l61	TILT
+'Set Lights(61) = l61 TILT
 Set Lights(62) = l62
-'63			Match
+'63     Match
 'Set Lights(64) = l64
 
 '***********Ball Shadow Update

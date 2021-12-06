@@ -44,7 +44,7 @@ Else
 Ramp16.visible=0
 Ramp15.visible=0
 hiddenvalue=1
-	End if
+  End if
 
 '*************************************************************
 'Solenoid Call backs
@@ -52,13 +52,13 @@ hiddenvalue=1
 SolCallback(1) = "bsTrough.SolOut"
 SolCallback(2) = "dtDTBank.SolDropUp"
 SolCallback(3) = "bsSaucer.SolOut"
-SolCallback(4) = "Setlamp 104,"	'Corkscrew Flash
-SolCallback(5) = "Setlamp 105,"	'Cycle Flash
+SolCallback(4) = "Setlamp 104," 'Corkscrew Flash
+SolCallback(5) = "Setlamp 105," 'Cycle Flash
 SolCallback(6) = "bsCycleSaucer.SolOut"
-'SolCallback(7) = ""	'Player3 Flasher
-'SolCallback(8) = ""	'Player1 Flasher
-'SolCallback(9) = ""	'Player4 Flasher
-'SolCallback(10) = ""	'Player2 Flasher
+'SolCallback(7) = ""  'Player3 Flasher
+'SolCallback(8) = ""  'Player1 Flasher
+'SolCallback(9) = ""  'Player4 Flasher
+'SolCallback(10) = "" 'Player2 Flasher
 SolCallback(11) = "PFGI"
 SolCallback(15) =  "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
 SolCallback(23) = "vpmNudge.SolGameOn"
@@ -83,10 +83,10 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub FlipperTimer_Timer
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
-	lflip.rotz = LeftFlipper.currentangle
-	rflip.rotz = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
+  lflip.rotz = LeftFlipper.currentangle
+  rflip.rotz = RightFlipper.currentangle
 End Sub
 
 '******************
@@ -101,12 +101,12 @@ BallShadowUpdate
 End Sub
 
 Sub UpdateGates
-	rampgate_prim.RotX = GateSw50.CurrentAngle
-	rampexitgate_prim.RotX = Gatesw28.CurrentAngle+90
-	corkscrewgate_prim.RotX = GateSw19.CurrentAngle
-	plungegate_prim.RotX = Gate4.CurrentAngle + 90
-	If sw29.isdropped=1 then dropshadow.image="blank" end If
-	If sw29.isdropped=0 then dropshadow.image="dropshadow" end if
+  rampgate_prim.RotX = GateSw50.CurrentAngle
+  rampexitgate_prim.RotX = Gatesw28.CurrentAngle+90
+  corkscrewgate_prim.RotX = GateSw19.CurrentAngle
+  plungegate_prim.RotX = Gate4.CurrentAngle + 90
+  If sw29.isdropped=1 then dropshadow.image="blank" end If
+  If sw29.isdropped=0 then dropshadow.image="dropshadow" end if
 End Sub
 
 
@@ -119,32 +119,32 @@ dim GIIsOff
 
 'Playfield GI
 Sub PFGI(Enabled)
-	If Enabled Then
-		GiOFF
-		dim xx
-'		For each xx in GI:xx.State = 0: Next
+  If Enabled Then
+    GiOFF
+    dim xx
+'   For each xx in GI:xx.State = 0: Next
         PlaySound "fx_relay"
-		Table1.ColorGradeImage = "ColorGradeLUT256x16_shadowcrush"
-		GIIsOff=true
+    Table1.ColorGradeImage = "ColorGradeLUT256x16_shadowcrush"
+    GIIsOff=true
 
-	Else
-		GiON
-'		For each xx in GI:xx.State = 1: Next
+  Else
+    GiON
+'   For each xx in GI:xx.State = 1: Next
         PlaySound "fx_relay"
-		Table1.ColorGradeImage = "ColorGradeLUT256x16_1to1"
-		GIIsOff=false
+    Table1.ColorGradeImage = "ColorGradeLUT256x16_1to1"
+    GIIsOff=false
 
 end if
 End Sub
 
 Sub GiON
-	Dim x
-	For each x in Gi:x.State = 1:Next
+  Dim x
+  For each x in Gi:x.State = 1:Next
 End Sub
 
 Sub GiOFF
-	Dim x
-	For each x in Gi:x.State = 0:Next
+  Dim x
+  For each x in Gi:x.State = 0:Next
 End Sub
 
 
@@ -156,18 +156,18 @@ End Sub
 Dim bsTrough, bsSaucer, bsCycleSaucer, dtDTBank
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Comet"&chr(13)&"Williams 1985"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
-        	.hidden = hiddenvalue
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Comet"&chr(13)&"Williams 1985"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
+          .hidden = hiddenvalue
          On Error Resume Next
          .Run GetPlayerHWnd
          If Err Then MsgBox Err.Description
@@ -178,9 +178,9 @@ Sub Table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-  	vpmNudge.TiltSwitch=1
-  	vpmNudge.Sensitivity=3
-  	vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
+    vpmNudge.TiltSwitch=1
+    vpmNudge.Sensitivity=3
+    vpmNudge.TiltObj=Array(Bumper1,Bumper2,Bumper3,LeftSlingshot,RightSlingshot)
 
    Set bsTrough = New cvpmBallStack
        bsTrough.InitSw 0,45,0,0,0,0,0,0
@@ -211,13 +211,13 @@ Sub Table1_Init
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:playsound"plungerpull"
+  If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:playsound"plungerpull"
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
+  If KeyUpHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", Plunger
 End Sub
 
 '**********************************************************************************************************
@@ -330,315 +330,315 @@ End Sub
 
 
  Sub UpdateLamps
-  	'FadeR 1, 'GameOver
-   	'FadeR 2, 'Match
-   	'FadeR 3, 'Tilt
-   	'FadeR 4, 'HS
-   	'FadeR 5, 'Ride Again 2x
-   	'FadeR 6, 'BIP
-   	'FadeR 7, 'Comet Eyes
-   	'FadeR 8, 'Comet Eyes
+    'FadeR 1, 'GameOver
+    'FadeR 2, 'Match
+    'FadeR 3, 'Tilt
+    'FadeR 4, 'HS
+    'FadeR 5, 'Ride Again 2x
+    'FadeR 6, 'BIP
+    'FadeR 7, 'Comet Eyes
+    'FadeR 8, 'Comet Eyes
 
-   	NFadeLm 9, l9
-   	NFadeLm 9, l9a
-   	NFadeLm 9, l9z
-   	NFadeLm 10, l10
-   	NFadeLm 10, l10a
-   	NFadeLm 10, l10z
-   	NFadeLm 11, l11
-   	NFadeLm 11, l11a
-   	NFadeLm 11, l11z
-   	NFadeLm 12, l12
-   	NFadeLm 12, l12a
-   	NFadeLm 12, l12z
-   	NFadeLm 13, l13
-   	NFadeLm 13, l13a
-   	NFadeLm 13, l13z
-   	NFadeLm 14, l14
-   	NFadeLm 14, l14a
-   	NFadeLm 14, l14z
-   	NFadeLm 15, l15
-   	NFadeLm 15, l15a
-   	NFadeLm 15, l15z
-   	NFadeLm 16, l16
-   	NFadeLm 16, l16a
+    NFadeLm 9, l9
+    NFadeLm 9, l9a
+    NFadeLm 9, l9z
+    NFadeLm 10, l10
+    NFadeLm 10, l10a
+    NFadeLm 10, l10z
+    NFadeLm 11, l11
+    NFadeLm 11, l11a
+    NFadeLm 11, l11z
+    NFadeLm 12, l12
+    NFadeLm 12, l12a
+    NFadeLm 12, l12z
+    NFadeLm 13, l13
+    NFadeLm 13, l13a
+    NFadeLm 13, l13z
+    NFadeLm 14, l14
+    NFadeLm 14, l14a
+    NFadeLm 14, l14z
+    NFadeLm 15, l15
+    NFadeLm 15, l15a
+    NFadeLm 15, l15z
+    NFadeLm 16, l16
+    NFadeLm 16, l16a
     NFadeLm 16, l16z
-   	NFadeLm 17, l17
-   	NFadeLm 17, l17a
-   	NFadeLm 17, l17z
-   	NFadeLm 18, l18
-   	NFadeLm 18, l18a
-   	NFadeLm 18, l18z
-   	NFadeLm 19, l19
-   	NFadeLm 19, l19a
-   	NFadeLm 19, l19z
-   	NFadeLm 20, l20
-   	NFadeLm 20, l20a
-   	NFadeLm 20, l20z
-	Flash 20, f20
-   	NFadeLm 21, l21
-   	NFadeLm 21, l21a
-   	NFadeLm 21, l21z
-	Flash 21, f21
-   	NFadeLm 22, l22
-   	NFadeLm 22, l22a
-   	NFadeLm 22, l22z
-	Flash 22, f22
-   	NFadeLm 23, l23
-   	NFadeLm 23, l23a
-   	NFadeLm 23, l23z
-	Flash 23, f23
-   	NFadeLm 24, l24
-   	NFadeLm 24, l24a
-   	NFadeLm 24, l24z
-   	NFadeLm 25, l25
-   	NFadeLm 25, l25a
-   	NFadeLm 25, l25z
-   	NFadeLm 26, l26
-   	NFadeLm 26, l26a
-   	NFadeLm 26, l26z
-   	NFadeLm 27, l27
-   	NFadeLm 27, l27a
-   	NFadeLm 27, l27z
-   	NFadeLm 28, l28
-   	NFadeLm 28, l28a
-   	NFadeLm 28, l28z
-   	NFadeLm 29, l29
-   	NFadeLm 29, l29a
-   	NFadeLm 29, l29z
-   	NFadeLm 30, l30
-   	NFadeLm 30, l30a
-   	NFadeLm 30, l30z
-   	NFadeLm 31, l31
-   	NFadeLm 31, l31a
-   	NFadeLm 31, l31z
-   	NFadeLm 32, l32
-   	NFadeLm 32, l32a
+    NFadeLm 17, l17
+    NFadeLm 17, l17a
+    NFadeLm 17, l17z
+    NFadeLm 18, l18
+    NFadeLm 18, l18a
+    NFadeLm 18, l18z
+    NFadeLm 19, l19
+    NFadeLm 19, l19a
+    NFadeLm 19, l19z
+    NFadeLm 20, l20
+    NFadeLm 20, l20a
+    NFadeLm 20, l20z
+  Flash 20, f20
+    NFadeLm 21, l21
+    NFadeLm 21, l21a
+    NFadeLm 21, l21z
+  Flash 21, f21
+    NFadeLm 22, l22
+    NFadeLm 22, l22a
+    NFadeLm 22, l22z
+  Flash 22, f22
+    NFadeLm 23, l23
+    NFadeLm 23, l23a
+    NFadeLm 23, l23z
+  Flash 23, f23
+    NFadeLm 24, l24
+    NFadeLm 24, l24a
+    NFadeLm 24, l24z
+    NFadeLm 25, l25
+    NFadeLm 25, l25a
+    NFadeLm 25, l25z
+    NFadeLm 26, l26
+    NFadeLm 26, l26a
+    NFadeLm 26, l26z
+    NFadeLm 27, l27
+    NFadeLm 27, l27a
+    NFadeLm 27, l27z
+    NFadeLm 28, l28
+    NFadeLm 28, l28a
+    NFadeLm 28, l28z
+    NFadeLm 29, l29
+    NFadeLm 29, l29a
+    NFadeLm 29, l29z
+    NFadeLm 30, l30
+    NFadeLm 30, l30a
+    NFadeLm 30, l30z
+    NFadeLm 31, l31
+    NFadeLm 31, l31a
+    NFadeLm 31, l31z
+    NFadeLm 32, l32
+    NFadeLm 32, l32a
     NFadeLm 32, l32z
-   	NFadeLm 33, l33
-   	NFadeLm 33, l33a
-   	NFadeLm 33, l33z
-   	NFadeLm 34, l34
-   	NFadeLm 34, l34a
-   	NFadeLm 34, l34z
-   	NFadeLm 35, l35
-   	NFadeLm 35, l35a
-   	NFadeLm 35, l35z
-   	NFadeLm 36, l36
-   	NFadeLm 36, l36a
-   	NFadeLm 36, l36z
-   	NFadeLm 37, l37
-   	NFadeLm 37, l37a
-   	NFadeLm 37, l37z
-   	NFadeLm 38, l38
-   	NFadeLm 38, l38a
-   	NFadeLm 38, l38z
-   	NFadeLm 39, l39
-   	NFadeLm 39, l39a
-   	NFadeLm 39, l39z
-   	NFadeLm 40, l40
-   	NFadeLm 40, l40a
-   	NFadeLm 40, l40z
-   	NFadeLm 41, l41
-   	NFadeLm 41, l41a
-   	NFadeLm 41, l41z
-   	NFadeLm 42, l42
-   	NFadeLm 42, l42a
-   	NFadeLm 42, l42z
-   	NFadeLm 43, l43
-   	NFadeLm 43, l43a
-   	NFadeLm 43, l43z
-   	NFadeLm 44, l44
-   	NFadeLm 44, l44a
-   	NFadeLm 44, l44z
-   	NFadeLm 45, l45
-   	NFadeLm 45, l45a
-   	NFadeLm 45, l45z
-   	NFadeLm 46, l46
-   	NFadeLm 46, l46a
-   	NFadeLm 46, l46z
-   	NFadeLm 47, l47
-   	NFadeLm 47, l47a
-   	NFadeLm 47, l47z
-   	NFadeLm 48, l48
-   	NFadeLm 48, l48a
+    NFadeLm 33, l33
+    NFadeLm 33, l33a
+    NFadeLm 33, l33z
+    NFadeLm 34, l34
+    NFadeLm 34, l34a
+    NFadeLm 34, l34z
+    NFadeLm 35, l35
+    NFadeLm 35, l35a
+    NFadeLm 35, l35z
+    NFadeLm 36, l36
+    NFadeLm 36, l36a
+    NFadeLm 36, l36z
+    NFadeLm 37, l37
+    NFadeLm 37, l37a
+    NFadeLm 37, l37z
+    NFadeLm 38, l38
+    NFadeLm 38, l38a
+    NFadeLm 38, l38z
+    NFadeLm 39, l39
+    NFadeLm 39, l39a
+    NFadeLm 39, l39z
+    NFadeLm 40, l40
+    NFadeLm 40, l40a
+    NFadeLm 40, l40z
+    NFadeLm 41, l41
+    NFadeLm 41, l41a
+    NFadeLm 41, l41z
+    NFadeLm 42, l42
+    NFadeLm 42, l42a
+    NFadeLm 42, l42z
+    NFadeLm 43, l43
+    NFadeLm 43, l43a
+    NFadeLm 43, l43z
+    NFadeLm 44, l44
+    NFadeLm 44, l44a
+    NFadeLm 44, l44z
+    NFadeLm 45, l45
+    NFadeLm 45, l45a
+    NFadeLm 45, l45z
+    NFadeLm 46, l46
+    NFadeLm 46, l46a
+    NFadeLm 46, l46z
+    NFadeLm 47, l47
+    NFadeLm 47, l47a
+    NFadeLm 47, l47z
+    NFadeLm 48, l48
+    NFadeLm 48, l48a
     NFadeLm 48, l48z
-   	NFadeLm 49, l49
-   	NFadeLm 49, l49a
-   	NFadeLm 49, l49z
-   	NFadeLm 50, l50
-   	NFadeLm 50, l50a
-   	NFadeLm 50, l50z
-   	NFadeLm 51, l51
-   	NFadeLm 51, l51a
-   	NFadeLm 51, l51z
-   	NFadeLm 52, l52
-   	NFadeLm 52, l52a
-   	NFadeLm 52, l52z
-   	NFadeLm 53, l53
-   	NFadeLm 53, l53a
-   	NFadeLm 53, l53z
-   	NFadeLm 54, l54
-   	NFadeLm 54, l54a
-   	NFadeLm 54, l54z
-   	NFadeLm 55, l55
-   	NFadeLm 55, l55a
-   	NFadeLm 55, l55z
-   	NFadeLm 56, l56
-   	NFadeLm 56, l56a
+    NFadeLm 49, l49
+    NFadeLm 49, l49a
+    NFadeLm 49, l49z
+    NFadeLm 50, l50
+    NFadeLm 50, l50a
+    NFadeLm 50, l50z
+    NFadeLm 51, l51
+    NFadeLm 51, l51a
+    NFadeLm 51, l51z
+    NFadeLm 52, l52
+    NFadeLm 52, l52a
+    NFadeLm 52, l52z
+    NFadeLm 53, l53
+    NFadeLm 53, l53a
+    NFadeLm 53, l53z
+    NFadeLm 54, l54
+    NFadeLm 54, l54a
+    NFadeLm 54, l54z
+    NFadeLm 55, l55
+    NFadeLm 55, l55a
+    NFadeLm 55, l55z
+    NFadeLm 56, l56
+    NFadeLm 56, l56a
     NFadeLm 56, l56z
-	NFadeLm 57, l57
+  NFadeLm 57, l57
 
-   	NFadeLm 60, l60
-   	NFadeLm 60, l60a
-   	NFadeLm 60, l60z
-   	NFadeLm 61, l61
-   	NFadeLm 61, l61a
-   	NFadeLm 61, l61z
-   	NFadeLm 62, l62
-   	NFadeLm 62, l62a
-   	NFadeLm 62, l62z
-   	NFadeLm 63, l63
-   	NFadeLm 63, l63a
-   	NFadeLm 63, l63z
-   	NFadeLm 64, l64
-   	NFadeLm 64, l64a
-   	NFadeLm 64, l64z
+    NFadeLm 60, l60
+    NFadeLm 60, l60a
+    NFadeLm 60, l60z
+    NFadeLm 61, l61
+    NFadeLm 61, l61a
+    NFadeLm 61, l61z
+    NFadeLm 62, l62
+    NFadeLm 62, l62a
+    NFadeLm 62, l62z
+    NFadeLm 63, l63
+    NFadeLm 63, l63a
+    NFadeLm 63, l63z
+    NFadeLm 64, l64
+    NFadeLm 64, l64a
+    NFadeLm 64, l64z
 
- 	'Solenoid Controlled Flashers
+  'Solenoid Controlled Flashers
 
-	Flashm 104, f104
-	NFadeLm 104, f104c
-	NFadeLm 104, f104d
-	Nfadelm 104, i104dummy
+  Flashm 104, f104
+  NFadeLm 104, f104c
+  NFadeLm 104, f104d
+  Nfadelm 104, i104dummy
 
- 	Flashm 105, f105
- 	Flashm 105, f105a
-	NFadeLm 105, f105c
-	NFadeLm 105, f105d
-	Nfadelm 105, i105dummy
+  Flashm 105, f105
+  Flashm 105, f105a
+  NFadeLm 105, f105c
+  NFadeLm 105, f105d
+  Nfadelm 105, i105dummy
 
-	If GIIsOff=false Then
-		corkscrew_prim.image = "corkscrew_gi"
-		CorkscrewTube_prim.image = "Flashtube_gi"
-		woodguides_prim.image = "woodguides_gi"
-		cometbrackets_prim.image = "brackets_gi"
-		plasticsedges_prim.image="plasticedgesGIOn"
-		millionbackglass_prim.image = "millionbackglass_gi"
-		metalrails_prim.image = "metals_gi"
-		millionplastic_prim.image = "millionplastic_GI"
-		millionbackbox_prim.image = "millionbackbox_gi"
-		outerwalls_prim.image = "outer_gi"
-		Flasher1.visible=1
-		Flasher2.visible=0
-		Flasher3.visible=0
-		Flasher4.visible=0
-		If l57.state = 1 Then
-'			FadeObjm 150, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gi"
-			FadeObjm 150, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gi"
-			FadeObjm 151, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash", "metals_gi"
-			FadeObjm 152, millionplastic_prim, "millionplastic_gi_flash", "millionplastic_gi_flash", "millionplastic_gi_flash", "millionplastic_GI"
-			FadeObjm 153, millionbackbox_prim, "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi"
-			FadeObjm 154, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash", "metals_gi"
-			FadeObjm 155, outerwalls_prim, "outer_gi_flash", "outer_gi_flash", "outer_gi_flash", "outer_gi"
-			Flasher1.visible=1
-			Flasher2.visible=0
-			Flasher3.visible=0
-			Flasher4.visible=0
-		End If
-	Else
-		corkscrew_prim.image = "corkscrew_off"
-		CorkscrewTube_prim.image = "flashtube_off"
-		woodguides_prim.image =  "woodguides_gioff"
-		cometbrackets_prim.image = "brackets_gioff"
-		plasticsedges_prim.image="plasticedgesGIOff"
-		millionbackglass_prim.image = "millionbackglass_gioff"
-		metalrails_prim.image = "metals_gioff"
-		millionplastic_prim.image = "millionplastic_GIoff"
-		millionbackbox_prim.image = "millionbackbox_gi"
-		outerwalls_prim.image = "outer_gioff"
-		Flasher1.visible=0
-		Flasher2.visible=0
-		Flasher3.visible=1
-		Flasher4.visible=0
-		end if
+  If GIIsOff=false Then
+    corkscrew_prim.image = "corkscrew_gi"
+    CorkscrewTube_prim.image = "Flashtube_gi"
+    woodguides_prim.image = "woodguides_gi"
+    cometbrackets_prim.image = "brackets_gi"
+    plasticsedges_prim.image="plasticedgesGIOn"
+    millionbackglass_prim.image = "millionbackglass_gi"
+    metalrails_prim.image = "metals_gi"
+    millionplastic_prim.image = "millionplastic_GI"
+    millionbackbox_prim.image = "millionbackbox_gi"
+    outerwalls_prim.image = "outer_gi"
+    Flasher1.visible=1
+    Flasher2.visible=0
+    Flasher3.visible=0
+    Flasher4.visible=0
+    If l57.state = 1 Then
+'     FadeObjm 150, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gi"
+      FadeObjm 150, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gi"
+      FadeObjm 151, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash", "metals_gi"
+      FadeObjm 152, millionplastic_prim, "millionplastic_gi_flash", "millionplastic_gi_flash", "millionplastic_gi_flash", "millionplastic_GI"
+      FadeObjm 153, millionbackbox_prim, "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi"
+      FadeObjm 154, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash", "metals_gi"
+      FadeObjm 155, outerwalls_prim, "outer_gi_flash", "outer_gi_flash", "outer_gi_flash", "outer_gi"
+      Flasher1.visible=1
+      Flasher2.visible=0
+      Flasher3.visible=0
+      Flasher4.visible=0
+    End If
+  Else
+    corkscrew_prim.image = "corkscrew_off"
+    CorkscrewTube_prim.image = "flashtube_off"
+    woodguides_prim.image =  "woodguides_gioff"
+    cometbrackets_prim.image = "brackets_gioff"
+    plasticsedges_prim.image="plasticedgesGIOff"
+    millionbackglass_prim.image = "millionbackglass_gioff"
+    metalrails_prim.image = "metals_gioff"
+    millionplastic_prim.image = "millionplastic_GIoff"
+    millionbackbox_prim.image = "millionbackbox_gi"
+    outerwalls_prim.image = "outer_gioff"
+    Flasher1.visible=0
+    Flasher2.visible=0
+    Flasher3.visible=1
+    Flasher4.visible=0
+    end if
 
-		If GIIsOff=false and i105dummy.state = 1 and l57.state = 1 Then
-			FadeObjm 161, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gi"
-			FadeObjm 162, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash","metals_gi"
-			FadeObjm 163, millionplastic_prim, "millionplastic_GI_flash", "millionplastic_GI_flash", "millionplastic_GI_flash", "millionplastic_GI"
-			FadeObjm 164, millionbackbox_prim, "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi"
-			Flasher1.visible=1
-			Flasher2.visible=0
-			Flasher3.visible=0
-			Flasher4.visible=0
-		End If
+    If GIIsOff=false and i105dummy.state = 1 and l57.state = 1 Then
+      FadeObjm 161, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gi"
+      FadeObjm 162, metalrails_prim, "metals_gi_flash", "metals_gi_flash", "metals_gi_flash","metals_gi"
+      FadeObjm 163, millionplastic_prim, "millionplastic_GI_flash", "millionplastic_GI_flash", "millionplastic_GI_flash", "millionplastic_GI"
+      FadeObjm 164, millionbackbox_prim, "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi_flash", "millionbackbox_gi"
+      Flasher1.visible=1
+      Flasher2.visible=0
+      Flasher3.visible=0
+      Flasher4.visible=0
+    End If
 
-		If GIIsOff=false and i105dummy.state = 1 and l57.state = 0 Then
-			FadeObjm 165, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gi"
-			FadeObjm 166, metalrails_prim, "metals_gi_flashright", "metals_gi_flashright", "metals_gi_flashright", "metals_gi"
-			FadeObjm 167, millionplastic_prim, "millionplastic_GI_flashright", "millionplastic_GI_flashright", "millionplastic_GI_flashright", "millionplastic_GI"
-			FadeObjm 168, millionbackbox_prim, "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gi"
-			Flasher1.visible=1
-			Flasher2.visible=0
-			Flasher3.visible=0
-			Flasher4.visible=0
-		End If
+    If GIIsOff=false and i105dummy.state = 1 and l57.state = 0 Then
+      FadeObjm 165, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gi"
+      FadeObjm 166, metalrails_prim, "metals_gi_flashright", "metals_gi_flashright", "metals_gi_flashright", "metals_gi"
+      FadeObjm 167, millionplastic_prim, "millionplastic_GI_flashright", "millionplastic_GI_flashright", "millionplastic_GI_flashright", "millionplastic_GI"
+      FadeObjm 168, millionbackbox_prim, "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gi"
+      Flasher1.visible=1
+      Flasher2.visible=0
+      Flasher3.visible=0
+      Flasher4.visible=0
+    End If
 
-		If GIIsoff = false and i105dummy.state = 1 Then
-			FadeObjm 169, outerwalls_prim, "outer_gi_flashright", "outer_gi_flashright", "outer_gi_flashright", "outer_gi"
-			FadeObjm 170, cometbrackets_prim, "brackets_gi_flashright", "brackets_gi_flashright", "brackets_gi_flashright", "brackets_gi"
-			FadeObjm 188, plasticsedges_prim, "plasticedgesRFlash", "plasticedgesRFlash", "plasticedgesRFlash", "plasticedgesGIOn"
-			Flasher1.visible=1
-			Flasher2.visible=0
-			Flasher3.visible=0
-			Flasher4.visible=0
-		End If
+    If GIIsoff = false and i105dummy.state = 1 Then
+      FadeObjm 169, outerwalls_prim, "outer_gi_flashright", "outer_gi_flashright", "outer_gi_flashright", "outer_gi"
+      FadeObjm 170, cometbrackets_prim, "brackets_gi_flashright", "brackets_gi_flashright", "brackets_gi_flashright", "brackets_gi"
+      FadeObjm 188, plasticsedges_prim, "plasticedgesRFlash", "plasticedgesRFlash", "plasticedgesRFlash", "plasticedgesGIOn"
+      Flasher1.visible=1
+      Flasher2.visible=0
+      Flasher3.visible=0
+      Flasher4.visible=0
+    End If
 
-		If GIIsoff = True and i105dummy.state = 1 and l57.state = 0 Then
-			FadeObjm 171, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gioff"
-			FadeObjm 172, metalrails_prim, "metals_gioff_flashright", "metals_gioff_flashright", "metals_gioff_flashright", "metals_gioff"
-			FadeObjm 173, millionplastic_prim, "millionplastic_GIoff_flashright", "millionplastic_GIoff_flashright", "millionplastic_GIoff_flashright", "millionplastic_GIoff"
-			FadeObjm 174, millionbackbox_prim, "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gi"
-		Flasher1.visible=0
-		Flasher2.visible=0
-		Flasher3.visible=0
-		Flasher4.visible=1
-		End If
+    If GIIsoff = True and i105dummy.state = 1 and l57.state = 0 Then
+      FadeObjm 171, millionbackglass_prim, "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_rightflash", "millionbackglass_gioff"
+      FadeObjm 172, metalrails_prim, "metals_gioff_flashright", "metals_gioff_flashright", "metals_gioff_flashright", "metals_gioff"
+      FadeObjm 173, millionplastic_prim, "millionplastic_GIoff_flashright", "millionplastic_GIoff_flashright", "millionplastic_GIoff_flashright", "millionplastic_GIoff"
+      FadeObjm 174, millionbackbox_prim, "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gioff_flashright", "millionbackbox_gi"
+    Flasher1.visible=0
+    Flasher2.visible=0
+    Flasher3.visible=0
+    Flasher4.visible=1
+    End If
 
-		If GIIsoff = True and i105dummy.state = 1 Then
-			FadeObjm 175, outerwalls_prim, "outer_gioff_flashright", "outer_gioff_flashright", "outer_gioff_flashright", "outer_gioff"
-			FadeObjm 176, cometbrackets_prim, "brackets_gioff_flashright", "brackets_gioff_flashright", "brackets_gioff_flashright", "brackets_gioff"
-			FadeObjm 187, plasticsedges_prim, "plasticedgesGIOFFRFlash", "plasticedgesGIOFFRFlash", "plasticedgesGIOFFRFlash", "plasticedgesGIOFF"
-		Flasher1.visible=0
-		Flasher2.visible=0
-		Flasher3.visible=0
-		Flasher4.visible=1
-		End If
+    If GIIsoff = True and i105dummy.state = 1 Then
+      FadeObjm 175, outerwalls_prim, "outer_gioff_flashright", "outer_gioff_flashright", "outer_gioff_flashright", "outer_gioff"
+      FadeObjm 176, cometbrackets_prim, "brackets_gioff_flashright", "brackets_gioff_flashright", "brackets_gioff_flashright", "brackets_gioff"
+      FadeObjm 187, plasticsedges_prim, "plasticedgesGIOFFRFlash", "plasticedgesGIOFFRFlash", "plasticedgesGIOFFRFlash", "plasticedgesGIOFF"
+    Flasher1.visible=0
+    Flasher2.visible=0
+    Flasher3.visible=0
+    Flasher4.visible=1
+    End If
 
-		If GIIsOff=false and i105dummy.state = 1 and l57.state = 1 Then
-			FadeObjm 177, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gioff"
-			FadeObjm 178, metalrails_prim, "metals_gioff_flash", "metals_gioff_flash", "metals_gioff_flash", "metals_gioff"
-			FadeObjm 179, millionplastic_prim, "millionplastic_GIoff_flash", "millionplastic_GIoff_flash", "millionplastic_GIoff_flash", "millionplastic_GIoff"
-			FadeObjm 180, millionbackbox_prim, "millionbackbox_gioff_flash", "millionbackbox_gioff_flash", "millionbackbox_gioff_flash", "millionbackbox_gi"
-			Flasher1.visible=1
-			Flasher2.visible=0
-			Flasher3.visible=0
-			Flasher4.visible=0
-		End If
+    If GIIsOff=false and i105dummy.state = 1 and l57.state = 1 Then
+      FadeObjm 177, millionbackglass_prim, "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_flash", "millionbackglass_gioff"
+      FadeObjm 178, metalrails_prim, "metals_gioff_flash", "metals_gioff_flash", "metals_gioff_flash", "metals_gioff"
+      FadeObjm 179, millionplastic_prim, "millionplastic_GIoff_flash", "millionplastic_GIoff_flash", "millionplastic_GIoff_flash", "millionplastic_GIoff"
+      FadeObjm 180, millionbackbox_prim, "millionbackbox_gioff_flash", "millionbackbox_gioff_flash", "millionbackbox_gioff_flash", "millionbackbox_gi"
+      Flasher1.visible=1
+      Flasher2.visible=0
+      Flasher3.visible=0
+      Flasher4.visible=0
+    End If
 
-		If GIIsOff=false and i104dummy.state = 1 Then
-			FadeObjm 181, corkscrew_prim, "corkscrew_flash", "corkscrew_flash", "corkscrew_flash", "corkscrew_gi"
-			FadeObjm 182, CorkscrewTube_prim, "flashtube_flash", "flashtube_flash", "flashtube_flash", "Flashtube_gi"
-			FadeObjm 183, outerwalls_prim, "outer_gi_flashleft", "outer_gi_flashleft", "outer_gi_flashleft", "outer_gi"
-			FadeObjm 184, metalrails_prim, "metals_gi_flashleft", "metals_gi_flashleft", "metals_gi_flashleft", "metals_gi"
-			FadeObjm 185, cometbrackets_prim, "brackets_gi_flashleft", "brackets_gi_flashleft", "brackets_gi_flashleft", "brackets_gi"
-			FadeObjm 186, plasticsedges_prim, "plasticedgesLFlash", "plasticedgesLFlash", "plasticedgesLFlash", "plasticedgesGIOn"
-		Flasher1.visible=0
-		Flasher2.visible=1
-		Flasher3.visible=0
-		Flasher4.visible=0
-		End If
+    If GIIsOff=false and i104dummy.state = 1 Then
+      FadeObjm 181, corkscrew_prim, "corkscrew_flash", "corkscrew_flash", "corkscrew_flash", "corkscrew_gi"
+      FadeObjm 182, CorkscrewTube_prim, "flashtube_flash", "flashtube_flash", "flashtube_flash", "Flashtube_gi"
+      FadeObjm 183, outerwalls_prim, "outer_gi_flashleft", "outer_gi_flashleft", "outer_gi_flashleft", "outer_gi"
+      FadeObjm 184, metalrails_prim, "metals_gi_flashleft", "metals_gi_flashleft", "metals_gi_flashleft", "metals_gi"
+      FadeObjm 185, cometbrackets_prim, "brackets_gi_flashleft", "brackets_gi_flashleft", "brackets_gi_flashleft", "brackets_gi"
+      FadeObjm 186, plasticsedges_prim, "plasticedgesLFlash", "plasticedgesLFlash", "plasticedgesLFlash", "plasticedgesGIOn"
+    Flasher1.visible=0
+    Flasher2.visible=1
+    Flasher3.visible=0
+    Flasher4.visible=0
+    End If
 
 End Sub
 
@@ -786,7 +786,7 @@ End Sub
 ' *********************************************************************
 ' *********************************************************************
 
-					'Start of VPX call back Functions
+          'Start of VPX call back Functions
 
 ' *********************************************************************
 ' *********************************************************************
@@ -797,7 +797,7 @@ End Sub
 Dim RStep, Lstep
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 48
+  vpmTimer.PulseSw 48
     PlaySoundAt SoundFX("right_slingshot",DOFContactors), sling1
     RSling.Visible = 0
     RSling1.Visible = 1
@@ -815,7 +815,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 47
+  vpmTimer.PulseSw 47
     PlaySoundAt SoundFX("left_slingshot",DOFContactors), sling2
     LSling.Visible = 0
     LSling1.Visible = 1
@@ -833,7 +833,7 @@ Sub LeftSlingShot_Timer
 End Sub
 
 '*****************************************
-'	Ball Shadow
+' Ball Shadow
 '*****************************************
 
 Dim BallShadow
@@ -844,24 +844,24 @@ Sub BallShadowUpdate()
     Dim BOT, b, shadowZ
     BOT = GetBalls
 
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = 0 to UBound(BOT)
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
-		End If
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 10
+    End If
 
-		If BOT(b).X > 875 AND BOT(b).Y > 935 Then shadowZ = BOT(b).Z : BallShadow(b).X = BOT(b).X Else shadowZ = 1
+    If BOT(b).X > 875 AND BOT(b).Y > 935 Then shadowZ = BOT(b).Z : BallShadow(b).X = BOT(b).X Else shadowZ = 1
 
-			BallShadow(b).Y = BOT(b).Y + 20
-			BallShadow(b).Z = shadowZ
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+      BallShadow(b).Y = BOT(b).Y + 20
+      BallShadow(b).Z = shadowZ
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 
@@ -903,77 +903,77 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 
@@ -1104,16 +1104,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

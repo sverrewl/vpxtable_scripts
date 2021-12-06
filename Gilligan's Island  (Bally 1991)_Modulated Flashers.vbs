@@ -42,13 +42,13 @@ On Error Goto 0
 Const cGameName = "gi_l9"
 
 
-Const GISetColor = False		'False = Normal GI, True = Color LEDs
+Const GISetColor = False    'False = Normal GI, True = Color LEDs
 
 for each obj in LightSetNormal
-	obj.visible = not GISetColor
+  obj.visible = not GISetColor
 Next
 for each obj in LightSetColor
-	obj.visible = GISetColor
+  obj.visible = GISetColor
 Next
 
 
@@ -80,269 +80,269 @@ Const SCoin = "Coin"
 LoadVPM "01560000", "WPC.VBS", 3.26
 
 
-SolCallback(1) = "SolLeftAutoPlunger"			'Lagoon Kicker (Left Lock)
+SolCallback(1) = "SolLeftAutoPlunger"     'Lagoon Kicker (Left Lock)
 'SolCallback(2) = 'Island Lock
-SolCallback(3) = "bsTrough.SolIn"				'Outhole
-SolCallback(4) = "SolVUKPopper"					'VUK Popper
-'5	RightSlingShot
-'6	LeftSlingShot
-SolCallback(7) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"	'Knocker
-SolCallback(8) = "SolKickBack"					'sKickBack
+SolCallback(3) = "bsTrough.SolIn"       'Outhole
+SolCallback(4) = "SolVUKPopper"         'VUK Popper
+'5  RightSlingShot
+'6  LeftSlingShot
+SolCallback(7) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker)," 'Knocker
+SolCallback(8) = "SolKickBack"          'sKickBack
 'SolCallback(9) = IslandMotor handled by Mech
-SolCallback(10) = "bsTrough.SolOut"				'BallRelease
-SolCallback(11) = "SolHoldLock"					'Hold Lock
-SolModCallback(12) = "Sol12"						'Island Light
-'13	Bumper
+SolCallback(10) = "bsTrough.SolOut"       'BallRelease
+SolCallback(11) = "SolHoldLock"         'Hold Lock
+SolModCallback(12) = "Sol12"            'Island Light
+'13 Bumper
 '14 Bumper
 '15 Bumper
-SolCallback(16) = "SolTopKicker"				'Top Kicker
-SolModCallback(17) = "Sol17"						'Head 1 Flasher
-SolModCallback(18) = "SetModLamp 118,"				'Island Flasher
-SolModCallback(19) = "SetModLamp 119,"				'Left Bank Flasher
-SolModCallback(20) = "SetModLamp 120,"				'Left Lane Flasher
-SolModCallback(21) = "SetModLamp 121,"				'Right Lane Flasher
-SolModCallback(22) = "Sol22"						'Head 2 Flasher
-SolCallback(23) = "SolRampUp"					'RampUp
-SolCallback(24) = "SolRampDown"					'RampDown
-SolModCallback(25) = "SetModLamp 125,"				'Right Bank Flasher
-'SolCallback(26) = "vpmFlasher xxx,"			'Treasure Flasher
-'SolCallback(27) = "vpmFlasher xxx,"			'Title Flasher - Backbox?
-'SolCallback(28) = "vpmFlasher xxx,"			'Professor Flasher - Backbox?
+SolCallback(16) = "SolTopKicker"        'Top Kicker
+SolModCallback(17) = "Sol17"            'Head 1 Flasher
+SolModCallback(18) = "SetModLamp 118,"        'Island Flasher
+SolModCallback(19) = "SetModLamp 119,"        'Left Bank Flasher
+SolModCallback(20) = "SetModLamp 120,"        'Left Lane Flasher
+SolModCallback(21) = "SetModLamp 121,"        'Right Lane Flasher
+SolModCallback(22) = "Sol22"            'Head 2 Flasher
+SolCallback(23) = "SolRampUp"         'RampUp
+SolCallback(24) = "SolRampDown"         'RampDown
+SolModCallback(25) = "SetModLamp 125,"        'Right Bank Flasher
+'SolCallback(26) = "vpmFlasher xxx,"      'Treasure Flasher
+'SolCallback(27) = "vpmFlasher xxx,"      'Title Flasher - Backbox?
+'SolCallback(28) = "vpmFlasher xxx,"      'Professor Flasher - Backbox?
 
-'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"		'deactivated for better flipper response
+'SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,Nothing,"   'deactivated for better flipper response
 'SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,Nothing,"
-SolCallback(31) = "SolGameOn"					'GameOn
+SolCallback(31) = "SolGameOn"         'GameOn
 
 Set GICallBack = GetRef("UpdateGI")
 
 Dim FlipperActive
 FlipperActive = False
 Sub SolGameOn(enabled)
-	FlipperActive = enabled
-	VpmNudge.SolGameOn(enabled)
-	if not FlipperActive then
-		RightFlipper.RotateToStart
-		LeftFlipper.RotateToStart
-	end if
+  FlipperActive = enabled
+  VpmNudge.SolGameOn(enabled)
+  if not FlipperActive then
+    RightFlipper.RotateToStart
+    LeftFlipper.RotateToStart
+  end if
 End Sub
 
 Sub Sol12(level)
-	SetModLamp 112,level
-	UpdateKona
+  SetModLamp 112,level
+  UpdateKona
 End Sub
 
 Sub Sol17(level)
-	SetModLamp 117,level
-	UpdateKona
+  SetModLamp 117,level
+  UpdateKona
 End Sub
 
 Sub Sol22(level)
-	SetModLamp 122,level
-	UpdateKona
+  SetModLamp 122,level
+  UpdateKona
 End Sub
 
 ' GI
 dim obj
 Sub UpdateGI(GINo,Status)
-	select case GINo
-		'Left Inserts
-		case 0: if status then
-					if GISetColor Then
-						for each obj in ColorGIString1
-							obj.state = lightstateon
-						next
-					else
-						for each obj in GIString1
-							obj.state = lightstateon
-						next
-					end If
-				else
-					if GISetColor Then
-						for each obj in ColorGIString1
-							obj.state = lightstateoff
-						next
-					Else
-						for each obj in GIString1
-							obj.state = lightstateoff
-						next
-					End If
-				end if
-		'Bottom Playfield
-		case 1: if status then
-					if GISetColor Then
-						for each obj in ColorGIString2
-							obj.state = lightstateon
-						next
-					Else
-						for each obj in GIString2
-							obj.state = lightstateon
-						next
-					End If
-				else
-					if GISetColor Then
-						for each obj in ColorGIString2
-							obj.state = lightstateoff
-						next
-					Else
-						for each obj in GIString2
-							obj.state = lightstateoff
-						next
-					end If
-				end if
-		'Middle Playfield
-		case 2: if status then
-					if GISetColor Then
-						for each obj in ColorGIString3
-							obj.state = lightstateon
-						next
-					Else
-						for each obj in GIString3
-							obj.state = lightstateon
-						next
-					end If
-				else
-					if GISetColor Then
-						for each obj in ColorGIString3
-							obj.state = lightstateoff
-						next
-					Else
-						for each obj in GIString3
-							obj.state = lightstateoff
-						next
-					end If
-				end if
-		'Right Inserts
-		case 3: if status then
-					if GISetColor Then
-						for each obj in ColorGIString4
-							obj.state = lightstateon
-						next
-					Else
-						for each obj in GIString4
-							obj.state = lightstateon
-						next
-					end If
-				else
-					if GISetColor Then
-						for each obj in ColorGIString4
-							obj.state = lightstateoff
-						next
-					Else
-						for each obj in GIString4
-							obj.state = lightstateoff
-						next
-					end If
-				end if
-		'Top Playfield
-		case 4: if status then
-					if GISetColor Then
-						for each obj in ColorGIString5
-							obj.state = lightstateon
-						next
-					Else
-						for each obj in GIString5
-							obj.state = lightstateon
-						next
-					end If
-					Primitive_PlasticRamp.image = "PlasticRampMapON"
-					Primitive_RampHexPost1.image = "ParrotPost"
-					Primitive_PlasticsCollection3.image = "PlasticsCollection3"
-					Primitive_ProfessorPlastic.image = "ProfessorPlastic-Map"
-					Primitive_bumpercap3.image = "BumperMap_ON"
-					Primitive_bumpercap2.image = "BumperMap_ON"
-					Primitive_bumpercap1.image = "BumperMap_ON"
-				else
-					if GISetColor Then
-						for each obj in ColorGIString5
-							obj.state = lightstateoff
-						next
-					Else
-						for each obj in GIString5
-							obj.state = lightstateoff
-						next
-					end If
-					Primitive_PlasticRamp.image = "PlasticRampMap"
-					Primitive_RampHexPost1.image = "ParrotPost_off"
-					Primitive_PlasticsCollection3.image = "PlasticsCollection3_off"
-					Primitive_ProfessorPlastic.image = "ProfessorPlasticOFF"
-					Primitive_bumpercap3.image = "BumperMap_OFF"
-					Primitive_bumpercap2.image = "BumperMap_OFF"
-					Primitive_bumpercap1.image = "BumperMap_OFF"
-				end if
-	end select
+  select case GINo
+    'Left Inserts
+    case 0: if status then
+          if GISetColor Then
+            for each obj in ColorGIString1
+              obj.state = lightstateon
+            next
+          else
+            for each obj in GIString1
+              obj.state = lightstateon
+            next
+          end If
+        else
+          if GISetColor Then
+            for each obj in ColorGIString1
+              obj.state = lightstateoff
+            next
+          Else
+            for each obj in GIString1
+              obj.state = lightstateoff
+            next
+          End If
+        end if
+    'Bottom Playfield
+    case 1: if status then
+          if GISetColor Then
+            for each obj in ColorGIString2
+              obj.state = lightstateon
+            next
+          Else
+            for each obj in GIString2
+              obj.state = lightstateon
+            next
+          End If
+        else
+          if GISetColor Then
+            for each obj in ColorGIString2
+              obj.state = lightstateoff
+            next
+          Else
+            for each obj in GIString2
+              obj.state = lightstateoff
+            next
+          end If
+        end if
+    'Middle Playfield
+    case 2: if status then
+          if GISetColor Then
+            for each obj in ColorGIString3
+              obj.state = lightstateon
+            next
+          Else
+            for each obj in GIString3
+              obj.state = lightstateon
+            next
+          end If
+        else
+          if GISetColor Then
+            for each obj in ColorGIString3
+              obj.state = lightstateoff
+            next
+          Else
+            for each obj in GIString3
+              obj.state = lightstateoff
+            next
+          end If
+        end if
+    'Right Inserts
+    case 3: if status then
+          if GISetColor Then
+            for each obj in ColorGIString4
+              obj.state = lightstateon
+            next
+          Else
+            for each obj in GIString4
+              obj.state = lightstateon
+            next
+          end If
+        else
+          if GISetColor Then
+            for each obj in ColorGIString4
+              obj.state = lightstateoff
+            next
+          Else
+            for each obj in GIString4
+              obj.state = lightstateoff
+            next
+          end If
+        end if
+    'Top Playfield
+    case 4: if status then
+          if GISetColor Then
+            for each obj in ColorGIString5
+              obj.state = lightstateon
+            next
+          Else
+            for each obj in GIString5
+              obj.state = lightstateon
+            next
+          end If
+          Primitive_PlasticRamp.image = "PlasticRampMapON"
+          Primitive_RampHexPost1.image = "ParrotPost"
+          Primitive_PlasticsCollection3.image = "PlasticsCollection3"
+          Primitive_ProfessorPlastic.image = "ProfessorPlastic-Map"
+          Primitive_bumpercap3.image = "BumperMap_ON"
+          Primitive_bumpercap2.image = "BumperMap_ON"
+          Primitive_bumpercap1.image = "BumperMap_ON"
+        else
+          if GISetColor Then
+            for each obj in ColorGIString5
+              obj.state = lightstateoff
+            next
+          Else
+            for each obj in GIString5
+              obj.state = lightstateoff
+            next
+          end If
+          Primitive_PlasticRamp.image = "PlasticRampMap"
+          Primitive_RampHexPost1.image = "ParrotPost_off"
+          Primitive_PlasticsCollection3.image = "PlasticsCollection3_off"
+          Primitive_ProfessorPlastic.image = "ProfessorPlasticOFF"
+          Primitive_bumpercap3.image = "BumperMap_OFF"
+          Primitive_bumpercap2.image = "BumperMap_OFF"
+          Primitive_bumpercap1.image = "BumperMap_OFF"
+        end if
+  end select
 End Sub
 
 'Top Kicker
 Sub SolTopKicker(enabled)
-	bsTopEject.ExitSol_On
-	Primitive_BallEjectArm.RotX = 50
-	TopKicker.Timerenabled = True
+  bsTopEject.ExitSol_On
+  Primitive_BallEjectArm.RotX = 50
+  TopKicker.Timerenabled = True
 End Sub
 
 Sub TopKicker_Timer
-	Primitive_BallEjectArm.RotX = Primitive_BallEjectArm.RotX - 5
-	if Primitive_BallEjectArm.RotX <= 90 Then
-		TopKicker.Timerenabled = False
-		Primitive_BallEjectArm.RotX = 90
-	End If
+  Primitive_BallEjectArm.RotX = Primitive_BallEjectArm.RotX - 5
+  if Primitive_BallEjectArm.RotX <= 90 Then
+    TopKicker.Timerenabled = False
+    Primitive_BallEjectArm.RotX = 90
+  End If
 End Sub
 
 'Kickback
 Sub SolKickBack(enabled)
-	if enabled Then
-		LeftOutlane.timerenabled = False
-		LeftOutlane.timerenabled = True
-		KickerGate.collidable = True
-	Else
-		KickBack.Pullback
-	end If
+  if enabled Then
+    LeftOutlane.timerenabled = False
+    LeftOutlane.timerenabled = True
+    KickerGate.collidable = True
+  Else
+    KickBack.Pullback
+  end If
 End Sub
 
 Sub KickBackTrigger_Timer
-	KickBackTrigger.timerenabled = False
-	KickBack.Pullback
+  KickBackTrigger.timerenabled = False
+  KickBack.Pullback
 End Sub
 
 Sub LeftOutLane_Timer
-	LeftOutlane.timerenabled = False
-	KickerGate.collidable = False
+  LeftOutlane.timerenabled = False
+  KickerGate.collidable = False
 End Sub
 
 Sub KickBackTrigger_Hit
-	if LeftOutlane.timerenabled Then
-		KickBack.Fire
-		PlaySoundAtVol SoundFX("popper_ball",DOFContactors), KickBackTrigger, 1
-		KickBackTrigger.timerenabled = True
-	end If
+  if LeftOutlane.timerenabled Then
+    KickBack.Fire
+    PlaySoundAtVol SoundFX("popper_ball",DOFContactors), KickBackTrigger, 1
+    KickBackTrigger.timerenabled = True
+  end If
 End Sub
 
 'Top Left Autoplunger
 Sub SolLeftAutoPlunger(enabled)
-	if enabled Then
-		LeftAutoPlunger.Fire
-		PlaySoundAtVol SoundFX("popper_ball",DOFContactors), LeftAutoPlunger, 1
-	Else
-		LeftAutoPlunger.Pullback
-	End If
+  if enabled Then
+    LeftAutoPlunger.Fire
+    PlaySoundAtVol SoundFX("popper_ball",DOFContactors), LeftAutoPlunger, 1
+  Else
+    LeftAutoPlunger.Pullback
+  End If
 End Sub
 
 'Ramp
 Sub SolRampDown(Enabled)
-	If Enabled  Then
-		RampDir = 1
-		RampBridgeTimer.enabled = True
-		Controller.Switch(62)=1
-		playsound SoundFX("Soloff",DOFContactors),0,1,-0.08,0.25 ' TODO
-	End If
+  If Enabled  Then
+    RampDir = 1
+    RampBridgeTimer.enabled = True
+    Controller.Switch(62)=1
+    playsound SoundFX("Soloff",DOFContactors),0,1,-0.08,0.25 ' TODO
+  End If
 End Sub
 
 Sub SolRampUp(Enabled)
-	If Enabled then
-		RampDir = -1
-		RampBridgeTimer.enabled = True
-		Controller.Switch(62)=0
-		playsound SoundFX("Soloff",DOFContactors),0,1,-0.08,0.25
-	End If
+  If Enabled then
+    RampDir = -1
+    RampBridgeTimer.enabled = True
+    Controller.Switch(62)=0
+    playsound SoundFX("Soloff",DOFContactors),0,1,-0.08,0.25
+  End If
 End Sub
 
 ' Vuk Popper code from JPSalas
@@ -350,47 +350,47 @@ Dim VUKBall, VUKBallZpos, AnimStarted
 AnimStarted = 0
 
 Sub SolVUKPopper(Enabled)
-	If AnimStarted Then Exit Sub
-	If Enabled Then
-		If bsUpperEject.Balls Then
-			AnimStarted = 1
-			Set VUKBall = SeltzerHole.Createball
-			VUKBallZpos = -50
-			VUK.TimerInterval = 2
-			VUK.TimerEnabled = 1
-		End If
-	End If
+  If AnimStarted Then Exit Sub
+  If Enabled Then
+    If bsUpperEject.Balls Then
+      AnimStarted = 1
+      Set VUKBall = SeltzerHole.Createball
+      VUKBallZpos = -50
+      VUK.TimerInterval = 2
+      VUK.TimerEnabled = 1
+    End If
+  End If
 End Sub
 
 Sub VUK_Timer
-	VUKBall.Z = VUKBallZpos
-	VUKBallZpos = VUKBallZpos + 5
-	If VUKBallZpos> 155 Then
-		VUK.TimerEnabled = 0
-		SeltzerHole.DestroyBall
-		bsUpperEject.ExitSol_On
-		AnimStarted = 0
-	End If
+  VUKBall.Z = VUKBallZpos
+  VUKBallZpos = VUKBallZpos + 5
+  If VUKBallZpos> 155 Then
+    VUK.TimerEnabled = 0
+    SeltzerHole.DestroyBall
+    bsUpperEject.ExitSol_On
+    AnimStarted = 0
+  End If
 End Sub
 
 Dim bsTrough,bsTopEject,bsLowKicker,bsUpperEject,mIsland
 Sub Gilligan_Init
-	'set initial textures
-	Primitive_PlasticRamp.image = "PlasticRampMap"
-	Primitive_RampHexPost1.image = "ParrotPost_off"
-	Primitive_PlasticsCollection3.image = "PlasticsCollection3_off"
-	Primitive_ProfessorPlastic.image = "ProfessorPlasticOFF"
-	Primitive_bumpercap3.image = "BumperMap_OFF"
-	Primitive_bumpercap2.image = "BumperMap_OFF"
-	Primitive_bumpercap1.image = "BumperMap_OFF"
-	Primitive_Kona.image = "KonaMap"
-	P_BridgeRamp.image = "MechRamp_Map2"
-	Primitive_PalmPostP.image = "PalmTreePlastic(sm)Map"
-	Primitive_KonaFlasher.image = "dome4_red"
+  'set initial textures
+  Primitive_PlasticRamp.image = "PlasticRampMap"
+  Primitive_RampHexPost1.image = "ParrotPost_off"
+  Primitive_PlasticsCollection3.image = "PlasticsCollection3_off"
+  Primitive_ProfessorPlastic.image = "ProfessorPlasticOFF"
+  Primitive_bumpercap3.image = "BumperMap_OFF"
+  Primitive_bumpercap2.image = "BumperMap_OFF"
+  Primitive_bumpercap1.image = "BumperMap_OFF"
+  Primitive_Kona.image = "KonaMap"
+  P_BridgeRamp.image = "MechRamp_Map2"
+  Primitive_PalmPostP.image = "PalmTreePlastic(sm)Map"
+  Primitive_KonaFlasher.image = "dome4_red"
 
-	vpmInit Me
+  vpmInit Me
     With Controller
-		.GameName = cGameName
+    .GameName = cGameName
         'If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
         .SplashInfoLine = "Gilligan's Island"
         .HandleKeyboard = 0
@@ -399,33 +399,33 @@ Sub Gilligan_Init
         .ShowFrame = 0
         .HandleMechanics = 0
         .Hidden = 0
- 		.Dip(0) = &H00
+    .Dip(0) = &H00
         On Error Resume Next
         .Run GetPlayerHWnd
         If Err Then MsgBox Err.Description
         On Error Goto 0
         .Switch(22) = 1 'close coin door
         .Switch(24) = 1 'and keep it close
-	End With
+  End With
 
-	'Nudging
+  'Nudging
     vpmNudge.TiltSwitch = 14
     vpmNudge.Sensitivity = 1
-	vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingshot, RightSlingshot)
+  vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingshot, RightSlingshot)
 
     'Trough
     Set bsTrough=new cvpmBallStack
     bsTrough.InitSw 18,17,16,0,0,0,0,0
-	bsTrough.InitKick BallRelease,60,8
-	bsTrough.InitEntrySnd SoundFX("BallRelease",DOFContactors),SoundFX("Solon",DOFContactors)
-	bsTrough.InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX("Solon",DOFContactors)
-	bsTrough.Balls=2
+  bsTrough.InitKick BallRelease,60,8
+  bsTrough.InitEntrySnd SoundFX("BallRelease",DOFContactors),SoundFX("Solon",DOFContactors)
+  bsTrough.InitExitSnd SoundFX("BallRelease",DOFContactors), SoundFX("Solon",DOFContactors)
+  bsTrough.Balls=2
 
- 	'Top kicker
+  'Top kicker
     set bsTopEject = new cvpmSaucer
-	bsTopEject.InitKicker TopKicker,67, 173, 8, 0
-	bsTopEject.InitExitVariance 5, 2
-	bsTopEject.InitSounds SoundFX("kicker_enter_center",DOFContactors),SoundFX("solon",DOFContactors),SoundFX("popper_ball",DOFContactors)
+  bsTopEject.InitKicker TopKicker,67, 173, 8, 0
+  bsTopEject.InitExitVariance 5, 2
+  bsTopEject.InitSounds SoundFX("kicker_enter_center",DOFContactors),SoundFX("solon",DOFContactors),SoundFX("popper_ball",DOFContactors)
 
    'seltzerhole
     Set bsUpperEject = new cvpmBallStack
@@ -436,31 +436,31 @@ Sub Gilligan_Init
     bsUpperEject.Balls=0
     bsUpperEject.KickBalls=2
 
-	Set mIsland=New cvpmmech
-	With mIsland
-		.mtype=vpmMechOneSol+vpmMechCircle+vpmMechLinear'onedirsol
-		.sol1=9
-		'Sw77 is the opto - It's mostly off
-		'There is one gap for each stop - and a long gap for the home position
-		'The switch would be 'on' during the gaps and off otherwise
-		'I think each position is just after a pulse of the opto - since the home is a long pulse
-		'so it must stop when the switch turns back off
+  Set mIsland=New cvpmmech
+  With mIsland
+    .mtype=vpmMechOneSol+vpmMechCircle+vpmMechLinear'onedirsol
+    .sol1=9
+    'Sw77 is the opto - It's mostly off
+    'There is one gap for each stop - and a long gap for the home position
+    'The switch would be 'on' during the gaps and off otherwise
+    'I think each position is just after a pulse of the opto - since the home is a long pulse
+    'so it must stop when the switch turns back off
 
-		.length=120 '2 sec to find the new Position
-		.steps=34
-		.AddSw 77,1,6 ' First on gap is 1 position before key 1'
-		.AddSw 77,8,13 ' Second on gap is 1 position before key 2'
-		.AddSw 77,15,20 ' Third on gap is 1 position before key 3'
-		.AddSw 77,22,27 ' Fourth on gap is 1 position before key 4'
-		.AddSw 77,29,33 ' This is the 'long' gap on for several positions before key 0'
-		.callback=getref("UpdateIsland")
-		.start
+    .length=120 '2 sec to find the new Position
+    .steps=34
+    .AddSw 77,1,6 ' First on gap is 1 position before key 1'
+    .AddSw 77,8,13 ' Second on gap is 1 position before key 2'
+    .AddSw 77,15,20 ' Third on gap is 1 position before key 3'
+    .AddSw 77,22,27 ' Fourth on gap is 1 position before key 4'
+    .AddSw 77,29,33 ' This is the 'long' gap on for several positions before key 0'
+    .callback=getref("UpdateIsland")
+    .start
     End With
 
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
-	LeftAutoPlunger.Pullback
-	KickBack.Pullback
+  LeftAutoPlunger.Pullback
+  KickBack.Pullback
 end sub
 
 Sub Gilligan_Paused:Controller.Pause = 1:End Sub
@@ -469,75 +469,75 @@ Sub Gilligan_Exit:Controller.Stop:End Sub
 
 Sub drain_Hit()
     playsoundAtVol "Drain", drain, 1
-	bsTrough.AddBall Me
+  bsTrough.AddBall Me
 End Sub
 
 Sub Gilligan_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.PullBack
-		PlaySoundAtVol "plungerpull", Plunger ,1
-	End If
+  If keycode = PlungerKey Then
+    Plunger.PullBack
+    PlaySoundAtVol "plungerpull", Plunger ,1
+  End If
 
-	If keycode = LeftFlipperKey Then
-		if FlipperActive then
-			LeftFlipper.RotateToEnd
-			PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), LeftFlipper, VolFlip
-		end if
-	End If
+  If keycode = LeftFlipperKey Then
+    if FlipperActive then
+      LeftFlipper.RotateToEnd
+      PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), LeftFlipper, VolFlip
+    end if
+  End If
 
-	If keycode = RightFlipperKey Then
-		if FlipperActive then
-			RightFlipper.RotateToEnd
-			PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), RightFlipper, VolFlip
-		end if
-	End If
+  If keycode = RightFlipperKey Then
+    if FlipperActive then
+      RightFlipper.RotateToEnd
+      PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), RightFlipper, VolFlip
+    end if
+  End If
 
-'	If keycode = LeftTiltKey Then
-'		Nudge 90, 2
-'	End If
+' If keycode = LeftTiltKey Then
+'   Nudge 90, 2
+' End If
 '
-'	If keycode = RightTiltKey Then
-'		Nudge 270, 2
-'	End If
+' If keycode = RightTiltKey Then
+'   Nudge 270, 2
+' End If
 '
-'	If keycode = CenterTiltKey Then
-'		Nudge 0, 2
-'	End If
+' If keycode = CenterTiltKey Then
+'   Nudge 0, 2
+' End If
 
-	If vpmKeyDown(keycode) Then Exit Sub
+  If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
 Sub Gilligan_KeyUp(ByVal keycode)
 
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAtVol "plunger", Plunger, 1
-	End If
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySoundAtVol "plunger", Plunger, 1
+  End If
 
-	If keycode = LeftFlipperKey Then
-		LeftFlipper.RotateToStart
-		if FlipperActive then
-			PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), LeftFlipper, VolFlip
-		end if
-	End If
+  If keycode = LeftFlipperKey Then
+    LeftFlipper.RotateToStart
+    if FlipperActive then
+      PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), LeftFlipper, VolFlip
+    end if
+  End If
 
-	If keycode = RightFlipperKey Then
-		RightFlipper.RotateToStart
-		if FlipperActive then
-			PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), RightFlipper, VolFlip
-		end if
-	End If
+  If keycode = RightFlipperKey Then
+    RightFlipper.RotateToStart
+    if FlipperActive then
+      PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), RightFlipper, VolFlip
+    end if
+  End If
 
-	If vpmKeyUp(keycode) Then Exit Sub
+  If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 
 '#######################################################################
 'Switches
 
 Sub EnterKonaHole_Hit
-	EnterKonaHole.DestroyBall
-	KonaKicker.CreateBall
-	KonaKicker.kick 140,1
+  EnterKonaHole.DestroyBall
+  KonaKicker.CreateBall
+  KonaKicker.kick 140,1
 End Sub
 
 
@@ -590,19 +590,19 @@ Sub SW74_Hit:Controller.Switch(74) = True:Primitive_Switcharm74.rotx = 27:End Su
 Sub SW74_Unhit:Controller.Switch(74) = False:SW74.Timerenabled = True:End Sub
 
 Sub SW73_Timer
-	Primitive_Switcharm73.rotx = Primitive_Switcharm73.rotx - 1
-	if Primitive_Switcharm73.rotx <= 0 Then
-		SW73.Timerenabled = False
-		Primitive_Switcharm73.rotx = 0
-	End If
+  Primitive_Switcharm73.rotx = Primitive_Switcharm73.rotx - 1
+  if Primitive_Switcharm73.rotx <= 0 Then
+    SW73.Timerenabled = False
+    Primitive_Switcharm73.rotx = 0
+  End If
 End Sub
 
 Sub SW74_Timer
-	Primitive_Switcharm74.rotx = Primitive_Switcharm74.rotx - 1
-	if Primitive_Switcharm74.rotx <= 0 Then
-		SW74.Timerenabled = False
-		Primitive_Switcharm74.rotx = 0
-	End If
+  Primitive_Switcharm74.rotx = Primitive_Switcharm74.rotx - 1
+  if Primitive_Switcharm74.rotx <= 0 Then
+    SW74.Timerenabled = False
+    Primitive_Switcharm74.rotx = 0
+  End If
 End Sub
 
 'Rubbers
@@ -632,10 +632,10 @@ Sub Target57_Hit:vpmTimer.PulseSw 57:MoveTarget57:End Sub
 ' Jungle Ramp
 
 Sub ToggleRamp
-	if not RampBridgeTimer.enabled Then
-		RampDir = -RampDir
-		RampBridgeTimer.enabled = True
-	end If
+  if not RampBridgeTimer.enabled Then
+    RampDir = -RampDir
+    RampBridgeTimer.enabled = True
+  end If
 end Sub
 
 Dim RampDir
@@ -645,26 +645,26 @@ Const RampSpeed= 0.5
 JungleRampDown.collidable = False
 
 Sub RampBridgeTimer_Timer
-	Primitive_MechArm.ObjRotX = Primitive_MechArm.ObjRotX + (RampDir * RampSpeed)
-	Primitive_MechArm.ObjRotY = abs(Primitive_MechArm.ObjRotX)/10
+  Primitive_MechArm.ObjRotX = Primitive_MechArm.ObjRotX + (RampDir * RampSpeed)
+  Primitive_MechArm.ObjRotY = abs(Primitive_MechArm.ObjRotX)/10
 
-	if Primitive_MechArm.ObjRotX >= -30 then
-		JungleRampDown.collidable = True
-		JungleRampUp.collidable = False
-	Else
-		JungleRampUp.collidable = True
-		JungleRampDown.collidable = False
-	End If
+  if Primitive_MechArm.ObjRotX >= -30 then
+    JungleRampDown.collidable = True
+    JungleRampUp.collidable = False
+  Else
+    JungleRampUp.collidable = True
+    JungleRampDown.collidable = False
+  End If
 
-	if Primitive_MechArm.ObjRotX >= 4 then
-		RampBridgeTimer.enabled = False
-		Primitive_MechArm.ObjRotX = 4
-	end if
-	if Primitive_MechArm.ObjRotX <= -45 then
-		RampBridgeTimer.enabled = False
-		Primitive_MechArm.ObjRotX = -45
-	end if
-	P_BridgeRamp.Rotx = RampRot(Primitive_MechArm.ObjRotX)
+  if Primitive_MechArm.ObjRotX >= 4 then
+    RampBridgeTimer.enabled = False
+    Primitive_MechArm.ObjRotX = 4
+  end if
+  if Primitive_MechArm.ObjRotX <= -45 then
+    RampBridgeTimer.enabled = False
+    Primitive_MechArm.ObjRotX = -45
+  end if
+  P_BridgeRamp.Rotx = RampRot(Primitive_MechArm.ObjRotX)
 End Sub
 
 Dim ArmAngle
@@ -672,11 +672,11 @@ Const Pi=3.141592654
 'P_BridgeRamp.Rotx = -RampRot(Primitive_MechArm.ObjRotX)
 
 Function RampRot(ArmRotPar)
-	ArmAngle = 122 + ArmRotPar
-	RampRot = (1-Sin(ArmAngle/180*Pi))*100
-	if RampRot > 14.9 Then
-		RampRot = 14.9
-	end If
+  ArmAngle = 122 + ArmRotPar
+  RampRot = (1-Sin(ArmAngle/180*Pi))*100
+  if RampRot > 14.9 Then
+    RampRot = 14.9
+  end If
 End Function
 
 '#############################################################################
@@ -686,19 +686,19 @@ End Function
 Dim islpos,IslandRotation
 
 Sub UpdateIsland(anewpos,aspeed,alastpos)
-	if JungleActive Then
-		islpos=anewpos
-		Select Case islpos
-			Case 33,34,0,1:   IslandRotation = 357 	'Ramp_1
-			Case 6,7,8:  IslandRotation = 283		'Ramp_2
-			Case 13,14,15: IslandRotation = 211		'Ramp_3
-			Case 20,21,22: IslandRotation = 140		'Ramp_4
-			Case 27,28,29: IslandRotation = 67		'Ramp_5
-		End Select
-		TurntableGate.collidable = True
-		TurnTableTimer.enabled = True
-		TurnTableSoundTimer.enabled = True
-	end If
+  if JungleActive Then
+    islpos=anewpos
+    Select Case islpos
+      Case 33,34,0,1:   IslandRotation = 357  'Ramp_1
+      Case 6,7,8:  IslandRotation = 283   'Ramp_2
+      Case 13,14,15: IslandRotation = 211   'Ramp_3
+      Case 20,21,22: IslandRotation = 140   'Ramp_4
+      Case 27,28,29: IslandRotation = 67    'Ramp_5
+    End Select
+    TurntableGate.collidable = True
+    TurnTableTimer.enabled = True
+    TurnTableSoundTimer.enabled = True
+  end If
 End Sub
 
 'Avoid turning wheel at start of table
@@ -706,47 +706,47 @@ Dim JungleActive
 JungleActive = False
 
 Sub ActivateJungle
-	JungleActive = True
+  JungleActive = True
 End Sub
 
 'Init Paths
 ToggleTurnTablePaths
 
 Sub ToggleTurnTablePaths
-	JungleRamp_1.collidable = (Primitive_TurnTable.ObjRotZ > 346) Or (Primitive_TurnTable.ObjRotZ < 8) 		'357
-	JungleRamp_2.collidable = (Primitive_TurnTable.ObjRotZ > 272) and (Primitive_TurnTable.ObjRotZ < 294)	'283
-	JungleRamp_3.collidable = (Primitive_TurnTable.ObjRotZ > 200) and (Primitive_TurnTable.ObjRotZ < 222)	'211
-	JungleRamp_4.collidable = (Primitive_TurnTable.ObjRotZ > 129) and (Primitive_TurnTable.ObjRotZ < 151)	'140
-	JungleRamp_5.collidable = (Primitive_TurnTable.ObjRotZ > 56) and (Primitive_TurnTable.ObjRotZ < 78)		' 67
+  JungleRamp_1.collidable = (Primitive_TurnTable.ObjRotZ > 346) Or (Primitive_TurnTable.ObjRotZ < 8)    '357
+  JungleRamp_2.collidable = (Primitive_TurnTable.ObjRotZ > 272) and (Primitive_TurnTable.ObjRotZ < 294) '283
+  JungleRamp_3.collidable = (Primitive_TurnTable.ObjRotZ > 200) and (Primitive_TurnTable.ObjRotZ < 222) '211
+  JungleRamp_4.collidable = (Primitive_TurnTable.ObjRotZ > 129) and (Primitive_TurnTable.ObjRotZ < 151) '140
+  JungleRamp_5.collidable = (Primitive_TurnTable.ObjRotZ > 56) and (Primitive_TurnTable.ObjRotZ < 78)   ' 67
 End Sub
 
 Sub TurnTableTimer_Timer
-	Primitive_TurnTable.objRotZ = Primitive_TurnTable.ObjRotZ - 1
-	if Primitive_TurnTable.objRotZ <= 0 Then
-		Primitive_TurnTable.objRotZ = 360
-	End If
-	Primitive_PalmTreePlastics.objRotZ = Primitive_TurnTable.ObjRotZ
-	Primitive_TurntableScrews.objRotZ = Primitive_TurnTable.ObjRotZ
+  Primitive_TurnTable.objRotZ = Primitive_TurnTable.ObjRotZ - 1
+  if Primitive_TurnTable.objRotZ <= 0 Then
+    Primitive_TurnTable.objRotZ = 360
+  End If
+  Primitive_PalmTreePlastics.objRotZ = Primitive_TurnTable.ObjRotZ
+  Primitive_TurntableScrews.objRotZ = Primitive_TurnTable.ObjRotZ
     Primitive_TurnTableCover.ObjRotZ = Primitive_TurnTable.ObjRotZ
-	Primitive_TopDecals.objRotZ = Primitive_TurnTable.ObjRotZ
-	if Primitive_TurnTable.objRotZ = IslandRotation Then
-		TurnTableTimer.enabled = False
-		TurnTableSoundTimer.enabled = False
-		TurntableGate.collidable = False
-	end If
-	ToggleTurnTablePaths
+  Primitive_TopDecals.objRotZ = Primitive_TurnTable.ObjRotZ
+  if Primitive_TurnTable.objRotZ = IslandRotation Then
+    TurnTableTimer.enabled = False
+    TurnTableSoundTimer.enabled = False
+    TurntableGate.collidable = False
+  end If
+  ToggleTurnTablePaths
 End Sub
 
 Sub TurnTableSoundTimer_Timer
-	playsound SoundFX("motor1",DOFGear),0,1,-0.05,0.1
+  playsound SoundFX("motor1",DOFGear),0,1,-0.05,0.1
 End Sub
 
 Sub SolHoldLock (enabled)
-	if enabled then
-		Controller.switch(76)=0
-	else
-		Controller.switch(76)=1
-	end if
+  if enabled then
+    Controller.switch(76)=0
+  else
+    Controller.switch(76)=1
+  end if
 end sub
 
 '#########################################################################
@@ -754,179 +754,179 @@ end sub
 
 'Jungle Rescue - reactivate a ball that may become trapped under the turntable
 Sub RescueKicker1_Hit
-	RescueKicker1.destroyball
-	RescueKicker2.createball
-	RescueKicker2.kick 180,1
+  RescueKicker1.destroyball
+  RescueKicker2.createball
+  RescueKicker2.kick 180,1
 End Sub
 
 Sub RampHelper_Hit
-	ActiveBall.VelZ = 0
+  ActiveBall.VelZ = 0
 End Sub
 
 'Gates
 Sub GateTimer_Timer
-	Primitive_VUKGateWire.RotX = -VUKGate.Currentangle
-	Primitive_GateWire.RotX = -Gate4.Currentangle
+  Primitive_VUKGateWire.RotX = -VUKGate.Currentangle
+  Primitive_GateWire.RotX = -Gate4.Currentangle
 End Sub
 
 Sub MoveTarget35
-	Primitive_TargetParts35.TransZ = 5
-	Primitive_Target35.TransZ = 5
-	Target35.Timerenabled = False
-	Target35.Timerenabled = True
+  Primitive_TargetParts35.TransZ = 5
+  Primitive_Target35.TransZ = 5
+  Target35.Timerenabled = False
+  Target35.Timerenabled = True
 End Sub
-Sub	Target35_Timer
-	Target35.Timerenabled = False
-	Primitive_TargetParts35.TransZ = 0
-	Primitive_Target35.TransZ = 0
+Sub Target35_Timer
+  Target35.Timerenabled = False
+  Primitive_TargetParts35.TransZ = 0
+  Primitive_Target35.TransZ = 0
 End Sub
 
 Sub MoveTarget36
-	Primitive_TargetParts36.TransZ = 5
-	Primitive_Target36.TransZ = 5
-	Target36.Timerenabled = False
-	Target36.Timerenabled = True
+  Primitive_TargetParts36.TransZ = 5
+  Primitive_Target36.TransZ = 5
+  Target36.Timerenabled = False
+  Target36.Timerenabled = True
 End Sub
-Sub	Target36_Timer
-	Target36.Timerenabled = False
-	Primitive_TargetParts36.TransZ = 0
-	Primitive_Target36.TransZ = 0
+Sub Target36_Timer
+  Target36.Timerenabled = False
+  Primitive_TargetParts36.TransZ = 0
+  Primitive_Target36.TransZ = 0
 End Sub
 
 Sub MoveTarget37
-	Primitive_TargetParts37.TransZ = 5
-	Primitive_Target37.TransZ = 5
-	Target37.Timerenabled = False
-	Target37.Timerenabled = True
+  Primitive_TargetParts37.TransZ = 5
+  Primitive_Target37.TransZ = 5
+  Target37.Timerenabled = False
+  Target37.Timerenabled = True
 End Sub
-Sub	Target37_Timer
-	Target37.Timerenabled = False
-	Primitive_TargetParts37.TransZ = 0
-	Primitive_Target37.TransZ = 0
+Sub Target37_Timer
+  Target37.Timerenabled = False
+  Primitive_TargetParts37.TransZ = 0
+  Primitive_Target37.TransZ = 0
 End Sub
 
 Sub MoveTarget38
-	Primitive_TargetParts38.TransZ = 5
-	Primitive_Target38.TransZ = 5
-	Target38.Timerenabled = False
-	Target38.Timerenabled = True
+  Primitive_TargetParts38.TransZ = 5
+  Primitive_Target38.TransZ = 5
+  Target38.Timerenabled = False
+  Target38.Timerenabled = True
 End Sub
-Sub	Target38_Timer
-	Target38.Timerenabled = False
-	Primitive_TargetParts38.TransZ = 0
-	Primitive_Target38.TransZ = 0
+Sub Target38_Timer
+  Target38.Timerenabled = False
+  Primitive_TargetParts38.TransZ = 0
+  Primitive_Target38.TransZ = 0
 End Sub
 
 Sub MoveTarget46
-	Primitive_Target46.TransZ = 5
-	Target46.Timerenabled = False
-	Target46.Timerenabled = True
+  Primitive_Target46.TransZ = 5
+  Target46.Timerenabled = False
+  Target46.Timerenabled = True
 End Sub
-Sub	Target46_Timer
-	Target46.Timerenabled = False
-	Primitive_Target46.TransZ = 0
+Sub Target46_Timer
+  Target46.Timerenabled = False
+  Primitive_Target46.TransZ = 0
 End Sub
 
 Sub MoveTarget47
-	Primitive_Target47.TransZ = 5
-	Target47.Timerenabled = False
-	Target47.Timerenabled = True
+  Primitive_Target47.TransZ = 5
+  Target47.Timerenabled = False
+  Target47.Timerenabled = True
 End Sub
-Sub	Target47_Timer
-	Target47.Timerenabled = False
-	Primitive_Target47.TransZ = 0
+Sub Target47_Timer
+  Target47.Timerenabled = False
+  Primitive_Target47.TransZ = 0
 End Sub
 
 Sub MoveTarget48
-	Primitive_Target48.TransZ = 5
-	Target48.Timerenabled = False
-	Target48.Timerenabled = True
+  Primitive_Target48.TransZ = 5
+  Target48.Timerenabled = False
+  Target48.Timerenabled = True
 End Sub
-Sub	Target48_Timer
-	Target48.Timerenabled = False
-	Primitive_Target48.TransZ = 0
+Sub Target48_Timer
+  Target48.Timerenabled = False
+  Primitive_Target48.TransZ = 0
 End Sub
 
 Sub MoveTarget51
-	Primitive_TargetParts51.TransZ = 5
-	Primitive_Target51.TransZ = 5
-	Target51.Timerenabled = False
-	Target51.Timerenabled = True
+  Primitive_TargetParts51.TransZ = 5
+  Primitive_Target51.TransZ = 5
+  Target51.Timerenabled = False
+  Target51.Timerenabled = True
 End Sub
-Sub	Target51_Timer
-	Target51.Timerenabled = False
-	Primitive_TargetParts51.TransZ = 0
-	Primitive_Target51.TransZ = 0
+Sub Target51_Timer
+  Target51.Timerenabled = False
+  Primitive_TargetParts51.TransZ = 0
+  Primitive_Target51.TransZ = 0
 End Sub
 
 Sub MoveTarget52
-	Primitive_TargetParts52.TransZ = 5
-	Primitive_Target52.TransZ = 5
-	Target52.Timerenabled = False
-	Target52.Timerenabled = True
+  Primitive_TargetParts52.TransZ = 5
+  Primitive_Target52.TransZ = 5
+  Target52.Timerenabled = False
+  Target52.Timerenabled = True
 End Sub
-Sub	Target52_Timer
-	Target52.Timerenabled = False
-	Primitive_TargetParts52.TransZ = 0
-	Primitive_Target52.TransZ = 0
+Sub Target52_Timer
+  Target52.Timerenabled = False
+  Primitive_TargetParts52.TransZ = 0
+  Primitive_Target52.TransZ = 0
 End Sub
 
 Sub MoveTarget53
-	Primitive_TargetParts53.TransZ = 5
-	Primitive_Target53.TransZ = 5
-	Target53.Timerenabled = False
-	Target53.Timerenabled = True
+  Primitive_TargetParts53.TransZ = 5
+  Primitive_Target53.TransZ = 5
+  Target53.Timerenabled = False
+  Target53.Timerenabled = True
 End Sub
-Sub	Target53_Timer
-	Target53.Timerenabled = False
-	Primitive_TargetParts53.TransZ = 0
-	Primitive_Target53.TransZ = 0
+Sub Target53_Timer
+  Target53.Timerenabled = False
+  Primitive_TargetParts53.TransZ = 0
+  Primitive_Target53.TransZ = 0
 End Sub
 
 Sub MoveTarget54
-	Primitive_TargetParts54.TransZ = 5
-	Primitive_Target54.TransZ = 5
-	Target54.Timerenabled = False
-	Target54.Timerenabled = True
+  Primitive_TargetParts54.TransZ = 5
+  Primitive_Target54.TransZ = 5
+  Target54.Timerenabled = False
+  Target54.Timerenabled = True
 End Sub
-Sub	Target54_Timer
-	Target54.Timerenabled = False
-	Primitive_TargetParts54.TransZ = 0
-	Primitive_Target54.TransZ = 0
+Sub Target54_Timer
+  Target54.Timerenabled = False
+  Primitive_TargetParts54.TransZ = 0
+  Primitive_Target54.TransZ = 0
 End Sub
 
 Sub MoveTarget55
-	Primitive_TargetParts55.TransZ = 5
-	Primitive_Target55.TransZ = 5
-	Target55.Timerenabled = False
-	Target55.Timerenabled = True
+  Primitive_TargetParts55.TransZ = 5
+  Primitive_Target55.TransZ = 5
+  Target55.Timerenabled = False
+  Target55.Timerenabled = True
 End Sub
-Sub	Target55_Timer
-	Target55.Timerenabled = False
-	Primitive_TargetParts55.TransZ = 0
-	Primitive_Target55.TransZ = 0
+Sub Target55_Timer
+  Target55.Timerenabled = False
+  Primitive_TargetParts55.TransZ = 0
+  Primitive_Target55.TransZ = 0
 End Sub
 
 Sub MoveTarget56
-	Primitive_TargetParts56.TransZ = 5
-	Primitive_Target56.TransZ = 5
-	Target56.Timerenabled = False
-	Target56.Timerenabled = True
+  Primitive_TargetParts56.TransZ = 5
+  Primitive_Target56.TransZ = 5
+  Target56.Timerenabled = False
+  Target56.Timerenabled = True
 End Sub
-Sub	Target56_Timer
-	Target56.Timerenabled = False
-	Primitive_TargetParts56.TransZ = 0
-	Primitive_Target56.TransZ = 0
+Sub Target56_Timer
+  Target56.Timerenabled = False
+  Primitive_TargetParts56.TransZ = 0
+  Primitive_Target56.TransZ = 0
 End Sub
 
 Sub MoveTarget57
-	Primitive_Target57.TransX = 5
-	Target57.Timerenabled = False
-	Target57.Timerenabled = True
+  Primitive_Target57.TransX = 5
+  Target57.Timerenabled = False
+  Target57.Timerenabled = True
 End Sub
-Sub	Target57_Timer
-	Target57.Timerenabled = False
-	Primitive_Target57.TransX = 0
+Sub Target57_Timer
+  Target57.Timerenabled = False
+  Primitive_Target57.TransX = 0
 End Sub
 
 'Bumper animation
@@ -935,70 +935,70 @@ BumperSpeed = 1.75 * Bumper1.Ringspeed
 Const BumperLowerLimit = -30
 
 Sub Bumper1_Hit
-	vpmTimer.PulseSw 41
-	PlaysoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper1, VolBump
-	MoveBumperCap1
+  vpmTimer.PulseSw 41
+  PlaysoundAtVol SoundFX("fx_bumper3",DOFContactors), Bumper1, VolBump
+  MoveBumperCap1
 End Sub
 Sub Bumper2_Hit
-	vpmTimer.PulseSw 42
-	PlaysoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper2, VolBump
-	MoveBumperCap2
+  vpmTimer.PulseSw 42
+  PlaysoundAtVol SoundFX("fx_bumper2",DOFContactors), Bumper2, VolBump
+  MoveBumperCap2
 End Sub
 Sub Bumper3_Hit
-	vpmTimer.PulseSw 43
-	PlaysoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
-	MoveBumperCap3
+  vpmTimer.PulseSw 43
+  PlaysoundAtVol SoundFX("fx_bumper4",DOFContactors), Bumper3, VolBump
+  MoveBumperCap3
 End Sub
 
 Sub MoveBumperCap1
-	BumperDir1 = -BumperSpeed
-	Bumper1.Timerenabled = True
+  BumperDir1 = -BumperSpeed
+  Bumper1.Timerenabled = True
 End Sub
 Sub Bumper1_Timer
-	Primitive_bumpercap1.TransY = Primitive_bumpercap1.TransY + BumperDir1
-	Primitive_bumpercapSCREWS1.TransY = Primitive_bumpercapSCREWS1.TransY + BumperDir1
-	if Primitive_bumpercap1.TransY >= 0 Then
-		Bumper1.Timerenabled = False
-		Primitive_bumpercap1.TransY = 0
-		Primitive_bumpercapSCREWS1.TransY = 0
-	end if
-	if Primitive_bumpercap1.TransY <= BumperLowerLimit Then
-		BumperDir1 = BumperSpeed
-	end if
+  Primitive_bumpercap1.TransY = Primitive_bumpercap1.TransY + BumperDir1
+  Primitive_bumpercapSCREWS1.TransY = Primitive_bumpercapSCREWS1.TransY + BumperDir1
+  if Primitive_bumpercap1.TransY >= 0 Then
+    Bumper1.Timerenabled = False
+    Primitive_bumpercap1.TransY = 0
+    Primitive_bumpercapSCREWS1.TransY = 0
+  end if
+  if Primitive_bumpercap1.TransY <= BumperLowerLimit Then
+    BumperDir1 = BumperSpeed
+  end if
 End Sub
 
 Sub MoveBumperCap2
-	BumperDir2 = -BumperSpeed
-	Bumper2.Timerenabled = True
+  BumperDir2 = -BumperSpeed
+  Bumper2.Timerenabled = True
 End Sub
 Sub Bumper2_Timer
-	Primitive_bumpercap2.TransY = Primitive_bumpercap2.TransY + BumperDir2
-	Primitive_bumpercapSCREWS2.TransY = Primitive_bumpercapSCREWS2.TransY + BumperDir2
-	if Primitive_bumpercap2.TransY >= 0 Then
-		Bumper2.Timerenabled = False
-		Primitive_bumpercap2.TransY = 0
-		Primitive_bumpercapSCREWS2.TransY = 0
-	end if
-	if Primitive_bumpercap2.TransY <= BumperLowerLimit Then
-		BumperDir2 = BumperSpeed
-	end if
+  Primitive_bumpercap2.TransY = Primitive_bumpercap2.TransY + BumperDir2
+  Primitive_bumpercapSCREWS2.TransY = Primitive_bumpercapSCREWS2.TransY + BumperDir2
+  if Primitive_bumpercap2.TransY >= 0 Then
+    Bumper2.Timerenabled = False
+    Primitive_bumpercap2.TransY = 0
+    Primitive_bumpercapSCREWS2.TransY = 0
+  end if
+  if Primitive_bumpercap2.TransY <= BumperLowerLimit Then
+    BumperDir2 = BumperSpeed
+  end if
 End Sub
 
 Sub MoveBumperCap3
-	BumperDir3 = -BumperSpeed
-	Bumper3.Timerenabled = True
+  BumperDir3 = -BumperSpeed
+  Bumper3.Timerenabled = True
 End Sub
 Sub Bumper3_Timer
-	Primitive_bumpercap3.TransY = Primitive_bumpercap3.TransY + BumperDir3
-	Primitive_bumpercapSCREWS3.TransY = Primitive_bumpercapSCREWS3.TransY + BumperDir3
-	if Primitive_bumpercap3.TransY >= 0 Then
-		Bumper3.Timerenabled = False
-		Primitive_bumpercap3.TransY = 0
-		Primitive_bumpercapSCREWS3.TransY = 0
-	end if
-	if Primitive_bumpercap3.TransY <= BumperLowerLimit Then
-		BumperDir3 = BumperSpeed
-	end if
+  Primitive_bumpercap3.TransY = Primitive_bumpercap3.TransY + BumperDir3
+  Primitive_bumpercapSCREWS3.TransY = Primitive_bumpercapSCREWS3.TransY + BumperDir3
+  if Primitive_bumpercap3.TransY >= 0 Then
+    Bumper3.Timerenabled = False
+    Primitive_bumpercap3.TransY = 0
+    Primitive_bumpercapSCREWS3.TransY = 0
+  end if
+  if Primitive_bumpercap3.TransY <= BumperLowerLimit Then
+    BumperDir3 = BumperSpeed
+  end if
 End Sub
 
 
@@ -1010,7 +1010,7 @@ Dim LStep, RStep
 Sub LeftSlingShot_Slingshot
 PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling2, 1
 vpmTimer.PulseSw 44
-	LSling.Visible = 0
+  LSling.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
     LStep = 0
@@ -1029,7 +1029,7 @@ End Sub
 Sub RightSlingShot_Slingshot
 PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), sling1, 1
 vpmTimer.PulseSw 45
-	RSling.Visible = 0
+  RSling.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
     RStep = 0
@@ -1123,97 +1123,97 @@ Sub RRHit7_Hit:PlaySoundAtVol "fx_lr1", ActiveBall, 1:End Sub
 ' then there is no collision and then set the collision property of the ball to False (-1).
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetal, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySoundAtVol "fx_spinner", Spinner, VolSpin
+  PlaySoundAtVol "fx_spinner", Spinner, VolSpin
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolPo, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 'Kona Texture Swap - called only if necessary
 Dim KonaState
 Sub UpdateKona
-	KonaState = 0
-	if Controller.solenoid(12) then Konastate = Konastate + 1	'Spot
-	if Controller.solenoid(17) then Konastate = Konastate + 10	'Red Dome
-	if Controller.solenoid(22) then Konastate = Konastate + 100	'Head2
+  KonaState = 0
+  if Controller.solenoid(12) then Konastate = Konastate + 1 'Spot
+  if Controller.solenoid(17) then Konastate = Konastate + 10  'Red Dome
+  if Controller.solenoid(22) then Konastate = Konastate + 100 'Head2
 
-	Select Case Konastate
-		case 0:	  	Primitive_Kona.image = "KonaMap"			'all OFF
-		case 1:	  	Primitive_Kona.image = "KonaMap_SPOTL_ON1"	'Spot only
-		case 10:	Primitive_Kona.image = "KonaMap_FLSH_ON1"	'Red Dome only
-		case 11:	Primitive_Kona.image = "KonaMap_FLSH_ON3"	'Spot+Red Dome
-		case 100:	Primitive_Kona.image = "KonaMap_FLSH2_ON1"	'Head2 only
-		case 101:	Primitive_Kona.image = "KonaMap_FLSH2_ON3"	'Spot+Head2
-		case 110:	Primitive_Kona.image = "KonaMap_FLSHx2_ON2"	'Red Dome+Head2
-		case 111:	Primitive_Kona.image = "KonaMap_FLSHx2_ON3"	'all ON
-	End Select
+  Select Case Konastate
+    case 0:     Primitive_Kona.image = "KonaMap"      'all OFF
+    case 1:     Primitive_Kona.image = "KonaMap_SPOTL_ON1"  'Spot only
+    case 10:  Primitive_Kona.image = "KonaMap_FLSH_ON1" 'Red Dome only
+    case 11:  Primitive_Kona.image = "KonaMap_FLSH_ON3" 'Spot+Red Dome
+    case 100: Primitive_Kona.image = "KonaMap_FLSH2_ON1"  'Head2 only
+    case 101: Primitive_Kona.image = "KonaMap_FLSH2_ON3"  'Spot+Head2
+    case 110: Primitive_Kona.image = "KonaMap_FLSHx2_ON2" 'Red Dome+Head2
+    case 111: Primitive_Kona.image = "KonaMap_FLSHx2_ON3" 'all ON
+  End Select
 End Sub
 
 '***************************************************
@@ -1234,31 +1234,31 @@ LampTimer.Enabled = 1
 
 Dim chgLamp, num, chg, ii, JungleRampChanged
 Sub LampTimer_Timer()
-	JungleRampChanged = False
+  JungleRampChanged = False
     chgLamp = Controller.ChangedLamps
     If Not IsEmpty(chgLamp) Then
         For ii = 0 To UBound(chgLamp)
             LampState(chgLamp(ii, 0) ) = chgLamp(ii, 1)       'keep the real state in an array
-			FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
+      FadingLevel(chgLamp(ii, 0) ) = chgLamp(ii, 1) + 4 'actual fading step
 
-			'change Jungle Ramp only if necessary
-			if chgLamp(ii, CHGNO) = 67 or chgLamp(ii, CHGNO) = 68 Then
-				JungleRampChanged = True
-			End If
-		Next
+      'change Jungle Ramp only if necessary
+      if chgLamp(ii, CHGNO) = 67 or chgLamp(ii, CHGNO) = 68 Then
+        JungleRampChanged = True
+      End If
+    Next
     End If
     UpdateLamps
 
-	'Gilligan texture swap light handler
-	if JungleRampChanged Then
-		if Controller.Lamp(67) or Controller.Lamp(68) Then
-			P_BridgeRamp.image = "mechramp_map-on"
-			Primitive_PalmPostP.image = "PalmTreePlastic(sm)MapON"
-		Else
-			P_BridgeRamp.image = "MechRamp_Map2"
-			Primitive_PalmPostP.image = "PalmTreePlastic(sm)Map"
-		End If
-	End If
+  'Gilligan texture swap light handler
+  if JungleRampChanged Then
+    if Controller.Lamp(67) or Controller.Lamp(68) Then
+      P_BridgeRamp.image = "mechramp_map-on"
+      Primitive_PalmPostP.image = "PalmTreePlastic(sm)MapON"
+    Else
+      P_BridgeRamp.image = "MechRamp_Map2"
+      Primitive_PalmPostP.image = "PalmTreePlastic(sm)Map"
+    End If
+  End If
 End Sub
 
 Sub InitLamps()
@@ -1275,209 +1275,209 @@ Sub InitLamps()
 End Sub
 
 Sub UpdateLamps
-	'Inserts
-	  Flash 11, Lamp11a
-	NFadeLm 11, Lamp11b
-	NFadeLm 11,  Lamp11
-	NFadeLm 11, Lamp11c
-	NFadeLm 11, Lamp11d
-	NFadeLm 11, Lamp11e
-	  Flash 12, Lamp12a
-	NFadeLm 12, Lamp12b
-	NFadeLm 12,  Lamp12
-	NFadeLm 12, Lamp12c
-	NFadeLm 12, Lamp12d
-	NFadeLm 12, Lamp12e
-	  Flash 13, Lamp13a
-	NFadeLm 13, Lamp13b
-	NFadeLm 13,  Lamp13
-	NFadeLm 13, Lamp13c
-	NFadeLm 13, Lamp13d
-	  Flash 14, Lamp14a
-	NFadeLm 14, Lamp14b
-	NFadeLm 14,  Lamp14
-	NFadeLm 14, Lamp14c
-	NFadeLm 14, Lamp14d
-	  Flash 15, Lamp15a
-	NFadeLm 15, Lamp15b
-	NFadeLm 15,  Lamp15
-	  Flash 16, Lamp16a
-	NFadeLm 16,  Lamp16
-	NFadeLm 16, Lamp16b
-	NFadeLm 16, Lamp16c
-	NFadeLm 16, Lamp16d
-	NFadeLm 16, Lamp16e
-	NFadeLm 16, Lamp16f
-	NFadeLm 16, Lamp16g
-	  Flash 17, Lamp17g
-	NFadeLm 17, Lamp17a
-	NFadeLm 17, Lamp17b
-	NFadeLm 17, Lamp17c
-	NFadeLm 17, Lamp17d
-	NFadeLm 17, Lamp17e
-	NFadeLm 17, Lamp17f
-	NFadeLm 17,  Lamp17
-	  Flash 18, Lamp18a
-	NFadeLm 18, Lamp18b
-	NFadeLm 18, Lamp18c
-	NFadeLm 18,  Lamp18
+  'Inserts
+    Flash 11, Lamp11a
+  NFadeLm 11, Lamp11b
+  NFadeLm 11,  Lamp11
+  NFadeLm 11, Lamp11c
+  NFadeLm 11, Lamp11d
+  NFadeLm 11, Lamp11e
+    Flash 12, Lamp12a
+  NFadeLm 12, Lamp12b
+  NFadeLm 12,  Lamp12
+  NFadeLm 12, Lamp12c
+  NFadeLm 12, Lamp12d
+  NFadeLm 12, Lamp12e
+    Flash 13, Lamp13a
+  NFadeLm 13, Lamp13b
+  NFadeLm 13,  Lamp13
+  NFadeLm 13, Lamp13c
+  NFadeLm 13, Lamp13d
+    Flash 14, Lamp14a
+  NFadeLm 14, Lamp14b
+  NFadeLm 14,  Lamp14
+  NFadeLm 14, Lamp14c
+  NFadeLm 14, Lamp14d
+    Flash 15, Lamp15a
+  NFadeLm 15, Lamp15b
+  NFadeLm 15,  Lamp15
+    Flash 16, Lamp16a
+  NFadeLm 16,  Lamp16
+  NFadeLm 16, Lamp16b
+  NFadeLm 16, Lamp16c
+  NFadeLm 16, Lamp16d
+  NFadeLm 16, Lamp16e
+  NFadeLm 16, Lamp16f
+  NFadeLm 16, Lamp16g
+    Flash 17, Lamp17g
+  NFadeLm 17, Lamp17a
+  NFadeLm 17, Lamp17b
+  NFadeLm 17, Lamp17c
+  NFadeLm 17, Lamp17d
+  NFadeLm 17, Lamp17e
+  NFadeLm 17, Lamp17f
+  NFadeLm 17,  Lamp17
+    Flash 18, Lamp18a
+  NFadeLm 18, Lamp18b
+  NFadeLm 18, Lamp18c
+  NFadeLm 18,  Lamp18
 
-	  Flash 21, Lamp21a
-	NFadeLm 21,  Lamp21
-	  Flash 22, Lamp22a
-	NFadeLm 22,  Lamp22
-	  Flash 23, Lamp23a
-	NFadeLm 23,  Lamp23
+    Flash 21, Lamp21a
+  NFadeLm 21,  Lamp21
+    Flash 22, Lamp22a
+  NFadeLm 22,  Lamp22
+    Flash 23, Lamp23a
+  NFadeLm 23,  Lamp23
       Flash 24, Lamp24a
-	NFadeLm 24,  Lamp24
+  NFadeLm 24,  Lamp24
       Flash 25, Lamp25a
-	NFadeLm 25,  Lamp25
+  NFadeLm 25,  Lamp25
       Flash 26, Lamp26a
-	NFadeLm 26,  Lamp26
-	NFadeLm 26, Lamp26b
-	NFadeLm 26, Lamp26c
+  NFadeLm 26,  Lamp26
+  NFadeLm 26, Lamp26b
+  NFadeLm 26, Lamp26c
       Flash 27, Lamp27a
-	NFadeLm 27, Lamp27b
-	NFadeLm 27,  Lamp27
+  NFadeLm 27, Lamp27b
+  NFadeLm 27,  Lamp27
       Flash 28, Lamp28a
-	NFadeLm 28, Lamp28b
-	NFadeLm 28,  Lamp28
+  NFadeLm 28, Lamp28b
+  NFadeLm 28,  Lamp28
 
       Flash 31, Lamp31a
-	NFadeLm 31,  Lamp31
+  NFadeLm 31,  Lamp31
       Flash 32, Lamp32a
-	NFadeLm 32,  Lamp32
+  NFadeLm 32,  Lamp32
       Flash 33, Lamp33a
-	NFadeLm 33,  Lamp33
+  NFadeLm 33,  Lamp33
       Flash 34, Lamp34a
-	NFadeLm 34,  Lamp34
+  NFadeLm 34,  Lamp34
       Flash 35, Lamp35a
-	NFadeLm 35,  Lamp35
+  NFadeLm 35,  Lamp35
       Flash 36, Lamp36a
-	NFadeLm 36,  Lamp36
-	  Flash 37, Lamp37a
-	NFadeLm 37,  Lamp37
-	NFadeLm 37, Lamp37b
-	  Flash 38, Lamp38a
-	NFadeLm 38,  Lamp38
+  NFadeLm 36,  Lamp36
+    Flash 37, Lamp37a
+  NFadeLm 37,  Lamp37
+  NFadeLm 37, Lamp37b
+    Flash 38, Lamp38a
+  NFadeLm 38,  Lamp38
 
       Flash 41, Lamp41a
-	NFadeLm 41,  Lamp41
+  NFadeLm 41,  Lamp41
       Flash 42, Lamp42a
-	NFadeLm 42,  Lamp42
+  NFadeLm 42,  Lamp42
       Flash 43, Lamp43a
-	NFadeLm 43,  Lamp43
+  NFadeLm 43,  Lamp43
       Flash 44, Lamp44a
-	NFadeLm 44,  Lamp44
+  NFadeLm 44,  Lamp44
       Flash 45, Lamp45a
-	NFadeLm 45,  Lamp45
+  NFadeLm 45,  Lamp45
       Flash 46, Lamp46a
-	NFadeLm 46,  Lamp46
+  NFadeLm 46,  Lamp46
       Flash 47, Lamp47a
-	NFadeLm 47,  Lamp47
+  NFadeLm 47,  Lamp47
      Flash 48, Lamp48a
-	NFadeLm 48,  Lamp48
+  NFadeLm 48,  Lamp48
 
       Flash 51, Lamp51a
-	NFadeLm 51,  Lamp51
+  NFadeLm 51,  Lamp51
       Flash 52, Lamp52a
-	NFadeLm 52,  Lamp52
+  NFadeLm 52,  Lamp52
       Flash 53, Lamp53a
-	NFadeLm 53,  Lamp53
+  NFadeLm 53,  Lamp53
       Flash 54, Lamp54a
-	NFadeLm 54,  Lamp54
+  NFadeLm 54,  Lamp54
       Flash 55, Lamp55a
-	NFadeLm 55,  Lamp55
+  NFadeLm 55,  Lamp55
       Flash 56, Lamp56a
-	NFadeLm 56,  Lamp56
+  NFadeLm 56,  Lamp56
       Flash 57, Lamp57a
-	NFadeLm 57, Lamp57b
-	NFadeLm 57,  Lamp57
+  NFadeLm 57, Lamp57b
+  NFadeLm 57,  Lamp57
       Flash 58, Lamp58a
-	NFadeLm 58, Lamp58b
-	NFadeLm 58,  Lamp58
+  NFadeLm 58, Lamp58b
+  NFadeLm 58,  Lamp58
 
       Flash 61, Lamp61a
-	NFadeLm 61, Lamp61b
-	NFadeLm 61,  Lamp61
-	NFadeLm 61, Lamp61c
-	NFadeLm 61, Lamp61d
+  NFadeLm 61, Lamp61b
+  NFadeLm 61,  Lamp61
+  NFadeLm 61, Lamp61c
+  NFadeLm 61, Lamp61d
       Flash 62, Lamp62a
-	NFadeLm 62, Lamp62b
-	NFadeLm 62,  Lamp62
-	NFadeLm 62, Lamp62c
-	NFadeLm 62, Lamp62d
+  NFadeLm 62, Lamp62b
+  NFadeLm 62,  Lamp62
+  NFadeLm 62, Lamp62c
+  NFadeLm 62, Lamp62d
       Flash 63, Lamp63a
-	NFadeLm 63, Lamp63b
-	NFadeLm 63,  Lamp63
-	NFadeLm 63, Lamp63c
+  NFadeLm 63, Lamp63b
+  NFadeLm 63,  Lamp63
+  NFadeLm 63, Lamp63c
       Flash 64, Lamp64a
-	NFadeLm 64,  Lamp64
+  NFadeLm 64,  Lamp64
       Flash 65, Lamp65a
-	NFadeLm 65,  Lamp65
+  NFadeLm 65,  Lamp65
       Flash 66, Lamp66a
-	NFadeLm 66,  Lamp66
+  NFadeLm 66,  Lamp66
       Flash 67, Lamp67a
-	NFadeLm 67,  Lamp67
+  NFadeLm 67,  Lamp67
       Flash 68, Lamp68a
-	NFadeLm 68,  Lamp68
-	  Flash 71, Lamp71a
-	NFadeLm 71, Lamp71b
-	NFadeLm 71,  Lamp71
+  NFadeLm 68,  Lamp68
+    Flash 71, Lamp71a
+  NFadeLm 71, Lamp71b
+  NFadeLm 71,  Lamp71
       Flash 72, Lamp72a
-	NFadeLm 72, Lamp72b
-	NFadeLm 72,  Lamp72
+  NFadeLm 72, Lamp72b
+  NFadeLm 72,  Lamp72
       Flash 73, Lamp73a
-	NFadeLm 73, Lamp73b
-	NFadeLm 73,  Lamp73
+  NFadeLm 73, Lamp73b
+  NFadeLm 73,  Lamp73
       Flash 74, Lamp74a
-	NFadeLm 74, Lamp74b
-	NFadeLm 74,  Lamp74
+  NFadeLm 74, Lamp74b
+  NFadeLm 74,  Lamp74
       Flash 76, Lamp76a
-	NFadeLm 76,  Lamp76
-	NFadeLm 76, Lamp76b
+  NFadeLm 76,  Lamp76
+  NFadeLm 76, Lamp76b
       Flash 77, Lamp77a
-	NFadeLm 77,  Lamp77
-	NFadeLm 77, Lamp77b
+  NFadeLm 77,  Lamp77
+  NFadeLm 77, Lamp77b
 
-'	'Flashers
+' 'Flashers
 
-	NFadeLMod 112, F112
-	NFadeObjModm 117, Primitive_KonaFlasher, "dome4_red_lit", "dome4_red"	'call the Object update before the light update because of the fast status change
-	NFadeLMod 117, F117
-	NFadeLMod 117, F117a
-	NFadeLMod 117, F117b
-	NFadeLMod 118, F118
-	NFadeLMod 119, F119
-	NFadeLMod 120, F120
-	NFadeLMod 121, F121
-	NFadeLMod 122, F122
-	NfadeLMod 122, F122b
-	NFadeLMod 122, F122c
-	NFadeLMod 122, F122d
-	NFadeLMod 122, F122e
-	NFadeLMod 122, F122f
-	NfadeLMod 125, F125
+  NFadeLMod 112, F112
+  NFadeObjModm 117, Primitive_KonaFlasher, "dome4_red_lit", "dome4_red" 'call the Object update before the light update because of the fast status change
+  NFadeLMod 117, F117
+  NFadeLMod 117, F117a
+  NFadeLMod 117, F117b
+  NFadeLMod 118, F118
+  NFadeLMod 119, F119
+  NFadeLMod 120, F120
+  NFadeLMod 121, F121
+  NFadeLMod 122, F122
+  NfadeLMod 122, F122b
+  NFadeLMod 122, F122c
+  NFadeLMod 122, F122d
+  NFadeLMod 122, F122e
+  NFadeLMod 122, F122f
+  NfadeLMod 125, F125
  End Sub
 
 Sub SetModLamp(nr, value)
-	Debug.Print "SetModLamp " & nr & ": " & value
-	FadingLevel(nr) = value
+  Debug.Print "SetModLamp " & nr & ": " & value
+  FadingLevel(nr) = value
 End Sub
 
 Sub NFadeLMod(nr, object)
-	if FadingLevel(nr) > 0 Then
-		object.IntensityScale = FadingLevel(nr) / 255
-		object.state = 1
-	Else
-		object.state = 0
-	end if
+  if FadingLevel(nr) > 0 Then
+    object.IntensityScale = FadingLevel(nr) / 255
+    object.state = 1
+  Else
+    object.state = 0
+  end if
 End Sub
 
 Sub NFadeObjModm(nr, object, a, b)
     if  FadingLevel(nr) = 0 then
         object.image = b
-	Else
+  Else
         object.image = a
     End If
 End Sub
@@ -1518,11 +1518,11 @@ End Sub
 'a,b,c,d are the images used from on to off
 
 Sub FadeObj(nr, object, a, b, c, d)
-	Select Case FadingLevel(nr)
-		Case 2:object.image = d:FadingLevel(nr) = 0 'Off
-		Case 3:object.image = c:FadingLevel(nr) = 2 'fading...
-		Case 4:object.image = b:FadingLevel(nr) = 3 'fading...
-		Case 5:object.image = a:FadingLevel(nr) = 1 'ON
+  Select Case FadingLevel(nr)
+    Case 2:object.image = d:FadingLevel(nr) = 0 'Off
+    Case 3:object.image = c:FadingLevel(nr) = 2 'fading...
+    Case 4:object.image = b:FadingLevel(nr) = 3 'fading...
+    Case 5:object.image = a:FadingLevel(nr) = 1 'ON
  End Select
 End Sub
 
@@ -1695,11 +1695,11 @@ Sub CollisionTimer_Timer()
 
     ' rolling
 
-	For B = UBound(BOT) +1 to tnob
+  For B = UBound(BOT) +1 to tnob
         rolling(b) = False
         'StopSound("fx_ballrolling" & b)
-		StopSound("fx_ballrolling" & b & "_loud")
-	Next
+    StopSound("fx_ballrolling" & b & "_loud")
+  Next
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then

@@ -1,17 +1,17 @@
 ' *********************************************************************
 ' **                       Visual Pinball X                          **
-' **					    Sons Of Anarchy							 **
-' **					2018 Alan Kenney (ALDiode)					 **
-' **					    Modification of :						 **
-' **																			 **
+' **              Sons Of Anarchy              **
+' **          2018 Alan Kenney (ALDiode)           **
+' **              Modification of :            **
+' **                                       **
 ' **                        FUTURE PINBALL                           **
 ' **                       Metal Slug  V2.0                          **
 ' **                                                                 **
 ' **                2006 Brendan Bailey (Pinwizkid)                  **
 ' **           Update by Dominique Camus (DoCam)                     **
 ' **                                                                 **
-' **           Last update: 2.0  - November 1st, 2009  				 **
-' **		Converted to VPX by Javier	   DOF By Arngrim					 **
+' **           Last update: 2.0  - November 1st, 2009          **
+' **    Converted to VPX by Javier     DOF By Arngrim          **
 ' **                                                                 **
 ' *********************************************************************
 
@@ -115,35 +115,35 @@ b2sstep = 0
 Dim b2satm
 
 Sub startB2S(aB2S)
-	b2sflash.enabled = 1
-	b2satm = ab2s
+  b2sflash.enabled = 1
+  b2satm = ab2s
 End Sub
 
 Sub b2sflash_timer
     If B2SOn Then
-	b2sstep = b2sstep + 1
-	Select Case b2sstep
-		Case 0
-		Controller.B2SSetData b2satm, 0
-		Case 1
-		Controller.B2SSetData b2satm, 1
-		Case 2
-		Controller.B2SSetData b2satm, 0
-		Case 3
-		Controller.B2SSetData b2satm, 1
-		Case 4
-		Controller.B2SSetData b2satm, 0
-		Case 5
-		Controller.B2SSetData b2satm, 1
-		Case 6
-		Controller.B2SSetData b2satm, 0
-		Case 7
-		Controller.B2SSetData b2satm, 1
-		Case 8
-		Controller.B2SSetData b2satm, 0
-		b2sstep = 0
-		b2sflash.enabled = 0
-	End Select
+  b2sstep = b2sstep + 1
+  Select Case b2sstep
+    Case 0
+    Controller.B2SSetData b2satm, 0
+    Case 1
+    Controller.B2SSetData b2satm, 1
+    Case 2
+    Controller.B2SSetData b2satm, 0
+    Case 3
+    Controller.B2SSetData b2satm, 1
+    Case 4
+    Controller.B2SSetData b2satm, 0
+    Case 5
+    Controller.B2SSetData b2satm, 1
+    Case 6
+    Controller.B2SSetData b2satm, 0
+    Case 7
+    Controller.B2SSetData b2satm, 1
+    Case 8
+    Controller.B2SSetData b2satm, 0
+    b2sstep = 0
+    b2sflash.enabled = 0
+  End Select
     End If
 End Sub
 
@@ -213,16 +213,16 @@ Dim SkillshotValue(4)
 Dim bAutoPlunger
 Dim bInstantInfo
 Dim bAttractMode
-Dim Multiballcount		'Count of Multiballs
-Dim Multiballa			'for progressive difficulty
-Dim RMagnet				'Mayhem Vote Magnasave
-Dim Mayhemvote			'Counter for Mayhem Votes (9) for first nine members
-Dim MissionBonus		'Adjusted Mission scoring
-Dim POWScore			'Used for SOA Bonus
-Dim SoundName			'Name of current sound playing. Used to prevent overlapping sounds
-Dim KickerCount			'Used to select sound event for Ball Save Kicker
-Dim GameNowOver			'Used to prevent attract mode video from playing during End of game video
-Dim	EEGGEnding			'Used to select proper Easter Egg to play at High Score Entry
+Dim Multiballcount    'Count of Multiballs
+Dim Multiballa      'for progressive difficulty
+Dim RMagnet       'Mayhem Vote Magnasave
+Dim Mayhemvote      'Counter for Mayhem Votes (9) for first nine members
+Dim MissionBonus    'Adjusted Mission scoring
+Dim POWScore      'Used for SOA Bonus
+Dim SoundName     'Name of current sound playing. Used to prevent overlapping sounds
+Dim KickerCount     'Used to select sound event for Ball Save Kicker
+Dim GameNowOver     'Used to prevent attract mode video from playing during End of game video
+Dim EEGGEnding      'Used to select proper Easter Egg to play at High Score Entry
 
 ' Define Game Control Variables
 Dim LastSwitchHit
@@ -253,18 +253,18 @@ Dim plungerIM 'used mostly as an autofire plunger during multiballs
 
 ' Define global arrays (for table setup).
 '
-Const stMaxParam = 8		' Setup: number of parameters.
-Dim stParam(8)				' Setup: parameter names.
-Dim stNumberValues(8)	' Setup: number of possible value for each parameter.
-Dim stValue(8, 6)			' Setup: list of values (for each parameter).
-Dim stCurrentValue(8)	' Setup: current selected (or default) value for each parameter.
+Const stMaxParam = 8    ' Setup: number of parameters.
+Dim stParam(8)        ' Setup: parameter names.
+Dim stNumberValues(8) ' Setup: number of possible value for each parameter.
+Dim stValue(8, 6)     ' Setup: list of values (for each parameter).
+Dim stCurrentValue(8) ' Setup: current selected (or default) value for each parameter.
 
 
 
 ' Define global arrays (for POW names and ranks).
 '
-Dim POWName(100)			' Prisoner names (got from Metal Slug Super Vehicle-001, NeoGeo version).
-Dim POWRank(12)			' Prisoner ranks (from PVT to GEN).
+Dim POWName(100)      ' Prisoner names (got from Metal Slug Super Vehicle-001, NeoGeo version).
+Dim POWRank(12)     ' Prisoner ranks (from PVT to GEN).
 
 
 
@@ -302,75 +302,75 @@ POWRank(7) = "2LT" : POWRank(8) = "LT" : POWRank(9) = "CPT" : POWRank(10) = "LCL
 
 ' Define global variables.
 '
-Dim stCurrentParam			' Setup: current parameter (actually displayed).
-Dim Ball							' Ball in play.
-Dim BallsLocked					' Number of balls locked in kickers.
-Dim OutLaneSound				' Pointer to sound when a ball hit an inlane/outlane (three possible sounds).
-Dim POWBonus					' POW bonus collected during each ball or since begin of game.
-Dim POWBonusBall				' POW bonus collected during each ball (always resetted).
-Dim POWBonusCount				' POW bonus (used for bonus countdown sequence).
-Dim POWNamePtr					' Pointer to POW name array (from 1 to 100).
-Dim TempState					' This temporary variable is used for POW lane light rotations (when pressing left or right flipper key).
-Dim WeaponTargetsMove			' Pointer to move WEAPON targets while playing missions 2 and 5.
-Dim SlugSound					' Pointer to next sound to be played on SLUG target hit.
-Dim RemainingJets				' Remaining jets, while playing mission 3.
-Dim RemainingPOW				' Remaining POW while playing mission 4.
-Dim RemainingClay				' Remaining Clay's Health, during mission 5.
-Dim CurrentWeapon				' Pointer to current weapon.
-Dim Mission						' Current (or next) mission.
-Dim NextMessage					' Pointer to next message to be displayed.
-Dim RideDifficulty				' Progressive Ride Difficulty Counter
-Dim RideTimer					' Timer count for Rides 1 and 2
-Dim JetDifficulty				' Increment Jet Difficulty
-Dim SonDifficulty				' Increment Number of Sons to Save
-Dim ClayDifficulty				' Increase Clay's Health
+Dim stCurrentParam      ' Setup: current parameter (actually displayed).
+Dim Ball              ' Ball in play.
+Dim BallsLocked         ' Number of balls locked in kickers.
+Dim OutLaneSound        ' Pointer to sound when a ball hit an inlane/outlane (three possible sounds).
+Dim POWBonus          ' POW bonus collected during each ball or since begin of game.
+Dim POWBonusBall        ' POW bonus collected during each ball (always resetted).
+Dim POWBonusCount       ' POW bonus (used for bonus countdown sequence).
+Dim POWNamePtr          ' Pointer to POW name array (from 1 to 100).
+Dim TempState         ' This temporary variable is used for POW lane light rotations (when pressing left or right flipper key).
+Dim WeaponTargetsMove     ' Pointer to move WEAPON targets while playing missions 2 and 5.
+Dim SlugSound         ' Pointer to next sound to be played on SLUG target hit.
+Dim RemainingJets       ' Remaining jets, while playing mission 3.
+Dim RemainingPOW        ' Remaining POW while playing mission 4.
+Dim RemainingClay       ' Remaining Clay's Health, during mission 5.
+Dim CurrentWeapon       ' Pointer to current weapon.
+Dim Mission           ' Current (or next) mission.
+Dim NextMessage         ' Pointer to next message to be displayed.
+Dim RideDifficulty        ' Progressive Ride Difficulty Counter
+Dim RideTimer         ' Timer count for Rides 1 and 2
+Dim JetDifficulty       ' Increment Jet Difficulty
+Dim SonDifficulty       ' Increment Number of Sons to Save
+Dim ClayDifficulty        ' Increase Clay's Health
 
 ' Define game flags - also known as boolean (TRUE/FALSE) variables.
 '
-Dim bPlayingExtraBall			' True while and Extra Ball is in play
-Dim bPlayingBall				' TRUE while the player is playing ball (useful for display)
-Dim bLeftInLaneIsLit			' Left inlane light (TRUE means lit).
-Dim bRightInLaneIsLit		' Right inlane light (TRUE means lit).
-Dim bBallSaverIsActive		' TRUE if the ball saver is active.
+Dim bPlayingExtraBall     ' True while and Extra Ball is in play
+Dim bPlayingBall        ' TRUE while the player is playing ball (useful for display)
+Dim bLeftInLaneIsLit      ' Left inlane light (TRUE means lit).
+Dim bRightInLaneIsLit   ' Right inlane light (TRUE means lit).
+Dim bBallSaverIsActive    ' TRUE if the ball saver is active.
 Dim bCanActivateBallSaver  ' TRUE if ball saver can be activated (only at the begin of each ball)
-Dim bExtraBallAward			' TRUE if an extra ball is awarded.
-Dim bKickbackIsLit			' Kickback light (TRUE means lit).
-Dim bBallOnLeftOutLaneTrigger	' TRUE while a ball press the outlane trigger.
-Dim bLockIsLit					' TRUE if a ball can be locked in kicker.
-Dim bBallInKicker1			' TRUE if a ball is in kicker 1 (left side kicker).
-Dim bBallLockedInKicker1	' TRUE if a ball is locked in kicker 1 (left side kicker).
-Dim bBallInKicker2			' TRUE if a ball is in kicker 2 (right side kicker).
-Dim bBallLockedInKicker2	' TRUE if a ball is locked in kicker 2 (right side kicker).
-Dim bBallInKicker3			' TRUE if a ball is in kicker 3 (center kicker, near bumpers).
-Dim bBallLockedInKicker3	' TRUE if a ball is locked in kicker 3 (center kicker, near bumpers).
-Dim bBallInKicker4			' TRUE if a ball is in kicker 4 (top left kicker).
-Dim bBallLockedInKicker4	' TRUE if a ball is locked in kicker 4 (top left kicker).
-Dim bJackpotIsLit				' TRUE if JACKPOT is lit.
-Dim bJackpotScored			' TRUE if JACKPOT already scored.
-Dim bW1TargetIsDown			' WEAPON drop targets states (used to fix after mission).
+Dim bExtraBallAward     ' TRUE if an extra ball is awarded.
+Dim bKickbackIsLit      ' Kickback light (TRUE means lit).
+Dim bBallOnLeftOutLaneTrigger ' TRUE while a ball press the outlane trigger.
+Dim bLockIsLit          ' TRUE if a ball can be locked in kicker.
+Dim bBallInKicker1      ' TRUE if a ball is in kicker 1 (left side kicker).
+Dim bBallLockedInKicker1  ' TRUE if a ball is locked in kicker 1 (left side kicker).
+Dim bBallInKicker2      ' TRUE if a ball is in kicker 2 (right side kicker).
+Dim bBallLockedInKicker2  ' TRUE if a ball is locked in kicker 2 (right side kicker).
+Dim bBallInKicker3      ' TRUE if a ball is in kicker 3 (center kicker, near bumpers).
+Dim bBallLockedInKicker3  ' TRUE if a ball is locked in kicker 3 (center kicker, near bumpers).
+Dim bBallInKicker4      ' TRUE if a ball is in kicker 4 (top left kicker).
+Dim bBallLockedInKicker4  ' TRUE if a ball is locked in kicker 4 (top left kicker).
+Dim bJackpotIsLit       ' TRUE if JACKPOT is lit.
+Dim bJackpotScored      ' TRUE if JACKPOT already scored.
+Dim bW1TargetIsDown     ' WEAPON drop targets states (used to fix after mission).
 Dim bW2TargetIsDown
 Dim bW3TargetIsDown
 Dim bW4TargetIsDown
 Dim bW5TargetIsDown
 Dim bW6TargetIsDown
-Dim bWallIsDown					' TRUE when all WEAPON drop targets (wall) is down.
-Dim bMissionIsLit				' TRUE if the next mission can be started.
-Dim bFinalMissionIsReady		' TRUE if the final mission is ready.
-Dim bPlayingMission				' TRUE when a mission is playing.
-Dim bPlayingMission1			' TRUE while playing mission 1 (or scoring mission 1 during final mission).
-Dim bPlayingMission2			' TRUE while playing mission 2 (weapon targets practice).
-Dim bPlayingMission3			' TRUE while playing mission 3 (bumpers super jets).
-Dim bPlayingMission4			' TRUE while playing mission 4 (POW).
-Dim bPlayingMission5			' TRUE while playing mission 5 (Defeat Clay Morrow).
-Dim bPlayingFinalMission	 	' TRUE while playing final mission.
-Dim bMissionSuspended			' TRUE if the current mission is suspended.
-Dim bInterruptedDisplay			' TRUE when display is interrupted (ie: cannot be updated).
-Dim bCanDisplayMessage			' TRUE allows ShowNextMessage() process.
-Dim bEnteringAHighScore			' TRUE while the player is entering their name into the high score table.
-Dim bAllowEnterSetup			' TRUE if setup mode is allowed (during attract mode)
-Dim bRunningSetup				' TRUE during setup.
-Dim bLeftFlipPressed			' Used to entering setup mode (TRUE while left flipper key is pressed during game over mode).
-Dim bRightFlipPressed			' Also used to entering setup mode (TRUE while right flipper key is pressed during game over mode).
+Dim bWallIsDown         ' TRUE when all WEAPON drop targets (wall) is down.
+Dim bMissionIsLit       ' TRUE if the next mission can be started.
+Dim bFinalMissionIsReady    ' TRUE if the final mission is ready.
+Dim bPlayingMission       ' TRUE when a mission is playing.
+Dim bPlayingMission1      ' TRUE while playing mission 1 (or scoring mission 1 during final mission).
+Dim bPlayingMission2      ' TRUE while playing mission 2 (weapon targets practice).
+Dim bPlayingMission3      ' TRUE while playing mission 3 (bumpers super jets).
+Dim bPlayingMission4      ' TRUE while playing mission 4 (POW).
+Dim bPlayingMission5      ' TRUE while playing mission 5 (Defeat Clay Morrow).
+Dim bPlayingFinalMission    ' TRUE while playing final mission.
+Dim bMissionSuspended     ' TRUE if the current mission is suspended.
+Dim bInterruptedDisplay     ' TRUE when display is interrupted (ie: cannot be updated).
+Dim bCanDisplayMessage      ' TRUE allows ShowNextMessage() process.
+Dim bEnteringAHighScore     ' TRUE while the player is entering their name into the high score table.
+Dim bAllowEnterSetup      ' TRUE if setup mode is allowed (during attract mode)
+Dim bRunningSetup       ' TRUE during setup.
+Dim bLeftFlipPressed      ' Used to entering setup mode (TRUE while left flipper key is pressed during game over mode).
+Dim bRightFlipPressed     ' Also used to entering setup mode (TRUE while right flipper key is pressed during game over mode).
 
 Dim nvR1, nvR2, nvR3, nvR4, nvR5
 Dim nvS1, nvS2, nvS3, nvS4, nvS5
@@ -402,10 +402,10 @@ Sub Table1_Init()
     Kicker5.CreateBall
     Kicker5.kick 0, 2
 
-	' Display "GAME OVER" message.
-	D1.Text = "LETS  RIDE"
+  ' Display "GAME OVER" message.
+  D1.Text = "LETS  RIDE"
 
-	FixTargetTimer.Enabled = TRUE
+  FixTargetTimer.Enabled = TRUE
 
 
     PlaySound "mu_MSmissioncomplete"
@@ -423,7 +423,7 @@ Sub Table1_Init()
     bFreePlay = False 'we dont want coins
 
     ' Init main variables and any other flags
-	bPlayingExtraBall = False
+  bPlayingExtraBall = False
     bAttractMode = False
     bOnTheFirstBall = False
     bBallInPlungerLane = False
@@ -441,19 +441,19 @@ Sub Table1_Init()
     bJustStarted = True
     bJackpot = False
     bInstantInfo = False
-	Multiballcount = 1
-	Multiballa = 1
-	Mayhemvote = 9
-	MissionBonus = 500
-	POWScore = 0
-	SoundName = ""
-	KickerCount = 1
-	GameNowOver = False
-	RideTimer = 35
-	JetDifficulty = 20
-	SonDifficulty = 3
-	ClayDifficulty = 5
-	EEGGEnding = 9
+  Multiballcount = 1
+  Multiballa = 1
+  Mayhemvote = 9
+  MissionBonus = 500
+  POWScore = 0
+  SoundName = ""
+  KickerCount = 1
+  GameNowOver = False
+  RideTimer = 35
+  JetDifficulty = 20
+  SonDifficulty = 3
+  ClayDifficulty = 5
+  EEGGEnding = 9
 
     ' set any lights for the attract mode
     GiOff
@@ -483,17 +483,17 @@ End Sub
 ' *********************************************************************
 
 '*****************************
-'**							**
-'**		Magnasave Magnet    **
-'**							**
+'**             **
+'**   Magnasave Magnet    **
+'**             **
 '*****************************
 
 
 Set Rmagnet = New cvpmMagnet
-	RMagnet.InitMagnet Magnet2, 26
-	RMagnet.CreateEvents "RMagnet"
-	RMagnet.Solenoid = 0
-	If Easy = 1 Then RMagnet.GrabCenter = True Else RMagnet.GrabCenter = False
+  RMagnet.InitMagnet Magnet2, 26
+  RMagnet.CreateEvents "RMagnet"
+  RMagnet.Solenoid = 0
+  If Easy = 1 Then RMagnet.GrabCenter = True Else RMagnet.GrabCenter = False
 
 
 
@@ -531,7 +531,7 @@ End Sub
 Sub Table1_KeyDown(ByVal Keycode)
     If Keycode = AddCreditKey Then
         Credits = Credits + 1
-		DOF 136, DOFOn
+    DOF 136, DOFOn
         If(Tilted = False) Then
             PlaySoundAtVol "fx_coin", Drain, 1
             DisplayB2SText " CREDITS " &credits
@@ -554,14 +554,14 @@ End If
 PlaySoundAtVol "fx_launchball", Primitive34, 1
 StopAttractMode
         PlungerIM.AutoFire   ' If allowed, activate the ball saver (during 15, 30, 45 or 60 seconds, regardling table setup).
-			If bCanActivateBallSaver Then
-				bCanActivateBallSaver = FALSE
-				bBallSaverIsActive = TRUE
-				BallSaverClockTimer.Uservalue = 1
-				BallSaverClockTimer.enabled = TRUE
-				ShootAgainLight.BlinkInterval = 150
-				ShootAgainLight.State = BulbBlink
-			End If
+      If bCanActivateBallSaver Then
+        bCanActivateBallSaver = FALSE
+        bBallSaverIsActive = TRUE
+        BallSaverClockTimer.Uservalue = 1
+        BallSaverClockTimer.enabled = TRUE
+        ShootAgainLight.BlinkInterval = 150
+        ShootAgainLight.State = BulbBlink
+      End If
     End If
 
     If bGameInPlay AND NOT Tilted Then
@@ -583,10 +583,10 @@ StopAttractMode
                         PlayersPlayingGame = PlayersPlayingGame + 1
                         TotalGamesPlayed = TotalGamesPlayed + 1
                         Credits = Credits - 1
-						If Credits < 1 Then DOF 136, DOFOff
+            If Credits < 1 Then DOF 136, DOFOff
                     Else
                         ' Not Enough Credits to start a game.
-						If Not hsbModeActive Then Playsound "Its time to kick ass"
+            If Not hsbModeActive Then Playsound "Its time to kick ass"
                         D1.Text = "YOU HAVE TO PAY TO PLAY DUMB ASS"
                         DisplayB2SText "YOU HAVE TO PAY TO PLAY DUMB ASS"
                     End If
@@ -604,12 +604,12 @@ StopAttractMode
                     If(Credits > 0) Then
                         If(BallsOnPlayfield = 0) Then
                             Credits = Credits - 1
-							If Credits < 1 Then DOF 136, DOFOff
+              If Credits < 1 Then DOF 136, DOFOff
                             ResetForNewGame()
-						End If
+            End If
                     Else
                         ' Not Enough Credits to start a game.
-						Playsound "Its time to kick ass"
+            Playsound "Its time to kick ass"
                         D1.Text = "YOU HAVE TO PAY TO PLAY DUMB ASS"
                         DisplayB2SText "YOU HAVE TO PAY TO PLAY DUMB ASS"
                     End If
@@ -626,7 +626,7 @@ Sub Table1_KeyUp(ByVal keycode)
     If bGameInPLay AND NOT Tilted Then
         If keycode = LeftFlipperKey Then SolLFlipper 0
         If keycode = RightFlipperKey Then SolRFlipper 0
-	End If
+  End If
 End Sub
 
 
@@ -663,7 +663,7 @@ End Sub
 
 Sub table1_Exit
     Savehs
-	if B2SOn Then Controller.Stop
+  if B2SOn Then Controller.Stop
 End Sub
 
 
@@ -674,55 +674,55 @@ End Sub
 Sub EnableRMagnet
     RMagnet.MagnetOn = True
 Select Case Mayhemvote
-			Case 1:
-			Playsound "Vote10",0,3.0
-			DMDFLush
-			DMD "vote10.jpg", "", "", 4000
-			Case 2:
-			Playsound "Vote9",0,3.0
-			DMDFLush
-			DMD "vote9.jpg", "", "", 4000
-			Case 3:
-			Playsound "Vote8",0,3.0
-			DMDFLush
-			DMD "vote8.jpg", "", "", 4000
-			Case 4:
-			Playsound "Vote3",0,3.0
-			DMDFLush
-			DMD "vote3.jpg", "", "", 4000
-			Case 5:
-			Playsound "Vote6",0,3.0
-			DMDFLush
-			DMD "vote6.jpg", "", "", 4000
-			Case 6:
-			Playsound "Vote5",0,3.0
-			DMDFLush
-			DMD "vote5.jpg", "", "", 4000
-			Case 7:
-			Playsound "Vote4",0,3.0
-			DMDFLush
-			DMD "vote4.jpg", "", "", 4000
-			Case 8:
-			Playsound "Vote2",0,3.0
-			DMDFLush
-			DMD "vote2.jpg", "", "", 4000
-			Case 9:
-			Playsound "Vote1",0,3.0
-			DMDFLush
-			DMD "vote1.jpg", "", "", 4000
+      Case 1:
+      Playsound "Vote10",0,3.0
+      DMDFLush
+      DMD "vote10.jpg", "", "", 4000
+      Case 2:
+      Playsound "Vote9",0,3.0
+      DMDFLush
+      DMD "vote9.jpg", "", "", 4000
+      Case 3:
+      Playsound "Vote8",0,3.0
+      DMDFLush
+      DMD "vote8.jpg", "", "", 4000
+      Case 4:
+      Playsound "Vote3",0,3.0
+      DMDFLush
+      DMD "vote3.jpg", "", "", 4000
+      Case 5:
+      Playsound "Vote6",0,3.0
+      DMDFLush
+      DMD "vote6.jpg", "", "", 4000
+      Case 6:
+      Playsound "Vote5",0,3.0
+      DMDFLush
+      DMD "vote5.jpg", "", "", 4000
+      Case 7:
+      Playsound "Vote4",0,3.0
+      DMDFLush
+      DMD "vote4.jpg", "", "", 4000
+      Case 8:
+      Playsound "Vote2",0,3.0
+      DMDFLush
+      DMD "vote2.jpg", "", "", 4000
+      Case 9:
+      Playsound "Vote1",0,3.0
+      DMDFLush
+      DMD "vote1.jpg", "", "", 4000
 End Select
 
-	Mayhemvote = Mayhemvote - 1
-	DisplayB2SText "       " &Mayhemvote &" MAYHEM VOTES LEFT"
-	D1.Text = "       " &Mayhemvote &" MAYHEM VOTES LEFT"
-	Playsound "Magnasave1" ,0,0.5
-	vpmtimer.AddTimer 4000, "DisableMagnets '"
+  Mayhemvote = Mayhemvote - 1
+  DisplayB2SText "       " &Mayhemvote &" MAYHEM VOTES LEFT"
+  D1.Text = "       " &Mayhemvote &" MAYHEM VOTES LEFT"
+  Playsound "Magnasave1" ,0,0.5
+  vpmtimer.AddTimer 4000, "DisableMagnets '"
 End Sub
 
 Sub DisableMagnets
     RMagnet.MagnetOn = False
-	DisplayB2SText "       " &Mayhemvote &" MAYHEM VOTES LEFT"
-	D1.Text = "       " &Mayhemvote &" MAYHEM VOTES LEFT"
+  DisplayB2SText "       " &Mayhemvote &" MAYHEM VOTES LEFT"
+  D1.Text = "       " &Mayhemvote &" MAYHEM VOTES LEFT"
 End Sub
 
 '********************
@@ -730,7 +730,7 @@ End Sub
 '********************
 
 Sub SolLFlipper(Enabled)
-	startB2S(4)
+  startB2S(4)
     If Enabled Then
         PlaySoundAtVol SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToEnd
@@ -743,7 +743,7 @@ Sub SolLFlipper(Enabled)
 End Sub
 
 Sub SolRFlipper(Enabled)
-	startB2S(4)
+  startB2S(4)
     If Enabled Then
         PlaySoundAtVol SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), RightFlipper, VolFlip
         RightFlipper.RotateToEnd
@@ -790,18 +790,18 @@ End Sub
 
 Sub Spinner1_Spin()
     PlaySoundAtVol "fx_spinner", Spinner1, VolSpin
-	DOF 137, DOFPulse
+  DOF 137, DOFPulse
     If NOT Tilted Then
         If (bPlayingMission) Then
             AddScore 1000
         Else
-			If (bPlayingFinalMission) Then
+      If (bPlayingFinalMission) Then
             AddScore 2000
 
-		Else
-			AddScore 100
+    Else
+      AddScore 100
         End If
-		End If
+    End If
       LastSwitchHit = "Spinner1"
     End If
 End Sub
@@ -817,14 +817,14 @@ Sub CheckTilt                                    'Called when table is nudged
     TiltDecreaseTimer.Enabled = True
     If(Tilt> TiltSensitivity) AND(Tilt <15) Then 'show a warning
         DisplayB2SText "CAREFUL!"
-		D1.Text = "CAREFUL !"
+    D1.Text = "CAREFUL !"
     End if
     If Tilt> 15 Then 'If more that 15 then TILT the table
         Tilted = True
         'display Tilt
 
         DMD "", " ", "TILT!", 99999
-		D1.Text = "TILT !"
+    D1.Text = "TILT !"
         DisableTable True
         TiltRecoveryTimer.Enabled = True 'start the Tilt delay to check for all the balls to be drained
     End If
@@ -1177,21 +1177,21 @@ BallShadow = Array (BallShadow1, BallShadow2, BallShadow3, BallShadow4, BallShad
 
 Sub BallShadowUpdate()
     Dim BOT, b
-	BOT = GetBalls
-	' render the shadow for each ball
+  BOT = GetBalls
+  ' render the shadow for each ball
     For b = 1 to Ubound(BOT)
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) + 10
-		Else
-			BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) - 10
-		End If
-	    ballShadow(b).Y = BOT(b).Y + 15
-		If BOT(b).Z > 20 Then
-			BallShadow(b).visible = 1
-		Else
-			BallShadow(b).visible = 0
-		End If
-	Next
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) + 10
+    Else
+      BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) - 10
+    End If
+      ballShadow(b).Y = BOT(b).Y + 15
+    If BOT(b).Z > 20 Then
+      BallShadow(b).visible = 1
+    Else
+      BallShadow(b).visible = 0
+    End If
+  Next
 End Sub
 
 
@@ -1229,27 +1229,27 @@ Sub ResetForNewGame()
     Bumper3.Force = 7
 
     bGameInPLay = True
-	SoundName = ""
-	StopSound "End"
-	StopSound "mu_msmissioncomplete"
+  SoundName = ""
+  StopSound "End"
+  StopSound "mu_msmissioncomplete"
     StopSound Song:Song = "":
 
    DisplayB2SText "       SONS OF ANARCHY          "
    D1.Text = "       SONS OF ANARCHY          "
 
-	EndAttractMode()
-	Ball = 0
-	Multiballcount = 1
-	Multiballa = 1
-	Mayhemvote = 9
-	MissionBonus = 500
-	POWScore = 0
-	GameNowOver = False
-	RideTimer = 35
-	JetDifficulty = 20
-	SonDifficulty = 3
-	ClayDifficulty = 5
-	EEGGEnding = 9
+  EndAttractMode()
+  Ball = 0
+  Multiballcount = 1
+  Multiballa = 1
+  Mayhemvote = 9
+  MissionBonus = 500
+  POWScore = 0
+  GameNowOver = False
+  RideTimer = 35
+  JetDifficulty = 20
+  SonDifficulty = 3
+  ClayDifficulty = 5
+  EEGGEnding = 9
 
     GiOn
 
@@ -1274,8 +1274,8 @@ Sub ResetForNewGame()
 
     ' you may wish to start some music, play a sound, do whatever at this point
     FirstBallDelayTimer.enabled = 1
-	' Pick randomly the first POW name (between 1 to 100 inclusive).
-	POWNamePtr = Int(Rnd(1) * 100) + 1
+  ' Pick randomly the first POW name (between 1 to 100 inclusive).
+  POWNamePtr = Int(Rnd(1) * 100) + 1
 'ResetMusic()
 ResetMusicTimer.Enabled = True
 End Sub
@@ -1300,7 +1300,7 @@ Sub ResetForNewPlayerBall()
     bCanActivateBallSaver = TRUE
 
 
-	bPlayingBall = TRUE
+  bPlayingBall = TRUE
 
 
     ' set the current players bonus multiplier back down to 1X
@@ -1336,7 +1336,7 @@ Sub CreateNewBall()
     ' kick it out..
     PlaySoundAtVol SoundFXDOF("fx_Ballrel", 121, DOFPulse, DOFContactors), BallRelease, 1
     BallRelease.Kick 95, 4
-	DOF 109, DOFPulse
+  DOF 109, DOFPulse
 
 ' if there is 2 or more balls then set the multibal flag (remember to check for locked balls and other balls used for animations)
 ' set the bAutoPlunger flag to kick the ball in play automatically
@@ -1356,22 +1356,22 @@ Sub AddMultiball(nballs)
     CreateMultiballTimer.Enabled = True
     'and eject the first ball
 If bPlayingFinalMission Then PlungerIM.AutoFire
-	CreateMultiballTimer_Timer
+  CreateMultiballTimer_Timer
 
 End Sub
 
 ' Eject the ball after the delay, AddMultiballDelay
 Sub CreateMultiballTimer_Timer()
-	' wait if there is a ball in the plunger lane
+  ' wait if there is a ball in the plunger lane
     If bBallInPlungerLane Then
-	bAutoPlunger = True
+  bAutoPlunger = True
 PlungerIM.AutoFire
 
         Exit Sub
     Else
         If BallsOnPlayfield <MaxMultiballs Then
             CreateNewBall()
-			mBalls2Eject = mBalls2Eject -1
+      mBalls2Eject = mBalls2Eject -1
             If mBalls2Eject = 0 Then 'if there are no more balls to eject then stop the timer
                 CreateMultiballTimer.Enabled = False
 
@@ -1388,25 +1388,25 @@ End Sub
 ' Handle any bonus points awarded
 
 Sub EndOfBall()
-	StopSound Song:Song = ""
-	StopSound "Mision1Start"
-	StopSound "Burn it Down"
-	Playsound "Taradie"
-	Playsound "explode3",0,0.3
-	FlashOff()
-	' Assume the player isn't playing a ball.
-	bPlayingBall = FALSE
+  StopSound Song:Song = ""
+  StopSound "Mision1Start"
+  StopSound "Burn it Down"
+  Playsound "Taradie"
+  Playsound "explode3",0,0.3
+  FlashOff()
+  ' Assume the player isn't playing a ball.
+  bPlayingBall = FALSE
 
-	If Not(Tilted) Then
-'		D1.FlushQueue()
-'		D2.FlushQueue()
-		InterruptDisplay(1600)
-		D1.Text = "<<<<++--   W A S T E D    --++>>>>"
+  If Not(Tilted) Then
+'   D1.FlushQueue()
+'   D2.FlushQueue()
+    InterruptDisplay(1600)
+    D1.Text = "<<<<++--   W A S T E D    --++>>>>"
         DisplayB2SText  "<<<<++--  W A S T E D   --++>>>>"
-		Playsound "Wasted"
+    Playsound "Wasted"
 '
-	End If
-	EndOfBallTimer2.Enabled = TRUE
+  End If
+  EndOfBallTimer2.Enabled = TRUE
 End Sub
 
 ' The Timer which delays the machine to allow any bonus points to be added up
@@ -1470,9 +1470,9 @@ Sub EndOfGame()
     'PlaySong "m_end"
     End If
 
-	Dim i, j, iswap
-	Dim POWNameTemp
-	Dim Rand(100)
+  Dim i, j, iswap
+  Dim POWNameTemp
+  Dim Rand(100)
 
     EndMission()
 
@@ -1509,93 +1509,93 @@ Sub EndOfGame()
 
 
 
-	Kicker1SolenoidPulse()
-	Kicker2SolenoidPulse()
-	Kicker3SolenoidPulse()
-	Kicker4SolenoidPulse()
+  Kicker1SolenoidPulse()
+  Kicker2SolenoidPulse()
+  Kicker3SolenoidPulse()
+  Kicker4SolenoidPulse()
    bBallLockedInKicker1 = 0
    bBallLockedInKicker2 = 0
    bBallLockedInKicker3 = 0
    bBallLockedInKicker4 = 0
-	bBallInKicker1 = 0
-	bBallInKicker2 = 0
-	bBallInKicker3 = 0
-	bBallInKicker4 = 0
+  bBallInKicker1 = 0
+  bBallInKicker2 = 0
+  bBallInKicker3 = 0
+  bBallInKicker4 = 0
    BallsLocked = 0
    FlashOff()
   ' BallsOnPlayfield = 0
-	PlayfieldTimer.Enabled = TRUE
-	' Let Future Pinball know that the game has finished. This also clear the fpGameInPlay flag.
-	'EndGame()
+  PlayfieldTimer.Enabled = TRUE
+  ' Let Future Pinball know that the game has finished. This also clear the fpGameInPlay flag.
+  'EndGame()
   ' LookAtBackbox()
    StopSound Song:Song = ""
    GameNowOver = True
    D1.Text = "           GAME OVER            "
    DisplayB2SText "           GAME OVER            "
 
-	Select Case EEGGEnding
+  Select Case EEGGEnding
 
-			Case 1:
-				DMDFLush
-				DMD "EEGG1.gif", "", "", 14800
-				StopSound Song : Song = "" : PlaySound "EEGG1"
-			Case 2:
-				DMDFLush
-				DMD "EEGG2.gif", "", "", 19500
-				StopSound Song : Song = "" : PlaySound "EEGG2"
-			Case 3:
-				DMDFLush
-				DMD "EEGG3.gif", "", "", 21700
-				StopSound Song : Song = "" : PlaySound "EEGG3"
-			Case 4:
-				DMDFLush
-				DMD "EEGG4.gif", "", "", 14800
-				StopSound Song : Song = "" : PlaySound "EEGG4"
-			Case 5:
-				DMDFLush
-				DMD "EEGG5.gif", "", "", 19800
-				StopSound Song : Song = "" : PlaySound "EEGG5"
-			Case 6:
-				DMDFLush
-				DMD "EEGG6.gif", "", "", 17300
-				StopSound Song : Song = "" : PlaySound "EEGG6"
-			Case 7:
-				DMDFLush
-				DMD "EEGG7.gif", "", "", 19300
-				StopSound Song : Song = "" : PlaySound "EEGG7"
-			Case 8:
-				DMDFLush
-				DMD "EEGG8.gif", "", "", 25200
-				StopSound Song : Song = "" : PlaySound "EEGG8"
-			Case 9:
-				DMDFLush
-				DMD "End.gif", "", "", 23500
-				StopSound Song : Song = "" : PlaySound "End"
-		End Select
+      Case 1:
+        DMDFLush
+        DMD "EEGG1.gif", "", "", 14800
+        StopSound Song : Song = "" : PlaySound "EEGG1"
+      Case 2:
+        DMDFLush
+        DMD "EEGG2.gif", "", "", 19500
+        StopSound Song : Song = "" : PlaySound "EEGG2"
+      Case 3:
+        DMDFLush
+        DMD "EEGG3.gif", "", "", 21700
+        StopSound Song : Song = "" : PlaySound "EEGG3"
+      Case 4:
+        DMDFLush
+        DMD "EEGG4.gif", "", "", 14800
+        StopSound Song : Song = "" : PlaySound "EEGG4"
+      Case 5:
+        DMDFLush
+        DMD "EEGG5.gif", "", "", 19800
+        StopSound Song : Song = "" : PlaySound "EEGG5"
+      Case 6:
+        DMDFLush
+        DMD "EEGG6.gif", "", "", 17300
+        StopSound Song : Song = "" : PlaySound "EEGG6"
+      Case 7:
+        DMDFLush
+        DMD "EEGG7.gif", "", "", 19300
+        StopSound Song : Song = "" : PlaySound "EEGG7"
+      Case 8:
+        DMDFLush
+        DMD "EEGG8.gif", "", "", 25200
+        StopSound Song : Song = "" : PlaySound "EEGG8"
+      Case 9:
+        DMDFLush
+        DMD "End.gif", "", "", 23500
+        StopSound Song : Song = "" : PlaySound "End"
+    End Select
 
-	GameIsOverTimer.Interval = 36000
-	GameIsOverTimer.Enabled = TRUE
-	'While UltraDMD.IsRendering = True
+  GameIsOverTimer.Interval = 36000
+  GameIsOverTimer.Enabled = TRUE
+  'While UltraDMD.IsRendering = True
    'WEnd
 
-	' Entering attract mode (lights and messages).
-	EnterAttractMode()
-	' Doing POW name table randomly shuffled.
-	For i = 1 To 100
-		Rand(i) = Int(Rnd(1) * 10000)
-	Next
-	For i = 1 To 99
-		For j = i + 1 To 100
-			If Rand(i) > Rand(j) Then
-				iswap = Rand(i)
-				Rand(i) = Rand(j)
-				Rand(j) = iswap
-				POWNameTemp = POWName(i)
-				POWName(i) = POWName(j)
-				POWName(j) = POWNameTemp
-			End If
-		Next
-	Next
+  ' Entering attract mode (lights and messages).
+  EnterAttractMode()
+  ' Doing POW name table randomly shuffled.
+  For i = 1 To 100
+    Rand(i) = Int(Rnd(1) * 10000)
+  Next
+  For i = 1 To 99
+    For j = i + 1 To 100
+      If Rand(i) > Rand(j) Then
+        iswap = Rand(i)
+        Rand(i) = Rand(j)
+        Rand(j) = iswap
+        POWNameTemp = POWName(i)
+        POWName(i) = POWName(j)
+        POWName(j) = POWNameTemp
+      End If
+    Next
+  Next
 
 
 FixTargetTimer.enabled = 1
@@ -1619,7 +1619,7 @@ End Function
 ' Check to see if a ball saver mechanism is needed and if so fire it up.
 
 Sub swPlungerRest_Hit()
-	'debug.print "ball in plunger lane"
+  'debug.print "ball in plunger lane"
     ' some sound according to the ball position
     PlaySound "Startup", 0, 3.0', 0.15, 0.25
     bBallInPlungerLane = TRUE
@@ -1643,11 +1643,11 @@ End Sub
 
 Sub swPlungerRest_UnHit()
     bBallInPlungerLane = False
-	DOF 125, DOFPulse
-	DOF 114, DOFPulse
+  DOF 125, DOFPulse
+  DOF 114, DOFPulse
 If bLockIsLit Then
-	DMDFLush
-	DMD "Cowride.gif", "","", 3400
+  DMDFLush
+  DMD "Cowride.gif", "","", 3400
 
 Else
 
@@ -1738,9 +1738,9 @@ Sub AddJackpot(points) 'not used in this table
 ' If(bMultiBallMode = True) Then
 ' Jackpot = Jackpot + points
 ' you may wish to limit the jackpot to a upper limit, ie..
-'	If (Jackpot >= 6000) Then
-'		Jackpot = 6000
-' 	End if
+' If (Jackpot >= 6000) Then
+'   Jackpot = 6000
+'   End if
 'End if
 'End if
 End Sub
@@ -1751,9 +1751,9 @@ Sub AddSuperJackpot(points)
     ' If(bMultiBallMode = True) Then
     '   SuperJackpot = SuperJackpot + points
     ' you may wish to limit the jackpot to a upper limit, ie..
-    '	If (Jackpot >= 6000) Then
-    '		Jackpot = 6000
-    ' 	End if
+    ' If (Jackpot >= 6000) Then
+    '   Jackpot = 6000
+    '   End if
     'End if
     End if
 End Sub
@@ -1767,9 +1767,9 @@ End Sub
 
 Sub AwardExtraBall()
     If NOT bExtraBallWonThisBall Then
-       	DMDFlush
-		DMD "ExtraBall.gif", "", "", 2800
-		StopSound (SoundName) : SoundName = "ExtraBall" : PlaySound (SoundName)
+        DMDFlush
+    DMD "ExtraBall.gif", "", "", 2800
+    StopSound (SoundName) : SoundName = "ExtraBall" : PlaySound (SoundName)
         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
         bExtraBallWonThisBall = True
         GiEffect 1
@@ -1779,12 +1779,12 @@ End Sub
 
 Sub AwardSpecial()
     DisplayB2SText " CONGRATULATIONS GREAT SCORE  "
-	D1.Text = " CONGRATULATIONS GREAT SCORE  "
+  D1.Text = " CONGRATULATIONS GREAT SCORE  "
     Credits = Credits + 1
     DOF 128, DOFOn
     DOF 140, DOFOn
     DisplayB2SText "           CREDITS           " &Credits
-	D1.Text = "CREDITS           " &Credits
+  D1.Text = "CREDITS           " &Credits
     GiEffect 1
     LightEffect 1
 End Sub
@@ -2040,14 +2040,14 @@ Sub HighScoreCommitName()
         hsEnteredName = "YOU"
     end if
 
-	If(hsEnteredName = "JAX") Then EEGGEnding = 1
-	If(hsEnteredName = "OPI") Then EEGGEnding = 2
-	If(hsEnteredName = "CHB") Then EEGGEnding = 3
-	If(hsEnteredName = "TRA") Then EEGGEnding = 4
-	If(hsEnteredName = "COW") Then EEGGEnding = 5
-	If(hsEnteredName = "CLA") Then EEGGEnding = 6
-	If(hsEnteredName = "GMA") Then EEGGEnding = 7
-	If(hsEnteredName = "TIG") Then EEGGEnding = 8
+  If(hsEnteredName = "JAX") Then EEGGEnding = 1
+  If(hsEnteredName = "OPI") Then EEGGEnding = 2
+  If(hsEnteredName = "CHB") Then EEGGEnding = 3
+  If(hsEnteredName = "TRA") Then EEGGEnding = 4
+  If(hsEnteredName = "COW") Then EEGGEnding = 5
+  If(hsEnteredName = "CLA") Then EEGGEnding = 6
+  If(hsEnteredName = "GMA") Then EEGGEnding = 7
+  If(hsEnteredName = "TIG") Then EEGGEnding = 8
 
     HighScoreName(3) = hsEnteredName
     SortHighscore
@@ -2270,7 +2270,7 @@ Sub RainbowTimer_Timer 'rainbow led light color changing
 End Sub
 
 '***********************************************************************************
-'         	    JPS DMD - very simple DMD routines using UltraDMD
+'               JPS DMD - very simple DMD routines using UltraDMD
 '***********************************************************************************
 
 Dim UltraDMD
@@ -2297,7 +2297,7 @@ Sub DMDScore
       Dim i
         'ShowTableInfo
         DMD "soa.jpg", "", "", 5000
-	Else
+  Else
         UltraDMDScoreTimer.Enabled = 1
       End If
 
@@ -2404,21 +2404,21 @@ Sub ShowTableInfo
     'coins or freeplay
     If bFreePlay AND Not (bGameInPlay) And BallsOnPlayfield = 0 And GameNowOver = False Then
         DMD "", "FREE PLAY", "", 2000
-		DMDFlush
-		DMD "soaintro.gif", "", "", 26000
-		PlaySong "soaintro"
+    DMDFlush
+    DMD "soaintro.gif", "", "", 26000
+    PlaySong "soaintro"
     Else
         If Credits> 0 Then
-			DMD "", "CREDITS " &Credits, "PRESS START", 2000
-		Else
-			DMD "", "CREDITS " &Credits, "INSERT COIN", 2000
-		End If
-		If Not (bGameInPlay) And GameNowOver = False Then
-		DMDFlush
-		DMD "soaintro.gif", "", "", 26000
-		PlaySong "soaintro"
+      DMD "", "CREDITS " &Credits, "PRESS START", 2000
+    Else
+      DMD "", "CREDITS " &Credits, "INSERT COIN", 2000
     End If
-	End If
+    If Not (bGameInPlay) And GameNowOver = False Then
+    DMDFlush
+    DMD "soaintro.gif", "", "", 26000
+    PlaySong "soaintro"
+    End If
+  End If
     ' some info about the table
     DMD "", "ALDIODE", "PRESENTS", 3000
     DMD "", "", " Sons of Anarchy ", 3000
@@ -2647,45 +2647,45 @@ End Sub
 ' *** DOCAM MUST BE CHECKED ***
 '
 Sub FuturePinball_Tilted()
-	If Not(bPlayingBall) Then
-		' Ignore the tilt when the player is not playing (e.g. during bonus countdown sequence).
-		Tilted = FALSE
-		Exit Sub
-	End If
-	PlaySound "Tilt"
-	' Terminate current mission.
+  If Not(bPlayingBall) Then
+    ' Ignore the tilt when the player is not playing (e.g. during bonus countdown sequence).
+    Tilted = FALSE
+    Exit Sub
+  End If
+  PlaySound "Tilt"
+  ' Terminate current mission.
    EndMission()
-	' Stop theme.
+  ' Stop theme.
   ' StopMusic 1
    Playsound "Wasted", FALSE
    If bPlayingFinalMission Then ingamereset()
-	' Ensure all the flippers are down (as the keys won't work from now on).
-	LeftFlipper.SolenoidOff()
-	RightFlipper.SolenoidOff()
+  ' Ensure all the flippers are down (as the keys won't work from now on).
+  LeftFlipper.SolenoidOff()
+  RightFlipper.SolenoidOff()
    TopRightFlipper.SolenoidOff()
-	' Ensure they're are not any ball near kickback.
-	bKickbackIsLit = FALSE
-	KickbackLight.State = 0
-	KickbackGuide.isDropped = 1
-	' Disable ball saver.
-	BallSaverClockTimerUserData = 0
-	bBallSaverIsActive = FALSE
-	ShootAgainLight.State = 0
-	ShootAgainLight.BlinkInterval = 150
-	' Ensure the wall (WEAPON drop targets) is down during locating ball(s).
-	W1.Isdropped = 1
-	W2.Isdropped = 1
-	W3.Isdropped = 1
-	W4.Isdropped = 1
-	W5.Isdropped = 1
-	W6.Isdropped = 1
-	' Turn off general illumination (GI).
+  ' Ensure they're are not any ball near kickback.
+  bKickbackIsLit = FALSE
+  KickbackLight.State = 0
+  KickbackGuide.isDropped = 1
+  ' Disable ball saver.
+  BallSaverClockTimerUserData = 0
+  bBallSaverIsActive = FALSE
+  ShootAgainLight.State = 0
+  ShootAgainLight.BlinkInterval = 150
+  ' Ensure the wall (WEAPON drop targets) is down during locating ball(s).
+  W1.Isdropped = 1
+  W2.Isdropped = 1
+  W3.Isdropped = 1
+  W4.Isdropped = 1
+  W5.Isdropped = 1
+  W6.Isdropped = 1
+  ' Turn off general illumination (GI).
    GIOff()
     FlashEffect 0
     FlashEffectMissionTimer.enabled = 0
-	' Start the tilt recovery timer which waits until all balls have drained before doing the end of ball sequence (or end of game).
-	TiltRecoveryTimer.Interval = 1000
-	TiltRecoveryTimer.Enabled	= TRUE
+  ' Start the tilt recovery timer which waits until all balls have drained before doing the end of ball sequence (or end of game).
+  TiltRecoveryTimer.Interval = 1000
+  TiltRecoveryTimer.Enabled = TRUE
 End Sub
 
 
@@ -2705,8 +2705,8 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub FuturePinball_NameEntryComplete(ByVal Position, ByVal Special)
-	bEnteringAHighScore = FALSE
-	EndOfBallComplete()
+  bEnteringAHighScore = FALSE
+  EndOfBallComplete()
 End Sub
 
 
@@ -2730,7 +2730,7 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub PlungerLaneTrigger_Hit()
-	bBallInPlungerLane = TRUE
+  bBallInPlungerLane = TRUE
 End Sub
 
 
@@ -2740,7 +2740,7 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub PlungerLaneTrigger_UnHit()
-	bBallInPlungerLane = FALSE
+  bBallInPlungerLane = FALSE
 End Sub
 
 
@@ -2756,16 +2756,16 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub POWLane1_Hit()
-	startB2S(3)
-	DOF 127, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(100)
-	' PlaySound "Lane1",0,0.5
-	PlaySoundAtVol "Lane1", POWLane1, 1
-	' Turn on "P" letter light.
-	POWLaneLight1.State = 1
-	' Check if all SOA letters are completed.
-	CheckPOWLanes()
+  startB2S(3)
+  DOF 127, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(100)
+  ' PlaySound "Lane1",0,0.5
+  PlaySoundAtVol "Lane1", POWLane1, 1
+  ' Turn on "P" letter light.
+  POWLaneLight1.State = 1
+  ' Check if all SOA letters are completed.
+  CheckPOWLanes()
 End Sub
 
 
@@ -2775,16 +2775,16 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub POWLane2_Hit()
-	startB2S(2)
-	DOF 128, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(100)
-	' PlaySound "Lane1",0,0.5
-	PlaySoundAtVol "Lane1", POWLane2, 1
-	' Turn on "O" letter light.
-	POWLaneLight2.State = 1
-	' Check if all POW letters are completed.
-	CheckPOWLanes()
+  startB2S(2)
+  DOF 128, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(100)
+  ' PlaySound "Lane1",0,0.5
+  PlaySoundAtVol "Lane1", POWLane2, 1
+  ' Turn on "O" letter light.
+  POWLaneLight2.State = 1
+  ' Check if all POW letters are completed.
+  CheckPOWLanes()
 End Sub
 
 
@@ -2794,16 +2794,16 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub POWLane3_Hit()
-	startB2S(1)
-	DOF 129, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(100)
-	' PlaySound "Lane1",0,0.5
-	PlaySoundAtVol "Lane1", POWLane3, 1
-	' Turn on "W" letter light.
-	POWLaneLight3.State = 1
-	' Check if all POW letters are completed.
-	CheckPOWLanes()
+  startB2S(1)
+  DOF 129, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(100)
+  ' PlaySound "Lane1",0,0.5
+  PlaySoundAtVol "Lane1", POWLane3, 1
+  ' Turn on "W" letter light.
+  POWLaneLight3.State = 1
+  ' Check if all POW letters are completed.
+  CheckPOWLanes()
 End Sub
 
 
@@ -2819,11 +2819,11 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub LoopTrigger_Hit()
-	startB2S(6)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	ResetWEAPONTargets()
-	PlaySound "explode3",0,0.3
-	AddScore(2500)
+  startB2S(6)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  ResetWEAPONTargets()
+  PlaySound "explode3",0,0.3
+  AddScore(2500)
 End Sub
 
 
@@ -2839,22 +2839,22 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub LeftInLaneTrigger_Hit()
-	startB2S(3)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	DOF 111, DOFPulse
-	' Add 1000 points.
-	AddScore(1000)
-	' Play specific sound.
+  startB2S(3)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  DOF 111, DOFPulse
+  ' Add 1000 points.
+  AddScore(1000)
+  ' Play specific sound.
    PlaySound "Drink"
-	' Lit the left inlane light.
+  ' Lit the left inlane light.
    LeftInLaneLight.State = 1
    bLeftInLaneIsLit = TRUE
-	If bRightInLaneIsLit Then
-		' If the right inlane light is also lit, lit the kickback...
-		LightKickback()
-		' ...and the red right outlane light.
-		RightOutLaneLight.State = 1
-	End If
+  If bRightInLaneIsLit Then
+    ' If the right inlane light is also lit, lit the kickback...
+    LightKickback()
+    ' ...and the red right outlane light.
+    RightOutLaneLight.State = 1
+  End If
 End Sub
 
 
@@ -2864,22 +2864,22 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub RightInLaneTrigger_Hit()
-	startB2S(2)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	DOF 112, DOFPulse
-	' Add 1000 points.
-	AddScore(1000)
-	' Play specific sound.
+  startB2S(2)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  DOF 112, DOFPulse
+  ' Add 1000 points.
+  AddScore(1000)
+  ' Play specific sound.
    PlaySound "Drink"
-	' Lit the right inlane light.
+  ' Lit the right inlane light.
    RightInLaneLight.State = 1
    bRightInLaneIsLit = TRUE
-	If bLeftInLaneIsLit Then
-		' If the left inlane light is also lit, lit the kickback...
-		LightKickback()
-		' ...and the red right outlane light.
-		RightOutLaneLight.State = 1
-	End If
+  If bLeftInLaneIsLit Then
+    ' If the left inlane light is also lit, lit the kickback...
+    LightKickback()
+    ' ...and the red right outlane light.
+    RightOutLaneLight.State = 1
+  End If
 End Sub
 
 
@@ -2889,29 +2889,29 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub LeftOutLaneTrigger_Hit()
-	startB2S(4)
-	If fpTilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	DOF 110, DOFPulse
-	' This flag indicates the trigger is pressed.
-	bBallOnLeftOutLaneTrigger = TRUE
+  startB2S(4)
+  If fpTilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  DOF 110, DOFPulse
+  ' This flag indicates the trigger is pressed.
+  bBallOnLeftOutLaneTrigger = TRUE
    If bKickbackIsLit Then
-		KickbackTimer.Uservalue = 1	' UserData = 1 means ready for kickback.
-		KickbackTimer.Enabled = TRUE
-		KickbackLight.state = BulbOff', "10", 100
-		FlashForMs KickbackLight, 500, 50, 0
-	Else
+    KickbackTimer.Uservalue = 1 ' UserData = 1 means ready for kickback.
+    KickbackTimer.Enabled = TRUE
+    KickbackLight.state = BulbOff', "10", 100
+    FlashForMs KickbackLight, 500, 50, 0
+  Else
 
-		If bBallSaverIsActive Then
-			' Give 3 seconds saver grace delay, only if ball saver is active.
-			BallSaverClockTimer.Uservalue = 3
-			BallSaverClockTimer.Enabled = FALSE
-			BallSaverClockTimer.interval = 3000
-			ShootAgainLight.BlinkInterval = 50
-			ShootAgainLight.State = BulbBlink
-		End If
-		' Add 2000 points.
-		AddScore(2000)
-	End If
+    If bBallSaverIsActive Then
+      ' Give 3 seconds saver grace delay, only if ball saver is active.
+      BallSaverClockTimer.Uservalue = 3
+      BallSaverClockTimer.Enabled = FALSE
+      BallSaverClockTimer.interval = 3000
+      ShootAgainLight.BlinkInterval = 50
+      ShootAgainLight.State = BulbBlink
+    End If
+    ' Add 2000 points.
+    AddScore(2000)
+  End If
 End Sub
 
 
@@ -2921,12 +2921,12 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub LeftOutLaneTrigger_UnHit()
-	startB2S(4)
-	If fpTilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	' Disable the kickback mechanism.
-	bBallOnLeftOutLaneTrigger = FALSE
-	KickbackTimer.Enabled = FALSE
-	KickbackTimer.Uservalue = 0
+  startB2S(4)
+  If fpTilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  ' Disable the kickback mechanism.
+  bBallOnLeftOutLaneTrigger = FALSE
+  KickbackTimer.Enabled = FALSE
+  KickbackTimer.Uservalue = 0
 End Sub
 
 
@@ -2938,54 +2938,54 @@ End Sub
 Dim BallSaverClockTimerUserData
 
 Sub RightOutLaneTrigger_Hit()
-	startB2S(1)
-	If fpTilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	DOF 113, DOFPulse
-	' Add 2000 points.
-	AddScore(2000)
+  startB2S(1)
+  If fpTilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  DOF 113, DOFPulse
+  ' Add 2000 points.
+  AddScore(2000)
 
       If ShootAgainLight.State = 0 Then
          bBallSaverIsActive = FALSE
       End If
 
-	If bBallSaverIsActive = True Then
-		' Give 3 seconds saver grace delay, only if ball saver is active.
-		BallSaverClockTimer.Uservalue = 3
-		BallSaverClockTimer.Enabled = FALSE
-		BallSaverClockTimer.interval = 3000
-		ShootAgainLight.BlinkInterval = 50
-		ShootAgainLight.State = BulbBlink
-	End If
-	' Play outlane sound.
-	If Not (bBallSaverIsActive) Then PlayOutLaneSound()
-	' Give additional 2000 points only if (red) right outlane is lit.
+  If bBallSaverIsActive = True Then
+    ' Give 3 seconds saver grace delay, only if ball saver is active.
+    BallSaverClockTimer.Uservalue = 3
+    BallSaverClockTimer.Enabled = FALSE
+    BallSaverClockTimer.interval = 3000
+    ShootAgainLight.BlinkInterval = 50
+    ShootAgainLight.State = BulbBlink
+  End If
+  ' Play outlane sound.
+  If Not (bBallSaverIsActive) Then PlayOutLaneSound()
+  ' Give additional 2000 points only if (red) right outlane is lit.
    If RightOutLaneLight.State = BulbOn Then AddScore(20000)
 End Sub
 
 
 Sub LeftOutLaneTrigger2_Hit()
-	startB2S(1)
-	If fpTilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	'DOF 113, DOFPulse
-	' Add 2000 points.
-	AddScore(2000)
+  startB2S(1)
+  If fpTilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  'DOF 113, DOFPulse
+  ' Add 2000 points.
+  AddScore(2000)
 
       If ShootAgainLight.State = 0 Then
          bBallSaverIsActive = FALSE
       End If
 
-	If bBallSaverIsActive = True Then
-		' Give 3 seconds saver grace delay, only if ball saver is active.
-		BallSaverClockTimer.Uservalue = 3
-		BallSaverClockTimer.Enabled = FALSE
-		BallSaverClockTimer.interval = 3000
-		ShootAgainLight.BlinkInterval = 50
-		ShootAgainLight.State = BulbBlink
-	End If
+  If bBallSaverIsActive = True Then
+    ' Give 3 seconds saver grace delay, only if ball saver is active.
+    BallSaverClockTimer.Uservalue = 3
+    BallSaverClockTimer.Enabled = FALSE
+    BallSaverClockTimer.interval = 3000
+    ShootAgainLight.BlinkInterval = 50
+    ShootAgainLight.State = BulbBlink
+  End If
 'If LeftOutLaneTrigger.enabled = 0 Then
-	'PlayOutLaneSound()
+  'PlayOutLaneSound()
 'End If
-	' Give additional 2000 points only if (red) right outlane is lit.
+  ' Give additional 2000 points only if (red) right outlane is lit.
    If RightOutLaneLight.State = BulbOn Then AddScore(20000)
 End Sub
 
@@ -3005,8 +3005,8 @@ End Sub
 '
 Dim LStep, RStep
 Sub LeftSlingshotRubber_Slingshot()
-	startB2S(4)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(4)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
 
     PlaySoundAtVol SoundFXDOF("Left_SlingShot", 103, DOFPulse, DOFContactors), Lemk, 1
     LeftSling4.Visible = 1
@@ -3014,14 +3014,14 @@ Sub LeftSlingshotRubber_Slingshot()
     LStep = 0
     LeftSlingshotRubber.TimerEnabled = True
 
-	' Play specific sound.
-	'Playsound "left_slingshot"
-	' Add 110 points.
-	AddScore(110)
-	' Flash the lights around the lime slingshot.
-	FlashForMs LeftSlingshotBulb1, 100, 50, 1
-	FlashForMs LeftSlingshotBulb2, 100, 50, 1
-	DOF 140, DOFPulse
+  ' Play specific sound.
+  'Playsound "left_slingshot"
+  ' Add 110 points.
+  AddScore(110)
+  ' Flash the lights around the lime slingshot.
+  FlashForMs LeftSlingshotBulb1, 100, 50, 1
+  FlashForMs LeftSlingshotBulb2, 100, 50, 1
+  DOF 140, DOFPulse
 End Sub
 
 
@@ -3040,8 +3040,8 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub RightSlingshotRubber_Slingshot()
-	startB2S(4)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(4)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
 
     PlaySoundAtVol SoundFXDOF("right_slingshot", 104, DOFPulse, DOFContactors), Remk, 1
     RightSling4.Visible = 1
@@ -3049,14 +3049,14 @@ Sub RightSlingshotRubber_Slingshot()
     RStep = 0
     RightSlingShotRubber.TimerEnabled = True
 
-	' Play specific sound.
-	'Playsound "right_slingshot",0,6
-	' Add 110 points.
-	AddScore(110)
-	' Flash the lights around the right slingshot.
-	FlashForMs RightSlingshotBulb1, 100, 50, 1
-	FlashForMs RightSlingshotBulb2, 100, 50, 1
-	DOF 141, DOFPulse
+  ' Play specific sound.
+  'Playsound "right_slingshot",0,6
+  ' Add 110 points.
+  AddScore(110)
+  ' Flash the lights around the right slingshot.
+  FlashForMs RightSlingshotBulb1, 100, 50, 1
+  FlashForMs RightSlingshotBulb2, 100, 50, 1
+  DOF 141, DOFPulse
 End Sub
 
 Sub RightSlingShotRubber_Timer
@@ -3075,9 +3075,9 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Rubber6_Hit()
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(10)
-	Playsound "Drink"
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(10)
+  Playsound "Drink"
 End Sub
 
 
@@ -3093,18 +3093,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug1_Hit()
-	DOF 122, DOFPulse
-	startB2S(1)
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug1.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug1Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "Cash"
-	If bPlayingMission1 Then ScoreMission1()
+  DOF 122, DOFPulse
+  startB2S(1)
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug1.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug1Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "Cash"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3114,18 +3114,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug2_Hit()
-	startB2S(1)
-	DOF 122, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug2.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug2Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "Cash"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 122, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug2.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug2Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "Cash"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3135,18 +3135,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug3_Hit()
-	startB2S(1)
-	DOF 122, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug3.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug3Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "Cash"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 122, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug3.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug3Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "Cash"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3156,18 +3156,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug4_Hit()
-	startB2S(1)
-	DOF 122, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug4.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug4Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "Cash"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 122, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug4.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug4Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "Cash"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3177,18 +3177,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug5_Hit()
-	startB2S(1)
-	DOF 122, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug5.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug5Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "Cash"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 122, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug5.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug5Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "Cash"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3198,18 +3198,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug6_Hit()
-	startB2S(1)
-	DOF 132, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug6.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug6Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "pistol"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 132, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug6.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug6Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "pistol"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3219,18 +3219,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug7_Hit()
-	startB2S(1)
-	DOF 132, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug7.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug7Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "pistol"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 132, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug7.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug7Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "pistol"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3240,18 +3240,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug8_Hit()
-	startB2S(1)
-	DOF 132, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug8.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug8Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "pistol"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 132, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug8.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug8Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "pistol"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3261,18 +3261,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Slug9_Hit()
-	startB2S(1)
-	DOF 132, DOFPulse
-	' Raise the drop target and ignore if the table is tilted.
-	If Tilted Then
-		Slug9.SolenoidPulse()
-		Exit Sub
-	End If
-	AddScore(500)
-	Slug9Light.State = 1
-	CheckSLUGTimer.Enabled = TRUE
-	Playsound "pistol"
-	If bPlayingMission1 Then ScoreMission1()
+  startB2S(1)
+  DOF 132, DOFPulse
+  ' Raise the drop target and ignore if the table is tilted.
+  If Tilted Then
+    Slug9.SolenoidPulse()
+    Exit Sub
+  End If
+  AddScore(500)
+  Slug9Light.State = 1
+  CheckSLUGTimer.Enabled = TRUE
+  Playsound "pistol"
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3288,36 +3288,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W1_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
   ' If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W1Light.State = 1
-				bW1TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W1Light, 500, 100, 0
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W1Light, 500, 100, 0
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W1Light.State = 1
-				bW1TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W1Light.State = 1
-			bW1TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W1Light.State = 1
+        bW1TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W1Light, 500, 100, 0
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W1Light, 500, 100, 0
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W1Light.State = 1
+        bW1TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W1Light.State = 1
+      bW1TargetIsDown = TRUE
+      CheckWeapon()
+    End If
   ' End If
 End Sub
 
@@ -3328,36 +3328,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W2_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
    'If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W2Light.State = 1
-				bW2TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W2Light, 500, 100, 0
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W2Light, 500, 100, 0
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W2Light.State = 1
-				bW2TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W2Light.State = 1
-			bW2TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W2Light.State = 1
+        bW2TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W2Light, 500, 100, 0
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W2Light, 500, 100, 0
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W2Light.State = 1
+        bW2TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W2Light.State = 1
+      bW2TargetIsDown = TRUE
+      CheckWeapon()
+    End If
  '  End If
 End Sub
 
@@ -3368,36 +3368,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W3_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
   ' If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W3Light.State = 1
-				bW3TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W3Light, 500, 100, BulbOff
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W3Light, 500, 100, BulbOff
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W3Light.State = 1
-				bW3TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W3Light.State = 1
-			bW3TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W3Light.State = 1
+        bW3TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W3Light, 500, 100, BulbOff
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W3Light, 500, 100, BulbOff
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W3Light.State = 1
+        bW3TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W3Light.State = 1
+      bW3TargetIsDown = TRUE
+      CheckWeapon()
+    End If
   ' End If
 End Sub
 
@@ -3408,36 +3408,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W4_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
   ' If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W4Light.State = 1
-				bW4TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W4Light, 500, 100, 0
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W4Light, 500, 100, 0
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W4Light.State = 1
-				bW4TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W4Light.State = 1
-			bW4TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W4Light.State = 1
+        bW4TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W4Light, 500, 100, 0
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W4Light, 500, 100, 0
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W4Light.State = 1
+        bW4TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W4Light.State = 1
+      bW4TargetIsDown = TRUE
+      CheckWeapon()
+    End If
   ' End If
 End Sub
 
@@ -3448,36 +3448,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W5_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
   ' If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W5Light.State = 1
-				bW5TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W5Light, 500, 100, 0
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W5Light, 500, 100, 0
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W5Light.State = 1
-				bW5TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W5Light.State = 1
-			bW5TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W5Light.State = 1
+        bW5TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W5Light, 500, 100, 0
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W5Light, 500, 100, 0
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W5Light.State = 1
+        bW5TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W5Light.State = 1
+      bW5TargetIsDown = TRUE
+      CheckWeapon()
+    End If
  '  End If
 End Sub
 
@@ -3488,36 +3488,36 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub W6_Hit()
-	startB2S(1)
-	DOF 134, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(1)
+  DOF 134, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
   ' If Not(bMultiBallMode) Then
-		If bPlayingMission Then
-			If bPlayingMission1 Then
-				ScoreMission1()
-				W6Light.State = 1
-				bW6TargetIsDown = TRUE
-				CheckWeapon()
-			ElseIf bPlayingMission2 Then
-				FlashForMs W6Light, 500, 100, 0
-				ScoreMission2()
-			ElseIf bPlayingMission5 Then
-				FlashForMs W6Light, 500, 100, 0
-				ScoreMission5()
-			ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
-				Playsound "steel",0,0.3
-				W6Light.State = 1
-				bW6TargetIsDown = TRUE
-				CheckWeapon()
-				AddScore(500)
-			End If
-		Else
-			Playsound "steel",0,0.3
-			AddScore(500)
-			W6Light.State = 1
-			bW6TargetIsDown = TRUE
-			CheckWeapon()
-		End If
+    If bPlayingMission Then
+      If bPlayingMission1 Then
+        ScoreMission1()
+        W6Light.State = 1
+        bW6TargetIsDown = TRUE
+        CheckWeapon()
+      ElseIf bPlayingMission2 Then
+        FlashForMs W6Light, 500, 100, 0
+        ScoreMission2()
+      ElseIf bPlayingMission5 Then
+        FlashForMs W6Light, 500, 100, 0
+        ScoreMission5()
+      ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+        Playsound "steel",0,0.3
+        W6Light.State = 1
+        bW6TargetIsDown = TRUE
+        CheckWeapon()
+        AddScore(500)
+      End If
+    Else
+      Playsound "steel",0,0.3
+      AddScore(500)
+      W6Light.State = 1
+      bW6TargetIsDown = TRUE
+      CheckWeapon()
+    End If
   ' End If
 End Sub
 
@@ -3534,14 +3534,14 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub S1_Hit()
-	PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-	startB2S(1)
-	DOF 118, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(1000)
-	If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Youre gonna die for that" : PlaySound (SoundName),0,0.3
-	S1Light.State = 1
-	If bPlayingMission1 Then ScoreMission1()
+  PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+  startB2S(1)
+  DOF 118, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(1000)
+  If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Youre gonna die for that" : PlaySound (SoundName),0,0.3
+  S1Light.State = 1
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3551,14 +3551,14 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub S2_Hit()
-	PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-	startB2S(1)
-	DOF 118, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(2000)
-	If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Im gonna kill you old style" : PlaySound (SoundName),0,0.3
-	S2Light.State = 1
-	If bPlayingMission1 Then ScoreMission1()
+  PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+  startB2S(1)
+  DOF 118, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(2000)
+  If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Im gonna kill you old style" : PlaySound (SoundName),0,0.3
+  S2Light.State = 1
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3568,14 +3568,14 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub S3_Hit()
-	PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-	startB2S(1)
-	DOF 118, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	AddScore(3000)
-	If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Die you S.O.B." : PlaySound (SoundName),0,0.3
-	S3Light.State = 1
-	If bPlayingMission1 Then ScoreMission1()
+  PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+  startB2S(1)
+  DOF 118, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  AddScore(3000)
+  If Not (bPlayingMission) Then StopSound (SoundName) : SoundName = "Die you S.O.B." : PlaySound (SoundName),0,0.3
+  S3Light.State = 1
+  If bPlayingMission1 Then ScoreMission1()
 End Sub
 
 
@@ -3591,20 +3591,20 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub C1_Hit()
-	startB2S(1)
-	DOF 119, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	If bGameInPlay Then
-		C1Light.State = 1
-		AddScore(2000)
-		If bPlayingMission Then
-			If bPlayingMission1 Then ScoreMission1()
-			If bPlayingMission4 Then ScoreMission4()
-		Else
-			LightMission()
-			PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		End If
-	End If
+  startB2S(1)
+  DOF 119, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  If bGameInPlay Then
+    C1Light.State = 1
+    AddScore(2000)
+    If bPlayingMission Then
+      If bPlayingMission1 Then ScoreMission1()
+      If bPlayingMission4 Then ScoreMission4()
+    Else
+      LightMission()
+      PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    End If
+  End If
 End Sub
 
 
@@ -3614,20 +3614,20 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub C2_Hit()
-	startB2S(1)
-	DOF 119, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	If bGameInPlay Then
-		C2Light.State = 1
-		AddScore(2000)
-		If bPlayingMission Then
-			If bPlayingMission1 Then ScoreMission1()
-			If bPlayingMission4 Then ScoreMission4()
-		Else
-			LightMission()
-			PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		End If
-	End If
+  startB2S(1)
+  DOF 119, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  If bGameInPlay Then
+    C2Light.State = 1
+    AddScore(2000)
+    If bPlayingMission Then
+      If bPlayingMission1 Then ScoreMission1()
+      If bPlayingMission4 Then ScoreMission4()
+    Else
+      LightMission()
+      PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    End If
+  End If
 End Sub
 
 
@@ -3637,22 +3637,22 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub C3_Hit()
-	startB2S(1)
-	DOF 119, DOFPulse
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	If bGameInPlay Then
-		C1Light.State = 2
-		C2Light.State = 2
-		C3Light.State = 2
-		AddScore(2000)
-		If bPlayingMission Then
-			If bPlayingMission1 Then ScoreMission1()
-			If bPlayingMission4 Then ScoreMission4()
-		Else
-			LightMission()
-			PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		End If
-	End If
+  startB2S(1)
+  DOF 119, DOFPulse
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  If bGameInPlay Then
+    C1Light.State = 2
+    C2Light.State = 2
+    C3Light.State = 2
+    AddScore(2000)
+    If bPlayingMission Then
+      If bPlayingMission1 Then ScoreMission1()
+      If bPlayingMission4 Then ScoreMission4()
+    Else
+      LightMission()
+      PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    End If
+  End If
 End Sub
 
 
@@ -3668,37 +3668,37 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub C4_Hit()
-	startB2S(6)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
-	' This statement drops the next side target (useful to open access to kicker 4).
-	If S1.IsDropped = 1 Then
-		If S2.IsDropped = 1 Then
-			If Not(S3.IsDropped) Then
-				S3.isdropped = 1
-				S3Light.State = 1
-			End If
-		Else
-			S2.isdropped = 1
-			S2Light.State = 1
-		End If
-	Else
-		S1.isdropped = 1
-		S1Light.State = 1
-	End If
+  startB2S(6)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+  ' This statement drops the next side target (useful to open access to kicker 4).
+  If S1.IsDropped = 1 Then
+    If S2.IsDropped = 1 Then
+      If Not(S3.IsDropped) Then
+        S3.isdropped = 1
+        S3Light.State = 1
+      End If
+    Else
+      S2.isdropped = 1
+      S2Light.State = 1
+    End If
+  Else
+    S1.isdropped = 1
+    S1Light.State = 1
+  End If
 
-	AdvancePOW()
-	AddScore(8000)
-	If Not(bPlayingMission) And Not(bMissionSuspended) Then LightMission()
-	If bPlayingMission Then
-		If bPlayingMission1 Then ScoreMission1()
-		If bPlayingMission4 Then ScoreMission4()
-	End If
-	If bPlayingFinalMission Then
-		InterruptDisplay(600)
-		AddScore(50000)
-		D1.Text = "           * 40,000 *            "
-		DisplayB2SText "           * 40,000 *            "
-	End If
+  AdvancePOW()
+  AddScore(8000)
+  If Not(bPlayingMission) And Not(bMissionSuspended) Then LightMission()
+  If bPlayingMission Then
+    If bPlayingMission1 Then ScoreMission1()
+    If bPlayingMission4 Then ScoreMission4()
+  End If
+  If bPlayingFinalMission Then
+    InterruptDisplay(600)
+    AddScore(50000)
+    D1.Text = "           * 40,000 *            "
+    DisplayB2SText "           * 40,000 *            "
+  End If
 End Sub
 
 
@@ -3714,68 +3714,68 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Drain_Hit()
-	startB2S(6)
-	DOF 130, DOFPulse
-	' Destroy the ball.
-	Drain.DestroyBall()
-	BallsOnPlayfield = BallsOnPlayfield - 1
-	' Pretend to knock the ball into the ball storage mechanism.
-	PlaySoundAtVol "Drain", Drain, 1
+  startB2S(6)
+  DOF 130, DOFPulse
+  ' Destroy the ball.
+  Drain.DestroyBall()
+  BallsOnPlayfield = BallsOnPlayfield - 1
+  ' Pretend to knock the ball into the ball storage mechanism.
+  PlaySoundAtVol "Drain", Drain, 1
 If bBallinPlungerLane Then PlungerIM.AutoFire
    If fpTilted Then FixWeapon()
-	' If there is a game in progress and not tilted.
-	If bGameInPlay And Not(fpTilted) Then
-		If Not(bPlayingFinalMission) Then
+  ' If there is a game in progress and not tilted.
+  If bGameInPlay And Not(fpTilted) Then
+    If Not(bPlayingFinalMission) Then
 
       If ShootAgainLight.State = 0 Then
          bBallSaverIsActive = FALSE
       End If
 
-			If bBallSaverIsActive = True And Not (bPlayingFinalMission) Then
-				bBallSaverIsActive = FALSE
-				BallSaverClockTimer.Enabled = FALSE
-				BallSaverClockTimer.Uservalue = 0
-				ShootAgainLight.State = BulbOff
-				ShootAgainLight.BlinkInterval = 150
-				Stopsound "Mision1Start"
-				StopSound "Burn it Down"
-				Playsound "Quit wasting my time",0,0.5
-				' If you have a ball saver light then turn it off at this point
-				ShootAgainLight.State = 0
-				AutoBall()
+      If bBallSaverIsActive = True And Not (bPlayingFinalMission) Then
+        bBallSaverIsActive = FALSE
+        BallSaverClockTimer.Enabled = FALSE
+        BallSaverClockTimer.Uservalue = 0
+        ShootAgainLight.State = BulbOff
+        ShootAgainLight.BlinkInterval = 150
+        Stopsound "Mision1Start"
+        StopSound "Burn it Down"
+        Playsound "Quit wasting my time",0,0.5
+        ' If you have a ball saver light then turn it off at this point
+        ShootAgainLight.State = 0
+        AutoBall()
 
-				D1.Text = "           BALL SAVED           "
-				DisplayB2SText "           BALL SAVED           "
+        D1.Text = "           BALL SAVED           "
+        DisplayB2SText "           BALL SAVED           "
 
-			Else
-				If (BallsOnPlayfield = 0) Then EndOfBall()
-				If (BallsOnPlayfield = 1) And (BallsLocked = 1) Then EndOfBall()
-				If (BallsOnPlayfield = 2) And (BallsLocked = 2) Then EndOfBall()
-				If (BallsOnPlayfield = 3) And (BallsLocked = 3) Then EndOfBall()
-				If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then EndMultiBall()
-				If (BallsOnPlayfield = 3) And (BallsLocked = 0) Then Playsound "Gemmadie"
-				If (BallsOnPlayfield = 2) And (BallsLocked = 0) Then Playsound "Taradie"
-				If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then Playsound "Opiedie"
-			End If
-		Else
-			If Not(FiveBallOverTimer.Enabled) Then
-				If Not(CreateMultiballTimer.Enabled) AND BallsOnPlayfield = 1 Then
-				' Terminate the final mission (mission all over).
-				'	LookAtBackbox()
-					MissionAllOverTimer.Enabled = TRUE
-					FinalMissionShowTimer.Uservalue = 11
-					FinalMissionShowTimer.Enabled = TRUE
-					bPlayingMission = FALSE
-					bPlayingMission1 = FALSE
-					NextMessage = 9
-					bCanDisplayMessage = TRUE
-					BallsLocked = 0
+      Else
+        If (BallsOnPlayfield = 0) Then EndOfBall()
+        If (BallsOnPlayfield = 1) And (BallsLocked = 1) Then EndOfBall()
+        If (BallsOnPlayfield = 2) And (BallsLocked = 2) Then EndOfBall()
+        If (BallsOnPlayfield = 3) And (BallsLocked = 3) Then EndOfBall()
+        If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then EndMultiBall()
+        If (BallsOnPlayfield = 3) And (BallsLocked = 0) Then Playsound "Gemmadie"
+        If (BallsOnPlayfield = 2) And (BallsLocked = 0) Then Playsound "Taradie"
+        If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then Playsound "Opiedie"
+      End If
+    Else
+      If Not(FiveBallOverTimer.Enabled) Then
+        If Not(CreateMultiballTimer.Enabled) AND BallsOnPlayfield = 1 Then
+        ' Terminate the final mission (mission all over).
+        ' LookAtBackbox()
+          MissionAllOverTimer.Enabled = TRUE
+          FinalMissionShowTimer.Uservalue = 11
+          FinalMissionShowTimer.Enabled = TRUE
+          bPlayingMission = FALSE
+          bPlayingMission1 = FALSE
+          NextMessage = 9
+          bCanDisplayMessage = TRUE
+          BallsLocked = 0
                     DisplayB2SText "        RIDE COMPLETE        "
-					D1.Text = "        RIDE COMPLETE        "
-				End If
-			End If
- 		End If
-	End If
+          D1.Text = "        RIDE COMPLETE        "
+        End If
+      End If
+    End If
+  End If
 End Sub
 
 
@@ -3790,42 +3790,42 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub Kicker1_Hit()
-	startB2S(3)
-	If bBallLockedInKicker1 Then
-		' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
-		Exit Sub
-	Else
-		If Tilted Then
-			' Eject the ball if the table is tilted.
-			If bBallInKicker1 And Not(bBallLockedInKicker1) Then
-				Kicker1SolenoidPulse()
-				bBallInKicker1 = FALSE
-				Exit Sub
-			End If
-		End If
-		bBallInKicker1 = TRUE
-		AddScore(5000)
-		If bFinalMissionIsReady Then
-			Kicker1SolenoidPulse()
-			bBallInKicker1 = FALSE
-			StartMission()
-		Else
-			If bLockIsLit Then
-				LockBall()
-				If bMissionIsLit Then StartMissionSoon()
-			Else
-				If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
-				Kicker1Timer.Enabled = TRUE
-			End If
-		End If
-		If bPlayingFinalMission Then AddScore 20000
-	End If
+  startB2S(3)
+  If bBallLockedInKicker1 Then
+    ' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
+    Exit Sub
+  Else
+    If Tilted Then
+      ' Eject the ball if the table is tilted.
+      If bBallInKicker1 And Not(bBallLockedInKicker1) Then
+        Kicker1SolenoidPulse()
+        bBallInKicker1 = FALSE
+        Exit Sub
+      End If
+    End If
+    bBallInKicker1 = TRUE
+    AddScore(5000)
+    If bFinalMissionIsReady Then
+      Kicker1SolenoidPulse()
+      bBallInKicker1 = FALSE
+      StartMission()
+    Else
+      If bLockIsLit Then
+        LockBall()
+        If bMissionIsLit Then StartMissionSoon()
+      Else
+        If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
+        Kicker1Timer.Enabled = TRUE
+      End If
+    End If
+    If bPlayingFinalMission Then AddScore 20000
+  End If
 End Sub
 
 Sub Kicker1SolenoidPulse()
     Kicker1.kick 185, 15
     Playsound SoundFXDOF("",108,DOFPulse,DOFContactors)
-	DOF 114, DOFPulse
+  DOF 114, DOFPulse
     PlaysoundAtVol "bumper_retro", Kicker1, 1
 End Sub
 
@@ -3835,43 +3835,43 @@ End Sub
 ' *** DOCAM WORKING ****
 '
 Sub Kicker2_Hit()
-	startB2S(2)
-	If bBallLockedInKicker2 Then
-		' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
-		Exit Sub
-	Else
-		If Tilted Then
-			' Eject the ball if the table is tilted.
-			If bBallInKicker2 And Not(bBallLockedInKicker2) Then
-				Kicker2SolenoidPulse()
-				bBallInKicker2 = FALSE
-				Exit Sub
-			End If
-		End If
-		bBallInKicker2 = TRUE
-		AddScore(5000)
-		If bFinalMissionIsReady Then
-			Kicker2SolenoidPulse()
-			bBallInKicker2 = FALSE
-			StartMission()
-		Else
-			If bLockIsLit Then
-				LockBall()
-				If bMissionIsLit Then StartMissionSoon()
-			Else
-				If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
-				Kicker2Timer.Enabled = TRUE
-			End If
-		End If
-		If bPlayingFinalMission Then AddScore(20000)
-	End If
+  startB2S(2)
+  If bBallLockedInKicker2 Then
+    ' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
+    Exit Sub
+  Else
+    If Tilted Then
+      ' Eject the ball if the table is tilted.
+      If bBallInKicker2 And Not(bBallLockedInKicker2) Then
+        Kicker2SolenoidPulse()
+        bBallInKicker2 = FALSE
+        Exit Sub
+      End If
+    End If
+    bBallInKicker2 = TRUE
+    AddScore(5000)
+    If bFinalMissionIsReady Then
+      Kicker2SolenoidPulse()
+      bBallInKicker2 = FALSE
+      StartMission()
+    Else
+      If bLockIsLit Then
+        LockBall()
+        If bMissionIsLit Then StartMissionSoon()
+      Else
+        If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
+        Kicker2Timer.Enabled = TRUE
+      End If
+    End If
+    If bPlayingFinalMission Then AddScore(20000)
+  End If
 End Sub
 
 
 Sub Kicker2SolenoidPulse()
     Kicker2.kick 215, 15
     Playsound SoundFXDOF("",115,DOFPulse,DOFContactors)
-	DOF 114, DOFPulse
+  DOF 114, DOFPulse
     PlaysoundAtVol "bumper_retro", Kicker2, 1
 End Sub
 
@@ -3880,42 +3880,42 @@ End Sub
 ' *** DOCAM WORKING ****
 '
 Sub Kicker3_Hit()
-	startB2S(5)
-	If bBallLockedInKicker3 Then
-		' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
-		Exit Sub
-	Else
-		If Tilted Then
-			' Eject the ball if the table is tilted.
-			If bBallInKicker3 And Not(bBallLockedInKicker3) Then
-				Kicker3SolenoidPulse()
-				bBallInKicker3 = FALSE
-				Exit Sub
-			End If
-		End If
-		bBallInKicker3 = TRUE
-		AddScore(5000)
-		If bFinalMissionIsReady Then
-			Kicker3SolenoidPulse()
-			bBallInKicker3 = FALSE
-			StartMission()
-		Else
-			If bLockIsLit Then
-				LockBall()
-				If bMissionIsLit Then StartMissionSoon()
-			Else
-				If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
-				Kicker3Timer.Enabled = TRUE
-			End If
-		End If
-		If bPlayingFinalMission Then AddScore(20000)
-	End If
+  startB2S(5)
+  If bBallLockedInKicker3 Then
+    ' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
+    Exit Sub
+  Else
+    If Tilted Then
+      ' Eject the ball if the table is tilted.
+      If bBallInKicker3 And Not(bBallLockedInKicker3) Then
+        Kicker3SolenoidPulse()
+        bBallInKicker3 = FALSE
+        Exit Sub
+      End If
+    End If
+    bBallInKicker3 = TRUE
+    AddScore(5000)
+    If bFinalMissionIsReady Then
+      Kicker3SolenoidPulse()
+      bBallInKicker3 = FALSE
+      StartMission()
+    Else
+      If bLockIsLit Then
+        LockBall()
+        If bMissionIsLit Then StartMissionSoon()
+      Else
+        If bMissionIsLit And Not(bMultiBallMode) Then StartMission()
+        Kicker3Timer.Enabled = TRUE
+      End If
+    End If
+    If bPlayingFinalMission Then AddScore(20000)
+  End If
 End Sub
 
 Sub Kicker3SolenoidPulse()
     Kicker3.kick 165, 15
     Playsound SoundFXDOF("",116,DOFPulse,DOFContactors)
-	DOF 114, DOFPulse
+  DOF 114, DOFPulse
     PlaysoundAtVol "bumper_retro", Kicker3, 1
 End Sub
 
@@ -3925,47 +3925,47 @@ End Sub
 '
 
 Sub Kicker4_Hit()
-	startB2S(4)
-	'Playsound "Let God sort em out"
-	If bBallLockedInKicker4 Then
-		' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
-		Exit Sub
+  startB2S(4)
+  'Playsound "Let God sort em out"
+  If bBallLockedInKicker4 Then
+    ' Prevent the _Hit() event when a ball is already locked (when a locked ball is hit by another ball, this generate _Hit event !).
+    Exit Sub
    Else
-		' Eject the ball if the table is tilted.
-		If Tilted Then
-			If bBallInKicker4 And Not(bBallLockedInKicker4) Then
-				Kicker4SolenoidPulse()
-				bBallInKicker4 = FALSE
-				Exit Sub
-			End If
-		End If
-		bBallInKicker4 = TRUE
-		AddScore(5000)
-		If bFinalMissionIsReady Then
-			Kicker4SolenoidPulse()
-			bBallInKicker4 = FALSE
-			StartMission()
-		Else
-			If bLockIsLit Then
-				LockBall()
-			Else
-				Kicker4Timer.Enabled = TRUE
-			End If
-		End If
-		If bPlayingFinalMission Then AddScore(20000)
+    ' Eject the ball if the table is tilted.
+    If Tilted Then
+      If bBallInKicker4 And Not(bBallLockedInKicker4) Then
+        Kicker4SolenoidPulse()
+        bBallInKicker4 = FALSE
+        Exit Sub
+      End If
+    End If
+    bBallInKicker4 = TRUE
+    AddScore(5000)
+    If bFinalMissionIsReady Then
+      Kicker4SolenoidPulse()
+      bBallInKicker4 = FALSE
+      StartMission()
+    Else
+      If bLockIsLit Then
+        LockBall()
+      Else
+        Kicker4Timer.Enabled = TRUE
+      End If
+    End If
+    If bPlayingFinalMission Then AddScore(20000)
    End If
    If bJackpotIsLit Then
-		' Scoring jackpot.
-		GIOff()
+    ' Scoring jackpot.
+    GIOff()
         FlashEffect 0
         FlashEffectMissionTimer.enabled = 0
-		AddScore(nvR4 * 100000)
-		JackpotLight.State = 1
-		bJackpotScored = TRUE
-		bJackpotIsLit = FALSE
-		If Not(bPlayingFinalMission) Then JackpotDisplayTimerUserData = 0
-		JackpotDisplayTimer.Enabled = TRUE
-	End If
+    AddScore(nvR4 * 100000)
+    JackpotLight.State = 1
+    bJackpotScored = TRUE
+    bJackpotIsLit = FALSE
+    If Not(bPlayingFinalMission) Then JackpotDisplayTimerUserData = 0
+    JackpotDisplayTimer.Enabled = TRUE
+  End If
 End Sub
 
 Sub Kicker4SolenoidPulse()
@@ -3985,25 +3985,25 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Bumper1_Hit()
-	startB2S(3)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(3)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
    AddScore(1000)
-	If bPlayingMission Then
-		FlashForMs F9, 100, 50, 2
-		DOF 144, DOFPulse
-		If bPlayingMission3 Then
-			RemainingJets = RemainingJets - 1
-			playsoundAtVol SoundFXDOF("Stahl1",106,DOFPulse,DOFContactors), ActiveBall, 1
-			CheckJets()
-		Else
-			playsoundAtVol SoundFXDOF("fx_bumperleft",106,DOFPulse,DOFContactors), ActiveBall, 1
-		End If
+  If bPlayingMission Then
+    FlashForMs F9, 100, 50, 2
+    DOF 144, DOFPulse
+    If bPlayingMission3 Then
+      RemainingJets = RemainingJets - 1
+      playsoundAtVol SoundFXDOF("Stahl1",106,DOFPulse,DOFContactors), ActiveBall, 1
+      CheckJets()
+    Else
+      playsoundAtVol SoundFXDOF("fx_bumperleft",106,DOFPulse,DOFContactors), ActiveBall, 1
+    End If
    Else
-		FlashForMs F9, 100, 50, 0
-		DOF 144, DOFPulse
-		playsoundatvol SoundFXDOF("fx_bumperleft",106,DOFPulse,DOFContactors),ActiveBall, 1
+    FlashForMs F9, 100, 50, 0
+    DOF 144, DOFPulse
+    playsoundatvol SoundFXDOF("fx_bumperleft",106,DOFPulse,DOFContactors),ActiveBall, 1
    End If
-	If bPlayingFinalMission Then AddScore(5000)
+  If bPlayingFinalMission Then AddScore(5000)
 End Sub
 
 
@@ -4013,26 +4013,26 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Bumper2_Hit()
-	startB2S(2)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(2)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
    AddScore(1000)
-	If bPlayingMission Then
-		FlashForMs F10, 100, 50, 2
-		DOF 142, DOFPulse
-		If bPlayingMission3 Then
-			RemainingJets = RemainingJets - 1
-			playsoundAtVol SoundFXDOF("Stahl2",105,DOFPulse,DOFContactors), ActiveBall, 1
-			CheckJets()
-		Else
-			playsoundAtVol SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors), ActiveBall, 1
-		End If
+  If bPlayingMission Then
+    FlashForMs F10, 100, 50, 2
+    DOF 142, DOFPulse
+    If bPlayingMission3 Then
+      RemainingJets = RemainingJets - 1
+      playsoundAtVol SoundFXDOF("Stahl2",105,DOFPulse,DOFContactors), ActiveBall, 1
+      CheckJets()
+    Else
+      playsoundAtVol SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors), ActiveBall, 1
+    End If
    Else
-		FlashForMs F10, 100, 50, 0
-		DOF 142, DOFPulse
-		'playsound SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors)
-		playsoundAtVol SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors), ActiveBall, 1
+    FlashForMs F10, 100, 50, 0
+    DOF 142, DOFPulse
+    'playsound SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors)
+    playsoundAtVol SoundFXDOF("fx_bumperright",105,DOFPulse,DOFContactors), ActiveBall, 1
    End If
-	If bPlayingFinalMission Then AddScore(5000)
+  If bPlayingFinalMission Then AddScore(5000)
 End Sub
 
 
@@ -4042,26 +4042,26 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub Bumper3_Hit()
-	startB2S(5)
-	If Tilted Then Exit Sub	' Ignore this _Hit() event if the table is tilted.
+  startB2S(5)
+  If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
    AddScore(1000)
-	If bPlayingMission Then
-		FlashForMs F6, 100, 50, 2
-		DOF 143, DOFPulse
-		If bPlayingMission3 Then
-			RemainingJets = RemainingJets - 1
-			playsoundAtVol SoundFXDOF("Stahl3",107,DOFPulse,DOFContactors), ActiveBall, 1
-			CheckJets()
-		Else
-			playsoundAtVol SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors), ActiveBall, 1
-		End If
+  If bPlayingMission Then
+    FlashForMs F6, 100, 50, 2
+    DOF 143, DOFPulse
+    If bPlayingMission3 Then
+      RemainingJets = RemainingJets - 1
+      playsoundAtVol SoundFXDOF("Stahl3",107,DOFPulse,DOFContactors), ActiveBall, 1
+      CheckJets()
+    Else
+      playsoundAtVol SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors), ActiveBall, 1
+    End If
    Else
-		FlashForMs F6, 100, 50, 0
-		DOF 143, DOFPulse
-		' playsound SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors)
-		playsoundAtVol SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors), ActiveBall, 1
+    FlashForMs F6, 100, 50, 0
+    DOF 143, DOFPulse
+    ' playsound SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors)
+    playsoundAtVol SoundFXDOF("fx_bumpermiddle",107,DOFPulse,DOFContactors), ActiveBall, 1
    End If
-	If bPlayingFinalMission Then AddScore(5000)
+  If bPlayingFinalMission Then AddScore(5000)
 End Sub
 
 
@@ -4081,63 +4081,63 @@ End Sub
 '
 
 Sub FirstBallDelayTimer_timer()
-	' Stop the timer.
-	FirstBallDelayTimer.Enabled = FALSE
-	' Be sure the camera is correctly looking the table.
-'	LookAtPlayfield()
-	' Main theme.
-	StopSound "mu_MSmissioncomplete"
+  ' Stop the timer.
+  FirstBallDelayTimer.Enabled = FALSE
+  ' Be sure the camera is correctly looking the table.
+' LookAtPlayfield()
+  ' Main theme.
+  StopSound "mu_MSmissioncomplete"
     ' Turn on GI.
-	GIOn()
-	' Set other flags and required lits.
-	bPlayingMission = FALSE
-	bMissionIsLit = FALSE
-	bMissionSuspended = FALSE
-	bLockIsLit = FALSE
-	bFinalMissionIsReady = FALSE
-	' Turn on "mission ready" lites.
-	LightMission()
-	' Enable the kickback.
-	LightKickback()
-	' Raise drop targets.
-	ResetSLUGTargets()
-	ResetCaptiveTargets()
-	ResetSideTargets()
-	CurrentWeapon = 0
-	Score(1) = 0
-	' Reset mission lights.
-	Mission1Light.State = BulbBlink', "10", 150
-	Mission2Light.State = BulbOff', "10", 150
-	Mission3Light.State = BulbOff', "10", 150
-	Mission4Light.State = BulbOff', "10", 150
-	Mission5Light.State = BulbOff', "10", 150
-	Mission6Light.State = BulbOff', "10", 150
-	' Raise the SLUG drop targets.
-	ResetSLUGTargets()
-	' Reset mission.
-	Mission = 0
-	' Raise WEAPON drop targets.
-	bWallIsDown = TRUE
-	ResetWEAPONTargets()
-	bWallIsDown = FALSE
+  GIOn()
+  ' Set other flags and required lits.
+  bPlayingMission = FALSE
+  bMissionIsLit = FALSE
+  bMissionSuspended = FALSE
+  bLockIsLit = FALSE
+  bFinalMissionIsReady = FALSE
+  ' Turn on "mission ready" lites.
+  LightMission()
+  ' Enable the kickback.
+  LightKickback()
+  ' Raise drop targets.
+  ResetSLUGTargets()
+  ResetCaptiveTargets()
+  ResetSideTargets()
+  CurrentWeapon = 0
+  Score(1) = 0
+  ' Reset mission lights.
+  Mission1Light.State = BulbBlink', "10", 150
+  Mission2Light.State = BulbOff', "10", 150
+  Mission3Light.State = BulbOff', "10", 150
+  Mission4Light.State = BulbOff', "10", 150
+  Mission5Light.State = BulbOff', "10", 150
+  Mission6Light.State = BulbOff', "10", 150
+  ' Raise the SLUG drop targets.
+  ResetSLUGTargets()
+  ' Reset mission.
+  Mission = 0
+  ' Raise WEAPON drop targets.
+  bWallIsDown = TRUE
+  ResetWEAPONTargets()
+  bWallIsDown = FALSE
    Weapon1.State = BulbBlink', "10", 150
-	' Set the initial POW bonus (regardling table setup).
-	If nvR3 = 3 Then
-		' If POW BONUS HOLD set to ALWAYS (bonus held until game over), bonus starts at 0, then kept during whole game.
-		POWBonus = 0
-		POWBonusBall = 0
-	Else
-		' Otherwise, bonus starts at 1.
-		POWBonus = 1
-		POWBonusBall = 1
-	End If
-	' Update score (at 0) and Ball in play.
-	Ball = Ball + 1
-	AddScore(0)
-	' Reset the table for a new ball.
-	ResetForNewPlayerBall()
-	' Create a new ball in the shooters lane.
-	CreateNewBall()
+  ' Set the initial POW bonus (regardling table setup).
+  If nvR3 = 3 Then
+    ' If POW BONUS HOLD set to ALWAYS (bonus held until game over), bonus starts at 0, then kept during whole game.
+    POWBonus = 0
+    POWBonusBall = 0
+  Else
+    ' Otherwise, bonus starts at 1.
+    POWBonus = 1
+    POWBonusBall = 1
+  End If
+  ' Update score (at 0) and Ball in play.
+  Ball = Ball + 1
+  AddScore(0)
+  ' Reset the table for a new ball.
+  ResetForNewPlayerBall()
+  ' Create a new ball in the shooters lane.
+  CreateNewBall()
 End Sub
 
 
@@ -4147,25 +4147,25 @@ End Sub
 ' *** DOCAM MUST BE CHECKED ***
 '
 Sub TiltRecoveryTimer_Timer()
-	' disable the timer.
-	TiltRecoveryTimer.Enabled	= FALSE
-	If (BallsOnPlayfield - BallsLocked) = 0 Then
-		' Restore the general illumation (GI).
-		GIOn()
-		' Restore the WEAPON drop targets state.
-		FixWeapon()
-		' If all non locked ball(s) have been drained, then do the normal end of ball.
-		EndOfBall()
-	Else
-		' otherwise retry in another second (wait for locating ball(s)).
-		TiltRecoveryTimer.Interval = 1000
-		TiltRecoveryTimer.Enabled = TRUE
-	End If
+  ' disable the timer.
+  TiltRecoveryTimer.Enabled = FALSE
+  If (BallsOnPlayfield - BallsLocked) = 0 Then
+    ' Restore the general illumation (GI).
+    GIOn()
+    ' Restore the WEAPON drop targets state.
+    FixWeapon()
+    ' If all non locked ball(s) have been drained, then do the normal end of ball.
+    EndOfBall()
+  Else
+    ' otherwise retry in another second (wait for locating ball(s)).
+    TiltRecoveryTimer.Interval = 1000
+    TiltRecoveryTimer.Enabled = TRUE
+  End If
 End Sub
 
 
 Sub GameIsOverTimer_Timer()
-		GameNowOver = False
+    GameNowOver = False
 End Sub
 
 
@@ -4174,9 +4174,9 @@ End Sub
 ' *** DOCAM MUST BE CHECKED ***
 '
 Sub InterruptDisplayTimer_Timer()
-	InterruptDisplayTimer.Enabled = FALSE
-	bInterruptedDisplay = FALSE
-	If bPlayingBall Then AddScore(0)
+  InterruptDisplayTimer.Enabled = FALSE
+  bInterruptedDisplay = FALSE
+  If bPlayingBall Then AddScore(0)
 End Sub
 
 
@@ -4184,25 +4184,25 @@ End Sub
 ' *** DOCAM MUST BE CHECKED ***
 '
 Sub EndOfBallTimer2_Timer()
-	EndOfBallTimer2.Enabled = FALSE
-	' Only process any of this if the table is not tilted.
-	' The tilt recovery mechanism will handle any extra ball or end of game.
-	If Not(Tilted) Then
-		' Table is not tilted: add in POW bonus points.
-		POWBonusCount = POWBonus
-		If POWBonusCount = 0 Then
-			EndOfBallTimer.Interval = 3200
-		Else
-			EndOfBallTimer.Interval = 5000
-		End If
-		POWBonusTimer.Enabled = TRUE
-	Else
-		' Table is tilted: no bonus, so move to the next state quickly.
-		EndOfBallTimer.Interval = 20
-		POWBonusCount = 0
-	End If
-	' start the end of ball timer which allows you to add a delay at this point
-	EndOfBallTimer.Enabled = TRUE
+  EndOfBallTimer2.Enabled = FALSE
+  ' Only process any of this if the table is not tilted.
+  ' The tilt recovery mechanism will handle any extra ball or end of game.
+  If Not(Tilted) Then
+    ' Table is not tilted: add in POW bonus points.
+    POWBonusCount = POWBonus
+    If POWBonusCount = 0 Then
+      EndOfBallTimer.Interval = 3200
+    Else
+      EndOfBallTimer.Interval = 5000
+    End If
+    POWBonusTimer.Enabled = TRUE
+  Else
+    ' Table is tilted: no bonus, so move to the next state quickly.
+    EndOfBallTimer.Interval = 20
+    POWBonusCount = 0
+  End If
+  ' start the end of ball timer which allows you to add a delay at this point
+  EndOfBallTimer.Enabled = TRUE
 End Sub
 
 
@@ -4214,101 +4214,101 @@ End Sub
 ' *** DOCAM MUST BE CHECKED ***
 '
 Sub EndOfBallTimer_Timer()
-	Dim PosInTable
-	Dim Suffix
-	' disable the timer
-	EndOfBallTimer.Enabled = FALSE
-	' if were tilted, reset the internal tilted flag (this will also
-	' set fpTiltWarnings back to zero) which is useful if we are changing player LOL
-	Tilted = FALSE
-	' Has the player won an extra-ball ?
-	If bExtraBallAward Then
-		' Reset the POW bonus if required (POW BONUS HOLD set to NEVER).
-		If nvR3 = 1 Then
-			POWBonus = 1
-			POWBonusBall = 1
-		Else
-			POWBonusBall = 0
-		End If
-		' Turn on Shoot Again light.
-		ShootAgainLight.State = 1
-		' Display SHOOT AGAIN.
-		ExtraBallShowTimer.Enabled = TRUE
-       	D1.Text = "  *   R I D E   A G A I N   *  "
+  Dim PosInTable
+  Dim Suffix
+  ' disable the timer
+  EndOfBallTimer.Enabled = FALSE
+  ' if were tilted, reset the internal tilted flag (this will also
+  ' set fpTiltWarnings back to zero) which is useful if we are changing player LOL
+  Tilted = FALSE
+  ' Has the player won an extra-ball ?
+  If bExtraBallAward Then
+    ' Reset the POW bonus if required (POW BONUS HOLD set to NEVER).
+    If nvR3 = 1 Then
+      POWBonus = 1
+      POWBonusBall = 1
+    Else
+      POWBonusBall = 0
+    End If
+    ' Turn on Shoot Again light.
+    ShootAgainLight.State = 1
+    ' Display SHOOT AGAIN.
+    ExtraBallShowTimer.Enabled = TRUE
+        D1.Text = "  *   R I D E   A G A I N   *  "
         DisplayB2SText "  *   R I D E   A G A I N   *  "
-		Playsound "Quit wasting my time"
-		CurrentWeapon = 0
-		Weapon1.State = 2
-		Weapon2.State = 0
-		Weapon3.State = 0
-		Weapon4.State = 0
-		Weapon5.State = 0
-		Weapon6.State = 0
-		ExtraBall.State = 0
-	Else
+    Playsound "Quit wasting my time"
+    CurrentWeapon = 0
+    Weapon1.State = 2
+    Weapon2.State = 0
+    Weapon3.State = 0
+    Weapon4.State = 0
+    Weapon5.State = 0
+    Weapon6.State = 0
+    ExtraBall.State = 0
+  Else
       Ball = Ball + 1
-		If BallsPerGame - Ball < 0 Then
-			' It was the last ball.
-			If Score(1) > HighScore(10) Then
-				' 10st score was beaten.
-				PosInTable = 10
-				' Check the position in high score table.
-				If Score(1) > HighScore(9) Then PosInTable = 9
-				If Score(1) > HighScore(8) Then PosInTable = 8
-				If Score(1) > HighScore(7) Then PosInTable = 7
-				If Score(1) > HighScore(6) Then PosInTable = 6
-				If Score(1) > HighScore(5) Then PosInTable = 5
-				If Score(1) > HighScore(4) Then PosInTable = 4
-				If Score(1) > HighScore(3) Then PosInTable = 3
-				If Score(1) > HighScore(2) Then PosInTable = 2
-				If Score(1) > HighScore(1) Then PosInTable = 1
-				' Define the suffix like st, nd, rd or th.
-				If PosInTable = 1 Then
-					Suffix = "ST"
-				ElseIf PosInTable = 2 Then
-					Suffix = "ND"
-				ElseIf PosInTable = 3 Then
-					Suffix = "RD"
-				Else
-					Suffix = "TH"
-				End If
-				' Display final score.
-				If Score(1) < 1000000 Then
-					D1.Text = FormatScore(Score(1)) & String(10 - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
-				    DisplayB2SText (Score(1)) & String(10 - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
-				Else
-					D1.Text = FormatScore(Score(1)) & String(16 - Len(Score(1)) - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
-			    	DisplayB2SText (Score(1)) & String(16 - Len(Score(1)) - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
-				End If
-				' Submit the player score to the High Score system built into Future Pinball if required.
-				CheckHighscore()': hsbModeActive = True
-			Else
-				' Player's score doesn't fit in the "top ten".
-			If Not (bGameInPlay) Then
-				If Score(1) < 1000000 Then
-					D1.Text = FormatScore(Score(1)) & "                GAME OVER"
+    If BallsPerGame - Ball < 0 Then
+      ' It was the last ball.
+      If Score(1) > HighScore(10) Then
+        ' 10st score was beaten.
+        PosInTable = 10
+        ' Check the position in high score table.
+        If Score(1) > HighScore(9) Then PosInTable = 9
+        If Score(1) > HighScore(8) Then PosInTable = 8
+        If Score(1) > HighScore(7) Then PosInTable = 7
+        If Score(1) > HighScore(6) Then PosInTable = 6
+        If Score(1) > HighScore(5) Then PosInTable = 5
+        If Score(1) > HighScore(4) Then PosInTable = 4
+        If Score(1) > HighScore(3) Then PosInTable = 3
+        If Score(1) > HighScore(2) Then PosInTable = 2
+        If Score(1) > HighScore(1) Then PosInTable = 1
+        ' Define the suffix like st, nd, rd or th.
+        If PosInTable = 1 Then
+          Suffix = "ST"
+        ElseIf PosInTable = 2 Then
+          Suffix = "ND"
+        ElseIf PosInTable = 3 Then
+          Suffix = "RD"
+        Else
+          Suffix = "TH"
+        End If
+        ' Display final score.
+        If Score(1) < 1000000 Then
+          D1.Text = FormatScore(Score(1)) & String(10 - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
+            DisplayB2SText (Score(1)) & String(10 - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
+        Else
+          D1.Text = FormatScore(Score(1)) & String(16 - Len(Score(1)) - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
+            DisplayB2SText (Score(1)) & String(16 - Len(Score(1)) - Len(PosInTable), " ") & "HIGH SCORE <" & PosInTable & Suffix & ">"
+        End If
+        ' Submit the player score to the High Score system built into Future Pinball if required.
+        CheckHighscore()': hsbModeActive = True
+      Else
+        ' Player's score doesn't fit in the "top ten".
+      If Not (bGameInPlay) Then
+        If Score(1) < 1000000 Then
+          D1.Text = FormatScore(Score(1)) & "                GAME OVER"
                     DisplayB2SText (Score(1)) & "                GAME OVER"
-				Else
-					D1.Text = FormatScore(Score(1)) & String(22 - Len(Score(1)), " ") & "GAME OVER"
-				    DisplayB2SText (Score(1)) & String(22 - Len(Score(1)), " ") & "GAME OVER"
-				End If
-			End If
-				bEnteringAHighScore = FALSE
-				' Delay the game over during 7 seconds.
-				GameOverTimer.Enabled = TRUE
-			End If
-		Else
-			' Reset the POW bonus to 1 if required (POW BONUS HOLD set to NEVER or EXTRA-BALL from the setup menu).
-			If nvR3 <> 3 Then
-				POWBonus = 1
-				POWBonusBall = 1
-			Else
-				POWBonusBall = 0
-			End If
-			' It is not the last ball.
-			EndOfBallComplete()
-		End If
-	End If
+        Else
+          D1.Text = FormatScore(Score(1)) & String(22 - Len(Score(1)), " ") & "GAME OVER"
+            DisplayB2SText (Score(1)) & String(22 - Len(Score(1)), " ") & "GAME OVER"
+        End If
+      End If
+        bEnteringAHighScore = FALSE
+        ' Delay the game over during 7 seconds.
+        GameOverTimer.Enabled = TRUE
+      End If
+    Else
+      ' Reset the POW bonus to 1 if required (POW BONUS HOLD set to NEVER or EXTRA-BALL from the setup menu).
+      If nvR3 <> 3 Then
+        POWBonus = 1
+        POWBonusBall = 1
+      Else
+        POWBonusBall = 0
+      End If
+      ' It is not the last ball.
+      EndOfBallComplete()
+    End If
+  End If
 End Sub
 
 
@@ -4319,8 +4319,8 @@ End Sub
 '
 Sub GameOverTimer_Timer()
     StopSound Song:Song = ""
-	GameOverTimer.Enabled = FALSE
-	EndOfBallComplete()
+  GameOverTimer.Enabled = FALSE
+  EndOfBallComplete()
 End Sub
 
 
@@ -4331,20 +4331,20 @@ End Sub
 '
 
 Sub KickbackTimer_timer()
-	KickbackTimer.Enabled = FALSE
-	DOF 124, DOFPulse
-	If KickbackTimer.Uservalue = 1 Then
-		Playsound "rocket"
-		' Add 2000 points.
-		AddScore(2000)
-		' Unlit kickback orange light.
-		bKickbackIsLit = FALSE
-		KickbackLight.State = 0
-		' Open the left outlane.
-		KickbackGuide.isDropped = TRUE
-		' Eject the ball.
+  KickbackTimer.Enabled = FALSE
+  DOF 124, DOFPulse
+  If KickbackTimer.Uservalue = 1 Then
+    Playsound "rocket"
+    ' Add 2000 points.
+    AddScore(2000)
+    ' Unlit kickback orange light.
+    bKickbackIsLit = FALSE
+    KickbackLight.State = 0
+    ' Open the left outlane.
+    KickbackGuide.isDropped = TRUE
+    ' Eject the ball.
         KickbackPlungerSolenoidPulse()
-	End If
+  End If
 End Sub
 
 
@@ -4355,18 +4355,18 @@ Sub KickbackPlungerSolenoidPulse()
     PlaysoundAtVol "bumper_retro", LaserKickP1, 1
 
 Select Case (KickerCount) 'Choose kicker response
-		Case 1:
-		StopSound (SoundName) : SoundName = "Dont get your panties all in a bunch" : PlaySound (SoundName) , 0 , 0.6
-		KickerCount = 2
-		Case 2:
-		StopSound (SoundName) : SoundName = "Dont have time to play with myself" : PlaySound (SoundName) , 0 , 0.6
-		KickerCount = 3
-		Case 3:
-		StopSound (SoundName) : SoundName = "Have A Taste of My Ball" : PlaySound (SoundName), 0 , 0.6
-		KickerCount = 4
-		Case 4:
-		StopSound (SoundName) : SoundName = "Ive got balls of steel" : PlaySound (SoundName) , 0 , 0.6
-		KickerCount = 1
+    Case 1:
+    StopSound (SoundName) : SoundName = "Dont get your panties all in a bunch" : PlaySound (SoundName) , 0 , 0.6
+    KickerCount = 2
+    Case 2:
+    StopSound (SoundName) : SoundName = "Dont have time to play with myself" : PlaySound (SoundName) , 0 , 0.6
+    KickerCount = 3
+    Case 3:
+    StopSound (SoundName) : SoundName = "Have A Taste of My Ball" : PlaySound (SoundName), 0 , 0.6
+    KickerCount = 4
+    Case 4:
+    StopSound (SoundName) : SoundName = "Ive got balls of steel" : PlaySound (SoundName) , 0 , 0.6
+    KickerCount = 1
 
 End Select
 End sub
@@ -4376,26 +4376,26 @@ End sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub BallSaverClockTimer_Timer()
-	BallSaverClockTimer.Enabled = FALSE
-	If BallSaverClockTimer.Uservalue = 1 Then
-		' At this point: remain 10 seconds.
-		BallSaverClockTimer.Uservalue = 2
-		BallSaverClockTimer.Interval = 5000
-		ShootAgainLight.BlinkInterval = 100
-		ShootAgainLight.State = BulbBlink
-	ElseIf BallSaverClockTimer.Uservalue = 2 Then
-		' At this point: remain 5 seconds.
-		BallSaverClockTimer.Uservalue = 3
-		BallSaverClockTimer.Interval = 5000
-		ShootAgainLight.BlinkInterval = 50
-		ShootAgainLight.State = BulbBlink
-	ElseIf BallSaverClockTimer.Uservalue = 3 Then
-		' Ball saver delay has been expired.
-		BallSaverClockTimer.Uservalue = 0
-		ShootAgainLight.State = BulbOff
-		bBallSaverIsActive = FALSE
-		ShootAgainLight.BlinkInterval = 150
-	End If
+  BallSaverClockTimer.Enabled = FALSE
+  If BallSaverClockTimer.Uservalue = 1 Then
+    ' At this point: remain 10 seconds.
+    BallSaverClockTimer.Uservalue = 2
+    BallSaverClockTimer.Interval = 5000
+    ShootAgainLight.BlinkInterval = 100
+    ShootAgainLight.State = BulbBlink
+  ElseIf BallSaverClockTimer.Uservalue = 2 Then
+    ' At this point: remain 5 seconds.
+    BallSaverClockTimer.Uservalue = 3
+    BallSaverClockTimer.Interval = 5000
+    ShootAgainLight.BlinkInterval = 50
+    ShootAgainLight.State = BulbBlink
+  ElseIf BallSaverClockTimer.Uservalue = 3 Then
+    ' Ball saver delay has been expired.
+    BallSaverClockTimer.Uservalue = 0
+    ShootAgainLight.State = BulbOff
+    bBallSaverIsActive = FALSE
+    ShootAgainLight.BlinkInterval = 150
+  End If
 
 
 End Sub
@@ -4408,78 +4408,78 @@ End Sub
 '
 Dim POWBonusTimerUserData
 Sub POWBonusTimer_Timer()
-	Dim lenPOWBonus
-	Dim lenPOWBase
-	Dim lenPOWScore
-	POWBonusTimer.Uservalue = POWBonusTimer.Uservalue + 1
-	If POWBonusCount = 0 Then
-		Select Case POWBonusTimer.Uservalue
-			Case 12:
-				DisplayB2SText String(32, " ")
-				D1.Text = String(32, " ")
-				D1.Text = "          NO SOA BONUS          "', seScrollIn, 1000, 0, TRUE
+  Dim lenPOWBonus
+  Dim lenPOWBase
+  Dim lenPOWScore
+  POWBonusTimer.Uservalue = POWBonusTimer.Uservalue + 1
+  If POWBonusCount = 0 Then
+    Select Case POWBonusTimer.Uservalue
+      Case 12:
+        DisplayB2SText String(32, " ")
+        D1.Text = String(32, " ")
+        D1.Text = "          NO SOA BONUS          "', seScrollIn, 1000, 0, TRUE
                 DisplayB2SText "          NO SOA BONUS          "
-			Case 14:
-				Playsound "cmonboy"
-			Case 22:
-				POWBonusTimer.Enabled = FALSE
-				POWBonusTimer.Uservalue = 0
-				POWBonusCount = 0
-		End Select
-	Else
-		Select Case POWBonusTimer.Uservalue
-			Case 8:
-				POWScore = (POWBonus * MissionBonus)
-				'lenPOWBonus = Len(POWBonus)
-				'lenPOWBase = Len(1000 * nvR2)
-				'lenPOWScore = Len(1000 * nvR2 * POWBonus)
-				'DisplayB2SText (POWBonus) & " SOA BONUS     " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				DisplayB2SText (POWBonus) & " SOA BONUS     "
-				D1.Text = (POWBonus) & " SOA BONUS     "
-				'D1.Text = FormatScore(POWBonus) & " SOA BONUS     " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				Playsound "Thankyou",0,1.0
-			Case 15:
-				'lenPOWBonus = Len(POWBonus)
-				'lenPOWBase = Len(1000 * nvR2)
-				'lenPOWScore = Len(1000 * nvR2 * POWBonus)
-				'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus)
-				D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus)' & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				Playsound "Steel",0,0.3
-			Case 20:
-				POWScore = (POWBonus * MissionBonus)
-				'lenPOWBonus = Len(POWBonus)
-				'lenPOWBase = Len(1000 * nvR2)
-				'lenPOWScore = Len(1000 * nvR2 * POWBonus)
-				'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & FormatScore(nvR2 * 1000) & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = "
-				D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " '& "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				Playsound "Steel",0,0.3
-			Case 25:
-				POWScore = (POWBonus * MissionBonus)
-				'lenPOWBonus = Len(POWBonus)
-				'lenPOWBase = Len(1000 * nvR2)
-				'lenPOWScore = Len(1000 * nvR2 * POWBonus)
-				'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & FormatScore(nvR2 * 1000) & "  =  " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)
-				D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)' & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				Playsound "Steel",0,0.3
-			Case 30:
-				POWScore = (POWBonus * MissionBonus)
-				DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)
-				D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore) ' & FormatScore(1000 * nvR2 * POWBonus) & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
-				If POWBonusBall < 10 Then
+      Case 14:
+        Playsound "cmonboy"
+      Case 22:
+        POWBonusTimer.Enabled = FALSE
+        POWBonusTimer.Uservalue = 0
+        POWBonusCount = 0
+    End Select
+  Else
+    Select Case POWBonusTimer.Uservalue
+      Case 8:
+        POWScore = (POWBonus * MissionBonus)
+        'lenPOWBonus = Len(POWBonus)
+        'lenPOWBase = Len(1000 * nvR2)
+        'lenPOWScore = Len(1000 * nvR2 * POWBonus)
+        'DisplayB2SText (POWBonus) & " SOA BONUS     " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        DisplayB2SText (POWBonus) & " SOA BONUS     "
+        D1.Text = (POWBonus) & " SOA BONUS     "
+        'D1.Text = FormatScore(POWBonus) & " SOA BONUS     " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        Playsound "Thankyou",0,1.0
+      Case 15:
+        'lenPOWBonus = Len(POWBonus)
+        'lenPOWBase = Len(1000 * nvR2)
+        'lenPOWScore = Len(1000 * nvR2 * POWBonus)
+        'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & String(lenPOWBase, " ") & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus)
+        D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus)' & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        Playsound "Steel",0,0.3
+      Case 20:
+        POWScore = (POWBonus * MissionBonus)
+        'lenPOWBonus = Len(POWBonus)
+        'lenPOWBase = Len(1000 * nvR2)
+        'lenPOWScore = Len(1000 * nvR2 * POWBonus)
+        'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & FormatScore(nvR2 * 1000) & "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = "
+        D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " '& "     " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        Playsound "Steel",0,0.3
+      Case 25:
+        POWScore = (POWBonus * MissionBonus)
+        'lenPOWBonus = Len(POWBonus)
+        'lenPOWBase = Len(1000 * nvR2)
+        'lenPOWScore = Len(1000 * nvR2 * POWBonus)
+        'DisplayB2SText (POWBonus) & " SOA BONUS  X  " & FormatScore(nvR2 * 1000) & "  =  " & String(lenPOWScore, " ") & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)
+        D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)' & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        Playsound "Steel",0,0.3
+      Case 30:
+        POWScore = (POWBonus * MissionBonus)
+        DisplayB2SText (POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore)
+        D1.Text = FormatScore(POWBonus) & " SOA BONUS  X  " & (MissionBonus) & " = " & (POWScore) ' & FormatScore(1000 * nvR2 * POWBonus) & String(Int((18 - lenPOWBonus - lenPOWBase - lenPOWScore) / 2), " ")
+        If POWBonusBall < 10 Then
 
-				Else
-					Playsound "youregreat"
-				End If
-			Case 42:
-				POWBonusTimer.Enabled = FALSE
-				POWBonusTimer.Uservalue = 0
-				Score(1) = Score(1) + (POWScore)
+        Else
+          Playsound "youregreat"
+        End If
+      Case 42:
+        POWBonusTimer.Enabled = FALSE
+        POWBonusTimer.Uservalue = 0
+        Score(1) = Score(1) + (POWScore)
 
-			End Select
-	End If
+      End Select
+  End If
 End Sub
 
 
@@ -4489,24 +4489,24 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub MissionTimer_Timer()
-	MissionTimerUserData = MissionTimerUserData - 1
-	If MissionTimerUserData = 0 Then
-		MissionTimer.Enabled = FALSE
-		CompleteMission()
-	End If
-	If bPlayingMission1 Then
-		If MissionTimerUserData < 32 then
-			NextMessage = 2
-			bCanDisplayMessage = TRUE
-			ShowNextMessage()
-		End If
-	ElseIf bPlayingMission2 Then
-		If MissionTimerUserData < 32 Then
-			NextMessage = 4
-			bCanDisplayMessage = TRUE
-			ShowNextMessage()
-		End If
-	End If
+  MissionTimerUserData = MissionTimerUserData - 1
+  If MissionTimerUserData = 0 Then
+    MissionTimer.Enabled = FALSE
+    CompleteMission()
+  End If
+  If bPlayingMission1 Then
+    If MissionTimerUserData < 32 then
+      NextMessage = 2
+      bCanDisplayMessage = TRUE
+      ShowNextMessage()
+    End If
+  ElseIf bPlayingMission2 Then
+    If MissionTimerUserData < 32 Then
+      NextMessage = 4
+      bCanDisplayMessage = TRUE
+      ShowNextMessage()
+    End If
+  End If
 End Sub
 
 
@@ -4517,137 +4517,137 @@ End Sub
 '
 Dim AnimateWeaponTimerUserData
 Sub AnimateWeaponTimer_Timer()
-	AnimateWeaponTimer.Uservalue = AnimateWeaponTimer.Uservalue + 1
-	Select Case Mission
-		Case 2:
-			Select Case AnimateWeaponTimer.Uservalue
-				Case 1:
-					W1.Isdropped = 0
-					W6.Isdropped = 1
-					W6Light.state = 0
+  AnimateWeaponTimer.Uservalue = AnimateWeaponTimer.Uservalue + 1
+  Select Case Mission
+    Case 2:
+      Select Case AnimateWeaponTimer.Uservalue
+        Case 1:
+          W1.Isdropped = 0
+          W6.Isdropped = 1
+          W6Light.state = 0
                     W1Light.state = 2
-				Case 2:
-					W2.Isdropped = 0
-					W1.Isdropped = 1
+        Case 2:
+          W2.Isdropped = 0
+          W1.Isdropped = 1
                     W1Light.state = 0
                     W2Light.state = 2
-				Case 3:
-					W3.Isdropped = 0
-					W2.Isdropped = 1
+        Case 3:
+          W3.Isdropped = 0
+          W2.Isdropped = 1
                     W2Light.state = 0
                     W3Light.state = 2
-				Case 4:
-					W4.Isdropped = 0
-					W3.Isdropped = 1
+        Case 4:
+          W4.Isdropped = 0
+          W3.Isdropped = 1
                     W3Light.state = 0
                     W4Light.state = 2
-				Case 5:
-					W5.Isdropped = 0
-					W4.Isdropped = 1
+        Case 5:
+          W5.Isdropped = 0
+          W4.Isdropped = 1
                     W4Light.state = 0
                     W5Light.state = 2
-				Case 6:
-					W6.Isdropped = 0
-					W5.Isdropped = 1
+        Case 6:
+          W6.Isdropped = 0
+          W5.Isdropped = 1
                     W5Light.state = 0
                     W6Light.state = 2
-				Case 7:
-					W1.Isdropped = 0
-					W6.Isdropped = 1
+        Case 7:
+          W1.Isdropped = 0
+          W6.Isdropped = 1
                     W6Light.state = 0
                     W1Light.state = 2
-				Case 8:
-					W3.Isdropped = 0
-					W1.Isdropped = 1
+        Case 8:
+          W3.Isdropped = 0
+          W1.Isdropped = 1
                     W1Light.state = 0
                     W3Light.state = 2
-				Case 9:
-					W5.Isdropped = 0
-					W3.Isdropped = 1
+        Case 9:
+          W5.Isdropped = 0
+          W3.Isdropped = 1
                     W3Light.state = 0
                     W5Light.state = 2
-				Case 10:
-					W2.Isdropped = 0
-					W5.Isdropped = 1
+        Case 10:
+          W2.Isdropped = 0
+          W5.Isdropped = 1
                     W5Light.state = 0
                     W2Light.state = 2
-				Case 11:
-					W4.Isdropped = 0
-					W2.Isdropped = 1
+        Case 11:
+          W4.Isdropped = 0
+          W2.Isdropped = 1
                     W2Light.state = 0
                     W4Light.state = 2
-				Case 12:
-					W6.Isdropped = 0
-					W4.Isdropped = 1
+        Case 12:
+          W6.Isdropped = 0
+          W4.Isdropped = 1
                     W4Light.state = 0
                     W6Light.state = 2
-					AnimateWeaponTimer.Uservalue = 0
-			End Select
-		Case 5:
-			Select Case AnimateWeaponTimer.Uservalue
-				Case 1:
-					W1.Isdropped = 0
-					W6.Isdropped = 1
+          AnimateWeaponTimer.Uservalue = 0
+      End Select
+    Case 5:
+      Select Case AnimateWeaponTimer.Uservalue
+        Case 1:
+          W1.Isdropped = 0
+          W6.Isdropped = 1
                     W6Light.state = 0
                     W1Light.state = 2
 
-				Case 2:
-					W6.Isdropped = 0
-					W1.Isdropped = 1
+        Case 2:
+          W6.Isdropped = 0
+          W1.Isdropped = 1
                     W1Light.state = 0
                     W6Light.state = 2
 
-				Case 3:
-					W2.Isdropped = 0
-					W6.Isdropped = 1
+        Case 3:
+          W2.Isdropped = 0
+          W6.Isdropped = 1
                     W6Light.state = 0
                     W2Light.state = 2
 
-				Case 4:
-					W5.Isdropped = 0
-					W2.Isdropped = 1
+        Case 4:
+          W5.Isdropped = 0
+          W2.Isdropped = 1
                     W2Light.state = 0
                     W5Light.state = 2
 
-				Case 5:
-					W3.Isdropped = 0
-					W5.Isdropped = 1
+        Case 5:
+          W3.Isdropped = 0
+          W5.Isdropped = 1
                     W3Light.state = 0
                     W5Light.state = 2
 
-				Case 6:
-					W4.Isdropped = 0
-					W3.Isdropped = 1
+        Case 6:
+          W4.Isdropped = 0
+          W3.Isdropped = 1
                     W4Light.state = 0
                     W3Light.state = 2
 
-				Case 7:
-					W3.Isdropped = 0
-					W4.Isdropped = 1
+        Case 7:
+          W3.Isdropped = 0
+          W4.Isdropped = 1
                     W4Light.state = 0
                     W3Light.state = 2
 
-				Case 8:
-					W5.Isdropped = 0
-					W3.Isdropped = 1
+        Case 8:
+          W5.Isdropped = 0
+          W3.Isdropped = 1
                     W3Light.state = 0
                     W5Light.state = 2
 
-				Case 9:
-					W2.Isdropped = 0
-					W5.Isdropped = 1
+        Case 9:
+          W2.Isdropped = 0
+          W5.Isdropped = 1
                     W5Light.state = 0
                     W2Light.state = 2
 
-				Case 10:
-					W6.Isdropped = 0
-					W2.Isdropped = 1
+        Case 10:
+          W6.Isdropped = 0
+          W2.Isdropped = 1
                     W2Light.state = 0
                     W6Light.state = 2
 
-					AnimateWeaponTimer.Uservalue = 0
-			End Select
-	End Select
+          AnimateWeaponTimer.Uservalue = 0
+      End Select
+  End Select
 End Sub
 
 
@@ -4657,8 +4657,8 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub PlayfieldTimer_Timer()
-	PlayfieldTimer.Enabled = FALSE
-'	LookAtPlayfield()
+  PlayfieldTimer.Enabled = FALSE
+' LookAtPlayfield()
 End Sub
 
 
@@ -4666,9 +4666,9 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ExtraBallShowTimer_Timer()
-	ExtraBallShowTimer.Enabled = FALSE
-	bExtraBallAward = FALSE
-	EndOfBallComplete()
+  ExtraBallShowTimer.Enabled = FALSE
+  bExtraBallAward = FALSE
+  EndOfBallComplete()
 End Sub
 
 
@@ -4678,10 +4678,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub AutoBallTimer_Timer()
-	AutoBallTimer.Enabled = FALSE
-	PlungerSolenoidPulse.Interval = 2000
+  AutoBallTimer.Enabled = FALSE
+  PlungerSolenoidPulse.Interval = 2000
     PlungerSolenoidPulse.enabled = 1
-	FlashAnimate3()
+  FlashAnimate3()
 End Sub
 
 Sub PlungerSolenoidPulse_Timer
@@ -4692,10 +4692,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub Kicker1Timer_Timer()
-	Kicker1Timer.Enabled = FALSE
-	Kicker1SolenoidPulse()
-	bBallInKicker1 = FALSE
-	L1.State = 0
+  Kicker1Timer.Enabled = FALSE
+  Kicker1SolenoidPulse()
+  bBallInKicker1 = FALSE
+  L1.State = 0
 End Sub
 
 
@@ -4703,10 +4703,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub Kicker2Timer_Timer()
-	Kicker2Timer.Enabled = FALSE
-	Kicker2SolenoidPulse()
-	bBallInKicker2 = FALSE
-	L2.State = 0
+  Kicker2Timer.Enabled = FALSE
+  Kicker2SolenoidPulse()
+  bBallInKicker2 = FALSE
+  L2.State = 0
 End Sub
 
 
@@ -4714,10 +4714,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub Kicker3Timer_Timer()
-	Kicker3Timer.Enabled = FALSE
-	Kicker3SolenoidPulse()
-	bBallInKicker3 = FALSE
-	L3.State = 0
+  Kicker3Timer.Enabled = FALSE
+  Kicker3SolenoidPulse()
+  bBallInKicker3 = FALSE
+  L3.State = 0
 End Sub
 
 
@@ -4725,10 +4725,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub Kicker4Timer_Timer()
-	Kicker4Timer.Enabled = FALSE
-	Kicker4SolenoidPulse()
-	bBallInKicker4 = FALSE
-	L4.State = 0
+  Kicker4Timer.Enabled = FALSE
+  Kicker4SolenoidPulse()
+  bBallInKicker4 = FALSE
+  L4.State = 0
 End Sub
 
 
@@ -4736,13 +4736,13 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub KickOutBallTimer_Timer()
-	KickOutBallTimer.Enabled = FALSE
-	If Not(bLockIsLit) Then
-		If bBallInKicker1 Then Kicker1Timer.Enabled = TRUE
-		If bBallInKicker2 Then Kicker2Timer.Enabled = TRUE
-		If bBallInKicker3 Then Kicker3Timer.Enabled = TRUE
-		If bBallInKicker4 Then Kicker4Timer.Enabled = TRUE
-	End If
+  KickOutBallTimer.Enabled = FALSE
+  If Not(bLockIsLit) Then
+    If bBallInKicker1 Then Kicker1Timer.Enabled = TRUE
+    If bBallInKicker2 Then Kicker2Timer.Enabled = TRUE
+    If bBallInKicker3 Then Kicker3Timer.Enabled = TRUE
+    If bBallInKicker4 Then Kicker4Timer.Enabled = TRUE
+  End If
 End Sub
 
 
@@ -4752,12 +4752,12 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub FixTargetTimer_Timer()
-	' Disable this timer.
-	FixTargetTimer.Enabled = FALSE
-	' Raise the three drop targets behind the captive ball.
-	C1.Isdropped = 0
-	C2.Isdropped = 0
-	C3.Isdropped = 0
+  ' Disable this timer.
+  FixTargetTimer.Enabled = FALSE
+  ' Raise the three drop targets behind the captive ball.
+  C1.Isdropped = 0
+  C2.Isdropped = 0
+  C3.Isdropped = 0
 End Sub
 
 
@@ -4767,35 +4767,35 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub CheckSLUGTimer_Timer()
-	CheckSLUGTimer.Enabled = FALSE
-	If Slug1.IsDropped = 1 And Slug2.IsDropped = 1 And Slug3.IsDropped = 1 And Slug4.IsDropped = 1 And Slug5.IsDropped = 1 And Slug6.IsDropped = 1 And Slug7.IsDropped = 1 And Slug8.IsDropped = 1 And Slug9.IsDropped = 1 Then
-		ResetSLUGTargets()
-		AddScore(20000)
-		LightKickback()
-			If Not (bMultiballmode) AND  Not (bLockisLit) And Not (bPlayingMission) And Multiballa > 0 Then
-			Multiballa = Multiballa - 1
-			End If
-		If Not(bLockIsLit) And Not(bMultiBallMode) And Not(bPlayingFinalMission) And Multiballa = 0 Then
-			FlashEffectMissionTimer.enabled = 1'GI_Flash()
-			InterruptDisplay(1200)
-		    DisplayB2SText "          LOCK IS LIT           "
-			D1.Text = "          LOCK IS LIT           "
-			FlashAnimate3()
-			StopSound (SoundName) : SoundName = "lockup balls1" : PlaySound (SoundName),0,0.4
-			Multiballcount = Multiballcount + 1
-			bLockIsLit = TRUE
-			L1.State = 2
-			L2.State = 2
-			L3.State = 2
-			L4.State = 2
-			Marco.State = 0
-			Tarma.State = 0
-			Eri.State = 0
-			Fio.State = 0
-			If Not(bPlayingMission) Then StopSound (SoundName) : SoundName = "lockup balls1" : PlaySound (SoundName),0,0.4
-		End If
-		If bBallLockedInKicker1 And bBallLockedInKicker2 And bBallLockedInKicker3 And bMissionIsLit And (Mission < 5) Then StartMission(): FlashEffectMissionTimer.enabled = 0
-	End If
+  CheckSLUGTimer.Enabled = FALSE
+  If Slug1.IsDropped = 1 And Slug2.IsDropped = 1 And Slug3.IsDropped = 1 And Slug4.IsDropped = 1 And Slug5.IsDropped = 1 And Slug6.IsDropped = 1 And Slug7.IsDropped = 1 And Slug8.IsDropped = 1 And Slug9.IsDropped = 1 Then
+    ResetSLUGTargets()
+    AddScore(20000)
+    LightKickback()
+      If Not (bMultiballmode) AND  Not (bLockisLit) And Not (bPlayingMission) And Multiballa > 0 Then
+      Multiballa = Multiballa - 1
+      End If
+    If Not(bLockIsLit) And Not(bMultiBallMode) And Not(bPlayingFinalMission) And Multiballa = 0 Then
+      FlashEffectMissionTimer.enabled = 1'GI_Flash()
+      InterruptDisplay(1200)
+        DisplayB2SText "          LOCK IS LIT           "
+      D1.Text = "          LOCK IS LIT           "
+      FlashAnimate3()
+      StopSound (SoundName) : SoundName = "lockup balls1" : PlaySound (SoundName),0,0.4
+      Multiballcount = Multiballcount + 1
+      bLockIsLit = TRUE
+      L1.State = 2
+      L2.State = 2
+      L3.State = 2
+      L4.State = 2
+      Marco.State = 0
+      Tarma.State = 0
+      Eri.State = 0
+      Fio.State = 0
+      If Not(bPlayingMission) Then StopSound (SoundName) : SoundName = "lockup balls1" : PlaySound (SoundName),0,0.4
+    End If
+    If bBallLockedInKicker1 And bBallLockedInKicker2 And bBallLockedInKicker3 And bMissionIsLit And (Mission < 5) Then StartMission(): FlashEffectMissionTimer.enabled = 0
+  End If
 If Not (bMultiballmode) And Not (bLockIsLit) And Not (bPlayingMission) Then
 DisplayB2SText Multiballa &" MORE MONEY/GUNS TO LIGHT LOCK"
 D1.Text = Multiballa &" MORE MONEY/GUNS TO LIGHT LOCK"
@@ -4809,149 +4809,149 @@ End Sub
 Dim FiveBallOverTimerUserData
 Dim FinalMissionShowTimerUserData
 Sub FinalMissionShowTimer_Timer()
-	FinalMissionShowTimer.Uservalue = FinalMissionShowTimer.Uservalue + 1
-	Select Case FinalMissionShowTimer.Uservalue
-		Case 1:
+  FinalMissionShowTimer.Uservalue = FinalMissionShowTimer.Uservalue + 1
+  Select Case FinalMissionShowTimer.Uservalue
+    Case 1:
             DisplayB2SText "   STARTING 5-BALL MULTIBALL    "
-			D1.Text = "   STARTING 5-BALL MULTIBALL    "
-			ExplodeAnimate()
-			' Cancels regular ball saver.
-			bBallSaverIsActive = FALSE
-			BallSaverClockTimer.Enabled = FALSE
-			BallSaverClockTimer.Uservalue = 1
-			ShootAgainLight.State = 0
-			ShootAgainLight.BlinkInterval = 150
-		Case 2:
+      D1.Text = "   STARTING 5-BALL MULTIBALL    "
+      ExplodeAnimate()
+      ' Cancels regular ball saver.
+      bBallSaverIsActive = FALSE
+      BallSaverClockTimer.Enabled = FALSE
+      BallSaverClockTimer.Uservalue = 1
+      ShootAgainLight.State = 0
+      ShootAgainLight.BlinkInterval = 150
+    Case 2:
             DisplayB2SText " DROP TARGETS SCORE 20,000 EACH  "
-			D1.Text = " DROP TARGETS SCORE 20,000 EACH  "
-			Playsound "steel",0,0.3
-			' Destroy any ball in kickers.
-			Kicker1SolenoidPulse
-			Kicker2SolenoidPulse()
-			Kicker3SolenoidPulse()
-			Kicker4SolenoidPulse()
-		Case 3:
+      D1.Text = " DROP TARGETS SCORE 20,000 EACH  "
+      Playsound "steel",0,0.3
+      ' Destroy any ball in kickers.
+      Kicker1SolenoidPulse
+      Kicker2SolenoidPulse()
+      Kicker3SolenoidPulse()
+      Kicker4SolenoidPulse()
+    Case 3:
             DisplayB2SText "      SOA BONUS IS DOUBLED      "
-			D1.Text = "      SOA BONUS IS DOUBLED      "
-			Playsound "Damn Im good",0,0.5
-		Case 4:
+      D1.Text = "      SOA BONUS IS DOUBLED      "
+      Playsound "Damn Im good",0,0.5
+    Case 4:
             DisplayB2SText "    KICKERS SCORE 25,000 EACH    "
-			D1.Text = "    KICKERS SCORE 25,000 EACH    "
-			Playsound "Go ahead make my day",0,0.5
-		Case 5:
+      D1.Text = "    KICKERS SCORE 25,000 EACH    "
+      Playsound "Go ahead make my day",0,0.5
+    Case 5:
             DisplayB2SText "       CAPTIVE BALL IS LIT      "
-			D1.Text = "       CAPTIVE BALL IS LIT      "
-			Playsound "Who wants some",0,0.5
-		Case 6:
+      D1.Text = "       CAPTIVE BALL IS LIT      "
+      Playsound "Who wants some",0,0.5
+    Case 6:
             DisplayB2SText "       JET BUMPERS ARE LIT      "
-			D1.Text = "       JET BUMPERS ARE LIT      "
-			Playsound "Yippie kaiay mother fer",0,0.5
-		Case 7:
+      D1.Text = "       JET BUMPERS ARE LIT      "
+      Playsound "Yippie kaiay mother fer",0,0.5
+    Case 7:
             DisplayB2SText "         JACKPOT IS LIT         "
-			D1.Text = "         JACKPOT IS LIT         "
-			Playsound "Its time to kick ass",0,0.3
-			' Create locked balls in kickers.
-			bBallLockedInKicker1 = TRUE
-			bBallInKicker1 = TRUE
-			Kicker1SolenoidPulse()
-			L1.State = 1
-			bBallLockedInKicker2 = TRUE
-			bBallInKicker2 = TRUE
-			Kicker2.CreateBall()
-			L2.State = 1
-			bBallLockedInKicker3 = TRUE
-			bBallInKicker3 = TRUE
-			Kicker3.CreateBall()
-			L3.State = 1
-			bBallLockedInKicker4 = TRUE
-			bBallInKicker4 = TRUE
-			Kicker4.CreateBall()
-			L4.State = 1
-			' Now they're four locked balls.
-			BallsOnPlayfield = 4
-			BallsLocked = 4
-			' Drop the side targets.
-			S1.Isdropped = 1
-			S1Light.State = 1
-			S2.Isdropped = 1
-			S2Light.State = 1
-			S3.Isdropped = 1
-			S3Light.State = 1
-		Case 8:
+      D1.Text = "         JACKPOT IS LIT         "
+      Playsound "Its time to kick ass",0,0.3
+      ' Create locked balls in kickers.
+      bBallLockedInKicker1 = TRUE
+      bBallInKicker1 = TRUE
+      Kicker1SolenoidPulse()
+      L1.State = 1
+      bBallLockedInKicker2 = TRUE
+      bBallInKicker2 = TRUE
+      Kicker2.CreateBall()
+      L2.State = 1
+      bBallLockedInKicker3 = TRUE
+      bBallInKicker3 = TRUE
+      Kicker3.CreateBall()
+      L3.State = 1
+      bBallLockedInKicker4 = TRUE
+      bBallInKicker4 = TRUE
+      Kicker4.CreateBall()
+      L4.State = 1
+      ' Now they're four locked balls.
+      BallsOnPlayfield = 4
+      BallsLocked = 4
+      ' Drop the side targets.
+      S1.Isdropped = 1
+      S1Light.State = 1
+      S2.Isdropped = 1
+      S2Light.State = 1
+      S3.Isdropped = 1
+      S3Light.State = 1
+    Case 8:
             DisplayB2SText "        EVERYTHING IS LIT       "
-			D1.Text = "        EVERYTHING IS LIT       "
-			Playsound "explode3",0,0.3
-			ExplodeAnimate()
-		Case 10:
-			FinalMissionShowTimer.Enabled = FALSE
-			FinalMissionShowTimer.Uservalue = 0
-		'	LookAtPlayfield()
-			AutoBall()
-			CheckFiveBallTimer.interval = 3000
-			ReleaseBallsTimer.Enabled = TRUE
-			FiveBallOverTimer.Uservalue = 0
-			' Regardling table setup, ball saver duration is 2 x regular ball saver (except if 15 seconds: 45 seconds).
-			Select Case nvR1
-				Case 15: FiveBallOverTimer.Interval = 25000 ' 45 seconds
-				Case 30: FiveBallOverTimer.Interval = 40000 ' 2 x 30 - 20 = 60 seconds.
-				Case 45: FiveBallOverTimer.Interval = 70000 ' 2 x 45 - 20 = 90 seconds.
-				Case 60: FiveBallOverTimer.Interval = 100000 ' 2 x 60 - 20 = 120 seconds.
-			End Select
-			ShootAgainLight.State = 2
-			LightJackpot()
-		Case 12:
-			' Mission all over.
+      D1.Text = "        EVERYTHING IS LIT       "
+      Playsound "explode3",0,0.3
+      ExplodeAnimate()
+    Case 10:
+      FinalMissionShowTimer.Enabled = FALSE
+      FinalMissionShowTimer.Uservalue = 0
+    ' LookAtPlayfield()
+      AutoBall()
+      CheckFiveBallTimer.interval = 3000
+      ReleaseBallsTimer.Enabled = TRUE
+      FiveBallOverTimer.Uservalue = 0
+      ' Regardling table setup, ball saver duration is 2 x regular ball saver (except if 15 seconds: 45 seconds).
+      Select Case nvR1
+        Case 15: FiveBallOverTimer.Interval = 25000 ' 45 seconds
+        Case 30: FiveBallOverTimer.Interval = 40000 ' 2 x 30 - 20 = 60 seconds.
+        Case 45: FiveBallOverTimer.Interval = 70000 ' 2 x 45 - 20 = 90 seconds.
+        Case 60: FiveBallOverTimer.Interval = 100000 ' 2 x 60 - 20 = 120 seconds.
+      End Select
+      ShootAgainLight.State = 2
+      LightJackpot()
+    Case 12:
+      ' Mission all over.
             DisplayB2SText "        ONE LAST RIDE        "
-			D1.Text = "        ONE LAST RIDE        "
-		Case 13:
-			StopSound (SoundName) : SoundName = "Extraball" : PlaySound (SoundName)
-			DMDFLush
-			DMD "ExtraBall.gif", "", "", 2800
-			InterruptDisplay(1000)
-			    DisplayB2SText "     * E X T R A  B A L L *     "
-				D1.Text = "     * E X T R A  B A L L *     "
+      D1.Text = "        ONE LAST RIDE        "
+    Case 13:
+      StopSound (SoundName) : SoundName = "Extraball" : PlaySound (SoundName)
+      DMDFLush
+      DMD "ExtraBall.gif", "", "", 2800
+      InterruptDisplay(1000)
+          DisplayB2SText "     * E X T R A  B A L L *     "
+        D1.Text = "     * E X T R A  B A L L *     "
 
-		Case 14:
+    Case 14:
             'DisplayB2SText "     TARA, OPIE                "
-			'D1.Text = "     TARA, OPIE                "
-			'Playsound "Opie"
-		Case 15:
+      'D1.Text = "     TARA, OPIE                "
+      'Playsound "Opie"
+    Case 15:
             'DisplayB2SText "     TARA, OPIE, TIG            "
-			'D1.Text = "     TARA, OPIE, TIG            "
-			'Playsound "Tig"
-		Case 16:
+      'D1.Text = "     TARA, OPIE, TIG            "
+      'Playsound "Tig"
+    Case 16:
             'DisplayB2SText "     TARA, OPIE, TIG & GEMMA      "
-			'D1.Text = "     TARA, OPIE, TIG & GEMMA      "
-			'Playsound "Gemma"
-		Case 17:
-			'FinalMissionShowTimer.Interval = 2300
+      'D1.Text = "     TARA, OPIE, TIG & GEMMA      "
+      'Playsound "Gemma"
+    Case 17:
+      'FinalMissionShowTimer.Interval = 2300
             'DisplayB2SText "       HAVE DONE IT AGAIN       "
-			'D1.Text = "       HAVE DONE IT AGAIN       "
-		'	D1.QueueText "       HAVE DONE IT AGAIN       ", seBlinkMask, 2300
-		'	D2.QueueText "       HAVE DONE IT AGAIN       ", seBlinkMask, 2300
-			'Playsound "explode3"
-		Case 18:
+      'D1.Text = "       HAVE DONE IT AGAIN       "
+    ' D1.QueueText "       HAVE DONE IT AGAIN       ", seBlinkMask, 2300
+    ' D2.QueueText "       HAVE DONE IT AGAIN       ", seBlinkMask, 2300
+      'Playsound "explode3"
+    Case 18:
             'DisplayB2SText "      SEE YOU NEXT MISSION      "
-			'D1.Text = "      SEE YOU NEXT MISSION      "
-		'	D1.QueueText "      SEE YOU NEXT MISSION      ", seBlinkMask, 2300
-		'	D2.QueueText "      SEE YOU NEXT MISSION      ", seBlinkMask, 2300
-			'Playsound "Extraball"
-		Case 19:
+      'D1.Text = "      SEE YOU NEXT MISSION      "
+    ' D1.QueueText "      SEE YOU NEXT MISSION      ", seBlinkMask, 2300
+    ' D2.QueueText "      SEE YOU NEXT MISSION      ", seBlinkMask, 2300
+      'Playsound "Extraball"
+    Case 19:
             DisplayB2SText "      SEE YOU NEXT RIDE      "
-			D1.Text = "      SEE YOU NEXT RIDE      "
-			FinalMissionShowTimer.Enabled = FALSE
-			FinalMissionShowTimer.Uservalue = 0
-			bPlayingExtraBall = True
-			Endmission6
-	End Select
+      D1.Text = "      SEE YOU NEXT RIDE      "
+      FinalMissionShowTimer.Enabled = FALSE
+      FinalMissionShowTimer.Uservalue = 0
+      bPlayingExtraBall = True
+      Endmission6
+  End Select
 End Sub
 
 
 ' *** DOCAM OPTIMIZED ****
 '
 Sub StartMissionSoonTimer_Timer()
-	StartMissionSoonTimer.Enabled = FALSE
-	StartMission()
+  StartMissionSoonTimer.Enabled = FALSE
+  StartMission()
 End Sub
 
 
@@ -4963,15 +4963,15 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub CheckFiveBallTimer_Timer()
-		bMultiBallMode = True
+    bMultiBallMode = True
         bAutoPlunger = True
-	CheckFiveBallTimer.Enabled = FALSE
-	If BallsOnPlayfield = 5 Then
-		CheckFiveBallTimer.interval = 1000
-	Else
-		CheckFiveBallTimer.interval = 3000
-	End If
-	If BallsOnPlayfield < 5 Then AddMultiball(5) 'CreateNewBall()
+  CheckFiveBallTimer.Enabled = FALSE
+  If BallsOnPlayfield = 5 Then
+    CheckFiveBallTimer.interval = 1000
+  Else
+    CheckFiveBallTimer.interval = 3000
+  End If
+  If BallsOnPlayfield < 5 Then AddMultiball(5) 'CreateNewBall()
 End Sub
 
 
@@ -4982,34 +4982,34 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub FiveBallOverTimer_Timer()
-	FiveBallOverTimer.Uservalue = FiveBallOverTimer.Uservalue + 1
-	Select Case FiveBallOverTimer.Uservalue
-		Case 1:
-			' At this point, remains 20 seconds.
-			ShootAgainLight.BlinkInterval = 100
-			ShootAgainLight.State = 2
-			FiveBallOverTimer.Enabled = FALSE
-			FiveBallOverTimer.interval = 10000
-		Case 2:
-			' At this point, remains 10 seconds.
-			ShootAgainLight.BlinkInterval = 50
-			ShootAgainLight.State = 2
-			FiveBallOverTimer.Enabled = FALSE
-			FiveBallOverTimer.interval = 5000
-		Case 3:
-			' At this point, remains 5 seconds.
-			ShootAgainLight.BlinkInterval = 25
-			ShootAgainLight.State = 2
-			FiveBallOverTimer.Enabled = FALSE
-			FiveBallOverTimer.interval = 5000
-		Case 4:
-			' At this point, cancels the 5-ball mode (disabling ball saver feature).
-			FiveBallOverTimer.Enabled = FALSE
-			CheckFiveBallTimer.Enabled = FALSE
-			ShootAgainLight.State = 0
-			ShootAgainLight.BlinkInterval = 150
-			FiveBallOverTimer.Uservalue = 0
-	End Select
+  FiveBallOverTimer.Uservalue = FiveBallOverTimer.Uservalue + 1
+  Select Case FiveBallOverTimer.Uservalue
+    Case 1:
+      ' At this point, remains 20 seconds.
+      ShootAgainLight.BlinkInterval = 100
+      ShootAgainLight.State = 2
+      FiveBallOverTimer.Enabled = FALSE
+      FiveBallOverTimer.interval = 10000
+    Case 2:
+      ' At this point, remains 10 seconds.
+      ShootAgainLight.BlinkInterval = 50
+      ShootAgainLight.State = 2
+      FiveBallOverTimer.Enabled = FALSE
+      FiveBallOverTimer.interval = 5000
+    Case 3:
+      ' At this point, remains 5 seconds.
+      ShootAgainLight.BlinkInterval = 25
+      ShootAgainLight.State = 2
+      FiveBallOverTimer.Enabled = FALSE
+      FiveBallOverTimer.interval = 5000
+    Case 4:
+      ' At this point, cancels the 5-ball mode (disabling ball saver feature).
+      FiveBallOverTimer.Enabled = FALSE
+      CheckFiveBallTimer.Enabled = FALSE
+      ShootAgainLight.State = 0
+      ShootAgainLight.BlinkInterval = 150
+      FiveBallOverTimer.Uservalue = 0
+  End Select
 End Sub
 
 
@@ -5019,8 +5019,8 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ResetMusicTimer_Timer()
-	ResetMusicTimer.Enabled = FALSE
-	ResetMusic()
+  ResetMusicTimer.Enabled = FALSE
+  ResetMusic()
 End Sub
 
 
@@ -5030,10 +5030,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub FlashOffTimer_Timer()
-	FlashOffTimer.Enabled = FALSE
+  FlashOffTimer.Enabled = FALSE
     FlashEffect 0
     FlashEffectMissionTimer.enabled = 0
-	FlashOff()
+  FlashOff()
 End Sub
 
 
@@ -5044,43 +5044,43 @@ End Sub
 '
 Dim MultiballDisplayTimerUserData
 Sub MultiballDisplayTimer_Timer()
-	MultiballDisplayTimerUserData = MultiballDisplayTimerUserData + 1
-	Select Case MultiballDisplayTimerUserData
-		Case 1:
+  MultiballDisplayTimerUserData = MultiballDisplayTimerUserData + 1
+  Select Case MultiballDisplayTimerUserData
+    Case 1:
             DisplayB2SText "M U L T I                B A L L"
-			D1.Text = "M U L T I                B A L L"
+      D1.Text = "M U L T I                B A L L"
 
-		Case 2:
+    Case 2:
             DisplayB2SText " M U L T I              B A L L "
-			D1.Text = " M U L T I              B A L L "
-		Case 3:
+      D1.Text = " M U L T I              B A L L "
+    Case 3:
             DisplayB2SText "  M U L T I            B A L L  "
-			D1.Text = "  M U L T I            B A L L  "
-		Case 4:
+      D1.Text = "  M U L T I            B A L L  "
+    Case 4:
             DisplayB2SText "   M U L T I          B A L L   "
-			D1.Text = "   M U L T I          B A L L   "
-		Case 5:
+      D1.Text = "   M U L T I          B A L L   "
+    Case 5:
             DisplayB2SText "    M U L T I        B A L L    "
-			D1.Text = "    M U L T I        B A L L    "
-		Case 6:
+      D1.Text = "    M U L T I        B A L L    "
+    Case 6:
             DisplayB2SText "     M U L T I      B A L L     "
-			D1.Text = "     M U L T I      B A L L     "
-		Case 7:
+      D1.Text = "     M U L T I      B A L L     "
+    Case 7:
             DisplayB2SText "      M U L T I    B A L L      "
-			D1.Text = "      M U L T I    B A L L      "
-		Case 8:
+      D1.Text = "      M U L T I    B A L L      "
+    Case 8:
             DisplayB2SText "       M U L T I  B A L L       "
-			D1.Text = "       M U L T I  B A L L       "
-		Case 9:
+      D1.Text = "       M U L T I  B A L L       "
+    Case 9:
             DisplayB2SText "  *    M U L T I  B A L L    *  "
-			D1.Text = "  *    M U L T I  B A L L    *  "
-		Case 10:
+      D1.Text = "  *    M U L T I  B A L L    *  "
+    Case 10:
             DisplayB2SText "  *    M U L T I  B A L L   # "&Multiballcount-1
-			D1.Text = "  *    M U L T I  B A L L    *  "', seBlinkMask, 1000
-		Case 14:
-			MultiballDisplayTimer.Enabled = FALSE
-			MultiballDisplayTimerUserData = 0
-	End Select
+      D1.Text = "  *    M U L T I  B A L L    *  "', seBlinkMask, 1000
+    Case 14:
+      MultiballDisplayTimer.Enabled = FALSE
+      MultiballDisplayTimerUserData = 0
+  End Select
 End Sub
 
 
@@ -5090,48 +5090,48 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub StartMultiballTimer_Timer()
-	StartMultiballTimer.Enabled = FALSE
-	If Not(bFinalMissionIsReady) Then
-		BallsLocked = 0
-		FlashEffectMissionTimer.enabled = 1'GI_Flash()
-		If bPlayingMission Then
-			' If required, suspend the current mission (will be resumed at the end of multiball).
-			bPlayingMission = FALSE
-			bMissionSuspended = TRUE
-			MissionTimer.Enabled = FALSE
-			Select Case Mission
-				Case 2:
-					AnimateWeaponTimer.Enabled = FALSE
-					DropWeapon()
-				Case 3:
-					Bumper1L.State = 1
-					Bumper2l.State = 1
-					Bumper3L.State = 1
-				Case 4:
-					CaptiveLight.State = 0
-				Case 5
-					AnimateWeaponTimer.Enabled = FALSE
-					DropWeapon()
-			End Select
-		End If
-		MultiballDisplayTimerUserData = 0
-		MultiballDisplayTimer.Enabled = TRUE
-		bMultiBallMode = TRUE
-		bLockIsLit = FALSE
-		StopSound Song:Song = "": PlaySong "wizard"
-		DMDFLush
-		DMD "Multiball.gif", "","", 3600
-		Multiballa = Multiballcount
-		FlashAnimate6()
-		ReleaseBallsTimer.Enabled = TRUE
-		LightJackpot()
-		DropWeapon()
-		M1.State = 0
-		M2.State = 0
-		M3.State = 0
-	Else
-		StartMission()
-	End If
+  StartMultiballTimer.Enabled = FALSE
+  If Not(bFinalMissionIsReady) Then
+    BallsLocked = 0
+    FlashEffectMissionTimer.enabled = 1'GI_Flash()
+    If bPlayingMission Then
+      ' If required, suspend the current mission (will be resumed at the end of multiball).
+      bPlayingMission = FALSE
+      bMissionSuspended = TRUE
+      MissionTimer.Enabled = FALSE
+      Select Case Mission
+        Case 2:
+          AnimateWeaponTimer.Enabled = FALSE
+          DropWeapon()
+        Case 3:
+          Bumper1L.State = 1
+          Bumper2l.State = 1
+          Bumper3L.State = 1
+        Case 4:
+          CaptiveLight.State = 0
+        Case 5
+          AnimateWeaponTimer.Enabled = FALSE
+          DropWeapon()
+      End Select
+    End If
+    MultiballDisplayTimerUserData = 0
+    MultiballDisplayTimer.Enabled = TRUE
+    bMultiBallMode = TRUE
+    bLockIsLit = FALSE
+    StopSound Song:Song = "": PlaySong "wizard"
+    DMDFLush
+    DMD "Multiball.gif", "","", 3600
+    Multiballa = Multiballcount
+    FlashAnimate6()
+    ReleaseBallsTimer.Enabled = TRUE
+    LightJackpot()
+    DropWeapon()
+    M1.State = 0
+    M2.State = 0
+    M3.State = 0
+  Else
+    StartMission()
+  End If
 End Sub
 
 
@@ -5142,24 +5142,24 @@ End Sub
 '
 Dim ReleaseBallsTimerUserData
 Sub ReleaseBallsTimer_Timer()
-	ReleaseBallsTimerUserData = ReleaseBallsTimerUserData + 1
-	Select Case ReleaseBallsTimerUserData
-		Case 1:
-			Kicker1Timer.Enabled = TRUE
-			bBallLockedInKicker1 = FALSE
-		Case 2:
-			Kicker2Timer.Enabled = TRUE
-			bBallLockedInKicker2 = FALSE
-		Case 3:
-			Kicker3Timer.Enabled = TRUE
-			bBallLockedInKicker3 = FALSE
-		Case 4:
-			Kicker4Timer.Enabled = TRUE
-			bBallLockedInKicker4 = FALSE
-			ReleaseBallsTimer.Enabled = FALSE
-			ReleaseBallsTimerUserData = 0
-			MultiballDisplayTimer.Enabled = FALSE
-	End Select
+  ReleaseBallsTimerUserData = ReleaseBallsTimerUserData + 1
+  Select Case ReleaseBallsTimerUserData
+    Case 1:
+      Kicker1Timer.Enabled = TRUE
+      bBallLockedInKicker1 = FALSE
+    Case 2:
+      Kicker2Timer.Enabled = TRUE
+      bBallLockedInKicker2 = FALSE
+    Case 3:
+      Kicker3Timer.Enabled = TRUE
+      bBallLockedInKicker3 = FALSE
+    Case 4:
+      Kicker4Timer.Enabled = TRUE
+      bBallLockedInKicker4 = FALSE
+      ReleaseBallsTimer.Enabled = FALSE
+      ReleaseBallsTimerUserData = 0
+      MultiballDisplayTimer.Enabled = FALSE
+  End Select
 End Sub
 
 
@@ -5169,10 +5169,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub EndMultiballTimer_Timer()
-	EndMultiballTimer.Enabled = FALSE
-	ResetSideTargets()
-	ResetCaptiveTargets()
-	If Not(bPlayingMission) Then FixWeapon()
+  EndMultiballTimer.Enabled = FALSE
+  ResetSideTargets()
+  ResetCaptiveTargets()
+  If Not(bPlayingMission) Then FixWeapon()
 End Sub
 
 
@@ -5182,12 +5182,12 @@ End Sub
 ' *** DOCAM CLEANED ***
 '
 Sub MissionAllOverTimer_Timer()
-	MissionAllOverTimer.Enabled = FALSE
-'	LookAtPlayfield()
-	FlashOff()
-	CreateNewBall()
-	ingamereset()
-	AddScore(0)
+  MissionAllOverTimer.Enabled = FALSE
+' LookAtPlayfield()
+  FlashOff()
+  CreateNewBall()
+  ingamereset()
+  AddScore(0)
 End Sub
 
 
@@ -5198,57 +5198,57 @@ End Sub
 '
 Dim JackpotDisplayTimerUserData
 Sub JackpotDisplayTimer_Timer()
-	JackpotDisplayTimerUserData = JackpotDisplayTimerUserData + 1
-	Select Case JackpotDisplayTimerUserData
-		Case 1:
-			D1.Text = "         J                      "
+  JackpotDisplayTimerUserData = JackpotDisplayTimerUserData + 1
+  Select Case JackpotDisplayTimerUserData
+    Case 1:
+      D1.Text = "         J                      "
             DisplayB2SText "         J                      "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
 
-		Case 2:
-			D1.Text = "         J A                    "
+    Case 2:
+      D1.Text = "         J A                    "
              DisplayB2SText  "         J A                    "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 3:
-			D1.Text = "         J A C                  "
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 3:
+      D1.Text = "         J A C                  "
             DisplayB2SText  "         J A C                  "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 4:
-			D1.Text = "         J A C K                "
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 4:
+      D1.Text = "         J A C K                "
             DisplayB2SText "         J A C K                "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 5:
-			D1.Text = "         J A C K P              "
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 5:
+      D1.Text = "         J A C K P              "
             DisplayB2SText "         J A C K P              "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 6:
-			D1.Text = "         J A C K P O            "
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 6:
+      D1.Text = "         J A C K P O            "
             DisplayB2SText "         J A C K P O            "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 7:
-			D1.Text = "         J A C K P O T          "
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 7:
+      D1.Text = "         J A C K P O T          "
             DisplayB2SText "         J A C K P O T          "
-			bInterruptedDisplay = TRUE
-			Playsound "steel",0,0.3
-		Case 8:
-			D1.Text = "  *      J A C K P O T       *  "', seBlinkMask, 2000
+      bInterruptedDisplay = TRUE
+      Playsound "steel",0,0.3
+    Case 8:
+      D1.Text = "  *      J A C K P O T       *  "', seBlinkMask, 2000
             DisplayB2SText "  *      J A C K P O T       *  "
-			bInterruptedDisplay = TRUE
-			Playsound "explode5"
-			Playsound "Quit wasting my time"
-			FlashEffectMissionTimer.enabled = 1'GI_Flash()
-			If Not(bPlayingFinalMission) Then StopSound (SoundName) : SoundName = "Jackpot" : PlaySound (SoundName)
-		Case 12:
-			InterruptDisplayTimer.interval = 2000
-			JackpotDisplayTimer.Enabled = FALSE
-			JackpotDisplayTimerUserData = 0
-	End Select
+      bInterruptedDisplay = TRUE
+      Playsound "explode5"
+      Playsound "Quit wasting my time"
+      FlashEffectMissionTimer.enabled = 1'GI_Flash()
+      If Not(bPlayingFinalMission) Then StopSound (SoundName) : SoundName = "Jackpot" : PlaySound (SoundName)
+    Case 12:
+      InterruptDisplayTimer.interval = 2000
+      JackpotDisplayTimer.Enabled = FALSE
+      JackpotDisplayTimerUserData = 0
+  End Select
 End Sub
 
 
@@ -5260,68 +5260,68 @@ End Sub
 Dim AttractMessagesTimerUserData
 Sub AttractMessagesTimer_Timer()
     FixTargetTimer.enabled = 1
-	AttractMessagesTimerUserData = AttractMessagesTimerUserData + 1
-	Select Case AttractMessagesTimerUserData
-		Case 1:
-			D1.Text = "           GAME  OVER            "
+  AttractMessagesTimerUserData = AttractMessagesTimerUserData + 1
+  Select Case AttractMessagesTimerUserData
+    Case 1:
+      D1.Text = "           GAME  OVER            "
             DisplayB2SText "           GAME  OVER            "
-			' From this point, you can enter in setup mode (by pressing both left & right flipper keys).
-			bAllowEnterSetup = TRUE
-		Case 2:
-			D1.Text = "    ALDIODE PINBALL PRESENTS     "
+      ' From this point, you can enter in setup mode (by pressing both left & right flipper keys).
+      bAllowEnterSetup = TRUE
+    Case 2:
+      D1.Text = "    ALDIODE PINBALL PRESENTS     "
             DisplayB2SText "    ALDIODE PINBALL PRESENTS     "
-		Case 3:
-			D1.Text = "           SONS OF ANARCHY           "', seScrollIn, 1000, 0, TRUE
+    Case 3:
+      D1.Text = "           SONS OF ANARCHY           "', seScrollIn, 1000, 0, TRUE
             DisplayB2SText "         SONS OF ANARCHY           "
-		Case 4:
-			D1.Text = "           BY ALDIODE        "
+    Case 4:
+      D1.Text = "           BY ALDIODE        "
             DisplayB2SText "           BY ALDIODE        "
-		Case 5:
-			D1.Text = "   BASED ON THE FX TV SERIES"
+    Case 5:
+      D1.Text = "   BASED ON THE FX TV SERIES"
             DisplayB2SText "   BASED ON THE FX TV SERIES"
-		Case 6:
-			D1.Text = "     SONS OF ANARCHY    "
+    Case 6:
+      D1.Text = "     SONS OF ANARCHY    "
             DisplayB2SText "         SONS OF ANARCHY      "
-		Case 7:
-			If (Score(1) = 0) And (Credits = 0) Then
-				D1.Text = "      PLEASE INSERT CREDIT      "
+    Case 7:
+      If (Score(1) = 0) And (Credits = 0) Then
+        D1.Text = "      PLEASE INSERT CREDIT      "
                 DisplayB2SText "      PLEASE INSERT CREDIT      "
-			ElseIf (Score(1) = 0) And (Credits > 0) Then
-				D1.Text = "    PUSH START BUTTON TO PLAY   "
+      ElseIf (Score(1) = 0) And (Credits > 0) Then
+        D1.Text = "    PUSH START BUTTON TO PLAY   "
                 DisplayB2SText "    PUSH START BUTTON TO PLAY   "
-			Else
+      Else
                 DisplayB2SText " LAST SCORE WAS " & FormatScore(Score(1)) & String(8 - Int((Len(Score(1)) - 1) / 2), " ")
-				D1.Text = " LAST SCORE WAS " & FormatScore(Score(1)) & String(8 - Int((Len(Score(1)) - 1) / 2), " ")
+        D1.Text = " LAST SCORE WAS " & FormatScore(Score(1)) & String(8 - Int((Len(Score(1)) - 1) / 2), " ")
 
-			End If
-		Case 8:
-			D1.Text = "    SPECIAL THANKS TO JAVIER       "
+      End If
+    Case 8:
+      D1.Text = "    SPECIAL THANKS TO JAVIER       "
             DisplayB2SText "    SPECIAL THANKS TO JAVIER        "
-		Case 9:
-			D1.Text = "BRENDAN BAILEY     < PINWIZKID >"
+    Case 9:
+      D1.Text = "BRENDAN BAILEY     < PINWIZKID >"
             DisplayB2SText "BRENDAN BAILEY     < PINWIZKID >"
-		Case 10:
-			D1.Text = "COLLECT  *SOA*  LANES FOR BONUS      "
+    Case 10:
+      D1.Text = "COLLECT  *SOA*  LANES FOR BONUS      "
             DisplayB2SText "COLLECT   *SOA*  LANES FOR BONUS"
-		Case 11:
-			D1.Text = " COLLECT WEAPONS FOR EXTRA BALL "
+    Case 11:
+      D1.Text = " COLLECT WEAPONS FOR EXTRA BALL "
             DisplayB2SText " COLLECT WEAPONS FOR EXTRA BALL"
-		Case 12:
-			D1.Text = "SHOOT CAPTIVE BALL TO LIGHT RIDE"
+    Case 12:
+      D1.Text = "SHOOT CAPTIVE BALL TO LIGHT RIDE"
             DisplayB2SText "SHOOT CAPTIVE BALL TO LIGHT RIDE"
-		Case 13:
-			D1.Text = " SHOOT KICKERS TO START A  RIDE "
+    Case 13:
+      D1.Text = " SHOOT KICKERS TO START A  RIDE "
             DisplayB2SText " SHOOT KICKERS TO START  A RIDE "
-		Case 14:
-			D1.Text = "FINISH MONEY/GUNS TO LIGHT LOCKS"
+    Case 14:
+      D1.Text = "FINISH MONEY/GUNS TO LIGHT LOCKS"
             DisplayB2SText "FINISH MONEY/GUNS TO LIGHT LOCKS"
-		Case 15:
-			D1.Text = "LOCK 4 BALLS TO START MULTI-BALL"
+    Case 15:
+      D1.Text = "LOCK 4 BALLS TO START MULTI-BALL"
             DisplayB2SText "LOCK 4 BALLS TO START MULTI-BALL"
-		Case 16:
-			D1.Text = "COMPLETE 5 RIDES FOR FINAL RIDE"
+    Case 16:
+      D1.Text = "COMPLETE 5 RIDES FOR FINAL RIDE"
             DisplayB2SText "COMPLETE 5 RIDES FOR FINAL RIDE"
-		Case 18:
+    Case 18:
              If Score(1) Then
                 D1.Text = "PLAYER 1"& Score(1)
                 DisplayB2SText "PLAYER 1"& Score(1)
@@ -5352,20 +5352,20 @@ Sub AttractMessagesTimer_Timer()
                D1.Text = "CREDITS " &credits& " INSERT COIN"
              End If
              End If
-		Case 19:
+    Case 19:
              DisplayB2SText " HIGHSCORES  "& "1> " & HighScoreName(0) & " :" & HighScore(0)', 0, , , -1
              D1.Text =  " HIGHSCORES"& " 1> " & HighScoreName(0) & " " & FormatNumber(HighScore(0), 0, , , -1)
-		Case 20:
+    Case 20:
              DisplayB2SText " HIGHSCORES  "& "2> " & HighScoreName(1) & " :" & HighScore(1)', 0, , , -1
              D1.Text =  " HIGHSCORES"& " 2> " & HighScoreName(1) & " " & FormatNumber(HighScore(1), 0, , , -1)
-		Case 21:
+    Case 21:
              DisplayB2SText " HIGHSCORES  "& "3> " & HighScoreName(2) & " :" & HighScore(2)', 0, , , -1
              D1.Text =  " HIGHSCORES"& " 3> " & HighScoreName(2) & " " & FormatNumber(HighScore(2), 0, , , -1)
-		Case 22:
+    Case 22:
              DisplayB2SText " HIGHSCORES  "& "4> " & HighScoreName(3) & " :" & HighScore(3)', 0, , , -1
              D1.Text =  " HIGHSCORES"& " 4> " & HighScoreName(3) & " " & FormatNumber(HighScore(3), 0, , , -1)
-			 AttractMessagesTimerUserData = 0
-	End Select
+       AttractMessagesTimerUserData = 0
+  End Select
 End Sub
 
 
@@ -5375,8 +5375,8 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub AttractLightsTimer_Timer()
-'	AttractLightsTimer.Enabled = FALSE
-'	MainSeq.Play SeqUpOn, 80, 4
+' AttractLightsTimer.Enabled = FALSE
+' MainSeq.Play SeqUpOn, 80, 4
 End Sub
 
 
@@ -5387,45 +5387,45 @@ End Sub
 '
 Dim EnteringSetupTimerUserData
 Sub EnteringSetupTimer_Timer()
-	EnteringSetupTimer.Enabled = FALSE
-	If bLeftFlipPressed And bRightFlipPressed And bAllowEnterSetup And Not(bRunningSetup) Then
-		' Stop the messages during attract mode.
-		AttractMessagesTimer.Enabled = FALSE
-		AttractMessagesTimerUserData = 0
-		' Set flags.
-		bAllowEnterSetup = FALSE
-		bRunningSetup = TRUE
-		bLeftFlipPressed = FALSE
-		bRightFlipPressed = FALSE
-		D1.Text = "         ENTERING SETUP         "
-		EnteringSetupTimerUserData = 1
-		EnteringSetupTimer.interval = 1100
-		Exit Sub
-	End If
-	If EnteringSetupTimerUserData = 1 Then
-		D1.Text = " LEFT FLIP KEY = NEXT PARAMETER "
+  EnteringSetupTimer.Enabled = FALSE
+  If bLeftFlipPressed And bRightFlipPressed And bAllowEnterSetup And Not(bRunningSetup) Then
+    ' Stop the messages during attract mode.
+    AttractMessagesTimer.Enabled = FALSE
+    AttractMessagesTimerUserData = 0
+    ' Set flags.
+    bAllowEnterSetup = FALSE
+    bRunningSetup = TRUE
+    bLeftFlipPressed = FALSE
+    bRightFlipPressed = FALSE
+    D1.Text = "         ENTERING SETUP         "
+    EnteringSetupTimerUserData = 1
+    EnteringSetupTimer.interval = 1100
+    Exit Sub
+  End If
+  If EnteringSetupTimerUserData = 1 Then
+    D1.Text = " LEFT FLIP KEY = NEXT PARAMETER "
 
-		EnteringSetupTimerUserData = 2
-		EnteringSetupTimer.interval = 1500
-	ElseIf EnteringSetupTimerUserData = 2 Then
-		D1.Text = " RIGHT FLIP KEY = CHANGE VALUE  "
+    EnteringSetupTimerUserData = 2
+    EnteringSetupTimer.interval = 1500
+  ElseIf EnteringSetupTimerUserData = 2 Then
+    D1.Text = " RIGHT FLIP KEY = CHANGE VALUE  "
 
-		EnteringSetupTimerUserData = 3
-		EnteringSetupTimer.interval = 1500
-	ElseIf EnteringSetupTimerUserData = 3 Then
-		D1.Text = "                                "
+    EnteringSetupTimerUserData = 3
+    EnteringSetupTimer.interval = 1500
+  ElseIf EnteringSetupTimerUserData = 3 Then
+    D1.Text = "                                "
 
-		SetupMenuEntry()
-		EnteringSetupTimerUserData = 4
-		EnteringSetupTimer.interval = 800
-	ElseIf EnteringSetupTimerUserData = 4 Then
-		' Reset default for this timer.
-		EnteringSetupTimer.Interval = 2500
-		EnteringSetupTimerUserData = 5
-		' Display first parameter: balls per game
-		SetupMenuDisplayCurrentSetting()
-		Playsound "steel",0,0.3
-	End If
+    SetupMenuEntry()
+    EnteringSetupTimerUserData = 4
+    EnteringSetupTimer.interval = 800
+  ElseIf EnteringSetupTimerUserData = 4 Then
+    ' Reset default for this timer.
+    EnteringSetupTimer.Interval = 2500
+    EnteringSetupTimerUserData = 5
+    ' Display first parameter: balls per game
+    SetupMenuDisplayCurrentSetting()
+    Playsound "steel",0,0.3
+  End If
 End Sub
 
 
@@ -5449,32 +5449,32 @@ End Sub
 Sub EndOfBallComplete()
     Dim NextPlayer
    ' Is it the end of the game ? (all balls has been lost for player).
-	If BallsRemaining(CurrentPlayer) - Ball < 0 Then
-		' Set the machine into game over/attract mode.
+  If BallsRemaining(CurrentPlayer) - Ball < 0 Then
+    ' Set the machine into game over/attract mode.
       EndOfGame()
-	Else
-		' Make sure the correct display is upto date.
-		AddScore 0
-		' Reset the playfield for the new ball.
-		ResetForNewPlayerBall()
-		' Create a new ball.
-		CreateNewBall()
-	   LightKickback()
+  Else
+    ' Make sure the correct display is upto date.
+    AddScore 0
+    ' Reset the playfield for the new ball.
+    ResetForNewPlayerBall()
+    ' Create a new ball.
+    CreateNewBall()
+     LightKickback()
       ResetCaptiveTargets()
       AddScore 0
-	  LightMission()
+    LightMission()
       POWLaneLight1.State = 0
       POWLaneLight2.State = 0
       POWLaneLight3.State = 0
-		' Unlit left inlane.
+    ' Unlit left inlane.
       LeftInLaneLight.State = 0
       bLeftInLaneIsLit = FALSE
-		' Unlit right inlane.
+    ' Unlit right inlane.
       RightInLaneLight.State = 0
       bRightInLaneIsLit = FALSE
-		' Unlit right outlane.
+    ' Unlit right outlane.
       RightOutLaneLight.State = 0
-	End If
+  End If
 End Sub
 
 
@@ -5487,51 +5487,51 @@ End Sub
 ' Add points to the score.
 '
 Sub AddScore(points)
-	If Not(Tilted) Then
-		' Add the points to the current players score variable.
+  If Not(Tilted) Then
+    ' Add the points to the current players score variable.
         Score(CurrentPlayer) = Score(CurrentPlayer) + points
-		If Not(bInterruptedDisplay) And (Not(bPlayingMission) Or bPlayingFinalMission) Then
-			' Display score and ball in play.
-			If Score(1) < 1000000 Then
+    If Not(bInterruptedDisplay) And (Not(bPlayingMission) Or bPlayingFinalMission) Then
+      ' Display score and ball in play.
+      If Score(1) < 1000000 Then
                 DisplayScore
-				D1.Text = FormatScore(Score(1)) & "                     BALL " & Ball
-			Else
+        D1.Text = FormatScore(Score(1)) & "                     BALL " & Ball
+      Else
                 DisplayScore
-				D1.Text = FormatScore(Score(1)) & String(25 - Len(Score(1)), " ")
-			End If
-			Exit Sub
-		End If
-		If Not(bInterruptedDisplay) And bPlayingMission And Not(bMissionSuspended) And Not(bPlayingFinalMission) Then
-			If bPlayingMission3 Then
-				' Specific display for mission 3 (Super Jets).
-				If Score(1) < 1000000 Then
+        D1.Text = FormatScore(Score(1)) & String(25 - Len(Score(1)), " ")
+      End If
+      Exit Sub
+    End If
+    If Not(bInterruptedDisplay) And bPlayingMission And Not(bMissionSuspended) And Not(bPlayingFinalMission) Then
+      If bPlayingMission3 Then
+        ' Specific display for mission 3 (Super Jets).
+        If Score(1) < 1000000 Then
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & "       REMAINING JETS " & Right("0" & RemainingJets, 2)
-					D1.Text = FormatScore(Score(1)) & "       REMAINING JETS " & Right("0" & RemainingJets, 2)
-				Else
+          D1.Text = FormatScore(Score(1)) & "       REMAINING JETS " & Right("0" & RemainingJets, 2)
+        Else
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & String(13 - Len(Score(1)), " ") & "REMAINING JETS " & Right("0" & RemainingJets, 2)
-					D1.Text = FormatScore(Score(1)) & String(13 - Len(Score(1)), " ") & "REMAINING JETS " & Right("0" & RemainingJets, 2)
-				End If
-			ElseIf bPlayingMission4 Then
-				' Specific display for mission 4 (POW).
-				If Score(1) < 1000000 Then
+          D1.Text = FormatScore(Score(1)) & String(13 - Len(Score(1)), " ") & "REMAINING JETS " & Right("0" & RemainingJets, 2)
+        End If
+      ElseIf bPlayingMission4 Then
+        ' Specific display for mission 4 (POW).
+        If Score(1) < 1000000 Then
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & String(12 - Len(Score(1)), " ") & "SONS LEFT TO SAVE " & RemainingPOW
-					D1.Text = FormatScore(Score(1)) & "SONS LEFT TO SAVE " & RemainingPOW
-				Else
+          D1.Text = FormatScore(Score(1)) & "SONS LEFT TO SAVE " & RemainingPOW
+        Else
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & String(11 - Len(Score(1)), " ") & "SONS LEFT TO SAVE " & RemainingPOW
-					D1.Text = FormatScore(Score(1)) & String(12 - Len(Score(1)), " ") & "SONS LEFT TO SAVE " & RemainingPOW
-				End If
-			ElseIf bPlayingMission5 Then
-				' Specific display for mission 5 (Defeat Clay Morrow).
-				If Score(1) < 1000000 Then
+          D1.Text = FormatScore(Score(1)) & String(12 - Len(Score(1)), " ") & "SONS LEFT TO SAVE " & RemainingPOW
+        End If
+      ElseIf bPlayingMission5 Then
+        ' Specific display for mission 5 (Defeat Clay Morrow).
+        If Score(1) < 1000000 Then
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & "       CLAYS HEALTH " & RemainingClay
-					D1.Text = FormatScore(Score(1)) & "       CLAYS HEALTH " & RemainingClay
-				Else
+          D1.Text = FormatScore(Score(1)) & "       CLAYS HEALTH " & RemainingClay
+        Else
                     DisplayB2SText (cstr(FormatScore(Score(1)))) & String(15 - Len(Score(1)), " ") & "CLAYS HEALTH " & RemainingClay
-					D1.Text = FormatScore(Score(1)) & String(15 - Len(Score(1)), " ") & "CLAYS HEALTH " & RemainingClay
-				End If
-			End If
-		End If
-	End If
+          D1.Text = FormatScore(Score(1)) & String(15 - Len(Score(1)), " ") & "CLAYS HEALTH " & RemainingClay
+        End If
+      End If
+    End If
+  End If
 
 End Sub
 
@@ -5542,20 +5542,20 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Function FormatScore(ByVal sc)
-	Dim fsc
-	Dim fdone
-	fdone = ""
-	While Len(sc) > 3
-		fsc = Right(sc, 3)
-		If fdone = "" Then
-			fdone = "," & fsc
-		Else
-			fdone = "," & fsc & fdone
-		End If
-		sc = Left(sc, Len(sc)-3)
-	Wend
-	fdone = sc & fdone
-	FormatScore = fdone
+  Dim fsc
+  Dim fdone
+  fdone = ""
+  While Len(sc) > 3
+    fsc = Right(sc, 3)
+    If fdone = "" Then
+      fdone = "," & fsc
+    Else
+      fdone = "," & fsc & fdone
+    End If
+    sc = Left(sc, Len(sc)-3)
+  Wend
+  fdone = sc & fdone
+  FormatScore = fdone
 End Function
 
 
@@ -5565,11 +5565,11 @@ End Function
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ScoreMission1()
-		InterruptDisplay(600)
-	AddScore(20000)
-	DisplayB2SText "           * 20,000 *            "
-	D1.Text = "           * 20,000 *            "
-	Playsound "explode3",0,0.3
+    InterruptDisplay(600)
+  AddScore(20000)
+  DisplayB2SText "           * 20,000 *            "
+  D1.Text = "           * 20,000 *            "
+  Playsound "explode3",0,0.3
 End Sub
 
 
@@ -5579,11 +5579,11 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ScoreMission2()
-	Playsound "Gun1"
-	InterruptDisplay(600)
-	AddScore(40000)
+  Playsound "Gun1"
+  InterruptDisplay(600)
+  AddScore(40000)
     DisplayB2SText "           * 40,000 *            "
-	D1.Text = "           * 40,000 *            "
+  D1.Text = "           * 40,000 *            "
 End Sub
 
 Sub Endmission1
@@ -5591,9 +5591,9 @@ Sub Endmission1
 StopSound Song:Song = "":
 StopSound "Burn it Down"
 StopSound "Mision1Start"
-				DMDFLush
+        DMDFLush
                 DMD "Mision1End.gif", "", "", 6500
-				PlaySound "Mision1End"
+        PlaySound "Mision1End"
 ResetSLUGTargets()
 ResetMusicTimer.Enabled = True
 End Sub
@@ -5601,9 +5601,9 @@ End Sub
 Sub Endmission2
 
 StopSound Song:Song = "":
-				DMDFLush
+        DMDFLush
                 DMD "Mision2End.gif", "", "", 13400
-				Playsound "Mision2End"
+        Playsound "Mision2End"
 ResetSLUGTargets()
 ResetMusicTimer.Enabled = True
 
@@ -5615,16 +5615,16 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub CheckJets()
-	AddScore(4500)
-	If RemainingJets = 0 Then Endmission3
+  AddScore(4500)
+  If RemainingJets = 0 Then Endmission3
 End Sub
 
 Sub Endmission3
 
 StopSound Song:Song = "":
-				DMDFLush
+        DMDFLush
                 DMD "Mision3End.gif", "", "", 10600
-				StopSound "Mision3start" : Playsound "Mision3End"
+        StopSound "Mision3start" : Playsound "Mision3End"
 CompleteMission()
 ResetMusicTimer.Enabled = True
 End Sub
@@ -5636,22 +5636,22 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ScoreMission4()
-	RemainingPOW = RemainingPOW - 1
-	InterruptDisplay(600)
+  RemainingPOW = RemainingPOW - 1
+  InterruptDisplay(600)
 
     DisplayB2SText "    * SON OF ANARCHY SAVED *     "
-	D1.Text = "    * SON OF ANARCHY SAVED *          "
-	AddScore(15000)
-	StopSound (SoundName) : SoundName = "Thankyou" : PlaySound (SoundName),0,1.0
-	If RemainingPOW = 0 Then Endmission4
+  D1.Text = "    * SON OF ANARCHY SAVED *          "
+  AddScore(15000)
+  StopSound (SoundName) : SoundName = "Thankyou" : PlaySound (SoundName),0,1.0
+  If RemainingPOW = 0 Then Endmission4
 End Sub
 
 Sub Endmission4
 
 StopSound Song:Song = "": Playsong "Womanizer"
-				DMDFLush
+        DMDFLush
                 DMD "Mision4End.gif", "", "", 17600
-				StopSound "Mision4start" ': Playsound "Mision4End"
+        StopSound "Mision4start" ': Playsound "Mision4End"
 CompleteMission()
 'ResetMusicTimer.Enabled = True
 End Sub
@@ -5662,18 +5662,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ScoreMission5()
-	RemainingClay = RemainingClay - 1
-	AddScore(7500)
-	Playsound "gun3"
-	If RemainingClay = 0 Then Endmission5
+  RemainingClay = RemainingClay - 1
+  AddScore(7500)
+  Playsound "gun3"
+  If RemainingClay = 0 Then Endmission5
 End Sub
 
 Sub Endmission5
 
 StopSound Song:Song = "":
-				DMDFLush
+        DMDFLush
                 DMD "Mision5End.gif", "", "", 15900
-				StopSound "Mision5start" : Playsound "Mision5End"
+        StopSound "Mision5start" : Playsound "Mision5End"
 CompleteMission()
 ResetMusicTimer.Enabled = True
 End Sub
@@ -5682,10 +5682,10 @@ End Sub
 Sub Endmission6
 
 StopSound Song:Song = "":
-				DMDFLush
+        DMDFLush
                 DMD "FinalMisionend.gif", "", "", 21800
-				Playsound "FinalMisionend"
-				MissionBonus = 6000
+        Playsound "FinalMisionend"
+        MissionBonus = 6000
 ClayDifficulty = ClayDifficulty + 5
 JetDifficulty = JetDifficulty + 10
 SonDifficulty = SonDifficulty + 3
@@ -5711,41 +5711,41 @@ Sub ResetMusic()
 
 
 
-	If bPlayingMission Then    ' Makes sure that the proper theme music is playing during a ride
-		Select Case Mission
-			Case 1: StopSound Song:Song = "": StopSound "Mision1Start" : PlaySound "Burn It Down" ,0,3.0
-			Case 2: StopSound Song:Song = "": PlaySong "SOAIrish"
-			Case 3: StopSound Song:Song = "": PlaySong "Fortunate Son"
-			Case 4: StopSound Song:Song = "": PlaySong "Pleasedontgo"
-			Case 5: StopSound Song:Song = "": PlaySong "Bohemian"
-			Case 6: StopSound Song:Song = "": PlaySong "Son Of A Preacher Man"
-		End Select
-	Else
-		If bLockIsLit Then
-			Select Case BallsLocked			' Music progression while locking balls
+  If bPlayingMission Then    ' Makes sure that the proper theme music is playing during a ride
+    Select Case Mission
+      Case 1: StopSound Song:Song = "": StopSound "Mision1Start" : PlaySound "Burn It Down" ,0,3.0
+      Case 2: StopSound Song:Song = "": PlaySong "SOAIrish"
+      Case 3: StopSound Song:Song = "": PlaySong "Fortunate Son"
+      Case 4: StopSound Song:Song = "": PlaySong "Pleasedontgo"
+      Case 5: StopSound Song:Song = "": PlaySong "Bohemian"
+      Case 6: StopSound Song:Song = "": PlaySong "Son Of A Preacher Man"
+    End Select
+  Else
+    If bLockIsLit Then
+      Select Case BallsLocked     ' Music progression while locking balls
 
-			Case 1:
-				StopSound Song:Song = "": PlaySong "mu_msmode1"
-			Case 2:
-				StopSound Song:Song = "": PlaySong "mu_msmode3"
-			Case 3:
-				StopSound Song:Song = "": PlaySong "mu_mslocklit"
-			End Select
+      Case 1:
+        StopSound Song:Song = "": PlaySong "mu_msmode1"
+      Case 2:
+        StopSound Song:Song = "": PlaySong "mu_msmode3"
+      Case 3:
+        StopSound Song:Song = "": PlaySong "mu_mslocklit"
+      End Select
 
-		Else
+    Else
 
-				If Mission = 0 Then StopSound Song:Song = "": PlaySong "mu_MSMain" : End If
+        If Mission = 0 Then StopSound Song:Song = "": PlaySong "mu_MSMain" : End If
 
-				Select Case Mission 		' Keeps music playing in between rides
-					Case 1: StopSound Song:Song = "": PlaySong "mu_MSMain"
-					Case 2: StopSound Song:Song = "": PlaySong "Fortunate Son"
-					Case 3: StopSound Song:Song = "": PlaySong "mu_msmode2"
-					Case 4: StopSound Song:Song = "": PlaySong "Womanizer"
-					Case 5: StopSound Song:Song = "": PlaySong "Fortunate Son"
-					Case 6: StopSound Song:Song = "": PlaySong "mu_MSMain"
-				End Select
-			End If
-	    End If
+        Select Case Mission     ' Keeps music playing in between rides
+          Case 1: StopSound Song:Song = "": PlaySong "mu_MSMain"
+          Case 2: StopSound Song:Song = "": PlaySong "Fortunate Son"
+          Case 3: StopSound Song:Song = "": PlaySong "mu_msmode2"
+          Case 4: StopSound Song:Song = "": PlaySong "Womanizer"
+          Case 5: StopSound Song:Song = "": PlaySong "Fortunate Son"
+          Case 6: StopSound Song:Song = "": PlaySong "mu_MSMain"
+        End Select
+      End If
+      End If
 
 End Sub
 
@@ -5756,17 +5756,17 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub PlaySlugSound()
-	SlugSound = SlugSound + 1
-	Select Case SlugSound
-		Case 1: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		Case 2: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		Case 3: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		Case 4: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		Case 5: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
-		Case 6:
-			Playsound "cash_register"
-			SlugSound = 0
-	End Select
+  SlugSound = SlugSound + 1
+  Select Case SlugSound
+    Case 1: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    Case 2: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    Case 3: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    Case 4: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    Case 5: PlaysoundAtVol "DropTargetHit", ActiveBall, 1
+    Case 6:
+      Playsound "cash_register"
+      SlugSound = 0
+  End Select
 End Sub
 
 
@@ -5776,15 +5776,15 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub PlayOutLaneSound()
-	OutLaneSound = OutLaneSound + 1
-	FlashAnimate1()
-	Select Case OutLaneSound
-		Case 1: Playsound "Son of a bitch"
-		Case 2: Playsound "Rest in pieces"
-		Case 3:
-			Playsound "Youre pissin me off"
-			OutLaneSound = 0
-	End Select
+  OutLaneSound = OutLaneSound + 1
+  FlashAnimate1()
+  Select Case OutLaneSound
+    Case 1: Playsound "Son of a bitch"
+    Case 2: Playsound "Rest in pieces"
+    Case 3:
+      Playsound "Youre pissin me off"
+      OutLaneSound = 0
+  End Select
 End Sub
 
 
@@ -5813,71 +5813,71 @@ End Sub
 Sub SetupLightsAttract()
    ' Characters.
    Marco.state = 2
-	Tarma.state = 2
-	Eri.state = 2
-	Fio.state = 2
+  Tarma.state = 2
+  Eri.state = 2
+  Fio.state = 2
    ' Missions.
    Mission1Light.state = 2
-	Mission2Light.state = 2
-	Mission3Light.state = 2
-	Mission4Light.state = 2
-	Mission5Light.state = 2
-	Mission6Light.state = 2
-	' Weapons and ExtraBall lights.
+  Mission2Light.state = 2
+  Mission3Light.state = 2
+  Mission4Light.state = 2
+  Mission5Light.state = 2
+  Mission6Light.state = 2
+  ' Weapons and ExtraBall lights.
    Weapon1.state = 2
-	Weapon2.state = 2
-	Weapon3.state = 2
-	Weapon4.state = 2
-	Weapon5.state = 2
-	Weapon6.state = 2
+  Weapon2.state = 2
+  Weapon3.state = 2
+  Weapon4.state = 2
+  Weapon5.state = 2
+  Weapon6.state = 2
    ExtraBall.state = 2
-	' WEAPON target lights.
+  ' WEAPON target lights.
    W1Light.Set 2, "100100100100", 75
-	W2Light.Set 2, "010010010010", 75
-	W3Light.Set 2, "001001001001", 75
-	W4Light.Set 2, "100100100100", 75
-	W5Light.Set 2, "010010010010", 75
-	W6Light.Set 2, "001001001001", 75
-	' METALSLUG target lights.
+  W2Light.Set 2, "010010010010", 75
+  W3Light.Set 2, "001001001001", 75
+  W4Light.Set 2, "100100100100", 75
+  W5Light.Set 2, "010010010010", 75
+  W6Light.Set 2, "001001001001", 75
+  ' METALSLUG target lights.
    Slug1Light.Set 2, "1000011111", 50
-	Slug2Light.Set 2, "1100001111", 50
-	Slug3Light.Set 2, "1110000111", 50
-	Slug4Light.Set 2, "1111000011", 50
-	Slug5Light.Set 2, "1111100001", 50
+  Slug2Light.Set 2, "1100001111", 50
+  Slug3Light.Set 2, "1110000111", 50
+  Slug4Light.Set 2, "1111000011", 50
+  Slug5Light.Set 2, "1111100001", 50
    Slug6Light.Set 2, "1111100001", 50
-	Slug7Light.Set 2, "1111000011", 50
-	Slug8Light.Set 2, "1110000111", 50
-	Slug9Light.Set 2, "1100001111", 50
-	' Side target lights.
-   S1Light.Set			2, "1000011000", 75
-	S2Light.Set			2, "1100001100", 75
-	S3Light.Set			2, "0110000110", 75
-	L4.Set				2, "0011000011", 75
-	JackpotLight.Set	2, "1001100001", 75
-	' POW lanes.
-	POWLaneLight1.Set	2, "1000001010", 75
-	POWLaneLight2.Set	2, "0010001010", 75
-	POWLaneLight3.Set	2, "0000101010", 75
-	' Outlanes and inlanes lights.
-   RightOutLaneLight.Set	2, "100100100", 75
-   RightInLaneLight.Set		2, "010010010", 75
-   ShootAgainLight.Set		2, "001001001", 75
-	LeftInLaneLight.Set		2, "100100100", 75
-   KickbackLight.Set			2, "010010010", 75
-	' Kicker lights.
+  Slug7Light.Set 2, "1111000011", 50
+  Slug8Light.Set 2, "1110000111", 50
+  Slug9Light.Set 2, "1100001111", 50
+  ' Side target lights.
+   S1Light.Set      2, "1000011000", 75
+  S2Light.Set     2, "1100001100", 75
+  S3Light.Set     2, "0110000110", 75
+  L4.Set        2, "0011000011", 75
+  JackpotLight.Set  2, "1001100001", 75
+  ' POW lanes.
+  POWLaneLight1.Set 2, "1000001010", 75
+  POWLaneLight2.Set 2, "0010001010", 75
+  POWLaneLight3.Set 2, "0000101010", 75
+  ' Outlanes and inlanes lights.
+   RightOutLaneLight.Set  2, "100100100", 75
+   RightInLaneLight.Set   2, "010010010", 75
+   ShootAgainLight.Set    2, "001001001", 75
+  LeftInLaneLight.Set   2, "100100100", 75
+   KickbackLight.Set      2, "010010010", 75
+  ' Kicker lights.
    L1.Set 2, "10101111111101010000", 75
    M1.Set 2, "10101111111101010000", 75
    L2.Set 2, "00001010111111101010", 75
    M2.Set 2, "00001010111111101010", 75
    L3.Set 2, "01000000101011111101", 75
    M3.Set 2, "01000000101011111101", 75
-	' Captive ball.
-   C1Light.Set			2, "10000010100000", 75
-	C2Light.Set			2, "00100010100010", 75
-	C3Light.Set			2, "00001010101000", 75
-	CaptiveLight.Set	2, "00000010100000", 75
-	' Loop.
-	LoopLight.Set		2, "0101010100101", 75
+  ' Captive ball.
+   C1Light.Set      2, "10000010100000", 75
+  C2Light.Set     2, "00100010100010", 75
+  C3Light.Set     2, "00001010101000", 75
+  CaptiveLight.Set  2, "00000010100000", 75
+  ' Loop.
+  LoopLight.Set   2, "0101010100101", 75
 End Sub
 
 
@@ -5887,10 +5887,10 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub MainSeq_Empty()  ' overridden
-'	If Not(bGameInPlay) Then
-'		SetupLightsAttract()
-'		AttractLightsTimer.Enabled = TRUE
-'	End If
+' If Not(bGameInPlay) Then
+'   SetupLightsAttract()
+'   AttractLightsTimer.Enabled = TRUE
+' End If
 End Sub
 
 
@@ -5900,11 +5900,11 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub EndAttractMode()
-	AllLightsOff()
+  AllLightsOff()
     StopAttractMode
- 	AttractLightsTimer.Enabled = FALSE
-	AttractMessagesTimer.Enabled = FALSE
-	AttractMessagesTimerUserData = 0
+  AttractLightsTimer.Enabled = FALSE
+  AttractMessagesTimer.Enabled = FALSE
+  AttractMessagesTimerUserData = 0
 End Sub
 
 
@@ -5921,51 +5921,51 @@ End Sub
 
 
 Sub AllLightsOff()
-	Marco.State = 0
-	Tarma.State = 0
-	Eri.State = 0
-	Fio.State = 0
+  Marco.State = 0
+  Tarma.State = 0
+  Eri.State = 0
+  Fio.State = 0
    Mission1Light.State = 0
-	Mission2Light.State = 0
-	Mission3Light.State = 0
-	Mission4Light.State = 0
-	Mission5Light.State = 0
-	Mission6Light.State = 0
+  Mission2Light.State = 0
+  Mission3Light.State = 0
+  Mission4Light.State = 0
+  Mission5Light.State = 0
+  Mission6Light.State = 0
    Weapon1.State = 0
-	Weapon2.State = 0
-	Weapon3.State = 0
-	Weapon4.State = 0
-	Weapon5.State = 0
-	Weapon6.State = 0
+  Weapon2.State = 0
+  Weapon3.State = 0
+  Weapon4.State = 0
+  Weapon5.State = 0
+  Weapon6.State = 0
    ExtraBall.State = 0
    W1Light.State = 0
-	W2Light.State = 0
-	W3Light.State = 0
-	W4Light.State = 0
-	W5Light.State = 0
-	W6Light.State = 0
+  W2Light.State = 0
+  W3Light.State = 0
+  W4Light.State = 0
+  W5Light.State = 0
+  W6Light.State = 0
    Slug1Light.State = 0
-	Slug2Light.State = 0
-	Slug3Light.State = 0
-	Slug4Light.State = 0
-	Slug5Light.State = 0
+  Slug2Light.State = 0
+  Slug3Light.State = 0
+  Slug4Light.State = 0
+  Slug5Light.State = 0
    Slug6Light.State = 0
-	Slug7Light.State = 0
-	Slug8Light.State = 0
-	Slug9Light.State = 0
+  Slug7Light.State = 0
+  Slug8Light.State = 0
+  Slug9Light.State = 0
    S1Light.State = 0
-	S2Light.State = 0
-	S3Light.State = 0
-	L4.State = 0
-	JackpotLight.State = 0
-	POWLaneLight1.State = 0
-	POWLaneLight2.State = 0
-	POWLaneLight3.State = 0
+  S2Light.State = 0
+  S3Light.State = 0
+  L4.State = 0
+  JackpotLight.State = 0
+  POWLaneLight1.State = 0
+  POWLaneLight2.State = 0
+  POWLaneLight3.State = 0
    RightOutLaneLight.State = 0
    RightInLaneLight.State = 0
    bRightInLaneIsLit = FALSE
    ShootAgainLight.State = 0
-	LeftInLaneLight.State = 0
+  LeftInLaneLight.State = 0
    bLeftInLaneIsLit = FALSE
    KickbackLight.State = 0
    L1.State = 0
@@ -5975,34 +5975,34 @@ Sub AllLightsOff()
    L3.State = 0
    M3.State = 0
    C1Light.State = 0
-	C2Light.State = 0
-	C3Light.State = 0
-	CaptiveLight.State = 0
-	LoopLight.State = 0
+  C2Light.State = 0
+  C3Light.State = 0
+  CaptiveLight.State = 0
+  LoopLight.State = 0
 End Sub
 
 ' *** DOCAM OPTIMIZED ***
 '
 Sub ResetSLUGTargets()
-	DOF 123, DOFPulse
-	Slug1Light.State =  2', "1000011111", 50
-	Slug2Light.State =  2', "1100001111", 50
-	Slug3Light.State =  2', "1110000111", 50
-	Slug4Light.State =  2', "1111000011", 50
-	Slug5Light.State =  2', "1111100001", 50
-	Slug6Light.State =  2', "1111100001", 50
-	Slug7Light.State =  2', "1111000011", 50
-	Slug8Light.State =  2', "1110000111", 50
-	Slug9Light.State =  2', "1100001111", 50
-	Slug1.Isdropped = 0
-	Slug2.Isdropped = 0
-	Slug3.Isdropped = 0
-	Slug4.Isdropped = 0
-	Slug5.Isdropped = 0
-	Slug6.Isdropped = 0
-	Slug7.Isdropped = 0
-	Slug8.Isdropped = 0
-	Slug9.Isdropped = 0
+  DOF 123, DOFPulse
+  Slug1Light.State =  2', "1000011111", 50
+  Slug2Light.State =  2', "1100001111", 50
+  Slug3Light.State =  2', "1110000111", 50
+  Slug4Light.State =  2', "1111000011", 50
+  Slug5Light.State =  2', "1111100001", 50
+  Slug6Light.State =  2', "1111100001", 50
+  Slug7Light.State =  2', "1111000011", 50
+  Slug8Light.State =  2', "1110000111", 50
+  Slug9Light.State =  2', "1100001111", 50
+  Slug1.Isdropped = 0
+  Slug2.Isdropped = 0
+  Slug3.Isdropped = 0
+  Slug4.Isdropped = 0
+  Slug5.Isdropped = 0
+  Slug6.Isdropped = 0
+  Slug7.Isdropped = 0
+  Slug8.Isdropped = 0
+  Slug9.Isdropped = 0
 End Sub
 
 
@@ -6012,11 +6012,11 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub LightKickback()
-	' Enable (arm) the kickback.
-	KickbackLight.State = 1
-	bKickbackIsLit = TRUE
-	' Blocks the left outlane (raise the invisible guide, useful to guide the ball correctly prior to kickback).
-	KickbackGuide.isDropped = FALSE
+  ' Enable (arm) the kickback.
+  KickbackLight.State = 1
+  bKickbackIsLit = TRUE
+  ' Blocks the left outlane (raise the invisible guide, useful to guide the ball correctly prior to kickback).
+  KickbackGuide.isDropped = FALSE
 End Sub
 
 
@@ -6028,34 +6028,34 @@ End Sub
 '
 Sub LightMission()
    If Not(bMissionIsLit) And Not(bPlayingMission) And Not(bMissionSuspended) and Not (bPlayingFinalMission) Then
-		bMissionIsLit = TRUE
-		StopSound (SoundName) : SoundName = "Time to ride" : PlaySound (SoundName),0,0.3
-		If bBallLockedInKicker1 And bBallLockedInKicker2 And bBallLockedInKicker3 Then
-			M1.State = 0
-			M2.State = 0
-			M3.State = 0
-		End If
-		CaptiveLight.State = 0
-		If Not(bMultiBallMode) Then
-			M1.State =  2', "10", 100
-			M2.State =  2', "10", 100
-			M3.State =  2', "10", 100
-		End If
-		If bBallLockedInKicker1 Then
-			M1.State = 1
-		Else
-			M1.State = 2
-		End If
-		If bBallLockedInKicker2 Then
-			M2.State = 1
-		Else
-			M2.State = 2
-		End If
-		If bBallLockedInKicker3 Then
-			M3.State = 1
-		Else
-			M3.State = 2
-		End If
+    bMissionIsLit = TRUE
+    StopSound (SoundName) : SoundName = "Time to ride" : PlaySound (SoundName),0,0.3
+    If bBallLockedInKicker1 And bBallLockedInKicker2 And bBallLockedInKicker3 Then
+      M1.State = 0
+      M2.State = 0
+      M3.State = 0
+    End If
+    CaptiveLight.State = 0
+    If Not(bMultiBallMode) Then
+      M1.State =  2', "10", 100
+      M2.State =  2', "10", 100
+      M3.State =  2', "10", 100
+    End If
+    If bBallLockedInKicker1 Then
+      M1.State = 1
+    Else
+      M1.State = 2
+    End If
+    If bBallLockedInKicker2 Then
+      M2.State = 1
+    Else
+      M2.State = 2
+    End If
+    If bBallLockedInKicker3 Then
+      M3.State = 1
+    Else
+      M3.State = 2
+    End If
    End If
 End Sub
 
@@ -6065,124 +6065,124 @@ End Sub
 '
 Dim MissionTimerUserData
 Sub StartMission()
-	If Not(bMultiBallMode) Then
-		AddScore(5000)
-		bMissionIsLit = FALSE
-		Mission = Mission + 1
-		M1.State = 1
-		M2.State = 1
-		M3.State = 1
-		LoopLight.State = 0
-		bPlayingMission = TRUE
-		Select Case Mission
-			Case 1:
-				' Starting mission 1 (any targets).
-				Mission1Light.State = 1
-				bPlayingMission1 = TRUE
-				StopSound Song:Song = ""
-				ResetSLUGTargets()
-				DMDFLush
+  If Not(bMultiBallMode) Then
+    AddScore(5000)
+    bMissionIsLit = FALSE
+    Mission = Mission + 1
+    M1.State = 1
+    M2.State = 1
+    M3.State = 1
+    LoopLight.State = 0
+    bPlayingMission = TRUE
+    Select Case Mission
+      Case 1:
+        ' Starting mission 1 (any targets).
+        Mission1Light.State = 1
+        bPlayingMission1 = TRUE
+        StopSound Song:Song = ""
+        ResetSLUGTargets()
+        DMDFLush
                 DMD "Mision1Start.gif", "", "", 14800
-				Playsound "Mision1Start"
-				KickOutBallTimer.Enabled = TRUE
-				CaptiveLight.state = 0
-				FlashAnimate5()
-				MissionTimerUserData = RideTimer
-				MissionTimer.Enabled = TRUE
-				NextMessage = 1
-				bCanDisplayMessage = TRUE
+        Playsound "Mision1Start"
+        KickOutBallTimer.Enabled = TRUE
+        CaptiveLight.state = 0
+        FlashAnimate5()
+        MissionTimerUserData = RideTimer
+        MissionTimer.Enabled = TRUE
+        NextMessage = 1
+        bCanDisplayMessage = TRUE
                 DisplayB2SText "           FIRST RIDE        "
-				D1.text = "          FIRST RIDE        "
- 			Case 2:
-				' Starting mission 2 (weapon practice).
-				Mission2Light.State = 1
-				bPlayingMission2 = TRUE
-				StopSound Song:Song = "": PlaySong "SOAIrish"
-				DMDFLush
+        D1.text = "          FIRST RIDE        "
+      Case 2:
+        ' Starting mission 2 (weapon practice).
+        Mission2Light.State = 1
+        bPlayingMission2 = TRUE
+        StopSound Song:Song = "": PlaySong "SOAIrish"
+        DMDFLush
                 DMD "Mision2Start.gif", "", "", 5100
-				StopSound "Mision1end" : Playsound "Mision2Start"
-				FlashAnimate5()
-				MissionTimerUserData = RideTimer
-				MissionTimer.Enabled = TRUE
-				DropWeapon()
-				AnimateWeaponTimer.Uservalue = 0
-				AnimateWeaponTimer.enabled = 1
-				NextMessage = 5
-				bCanDisplayMessage = TRUE
+        StopSound "Mision1end" : Playsound "Mision2Start"
+        FlashAnimate5()
+        MissionTimerUserData = RideTimer
+        MissionTimer.Enabled = TRUE
+        DropWeapon()
+        AnimateWeaponTimer.Uservalue = 0
+        AnimateWeaponTimer.enabled = 1
+        NextMessage = 5
+        bCanDisplayMessage = TRUE
                 DisplayB2SText "           SECOND RIDE        "
-				D1.text = "           SECOND RIDE        "
-			Case 3:
-				' Starting mission 3 (super jets).
-				Mission3Light.State = 1
-				bPlayingMission3 = TRUE
-				RemainingJets = 20
-				StopSound Song:Song = "": PlaySong "Fortunate Son"
-				DMDFLush
+        D1.text = "           SECOND RIDE        "
+      Case 3:
+        ' Starting mission 3 (super jets).
+        Mission3Light.State = 1
+        bPlayingMission3 = TRUE
+        RemainingJets = 20
+        StopSound Song:Song = "": PlaySong "Fortunate Son"
+        DMDFLush
                 DMD "Mision3Start.gif", "", "", 18000
-				StopSound "Mision2end" : Playsound "Mision3Start"
-				FlashAnimate5()
-				Bumper1l.State = 2
-				Bumper2l.State = 2
-				Bumper3l.State = 2
-				NextMessage = 6
-				bCanDisplayMessage = TRUE
+        StopSound "Mision2end" : Playsound "Mision3Start"
+        FlashAnimate5()
+        Bumper1l.State = 2
+        Bumper2l.State = 2
+        Bumper3l.State = 2
+        NextMessage = 6
+        bCanDisplayMessage = TRUE
                 DisplayB2SText "           THIRD RIDE        "
-				D1.text = "           THIRD RIDE        "'
-				RemainingJets = JetDifficulty
-			Case 4:
-				' Starting mission 4 (POW).
-				Mission4Light.State = 1
-				bPlayingMission4 = TRUE
-				StopSound Song:Song = "": PlaySong "PleaseDontGo"
-				DMDFLush
+        D1.text = "           THIRD RIDE        "'
+        RemainingJets = JetDifficulty
+      Case 4:
+        ' Starting mission 4 (POW).
+        Mission4Light.State = 1
+        bPlayingMission4 = TRUE
+        StopSound Song:Song = "": PlaySong "PleaseDontGo"
+        DMDFLush
                 DMD "Mision4Start.gif", "", "", 16700
-				StopSound "Mision3end" : Playsound "Mision4Start"
-				FlashAnimate5()
-				CaptiveLight.State = 2
+        StopSound "Mision3end" : Playsound "Mision4Start"
+        FlashAnimate5()
+        CaptiveLight.State = 2
                 DisplayB2SText "           FOURTH RIDE        "
-				D1.text = "           FOURTH RIDE        "
-				RemainingPOW = SonDifficulty
-				NextMessage = 7
-				bCanDisplayMessage = TRUE
-			Case 5:
-				' Starting mission 5 (defeat Clay Morrow).
-				Mission5Light.State = 1
-				bPlayingMission5 = TRUE
-				StopSound Song:Song = "": PlaySong "Bohemian"
-				DMDFLush
+        D1.text = "           FOURTH RIDE        "
+        RemainingPOW = SonDifficulty
+        NextMessage = 7
+        bCanDisplayMessage = TRUE
+      Case 5:
+        ' Starting mission 5 (defeat Clay Morrow).
+        Mission5Light.State = 1
+        bPlayingMission5 = TRUE
+        StopSound Song:Song = "": PlaySong "Bohemian"
+        DMDFLush
                 DMD "Mision5Start.gif", "", "", 16000
-				StopSound "Mision4end" : Playsound "Mision5Start"
+        StopSound "Mision4end" : Playsound "Mision5Start"
                 DropWeapon()
-				FlashAnimate5()
+        FlashAnimate5()
                 DisplayB2SText "           FIFTH RIDE        "
-				D1.text = "           FIFTH RIDE        "
-				RemainingClay = ClayDifficulty
-				WeaponTargetsMove = 0
-				DropWeapon()
-				AnimateWeaponTimer.Uservalue = 0
-				AnimateWeaponTimer.enabled = 1
-				NextMessage = 8
-				bCanDisplayMessage = TRUE
-			Case 6:
-				' Starting mission 6 (final mission).
-				Mission6Light.State = 1
-				bFinalMissionIsReady = FALSE
-				bPlayingFinalMission = TRUE
-				FinalMissionShowTimer.Interval = 1300
+        D1.text = "           FIFTH RIDE        "
+        RemainingClay = ClayDifficulty
+        WeaponTargetsMove = 0
+        DropWeapon()
+        AnimateWeaponTimer.Uservalue = 0
+        AnimateWeaponTimer.enabled = 1
+        NextMessage = 8
+        bCanDisplayMessage = TRUE
+      Case 6:
+        ' Starting mission 6 (final mission).
+        Mission6Light.State = 1
+        bFinalMissionIsReady = FALSE
+        bPlayingFinalMission = TRUE
+        FinalMissionShowTimer.Interval = 1300
                 DMDFLush
                 DMD "FinalMision.gif", "", "", 16400
-				Stopsound "Mision5end" : Playsound "FinalMision"
-				NextMessage = 10
-				bCanDisplayMessage = TRUE
-				StopSound Song:Song = ""': PlaySong "Son Of A Preacher Man"
-				DisplayB2SText "           FINAL RIDE          "
-				D1.text = "           FINAL RIDE          "
-				FlashAnimate5()
-				bLockIsLit = FALSE
-				CheckFiveBallTimer_Timer()
-				bBallSaverIsActive = False
-			End Select
-	End If
+        Stopsound "Mision5end" : Playsound "FinalMision"
+        NextMessage = 10
+        bCanDisplayMessage = TRUE
+        StopSound Song:Song = ""': PlaySong "Son Of A Preacher Man"
+        DisplayB2SText "           FINAL RIDE          "
+        D1.text = "           FINAL RIDE          "
+        FlashAnimate5()
+        bLockIsLit = FALSE
+        CheckFiveBallTimer_Timer()
+        bBallSaverIsActive = False
+      End Select
+  End If
 End Sub
 
 
@@ -6204,7 +6204,7 @@ Sub EndMission()
    M3.State = 0
    EndCurrentMission()
    If Not(Tilted) Then FixWeapon()
-	CaptiveLight.State = 2
+  CaptiveLight.State = 2
    FlashOff()
    If bWallIsDown Then LoopLight.State = 2
 End Sub
@@ -6224,18 +6224,18 @@ Sub CompleteMission()
    bPlayingMission4 = FALSE
    bPlayingMission5 = FALSE
    bPlayingFinalMission = FALSE
-	FlashEffectMissionTimer.enabled = 1'GI_Flash()
-  	If Mission = 1 Then Endmission1
-	If Mission = 2 Then Endmission2
+  FlashEffectMissionTimer.enabled = 1'GI_Flash()
+    If Mission = 1 Then Endmission1
+  If Mission = 2 Then Endmission2
    If Mission < 5 Then
-		StopSound (SoundName) : SoundName = "Great Ride" : PlaySound (SoundName),0,2.0
+    StopSound (SoundName) : SoundName = "Great Ride" : PlaySound (SoundName),0,2.0
    Else If Mission = 5 Then
-		StopSound (SoundName) : SoundName = "See you in hell" : PlaySound (SoundName),0,0.3
+    StopSound (SoundName) : SoundName = "See you in hell" : PlaySound (SoundName),0,0.3
    End If
 End If
    bInterruptedDisplay = FALSE
    NextMessage = 3
-	bCanDisplayMessage = TRUE
+  bCanDisplayMessage = TRUE
    ShowNextMessage()
    M1.State = 0
    M2.State = 0
@@ -6254,37 +6254,37 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub EndCurrentMission()
-	Select Case Mission
-		Case 1:
-			MissionBonus = 1000
-			CaptiveLight.State = 0
-			Mission2Light.State = 2
-			MissionTimer.Enabled = FALSE
-		Case 2:
-			MissionBonus = 2000
-			AnimateWeaponTimer.Enabled = FALSE
-			Mission3Light.State = 2
-			MissionTimer.Enabled = FALSE
-			If bWallIsDown Then
-				DropWeapon()
-			Else
-				FixWeapon()
-			End If
-		Case 3:
-			MissionBonus = 3000
-			Bumper1l.State = 1
-			Bumper2l.State = 1
-			Bumper3l.State = 1
-			Mission4Light.State = 2
-		Case 4:
-			MissionBonus = 4000
-			Mission5Light.State = 2
-			CaptiveLight.State = 0
-		Case 5:
-			MissionBonus = 5000
-			AnimateWeaponTimer.Enabled = FALSE
-			Mission6Light.State = 2
-	End Select
+  Select Case Mission
+    Case 1:
+      MissionBonus = 1000
+      CaptiveLight.State = 0
+      Mission2Light.State = 2
+      MissionTimer.Enabled = FALSE
+    Case 2:
+      MissionBonus = 2000
+      AnimateWeaponTimer.Enabled = FALSE
+      Mission3Light.State = 2
+      MissionTimer.Enabled = FALSE
+      If bWallIsDown Then
+        DropWeapon()
+      Else
+        FixWeapon()
+      End If
+    Case 3:
+      MissionBonus = 3000
+      Bumper1l.State = 1
+      Bumper2l.State = 1
+      Bumper3l.State = 1
+      Mission4Light.State = 2
+    Case 4:
+      MissionBonus = 4000
+      Mission5Light.State = 2
+      CaptiveLight.State = 0
+    Case 5:
+      MissionBonus = 5000
+      AnimateWeaponTimer.Enabled = FALSE
+      Mission6Light.State = 2
+  End Select
 End Sub
 
 
@@ -6292,7 +6292,7 @@ End Sub
 ' *** DOCAM CLEANED ****
 '
 Sub StartMissionSoon()
-		If Not(bBallLockedInKicker1) Or Not(bBallLockedInKicker2) Or Not(bBallLockedInKicker3) Or Not(bBallLockedInKicker4) Then StartMissionSoonTimer.Enabled = TRUE
+    If Not(bBallLockedInKicker1) Or Not(bBallLockedInKicker2) Or Not(bBallLockedInKicker3) Or Not(bBallLockedInKicker4) Then StartMissionSoonTimer.Enabled = TRUE
 End Sub
 
 
@@ -6300,176 +6300,176 @@ End Sub
 ' *** DOCAM OPTIMIZED ****
 '
 Sub LockBall()
-	LightEffect 3
-	If bBallInKicker1 Then
-		bBallLockedInKicker1 = TRUE
-		L1.State = 1
-	End If
-	If bBallInKicker2 Then
-		bBallLockedInKicker2 = TRUE
-		L2.State = 1
-	End If
-	If bBallInKicker3 Then
-		bBallLockedInKicker3 = TRUE
-		L3.State = 1
-	End If
-	If bBallInKicker4 Then
-		bBallLockedInKicker4 = TRUE
-		L4.State = 1
-	End If
-	BallsLocked = BallsLocked + 1
-	If BallsLocked = 1 Then
-		DisplayBallLocked()
-		AutoBall()
-		Playsound "tara",0,0.5
-		DMDFLush
+  LightEffect 3
+  If bBallInKicker1 Then
+    bBallLockedInKicker1 = TRUE
+    L1.State = 1
+  End If
+  If bBallInKicker2 Then
+    bBallLockedInKicker2 = TRUE
+    L2.State = 1
+  End If
+  If bBallInKicker3 Then
+    bBallLockedInKicker3 = TRUE
+    L3.State = 1
+  End If
+  If bBallInKicker4 Then
+    bBallLockedInKicker4 = TRUE
+    L4.State = 1
+  End If
+  BallsLocked = BallsLocked + 1
+  If BallsLocked = 1 Then
+    DisplayBallLocked()
+    AutoBall()
+    Playsound "tara",0,0.5
+    DMDFLush
         DMD "Tara.jpg", "", "", 2000
-		Marco.State = 1
-		Tarma.State = 0
-		Eri.State = 0
-		Fio.State = 0
+    Marco.State = 1
+    Tarma.State = 0
+    Eri.State = 0
+    Fio.State = 0
 
-	ElseIf BallsLocked = 2 Then
-		DisplayBallLocked()
-		AutoBall()
-		Playsound "opie",0,0.5
+  ElseIf BallsLocked = 2 Then
+    DisplayBallLocked()
+    AutoBall()
+    Playsound "opie",0,0.5
         DMDFLush
         DMD "Opie.jpg", "", "", 2000
-		Marco.State = 1
-		Tarma.State = 1
-		Eri.State = 0
-		Fio.State = 0
+    Marco.State = 1
+    Tarma.State = 1
+    Eri.State = 0
+    Fio.State = 0
 
-	ElseIf BallsLocked = 3 Then
-		DisplayBallLocked()
-		AutoBall()
-		Playsound "tig",0,0.5
+  ElseIf BallsLocked = 3 Then
+    DisplayBallLocked()
+    AutoBall()
+    Playsound "tig",0,0.5
         DMDFLush
         DMD "Tig.jpg", "", "", 2000
-		Marco.State = 1
-		Tarma.State = 1
-		Eri.State = 1
-		Fio.State = 0
+    Marco.State = 1
+    Tarma.State = 1
+    Eri.State = 1
+    Fio.State = 0
 
-	ElseIf BallsLocked = 4 Then
-		DisplayBallLocked()
-		StartMultiballTimer.Enabled = TRUE
-		Playsound "gemma",0,0.5
+  ElseIf BallsLocked = 4 Then
+    DisplayBallLocked()
+    StartMultiballTimer.Enabled = TRUE
+    Playsound "gemma",0,0.5
         DMDFLush
         DMD "Gemma.jpg", "", "", 2000
-		Marco.State = 1
-		Tarma.State = 1
-		Eri.State = 1
-		Fio.State = 1
-	End If
+    Marco.State = 1
+    Tarma.State = 1
+    Eri.State = 1
+    Fio.State = 1
+  End If
 End Sub
 
 
 
 Sub AutoBall()
-	CreateNewBall()
-	AutoBallTimer.Enabled = TRUE
+  CreateNewBall()
+  AutoBallTimer.Enabled = TRUE
 End Sub
 
 
 
 
 Sub LightJackpot()
-	bJackpotIsLit = TRUE
-	JackpotLight.State = 2
+  bJackpotIsLit = TRUE
+  JackpotLight.State = 2
 End Sub
 
 
 
 Sub UnLightJackpot()
-	bJackpotIsLit = FALSE
-	If bJackpotScored Then
-		JackpotLight.State = 1
-	Else
-		JackpotLight.State = 0
-	End If
+  bJackpotIsLit = FALSE
+  If bJackpotScored Then
+    JackpotLight.State = 1
+  Else
+    JackpotLight.State = 0
+  End If
 End Sub
 
 
 
 Sub EndMultiball()
-	bMultiBallMode = FALSE
-	ResetMusicTimer.Enabled = True
-	UnLightJackpot()
-	FlashOff()
-	' This timer add delay to reset side and captive drop targets.
-	EndMultiballTimer.Enabled = TRUE
-	If bMissionSuspended Then
-		' Resume the suspended mission, if required.
-		bPlayingMission = TRUE
-		bMissionSuspended = FALSE
-		ResetMusicTimer.Enabled = True
-		FlashAnimate5()
-		Select Case Mission
-			Case 1:
-				MissionTimer.Enabled = TRUE
-			Case 2:
-				MissionTimer.Enabled = TRUE
-				AnimateWeaponTimer.Enabled = TRUE
-			Case 3:
-				Bumper1l.State = 2
-				Bumper2l.State = 2
-				Bumper3l.State = 2
-				AddScore(0)
-			Case 4:
-				CaptiveLight.State = 2
-				AddScore(0)
-			Case 5:
-				AnimateWeaponTimer.Enabled = TRUE
-				AddScore(0)
-		End Select
-	End If
-	ResetSLUGTargets()
-	ResetSideTargets()
-	Marco.State = 0
-	Tarma.State = 0
-	Eri.State = 0
-	Fio.State = 0
-	L1.State = 0
-	L2.State = 0
-	L3.State = 0
-	L4.State = 0
-	If bMissionIsLit Then
-		M1.State = 2
-		M2.State = 2
-		M3.State = 2
-	Else
-		CaptiveLight.State = 2
-	End If
+  bMultiBallMode = FALSE
+  ResetMusicTimer.Enabled = True
+  UnLightJackpot()
+  FlashOff()
+  ' This timer add delay to reset side and captive drop targets.
+  EndMultiballTimer.Enabled = TRUE
+  If bMissionSuspended Then
+    ' Resume the suspended mission, if required.
+    bPlayingMission = TRUE
+    bMissionSuspended = FALSE
+    ResetMusicTimer.Enabled = True
+    FlashAnimate5()
+    Select Case Mission
+      Case 1:
+        MissionTimer.Enabled = TRUE
+      Case 2:
+        MissionTimer.Enabled = TRUE
+        AnimateWeaponTimer.Enabled = TRUE
+      Case 3:
+        Bumper1l.State = 2
+        Bumper2l.State = 2
+        Bumper3l.State = 2
+        AddScore(0)
+      Case 4:
+        CaptiveLight.State = 2
+        AddScore(0)
+      Case 5:
+        AnimateWeaponTimer.Enabled = TRUE
+        AddScore(0)
+    End Select
+  End If
+  ResetSLUGTargets()
+  ResetSideTargets()
+  Marco.State = 0
+  Tarma.State = 0
+  Eri.State = 0
+  Fio.State = 0
+  L1.State = 0
+  L2.State = 0
+  L3.State = 0
+  L4.State = 0
+  If bMissionIsLit Then
+    M1.State = 2
+    M2.State = 2
+    M3.State = 2
+  Else
+    CaptiveLight.State = 2
+  End If
 End Sub
 
 
 
 Sub ResetCaptiveTargets()
-	DOF 121, DOFPulse
-	C1.Isdropped = 0'()
-	C2.Isdropped = 0'()
-	C3.Isdropped = 0'()
-	C1Light.State = 0
-	C2Light.State = 0
-	C3Light.State = 0
-	If bMissionIsLit Then
-		CaptiveLight.State = 0
-	Else
-		CaptiveLight.State = 2
-	End If
+  DOF 121, DOFPulse
+  C1.Isdropped = 0'()
+  C2.Isdropped = 0'()
+  C3.Isdropped = 0'()
+  C1Light.State = 0
+  C2Light.State = 0
+  C3Light.State = 0
+  If bMissionIsLit Then
+    CaptiveLight.State = 0
+  Else
+    CaptiveLight.State = 2
+  End If
 End Sub
 
 
 
 Sub ResetSideTargets()
-	DOF 120, DOFPulse
-	S1.Isdropped = 0'()
-	S2.Isdropped = 0'()
-	S3.Isdropped = 0'()
-	S1Light.State = 0
-	S2Light.State = 0
-	S3Light.State = 0
+  DOF 120, DOFPulse
+  S1.Isdropped = 0'()
+  S2.Isdropped = 0'()
+  S3.Isdropped = 0'()
+  S1Light.State = 0
+  S2Light.State = 0
+  S3Light.State = 0
 End Sub
 
 
@@ -6477,92 +6477,92 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub CheckWeapon()
-	If bW1TargetIsDown And bW2TargetIsDown And bW3TargetIsDown And bW4TargetIsDown And bW5TargetIsDown And bW6TargetIsDown And Not (bPlayingMission) Then
-		FlashEffectMissionTimer.enabled = 1'GI_Flash()
-		CurrentWeapon = CurrentWeapon + 1
-		Select Case CurrentWeapon
-			Case 1:
-				DMDFLush
-				DMD "magnum.gif", "", "", 6000
-				Weapon1.State = 1
-				Weapon2.State = 2
-				StopSound (SoundName) : SoundName = "Go ahead make my day" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-				DisplayB2SText "    DELIVERY OF 44 MAGNUMS   "
-				D1.Text = "DELIVERY OF 44 MAGNUMS   "
-				AddScore(1000)
-			Case 2:
-				DMDFLush
-				DMD "uzi.gif", "", "", 6000
-				Weapon2.State = 1
-				Weapon3.State = 2
-				StopSound (SoundName) : SoundName = "Say hello to my little friend" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-			    DisplayB2SText "       DELIVERY OF UZIS      "
+  If bW1TargetIsDown And bW2TargetIsDown And bW3TargetIsDown And bW4TargetIsDown And bW5TargetIsDown And bW6TargetIsDown And Not (bPlayingMission) Then
+    FlashEffectMissionTimer.enabled = 1'GI_Flash()
+    CurrentWeapon = CurrentWeapon + 1
+    Select Case CurrentWeapon
+      Case 1:
+        DMDFLush
+        DMD "magnum.gif", "", "", 6000
+        Weapon1.State = 1
+        Weapon2.State = 2
+        StopSound (SoundName) : SoundName = "Go ahead make my day" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+        DisplayB2SText "    DELIVERY OF 44 MAGNUMS   "
+        D1.Text = "DELIVERY OF 44 MAGNUMS   "
+        AddScore(1000)
+      Case 2:
+        DMDFLush
+        DMD "uzi.gif", "", "", 6000
+        Weapon2.State = 1
+        Weapon3.State = 2
+        StopSound (SoundName) : SoundName = "Say hello to my little friend" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+          DisplayB2SText "       DELIVERY OF UZIS      "
                 D1.Text =  "DELIVERY OF UZIS      "
-				AddScore(2000)
-			Case 3:
-				DMDFLush
-				DMD "Desert.gif", "", "", 6000
-				Weapon3.State = 1
-				Weapon4.State = 2
-				StopSound (SoundName) : SoundName = "My guns bigger" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-			    DisplayB2SText "   DELIVERY OF DESERT EAGLES   "
+        AddScore(2000)
+      Case 3:
+        DMDFLush
+        DMD "Desert.gif", "", "", 6000
+        Weapon3.State = 1
+        Weapon4.State = 2
+        StopSound (SoundName) : SoundName = "My guns bigger" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+          DisplayB2SText "   DELIVERY OF DESERT EAGLES   "
                 D1.Text =  "DELIVERY OF DESERT EAGLES   "
-				AddScore(3000)
-			Case 4:
-				DMDFLush
-				DMD "Shotgun.gif", "", "", 6000
-				Weapon4.State = 1
-				Weapon5.State = 2
-				StopSound (SoundName) : SoundName = "Who wants some" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-			    DisplayB2SText "     DELIVERY OF SHOTGUNS       "
+        AddScore(3000)
+      Case 4:
+        DMDFLush
+        DMD "Shotgun.gif", "", "", 6000
+        Weapon4.State = 1
+        Weapon5.State = 2
+        StopSound (SoundName) : SoundName = "Who wants some" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+          DisplayB2SText "     DELIVERY OF SHOTGUNS       "
                 D1.Text =  "DELIVERY OF SHOTGUNS       "
-				AddScore(4000)
-			Case 5:
-				DMDFLush
-				DMD "ak47.gif", "", "", 6000
-				Weapon5.State = 1
-				Weapon6.State = 2
-				StopSound (SoundName) : SoundName = "I like big guns" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-			    DisplayB2SText "       DELIVERY OF AK-47S     "
-				D1.Text =  "DELIVERY OF AK-47S     "
-				AddScore(5000)
-			Case 6:
-				DMDFLush
-				DMD "m60.gif", "", "", 6000
-				Weapon6.State = 1
-				ExtraBall.State = 2
-				StopSound (SoundName) : SoundName = "Let god sort em out" : PlaySound (SoundName)
-				InterruptDisplay(1000)
-			    DisplayB2SText "  DELIVERY OF M-60 MACHINE GUNS     "
+        AddScore(4000)
+      Case 5:
+        DMDFLush
+        DMD "ak47.gif", "", "", 6000
+        Weapon5.State = 1
+        Weapon6.State = 2
+        StopSound (SoundName) : SoundName = "I like big guns" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+          DisplayB2SText "       DELIVERY OF AK-47S     "
+        D1.Text =  "DELIVERY OF AK-47S     "
+        AddScore(5000)
+      Case 6:
+        DMDFLush
+        DMD "m60.gif", "", "", 6000
+        Weapon6.State = 1
+        ExtraBall.State = 2
+        StopSound (SoundName) : SoundName = "Let god sort em out" : PlaySound (SoundName)
+        InterruptDisplay(1000)
+          DisplayB2SText "  DELIVERY OF M-60 MACHINE GUNS     "
                 D1.Text = "DELIVERY OF M-60 MACHINE GUNS     "
-				AddScore(6000)
-			Case 7:
-				ExtraBall.State = 1
-				PlaySound "knocker"
-				StopSound (SoundName) : SoundName = "Extraball" : PlaySound (SoundName)
-				DMDFLush
-				DMD "ExtraBall.gif", "", "", 2800
-				bExtraBallAward = TRUE
-				InterruptDisplay(1000)
-			    DisplayB2SText "     * E X T R A  B A L L *     "
-				D1.Text = "     * E X T R A  B A L L *     "
+        AddScore(6000)
+      Case 7:
+        ExtraBall.State = 1
+        PlaySound "knocker"
+        StopSound (SoundName) : SoundName = "Extraball" : PlaySound (SoundName)
+        DMDFLush
+        DMD "ExtraBall.gif", "", "", 2800
+        bExtraBallAward = TRUE
+        InterruptDisplay(1000)
+          DisplayB2SText "     * E X T R A  B A L L *     "
+        D1.Text = "     * E X T R A  B A L L *     "
 
-			Case 8:
-				CurrentWeapon = 7
-				InterruptDisplay(1000)
-				AddScore(40000)
-			    DisplayB2SText "           * 40,000 *            "
-				D1.Text = "           * 40,000 *            "
-			End Select
-		FlashAnimate1()
-		bWallIsDown = TRUE
-		LoopLight.State = 2
-	End If
+      Case 8:
+        CurrentWeapon = 7
+        InterruptDisplay(1000)
+        AddScore(40000)
+          DisplayB2SText "           * 40,000 *            "
+        D1.Text = "           * 40,000 *            "
+      End Select
+    FlashAnimate1()
+    bWallIsDown = TRUE
+    LoopLight.State = 2
+  End If
 End Sub
 
 
@@ -6571,18 +6571,18 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub DropWeapon()
-	W1.Isdropped = 1
-	W2.Isdropped = 1
-	W3.Isdropped = 1
-	W4.Isdropped = 1
-	W5.Isdropped = 1
-	W6.Isdropped = 1
-	W1Light.State = 0
-	W2Light.State = 0
-	W3Light.State = 0
-	W4Light.State = 0
-	W5Light.State = 0
-	W6Light.State = 0
+  W1.Isdropped = 1
+  W2.Isdropped = 1
+  W3.Isdropped = 1
+  W4.Isdropped = 1
+  W5.Isdropped = 1
+  W6.Isdropped = 1
+  W1Light.State = 0
+  W2Light.State = 0
+  W3Light.State = 0
+  W4Light.State = 0
+  W5Light.State = 0
+  W6Light.State = 0
 End Sub
 
 
@@ -6590,53 +6590,53 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub FixWeapon()
-	LoopLight.State = 0
-	If bW1TargetIsDown Then
-		W1.Isdropped = 1
-		W1Light.State = 1
-	Else
-		W1.Isdropped = 0
-		W1Light.State = 0
-	End If
-	If bW2TargetIsDown Then
-		W2.Isdropped = 1
-		W2Light.State = 1
-	Else
-		W2.Isdropped = 0
-		W2Light.State = 0
-	End If
-	If bW3TargetIsDown Then
-		W3.Isdropped = 1
-		W3Light.State = 1
-	Else
-		W3.Isdropped = 0
-		W3Light.State = 0
-	End If
-	If bW4TargetIsDown Then
-		W4.Isdropped = 1
-		W4Light.State = 1
-	Else
-		W4.Isdropped = 0
-		W4Light.State = 0
-	End If
-	If bW5TargetIsDown Then
-		W5.Isdropped = 1
-		W5Light.State = 1
-	Else
-		W5.Isdropped = 0
-		W5Light.State = 0
-	End If
-	If bW6TargetIsDown Then
-		W6.Isdropped = 1
-		W6Light.State = 1
-	Else
-		W6.Isdropped = 0
-		W6Light.State = 0
-	End If
-	If bW1TargetIsDown And bW2TargetIsDown And bW3TargetIsDown And bW4TargetIsDown And bW5TargetIsDown And bW6TargetIsDown Then
-		bWallIsDown = TRUE
-		LoopLight.State = 2
-	End If
+  LoopLight.State = 0
+  If bW1TargetIsDown Then
+    W1.Isdropped = 1
+    W1Light.State = 1
+  Else
+    W1.Isdropped = 0
+    W1Light.State = 0
+  End If
+  If bW2TargetIsDown Then
+    W2.Isdropped = 1
+    W2Light.State = 1
+  Else
+    W2.Isdropped = 0
+    W2Light.State = 0
+  End If
+  If bW3TargetIsDown Then
+    W3.Isdropped = 1
+    W3Light.State = 1
+  Else
+    W3.Isdropped = 0
+    W3Light.State = 0
+  End If
+  If bW4TargetIsDown Then
+    W4.Isdropped = 1
+    W4Light.State = 1
+  Else
+    W4.Isdropped = 0
+    W4Light.State = 0
+  End If
+  If bW5TargetIsDown Then
+    W5.Isdropped = 1
+    W5Light.State = 1
+  Else
+    W5.Isdropped = 0
+    W5Light.State = 0
+  End If
+  If bW6TargetIsDown Then
+    W6.Isdropped = 1
+    W6Light.State = 1
+  Else
+    W6.Isdropped = 0
+    W6Light.State = 0
+  End If
+  If bW1TargetIsDown And bW2TargetIsDown And bW3TargetIsDown And bW4TargetIsDown And bW5TargetIsDown And bW6TargetIsDown Then
+    bWallIsDown = TRUE
+    LoopLight.State = 2
+  End If
 End Sub
 
 
@@ -6644,96 +6644,96 @@ End Sub
 ' *** DOCAM CHECKED ***
 '
 Sub ResetWEAPONTargets()
-	If Not(bPlayingMission) And bWallIsDown Then
-		W1.Isdropped = 0
-		W1Light.State = 0
-		bW1TargetIsDown = FALSE
-		W2.Isdropped = 0
-		W2Light.State = 0
-		bW2TargetIsDown = FALSE
-		W3.Isdropped = 0
-		W3Light.State = 0
-		bW3TargetIsDown = FALSE
-		W4.Isdropped = 0
-		W4Light.State = 0
-		bW4TargetIsDown = FALSE
-		W5.Isdropped = 0
-		W5Light.State = 0
-		bW5TargetIsDown = FALSE
-		W6.Isdropped = 0
-		W6Light.State = 0
-		bW6TargetIsDown = FALSE
-		LoopLight.State = 0
-		bWallIsDown = FALSE
-	End If
+  If Not(bPlayingMission) And bWallIsDown Then
+    W1.Isdropped = 0
+    W1Light.State = 0
+    bW1TargetIsDown = FALSE
+    W2.Isdropped = 0
+    W2Light.State = 0
+    bW2TargetIsDown = FALSE
+    W3.Isdropped = 0
+    W3Light.State = 0
+    bW3TargetIsDown = FALSE
+    W4.Isdropped = 0
+    W4Light.State = 0
+    bW4TargetIsDown = FALSE
+    W5.Isdropped = 0
+    W5Light.State = 0
+    bW5TargetIsDown = FALSE
+    W6.Isdropped = 0
+    W6Light.State = 0
+    bW6TargetIsDown = FALSE
+    LoopLight.State = 0
+    bWallIsDown = FALSE
+  End If
 End Sub
 
 
 
 Sub CheckPOWLanes()
-	If (POWLaneLight1.State = 1) And (POWLaneLight2.State = 1) And (POWLaneLight3.State = 1) Then
-		AdvancePOW()
-		AddScore(7000)
-		POWLaneLight1.State = 0
-		POWLaneLight2.State = 0
-		POWLaneLight3.State = 0
-		StopSound (SoundName) : SoundName = "Thankyou" : PlaySound (SoundName),0, 1.0
-		If bPlayingMission And (Mission = 4) Then ScoreMission4()
-	End If
+  If (POWLaneLight1.State = 1) And (POWLaneLight2.State = 1) And (POWLaneLight3.State = 1) Then
+    AdvancePOW()
+    AddScore(7000)
+    POWLaneLight1.State = 0
+    POWLaneLight2.State = 0
+    POWLaneLight3.State = 0
+    StopSound (SoundName) : SoundName = "Thankyou" : PlaySound (SoundName),0, 1.0
+    If bPlayingMission And (Mission = 4) Then ScoreMission4()
+  End If
 End Sub
 
 
 
 Sub AdvancePOW()
-	Dim POWRankRnd
-	FlashEffectMissionTimer.enabled = 1'GI_Flash()
-	' Add a POW bonus.
-	POWBonus = POWBonus + 1
-	POWBonusBall = POWBonusBall + 1
-	' Next POW name (if > 100, return to first).
-	POWNamePtr = POWNamePtr + 1
-	If POWNamePtr > 100 Then POWNamePtr = 1
-	' Pick a random value (from 0 to 99).
-	POWRankRnd = Int(Rnd(1) * 100)
-	' Then convert to rank.
-	If POWRankRnd < 25 Then
-		POWRankRnd = 1	' PVT.
-	ElseIf POWRankRnd < 40 Then
-		POWRankRnd = 2	' PFC.
-	ElseIf POWRankRnd < 50 Then
-		POWRankRnd = 3	' CPL.
-	ElseIf POWRankRnd < 60 Then
-		POWRankRnd = 4	' SGT.
-	ElseIf POWRankRnd < 70 Then
-		POWRankRnd = 5	' FSG.
-	ElseIf POWRankRnd < 75 Then
-		POWRankRnd = 6	' SMA.
-	ElseIf POWRankRnd < 80 Then
-		POWRankRnd = 7	' 2LT.
-	ElseIf POWRankRnd < 85 Then
-		POWRankRnd = 8	' LT.
-	ElseIf POWRankRnd < 90 Then
-		POWRankRnd = 9	' CPT.
-	ElseIf POWRankRnd < 94 Then
-		POWRankRnd = 10	' LCL.
-	ElseIf POWRankRnd < 98 Then
-		POWRankRnd = 11	' COL.
-	Else
-		POWRankRnd = 12	' GEN.
-	End If
-	' Add another POW bonus during final mission (because POW is double).
-	If bPlayingFinalMission Then
-		POWBonus = POWBonus + 1
-		POWBonusBall = POWBonusBall + 1
-	End If
-	' Maximise POW bonus at... 9999 !!!
-	If POWBonus > 9999 Then POWBonus = 9999
-	If POWBonusBall > 9999 Then POWBonusBall = 9999
-	FlashAnimate2()
-	InterruptDisplay(1200)
-	' Display collected POW bonus.
+  Dim POWRankRnd
+  FlashEffectMissionTimer.enabled = 1'GI_Flash()
+  ' Add a POW bonus.
+  POWBonus = POWBonus + 1
+  POWBonusBall = POWBonusBall + 1
+  ' Next POW name (if > 100, return to first).
+  POWNamePtr = POWNamePtr + 1
+  If POWNamePtr > 100 Then POWNamePtr = 1
+  ' Pick a random value (from 0 to 99).
+  POWRankRnd = Int(Rnd(1) * 100)
+  ' Then convert to rank.
+  If POWRankRnd < 25 Then
+    POWRankRnd = 1  ' PVT.
+  ElseIf POWRankRnd < 40 Then
+    POWRankRnd = 2  ' PFC.
+  ElseIf POWRankRnd < 50 Then
+    POWRankRnd = 3  ' CPL.
+  ElseIf POWRankRnd < 60 Then
+    POWRankRnd = 4  ' SGT.
+  ElseIf POWRankRnd < 70 Then
+    POWRankRnd = 5  ' FSG.
+  ElseIf POWRankRnd < 75 Then
+    POWRankRnd = 6  ' SMA.
+  ElseIf POWRankRnd < 80 Then
+    POWRankRnd = 7  ' 2LT.
+  ElseIf POWRankRnd < 85 Then
+    POWRankRnd = 8  ' LT.
+  ElseIf POWRankRnd < 90 Then
+    POWRankRnd = 9  ' CPT.
+  ElseIf POWRankRnd < 94 Then
+    POWRankRnd = 10 ' LCL.
+  ElseIf POWRankRnd < 98 Then
+    POWRankRnd = 11 ' COL.
+  Else
+    POWRankRnd = 12 ' GEN.
+  End If
+  ' Add another POW bonus during final mission (because POW is double).
+  If bPlayingFinalMission Then
+    POWBonus = POWBonus + 1
+    POWBonusBall = POWBonusBall + 1
+  End If
+  ' Maximise POW bonus at... 9999 !!!
+  If POWBonus > 9999 Then POWBonus = 9999
+  If POWBonusBall > 9999 Then POWBonusBall = 9999
+  FlashAnimate2()
+  InterruptDisplay(1200)
+  ' Display collected POW bonus.
     DisplayB2SText (POWBonus) & " SONS SAVED   " & String(Len(POWRank(POWRankRnd)), " ") & " " & String(Len(POWName(POWNamePtr)), " ") & String(Int((18 - Len(POWBonus) - Len(POWRank(POWRankRnd)) - Len(POWName(POWNamePtr))) / 2), " ")
-	D1.Text = FormatScore(POWBonus) & " SONS SAVED   " & String(Len(POWRank(POWRankRnd)), " ") & " " & String(Len(POWName(POWNamePtr)), " ") & String(Int((18 - Len(POWBonus) - Len(POWRank(POWRankRnd)) - Len(POWName(POWNamePtr))) / 2), " ")
+  D1.Text = FormatScore(POWBonus) & " SONS SAVED   " & String(Len(POWRank(POWRankRnd)), " ") & " " & String(Len(POWName(POWNamePtr)), " ") & String(Int((18 - Len(POWBonus) - Len(POWRank(POWRankRnd)) - Len(POWName(POWNamePtr))) / 2), " ")
 End Sub
 
 
@@ -6778,17 +6778,17 @@ End Sub
 
 
 Sub FlashOff()
-	F1.State = 0
-	F2.State = 0
-	F3.State = 0
-	F4.State = 0
-	F5.State = 0
-	F6.State = 0
-	F7.State = 0
-	F8.State = 0
-	F9.State = 0
-	F10.State = 0
-	If bPlayingMission Or bMultiBallMode Then	FlashAnimate5()
+  F1.State = 0
+  F2.State = 0
+  F3.State = 0
+  F4.State = 0
+  F5.State = 0
+  F6.State = 0
+  F7.State = 0
+  F8.State = 0
+  F9.State = 0
+  F10.State = 0
+  If bPlayingMission Or bMultiBallMode Then FlashAnimate5()
 End Sub
 
 
@@ -6796,12 +6796,12 @@ End Sub
 ' *** DOCAM CLEANED ***
 '
 Sub D1_Empty()
-	If bGameInPlay Then
-		If bPlayingMission And bCanDisplayMessage Then
-			ShowNextMessage()
-		End If
-		If bPlayingBall Then AddScore(0)
-	End If
+  If bGameInPlay Then
+    If bPlayingMission And bCanDisplayMessage Then
+      ShowNextMessage()
+    End If
+    If bPlayingBall Then AddScore(0)
+  End If
 End Sub
 
 
@@ -6809,51 +6809,51 @@ End Sub
 ' *** DOCAM CLEANED ***
 '
 Sub ShowNextMessage()
-	bCanDisplayMessage = FALSE
-	If Not(bInterruptedDisplay) Then
-		Select Case NextMessage
-			Case 1:
-				' Starting mission 1.
-				D1.Text = " ANY DROP TARGET SCORES 20,000  "
-				DisplayB2SText " ANY DROP TARGET SCORES 20,000  "
-			Case 2:
-				' Remaining time for mission 1.
-				D1.Text = "SHOOT ANY DROP TARGET    TIME " & Right("0" & MissionTimerUserData, 2)
-				DisplayB2SText "SHOOT ANY DROP TARGET    TIME " & Right("0" & MissionTimerUserData, 2)
-			Case 3:
-				' Mission completed.
-				D1.Text =  "      *** GREAT RIDE ***      "
-				DisplayB2SText  "      ***  GREAT RIDE  ***      "
-			Case 4:
-				' Remaining time for mission 2.
-				D1.Text = "WEAPONS PRACTICE         TIME " & Right("0" & MissionTimerUserData, 2)
-				DisplayB2SText "WEAPONS PRACTICE         TIME " & Right("0" & MissionTimerUserData, 2)
-			Case 5:
-				' Starting mission 2.
-				D1.Text =  "SHOOT WEAPON TARGETS FOR 40,000 "
-				DisplayB2SText  "SHOOT WEAPON TARGETS FOR 40,000 "
-			Case 6:
-				' Starting mission 3.
-				D1.Text =  "        SUPER JET BUMPERS       "
-				DisplayB2SText  "        SUPER JET BUMPERS       "
-			Case 7:
-				' Starting mission 4.
-				D1.Text =  "SHOOT CAPTIVE BALL OR *SOA* LANES "
-				DisplayB2SText  "SHOOT CAPTIVE BALL OR *SOA* LANES "
-			Case 8:
-				' Starting mission 5.
-				D1.Text =  "      DEFEAT CLAY MORROW       "
-				DisplayB2SText  "      DEFEAT CLAY MORROW       "
-			Case 9:
-				' End of final mission.
-				D1.Text = "         SEE YOU NEXT RIDE      "
-				DisplayB2SText "      SEE YOU NEXT RIDE      "
-			Case 10:
-				' Starting final mission.
-				D1.Text =  "           FINAL RIDE          "
-				DisplayB2SText  "           FINAL RIDE          "
-		End Select
-	End If
+  bCanDisplayMessage = FALSE
+  If Not(bInterruptedDisplay) Then
+    Select Case NextMessage
+      Case 1:
+        ' Starting mission 1.
+        D1.Text = " ANY DROP TARGET SCORES 20,000  "
+        DisplayB2SText " ANY DROP TARGET SCORES 20,000  "
+      Case 2:
+        ' Remaining time for mission 1.
+        D1.Text = "SHOOT ANY DROP TARGET    TIME " & Right("0" & MissionTimerUserData, 2)
+        DisplayB2SText "SHOOT ANY DROP TARGET    TIME " & Right("0" & MissionTimerUserData, 2)
+      Case 3:
+        ' Mission completed.
+        D1.Text =  "      *** GREAT RIDE ***      "
+        DisplayB2SText  "      ***  GREAT RIDE  ***      "
+      Case 4:
+        ' Remaining time for mission 2.
+        D1.Text = "WEAPONS PRACTICE         TIME " & Right("0" & MissionTimerUserData, 2)
+        DisplayB2SText "WEAPONS PRACTICE         TIME " & Right("0" & MissionTimerUserData, 2)
+      Case 5:
+        ' Starting mission 2.
+        D1.Text =  "SHOOT WEAPON TARGETS FOR 40,000 "
+        DisplayB2SText  "SHOOT WEAPON TARGETS FOR 40,000 "
+      Case 6:
+        ' Starting mission 3.
+        D1.Text =  "        SUPER JET BUMPERS       "
+        DisplayB2SText  "        SUPER JET BUMPERS       "
+      Case 7:
+        ' Starting mission 4.
+        D1.Text =  "SHOOT CAPTIVE BALL OR *SOA* LANES "
+        DisplayB2SText  "SHOOT CAPTIVE BALL OR *SOA* LANES "
+      Case 8:
+        ' Starting mission 5.
+        D1.Text =  "      DEFEAT CLAY MORROW       "
+        DisplayB2SText  "      DEFEAT CLAY MORROW       "
+      Case 9:
+        ' End of final mission.
+        D1.Text = "         SEE YOU NEXT RIDE      "
+        DisplayB2SText "      SEE YOU NEXT RIDE      "
+      Case 10:
+        ' Starting final mission.
+        D1.Text =  "           FINAL RIDE          "
+        DisplayB2SText  "           FINAL RIDE          "
+    End Select
+  End If
 End Sub
 
 
@@ -6861,8 +6861,8 @@ End Sub
 '*** DOCAM OPTIMIZED ***
 '
 Sub InterruptDisplay(aDelay)
-	bInterruptedDisplay = TRUE
-	InterruptDisplayTimer.enabled = TRUE
+  bInterruptedDisplay = TRUE
+  InterruptDisplayTimer.enabled = TRUE
 End Sub
 
 
@@ -6872,50 +6872,50 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub DisplayBallLocked()
-	InterruptDisplay(800)
+  InterruptDisplay(800)
     DisplayB2SText "          BALL " & BallsLocked & " LOCKED         "
-	D1.Text = "          BALL " & BallsLocked & " LOCKED         "
+  D1.Text = "          BALL " & BallsLocked & " LOCKED         "
 End Sub
 
 
 
 Sub ExplodeAnimate()
-	exp1.frame 1, 26
-	exp2.frame 1, 26
-	exp3.frame 1, 26
-	exp4.frame 1, 26
-	exp5.frame 1, 26
-	exp6.frame 1, 26
-	exp7.frame 1, 26
-	exp8.frame 1, 26
-	exp9.frame 1, 26
-	exp10.frame 1, 26
-	exp11.frame 1, 26
-	exp12.frame 1, 26
-	exp13.frame 1, 26
-	exp14.frame 1, 26
-	exp15.frame 1, 26
+  exp1.frame 1, 26
+  exp2.frame 1, 26
+  exp3.frame 1, 26
+  exp4.frame 1, 26
+  exp5.frame 1, 26
+  exp6.frame 1, 26
+  exp7.frame 1, 26
+  exp8.frame 1, 26
+  exp9.frame 1, 26
+  exp10.frame 1, 26
+  exp11.frame 1, 26
+  exp12.frame 1, 26
+  exp13.frame 1, 26
+  exp14.frame 1, 26
+  exp15.frame 1, 26
 End Sub
 
 
 
 Sub ingamereset()
-	Mission = 0
-	ResetCaptiveTargets()
-	ResetSideTargets()
-	ResetSLUGTargets()
-	bLockIsLit = FALSE
-	LightMission()
-	bWallIsDown = TRUE
-	ResetWEAPONTargets()
-	bWallIsDown = FALSE
-	UnLightJackpot()
-	Mission1Light.State = 2
-	Mission2Light.State = 0
-	Mission3Light.State = 0
-	Mission4Light.State = 0
-	Mission5Light.State = 0
-	Mission6Light.State = 0
+  Mission = 0
+  ResetCaptiveTargets()
+  ResetSideTargets()
+  ResetSLUGTargets()
+  bLockIsLit = FALSE
+  LightMission()
+  bWallIsDown = TRUE
+  ResetWEAPONTargets()
+  bWallIsDown = FALSE
+  UnLightJackpot()
+  Mission1Light.State = 2
+  Mission2Light.State = 0
+  Mission3Light.State = 0
+  Mission4Light.State = 0
+  Mission5Light.State = 0
+  Mission6Light.State = 0
 End Sub
 
 
@@ -6924,11 +6924,11 @@ End Sub
 '
 Sub GI_Flash()
 
-	If Not(bPlayingMission3) Then
-		FlashForMs Bumper1l, 1000, 100, 1
-		FlashForMs Bumper2l, 1000, 100, 1
-		FlashForMs Bumper3l, 1000, 100, 1
-	End If
+  If Not(bPlayingMission3) Then
+    FlashForMs Bumper1l, 1000, 100, 1
+    FlashForMs Bumper2l, 1000, 100, 1
+    FlashForMs Bumper3l, 1000, 100, 1
+  End If
 End Sub
 
 
@@ -6937,9 +6937,9 @@ End Sub
 '
 Sub GI_Off()
 GiOff
-	Bumper1l.State = 0
-	Bumper2l.State = 0
-	Bumper3l.State = 0
+  Bumper1l.State = 0
+  Bumper2l.State = 0
+  Bumper3l.State = 0
 End Sub
 
 
@@ -6949,9 +6949,9 @@ End Sub
 Sub GI_On()
 GiOn
 
-	Bumper1l.State = 1
-	Bumper2l.State = 1
-	Bumper3l.State = 1
+  Bumper1l.State = 1
+  Bumper2l.State = 1
+  Bumper3l.State = 1
 End Sub
 
 
@@ -6967,94 +6967,94 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuEntry()
-	' Always select first setting (number of balls) on setup menu entry.
-	stCurrentParam = 1
-	' Parameter 1: Number of balls per game.
-	stParam(1) = "BALLS PER GAME"
-	stNumberValues(1) = 4
-	stValue(1, 1) = "3"
-	stValue(1, 2) = "5"
-	stValue(1, 3) = "7"
-	stValue(1, 4) = "9"
-	Select Case BallsPerGame
-		Case 3: stCurrentValue(stCurrentParam) = 1
-		Case 5: stCurrentValue(stCurrentParam) = 2
-		Case 7: stCurrentValue(stCurrentParam) = 3
-		Case 9: stCurrentValue(stCurrentParam) = 4
-	End Select
-	' Parameter 2: ball saver duration.
-	stParam(2) = "BALL SAVER"
-	stNumberValues(2) = 4
-	stValue(2, 1) = "15 SECONDS"
-	stValue(2, 2) = "30 SECONDS"
-	stValue(2, 3) = "45 SECONDS"
-	stValue(2, 4) = "60 SECONDS"
-	Select Case nvR1
-		Case 15: stCurrentValue(2) = 1
-		Case 30: stCurrentValue(2) = 2
-		Case 45: stCurrentValue(2) = 3
-		Case 60: stCurrentValue(2) = 4
-	End Select
-	' Parameter 3: POW bonus value.
-	stParam(3) = "SOA BONUS VALUE"
-	stNumberValues(3) = 6
-	stValue(3, 1) = "5,000"
-	stValue(3, 2) = "10,000"
-	stValue(3, 3) = "15,000"
-	stValue(3, 4) = "20,000"
-	stValue(3, 5) = "25,000"
-	stValue(3, 6) = "50,000"
-	Select Case nvR2
-		Case 5: stCurrentValue(3) = 1
-		Case 10: stCurrentValue(3) = 2
-		Case 15: stCurrentValue(3) = 3
-		Case 20: stCurrentValue(3) = 4
-		Case 25: stCurrentValue(3) = 5
-		Case 50: stCurrentValue(3) = 6
-	End Select
-	' Parameter 4: POW bonus hold.
-	stParam(4) = "SOA BONUS HOLD"
-	stNumberValues(4) = 3
-	stValue(4, 1) = "NEVER"
-	stValue(4, 2) = "X-BALL ONLY"
-	stValue(4, 3) = "ALWAYS"
-	stCurrentValue(4) = nvR3
-	' Parameter 5: jackpot value.
-	stParam(5) = "JACKPOT VALUE"
-	stNumberValues(5) = 4
-	stValue(5, 1) = "100,000"
-	stValue(5, 2) = "300,000"
-	stValue(5, 3) = "500,000"
-	stValue(5, 4) = "1,000,000"
-	Select Case nvR4
-		Case 1: stCurrentValue(5) = 1
-		Case 3: stCurrentValue(5) = 2
-		Case 5: stCurrentValue(5) = 3
-		Case 10: stCurrentValue(5) = 4
-	End Select
-	' Parameter 6: Tilt.
-	stParam(6) = "TILT SENSITIVITY"
-	stNumberValues(6) = 4
-	stValue(6, 1) = "NEVER TILT"
-	stValue(6, 2) = "LOW"
-	stValue(6, 3) = "REGULAR"
-	stValue(6, 4) = "HIGH"
-	stCurrentValue(6) = nvR5
-	' Parameter 7: Reset settings/high scores.
-	stParam(7) = "RESET"
-	stNumberValues(7) = 4
-	stValue(7, 1) = "NO"
-	stValue(7, 2) = "TABLE SETTINGS ONLY"
-	stValue(7, 3) = "HIGH SCORES ONLY"
-	stValue(7, 4) = "ALL (FACTORY)"
-	stCurrentValue(7) = 1
-	' Parameter 8: Exit/Save.
-	stParam(8) = "EXIT"
-	stNumberValues(8) = 3
-	stValue(8, 1) = "NO"
-	stValue(8, 2) = "YES & SAVE"
-	stValue(8, 3) = "YES, BUT DON'T SAVE"
-	stCurrentValue(8) = 1
+  ' Always select first setting (number of balls) on setup menu entry.
+  stCurrentParam = 1
+  ' Parameter 1: Number of balls per game.
+  stParam(1) = "BALLS PER GAME"
+  stNumberValues(1) = 4
+  stValue(1, 1) = "3"
+  stValue(1, 2) = "5"
+  stValue(1, 3) = "7"
+  stValue(1, 4) = "9"
+  Select Case BallsPerGame
+    Case 3: stCurrentValue(stCurrentParam) = 1
+    Case 5: stCurrentValue(stCurrentParam) = 2
+    Case 7: stCurrentValue(stCurrentParam) = 3
+    Case 9: stCurrentValue(stCurrentParam) = 4
+  End Select
+  ' Parameter 2: ball saver duration.
+  stParam(2) = "BALL SAVER"
+  stNumberValues(2) = 4
+  stValue(2, 1) = "15 SECONDS"
+  stValue(2, 2) = "30 SECONDS"
+  stValue(2, 3) = "45 SECONDS"
+  stValue(2, 4) = "60 SECONDS"
+  Select Case nvR1
+    Case 15: stCurrentValue(2) = 1
+    Case 30: stCurrentValue(2) = 2
+    Case 45: stCurrentValue(2) = 3
+    Case 60: stCurrentValue(2) = 4
+  End Select
+  ' Parameter 3: POW bonus value.
+  stParam(3) = "SOA BONUS VALUE"
+  stNumberValues(3) = 6
+  stValue(3, 1) = "5,000"
+  stValue(3, 2) = "10,000"
+  stValue(3, 3) = "15,000"
+  stValue(3, 4) = "20,000"
+  stValue(3, 5) = "25,000"
+  stValue(3, 6) = "50,000"
+  Select Case nvR2
+    Case 5: stCurrentValue(3) = 1
+    Case 10: stCurrentValue(3) = 2
+    Case 15: stCurrentValue(3) = 3
+    Case 20: stCurrentValue(3) = 4
+    Case 25: stCurrentValue(3) = 5
+    Case 50: stCurrentValue(3) = 6
+  End Select
+  ' Parameter 4: POW bonus hold.
+  stParam(4) = "SOA BONUS HOLD"
+  stNumberValues(4) = 3
+  stValue(4, 1) = "NEVER"
+  stValue(4, 2) = "X-BALL ONLY"
+  stValue(4, 3) = "ALWAYS"
+  stCurrentValue(4) = nvR3
+  ' Parameter 5: jackpot value.
+  stParam(5) = "JACKPOT VALUE"
+  stNumberValues(5) = 4
+  stValue(5, 1) = "100,000"
+  stValue(5, 2) = "300,000"
+  stValue(5, 3) = "500,000"
+  stValue(5, 4) = "1,000,000"
+  Select Case nvR4
+    Case 1: stCurrentValue(5) = 1
+    Case 3: stCurrentValue(5) = 2
+    Case 5: stCurrentValue(5) = 3
+    Case 10: stCurrentValue(5) = 4
+  End Select
+  ' Parameter 6: Tilt.
+  stParam(6) = "TILT SENSITIVITY"
+  stNumberValues(6) = 4
+  stValue(6, 1) = "NEVER TILT"
+  stValue(6, 2) = "LOW"
+  stValue(6, 3) = "REGULAR"
+  stValue(6, 4) = "HIGH"
+  stCurrentValue(6) = nvR5
+  ' Parameter 7: Reset settings/high scores.
+  stParam(7) = "RESET"
+  stNumberValues(7) = 4
+  stValue(7, 1) = "NO"
+  stValue(7, 2) = "TABLE SETTINGS ONLY"
+  stValue(7, 3) = "HIGH SCORES ONLY"
+  stValue(7, 4) = "ALL (FACTORY)"
+  stCurrentValue(7) = 1
+  ' Parameter 8: Exit/Save.
+  stParam(8) = "EXIT"
+  stNumberValues(8) = 3
+  stValue(8, 1) = "NO"
+  stValue(8, 2) = "YES & SAVE"
+  stValue(8, 3) = "YES, BUT DON'T SAVE"
+  stCurrentValue(8) = 1
 End Sub
 
 
@@ -7064,41 +7064,41 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuSaveExit()
-	' Saving parameter 1: balls per game.
-	BallsPerGame = stCurrentValue(1) * 2 + 1
-	' Saving parameter 2: ball saver duration.
-	Select Case stCurrentValue(2)
-		Case 1: nvR1 = 15
-		Case 2: nvR1 = 30
-		Case 3: nvR1 = 45
-		Case 4: nvR1 = 60
-	End Select
-	' Saving parameter 3: POW bonus value.
-	Select Case stCurrentValue(3)
-		Case 1: nvR2 = 5
-		Case 2: nvR2 = 10
-		Case 3: nvR2 = 15
-		Case 4: nvR2 = 20
-		Case 5: nvR2 = 25
-		Case 6: nvR2 = 50
-	End Select
-	' Saving parameter 4: POW bonus hold.
-	nvR3 = stCurrentValue(4)
-	' Saving parameter 5: jackpot value.
-	Select Case stCurrentValue(5)
-		Case 1: nvR4 = 1
-		Case 2: nvR4 = 3
-		Case 3: nvR4 = 5
-		Case 4: nvR4 = 10
-	End Select
-	' Saving parameter 6: Tilt sensitivity.
-	nvR5 = stCurrentValue(6)
-	Select Case stCurrentValue(6)
-		Case 1: TiltWarnings = 9
-		Case 2: TiltWarnings = 4
-		Case 3: TiltWarnings = 2
-		Case 4: TiltWarnings = 0
-	End Select
+  ' Saving parameter 1: balls per game.
+  BallsPerGame = stCurrentValue(1) * 2 + 1
+  ' Saving parameter 2: ball saver duration.
+  Select Case stCurrentValue(2)
+    Case 1: nvR1 = 15
+    Case 2: nvR1 = 30
+    Case 3: nvR1 = 45
+    Case 4: nvR1 = 60
+  End Select
+  ' Saving parameter 3: POW bonus value.
+  Select Case stCurrentValue(3)
+    Case 1: nvR2 = 5
+    Case 2: nvR2 = 10
+    Case 3: nvR2 = 15
+    Case 4: nvR2 = 20
+    Case 5: nvR2 = 25
+    Case 6: nvR2 = 50
+  End Select
+  ' Saving parameter 4: POW bonus hold.
+  nvR3 = stCurrentValue(4)
+  ' Saving parameter 5: jackpot value.
+  Select Case stCurrentValue(5)
+    Case 1: nvR4 = 1
+    Case 2: nvR4 = 3
+    Case 3: nvR4 = 5
+    Case 4: nvR4 = 10
+  End Select
+  ' Saving parameter 6: Tilt sensitivity.
+  nvR5 = stCurrentValue(6)
+  Select Case stCurrentValue(6)
+    Case 1: TiltWarnings = 9
+    Case 2: TiltWarnings = 4
+    Case 3: TiltWarnings = 2
+    Case 4: TiltWarnings = 0
+  End Select
 End Sub
 
 
@@ -7109,21 +7109,21 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuResetSettings()
-	' Reset default settings and clear the highscore table.
-	stCurrentValue(1) = 2
-	BallsPerGame = 5
-	stCurrentValue(2) = 1
-	nvR1 = 15
-	stCurrentValue(3) = 2
-	nvR2 = 10
-	stCurrentValue(4) = 3
-	nvR3 = 3
-	stCurrentValue(5) = 2
-	nvR4 = 3
-	stCurrentValue(6) = 3
-	nvR5 = 3
-	TiltWarnings = 2
-	stCurrentValue(7) = 1
+  ' Reset default settings and clear the highscore table.
+  stCurrentValue(1) = 2
+  BallsPerGame = 5
+  stCurrentValue(2) = 1
+  nvR1 = 15
+  stCurrentValue(3) = 2
+  nvR2 = 10
+  stCurrentValue(4) = 3
+  nvR3 = 3
+  stCurrentValue(5) = 2
+  nvR4 = 3
+  stCurrentValue(6) = 3
+  nvR5 = 3
+  TiltWarnings = 2
+  stCurrentValue(7) = 1
 End Sub
 
 
@@ -7133,27 +7133,27 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuResetHighScores()
-	' Reset the high scores table.
-	HighScore(1) = 0
-	HighScoreName(1) = "..."
-	HighScore(2) = 0
-	HighScoreName(2) = "..."
-	HighScore(3) = 0
-	HighScoreName(3) = "..."
-	HighScore(4) = 0
-	HighScoreName(4) = "..."
-	HighScore(5) = 0
-	HighScoreName(5) = "..."
-	HighScore(6) = 0
-	HighScoreName(6) = "..."
-	HighScore(7) = 0
-	HighScoreName(7) = "..."
-	HighScore(8) = 0
-	HighScoreName(8) = "..."
-	HighScore(9) = 0
-	HighScoreName(9) = "..."
-	HighScore(10) = 0
-	HighScoreName(10) = "..."
+  ' Reset the high scores table.
+  HighScore(1) = 0
+  HighScoreName(1) = "..."
+  HighScore(2) = 0
+  HighScoreName(2) = "..."
+  HighScore(3) = 0
+  HighScoreName(3) = "..."
+  HighScore(4) = 0
+  HighScoreName(4) = "..."
+  HighScore(5) = 0
+  HighScoreName(5) = "..."
+  HighScore(6) = 0
+  HighScoreName(6) = "..."
+  HighScore(7) = 0
+  HighScoreName(7) = "..."
+  HighScore(8) = 0
+  HighScoreName(8) = "..."
+  HighScore(9) = 0
+  HighScoreName(9) = "..."
+  HighScore(10) = 0
+  HighScoreName(10) = "..."
 End Sub
 
 
@@ -7163,21 +7163,21 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuNextValue()
-	Dim i
-	Dim LenParam, LenValue
-	stCurrentValue(stCurrentParam) = stCurrentValue(stCurrentParam) + 1
-	If stCurrentValue(stCurrentParam) > stNumberValues(stCurrentParam) Then stCurrentValue(stCurrentParam) = 1
-	LenParam = 0
-	For i = 1 To Len(stParam(stCurrentParam))
-		If (Mid(stParam(stCurrentParam), i, 1) <> ".") And (Mid(stParam(stCurrentParam), i, 1) <> ",") Then LenParam = LenParam + 1
-	Next
-	LenValue = 0
-	For i = 1 To Len(stValue(stCurrentParam, stCurrentValue(stCurrentParam)))
-		If (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ".") And (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ",") Then LenValue = LenValue + 1
-	Next
-	D1.Text = " " & stParam(stCurrentParam) & String(30 - LenParam - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " "
-	D1.QueueText " " & String(30 - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " ", seBlinkMask, 500
-	Playsound "Lane1", FALSE
+  Dim i
+  Dim LenParam, LenValue
+  stCurrentValue(stCurrentParam) = stCurrentValue(stCurrentParam) + 1
+  If stCurrentValue(stCurrentParam) > stNumberValues(stCurrentParam) Then stCurrentValue(stCurrentParam) = 1
+  LenParam = 0
+  For i = 1 To Len(stParam(stCurrentParam))
+    If (Mid(stParam(stCurrentParam), i, 1) <> ".") And (Mid(stParam(stCurrentParam), i, 1) <> ",") Then LenParam = LenParam + 1
+  Next
+  LenValue = 0
+  For i = 1 To Len(stValue(stCurrentParam, stCurrentValue(stCurrentParam)))
+    If (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ".") And (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ",") Then LenValue = LenValue + 1
+  Next
+  D1.Text = " " & stParam(stCurrentParam) & String(30 - LenParam - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " "
+  D1.QueueText " " & String(30 - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " ", seBlinkMask, 500
+  Playsound "Lane1", FALSE
 End Sub
 
 
@@ -7187,17 +7187,17 @@ End Sub
 ' *** DOCAM OPTIMIZED ***
 '
 Sub SetupMenuDisplayCurrentSetting()
-	Dim i
-	Dim LenParam, LenValue
-	LenParam = 0
-	For i = 1 To Len(stParam(stCurrentParam))
-		If (Mid(stParam(stCurrentParam), i, 1) <> ".") And (Mid(stParam(stCurrentParam), i, 1) <> ",") Then LenParam = LenParam + 1
-	Next
-	LenValue = 0
-	For i = 1 To Len(stValue(stCurrentParam, stCurrentValue(stCurrentParam)))
-		If (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ".") And (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ",") Then LenValue = LenValue + 1
-	Next
-	D1.Text = " " & stParam(stCurrentParam) & String(30 - LenParam - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " "
+  Dim i
+  Dim LenParam, LenValue
+  LenParam = 0
+  For i = 1 To Len(stParam(stCurrentParam))
+    If (Mid(stParam(stCurrentParam), i, 1) <> ".") And (Mid(stParam(stCurrentParam), i, 1) <> ",") Then LenParam = LenParam + 1
+  Next
+  LenValue = 0
+  For i = 1 To Len(stValue(stCurrentParam, stCurrentValue(stCurrentParam)))
+    If (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ".") And (Mid(stValue(stCurrentParam, stCurrentValue(stCurrentParam)), i, 1) <> ",") Then LenValue = LenValue + 1
+  Next
+  D1.Text = " " & stParam(stCurrentParam) & String(30 - LenParam - LenValue, " ") & stValue(stCurrentParam, stCurrentValue(stCurrentParam)) & " "
 End Sub
 
 
@@ -7237,9 +7237,9 @@ End Sub
 'If You want to hide a display, set the reel value of every reel to 44. This picture is transparent
 'This is best done using collection:
 '
-'	If HideDisplay then
-'		For Each obj in ReelsCollection:obj.setvalue(44):next
-'	end if
+' If HideDisplay then
+'   For Each obj in ReelsCollection:obj.setvalue(44):next
+' end if
 
 
 Dim Char(32),i,TempText                     'increase dimension if You need larger displays
@@ -7250,103 +7250,103 @@ Dim Char(32),i,TempText                     'increase dimension if You need larg
 '-----  B2S section, not used in the demo  -----
 '-----------------------------------------------
 
-Sub DisplayB2SText(TextPar)							'Procedure to display Text on a 30 digit B2S LED reel. Assuming that it is display 1 with internal digit numbers 1-30
-	TempText = TextPar
-	for i = 1 to 32
-		if i <= len(TextPar) then
-			Char(i) = left(TempText,1)
-			TempText = right(Temptext,len(TempText)-1)
-		else
-			Char(i) = " "
-		end if
-	next
-	If B2SOn Then
-	for i = 1 to 32
-		controller.B2SSetLED i,B2SLEDValue(Char(i))
-	next
-	End If
+Sub DisplayB2SText(TextPar)             'Procedure to display Text on a 30 digit B2S LED reel. Assuming that it is display 1 with internal digit numbers 1-30
+  TempText = TextPar
+  for i = 1 to 32
+    if i <= len(TextPar) then
+      Char(i) = left(TempText,1)
+      TempText = right(Temptext,len(TempText)-1)
+    else
+      Char(i) = " "
+    end if
+  next
+  If B2SOn Then
+  for i = 1 to 32
+    controller.B2SSetLED i,B2SLEDValue(Char(i))
+  next
+  End If
 End Sub
 
-Function B2SLEDValue(CharPar)						'to be used with dB2S 15-segments-LED used in Herweh's Designer
-	B2SLEDValue = 0									'default for unknown characters
-	select case CharPar
-		Case "","":	B2SLEDValue = 0
-		Case "0":	B2SLEDValue = 63
-		Case "1":	B2SLEDValue = 8704
-		Case "2":	B2SLEDValue = 2139
-		Case "3":	B2SLEDValue = 2127
-		Case "4":	B2SLEDValue = 2150
-		Case "5":	B2SLEDValue = 2157
-		Case "6":	B2SLEDValue = 2172
-		Case "7":	B2SLEDValue = 7
-		Case "8":	B2SLEDValue = 2175
-		Case "9":	B2SLEDValue = 2159
-		Case "A":	B2SLEDValue = 2167
-		Case "B":	B2SLEDValue = 10767
-		Case "C":	B2SLEDValue = 57
-		Case "D":	B2SLEDValue = 8719
-		Case "E":	B2SLEDValue = 121
-		Case "F":	B2SLEDValue = 2161
-		Case "G":	B2SLEDValue = 2109
-		Case "H":	B2SLEDValue = 2166
-		Case "I":	B2SLEDValue = 8713
-		Case "J":	B2SLEDValue = 31
-		Case "K":	B2SLEDValue = 5232
-		Case "L":	B2SLEDValue = 56
-		Case "M":	B2SLEDValue = 1334
-		Case "N":	B2SLEDValue = 4406
-		Case "O":	B2SLEDValue = 63
-		Case "P":	B2SLEDValue = 2163
-		Case "Q":	B2SLEDValue = 4287
-		Case "R":	B2SLEDValue = 6259
-		Case "S":	B2SLEDValue = 2157
-		Case "T":	B2SLEDValue = 8705
-		Case "U":	B2SLEDValue = 62
-		Case "V":	B2SLEDValue = 17456
-		Case "W":	B2SLEDValue = 20534
-		Case "X":	B2SLEDValue = 21760
-		Case "Y":	B2SLEDValue = 9472
-		Case "Z":	B2SLEDValue = 17417
-		Case "<":	B2SLEDValue = 5120
-		Case ">":	B2SLEDValue = 16640
-		Case "^":	B2SLEDValue = 17414
-		Case ".":	B2SLEDValue = 8
-		Case "!":	B2SLEDValue = 0
-		Case ".":	B2SLEDValue = 128
-		Case "*":	B2SLEDValue = 32576
-		Case "/":	B2SLEDValue = 17408
-		Case "\":	B2SLEDValue = 4352
-		Case "|":	B2SLEDValue = 8704
-		Case "=":	B2SLEDValue = 2120
-		Case "+":	B2SLEDValue = 10816
-		Case "-":	B2SLEDValue = 2112
-	end select
-	B2SLEDValue = cint(B2SLEDValue)
+Function B2SLEDValue(CharPar)           'to be used with dB2S 15-segments-LED used in Herweh's Designer
+  B2SLEDValue = 0                 'default for unknown characters
+  select case CharPar
+    Case "","": B2SLEDValue = 0
+    Case "0": B2SLEDValue = 63
+    Case "1": B2SLEDValue = 8704
+    Case "2": B2SLEDValue = 2139
+    Case "3": B2SLEDValue = 2127
+    Case "4": B2SLEDValue = 2150
+    Case "5": B2SLEDValue = 2157
+    Case "6": B2SLEDValue = 2172
+    Case "7": B2SLEDValue = 7
+    Case "8": B2SLEDValue = 2175
+    Case "9": B2SLEDValue = 2159
+    Case "A": B2SLEDValue = 2167
+    Case "B": B2SLEDValue = 10767
+    Case "C": B2SLEDValue = 57
+    Case "D": B2SLEDValue = 8719
+    Case "E": B2SLEDValue = 121
+    Case "F": B2SLEDValue = 2161
+    Case "G": B2SLEDValue = 2109
+    Case "H": B2SLEDValue = 2166
+    Case "I": B2SLEDValue = 8713
+    Case "J": B2SLEDValue = 31
+    Case "K": B2SLEDValue = 5232
+    Case "L": B2SLEDValue = 56
+    Case "M": B2SLEDValue = 1334
+    Case "N": B2SLEDValue = 4406
+    Case "O": B2SLEDValue = 63
+    Case "P": B2SLEDValue = 2163
+    Case "Q": B2SLEDValue = 4287
+    Case "R": B2SLEDValue = 6259
+    Case "S": B2SLEDValue = 2157
+    Case "T": B2SLEDValue = 8705
+    Case "U": B2SLEDValue = 62
+    Case "V": B2SLEDValue = 17456
+    Case "W": B2SLEDValue = 20534
+    Case "X": B2SLEDValue = 21760
+    Case "Y": B2SLEDValue = 9472
+    Case "Z": B2SLEDValue = 17417
+    Case "<": B2SLEDValue = 5120
+    Case ">": B2SLEDValue = 16640
+    Case "^": B2SLEDValue = 17414
+    Case ".": B2SLEDValue = 8
+    Case "!": B2SLEDValue = 0
+    Case ".": B2SLEDValue = 128
+    Case "*": B2SLEDValue = 32576
+    Case "/": B2SLEDValue = 17408
+    Case "\": B2SLEDValue = 4352
+    Case "|": B2SLEDValue = 8704
+    Case "=": B2SLEDValue = 2120
+    Case "+": B2SLEDValue = 10816
+    Case "-": B2SLEDValue = 2112
+  end select
+  B2SLEDValue = cint(B2SLEDValue)
 End Function
 
 Sub DisplayScore
   If Score(1) < 1000000 Then
-	 DisplayB2SText (Score(1)) & "  " & "                  BALL " & Ball
-	Else
-	DisplayB2SText (Score(1)) & "  " & "                BALL " & Ball
+   DisplayB2SText (Score(1)) & "  " & "                  BALL " & Ball
+  Else
+  DisplayB2SText (Score(1)) & "  " & "                BALL " & Ball
   End If
 End Sub
 
 
 Sub DisplayUpdate
-	TempText = TextPar
-	for i = 1 to 32
-		if i <= len(TextPar) then
-			Char(i) = left(TempText,1)
-			TempText = right(Temptext,len(TempText)-1)
-		else
-			Char(i) = " "
-		end if
-	next
-	If B2SOn Then
-	for i = 1 to 32
-		controller.B2SSetLED i,B2SLEDValue(Char(i))
-	next
-	End If
+  TempText = TextPar
+  for i = 1 to 32
+    if i <= len(TextPar) then
+      Char(i) = left(TempText,1)
+      TempText = right(Temptext,len(TempText)-1)
+    else
+      Char(i) = " "
+    end if
+  next
+  If B2SOn Then
+  for i = 1 to 32
+    controller.B2SSetLED i,B2SLEDValue(Char(i))
+  next
+  End If
 End Sub
 

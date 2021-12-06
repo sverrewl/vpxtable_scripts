@@ -160,7 +160,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
     If keycode = PlungerKey Then PlaySoundAtVol "fx_PlungerPull", plunger, 1:Plunger.Pullback
-	If keycode=AddCreditKey then PlaySoundAtVol "fx_coin", drain, 1: vpmTimer.pulseSW (swCoin1): end if
+  If keycode=AddCreditKey then PlaySoundAtVol "fx_coin", drain, 1: vpmTimer.pulseSW (swCoin1): end if
     If vpmKeyDown(keycode)Then Exit Sub
 End Sub
 
@@ -765,7 +765,7 @@ Sub UpdateLeds
             chg = chgLED(ii, 1):stat = chgLED(ii, 2)
             For jj = 0 to 10
                 If stat = Patterns(jj)OR stat = Patterns2(jj)then Digits(chgLED(ii, 0)).SetValue jj
-				'debug.print stat
+        'debug.print stat
             Next
         Next
     End IF

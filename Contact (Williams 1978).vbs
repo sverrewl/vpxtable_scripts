@@ -187,8 +187,8 @@ Sub Table1_Init
         .InitSw 0, 20, 0, 0, 0, 0, 0, 0
         .InitKick ballrelease, 90, 8
         .InitExitSnd SoundFX("fx_ballrel", DOFContactors), SoundFX("fx_Solenoid5", DOFContactors)
-		.KickForceVar = 2
-		.KIckAngleVar = 2
+    .KickForceVar = 2
+    .KIckAngleVar = 2
         .Balls = 1
     End With
 
@@ -196,8 +196,8 @@ Sub Table1_Init
   Set bstop = New cvpmBallStack
   With bstop
     .InitSaucer sw10, 10, 205, 12
-	.KickForceVar = 2
-	.KIckAngleVar = 2
+  .KickForceVar = 2
+  .KIckAngleVar = 2
     .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
   End With
 
@@ -205,8 +205,8 @@ Sub Table1_Init
   Set bsLT = New cvpmBallStack
   With bsLT
     .InitSaucer sw26, 26, 140, 12
-	.KickForceVar = 2
-	.KIckAngleVar = 2
+  .KickForceVar = 2
+  .KIckAngleVar = 2
     .InitExitSnd SoundFX("fx_kicker2", DOFContactors), SoundFX("fx_Solenoid2", DOFContactors)
   End With
 
@@ -214,8 +214,8 @@ Sub Table1_Init
   Set bsLeft = New cvpmBallStack
   With bsLeft
     .InitSaucer sw21, 21, 148, 60
-	.KickForceVar = 2
-	.KIckAngleVar = 2
+  .KickForceVar = 2
+  .KIckAngleVar = 2
     .InitExitSnd SoundFX("fx_kicker3", DOFContactors), SoundFX("fx_Solenoid3", DOFContactors)
   End With
 
@@ -223,8 +223,8 @@ Sub Table1_Init
   Set bsRight = New cvpmBallStack
   With bsRight
     .InitSaucer sw19, 19, 298, 60
-	.KickForceVar = 2
-	.KIckAngleVar = 2
+  .KickForceVar = 2
+  .KIckAngleVar = 2
     .InitExitSnd SoundFX("fx_kicker4", DOFContactors), SoundFX("fx_Solenoid4", DOFContactors)
   End With
 
@@ -746,11 +746,11 @@ Sub BallShadowUpdate_timer()
     ' render the shadow for each ball
     For b = 0 to UBound(BOT)
         If BOT(b).X < Table1.Width/2 Then
-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
         Else
-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
         End If
-        ballShadow(b).Y = BOT(b).Y + 12
+        ballShadow(b).Y = BOT(b).Y + 4
         If BOT(b).Z > 20 Then
             BallShadow(b).visible = 1
         Else
@@ -901,22 +901,22 @@ Sub SolRFlipper(Enabled)
 End Sub
 
 Sub LeftFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
     'PlaySound "fx_rubber_flipper", 0, parm / 10, -0.1, 0.25
 End Sub
 
 Sub LeftFlipper1_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
     'PlaySound "fx_rubber_flipper", 0, parm / 10, -0.1, 0.25
 End Sub
 
 Sub RightFlipper_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
     'PlaySound "fx_rubber_flipper", 0, parm / 10, 0.1, 0.25
 End Sub
 
 Sub RightFlipper1_Collide(parm)
-	RandomSoundFlipper
+  RandomSoundFlipper
     'PlaySound "fx_rubber_flipper", 0, parm / 10, 0.1, 0.25
 End Sub
 

@@ -63,31 +63,31 @@ Const SSolenoidOff = ""
 Const SCoin = "fx_Coin"
 
 '************************************************************************
-'						 INIT TABLE
+'            INIT TABLE
 '************************************************************************
 
 Dim bsTrough, bsLKick, xx
 
 Sub Table1_Init
-	vpmInit Me
-	With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
-		.SplashInfoLine = "Monster Bash Williams 1998"
-		.HandleKeyboard = 0
-		.ShowTitle = 0
-		.ShowDMDOnly = 1
-		.ShowFrame = 0
-		.HandleMechanics = 4
-		.Hidden = DesktopMode
-		.dip(0)=&h00  'Set DIP to USA (this fixes the Phantom Flip lights)
-		On Error Resume Next
-		.Run GetPlayerHWnd
-		If Err Then MsgBox Err.Description
-		On Error Goto 0
-		.Switch(22) = 1 'close coin door
-		.Switch(24) = 0 'always closed
-	End With
+  vpmInit Me
+  With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
+    .SplashInfoLine = "Monster Bash Williams 1998"
+    .HandleKeyboard = 0
+    .ShowTitle = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .HandleMechanics = 4
+    .Hidden = DesktopMode
+    .dip(0)=&h00  'Set DIP to USA (this fixes the Phantom Flip lights)
+    On Error Resume Next
+    .Run GetPlayerHWnd
+    If Err Then MsgBox Err.Description
+    On Error Goto 0
+    .Switch(22) = 1 'close coin door
+    .Switch(24) = 0 'always closed
+  End With
 
     ' Main Timer init
     PinMAMETimer.Interval = PinMAMEInterval
@@ -101,31 +101,31 @@ Sub Table1_Init
     ' Trough
     Set bsTrough = New cvpmTrough
     With bsTrough
-		.size = 4
-		.initSwitches Array(32, 33, 34, 35)
-		.Initexit BallRelease, 90, 6
-		.InitEntrySounds "fx_drain", "", ""
-		.InitExitSounds SoundFX(SSolenoidOn,DOFContactors), SoundFX("BallRelease",DOFContactors)
-		.Balls = 4
-		.CreateEvents "bsTrough", Drain
+    .size = 4
+    .initSwitches Array(32, 33, 34, 35)
+    .Initexit BallRelease, 90, 6
+    .InitEntrySounds "fx_drain", "", ""
+    .InitExitSounds SoundFX(SSolenoidOn,DOFContactors), SoundFX("BallRelease",DOFContactors)
+    .Balls = 4
+    .CreateEvents "bsTrough", Drain
     End With
 
-	' Creature Popper
-	Set bsLKick = New cvpmSaucer
-	With bsLKick
-		.InitKicker sw28, 28, 162, 15, 1
+  ' Creature Popper
+  Set bsLKick = New cvpmSaucer
+  With bsLKick
+    .InitKicker sw28, 28, 162, 15, 1
         .InitExitVariance 1, 1
-		.InitSounds "fx_saucerHit", SoundFX(SSolenoidOn,DOFContactors), SoundFX("LeftEject",DOFContactors)
-		.CreateEvents "bsLKick", sw28
-	End With
+    .InitSounds "fx_saucerHit", SoundFX(SSolenoidOn,DOFContactors), SoundFX("LeftEject",DOFContactors)
+    .CreateEvents "bsLKick", sw28
+  End With
 
-	FrankInit:TargetsInit:DracInit:CreatureInit
-	UpdateGI 0,0:UpdateGI 1,0:UpdateGI 2,0
-	lock.IsDropped = 1							'ramp lock post
+  FrankInit:TargetsInit:DracInit:CreatureInit
+  UpdateGI 0,0:UpdateGI 1,0:UpdateGI 2,0
+  lock.IsDropped = 1              'ramp lock post
 End Sub
 
 '************************************************************************
-'							KEYS
+'             KEYS
 '************************************************************************
 
 Sub Table1_KeyDown(ByVal Keycode)
@@ -146,51 +146,51 @@ Sub Table1_unPaused:Controller.Pause = False:End Sub
 Sub Table1_exit():Controller.Pause = False:Controller.Stop:End Sub
 
 '************************************************************************
-'						 SOLENOIDS
+'            SOLENOIDS
 '************************************************************************
 
-SolCallback(1) = "AutoPlunger"													'AutoPlunger
-SolCallback(2) = "SolBride"														'Bride Post
-SolCallback(3) = "SolMummy"														'Mummy Coffin
-SolCallback(5) = "vpmSolGate LGate,false,"										'Left Gate
-SolCallback(6) = "vpmSolGate Rgate,false,"										'Right Gate
-SolCallback(7) = "vpmSolSound SoundFX(""fx_Knocker"",DOFKnocker),"				'Knocker
-SolCallback(8) = "SolLockPost"													'Ramp Lock Post
-SolCallback(9) = "SolBallRelease"												'Trough Eject
-SolCallback(10) = "vpmSolSound SoundFX(""LeftSlingshot"",DOFContactors),"		'Left Sling
-SolCallback(11) = "vpmSolSound SoundFX(""RightSlingshot"",DOFContactors),"		'Right Sling
-SolCallback(12) = "vpmSolSound SoundFX(""LeftJet"",DOFContactors),"				'Left Bumper
-SolCallback(13) = "vpmSolSound SoundFX(""RightJet"",DOFContactors),"			'Right Bumper
-SolCallback(14) = "vpmSolSound SoundFX(""BottomJet"",DOFContactors),"			'Bottom Bumper
-SolCallback(15) = "bsLKick.SolOut"												'Left Eject
-SolCallback(16) = "SolRightScoop"												'Right Popper
-SolModCallback(17) = "SetModLamp 117,"											'WolfMan Flashers
-SolModCallback(18) = "SetModLamp 118,"											'Bride Flashers
-SolModCallback(19) = "SetModLamp 119,"											'Frank Flashers
-SolModCallback(20) = "SetModLamp 120,"											'Dracula Flashers
-SolModCallback(21) = "SolCreature"												'Creature Flashers
-SolModCallback(22) = "SetModLamp 122,"											'Mummy Flashers
-SolModCallback(23) = "SetModLamp 123,"											'Right Popper Flashers
-SolModCallback(24) = "SetModLamp 124,"											'Frank Arrow Flashers
-SolModCallback(25) = "SetModLamp 125,"											'Monsters of rock Flashers
-SolCallback(26) = "SetLamp 126,"												'WolfMan Loop Flashers
-SolCallback(27) = "SolFrank"													'Frank Motor
-SolCallback(28) = "SolBank"														'Bank Motor
+SolCallback(1) = "AutoPlunger"                          'AutoPlunger
+SolCallback(2) = "SolBride"                           'Bride Post
+SolCallback(3) = "SolMummy"                           'Mummy Coffin
+SolCallback(5) = "vpmSolGate LGate,false,"                    'Left Gate
+SolCallback(6) = "vpmSolGate Rgate,false,"                    'Right Gate
+SolCallback(7) = "vpmSolSound SoundFX(""fx_Knocker"",DOFKnocker),"        'Knocker
+SolCallback(8) = "SolLockPost"                          'Ramp Lock Post
+SolCallback(9) = "SolBallRelease"                       'Trough Eject
+SolCallback(10) = "vpmSolSound SoundFX(""LeftSlingshot"",DOFContactors),"   'Left Sling
+SolCallback(11) = "vpmSolSound SoundFX(""RightSlingshot"",DOFContactors),"    'Right Sling
+SolCallback(12) = "vpmSolSound SoundFX(""LeftJet"",DOFContactors),"       'Left Bumper
+SolCallback(13) = "vpmSolSound SoundFX(""RightJet"",DOFContactors),"      'Right Bumper
+SolCallback(14) = "vpmSolSound SoundFX(""BottomJet"",DOFContactors),"     'Bottom Bumper
+SolCallback(15) = "bsLKick.SolOut"                        'Left Eject
+SolCallback(16) = "SolRightScoop"                       'Right Popper
+SolModCallback(17) = "SetModLamp 117,"                      'WolfMan Flashers
+SolModCallback(18) = "SetModLamp 118,"                      'Bride Flashers
+SolModCallback(19) = "SetModLamp 119,"                      'Frank Flashers
+SolModCallback(20) = "SetModLamp 120,"                      'Dracula Flashers
+SolModCallback(21) = "SolCreature"                        'Creature Flashers
+SolModCallback(22) = "SetModLamp 122,"                      'Mummy Flashers
+SolModCallback(23) = "SetModLamp 123,"                      'Right Popper Flashers
+SolModCallback(24) = "SetModLamp 124,"                      'Frank Arrow Flashers
+SolModCallback(25) = "SetModLamp 125,"                      'Monsters of rock Flashers
+SolCallback(26) = "SetLamp 126,"                        'WolfMan Loop Flashers
+SolCallback(27) = "SolFrank"                          'Frank Motor
+SolCallback(28) = "SolBank"                           'Bank Motor
 
-SolCallback(41) = "SolDrac"														'Dracula Motor
+SolCallback(41) = "SolDrac"                           'Dracula Motor
 
 SolCallback(sLRFlipper) = "SolRFlipper"
 SolCallback(sLLFlipper) = "SolLFlipper"
 
 '******************************************
-'				FLIPPERS
+'       FLIPPERS
 '******************************************
 
 Sub SolLFlipper(Enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("fx_FlipperUp",DOFFlippers), LeftFlipper, VolFlip
-		LeftFlipper.RotateToEnd
-	Else
+  If Enabled Then
+    PlaySoundAtVol SoundFX("fx_FlipperUp",DOFFlippers), LeftFlipper, VolFlip
+    LeftFlipper.RotateToEnd
+  Else
         PlaySoundAtVol SoundFX("fx_FlipperDown",DOFFlippers), LeftFlipper, VolFlip
         LeftFlipper.RotateToStart
      End If
@@ -207,18 +207,18 @@ Sub SolRFlipper(Enabled)
  End Sub
 
 '************************************************************************
-'						 AUTOPLUNGER
+'            AUTOPLUNGER
 '************************************************************************
 
 Sub AutoPlunger(Enabled)
     If Enabled Then
        Plunger.Fire
        PlaySoundAtVol SoundFX("AutoPlunger",DOFContactors), Plunger, 1
-	End If
+  End If
 End Sub
 
 '************************************************************************
-'						 DRAIN AND RELEASE
+'            DRAIN AND RELEASE
 '************************************************************************
 
 Sub SolBallRelease(Enabled)
@@ -229,56 +229,56 @@ Sub SolBallRelease(Enabled)
 End Sub
 
 '************************************************************************
-'						 RIGHT SCOOP
+'            RIGHT SCOOP
 '************************************************************************
 Dim sbrake,sshake,BIK,Scoopforce,ballspeed
 Sub SolRightScoop(enabled)
-	RightHole.Enabled=0
-	PlaysoundAtVol SoundFx("fx_mine_popper",DOFContactors), sw36, VolKick
-	If BIK>1 Then Scoopforce=90:Else Scoopforce=120:End If	'change scoop force depending on how much balls inside the scoop.
-	sw36.kick 0, Scoopforce, 1.56
-	sw36.TimerInterval=500:sw36.TimerEnabled=1
+  RightHole.Enabled=0
+  PlaysoundAtVol SoundFx("fx_mine_popper",DOFContactors), sw36, VolKick
+  If BIK>1 Then Scoopforce=90:Else Scoopforce=120:End If  'change scoop force depending on how much balls inside the scoop.
+  sw36.kick 0, Scoopforce, 1.56
+  sw36.TimerInterval=500:sw36.TimerEnabled=1
 End Sub
 
 Sub sw36_hit:Controller.Switch(36)=1:PlaysoundAtVol "fx_kicker_catch", sw36, VolKick:End Sub
 Sub sw36_unhit:Controller.Switch(36)=0:End Sub
 
 Sub sw36_timer()
-	Me.TimerEnabled=0:RightHole.Enabled=1			'after 0.5 seconds re-enable the "RightHole" kicker
-	If BIK>0 Then
-		BIK=BIK-1
-		If sw36.BallCntOver=0 Then BIK=0
-	End If
+  Me.TimerEnabled=0:RightHole.Enabled=1     'after 0.5 seconds re-enable the "RightHole" kicker
+  If BIK>0 Then
+    BIK=BIK-1
+    If sw36.BallCntOver=0 Then BIK=0
+  End If
 End Sub
 
-Sub RightScoop_hit:PlaysoundAtVol "fx_kicker_catch", sw36,VolKick:End Sub		'sound when hitting the wall
+Sub RightScoop_hit:PlaysoundAtVol "fx_kicker_catch", sw36,VolKick:End Sub   'sound when hitting the wall
 Sub CheckBallSpeed_hit():ballspeed=ActiveBall.VelY:End Sub
 Sub RightHole_hit:BIK=BIK+1:PlaysoundAtVol "fx_mine_enter",RightHole,VolKick:If ballspeed < -45 Then sbrake=5:ScoopShake.Enabled=1:End If:End Sub
 
 Sub ScoopShake_timer
-	if sbrake>0 then
-		sshake=sshake+30
-		sbrake=sbrake-0.1
-		ScoopP.transy =((dsin(sshake)))*sbrake
-	else
-		me.enabled=0:ScoopP.transy=0:sbrake=0:sshake=0
-	End if
+  if sbrake>0 then
+    sshake=sshake+30
+    sbrake=sbrake-0.1
+    ScoopP.transy =((dsin(sshake)))*sbrake
+  else
+    me.enabled=0:ScoopP.transy=0:sbrake=0:sshake=0
+  End if
 End Sub
 
 '************************************************************************
-'						SLINGSHOTS
+'           SLINGSHOTS
 '************************************************************************
 
 Dim LStep, RStep
 
 Sub LeftSlingShot_Slingshot
-	vpmTimer.PulseSw 51
-	LSling.Visible = 0
-	LSling1.Visible = 1
-	sling1.TransZ = -20
-	LStep = 0
-	Me.TimerInterval = 20
-	LeftSlingShot.TimerEnabled = 1
+  vpmTimer.PulseSw 51
+  LSling.Visible = 0
+  LSling1.Visible = 1
+  sling1.TransZ = -20
+  LStep = 0
+  Me.TimerInterval = 20
+  LeftSlingShot.TimerEnabled = 1
 End Sub
 
 Sub LeftSlingShot_Timer
@@ -290,12 +290,12 @@ Sub LeftSlingShot_Timer
 End Sub
 
 Sub RightSlingShot_Slingshot
-	vpmTimer.PulseSw 52
-	RSling.Visible = 0
-	RSling1.Visible = 1
-	sling2.TransZ = -20
-	RStep = 0
-	RightSlingShot.TimerEnabled = 1
+  vpmTimer.PulseSw 52
+  RSling.Visible = 0
+  RSling1.Visible = 1
+  sling2.TransZ = -20
+  RStep = 0
+  RightSlingShot.TimerEnabled = 1
 End Sub
 
 Sub RightSlingShot_Timer
@@ -307,7 +307,7 @@ Sub RightSlingShot_Timer
 End Sub
 
 '************************************************************************
-'							BUMPERS
+'             BUMPERS
 '************************************************************************
 
 Sub Bumper1_Hit:vpmTimer.PulseSw 53::End Sub
@@ -315,88 +315,88 @@ Sub Bumper2_Hit:vpmTimer.PulseSw 54:End Sub
 Sub Bumper3_Hit:vpmTimer.PulseSw 55:End Sub
 
 '************************************************************************
-'						BRIDE ANIMATION
+'           BRIDE ANIMATION
 '************************************************************************
 
 Sub SolBride(Enabled)
-	If enabled then
-		PlaySoundAtVol SoundFX("IdolReleaseOn",DOFContactors), BrideH, 1
-		BrideH.Z = BrideH.Z + 20
-	Else
-		PlaySoundAtVol SoundFX("IdolReleaseOff",DOFContactors), BrideH, 1
-		BrideH.Z = BrideH.Z - 20
-	End if
+  If enabled then
+    PlaySoundAtVol SoundFX("IdolReleaseOn",DOFContactors), BrideH, 1
+    BrideH.Z = BrideH.Z + 20
+  Else
+    PlaySoundAtVol SoundFX("IdolReleaseOff",DOFContactors), BrideH, 1
+    BrideH.Z = BrideH.Z - 20
+  End if
 End Sub
 
 '************************************************************************
-'   					MUMMY ANIMATION
+'             MUMMY ANIMATION
 '************************************************************************
 Dim cofdir, cbrake, cshake
 
 Sub SolMummy(Enabled)
- 	if enabled then
-		PlaySoundAtVol SoundFX("IdolReleaseOn",DOFContactors),mumcoffin,1
-		cofdir=1:mummycoffin.enabled=1
-		CoffinShake.Enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
-	else
-		PlaySoundAtVol SoundFX("IdolReleaseOff",DOFContactors),mumcoffin,1
-		cofdir=-1:mummycoffin.enabled=1
-		CoffinShake.Enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
-	End If
+  if enabled then
+    PlaySoundAtVol SoundFX("IdolReleaseOn",DOFContactors),mumcoffin,1
+    cofdir=1:mummycoffin.enabled=1
+    CoffinShake.Enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
+  else
+    PlaySoundAtVol SoundFX("IdolReleaseOff",DOFContactors),mumcoffin,1
+    cofdir=-1:mummycoffin.enabled=1
+    CoffinShake.Enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
+  End If
 End Sub
 
   Sub MummyCoffin_Timer()
-	Mumcoffin.RotY = Mumcoffin.RotY + cofdir*10
-	mumcoffin2.roty=Mumcoffin.RotY:mumcoffin3.roty=Mumcoffin.RotY
-	If Mumcoffin.RotY >75 and cofdir=1 then Me.Enabled=0:CoffinShake.Enabled=1:cbrake=5
-	If Mumcoffin.RotY <0 and cofdir=-1 then Me.Enabled=0
+  Mumcoffin.RotY = Mumcoffin.RotY + cofdir*10
+  mumcoffin2.roty=Mumcoffin.RotY:mumcoffin3.roty=Mumcoffin.RotY
+  If Mumcoffin.RotY >75 and cofdir=1 then Me.Enabled=0:CoffinShake.Enabled=1:cbrake=5
+  If Mumcoffin.RotY <0 and cofdir=-1 then Me.Enabled=0
 End Sub
 
 sub CoffinShake_timer()
-	if cbrake>0 then
-		cshake=cshake+30
-		cbrake=cbrake-0.1
-		Mumcoffin.transy =((dsin(cshake)))*cbrake
-		mumcoffin3.transy=Mumcoffin.transy
-	else
-		me.enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
-	End if
+  if cbrake>0 then
+    cshake=cshake+30
+    cbrake=cbrake-0.1
+    Mumcoffin.transy =((dsin(cshake)))*cbrake
+    mumcoffin3.transy=Mumcoffin.transy
+  else
+    me.enabled=0:Mumcoffin.transy=0:Mumcoffin3.transy=0:cbrake=0:cshake=0
+  End if
 End Sub
 
 
 '************************************************************************
-'					RAMP LOCK POST
+'         RAMP LOCK POST
 '************************************************************************
 
 Sub SolLockPost(Enabled)
-	if enabled then
-		lock.isdropped=0:PlaySoundAtVol SoundFX("TopPostUp",DOFContactors),LockP,1:LockP.Z = 50 : RRPost.Enabled = 1
-	else
-		lock.isdropped=1:PlaySoundAtVol SoundFX("TopPostDown",DOFContactors),LockP,1:LockP.Z = -50
-	End if
+  if enabled then
+    lock.isdropped=0:PlaySoundAtVol SoundFX("TopPostUp",DOFContactors),LockP,1:LockP.Z = 50 : RRPost.Enabled = 1
+  else
+    lock.isdropped=1:PlaySoundAtVol SoundFX("TopPostDown",DOFContactors),LockP,1:LockP.Z = -50
+  End if
 End Sub
 
 '************************************************************************
-'					CREATURE ANIMATION
+'         CREATURE ANIMATION
 '************************************************************************
 Dim crot,cBall,ShakeEnabled:ShakeEnabled = 0:crot=0
 
 Sub CreatureInit
-	Set cBall = ckicker.createball
-	ckicker.Kick 0, 0
+  Set cBall = ckicker.createball
+  ckicker.Kick 0, 0
 End Sub
 
 Sub SolCreature(value)
-	SetModLamp 121,value
-	If value>0 then
-		ShakeEnabled = 1
-		CreatureCover.visible = 0
-		Creatureshake.enabled = 1
-	Else
-		CreatureCover.visible = 1
-		CreatureWait.Interval=2000	'wait 2 seconds then stop the creature shake
-		CreatureWait.enabled = 1
-	End if
+  SetModLamp 121,value
+  If value>0 then
+    ShakeEnabled = 1
+    CreatureCover.visible = 0
+    Creatureshake.enabled = 1
+  Else
+    CreatureCover.visible = 1
+    CreatureWait.Interval=2000  'wait 2 seconds then stop the creature shake
+    CreatureWait.enabled = 1
+  End if
 End Sub
 
 Sub Creatureshake_timer
@@ -404,34 +404,34 @@ Sub Creatureshake_timer
      creature.rotz=creature.rotz-(Sin(crot))*0.2
 end Sub
 
-Sub CreatureWait_timer	' stop the creature shake
-	Me.Enabled=0: Creatureshake.Enabled=0:crot=0:creature.RotZ=0:ShakeEnabled = 0
+Sub CreatureWait_timer  ' stop the creature shake
+  Me.Enabled=0: Creatureshake.Enabled=0:crot=0:creature.RotZ=0:ShakeEnabled = 0
 End Sub
 
 '************************************************************************
-'						FRANK TARGETS BANK
+'           FRANK TARGETS BANK
 '************************************************************************
 
 Sub sw85_Hit:vpmTimer.PulseSw 85:bankshake.enabled=1:tBRAKE=5:PlaySoundAtVol SoundFX("fx_target",DOFTargets),franky,VolTarg:End Sub
 Sub sw86_Hit:vpmTimer.PulseSw 86:bankshake.enabled=1:tBRAKE=5:PlaySoundAtVol SoundFX("fx_target",DOFTargets),franky,VolTarg:End Sub
 
 Sub TargetsInit
-	'starts the bank in down position
+  'starts the bank in down position
     frankytargets.z=-11
-	sw85.Isdropped = 0
-	sw86.Isdropped = 0
-	Controller.Switch(81) = 1
-	Controller.Switch(82) = 0
+  sw85.Isdropped = 0
+  sw86.Isdropped = 0
+  Controller.Switch(81) = 1
+  Controller.Switch(82) = 0
 End Sub
 
 Sub SolBank(enabled)
-	If enabled then
-		PlaySound SoundFX("fx_mine_motor", DOFGear), -1, 0.5, -0.1, 0, 0, 1, 0 ' TODO
-		BankMove.enabled=1
-	Else
-		StopSound "fx_mine_motor"
-		BankMove.enabled=0
-	End If
+  If enabled then
+    PlaySound SoundFX("fx_mine_motor", DOFGear), -1, 0.5, -0.1, 0, 0, 1, 0 ' TODO
+    BankMove.enabled=1
+  Else
+    StopSound "fx_mine_motor"
+    BankMove.enabled=0
+  End If
 End Sub
 
 dim tdir,ftargvel
@@ -451,17 +451,17 @@ End Sub
 dim tbrake,tshake
 
 sub bankshake_timer()
-	if tbrake>0 then
-		tshake=tshake+30
-		tbrake=tbrake-0.08
-		frankytargets.transy =((dsin(tshake)))*tbrake
-	else
-		tbrake=0:tshake=0:me.enabled=0
-	End if
+  if tbrake>0 then
+    tshake=tshake+30
+    tbrake=tbrake-0.08
+    frankytargets.transy =((dsin(tshake)))*tbrake
+  else
+    tbrake=0:tshake=0:me.enabled=0
+  End if
 End Sub
 
 '************************************************************************
-'				FRANKY ANIMATION
+'       FRANKY ANIMATION
 '************************************************************************
 '83 table down
 '84 table up
@@ -470,170 +470,170 @@ End Sub
 Dim FrankDir,velfranky,compyfrank,compzfrank,fmove,canplay:canplay=0:velfranky=0.3
 
 Sub frankinit
-	franktable.rotx=0
-	Controller.Switch(84) = 1
-	Controller.Switch(87) = 1
-	fhitwall.isdropped=1
+  franktable.rotx=0
+  Controller.Switch(84) = 1
+  Controller.Switch(87) = 1
+  fhitwall.isdropped=1
 End Sub
 
 Sub SolFrank(enabled)
-	If Enabled Then
-		PlaySoundAtVol SoundFX("Bridge_Move", DOFGear), franky, 1
-		if franky.rotx<-40 then FrankDir=-1:FrankMove.Enabled = 1:canplay=1
-		if franky.rotx>-40 then FrankDir=1:FrankMove.Enabled = 1:canplay=1
-	Else
-		FrankMove.Enabled = 0::canplay=0
-		StopSound "Bridge_Move":PlaysoundAtVol SoundFX("Bridge_Stop", 0), franky, 1
-	End If
+  If Enabled Then
+    PlaySoundAtVol SoundFX("Bridge_Move", DOFGear), franky, 1
+    if franky.rotx<-40 then FrankDir=-1:FrankMove.Enabled = 1:canplay=1
+    if franky.rotx>-40 then FrankDir=1:FrankMove.Enabled = 1:canplay=1
+  Else
+    FrankMove.Enabled = 0::canplay=0
+    StopSound "Bridge_Move":PlaysoundAtVol SoundFX("Bridge_Stop", 0), franky, 1
+  End If
 End Sub
 
 '*******Franky body/arms/bracket/table rotation****************************************
 
 Sub FrankMove_timer
     fmove=1
-	Select Case FrankDir
-		Case 1		'move frank down
-		'---------------------------------------------------------------------------------------
-			if franky.rotx<-85 then Controller.Switch(83) = 1:Controller.Switch(84) = 0:fhitwall.isdropped=0:fhitwallhelp.isdropped=0 else fhitwall.isdropped=1:fhitwallhelp.isdropped=1
-			if franky.rotx>-80 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
-		'---------------------------------------------------------------------------------------
-			if franktable.rotx>-75 then
-			   franktable.rotx=franktable.rotx-velfranky
-			If franksh.size_Y> 0.3 then franksh.size_y = franksh.size_y - velfranky/120:franksh.transY= franksh.transY + velfranky/120
-		'------------------------------------------------------
-			   franky.rotx=franky.rotx-velfranky
-			   franky.z=114*(dcos(franktable.rotx+270))+138
-			   franky.y=114*(dsin(franktable.rotx-270))+622
-			   franky.transx=(dsin(franky.rotx))*5
-		'------------------------------------------------------
-			   frankybraket.x=351 + (frankybraket.y/12)
-			   frankybraket.rotx=franktable.rotx/5
-			   frankybraket.z=122*(dcos(franktable.rotx+90))+140
-			   frankybraket.y=122*(dsin(franktable.rotx+270))+623
+  Select Case FrankDir
+    Case 1    'move frank down
+    '---------------------------------------------------------------------------------------
+      if franky.rotx<-85 then Controller.Switch(83) = 1:Controller.Switch(84) = 0:fhitwall.isdropped=0:fhitwallhelp.isdropped=0 else fhitwall.isdropped=1:fhitwallhelp.isdropped=1
+      if franky.rotx>-80 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
+    '---------------------------------------------------------------------------------------
+      if franktable.rotx>-75 then
+         franktable.rotx=franktable.rotx-velfranky
+      If franksh.size_Y> 0.3 then franksh.size_y = franksh.size_y - velfranky/120:franksh.transY= franksh.transY + velfranky/120
+    '------------------------------------------------------
+         franky.rotx=franky.rotx-velfranky
+         franky.z=114*(dcos(franktable.rotx+270))+138
+         franky.y=114*(dsin(franktable.rotx-270))+622
+         franky.transx=(dsin(franky.rotx))*5
+    '------------------------------------------------------
+         frankybraket.x=351 + (frankybraket.y/12)
+         frankybraket.rotx=franktable.rotx/5
+         frankybraket.z=122*(dcos(franktable.rotx+90))+140
+         frankybraket.y=122*(dsin(franktable.rotx+270))+623
 
-		'------------------------------------------------------
-				compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-				arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-				compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-				arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-				arms.x=349+(dsin(franky.rotx+90))*-12
-		'------------------------------------------------------
-			End if
-			if franktable.rotx<-70 then
-				if canplay=1 then PlaySoundAtVol SoundFX("frankhit",DOFShaker), franky,1:canplay=0
-				if franky.rotx>-90 then
-					franky.rotx=franky.rotx-2
-					franky.transx=(dsin(franky.rotx))*5
-					compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-					arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-					compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-					arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-					arms.x=349+(dsin(franky.rotx+90))*-12
-				else
-					fshake=0:fbrake=1 : mainshake.enabled=1:fmove=0:Me.enabled=0
-			   End if
-			End if
+    '------------------------------------------------------
+        compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+        arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+        compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+        arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+        arms.x=349+(dsin(franky.rotx+90))*-12
+    '------------------------------------------------------
+      End if
+      if franktable.rotx<-70 then
+        if canplay=1 then PlaySoundAtVol SoundFX("frankhit",DOFShaker), franky,1:canplay=0
+        if franky.rotx>-90 then
+          franky.rotx=franky.rotx-2
+          franky.transx=(dsin(franky.rotx))*5
+          compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+          arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+          compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+          arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+          arms.x=349+(dsin(franky.rotx+90))*-12
+        else
+          fshake=0:fbrake=1 : mainshake.enabled=1:fmove=0:Me.enabled=0
+         End if
+      End if
 
-		Case -1		'move frank up
-		'---------------------------------------------------------------------------------------
-			if franky.rotx>-80 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
-			if franky.rotx>-5 then Controller.Switch(83) = 0:Controller.Switch(84) = 1:fhitwall.isdropped=1:fhitwallhelp.isdropped=1
-		'---------------------------------------------------------------------------------------
-			if franktable.rotx<0 then
-				franktable.rotx=franktable.rotx+velfranky
-				If franksh.size_Y< 1 then franksh.size_y = franksh.size_y + velfranky/120:franksh.transY= franksh.transY - velfranky/120
-		'------------------------------------------------------
-				franky.rotx=franky.rotx+velfranky
-				franky.z=114*(dcos(franktable.rotx+270))+138
-				franky.y=114*(dsin(franktable.rotx-270))+622
-				franky.transx=(dsin(franky.rotx))*5
-		'------------------------------------------------------
-				frankybraket.x=351 + (frankybraket.y/12)
-				frankybraket.rotx=franktable.rotx/5
-				frankybraket.z=122*(dcos(franktable.rotx+90))+140
-				frankybraket.y=122*(dsin(franktable.rotx+270))+623
-		'------------------------------------------------------
-				compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-				arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-				compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-				arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-				arms.x=349+(dsin(franky.rotx+90))*-12
-		'------------------------------------------------------
-				if franktable.rotx>-55 then
-					if franky.rotx< franktable.rotx then
-						franky.rotx=franky.rotx+1
-						compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-						arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-						compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-						arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-						arms.x=349+(dsin(franky.rotx+90))*-12
-					End if
-				End if
-			else
-				fmove=0:Me.enabled=0
-			End if
-	End Select
+    Case -1   'move frank up
+    '---------------------------------------------------------------------------------------
+      if franky.rotx>-80 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
+      if franky.rotx>-5 then Controller.Switch(83) = 0:Controller.Switch(84) = 1:fhitwall.isdropped=1:fhitwallhelp.isdropped=1
+    '---------------------------------------------------------------------------------------
+      if franktable.rotx<0 then
+        franktable.rotx=franktable.rotx+velfranky
+        If franksh.size_Y< 1 then franksh.size_y = franksh.size_y + velfranky/120:franksh.transY= franksh.transY - velfranky/120
+    '------------------------------------------------------
+        franky.rotx=franky.rotx+velfranky
+        franky.z=114*(dcos(franktable.rotx+270))+138
+        franky.y=114*(dsin(franktable.rotx-270))+622
+        franky.transx=(dsin(franky.rotx))*5
+    '------------------------------------------------------
+        frankybraket.x=351 + (frankybraket.y/12)
+        frankybraket.rotx=franktable.rotx/5
+        frankybraket.z=122*(dcos(franktable.rotx+90))+140
+        frankybraket.y=122*(dsin(franktable.rotx+270))+623
+    '------------------------------------------------------
+        compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+        arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+        compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+        arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+        arms.x=349+(dsin(franky.rotx+90))*-12
+    '------------------------------------------------------
+        if franktable.rotx>-55 then
+          if franky.rotx< franktable.rotx then
+            franky.rotx=franky.rotx+1
+            compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+            arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+            compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+            arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+            arms.x=349+(dsin(franky.rotx+90))*-12
+          End if
+        End if
+      else
+        fmove=0:Me.enabled=0
+      End if
+  End Select
 End Sub
 
 '*******Franky Shake****************************************
 dim fhit, fhitspeed
 
 Sub fhitwall_Hit
-	fhitspeed=Int(SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely))
-	frankyshake.enabled=1:fhit=1
-	PlaySoundAtVol SoundFX("frankhit",DOFShaker), franky, 1
+  fhitspeed=Int(SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely))
+  frankyshake.enabled=1:fhit=1
+  PlaySoundAtVol SoundFX("frankhit",DOFShaker), franky, 1
 End Sub
 
 Sub frankyshake_timer
-	if fmove=0 then
-		if franky.rotx>-76 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
-		if franky.rotx<-75 and fhit=1 then franky.rotx=franky.rotx+(fhitspeed/5) else fhit=0
-		if franky.rotx>(-90+(fhitspeed*3))then fhit=0
-		if fhit=0 and franky.rotx>-90  then franky.rotx=franky.rotx-0.5
-		if franky.rotx<-89 then fshake=0 : fbrake=1 : mainshake.enabled=1:frankyshake.enabled=0
-		arms.rotx=(franky.rotx+90)*2
-		compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-		arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-		compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-		arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-		arms.x=349+(dsin(franky.rotx+90))*-12
-	End if
+  if fmove=0 then
+    if franky.rotx>-76 then Controller.Switch(87) = 1 else Controller.Switch(87) = 0
+    if franky.rotx<-75 and fhit=1 then franky.rotx=franky.rotx+(fhitspeed/5) else fhit=0
+    if franky.rotx>(-90+(fhitspeed*3))then fhit=0
+    if fhit=0 and franky.rotx>-90  then franky.rotx=franky.rotx-0.5
+    if franky.rotx<-89 then fshake=0 : fbrake=1 : mainshake.enabled=1:frankyshake.enabled=0
+    arms.rotx=(franky.rotx+90)*2
+    compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+    arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+    compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+    arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+    arms.x=349+(dsin(franky.rotx+90))*-12
+  End if
 End Sub
 
 dim fbrake,fshake
 
 Sub mainshake_timer()
-	if fbrake>0 then
-		fshake=fshake+30
-		fbrake=fbrake-0.04
-		franky.rotx =franky.rotx + ((dsin(fshake)))*fbrake
-	else
-		fbrake=0:fshake=0:mainshake.enabled=0
-	End if
+  if fbrake>0 then
+    fshake=fshake+30
+    fbrake=fbrake-0.04
+    franky.rotx =franky.rotx + ((dsin(fshake)))*fbrake
+  else
+    fbrake=0:fshake=0:mainshake.enabled=0
+  End if
 
-	arms.rotx=(franky.rotx+90)*4
-	compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
-	arms.y=(-39*(dSin(franky.rotx))+compyfrank)
-	compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
-	arms.z=(39*(dcos(franky.rotx))+ compzfrank)
-	arms.x=349+(dsin(franky.rotx+90))*-12
+  arms.rotx=(franky.rotx+90)*4
+  compyfrank=((-156)*(dSIN(franky.rotx+90))+FRANKY.Y)
+  arms.y=(-39*(dSin(franky.rotx))+compyfrank)
+  compzfrank =((-156)*(dsin(franky.rotx+0))+FRANKY.z)
+  arms.z=(39*(dcos(franky.rotx))+ compzfrank)
+  arms.x=349+(dsin(franky.rotx+90))*-12
 End Sub
 
 '************************************************************************
-'					DRAC ANIMATION
+'         DRAC ANIMATION
 '************************************************************************
 
 Dim MechPos, dOldPos, dNewPos, dDir, DracStart
 
 Sub DracInit
-	Controller.Switch(25) = 0 : DracStart=0
-	if dDir= 1 then Drac.rotz = 72 - controller.getmech(2)
-	if dDir=-1 then Drac.rotz = 77 - controller.getmech(2)
-	DracSupport.RotZ=Drac.RotZ:DracSh.RotZ=Drac.RotZ
-	For Each xx in DracTargets:xx.IsDropped = 1:Next
-	DracTargets(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
-	For Each xx in BackSide:xx.IsDropped = 1:Next
-	BackSide(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
+  Controller.Switch(25) = 0 : DracStart=0
+  if dDir= 1 then Drac.rotz = 72 - controller.getmech(2)
+  if dDir=-1 then Drac.rotz = 77 - controller.getmech(2)
+  DracSupport.RotZ=Drac.RotZ:DracSh.RotZ=Drac.RotZ
+  For Each xx in DracTargets:xx.IsDropped = 1:Next
+  DracTargets(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
+  For Each xx in BackSide:xx.IsDropped = 1:Next
+  BackSide(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
 End Sub
 
 '*******Drac Hit****************************************
@@ -643,49 +643,49 @@ End Sub
 
 '*******Drac Move****************************************
 Sub SolDrac(enabled)
-	If Enabled Then
-		DracStart=1:PlaySoundAtVol SoundFX("IdolMotor",DOFGear), Drac, 1
-	Else
-		StopSound "IdolMotor"
-	End If
+  If Enabled Then
+    DracStart=1:PlaySoundAtVol SoundFX("IdolMotor",DOFGear), Drac, 1
+  Else
+    StopSound "IdolMotor"
+  End If
 End Sub
 
 Sub DracUpdate
-	dOldPos=MechPos
-	MechPos=controller.getmech(2)
-	dNewPos=MechPos
+  dOldPos=MechPos
+  MechPos=controller.getmech(2)
+  dNewPos=MechPos
     if dOldPos>dNewPos then dDir=1:DOF 102, DOFPulse
     if dOldPos<dNewPos then dDir=-1:DOF 102, DOFPulse
-	If DracStart=0 and (MechPos = 5  or MechPos = 85) then exit sub		'this is used on init so drac starts always at 72 degrees or -13
-'		'constant movement
-'		if dDir= 1 and Drac.RotZ < (77 - MechPos) then Drac.RotZ=Drac.RotZ+0.13
-'		if dDir=-1 and Drac.RotZ > (72 - MechPos) then Drac.RotZ=Drac.RotZ-0.13
-		'chasing the vpm mech (it accelerates/decelerates depending on how far the drac toy is from the vpm mech)
-		if dDir= 1 and Drac.RotZ < (77 - MechPos) then Drac.rotz = Drac.rotz - (Drac.rotz - (77- MechPos))/20
-		if dDir=-1 and Drac.RotZ > (72 - MechPos) then Drac.rotz = Drac.rotz - (Drac.rotz - (72- MechPos))/20
-	DracSupport.RotZ=Drac.RotZ:DracSh.RotZ=Drac.RotZ
-	For Each xx in DracTargets:xx.IsDropped = 1:Next
-	DracTargets(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
-	For Each xx in BackSide:xx.IsDropped = 1:Next
-	BackSide(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
+  If DracStart=0 and (MechPos = 5  or MechPos = 85) then exit sub   'this is used on init so drac starts always at 72 degrees or -13
+'   'constant movement
+'   if dDir= 1 and Drac.RotZ < (77 - MechPos) then Drac.RotZ=Drac.RotZ+0.13
+'   if dDir=-1 and Drac.RotZ > (72 - MechPos) then Drac.RotZ=Drac.RotZ-0.13
+    'chasing the vpm mech (it accelerates/decelerates depending on how far the drac toy is from the vpm mech)
+    if dDir= 1 and Drac.RotZ < (77 - MechPos) then Drac.rotz = Drac.rotz - (Drac.rotz - (77- MechPos))/20
+    if dDir=-1 and Drac.RotZ > (72 - MechPos) then Drac.rotz = Drac.rotz - (Drac.rotz - (72- MechPos))/20
+  DracSupport.RotZ=Drac.RotZ:DracSh.RotZ=Drac.RotZ
+  For Each xx in DracTargets:xx.IsDropped = 1:Next
+  DracTargets(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
+  For Each xx in BackSide:xx.IsDropped = 1:Next
+  BackSide(Int((12 + Drac.RotZ)/2+1.25)).IsDropped = 0
 End Sub
 
 '*******Drac Shake****************************************
 dim dbrake,dshake
 
 Sub DracShake_timer
-	if dbrake>0 then
-		dshake=dshake+30
-		dbrake=dbrake-0.04
-		Drac.transy =((dsin(dshake)))*dbrake
-		DracSh.transY=drac.TransY
-	else
-		dbrake=0:dshake=0:Me.enabled=0
-	End if
+  if dbrake>0 then
+    dshake=dshake+30
+    dbrake=dbrake-0.04
+    Drac.transy =((dsin(dshake)))*dbrake
+    DracSh.transY=drac.TransY
+  else
+    dbrake=0:dshake=0:Me.enabled=0
+  End if
 End Sub
 
 '************************************************************************
-'					Switches
+'         Switches
 '************************************************************************
 
 'Rollovers
@@ -782,52 +782,52 @@ Sub sw46_Hit:vpmTimer.PulseSw 46:PlaySoundAtVol SoundFX("fx_target",DOFTargets),
 
 
 ' *********************************************************************
-'			GENERAL ILLUMINATION
+'     GENERAL ILLUMINATION
 ' *********************************************************************
 
 Set GiCallBack2 = GetRef("UpdateGi")
 
 Sub UpdateGi(nr,step)
-	Dim ii
-	Select Case nr
-	Case 0 		'Bottom Playfield
-		If step=0 Then
-			For each ii in GIBot:ii.state=0:Next
-		Else
-			For each ii in GIBot:ii.state=1:Next
-		End If
-		Reflect1.Amount = 100 * (1 + step/2)
-		Reflect2.IntensityScale = 0.125 * step
-		For each ii in GIBot:ii.IntensityScale = 0.125 * step:Next
-		If Step>=7 Then Table1.ColorGradeImage = "ColorGrade_8":Else Table1.ColorGradeImage = "ColorGrade_" & (step+1):End If
-	Case 1		'Top Right Playfield
-		If step=0 Then
-			For each ii in GITopRight:ii.state=0:Next
-			For each ii in GIBumpers:ii.state=0:Next
-		Else
-			For each ii in GITopRight:ii.state=1:Next
-			For each ii in GIBumpers:ii.state=1:Next
-		End If
-		BWR.IntensityScale = 0.125 * step
-		Reflect5.Amount = 100 * (1 + step/2)
-		Reflect6.Amount = 100 * (1 + step/2)
-		For each ii in GITopRight:ii.IntensityScale = 0.125 * step:Next
-		For each ii in GIBumpers:ii.IntensityScale = 0.125 * step:Next
-		If step>4 Then DOF 103, DOFOn : Else DOF 103, DOFOff:End If
-	Case 2		'Top Left Playfield
-		If step=0 Then
-			For each ii in GITopLeft:ii.state=0:Next
-		Else
-			For each ii in GITopLeft:ii.state=1:Next
-		End If
-		BWL.IntensityScale = 0.125 * step
-		Reflect3.Amount = 100 * (1 + step/2)
-		Reflect4.Amount = 100 * (1 + step/2)
-		For each ii in GITopLeft:ii.IntensityScale = 0.125 * step:Next
-	Case 3		'Top Insert Panel
+  Dim ii
+  Select Case nr
+  Case 0    'Bottom Playfield
+    If step=0 Then
+      For each ii in GIBot:ii.state=0:Next
+    Else
+      For each ii in GIBot:ii.state=1:Next
+    End If
+    Reflect1.Amount = 100 * (1 + step/2)
+    Reflect2.IntensityScale = 0.125 * step
+    For each ii in GIBot:ii.IntensityScale = 0.125 * step:Next
+    If Step>=7 Then Table1.ColorGradeImage = "ColorGrade_8":Else Table1.ColorGradeImage = "ColorGrade_" & (step+1):End If
+  Case 1    'Top Right Playfield
+    If step=0 Then
+      For each ii in GITopRight:ii.state=0:Next
+      For each ii in GIBumpers:ii.state=0:Next
+    Else
+      For each ii in GITopRight:ii.state=1:Next
+      For each ii in GIBumpers:ii.state=1:Next
+    End If
+    BWR.IntensityScale = 0.125 * step
+    Reflect5.Amount = 100 * (1 + step/2)
+    Reflect6.Amount = 100 * (1 + step/2)
+    For each ii in GITopRight:ii.IntensityScale = 0.125 * step:Next
+    For each ii in GIBumpers:ii.IntensityScale = 0.125 * step:Next
+    If step>4 Then DOF 103, DOFOn : Else DOF 103, DOFOff:End If
+  Case 2    'Top Left Playfield
+    If step=0 Then
+      For each ii in GITopLeft:ii.state=0:Next
+    Else
+      For each ii in GITopLeft:ii.state=1:Next
+    End If
+    BWL.IntensityScale = 0.125 * step
+    Reflect3.Amount = 100 * (1 + step/2)
+    Reflect4.Amount = 100 * (1 + step/2)
+    For each ii in GITopLeft:ii.IntensityScale = 0.125 * step:Next
+  Case 3    'Top Insert Panel
 
-	Case 4		'Bottom Insert Panel
-	End Select
+  Case 4    'Bottom Insert Panel
+  End Select
 End Sub
 
 '***************************************************
@@ -873,129 +873,129 @@ Sub InitLamps()
 End Sub
 
 Sub UpdateLamps
-	NFadeL 11, l11
-	NFadeLm 12, l12c
-	NFadeL 12, l12
-	NFadeL 13, l13
-	NFadeL 14, l14
-	NFadeL 15, l15
-	NFadeL 16, l16
-	NFadeL 17, l17
-	NFadeL 18, l18
+  NFadeL 11, l11
+  NFadeLm 12, l12c
+  NFadeL 12, l12
+  NFadeL 13, l13
+  NFadeL 14, l14
+  NFadeL 15, l15
+  NFadeL 16, l16
+  NFadeL 17, l17
+  NFadeL 18, l18
 
-	NFadeL 21, l21
-	NFadeL 22, l22
-	NFadeL 23, l23
-	NFadeLm 24, l24c
-	NFadeL 24, l24
-	NFadeL 25, l25
-	NFadeL 26, l26
-	NFadeL 27, l27
-	NFadeL 28, l28
+  NFadeL 21, l21
+  NFadeL 22, l22
+  NFadeL 23, l23
+  NFadeLm 24, l24c
+  NFadeL 24, l24
+  NFadeL 25, l25
+  NFadeL 26, l26
+  NFadeL 27, l27
+  NFadeL 28, l28
 
-	NFadeLm 31, l31c
-	NFadeL 31, l31
-	NFadeLm 32, l32c
-	NFadeL 32, l32
-	NFadeLm 33, l33c
-	NFadeL 33, l33
-	NFadeL 34, l34
-	NFadeL 35, l35
-	NFadeL 36, l36
-	NFadeL 37, l37
-	NFadeL 38, l38
+  NFadeLm 31, l31c
+  NFadeL 31, l31
+  NFadeLm 32, l32c
+  NFadeL 32, l32
+  NFadeLm 33, l33c
+  NFadeL 33, l33
+  NFadeL 34, l34
+  NFadeL 35, l35
+  NFadeL 36, l36
+  NFadeL 37, l37
+  NFadeL 38, l38
 
-	NFadeL 41, l41
-	NFadeL 42, l42
-	NFadeLm 43, l43c
-	NFadeL 43, l43
-	NFadeLm 44, l44c
-	NFadeL 44, l44
-	NFadeL 45, l45
-	NFadeL 46, l46
-	NFadeL 47, l47
-	NFadeL 48, l48
+  NFadeL 41, l41
+  NFadeL 42, l42
+  NFadeLm 43, l43c
+  NFadeL 43, l43
+  NFadeLm 44, l44c
+  NFadeL 44, l44
+  NFadeL 45, l45
+  NFadeL 46, l46
+  NFadeL 47, l47
+  NFadeL 48, l48
 
-	NFadeL 51, l51
-	NFadeL 52, l52
-	NFadeL 53, l53
-	NFadeL 54, l54
-	NFadeL 55, l55
-	NFadeL 56, l56
-	NFadeL 57, l57
-	NFadeLm 58, l58c
-	NFadeL 58, l58
+  NFadeL 51, l51
+  NFadeL 52, l52
+  NFadeL 53, l53
+  NFadeL 54, l54
+  NFadeL 55, l55
+  NFadeL 56, l56
+  NFadeL 57, l57
+  NFadeLm 58, l58c
+  NFadeL 58, l58
 
-	NFadeL 61, l61
-	NFadeL 62, l62
-	NFadeL 63, l63
-	NFadeL 64, l64
-	NFadeL 65, l65
-	NFadeL 66, l66
-	NFadeL 67, l67
-	NFadeL 68, l68
+  NFadeL 61, l61
+  NFadeL 62, l62
+  NFadeL 63, l63
+  NFadeL 64, l64
+  NFadeL 65, l65
+  NFadeL 66, l66
+  NFadeL 67, l67
+  NFadeL 68, l68
 
-	NFadeLm 71, l71
-	NFadeL 71, l71b
+  NFadeLm 71, l71
+  NFadeL 71, l71b
 
-	NFadeLm 72, l72
-	NFadeL 72, l72b
-	NFadeL 73, l73
-	NFadeL 74, l74
-	NFadeLm 75, l75
-	NFadeL 75, l75b
-	NFadeLm 76, l76b
-	NFadeL 76, l76
-	NFadeL 77, l77
+  NFadeLm 72, l72
+  NFadeL 72, l72b
+  NFadeL 73, l73
+  NFadeL 74, l74
+  NFadeLm 75, l75
+  NFadeL 75, l75b
+  NFadeLm 76, l76b
+  NFadeL 76, l76
+  NFadeL 77, l77
 
-	NFadeLm 81, l81pp
-	Flash 81, l81f
-	NFadeLm 82, l82pp
-	Flash 82, l82f
-	NFadeLm 83, l83pp
-	Flash 83, l83f
-	NFadeLm 84, l84pp
-	Flash 84, l84f
-	NFadeL 85, l85
-	NFadeL 86, l86
+  NFadeLm 81, l81pp
+  Flash 81, l81f
+  NFadeLm 82, l82pp
+  Flash 82, l82f
+  NFadeLm 83, l83pp
+  Flash 83, l83f
+  NFadeLm 84, l84pp
+  Flash 84, l84f
+  NFadeL 85, l85
+  NFadeL 86, l86
 
-	'*****Flashers*****
-	FadeModLamp 117, f17, 1			'WolfMan Flashers
-	FadeModLamp 117, f17a, 1
-	FadeModLamp 117, f17b, 1
-	FadeModLamp 118, f18, 2			'Bride Flasher
-	FadeModLamp 118, f18a, 2
-	FadeModLamp 118, f18b, 2
-	FadeModLamp 118, f18c, 2
-	FadeModLamp 118, f18r, 2
-	FadeModLamp 119, f19, 2			'Frank Flashers
-	FadeModLamp 119, f19a, 2
-	FadeModLamp 119, f19b, 2
-	FadeModLamp 119, f19c, 2
-	FadeModLamp 119, f19d, 2
-	FadeModLamp 119, f19e, 2
-	FadeModLamp 119, f19f, 2
-	FadeModLamp 120, f20, 2			'Dracula Flasher
-	FadeModLamp 120, f20a, 2
-	FadeModLamp 120, f20b, 2
-	FadeModLamp 121, f21, 2			'Creature Flashers
-	FadeModLamp 121, f21a, 2
-	FadeModLamp 121, f21b, 2
-	FadeModLamp 122, f22, 2			'Mummy Flashers
-	FadeModLamp 122, f22a, 2
-	FadeModLamp 122, f22b, 2
-	FadeModLamp 122, f22c, 2
-	FadeModLamp 122, f22d, 2
-	FadeModLamp 123, f23, 2			'Right Popper Flasher
-	FadeModLamp 123, f23a, 2
-	FadeModLamp 123, f23b, 2
-	FadeModLamp 123, f23c, 2
-	FadeModLamp 123, f23d, 2
-	FadeModLamp 123, f23r, 2
-	FadeModLamp 124, f24, 2			'Frank Arrow Flasher
-	FadeModLamp 125, f25, 2			'Monsters of rock Flasher
-	NFadeLm 126, f26				'WolfMan Loop Flashers
-	NFadeL 126, f26a
+  '*****Flashers*****
+  FadeModLamp 117, f17, 1     'WolfMan Flashers
+  FadeModLamp 117, f17a, 1
+  FadeModLamp 117, f17b, 1
+  FadeModLamp 118, f18, 2     'Bride Flasher
+  FadeModLamp 118, f18a, 2
+  FadeModLamp 118, f18b, 2
+  FadeModLamp 118, f18c, 2
+  FadeModLamp 118, f18r, 2
+  FadeModLamp 119, f19, 2     'Frank Flashers
+  FadeModLamp 119, f19a, 2
+  FadeModLamp 119, f19b, 2
+  FadeModLamp 119, f19c, 2
+  FadeModLamp 119, f19d, 2
+  FadeModLamp 119, f19e, 2
+  FadeModLamp 119, f19f, 2
+  FadeModLamp 120, f20, 2     'Dracula Flasher
+  FadeModLamp 120, f20a, 2
+  FadeModLamp 120, f20b, 2
+  FadeModLamp 121, f21, 2     'Creature Flashers
+  FadeModLamp 121, f21a, 2
+  FadeModLamp 121, f21b, 2
+  FadeModLamp 122, f22, 2     'Mummy Flashers
+  FadeModLamp 122, f22a, 2
+  FadeModLamp 122, f22b, 2
+  FadeModLamp 122, f22c, 2
+  FadeModLamp 122, f22d, 2
+  FadeModLamp 123, f23, 2     'Right Popper Flasher
+  FadeModLamp 123, f23a, 2
+  FadeModLamp 123, f23b, 2
+  FadeModLamp 123, f23c, 2
+  FadeModLamp 123, f23d, 2
+  FadeModLamp 123, f23r, 2
+  FadeModLamp 124, f24, 2     'Frank Arrow Flasher
+  FadeModLamp 125, f25, 2     'Monsters of rock Flasher
+  NFadeLm 126, f26        'WolfMan Loop Flashers
+  NFadeL 126, f26a
 End Sub
 
 Sub SetLamp(nr, value)
@@ -1087,21 +1087,21 @@ End Sub
 
 Sub SetModLamp(nr, value)
     If value > 0 Then
-		LampState(nr) = 1
-	Else
-		LampState(nr) = 0
-	End If
-	FadingLevel(nr) = value
+    LampState(nr) = 1
+  Else
+    LampState(nr) = 0
+  End If
+  FadingLevel(nr) = value
 End Sub
 
 Sub FadeModLamp(nr, object, factor)
-	Object.IntensityScale = FadingLevel(nr) * factor/255
-	If TypeName(object) = "Light" Then
-		Object.State = LampState(nr)
-	End If
-	If TypeName(object) = "Flasher" Then
-		Object.visible = LampState(nr)
-	End If
+  Object.IntensityScale = FadingLevel(nr) * factor/255
+  If TypeName(object) = "Light" Then
+    Object.State = LampState(nr)
+  End If
+  If TypeName(object) = "Flasher" Then
+    Object.visible = LampState(nr)
+  End If
 End Sub
 
 ' *********************************************************************
@@ -1136,11 +1136,11 @@ End Function
 Const Pi = 3.1415927
 
 Function dSin(degrees)
-	dsin = sin(degrees * Pi/180)
+  dsin = sin(degrees * Pi/180)
 End Function
 
 Function dCos(degrees)
-	dcos = cos(degrees * Pi/180)
+  dcos = cos(degrees * Pi/180)
 End Function
 
 Function RndNum(min, max)
@@ -1148,11 +1148,11 @@ Function RndNum(min, max)
 End Function
 
 ' *********************************************************************
-' 						Other Sound FX
+'             Other Sound FX
 ' *********************************************************************
 
 Sub OnBallBallCollision(ball1, ball2, velocity)
-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
+  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
 End Sub
 
 Sub LeftFlipper_Collide(parm)
@@ -1167,50 +1167,50 @@ Sub LGate_Hit: PlaySoundAtVol "fx_gate4", LGate, VolGates : End Sub
 Sub RGate_Hit: PlaySoundAtVol "fx_gate4", RGate, VolGates : End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR((activeball.velx ^2) + (activeball.vely ^2))
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR((activeball.velx ^2) + (activeball.vely ^2))
+  If finalspeed > 20 then
+    PlaySound "fx_rubber", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case RndNum(1,3)
-		Case 1 : PlaySound "fx_rubber_hit_1", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "fx_rubber_hit_2", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "fx_rubber_hit_3", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case RndNum(1,3)
+    Case 1 : PlaySound "fx_rubber_hit_1", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "fx_rubber_hit_2", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "fx_rubber_hit_3", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case RndNum(1,3)
-		Case 1 : PlaySound "fx_flip_hit_1", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "fx_flip_hit_2", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "fx_flip_hit_3", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case RndNum(1,3)
+    Case 1 : PlaySound "fx_flip_hit_1", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "fx_flip_hit_2", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "fx_flip_hit_3", 0, 10*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub RandomSoundHole()
-	Select Case RndNum(1,3)
-		Case 1 : PlaySound "fx_hole1"
-		Case 2 : PlaySound "fx_hole2"
-		Case 3 : PlaySound "fx_hole3"
-	End Select
+  Select Case RndNum(1,3)
+    Case 1 : PlaySound "fx_hole1"
+    Case 2 : PlaySound "fx_hole2"
+    Case 3 : PlaySound "fx_hole3"
+  End Select
 End Sub
 
 ' *********************************************************************
-' 					Ball Drop & Ramp Sounds
+'           Ball Drop & Ramp Sounds
 ' *********************************************************************
 'shooter ramp
-Sub ShooterStart_Hit():StopSound "fx_launchball":If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_launchball", ShooterStart,1:End If:End Sub	'ball is going up
-Sub ShooterEnd_Hit:If ActiveBall.Z > 50  Then Me.TimerInterval=100:Me.TimerEnabled=1:End If:End Sub						'ball is flying
+Sub ShooterStart_Hit():StopSound "fx_launchball":If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_launchball", ShooterStart,1:End If:End Sub  'ball is going up
+Sub ShooterEnd_Hit:If ActiveBall.Z > 50  Then Me.TimerInterval=100:Me.TimerEnabled=1:End If:End Sub           'ball is flying
 Sub ShooterEnd_Timer(): Me.TimerEnabled=0 : PlaySoundAtVol "fx_balldrop", ShooterEnd,1 : End Sub
 'center ramp
-Sub CREnter_Hit():If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_lrenter", CREnter,1:End If:End Sub			'ball is going up
-Sub CREnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_metalrolling":StopSound "fx_lrenter":End If:End Sub		'ball is going down
+Sub CREnter_Hit():If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_lrenter", CREnter,1:End If:End Sub     'ball is going up
+Sub CREnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_metalrolling":StopSound "fx_lrenter":End If:End Sub   'ball is going down
 Sub CRExit_Hit:StopSound "fx_lrenter" : Me.TimerInterval=100:Me.TimerEnabled=1:End Sub
 Sub CRExit_Timer(): Me.TimerEnabled=0 : PlaySoundAtVol "fx_metalrolling", Primitive36,1 : End Sub
 'left ramp
@@ -1218,17 +1218,17 @@ Sub LREnter_hit():PlaySoundAtVol "fx_metalrolling", ActiveBall,1:If Activeball.V
 Sub LRExit_Hit:StopSound "fx_metalrolling":Me.TimerInterval=200:Me.TimerEnabled=1:End Sub
 Sub LRExit_timer:Me.TimerEnabled=0:PlaysoundAtVol "fx_wireramp_exit", sw26,1::End Sub
 'right ramp
-Sub RREnter_Hit():If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_lrenter",RREnter,1:End If:End Sub			'ball is going up
-Sub RREnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_lrenter":End If:End Sub		'ball is going down
-Sub RRail_Hit::If ActiveBall.VelY < 0 Then StopSound "fx_lrenter" : Me.TimerInterval=100:Me.TimerEnabled=1:End If:End Sub		'ball is going up
-Sub RRail_UnHit:If ActiveBall.VelY > 0 Then StopSound "fx_metalrolling":End If:End Sub		'ball is going down
+Sub RREnter_Hit():If ActiveBall.VelY < 0 Then PlaySoundAtVol "fx_lrenter",RREnter,1:End If:End Sub      'ball is going up
+Sub RREnter_UnHit():If ActiveBall.VelY > 0 Then StopSound "fx_lrenter":End If:End Sub   'ball is going down
+Sub RRail_Hit::If ActiveBall.VelY < 0 Then StopSound "fx_lrenter" : Me.TimerInterval=100:Me.TimerEnabled=1:End If:End Sub   'ball is going up
+Sub RRail_UnHit:If ActiveBall.VelY > 0 Then StopSound "fx_metalrolling":End If:End Sub    'ball is going down
 Sub RRail_Timer(): Me.TimerEnabled=0 : PlaySoundAtVol "fx_metalrolling",Primitive89,1 : End Sub
 Sub RRPost_Hit():StopSound "fx_metalrolling":End Sub
 Sub RRPost_UnHit():me.Enabled = 0:PlaySoundAtVol "fx_wireramp_exit", ActiveBall,1:End Sub
 Sub RRExit_Hit:StopSound "fx_metalrolling":Me.TimerInterval=200:Me.TimerEnabled=1:End Sub
 Sub RRExit_timer:Me.TimerEnabled=0:PlaysoundAtVol "fx_wireramp_exit",sw17,1:End Sub
 ' *********************************************************************
-' 					Left Ramp Hack
+'           Left Ramp Hack
 ' *********************************************************************
 'prevents the ball from stucking at ramp enter at low speeds
 Sub LRHelp1_Hit:If ActiveBall.VelX<2 then ActiveBall.VelX=-5:End If:End Sub
@@ -1237,37 +1237,37 @@ Sub LRHelp3_Hit:If ActiveBall.VelY<2 then ActiveBall.VelY=-5:End If:End Sub
 Sub LRHelp4_Hit:If ActiveBall.VelY<1 then ActiveBall.VelX=4:ActiveBall.VelY=-4:End If:End Sub
 
 ' *********************************************************************
-' 			Left and Right Orbits Hack
+'       Left and Right Orbits Hack
 ' *********************************************************************
 'slow down the ball when shooting at loops (orbis)
 Sub LoopHelpL_Unhit():If ActiveBall.VelY > 20 Then ActiveBall.VelY = RndNum(18,20):End If:End Sub
 Sub LoopHelpR_Unhit():If ActiveBall.VelY > 20 Then ActiveBall.VelY = RndNum(18,20):End If:End Sub
 
 '******************************************************
-'       	RealTime Updates
+'         RealTime Updates
 '******************************************************
 Set MotorCallback = GetRef("RealTimeUpdates")
 
 Sub RealTimeUpdates()
-	RollingSoundUpdate
-	BallShadowUpdate
-	DracUpdate
-	If ShakeEnabled = 0 then creature.rotz = (ckicker.y - cball.y) / 8
-	sw68p.RotX = GateLR.currentangle
-	sw71p.RotX = GateRR.currentangle
-	sw63p.RotX = GateR.currentangle
-	'LeftFlipperSh.RotZ = LeftFlipper.currentangle
-	'RightFlipperSh.RotZ = RightFlipper.currentangle
-	LeftGateP.RotY = -LGate.currentangle*2/3
-	RightGateP.RotY = -RGate.currentangle*2/3
-	If gateLR.currentangle>75 Then sw68p1.RotX=-10 Else sw68p1.RotX=0
-	If gateRR.currentangle>75 Then sw71p1.RotX=-10 Else sw71p1.RotX=0
-	If gateR.currentangle>75 Then sw63p1.RotX=-10 Else sw63p1.RotX=0
+  RollingSoundUpdate
+  BallShadowUpdate
+  DracUpdate
+  If ShakeEnabled = 0 then creature.rotz = (ckicker.y - cball.y) / 8
+  sw68p.RotX = GateLR.currentangle
+  sw71p.RotX = GateRR.currentangle
+  sw63p.RotX = GateR.currentangle
+  'LeftFlipperSh.RotZ = LeftFlipper.currentangle
+  'RightFlipperSh.RotZ = RightFlipper.currentangle
+  LeftGateP.RotY = -LGate.currentangle*2/3
+  RightGateP.RotY = -RGate.currentangle*2/3
+  If gateLR.currentangle>75 Then sw68p1.RotX=-10 Else sw68p1.RotX=0
+  If gateRR.currentangle>75 Then sw71p1.RotX=-10 Else sw71p1.RotX=0
+  If gateR.currentangle>75 Then sw63p1.RotX=-10 Else sw63p1.RotX=0
 End Sub
 
 '*********** ROLLING SOUND *********************************
-Const tnob = 5						' total number of balls : 4 (trough) + 1 (Fake Ball)
-Const fakeballs = 1					' number of balls created on table start (rolling sound and ballshadow will be skipped)
+Const tnob = 5            ' total number of balls : 4 (trough) + 1 (Fake Ball)
+Const fakeballs = 1         ' number of balls created on table start (rolling sound and ballshadow will be skipped)
 ReDim rolling(tnob-fakeballs)
 
 Sub InitRolling:Dim i:For i=0 to (tnob-fakeballs-1):rolling(i) = False:Next:End Sub
@@ -1275,16 +1275,16 @@ Sub InitRolling:Dim i:For i=0 to (tnob-fakeballs-1):rolling(i) = False:Next:End 
 Sub RollingSoundUpdate()
     Dim BOT, b
     BOT = GetBalls
-	' stop the sound of deleted balls
-	If UBound(BOT)<(tnob - 1) Then
-		For b = (UBound(BOT)-fakeballs + 2) to (tnob-fakeballs)
-			rolling(b-1) = False
-			StopSound("fx_ballrolling" & b)
-		Next
-	End If
-	' exit the Sub if no balls on the table
+  ' stop the sound of deleted balls
+  If UBound(BOT)<(tnob - 1) Then
+    For b = (UBound(BOT)-fakeballs + 2) to (tnob-fakeballs)
+      rolling(b-1) = False
+      StopSound("fx_ballrolling" & b)
+    Next
+  End If
+  ' exit the Sub if no balls on the table
     If UBound(BOT) = fakeballs-1 Then Exit Sub
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
     For b = fakeballs to UBound(BOT)
         If BallVel(BOT(b)) > 1 AND BOT(b).z < 30 Then
             rolling(b-fakeballs) = True
@@ -1305,28 +1305,28 @@ BallShadow = Array (BallShadow1, BallShadow2, BallShadow3,Ballshadow4)
 Sub BallShadowUpdate()
     Dim BOT, b
     BOT = GetBalls
-	' hide shadow of deleted balls
-	If UBound(BOT)<(tnob-1) Then
-		For b = (UBound(BOT)-fakeballs + 2) to (tnob-fakeballs)
-			BallShadow(b-1).visible = 0
-		Next
-	End If
-	' exit the Sub if no balls on the table
+  ' hide shadow of deleted balls
+  If UBound(BOT)<(tnob-1) Then
+    For b = (UBound(BOT)-fakeballs + 2) to (tnob-fakeballs)
+      BallShadow(b-1).visible = 0
+    Next
+  End If
+  ' exit the Sub if no balls on the table
     If UBound(BOT) = fakeballs-1 Then Exit Sub
-	' render the shadow for each ball
+  ' render the shadow for each ball
     For b = fakeballs to UBound(BOT)
-		If BOT(b).X < Table1.Width/2 Then
-			BallShadow(b-fakeballs).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) + 10
-		Else
-			BallShadow(b-fakeballs).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) - 10
-		End If
-	    ballShadow(b-fakeballs).Y = BOT(b).Y + 15
-		If BOT(b).Z > 20 Then
-			BallShadow(b-fakeballs).visible = 1
-		Else
-			BallShadow(b-fakeballs).visible = 0
-		End If
-	Next
+    If BOT(b).X < Table1.Width/2 Then
+      BallShadow(b-fakeballs).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) + 10
+    Else
+      BallShadow(b-fakeballs).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/10)) - 10
+    End If
+      ballShadow(b-fakeballs).Y = BOT(b).Y + 15
+    If BOT(b).Z > 20 Then
+      BallShadow(b-fakeballs).visible = 1
+    Else
+      BallShadow(b-fakeballs).visible = 0
+    End If
+  Next
 End Sub
 
 ' *******************************************************************************************************

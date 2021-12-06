@@ -67,250 +67,250 @@ Const cGameName = "Lady_Luck"
 '---------------------------
 '-----  Configuration  -----
 '---------------------------
-Const BallsperGame = 5				'Change to 3 or 5 balls
-Const ShowHighScore = True			'enable to show HighScore tape on Apron, a new HighScore will be saved anyway
-Const ShowPlayfieldReel = False		'set to True to show Playfield EM-Reel and Post-It for Player Scores (instead of a B2S backglass)
+Const BallsperGame = 5        'Change to 3 or 5 balls
+Const ShowHighScore = True      'enable to show HighScore tape on Apron, a new HighScore will be saved anyway
+Const ShowPlayfieldReel = False   'set to True to show Playfield EM-Reel and Post-It for Player Scores (instead of a B2S backglass)
 Const FreePlay = False
-const RollingSoundFactor = .9		'set sound level factor here for Ball Rolling Sound, 1=default level
-Const ChimesEnabled = False			'True = Chime Sounds, False = Beeps (Default)
+const RollingSoundFactor = .9   'set sound level factor here for Ball Rolling Sound, 1=default level
+Const ChimesEnabled = False     'True = Chime Sounds, False = Beeps (Default)
 Const ChimeVolume = 2
 
-Const ResetHighscore = False		'enable to manually reset the Highscores
+Const ResetHighscore = False    'enable to manually reset the Highscores
 
-Const Special1Score = 600000			'set the 3 replay scores
+Const Special1Score = 600000      'set the 3 replay scores
 Const Special2Score = 720000
 Const Special3Score = 840000
 
 Dim GameActive,NoofPlayers,i,HighScore,Credits
-Dim AwardExtraBall					' flag for extra ball award
+Dim AwardExtraBall          ' flag for extra ball award
 
 
 Sub Lady_Luck_Init
-	LoadEM
-	LoadHighScore
-	HideScoreboard
-	if ResetHighScore then
-		SetDefaultHSTD
-	end if
-	if ShowHighScore then
-		PTape.image = HSArray(12)
-		UpdatePostIt
-	else
-		PTape.image = HSArray(10)
-		PComma.image = HSArray(10)
-		PComma2.image = HSArray(10)
-		Pscore0.image = HSArray(10)
-		PScore1.image = HSArray(10)
-		PScore2.image = HSArray(10)
-		PScore3.image = HSArray(10)
-		PScore4.image = HSArray(10)
-		PScore5.image = HSArray(10)
-		PScore6.image = HSArray(10)
-	end if
+  LoadEM
+  LoadHighScore
+  HideScoreboard
+  if ResetHighScore then
+    SetDefaultHSTD
+  end if
+  if ShowHighScore then
+    PTape.image = HSArray(12)
+    UpdatePostIt
+  else
+    PTape.image = HSArray(10)
+    PComma.image = HSArray(10)
+    PComma2.image = HSArray(10)
+    Pscore0.image = HSArray(10)
+    PScore1.image = HSArray(10)
+    PScore2.image = HSArray(10)
+    PScore3.image = HSArray(10)
+    PScore4.image = HSArray(10)
+    PScore5.image = HSArray(10)
+    PScore6.image = HSArray(10)
+  end if
 
-	Randomize
+  Randomize
 'code added by Loserman
-	AwardExtraBall = 0
+  AwardExtraBall = 0
 '
-	if FreePlay then
-		Credits = 5
+  if FreePlay then
+    Credits = 5
 
-	end If
+  end If
 
-	if B2SOn then
-		Controller.B2SSetMatch MatchValue
-		Controller.B2SSetScoreRolloverPlayer1 0
-		Controller.B2SSetScoreRolloverPlayer2 0
-		Controller.B2SSetScoreRolloverPlayer3 0
-		Controller.B2SSetScoreRolloverPlayer4 0
-		Controller.B2SSetScore 6,HighScore
-		Controller.B2SSetTilt 0
+  if B2SOn then
+    Controller.B2SSetMatch MatchValue
+    Controller.B2SSetScoreRolloverPlayer1 0
+    Controller.B2SSetScoreRolloverPlayer2 0
+    Controller.B2SSetScoreRolloverPlayer3 0
+    Controller.B2SSetScoreRolloverPlayer4 0
+    Controller.B2SSetScore 6,HighScore
+    Controller.B2SSetTilt 0
 
-		Controller.B2SSetCredits Credits
+    Controller.B2SSetCredits Credits
 
-		Controller.B2SSetGameOver 1
+    Controller.B2SSetGameOver 1
 
-		for i=1 to 4
-			Controller.B2SSetScorePlayer i, 0
-		next
-	end if
+    for i=1 to 4
+      Controller.B2SSetScorePlayer i, 0
+    next
+  end if
 
-	if not Lady_Luck.ShowDT then
-		EMReel1.visible = False
-		EMReel2.visible = False
-		EMReel3.visible = False
-		EMReel4.visible = False
-		EMReel_BiP.visible = False
-		EMReel_Credits.visible = False
-		CaseWall1.isdropped = True
-		CaseWall2.isdropped = True
-		CaseWall3.isdropped = True
-		Ramp1.widthbottom = 0
-		Ramp1.widthtop = 0
-		Ramp15.widthbottom = 0
-		Ramp15.widthtop = 0
-	end If
+  if not Lady_Luck.ShowDT then
+    EMReel1.visible = False
+    EMReel2.visible = False
+    EMReel3.visible = False
+    EMReel4.visible = False
+    EMReel_BiP.visible = False
+    EMReel_Credits.visible = False
+    CaseWall1.isdropped = True
+    CaseWall2.isdropped = True
+    CaseWall3.isdropped = True
+    Ramp1.widthbottom = 0
+    Ramp1.widthtop = 0
+    Ramp15.widthbottom = 0
+    Ramp15.widthtop = 0
+  end If
 
-	if not ShowPlayfieldReel or Lady_Luck.ShowDT Then
-		ReelWall.isdropped = True
-		P_Reel0.Transz = -5
-		P_Reel1.Transz = -5
-		P_Reel2.Transz = -5
-		P_Reel3.Transz = -5
-		P_Reel4.Transz = -5
-		P_Reel5.Transz = -5
-		P_ActivePlayer.Transz = -10
-		P_Credits.Transz = -10
-		P_CreditsText.Transz = -10
-		P_BallinPlay.Transz = -10
-		P_BallinPlayText.Transz = -10
-	end If
+  if not ShowPlayfieldReel or Lady_Luck.ShowDT Then
+    ReelWall.isdropped = True
+    P_Reel0.Transz = -5
+    P_Reel1.Transz = -5
+    P_Reel2.Transz = -5
+    P_Reel3.Transz = -5
+    P_Reel4.Transz = -5
+    P_Reel5.Transz = -5
+    P_ActivePlayer.Transz = -10
+    P_Credits.Transz = -10
+    P_CreditsText.Transz = -10
+    P_BallinPlay.Transz = -10
+    P_BallinPlayText.Transz = -10
+  end If
 
-	BallinPlay = 0
-	GameActive = False
-	NoofPlayers = 0
-	GameStarted = False
-	for i = 1 to 4
-		Val10(i) = 0
-		Val100(i) = 0
-		Val1000(i) = 0
-		Val10000(i) = 0
-		Val100000(i) = 0
-		Oldscore(i) = 0
-	Next
-	EMReel1.ResetToZero
-	EMReel2.ResetToZero
-	EMReel3.ResetToZero
-	EMReel4.ResetToZero
-	EMReel_Credits.setvalue Credits
+  BallinPlay = 0
+  GameActive = False
+  NoofPlayers = 0
+  GameStarted = False
+  for i = 1 to 4
+    Val10(i) = 0
+    Val100(i) = 0
+    Val1000(i) = 0
+    Val10000(i) = 0
+    Val100000(i) = 0
+    Oldscore(i) = 0
+  Next
+  EMReel1.ResetToZero
+  EMReel2.ResetToZero
+  EMReel3.ResetToZero
+  EMReel4.ResetToZero
+  EMReel_Credits.setvalue Credits
 
-	P_Credits.image = cstr(Credits)
-	Tilt = 0
+  P_Credits.image = cstr(Credits)
+  Tilt = 0
 End Sub
 
 Dim GameStarted,NoPointsScored
 Sub StartGame
-	if Credits > 0 Then
-		if not GameActive then
-			for i = 1 to 4
-				Playerscore(i) = 0
-				Oldscore(i) = 0
-				Val10(i) = 0
-				Val100(i) = 0
-				Val1000(i) = 0
-				Val10000(i) = 0
-				Val100000(i) = 0
-				Special1(i) = False
-				Special2(i) = False
-				Special3(i) = False
-				If B2SOn Then
-					Controller.B2SSetScorePlayer i,0
-				end if
-			Next
-			EMReel1.ResetToZero
-			EMReel2.ResetToZero
-			EMReel3.ResetToZero
-			EMReel4.ResetToZero
-			if not GameStarted Then
-				GameStarted = True
-				Playsound "FD_GameStartwithBallrelease"
-				GameStartTimer.enabled = True
-				ScoreMotor
-				ScoreMotorStartTimer.enabled = True
-			end If
-			if NoofPlayers < 4 Then
-				Credits = Credits - 1
-				'If Credits < 1 Then DOF 126, DOFOff
-				if FreePlay and (Credits = 0) then
-					Credits = 5
-				'	DOF 126, DOFOn
-				end If
-				if NoofPlayers > 0 Then
-					Playsound "AddPlayer"
-				end If
-				NoofPlayers = NoofPlayers + 1
-				UpdateScoreboard
-				EMReel_Credits.setvalue Credits
-			end If
+  if Credits > 0 Then
+    if not GameActive then
+      for i = 1 to 4
+        Playerscore(i) = 0
+        Oldscore(i) = 0
+        Val10(i) = 0
+        Val100(i) = 0
+        Val1000(i) = 0
+        Val10000(i) = 0
+        Val100000(i) = 0
+        Special1(i) = False
+        Special2(i) = False
+        Special3(i) = False
+        If B2SOn Then
+          Controller.B2SSetScorePlayer i,0
+        end if
+      Next
+      EMReel1.ResetToZero
+      EMReel2.ResetToZero
+      EMReel3.ResetToZero
+      EMReel4.ResetToZero
+      if not GameStarted Then
+        GameStarted = True
+        Playsound "FD_GameStartwithBallrelease"
+        GameStartTimer.enabled = True
+        ScoreMotor
+        ScoreMotorStartTimer.enabled = True
+      end If
+      if NoofPlayers < 4 Then
+        Credits = Credits - 1
+        'If Credits < 1 Then DOF 126, DOFOff
+        if FreePlay and (Credits = 0) then
+          Credits = 5
+        ' DOF 126, DOFOn
+        end If
+        if NoofPlayers > 0 Then
+          Playsound "AddPlayer"
+        end If
+        NoofPlayers = NoofPlayers + 1
+        UpdateScoreboard
+        EMReel_Credits.setvalue Credits
+      end If
 
-			If B2SOn Then
-				Controller.B2SSetTilt 0
-				Controller.B2SSetGameOver 0
-				Controller.B2SSetMatch 0
-				Controller.B2SSetBallInPlay BallInPlay
-				if Credits=0 then
-					Controller.B2SSetCredits 10
-				else
-					Controller.B2SSetCredits Credits
-				end if
-				Controller.B2SSetPlayerUp 1
-				Controller.B2SSetBallInPlay BallInPlay
-				Controller.B2SSetCanPlay NoofPlayers
-				Controller.B2SSetScore 6,HSAHighScore
-			End if
-			EMReel_BiP.setvalue BallinPlay
-		end If
-	end If
-	P_Credits.image = cstr(Credits)
+      If B2SOn Then
+        Controller.B2SSetTilt 0
+        Controller.B2SSetGameOver 0
+        Controller.B2SSetMatch 0
+        Controller.B2SSetBallInPlay BallInPlay
+        if Credits=0 then
+          Controller.B2SSetCredits 10
+        else
+          Controller.B2SSetCredits Credits
+        end if
+        Controller.B2SSetPlayerUp 1
+        Controller.B2SSetBallInPlay BallInPlay
+        Controller.B2SSetCanPlay NoofPlayers
+        Controller.B2SSetScore 6,HSAHighScore
+      End if
+      EMReel_BiP.setvalue BallinPlay
+    end If
+  end If
+  P_Credits.image = cstr(Credits)
 End Sub
 
 Sub GameStartTimer_Timer
-	GameStartTimer.enabled = False
-	ScoreMotorStartTimer.enabled = False
-	ActivePlayer = 0
-	BallinPlay = 1
-	NextBall
+  GameStartTimer.enabled = False
+  ScoreMotorStartTimer.enabled = False
+  ActivePlayer = 0
+  BallinPlay = 1
+  NextBall
 End Sub
 
 Sub ScoreMotorStartTimer_Timer
-	ScoreMotor
+  ScoreMotor
 End Sub
 
 Sub NextBall
-	DB=False
-	if (ActivePlayer = NoofPlayers) and (BallinPlay = BallsperGame) Then
-		EndGame
-	Else
-		UpdateScoreboard
+  DB=False
+  if (ActivePlayer = NoofPlayers) and (BallinPlay = BallsperGame) Then
+    EndGame
+  Else
+    UpdateScoreboard
 ' Loserman code mod - added extra layer of IF statement checking AwardExtraBall variable
 '
-		if AwardExtraBall = 0 then
-			if ActivePlayer < NoofPlayers Then
-				ActivePlayer = ActivePlayer + 1
-			Else
-				if ActivePlayer = NoofPlayers Then
-					BallinPlay = BallinPlay + 1
-					ActivePlayer = 1
-				end If
-			end If
-		Else
-			AwardExtraBall = 0
-			if B2SOn Then
-				Controller.B2SSetShootAgain 0
-			end If
-		end if
+    if AwardExtraBall = 0 then
+      if ActivePlayer < NoofPlayers Then
+        ActivePlayer = ActivePlayer + 1
+      Else
+        if ActivePlayer = NoofPlayers Then
+          BallinPlay = BallinPlay + 1
+          ActivePlayer = 1
+        end If
+      end If
+    Else
+      AwardExtraBall = 0
+      if B2SOn Then
+        Controller.B2SSetShootAgain 0
+      end If
+    end if
 '
 
-		P_ActivePlayer.image = "Player" & CStr(ActivePlayer)
-		P_BallinPlay.image = CStr(BallinPlay)
-		EMReel_BiP.setvalue BallinPlay
+    P_ActivePlayer.image = "Player" & CStr(ActivePlayer)
+    P_BallinPlay.image = CStr(BallinPlay)
+    EMReel_BiP.setvalue BallinPlay
 
-		SetScoreReel
+    SetScoreReel
 
-		If B2SOn Then
-			Controller.B2SSetBallInPlay BallInPlay
-			Controller.B2SSetPlayerUp ActivePlayer
-			Controller.B2SSetBallInPlay BallInPlay
-			Controller.B2SSetTilt 0
-		End if
+    If B2SOn Then
+      Controller.B2SSetBallInPlay BallInPlay
+      Controller.B2SSetPlayerUp ActivePlayer
+      Controller.B2SSetBallInPlay BallInPlay
+      Controller.B2SSetTilt 0
+    End if
 
 '********GAME START*******************
-		ResetPlayfield
-		NoPointsScored = True
-		BallRelease.CreateBall
-		BallRelease.Kick 90, 7
-		'DOF 122, DOFPulse
-	End If
+    ResetPlayfield
+    NoPointsScored = True
+    BallRelease.CreateBall
+    BallRelease.Kick 90, 7
+    'DOF 122, DOFPulse
+  End If
 End Sub
 '********************************************************
 
@@ -318,495 +318,495 @@ End Sub
 
 Dim MatchValue
 Sub EndGame
-	UpdateScoreboard
-	for i = 1 to NoofPlayers
-		CheckNewHighScorePostIt(Playerscore(i))
-	next
-	GameActive = False
-	GameStarted = False
-	MatchValue=Int(Rnd*10)
-	If B2SOn Then
-		If MatchValue = 0 Then
-			Controller.B2SSetMatch 100
-		Else
-			Controller.B2SSetMatch MatchValue
-		End If
-	End if
-	for i = 1 to NoofPlayers
-		if MatchValue=cint(right(Playerscore(i),2)) then
-			AddSpecial
-		end if
-	next
-	BallinPlay = 0
-	NoofPlayers = 0
-	if B2Son Then
-		Controller.B2SSetGameOver 1
-		Controller.B2SSetBallInPlay BallInPlay
-	end If
+  UpdateScoreboard
+  for i = 1 to NoofPlayers
+    CheckNewHighScorePostIt(Playerscore(i))
+  next
+  GameActive = False
+  GameStarted = False
+  MatchValue=Int(Rnd*10)
+  If B2SOn Then
+    If MatchValue = 0 Then
+      Controller.B2SSetMatch 100
+    Else
+      Controller.B2SSetMatch MatchValue
+    End If
+  End if
+  for i = 1 to NoofPlayers
+    if MatchValue=cint(right(Playerscore(i),2)) then
+      AddSpecial
+    end if
+  next
+  BallinPlay = 0
+  NoofPlayers = 0
+  if B2Son Then
+    Controller.B2SSetGameOver 1
+    Controller.B2SSetBallInPlay BallInPlay
+  end If
 End Sub
 
 Sub Drain_Hit()
-	PlaySoundAt "drainLong", Drain
-	'DOF 121, DOFPulse
-	Drain.DestroyBall
-	if NoPointsScored and (Tilt = 0) Then
-		PlaysoundAt "FD_DrainwithBallrelease", Drain
-		ReleaseSameBallTimer.enabled = True
-	Else
-		AwardBonus
-	End If
+  PlaySoundAt "drainLong", Drain
+  'DOF 121, DOFPulse
+  Drain.DestroyBall
+  if NoPointsScored and (Tilt = 0) Then
+    PlaysoundAt "FD_DrainwithBallrelease", Drain
+    ReleaseSameBallTimer.enabled = True
+  Else
+    AwardBonus
+  End If
 End Sub
 
 Sub ReleaseSameBallTimer_Timer
-	ReleaseSameBallTimer.enabled = False
-	BallRelease.CreateBall
-	BallRelease.Kick 90, 7
-	'DOF 122, DOFPulse
+  ReleaseSameBallTimer.enabled = False
+  BallRelease.CreateBall
+  BallRelease.Kick 90, 7
+  'DOF 122, DOFPulse
 End Sub
 
 Sub MainTimer_Timer
 
-	if not GameStarted Then
-		LeftFlipper.RotateToStart
-		RightFlipper.RotateToStart
-	end If
-	if Lady_Luck.showdt Then
-		P1Light.State = (Activeplayer = 1)
-		P2Light.State = (Activeplayer = 2)
-		P3Light.State = (Activeplayer = 3)
-		P4Light.State = (Activeplayer = 4)
-	end If
+  if not GameStarted Then
+    LeftFlipper.RotateToStart
+    RightFlipper.RotateToStart
+  end If
+  if Lady_Luck.showdt Then
+    P1Light.State = (Activeplayer = 1)
+    P2Light.State = (Activeplayer = 2)
+    P3Light.State = (Activeplayer = 3)
+    P4Light.State = (Activeplayer = 4)
+  end If
 End Sub
 
 Sub GameOverTimer_Timer
-	if GameStarted Then
-		P_GameOver.visible = False
-	Else
-		if Lady_Luck.showdt Then
-			P_GameOver.visible = not P_GameOver.visible
-		End If
-	End If
+  if GameStarted Then
+    P_GameOver.visible = False
+  Else
+    if Lady_Luck.showdt Then
+      P_GameOver.visible = not P_GameOver.visible
+    End If
+  End If
 End Sub
 
 Sub TiltTimer_Timer
-	if Tilt = 0 Then
-		P_Tilt.visible = False
-	Else
-		if Lady_Luck.showdt Then
-			P_Tilt.visible = not P_Tilt.visible
-		End If
-	End If
+  if Tilt = 0 Then
+    P_Tilt.visible = False
+  Else
+    if Lady_Luck.showdt Then
+      P_Tilt.visible = not P_Tilt.visible
+    End If
+  End If
 End Sub
 
 
 ' DT Score Reels
 Dim Val10(4),Val100(4),Val1000(4),Val10000(4),Val100000(4),Score10,Score100,Score1000,Score10000,Score100000,TempScore,Oldscore(5)
 Sub UpdateScoreReel_Timer
-	TempScore = Playerscore(ActivePLayer)
-	Score10 = 0
-	Score100 = 0
-	Score1000 = 0
-	Score10000 = 0
-	Score100000 = 0
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score10 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score100 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score1000 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score10000 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score100000 = cstr(right(Tempscore,1))
-	end If
+  TempScore = Playerscore(ActivePLayer)
+  Score10 = 0
+  Score100 = 0
+  Score1000 = 0
+  Score10000 = 0
+  Score100000 = 0
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score10 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score100 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score1000 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score10000 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score100000 = cstr(right(Tempscore,1))
+  end If
 
-	Val10(ActivePLayer) = ReelValue(Val10(ActivePLayer),Score10,0)
-	Val100(ActivePLayer) = ReelValue(Val100(ActivePLayer),Score100,1)
-	Val1000(ActivePLayer) = ReelValue(Val1000(ActivePLayer),Score1000,2)
-	Val10000(ActivePLayer) = ReelValue(Val10000(ActivePLayer),Score10000,3)
-	Val100000(ActivePLayer) = ReelValue(Val100000(ActivePLayer),Score100000,0)
-	Tempscore = Val10(ActivePLayer) * 10 + Val100(ActivePLayer) * 100 + Val1000(ActivePLayer) * 1000 + Val10000(ActivePLayer) * 10000 + Val100000(ActivePLayer) * 100000
-	if Oldscore(ActivePLayer) <> TempScore Then
-		Oldscore(ActivePLayer) = TempScore
-		select Case ActivePlayer
-			case 1:	EMReel1.setvalue TempScore
-			case 2:	EMReel2.setvalue TempScore
-			case 3:	EMReel3.setvalue TempScore
-			case 4:	EMReel4.setvalue TempScore
-		End Select
-		If B2SOn Then
-			Controller.B2SSetScorePlayer ActivePlayer, TempScore
-		End If
-		P_Reel1.image = cstr(Val10(ActivePLayer))
-		P_Reel2.image = cstr(Val100(ActivePLayer))
-		P_Reel3.image = cstr(Val1000(ActivePLayer))
-		P_Reel4.image = cstr(Val10000(ActivePLayer))
-		P_Reel5.image = cstr(Val100000(ActivePLayer))
-	Else
-		UpdateScoreReel.enabled = False
-	end If
+  Val10(ActivePLayer) = ReelValue(Val10(ActivePLayer),Score10,0)
+  Val100(ActivePLayer) = ReelValue(Val100(ActivePLayer),Score100,1)
+  Val1000(ActivePLayer) = ReelValue(Val1000(ActivePLayer),Score1000,2)
+  Val10000(ActivePLayer) = ReelValue(Val10000(ActivePLayer),Score10000,3)
+  Val100000(ActivePLayer) = ReelValue(Val100000(ActivePLayer),Score100000,0)
+  Tempscore = Val10(ActivePLayer) * 10 + Val100(ActivePLayer) * 100 + Val1000(ActivePLayer) * 1000 + Val10000(ActivePLayer) * 10000 + Val100000(ActivePLayer) * 100000
+  if Oldscore(ActivePLayer) <> TempScore Then
+    Oldscore(ActivePLayer) = TempScore
+    select Case ActivePlayer
+      case 1: EMReel1.setvalue TempScore
+      case 2: EMReel2.setvalue TempScore
+      case 3: EMReel3.setvalue TempScore
+      case 4: EMReel4.setvalue TempScore
+    End Select
+    If B2SOn Then
+      Controller.B2SSetScorePlayer ActivePlayer, TempScore
+    End If
+    P_Reel1.image = cstr(Val10(ActivePLayer))
+    P_Reel2.image = cstr(Val100(ActivePLayer))
+    P_Reel3.image = cstr(Val1000(ActivePLayer))
+    P_Reel4.image = cstr(Val10000(ActivePLayer))
+    P_Reel5.image = cstr(Val100000(ActivePLayer))
+  Else
+    UpdateScoreReel.enabled = False
+  end If
 End Sub
 
 Function ReelValue(ValPar,ScorPar,ChimePar)
-	ReelValue = cint(ValPar)
-	if ReelValue <> cint(ScorPar) Then
-		if ChimesEnabled Then
-			If ChimePar = 1 Then
-				PlaySound"100a",0,ChimeVolume
-			end If
-			If ChimePar = 2 Then
-				PlaySound "1000a",0,ChimeVolume
-			end If
-			If ChimePar = 3 Then
-				PlaySound "10000a",0,ChimeVolume
-			End If
-			Else
-			If ChimePar = 1 Then
-				PlaySound "LadyLuckBeepLo2",0,ChimeVolume
-			end If
-			If ChimePar = 2 Then
-				PlaySound "LadyLuckBeepMid2",0,ChimeVolume
-			end If
-			If ChimePar = 3 Then
-				PlaySound "LadyLuckBeepHi2",0,ChimeVolume
-			End If
-		end If
-		ReelValue = ReelValue + 1
-		if ReelValue > 9 Then
-			ReelValue = 0
-		end If
-	end If
+  ReelValue = cint(ValPar)
+  if ReelValue <> cint(ScorPar) Then
+    if ChimesEnabled Then
+      If ChimePar = 1 Then
+        PlaySound"100a",0,ChimeVolume
+      end If
+      If ChimePar = 2 Then
+        PlaySound "1000a",0,ChimeVolume
+      end If
+      If ChimePar = 3 Then
+        PlaySound "10000a",0,ChimeVolume
+      End If
+      Else
+      If ChimePar = 1 Then
+        PlaySound "LadyLuckBeepLo2",0,ChimeVolume
+      end If
+      If ChimePar = 2 Then
+        PlaySound "LadyLuckBeepMid2",0,ChimeVolume
+      end If
+      If ChimePar = 3 Then
+        PlaySound "LadyLuckBeepHi2",0,ChimeVolume
+      End If
+    end If
+    ReelValue = ReelValue + 1
+    if ReelValue > 9 Then
+      ReelValue = 0
+    end If
+  end If
 End Function
 
 Sub SetScoreReel
-	TempScore = Playerscore(ActivePLayer)
-	Score10 = 0
-	Score100 = 0
-	Score1000 = 0
-	Score10000 = 0
-	Score100000 = 0
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score10 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score100 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score1000 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score10000 = cstr(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		Score100000 = cstr(right(Tempscore,1))
-	end If
-	P_Reel1.image = cstr(Score10)
-	P_Reel2.image = cstr(Score100)
-	P_Reel3.image = cstr(Score1000)
-	P_Reel4.image = cstr(Score10000)
-	P_Reel5.image = cstr(Score100000)
+  TempScore = Playerscore(ActivePLayer)
+  Score10 = 0
+  Score100 = 0
+  Score1000 = 0
+  Score10000 = 0
+  Score100000 = 0
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score10 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score100 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score1000 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score10000 = cstr(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    Score100000 = cstr(right(Tempscore,1))
+  end If
+  P_Reel1.image = cstr(Score10)
+  P_Reel2.image = cstr(Score100)
+  P_Reel3.image = cstr(Score1000)
+  P_Reel4.image = cstr(Score10000)
+  P_Reel5.image = cstr(Score100000)
 End Sub
 
 
 
 ' FS Post-It Playerscores
 Sub UpdateScoreboard
-	if not ShowPlayfieldReel or (NoofPlayers < 2) or Lady_Luck.ShowDT Then
-		HideScoreBoard
-	Else
-		P_SB_Postit.image = "Postit"
-		Select case NoofPlayers
-			Case 2:
-				P_SB_Postit.size_y = 50
-				P_SB_Postit.Transy = -30
-				PScore1_P.image = "Player1"
-				PScore2_P.image = "Player2"
-				SetScoreBoard(1)
-				SetScoreBoard(2)
-			Case 3:
-				P_SB_Postit.size_y = 75
-				P_SB_Postit.Transy = -15
-				PScore1_P.image = "Player1"
-				PScore2_P.image = "Player2"
-				PScore3_P.image = "Player3"
-				SetScoreBoard(1)
-				SetScoreBoard(2)
-				SetScoreBoard(3)
-			Case 4:
-				P_SB_Postit.size_y = 100
-				P_SB_Postit.Transy = 0
-				PScore1_P.image = "Player1"
-				PScore2_P.image = "Player2"
-				PScore3_P.image = "Player3"
-				PScore4_P.image = "Player4"
-				SetScoreBoard(1)
-				SetScoreBoard(2)
-				SetScoreBoard(3)
-				SetScoreBoard(4)
-		end Select
-	end If
+  if not ShowPlayfieldReel or (NoofPlayers < 2) or Lady_Luck.ShowDT Then
+    HideScoreBoard
+  Else
+    P_SB_Postit.image = "Postit"
+    Select case NoofPlayers
+      Case 2:
+        P_SB_Postit.size_y = 50
+        P_SB_Postit.Transy = -30
+        PScore1_P.image = "Player1"
+        PScore2_P.image = "Player2"
+        SetScoreBoard(1)
+        SetScoreBoard(2)
+      Case 3:
+        P_SB_Postit.size_y = 75
+        P_SB_Postit.Transy = -15
+        PScore1_P.image = "Player1"
+        PScore2_P.image = "Player2"
+        PScore3_P.image = "Player3"
+        SetScoreBoard(1)
+        SetScoreBoard(2)
+        SetScoreBoard(3)
+      Case 4:
+        P_SB_Postit.size_y = 100
+        P_SB_Postit.Transy = 0
+        PScore1_P.image = "Player1"
+        PScore2_P.image = "Player2"
+        PScore3_P.image = "Player3"
+        PScore4_P.image = "Player4"
+        SetScoreBoard(1)
+        SetScoreBoard(2)
+        SetScoreBoard(3)
+        SetScoreBoard(4)
+    end Select
+  end If
 End Sub
 
 Sub HideScoreboard
-	for each obj in C_ScoreBoard
-		obj.image = HSArray(10)
-	Next
+  for each obj in C_ScoreBoard
+    obj.image = HSArray(10)
+  Next
 End Sub
 
 Dim SBScore100k, SBScore10k, SBScoreK, SBScore100, SBScore10, SBScore1, SBTempScore,obj
 
 Sub SetScoreBoard(PlayerPar)
-	SBTempScore = PlayerScore(PlayerPar)
-	SBScore1 = 0
-	SBScore10 = 0
-	SBScore100 = 0
-	SBScoreK = 0
-	SBScore10k = 0
-	SBScore100k = 0
-	if len(SBTempScore) > 0 Then
-		SBScore1 = cint(right(SBTempscore,1))
-	end If
-	if len(SBTempScore) > 1 Then
-		SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
-		SBScore10 = cint(right(SBTempscore,1))
-	end If
-	if len(SBTempScore) > 1 Then
-		SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
-		SBScore100 = cint(right(SBTempscore,1))
-	end If
-	if len(SBTempScore) > 1 Then
-		SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
-		SBScoreK = cint(right(SBTempscore,1))
-	end If
-	if len(SBTempScore) > 1 Then
-		SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
-		SBScore10k = cint(right(SBTempscore,1))
-	end If
-	if len(SBTempScore) > 1 Then
-		SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
-		SBScore100k = cint(right(SBTempscore,1))
-	end If
-	Select case PlayerPar
-		Case 1:
-			Pscore6_1.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_1.image = HSArray(10)
-			Pscore5_1.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_1.image = HSArray(10)
-			Pscore4_1.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_1.image = HSArray(10)
-			Pscore3_1.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_1.image = HSArray(10)
-			Pscore2_1.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_1.image = HSArray(10)
-			Pscore1_1.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_1.image = HSArray(10)
-			if PlayerScore(PlayerPar)<1000 then
-				PscoreComma_1.image = HSArray(10)
-			else
-				PscoreComma_1.image = HSArray(11)
-			end if
-		Case 2:
-			Pscore6_2.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_2.image = HSArray(10)
-			Pscore5_2.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_2.image = HSArray(10)
-			Pscore4_2.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then PScore4_2.image = HSArray(10)
-			Pscore3_2.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_2.image = HSArray(10)
-			Pscore2_2.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_2.image = HSArray(10)
-			Pscore1_2.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_2.image = HSArray(10)
-			if PlayerScore(PlayerPar)<1000 then
-				PscoreComma_2.image = HSArray(10)
-			else
-				PscoreComma_2.image = HSArray(11)
-			end if
-		Case 3:
-			Pscore6_3.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_3.image = HSArray(10)
-			Pscore5_3.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_3.image = HSArray(10)
-			Pscore4_3.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_3.image = HSArray(10)
-			Pscore3_3.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_3.image = HSArray(10)
-			Pscore2_3.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_3.image = HSArray(10)
-			Pscore1_3.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_3.image = HSArray(10)
-			if PlayerScore(PlayerPar)<1000 then
-				PscoreComma_3.image = HSArray(10)
-			else
-				PscoreComma_3.image = HSArray(11)
-			end if
-		Case 4:
-			Pscore6_4.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_4.image = HSArray(10)
-			Pscore5_4.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_4.image = HSArray(10)
-			Pscore4_4.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_4.image = HSArray(10)
-			Pscore3_4.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_4.image = HSArray(10)
-			Pscore2_4.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_4.image = HSArray(10)
-			Pscore1_4.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_4.image = HSArray(10)
-			if PlayerScore(PlayerPar)<1000 then
-				PscoreComma_4.image = HSArray(10)
-			else
-				PscoreComma_4.image = HSArray(11)
-			end if
-	End Select
+  SBTempScore = PlayerScore(PlayerPar)
+  SBScore1 = 0
+  SBScore10 = 0
+  SBScore100 = 0
+  SBScoreK = 0
+  SBScore10k = 0
+  SBScore100k = 0
+  if len(SBTempScore) > 0 Then
+    SBScore1 = cint(right(SBTempscore,1))
+  end If
+  if len(SBTempScore) > 1 Then
+    SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
+    SBScore10 = cint(right(SBTempscore,1))
+  end If
+  if len(SBTempScore) > 1 Then
+    SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
+    SBScore100 = cint(right(SBTempscore,1))
+  end If
+  if len(SBTempScore) > 1 Then
+    SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
+    SBScoreK = cint(right(SBTempscore,1))
+  end If
+  if len(SBTempScore) > 1 Then
+    SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
+    SBScore10k = cint(right(SBTempscore,1))
+  end If
+  if len(SBTempScore) > 1 Then
+    SBTempScore = Left(SBTempScore,len(SBTempScore)-1)
+    SBScore100k = cint(right(SBTempscore,1))
+  end If
+  Select case PlayerPar
+    Case 1:
+      Pscore6_1.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_1.image = HSArray(10)
+      Pscore5_1.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_1.image = HSArray(10)
+      Pscore4_1.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_1.image = HSArray(10)
+      Pscore3_1.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_1.image = HSArray(10)
+      Pscore2_1.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_1.image = HSArray(10)
+      Pscore1_1.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_1.image = HSArray(10)
+      if PlayerScore(PlayerPar)<1000 then
+        PscoreComma_1.image = HSArray(10)
+      else
+        PscoreComma_1.image = HSArray(11)
+      end if
+    Case 2:
+      Pscore6_2.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_2.image = HSArray(10)
+      Pscore5_2.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_2.image = HSArray(10)
+      Pscore4_2.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then PScore4_2.image = HSArray(10)
+      Pscore3_2.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_2.image = HSArray(10)
+      Pscore2_2.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_2.image = HSArray(10)
+      Pscore1_2.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_2.image = HSArray(10)
+      if PlayerScore(PlayerPar)<1000 then
+        PscoreComma_2.image = HSArray(10)
+      else
+        PscoreComma_2.image = HSArray(11)
+      end if
+    Case 3:
+      Pscore6_3.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_3.image = HSArray(10)
+      Pscore5_3.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_3.image = HSArray(10)
+      Pscore4_3.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_3.image = HSArray(10)
+      Pscore3_3.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_3.image = HSArray(10)
+      Pscore2_3.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_3.image = HSArray(10)
+      Pscore1_3.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_3.image = HSArray(10)
+      if PlayerScore(PlayerPar)<1000 then
+        PscoreComma_3.image = HSArray(10)
+      else
+        PscoreComma_3.image = HSArray(11)
+      end if
+    Case 4:
+      Pscore6_4.image = HSArray(SBScore100K):If PlayerScore(PlayerPar)<100000 Then Pscore6_4.image = HSArray(10)
+      Pscore5_4.image = HSArray(SBScore10K):If PlayerScore(PlayerPar)<10000 Then Pscore5_4.image = HSArray(10)
+      Pscore4_4.image = HSArray(SBScoreK):If PlayerScore(PlayerPar)<1000 Then Pscore4_4.image = HSArray(10)
+      Pscore3_4.image = HSArray(SBScore100):If PlayerScore(PlayerPar)<100 Then Pscore3_4.image = HSArray(10)
+      Pscore2_4.image = HSArray(SBScore10):If PlayerScore(PlayerPar)<10 Then Pscore2_4.image = HSArray(10)
+      Pscore1_4.image = HSArray(SBScore1):If PlayerScore(PlayerPar)<1 Then Pscore1_4.image = HSArray(10)
+      if PlayerScore(PlayerPar)<1000 then
+        PscoreComma_4.image = HSArray(10)
+      else
+        PscoreComma_4.image = HSArray(11)
+      end if
+  End Select
 End Sub
 
 
 ' Keyboard Input
 
 Sub Lady_Luck_KeyDown(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.PullBack
-		PlaySoundAt "plungerpull", Plunger
-	End If
+  If keycode = PlungerKey Then
+    Plunger.PullBack
+    PlaySoundAt "plungerpull", Plunger
+  End If
 
-	if GameStarted and (Tilt = 0) Then
-		If keycode = LeftFlipperKey Then
-			LeftFlipper.RotateToEnd
-			PlaySoundAt"fx_FlipperUp", LeftFlipper
-		End If
+  if GameStarted and (Tilt = 0) Then
+    If keycode = LeftFlipperKey Then
+      LeftFlipper.RotateToEnd
+      PlaySoundAt"fx_FlipperUp", LeftFlipper
+    End If
 
-		If keycode = RightFlipperKey Then
-			RightFlipper.RotateToEnd
-			PlaySoundAt "fx_FlipperUp", RightFlipper
-		End If
-	end If
+    If keycode = RightFlipperKey Then
+      RightFlipper.RotateToEnd
+      PlaySoundAt "fx_FlipperUp", RightFlipper
+    End If
+  end If
 
-	If keycode = LeftTiltKey Then
-		Nudge 90, 2
-		checkNudge
-	End If
+  If keycode = LeftTiltKey Then
+    Nudge 90, 2
+    checkNudge
+  End If
 
-	If keycode = RightTiltKey Then
-		Nudge 270, 2
-		checkNudge
-	End If
+  If keycode = RightTiltKey Then
+    Nudge 270, 2
+    checkNudge
+  End If
 
-	If keycode = CenterTiltKey Then
-		Nudge 0, 2
-		checkNudge
-	End If
+  If keycode = CenterTiltKey Then
+    Nudge 0, 2
+    checkNudge
+  End If
 
-	If keycode = MechanicalTilt Then
-		mechchecknudge
-	End If
+  If keycode = MechanicalTilt Then
+    mechchecknudge
+  End If
 
 
-	if keycode = StartGameKey Then
-		StartGame
-	end If
+  if keycode = StartGameKey Then
+    StartGame
+  end If
 
-	if keycode = AddCreditKey Then
-		Playsound "fx_Coin"
-		Credits = Credits + 1
-		'DOF 126, DOFOn
-		if Credits > 9 then
-			Credits = 9
-		end If
-		if B2Son Then
-			Controller.B2SSetCredits Credits
-		end If
-		P_Credits.image = cstr(Credits)
-		EMReel_Credits.setvalue Credits
-	end If
+  if keycode = AddCreditKey Then
+    Playsound "fx_Coin"
+    Credits = Credits + 1
+    'DOF 126, DOFOn
+    if Credits > 9 then
+      Credits = 9
+    end If
+    if B2Son Then
+      Controller.B2SSetCredits Credits
+    end If
+    P_Credits.image = cstr(Credits)
+    EMReel_Credits.setvalue Credits
+  end If
 
-	if keycode = AddCreditKey2 Then
-		Playsound "fx_Coin"
-		Credits = Credits + 2
-		'DOF 126, DOFOn
-		if Credits > 9 then
-			Credits = 9
-		end If
-		if B2Son Then
-			Controller.B2SSetCredits Credits
-		End If
-		P_Credits.image = cstr(Credits)
-		EMReel_Credits.setvalue Credits
-	end If
+  if keycode = AddCreditKey2 Then
+    Playsound "fx_Coin"
+    Credits = Credits + 2
+    'DOF 126, DOFOn
+    if Credits > 9 then
+      Credits = 9
+    end If
+    if B2Son Then
+      Controller.B2SSetCredits Credits
+    End If
+    P_Credits.image = cstr(Credits)
+    EMReel_Credits.setvalue Credits
+  end If
 End Sub
 
 Sub Lady_Luck_KeyUp(ByVal keycode)
-	If keycode = PlungerKey Then
-		Plunger.Fire
-		PlaySoundAt "plunger", Plunger
-	End If
+  If keycode = PlungerKey Then
+    Plunger.Fire
+    PlaySoundAt "plunger", Plunger
+  End If
 
-	If keycode = LeftFlipperKey Then
-		LeftFlipper.RotateToStart
-		if GameStarted and (Tilt = 0) Then
-			PlaySoundAt "fx_flipperdown", LeftFlipper
-		end If
-	End If
+  If keycode = LeftFlipperKey Then
+    LeftFlipper.RotateToStart
+    if GameStarted and (Tilt = 0) Then
+      PlaySoundAt "fx_flipperdown", LeftFlipper
+    end If
+  End If
 
-	If keycode = RightFlipperKey Then
-		RightFlipper.RotateToStart
-		if GameStarted and (Tilt = 0) Then
-			PlaySoundAt "fx_flipperdown", RightFlipper
-		end If
-	End If
+  If keycode = RightFlipperKey Then
+    RightFlipper.RotateToStart
+    if GameStarted and (Tilt = 0) Then
+      PlaySoundAt "fx_flipperdown", RightFlipper
+    end If
+  End If
 End Sub
 
 Sub AddSpecial
-	playsound "knocker"
-	Credits = Credits + 1
-	'DOF 126, DOFOn
-	if Credits > 9 then
-		Credits = 9
-	end If
-	if B2Son Then
-		Controller.B2SSetCredits Credits
-	end If
-	EMReel_Credits.setvalue Credits
+  playsound "knocker"
+  Credits = Credits + 1
+  'DOF 126, DOFOn
+  if Credits > 9 then
+    Credits = 9
+  end If
+  if B2Son Then
+    Controller.B2SSetCredits Credits
+  end If
+  EMReel_Credits.setvalue Credits
 End Sub
 
 '--- Tilt recognition ---
 Dim Tilt
 Sub CheckNudge
-	if GameActive then
-		if NudgeTimer1.enabled then
-			if NudgeTimer2.enabled then
-				NudgeTimer1.enabled = False
-				NudgeTimer2.enabled = False
-				if Tilt = 0 then
-					GameTilted
-				end if
-			else
-				NudgeTimer2.enabled = True
-			end if
-		else
-			NudgeTimer1.enabled = True
-		end if
-	end if
+  if GameActive then
+    if NudgeTimer1.enabled then
+      if NudgeTimer2.enabled then
+        NudgeTimer1.enabled = False
+        NudgeTimer2.enabled = False
+        if Tilt = 0 then
+          GameTilted
+        end if
+      else
+        NudgeTimer2.enabled = True
+      end if
+    else
+      NudgeTimer1.enabled = True
+    end if
+  end if
 End Sub
 
 Sub MechCheckNudge
-	if GameActive then
-		GameTilted
-		LeftFlipper.RotateToStart
-		RightFlipper.RotateToStart
-	end if
+  if GameActive then
+    GameTilted
+    LeftFlipper.RotateToStart
+    RightFlipper.RotateToStart
+  end if
 End Sub
 
 
 Sub NudgeTimer1_Timer
-	NudgeTimer1.enabled = False
+  NudgeTimer1.enabled = False
 End Sub
 
 Sub NudgeTimer2_Timer
-	NudgeTimer2.enabled = False
+  NudgeTimer2.enabled = False
 End Sub
 
 Sub GameTilted
-	AdvanceBonusTimer.enabled = False
-	Tilt = 1
-	if B2SOn then
-		Controller.B2SSetTilt 1
-	end If
+  AdvanceBonusTimer.enabled = False
+  Tilt = 1
+  if B2SOn then
+    Controller.B2SSetTilt 1
+  end If
 
-	TargetSound = "target"
-	RolloverSound1 = "fx_sensor"
-	OutlaneSound = "fx_sensor"
+  TargetSound = "target"
+  RolloverSound1 = "fx_sensor"
+  OutlaneSound = "fx_sensor"
 
 End Sub
 
@@ -826,9 +826,9 @@ Dim HoleValue
 
 '*****CAPTIVE BALL*****
 
-	Kicker3.CreateBall
-	Kicker3.Kick 70,1
-	Kicker3.Enabled=False
+  Kicker3.CreateBall
+  Kicker3.Kick 70,1
+  Kicker3.Enabled=False
 
 
 
@@ -854,43 +854,43 @@ Sub TriggerLeftOutlane_Hit:PlaySound OutlaneSound, 0, 1, AudioPan(ActiveBall), 0
 Sub TriggerRightOutlane_Hit:PlaySound OutlaneSound, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall):Addpoints(10000):ScoreMotor:End Sub
 
 Sub TriggerMidRight_Hit()
-	If LightTopRightLane.State=1 then
-		Addpoints(1000)
-		AddBonus
-	Else
-		Addpoints(1000)
-		End If
-		Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightTopRightLane.State=1 then
+    Addpoints(1000)
+    AddBonus
+  Else
+    Addpoints(1000)
+    End If
+    Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerRightLower_Hit()
-    	If LightMidRightLane.State=1 then
-			Addpoints(1000)
-			AddBonus
-		Else
-			Addpoints(1000)
-		End If
-		Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+      If LightMidRightLane.State=1 then
+      Addpoints(1000)
+      AddBonus
+    Else
+      Addpoints(1000)
+    End If
+    Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerRightInlane_Hit()
-	If LightRightInLane.State=1 then
-		Addpoints(1000)
-		AddBonus
-	Else
-		Addpoints(1000)
-		End If
-		Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRightInLane.State=1 then
+    Addpoints(1000)
+    AddBonus
+  Else
+    Addpoints(1000)
+    End If
+    Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerLeftInLane_Hit()
-    	If LightLeftInlane.State=1 then
-			Addpoints(1000)
-			AddBonus
-		Else
-			Addpoints(1000)
-		End If
-		Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+      If LightLeftInlane.State=1 then
+      Addpoints(1000)
+      AddBonus
+    Else
+      Addpoints(1000)
+    End If
+    Playsound RolloverSound1, 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 
@@ -904,77 +904,77 @@ End Sub
 Sub Target2_Hit: Playsoundat "Target", Target2: Addpoints(1000):LightLeftInlane.State = 1:LightDT10.State = 1:Light10.State = 0:Light101.State = 0:ScoreMotor:End Sub
 
 Sub TargetCBUpper_Hit()
-	If LightTopDB.State=1 then
-		Addpoints(50000)
-		LightTopDB.State=0
-		LightExtraBall.State=1
-		LightBottomDB.State=1
-	Else
-		Addpoints(50000)
+  If LightTopDB.State=1 then
+    Addpoints(50000)
+    LightTopDB.State=0
+    LightExtraBall.State=1
+    LightBottomDB.State=1
+  Else
+    Addpoints(50000)
 ' Loserman code add - logic to detect if Extra Ball is lit and if so award it
-		If LightExtraBall.state = 1 Then
-			AwardExtraBall = 1
-			if B2SOn Then
-				controller.B2SSetShootAgain 1
-			end If
-			LightExtraBall.state = 0
-		end if
-	End If
-		Playsound "LadyLuckBell1"
+    If LightExtraBall.state = 1 Then
+      AwardExtraBall = 1
+      if B2SOn Then
+        controller.B2SSetShootAgain 1
+      end If
+      LightExtraBall.state = 0
+    end if
+  End If
+    Playsound "LadyLuckBell1"
 End Sub
 
 Sub Target1_Hit()
-	If LightDTA.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDTA.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 Sub Target3_Hit()
-	If LightDTA.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDTA.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 Sub Target4_Hit()
-	If LightDTK.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDTK.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 Sub Target5_Hit()
-	If LightDTQ.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDTQ.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 Sub Target6_Hit()
-	If LightDTJ.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDTJ.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 Sub Target7_Hit()
-	If LightDT10.State=1 then
-		Addpoints(5000)
-		AddBonus
-	Else
-		Addpoints(500)
-		End If
+  If LightDT10.State=1 then
+    Addpoints(5000)
+    AddBonus
+  Else
+    Addpoints(500)
+    End If
 
 End Sub
 
@@ -988,55 +988,55 @@ End Sub
 '*****ROLLOVER TARGETS AND LIGHTS*****
 
 Sub Trigger10_Hit()
-	If LightRollOver10.State=1 then
-		LightRollOverJ.State=1:LightRollOver10.State=0:LightCB10.State=1
-		Addpoints(100)
-	Else
-		LightRollOver10.State=0
-		Addpoints(100)
-		End If
-	Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRollOver10.State=1 then
+    LightRollOverJ.State=1:LightRollOver10.State=0:LightCB10.State=1
+    Addpoints(100)
+  Else
+    LightRollOver10.State=0
+    Addpoints(100)
+    End If
+  Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerJ_Hit()
-	If LightRollOverJ.State=1 then
-		LightRollOverQ.State=1:LightRollOverJ.State=0:LightCBJ.State=1
-		Addpoints(100)
-	Else
-		LightRollOverJ.State=0
-		Addpoints(100)
-		End If
-	Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRollOverJ.State=1 then
+    LightRollOverQ.State=1:LightRollOverJ.State=0:LightCBJ.State=1
+    Addpoints(100)
+  Else
+    LightRollOverJ.State=0
+    Addpoints(100)
+    End If
+  Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerQ_Hit()
-	If LightRollOverQ.State=1 then
-		LightRollOverK.State=1:LightRollOverQ.State=0:LightCBQ.State=1
-		Addpoints(100)
-	Else
-		LightRollOverQ.State=0
-		Addpoints(100)
-		End If
-	Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRollOverQ.State=1 then
+    LightRollOverK.State=1:LightRollOverQ.State=0:LightCBQ.State=1
+    Addpoints(100)
+  Else
+    LightRollOverQ.State=0
+    Addpoints(100)
+    End If
+  Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerK_Hit()
-	If LightRollOverK.State=1 then
-		LightRollOverA.State=1:LightRollOverK.State=0:LightCBK.State=1
-		Addpoints(100)
-	Else
-		LightRollOverK.State=0
-		Addpoints(100)
-		End If
-	Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRollOverK.State=1 then
+    LightRollOverA.State=1:LightRollOverK.State=0:LightCBK.State=1
+    Addpoints(100)
+  Else
+    LightRollOverK.State=0
+    Addpoints(100)
+    End If
+  Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub TriggerA_Hit()
-	If LightRollOverA.State=1 then
-		LightRollOverA.State=1:LightRollOverK.State=0:LightCBA.State=1:LightTopDB.State=1
-		Addpoints(100)
-		End If
-	Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  If LightRollOverA.State=1 then
+    LightRollOverA.State=1:LightRollOverK.State=0:LightCBA.State=1:LightTopDB.State=1
+    Addpoints(100)
+    End If
+  Playsound "solon", 0, 0.25, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 
@@ -1052,28 +1052,28 @@ Dim TotalBonus,DB
 
 
 Sub AddBonus
-	if Tilt = 0 Then
-		if not AdvanceBonusTimer.enabled Then
-			if TotalBonus < 55 then
-				TotalBonus = TotalBonus + 1
-			end If
-			UpdateBonusLights
-		end If
-	end If
+  if Tilt = 0 Then
+    if not AdvanceBonusTimer.enabled Then
+      if TotalBonus < 55 then
+        TotalBonus = TotalBonus + 1
+      end If
+      UpdateBonusLights
+    end If
+  end If
 End Sub
 
 Dim TargetSound, RolloverSound1,OutlaneSound
 Sub ScoreMotor
-	if Tilt = 0 Then
-		AdvanceBonusTimer.enabled = True
-		TargetSound = "target"
-		RolloverSound1 = "fx_sensor"
-		OutlaneSound = "fx_sensor"
-	end If
+  if Tilt = 0 Then
+    AdvanceBonusTimer.enabled = True
+    TargetSound = "target"
+    RolloverSound1 = "fx_sensor"
+    OutlaneSound = "fx_sensor"
+  end If
 End Sub
 
 Sub AdvanceBonusTimer_Timer
-	AdvanceBonusTimer.enabled = False
+  AdvanceBonusTimer.enabled = False
 
 End Sub
 
@@ -1083,55 +1083,55 @@ End Sub
 
 Dim BonusX
 Sub AwardBonus
-	if Tilt = 1 Then
-		TotalBonus = 0
-	end If
-			if LightBottomDB.State = 1 Then
-			DB = True
-			end If
-	BonusX = 1
-	if DB then BonusX = 2
-'	if TB then BonusX = 3
-	AwardBonusTimer.enabled = True
+  if Tilt = 1 Then
+    TotalBonus = 0
+  end If
+      if LightBottomDB.State = 1 Then
+      DB = True
+      end If
+  BonusX = 1
+  if DB then BonusX = 2
+' if TB then BonusX = 3
+  AwardBonusTimer.enabled = True
 End Sub
 
 Sub AwardBonusTimer_Timer
-	if TotalBonus > 0 Then
-		Playsound "FD_BonusCount"
-		Addpoints(10000 * BonusX)
-		TotalBonus = TotalBonus - 1
-		UpdateBonusLights
-	Else
-		AwardBonusTimer.enabled = False
-		Playsound "FD_BonusEnd"
-		EndBounsTimer1.enabled = True
-	end If
+  if TotalBonus > 0 Then
+    Playsound "FD_BonusCount"
+    Addpoints(10000 * BonusX)
+    TotalBonus = TotalBonus - 1
+    UpdateBonusLights
+  Else
+    AwardBonusTimer.enabled = False
+    Playsound "FD_BonusEnd"
+    EndBounsTimer1.enabled = True
+  end If
 End Sub
 
 Sub UpdateBonusLights
-		LightB1.state = ((TotalBonus mod 10) = 1) or TotalBonus > 54
-		LightB2.state = ((TotalBonus mod 10) = 2) or TotalBonus > 53
-		LightB3.state = ((TotalBonus mod 10) = 3) or TotalBonus > 51
-		LightB4.state = ((TotalBonus mod 10) = 4) or TotalBonus > 48
-		LightB5.state = ((TotalBonus mod 10) = 5) or TotalBonus > 44
-		LightB6.state = ((TotalBonus mod 10) = 6) or TotalBonus > 39
-		LightB7.state = ((TotalBonus mod 10) = 7) or TotalBonus > 33
-		LightB8.state = ((TotalBonus mod 10) = 8) or TotalBonus > 26
-		LightB9.state = ((TotalBonus mod 10) = 9) or TotalBonus > 18
-		LightB10.state = TotalBonus > 9
+    LightB1.state = ((TotalBonus mod 10) = 1) or TotalBonus > 54
+    LightB2.state = ((TotalBonus mod 10) = 2) or TotalBonus > 53
+    LightB3.state = ((TotalBonus mod 10) = 3) or TotalBonus > 51
+    LightB4.state = ((TotalBonus mod 10) = 4) or TotalBonus > 48
+    LightB5.state = ((TotalBonus mod 10) = 5) or TotalBonus > 44
+    LightB6.state = ((TotalBonus mod 10) = 6) or TotalBonus > 39
+    LightB7.state = ((TotalBonus mod 10) = 7) or TotalBonus > 33
+    LightB8.state = ((TotalBonus mod 10) = 8) or TotalBonus > 26
+    LightB9.state = ((TotalBonus mod 10) = 9) or TotalBonus > 18
+    LightB10.state = TotalBonus > 9
 End Sub
 
 Sub EndBounsTimer1_Timer
-	EndBounsTimer1.enabled = False
-	if (ActivePlayer < NoofPlayers) Or (BallinPlay < BallsperGame) Then
-		Playsound "FD_DrainwithBallrelease"
-	end If
-	EndBounsTimer2.enabled = True
+  EndBounsTimer1.enabled = False
+  if (ActivePlayer < NoofPlayers) Or (BallinPlay < BallsperGame) Then
+    Playsound "FD_DrainwithBallrelease"
+  end If
+  EndBounsTimer2.enabled = True
 End Sub
 
 Sub EndBounsTimer2_Timer
-	EndBounsTimer2.enabled = False
-	NextBall
+  EndBounsTimer2.enabled = False
+  NextBall
 End Sub
 
 '**************************************************************************************
@@ -1141,52 +1141,52 @@ End Sub
 '*****RESET PLAYFIELD*****
 Sub ResetPlayfield
 
-	'ResetLights
-	LightCBA.state = Lightstateoff
-	LightCBK.state = Lightstateoff
-	LightCBQ.state = Lightstateoff
+  'ResetLights
+  LightCBA.state = Lightstateoff
+  LightCBK.state = Lightstateoff
+  LightCBQ.state = Lightstateoff
     LightCBJ.state = Lightstateoff
-	LightCB10.state = Lightstateoff
-	LightDTA.state = Lightstateoff
-	LightDTK.state = Lightstateoff
-	LightDTQ.state = Lightstateoff
-	LightDTJ.state = Lightstateoff
-	LightDT10.state = Lightstateoff
-	LightTopA.state = Lightstateon
-	LightTopK.state = Lightstateon
-	LightTopQ.state = Lightstateon
+  LightCB10.state = Lightstateoff
+  LightDTA.state = Lightstateoff
+  LightDTK.state = Lightstateoff
+  LightDTQ.state = Lightstateoff
+  LightDTJ.state = Lightstateoff
+  LightDT10.state = Lightstateoff
+  LightTopA.state = Lightstateon
+  LightTopK.state = Lightstateon
+  LightTopQ.state = Lightstateon
     LightTopJ.state = Lightstateon
-	LightA.state = Lightstateoff
-	LightA1.state = Lightstateoff
-	Light10.state = Lightstateon
-	Light101.state = Lightstateon
-	LightRollOverA.state = Lightstateoff
-	LightRollOverK.state = Lightstateoff
-	LightRollOverQ.state = Lightstateoff
-	LightRollOverJ.state = Lightstateoff
-	LightRollOver10.state = Lightstateon
-	LightTopRightSpecial.state = Lightstateoff
-	LightTopRightLane.state = Lightstateoff
-	LightMidRightLane.state = Lightstateoff
-	LightRightInLane.state = Lightstateoff
-	LightBottomDB.state = Lightstateoff
-	LightLeftInlane.state = Lightstateoff
-	LightB1.state = Lightstateoff
-	LightB2.state = Lightstateoff
-	LightB3.state = Lightstateoff
-	LightB4.state = Lightstateoff
-	LightB5.state = Lightstateoff
-	LightB6.state = Lightstateoff
-	LightB7.state = Lightstateoff
-	LightB8.state = Lightstateoff
-	LightB9.state = Lightstateoff
-	LightB10.state = Lightstateoff
-	Light50K.state = Lightstateon
-	Light50K2.state = Lightstateon
-	LightTopDB.state = Lightstateoff
-	LightExtraBall.state = Lightstateoff
+  LightA.state = Lightstateoff
+  LightA1.state = Lightstateoff
+  Light10.state = Lightstateon
+  Light101.state = Lightstateon
+  LightRollOverA.state = Lightstateoff
+  LightRollOverK.state = Lightstateoff
+  LightRollOverQ.state = Lightstateoff
+  LightRollOverJ.state = Lightstateoff
+  LightRollOver10.state = Lightstateon
+  LightTopRightSpecial.state = Lightstateoff
+  LightTopRightLane.state = Lightstateoff
+  LightMidRightLane.state = Lightstateoff
+  LightRightInLane.state = Lightstateoff
+  LightBottomDB.state = Lightstateoff
+  LightLeftInlane.state = Lightstateoff
+  LightB1.state = Lightstateoff
+  LightB2.state = Lightstateoff
+  LightB3.state = Lightstateoff
+  LightB4.state = Lightstateoff
+  LightB5.state = Lightstateoff
+  LightB6.state = Lightstateoff
+  LightB7.state = Lightstateoff
+  LightB8.state = Lightstateoff
+  LightB9.state = Lightstateoff
+  LightB10.state = Lightstateoff
+  Light50K.state = Lightstateon
+  Light50K2.state = Lightstateon
+  LightTopDB.state = Lightstateoff
+  LightExtraBall.state = Lightstateoff
 
-	Tilt = 0
+  Tilt = 0
 End Sub
 '********************************
 
@@ -1198,43 +1198,43 @@ End Sub
 
 Dim PlayerScore(4),ActivePlayer,Special1(4),Special2(4),Special3(4)
 Sub Addpoints(ScorePar)
-	if Tilt = 0 Then
-		Nopointsscored = False
-		if not GameActive then
-			GameActive = True
-		end If
-		if ScorePar < 50 Then
-			Playerscore(ActivePLayer) = Playerscore(ActivePLayer) + ScorePar
-		Else
-			if not AdvanceBonusTimer.enabled Then
-				Playerscore(ActivePLayer) = Playerscore(ActivePLayer) + ScorePar
-			end If
-		end If
+  if Tilt = 0 Then
+    Nopointsscored = False
+    if not GameActive then
+      GameActive = True
+    end If
+    if ScorePar < 50 Then
+      Playerscore(ActivePLayer) = Playerscore(ActivePLayer) + ScorePar
+    Else
+      if not AdvanceBonusTimer.enabled Then
+        Playerscore(ActivePLayer) = Playerscore(ActivePLayer) + ScorePar
+      end If
+    end If
 
-		if (Playerscore(ActivePLayer) >= Special1Score) and not Special1(ActivePlayer) Then
-			Special1(ActivePlayer) = True
-			AddSpecial
-		end If
-		if (Playerscore(ActivePLayer) >= Special2Score) and not Special2(ActivePlayer) Then
-			Special2(ActivePlayer) = True
-			AddSpecial
-		end If
-		if (Playerscore(ActivePLayer) >= Special3Score) and not Special3(ActivePlayer) Then
-			Special3(ActivePlayer) = True
-			AddSpecial
-		end If
-		UpdateScoreReel.enabled = True
-	end If
+    if (Playerscore(ActivePLayer) >= Special1Score) and not Special1(ActivePlayer) Then
+      Special1(ActivePlayer) = True
+      AddSpecial
+    end If
+    if (Playerscore(ActivePLayer) >= Special2Score) and not Special2(ActivePlayer) Then
+      Special2(ActivePlayer) = True
+      AddSpecial
+    end If
+    if (Playerscore(ActivePLayer) >= Special3Score) and not Special3(ActivePlayer) Then
+      Special3(ActivePlayer) = True
+      AddSpecial
+    end If
+    UpdateScoreReel.enabled = True
+  end If
 End Sub
 
 Sub Flippertimer_Timer
-	RFPrim.RotY = RightFlipper.currentangle
-	LFPrim.RotY = LeftFlipper.currentangle
+  RFPrim.RotY = RightFlipper.currentangle
+  LFPrim.RotY = LeftFlipper.currentangle
 End Sub
 
 Sub ShooterLaneLaunch_Hit
-	if ActiveBall.vely < -8 then playsound "Launch",0,0.3,0.1,0.25
-	'DOF 124, DOFPulse
+  if ActiveBall.vely < -8 then playsound "Launch",0,0.3,0.1,0.25
+  'DOF 124, DOFPulse
 End Sub
 
 
@@ -1247,121 +1247,121 @@ End Sub
 Const HighScoreFilename = "Lady_Luck.txt"
 
 Dim HSArray,HSAHighScore, HSA1, HSA2, HSA3
-Dim HSScoreM,HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex	'Define 6 different score values for each reel to use
+Dim HSScoreM,HSScore100k, HSScore10k, HSScoreK, HSScore100, HSScore10, HSScore1, HSScorex 'Define 6 different score values for each reel to use
 HSArray = Array("HS_0","HS_1","HS_2","HS_3","HS_4","HS_5","HS_6","HS_7","HS_8","HS_9","HS_Space","HS_Comma","Tape")
 Const DefaultHighScore = 0
 
 Sub LoadHighScore
-	Dim FileObj
-	Dim ScoreFile
-	Dim TextStr
+  Dim FileObj
+  Dim ScoreFile
+  Dim TextStr
     Dim SavedDataTemp3 'HighScore
     Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	If Not FileObj.FileExists(UserDirectory & HighScoreFilename) then
-		SetDefaultHSTD:UpdatePostIt:SaveHighScore
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.GetFile(UserDirectory & HighScoreFilename)
-	Set TextStr=ScoreFile.OpenAsTextStream(1,0)
-		If (TextStr.AtEndOfStream=True) then
-			SetDefaultHSTD:UpdatePostIt:SaveHighScore
-			Exit Sub
-		End if
-		SavedDataTemp3=Textstr.ReadLine ' HighScore
-		TextStr.Close
-		HSAHighScore=SavedDataTemp3
-		UpdatePostIt
-	    Set ScoreFile = Nothing
-	    Set FileObj = Nothing
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  If Not FileObj.FileExists(UserDirectory & HighScoreFilename) then
+    SetDefaultHSTD:UpdatePostIt:SaveHighScore
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.GetFile(UserDirectory & HighScoreFilename)
+  Set TextStr=ScoreFile.OpenAsTextStream(1,0)
+    If (TextStr.AtEndOfStream=True) then
+      SetDefaultHSTD:UpdatePostIt:SaveHighScore
+      Exit Sub
+    End if
+    SavedDataTemp3=Textstr.ReadLine ' HighScore
+    TextStr.Close
+    HSAHighScore=SavedDataTemp3
+    UpdatePostIt
+      Set ScoreFile = Nothing
+      Set FileObj = Nothing
 End Sub
 
 Sub SetDefaultHSTD  'bad data or missing file - reset and resave
-	HSAHighScore = DefaultHighScore
-	SaveHighScore
+  HSAHighScore = DefaultHighScore
+  SaveHighScore
 End Sub
 
 Sub UpdatePostIt
-	HSScorex = HSAHighScore
-	TempScore = HSScorex
-	HSScore1 = 0
-	HSScore10 = 0
-	HSScore100 = 0
-	HSScoreK = 0
-	HSScore10k = 0
-	HSScore100k = 0
-	HSScoreM = 0
-	if len(TempScore) > 0 Then
-		HSScore1 = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScore10 = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScore100 = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScoreK = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScore10k = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScore100k = cint(right(Tempscore,1))
-	end If
-	if len(TempScore) > 1 Then
-		TempScore = Left(TempScore,len(TempScore)-1)
-		HSScoreM = cint(right(Tempscore,1))
-	end If
-	Pscore6.image = HSArray(HSScoreM):If HSScorex<1000000 Then PScore6.image = HSArray(10)
-	Pscore5.image = HSArray(HSScore100K):If HSScorex<100000 Then PScore5.image = HSArray(10)
-	PScore4.image = HSArray(HSScore10K):If HSScorex<10000 Then PScore4.image = HSArray(10)
-	PScore3.image = HSArray(HSScoreK):If HSScorex<1000 Then PScore3.image = HSArray(10)
-	PScore2.image = HSArray(HSScore100):If HSScorex<100 Then PScore2.image = HSArray(10)
-	PScore1.image = HSArray(HSScore10):If HSScorex<10 Then PScore1.image = HSArray(10)
-	PScore0.image = HSArray(HSScore1):If HSScorex<1 Then PScore0.image = HSArray(10)
-	if HSScorex<1000 then
-		PComma.image = HSArray(10)
-	else
-		PComma.image = HSArray(11)
-	end if
-	if HSScorex<1000000 then
-		PComma2.image = HSArray(10)
-	else
-		PComma2.image = HSArray(11)
-	end if
-	if B2SOn Then
-		Controller.B2SSetScore 6,HSAHighScore
-	End If
+  HSScorex = HSAHighScore
+  TempScore = HSScorex
+  HSScore1 = 0
+  HSScore10 = 0
+  HSScore100 = 0
+  HSScoreK = 0
+  HSScore10k = 0
+  HSScore100k = 0
+  HSScoreM = 0
+  if len(TempScore) > 0 Then
+    HSScore1 = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScore10 = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScore100 = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScoreK = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScore10k = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScore100k = cint(right(Tempscore,1))
+  end If
+  if len(TempScore) > 1 Then
+    TempScore = Left(TempScore,len(TempScore)-1)
+    HSScoreM = cint(right(Tempscore,1))
+  end If
+  Pscore6.image = HSArray(HSScoreM):If HSScorex<1000000 Then PScore6.image = HSArray(10)
+  Pscore5.image = HSArray(HSScore100K):If HSScorex<100000 Then PScore5.image = HSArray(10)
+  PScore4.image = HSArray(HSScore10K):If HSScorex<10000 Then PScore4.image = HSArray(10)
+  PScore3.image = HSArray(HSScoreK):If HSScorex<1000 Then PScore3.image = HSArray(10)
+  PScore2.image = HSArray(HSScore100):If HSScorex<100 Then PScore2.image = HSArray(10)
+  PScore1.image = HSArray(HSScore10):If HSScorex<10 Then PScore1.image = HSArray(10)
+  PScore0.image = HSArray(HSScore1):If HSScorex<1 Then PScore0.image = HSArray(10)
+  if HSScorex<1000 then
+    PComma.image = HSArray(10)
+  else
+    PComma.image = HSArray(11)
+  end if
+  if HSScorex<1000000 then
+    PComma2.image = HSArray(10)
+  else
+    PComma2.image = HSArray(11)
+  end if
+  if B2SOn Then
+    Controller.B2SSetScore 6,HSAHighScore
+  End If
 End Sub
 
 Dim FileObj,ScoreFile
 Sub SaveHighScore
-	Set FileObj=CreateObject("Scripting.FileSystemObject")
-	If Not FileObj.FolderExists(UserDirectory) then
-		Exit Sub
-	End if
-	Set ScoreFile=FileObj.CreateTextFile(UserDirectory & HighScoreFilename,True)
-		ScoreFile.WriteLine HSAHighScore
-		ScoreFile.Close
-	Set ScoreFile=Nothing
-	Set FileObj=Nothing
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End if
+  Set ScoreFile=FileObj.CreateTextFile(UserDirectory & HighScoreFilename,True)
+    ScoreFile.WriteLine HSAHighScore
+    ScoreFile.Close
+  Set ScoreFile=Nothing
+  Set FileObj=Nothing
 End Sub
 
 Sub CheckNewHighScorePostIt(newScore)
-		If CLng(newScore) > CLng(HSAHighScore) Then
-			AddSpecial
-			HSAHighScore=newScore
-			SaveHighScore
-			UpdatePostIt
-		End If
+    If CLng(newScore) > CLng(HSAHighScore) Then
+      AddSpecial
+      HSAHighScore=newScore
+      SaveHighScore
+      UpdatePostIt
+    End If
 End Sub
 
 
@@ -1420,12 +1420,12 @@ Sub Gate7_hit:Playsound "GateFlap", 0, 1, AudioPan(ActiveBall), 0, Pitch(ActiveB
 
 
 ''*****************************************
-''			FLIPPER SHADOWS
+''      FLIPPER SHADOWS
 ''*****************************************
 '
 sub FlipperTimer1_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
 End Sub
 
 
@@ -1570,40 +1570,40 @@ Dim BCup, BCdown, BCleft, BCright
 Dim ControlBallInPlay, ControlActiveBall
 Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 
-BCboost = 1				'Do Not Change - default setting
-BCvel = 4				'Controls the speed of the ball movement
-BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
+BCboost = 1       'Do Not Change - default setting
+BCvel = 4       'Controls the speed of the ball movement
+BCyveloffset = -0.01  'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
+BCboostmulti = 3    'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
 Sub StartBallControl_Hit()
-	Set ControlActiveBall = ActiveBall
-	ControlBallInPlay = true
+  Set ControlActiveBall = ActiveBall
+  ControlBallInPlay = true
 End Sub
 
 Sub StopBallControl_Hit()
-	ControlBallInPlay = false
+  ControlBallInPlay = false
 End Sub
 
 Sub BallControlTimer_Timer()
-	If EnableBallControl and ControlBallInPlay then
-		If BCright = 1 Then
-			ControlActiveBall.velx =  BCvel*BCboost
-		ElseIf BCleft = 1 Then
-			ControlActiveBall.velx = -BCvel*BCboost
-		Else
-			ControlActiveBall.velx = 0
-		End If
+  If EnableBallControl and ControlBallInPlay then
+    If BCright = 1 Then
+      ControlActiveBall.velx =  BCvel*BCboost
+    ElseIf BCleft = 1 Then
+      ControlActiveBall.velx = -BCvel*BCboost
+    Else
+      ControlActiveBall.velx = 0
+    End If
 
-		If BCup = 1 Then
-			ControlActiveBall.vely = -BCvel*BCboost
-		ElseIf BCdown = 1 Then
-			ControlActiveBall.vely =  BCvel*BCboost
-		Else
-			ControlActiveBall.vely = bcyveloffset
-		End If
-	End If
+    If BCup = 1 Then
+      ControlActiveBall.vely = -BCvel*BCboost
+    ElseIf BCdown = 1 Then
+      ControlActiveBall.vely =  BCvel*BCboost
+    Else
+      ControlActiveBall.vely = bcyveloffset
+    End If
+  End If
 End Sub
 
 
@@ -1626,16 +1626,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -1704,77 +1704,77 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+  PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' Thalamus : Exit in a clean and proper way

@@ -50,12 +50,12 @@ End if
 
 SolCallBack(1)    = "SolTrough"
 SolCallBack(2)    = "SolAutoPlungerIM"
-SolCallBack(3)    =	"VukTopPop"
-SolCallBack(4)	  ="SolChest"'CHEST LID
+SolCallBack(3)    = "VukTopPop"
+SolCallBack(4)    ="SolChest"'CHEST LID
 SolCallBack(5)="SolSailsUp"'RAISE SAILS
-SolCallBack(6)	  ="SolSpinner"
+SolCallBack(6)    ="SolSpinner"
 SolCallBack(18)   ="bsPOP.SolOut"
-SolCallBack(19)	  ="SolChestExit" 'Chest Kicker
+SolCallBack(19)   ="SolChestExit" 'Chest Kicker
 SolCallBack(21)="SolShipMotor" 'Ship Motor
 SolCallBack(23)   ="SolTortugaPost"
 SolCallBack(27)="SolMotorDir"'SHIP MOTOR RELAY
@@ -94,47 +94,47 @@ End Sub
 
 'Trough Ball
 Sub SolTrough(Enabled)
-	If Enabled Then
-		bsTrough.ExitSol_On
-		vpmTimer.PulseSw 22
-	End If
+  If Enabled Then
+    bsTrough.ExitSol_On
+    vpmTimer.PulseSw 22
+  End If
  End Sub
 
 Sub SolAutoPlungerIM(Enabled)
-	If Enabled Then
-		PlungerIM.AutoFire
-	End If
+  If Enabled Then
+    PlungerIM.AutoFire
+  End If
  End Sub
 
 Sub SolSHIPPIN(Enabled)
-	If Enabled Then
-		ShipPin.IsDropped=0
-		playsoundAt SoundFX("Popper",DOFContactors), Primitive48
-	Else
-		ShipPin.IsDropped=1
-		playsoundAt SoundFX("Popper",DOFContactors), Primitive48
-	End If
+  If Enabled Then
+    ShipPin.IsDropped=0
+    playsoundAt SoundFX("Popper",DOFContactors), Primitive48
+  Else
+    ShipPin.IsDropped=1
+    playsoundAt SoundFX("Popper",DOFContactors), Primitive48
+  End If
 End Sub
 
 Sub SolTortugaPost(Enabled)
-	If Enabled Then
-		TortugaPost.IsDropped=0
-		TortugaPin.transy = 50
-		playsoundAt SoundFX("Popper",DOFContactors), Primitive18
-	Else
-		TortugaPost.IsDropped=1
-		TortugaPin.transy = 0
-		playsoundAt SoundFX("Popper",DOFContactors), Primitive18
-	End If
+  If Enabled Then
+    TortugaPost.IsDropped=0
+    TortugaPin.transy = 50
+    playsoundAt SoundFX("Popper",DOFContactors), Primitive18
+  Else
+    TortugaPost.IsDropped=1
+    TortugaPin.transy = 0
+    playsoundAt SoundFX("Popper",DOFContactors), Primitive18
+  End If
 End Sub
 
 Sub SolSpinner (Enabled)
-	mDISC.MotorOn = Enabled
-	RotationTimer.Enabled = Enabled
+  mDISC.MotorOn = Enabled
+  RotationTimer.Enabled = Enabled
 End Sub
 
 Sub RotationTimer_Timer
-	RotatingPlatform.RotAndTra2 = RotatingPlatform.RotAndTra2 +40
+  RotatingPlatform.RotAndTra2 = RotatingPlatform.RotAndTra2 +40
 End Sub
 
 
@@ -142,16 +142,16 @@ End Sub
 set GICallback = GetRef("UpdateGI")
 
 Sub UpdateGI(no, Enabled)
-	If Enabled Then
-		dim xx, xxx
-		For each xx in GI:xx.State = 1: Next
-		For each xxx in GI2:xxx.visible = 1: Next
+  If Enabled Then
+    dim xx, xxx
+    For each xx in GI:xx.State = 1: Next
+    For each xxx in GI2:xxx.visible = 1: Next
         PlaySound "fx_relay"
-	Else
-		For each xx in GI:xx.State = 0: Next
-		For each xxx in GI2:xxx.visible = 0: Next
+  Else
+    For each xx in GI:xx.State = 0: Next
+    For each xxx in GI2:xxx.visible = 0: Next
         PlaySound "fx_relay"
-	End If
+  End If
 End Sub
 
 '**********************************************************************************************************
@@ -162,21 +162,21 @@ End Sub
 Dim bsTROUGH, bsPOP, bsCHEST, bsL, mDISC
 
 Sub Table1_Init
-	vpmInit Me
-	On Error Resume Next
-		With Controller
-		.GameName = cGameName
-		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
-		.SplashInfoLine = "Pirates of the Caribbean (Stern 2006)"&chr(13)&"You Suck"
-		.HandleMechanics=0
-		.HandleKeyboard=0
-		.ShowDMDOnly=1
-		.ShowFrame=0
-		.ShowTitle=0
+  vpmInit Me
+  On Error Resume Next
+    With Controller
+    .GameName = cGameName
+    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+    .SplashInfoLine = "Pirates of the Caribbean (Stern 2006)"&chr(13)&"You Suck"
+    .HandleMechanics=0
+    .HandleKeyboard=0
+    .ShowDMDOnly=1
+    .ShowFrame=0
+    .ShowTitle=0
         .hidden = 0
-		 On Error Resume Next
-			InitVpmFFlipsSAM
-		 On Error Goto 0
+     On Error Resume Next
+      InitVpmFFlipsSAM
+     On Error Goto 0
          On Error Resume Next
          .Run GetPlayerHWnd
          If Err Then MsgBox Err.Description
@@ -187,21 +187,21 @@ Sub Table1_Init
     PinMAMETimer.Interval = PinMAMEInterval
     PinMAMETimer.Enabled = 1
 
-	vpmNudge.TiltSwitch=-7
-	vpmNudge.Sensitivity=2
-	vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot,Bumper1,Bumper2,Bumper3)
+  vpmNudge.TiltSwitch=-7
+  vpmNudge.Sensitivity=2
+  vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot,Bumper1,Bumper2,Bumper3)
 
-	Set bsTROUGH=New cvpmBallStack
-		bsTROUGH.InitSw 0,21,20,19,18,0,0,0
-		bsTROUGH.InitKick BallRelease,73,7
-		bsTROUGH.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsTROUGH.Balls=4
+  Set bsTROUGH=New cvpmBallStack
+    bsTROUGH.InitSw 0,21,20,19,18,0,0,0
+    bsTROUGH.InitKick BallRelease,73,7
+    bsTROUGH.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsTROUGH.Balls=4
 
-	Set bsPOP=New cvpmBallStack
-		bsPOP.InitSaucer sw56,56,75,30
-		bsPOP.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
-		bsPOP.KickAngleVar = 1
-		bsPOP.KickForceVar = 1
+  Set bsPOP=New cvpmBallStack
+    bsPOP.InitSaucer sw56,56,75,30
+    bsPOP.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+    bsPOP.KickAngleVar = 1
+    bsPOP.KickForceVar = 1
 
     Set bsCHEST = New cvpmBallStack
     With bsCHEST
@@ -215,19 +215,19 @@ Sub Table1_Init
     End With
 
     Set mDISC=New cvpmTurnTable
-		mDISC.InitTurnTable Plunder,60
-		mDISC.SpinUp=30
-		mDISC.SpinDown=25
-		mDISC.CreateEvents"mDISC"
+    mDISC.InitTurnTable Plunder,60
+    mDISC.SpinUp=30
+    mDISC.SpinDown=25
+    mDISC.CreateEvents"mDISC"
 
- 	ChestOpen.IsDropped=1
- 	ShipPin.IsDropped=1
-	Sink1.IsDropped=1
- 	Sink2.IsDropped=1
- 	SailsDown.IsDropped=1
- 	TortugaPost.IsDropped=1
+  ChestOpen.IsDropped=1
+  ShipPin.IsDropped=1
+  Sink1.IsDropped=1
+  Sink2.IsDropped=1
+  SailsDown.IsDropped=1
+  TortugaPost.IsDropped=1
 
- 	Controller.Switch(63)=1
+  Controller.Switch(63)=1
 
  End Sub
 
@@ -236,24 +236,24 @@ Sub Table1_Init
 '**********************************************************************************************************
 
 Sub Table1_KeyDown(ByVal KeyCode)
-	If KeyDownHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAt "plungerpull", Plunger
+  If KeyDownHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAt "plungerpull", Plunger
     If KeyCode=7 Then vpmTimer.PulseSw 15   'Start Tournament
- 	If Keycode = RightFlipperKey then Controller.Switch(82)=1:Controller.Switch(90)=1
- 	If Keycode = LeftFlipperKey then Controller.Switch(84)=1
-	If Keycode = StartGameKey Then Controller.Switch(16) = 1
+  If Keycode = RightFlipperKey then Controller.Switch(82)=1:Controller.Switch(90)=1
+  If Keycode = LeftFlipperKey then Controller.Switch(84)=1
+  If Keycode = StartGameKey Then Controller.Switch(16) = 1
 End Sub
 
 Sub Table1_KeyUp(ByVal KeyCode)
-	If KeyUpHandler(keycode) Then Exit Sub
-	If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", plunger
- 	If Keycode = RightFlipperKey then Controller.Switch(82)=0:Controller.Switch(90)=0
- 	If Keycode = LeftFlipperKey then Controller.Switch(84)=0
-	If Keycode = StartGameKey Then Controller.Switch(16) = 0
+  If KeyUpHandler(keycode) Then Exit Sub
+  If keycode = PlungerKey Then Plunger.Fire:PlaySoundAt "plunger", plunger
+  If Keycode = RightFlipperKey then Controller.Switch(82)=0:Controller.Switch(90)=0
+  If Keycode = LeftFlipperKey then Controller.Switch(84)=0
+  If Keycode = StartGameKey Then Controller.Switch(16) = 0
 End Sub
 
      ' Impulse Plunger
-	Dim PlungerIM
+  Dim PlungerIM
     Const IMPowerSetting = 55
     Const IMTime = 0.6
     Set plungerIM = New cvpmImpulseP
@@ -349,35 +349,35 @@ Sub Trigger4_Hit: PlaySoundAt "fx_ballrampdrop", Trigger4 : End Sub
  Dim raiseballsw, raiseball
 
  Sub TopVUK_Hit()
- 	TopVUK.Enabled=FALSE
-	Controller.switch (9) = True
- 	PlaySoundAt "popper_ball", TopVUK
+  TopVUK.Enabled=FALSE
+  Controller.switch (9) = True
+  PlaySoundAt "popper_ball", TopVUK
  End Sub
 
  Sub VukTopPop(enabled)
-	if(enabled and Controller.switch (9)) then
-		TopVUK.DestroyBall
- 		Set raiseball = TopVUK.CreateBall
- 		raiseballsw = True
- 		TopVukraiseballtimer.Enabled = True
-		TopVUK.Enabled=TRUE
- 		Controller.switch (9) = False
-		playsound SoundFX("Popper",DOFContactors)
-	else
+  if(enabled and Controller.switch (9)) then
+    TopVUK.DestroyBall
+    Set raiseball = TopVUK.CreateBall
+    raiseballsw = True
+    TopVukraiseballtimer.Enabled = True
+    TopVUK.Enabled=TRUE
+    Controller.switch (9) = False
+    playsound SoundFX("Popper",DOFContactors)
+  else
 
-	end if
+  end if
 End Sub
 
  Sub TopVukraiseballtimer_Timer()
- 	If raiseballsw = True then
- 		raiseball.z = raiseball.z + 10
- 		If raiseball.z > 175 then
- 			TopVUK.Kick 100, 10
- 			Set raiseball = Nothing
- 			TopVukraiseballtimer.Enabled = False
- 			raiseballsw = False
- 		End If
- 	End If
+  If raiseballsw = True then
+    raiseball.z = raiseball.z + 10
+    If raiseball.z > 175 then
+      TopVUK.Kick 100, 10
+      Set raiseball = Nothing
+      TopVukraiseballtimer.Enabled = False
+      raiseballsw = False
+    End If
+  End If
  End Sub
 
 ''************************************************************************************
@@ -386,36 +386,36 @@ End Sub
 
 
  Sub SolChestExit(Enabled)
- 	If Enabled Then
- 		ChestOpen.IsDropped=1
- 		ChestClosed.IsDropped=0
- 		bsChest.ExitSol_On
- 	End If
+  If Enabled Then
+    ChestOpen.IsDropped=1
+    ChestClosed.IsDropped=0
+    bsChest.ExitSol_On
+  End If
  End Sub
 
  Sub SolChest(Enabled)
- 	If Enabled Then
- 		ChestOpen.IsDropped=0
- 		ChestClosed.IsDropped=1
-	 	End If
+  If Enabled Then
+    ChestOpen.IsDropped=0
+    ChestClosed.IsDropped=1
+    End If
  End Sub
 
 Dim ChestO
 
 Sub ChestMon_Timer
-	if chestopen.IsDropped = True then
-		chesto = False
-		f24.height = 0:f32.height = 0:f40.height = 0:f48.height = 0:f56.height = 0
-	else
-		chesto = True
-		f24.height = 217:f32.height = 217:f40.height = 217:f48.height = 217:f56.height = 217
-	end if
+  if chestopen.IsDropped = True then
+    chesto = False
+    f24.height = 0:f32.height = 0:f40.height = 0:f48.height = 0:f56.height = 0
+  else
+    chesto = True
+    f24.height = 217:f32.height = 217:f40.height = 217:f48.height = 217:f56.height = 217
+  end if
 End Sub
 
 Sub chestMove_Timer()
-	If chesto = True and chest.RotZ < 66 then chest.RotZ = chest.RotZ + 3
-	If chesto = False and chest.RotZ > 0 then chest.RotZ = chest.RotZ - 3
-	If chest.RotZ >= 0 then chesto = False
+  If chesto = True and chest.RotZ < 66 then chest.RotZ = chest.RotZ + 3
+  If chesto = False and chest.RotZ > 0 then chest.RotZ = chest.RotZ - 3
+  If chest.RotZ >= 0 then chesto = False
 End Sub
 
 ''************************************************************************************
@@ -426,108 +426,108 @@ Dim ShipDir,ShipPos,MotorDir
 ShipDir=1:ShipPos=0:MotorDir=0
 
  Sub SolMotorDir(Enabled)
- 	If Enabled Then
- 		MotorDir=1
- 	Else
- 		MotorDir=-1
- 	End If
+  If Enabled Then
+    MotorDir=1
+  Else
+    MotorDir=-1
+  End If
 End Sub
 
 Sub SolShipMotor(Enabled)
-	If Enabled Then
- 		ShipTimer.Enabled=True
- 	End If
+  If Enabled Then
+    ShipTimer.Enabled=True
+  End If
 End Sub
 
 Sub ShipTimer_Timer
- 	ShipPos=ShipPos+MotorDir
- 	If ShipPos>0 And ShipPos<3 Then
- 		Controller.Switch(62)=0
- 		Controller.Switch(63)=0
- 	End If
- 	If ShipPos<0 Then
- 		ShipPos=0
- 		ShipTimer.Enabled=0
- 		Controller.Switch(63)=1
- 		Controller.Switch(62)=0
- 	End If
- 	If ShipPos>3 Then
- 		ShipPos=3
- 		ShipTimer.Enabled=0
- 		Controller.Switch(63)=0
- 		Controller.Switch(62)=1
- 	End If
- 	Select Case ShipPos
-		Case 0:SailsUp.IsDropped=1:Sink1.IsDropped=1:Sink2.IsDropped=1:SailsDown.IsDropped=0
- 		Case 1:SailsUp.IsDropped=1:SailsDown.IsDropped=1:Sink2.IsDropped=1:Sink1.IsDropped=0
-		Case 2:SailsUp.IsDropped=1:SailsDown.IsDropped=1:Sink1.IsDropped=1:Sink2.IsDropped=0
-	End Select
+  ShipPos=ShipPos+MotorDir
+  If ShipPos>0 And ShipPos<3 Then
+    Controller.Switch(62)=0
+    Controller.Switch(63)=0
+  End If
+  If ShipPos<0 Then
+    ShipPos=0
+    ShipTimer.Enabled=0
+    Controller.Switch(63)=1
+    Controller.Switch(62)=0
+  End If
+  If ShipPos>3 Then
+    ShipPos=3
+    ShipTimer.Enabled=0
+    Controller.Switch(63)=0
+    Controller.Switch(62)=1
+  End If
+  Select Case ShipPos
+    Case 0:SailsUp.IsDropped=1:Sink1.IsDropped=1:Sink2.IsDropped=1:SailsDown.IsDropped=0
+    Case 1:SailsUp.IsDropped=1:SailsDown.IsDropped=1:Sink2.IsDropped=1:Sink1.IsDropped=0
+    Case 2:SailsUp.IsDropped=1:SailsDown.IsDropped=1:Sink1.IsDropped=1:Sink2.IsDropped=0
+  End Select
 End Sub
 
  Sub SolSailsUp(Enabled)
- 	If Enabled Then
- 		If ShipPos=0 Then
- 		Sink1.IsDropped=1
- 		Sink2.IsDropped=1
- 		SailsDown.IsDropped=1
- 		SailsUp.IsDropped=0
- 		End If
- 	End If
+  If Enabled Then
+    If ShipPos=0 Then
+    Sink1.IsDropped=1
+    Sink2.IsDropped=1
+    SailsDown.IsDropped=1
+    SailsUp.IsDropped=0
+    End If
+  End If
  End Sub
 
  Sub SolSailsDown(Enabled)
- 	If Enabled Then
- 		If ShipPos=0 Then
- 		Sink1.IsDropped=1
- 		Sink2.IsDropped=1
- 		SailsUp.IsDropped=1
- 		SailsDown.IsDropped=0
- 		End If
- 	End If
+  If Enabled Then
+    If ShipPos=0 Then
+    Sink1.IsDropped=1
+    Sink2.IsDropped=1
+    SailsUp.IsDropped=1
+    SailsDown.IsDropped=0
+    End If
+  End If
  End Sub
 
 Dim sailsupw, sailsdownw, sink1w, sink2w
 
 Sub PrimMon_Timer
-		if sailsup.IsDropped = false then sailsupw = True else sailsupw = False 'everything is upright
-		if sailsdown.IsDropped = false then sailsdownw = True else sailsdownw = False 'ship is upright but masts are bent forward
-		if sink1.IsDropped = false then sink1w = True else sink1w = False 'ship leaning back but sails facing upright
-		if sink2.IsDropped = false then sink2w = True else sink2w = False 'ship is vertical and sails are bent far forward
+    if sailsup.IsDropped = false then sailsupw = True else sailsupw = False 'everything is upright
+    if sailsdown.IsDropped = false then sailsdownw = True else sailsdownw = False 'ship is upright but masts are bent forward
+    if sink1.IsDropped = false then sink1w = True else sink1w = False 'ship leaning back but sails facing upright
+    if sink2.IsDropped = false then sink2w = True else sink2w = False 'ship is vertical and sails are bent far forward
 End Sub
 
 Sub PrimMove_Timer()
-	If sailsupw = True and ship.RotX > 90 then ship.RotX = Ship.RotX - 2
-	If sailsupw = True and ship.RotX < 90 then ship.RotX = Ship.RotX + 2
-	If sailsupw = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
-	If sailsupw = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
-	If sailsupw = True and mast1.TransY < 0 then mast1.TransY = mast1.TransY + 2
-	If sailsupw = True and mast1.TransY > 0 then mast1.TransY = mast1.TransY - 2
-	If sailsdownw = True and ship.RotX > 90 then ship.RotX = Ship.RotX - 2
-	If sailsdownw = True and ship.RotX < 90 then ship.RotX = Ship.RotX + 2
-	If sailsdownw = True and mast1.RotX > 46 then mast1.RotX = mast1.RotX - 2
-	If sailsdownw = True and mast1.RotX < 46 then mast1.RotX = mast1.RotX + 2
-	If sailsdownw = True and mast1.TransY < 0 then mast1.TransY = mast1.TransY + 2
-	If sailsdownw = True and mast1.TransY > 0 then mast1.TransY = mast1.TransY - 2
-	If sink1w = True and ship.RotX < 134 then ship.RotX = ship.RotX + 2
-	If sink1w = True and ship.RotX > 134 then ship.RotX = ship.RotX - 2
-	If sink1w = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
-	If sink1w = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
-	If sink1w = True and mast1.TransY < -24 then mast1.TransY = mast1.TransY + 2
-	If sink1w = True and mast1.TransY > -24 then mast1.TransY = mast1.TransY - 2
-	If sink2w = True and ship.RotX < 180 then ship.RotX = ship.RotX + 2
-	If sink2w = True and ship.RotX > 180 then ship.RotX = ship.RotX - 2
-	If sink2w = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
-	If sink2w = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
-	If sink2w = True and mast1.TransY < -46 then mast1.TransY = mast1.TransY + 2
-	If sink2w = True and mast1.TransY > -46 then mast1.TransY = mast1.TransY - 2
-	If ship.RotX = 90 and mast1.RotX = 90 then sailsupw = false
-	If ship.RotX = 90 and mast1.RotX = 46 then sailsdownw = false
-	If ship.RotX = 135 then sink1w = false
-	If ship.RotX = 180 then sink2w = false
-	mast1.TransZ = (ship.Rotx / 90 -1)*50
-	mast2.RotX = mast1.RotX
-	mast2.TransY = mast1.TransY
-	mast2.TransZ = mast1.TransZ
+  If sailsupw = True and ship.RotX > 90 then ship.RotX = Ship.RotX - 2
+  If sailsupw = True and ship.RotX < 90 then ship.RotX = Ship.RotX + 2
+  If sailsupw = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
+  If sailsupw = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
+  If sailsupw = True and mast1.TransY < 0 then mast1.TransY = mast1.TransY + 2
+  If sailsupw = True and mast1.TransY > 0 then mast1.TransY = mast1.TransY - 2
+  If sailsdownw = True and ship.RotX > 90 then ship.RotX = Ship.RotX - 2
+  If sailsdownw = True and ship.RotX < 90 then ship.RotX = Ship.RotX + 2
+  If sailsdownw = True and mast1.RotX > 46 then mast1.RotX = mast1.RotX - 2
+  If sailsdownw = True and mast1.RotX < 46 then mast1.RotX = mast1.RotX + 2
+  If sailsdownw = True and mast1.TransY < 0 then mast1.TransY = mast1.TransY + 2
+  If sailsdownw = True and mast1.TransY > 0 then mast1.TransY = mast1.TransY - 2
+  If sink1w = True and ship.RotX < 134 then ship.RotX = ship.RotX + 2
+  If sink1w = True and ship.RotX > 134 then ship.RotX = ship.RotX - 2
+  If sink1w = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
+  If sink1w = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
+  If sink1w = True and mast1.TransY < -24 then mast1.TransY = mast1.TransY + 2
+  If sink1w = True and mast1.TransY > -24 then mast1.TransY = mast1.TransY - 2
+  If sink2w = True and ship.RotX < 180 then ship.RotX = ship.RotX + 2
+  If sink2w = True and ship.RotX > 180 then ship.RotX = ship.RotX - 2
+  If sink2w = True and mast1.RotX < 90 then mast1.RotX = mast1.RotX + 2
+  If sink2w = True and mast1.RotX > 90 then mast1.RotX = mast1.RotX - 2
+  If sink2w = True and mast1.TransY < -46 then mast1.TransY = mast1.TransY + 2
+  If sink2w = True and mast1.TransY > -46 then mast1.TransY = mast1.TransY - 2
+  If ship.RotX = 90 and mast1.RotX = 90 then sailsupw = false
+  If ship.RotX = 90 and mast1.RotX = 46 then sailsdownw = false
+  If ship.RotX = 135 then sink1w = false
+  If ship.RotX = 180 then sink2w = false
+  mast1.TransZ = (ship.Rotx / 90 -1)*50
+  mast2.RotX = mast1.RotX
+  mast2.TransY = mast1.TransY
+  mast2.TransZ = mast1.TransZ
 End Sub
 
 
@@ -785,7 +785,7 @@ End Sub
 
 '**********************************************************************************************************
 '**********************************************************************************************************
-'	Start of VPX functions
+' Start of VPX functions
 '**********************************************************************************************************
 '**********************************************************************************************************
 
@@ -838,40 +838,40 @@ Dim BCup, BCdown, BCleft, BCright
 Dim ControlBallInPlay, ControlActiveBall
 Dim BCvel, BCyveloffset, BCboostmulti, BCboost
 
-BCboost = 1				'Do Not Change - default setting
-BCvel = 4				'Controls the speed of the ball movement
-BCyveloffset = -0.01 	'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
-BCboostmulti = 3		'Boost multiplier to ball veloctiy (toggled with the B key)
+BCboost = 1       'Do Not Change - default setting
+BCvel = 4       'Controls the speed of the ball movement
+BCyveloffset = -0.01  'Offsets the force of gravity to keep the ball from drifting vertically on the table, should be negative
+BCboostmulti = 3    'Boost multiplier to ball veloctiy (toggled with the B key)
 
 ControlBallInPlay = false
 
 Sub StartBallControl_Hit()
-	Set ControlActiveBall = ActiveBall
-	ControlBallInPlay = true
+  Set ControlActiveBall = ActiveBall
+  ControlBallInPlay = true
 End Sub
 
 Sub StopBallControl_Hit()
-	ControlBallInPlay = false
+  ControlBallInPlay = false
 End Sub
 
 Sub BallControlTimer_Timer()
-	If EnableBallControl and ControlBallInPlay then
-		If BCright = 1 Then
-			ControlActiveBall.velx =  BCvel*BCboost
-		ElseIf BCleft = 1 Then
-			ControlActiveBall.velx = -BCvel*BCboost
-		Else
-			ControlActiveBall.velx = 0
-		End If
+  If EnableBallControl and ControlBallInPlay then
+    If BCright = 1 Then
+      ControlActiveBall.velx =  BCvel*BCboost
+    ElseIf BCleft = 1 Then
+      ControlActiveBall.velx = -BCvel*BCboost
+    Else
+      ControlActiveBall.velx = 0
+    End If
 
-		If BCup = 1 Then
-			ControlActiveBall.vely = -BCvel*BCboost
-		ElseIf BCdown = 1 Then
-			ControlActiveBall.vely =  BCvel*BCboost
-		Else
-			ControlActiveBall.vely = bcyveloffset
-		End If
-	End If
+    If BCup = 1 Then
+      ControlActiveBall.vely = -BCvel*BCboost
+    ElseIf BCdown = 1 Then
+      ControlActiveBall.vely =  BCvel*BCboost
+    Else
+      ControlActiveBall.vely = bcyveloffset
+    End If
+  End If
 End Sub
 
 ' *******************************************************************************************************
@@ -993,16 +993,16 @@ Sub RollingTimer_Timer()
     Dim BOT, b
     BOT = GetBalls
 
-	' stop the sound of deleted balls
+  ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-	' exit the sub if no balls on the table
+  ' exit the sub if no balls on the table
     If UBound(BOT) = -1 Then Exit Sub
 
-	' play the rolling sound for each ball
+  ' play the rolling sound for each ball
 
     For b = 0 to UBound(BOT)
       If BallVel(BOT(b) ) > 1 Then
@@ -1035,14 +1035,14 @@ End Sub
 
 
 '*****************************************
-'	ninuzzu's	FLIPPER SHADOWS
+' ninuzzu's FLIPPER SHADOWS
 '*****************************************
 
 sub FlipperTimer_Timer()
-	FlipperLSh.RotZ = LeftFlipper.currentangle
-	FlipperRSh.RotZ = RightFlipper.currentangle
-	LFLogo.Roty = LeftFlipper.currentangle
-	RFLogo.Roty = RightFlipper.currentangle
+  FlipperLSh.RotZ = LeftFlipper.currentangle
+  FlipperRSh.RotZ = RightFlipper.currentangle
+  LFLogo.Roty = LeftFlipper.currentangle
+  RFLogo.Roty = RightFlipper.currentangle
     RampGate3.RotZ = -(Gate5.currentangle)
     RampGate1.RotZ = -(Gate6.currentangle)
     RampGate2.RotZ = -(Gate4.currentangle)
@@ -1051,7 +1051,7 @@ sub FlipperTimer_Timer()
 End Sub
 
 '*****************************************
-'	ninuzzu's	BALL SHADOW
+' ninuzzu's BALL SHADOW
 '*****************************************
 Dim BallShadow
 BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5)
@@ -1123,77 +1123,77 @@ End Sub
 
 
 Sub Pins_Hit (idx)
-	PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolRPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "pinhit_low", 0, Vol(ActiveBall)*VolRPi, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Targets_Hit (idx)
-	PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+  PlaySound "target", 0, Vol(ActiveBall)*VolTarg, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Thin_Hit (idx)
-	PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_thin", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals_Medium_Hit (idx)
-	PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit_medium", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Metals2_Hit (idx)
-	PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "metalhit2", 0, Vol(ActiveBall)*VolMetals, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Gates_Hit (idx)
-	PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
 Sub Spinner_Spin
-	PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+  PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
 End Sub
 
 Sub Rubbers_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 20 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 20 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 20 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 20 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub Posts_Hit(idx)
- 	dim finalspeed
-  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
- 	If finalspeed > 16 then
-		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRPo, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End if
-	If finalspeed >= 6 AND finalspeed <= 16 then
- 		RandomSoundRubber()
- 	End If
+  dim finalspeed
+    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+  If finalspeed > 16 then
+    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRPo, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End if
+  If finalspeed >= 6 AND finalspeed <= 16 then
+    RandomSoundRubber()
+  End If
 End Sub
 
 Sub RandomSoundRubber()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 Sub LeftFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RightFlipper_Collide(parm)
- 	RandomSoundFlipper()
+  RandomSoundFlipper()
 End Sub
 
 Sub RandomSoundFlipper()
-	Select Case Int(Rnd*3)+1
-		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-	End Select
+  Select Case Int(Rnd*3)+1
+    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolFlip, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+  End Select
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
