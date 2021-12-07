@@ -602,7 +602,7 @@ Sub VukKick(enabled)
     Else
       PlaysoundAtVol SoundFX(SSolenoidOn,DOFContactors), vuk, VolKick
     End If
-    vuk.kick 0,60,1.5
+    vuk.kick 90,60,1.5
     vukwall.collidable = False
     Controller.Switch(61) = False
   End If
