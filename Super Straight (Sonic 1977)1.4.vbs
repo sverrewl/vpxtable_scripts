@@ -282,6 +282,10 @@ Sub SuperStraight_KeyDown(ByVal keycode)
         checktilt
     End If
 
+    If keycode = MechanicalTilt Then
+        checktilt
+    End If
+
     If keycode = RightTiltKey Then
         Nudge 270, 2
         checktilt

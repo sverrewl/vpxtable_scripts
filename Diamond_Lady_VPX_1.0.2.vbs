@@ -9,6 +9,7 @@ Randomize
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
@@ -41,6 +42,10 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 LoadVPM "01210000", "sys80.vbs", 3.1
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Dim bsTrough, dtLBank, dtRBank, dtMBank, dtCBank, bsTop, kickbackIM
 Dim x, bump1, bump2, bump3

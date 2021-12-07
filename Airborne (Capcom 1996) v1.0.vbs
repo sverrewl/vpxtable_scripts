@@ -35,7 +35,9 @@
 
 
 Option Explicit
- Randomize
+Randomize
+
+' Thalamus - added vpminit me to _init
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -48,7 +50,8 @@ Const UseVPMModSol = 0
 
 LoadVPM "01560000", "capcom.VBS", 3.26
 
-Const UseSolenoids=2,UseLamps=0,UseSync=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="Coin3"
+' Thalamus - ffv2 should not be used for this table according to nFozzy
+Const UseSolenoids=1,UseLamps=0,UseSync=1,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="",SFlipperOff="",SCoin="Coin3"
 
 Set LampCallback=GetRef("UpdateMultipleLamps")
 
@@ -359,6 +362,7 @@ End Sub
 Dim bsTrough,bsLeftSaucer,bsRightSaucer,dtL,dtR,bsVLock,bsBottomSaucer,PlungerIM, x
 
 Sub Table1_Init
+  vpmInit Me
   On Error Resume Next
     With Controller
       .GameName="abv106"

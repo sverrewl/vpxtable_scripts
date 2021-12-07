@@ -221,10 +221,10 @@ End Sub
 
 Sub Table1_Exit()
   If B2SOn Then Controller.Stop
+  SaveHighScores
   if VideoIntro.enabled = false then
     If UltraDMD.IsRendering Then UltraDMD.CancelRendering
     UltraDMD = Null
-    SaveHighScores
   End If
 End Sub
 
@@ -3282,7 +3282,18 @@ End Sub
 '******************************************************
 
 Sub LoadUltraDMD
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    ' Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+
+    Dim FlexDMD
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    If FlexDMD is Nothing Then
+        MsgBox "No UltraDMD found.  This table will NOT run without it."
+        Exit Sub
+    End If
+    FlexDMD.GameName = cGameName
+    FlexDMD.RenderMode = 2
+    Set UltraDMD = FlexDMD.NewUltraDMD()
+
     UltraDMD.Init
 
     Dim fso, curDir

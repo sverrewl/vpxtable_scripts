@@ -325,6 +325,10 @@ DOF 102,1
     playsound "nudge"
     TiltCheck
   End If
+  If keycode = MechanicalTilt Then
+    playsound "nudge"
+    TiltCheck
+  End If
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)

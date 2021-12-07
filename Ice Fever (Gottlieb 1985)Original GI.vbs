@@ -1,6 +1,7 @@
 Option Explicit
 Randomize
 
+' Thalamus - added vpminit me to _init for cvpmflips / Fastflip
 Const cGameName="icefever"
 
 On Error Resume Next
@@ -140,8 +141,8 @@ end Sub
 Dim bsTrough,dtL, objekt, Light
 
 Sub Table1_Init
+  vpmInit Me
   On Error Resume Next
-
   With Controller
     .GameName=cGameName
     If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub

@@ -8,6 +8,7 @@
 '############################################################################################
 ' Version 1.0 FS mfuegemann 2017
 Option Explicit
+Randomize
 
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"

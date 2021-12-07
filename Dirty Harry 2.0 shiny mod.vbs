@@ -491,6 +491,8 @@ SolCallback(24) = "Multi124"
 
 Sub table1_KeyDown(ByVal Keycode)
     If KeyCode = MechanicalTilt Then
+    If keycode = LockBarKey Then Controller.Switch(11) = 1
+    If keycode = RightMagnaSave Then Controller.Switch(11) = 1
         vpmTimer.PulseSw vpmNudge.TiltSwitch
         Exit Sub
     End if
@@ -504,6 +506,8 @@ Sub table1_KeyUp(ByVal Keycode)
     If vpmKeyUp(keycode) Then Exit Sub
     If keycode = PlungerKey Then Controller.Switch(11) = 0
     If keycode = keyFront Then Controller.Switch(23) = 0
+    If keycode = PlungerKey Then Controller.Switch(11) = 0
+    If keycode = LockBarKey Then Controller.Switch(11) = 0
 End Sub
 
 '**************

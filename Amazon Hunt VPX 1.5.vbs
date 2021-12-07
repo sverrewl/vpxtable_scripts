@@ -8,6 +8,7 @@
 Option Explicit
 Randomize
 
+' Thalamus - added more randomness to kickers
 
 'Change cGameName to desired rom
 'Change LoadVPM to desired system VBS file
@@ -258,11 +259,15 @@ Sub Table1_Init
    Set bsLHole = New cvpmBallStack
        bsLHole.InitSaucer sw3, 3, 43+int(rnd(1))*4, 16+int(rnd(1))*4
        bsLHole.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+       bsLHole.KickForceVar = 3
+       bsLHole.KickAngleVar = 3
 
     ' Right Eject Hole
    Set bsRHole = New cvpmBallStack
        bsRHole.InitSaucer sw23, 23, 313+int(rnd(1))*4, 16+int(rnd(1))*4
        bsRHole.InitExitSnd SoundFX("Popper2",DOFContactors), SoundFX("Solenoid2",DOFContactors)
+       bsRHole.KickForceVar = 3
+       bsRHole.KickAngleVar = 3
 
 end sub
 

@@ -1253,3 +1253,12 @@ Sub DisplayTimer_Timer
     next
   end if
 End Sub
+
+' Thalamus - 2021-04-30 : added proper exit
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -23,6 +23,8 @@
 ' Notes (from experience during development):
 ' If Bigfoot head gets out of sync or VPM crashes, delete NVRAM
 
+' Thalamus 2018-12-17 : Added FFv2
+
 Option Explicit : Randomize
 Dim BallShadow, ForceSiderailsFS, GlobalSoundLevel, HitTheGlass, DisableGI, DesktopVPXDMD
 Dim FlasherTimerInterval, debugballs, NoSideWallRelfections
@@ -135,6 +137,11 @@ On Error Resume Next
 On Error Goto 0
 
 LoadVPM "01560000", "WPC.VBS", 3.50
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 Set GiCallback2 = GetRef("UpdateGI")
 
 Sub whitewater_Init

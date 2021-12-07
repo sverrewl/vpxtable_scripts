@@ -5,6 +5,7 @@
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-08-09 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
@@ -44,6 +45,11 @@ Const cGameName="blkshpsq", UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn
 Const BallMass = 1.7
 
 LoadVPM "01550000", "Bally.vbs", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 '*********

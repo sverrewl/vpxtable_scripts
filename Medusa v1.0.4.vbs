@@ -13,6 +13,7 @@ Randomize
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Fix from DJRobX is included
 ' Thalamus 2018-11-01 : Improved directional sounds
+' Thalamus 2018-12-18 : Added FFv2
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -49,6 +50,10 @@ On Error Goto 0
 Const BallSize = 50
 
 LoadVPM "01550000", "Bally.vbs", 3.26
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+' NoUpperLeftFlipper
 
 Dim bsTrough, bsSaucer, dtRBank, dtTBank
 Dim x

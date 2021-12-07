@@ -11,6 +11,9 @@
 Option Explicit
 Randomize
 
+' Thalamus 2018-12-18 : Added FFv2
+' Thalamus - added vpminit me to _init for cvpmflips / Fastflip
+
 Dim LightHalo_ON, BlackLights_on, LowerBlacklights_on, RedGravityTunnel, RomSet, cGameName, UpperFlipperColor, LowerFlipperColor, UpperPeg, LowerPeg, LeftDrain, LouderRoll, GIbuzz, WhooshSound, NightMod, CaptiveLight, GIColorMod, GIColorModLower, BallRadius, BallMass, BlackLightApron, Language, NumOfBalls, ReplayOption, BlackLightMultiball,BallMod, BlackLightPlastics, TubeGlow, WindowFoam, CustomCards, UltraBrightBumpers
 
 '***************************************************************************'
@@ -132,6 +135,10 @@ On Error Goto 0
 
 LoadVPM "00990300", "sys80.VBS", 2.33
 
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+' NoUpperLeftFlipper
+
 '****************************************
 'Check the selected ROM version
 '****************************************
@@ -147,7 +154,7 @@ If RomSet = 6 then cGameName="blkhol7s":DisplayTimer7.Enabled = true End If
 'Standard definitions
 '********************
 
-Const cCredits="Black Hole",UseSolenoids=1,UseLamps=0,UseGI=1,UseSync=1
+Const cCredits="Black Hole",UseSolenoids=2,UseLamps=0,UseGI=1,UseSync=1
 Const SSolenoidOn="solenoid",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",sCoin="coin"
 
 '******************************************************
@@ -159,6 +166,7 @@ Dim f,g,h,i,j
 Dim cBall1,cBall2,cBall3
 
 Sub BlackHole_Init()
+  vpmInit Me
   On Error Resume Next
   With Controller
     .GameName=cGameName

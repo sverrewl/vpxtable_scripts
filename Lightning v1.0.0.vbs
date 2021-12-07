@@ -9,9 +9,12 @@ Randomize
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-08-22 : Improved directional sounds
 
-Const VolDiv = 1500    ' Lower numper louder ballrolling sound
+' !! NOTE : Table not verified yet !!
+
+Const VolDiv = 1000    ' Lower numper louder ballrolling sound
 Const VolCol    = 6    ' Ball collition divider ( voldiv/volcol )
 
 ' The rest of the values are multipliers
@@ -44,6 +47,10 @@ On Error Goto 0
 Const BallSize = 50
 
 LoadVPM "01530000", "stern.vbs", 3.10
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+' NoUpperLeftFlipper
 
 Dim VarHidden
 If Table1.ShowDT = true then

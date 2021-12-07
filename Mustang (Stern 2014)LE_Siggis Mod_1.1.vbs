@@ -295,6 +295,7 @@ Sub Table_KeyDown(ByVal keycode)
   If Keycode = StartGameKey Then Controller.Switch(16) = 1
   If Keycode = 3 Then Controller.Switch(15) = 1
   If Keycode = RightMagnasave Then Controller.Switch(71) = 1
+  If Keycode = LockBarKey Then Controller.Switch(71) = 1
   ' If Keycode = LeftFlipperKey then
   ' End If
   ' If Keycode = RightFlipperKey then
@@ -309,6 +310,7 @@ End Sub
 
 Sub Table_KeyUp(ByVal keycode)
   If Keycode = RightMagnasave Then Controller.Switch(71) = 0
+  If Keycode = LockBarKey Then Controller.Switch(71) = 0
   If Keycode = 3 Then Controller.Switch(15) = 0
   If Keycode = StartGameKey Then Controller.Switch(16) = 0':GridTargetReset 'Moved before vpmkey
   If vpmKeyUp(keycode) Then Exit Sub

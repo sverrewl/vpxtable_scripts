@@ -12,6 +12,7 @@
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -36,6 +37,10 @@ else
 end if
 
 LoadVPM "01560000", "SEGA.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 '********************
 'Standard definitions

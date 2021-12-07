@@ -9,6 +9,7 @@ On Error Goto 0
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Wob 2018-08-08
 ' Added vpmInit Me to table init and both cSingleLFlip and cSingleRFlip
 ' Thalamus 2018-08-27 : Improved directional sounds
@@ -38,14 +39,18 @@ Const VolFlip   = 1    ' Flipper volume.
 
 LoadVPM "01300000","S6.VBS",3.1
 
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 '********************************************
 '**     Game Specific Code Starts Here     **
 '********************************************
 
 Const UseSolenoids=2,UseLamps=1,UseSync=1
 ' Wob: Added for Fast Flips (No upper Flippers)
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
+' Const cSingleLFlip = 0
+' Const cSingleRFlip = 0
 Const SSolenoidOn="solon",SSolenoidOff="soloff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown",SCoin="quarter"
 
 

@@ -7,6 +7,7 @@ Const cGameName="kiko_a10"
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Could probably be improved by implementing more of the "newer" standards - its a TODO thing I guess.
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
@@ -37,6 +38,11 @@ If Err Then MsgBox "Can't open controller.vbs"
 On Error Goto 0
 
 LoadVPM "01560000", "de.VBS", 3.10
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
+
 
 'Variables
 Dim xx
@@ -95,11 +101,15 @@ Sub Table1_Init
   Set bsMissileKicker = New cvpmBallStack
   bsMissileKicker.InitSaucer missilekicker, 30, 90, 35
   bsMissileKicker.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("solenoid",DOFContactors)
+  bsMissileKicker.KickForceVar = 3
+  bsMissileKicker.KickAngleVar = 3
 
   '**RadarEject
   Set bsRadarEject = New cvpmBallStack
   bsRadarEject.InitSaucer radareject, 45, 90, 3
   bsRadarEject.InitExitSnd SoundFX("ballrelease",DOFContactors), SoundFX("Solenoid",DOFContactors)
+  bsRadarEject.KickForceVar = 3
+  bsRadarEject.KickAngleVar = 3
 
   ' Visible Lock
   Set vLock = New cvpmVLock2

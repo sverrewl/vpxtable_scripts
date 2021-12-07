@@ -20,6 +20,8 @@
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
+Randomize
+
 ' Options
 ' Volume devided by - lower gets higher sound
 

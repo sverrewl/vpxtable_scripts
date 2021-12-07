@@ -30,7 +30,7 @@ Const cGameName = "captfantastic"
 Const GI_Dim = 1 'Dim GI with flipper current draw.
 Const Lamp_Flicker = 1 'Flicker lamp under right slingshot plastic.
 Const Loose_Plastic = 1 'Simulate loose left hand slingshot plastic.
-Const BallsToPlay = 5 'Set to 3 or 5
+Const BallsToPlay = 3 'Set to 3 or 5
 
 '///////////////////////////////
 'Drop Target Special / Lane Adjustment plugs.

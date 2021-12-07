@@ -4,7 +4,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
-' !! NOTE : Table not verified yet !!
+' FlexDMD enabled
 
 ' Options
 ' Volume devided by - lower gets higher sound
@@ -69,7 +69,17 @@ Const UltraDMD_Animation_ScrollOnDown = 11
 Const UltraDMD_Animation_None = 14
 
 Sub LoadUltraDMD
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    'Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    Dim FlexDMD
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    If FlexDMD is Nothing Then
+        MsgBox "No UltraDMD found.  This table will NOT run without it."
+        Exit Sub
+    End If
+    FlexDMD.GameName = cGameName
+    FlexDMD.RenderMode = 2
+    Set UltraDMD = FlexDMD.NewUltraDMD()
+
     UltraDMD.Init
 
     Dim fso
@@ -550,6 +560,9 @@ Sub MortalKombat_KeyDown(ByVal Keycode)
         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
 
+        ' Thalamus added mechanical tilt
+        If keycode = MechanicalTilt Then Nudge 0, 4:PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
+
         If keycode = LeftFlipperKey Then SolLFlipper 1
         If keycode = RightFlipperKey Then SolRFlipper 1
 
@@ -646,13 +659,14 @@ End Sub
 
 Sub MortalKombat_Exit():
   Savehs
+  If Not FlexDMD is Nothing Then FlexDMD.Run = False
   Controller.Stop
-  If Not UltraDMD is Nothing Then
-    If UltraDMD.IsRendering Then
-      UltraDMD.CancelRendering
-    End If
-    UltraDMD = NULL
-  End If
+  ' If Not UltraDMD is Nothing Then
+  '   If UltraDMD.IsRendering Then
+  '     UltraDMD.CancelRendering
+  '   End If
+  '   UltraDMD = NULL
+  ' End If
 End Sub
 
 '********************

@@ -210,6 +210,7 @@ Sub Table1_KeyDown(ByVal keycode)
     ContrastSetting = ContrastSetting + 1
     If ContrastSetting > 7 Then ContrastSetting = 7 End If
     ColorGrade
+    Primitive6.collidable=0
   End If
   If keycode = LeftMagnaSave Then
     ContrastSetting = ContrastSetting - 1
@@ -258,6 +259,12 @@ Sub Table1_KeyUp(ByVal keycode)
   If keycode = 200 Then BCup = 0    ' Up Arrow
   If keycode = 208 Then BCdown = 0  ' Down Arrow
   If keycode = 205 Then BCright = 0 ' Right Arrow
+
+' Thalamus - sometime ball gets stuck so lets let free by using the right magna save.
+
+  If keycode = RightMagnaSave Then
+    Primitive6.collidable=1
+  End If
 
   If vpmKeyUp(keycode) Then Exit Sub
 End Sub
@@ -1937,5 +1944,11 @@ Sub BallControlTimer()
       ControlActiveBall.vely = bcyveloffset
     End If
   End If
+End Sub
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 

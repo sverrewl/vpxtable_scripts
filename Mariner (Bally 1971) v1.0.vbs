@@ -64,7 +64,7 @@ Const VolRH     = 1    ' Rubber hits volume.
 Const VolPo     = 1    ' Rubber posts volume.
 Const VolPi     = 1    ' Rubber pins volume.
 Const VolTarg   = 1    ' Targets volume.
-Const VolKick   = 2    ' Kicker volume.
+Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
 

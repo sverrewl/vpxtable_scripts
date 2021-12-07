@@ -24,6 +24,7 @@
 
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+' Thalamus 2018-12-18 : Added FFv2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -46,6 +47,10 @@ UseVPMColoredDMD = DesktopMode
 
 LoadVPM "01560000", "sam.VBS", 3.10
 
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 lamptimer.interval = -1
 
 
@@ -53,7 +58,7 @@ lamptimer.interval = -1
 'Standard definitions
 '********************
 
-Const UseSolenoids = 1
+Const UseSolenoids = 2
 Const UseLamps = 0
 Const UseSync = 0
 Const HandleMech = 0
@@ -113,11 +118,13 @@ Sub Table1_Init
 
   'Sandman VUK
   Set bsSandman = New cvpmSaucer
+  bsSandman.InitExitVariance 3,4
   bsSandman.InitKicker sw59, 59, 0, 35, 1.56
   bsSandman.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("ExitSandman",DOFContactors)
 
   'Doc Ock VUK
   Set bsDocOck = New cvpmSaucer
+  bsDocOck.InitExitVariance 3,4
   bsDocOck.InitKicker sw36, 36, 0, 35, 1.56
   bsDocOck.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("ExitDoc",DOFContactors)
 

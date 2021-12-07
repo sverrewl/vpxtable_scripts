@@ -744,6 +744,10 @@ Sub Cavalcade_KeyDown(ByVal keycode)
     CheckNudge
   End If
 
+ If keycode = MechanicalTilt Then
+   CheckTilt
+ End If
+
 End Sub
 
 Sub Cavalcade_KeyUp(ByVal keycode)

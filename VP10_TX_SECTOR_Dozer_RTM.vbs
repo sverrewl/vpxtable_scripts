@@ -6,6 +6,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Table uses non stanard ball rolling routine
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
@@ -37,6 +38,10 @@ Const cSingleRFlip = 0
 Const SCoin="coin3",cCredits="Destruk & TAB & MNPG. Dip settings menu added by Inkochnito"
 
 LoadVPM "01210000","sys80.vbs",3.1
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
  '**********************TABLE OPTIONS************************************************************************************************
 '1=VPinMAME, 2=UVP backglass server, 3=B2S backglass server(and implicitely DOF), 4= B2S, implicitely DOF and disable mech sounds

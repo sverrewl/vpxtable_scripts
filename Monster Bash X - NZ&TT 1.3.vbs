@@ -12,6 +12,7 @@ Randomize
 ' Added "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
 ' Table doesn't use JP ball rolling standars
+' Thalamus 2018-12-17 : Added FFv2
 ' Thalamus 2018-09-09 : Improved directional sounds
 
 ' !! NOTE : Table not verified yet !!
@@ -47,6 +48,10 @@ Const UseVPMModSol = 1
 Const cGameName = "mb_106b"
 
 LoadVPM "02000000", "WPC.VBS", 3.50
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
 
 ' Standard Options
 Const UseSolenoids = 2
@@ -130,6 +135,7 @@ End Sub
 
 Sub Table1_KeyDown(ByVal Keycode)
     If keycode = PlungerKey Then Controller.Switch(11) = 1
+    If keycode = LockBarKey then controller.switch(11) = 1
     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge",0)
     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge",0)
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge",0)
@@ -138,6 +144,7 @@ End Sub
 
 Sub Table1_KeyUp(ByVal Keycode)
     If keycode = PlungerKey Then Controller.Switch(11) = 0
+    If keycode = LockBarKey then controller.switch(11) = 0
     If vpmKeyUp(keycode) Then Exit Sub
 End Sub
 

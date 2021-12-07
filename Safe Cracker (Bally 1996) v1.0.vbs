@@ -16,6 +16,7 @@
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -57,6 +58,11 @@ On Error Resume Next
 On Error Goto 0
 
 LoadVPM "01560000", "WPC.VBS", 3.50
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
+
 keyStagedFlipperL = ""
 
 Const cGameName="sc_18"

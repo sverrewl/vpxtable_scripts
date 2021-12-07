@@ -1,8 +1,10 @@
 Option Explicit
+Randomize
 
 ' Thalamus 2018-07-24
 ' Table doesn't have "Positional Sound Playback Functions" or "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
 ' No special SSF tweaks yet.
 
 Dim DesktopMode: DesktopMode = tablewpc94.ShowDT
@@ -23,6 +25,9 @@ Dim FeedbackSounds:FeedbackSounds = Array("ballrel","bumper","diverter","flipper
 
 LoadVPM "01530000", "WPC.VBS", 3.10
 
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
  Sub LoadVPM(VPMver, VBSfile, VBSver)   'Add new call to InitializeOptions to allow selection of controller through F6 menu
     On Error Resume Next
@@ -152,6 +157,8 @@ Sub TableWPC94_Init
     Set bsTV = New cvpmBallStack
         bsTV.InitSw 0,swTVBallPopper,0,0,0,0,0,0
         bsTV.InitKick TVBallPopper, 213, 10
+        bsTV.KickAngleVar = 3
+        bsTV.KickForceVar = 3
         bsTV.KickBalls = 2
         bsTV.InitExitSnd Popper,SolOn
 

@@ -4,6 +4,7 @@
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
 ' Thalamus 2018-09-17 : Improved directional sounds
 ' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
 
@@ -67,6 +68,10 @@ if B2SOn = true then VarHidden = 1
 Const cGameName = "pz_f4"
 
 LoadVPM "01560000", "WPC.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 ' Standard Sounds
 Const SSolenoidOn = "fx_Solenoid"

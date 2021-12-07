@@ -209,6 +209,10 @@ Sub Table1_KeyDown(ByVal keycode)
         TiltCheck
     End If
 
+    If keycode = MechanicalTilt Then
+        TiltCheck
+    End If
+
     if keycode = 6 then   ' Add coin
           if Credit < 9 then
             Credit = Credit + 1
@@ -2193,5 +2197,10 @@ Sub BallShadowUpdate_timer()
             BallShadow(b).visible = 0
         End If
     Next
+End Sub
+' Thalamus : Exit in a clean and proper way
+Sub table1_exit()
+  Controller.Pause = False
+  Controller.Stop
 End Sub
 

@@ -4,6 +4,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-12-04 : Improved directional sounds
 
 ' !! NOTE : Table not verified yet !!
@@ -39,6 +40,10 @@ On Error Goto 0
 Const cGameName="tmfnt_l5",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff", SCoin="coin"
 
 LoadVPM "00990200", "S7.VBS", 2.34
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Dim DesktopMode: DesktopMode = TimeFantasy.ShowDT
 

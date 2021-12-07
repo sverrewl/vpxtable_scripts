@@ -79,7 +79,11 @@ Const UltraDMD_Animation_ScrollOnDown = 11
 Const UltraDMD_Animation_None = 14
 
 Sub LoadUltraDMD
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    'Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+  Dim FlexDMD
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    FlexDMD.GameName = cGameName
+  Set UltraDMD = FlexDMD.NewUltraDMD()
     UltraDMD.Init
 
     Dim fso
@@ -463,7 +467,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
 
-        If keycode = MechanicalTilt Then Nudge 0, 4:PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
+        If keycode = MechanicalTilt Then PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
 
         If keycode = LeftFlipperKey Then SolLFlipper 1
         If keycode = RightFlipperKey Then SolRFlipper 1
@@ -552,13 +556,15 @@ End Sub
 Sub table1_unPaused
 End Sub
 
-Sub Table1_Exit():
+Sub Table1_Exit()
   Savehs
+  Controller.Pause = False
   Controller.Stop
   If Not UltraDMD is Nothing Then
     If UltraDMD.IsRendering Then
       UltraDMD.CancelRendering
     End If
+    UltraDMD.Uninit
     UltraDMD = NULL
   End If
 End Sub

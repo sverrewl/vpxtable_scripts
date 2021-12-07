@@ -50,6 +50,8 @@
 Option Explicit
 Randomize
 
+
+' Thalamus - converted from wmv to mp4 - Converted to FlexDMD
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Its a original - move sounds not directional referenced to backglass !
@@ -580,7 +582,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
-
+        If keycode = MechanicalTilt Then PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
         If keycode = LeftFlipperKey Then SolLFlipper 1
         If keycode = RightFlipperKey Then SolRFlipper 1
 
@@ -672,12 +674,15 @@ Sub table1_unPaused
 End Sub
 
 Sub Table1_Exit():
+' Thalamus : Exit in a clean and proper way
   savehs
+  Controller.Pause = False
   Controller.Stop
   If Not UltraDMD is Nothing Then
     If UltraDMD.IsRendering Then
       UltraDMD.CancelRendering
     End If
+    UltraDMD.Uninit
     UltraDMD = NULL
   End If
 End Sub
@@ -1199,7 +1204,7 @@ Sub EndOfBall2()
         End If
 
         ' You may wish to do a bit of a song AND dance at this point
-        'DMD "extra-ball.wmv", "", "", 5000
+        'DMD "extra-ball.mp4", "", "", 5000
 
         ' In this table an extra ball will have the skillshot and ball saver, so we reset the playfield for the new ball
         ResetForNewPlayerBall()
@@ -1318,7 +1323,7 @@ Sub EndOfGame()
     ' most of the Mode/timers terminate at the end of the ball
     'PlayQuote.Enabled = 0
     ' show game over on the DMD
-    'DMD "game-over.wmv", "", "", 11000
+    'DMD "game-over.mp4", "", "", 11000
 
     ' set any lights for the attract mode
     GiOff
@@ -1553,7 +1558,7 @@ End Sub
 Sub AwardExtraBall()
     If NOT bExtraBallWonThisBall Then
        ' DMDBlink "", " ", "EXTRA BALL WON", 100, 10
-        'DMD "extra-ball.wmv", "", "", 5000
+        'DMD "extra-ball.mp4", "", "", 5000
         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
         bExtraBallWonThisBall = True
         GiEffect 1
@@ -1611,22 +1616,22 @@ Sub AwardSkillshot()
     DMDFlush
     Select case SkillShotValue(CurrentPlayer)
         case 1000000
-           ' DMD "skillshot1.wmv", " ", " ", 5000
+           ' DMD "skillshot1.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 2000000
-           ' DMD "skillshot2.wmv", " ", " ", 5000
+           ' DMD "skillshot2.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 3000000
-           ' DMD "skillshot3.wmv", " ", " ", 5000
+           ' DMD "skillshot3.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 4000000
-          '  DMD "skillshot4.wmv", " ", " ", 5000
+          '  DMD "skillshot4.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 5000000
-          '  DMD "skillshot5.wmv", " ", " ", 5000
+          '  DMD "skillshot5.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case ELSE
-          '  DMD "skillshot.wmv", " ", " ", 5000
+          '  DMD "skillshot.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
     End Select
     ' increment the skillshot value with 1 million
@@ -2120,13 +2125,18 @@ End Sub
 
 
 Sub DMD_Init
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
-    If UltraDMD is Nothing Then
+    'Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+  Dim FlexDMD
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    If FlexDMD is Nothing Then
         MsgBox "No UltraDMD found.  This table will NOT run without it."
         Exit Sub
     End If
-
+    FlexDMD.GameName = cGameName
+  FlexDMD.RenderMode = 2
+  Set UltraDMD = FlexDMD.NewUltraDMD()
     UltraDMD.Init
+
     If Not UltraDMD.GetMajorVersion = 1 Then
         MsgBox "Incompatible Version of UltraDMD found."
         Exit Sub
@@ -2180,14 +2190,14 @@ Sub ShowTableInfo
     'coins or freeplay
     If bFreePlay Then
         DMD " ", "FREE PLAY", 2000
-        DMD "IntroMS.wmv", "", "", 24500
+        DMD "IntroMS.mp4", "", "", 24500
     Else
         If Credits> 0 Then
             DMD "", "CREDITS " &credits, "PRESS START", 2000
         Else
             DMD "", "CREDITS " &credits, "INSERT COIN", 2000
         End If
-        DMD "IntroMS.wmv", "", "", 24500
+        DMD "IntroMS.mp4", "", "", 24500
     End If
     ' some info about the table
     DMD "", "Javier And Pinwizkid", "PRESENTS", 3000
@@ -5877,7 +5887,7 @@ Sub StartMission()
         StopSound Song:Song = "": PlaySong "mu_MSMode1"'Playsound "MSMode1"
         'Playsound "Mission1"
                 DMDFLush
-                DMD "Mision1Start.wmv", "", "", 3950
+                DMD "Mision1Start.mp4", "", "", 3950
         'StopMusic 4
         KickOutBallTimer.Enabled = TRUE
         CaptiveLight.state = 0
@@ -5895,7 +5905,7 @@ Sub StartMission()
         StopSound Song:Song = "": PlaySong "mu_MSMode2"'Playsound "MSMode2"
         'Playsound "Mission2"
                 DMDFLush
-                DMD "Mision2Start.wmv", "", "", 3950
+                DMD "Mision2Start.mp4", "", "", 3950
         'StopMusic 4
         FlashAnimate5()
         MissionTimerUserData = 35
@@ -5914,7 +5924,7 @@ Sub StartMission()
         StopSound Song:Song = "": PlaySong "mu_MSMode3"'Playsound "MSMode3"
         'Playsound "Mission3"
                 DMDFLush
-                DMD "Mision3Start.wmv", "", "", 3950
+                DMD "Mision3Start.mp4", "", "", 3950
         FlashAnimate5()
         Bumper1l.State = 2
         Bumper2l.State = 2
@@ -5931,7 +5941,7 @@ Sub StartMission()
         StopSound Song:Song = "": PlaySong "mu_MSMode2"'Playsound "MSMode2"
         'Playsound "Mission4"
                 DMDFLush
-                DMD "Mision4Start.wmv", "", "", 3950
+                DMD "Mision4Start.mp4", "", "", 3950
         FlashAnimate5()
         CaptiveLight.State = 2
                 DisplayB2SText "         MISSION 4 START        "
@@ -5968,7 +5978,7 @@ Sub StartMission()
       ' LookAtBackbox()
         FinalMissionShowTimer.Interval 1300
                 DMDFLush
-                DMD "FinalMision.wmv", "", "", 3950
+                DMD "FinalMision.mp4", "", "", 3950
         NextMessage = 10
         bCanDisplayMessage = TRUE
         StopSound Song:Song = "": PlaySong "mu_MSWizard"'Playsound "MSWizard"

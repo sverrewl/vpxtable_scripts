@@ -86,10 +86,12 @@ Const cGameName = "theweb"
 
 Sub TheWeb_Exit()
   If B2SOn = True Then Controller.Stop
+
   If UltraDMD.IsRendering Then
     UltraDMD.CancelRendering
   end if
     UltraDMD = NULL
+  'If Not FlexDMD is Nothing Then FlexDMD.Run = False
 
   '------ UltraDMD Replace Default Color preference ------
   'code provided by Gigalula
@@ -6216,7 +6218,7 @@ Sub TheWeb_KeyDown(ByVal keycode)
       If keycode = LeftTiltKey Then:Nudge 90, 2:checkNudge:end if
       If keycode = RightTiltKey Then:Nudge 270, 2:checkNudge:end if
       If keycode = CenterTiltKey Then:Nudge 0, 2:checkNudge:end if
-      If keycode = MechanicalTilt Then:Nudge 0, 2:checkNudge:end if
+      If keycode = MechanicalTilt Then checkNudge:end if
     end if
   end if
 End Sub
@@ -6522,7 +6524,18 @@ Sub CheckImageList(ListPar)
 End Sub
 
 Sub LoadUltraDMD
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    ' Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+
+    Dim FlexDMD
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    If FlexDMD is Nothing Then
+        MsgBox "No UltraDMD found.  This table will NOT run without it."
+        Exit Sub
+    End If
+    FlexDMD.GameName = cGameName
+    FlexDMD.RenderMode = 2
+    Set UltraDMD = FlexDMD.NewUltraDMD()
+
     UltraDMD.Init
     Set fso = CreateObject("Scripting.FileSystemObject")
     curDir = fso.GetAbsolutePathName(".")

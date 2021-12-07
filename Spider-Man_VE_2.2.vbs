@@ -143,13 +143,15 @@ Sub Table1_Init
 
   'Sandman VUK
   Set bsSandman = New cvpmSaucer
+  bsSandman.InitExitVariance 3,4
   bsSandman.InitKicker sw59, 59, 0, 45, 1.56 'ORIGINALE: 59,0,35,1.56
   bsSandman.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("ExitSandman",DOFContactors)
 
   'Doc Ock VUK
-  Set bsDocOck = New cvpmSaucer
-  bsDocOck.InitKicker sw36, 36, 0, 45, 1.56   'ORIGINALE: 36,0,35,1.56
 
+  Set bsDocOck = New cvpmSaucer
+  bsDocOck.InitExitVariance 3,4
+  bsDocOck.InitKicker sw36, 36, 0, 45, 1.56   'ORIGINALE: 36,0,35,1.56
   bsDocOck.InitSounds "kicker_enter", SoundFX("Solenoid",DOFContactors), SoundFX("ExitDoc",DOFContactors)
 
   'Doc Ock Magmet

@@ -10,6 +10,7 @@
 ' Thalamus 2018-07-24
 ' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -21,6 +22,10 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 LoadVPM "01120100", "s4.vbs", 3.02
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Dim bsTrough, dtRBank, dtLBank, bsLHole, x, plungerIM
 

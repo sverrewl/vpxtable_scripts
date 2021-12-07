@@ -9,8 +9,9 @@
 
 
 ' Thalamus 2018-07-24
-' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
+' Thalamus, table uses its own SSF routines.
 
 Option Explicit
 Randomize
@@ -29,6 +30,10 @@ Dim UseVPMDMD:UseVPMDMD = DesktopMode
 Const UseVPMModSol = 1
 
 LoadVPM "01560000", "WPC.VBS", 3.50
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 '********************
 'Standard definitions

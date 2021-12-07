@@ -13,6 +13,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
@@ -48,6 +49,10 @@ On Error Goto 0
   Const BallSize = 50
 
   LoadVPM "01560000", "stern.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
 
 
   Dim VarHidden

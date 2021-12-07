@@ -6,6 +6,7 @@
 ' Thalamus 2018-07-23
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-09-10 : Improved directional sounds
 
 Option Explicit
@@ -43,6 +44,10 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 LoadVPM "01200000", "stern.vbs", 3.02
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Dim bsTrough, dtDrop5, dtDrop3, plSkyway, plSkyraider
 Dim x
@@ -110,7 +115,7 @@ Sub table1_Init
     Set dtDrop3 = New cvpmDropTarget
     With dtDrop3
         .InitDrop Array(sw24, sw23, sw22), Array(24, 23, 22)
-        .initsnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+        .initsnd SoundFX("fx_droptarget2", DOFDropTargets), SoundFX("fx_resetdrop2", DOFContactors)
     '.CreateEvents "dtDrop3"  ' we do it manually, because of the new droptargets
     End With
 
@@ -122,7 +127,7 @@ Sub table1_Init
         .InitImpulseP sw5, IMPowerSetting, IMTime
         .Random 0.3
         .switch 5
-        .InitExitSnd SoundFX("fx_popper", DOFContactors), SoundFX("fx_popper", DOFContactors)
+        .InitExitSnd SoundFX("fx_popper2", DOFContactors), SoundFX("fx_popper2", DOFContactors)
         .CreateEvents "plSkyway"
     End With
 
@@ -134,7 +139,7 @@ Sub table1_Init
         .InitImpulseP sw4, IMPowerSetting2, IMTime2
         .Random 0.3
         .switch 4
-        .InitExitSnd SoundFX("fx_popper", DOFContactors), SoundFX("fx_popper", DOFContactors)
+        .InitExitSnd SoundFX("fx_popper3", DOFContactors), SoundFX("fx_popper3", DOFContactors)
         .CreateEvents "plSkyraider"
     End With
 

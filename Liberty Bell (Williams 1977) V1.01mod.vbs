@@ -328,6 +328,11 @@ debug.print "left + state:false + OperatorMenu"
     checktilt
   End If
 
+  If keycode = MechanicalTilt Then
+    checktilt
+  End If
+
+
 If (KeyCode =22) Then 'U Chr
 AddBonus (1)
   end if

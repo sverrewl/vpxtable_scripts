@@ -1470,3 +1470,11 @@ Sub Trigger10_Hit()
   Addscore 10
 End Sub
 
+' Thalamus - 2021-04-30 : added proper exit
+
+' Thalamus : Exit in a clean and proper way
+Sub Table1_exit()
+  Controller.Pause = False
+  Controller.Stop
+End Sub
+

@@ -27,6 +27,8 @@ Const VolSpin   = .2   ' Spinners volume.
 
 'OptionReset = 1  'Uncomment to reset to default options in case of error OR keep all changes temporary
 
+' Thalamus 2018-12-18 : Added FFv2
+
 ' Version 1.1.0: initial release
 ' Version 1.0.1: fixed DOF light for shooterlane
 ' Version 2.0.0: rebuild from scratch
@@ -54,6 +56,11 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 LoadVPM"01001100","sys80.VBS",3.42
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+' NoUpperLeftFlipper
+
 OptionsLoad
 
 

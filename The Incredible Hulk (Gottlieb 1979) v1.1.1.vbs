@@ -2,6 +2,7 @@ Option Explicit
 Randomize
 
 ' Thalamus 2018-11-01 : Improved directional sounds
+' Thalamus 2018-12-18 : Added FFv2
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -35,9 +36,14 @@ ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-Const cGameName="hulk",UseSolenoids=1,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SCoin="coin"
+Const cGameName="hulk",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SCoin="coin"
 
 LoadVPM"01120100","GTS1.VBS",3.02
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
+
 Dim DesktopMode: DesktopMode = Table1.ShowDT
 
 If DesktopMode = True Then 'Show Desktop components

@@ -6,6 +6,7 @@
 
 ' Options
 ' Volume devided by - lower gets higher sound
+Randomize
 
 Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
 Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )

@@ -7,6 +7,7 @@ Option Explicit
 Randomize
 
 ' Thalamus : Table already has great SSF - added "missing" exit routine.
+' Thalamus 2018-12-18 : Added FFv2
 
 Dim InstructionCardsLeft, InstructionCardsRight, FlipperColor, SolidStateSitcker, BallRadius, BallMass, GIColorMod, LeftHillValleyMod, RightHillValleyMod, DeloreanColorMod, PlasticProtectors, BallMod, WobblePlastic, HologramUpdateStep, IsItMultiball, HologramPhoto, BallsLocked, BallsInPlay, enableBallControl, musicsnippet, RubberColor
 Dim DesktopMode: DesktopMode = bttf.ShowDT
@@ -166,6 +167,10 @@ If Err Then MsgBox "You need the controller.vbs in order to run this table, avai
 On Error Goto 0
 
 LoadVPM "01560000", "DE.VBS", 3.26
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 '********************
 'Standard definitions

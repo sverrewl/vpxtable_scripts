@@ -399,6 +399,8 @@ Sub Table1_KeyDown(ByVal KeyCode)
   if KeyCode = RightTiltKey Then Nudge 270, 4
   if KeyCode = CenterTiltKey Then Nudge 0, 12
   If keycode = LeftMagnaSave Then:Controller.Switch(33) = 1:End If
+  If keycode = LockBarKey Then Controller.Switch(34) = True
+  If keycode = RightMagnaSave Then Controller.Switch(34) = True
   If KeyCode = LeftFlipperKey then FastFlips.FlipL True :  FastFlips.FlipUL True
   If KeyCode = RightFlipperKey then FastFlips.FlipR True :  FastFlips.FlipUR True
 '(Do not use Exit Sub, this script does not handle switch handling at all!)
@@ -408,6 +410,8 @@ Sub Table1_KeyUp(ByVal KeyCode)
   If KeyUpHandler(keycode) Then Exit Sub
   If keycode = PlungerKey Then Controller.Switch(34) = False
   If keycode = LeftMagnaSave Then:Controller.Switch(33) = False:End If
+  If keycode = LockBarKey Then Controller.Switch(34) = False
+  If keycode = RightMagnaSave Then Controller.Switch(34) = False
   If KeyCode = LeftFlipperKey then FastFlips.FlipL False :  FastFlips.FlipUL False
   If KeyCode = RightFlipperKey then FastFlips.FlipR False :  FastFlips.FlipUR False
 End Sub

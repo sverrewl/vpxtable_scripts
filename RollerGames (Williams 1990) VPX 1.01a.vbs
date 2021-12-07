@@ -4,6 +4,7 @@ Randomize
 ' Thalamus 2018-07-24
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-11-01 : Improved directional sounds
 ' !! NOTE : Table not verified yet !!
 
@@ -66,6 +67,11 @@ if DesktopMode = True Then
 End If
 
  LoadVPM "01120100", "S11.VBS", 3.10
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
+
 
 
 'Sub Kicker1_hit:me.kick 342,40 End Sub

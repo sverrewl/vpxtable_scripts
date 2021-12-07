@@ -56,6 +56,8 @@
 Option Explicit
 Randomize
 
+' Thalamus - converted from wmv to mp4 - UltraDMD
+
 Const Ballsize=51
 Const BallMass=1.25
 
@@ -296,7 +298,7 @@ Sub DisplayIntro_timer()
     End If
     If displaystart=1 Then introtime=10000
     If rndIntro=1 Then UltraDMD.DisplayScene00Ex "CLIntro.gif", "", -1, -1,"", -1, -1, UltraDMD_Animation_FadeIn, introtime, UltraDMD_Animation_FadeOut
-    If rndIntro=2 Then UltraDMD.DisplayScene00Ex "CLIntro2.wmv", "", -1, -1,"", -1, -1, UltraDMD_Animation_FadeIn, introtime, UltraDMD_Animation_FadeOut
+    If rndIntro=2 Then UltraDMD.DisplayScene00Ex "CLIntro2.mp4", "", -1, -1,"", -1, -1, UltraDMD_Animation_FadeIn, introtime, UltraDMD_Animation_FadeOut
     DisplayIntroHS.enabled=1
   End If
 End Sub
@@ -1060,9 +1062,9 @@ Sub DisplayBonus
   BonusToAdd=bonusP:bonusT.enabled=1
   PlaySound "eob-gameover",-1,1,0,0
   If Len(bonusP)<7 Then         'bonus is less than 1 million
-    UltraDMD.DisplayScene00ExWithId "bonusdrain",false, "bonus.wmv", formatnumber(scores(CurrentPlayer),0), 15, 0, formatnumber(bonusP,0), 15, 0, UltraDMD_Animation_None, 26000, UltraDMD_Animation_None
+    UltraDMD.DisplayScene00ExWithId "bonusdrain",false, "bonus.mp4", formatnumber(scores(CurrentPlayer),0), 15, 0, formatnumber(bonusP,0), 15, 0, UltraDMD_Animation_None, 26000, UltraDMD_Animation_None
   Else
-    UltraDMD.DisplayScene00ExWithId "bonusdrain",false, "bonus-ext.wmv", formatnumber(scores(CurrentPlayer),0), 15, 0, formatnumber(bonusP,0), 15, 0, UltraDMD_Animation_None, 52000, UltraDMD_Animation_None
+    UltraDMD.DisplayScene00ExWithId "bonusdrain",false, "bonus-ext.mp4", formatnumber(scores(CurrentPlayer),0), 15, 0, formatnumber(bonusP,0), 15, 0, UltraDMD_Animation_None, 52000, UltraDMD_Animation_None
   End If
 End Sub
 
@@ -3125,7 +3127,7 @@ Sub triggermultiBall_hit()
     superjackpot.state=0:LmultiLock.state=0:Lmultiticket.state=0:Lmultiskill.state=0
     UltraDMD.CancelRendering
     UltraDMD.DisplayScene00Ex "MVP.gif", "AMAZING!!", 15, 2, "BALLON DOR", 15, 2, UltraDMD_Animation_None, 2500, UltraDMD_Animation_FadeOut
-    UltraDMD.DisplayScene00Ex "MVPList.wmv", "", 15, 0, "", 15, 0, UltraDMD_Animation_None, 139000, UltraDMD_Animation_FadeOut
+    UltraDMD.DisplayScene00Ex "MVPList.mp4", "", 15, 0, "", 15, 0, UltraDMD_Animation_None, 139000, UltraDMD_Animation_FadeOut
     dim CrStr:Crstr="ALL RIGHTS BELONG TO|UEFA| | | |IT WAS A LONG EFFORT| | |FOR BOTH YOU| | |AND US CREATORS| | | |WE ENJOYED DURING| |THE DEVELOPING PHASE| | | |WE HOPE THAT| |YOU ENJOYED TOO..| | | |AUTHORS| | | |NINUZZU| | |TOM TOWER| | | | |THANKS TO THE| |VISUAL PINBALL| |DEV TEAM FOR| |THE AMAZING VPX"
     UltraDMD.ScrollingCredits "credits.png", Crstr, 15, UltraDMD_Animation_ScrollOnUp, 100, UltraDMD_Animation_FadeOut
   End If
@@ -3205,7 +3207,7 @@ Sub WinTheCLFinal
   CLWinWait.enabled=1
   DisableTable 1:Tilted=1
   If UltraDMD.IsRendering Then UltraDMD.CancelRendering
-  UltraDMD.DisplayScene00Ex "CLWin.wmv", "", 15, 0, "", 15, 0, UltraDMD_Animation_FadeIn, 54500, UltraDMD_Animation_FadeOut
+  UltraDMD.DisplayScene00Ex "CLWin.mp4", "", 15, 0, "", 15, 0, UltraDMD_Animation_FadeIn, 54500, UltraDMD_Animation_FadeOut
   LightSeqCLWin.Play SeqBlinking, , 6, 100
   LightSeqCLWin.Play SeqWiperRightOn,10
   LightSeqCLWin.Play SeqWiperLeftOn,10

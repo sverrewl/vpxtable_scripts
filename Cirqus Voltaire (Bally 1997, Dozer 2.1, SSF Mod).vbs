@@ -10,6 +10,7 @@
 ' Thalamus 2018-07-24
 ' Table has already "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' No special SSF tweaks yet.
 
 Option Explicit
@@ -309,6 +310,10 @@ End If
 Dim Sound1, Sound2, Sound3, Sound4, Sound5, B2SController
 
  LoadVPM "01560000", "WPC.VBS", 3.46
+
+' Thalamus - for Fast Flip v2
+' NoUpperRightFlipper
+NoUpperLeftFlipper
 
  Sub LoadVPM(VPMver, VBSfile, VBSver) 'Add new call to InitializeOptions to allow selection of controller through F6 menu
   On Error Resume Next
@@ -1219,8 +1224,8 @@ Const UseSync = 0
 Const HandleMech = 1
 
 ' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
+' Const cSingleLFlip = 0
+' Const cSingleRFlip = 0
 
 ' Standard Sounds
 Const SSolenoidOn = ""

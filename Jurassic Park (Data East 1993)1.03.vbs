@@ -52,9 +52,9 @@
 Option Explicit
 Randomize
 
-' Thal : Added because of useSolenoid=2
-Const cSingleLFlip = 0
-Const cSingleRFlip = 0
+' Thal : Added because of useSolenoid=1
+' Const cSingleLFlip = 0
+' Const cSingleRFlip = 0
 ' Thal : Fix for ballrolling plastic ramp - reported by kentayeyen
 
 Dim VolumeDial, CollectionVolume, enableBallControl, BallReflection
@@ -133,6 +133,7 @@ End If
 '****************************************************************************************
 
 ' Thalamus 2018-11-01 : Improved directional sounds
+' Thalamus 2018-12-18 : Added FFv2
 ' !! NOTE : Table not verified yet !!
 
 ' Options
@@ -308,13 +309,15 @@ On Error Goto 0
 
 LoadVPM "01120100", "de.vbs", 3.23
 
+
 Dim DesktopMode:DesktopMode = Table1.ShowDT
 
 '********************
 'Standard definitions
 '********************
 
-Const UseSolenoids = 2
+' Thalamus - ffv2 should not be used for this table according to nFozzy
+Const UseSolenoids = 1
 Const UseLamps = 0
 'Const UseGI = 0
 Const UseSync = 0 'set it to 1 if the table runs too fast

@@ -5,8 +5,10 @@
 ' Thalamus 2018-07-19
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-18 : Added FFv2
 ' Thalamus 2018-08-10 : Improved directional sounds
-' Low sounds ? You might want to get samples from another table.
+' This is a JP table. He often uses walls as switches so I need to be careful of using PlaySoundAt
+' !! NOTE : Table not verified yet !!
 
 Option Explicit
 
@@ -15,11 +17,11 @@ Option Explicit
 
 Const VolDiv = 600
 
-Const VolBump   = 3    ' Bumper Volume - higher value, higher sound
-Const VolRol    = 2    ' Rollover Volume - higher value, higher sound
-Const VolDrop   = 2    ' Droptarget Volume - higher value, higher sound
-Const VolTarget = 2    ' Target Volume - higher value, higher sound
-Const VolFlip   = 2    ' Flipper Volume - higher value, higher sound
+Const VolBump   = 0.5  ' Bumper Volume - higher value, higher sound
+Const VolRol    = 3    ' Rollover Volume - higher value, higher sound
+Const VolDrop   = 3    ' Droptarget Volume - higher value, higher sound
+Const VolTarget = 3    ' Target Volume - higher value, higher sound
+Const VolFlip   = 4    ' Flipper Volume - higher value, higher sound
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
@@ -29,6 +31,10 @@ On Error Goto 0
 Const BallSize = 50
 
 LoadVPM "01120100", "stern.vbs", 3.02
+
+' Thalamus - for Fast Flip v2
+NoUpperRightFlipper
+NoUpperLeftFlipper
 
 Dim VarHidden
 If Table1.ShowDT = true then
@@ -93,11 +99,11 @@ Sub Table1_Init
 
     Set dtR = New cvpmDropTarget
     dtR.InitDrop Array(sw24, sw23, sw22), Array(24, 23, 22)
-    dtR.InitSnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+    dtR.InitSnd SoundFX("fx_droptarget2", DOFDropTargets), SoundFX("fx_resetdrop2", DOFContactors)
 
     Set dtR2 = New cvpmDropTarget
     dtR2.InitDrop Array(sw32, sw31, sw30), Array(32, 31, 30)
-    dtR2.InitSnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+    dtR2.InitSnd SoundFX("fx_droptarget3", DOFDropTargets), SoundFX("fx_resetdrop3", DOFContactors)
 
     vpmNudge.TiltSwitch = 7
     vpmNudge.Sensitivity = 1

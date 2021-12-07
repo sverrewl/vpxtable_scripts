@@ -64,6 +64,7 @@
 Option Explicit
 Randomize
 
+' Thalamus - converted from wmv to mp4 - UltraDMD
 ' Thalamus 2018-07-20
 ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Thalamus 2018-11-01 : Improved directional sounds
@@ -415,6 +416,7 @@ Sub table1_Exit
     If UltraDMD.IsRendering Then
       UltraDMD.CancelRendering
     End If
+  UltraDMD.Uninit
     UltraDMD = NULL
   End If
 End Sub
@@ -929,36 +931,36 @@ Sub EndOfBall()
         'Lane Bonus
         AwardPoints = LaneBonus * 1000
         TotalBonus = AwardPoints
-        DMD "bonus-background.wmv", "LANE BONUS", AwardPoints, 700
+        DMD "bonus-background.mp4", "LANE BONUS", AwardPoints, 700
         vpmtimer.addtimer 1300, "PlaySound ""bonus"", 0, 1, 0, 0, 0, 0, 0 '"
 
         'Number of Target banks completed
         AwardPoints = TargetBonus * 100000
         TotalBonus = TotalBonus + AwardPoints
-        DMD "bonus-background.wmv", "TARGET BONUS", AwardPoints, 700
+        DMD "bonus-background.mp4", "TARGET BONUS", AwardPoints, 700
         vpmtimer.addtimer 2200, "PlaySound ""bonus"", 0, 1, 0, 0, 1000, 0, 0 '"
 
         'Number of Ramps completed
         AwardPoints = RampBonus * 10000
         TotalBonus = TotalBonus + AwardPoints
-        DMD "bonus-background.wmv", "RAMP BONUS", AwardPoints, 700
+        DMD "bonus-background.mp4", "RAMP BONUS", AwardPoints, 700
         vpmtimer.addtimer 2900, "PlaySound ""bonus"", 0, 1, 0, 0, 2000, 0, 0 '"
 
         'Number of Orbits registered
         AwardPoints = OrbitHits * 32260
         TotalBonus = TotalBonus + AwardPoints
-        DMD "bonus-background.wmv", "ORBIT BONUS", AwardPoints, 700
+        DMD "bonus-background.mp4", "ORBIT BONUS", AwardPoints, 700
         vpmtimer.addtimer 3600, "PlaySound ""bonus"", 0, 1, 0, 0, 3000, 0, 0 '"
 
         'Number of monsters defeated
         AwardPoints = Monsters(CurrentPlayer) * 25130
-        DMD "bonus-background.wmv", "MONSTERS KILLED", monsters(CurrentPlayer), 700
+        DMD "bonus-background.mp4", "MONSTERS KILLED", monsters(CurrentPlayer), 700
         vpmtimer.addtimer 4400, "PlaySound ""bonus"", 0, 1, 0, 0, 4000, 0, 0 '"
 
         'Player Level
         AwardPoints = Level(CurrentPlayer) * 50000
         TotalBonus = TotalBonus + AwardPoints
-        DMD "bonus-background.wmv", "LEVEL BONUS", Level(CurrentPlayer), 700
+        DMD "bonus-background.mp4", "LEVEL BONUS", Level(CurrentPlayer), 700
         vpmtimer.addtimer 5000, "PlaySound ""bonus"", 0, 1, 0, 0, 5000, 0, 0 '"
 
         ' calculate the totalbonus
@@ -979,7 +981,7 @@ Sub EndOfBall()
         bBonusHeld = False
 
         ' Add the bonus to the score
-        DMD "bonus-background.wmv", "TOTAL BONUS X " &BonusMultiplier(CurrentPlayer), TotalBonus, 2200
+        DMD "bonus-background.mp4", "TOTAL BONUS X " &BonusMultiplier(CurrentPlayer), TotalBonus, 2200
         vpmtimer.addtimer 6200, "PlaySound ""goblin"" '"
         AddScore TotalBonus
 
@@ -1014,7 +1016,7 @@ Sub EndOfBall2()
         End If
 
         ' You may wish to do a bit of a song AND dance at this point
-        DMD "extra-ball.wmv", "", "", 5000
+        DMD "extra-ball.mp4", "", "", 5000
 
         ' In this table an extra ball will have the skillshot and ball saver, so we reset the playfield for the new ball
         ResetForNewPlayerBall()
@@ -1117,7 +1119,7 @@ Sub EndOfGame()
     ' most of the Mode/timers terminate at the end of the ball
     'PlayQuote.Enabled = 0
     ' show game over on the DMD
-    DMD "game-over.wmv", "", "", 11000
+    DMD "game-over.mp4", "", "", 11000
 
     ' set any lights for the attract mode
     GiOff
@@ -1171,7 +1173,7 @@ Sub Drain_Hit()
             ' we kick the ball with the autoplunger
             bAutoPlunger = True
             ' you may wish to put something on a display or play a sound at this point
-            DMD "ball-save.wmv", "", "", 5000
+            DMD "ball-save.mp4", "", "", 5000
         Else
             ' cancel any multiball if on last ball (ie. lost all other balls)
             If(BallsOnPlayfield = 1) Then
@@ -1201,10 +1203,10 @@ Sub Drain_Hit()
                 DMDFlush
                 Select Case Mode(0)
                     Case 0, 1, 3, 5, 7
-                        DMD "ball-lost-2.wmv", "", "", 5000
+                        DMD "ball-lost-2.mp4", "", "", 5000
                         vpmtimer.addtimer 4500, "EndOfBall '"
                     Case 2, 4, 6, 8, 10
-                        DMD "ball-lost-1.wmv", "", "", 10000
+                        DMD "ball-lost-1.mp4", "", "", 10000
                         vpmtimer.addtimer 9500, "EndOfBall '"
                 End Select
                 StopEndOfBallMode
@@ -1267,7 +1269,7 @@ End Sub
 ' swPlungerRest timer to show the "launch ball" if the player has not shot the ball during 6 seconds
 
 Sub swPlungerRest_Timer
-    DMD "start.wmv", "", "", 17000
+    DMD "start.mp4", "", "", 17000
     swPlungerRest.TimerEnabled = 0
 End Sub
 
@@ -1398,7 +1400,7 @@ End Sub
 Sub AwardExtraBall()
     If NOT bExtraBallWonThisBall Then
         DMDBlink "black.jpg", " ", "EXTRA BALL WON", 100, 10
-        'DMD "extra-ball.wmv", "", "", 5000
+        'DMD "extra-ball.mp4", "", "", 5000
         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
     DOF 121, DOFPulse
     DOF 112, DOFPulse
@@ -1463,22 +1465,22 @@ Sub AwardSkillshot()
     DMDFlush
     Select case SkillShotValue(CurrentPlayer)
         case 1000000
-            DMD "skillshot1.wmv", " ", " ", 5000
+            DMD "skillshot1.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 2000000
-            DMD "skillshot2.wmv", " ", " ", 5000
+            DMD "skillshot2.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 3000000
-            DMD "skillshot3.wmv", " ", " ", 5000
+            DMD "skillshot3.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 4000000
-            DMD "skillshot4.wmv", " ", " ", 5000
+            DMD "skillshot4.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case 5000000
-            DMD "skillshot5.wmv", " ", " ", 5000
+            DMD "skillshot5.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
         case ELSE
-            DMD "skillshot.wmv", " ", " ", 5000
+            DMD "skillshot.mp4", " ", " ", 5000
             AddScore SkillshotValue(CurrentPLayer)
     End Select
     ' increment the skillshot value with 1 million
@@ -1941,6 +1943,7 @@ End Sub
 '***********************************************************************************
 
 Dim UltraDMD
+Dim FlexDMD
 
 ' DMD using UltraDMD calls
 
@@ -2034,13 +2037,39 @@ Azmodan = Array("az-0.jpg", "az-10.jpg", "az-20.jpg", "az-30.jpg", "az-40.jpg", 
 Diablo = Array("dia-0.jpg", "dia-10.jpg", "dia-20.jpg", "dia-30.jpg", "dia-40.jpg", "dia-50.jpg", "dia-60.jpg", "dia-70.jpg", "dia-80.jpg", "dia-90.jpg", "dia-100.jpg")
 Malthael = Array("mal-0.jpg", "mal-10.jpg", "mal-20.jpg", "mal-30.jpg", "mal-40.jpg", "mal-50.jpg", "mal-60.jpg", "mal-70.jpg", "mal-80.jpg", "mal-90.jpg", "mal-100.jpg")
 
+' Update the embedded DMD inside VPX. This requires the table to have a timer object, named 'FlexDMDTimer', enabled, with a timer interval of -1 (VPX > 10.2)
+Sub FlexDMDTimer_Timer
+  Dim DMDp
+  If UseDMD Then
+    DMDp = FlexDMD.DmdPixels
+    If Not IsEmpty(DMDp) Then
+      DMDWidth = FlexDMD.Width
+      DMDHeight = FlexDMD.Height
+      DMDPixels = DMDp
+    End If
+  ElseIf UseColoredDMD Then
+    DMDp = FlexDMD.DmdColoredPixels
+    If Not IsEmpty(DMDp) Then
+      DMDWidth = FlexDMD.Width
+      DMDHeight = FlexDMD.Height
+      DMDColoredPixels = DMDp
+    End If
+  End If
+End Sub
+
+
 Sub DMD_Init
-    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
-    If UltraDMD is Nothing Then
+  UseColoredDMD = true
+    'Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+    If FlexDMD is Nothing Then
         MsgBox "No UltraDMD found.  This table will NOT run without it."
         Exit Sub
     End If
 
+    FlexDMD.GameName = cGameName
+  FlexDMD.RenderMode = 2
+  Set UltraDMD = FlexDMD.NewUltraDMD()
     UltraDMD.Init
     If Not UltraDMD.GetMajorVersion = 1 Then
         MsgBox "Incompatible Version of UltraDMD found."
@@ -2093,14 +2122,14 @@ Sub ShowTableInfo
     'coins or freeplay
     If bFreePlay Then
         DMD "black.jpg", " ", "FREE PLAY", 2000
-        DMD "intro-freeplay.wmv", "", "", 63000
+        DMD "intro-freeplay.mp4", "", "", 63000
     Else
         If Credits> 0 Then
             DMD "black.jpg", "CREDITS " &credits, "PRESS START", 2000
         Else
             DMD "black.jpg", "CREDITS " &credits, "INSERT COIN", 2000
         End If
-        DMD "intro-coins.wmv", "", "", 65000
+        DMD "intro-coins.mp4", "", "", 65000
     End If
 
     DMD "black.jpg", "HIGHSCORES", "1> " & HighScoreName(0) & " " & FormatNumber(HighScore(0), 0, , , -1), 3000
@@ -2723,7 +2752,7 @@ Sub CheckLevelLanes() 'use the lane lights
         LightEffect 3
         FlashEffect 3
         'DMD
-        DMD "levelup.wmv", "", "", 3000
+        DMD "levelup.mp4", "", "", 3000
         ' open the gates and enable the orbit shots
         Gate1.Open = true:Gate2.Open = True
         OrbitCloseTimer.Enabled = 1
@@ -2801,7 +2830,7 @@ End Sub
 
 Sub CheckQUESTLanes() 'use the lane lights
     If l15.State + l16.State + l17.State + l18.State + l19.State = 5 Then
-        DMD "quest-lights.wmv", "", "", 4000
+        DMD "quest-lights.mp4", "", "", 4000
         'Increase bonus multiplier
         AddBonusMultiplier 1
         'flash and Light effect
@@ -2957,7 +2986,7 @@ Sub CheckBASHTargets
         End If
         Select Case Mode(0)
             Case 1, 3, 5, 7, 9
-                DMD "bash-lights.wmv", "", "", 4000
+                DMD "bash-lights.mp4", "", "", 4000
                 MonsterHits = MonsterHits + 5 + Level(CurrentPlayer)
                 CheckActMonsters
                 MonsterHitTimer_Timer
@@ -3148,7 +3177,7 @@ Sub CheckSKILLTargets
         End If
         Select Case Mode(0)
             Case 1, 3, 5, 7, 9
-                DMD "skill-lights.wmv", "", "", 3000
+                DMD "skill-lights.mp4", "", "", 3000
                 MonsterHits = MonsterHits + 7 + Level(CurrentPlayer)
                 CheckActMonsters
                 MonsterHitTimer_Timer
@@ -3334,7 +3363,7 @@ Sub OrbitTrigger1_Hit
                 Case 1, 3, 5, 7, 9
                     GiEffect 2
           DOF 125, DOFPulse
-                    DMD "leftloop.wmv", "", "", 2000
+                    DMD "leftloop.mp4", "", "", 2000
                     Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                     MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
                     CheckActMonsters
@@ -3383,7 +3412,7 @@ Sub OrbitTrigger2_Hit
                 Case 1, 3, 5, 7, 9
                     GiEffect 2
           DOF 125, DOFPulse
-                    DMD "rightloop.wmv", "", "", 2000
+                    DMD "rightloop.mp4", "", "", 2000
                     Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                     MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
                     CheckActMonsters
@@ -3435,7 +3464,7 @@ Sub LeftRampDone_Hit
             Case 1, 3, 5, 7, 9
                 GiEffect 2
         DOF 125, DOFPulse
-                DMD "leftramp.wmv", "", "", 2000
+                DMD "leftramp.mp4", "", "", 2000
                 Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                 MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
                 CheckActMonsters
@@ -3480,7 +3509,7 @@ Sub RightRampDone_Hit
             Case 1, 3, 5, 7, 9
                 GiEffect 2
         DOF 125, DOFPulse
-                DMD "rightramp.wmv", "", "", 2000
+                DMD "rightramp.mp4", "", "", 2000
                 Monsters(CurrentPlayer) = Monsters(CurrentPlayer) + 1 'bonus
                 MonsterHits = MonsterHits + 1 + Level(CurrentPlayer)
                 CheckActMonsters
@@ -3788,7 +3817,7 @@ End Sub
 Sub StartAct1
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act1.wmv", " ", "         ", 6500
+    DMD "act1.mp4", " ", "         ", 6500
     ' start music after the intro
     vpmtimer.AddTimer 6000, "PlaySong ""mu_act"" '"
     'setup variables
@@ -3815,7 +3844,7 @@ Sub WinAct1
     StopMonsterTimer
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act-complete.wmv", "", "", 12000
+    DMD "act-complete.mp4", "", "", 12000
     FlashEffect 2
   DOF 154, DOFPulse
     'setup variables
@@ -3837,7 +3866,7 @@ End Sub
 
 Sub StartButcher
     StopSound Song:Song = ""
-    DMD "butcher-start.wmv", "", "", 12000
+    DMD "butcher-start.mp4", "", "", 12000
     ' start music after the intro
     vpmtimer.AddTimer 12000, "PlaySong ""mu_lordfight"" '"
     vpmtimer.AddTimer 8000, "PlaySound ""battle"" '"
@@ -3882,7 +3911,7 @@ End Sub
 Sub WinButcher
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "butcher-defeated.wmv", "", "", 14000
+    DMD "butcher-defeated.mp4", "", "", 14000
     FlashEffect 2
   DOF 154, DOFPulse
     LightEffect 2
@@ -3916,7 +3945,7 @@ End Sub
 Sub StartAct2
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act2.wmv", " ", "         ", 6500
+    DMD "act2.mp4", " ", "         ", 6500
     ' start music after the intro
     vpmtimer.AddTimer 6000, "PlaySong ""mu_act2"" '"
     'setup variables
@@ -3943,7 +3972,7 @@ Sub WinAct2
     StopMonsterTimer
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act-complete.wmv", "", "", 12000
+    DMD "act-complete.mp4", "", "", 12000
     FlashEffect 2
   DOF 154, DOFPulse
     'setup variables
@@ -3968,7 +3997,7 @@ Dim TargetsPos
 
 Sub StartBelial
     StopSound Song:Song = ""
-    DMD "belial-start.wmv", "", "", 12000
+    DMD "belial-start.mp4", "", "", 12000
     ' start music after the intro
     vpmtimer.AddTimer 12000, "PlaySong ""mu_lordfight"" '"
     vpmtimer.AddTimer 8000, "PlaySound ""battle"" '"
@@ -4003,7 +4032,7 @@ End Sub
 Sub WinBelial
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "belial-defeated.wmv", "", "", 14000
+    DMD "belial-defeated.mp4", "", "", 14000
     FlashEffect 2
   DOF 154, DOFPulse
     LightEffect 2
@@ -4058,7 +4087,7 @@ End Sub
 Sub StartAct3
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act3.wmv", " ", "         ", 6500
+    DMD "act3.mp4", " ", "         ", 6500
     ' start music after the intro
     vpmtimer.AddTimer 6000, "PlaySong ""mu_act"" '"
     'setup variables
@@ -4085,7 +4114,7 @@ Sub WinAct3
     StopMonsterTimer
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act-complete.wmv", "", "", 12000
+    DMD "act-complete.mp4", "", "", 12000
     FlashEffect 2
   DOF 154, DOFPulse
     'setup variables
@@ -4108,7 +4137,7 @@ End Sub
 
 Sub StartAzmodan
     StopSound Song:Song = ""
-    DMD "azmodan-start.wmv", "", "", 20000
+    DMD "azmodan-start.mp4", "", "", 20000
     ' start music after the intro
     vpmtimer.AddTimer 20000, "PlaySong ""mu_lordfight"" '"
     vpmtimer.AddTimer 8000, "PlaySound ""battle"" '"
@@ -4143,7 +4172,7 @@ End Sub
 Sub WinAzmodan
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "azmodan-defeated.wmv", "", "", 14000
+    DMD "azmodan-defeated.mp4", "", "", 14000
     FlashEffect 2
   DOF 154, DOFPulse
     LightEffect 2
@@ -4173,7 +4202,7 @@ End Sub
 Sub StartAct4
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act4.wmv", " ", "         ", 6500
+    DMD "act4.mp4", " ", "         ", 6500
     ' start music after the intro
     vpmtimer.AddTimer 6000, "PlaySong ""mu_act2"" '"
     'setup variables
@@ -4199,7 +4228,7 @@ Sub WinAct4
     StopMonsterTimer
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act-complete.wmv", "", "", 12000
+    DMD "act-complete.mp4", "", "", 12000
     FlashEffect 2
   DOF 154, DOFPulse
     'setup variables
@@ -4220,7 +4249,7 @@ End Sub
 
 Sub StartDiablo
     StopSound Song:Song = ""
-    DMD "diablo-start.wmv", "", "", 19000
+    DMD "diablo-start.mp4", "", "", 19000
     ' start music after the intro
     vpmtimer.AddTimer 19000, "PlaySong ""mu_lordfight"" '"
     vpmtimer.AddTimer 8000, "PlaySound ""battle"" '"
@@ -4254,7 +4283,7 @@ End Sub
 Sub WinDiablo
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "diablo-defeated.wmv", "", "", 14000
+    DMD "diablo-defeated.mp4", "", "", 14000
     FlashEffect 2
   DOF 154, DOFPulse
     LightEffect 2
@@ -4284,7 +4313,7 @@ End Sub
 Sub StartAct5
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act5.wmv", " ", "         ", 6500
+    DMD "act5.mp4", " ", "         ", 6500
     ' start music after the intro
     vpmtimer.AddTimer 6000, "PlaySong ""mu_act"" '"
     'setup variables
@@ -4310,7 +4339,7 @@ Sub WinAct5
     StopMonsterTimer
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "act-complete.wmv", "", "", 12000
+    DMD "act-complete.mp4", "", "", 12000
     FlashEffect 2
   DOF 154, DOFPulse
     ' Score an extra 5 million points
@@ -4334,7 +4363,7 @@ End Sub
 
 Sub StartMalthael
     StopSound Song:Song = ""
-    DMD "malthael-start.wmv", "", "", 18000
+    DMD "malthael-start.mp4", "", "", 18000
     ' start music after the intro
     vpmtimer.AddTimer 18000, "PlaySong ""mu_lordfight"" '"
     vpmtimer.AddTimer 8000, "PlaySound ""battle"" '"
@@ -4392,7 +4421,7 @@ Sub WinMalthael2
     Dim i
     'play a sound - video -dmd
     StopSound Song:Song = ""
-    DMD "malthael-defeated.wmv", "", "", 80000
+    DMD "malthael-defeated.mp4", "", "", 80000
     'light show
     LightSeqFlasher.UpdateInterval = 150
     LightSeqFlasher.Play SeqRandom, 20, , 80000
