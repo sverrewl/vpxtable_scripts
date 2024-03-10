@@ -106,6 +106,10 @@ Set LampCallback=GetRef("UpdateMultipleLamps")
 Dim bsTroughP1,bsTroughP2,bsEjectP1,bsEjectP2,dtA,dtB,dtC,dtD,dtL,dtR,bsP1,bsP2
 
 Sub Table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
   On Error Resume Next
   With Controller
     .GameName=cGameName

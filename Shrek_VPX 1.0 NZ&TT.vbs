@@ -185,6 +185,9 @@ End Sub
 
 Sub Table1_Init
 
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
 '* ROM AND DMD ****************************************
 
 With Controller

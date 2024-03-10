@@ -75,6 +75,8 @@ AttractVideo = Array("attract ", 588)
   'Table Init
     Sub table1_Init
 
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
 
         With Controller
         cGameName = "blakpyra"
@@ -181,7 +183,9 @@ End Sub
 
 
 
-   Sub LeftSlingshot_Slingshot:lsling.IsDropped=0:PlaySoundAtVol "slingshotL",activeball, 1:vpmTimer.PulseSw 1:LStep=0:ME.TimerEnabled = 1:End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+'   Sub LeftSlingshot_Slingshot:lsling.IsDropped=0:PlaySoundAtVol "slingshotL",activeball, 1:vpmTimer.PulseSw 1:LStep=0:ME.TimerEnabled = 1:End Sub
     Sub LeftSlingshot_Timer
         Select Case LStep
            Case 0:'Pause
@@ -193,16 +197,18 @@ End Sub
         LStep = LStep + 1
     End Sub
 
-   Sub RightSlingShot_Slingshot:rsling.IsDropped=0:PlaySoundAtVol "slingshotR",activeball,1:vpmTimer.PulseSw 2:RStep=0:ME.TimerEnabled = 1:End Sub
-    Sub RightSlingShot_Timer
-        Select Case RStep
-            Case 0:'Pause
-            Case 1: 'pause
-            Case 2:rsling.IsDropped = 1:rsling2.IsDropped = 0
-            Case 3:rsling2.IsDropped = 1:rsling3.IsDropped = 0
-            Case 4:rsling3.IsDropped = 1:Me.TimerEnabled = 0
-        End Select
-     End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+'   Sub RightSlingShot_Slingshot:rsling.IsDropped=0:PlaySoundAtVol "slingshotR",activeball,1:vpmTimer.PulseSw 2:RStep=0:ME.TimerEnabled = 1:End Sub
+'    Sub RightSlingShot_Timer
+'        Select Case RStep
+'            Case 0:'Pause
+'            Case 1: 'pause
+'            Case 2:rsling.IsDropped = 1:rsling2.IsDropped = 0
+'            Case 3:rsling2.IsDropped = 1:rsling3.IsDropped = 0
+'            Case 4:rsling3.IsDropped = 1:Me.TimerEnabled = 0
+'        End Select
+'     End Sub
 
    Sub sw12_Hit():PlaySoundAtVol "rubber",activeball,1:vpmTimer.PulseSw 12:End Sub
    Sub sw12a_Hit():PlaySoundAtVol "rubber",activeball,1:vpmTimer.PulseSw 12:End Sub
@@ -333,9 +339,9 @@ End Sub
 Dim BIP
 BIP = 0
 
-Sub LeftSlingshot_Slingshot()
-  PlaySoundAtVol "fx_bumper4", ActiveBall, 1
-End Sub
+' Sub LeftSlingshot_Slingshot()
+'   PlaySoundAtVol "fx_bumper4", ActiveBall, 1
+' End Sub
 
 '**********Sling Shot Animations
 ' Rstep and Lstep  are the variables that increment the animation

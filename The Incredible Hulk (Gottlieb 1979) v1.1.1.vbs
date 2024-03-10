@@ -111,6 +111,10 @@ For each xx in GI:xx.State = 1: Next
 Dim bsTrough,dtDrop,bsSaucer1,bsSaucer2
 
 Sub Table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
   On Error Resume Next
   With Controller
     .GameName=cGameName

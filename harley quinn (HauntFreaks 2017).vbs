@@ -94,6 +94,10 @@ Const SCoin = "fx_coin"
 Const cGameName = "diamond"
 
 Sub table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
   Dim xx
     For each xx in aReels:xx.Visible = DesktopMode:Next
     lrail.Visible = DesktopMode

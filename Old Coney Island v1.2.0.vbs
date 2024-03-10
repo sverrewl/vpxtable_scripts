@@ -121,6 +121,10 @@ End Sub
 Dim bsTrough, dtDrop, bsSaucer
 
 Sub Table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
     On Error Resume Next
     With Controller
         .GameName = cGameName

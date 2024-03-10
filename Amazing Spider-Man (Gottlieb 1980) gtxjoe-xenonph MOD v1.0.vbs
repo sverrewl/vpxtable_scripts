@@ -36,6 +36,9 @@ Sub Table1_Init()
 
   GiLights 0
 
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
   On Error Resume Next
 
   With Controller

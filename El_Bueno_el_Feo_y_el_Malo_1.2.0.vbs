@@ -76,6 +76,10 @@ Dim DesktopMode:DesktopMode = Table1.ShowDT
  '************
 
  Sub Table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
   Dim ii
     With Controller
        .GameName = cGameName

@@ -85,6 +85,10 @@ Const SCoin = "fx_coin"
 '************
 
 Sub Table1_Init
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
     With Controller
         .GameName = cGameName
         .SplashInfoLine = "Stern's Lightning, Stern 1981"

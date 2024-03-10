@@ -137,6 +137,10 @@ Sub SolLFlipper(Enabled)
   End Sub
 
 Sub MGOW_Init()
+
+' Thalamus : Was missing 'vpminit me'
+  vpminit me
+
    With Controller
       .GameName=cGameName
       .SplashInfoLine="Mars God of War" & vbNewLine & "Gottlieb 1981"
