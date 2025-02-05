@@ -1,0 +1,6 @@
+Table releases has the same god damn filename every time an update is released !!!
+So, I can't be sure if YOU have the same actual table that will work with these changes.
+
+If you are an author, please, don't re-use tablenames !
+
+/Thalamus
