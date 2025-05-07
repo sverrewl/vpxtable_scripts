@@ -374,10 +374,12 @@ Sub StartControl_Hit()
   BallinPlay = 1
 End Sub
 
-Sub StopControl_Hit()
-  contballinplay = false
-  BallinPlay = 0
-End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub StopControl_Hit()
+'   contballinplay = false
+'   BallinPlay = 0
+' End Sub
 
 Dim bcup, bcdown, bcleft, bcright, contball, contballinplay, ControlBall, bcboost
 Dim bcvel, bcyveloffset, bcboostmulti
@@ -528,7 +530,10 @@ Sub sw44_Hit:Controller.Switch(44) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBa
 End Sub
 Sub sw44_UnHit:Controller.Switch(44) = 0:End Sub
 
-Sub sw64_Hit:Controller.Switch(64) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub sw64_Hit:Controller.Switch(64) = 1:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
 Sub sw64_UnHit:Controller.Switch(64) = 0:End Sub
 
 
@@ -539,7 +544,10 @@ Sub sw65_Hit:vpmTimer.PulseSw 65:End Sub
 Sub sw4_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
 Sub sw14_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
 Sub sw24_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall):End Sub
-Sub sw43_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall) :End Sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub sw43_Hit:PlaySound SoundFX("fx_droptarget", DOFDropTargets), 0, 1, pan(ActiveBall) :End Sub
 
 
 ' Trigger (sound only)
@@ -750,8 +758,11 @@ End Sub
 Sub TriggerLL_Hit:PuPlayer.playlistplayex pBackglass,"BallLock","",100,34:LockLeft = 1:End Sub
 Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockLeft = 0:End Sub
 
+
+' Thalamus : This sub is used twice
+' Pretty sure that this was a typo - was double TriggerLL_Unhit
 Sub TriggerLR_Hit:PuPlayer.playlistplayex pBackglass,"BallLock","",100,34:LockRight = 1:End Sub
-Sub TriggerLL_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockRight = 0:End Sub
+Sub TriggerLR_UnHit:PuPlayer.playlistplayex pBackglass,"DefaultBackglass","DefaultBackglass.mp4",0,35:LockRight = 0:End Sub
 
 
 '--------------------------
@@ -976,11 +987,13 @@ Sub sw72_Timer
     Rub2 = Rub2 + 1
 End Sub
 
+
+' Thalamus : This sub is used twice - I guess I'll disable this one
 ' Rubbers
 Sub sw12_Hit:vpmTimer.PulseSw 12:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
 Sub sw32_Hit:vpmTimer.PulseSw 32:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
 Sub sw54_Hit:vpmTimer.PulseSw 54:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
-Sub sw72_Hit:vpmTimer.PulseSw 72:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
+' Sub sw72_Hit:vpmTimer.PulseSw 72:PlaySound "fx_sensor", 0, 1, pan(ActiveBall):End Sub
 
 '*********
 'Solenoids
