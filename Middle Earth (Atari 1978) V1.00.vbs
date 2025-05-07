@@ -12,6 +12,13 @@ LoadVPM "01200000", "ATARI1b.VBS", 3.1
 
 Dim BallSound, GIURC, lgiurc,bgiurc,lbgiurc
 
+' Thalamus - this sub is used twice, disabling it, since that is what is going to
+' happen anyway.
+' Sub Table1_init()
+'
+'
+' End Sub
+
 Const cGameName     = "midearth"   ' PinMAME short name
 Const cCredits      = "VPX table by BalateR"
 Const UseSolenoids  = True
