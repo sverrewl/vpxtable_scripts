@@ -6,6 +6,7 @@
 ' Thalamus 2018-07-24
 ' Tables has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
 ' Changed UseSolenoids=1 to 2
+' Thalamus 2018-12-17 : Added FFv2
 ' No special SSF tweaks yet.
 
 
@@ -47,6 +48,8 @@ Const HandleMech = 0
 Const SSolenoidOn = "fx_Solenoid"
 Const SSolenoidOff = ""
 Const SCoin = "fx_Coin"
+
+
 
 '************************************************************************
 '            INIT TABLE
@@ -922,6 +925,10 @@ End Sub
 
 Sub Gates_Hit(idx)
   PlaySoundAtBallVol "gate4",1
+End Sub
+
+Sub Trigger001_Hit()
+  PlaySoundAtBallVol "fx_BallDrop",.3
 End Sub
 
 Sub RandomSoundRubber()
