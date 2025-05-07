@@ -113,9 +113,12 @@ dim xx
 For each xx in GI:xx.State = 1: Next
 
 'Primitive Gate
-Sub FlipperTimer_Timer
-  PrimGate2.Rotz = Gate7.Currentangle
- End Sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Here - I moved this action to the other active sub
+' Sub FlipperTimer_Timer
+'   PrimGate2.Rotz = Gate7.Currentangle
+'  End Sub
 
    Sub SolTimer_Timer
   Dim ChgSol, tmp, ii, CBoard, solnum
@@ -856,7 +859,7 @@ End Sub
 sub FlipperTimer_Timer()
   FlipperLSh.RotZ = LeftFlipper.currentangle
   FlipperRSh.RotZ = RightFlipper.currentangle
-
+  PrimGate2.Rotz = Gate7.Currentangle
 End Sub
 
 '*****************************************
