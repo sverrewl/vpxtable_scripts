@@ -1956,17 +1956,22 @@ Sub Gates_Hit (idx)
   PlaySound "gate4", 0, Vol(ActiveBall)*VolGates, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
 End Sub
 
-Sub Rubbers_Hit(idx)
-   debug.print "rubber"
-  dim finalspeed
-    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
-  If finalspeed > 20 then
-    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
-  End if
-  If finalspeed >= 6 AND finalspeed <= 20 then
-    RandomSoundRubber()
-  End If
-End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Might be that Rubbers is in a collection, but, Posts isn't and this is a copy paste.
+' Because, there is no sub named RandomSoundRubber - expect it would crash if it could
+' not find the sub.
+
+' Sub Rubbers_Hit(idx)
+'    debug.print "rubber"
+'   dim finalspeed
+'     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+'   If finalspeed > 20 then
+'     PlaySound "fx_rubber2", 0, Vol(ActiveBall)*VolRH, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+'   End if
+'   If finalspeed >= 6 AND finalspeed <= 20 then
+'     RandomSoundRubber()
+'   End If
+' End Sub
 
 Sub Posts_Hit(idx)
     debug.print "Posts"
