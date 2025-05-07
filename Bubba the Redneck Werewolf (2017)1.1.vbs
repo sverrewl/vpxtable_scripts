@@ -111,8 +111,11 @@ vpminit me
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
     end with
 
+    ' Thalamus - more randomness to kickers pls
     Set bsrLock=New cvpmBallStack
     with bsrLock
+        .KickForceVar = 3
+        .KickAngleVar = 3
         .InitSaucer sw56,56,120,11
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
     end with
