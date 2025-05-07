@@ -1,6 +1,5 @@
 ' The Party Zone / IPD No. 1764 / August, 1991 / 4 Players
 ' VPX - version by JPSalas 2018, version 1.0.5
-' Thalamus - you need to add a RollingTimer timer to this edit
 
 Option Explicit
 Randomize
@@ -255,7 +254,7 @@ End Sub
 ' rolling sounds, flipper & animations
 
 Sub GameTimer_Timer
-    ' RollingUpdate
+    RollingUpdate
     b1p.TransZ = - bumper1f.CurrentAngle
     b2p.TransZ = - bumper2f.CurrentAngle
     b3p.TransZ = - bumper3f.CurrentAngle
@@ -1079,10 +1078,11 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   Dim tmp
   On Error Resume Next
   tmp = tableobj.y * 2 / table1.height-1
+' Thalamus, AudioFade - Patched
   If tmp > 0 Then
-    AudioFade = Csng(tmp ^10)
+    AudioFade = Csng(tmp ^5) 'was 10
   Else
-    AudioFade = Csng(-((- tmp) ^10) )
+    AudioFade = Csng(-((- tmp) ^5) ) 'was 10
   End If
 End Function
 
@@ -1090,10 +1090,11 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   Dim tmp
   On Error Resume Next
   tmp = tableobj.x * 2 / table1.width-1
+' Thalamus, AudioPan - Patched
   If tmp > 0 Then
-    AudioPan = Csng(tmp ^10)
+    AudioPan = Csng(tmp ^5) 'was 10
   Else
-    AudioPan = Csng(-((- tmp) ^10) )
+    AudioPan = Csng(-((- tmp) ^5) ) 'was 10
   End If
 End Function
 
@@ -1101,10 +1102,11 @@ Function Pan(ball) ' Calculates the pan for a ball based on the X position on th
   Dim tmp
   On Error Resume Next
   tmp = ball.x * 2 / table1.width-1
+' Thalamus, Pan - Patched
   If tmp > 0 Then
-    Pan = Csng(tmp ^10)
+    Pan = Csng(tmp ^5) 'was 10
   Else
-    Pan = Csng(-((- tmp) ^10) )
+    Pan = Csng(-((- tmp) ^5) ) ' was 10
   End If
 End Function
 
@@ -1161,7 +1163,8 @@ End Function
 '      JP's VP10 Rolling Sounds
 '*****************************************
 
-Const tnob = 5 ' total number of balls
+Const tnob = 20 ' total number of balls
+Const lob = 0   'number of locked balls
 ReDim rolling(tnob)
 InitRolling
 
@@ -1172,37 +1175,35 @@ Sub InitRolling
     Next
 End Sub
 
-Sub RollingTimer_Timer()
-    Dim BOT, b
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch
     BOT = GetBalls
 
-  ' stop the sound of deleted balls
+    ' stop the sound of deleted balls
     For b = UBound(BOT) + 1 to tnob
         rolling(b) = False
         StopSound("fx_ballrolling" & b)
     Next
 
-  ' exit the sub if no balls on the table
-    If UBound(BOT) = -1 Then Exit Sub
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = lob - 1 Then Exit Sub 'no rolling sound for the captive balls
 
-  ' play the rolling sound for each ball
-
-    For b = 0 to UBound(BOT)
-      If BallVel(BOT(b) ) > 1 Then
-        rolling(b) = True
-        if BOT(b).z < 30 Then ' Ball on playfield
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-				  ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.8, AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
-        Else ' Ball on raised ramp
-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
-				  ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.2, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+    ' play the rolling sound for each ball
+    For b = lob to UBound(BOT)
+        If BallVel(BOT(b) )> 1 Then
+            If BOT(b).z <30 Then
+                ballpitch = Pitch(BOT(b) )
+            Else
+                ballpitch = Pitch(BOT(b) ) + 15000 'increase the pitch on a ramp or elevated surface
+            End If
+            rolling(b) = True
+            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, ballpitch, 1, 0
+        Else
+            If rolling(b) = True Then
+                StopSound("fx_ballrolling" & b)
+                rolling(b) = False
+            End If
         End If
-      Else
-        If rolling(b) = True Then
-          StopSound("fx_ballrolling" & b)
-          rolling(b) = False
-        End If
-      End If
     Next
 End Sub
 
@@ -1214,3 +1215,5 @@ Sub OnBallBallCollision(ball1, ball2, velocity)
     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
 
+' Thalamus - table is still referencing a few sample that isn't in the table.
+' DJMotor and DJMouth - and fx_ versions of them ... probably more.
