@@ -1294,7 +1294,7 @@ Sub BallShadowUpdate_timer()
 End Sub
 
 ' Thalamus : Exit in a clean and proper way
-Sub Table1_exit
+Sub Impacto__exit
   Controller.Pause = False
   Controller.Stop
 End Sub
