@@ -2660,19 +2660,21 @@ Sub FadeLm(nr, a, b)
     End Select
 End Sub
 
-Sub NFadeL(nr, a)
-    Select Case FadingLevel(nr)
-        Case 4:a.state = 0:FadingLevel(nr) = 0
-        Case 5:a.State = 1:FadingLevel(nr) = 1
-    End Select
-End Sub
-
-Sub NFadeLm(nr, a)
-    Select Case FadingLevel(nr)
-        Case 4:a.state = 0
-        Case 5:a.State = 1
-    End Select
-End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub NFadeL(nr, a)
+'     Select Case FadingLevel(nr)
+'         Case 4:a.state = 0:FadingLevel(nr) = 0
+'         Case 5:a.State = 1:FadingLevel(nr) = 1
+'     End Select
+' End Sub
+'
+' Sub NFadeLm(nr, a)
+'     Select Case FadingLevel(nr)
+'         Case 4:a.state = 0
+'         Case 5:a.State = 1
+'     End Select
+' End Sub
 
 Sub LMap(nr, a, b, c) 'can be used with normal/olod style lights too
     Select Case FadingLevel(nr)
