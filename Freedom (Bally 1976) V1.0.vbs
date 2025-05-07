@@ -123,6 +123,8 @@ Sub solballrelease(enabled)
 End sub
 
 Sub Table1_Init
+  ' Thalamus - was missing vpminit
+  vpmInit Me
   On Error Resume Next
   With Controller
     .GameName=cGameName
