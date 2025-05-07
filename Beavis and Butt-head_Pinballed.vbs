@@ -73,6 +73,8 @@ Const SCoin = "fx_Coin"
 Dim bsSaucer,bsScoop, bsTK, dtBankL, dtBankR, xx
 
 Sub Table1_Init
+    ' Thalamus : Was missing 'vpminit me'
+    vpminit me
          Controller.Games("beav_butt").Settings.Value("sound_mode") =1
          With Controller
     .GameName = cGameName
@@ -91,11 +93,9 @@ Sub Table1_Init
     On Error Goto 0
     End With
 
-' Thalamus : Was missing 'vpminit me'
-vpminit me
     '** Main Timer init
-'  PinMAMETimer.Interval = PinMAMEInterval
-'  PinMAMETimer.Enabled = 1
+  PinMAMETimer.Interval = PinMAMEInterval
+  PinMAMETimer.Enabled = 1
     Playsound "B&BWarning"
 
     '** Nudging
@@ -105,12 +105,16 @@ vpminit me
 
     Set bsScoop = New cvpmBallStack
     With bsScoop
+        .KickForceVar = 3
+        .KickAngleVar = 3
         .InitSaucer Sw52, 52, 120, 0
         .InitExitSnd SoundFX("CenterEject", DOFContactors), SoundFX("CenterEject", DOFContactors)
     End With
 
     Set bsTK = New cvpmBallStack
     With bsTK
+        .KickForceVar = 3
+        .KickAngleVar = 3
         .InitSaucer Sw53k, 53, 20, 50
         .InitExitSnd SoundFX("LeftEject", DOFContactors), SoundFX("LeftEject", DOFContactors)
         .KickZ = 3.1415926/3
