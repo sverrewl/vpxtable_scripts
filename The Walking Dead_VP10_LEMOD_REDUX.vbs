@@ -1922,9 +1922,12 @@ End Sub
 ' Ball Collision Sound
 '**********************
 
-Sub OnBallBallCollision(ball1, ball2, velocity)
-  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
-End Sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub OnBallBallCollision(ball1, ball2, velocity)
+'   PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+' End Sub
 
 Sub Table_exit()
   Controller.Pause = False
