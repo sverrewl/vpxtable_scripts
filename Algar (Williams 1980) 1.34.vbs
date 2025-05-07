@@ -682,28 +682,6 @@ Sub LeftSlingShot_Timer
   LStep = LStep + 1
 End Sub
 
-
-'*********************************************************************
-'                 Positional Sound Playback Functions
-'*********************************************************************
-
-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
-
-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
-End Sub
-
-' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
-Sub PlaySoundAt(soundname, tableobj)
-    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-End Sub
-
-Sub PlaySoundAtBall(soundname)
-    PlaySoundAt soundname, ActiveBall
-End Sub
-
 '*****************************************
 ' ninuzzu's BALL SHADOW
 '*****************************************
