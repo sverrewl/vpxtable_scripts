@@ -850,10 +850,12 @@ Const sLockMagnet        = 35   'installed  - needs a little fine tuning
  End Sub
 
 
-Sub UpdateFlipperLogos
-    LFLogo.RotAndTra2 = LeftFlipper.CurrentAngle
-    RFlogo.RotAndTra2 = RightFlipper.CurrentAngle
-End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' Sub UpdateFlipperLogos
+'     LFLogo.RotAndTra2 = LeftFlipper.CurrentAngle
+'     RFlogo.RotAndTra2 = RightFlipper.CurrentAngle
+' End Sub
 
 Sub SolRampDiverter(enabled)
     if enabled then
