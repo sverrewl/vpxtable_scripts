@@ -1097,15 +1097,18 @@ Sub RandomSoundRubber()
   End Select
 End Sub
 
-Sub LeftFlipper_Collide(parm)
-  RandomSoundFlipper()
-End Sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+'Sub LeftFlipper_Collide(parm)
+'  RandomSoundFlipper()
+'End Sub
 Sub LeftFlipper1_Collide(parm)
   RandomSoundFlipper()
 End Sub
-Sub RightFlipper_Collide(parm)
-  RandomSoundFlipper()
-End Sub
+'Sub RightFlipper_Collide(parm)
+'  RandomSoundFlipper()
+'End Sub
 Sub RightFlipper1_Collide(parm)
   RandomSoundFlipper()
 End Sub
