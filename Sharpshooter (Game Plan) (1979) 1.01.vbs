@@ -86,6 +86,9 @@ else
 end if
 
 Sub Sharpshooter_Init
+    ' Thalamus - was missing vpminit
+    vpmInit Me
+
      With Controller
          .GameName = cGameName
          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
@@ -138,23 +141,25 @@ Sub Sharpshooter_Init
             End With
 End Sub
 
-Sub Sharpshooter_KeyDown(ByVal keycode)
-  If keycode = LeftTiltKey Then Nudge 90, 2
-  If keycode = RightTiltKey Then Nudge 270, 2
-  If keycode = CenterTiltKey Then Nudge 0, 2
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+' Sub Sharpshooter_KeyDown(ByVal keycode)
+'   If keycode = LeftTiltKey Then Nudge 90, 2
+'   If keycode = RightTiltKey Then Nudge 270, 2
+'   If keycode = CenterTiltKey Then Nudge 0, 2
+'
+'   If vpmKeyDown(keycode) Then Exit Sub
+'   If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",Plunger,1:   End If
+'     If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
+'     If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),RightFlipper,VolFlip
+' End Sub
 
-  If vpmKeyDown(keycode) Then Exit Sub
-  If keycode = PlungerKey Then Plunger.PullBack: PlaySoundAtVol "fx_plungerpull",Plunger,1:   End If
-    If keycode = LeftFlipperKey Then LeftFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),LeftFlipper,VolFlip
-    If keycode = RightFlipperKey Then RightFlipper.RotateToEnd: PlaySoundAtVol SoundFX("fx_flipperup",DOFContactors),RightFlipper,VolFlip
-End Sub
-
-Sub Sharpshooter_KeyUp(ByVal keycode)
-  If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
-    If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, Volflip
-    If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
-  If vpmKeyUp(keycode) Then Exit Sub
-End Sub
+' Sub Sharpshooter_KeyUp(ByVal keycode)
+'   If keycode = PlungerKey Then Plunger.Fire: PlaySoundAtVol "fx_plunger", Plunger, 1
+'     If keycode = LeftFlipperKey Then LeftFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),LeftFlipper, Volflip
+'     If keycode = RightFlipperKey Then RightFlipper.RotateToStart: PlaySoundAtVol SoundFX("fx_flipperdown",DOFContactors),RightFlipper,VolFlip
+'   If vpmKeyUp(keycode) Then Exit Sub
+' End Sub
 
 Sub SolLFlipper(Enabled)
     If Enabled Then
