@@ -845,6 +845,9 @@ Sub editDips
 End Sub
 Set vpmShowDips = GetRef("editDips")
 
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
 ' *******************************************************************************************************
 ' Positional Sound Playback Functions by DJRobX
 ' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
@@ -854,39 +857,39 @@ Set vpmShowDips = GetRef("editDips")
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
 
-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
-End Sub
-
-' Set position as table object (Use object or light but NOT wall) and Vol to 1
-
-Sub PlaySoundAt(soundname, tableobj)
-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-End Sub
-
-'Set all as per ball position & speed.
-
-Sub PlaySoundAtBall(soundname)
-  PlaySoundAt soundname, ActiveBall
-End Sub
-
-'Set position as table object and Vol manually.
-
-Sub PlaySoundAtVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-End Sub
-
-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
-
-Sub PlaySoundAtBallVol(sound, VolMult)
-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-End Sub
-
-'Set position as bumperX and Vol manually.
-
-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
-End Sub
+' Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+'   PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+' End Sub
+'
+' ' Set position as table object (Use object or light but NOT wall) and Vol to 1
+'
+' Sub PlaySoundAt(soundname, tableobj)
+'   PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+' End Sub
+'
+' 'Set all as per ball position & speed.
+'
+' Sub PlaySoundAtBall(soundname)
+'   PlaySoundAt soundname, ActiveBall
+' End Sub
+'
+' 'Set position as table object and Vol manually.
+'
+' Sub PlaySoundAtVol(sound, tableobj, Vol)
+'   PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+' End Sub
+'
+' 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+'
+' Sub PlaySoundAtBallVol(sound, VolMult)
+'   PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+' End Sub
+'
+' 'Set position as bumperX and Vol manually.
+'
+' Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+'   PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+' End Sub
 
 
 ' *******************************************************************************************************
