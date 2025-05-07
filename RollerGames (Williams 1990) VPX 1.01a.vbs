@@ -894,9 +894,11 @@ Sub RampFX(dumy)
 End Sub
 
 
-Sub Trigger1_hit:PlaysoundAtVol "fx_railShort",Trigger1,1:End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+' Sub Trigger1_hit:PlaysoundAtVol "fx_railShort",Trigger1,1:End Sub
 
-Sub RLFX_hit:PlaySound "fx_rampR",ActiveBall, 1:End Sub
+' Sub RLFX_hit:PlaySound "fx_rampR",ActiveBall, 1:End Sub
 
 
 
