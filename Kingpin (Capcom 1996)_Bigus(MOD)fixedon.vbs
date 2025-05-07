@@ -82,6 +82,7 @@ LoadVPM "01130000","CAPCOM.VBS",3.10
   Dim IsStarted:IsStarted = 0
 
   Sub Table_Init
+
 '*****
 
 Kicker1.CreateBall
