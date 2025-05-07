@@ -56,15 +56,18 @@ PlayNums=0
 '************************************************************************
 
 
-Sub Table1_init()
+' Thalamus - this sub was called twice - I'm disabling this one, since that
+' is what is going to happen anyway.
 
-GatePos=0
-
-FlashTimer
-  BallSound=1
-  FlashSync.Enabled=True
-BumpTimer.Enabled=False
-End Sub
+' Sub Table1_init()
+'
+' GatePos=0
+'
+' FlashTimer
+'   BallSound=1
+'   FlashSync.Enabled=True
+' BumpTimer.Enabled=False
+' End Sub
 
 ' Thalamus : Was missing 'vpminit me'
   vpminit me
