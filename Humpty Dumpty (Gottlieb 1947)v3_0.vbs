@@ -1057,37 +1057,39 @@ end sub
 
 '********** Rubber non-scoring wall animations
 
-sub Rwall1_hit
-  Rw1.visible=0
-  RW1a.visible=1
-  rw1step=1
-  Me.timerenabled=1
-end sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' Not a issue though, they are the same
+' sub Rwall1_hit
+'   Rw1.visible=0
+'   RW1a.visible=1
+'   rw1step=1
+'   Me.timerenabled=1
+' end sub
 
-sub Rwall1_timer
-  select case rw1step
-    Case 1: RW1a.visible=0: Rw1.visible=1
-    case 2: RW1.visible=0: rw1b.visible=1
-    Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
-  end Select
-  rw1step=rw1step+1
-end sub
+' sub Rwall1_timer
+'   select case rw1step
+'     Case 1: RW1a.visible=0: Rw1.visible=1
+'     case 2: RW1.visible=0: rw1b.visible=1
+'     Case 3: rw1b.visible=0: Rw1.visible=1: me.timerenabled=0
+'   end Select
+'   rw1step=rw1step+1
+' end sub
 
-sub Rwall2_hit
-  Rw2.visible=0
-  RW2a.visible=1
-  rw2step=1
-  Me.timerenabled=1
-end sub
+' sub Rwall2_hit
+'   Rw2.visible=0
+'   RW2a.visible=1
+'   rw2step=1
+'   Me.timerenabled=1
+' end sub
 
-sub Rwall2_timer
-  select case rw2step
-    Case 1: RW2a.visible=0: Rw2.visible=1
-    case 2: RW2.visible=0: rw2b.visible=1
-    Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
-  end Select
-  rw2step=rw2step+1
-end sub
+' sub Rwall2_timer
+'   select case rw2step
+'     Case 1: RW2a.visible=0: Rw2.visible=1
+'     case 2: RW2.visible=0: rw2b.visible=1
+'     Case 3: rw2b.visible=0: Rw2.visible=1: me.timerenabled=0
+'   end Select
+'   rw2step=rw2step+1
+' end sub
 
 sub Rwall1_hit
   Rw1.visible=0
