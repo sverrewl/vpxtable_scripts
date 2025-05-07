@@ -684,28 +684,33 @@ sub ballhome_unhit
   DOF 129, DOFPulse
 end sub
 
-sub matchnum
-    match(matchnumb).text=matchnumb
-    for i=0 to playno
-    if matchnumb=(score(i) mod 10) then
-    credit=credit+1
-  DOF 128, DOFOn
-    playsound SoundFXDOF("knocke",126,DOFPulse,DOFKnocker)
-  DOF 125, DOFPulse
-    credittxt.text= credit
-    playsound "click"
-    end if
-    next
-end sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+' sub matchnum
+'     match(matchnumb).text=matchnumb
+'     for i=0 to playno
+'     if matchnumb=(score(i) mod 10) then
+'     credit=credit+1
+'   DOF 128, DOFOn
+'     playsound SoundFXDOF("knocke",126,DOFPulse,DOFKnocker)
+'   DOF 125, DOFPulse
+'     credittxt.text= credit
+'     playsound "click"
+'     end if
+'     next
+' end sub
 
-sub turnoff
-    if (post.isdropped)=false then playsound "postdown"
-    post.isdropped=true
-    tiltseq.play seqalloff
-    lsling.isdropped=true
-    rsling.isdropped=true
-    wheelchange.enabled=False
-end sub
+
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+'
+' sub turnoff
+'     if (post.isdropped)=false then playsound "postdown"
+'     post.isdropped=true
+'     tiltseq.play seqalloff
+'     lsling.isdropped=true
+'     rsling.isdropped=true
+'     wheelchange.enabled=False
+' end sub
 
 Sub Drain_Hit()
   DOF 127, DOFPulse
