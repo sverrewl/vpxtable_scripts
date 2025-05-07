@@ -1892,12 +1892,14 @@ End Sub
 
 Dim ElixirCount
 
-Sub ScoreElixirHit()
-  ElixirCount = ElixirCount + 1
-  AddScore 50000 + (50000 * ElixirCount)
-  PlaySound "Tabd69"
-  Playsound "Tabd57"
-End Sub
+' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+' I moved the double playsound to the last sub
+' Sub ScoreElixirHit()
+'   ElixirCount = ElixirCount + 1
+'   AddScore 50000 + (50000 * ElixirCount)
+'   PlaySound "Tabd69"
+'   Playsound "Tabd57"
+' End Sub
 
 Sub StartMultiball()
 
@@ -2450,6 +2452,7 @@ End Sub
 Sub ScoreElixirHit()
   ElixirHits = ElixirHits + 1
   AddScore 50000 + 50000*ElixirHits
+  PlaySound "Tabd69"
   PlaySound "tabd57"
   CheckElements
 End Sub
