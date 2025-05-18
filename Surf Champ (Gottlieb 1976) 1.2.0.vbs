@@ -1,10 +1,27 @@
-'*
-'*        Grand Prix (LTD do Brasil 1978)
-'*        Table build/scripted by Loserman76 and Halen
-'*        Playfied/Plastics/images redrawn by Halen
-'*        Original images by João Pedras
-'*
-'*
+' ****************************************************************
+'*        Gottlieb's Surf Champ/Surfer (1976)
+'*        Table build/scripted by Loserman76
+'*        Image redraws/touchups/fixes by GNance
+'*        Version 4.3.0
+'*        https://www.ipdb.org/machine.cgi?id=2446
+' ****************************************************************
+'* Changelog:
+'* 1.0    2018-04-24 Loserman76, GNance
+'*        - initial release on VPF
+'* 1.0f  2021-12-08 Loserman76
+'*        - DOF added by foxyt
+'* 1.1.0  2023-08-07 teisen
+'*        - hauntfreaks - newer postit note images, environment file, lighting information, primitives
+'*        - BorgDog - his tables that helped me to understand more with VPX - and I probably lifted a primitive or 2 from them as well
+'*        - GNance - score motor tweaks to behave like a real EM, PostIt routines, Options menu
+'*        - JPSalas - gameroom backdrop
+'*        - Pinuck - Gottlieb chimes and score motor routines
+'*        - Arngrim - DOF coding and information
+'* 1.2.0  2024-08-04 GauGau
+'*        - added pup-pack option
+'*        - renamed layers
+'*        - upscaled playfield, plastics, spinner, drop target, apron, backdrop
+
 
 option explicit
 Randomize
@@ -15,27 +32,70 @@ ExecuteGlobal GetTextFile("Controller.vbs")
 If Err Then MsgBox "Unable to open Controller.vbs. Ensure that it is in the scripts folder."
 On Error Goto 0
 
-Const cGameName = "GrandPrix_1978"
+Const cGameName = "SurfChamp_1976"
 
 Const ShadowFlippersOn = true
 Const ShadowBallOn = true
 
 Const ShadowConfigFile = false
 
+'****** PuP Variables ******
+
+Dim usePUP: Dim cPuPPack: Dim PuPlayer: Dim PUPStatus: PUPStatus=false ' dont edit this line!!!
+
+'*************************** PuP Settings for this table ********************************
+
+usePUP   = true      ' enable Pinup Player functions for this table.
+cPuPPack = "60sBeach" ' name of the PuP-Pack / PuPVideos folder within PinUPSystem\PUPVideos for this table
 
 
+'//////////////////// PINUP PLAYER: STARTUP & CONTROL SECTION //////////////////////////
+
+' This is used for the startup and control of Pinup Player
+
+Sub PuPStart(cPuPPack)
+    If PUPStatus=true then Exit Sub
+    If usePUP=true then
+        Set PuPlayer = CreateObject("PinUpPlayer.PinDisplay")
+        If PuPlayer is Nothing Then
+            usePUP=false
+            PUPStatus=false
+        Else
+            PuPlayer.B2SInit "",cPuPPack 'start the Pup-Pack
+            PUPStatus=true
+        End If
+    End If
+End Sub
+
+Sub pupevent(EventNum)
+    if (usePUP=false or PUPStatus=false) then Exit Sub
+    PuPlayer.B2SData "E"&EventNum,1  'send event to Pup-Pack
+End Sub
+
+' ******* How to use PUPEvent to trigger / control a PuP-Pack *******
+
+' Usage: pupevent(EventNum)
+' EventNum = PuP Exxx trigger from the PuP-Pack
+' Example: pupevent 102
+' This will trigger E102 from the table's PuP-Pack
+' DO NOT use any Exxx triggers already used for DOF (if used) to avoid any possible confusion
+
+'************ PuP-Pack Startup **************
+
+PuPStart(cPuPPack) 'Check for PuP - If found, then start Pinup Player / PuP-Pack
+
+'***************************************************************************************
 
 Dim Controller  ' B2S
 Dim B2SScore  ' B2S Score Displayed
+Dim B2SOn   'True/False if want backglass
 
-Const HSFileName="GrandPrix_78VPX.txt"
-Const B2STableName="Grand Prix"
+Const HSFileName="SurfChamp_76VPX.txt"
+Const B2STableName="SurfChamp_1976"
 Const LMEMTableConfig="LMEMTables.txt"
 Const LMEMShadowConfig="LMEMShadows.txt"
 Dim EnableBallShadow
 Dim EnableFlipperShadow
-
-Dim B2SOn   'True/False if want backglass
 
 '* this value adjusts score motor behavior - 0 allows you to continue scoring while the score motor is running - 1 sets score motor to behave more like a real EM
 Const ScoreMotorAdjustment=1
@@ -46,24 +106,20 @@ Const ScoreAdditionAdjustment=1
 '* this controls whether you hear bells (0) or chimes (1) when scoring
 Const ChimesOn=1
 
-
 dim ScoreChecker
 dim CheckAllScores
 dim sortscores(4)
 dim sortplayers(4)
-
-Dim TextStr,TextStr2,TiltEndsGame
+Dim TextStr,TextStr2
+Dim xx,LStep,RStep
 Dim i
 Dim obj
 Dim bgpos
-Dim kgpos
 Dim dooralreadyopen
-Dim kgdooralreadyopen
 Dim TargetSpecialLit
 Dim Points210counter
 Dim Points500counter
 Dim Points1000counter
-Dim Points2000counter
 Dim BallsPerGame
 Dim InProgress
 Dim BallInPlay
@@ -85,14 +141,8 @@ Dim Replay2Paid(4)
 Dim Replay3Paid(4)
 Dim TableTilted
 Dim TiltCount
-Dim debugscore
-
 Dim OperatorMenu
-
-Dim BonusBooster
-Dim BonusBoosterCounter
-Dim BonusCounter
-Dim HoleCounter
+Dim AlternatingRelay
 
 Dim Ones
 Dim Tens
@@ -104,13 +154,10 @@ Dim Players
 
 Dim rst
 Dim bonuscountdown
+Dim BonusCounter
 Dim TempMultiCounter
 dim TempPlayerup
 dim RotatorTemp
-
-dim GreenTargetsDownCounter
-dim BlueTargetsDownCounter
-dim YellowTargetsDownCounter
 
 Dim bump1
 Dim bump2
@@ -123,49 +170,29 @@ Dim LastChime1000
 Dim Score10
 Dim Score100
 
-dim tempbumper
+Dim SequenceCompleteStars, SequenceCompleteTargets, Sequence115, TopTargets, LowerTargets, SpecialLightTracking, ScoreMotorStepper
 
 Dim MotorRunning
-
 Dim Replay1Table(15)
 Dim Replay2Table(15)
+Dim Replay3Table(15)
 Dim ReplayTableSet
 Dim ReplayLevel
 Dim ReplayTableMax
-Dim RotoReplay1
-Dim RotoReplay2
-Dim RotoReplay3
-Dim RotoReplay4
-Dim ABCDReplay
 
-Dim KickerCounter
+Dim tKickerTCount
 
-Dim X, xx
-Dim LStep, LStep2, RStep, L2Step, R2Step
+Dim HorseshoeCounter
 
-Dim RotoImagesL1, RotoImagesL2, RotoImagesR1, RotoImagesR2
-Dim RotoPosition, RotoFlip
-
-Dim RotoWheel(15)       ' Actual Roto Wheel Number array
-Dim RotoPos             ' Index to Left Showing RotoWheel Number
-Dim RWAnim        ' Wheel Animation Phase
-Dim RotoCycles      ' Number of Digits To Animate on a Spin
-
-
-
-RotoImagesL1 = array (4,4,1,1,2,2,7,7,3,3,5,5,6,6,7,7,1,1,2,2,3,3,5,5,1,1,6,6,7,7)
-RotoImagesL2 = array (7,7,4,4,1,1,2,2,7,7,3,3,5,5,6,6,7,7,1,1,2,2,3,3,5,5,1,1,6,6)
-RotoImagesR1 = array (1,1,6,6,7,7,4,4,1,1,2,2,7,7,3,3,5,5,6,6,7,7,1,1,2,2,3,3,5,5)
-RotoImagesR2 = array (5,5,1,1,6,6,7,7,4,4,1,1,2,2,7,7,3,3,5,5,6,6,7,7,1,1,2,2,3,3)
+Dim DropTargetDownCounter
+Dim ScoreMotorCounter
 
 Sub Table1_Init()
-
   If Table1.ShowDT = false then
     For each obj in DesktopCrap
       obj.visible=False
     next
   End If
-
   OperatorMenuBackdrop.image = "PostitBL"
   For XOpt = 1 to MaxOption
     Eval("OperatorOption"&XOpt).image = "PostitBL"
@@ -177,117 +204,82 @@ Sub Table1_Init()
 
   LoadEM
   LoadLMEMConfig2
-
   HideOptions
   SetupReplayTables
   PlasticsOff
   BumpersOff
-  OperatorMenu=0
-  ReplayLevel=1
-  BallsPerGame=5
-  EMReel1.ResetToZero
+
   HighScore=0
   MotorRunning=0
   HighScoreReward=1
-  TiltEndsGame=0
-  BallTextBox.text=""
-  MatchTextBox.text=""
+  BallsPerGame=5
+  ReplayLevel=1
   Credits=0
   loadhs
   if HighScore=0 then HighScore=50000
 
-  RotoWheel(0)=4
-    RotoWheel(1)=1
-    RotoWheel(2)=2
-    RotoWheel(3)=7
-    RotoWheel(4)=3
-    RotoWheel(5)=5
-    RotoWheel(6)=6
-    RotoWheel(7)=7
-    RotoWheel(8)=1
-    RotoWheel(9)=2
-    RotoWheel(10)=3
-    RotoWheel(11)=5
-    RotoWheel(12)=1
-    RotoWheel(13)=6
-    RotoWheel(14)=7
-'
-    RotoPosition=int(Rnd*30)
-  LRotoA1.image = "RotoT1-"+FormatNumber(RotoImagesL1(RotoPosition),0)
-  LRotoA2.image = "RotoT1-"+FormatNumber(RotoImagesL2(RotoPosition),0)
-  LRotoA.image = "RotoT1-"+FormatNumber(RotoImagesL1(RotoPosition),0)
-
-  RRotoA1.image = "RotoT1-"+FormatNumber(RotoImagesR1(RotoPosition),0)
-  RRotoA.image = "RotoT1-"+FormatNumber(RotoImagesR1(RotoPosition),0)
-  RRotoA2.image = "RotoT1-"+FormatNumber(RotoImagesR2(RotoPosition),0)
-
-  LRotoA1.visible=0
-  LRotoA2.visible=0
-  RRotoA1.visible=0
-  RRotoA2.visible=0
-  LRotoA.visible=1
-  RRotoA.visible=1
-
   TableTilted=false
-  GameOverReel.SetValue(1)
-  TiltReel.SetValue(1)
+
+
   Match=int(Rnd*10)*10
   MatchReel.SetValue((Match/10)+1)
 
+  CanPlayReel.SetValue(0)
   BallInPlayReel.SetValue(0)
 
+  For each obj in PlayerHUDScores
+    obj.state=0
+  next
 
+  For each obj in PlayerHuds
+    obj.SetValue(0)
+  next
   For each obj in PlayerScores
     obj.ResetToZero
   next
+  For each obj in PlayerScoresOn
+    obj.ResetToZero
+  next
+  for each obj in bottgate
+    obj.isdropped=true
+    next
+  for each obj in MultiplierLights
+    obj.state=0
+  next
+    bgpos=6
+
 
   Replay1=Replay1Table(ReplayLevel)
   Replay2=Replay2Table(ReplayLevel)
-
-  BonusCounter=0
-  HoleCounter=0
-    bgpos=6
-  kgpos=0
-  RotoReplay1=false
-  RotoReplay2=false
-  RotoReplay3=false
-  RotoReplay4=false
-  ABCDReplay=false
-  For each obj in StartLightsOff
-    obj.state=0
-  next
-  For each obj in StartLightsOn
-    obj.state=0
-  next
-
+  Replay3=Replay3Table(ReplayLevel)
   dooralreadyopen=0
-  kgdooralreadyopen=0
-' Bumper1L.image="Bumper100Unlit"
-  Bumper1Light.state=0
-' Bumper2L.image="Bumper100Unlit"
-  Bumper2Light.state=0
 
-
-  InstructCard.image="IC"+FormatNumber(BallsPerGame,0)
-  RefreshReplayCard
 ' ResetBalls
 ' PlaySound "Plunger"
-' ScoreLight.state=0
+  For each obj in Flashers
+    obj.Visible=false
+  next
   TargetSpecialLit = 0
   Points210counter=0
   Points500counter=0
-  Points1000counter=0
-  Points2000counter=0
-  BonusBooster=3
-  BonusBoosterCounter=0
+
   Players=0
   RotatorTemp=1
   InProgress=false
+  AlternatingRelay=0
+  InstructCard.image="IC_"+FormatNumber(BallsPerGame,0)
 
-  ScoreText.text=HighScore
-
-
+  RefreshReplayCard
+  GameOverReel.SetValue(1)
+  TiltReel.SetValue(1)
+' Bumper1L.image="HotShotBumperUnlit"
+  RolloverScore.SetValue(1)
+  Bumper1Light.state=0
+  Bumper1Light.Visible=false
   If B2SOn Then
+
+    'Controller.B2SSetScore 6, HighScore
+    Controller.B2SSetTilt 1
 
 
     if Match=0 then
@@ -295,33 +287,33 @@ Sub Table1_Init()
     else
       Controller.B2SSetMatch Match
     end if
-    Controller.B2SSetScoreRolloverPlayer1 0
-
-    'Controller.B2SSetScore 3,HighScore
-    Controller.B2SSetTilt 0
-    For x = 0 to 9
-      Controller.B2SSetData 80+x,0
-    next
-    Controller.B2SSetData 80+Credits,1
     Controller.B2SSetGameOver 1
+    Controller.B2SSetCanPlay 0
+    Controller.B2SSetPlayerUp 0
+    Controller.B2SSetBallInPlay 0
+    Controller.B2SSetData 81,0
+    Controller.B2SSetData 82,0
+    Controller.B2SSetData 83,0
+    Controller.B2SSetData 84,0
+    Controller.B2SSetScoreRolloverPlayer1 1
+    Controller.B2SSetScoreRolloverPlayer2 0
+    Controller.B2SSetScoreRolloverPlayer3 0
+    Controller.B2SSetScoreRolloverPlayer4 0
+    Controller.B2SSetCredits Credits
   End If
 
-  EMReel10.SetValue(Credits)
-  If B2SOn Then
-      Controller.B2SSetCredits Credits
-  End If
-
-  for i=1 to 1
+  for i=1 to 4
     player=i
     If B2SOn Then
       Controller.B2SSetScorePlayer player, 0
     End If
   next
   bump1=1
-  bump2=1
-  bump3=1
+
   InitPauser5.enabled=true
-  If Credits > 0 Then DOF 110, 1
+
+  If Credits > 0 Then DOF 125, DOFOn
+
 End Sub
 
 Sub Table1_exit()
@@ -332,7 +324,6 @@ Sub Table1_exit()
 end sub
 
 Sub Table1_KeyDown(ByVal keycode)
-
 
   ' GNMOD
   if EnteringInitials then
@@ -346,10 +337,17 @@ Sub Table1_KeyDown(ByVal keycode)
     exit sub
   end if
 
+  if keycode = 8 then
+    LeftKicker_hit
+  end if
+
+  if keycode = 9 then
+    RightKicker_hit
+  end if
 
 
-  If keycode = PlungerKey Then
-    Plunger.PullBack
+If keycode = PlungerKey Then
+  Plunger.PullBack
     PlungerPulled = 1
   End If
 
@@ -358,18 +356,24 @@ Sub Table1_KeyDown(ByVal keycode)
   end if
   ' END GNMOD
 
+    If keycode = LeftMagnaSave Then
+    PuPevent 801
+  End If
+
+    If keycode = RightMagnaSave Then
+    PuPEvent 800
+  End If
+
   If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
     LeftFlipper.RotateToEnd
-    PlaySoundAtVol "FlipperUp", LeftFlipper, 1
-    'PlaySound "buzzL",-1
-    DOF 101, 1
+    PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, 1
+    PlayLoopSoundAtVol "buzzL", LeftFlipper, 1
   End If
 
   If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
     RightFlipper.RotateToEnd
-    'PlaySound "buzz",-1
-    PlaySoundAtVol "FlipperUp", RightFlipper, 1
-    DOF 102, 1
+    PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), RightFlipper, 1
+    PlayLoopSoundAtVol "buzz", RightFlipper, 1
   End If
 
   If keycode = LeftTiltKey Then
@@ -399,27 +403,25 @@ Sub Table1_KeyDown(ByVal keycode)
     End If
 
     PlaySoundAtVol "coinin", Drain, 1
-    PlaySoundAtVol "coin2", Drain, 1
     AddSpecial2
   end if
 
    if keycode = 5 then
     PlaySoundAtVol "coinin", Drain, 1
     AddSpecial2
-    'keycode= StartGameKey
+    keycode= StartGameKey
   end if
 
-
-   if keycode = StartGameKey and Credits>0 and InProgress=true and Players>0 and Players<2 and BallInPlay<2 then
+   if keycode = StartGameKey and Credits>0 and InProgress=true and Players>0 and Players<4 and BallInPlay<2 then
     Credits=Credits-1
-  EMReel10.SetValue(Credits)
-  If B2SOn Then
-      Controller.B2SSetCredits Credits
-  End If
+    If Credits = 0 Then DOF 125, DOFOff
+    CreditsReel.SetValue(Credits)
     Players=Players+1
+    CanPlayReel.SetValue(Players)
     playsound "click"
     If B2SOn Then
       Controller.B2SSetCanPlay Players
+      Controller.B2SSetCredits Credits
       If Players=2 Then
         Controller.B2SSetScoreRolloverPlayer2 0
       End If
@@ -429,22 +431,25 @@ Sub Table1_KeyDown(ByVal keycode)
       If Players=4 Then
         Controller.B2SSetScoreRolloverPlayer4 0
       End If
+
     End If
-   end if
+    end if
 
   if keycode=StartGameKey and Credits>0 and InProgress=false and Players=0 and EnteringOptions = 0 then
 'GNMOD
-    'OperatorMenuTimer.Enabled = false
+    OperatorMenuTimer.Enabled = false
 'END GNMOD
     Credits=Credits-1
-    If Credits < 1 Then DOF 110, 0
-    EMReel10.SetValue(Credits)
+    If Credits = 0 Then DOF 125, DOFOff
     Players=1
+    CreditsReel.SetValue(Credits)
+    Players=1
+    CanPlayReel.SetValue(Players)
     MatchReel.SetValue(0)
     GameOverReel.SetValue(0)
-'   ScoreLight.state=1
     Player=1
-    playsound "StartUpSequence"
+
+    playsound "StartupSequence"
     TempPlayerUp=Player
 '   PlayerUpRotator.enabled=true
     rst=0
@@ -456,35 +461,33 @@ Sub Table1_KeyDown(ByVal keycode)
       Controller.B2SSetTilt 0
       Controller.B2SSetGameOver 0
       Controller.B2SSetMatch 0
-      For x = 0 to 9
-        Controller.B2SSetData 80+x,0
-      next
-      Controller.B2SSetData 80+Credits,1
-      'Controller.B2SSetScore 3,HighScore
+      Controller.B2SSetCredits Credits
+      'Controller.B2SSetScore 6, HighScore
       Controller.B2SSetCanPlay 1
+      Controller.B2SSetData 81,0
+      Controller.B2SSetData 82,0
+      Controller.B2SSetData 83,0
+      Controller.B2SSetData 84,0
       Controller.B2SSetPlayerUp 1
+      Controller.B2SSetData 81,1
       Controller.B2SSetBallInPlay BallInPlay
       Controller.B2SSetScoreRolloverPlayer1 0
-      Controller.B2SSetCredits Credits
     End If
+    For each obj in PlayerScores
+'     obj.ResetToZero
+    next
+    For each obj in PlayerScoresOn
+'     obj.ResetToZero
+    next
+    For each obj in PlayerHuds
+      obj.SetValue(0)
+    next
+    For each obj in PlayerHUDScores
+      obj.state=0
+    next
+    RolloverScore.SetValue(0)
+    PlayerHuds(Player-1).SetValue(1)
     If Table1.ShowDT = True then
-      For each obj in PlayerScores
-'       obj.ResetToZero
-        obj.Visible=true
-      next
-      For each obj in PlayerScoresOn
-'       obj.ResetToZero
-        obj.Visible=false
-      next
-
-      For each obj in PlayerHuds
-        obj.SetValue(0)
-      next
-      For each obj in PlayerHUDScores
-        obj.state=0
-      next
-      PlayerHuds(Player-1).SetValue(1)
-      PlayerHUDScores(Player-1).state=1
       PlayerScores(Player-1).Visible=0
       PlayerScoresOn(Player-1).Visible=1
     end If
@@ -507,7 +510,7 @@ Sub Table1_KeyUp(ByVal keycode)
       exit sub
     end if
 
-    PlaySoundAtVol"plungerrelease", Plunger, 1
+    PlaySoundAtVol "plungerrelease", Plunger, 1
     Plunger.Fire
   End If
 
@@ -517,18 +520,18 @@ Sub Table1_KeyUp(ByVal keycode)
 
   ' END GNMOD
 
-  If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
+
+  If keycode = LeftFlipperKey  and InProgress=true and TableTilted=false Then
+
     LeftFlipper.RotateToStart
-    PlaySoundAtVol "FlipperDown", LeftFlipper, 1
+    PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, 1
     StopSound "buzzL"
-    DOF 101, 0
   End If
 
-  If keycode = RightFlipperKey and InProgress=true and TableTilted=false Then
+  If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
     RightFlipper.RotateToStart
+    PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, 1
     StopSound "buzz"
-    PlaySoundAtVol "FlipperDown", RightFlipper, 1
-    DOF 102, 0
   End If
 
 End Sub
@@ -536,23 +539,20 @@ End Sub
 
 
 Sub Drain_Hit()
-
   Drain.DestroyBall
   PlaySoundAtVol "fx_drain", Drain, 1
-  DOF 107, 2
-' AddBonus
-  Pause4Bonustimer.enabled=true
-
+  DOF 114, DOFPulse
+  Pause4Bonustimer.enabled=1
 
 End Sub
 
-Sub Trigger4_Unhit()
-  DOF 112, 2
+Sub Trigger1_Unhit()
+  DOF 123, DOFPulse
 End Sub
 
 Sub Pause4Bonustimer_timer
   Pause4Bonustimer.enabled=0
-  NextBallDelay.enabled=true
+  AddBonus
 
 End Sub
 
@@ -573,8 +573,8 @@ End Sub
 '
 
 Sub RightSlingShot_Slingshot
-    PlaySoundAtVol "right_slingshot", ActiveBall, 1
-  DOF 104, 2
+    PlaySoundAtVol SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors),  ActiveBall, 1
+  DOF 111, DOFPulse
     RSling0.Visible = 0
     RSling1.Visible = 1
     sling1.TransZ = -20
@@ -592,8 +592,8 @@ Sub RightSlingShot_Timer
 End Sub
 
 Sub LeftSlingShot_Slingshot
-    PlaySoundAtVol "left_slingshot", ActiveBall, 1
-  DOF 103, 2
+    PlaySoundAtVol SoundFXDOF("left_slingshot",103,DOFPulse,DOFContactors), ActiveBall, 1
+  DOF 110, DOFPulse
     LSling0.Visible = 0
     LSling1.Visible = 1
     sling2.TransZ = -20
@@ -610,630 +610,817 @@ Sub LeftSlingShot_Timer
     LStep = LStep + 1
 End Sub
 
-'**********************************************************
-
-
-
-Sub Wall1_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
-
-
-Sub Wall2_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
-
-Sub Wall7_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
-
-Sub Wall8_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
-
-Sub Wall4_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
-
-Sub Wall6_Hit()
-  If TableTilted=false then
-    AddScore(10)
-  end if
-end sub
 
 '***********************************
 
+Sub RubberScoreWall1_Hit()
 
-Sub Bumper1_Hit
   If TableTilted=false then
-
-    PlaySoundAtVol "bumper1", ActiveBall, 1
-    DOF 105, 2
-    bump1 = 1
-    AddScore(100)
-    end if
-
-End Sub
-
-
-Sub Bumper2_Hit
-  If TableTilted=false then
-
-    PlaySoundAtVol "bumper1", ActiveBall, 1
-    DOF 106, 2
-    bump2 = 1
-
-    AddScore(100)
-
-    end if
-
-End Sub
-
-'***********************************
-
-Sub TriggerTopA_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 117, 2
-    SetMotor(500)
-
-    UpperALight.state=0
-    MiddleALight.state=1
-    LeftInlaneLight.state=1
-    RotoSpin
-    CheckABCD
-  end if
-End Sub
-
-Sub TriggerTopB_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 118, 2
-    SetMotor(500)
-
-    UpperBLight.state=0
-    MiddleBLight.state=1
-    LeftRolloverLight.state=1
-    If BallsPerGame=3 then
-      MiddleCLight.state=1
-      RightRolloverLight.state=1
-    end if
-    RotoSpin
-    CheckABCD
-  end if
-End Sub
-
-Sub TriggerTopC_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 120, 2
-    SetMotor(500)
-
-    UpperCLight.state=0
-    MiddleCLight.state=1
-    RightRolloverLight.state=1
-    If BallsPerGame=3 then
-      MiddleBLight.state=1
-      LeftRolloverLight.state=1
-    end if
-    RotoSpin
-    CheckABCD
-  end if
-End Sub
-
-Sub TriggerTopD_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 120, 2
-    SetMotor(500)
-
-    UpperDLight.state=0
-    MiddleDLight.state=1
-    RightInlaneLight.state=1
-    If BallsPerGame=3 then
-      MiddleBLight.state=1
-      LeftRolloverLight.state=1
-    end if
-    RotoSpin
-    CheckABCD
-  end if
-End Sub
-
-Sub TriggerTopCenter_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 119, 2
-    If CenterSpecialLight.state=1 then
-      AddSpecial
-      AddScore(1000)
-      ABCDReplay=True
-'     CenterSpecialLight.state=0
-    else
-      AddScore(1000)
-    end if
-  end if
-End Sub
-
-Sub TriggerLowerRightRollover_Hit()
-  If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 123, 2
-    If RightRolloverLight.state=0 then
-      SetMotor(500)
-    Else
-      KickerCounter=1
-      for each obj in MiddleLights
-        if obj.state=1 then
-          KickerCounter=KickerCounter+1
-        end if
-      next
-      SetMotor(1000*KickerCounter)
-    End If
-    RotoSpin
+    AddScore(10)
   End if
 
 End Sub
 
-Sub TriggerLowerLeftRollover_Hit()
+Sub RubberScoreWall2_Hit()
+
   If TableTilted=false then
-    PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 122, 2
-    If LeftRolloverLight.state=0 then
-      SetMotor(500)
+    AddScore(10)
+  End if
+End Sub
+
+Sub RubberScoreWall3_Hit()
+
+  If TableTilted=false then
+    AddScore(10)
+  End if
+End Sub
+
+Sub RubberScoreWall4_Hit()
+
+  If TableTilted=false then
+    AddScore(10)
+  End if
+End Sub
+
+'***********************************
+Sub Bumper1_Hit
+  If TableTilted=false then
+    PlaySoundAtVol SoundFXDOF("bumper1",106,DOFPulse,DOFContactors), ActiveBall, 1
+    DOF 107, DOFPulse
+    bump1 = 1
+    If BallsPerGame=3 then
+      AddScore(1000)
     Else
-      KickerCounter=1
-      for each obj in MiddleLights
-        if obj.state=1 then
-          KickerCounter=KickerCounter+1
-        end if
-      next
-      SetMotor(1000*KickerCounter)
+      AddScore(100)
     End If
-    RotoSpin
+    end if
+
+End Sub
+
+Sub Bumper2_Hit
+  If TableTilted=false then
+    PlaySoundAtVol SoundFXDOF("bumper1",109,DOFPulse,DOFContactors), ActiveBall, 1
+    DOF 108, DOFPulse
+    bump1 = 1
+    If BallsPerGame=3 then
+      AddScore(1000)
+    Else
+      AddScore(100)
+    End If
+    end if
+
+End Sub
+
+
+'***********************************
+Sub TriggerTop1_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    If Number1.state=1 then
+      IncreaseBonus
+    DOF 200, DOFPulse
+    end if
+    SetMotor(500)
+    IncreaseBonus
   End If
 End Sub
+
+Sub TriggerTop2_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    If Number2.state=1 then
+      IncreaseBonus
+    DOF 201, DOFPulse
+    end if
+    SetMotor(500)
+    IncreaseBonus
+  End If
+End Sub
+
+Sub TriggerTop3_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    If Number3.state=1 then
+      IncreaseBonus
+    DOF 202, DOFPulse
+    end if
+    SetMotor(500)
+    IncreaseBonus
+  End If
+End Sub
+
+Sub TriggerTop4_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    If Number4.state=1 then
+      IncreaseBonus
+    DOF 203, DOFPulse
+    end if
+    SetMotor(500)
+    IncreaseBonus
+  End If
+End Sub
+
+Sub TriggerTop5_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    If Number5.state=1 then
+      IncreaseBonus
+    DOF 204, DOFPulse
+    end if
+    SetMotor(500)
+    IncreaseBonus
+  End If
+End Sub
+
+Sub TriggerTop6_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    DOF 206, DOFPulse
+    SetMotor(500)
+    if Number6.state=1 then
+      if (Bonus2xLight.state=0) AND (Bonus3xLight.state=0) then
+        BonusMultiplier=2
+        Bonus2xLight.state=1
+      else
+        BonusMultiplier=3
+        Bonus2xLight.state=0
+        Bonus3xLight.state=1
+      end if
+      Number6.state=0
+      Number7.state=0
+    end if
+  End If
+End Sub
+
+Sub TriggerTop7_Hit()
+  if TableTilted=false then
+    PlaySoundAtVol "sensor", ActiveBall, 1
+    DOF 205, DOFPulse
+    SetMotor(500)
+    if Number7.state=1 then
+      if (Bonus2xLight.state=0) AND (Bonus3xLight.state=0) then
+        BonusMultiplier=2
+        Bonus2xLight.state=1
+      else
+        BonusMultiplier=3
+        Bonus2xLight.state=0
+        Bonus3xLight.state=1
+      end if
+      Number6.state=0
+      Number7.state=0
+    end if
+  End If
+End Sub
+
 
 Sub TriggerLeftInlane_Hit()
   If TableTilted=false then
     PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 114, 2
-    If LeftInlaneLight.state=0 then
-      SetMotor(500)
-    Else
-      KickerCounter=1
-      for each obj in MiddleLights
-        if obj.state=1 then
-          KickerCounter=KickerCounter+1
-        end if
-      next
-      SetMotor(1000*KickerCounter)
-    End If
-    RotoSpin
+    DOF 208, DOFPulse
+    SetMotor(500)
   End If
 End Sub
 
 Sub TriggerRightInlane_Hit()
   If TableTilted=false then
     PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 115, 2
-    If RightInlaneLight.state=0 then
-      SetMotor(500)
-    Else
-      KickerCounter=1
-      for each obj in MiddleLights
-        if obj.state=1 then
-          KickerCounter=KickerCounter+1
-        end if
-      next
-      SetMotor(1000*KickerCounter)
-    End If
-    RotoSpin
+    DOF 209, DOFPulse
+    SetMotor(500)
   End If
-
 End Sub
 
 Sub TriggerLeftOutlane_Hit()
   If TableTilted=false then
     PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 113, 2
-    SpotLeftNum()         ' Spot Left-Hand Number
-    If BallsPerGame=3 then
-      SpotRightNum()          ' Spot Current Right-Hand Number
-    End If
-  end If
+    DOF 207, DOFPulse
+    SetMotor(500)
+    IncreaseBonus
+        If LeftOutlaneLight.state=1 then
+      ShootAgainLight.state=1
+    end if
+  End If
 End Sub
 
 Sub TriggerRightOutlane_Hit()
   If TableTilted=false then
     PlaySoundAtVol "sensor", ActiveBall, 1
-    DOF 116, 2
-    SpotRightNum()          ' Spot Current Right-Hand Number
-    if BallsPerGame=3 then
-      SpotLeftNum()         ' Spot Left-Hand Number
+    DOF 210, DOFPulse
+    SetMotor(500)
+    IncreaseBonus
+    If RightOutlaneLight.state=1 then
+      AddSpecial
     end if
-
   End If
 End Sub
 
-Sub CheckABCD()
+'***********************************
 
-  if ABCDReplay=false then
-    if (MiddleALight.state=1) and (MiddleBLight.state=1) and (MiddleCLight.state=1) and (MiddleDLight.state=1) then
-      CenterSpecialLight.state=1
-    end if
-  end if
-
-end sub
-
-'****************************************************
-
-sub Kicker1_Hit()
-  KickerCounter=1
-  for each obj in MiddleLights
-    if obj.state=1 then
-      KickerCounter=KickerCounter+1
-    end if
-  next
-
-
-  Kicker1Hold.enabled=1
-end sub
-
-Sub Kicker1Hold_Timer
-  if MotorRunning<>0 then
-    exit Sub
-  end if
-  Kicker1Hold.Enabled=false
+Sub StarTrigger1_hit
   If TableTilted=false then
-    SetMotor(1000*KickerCounter)
+    DOF 210, DOFPulse
+    AddScore(100)
+       If StarTriggerLight1.state=1 Then
+    KickerLight5.state=1
+    StarTriggerLight1.state=0
+    CheckAllStars
+      end if
   end if
-  Kicker1.Timerenabled=true
-End Sub
-
-
-Sub Kicker1_Timer()
-  Kicker1.timerenabled=0
-  RotoSpin
-  Kicker1.kick 160,9
-  DOF 129, 2
-  Pkickarm1.rotz=15
-  KickerArm1.enabled=true
 end sub
 
-sub KickerArm1_timer
-  Pkickarm1.rotz=0
-  KickerArm1.enabled=false
+Sub StarTrigger2_hit
+  If TableTilted=false then
+    DOF 211, DOFPulse
+    AddScore(100)
+       If StarTriggerLight2.state=1 Then
+    KickerLight4.state=1
+    StarTriggerLight2.state=0
+    CheckAllStars
+      end if
+  end if
 end sub
 
-'****************************************************
-Sub RotoSpin()
-    DOF 130, 2
-    Dim X22
-    X22=INT(RND()*10)           ' get random Number from 0-9
-    If X22 < 4 Then
-        ' 40% of Time advance 3 positions
-       RotoCycles=6
-     Else
-       If X22 < 8 Then
-          ' 40% of Time Advance 4 Positions
-          RotoCycles=8
-        Else
-          ' 20% of Time Advance 5 Positions
-          RotoCycles=10
-        End If
-    End if
-  RotoFlip=1
-  RotoTimer.enabled=1
-    StopSound "BuzzLeft"                ' In Case Quick Hit
-    PlaySound "kicker_enter_center"   ' Sound "Kick" Solenoid
-End Sub
-'
-'  RotoWheel Spin Animation Timer moves Through the Animation Stages
-Sub RotoTimer_timer
-  RotoPosition=RotoPosition+1
-  if RotoPosition>29 then
-    RotoPosition=0
+Sub StarTrigger3_hit
+  If TableTilted=false then
+    DOF 212, DOFPulse
+    AddScore(100)
+       If StarTriggerLight3.state=1 Then
+    KickerLight3.state=1
+    StarTriggerLight3.state=0
+    CheckAllStars
+      end if
   end if
-  LRotoA1.image = "RotoT1-"+FormatNumber(RotoImagesL1(RotoPosition),0)
-  LRotoA2.image = "RotoT1-"+FormatNumber(RotoImagesL2(RotoPosition),0)
-  LRotoA.image = "RotoT1-"+FormatNumber(RotoImagesL1(RotoPosition),0)
+end sub
 
-  RRotoA1.image = "RotoT1-"+FormatNumber(RotoImagesR1(RotoPosition),0)
-  RRotoA.image = "RotoT1-"+FormatNumber(RotoImagesR1(RotoPosition),0)
-  RRotoA2.image = "RotoT1-"+FormatNumber(RotoImagesR2(RotoPosition),0)
+Sub StarTrigger4_hit
+  If TableTilted=false then
+    DOF 213, DOFPulse
+    AddScore(100)
+       If StarTriggerLight4.state=1 Then
+    KickerLight2.state=1
+    StarTriggerLight4.state=0
+    CheckAllStars
+      end if
+  end if
+end sub
 
+Sub StarTrigger5_hit
+  If TableTilted=false then
+    DOF 214, DOFPulse
+    AddScore(100)
+       If StarTriggerLight5.state=1 Then
+    KickerLight1.state=1
+    StarTriggerLight5.state=0
+    CheckAllStars
+      end if
+  end if
+end sub
 
+Sub CheckAllStars
 
-  if RotoFlip = 0 then
-    LRotoA1.visible=0
-    LRotoA2.visible=0
-    RRotoA1.visible=0
-    RRotoA2.visible=0
-    LRotoA.visible=1
-    RRotoA.visible=1
-    RotoFlip=1
+  if SequenceCompleteStars=true then
+    Exit sub
   else
-    LRotoA1.visible=1
-    LRotoA2.visible=1
-    RRotoA1.visible=1
-    RRotoA2.visible=1
-    LRotoA.visible=0
-    RRotoA.visible=0
-    RotoFlip=0
+    if (KickerLight1.state=1) AND (KickerLight2.state=1) AND (KickerLight3.state=1) AND (KickerLight4.state=1) AND (KickerLight5.state=1) then
+      SequenceCompleteStars=true
+      Number6.state=1
+      Number7.state=1
+      SpinnerLight.state=1
+    end if
   end if
-  RotoCycles=RotoCycles-1
-  If RotoCycles<1 then
-    LRotoA1.visible=0
-    LRotoA2.visible=0
-    RRotoA1.visible=0
-    RRotoA2.visible=0
-    LRotoA.visible=1
-    RRotoA.visible=1
-    RotoTimer.enabled=0
+
+end sub
+
+'***********************************
+Sub DropTarget1_hit
+  if TableTilted=false then
+    DropTarget1.isDropped=true
+    SetMotor(500)
+    DOF 105, DOFPulse
+    IncreaseBonus
+    DropTargetDownCounter=DropTargetDownCounter+1
+    'CheckAllDrops
+  end if
+end sub
+
+Sub DropTarget2_hit
+  if TableTilted=false then
+    DropTarget2.isDropped=true
+    SetMotor(500)
+    DOF 105, DOFPulse
+    IncreaseBonus
+    DropTargetDownCounter=DropTargetDownCounter+1
+    'CheckAllDrops
+  end if
+end sub
+
+Sub DropTarget3_hit
+  if TableTilted=false then
+    DropTarget3.isDropped=true
+    SetMotor(500)
+    DOF 105, DOFPulse
+    IncreaseBonus
+    DropTargetDownCounter=DropTargetDownCounter+1
+    'CheckAllDrops
+  end if
+end sub
+
+Sub DropTarget4_hit
+  if TableTilted=false then
+    DropTarget4.isDropped=true
+    SetMotor(500)
+    DOF 105, DOFPulse
+    IncreaseBonus
+    DropTargetDownCounter=DropTargetDownCounter+1
+    'CheckAllDrops
+  end if
+end sub
+
+Sub DropTarget5_hit
+  if TableTilted=false then
+    DropTarget5.isDropped=true
+    SetMotor(500)
+    DOF 105, DOFPulse
+    IncreaseBonus
+    DropTargetDownCounter=DropTargetDownCounter+1
+    'CheckAllDrops
+  end if
+end sub
+
+Sub CheckAllDropsTimer_timer
+
+  If MotorRunning<>0 then
+    exit sub
+  end if
+
+  if DropTargetDownCounter>4 then
+    CheckAllDropsTimer.enabled=false
+    SequenceCompleteTargets=true
+
+    if SequenceCompleteStars=true then
+      SetMotor(5000)
+      ResetDrops
+      LeftOutlaneLight.state=1
+      RightOutlaneLight.state=1
+    else
+      CheckAllDropsTimer.enabled=true
+    end if
+  end if
+
+end sub
+
+Sub ResetDrops
+  ResetDropsTimer.enabled=true
+end sub
+
+Sub ResetDrops2
+  ResetDropsTimer2.enabled=true
+end sub
+
+Sub ResetDropsTimer_timer
+  ResetDropsTimer.enabled=false
+  for each obj in TopDropTargets
+    obj.IsDropped=0
+  next
+  PlaySoundAtVol SoundFXDOF("dropsup",112,DOFPulse,DOFContactors), DropTarget3, 1
+  SequenceCompleteTargets=false
+  DropTargetDownCounter=0
+  CheckAllDropsTimer.enabled=true
+end Sub
+
+Sub ResetDropsTimer2_timer
+  ResetDropsTimer2.enabled=false
+  for each obj in TopDropTargets
+    obj.IsDropped=0
+  next
+  PlaySoundAtVol SoundFXDOF("dropsup",112,DOFPulse,DOFContactors), DropTarget3, 1
+  SequenceCompleteTargets=false
+  DropTargetDownCounter=0
+  CheckAllDropsTimer.enabled=true
+end Sub
+'***********************************
+
+sub Spinner1_Spin
+  If TableTilted=false then
+    DOF 113, DOFPulse
+    IncreaseHorseshoeLights
+    if SpinnerLight.state=1 then
+      AddScore(100)
+    else
+      AddScore(10)
+    end if
+  end if
+end sub
+
+'***********************************
+Sub LeftKicker_Hit()
+  If TableTilted=false then
+    KickerHold1.ENABLED = TRUE
+  else
+    tKickerTCount=0
+    LeftKicker.timerenabled=true
+  end if
+
+end sub
+
+Sub KickerHold1_timer
+  If MotorRunning<>0 then
+    exit sub
+  end if
+  KickerHold1.enabled=false
+  if LeftKickerLight.state=1 then
+    AddSpecial
+  end if
+  ScoreLeftKicker.enabled = TRUE
+  tKickerTCount=0
+
+End Sub
+
+Sub ScoreLeftKicker_timer
+  if tKickerTCount>5 then
+    ScoreLeftKicker.enabled=false
+    tKickerTCount=0
+    LeftKicker.timerenabled=true
+  else
+    tKickerTCount=tKickerTCount+1
+    Select Case tKickerTCount
+      case 1:
+        if KickerLight1.state=1 then
+          AddScore(1000)
+        else
+          AddScore(100)
+        end if
+      case 2:
+        if KickerLight2.state=1 then
+          AddScore(1000)
+        else
+          AddScore(100)
+        end if
+      case 3:
+        if KickerLight3.state=1 then
+          AddScore(1000)
+        else
+          AddScore(100)
+        end if
+      case 4:
+        if KickerLight4.state=1 then
+          AddScore(1000)
+        else
+          AddScore(100)
+        end if
+      case 5:
+        if KickerLight5.state=1 then
+          AddScore(1000)
+        else
+          AddScore(100)
+        end if
+    end select
   end if
 end sub
 
 
-'****************************************************
-Sub LowerTargetLeft_Hit()
-    PlaySoundAtVol "Target", ActiveBall, 1
-  DOF 124, 2
-    SpotLeftNum()         ' Spot Left-Hand Number
-  If RotoTimer.enabled=0 then
-    LRotoA.transX=-10
-    LowerTargetLeft.TimerEnabled=True
-  end if
+Sub LeftKicker_timer
 
-End Sub
+  tKickerTCount=tKickerTCount+1
+  select case tKickerTCount
+  case 1:
+    LeftKickArm.rotz=15
+    LeftKicker.Kick 235,12
+    PlaySoundAtVol SoundFXDOF("saucer",116,DOFPulse,DOFContactors), LeftKickArm, 1
+    DOF 117, DOFPulse
 
-Sub LowerTargetLeft_Timer()
-    LRotoA.transX=0
-  DOF 126, 2
-    LowerTargetLeft.TimerEnabled=False    ' Kick Animation Timer
-End Sub
+  case 2:
+    LeftKicker.TIMERENABLED = FALSE
+    LeftKickArm.rotz=0
+  end Select
 
-Sub LowerTargetRight_Hit()
-    PlaySoundAtVol "Target", ActiveBall, 1
-  DOF 125, 2
-    SpotRightNum()          ' Spot Current Right-Hand Number
-
-  If RotoTimer.enabled=0 then
-    RRotoA.transX=-10
-    LowerTargetRight.TimerEnabled=True  ' Kick Animation Timer
-    End If
-End Sub
-'
-' End Right Num hit Animation
-'
-Sub LowerTargetRight_Timer()
-    RRotoA.transX=0
-    DOF 126, 2
-    LowerTargetRight.TimerEnabled=False   ' Kick Animation Timer
-End Sub
+end sub
 
 
-Sub SpotRightNum()
-  if TableTilted=false then
 
-    X= RotoImagesR1(RotoPosition)
-    EVAL("LightNumber"&X).state=1
-    KickerCounter=1
-    for each obj in MiddleLights
-      if obj.state=1 then
-        KickerCounter=KickerCounter+1
-      end if
-    next
-    SetMotor(1000*KickerCounter)
-    CheckNumSpecials()
+'***********************************
 
+Sub CloseGateTrigger_Hit()
+  if dooralreadyopen=1 then
+    closeg.enabled=true
   end if
 End Sub
-'
-'  Spot LeftHand Roto Number
-'
-Sub SpotLeftNum()
-  if TableTilted=false then
-
-    X= RotoImagesL1(RotoPosition)
-    EVAL("LightNumber"&X).state=1
-    KickerCounter=1
-    for each obj in MiddleLights
-      if obj.state=1 then
-        KickerCounter=KickerCounter+1
-      end if
-    next
-    SetMotor(1000*KickerCounter)
-    CheckNumSpecials()
-
-  end if
-End Sub
-
-
-
-'****************************************************
-Sub CheckNumSpecials()
- '
- '  calc Max Number of Lights In A Row Spotted
- '
-  if RotoReplay1=false then
-    if (LightNumber1.state=1) and (LightNumber2.state=1) and (LightNumber3.state=1) and (LightNumber4.state=1) then
-      AddSpecial
-      RotoReplay1=true
-    end if
-  end if
-
-  if RotoReplay2=false then
-    if (LightNumber2.state=1) and (LightNumber3.state=1) and (LightNumber4.state=1) and (LightNumber5.state=1) then
-      AddSpecial
-      RotoReplay2=true
-    end if
-  end if
-
-  if RotoReplay3=false then
-    if (LightNumber3.state=1) and (LightNumber4.state=1) and (LightNumber5.state=1) and (LightNumber6.state=1) then
-      AddSpecial
-      RotoReplay3=true
-    end if
-  end if
-
-  if RotoReplay4=false then
-    if (LightNumber4.state=1) and (LightNumber5.state=1) and (LightNumber6.state=1) and (LightNumber7.state=1) then
-      AddSpecial
-      RotoReplay4=true
-    end if
-  end if
-
-End Sub
-'
 
 
 Sub AddSpecial()
-  PlaySound"knocker"
-  DOF 109, 2
+  PlaySound SoundFXDOF("knocker",132,DOFPulse,DOFKnocker)
+  DOF 117, DOFPulse
   Credits=Credits+1
-  DOF 110, 1
+  DOF 125,1
   if Credits>9 then Credits=9
   If B2SOn Then
-  Controller.B2SSetCredits Credits
-    For x = 0 to 9
-      Controller.B2SSetData 80+x,0
-    next
-    Controller.B2SSetData 80+Credits,1
+    Controller.B2SSetCredits Credits
   End If
-  EMReel10.SetValue(Credits)
+  CreditsReel.SetValue(Credits)
 End Sub
 
 Sub AddSpecial2()
   PlaySound"click"
   Credits=Credits+1
-  DOF 110, 1
+  DOF 125, DOFOn
   if Credits>9 then Credits=9
   If B2SOn Then
-  Controller.B2SSetCredits Credits
-    For x = 0 to 9
-      Controller.B2SSetData 80+x,0
-    next
-    Controller.B2SSetData 80+Credits,1
+    Controller.B2SSetCredits Credits
   End If
-  EMReel10.SetValue(Credits)
+  CreditsReel.SetValue(Credits)
 End Sub
 
-Sub AddBonus()
-  bonuscountdown=bonuscounter
-  ScoreBonus.enabled=true
-End Sub
-
-
-Sub ToggleOutlane
-  if LeftOutlaneLight.state=1 then
-    LeftOutlaneLight.state=0
-    RightOutlaneLight.state=1
-  Else
-    LeftOutlaneLight.state=1
-    RightOutlaneLight.state=0
+Sub IncreaseHorseshoeLights
+  for each obj in HorseshoeLights
+    obj.state=0
+  next
+  if BallsPerGame=3 then
+    HorseshoeLights(3).state=1
   end if
+  HorseshoeCounter=HorseshoeCounter+1
+  if HorseshoeCounter>4 then
+    HorseshoeCounter=0
+  end if
+  HorseshoeLights(HorseshoeCounter).state=1
+
 end sub
 
-Sub ToggleBumper
-
-  If TargetSpecialLit=1 then
-    if UpperBlueLight.state=1 then
-      UpperBlueLight.state=0
-      UpperGreenLight.state=1
+Sub IncreaseBonus
+  if TableTilted=false then
+    BonusCounter=BonusCounter+1
+    if BonusCounter>15 then
+      BonusCounter=15
+    end if
+    For each obj in Bonus
+      obj.state=0
+    next
+    If BonusCounter>10 then
+      Bonus(10).state=1
+      Bonus(BonusCounter-10).state=1
     else
-      UpperBlueLight.state=1
-      UpperGreenLight.state=0
+      Bonus(BonusCounter).state=1
     end if
   end if
 end sub
 
-
-Sub ResetBallDrops()
-
-
-
-  BonusCounter=0
-  HoleCounter=0
+Sub AddBonus()
+  ScoreMotorStepper=0
+  bonuscountdown=bonuscounter
+  ScoreMotorCounter=0
+  ScoreBonus.enabled=true
 End Sub
 
+sub ScoreBonus_timer
 
-Sub LightsOut
-  BonusCounter=0
-  HoleCounter=0
-' Bumper1L.image="Bumper100Unlit"
+  if bonuscountdown<=0 then
+    ScoreBonus.enabled=false
+    'ScoreBonus.interval=600
+    NextBallDelay.enabled=true
+    exit sub
+  end if
+  If BonusMultiplier=1 then
+    Select case ScoreMotorCounter
+      case 0,1,2,3,4:
+        AddScore(1000)
+        If bonuscountdown>10 then
+          Bonus(bonuscountdown-10).state=0
+        else
+          Bonus(bonuscountdown).state=0
 
-  Bumper1Light.state=0
-' Bumper2L.image="Bumper100Unlit"
+        end if
+        bonuscountdown=bonuscountdown-1
+        if bonuscountdown>=0 then
+          If bonuscountdown<=10 then
+            If bonuscountdown>0 then
+              Bonus(bonuscountdown).state=1
+            end if
+          elseif bonuscountdown>10 then
+            Bonus(10).state=1
+            Bonus(bonuscountdown-10).state=1
+          end if
+        end if
 
-  Bumper2Light.state=0
-  For each obj in StartLightsOff
-    obj.state=0
-  next
-  For each obj in StartLightsOn
-    obj.state=0
-  next
+      case 5:
+
+    end select
+    ScoreMotorCounter=ScoreMotorCounter+1
+    If ScoreMotorCounter>5 then
+      ScoreMotorCounter=0
+    end if
+  elseif BonusMultiplier=2 then
+    Select case ScoreMotorCounter
+      case 0,1,3,4:
+        AddScore(1000)
+
+
+      case 2,5:
+        If bonuscountdown>10 then
+          Bonus(bonuscountdown-10).state=0
+        else
+          Bonus(bonuscountdown).state=0
+
+        end if
+        bonuscountdown=bonuscountdown-1
+        if bonuscountdown>=0 then
+          If bonuscountdown<=10 then
+            If bonuscountdown>0 then
+              Bonus(bonuscountdown).state=1
+            end if
+          elseif bonuscountdown>10 then
+            Bonus(10).state=1
+            Bonus(bonuscountdown-10).state=1
+          end if
+        end if
+      case 6,7:
+
+    end select
+    ScoreMotorCounter=ScoreMotorCounter+1
+    If ScoreMotorCounter>7 then
+      ScoreMotorCounter=0
+    end if
+  else
+    Select case ScoreMotorCounter
+      case 0,1,2:
+        AddScore(1000)
+
+
+      case 3:
+        If bonuscountdown>10 then
+          Bonus(bonuscountdown-10).state=0
+        else
+          Bonus(bonuscountdown).state=0
+
+        end if
+        bonuscountdown=bonuscountdown-1
+        if bonuscountdown>=0 then
+          If bonuscountdown<=10 then
+            If bonuscountdown>0 then
+              Bonus(bonuscountdown).state=1
+            end if
+          elseif bonuscountdown>10 then
+            Bonus(10).state=1
+            Bonus(bonuscountdown-10).state=1
+          end if
+        end if
+      case 4:
+
+    end select
+    ScoreMotorCounter=ScoreMotorCounter+1
+    If ScoreMotorCounter>4 then
+      ScoreMotorCounter=0
+    end if
+
+  end if
+end sub
+
+
+
+
+Sub ToggleAlternatingRelay
+
 
 end sub
 
-Sub ResetDrops()
+Sub AltRelayLights
 
 
-' PlaySound"dropsup"
-  BlueTargetsDownCounter=0
-  YellowTargetsDownCounter=0
-  GreenTargetsDownCounter=0
+end sub
+
+Sub LightsOut
+
+
+  Bumper1Light.State=0
+  Bumper2Light.state=0
+
+  Light1.State=0
+  Light2.State=0
+  Light3.State=0
+  Light4.State=0
+  Light5.State=0
+  Light6.State=0
+  Light7.State=0
+  Light8.State=0
+  Light9.State=0
+  Light10.State=0
+
+end sub
+
+sub ResetHorseshoeLights_timer
+  if HorseshoeCounter=0 then
+    ResetHorseshoeLights.enabled=0
+    NextBallDelay.enabled=true
+    exit sub
+  end if
+  HorseshoeLights(HorseshoeCounter).state=0
+  HorseshoeCounter=HorseShoeCounter-1
+  If HorseshoeCounter<0 then
+    HorseshoeCounter=4
+  end if
+  HorseshoeLights(HorseshoeCounter).state=1
+end sub
+
+Sub ResetBallDrops()
+  ResetDrops2
+  StarTriggerLight1.state=1
+  StarTriggerLight2.state=1
+  StarTriggerLight3.state=1
+  StarTriggerLight4.state=1
+  StarTriggerLight5.state=1
+  KickerLight1.state=0
+  KickerLight2.state=0
+  KickerLight3.state=0
+  KickerLight4.state=0
+  KickerLight5.state=0
+  SpinnerLight.state=0
+  Bonus2xLight.state=0
+  Bonus3xLight.state=0
+  LeftOutlaneLight.state=0
+  RightOutlaneLight.state=0
+  Number6.state=0
+  Number7.state=0
+  SequenceCompleteStars=false
+  BonusCounter=0
+  If BallsPerGame=3 then
+    HorseshoeLights(3).state=1
+  end if
+
 
 End Sub
 
 Sub ResetBalls()
 
-  TempMultiCounter=BallsPerGame-BallInPlay
+  ResetBallDrops
+  If BallInPlay=BallsPerGame then
+    Bonus2xLight.state=1
+    BonusMultiplier=2
+  Else
+    BonusMultiplier=1
+  end if
 
-
-
-  BonusMultiplier=1
-
+  BumpersOn
   TableTilted=false
   TiltReel.SetValue(0)
   If B2Son then
     Controller.B2SSetTilt 0
   end if
-' ScoreLight.state=1
+
   PlasticsOn
   BumpersOn
-  'CreateBallID BallRelease
   Ballrelease.CreateSizedBall 25
     Ballrelease.Kick 40,7
-  DOF 108, 2
+  DOF 115, DOFPulse
+  if dooralreadyopen=1 then
+    closeg.enabled=true
+  end if
   BallInPlayReel.SetValue(BallInPlay)
 
 End Sub
 
-sub delaykgclose_timer
-  delaykgclose.enabled=false
-  closekg.enabled=true
+ sub openg_timer
+    bottgate(bgpos).isdropped=true
+    bgpos=bgpos-1
+    bottgate(bgpos).isdropped=false
+  primgate.RotY=30+(bgpos*10)
+     if bgpos=0 then
+    playsound "postup"
+    openg.enabled=false
+    dooralreadyopen=1
+  end if
 
+ end sub
+
+sub closeg_timer
+    closeg.interval=10
+    bottgate(bgpos).isdropped=true
+    bgpos=bgpos+1
+    bottgate(bgpos).isdropped=false
+    primgate.RotY=30+(bgpos*10)
+  if bgpos=6 then
+    closeg.enabled=false
+    dooralreadyopen=0
+  end if
 end sub
 
 sub resettimer_timer
     rst=rst+1
-  if rst>1 and rst<12 then
+  If rst=1 then
+    PlayerUpRotator.enabled=true
+  end if
+  if rst=7 then
+    PlayerUpRotator.enabled=true
+  end if
+
+  if rst>10 and rst<21 then
     ResetReelsToZero(1)
   end if
-    if rst=13 then
+  if rst>20 and rst<31 then
+    ResetReelsToZero(2)
+  end if
+
+    if rst=32 then
     playsound "StartBall1"
     end if
-    if rst=14 then
+    if rst=35 then
     newgame
     resettimer.enabled=false
     end if
@@ -1246,71 +1433,121 @@ Sub ResetReelsToZero(reelzeroflag)
 
   If reelzeroflag=1 then
     scorestring1=CStr(Score(1))
+    scorestring2=CStr(Score(2))
     scorestring1=right("00000" & scorestring1,5)
+    scorestring2=right("00000" & scorestring2,5)
     for i=0 to 4
       d1(i)=CInt(mid(scorestring1,i+1,1))
+      d2(i)=CInt(mid(scorestring2,i+1,1))
     next
     for i=0 to 4
       if d1(i)>0 then
         d1(i)=d1(i)+1
         if d1(i)>9 then d1(i)=0
+      end if
+      if d2(i)>0 then
+        d2(i)=d2(i)+1
+        if d2(i)>9 then d2(i)=0
       end if
 
     next
     Score(1)=(d1(0)*10000) + (d1(1)*1000) + (d1(2)*100) + (d1(3)*10) + d1(4)
+    Score(2)=(d2(0)*10000) + (d2(1)*1000) + (d2(2)*100) + (d2(3)*10) + d2(4)
     If B2SOn Then
       Controller.B2SSetScorePlayer 1, Score(1)
+      Controller.B2SSetScorePlayer 2, Score(2)
     End If
     PlayerScores(0).SetValue(Score(1))
     PlayerScoresOn(0).SetValue(Score(1))
+    PlayerScores(1).SetValue(Score(2))
+    PlayerScoresOn(1).SetValue(Score(2))
 
   end if
   If reelzeroflag=2 then
-    scorestring1=CStr(Score(2))
+    scorestring1=CStr(Score(3))
+    scorestring2=CStr(Score(4))
     scorestring1=right("00000" & scorestring1,5)
+    scorestring2=right("00000" & scorestring2,5)
     for i=0 to 4
       d1(i)=CInt(mid(scorestring1,i+1,1))
+      d2(i)=CInt(mid(scorestring2,i+1,1))
     next
     for i=0 to 4
       if d1(i)>0 then
         d1(i)=d1(i)+1
         if d1(i)>9 then d1(i)=0
       end if
+      if d2(i)>0 then
+        d2(i)=d2(i)+1
+        if d2(i)>9 then d2(i)=0
+      end if
 
     next
-    Score(2)=(d1(0)*10000) + (d1(1)*1000) + (d1(2)*100) + (d1(3)*10) + d1(4)
+    Score(3)=(d1(0)*10000) + (d1(1)*1000) + (d1(2)*100) + (d1(3)*10) + d1(4)
+    Score(4)=(d2(0)*10000) + (d2(1)*1000) + (d2(2)*100) + (d2(3)*10) + d2(4)
     If B2SOn Then
-      Controller.B2SSetScorePlayer 2, Score(2)
+      Controller.B2SSetScorePlayer 3, Score(3)
+      Controller.B2SSetScorePlayer 4, Score(4)
     End If
-    PlayerScores(1).SetValue(Score(2))
-    PlayerScoresOn(1).SetValue(Score(2))
+    PlayerScores(2).SetValue(Score(3))
+    PlayerScoresOn(2).SetValue(Score(3))
+    PlayerScores(3).SetValue(Score(4))
+    PlayerScoresOn(3).SetValue(Score(4))
 
   end if
 
 end sub
 
 
-sub ScoreBonus_timer
 
-  if (Bonus(bonuscountdown).state=1) and (bonuscountdown>0) then
-    AddScore2(1000)
-    Bonus(bonuscountdown).state=0
-    If BonusMultiplier=1 then
-      ScoreBonus.interval=300
-    Else
-      ScoreBonus.interval=300
-    end if
-  else
-    ScoreBonus.interval=10
+sub ScoreTargetsBonus
+  TopTargets=1
+  LowerTargets=7
+  NewBonusTimer.enabled=true
+
+
+end sub
+
+
+sub NewBonusTimer_timer
+
+  BumpersOff
+  If TopTargets<19 then
+    Select case TopTargets
+      case 1,2,3,4,5
+
+        if BallCollection(TopTargets-1).state=1 then
+          AddScore(1000)
+        else
+          PlaySound"MotorPause"
+        end if
+
+      case 7,8,9,10,11
+
+        if BallCollection(TopTargets-2).state=1 then
+          AddScore(1000)
+        else
+          PlaySound"MotorPause"
+        end if
+
+      case 13,14,15,16,17
+
+        if BallCollection(TopTargets-3).state=1 then
+          AddScore(1000)
+        else
+          PlaySound"MotorPause"
+        end if
+
+      case 6,12,18
+
+        BumpersOn
+    end Select
+    TopTargets=TopTargets+1
+    exit sub
   end if
-  bonuscountdown=bonuscountdown-1
-  if bonuscountdown<=0 then
-    ScoreBonus.enabled=false
-    ScoreBonus.interval=600
-    NextBallDelay.enabled=true
-  else
-    Bonus(bonuscountdown).state=1
-  end if
+
+  NewBonusTimer.enabled=0
+  NextBallDelay.enabled=true
 
 end sub
 
@@ -1322,10 +1559,7 @@ end sub
 
 sub newgame
   InProgress=true
-  debugscore=0
-  EMReel1.ResetToZero
-  MatchTextBox.text=""
-  BallTextBox.text=FormatNumber(BallInPlay,0)
+  queuedscore=0
   for i = 1 to 4
     Score(i)=0
     Score100K(1)=0
@@ -1333,42 +1567,53 @@ sub newgame
     Replay1Paid(i)=false
     Replay2Paid(i)=false
     Replay3Paid(i)=false
+    HighScorePaid(i)=false
   next
   If B2SOn Then
     Controller.B2SSetTilt 0
     Controller.B2SSetGameOver 0
     Controller.B2SSetMatch 0
-    Controller.B2SSetScorePlayer1 0
+'   Controller.B2SSetScorePlayer1 0
 '   Controller.B2SSetScorePlayer2 0
 '   Controller.B2SSetScorePlayer3 0
 '   Controller.B2SSetScorePlayer4 0
     Controller.B2SSetBallInPlay BallInPlay
   End if
-
-  RotoReplay1=false
-  RotoReplay2=false
-  RotoReplay3=false
-  RotoReplay4=false
-  ABCDReplay=false
-  For each obj in StartLightsOff
+  AlternatingRelay=0
+  For each obj in BallCollection
     obj.state=0
   next
-  For each obj in StartLightsOn
-    obj.state=1
+  For each obj in NumberLights
+    obj.state=0
   next
 
-
+  LeftKickerLight.state=0
+  PrimHole1.image="gottlieb kicker22_off"
   Bumper1Light.state=1
-
   Bumper2Light.state=1
-
-  ResetDrops
+  For each obj in HorseshoeLights
+    obj.state=0
+  next
+  ShootAgainLight.state=0
+  SpecialLightTracking=0
+  HorseshoeCounter=0
+  BonusCounter=0
+  HorseshoeLights(0).state=1
+  if BallsPerGame=3 then
+    HorseshoeLights(3).state=1
+  end if
   ResetBalls
 End sub
 
 sub nextball
-
-  Player=Player+1
+  If B2SOn Then
+    Controller.B2SSetTilt 0
+  End If
+  If ShootAgainLight.state=1 then
+    ShootAgainLight.state=0
+  else
+    Player=Player+1
+  end if
   If Player>Players Then
     BallInPlay=BallInPlay+1
     If BallInPlay>BallsPerGame then
@@ -1378,20 +1623,36 @@ sub nextball
       If B2SOn Then
         Controller.B2SSetGameOver 1
         Controller.B2SSetPlayerUp 0
+        Controller.B2SSetData 81,0
+        Controller.B2SSetData 82,0
+        Controller.B2SSetData 83,0
+        Controller.B2SSetData 84,0
         Controller.B2SSetBallInPlay 0
-'       Controller.B2SSetCanPlay 0
+        Controller.B2SSetCanPlay 0
       End If
+      For each obj in PlayerHuds
+        obj.SetValue(0)
+      next
       BallInPlayReel.SetValue(0)
-      LeftFlipper.RotateToStart
-      RightFlipper.RotateToStart
-      LightsOut
-      PlasticsOff
-'     ScoreLight.state=0
+      CanPlayReel.SetValue(0)
       GameOverReel.SetValue(1)
-      BallTextBox.text=""
+      LeftFlipper.RotateToStart
+
+      StopSound "buzzL"
+
+      RightFlipper.RotateToStart
+
+      StopSound "buzz"
+      For each obj in PlayerHUDScores
+        obj.state=0
+      next
+
+      LightsOut
       checkmatch
       CheckHighScore
       Players=0
+      HighScoreTimer.interval=100
+      HighScoreTimer.enabled=True
       If Table1.ShowDT = True then
         For each obj in PlayerScores
           obj.visible=1
@@ -1400,20 +1661,25 @@ sub nextball
           obj.visible=0
         Next
       end If
-      HighScoreTimer.interval=100
-      HighScoreTimer.enabled=True
     Else
       Player=1
       If B2SOn Then
         Controller.B2SSetPlayerUp Player
+        Controller.B2SSetData 81,0
+        Controller.B2SSetData 82,0
+        Controller.B2SSetData 83,0
+        Controller.B2SSetData 84,0
+        Controller.B2SSetData 80+Player,1
         Controller.B2SSetBallInPlay BallInPlay
 
       End If
-'     PlaySound("RotateThruPlayers")
+      'PlaySound("RotateThruPlayers")
       TempPlayerUp=Player
-'     PlayerUpRotator.enabled=true
+      PlayerUpRotator.enabled=true
       PlayStartBall.enabled=true
-      BallTextBox.text=FormatNumber(BallInPlay,0)
+      For each obj in PlayerHuds
+        obj.SetValue(0)
+      next
       If Table1.ShowDT = True then
         For each obj in PlayerScores
           obj.visible=1
@@ -1422,6 +1688,7 @@ sub nextball
           obj.visible=0
         Next
         PlayerHuds(Player-1).SetValue(1)
+        PlayerHUDScores(Player-1).state=1
         PlayerScores(Player-1).visible=0
         PlayerScoresOn(Player-1).visible=1
       end If
@@ -1430,13 +1697,20 @@ sub nextball
   Else
     If B2SOn Then
       Controller.B2SSetPlayerUp Player
+      Controller.B2SSetData 81,0
+      Controller.B2SSetData 82,0
+      Controller.B2SSetData 83,0
+      Controller.B2SSetData 84,0
+      Controller.B2SSetData 80+Player,1
       Controller.B2SSetBallInPlay BallInPlay
     End If
-'   PlaySound("RotateThruPlayers")
+    PlaySound("RotateThruPlayers")
     TempPlayerUp=Player
-'   PlayerUpRotator.enabled=true
+    PlayerUpRotator.enabled=true
     PlayStartBall.enabled=true
-    BallTextBox.text=FormatNumber(BallInPlay,0)
+    For each obj in PlayerHuds
+      obj.SetValue(0)
+    next
     If Table1.ShowDT = True then
       For each obj in PlayerScores
           obj.visible=1
@@ -1445,6 +1719,7 @@ sub nextball
           obj.visible=0
       Next
       PlayerHuds(Player-1).SetValue(1)
+      PlayerHUDScores(Player-1).state=1
       PlayerScores(Player-1).visible=0
       PlayerScoresOn(Player-1).visible=1
     end If
@@ -1487,15 +1762,12 @@ sub CheckHighScore
   savehs
 end sub
 
-
 sub checkmatch
   Dim tempmatch
-  if TableTilted=true and TiltEndsGame=1 then
-    exit sub
-  end if
   tempmatch=Int(Rnd*10)
   Match=tempmatch*10
   MatchReel.SetValue(tempmatch+1)
+
 
   If B2SOn Then
     If Match = 0 Then
@@ -1525,10 +1797,15 @@ Sub TiltIt()
       TiltReel.SetValue(1)
       PlasticsOff
       BumpersOff
-      Bumper1Light.state=0
-      Bumper1Light.Visible=false
+
       LeftFlipper.RotateToStart
+
+      StopSound "buzzL"
+
       RightFlipper.RotateToStart
+
+      StopSound "buzz"
+
       If B2Son then
         Controller.B2SSetTilt 1
       end if
@@ -1536,49 +1813,13 @@ Sub TiltIt()
       TiltTimer.Interval = 500
       TiltTimer.Enabled = True
     end if
-end sub
 
-Sub IncreaseBonus()
-
-
-  If BonusCounter=10 then
-
-  else
-    If BonusCounter>0 then
-      Bonus(BonusCounter).state=0
-    end if
-    BonusCounter=BonusCounter+1
-    Bonus(BonusCounter).State=1
-'   PlaySound("Score100")
-  end if
-  if BonusCounter=10 then
-    TopLeftTargetLight.state=1
-    TopRightTargetLight.state=1
-  end if
-End Sub
-
-
-Sub BonusBoost_Timer()
-  IncreaseBonus
-  BonusBoosterCounter=BonusBoosterCounter-1
-  If BonusBoosterCounter=0 then
-    BonusBoost.enabled=false
-  end if
-
-end sub
-
-Sub CheckForLightSpecial()
-
-  if (TopLightA.state=0) and (TopLightB.state=0) and (TopLightC.state=0) then
-    TopRightTargetLight.State=1
-    TopLeftTargetLight.State=1
-  end if
 end sub
 
 Sub PlayStartBall_timer()
 
   PlayStartBall.enabled=false
-  PlaySound("StartBall2-5")
+  PlaySound("StartBall1")
 end sub
 
 Sub PlayerUpRotator_timer()
@@ -1587,16 +1828,62 @@ Sub PlayerUpRotator_timer()
       If TempPlayerUp>4 then
         TempPlayerUp=1
       end if
+      For each obj in PlayerHuds
+        obj.SetValue(0)
+      next
+      For each obj in PlayerHUDScores
+        obj.state=0
+      next
+      If Table1.ShowDT = True then
+        For each obj in PlayerScores
+          obj.visible=1
+        Next
+        For each obj in PlayerScoresOn
+          obj.visible=0
+        Next
+        PlayerHuds(TempPlayerUp-1).SetValue(1)
+        PlayerHUDScores(TempPlayerUp-1).state=1
+        PlayerScores(TempPlayerUp-1).visible=0
+        PlayerScoresOn(TempPlayerUp-1).visible=1
+      end If
       If B2SOn Then
         Controller.B2SSetPlayerUp TempPlayerUp
+        Controller.B2SSetData 81,0
+        Controller.B2SSetData 82,0
+        Controller.B2SSetData 83,0
+        Controller.B2SSetData 84,0
+        Controller.B2SSetData 80+TempPlayerUp,1
       End If
 
     else
       if B2SOn then
         Controller.B2SSetPlayerUp Player
+        Controller.B2SSetData 81,0
+        Controller.B2SSetData 82,0
+        Controller.B2SSetData 83,0
+        Controller.B2SSetData 84,0
+        Controller.B2SSetData 80+Player,1
       end if
       PlayerUpRotator.enabled=false
       RotatorTemp=1
+      For each obj in PlayerHuds
+        obj.SetValue(0)
+      next
+      For each obj in PlayerHUDScores
+        obj.state=0
+      next
+      If Table1.ShowDT = True then
+        For each obj in PlayerScores
+          obj.visible=1
+        Next
+        For each obj in PlayerScoresOn
+          obj.visible=0
+        Next
+        PlayerHuds(Player-1).SetValue(1)
+        PlayerHUDScores(Player-1).state=1
+        PlayerScores(Player-1).visible=0
+        PlayerScoresOn(Player-1).visible=1
+      end If
     end if
     RotatorTemp=RotatorTemp+1
 
@@ -1615,8 +1902,7 @@ sub savehs
     ScoreFile.WriteLine 0
     ScoreFile.WriteLine Credits
     scorefile.writeline BallsPerGame
-    scorefile.writeline TiltEndsGame
-    ScoreFile.WriteLine ReplayLevel
+    scorefile.writeline ReplayLevel
 
     for xx=1 to 5
       scorefile.writeline HSScore(xx)
@@ -1638,7 +1924,6 @@ sub loadhs
     dim temp2
   dim temp3
   dim temp4
-  dim temp5
   dim temp6
   dim temp7
   dim temp8
@@ -1666,7 +1951,6 @@ sub loadhs
     temp2=textstr.readline
     temp3=textstr.readline
     temp4=textstr.readline
-    temp5=textstr.readline
     HighScore=cdbl(temp1)
     if HighScore<1 then
       temp6=textstr.readline
@@ -1684,9 +1968,9 @@ sub loadhs
     TextStr.Close
 
       Credits=cdbl(temp2)
+    If Credits > 0 Then DOF 125, DOFOn
     BallsPerGame=cdbl(temp3)
-    TiltEndsGame=cdbl(temp4)
-    ReplayLevel=cdbl(temp5)
+    ReplayLevel=cdbl(temp4)
 
     if HighScore<1 then
       HSScore(1) = int(temp6)
@@ -1843,95 +2127,125 @@ sub LoadLMEMConfig2
 
 end sub
 
-Sub DisplayHighScore
 
+
+Sub DisplayHighScore
+' Dim Digit1
+' Dim Digit2
+' Dim Digit3
+' Dim Digit4
+' Dim Digit5
+' Dim Digit6
+' Digit1=Mid(CStr(HighScore),1,1)
+' HS1.image="PostIt"+Digit1
+' Digit2=Mid(CStr(HighScore),2,1)
+' HS2.image="PostIt"+Digit2
+' Digit3=Mid(CStr(HighScore),3,1)
+' HS3.image="PostIt"+Digit3
+' Digit4=Mid(CStr(HighScore),4,1)
+' HS4.image="PostIt"+Digit4
+' Digit5=Mid(CStr(HighScore),5,1)
+' HS5.image="PostIt"+Digit5
+' Digit6=Mid(CStr(HighScore),6,1)
+' HS6.image="PostIt"+Digit6
 
 end sub
 
 sub InitPauser5_timer
     If B2SOn Then
-      'Controller.B2SSetScore 3,HighScore
+      'Controller.B2SSetScore 6,HighScore
     End If
     DisplayHighScore
+    CreditsReel.SetValue(Credits)
     InitPauser5.enabled=false
 end sub
 
-sub ResetDropsTimer_timer
-    ResetDropsTimer.enabled=0
-    ResetDrops
-end sub
-
 sub BumpersOff
+' Bumper1L.image="HotShotBumperUnlit"
 
-  Bumper1Light.visible=false
-  Bumper2Light.visible=false
+
+  Bumper1Light.Visible=false
+  Bumper2Light.Visible=false
+
+
 end sub
 
 sub BumpersOn
-  Bumper1Light.visible=false
-  Bumper2Light.visible=false
-  if Bumper1Light.state=1 then
-    Bumper1Light.visible=true
+  Bumper1Light.Visible=true
+  Bumper2Light.Visible=true
 
-  end if
-  if Bumper2Light.state=1 then
-    Bumper2Light.visible=true
 
-  end if
+end sub
+
+Sub ToggleBumper
+
 end sub
 
 Sub PlasticsOn
-
   For each obj in Flashers
-    obj.visible=1
+    obj.Visible=true
   next
-
 
 end sub
 
 Sub PlasticsOff
   For each obj in Flashers
-    obj.visible=0
+    obj.Visible=false
   next
 
 end sub
 
 Sub SetupReplayTables
 
-  Replay1Table(1)=28000
-  Replay1Table(2)=31000
-  Replay1Table(3)=35000
-  Replay1Table(4)=39000
-  Replay1Table(5)=44000
-  Replay1Table(6)=45000
-  Replay1Table(7)=49000
-  Replay1Table(8)=49000
-  Replay1Table(9)=54000
-  Replay1Table(10)=58000
-  Replay1Table(11)=61000
-  Replay1Table(12)=75000
-  Replay1Table(13)=85000
-  Replay1Table(14)=91000
+  Replay1Table(1)=61000
+  Replay1Table(2)=62000
+  Replay1Table(3)=65000
+  Replay1Table(4)=68000
+  Replay1Table(5)=71000
+  Replay1Table(6)=74000
+  Replay1Table(7)=77000
+  Replay1Table(8)=80000
+  Replay1Table(9)=83000
+  Replay1Table(10)=86000
+  Replay1Table(11)=60000
+  Replay1Table(12)=63000
+  Replay1Table(13)=66000
+  Replay1Table(14)=69000
   Replay1Table(15)=999000
 
-  Replay2Table(1)=42000
-  Replay2Table(2)=45000
-  Replay2Table(3)=49000
-  Replay2Table(4)=53000
-  Replay2Table(5)=58000
-  Replay2Table(6)=63000
-  Replay2Table(7)=63000
-  Replay2Table(8)=67000
-  Replay2Table(9)=68000
-  Replay2Table(10)=76000
-  Replay2Table(11)=79000
-  Replay2Table(12)=93000
-  Replay2Table(13)=99000
-  Replay2Table(14)=99000
+  Replay2Table(1)=77000
+  Replay2Table(2)=78000
+  Replay2Table(3)=81000
+  Replay2Table(4)=84000
+  Replay2Table(5)=87000
+  Replay2Table(6)=90000
+  Replay2Table(7)=93000
+  Replay2Table(8)=96000
+  Replay2Table(9)=99000
+  Replay2Table(10)=99000
+  Replay2Table(11)=74000
+  Replay2Table(12)=77000
+  Replay2Table(13)=80000
+  Replay2Table(14)=83000
   Replay2Table(15)=999000
 
+  Replay3Table(1)=999000
+  Replay3Table(2)=999000
+  Replay3Table(3)=999000
+  Replay3Table(4)=999000
+  Replay3Table(5)=999000
+  Replay3Table(6)=999000
+  Replay3Table(7)=999000
+  Replay3Table(8)=999000
+  Replay3Table(9)=999000
+  Replay3Table(10)=999000
+  Replay3Table(11)=999000
+  Replay3Table(12)=999000
+  Replay3Table(13)=999000
+  Replay3Table(14)=999000
+  Replay3Table(15)=999000
 
-  ReplayTableMax=14
+  ReplayTableMax=10
 
 end sub
 
@@ -1945,7 +2259,9 @@ Sub RefreshReplayCard
   ReplayCard.image = "SC" + tempst2
   Replay1=Replay1Table(ReplayLevel)
   Replay2=Replay2Table(ReplayLevel)
+  Replay3=Replay3Table(ReplayLevel)
 end sub
+
 
 '****************************************
 '  SCORE MOTOR
@@ -2202,7 +2518,7 @@ Sub AddScore1(x)
       PlayChime(10)
       Score(Player)=Score(Player)+10
 '     debugscore=debugscore+10
-
+      ToggleAlternatingRelay
     Case 100:
       PlayChime(100)
       Score(Player)=Score(Player)+100
@@ -2222,6 +2538,7 @@ Sub AddScore1(x)
     ScoreDisplay(Player)=Score(Player)-100000
   End If
   if Score(Player)=>100000 then
+    RolloverScore.SetValue(1)
     If B2SOn Then
       If Player=1 Then
         Controller.B2SSetScoreRolloverPlayer1 Score100K(Player)
@@ -2294,14 +2611,17 @@ Sub AddScore2(x)
   OldTestScore = OldScore
   NewTestScore = NewScore
   Do
-    if OldTestScore < Replay1 and NewTestScore >= Replay1 then
+    if OldTestScore < Replay1 and NewTestScore >= Replay1 and Replay1Paid(Player)=false then
       AddSpecial()
+      Replay1Paid(Player)=True
       NewTestScore = 0
-    Elseif OldTestScore < Replay2 and NewTestScore >= Replay2 then
+    Elseif OldTestScore < Replay2 and NewTestScore >= Replay2 and Replay2Paid(Player)=false then
       AddSpecial()
+      Replay2Paid(Player)=True
       NewTestScore = 0
-    Elseif OldTestScore < Replay3 and NewTestScore >= Replay3 then
+    Elseif OldTestScore < Replay3 and NewTestScore >= Replay3 and Replay3Paid(Player)=false then
       AddSpecial()
+      Replay3Paid(Player)=True
       NewTestScore = 0
     End if
     NewTestScore = NewTestScore - 100000
@@ -2314,7 +2634,7 @@ Sub AddScore2(x)
 
     if (OldScore Mod 10 <> NewScore Mod 10) then
     PlayChime(10)
-
+    ToggleAlternatingRelay
     end if
 
     OldScore = int(OldScore / 10)
@@ -2355,18 +2675,18 @@ Sub PlayChime(x)
     Select Case x
       Case 10
         If LastChime10=1 Then
-          PlaySound SoundFXDOF("SpinACard_1_10_Point_Bell",126,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SpinACard_1_10_Point_Bell",153,DOFPulse,DOFChimes)
           LastChime10=0
         Else
-          PlaySound SoundFXDOF("SpinACard_1_10_Point_Bell",126,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SpinACard_1_10_Point_Bell",153,DOFPulse,DOFChimes)
           LastChime10=1
         End If
       Case 100
         If LastChime100=1 Then
-          PlaySound SoundFXDOF("SpinACard_100_Point_Bell",127,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SpinACard_1_100_Point_Bell",154,DOFPulse,DOFChimes)
           LastChime100=0
         Else
-          PlaySound SoundFXDOF("SpinACard_100_Point_Bell",127,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SpinACard_1_100_Point_Bell",154,DOFPulse,DOFChimes)
           LastChime100=1
         End If
 
@@ -2375,26 +2695,26 @@ Sub PlayChime(x)
     Select Case x
       Case 10
         If LastChime10=1 Then
-          PlaySound SoundFXDOF("SJ_Chime_10a",126,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_10a",153,DOFPulse,DOFChimes)
           LastChime10=0
         Else
-          PlaySound SoundFXDOF("SJ_Chime_10b",126,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_10b",153,DOFPulse,DOFChimes)
           LastChime10=1
         End If
       Case 100
         If LastChime100=1 Then
-          PlaySound SoundFXDOF("SJ_Chime_100a",127,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_100a",154,DOFPulse,DOFChimes)
           LastChime100=0
         Else
-          PlaySound SoundFXDOF("SJ_Chime_100b",127,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_100b",154,DOFPulse,DOFChimes)
           LastChime100=1
         End If
       Case 1000
         If LastChime1000=1 Then
-          PlaySound SoundFXDOF("SJ_Chime_1000a",128,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_1000a",155,DOFPulse,DOFChimes)
           LastChime1000=0
         Else
-          PlaySound SoundFXDOF("SJ_Chime_1000b",128,DOFPulse,DOFChimes)
+          PlaySound SoundFXDOF("SJ_Chime_1000b",155,DOFPulse,DOFChimes)
           LastChime1000=1
         End If
     End Select
@@ -2405,68 +2725,29 @@ Sub HideOptions()
 
 end sub
 
-' *******************************************************************************************************
-' Positional Sound Playback Functions by DJRobX, Rothbauerw, Thalamus and Herweh
-' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-' *******************************************************************************************************
+'*********************************************************************
+'                 Positional Sound Playback Functions
+'*********************************************************************
 
 ' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
 ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
 ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
-
 Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
   PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
 End Sub
 
-' Set position as table object (Use object or light but NOT wall) and Vol to 1
-
+' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
 Sub PlaySoundAt(soundname, tableobj)
-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
 End Sub
-
-' set position as table object and Vol + RndPitch manually
-
-Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
-  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
-End Sub
-
-'Set all as per ball position & speed.
 
 Sub PlaySoundAtBall(soundname)
-  PlaySoundAt soundname, ActiveBall
+    PlaySoundAt soundname, ActiveBall
 End Sub
 
 'Set position as table object and Vol manually.
-
 Sub PlaySoundAtVol(sound, tableobj, Volume)
   PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
-End Sub
-
-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
-
-Sub PlaySoundAtBallVol(sound, VolMult)
-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-End Sub
-
-Sub PlaySoundAtBallAbsVol(sound, VolMult)
-  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
-End Sub
-
-' requires rampbump1 to 7 in Sound Manager
-
-Sub RandomBump(voladj, freq)
-  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
-  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
-End Sub
-
-' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
-
-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
-  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
-End Sub
-
-Sub PlaySoundAtBOTBallZ(sound, BOT)
-  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
 End Sub
 
 ' play a looping sound at a location with volume
@@ -2475,103 +2756,39 @@ Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
 End Sub
 
 '*********************************************************************
-'            Supporting Ball, Sound Functions and Math
+'                     Supporting Ball & Sound Functions
 '*********************************************************************
-
-Function RndNum(min, max)
-  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
-End Function
-
-Const Pi = 3.1415927
-
-Function dSin(degrees)
-  dsin = sin(degrees * Pi/180)
-End Function
-
-Function dCos(degrees)
-  dcos = cos(degrees * Pi/180)
-End Function
 
 Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
   Dim tmp
-  On Error Resume Next
-  tmp = tableobj.y * 2 / table1.height-1
-  If tmp > 0 Then
+    tmp = tableobj.y * 2 / table1.height-1
+    If tmp > 0 Then
     AudioFade = Csng(tmp ^10)
-  Else
-    AudioFade = Csng(-((- tmp) ^10) )
-  End If
+    Else
+        AudioFade = Csng(-((- tmp) ^10) )
+    End If
 End Function
 
 Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
-  Dim tmp
-  On Error Resume Next
-  tmp = tableobj.x * 2 / table1.width-1
-  If tmp > 0 Then
-    AudioPan = Csng(tmp ^10)
-  Else
-    AudioPan = Csng(-((- tmp) ^10) )
-  End If
-End Function
-
-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
-  Dim tmp
-  On Error Resume Next
-  tmp = ball.x * 2 / table1.width-1
-  If tmp > 0 Then
-    Pan = Csng(tmp ^10)
-  Else
-    Pan = Csng(-((- tmp) ^10) )
-  End If
+    Dim tmp
+    tmp = tableobj.x * 2 / table1.width-1
+    If tmp > 0 Then
+        AudioPan = Csng(tmp ^10)
+    Else
+        AudioPan = Csng(-((- tmp) ^10) )
+    End If
 End Function
 
 Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
-  Vol = Csng(BallVel(ball) ^2 / 2000)
-End Function
-
-Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
-  VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
-End Function
-
-Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
-  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
-  debug.print DVolMulti
-End Function
-
-Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
-  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
+    Vol = Csng(BallVel(ball) ^2 / 2000)
 End Function
 
 Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
-  Pitch = BallVel(ball) * 20
+    Pitch = BallVel(ball) * 20
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
-End Function
-
-Function BallVelZ(ball) 'Calculates the ball speed in the -Z
-  BallVelZ = INT((ball.VelZ) * -1 )
-End Function
-
-Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
-  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
-End Function
-
-'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
-
-Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
-  Dim AB, BC, CD, DA
-  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
-  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
-  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
-  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
-
-  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
-    InRect = True
-  Else
-    InRect = False
-  End If
+    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
 End Function
 
 '*****************************************
@@ -2623,6 +2840,8 @@ End Sub
 Sub OnBallBallCollision(ball1, ball2, velocity)
   PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
 End Sub
+
+
 
 '*****************************************
 ' ninuzzu's BALL SHADOW
@@ -2738,6 +2957,7 @@ Sub RandomSoundFlipper()
     Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
   End Select
 End Sub
+
 
 ' ============================================================================================
 ' GNMOD - Multiple High Score Display and Collection
@@ -2960,11 +3180,11 @@ EnteringOptions = 0
 MaxOption = 9
 OptionCHS = 0
 OptionHighScorePosition = 0
-Const OptionLinesToMark="111100011"
+Const OptionLinesToMark="111000011"
 Const OptionLine1="" 'do not use this line
 Const OptionLine2="" 'do not use this line
 Const OptionLine3="" 'do not use this line
-Const OptionLine4="Wedgehead Tilt Setting"
+Const OptionLine4=""
 Const OptionLine5=""
 Const OptionLine6=""
 Const OptionLine7=""
@@ -2997,39 +3217,38 @@ Sub DisplayAllOptions
       Case 1:
         tempstring=tempstring + FormatNumber(BallsPerGame,0)
         SetOptLine 1,tempstring
-          tempstring = tempstring + FormatNumber(Replay1Table(ReplayLevel),0) + "/" + FormatNumber(Replay2Table(ReplayLevel),0) + "/" + FormatNumber(Replay3Table(ReplayLevel),0)
-        SetOptLine 2,tempstring
       Case 2:
+        if Replay3Table(ReplayLevel)=999000 then
+          tempstring = tempstring + FormatNumber(Replay1Table(ReplayLevel),0) + "/" + FormatNumber(Replay2Table(ReplayLevel),0)
+        else
+          tempstring = tempstring + FormatNumber(Replay1Table(ReplayLevel),0) + "/" + FormatNumber(Replay2Table(ReplayLevel),0) + "/" + FormatNumber(Replay3Table(ReplayLevel),0)
+        end if
+        SetOptLine 2,tempstring
+      Case 3:
         If OptionCHS=0 then
           tempstring = "NO"
         else
           tempstring = "YES"
         end if
         SetOptLine 3,tempstring
-      Case 3:
-        SetOptLine 4, tempstring
-        If TiltEndsGame=0 then
-          tempstring="Tilt loses ball in play"
-        else
-          tempstring="Tilt ends game"
-        end if
-
-        SetOptLine 5, tempstring
       Case 4:
+        SetOptLine 4, tempstring
+        SetOptLine 5, tempstring
+      Case 5:
         SetOptLine 6, tempstring
         SetOptLine 7, tempstring
 
-      Case 5:
+      Case 6:
         SetOptLine 8, tempstring
         SetOptLine 9, tempstring
 
-      Case 6:
+      Case 7:
         SetOptLine 10, tempstring
         SetOptLine 11, tempstring
 
-      Case 7:
-
       Case 8:
+
+      Case 9:
 
 
     End Select
@@ -3085,13 +3304,6 @@ sub CollectOptions(ByVal keycode)
 
       end if
       DisplayAllOptions
-    elseif CurrentOption = 4 then
-      if TiltEndsGame=0 then
-        TiltEndsGame=1
-      else
-        TiltEndsGame=0
-      end if
-      DisplayAllOptions
     elseif CurrentOption = 8 or CurrentOption = 9 then
         if OptionCHS=1 then
           HSScore(1) = 75000
@@ -3121,7 +3333,7 @@ sub CollectOptions(ByVal keycode)
           Eval("Option"&XOpt).image = "PostItBL"
         next
         RefreshReplayCard
-        InstructCard.image="IC"+FormatNumber(BallsPerGame,0)
+        InstructCard.image="IC_"+FormatNumber(BallsPerGame,0)
         EnteringOptions = 0
 
     end if
