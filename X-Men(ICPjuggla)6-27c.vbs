@@ -240,15 +240,13 @@ InitVpmFFlipsSAM
 
    Sub Table_Paused:Controller.Pause = 1:End Sub
    Sub Table_unPaused:Controller.Pause = 0:End Sub
-   Sub Table_exit()
 
 ' Thalamus : This sub is used twice - this means ... this one IS NOT USED
-'
 '   Sub Table_exit()
-'
-' Controller.Stop
-'
-'End sub
+
+Sub Table_exit()
+  Controller.Stop
+End sub
 
 
 '*****Keys
