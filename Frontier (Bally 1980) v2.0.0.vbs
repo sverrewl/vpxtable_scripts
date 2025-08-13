@@ -332,8 +332,9 @@ Sub Table1_Init
 
 End Sub
 
-Sub Table_Paused:Controller.Pause = 1:End Sub
-Sub Table_unPaused:Controller.Pause = 0:End Sub
+' Thalamus - should be table1
+Sub Table1_Paused:Controller.Pause = 1:End Sub
+Sub Table1_unPaused:Controller.Pause = 0:End Sub
 ' Thalamus, Table is named Table1 - not Table
 Sub Table1_exit()
   Controller.Pause = False

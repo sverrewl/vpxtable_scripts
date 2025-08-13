@@ -301,9 +301,9 @@ Sub Table1_Init
 
 End Sub
 
-Sub Table_Paused:Controller.Pause = 1:End Sub
-Sub Table_unPaused:Controller.Pause = 0:End Sub
-Sub Table_exit()
+Sub Table1_Paused:Controller.Pause = 1:End Sub
+Sub Table1_unPaused:Controller.Pause = 0:End Sub
+Sub Table1_exit()
   Controller.Pause = False
   Controller.Stop
 End Sub
