@@ -1775,27 +1775,56 @@ End If
 End Sub
 
 
+' Sub starfield_Timer()
+'   If UseFlexDMD then
+'
+'
+'   If Not FlexDMD is Nothing Then FlexDMD.LockRenderThread
+'   If FlexDMD.Run = False Then FlexDMD.Run = True
+'   With FlexDMD.Stage
+'   if successstate=true Then.GetImage("starframe").Bitmap =FlexDMD.Newimage("starframe", "VPX.spritesheetb&region=0," & (starframe * 32) & ",128,32").Bitmap
+'   if successstate=false Then.GetImage("starframe").Bitmap =FlexDMD.Newimage("starframe", "VPX.spritesheet&region=0," & (starframe * 32) & ",128,32").Bitmap
+'   End With
+'   If Not FlexDMD is Nothing Then FlexDMD.UnlockRenderThread
+'   End If
+'
+'     starframe = starframe +1
+'     if starframe >49 Then
+'       starframe=0
+'       if successstate=true Then
+'         successstate= false
+'         'starfield.interval = 60
+'       End If
+'     End If
+' End Sub
+
+' Thalamus - correction from ChatGPT.
 Sub starfield_Timer()
-  If UseFlexDMD then
+  If UseFlexDMD Then
+    If Not FlexDMD Is Nothing Then FlexDMD.LockRenderThread
+    If FlexDMD.Run = False Then FlexDMD.Run = True
 
+    With FlexDMD.Stage
+      If successstate = True Then
+        .GetImage("starframe").Bitmap = FlexDMD.NewImage("starframe", "VPX.spritesheetb&region=0," & (starframe * 32) & ",128,32").Bitmap
+      End If
 
-  If Not FlexDMD is Nothing Then FlexDMD.LockRenderThread
-  If FlexDMD.Run = False Then FlexDMD.Run = True
-  With FlexDMD.Stage
-  if successstate=true Then.GetImage("starframe").Bitmap =FlexDMD.Newimage("starframe", "VPX.spritesheetb&region=0," & (starframe * 32) & ",128,32").Bitmap
-  if successstate=false Then.GetImage("starframe").Bitmap =FlexDMD.Newimage("starframe", "VPX.spritesheet&region=0," & (starframe * 32) & ",128,32").Bitmap
-  End With
-  If Not FlexDMD is Nothing Then FlexDMD.UnlockRenderThread
+      If successstate = False Then
+        .GetImage("starframe").Bitmap = FlexDMD.NewImage("starframe", "VPX.spritesheet&region=0," & (starframe * 32) & ",128,32").Bitmap
+      End If
+    End With
+
+    If Not FlexDMD Is Nothing Then FlexDMD.UnlockRenderThread
   End If
 
-    starframe = starframe +1
-    if starframe >49 Then
-      starframe=0
-      if successstate=true Then
-        successstate= false
-        'starfield.interval = 60
-      End If
+  starframe = starframe + 1
+  If starframe > 49 Then
+    starframe = 0
+    If successstate = True Then
+      successstate = False
+      'starfield.interval = 60
     End If
+  End If
 End Sub
 
 Sub flexcredit
