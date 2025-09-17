@@ -839,7 +839,7 @@ Sub a_Gates_Hit (idx)
 End Sub
 
 Sub a_Spinner_Spin
-  PlaySoundAt "fx_spinner", a_Spinner
+  PlaySoundAt "fx_spinner", a_Spinner
 End Sub
 
 Sub a_Rubbers_Hit(idx)
