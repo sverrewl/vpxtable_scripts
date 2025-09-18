@@ -704,7 +704,7 @@ End Sub
 
 Sub LeftSlingShot_Slingshot
   if tilt=false then
-  PlaySoundAtVol "left_slingshot", ActiveBall, 1
+  PlaySoundAtVol "left_slingshot",ActiveBall, 1
   LSling.Visible = 0
   LSling1.Visible = 1
   sling2.TransZ = -20
