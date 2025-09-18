@@ -5336,9 +5336,9 @@ End Sub
 
 
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
+' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
 '/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
-'  SCORBIT Interface
+'  SCORBIT Interface
 ' To Use:
 ' 1) Define a timer tmrScorbit
 ' 2) Call DoInit at the end of PupInit or in Table Init if you are nto using pup with the appropriate parameters
@@ -6058,7 +6058,7 @@ Debug.print "Upload Response: " & Response
   End Function
 
 End Class
-'  END SCORBIT
+'  END SCORBIT
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 

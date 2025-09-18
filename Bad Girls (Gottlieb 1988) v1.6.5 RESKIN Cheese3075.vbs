@@ -39,22 +39,22 @@
 
 ' v1.6.2  update:
 ' changes made by: Cheese3075
-' Playfield:  Added starburst red lights to shoot again and cleaned up text, moved bottom kiss it goodbye text to a better spot, cleaning up center playfield art and eye color, few other small changes.
-' Lights:  Fixed coloring of L23 to match others.
+' Playfield:  Added starburst red lights to shoot again and cleaned up text, moved bottom kiss it goodbye text to a better spot, cleaning up center playfield art and eye color, few other small changes.
+' Lights:  Fixed coloring of L23 to match others.
 ' Housekeeping: Corrected table version information and script documentation
 '*************************************************************
 
 ' v1.6.3  update:
 ' changes made by: Cheese3075
 ' Pool table lights:  Reshaded to reflect correct colors, added color rings around stripped balls for real life accuracy.
-' Playfield:  Reshaded to reflect correct colors, added new P-O-O-L lights, minor tweaks to visuals on L23 light, fixed errors around transparencies.
+' Playfield:  Reshaded to reflect correct colors, added new P-O-O-L lights, minor tweaks to visuals on L23 light, fixed errors around transparencies.
 '*************************************************************
 
 ' v1.6.4  update:
 ' changes made by: Cheese3075
 ' Added new decal to match table for upper right light
 ' Cleaned up apron.
-' Playfield:  Reshaded, fixed sizing and added missing ball to upper right playfield mini balls, also changed background of this area to match table.  Fixed grid lines. Fixed pool table front facing side.  Moved P*O*O*L message.  Changed wording to "rack your balls".  Cleaned up some
+' Playfield:  Reshaded, fixed sizing and added missing ball to upper right playfield mini balls, also changed background of this area to match table.  Fixed grid lines. Fixed pool table front facing side.  Moved P*O*O*L message.  Changed wording to "rack your balls".  Cleaned up some
 '           text and a few miscellaneous playfield items.
 '*************************************************************
 

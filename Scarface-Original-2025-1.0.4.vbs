@@ -8008,9 +8008,9 @@ End Sub
 '**************************
 '==================================================================================================================
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
+' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
 '/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
-'  SCORBIT Interface
+'  SCORBIT Interface
 ' To Use:
 ' 1) Define a timer tmrScorbit
 ' 2) Call DoInit at the end of PupInit or in Table Init if you are nto using pup with the appropriate parameters
@@ -8727,7 +8727,7 @@ dbg2 "Upload Response: " & Response
 
 End Class
 
-'  END SCORBIT
+'  END SCORBIT
 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Sub DelayQRClaim_Timer()
   if bOnTheFirstBall AND BallInPlunger then
