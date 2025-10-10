@@ -1,0 +1,1765 @@
+' ****************************************************************
+'               VISUAL PINBALL X EM Script por JPSalas
+'         Script Básico para juegos EM Script hasta 4 players
+'        usa el core.vbs para funciones extras
+'               Saloon - Taito do Brasil 1978
+' ****************************************************************
+
+Option Explicit
+Randomize
+
+' DOF config - Foxyt - leeoneil
+'
+' Option for more lights effects with DOF (Undercab effects on bumpers)
+' "True" to activate (False by default)
+Const Epileptikdof = False
+
+' Valores Constantes de las físicas de los flippers - se usan en la creación de las bolas, tienen que cargarse antes del core.vbs
+Const BallSize = 50 ' el diametro de la bola. el tamaño normal es 50 unidades de VP
+Const BallMass = 1  ' la pesadez de la bola, este valor va de acuerdo a la fuerza de los flippers y el plunger
+
+' Carga el core.vbs para poder usas sus funciones, sobre todo el vpintimer.addtimer
+LoadCoreFiles
+
+Sub LoadCoreFiles
+    On Error Resume Next
+    ExecuteGlobal GetTextFile("core.vbs")
+    If Err Then MsgBox "Can't open core.vbs"
+    On Error Resume Next
+    ExecuteGlobal GetTextFile("controller.vbs")
+    If Err Then MsgBox "Can't open controller.vbs"
+End Sub
+
+' Valores Constants
+Const TableName = "Saloon_1978"
+Const cGameName = "Saloon_1978"
+Const MaxPlayers = 4    ' de 1 a 4
+Const Special1 = 500000 ' puntuación a obtener para partida extra
+'Const Special2 = 790000 ' puntuación a obtener para partida extra
+'Const Special3 = 960000 ' puntuación a obtener para partida extra
+
+' Variables Globales
+Dim PlayersPlayingGame
+Dim CurrentPlayer
+Dim Credits
+Dim Bonus
+Dim BonusMultiplier
+Dim BallsRemaining(4)
+Dim ExtraBallsAwards(4)
+Dim Special1Awarded(4)
+Dim Special2Awarded(4)
+Dim Special3Awarded(4)
+Dim Score(4)
+Dim HighScore
+Dim Match
+Dim Tilt
+Dim TiltSensitivity
+Dim Tilted
+Dim Add10
+Dim Add100
+Dim Add1000
+Dim Add10000
+
+' Variables de control
+Dim BallsOnPlayfield
+
+' Variables de tipo Boolean (verdadero ó falso, True ó False)
+Dim bAttractMode
+Dim bFreePlay
+Dim bGameInPlay
+Dim bOnTheFirstBall
+Dim bExtraBallWonThisBall
+Dim bJustStarted
+Dim bBallInPlungerLane
+Dim bBallSaverActive
+
+Dim x
+
+' core.vbs variables, como imanes, impulse plunger
+
+' *********************************************************************
+'                Rutinas comunes para todas las mesas
+' *********************************************************************
+
+Sub Table1_Init()
+
+    ' Inicializar diversos objetos de la mesa, como droptargets, animations...
+    VPObjects_Init
+    LoadEM
+
+    ' Carga los valores grabados highscore y créditos
+    Credits = 1
+    Loadhs
+    'HighscoreReel.SetValue Highscore
+    ' también pon el highscore en el reel del primer jugador
+    ' ScoreReel1.SetValue Highscore
+    ' en esta mesa el attractmode se encarga de mostrar el highscore
+
+    UpdateCredits
+
+    ' Juego libre o con monedas: si es True entonces no se usarán monedas
+    bFreePlay = False 'queremos monedas
+
+    ' Inicialiar las variables globales de la mesa
+    bAttractMode = False
+    bOnTheFirstBall = False
+    bGameInPlay = False
+    bBallInPlungerLane = False
+    BallsOnPlayfield = 0
+    Tilt = 0
+    TiltSensitivity = 6
+    Tilted = False
+    bJustStarted = True
+    Add10 = 0
+    Add100 = 0
+    Add1000 = 0
+
+    ' pone la mesa en modo de espera
+    EndOfGame
+
+    'Enciende las luces GI despues de un segundo
+    vpmtimer.addtimer 1500, "GiOn '"
+
+    ' quita reels
+    If Table1.ShowDT = true then
+        For each x in aReels
+            x.Visible = 1
+        Next
+    else
+        For each x in aReels
+            x.Visible = 0
+        Next
+    end if
+
+    ' Arranca el Game Timer de las animaciones, sonido de las bolas rodando, etc
+    GameTimer.Enabled = 1
+End Sub
+
+'******
+' Keys
+'******
+
+Sub Table1_KeyDown(ByVal Keycode)
+
+    ' añade monedas
+    If Keycode = AddCreditKey OR Keycode = AddCreditKey2 Then
+        If(Tilted = False)Then
+            PlaySound"fx_coin"
+            AddCredits 1
+        End If
+    End If
+
+    ' el plunger
+    If keycode = PlungerKey Then
+        Plunger.Pullback
+        PlaySoundAt "fx_plungerpull", plunger
+    End If
+
+    ' Funcionamiento normal de los flipers y otras teclas durante el juego
+
+    If bGameInPlay AND NOT Tilted Then
+        ' teclas de la falta
+        If keycode = LeftTiltKey Then Nudge 90, 8:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
+        If keycode = RightTiltKey Then Nudge 270, 8:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
+        If keycode = CenterTiltKey Then Nudge 0, 9:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+        If keycode = MechanicalTilt Then CheckTilt
+
+        ' teclas de los flipers
+        If keycode = LeftFlipperKey Then SolLFlipper 1
+        If keycode = RightFlipperKey Then SolRFlipper 1
+
+        ' tecla de empezar el juego
+        If keycode = StartGameKey Then
+            If((PlayersPlayingGame < MaxPlayers)AND(bOnTheFirstBall = True))Then
+
+                If(bFreePlay = True)Then
+                    PlayersPlayingGame = PlayersPlayingGame + 1
+                    PlaySound "RCA-Start"
+                Else
+                    If(Credits > 0)then
+                        PlayersPlayingGame = PlayersPlayingGame + 1
+                        Credits = Credits - 1
+                        UpdateCredits
+                        UpdateBallInPlay
+                        PlaySound "RCA-Start"
+                    Else
+                        ' no hay suficientes créditos para empezar el juego.
+                        PlaySound "Credit_min"
+                    End If
+                End If
+            End If
+        End If
+        Else ' If (GameInPlay)
+
+            If keycode = StartGameKey Then
+                If(bFreePlay = True)Then
+                    If(BallsOnPlayfield = 0)Then
+                        ResetScores
+                        ResetForNewGame()
+                        PlaySound "RCA-Start"
+                    End If
+                Else
+                    If(Credits > 0)Then
+                        If(BallsOnPlayfield = 0)Then
+                            Credits = Credits - 1
+                            UpdateCredits
+                            ResetScores
+                            ResetForNewGame()
+                            PlaySound "RCA-Start"
+                        End If
+                    Else
+                        ' Not Enough Credits to start a game.
+                        PlaySound "Credit_min"
+                    End If
+                End If
+            End If
+    End If ' If (GameInPlay)
+End Sub
+
+Sub Table1_KeyUp(ByVal keycode)
+
+    If bGameInPlay AND NOT Tilted Then
+        ' teclas de los flipers
+        If keycode = LeftFlipperKey Then SolLFlipper 0
+        If keycode = RightFlipperKey Then SolRFlipper 0
+    End If
+
+    If keycode = PlungerKey Then
+        Plunger.Fire
+        If bBallInPlungerLane Then
+            PlaySoundAt "fx_plunger", plunger
+        Else
+            PlaySoundAt "fx_plunger_empty", plunger
+        End If
+    End If
+End Sub
+
+'*************
+' Para la mesa
+'*************
+
+Sub table1_Paused
+End Sub
+
+Sub table1_unPaused
+End Sub
+
+Sub table1_Exit
+    Savehs
+    If B2SOn Then Controller.Stop
+End Sub
+
+'********************
+'     Flippers
+'********************
+
+Sub SolLFlipper(Enabled)
+    If Enabled Then
+        PlaySoundAt SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), LeftFlipper
+        LeftFlipper.RotateToEnd
+        LeftFlipperOn = 1
+    Else
+        PlaySoundAt SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), LeftFlipper
+        LeftFlipper.RotateToStart
+        LeftFlipperOn = 0
+    End If
+End Sub
+
+Sub SolRFlipper(Enabled)
+    If Enabled Then
+        PlaySoundAt SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), RightFlipper
+        RightFlipper.RotateToEnd
+        RightFlipperOn = 1
+    Else
+        PlaySoundAt SoundFXDOF("fx_flipperdown", 102, DOFOff, DOFFlippers), RightFlipper
+        RightFlipper.RotateToStart
+        RightFlipperOn = 0
+    End If
+End Sub
+
+Sub LeftFlipper_Animate:LeftFlipperTop.RotZ = LeftFlipper.CurrentAngle: End Sub
+Sub RightFlipper_Animate: RightFlipperTop.RotZ = RightFlipper.CurrentAngle: End Sub
+
+Sub LeftFlipper_Collide(parm)
+    PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub RightFlipper_Collide(parm)
+    PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+End Sub
+
+'*********************************************************
+' Real Time Flipper adjustments - by JLouLouLou & JPSalas
+'        (to enable flipper tricks)
+'*********************************************************
+
+Dim FlipperPower
+Dim FlipperElasticity
+Dim SOSTorque, SOSAngle
+Dim FullStrokeEOS_Torque, LiveStrokeEOS_Torque
+Dim LeftFlipperOn
+Dim RightFlipperOn
+
+Dim LLiveCatchTimer
+Dim RLiveCatchTimer
+Dim LiveCatchSensivity
+
+FlipperPower = 3600
+FlipperElasticity = 0.6
+FullStrokeEOS_Torque = 0.6 ' EOS Torque when flipper hold up ( EOS Coil is fully charged. Ampere increase due to flipper can't move or when it pushed back when "On". EOS Coil have more power )
+LiveStrokeEOS_Torque = 0.3 ' EOS Torque when flipper rotate to end ( When flipper move, EOS coil have less Ampere due to flipper can freely move. EOS Coil have less power )
+
+LeftFlipper.EOSTorqueAngle = 10
+RightFlipper.EOSTorqueAngle = 10
+
+SOSTorque = 0.2
+SOSAngle = 6
+
+LiveCatchSensivity = 10
+
+LLiveCatchTimer = 0
+RLiveCatchTimer = 0
+
+LeftFlipper.TimerInterval = 1
+LeftFlipper.TimerEnabled = 1
+
+Sub LeftFlipper_Timer 'flipper's tricks timer
+'Start Of Stroke Flipper Stroke Routine : Start of Stroke for Tap pass and Tap shoot
+    If LeftFlipper.CurrentAngle >= LeftFlipper.StartAngle - SOSAngle Then LeftFlipper.Strength = FlipperPower * SOSTorque else LeftFlipper.Strength = FlipperPower : End If
+
+'End Of Stroke Routine : Livecatch and Emply/Full-Charged EOS
+  If LeftFlipperOn = 1 Then
+    If LeftFlipper.CurrentAngle = LeftFlipper.EndAngle then
+      LeftFlipper.EOSTorque = FullStrokeEOS_Torque
+      LLiveCatchTimer = LLiveCatchTimer + 1
+      If LLiveCatchTimer < LiveCatchSensivity Then
+        LeftFlipper.Elasticity = 0
+      Else
+        LeftFlipper.Elasticity = FlipperElasticity
+        LLiveCatchTimer = LiveCatchSensivity
+      End If
+    End If
+  Else
+    LeftFlipper.Elasticity = FlipperElasticity
+    LeftFlipper.EOSTorque = LiveStrokeEOS_Torque
+    LLiveCatchTimer = 0
+  End If
+
+
+'Start Of Stroke Flipper Stroke Routine : Start of Stroke for Tap pass and Tap shoot
+    If RightFlipper.CurrentAngle <= RightFlipper.StartAngle + SOSAngle Then RightFlipper.Strength = FlipperPower * SOSTorque else RightFlipper.Strength = FlipperPower : End If
+
+'End Of Stroke Routine : Livecatch and Emply/Full-Charged EOS
+  If RightFlipperOn = 1 Then
+    If RightFlipper.CurrentAngle = RightFlipper.EndAngle Then
+      RightFlipper.EOSTorque = FullStrokeEOS_Torque
+      RLiveCatchTimer = RLiveCatchTimer + 1
+      If RLiveCatchTimer < LiveCatchSensivity Then
+        RightFlipper.Elasticity = 0
+      Else
+        RightFlipper.Elasticity = FlipperElasticity
+        RLiveCatchTimer = LiveCatchSensivity
+      End If
+    End If
+  Else
+    RightFlipper.Elasticity = FlipperElasticity
+    RightFlipper.EOSTorque = LiveStrokeEOS_Torque
+    RLiveCatchTimer = 0
+  End If
+End Sub
+
+'*******************
+' Luces GI
+'*******************
+
+Sub GiOn 'enciende las luces GI
+    Dim bulb
+    PlaySound "fx_GiOn"
+    For each bulb in aGiLights
+        bulb.State = 1
+        DOF 255, DOFOn
+    Next
+    If B2SOn Then Controller.B2SSetData 60, 1
+End Sub
+
+Sub GiOff 'apaga las luces GI
+    Dim bulb
+    PlaySound "fx_GiOff"
+    For each bulb in aGiLights
+        bulb.State = 0
+        DOF 255, DOFOff
+    Next
+    If B2SOn Then Controller.B2SSetData 60, 0
+End Sub
+
+'**************
+' TILT - Falta
+'**************
+
+'el "timer" TiltDecreaseTimer resta .01 de la variable "Tilt" cada ronda
+
+Sub CheckTilt                     'esta rutina se llama cada vez que das un golpe a la mesa
+    Tilt = Tilt + TiltSensitivity 'añade un valor al contador "Tilt"
+    TiltDecreaseTimer.Enabled = True
+    If Tilt > 15 Then             'Si la variable "Tilt" es más de 15 entonces haz falta
+        PLaySound "tilt"
+        Tilted = True
+        TiltReel.SetValue 1 'muestra Tilt en la pantalla
+        If B2SOn then
+            Controller.B2SSetTilt 1
+        end if
+        DisableTable True
+        TiltRecoveryTimer.Enabled = True 'empieza una pausa a fin de que todas las bolas se cuelen
+    End If
+End Sub
+
+Sub TiltDecreaseTimer_Timer
+    ' DecreaseTilt
+    If Tilt > 0 Then
+        Tilt = Tilt - 0.1
+    Else
+        TiltDecreaseTimer.Enabled = False
+    End If
+End Sub
+
+Sub DisableTable(Enabled)
+    If Enabled Then
+        'Apaga todas las luces Gi de la mesa
+        GiOff
+
+        'Disable slings, bumpers etc
+        LeftFlipper.RotateToStart
+        RightFlipper.RotateToStart
+        DOF 101, DOFOff
+        DOF 102, DOFOff
+        Bumper1.Threshold = 100
+        Bumper2.Threshold = 100
+    Else
+        'enciende de nuevo todas las luces GI
+        GiOn
+        Bumper1.Threshold = 1
+        Bumper2.Threshold = 1
+    End If
+End Sub
+
+Sub TiltRecoveryTimer_Timer()
+    ' si todas las bolas se han colado, entonces ..
+    If(BallsOnPlayfield = 0)Then
+        '... haz el fin de bola normal
+        EndOfBall()
+        TiltRecoveryTimer.Enabled = False
+    End If
+' de lo contrario la rutina mirará si todavía hay bolas en la mesa
+End Sub
+
+'***************************************************************
+'             Supporting Ball & Sound Functions v4.0
+'  includes random pitch in PlaySoundAt and PlaySoundAtBall
+'***************************************************************
+
+Dim TableWidth, TableHeight
+
+TableWidth = Table1.width
+TableHeight = Table1.height
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+    Vol = Csng(BallVel(ball) ^2 / 2000)
+End Function
+
+Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = ball.x * 2 / TableWidth-1
+    If tmp > 0 Then
+        Pan = Csng(tmp ^10)
+    Else
+        Pan = Csng(-((- tmp) ^10))
+    End If
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+    Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+    BallVel = (SQR((ball.VelX ^2) + (ball.VelY ^2)))
+End Function
+
+Function AudioFade(ball) 'only on VPX 10.4 and newer
+    Dim tmp
+    tmp = ball.y * 2 / TableHeight-1
+    If tmp > 0 Then
+        AudioFade = Csng(tmp ^10)
+    Else
+        AudioFade = Csng(-((- tmp) ^10))
+    End If
+End Function
+
+Sub PlaySoundAt(soundname, tableobj) 'play sound at X and Y position of an object, mostly bumpers, flippers and other fast objects
+    PlaySound soundname, 0, 1, Pan(tableobj), 0.2, 0, 0, 0, AudioFade(tableobj)
+End Sub
+
+Sub PlaySoundAtBall(soundname) ' play a sound at the ball position, like rubbers, targets, metals, plastics
+    PlaySound soundname, 0, Vol(ActiveBall), pan(ActiveBall), 0.2, Pitch(ActiveBall) * 10, 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Function RndNbr(n) 'returns a random number between 1 and n
+    Randomize timer
+    RndNbr = Int((n * Rnd) + 1)
+End Function
+
+'***********************************************
+'   JP's VP10 Rolling Sounds + Ballshadow v4.0
+'   uses a collection of shadows, aBallShadow
+'***********************************************
+
+Const tnob = 19   'total number of balls
+Const lob = 0     'number of locked balls
+Const maxvel = 26 'max ball velocity
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingUpdate()
+    Dim BOT, b, ballpitch, ballvol, speedfactorx, speedfactory
+    BOT = GetBalls
+
+    ' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound("fx_ballrolling" & b)
+        aBallShadow(b).Y = 3000
+    Next
+
+    ' exit the sub if no balls on the table
+    If UBound(BOT) = lob - 1 Then Exit Sub 'there no extra balls on this table
+
+    ' play the rolling sound for each ball and draw the shadow
+    For b = lob to UBound(BOT)
+        aBallShadow(b).X = BOT(b).X
+        aBallShadow(b).Y = BOT(b).Y
+        aBallShadow(b).Height = BOT(b).Z - Ballsize / 2
+
+        If BallVel(BOT(b)) > 1 Then
+            If BOT(b).z < 30 Then
+                ballpitch = Pitch(BOT(b))
+                ballvol = Vol(BOT(b))
+            Else
+                ballpitch = Pitch(BOT(b)) + 50000 'increase the pitch on a ramp
+                ballvol = Vol(BOT(b)) * 5
+            End If
+            rolling(b) = True
+            PlaySound("fx_ballrolling" & b), -1, ballvol, Pan(BOT(b)), 0, ballpitch, 1, 0, AudioFade(BOT(b))
+        Else
+            If rolling(b) = True Then
+                StopSound("fx_ballrolling" & b)
+                rolling(b) = False
+            End If
+        End If
+
+        ' rothbauerw's Dropping Sounds
+        If BOT(b).VelZ < -1 and BOT(b).z < 55 and BOT(b).z > 27 Then 'height adjust for ball drop sounds
+            PlaySound "fx_balldrop", 0, ABS(BOT(b).velz) / 17, Pan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+        End If
+
+        ' jps ball speed & spin control
+            BOT(b).AngMomZ = BOT(b).AngMomZ * 0.95
+        If BOT(b).VelX AND BOT(b).VelY <> 0 Then
+            speedfactorx = ABS(maxvel / BOT(b).VelX)
+            speedfactory = ABS(maxvel / BOT(b).VelY)
+            If speedfactorx < 1 Then
+                BOT(b).VelX = BOT(b).VelX * speedfactorx
+                BOT(b).VelY = BOT(b).VelY * speedfactorx
+            End If
+            If speedfactory < 1 Then
+                BOT(b).VelX = BOT(b).VelX * speedfactory
+                BOT(b).VelY = BOT(b).VelY * speedfactory
+            End If
+        End If
+    Next
+End Sub
+
+'*****************************
+' Sonido de las bolas chocando
+'*****************************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+    PlaySound "fx_collide", 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+'***************************************
+' Sonidos de las colecciones de objetos
+' como metales, gomas, plásticos, etc
+'***************************************
+
+Sub aMetals_Hit(idx):PlaySoundAtBall "fx_MetalHit":End Sub
+Sub aMetalWires_Hit(idx):PlaySoundAtBall "fx_MetalWire":End Sub
+Sub aRubber_Bands_Hit(idx):PlaySoundAtBall "fx_rubber_band":End Sub
+Sub aRubber_LongBands_Hit(idx):PlaySoundAtBall "fx_rubber_longband":End Sub
+Sub aRubber_Posts_Hit(idx):PlaySoundAtBall "fx_rubber_post":End Sub
+Sub aRubber_Pins_Hit(idx):PlaySoundAtBall "fx_rubber_pin":End Sub
+Sub aRubber_Pegs_Hit(idx):PlaySoundAtBall "fx_rubber_peg":End Sub
+Sub aPlastics_Hit(idx):PlaySoundAtBall "fx_PlasticHit":End Sub
+Sub aGates_Hit(idx):PlaySoundAtBall "fx_Gate":End Sub
+Sub aWoods_Hit(idx):PlaySoundAtBall "fx_Woodhit":End Sub
+
+'************************************************************************************************************************
+' Solo para VPX 10.2 y posteriores.
+' FlashForMs hará parpadear una luz o un flash por unos milisegundos "TotalPeriod" cada tantos milisegundos "BlinkPeriod"
+' Cuando el "TotalPeriod" haya terminado, la luz o el flasher se pondrá en el estado especificado por el valor "FinalState"
+' El valor de "FinalState" puede ser: 0=apagado, 1=encendido, 2=regreso al estado anterior
+'************************************************************************************************************************
+
+Sub FlashForMs(MyLight, TotalPeriod, BlinkPeriod, FinalState)
+
+    If TypeName(MyLight) = "Light" Then ' la luz es del tipo "light"
+
+        If FinalState = 2 Then
+            FinalState = MyLight.State  'guarda el estado actual de la luz
+        End If
+        MyLight.BlinkInterval = BlinkPeriod
+        MyLight.Duration 2, TotalPeriod, FinalState
+    ElseIf TypeName(MyLight) = "Flasher" Then ' la luz es del tipo "flash"
+        Dim steps
+        ' Store all blink information
+        steps = Int(TotalPeriod / BlinkPeriod + .5) 'número de encendidos y apagados que hay que ejecutar
+        If FinalState = 2 Then                      'guarda el estado actual del flash
+            FinalState = ABS(MyLight.Visible)
+        End If
+        MyLight.UserValue = steps * 10 + FinalState 'guarda el número de parpadeos
+
+        ' empieza los parpadeos y crea la rutina que se va a ejecutar como un timer que se va a ejecutar los parpadeos
+        MyLight.TimerInterval = BlinkPeriod
+        MyLight.TimerEnabled = 0
+        MyLight.TimerEnabled = 1
+        ExecuteGlobal "Sub " & MyLight.Name & "_Timer:" & "Dim tmp, steps, fstate:tmp=me.UserValue:fstate = tmp MOD 10:steps= tmp\10 -1:Me.Visible = steps MOD 2:me.UserValue = steps *10 + fstate:If Steps = 0 then Me.Visible = fstate:Me.TimerEnabled=0:End if:End Sub"
+    End If
+End Sub
+
+'****************************************
+' Inicializa la mesa para un juego nuevo
+'****************************************
+
+Sub ResetForNewGame()
+    'debug.print "ResetForNewGame"
+    Dim i
+
+    bGameInPLay = True
+    bBallSaverActive = False
+
+    'pone a cero los marcadores y apaga las luces de espera.
+    StopAttractMode
+    If B2SOn then
+        Controller.B2SSetGameOver 0
+    end if
+    ' enciende las luces GI si estuvieran apagadas
+    GiOn
+
+    MatchWheel.Enabled = true
+
+    CurrentPlayer = 1
+    PlayersPlayingGame = 1
+    bOnTheFirstBall = True
+    For i = 1 To MaxPlayers
+        Score(i) = 0
+        ExtraBallsAwards(i) = 0
+        Special1Awarded(i) = False
+        Special2Awarded(i) = False
+        Special3Awarded(i) = False
+        BallsRemaining(i) = BallsPerGame
+    Next
+    Bonus = 0
+    BonusMultiplier = 1
+    UpdateBallInPlay
+
+    Clear_Match
+
+    ' inicializa otras variables
+    Tilt = 0
+
+    ' inicializa las variables del juego
+    Game_Init()
+
+    ' ahora puedes empezar una música si quieres
+    ' empieza la rutina "Firstball" despues de una pequeña pausa
+    vpmtimer.addtimer 2000, "FirstBall '"
+End Sub
+
+' esta pausa es para que la mesa tenga tiempo de poner los marcadores a cero y actualizar las luces
+
+Sub FirstBall
+    'debug.print "FirstBall"
+    ' ajusta la mesa para una bola nueva, sube las dianas abatibles, etc
+    ResetForNewPlayerBall()
+    ' crea una bola nueva en la zona del plunger
+    CreateNewBall()
+End Sub
+
+' (Re-)inicializa la mesa para una bola nueva, tanto si has perdido la bola, oe le toca el turno al otro jugador
+
+Sub ResetForNewPlayerBall()
+    'debug.print "ResetForNewPlayerBall"
+    ' Se asegura que los marcadores están activados para el jugador de turno
+    AddScore 0
+
+    ' ajusta el multiplicador del bonus multiplier a 1X (si hubiese multiplicador en la mesa)
+
+    ' enciende las luces, reinicializa las variables del juego, etc
+    bExtraBallWonThisBall = False
+    ResetNewBallLights
+    ResetNewBallVariables
+End Sub
+
+' Crea una bola nueva en la mesa
+
+Sub CreateNewBall()
+    ' crea una bola nueva basada en el tamaño y la masa de la bola especificados al principio del script
+    BallRelease.CreateSizedBallWithMass BallSize / 2, BallMass
+
+    ' incrementa el número de bolas en el tablero, ya que hay que contarlas
+    BallsOnPlayfield = BallsOnPlayfield + 1
+
+    ' actualiza las luces del backdrop
+    UpdateBallInPlay
+
+    ' y expulsa la bola
+    PlaySoundAt SoundFXDOF("fx_Ballrel", 104, DOFPulse, DOFContactors), BallRelease
+    BallRelease.Kick 90, 4
+End Sub
+
+' El jugador ha perdido su bola, y ya no hay más bolas en juego
+' Empieza a contar los bonos
+
+Sub EndOfBall()
+    'debug.print "EndOfBall"
+    Dim AwardPoints, ii
+    AwardPoints = 0
+    ' La primera se ha perdido. Desde aquí ya no se puede aceptar más jugadores
+    bOnTheFirstBall = False
+
+    ' solo recoge los bonos si no hay falta
+    ' el sistema del la falta se encargará de nuevas bolas o del fin de la partida
+
+    If NOT Tilted Then
+        BonusCountTimer.Interval = 200
+        CreditLight.State = 2 'taito tables
+        BonusCountTimer.Enabled = 1
+    Else                      'Si hay falta simplemente espera un momento y va directo a la segunta parte después de perder la bola
+        vpmtimer.addtimer 400, "EndOfBall2 '"
+    End If
+End Sub
+
+Sub BonusCountTimer_Timer 'añade los bonos y actualiza las luces
+    'debug.print "BonusCount_Timer"
+    If Bonus > 0 Then
+        Bonus = Bonus -1
+If l001.State Then
+        AddScore 2000
+        PlaySound"RCA78-Bonus2"
+Else
+        AddScore 1000
+        PlaySound"RCA78-Bonus"
+End If
+        UpdateBonusLights
+    Else
+        ' termina la cuenta de los bonos y continúa con el fin de bola
+        CreditLight.State = 0 'Taito tables
+        BonusCountTimer.Enabled = 0
+        PlaySound"RCA-End"
+        vpmtimer.addtimer 1000, "EndOfBall2 '"
+    End If
+End Sub
+
+' La cuenta de los bonos ha terminado. Mira si el jugador ha ganado bolas extras
+' y si no mira si es el último jugador o la última bola
+'
+Sub EndOfBall2()
+    'debug.print "EndOfBall2"
+    ' si hubiese falta, quítala, y pon la cuenta a cero de la falta para el próximo jugador, ó bola
+
+    Tilted = False
+    Tilt = 0
+    TiltReel.SetValue 0
+    If B2SOn then
+        Controller.B2SSetTilt 0
+    end if
+    DisableTable False 'activa de nuevo los bumpers y los slingshots
+
+    ' ¿ha ganado el jugador una bola extra?
+    If(ExtraBallsAwards(CurrentPlayer) > 0)Then
+        'debug.print "Extra Ball"
+
+        ' sí? entonces se la das al jugador
+        ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer)- 1
+
+        ' si no hay más bolas apaga la luz de jugar de nuevo
+        If(ExtraBallsAwards(CurrentPlayer) = 0)Then
+            LightShootAgain.State = 0
+            If B2SOn then
+                Controller.B2SSetShootAgain 0
+            end if
+        End If
+
+' aquí se podría poner algún sonido de bola extra o alguna luz que parpadee
+
+' En esta mesa hacemos la bola extra igual como si fuese la siguente bola, haciendo un reset de las variables y dianas
+        ResetForNewPlayerBall()
+
+        ' creamos una bola nueva en el pasillo de disparo
+        CreateNewBall()
+    Else ' no hay bolas extras
+
+        BallsRemaining(CurrentPlayer) = BallsRemaining(CurrentPlayer)- 1
+
+        ' ¿Es ésta la última bola?
+        If(BallsRemaining(CurrentPlayer) <= 0)Then
+
+            ' miramos si la puntuación clasifica como el Highscore
+            CheckHighScore()
+        End If
+
+        ' ésta no es la última bola para éste jugador
+        ' y si hay más de un jugador continúa con el siguente
+        EndOfBallComplete()
+    End If
+End Sub
+
+' Esta rutina se llama al final de la cuenta del bonus
+' y pasa a la siguente bola o al siguente jugador
+'
+Sub EndOfBallComplete()
+    'debug.print "EndOfBallComplete"
+    Dim NextPlayer
+
+    'debug.print "EndOfBall - Complete"
+
+    ' ¿hay otros jugadores?
+    If(PlayersPlayingGame > 1)Then
+        ' entonces pasa al siguente jugador
+        NextPlayer = CurrentPlayer + 1
+        ' ¿vamos a pasar del último jugador al primero?
+        ' (por ejemplo del jugador 4 al no. 1)
+        If(NextPlayer > PlayersPlayingGame)Then
+            NextPlayer = 1
+        End If
+    Else
+        NextPlayer = CurrentPlayer
+    End If
+
+    'debug.print "Next Player = " & NextPlayer
+
+    ' ¿Hemos llegado al final del juego? (todas las bolas se han jugado de todos los jugadores)
+    If((BallsRemaining(CurrentPlayer) <= 0)AND(BallsRemaining(NextPlayer) <= 0))Then
+
+        ' aquí se empieza la lotería, normalmente cuando se juega con monedas
+        If bFreePlay = False Then
+            Verification_Match
+        End If
+
+        ' ahora se pone la mesa en el modo de final de juego
+        EndOfGame()
+    Else
+        ' pasamos al siguente jugador
+        CurrentPlayer = NextPlayer
+
+        ' nos aseguramos de que el backdrop muestra el jugador actual
+        AddScore 0
+
+        ' hacemos un reset del la mesa para el siguente jugador (ó bola)
+        ResetForNewPlayerBall()
+
+        ' y sacamos una bola
+        CreateNewBall()
+    End If
+End Sub
+
+' Esta función se llama al final del juego
+
+Sub EndOfGame()
+    'debug.print "EndOfGame"
+    bGameInPLay = False
+    bJustStarted = False
+    If B2SOn then
+        Controller.B2SSetGameOver 1
+        Controller.B2SSetBallInPlay 0
+        Controller.B2SSetPlayerUp 0
+        Controller.B2SSetCanPlay 0
+    end if
+    ' asegúrate de que los flippers están en modo de reposo
+    SolLFlipper 0
+    SolRFlipper 0
+
+    ' pon las luces en el modo de fin de juego
+    StartAttractMode
+End Sub
+
+' Esta función calcula el no de bolas que quedan
+Function Balls
+    Dim tmp
+    tmp = BallsPerGame - BallsRemaining(CurrentPlayer) + 1
+    If tmp > BallsPerGame Then
+        Balls = BallsPerGame
+    Else
+        Balls = tmp
+    End If
+End Function
+
+' Esta función calcula el Highscore y te da una partida gratis si has conseguido el Highscore
+Sub CheckHighscore
+    For x = 1 to PlayersPlayingGame
+        If Score(x) > Highscore Then
+            Highscore = Score(x)
+            PlaySound SoundFXDOF("fx_knocker", 130, DOFPulse, DOFKnocker)
+            DOF 230, DOFPulse
+            DOF 125, DOFOn
+            'HighscoreReel.SetValue Highscore
+            AddCredits 1
+        End If
+    Next
+End Sub
+
+'******************
+'  Match - Loteria
+'******************
+
+Dim MatchCounter
+MatchCounter = 0
+
+sub MatchWheel_timer
+    MatchCounter = (MatchCounter + 1)MOD 10
+
+    If B2SOn then
+        If MatchCounter = 0 Then
+            Controller.B2SSetMatch 100
+        Else
+            Controller.B2SSetMatch MatchCounter * 10
+        End If
+    end if
+
+    For each x in aMatchLights
+        x.state = 0
+    next
+    aMatchLights(MatchCounter).state = 1
+End Sub
+
+Sub Verification_Match()
+    MatchWheel.Enabled = False
+    'PlaySound "fx_match"
+    Match = MatchCounter * 10
+    debug.print match
+    If(Score(CurrentPlayer)MOD 100) = Match Then
+        PlaySound SoundFXDOF("fx_knocker", 130, DOFPulse, DOFKnocker)
+        DOF 230, DOFPulse
+        DOF 125, DOFOn
+        AddCredits 1
+    End If
+End Sub
+
+Sub Clear_Match()
+    For each x in aMatchLights
+        x.State = 0
+    Next
+    If B2SOn then
+        Controller.B2SSetMatch 0
+    end if
+End Sub
+
+' *********************************************************************
+'                      Drain / Plunger Functions
+' *********************************************************************
+
+' has perdido la bola ;-( mira cuantas bolas hay en el tablero.
+' si solamente hay una entonces reduce el número de bola y mira si es la última para finalizar el juego
+' si hay más de una, significa que hay multiball, entonces continua con la partida
+'
+Sub Drain_Hit()
+    ' destruye la bola
+    Drain.DestroyBall
+
+    BallsOnPlayfield = BallsOnPlayfield - 1
+
+    ' haz sonar el ruido de la bola
+    PlaySoundAt "fx_drain", Drain
+    DOF 256, DOFPulse
+
+    'si hay falta el systema de tilt se encargará de continuar con la siguente bola/jugador
+    If Tilted Then
+        Exit Sub
+    End If
+
+    ' si estás jugando y no hay falta
+    If(bGameInPLay = True)AND(Tilted = False)Then
+
+        ' ¿está el salva bolas activado?
+        If(bBallSaverActive = True)Then
+
+            ' ¿sí?, pues creamos una bola
+            CreateNewBall()
+        Else
+            ' ¿es ésta la última bola en juego?
+            If(BallsOnPlayfield = 0)Then
+                vpmtimer.addtimer 500, "EndOfBall '" 'hacemos una pequeña pausa anter de continuar con el fin de bola
+                Exit Sub
+            End If
+        End If
+    End If
+End Sub
+
+Sub swPlungerRest_Hit()
+    bBallInPlungerLane = True
+End Sub
+
+' La bola ha sido disparada, así que cambiamos la variable, que en esta mesa se usa solo para que el sonido del disparador cambie según hay allí una bola o no
+' En otras mesas podrá usarse para poner en marcha un contador para salvar la bola
+
+Sub swPlungerRest_UnHit()
+    bBallInPlungerLane = False
+End Sub
+
+' *********************************************************************
+'               Funciones para la cuenta de los puntos
+' *********************************************************************
+
+' Añade puntos al jugador, hace sonar las campanas y actualiza el backdrop
+
+Sub AddScore(Points)
+    If Tilted Then Exit Sub
+
+    ' añade los puntos a la variable del actual jugador
+    Score(CurrentPlayer) = Score(CurrentPlayer) + points
+    ' actualiza los contadores
+    UpdateScore points
+
+    ' ' aquí se puede hacer un chequeo si el jugador ha ganado alguna puntuación alta y darle un crédito ó bola extra
+    If Score(CurrentPlayer) >= Special1 AND Special1Awarded(CurrentPlayer) = False Then
+        AwardSpecial
+        PlaySound "RCA-Special"
+        Special1Awarded(CurrentPlayer) = True
+    End If
+End Sub
+
+'*******************
+'     BONOS
+'*******************
+
+Sub AddBonus(bonuspoints)
+    If(Tilted = False)Then
+        ' añade los bonos al jugador actual
+        Bonus = Bonus + bonuspoints
+        If Bonus > 20 Then
+            Bonus = 20
+        End If
+        ' actualiza las luces
+        UpdateBonusLights
+    End if
+End Sub
+
+Sub UpdateBonusLights 'enciende o apaga las luces de los bonos según la variable "Bonus"
+    Select Case Bonus
+        Case 0:li1.State = 0:li2.State = 0:li3.State = 0:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 1:li1.State = 1:li2.State = 0:li3.State = 0:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 2:li1.State = 1:li2.State = 1:li3.State = 0:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 3:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 4:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 5:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 6:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 7:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 8:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 9:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 1:li10.State = 0:lifull.State = 0
+        Case 10:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 1:li10.State = 1:lifull.State = 0
+        Case 11:li1.State = 1:li2.State = 0:li3.State = 0:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 12:li1.State = 1:li2.State = 1:li3.State = 0:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 13:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 0:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 14:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 0:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 15:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 0:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 16:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 0:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 17:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 0:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 18:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 0:li10.State = 0:lifull.State = 0
+        Case 19:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 1:li10.State = 0:lifull.State = 0
+        Case 20:li1.State = 1:li2.State = 1:li3.State = 1:li4.State = 1:li5.State = 1:li6.State = 1:li7.State = 1:li8.State = 1:li9.State = 1:li10.State = 1:lifull.State = 1
+    End Select
+End Sub
+
+'***********************************************************************************
+'        Score reels - puntuaciones - y actualiza otras luces del backdrop
+'***********************************************************************************
+'esta es al rutina que actualiza la puntuación del jugador
+
+Sub UpdateScore(playerpoints)
+    Select Case CurrentPlayer
+        Case 1:ScoreReel1.Addvalue playerpoints
+        Case 2:ScoreReel2.Addvalue playerpoints
+        Case 3:ScoreReel3.Addvalue playerpoints
+        Case 4:ScoreReel4.Addvalue playerpoints
+    End Select
+    If B2SOn then
+        Controller.B2SSetScorePlayer CurrentPlayer, Score(CurrentPlayer)
+        If Score(CurrentPlayer) >= 100000 then
+            Controller.B2SSetScoreRollover 24 + CurrentPlayer, 1
+        end if
+    end if
+End Sub
+
+' pone todos los marcadores a 0
+Sub ResetScores
+    ScoreReel1.ResetToZero
+    ScoreReel2.ResetToZero
+    ScoreReel3.ResetToZero
+    ScoreReel4.ResetToZero
+    If B2SOn then
+        Controller.B2SSetScorePlayer1 0
+        Controller.B2SSetScorePlayer2 0
+        Controller.B2SSetScorePlayer3 0
+        Controller.B2SSetScorePlayer4 0
+        Controller.B2SSetScoreRolloverPlayer1 0
+        Controller.B2SSetScoreRolloverPlayer2 0
+        Controller.B2SSetScoreRolloverPlayer3 0
+        Controller.B2SSetScoreRolloverPlayer4 0
+    end if
+End Sub
+
+Sub AddCredits(value)
+    If Credits < 9 Then
+        Credits = Credits + value
+        CreditReel.SetValue Credits
+        UpdateCredits
+    end if
+End Sub
+
+Sub UpdateCredits
+    If Credits > 0 Then 'this is for Bally tables
+        'CreditLight.State = 1
+        DOF 125, DOFOn
+    Else
+        DOF 125, DOFOff
+    'CreditLight.State = 0
+    End If
+    CreditReel.SetValue credits
+    If B2SOn then
+        If Credits = 0 then
+            Controller.B2SSetData 29, 10
+        Else
+            Controller.B2SSetData 29, Credits
+        End If
+    End If
+End Sub
+
+Sub UpdateBallInPlay 'actualiza los marcadores de las bolas, el número de jugador y el número total de jugadores
+    Select Case Balls
+        Case 1:bip1.State = 1:bip2.State = 0:bip3.State = 0:bip4.State = 0:bip5.State = 0
+        Case 2:bip1.State = 0:bip2.State = 1:bip3.State = 0:bip4.State = 0:bip5.State = 0
+        Case 3:bip1.State = 0:bip2.State = 0:bip3.State = 1:bip4.State = 0:bip5.State = 0
+        Case 4:bip1.State = 0:bip2.State = 0:bip3.State = 0:bip4.State = 1:bip5.State = 0
+        Case 5:bip1.State = 0:bip2.State = 0:bip3.State = 0:bip4.State = 0:bip5.State = 1
+    End Select
+    If B2SOn then
+        Controller.B2SSetBallInPlay Balls
+    end if
+    Select Case CurrentPlayer
+        Case 1:pl1.State = 1:pl2.State = 0:pl3.State = 0:pl4.State = 0
+        Case 2:pl1.State = 0:pl2.State = 1:pl3.State = 0:pl4.State = 0
+        Case 3:pl1.State = 0:pl2.State = 0:pl3.State = 1:pl4.State = 0
+        Case 4:pl1.State = 0:pl2.State = 0:pl3.State = 0:pl4.State = 1
+    End Select
+    If B2SOn then
+        Controller.B2SSetPlayerUp CurrentPlayer
+    end if
+    Select Case PlayersPlayingGame
+        Case 1:cp1.State = 1:cp2.State = 0:cp3.State = 0:cp4.State = 0
+        Case 2:cp1.State = 0:cp2.State = 1:cp3.State = 0:cp4.State = 0
+        Case 3:cp1.State = 0:cp2.State = 0:cp3.State = 1:cp4.State = 0
+        Case 4:cp1.State = 0:cp2.State = 0:cp3.State = 0:cp4.State = 1
+    End Select
+    If B2SOn then
+        Controller.B2SSetCanPlay PlayersPlayingGame
+        Controller.B2SSetCanPlay PlayersPlayingGame
+    end if
+End Sub
+
+'*************************
+' Partidas y bolas extras
+'*************************
+
+Sub AwardExtraBall()
+    If NOT bExtraBallWonThisBall Then
+        PlaySound SoundFXDOF("fx_knocker", 130, DOFPulse, DOFKnocker)
+        DOF 230, DOFPulse
+        DOF 125, DOFOn
+        ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
+        bExtraBallWonThisBall = True
+        LightShootAgain.State = 1
+        If B2SOn then
+            Controller.B2SSetShootAgain 1
+        end if
+    END If
+End Sub
+
+Sub AwardSpecial()
+    PlaySound SoundFXDOF("fx_knocker", 130, DOFPulse, DOFKnocker)
+    DOF 230, DOFPulse
+    DOF 125, DOFOn
+    AddCredits 1
+End Sub
+
+' ********************************
+'        Attract Mode
+' ********************************
+' las luces simplemente parpadean de acuerdo a los valores que hemos puesto en el "Blink Pattern" de cada luz
+
+Sub StartAttractMode()
+    bAttractMode = True
+    For each x in aLights
+        x.State = 2
+    Next
+
+    ' enciente la luz de fin de partida
+    GameOverR.SetValue 1
+    ' empieza un timer
+    AttractTimer.Enabled = 1
+End Sub
+
+Sub StopAttractMode()
+    bAttractMode = False
+    ResetScores
+    For each x in aLights
+        x.State = 0
+    Next
+
+    ' apaga la luz de fin de partida
+    GameOverR.SetValue 0
+    ' apaga timer
+    AttractTimer.Enabled = 0
+End Sub
+
+Dim AttractStep
+AttractStep = 0
+
+Sub AttractTimer_Timer
+    Select Case AttractStep
+        Case 0
+            AttractStep = 1
+            ScoreReel1.SetValue Score(1)
+            ScoreReel2.SetValue Score(2)
+            ScoreReel3.SetValue Score(3)
+            ScoreReel4.SetValue Score(4)
+            If B2SOn then
+                Controller.B2SSetScorePlayer1 Score(1)
+                Controller.B2SSetScorePlayer2 Score(2)
+                Controller.B2SSetScorePlayer3 Score(3)
+                Controller.B2SSetScorePlayer4 Score(4)
+            end if
+        Case 1
+            AttractStep = 0
+            ScoreReel1.SetValue Highscore
+            ScoreReel2.SetValue Highscore
+            ScoreReel3.SetValue Highscore
+            ScoreReel4.SetValue Highscore
+            If B2SOn then
+                Controller.B2SSetScorePlayer1 Highscore
+                Controller.B2SSetScorePlayer2 Highscore
+                Controller.B2SSetScorePlayer3 Highscore
+                Controller.B2SSetScorePlayer4 Highscore
+            end if
+    End Select
+End Sub
+
+'************************************************
+'    Load (cargar) / Save (guardar)/ Highscore
+'************************************************
+
+' solamente guardamos el número de créditos y la puntuación más alta
+
+Sub Loadhs
+    x = LoadValue(TableName, "HighScore")
+    If(x <> "")Then HighScore = CDbl(x)Else HighScore = 0 End If
+    x = LoadValue(TableName, "Credits")
+    If(x <> "")then Credits = CInt(x)Else Credits = 0 End If
+End Sub
+
+Sub Savehs
+    SaveValue TableName, "HighScore", HighScore
+    SaveValue TableName, "Credits", Credits
+End Sub
+
+' por si se necesitara quitar la actual puntuación más alta, se le puede poner a una tecla,
+' o simplemente abres la ventana de debug y escribes Reseths y le das al enter
+Sub Reseths
+    HighScore = 0
+    Savehs
+End Sub
+
+'****************************************
+' Actualizaciones en tiempo real
+'****************************************
+' se usa sobre todo para hacer animaciones o sonidos que cambian en tiempo real
+' como por ejemplo para sincronizar los flipers, puertas ó molinillos con primitivas
+
+Sub GameTimer_Timer
+    RollingUpdate 'actualiza el sonido de la bola rodando
+End Sub
+
+'***********************************************************************
+' *********************************************************************
+'            Aquí empieza el código particular a la mesa
+' (hasta ahora todas las rutinas han sido muy generales para todas las mesas)
+' (y hay muy pocas rutinas que necesitan cambiar de mesa a mesa)
+' *********************************************************************
+'***********************************************************************
+
+' se inicia las dianas abatibles, primitivas, etc.
+' aunque en el VPX no hay muchos objetos que necesitan ser iniciados
+
+Sub VPObjects_Init
+End Sub
+
+' variables de la mesa
+
+Sub Game_Init() 'esta rutina se llama al principio de un nuevo juego
+    Dim i
+
+    'Empezar alguna música, si hubiera música en esta mesa
+
+    'iniciar variables, en esta mesa hay muy pocas variables ya que usamos las luces, y el UserValue de las dianas
+
+    'iniciar algún timer
+
+    'Iniciar algunas luces, en esta mesa son las mismas luces que las de una bola nueva
+    TurnOffPlayfieldLights()
+End Sub
+
+Sub ResetNewBallVariables() 'inicia las variable para una bola ó jugador nuevo
+    ResetValue
+End Sub
+
+Sub ResetNewBallLights() 'enciende ó apaga las luces para una bola nueva
+    TurnOffPlayfieldLights()
+End Sub
+
+Sub TurnOffPlayfieldLights()
+    For each x in aLights
+        x.State = 0
+    Next
+End Sub
+
+' *********************************************************************
+'       Eventos de la mesa - choque de la bola contra dianas
+'
+' En cada diana u objeto con el que la bola choque habrá que hacer:
+' - sonar un sonido físico
+' - hacer algún movimiento, si es necesario
+' - añadir alguna puntuación
+' - encender/apagar una luz
+' - hacer algún chequeo para ver si el jugador ha completado algo
+' *********************************************************************
+
+'**************************
+'   Gomas de 10 puntos
+'**************************
+
+'*********
+' Bumpers
+'*********
+
+Sub Bumper1_Hit
+    If Tilted Then Exit Sub
+    PlaySoundAt SoundFXDOF("fx_Bumper", 105, DOFPulse, DOFContactors), bumper1
+    DOF 205, DOFPulse
+    If Epileptikdof = True Then DOF 201, DOFPulse End If
+    ' añade algunos puntos
+    AddScore 10
+    PlaySound "RCA78-3"
+End Sub
+
+Sub LitBumper1:LBumper1.State = 1:lBumper1a.State = 1:End Sub
+
+Sub Bumper2_Hit
+    If Tilted Then Exit Sub
+    PlaySoundAt SoundFXDOF("fx_Bumper", 107, DOFPulse, DOFContactors), bumper2
+    DOF 207, DOFPulse
+    If Epileptikdof = True Then DOF 201, DOFPulse End If
+    ' añade algunos puntos
+    AddScore 10
+    PlaySound "RCA78-2"
+End Sub
+
+Sub LitBumper2:LBumper2a.State = 1:lBumper2.State = 1:End Sub
+
+'******************************
+'     Pasillos inferiores
+'******************************
+
+Sub sw001_Hit
+    PlaySoundAt "fx_sensor", sw001
+    If Tilted Then Exit Sub
+    DOF 211, DOFPulse
+    AddScore 1000
+    AddBonus 1
+    Playsound "RCA78-4"
+    If l012.State Then
+        AwardSpecial
+        PlaySound "SinoSpecial"
+    End If
+End Sub
+
+Sub sw002_Hit
+    PlaySoundAt "fx_sensor", sw002
+    If Tilted Then Exit Sub
+    DOF 212, DOFPulse
+    AddScore 500
+    If l013.State then AddBonus 2:l013.State = 0:l001.State = 1
+    Playsound "RCA78-5"
+End Sub
+
+Sub sw003_Hit
+    PlaySoundAt "fx_sensor", sw003
+    If Tilted Then Exit Sub
+    DOF 213, DOFPulse
+    AddScore 500
+    AddBonus 1
+    AddValue 1, 1
+    Playsound "RCA78-6"
+End Sub
+
+Sub sw004_Hit
+    PlaySoundAt "fx_sensor", sw004
+    If Tilted Then Exit Sub
+    DOF 214, DOFPulse
+    AddScore 500
+    AddBonus 1
+    AddValue 3, 1
+    Playsound "RCA78-6"
+End Sub
+
+Sub sw005_Hit
+    PlaySoundAt "fx_sensor", sw005
+    If Tilted Then Exit Sub
+    DOF 215, DOFPulse
+    AddScore 500
+    Playsound "RCA78-5"
+    If l014.State then AddBonus 2:l014.State = 0:l001.State = 1
+End Sub
+
+Sub sw006_Hit
+    PlaySoundAt "fx_sensor", sw006
+    If Tilted Then Exit Sub
+    DOF 216, DOFPulse
+    AddScore 1000
+    Playsound "RCA78-4"
+    If l015.State Then
+        AwardSpecial
+        PlaySound "SinoSpecial"
+    End If
+End Sub
+
+'******************************
+'     Pasillos superiores
+'******************************
+
+Sub sw007_Hit
+    PlaySoundAt "fx_sensor", sw007
+    If Tilted Then Exit Sub
+    DOF 217, DOFPulse
+    AddScore 500
+    AddBonus 1
+    PlaySound "RCA78-LS"
+End Sub
+
+Sub sw008_Hit
+    PlaySoundAt "fx_sensor", sw008
+    If Tilted Then Exit Sub
+    DOF 218, DOFPulse
+    AddScore 500
+    AddBonus 1
+    PlaySound "RCA78-LS"
+End Sub
+
+Sub sw009_Hit
+    PlaySoundAt "fx_sensor", sw008
+    If Tilted Then Exit Sub
+    DOF 218, DOFPulse
+    If l022.State Then
+        PlaySound "RCABS-9"
+        Addscore 20000
+        l022.State = 0
+    Else
+        AddScore 500
+        AddBonus 1
+        PlaySound "RCABS-4"
+    End If
+End Sub
+
+'*********************
+' Estrellas centrales
+'*********************
+
+Sub Trigger010_Hit
+    PlaySoundAt "fx_sensor", Trigger010
+    If Tilted Then Exit Sub
+    l025.Duration 1, 800, 0
+    AddValue 1, 1
+    PlaySound "RCA78-7"
+End Sub
+
+Sub Trigger011_Hit
+    PlaySoundAt "fx_sensor", Trigger011
+    If Tilted Then Exit Sub
+    l026.Duration 1, 800, 0
+    AddValue 3, 1
+    PlaySound "RCA78-7"
+End Sub
+
+Sub Trigger012_Hit
+    PlaySoundAt "fx_sensor", Trigger012
+    If Tilted Then Exit Sub
+    l027.Duration 1, 800, 0
+    AddValue 2, 1
+    PlaySound "RCA78-5"
+End Sub
+
+'*************
+'  Spinners
+'*************
+
+Sub spinner1_Spin
+    PlaySoundAt "fx_spinner", spinner1
+    If Tilted Then Exit Sub
+    Addscore 100 + 900 * l020.State
+End Sub
+
+Sub spinner2_Spin
+    PlaySoundAt "fx_spinner", spinner2
+    If Tilted Then Exit Sub
+    Addscore 100 + 900 * l021.State
+End Sub
+
+Sub spinner3_Spin
+    PlaySoundAt "fx_spinner", spinner2
+    If Tilted Then Exit Sub
+    Addscore 100 + 900 * l024.State
+End Sub
+
+'******************************
+'         Targets
+'******************************
+
+Sub Target001_hit
+    PlaySoundAtBall SoundFXDOF("fx_target", 116, DOFPulse, DOFTargets)
+    If Tilted Then Exit Sub
+    DOF 231, DOFPulse
+    Addscore 500
+    PlaySound "RCA78-3"
+    If l018.State Then AddBonus 2: l018.State = 0:l001.State = 1
+End Sub
+
+Sub Target002_hit
+    PlaySoundAtBall SoundFXDOF("fx_target", 116, DOFPulse, DOFTargets)
+    If Tilted Then Exit Sub
+    DOF 232, DOFPulse
+    Addscore 500
+    AddValue 1, 1
+    Playsound "RCA78-2"
+    If l019.State Then Addscore 500:l019.State = 0
+End Sub
+
+Sub Target003_hit
+    PlaySoundAtBall SoundFXDOF("fx_target", 116, DOFPulse, DOFTargets)
+    If Tilted Then Exit Sub
+    DOF 233, DOFPulse
+    Addscore 500
+    AddValue 3, 1
+    PlaySound "RCA78-3"
+    If l017.State Then Addscore 500:l017.State= 0
+End Sub
+
+Sub Target004_hit
+    PlaySoundAtBall SoundFXDOF("fx_target", 116, DOFPulse, DOFTargets)
+    If Tilted Then Exit Sub
+    DOF 234, DOFPulse
+    Addscore 500
+    Playsound "RCA78-2"
+    If l016.State Then AddBonus 2: l016.State = 0:l001.State = 1
+End Sub
+
+'******************************
+'          Holes
+'******************************
+
+Sub kicker1_Hit
+    PlaySoundAt "fx_kicker_enter", kicker1
+    If Not Tilted Then
+        DOF 208, DOFPulse
+        Addscore 1000
+        ResetValue
+        AddBonus 1
+    End If
+    vpmtimer.addtimer 1500, "DOF 230,DOFPulse:DOF 108,DOFPulse:PlaySound""RCA-K"":PlaySoundAt SoundFX(""fx_kicker"",DOFContactors), kicker1: kicker1.kick 128,13 + RND(1) * 4 '"
+End Sub
+
+Sub kicker2_Hit 'center
+    PlaySoundAt "fx_kicker_enter", kicker2
+    If Not Tilted Then
+        DOF 210, DOFPulse
+        Addscore 1000
+        ResetValue
+        AddBonus 1
+    End If
+    vpmtimer.addtimer 1500, "DOF 230,DOFPulse:DOF 110,DOFPulse:PlaySound""RCA-K"":PlaySoundAt SoundFX(""fx_kicker"",DOFContactors), kicker2: kicker2.kick 130,13 + RND(1) * 4 '"
+End Sub
+
+Sub kicker3_Hit 'right
+    PlaySoundAt "fx_kicker_enter", kicker3
+    If Not Tilted Then
+        DOF 208, DOFPulse
+        Addscore 1000
+        ResetValue
+        AddBonus 1
+    End If
+    vpmtimer.addtimer 1500, "DOF 230,DOFPulse:DOF 108,DOFPulse:PlaySound""RCA-K"":PlaySoundAt SoundFX(""fx_kicker"",DOFContactors), kicker3: kicker3.kick 240,13 + RND(1) * 4 '"
+End Sub
+
+'****************************
+'    Value - 000 111 222 ...
+'****************************
+
+dim v1, v2, v3
+
+Sub ResetValue
+    v1 = 0
+    v2 = 0
+    v3 = 0
+    UpdateValue
+End Sub
+
+Sub UpdateValue
+    D1.ImageA = "d_" &v1
+    D2.ImageA = "d_" &v2
+    D3.ImageA = "d_" &v3
+End Sub
+
+Sub AddValue(d, v)
+    Select Case d
+        Case 1:v1 = (v1 + v)MOD 10
+        Case 2:v2 = (v2 + v)MOD 10
+        Case 3:v3 = (v3 + v)MOD 10
+    End Select
+    UpdateValue
+    CheckValue
+End Sub
+
+Sub CheckValue
+    If(V1 = V2)AND(V1 = V3)Then
+        Select Case V1
+            Case 1 'light side lanes
+                l013.State = 1
+                l014.State = 1
+                l019.State = 1
+                l017.State = 1
+                PlaySound "RCABS-1"
+            Case 2 'light lower and upper targets
+                l016.State = 1
+                l017.State = 1
+                l018.State = 1
+                l019.State = 1
+                PlaySound "RCABS-2"
+            Case 3 'light double bonus lights
+                l016.State = 1
+                l018.State = 1
+                l013.State = 1
+                l014.State = 1
+                PlaySound "RCABS-3"
+            Case 4 'light up the spinners
+                l020.State = 1
+                l021.State = 1
+                l024.State = 1
+                PlaySound "RCABS-4"
+            Case 5 'lights Special and upper targets
+                l012.State = 1
+                l015.State = 1
+                PlaySound "RCABS-5"
+            Case 6 'do nothing, bad luck :)
+            Case 7 'lights Special and upper targets
+                l012.State = 1
+                l015.State = 1
+                l019.State = 1
+                l017.State = 1
+                PlaySound "RCABS-7"
+            Case 8 'light up the spinners
+                l020.State = 1
+                l021.State = 1
+                l024.State = 1
+                l022.State = 1
+                PlaySound "RCABS-8"
+            Case 9 'lights Special and upper targets
+                l012.State = 1
+                l015.State = 1
+                l019.State = 1
+                l017.State = 1
+                PlaySound "RCABS-9"
+        End Select
+    End If
+End Sub
+
+'******************************
+'     DOF lights ball entrance
+'******************************
+Sub TriggerLaunch_Hit
+    If Tilted Then Exit Sub
+    DOF 260, DOFPulse
+End sub
+
+'*********************************
+' Table Options F12 User Options
+'*********************************
+' Table1.Option arguments are:
+' - option name, minimum value, maximum value, step between valid values, default value, unit (0=None, 1=Percent), an optional array of literal strings
+
+Dim LUTImage, BallsPerGame
+
+Sub Table1_OptionEvent(ByVal eventId)
+    Dim x, y
+
+    'LUT
+    LutImage = Table1.Option("Select LUT", 0, 21, 1, 0, 0, Array("Normal 0", "Normal 1", "Normal 2", "Normal 3", "Normal 4", "Normal 5", "Normal 6", "Normal 7", "Normal 8", "Normal 9", "Normal 10", _
+        "Warm 0", "Warm 1", "Warm 2", "Warm 3", "Warm 4", "Warm 5", "Warm 6", "Warm 7", "Warm 8", "Warm 9", "Warm 10") )
+    UpdateLUT
+
+    ' Cabinet rails
+    x = Table1.Option("Cabinet Rails", 0, 1, 1, 1, 0, Array("Hide", "Show") )
+    For each y in aRails:y.visible = x:next
+
+    ' Balls per Game
+    x = Table1.Option("Balls per Game", 0, 1, 1, 1, 0, Array("3 Balls", "5 Balls") )
+    If x = 1 Then BallsPerGame = 5 Else BallsPerGame = 3
+End Sub
+
+Sub UpdateLUT
+    Select Case LutImage
+        Case 0:table1.ColorGradeImage = "LUT0"
+        Case 1:table1.ColorGradeImage = "LUT1"
+        Case 2:table1.ColorGradeImage = "LUT2"
+        Case 3:table1.ColorGradeImage = "LUT3"
+        Case 4:table1.ColorGradeImage = "LUT4"
+        Case 5:table1.ColorGradeImage = "LUT5"
+        Case 6:table1.ColorGradeImage = "LUT6"
+        Case 7:table1.ColorGradeImage = "LUT7"
+        Case 8:table1.ColorGradeImage = "LUT8"
+        Case 9:table1.ColorGradeImage = "LUT9"
+        Case 10:table1.ColorGradeImage = "LUT10"
+        Case 11:table1.ColorGradeImage = "LUT Warm 0"
+        Case 12:table1.ColorGradeImage = "LUT Warm 1"
+        Case 13:table1.ColorGradeImage = "LUT Warm 2"
+        Case 14:table1.ColorGradeImage = "LUT Warm 3"
+        Case 15:table1.ColorGradeImage = "LUT Warm 4"
+        Case 16:table1.ColorGradeImage = "LUT Warm 5"
+        Case 17:table1.ColorGradeImage = "LUT Warm 6"
+        Case 18:table1.ColorGradeImage = "LUT Warm 7"
+        Case 19:table1.ColorGradeImage = "LUT Warm 8"
+        Case 20:table1.ColorGradeImage = "LUT Warm 9"
+        Case 21:table1.ColorGradeImage = "LUT Warm 10"
+    End Select
+End Sub
