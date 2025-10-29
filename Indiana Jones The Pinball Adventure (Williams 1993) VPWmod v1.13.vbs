@@ -371,7 +371,7 @@ End Sub
 
 Sub Table1_KeyDown(ByVal Keycode)
   If Keycode= keyFront Then Controller.Switch(12)=1   'buy-in
-  If keycode = PlungerKey Then Controller.Switch(34) = 1
+  If keycode = PlungerKey or keycode=LockBarKey Then Controller.Switch(34) = 1
   If keycode = LeftTiltKey Then Nudge 90, 5:SoundNudgeLeft()
   If keycode = RightTiltKey Then Nudge 270, 5:SoundNudgeRight()
   If keycode = CenterTiltKey Then Nudge 0, 3:SoundNudgeCenter()
@@ -428,7 +428,7 @@ End Sub
 
 Sub Table1_KeyUp(ByVal Keycode)
   If Keycode = keyFront Then Controller.Switch(12)=0    'buy-in
-    If keycode = PlungerKey Then Controller.Switch(34) = 0
+    If keycode = PlungerKey or keycode=LockBarKey Then Controller.Switch(34) = 0
 
   If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress
   If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress

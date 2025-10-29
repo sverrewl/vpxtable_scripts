@@ -279,7 +279,7 @@ If keycode = LeftFlipperKey Then FlipperActivate LeftFlipper, LFPress End If
   If keycode = LeftTiltKey Then Nudge 90, 3:PlaySound SoundFX("fx_nudge", 0)
     If keycode = RightTiltKey Then Nudge 270, 3:PlaySound SoundFX("fx_nudge", 0)
     If keycode = CenterTiltKey Then Nudge 0, 3:PlaySound SoundFX("fx_nudge", 0)
-  If keycode = PlungerKey Then Controller.Switch(5)=1
+  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(5)=1
   If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
@@ -289,7 +289,7 @@ If keycode = LeftMagnaSave Then bLutActive = False
   If keycode = StartGameKey Then Controller.Switch(4) = 0
   If keycode = LeftFlipperKey Then Controller.Switch(45) = 0
   If keycode = RightFlipperKey Then : Controller.Switch(47) = 0
-  If keycode = PlungerKey Then : SoundPlungerReleaseBall() : Controller.Switch(5)=0
+  If keycode = PlungerKey or keycode = LockBarKey Then : SoundPlungerReleaseBall() : Controller.Switch(5)=0
 If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress End If
 If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress End If
     If vpmKeyUp(keycode) Then Exit Sub

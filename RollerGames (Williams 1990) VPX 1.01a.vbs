@@ -105,7 +105,7 @@ SolCallback(31) = "SolFlasher31"  'Flash 8R
 
 
 
- Const cGameName    = "rollr_l2"
+ Const cGameName    = "rollr_l2c"
 
 Dim bsTrough, Iman, bsVuk, dtDrop, bslLock, bsULock
 Dim x

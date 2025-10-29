@@ -561,7 +561,7 @@ Sub Table1_KeyDown(ByVal Keycode)
         End If
     End If
 
-    If keycode = PlungerKey Then
+    If keycode = PlungerKey or keycode = LockBarKey Then
     if bBallInPlungerLane Then
       DOF 125, DOFPulse
       DOF 114, DOFPulse

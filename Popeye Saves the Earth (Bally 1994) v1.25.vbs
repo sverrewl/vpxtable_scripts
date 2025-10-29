@@ -1,1058 +1,156 @@
-' Terminator 3: Rise of the Machines / IPD No. 4787 / June, 2003 / 4 Players
-' VPX by jpsalas 2022, version 4.0.0
-' Artistic Re-Skin by Siggi 2022
-' Physics/Sound/VR upgrade by TastyWasps 2024 / VR Assets by Solters, DaRdog81 & DarthVito
+'############################################################################################
+'#######                                                                             ########
+'#######          Popeye Saves The Earth                                             ########
+'#######          (Bally 1994)                                                       ########
+'#######                                                                             ########
+'############################################################################################
 
-' apophis updates:
-' - UseVPMModSol=2
-' - removed aGiFlashers and associated objects
-' -
-
-
-
-'001 - iaakki - fixed top lane switch perimeters, various animations, RPG animation, swapped some sounds,
-'002 - bord - separated meshes for animation. New bakes on brackets and wires.
-'003 - iaakki - added animations for gates, posts, gun and slings. Fixed minor flaw in right sling physics
-'004 - bord - fix RPG reflections
-'004a - apophis physics fixes
-'005 - bord - render fixes
-'006 - DGrimmReaper - VR fixes
-'007 - last minute fixes (RC?)
+'***************************************************
+'* VP9 - mfuegemann 2014
+'* VPX - JPJ Team PP
+'* VR Room - Psiomicron
+'*
+'* VPX 10.7x - TastyWasps - Sept. 2023
+'*
+'* nFozzy Physics, Fleep Sounds, TargetBouncer, VR Room
+'* Correct Geometry for Table Sizing, Lighting Tweaks
+'* Dynamic Ball Shadows, Multi-Ball Cradle Physics
+'* Script Organization, Graphic Improvements
+'* Dimmer Level (LUT) Selector, Gameplay Balance
+'* Playfield Element Upscales - MovieGuru
+'* VR Upscales & Assets - Hauntfreaks, DGrimmReaper & Psiomicron
+'* Incandescent Lighting Option - Hauntfreaks
+'* Testing - VPW Team
+'****************************************************
 
 Option Explicit
 Randomize
-
-Const BallSize = 50
-Const BallMass = 1
-Const RPGBallSize = 40
-Dim TableWidth: TableWidth = Table1.Width
-Dim TableHeight: TableHeight = Table1.Height
-Const tnob = 6
 
 On Error Resume Next
 ExecuteGlobal GetTextFile("controller.vbs")
 If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
 On Error Goto 0
 
-'********************
-' Table Options
-'********************
+Const BallSize = 54
+
+'*************************************************************
+' VR Room Auto-Detect
+'*************************************************************
+Dim VR_Obj, UseVPMDMD
+
+Dim DesktopMode: DesktopMode = Table1.ShowDT
+
+If RenderingMode = 2 Then
+  Pincab_Rails.Visible = True
+  For Each VR_Obj in VRCabinet : VR_Obj.Visible = 1 : Next
+  For Each VR_Obj in VRRoom : VR_Obj.Visible = 1 : Next
+  UseVPMDMD = True
+Else
+  For Each VR_Obj in VRCabinet : VR_Obj.Visible = 0 : Next
+  For Each VR_Obj in VRRoom : VR_Obj.Visible = 0 : Next
+  UseVPMDMD = DesktopMode
+End If
+
+If Not DesktopMode Then
+  Sides.visible = False ' Put True or False if you want to see or not the wood side in fullscreen mod
+Else
+  Pincab_Rails.Visible = True
+End If
+
+LoadVPM "01560000","WPC.VBS",3.1
+
+'*************************************************************
+' TABLE OPTIONS
+'*************************************************************
+' Table Dimmer is set by using the Left and Right Magna keys.
+' Black & White desktop background available in "Table > Image Manager" under "desktop_bw_upscaled".
+
+'----- LED Lighting -----
+Const LEDLighting = 1             ' 1 = LED lighting for brighter, cooler colors - 2 = Incandescent lighting for warmer colors
+
+'----- Black & White MOD -----
+Const BlackAndWhite = 0             ' 0 - Regular Color Popeye, 1 = Black & White Old School Popeye
+                  ' Note: Changing Dimmer Levels moves back to color if Black & White enabled.
 
 '----- Target Bouncer Levels -----
 Const TargetBouncerEnabled = 1    ' 0 = normal standup targets, 1 = bouncy targets
 Const TargetBouncerFactor = 0.7   ' Level of bounces. Recommmended value of 0.7
 
 '----- General Sound Options -----
-Const VolumeDial = 0.80       ' Overall Mechanical sound effect volume. Recommended values should be no greater than 1.
+Const VolumeDial = 0.8        ' Overall Mechanical sound effect volume. Recommended values should be no greater than 1.
 Const BallRollVolume = 0.5      ' Level of ball rolling volume. Value between 0 and 1
 Const RampRollVolume = 0.5      ' Level of ramp rolling volume. Value between 0 and 1
 
 '----- Ball Shadow Options -----
-Const DynamicBallShadowsOn = 0    ' 0 = no dynamic ball shadow ("triangles" near slings and such), 1 = enable dynamic ball shadow
+Const DynamicBallShadowsOn = 1    ' 0 = no dynamic ball shadow ("triangles" near slings and such), 1 = enable dynamic ball shadow
 Const AmbientBallShadowOn = 1   ' 0 = Static shadow under ball ("flasher" image, like JP's)
 '                 ' 1 = Moving ball shadow ("primitive" object, like ninuzzu's) - This is the only one that shows up on the pf when in ramps and fades when close to lights!
 '                 ' 2 = flasher image shadow, but it moves like ninuzzu's
-'----- VR Room Options -----
-Const VRArnold = 1          ' 1 = Show Terminator 3D Model, 0 = Do Not Show Terminator 3D Model
-Const VRCyborg = 1          ' 1 = Show Cyborg 3D Model, 0 = Do Not Show Cyborg 3D Model
-Const VRTest = 0          ' 1 = Test VR in Live Editor, 0 = Off
-'Const VRSideBlades = 1       ' 1 = Art Side Blades, 0 = Black side blades
 
+'------  Global Variables ------
+Dim tablewidth:tablewidth = Table1.width
+Dim tableheight:tableheight = Table1.height
 
-'********************
-' Automate VR Mode
-'********************
+Const tnob = 6
+Const lob = 0
 
-Dim VRMode, VR_Obj
-
-If RenderingMode = 2 or VRTest = 1 Then
-  VRMode = True
-  Pincab_Backglass.BlendDisableLighting = 1.75
-  ApronBlocker.Visible = 1
-  ApronBlocker.SideVisible = 1
-  BM_lrail.Visible = 0
-' lrail001.Visible = 0
-  BM_rrail.Visible = 0
-' rrail001.Visible = 0
-  wall34.Visible = 0
-  wall34.SideVisible = 0
-  wall35.Visible = 0
-  wall35.SideVisible = 0
-  Flasher7.Visible = 0
-  Flasher8.Visible = 0
-  Table1.PlayfieldReflectionStrength = 5
-  For Each VR_Obj in VRCabinet : VR_Obj.Visible = 1 : Next
-  For Each VR_Obj in VRRoom : VR_Obj.Visible = 1 : Next
-
-  If VRArnold = 0 Then
-    Terminator001.Visible = 0
-    Terminator002.Visible = 0
-    Terminator003.Visible = 0
-    Terminator004.Visible = 0
-    Terminator005.Visible = 0
-  End If
-
-  If VRCyborg = 0 Then
-    Terminator006.Visible = 0
-    Terminator007.Visible = 0
-    Terminator008.Visible = 0
-    RedEyeLeft.Visible = 0
-    RedEyeRight.Visible = 0
-  End If
-
-' If VRSideBlades = 1 Then
-'   Pincab_Blades.Image = "Pincab_Side_Blades"
-' Else
-'   Pincab_Blades.Image = "Pincab_Blades_New"
-' End If
-
-Else
-  For Each VR_Obj in VRCabinet : VR_Obj.Visible = 0 : Next
-  For Each VR_Obj in VRRoom : VR_Obj.Visible = 0 : Next
-  VRMode = False
-End If
-
-
-
-
-'********************
-'Standard definitions
-'********************
-Const UseVPMModSol = 2
+Const cgamename = "pop_lx5"
 Const UseSolenoids = 2
 Const UseLamps = 1
-Const UseGI = 0
-Const UseSync = 0
-Const HandleMech = 0
-
-' Standard Sounds
-Const SSolenoidOn = "fx_SolenoidOn"
-Const SSolenoidOff = "fx_SolenoidOff"
+Const UseSync = 1
+Const SSolenoidOn = ""
+Const SSolenoidOff = ""
 Const SCoin = ""
-
-
-
-' ROM language
-Const cGameName = "term3" ' English
-'Const cGameName = "term3f" ' French
-'Const cGameName = "term3g" ' German
-'Const cGameName = "term3i" ' Italian
-'Const cGameName = "term3l" ' Spanish
-
-
-Dim VarHidden, UseVPMColoredDMD, x
-If Table1.ShowDT = true then
-    UseVPMColoredDMD = true
-    VarHidden = 1
-    For each x in aReels:x.Visible = 1:Next
-Else
-    UseVPMColoredDMD = False
-    VarHidden = 0
-    For each x in aReels:x.Visible = 0:Next
-End If
-
-if B2SOn = true then VarHidden = 1
-
-
-LoadVPM "03060000", "SEGA.VBS", 3.26
-
-
-
-
-
-' VLM  Arrays - Start
-' Arrays per baked part
-Dim BP_Bumper001_Ring: BP_Bumper001_Ring=Array(BM_Bumper001_Ring, LM_gi_gi1_Bumper001_Ring, LM_ins_l71_Bumper001_Ring)
-Dim BP_Bumper002_Ring: BP_Bumper002_Ring=Array(BM_Bumper002_Ring, LM_flash_F26_Bumper002_Ring, LM_flash_f30_Bumper002_Ring, LM_gi_gi1_Bumper002_Ring, LM_gi_gi027_Bumper002_Ring, LM_gi_gi36_Bumper002_Ring, LM_ins_l71_Bumper002_Ring)
-Dim BP_Bumper003_Ring: BP_Bumper003_Ring=Array(BM_Bumper003_Ring, LM_flash_f30_Bumper003_Ring, LM_gi_gi1_Bumper003_Ring, LM_gi_gi027_Bumper003_Ring, LM_gi_gi029_Bumper003_Ring, LM_ins_l71_Bumper003_Ring)
-Dim BP_Gate001_Wire: BP_Gate001_Wire=Array(BM_Gate001_Wire, LM_gi_gi1_Gate001_Wire, LM_gi_gi027_Gate001_Wire, LM_gi_gi36_Gate001_Wire, LM_ins_l38_Gate001_Wire)
-Dim BP_Gate002_Wire: BP_Gate002_Wire=Array(BM_Gate002_Wire, LM_gi_gi029_Gate002_Wire, LM_gi_gi031_Gate002_Wire)
-Dim BP_Gate003_Wire: BP_Gate003_Wire=Array(BM_Gate003_Wire, LM_flash_f31_Gate003_Wire)
-Dim BP_Gate004_Wire: BP_Gate004_Wire=Array(BM_Gate004_Wire, LM_flash_f30_Gate004_Wire, LM_gi_gi1_Gate004_Wire, LM_ins_l71_Gate004_Wire)
-Dim BP_Gate005_Wire: BP_Gate005_Wire=Array(BM_Gate005_Wire)
-Dim BP_LFlip: BP_LFlip=Array(BM_LFlip, LM_flash_f27_LFlip, LM_flash_f32_LFlip, LM_gi_gi007_LFlip, LM_gi_gi008_LFlip, LM_ins_l17_LFlip, LM_ins_l37a_LFlip, LM_ins_l74_LFlip, LM_ins_l76_LFlip, LM_ins_l80_LFlip)
-Dim BP_Lemk: BP_Lemk=Array(BM_Lemk, LM_gi_gi005_Lemk, LM_gi_gi006_Lemk, LM_gi_gi007_Lemk, LM_gi_gi008_Lemk, LM_ins_l37_Lemk)
-Dim BP_Overlay: BP_Overlay=Array(BM_Overlay, LM_flash_F26_Overlay, LM_flash_f27_Overlay, LM_flash_f30_Overlay, LM_flash_f31_Overlay, LM_flash_f32_Overlay, LM_gi_gi003_Overlay, LM_gi_gi005_Overlay, LM_gi_gi006_Overlay, LM_gi_gi007_Overlay, LM_gi_gi004_Overlay, LM_gi_gi001_Overlay, LM_gi_gi1_Overlay, LM_gi_gi002_Overlay, LM_gi_gi008_Overlay, LM_ins_l18_Overlay, LM_ins_l19_Overlay, LM_ins_l23_Overlay, LM_ins_l26_Overlay, LM_ins_l27_Overlay, LM_ins_l33_Overlay, LM_ins_l34_Overlay, LM_ins_l35_Overlay, LM_ins_l37_Overlay, LM_ins_l41_Overlay, LM_ins_l42_Overlay, LM_ins_l43_Overlay, LM_ins_l44_Overlay, LM_ins_l45_Overlay, LM_ins_l46_Overlay, LM_ins_l47_Overlay, LM_ins_l48_Overlay, LM_ins_l49_Overlay, LM_ins_l50_Overlay, LM_ins_l51_Overlay, LM_ins_l57_Overlay, LM_ins_l58_Overlay, LM_ins_l59_Overlay, LM_ins_l64_Overlay, LM_ins_l71_Overlay, LM_ins_l72_Overlay, LM_ins_l8_Overlay, LM_ins_l9_Overlay)
-Dim BP_Parts: BP_Parts=Array(BM_Parts, LM_flash_F26_Parts, LM_flash_f27_Parts, LM_flash_f28_Parts, LM_flash_f29_Parts, LM_flash_f30_Parts, LM_flash_f31_Parts, LM_flash_f32_Parts, LM_gi_gi003_Parts, LM_gi_gi005_Parts, LM_gi_gi006_Parts, LM_gi_gi007_Parts, LM_gi_gi004_Parts, LM_gi_gi001_Parts, LM_gi_gi1_Parts, LM_gi_gi002_Parts, LM_gi_gi008_Parts, LM_gi_gi010_Parts, LM_gi_gi011_Parts, LM_gi_gi013_Parts, LM_gi_gi014_Parts, LM_gi_gi025_Parts, LM_gi_gi027_Parts, LM_gi_gi029_Parts, LM_gi_gi031_Parts, LM_gi_gi034_Parts, LM_gi_gi36_Parts, LM_ins_l10_Parts, LM_ins_l11_Parts, LM_ins_l12_Parts, LM_ins_l13_Parts, LM_ins_l14_Parts, LM_ins_l15_Parts, LM_ins_l16_Parts, LM_ins_l17_Parts, LM_ins_l18_Parts, LM_ins_l19_Parts, LM_ins_l20_Parts, LM_ins_l21_Parts, LM_ins_l22_Parts, LM_ins_l23_Parts, LM_ins_l24_Parts, LM_ins_l25_Parts, LM_ins_l26_Parts, LM_ins_l27_Parts, LM_ins_l28_Parts, LM_ins_l29_Parts, LM_ins_l30_Parts, LM_ins_l31_Parts, LM_ins_l32_Parts, LM_ins_l33_Parts, LM_ins_l34_Parts, LM_ins_l35_Parts, LM_ins_l36_Parts, _
-  LM_ins_l37_Parts, LM_ins_l38_Parts, LM_ins_l39_Parts, LM_ins_l40_Parts, LM_ins_l41_Parts, LM_ins_l42_Parts, LM_ins_l43_Parts, LM_ins_l44_Parts, LM_ins_l45_Parts, LM_ins_l46_Parts, LM_ins_l47_Parts, LM_ins_l48_Parts, LM_ins_l49_Parts, LM_ins_l50_Parts, LM_ins_l51_Parts, LM_ins_l52_Parts, LM_ins_l53_Parts, LM_ins_l54_Parts, LM_ins_l55_Parts, LM_ins_l56_Parts, LM_ins_l57_Parts, LM_ins_l58_Parts, LM_ins_l59_Parts, LM_ins_l60_Parts, LM_ins_l61_Parts, LM_ins_l62_Parts, LM_ins_l64_Parts, LM_ins_l65_Parts, LM_ins_l66_Parts, LM_ins_l67_Parts, LM_ins_l68_Parts, LM_ins_l69_Parts, LM_ins_l6_Parts, LM_ins_l71_Parts, LM_ins_l72_Parts, LM_ins_l76_Parts, LM_ins_l77_Parts, LM_ins_l7_Parts, LM_ins_l8_Parts, LM_ins_l9_Parts)
-Dim BP_Playfield: BP_Playfield=Array(BM_Playfield, LM_flash_F26_Playfield, LM_flash_f27_Playfield, LM_flash_f28_Playfield, LM_flash_f30_Playfield, LM_flash_f31_Playfield, LM_flash_f32_Playfield, LM_gi_gi003_Playfield, LM_gi_gi005_Playfield, LM_gi_gi006_Playfield, LM_gi_gi007_Playfield, LM_gi_gi004_Playfield, LM_gi_gi001_Playfield, LM_gi_gi1_Playfield, LM_gi_gi002_Playfield, LM_gi_gi008_Playfield, LM_gi_gi010_Playfield, LM_gi_gi011_Playfield, LM_gi_gi013_Playfield, LM_gi_gi014_Playfield, LM_gi_gi025_Playfield, LM_gi_gi027_Playfield, LM_gi_gi029_Playfield, LM_gi_gi031_Playfield, LM_gi_gi034_Playfield, LM_gi_gi36_Playfield, LM_ins_l10_Playfield, LM_ins_l11_Playfield, LM_ins_l12_Playfield, LM_ins_l13_Playfield, LM_ins_l14_Playfield, LM_ins_l15_Playfield, LM_ins_l16_Playfield, LM_ins_l17_Playfield, LM_ins_l18_Playfield, LM_ins_l19_Playfield, LM_ins_l1_Playfield, LM_ins_l20_Playfield, LM_ins_l21_Playfield, LM_ins_l22_Playfield, LM_ins_l23_Playfield, LM_ins_l24_Playfield, LM_ins_l25_Playfield, LM_ins_l26_Playfield, _
-  LM_ins_l27_Playfield, LM_ins_l28_Playfield, LM_ins_l29_Playfield, LM_ins_l2_Playfield, LM_ins_l30_Playfield, LM_ins_l31_Playfield, LM_ins_l32_Playfield, LM_ins_l33_Playfield, LM_ins_l34_Playfield, LM_ins_l35_Playfield, LM_ins_l36_Playfield, LM_ins_l37_Playfield, LM_ins_l37a_Playfield, LM_ins_l37b_Playfield, LM_ins_l38_Playfield, LM_ins_l39_Playfield, LM_ins_l3_Playfield, LM_ins_l40_Playfield, LM_ins_l41_Playfield, LM_ins_l42_Playfield, LM_ins_l43_Playfield, LM_ins_l44_Playfield, LM_ins_l45_Playfield, LM_ins_l46_Playfield, LM_ins_l47_Playfield, LM_ins_l48_Playfield, LM_ins_l49_Playfield, LM_ins_l4_Playfield, LM_ins_l50_Playfield, LM_ins_l51_Playfield, LM_ins_l52_Playfield, LM_ins_l55_Playfield, LM_ins_l56_Playfield, LM_ins_l57_Playfield, LM_ins_l58_Playfield, LM_ins_l59_Playfield, LM_ins_l5_Playfield, LM_ins_l60_Playfield, LM_ins_l61_Playfield, LM_ins_l62_Playfield, LM_ins_l65_Playfield, LM_ins_l66_Playfield, LM_ins_l67_Playfield, LM_ins_l68_Playfield, LM_ins_l69_Playfield, LM_ins_l6_Playfield, _
-  LM_ins_l72_Playfield, LM_ins_l73_Playfield, LM_ins_l74_Playfield, LM_ins_l75_Playfield, LM_ins_l76_Playfield, LM_ins_l77_Playfield, LM_ins_l78_Playfield, LM_ins_l7_Playfield, LM_ins_l80_Playfield, LM_ins_l8_Playfield, LM_ins_l9_Playfield)
-Dim BP_Post1: BP_Post1=Array(BM_Post1, LM_flash_F26_Post1, LM_flash_f30_Post1, LM_gi_gi1_Post1, LM_ins_l71_Post1)
-Dim BP_Post2: BP_Post2=Array(BM_Post2, LM_flash_F26_Post2, LM_flash_f30_Post2, LM_flash_f31_Post2, LM_gi_gi1_Post2, LM_gi_gi027_Post2, LM_ins_l38_Post2, LM_ins_l71_Post2)
-Dim BP_RFlip: BP_RFlip=Array(BM_RFlip, LM_flash_f27_RFlip, LM_flash_f32_RFlip, LM_gi_gi001_RFlip, LM_gi_gi002_RFlip, LM_ins_l25_RFlip, LM_ins_l37a_RFlip, LM_ins_l37b_RFlip, LM_ins_l75_RFlip, LM_ins_l77_RFlip, LM_ins_l80_RFlip)
-Dim BP_RPGun: BP_RPGun=Array(BM_RPGun, LM_flash_f27_RPGun, LM_flash_f32_RPGun)
-Dim BP_Remk: BP_Remk=Array(BM_Remk, LM_gi_gi001_Remk, LM_gi_gi002_Remk)
-Dim BP_Wall049: BP_Wall049=Array(BM_Wall049, LM_flash_f27_Wall049, LM_gi_gi003_Wall049, LM_gi_gi004_Wall049, LM_gi_gi001_Wall049, LM_ins_l35_Wall049, LM_ins_l36_Wall049, LM_ins_l77_Wall049)
-Dim BP_Wall91: BP_Wall91=Array(BM_Wall91, LM_gi_gi005_Wall91, LM_gi_gi006_Wall91, LM_ins_l33_Wall91, LM_ins_l34_Wall91, LM_ins_l37_Wall91, LM_ins_l76_Wall91)
-Dim BP_lrail: BP_lrail=Array(BM_lrail)
-Dim BP_lsling: BP_lsling=Array(BM_lsling, LM_gi_gi007_lsling, LM_gi_gi008_lsling, LM_ins_l34_lsling)
-Dim BP_lsling_001: BP_lsling_001=Array(BM_lsling_001, LM_flash_f31_lsling_001, LM_flash_f32_lsling_001, LM_gi_gi007_lsling_001, LM_gi_gi008_lsling_001, LM_ins_l18_lsling_001, LM_ins_l34_lsling_001)
-Dim BP_lsling_002: BP_lsling_002=Array(BM_lsling_002, LM_gi_gi007_lsling_002, LM_gi_gi008_lsling_002, LM_ins_l34_lsling_002)
-Dim BP_rrail: BP_rrail=Array(BM_rrail, LM_gi_gi011_rrail)
-Dim BP_rsling: BP_rsling=Array(BM_rsling, LM_gi_gi001_rsling, LM_gi_gi002_rsling, LM_ins_l27_rsling, LM_ins_l35_rsling)
-Dim BP_rsling_001: BP_rsling_001=Array(BM_rsling_001, LM_flash_f32_rsling_001, LM_gi_gi001_rsling_001, LM_gi_gi002_rsling_001, LM_ins_l25_rsling_001, LM_ins_l26_rsling_001, LM_ins_l27_rsling_001, LM_ins_l35_rsling_001)
-Dim BP_rsling_002: BP_rsling_002=Array(BM_rsling_002, LM_flash_f27_rsling_002, LM_gi_gi005_rsling_002, LM_gi_gi006_rsling_002, LM_gi_gi007_rsling_002, LM_gi_gi001_rsling_002, LM_gi_gi002_rsling_002, LM_ins_l26_rsling_002, LM_ins_l35_rsling_002)
-Dim BP_sw24: BP_sw24=Array(BM_sw24, LM_gi_gi001_sw24)
-Dim BP_sw25: BP_sw25=Array(BM_sw25, LM_flash_F26_sw25, LM_gi_gi1_sw25, LM_ins_l47_sw25, LM_ins_l57_sw25, LM_ins_l59_sw25, LM_ins_l71_sw25)
-Dim BP_sw28: BP_sw28=Array(BM_sw28, LM_flash_F26_sw28, LM_flash_f30_sw28, LM_gi_gi1_sw28)
-Dim BP_sw29: BP_sw29=Array(BM_sw29, LM_flash_F26_sw29, LM_flash_f30_sw29, LM_gi_gi1_sw29, LM_ins_l71_sw29)
-Dim BP_sw37: BP_sw37=Array(BM_sw37, LM_flash_f30_sw37, LM_gi_gi1_sw37, LM_gi_gi027_sw37, LM_gi_gi36_sw37, LM_ins_l38_sw37, LM_ins_l71_sw37)
-Dim BP_sw38: BP_sw38=Array(BM_sw38, LM_flash_f30_sw38, LM_flash_f31_sw38, LM_flash_f32_sw38, LM_gi_gi001_sw38, LM_gi_gi1_sw38, LM_gi_gi027_sw38, LM_gi_gi029_sw38, LM_ins_l39_sw38, LM_ins_l71_sw38)
-Dim BP_sw39: BP_sw39=Array(BM_sw39, LM_flash_f30_sw39, LM_gi_gi1_sw39, LM_gi_gi027_sw39, LM_gi_gi029_sw39, LM_gi_gi031_sw39, LM_ins_l40_sw39, LM_ins_l71_sw39)
-Dim BP_sw46: BP_sw46=Array(BM_sw46, LM_gi_gi001_sw46, LM_gi_gi1_sw46, LM_ins_l71_sw46)
-Dim BP_sw57: BP_sw57=Array(BM_sw57, LM_gi_gi006_sw57, LM_gi_gi007_sw57, LM_ins_l37_sw57)
-Dim BP_sw58: BP_sw58=Array(BM_sw58, LM_flash_f32_sw58, LM_gi_gi005_sw58, LM_gi_gi006_sw58, LM_gi_gi007_sw58, LM_gi_gi008_sw58, LM_ins_l19_sw58, LM_ins_l37_sw58)
-Dim BP_sw60: BP_sw60=Array(BM_sw60, LM_flash_f27_sw60, LM_gi_gi004_sw60, LM_gi_gi001_sw60)
-Dim BP_sw61: BP_sw61=Array(BM_sw61, LM_flash_f27_sw61, LM_flash_f32_sw61, LM_gi_gi003_sw61, LM_gi_gi004_sw61, LM_gi_gi001_sw61, LM_gi_gi002_sw61, LM_ins_l26_sw61, LM_ins_l27_sw61)
-' Arrays per lighting scenario
-Dim BL_World: BL_World=Array(BM_Bumper001_Ring, BM_Bumper002_Ring, BM_Bumper003_Ring, BM_Gate001_Wire, BM_Gate002_Wire, BM_Gate003_Wire, BM_Gate004_Wire, BM_Gate005_Wire, BM_LFlip, BM_Lemk, BM_Overlay, BM_Parts, BM_Playfield, BM_Post1, BM_Post2, BM_RFlip, BM_RPGun, BM_Remk, BM_Wall049, BM_Wall91, BM_lrail, BM_lsling, BM_lsling_001, BM_lsling_002, BM_rrail, BM_rsling, BM_rsling_001, BM_rsling_002, BM_sw24, BM_sw25, BM_sw28, BM_sw29, BM_sw37, BM_sw38, BM_sw39, BM_sw46, BM_sw57, BM_sw58, BM_sw60, BM_sw61)
-Dim BL_flash_F26: BL_flash_F26=Array(LM_flash_F26_Bumper002_Ring, LM_flash_F26_Overlay, LM_flash_F26_Parts, LM_flash_F26_Playfield, LM_flash_F26_Post1, LM_flash_F26_Post2, LM_flash_F26_sw25, LM_flash_F26_sw28, LM_flash_F26_sw29)
-Dim BL_flash_f27: BL_flash_f27=Array(LM_flash_f27_LFlip, LM_flash_f27_Overlay, LM_flash_f27_Parts, LM_flash_f27_Playfield, LM_flash_f27_RFlip, LM_flash_f27_RPGun, LM_flash_f27_Wall049, LM_flash_f27_rsling_002, LM_flash_f27_sw60, LM_flash_f27_sw61)
-Dim BL_flash_f28: BL_flash_f28=Array(LM_flash_f28_Parts, LM_flash_f28_Playfield)
-Dim BL_flash_f29: BL_flash_f29=Array(LM_flash_f29_Parts)
-Dim BL_flash_f30: BL_flash_f30=Array(LM_flash_f30_Bumper002_Ring, LM_flash_f30_Bumper003_Ring, LM_flash_f30_Gate004_Wire, LM_flash_f30_Overlay, LM_flash_f30_Parts, LM_flash_f30_Playfield, LM_flash_f30_Post1, LM_flash_f30_Post2, LM_flash_f30_sw28, LM_flash_f30_sw29, LM_flash_f30_sw37, LM_flash_f30_sw38, LM_flash_f30_sw39)
-Dim BL_flash_f31: BL_flash_f31=Array(LM_flash_f31_Gate003_Wire, LM_flash_f31_Overlay, LM_flash_f31_Parts, LM_flash_f31_Playfield, LM_flash_f31_Post2, LM_flash_f31_lsling_001, LM_flash_f31_sw38)
-Dim BL_flash_f32: BL_flash_f32=Array(LM_flash_f32_LFlip, LM_flash_f32_Overlay, LM_flash_f32_Parts, LM_flash_f32_Playfield, LM_flash_f32_RFlip, LM_flash_f32_RPGun, LM_flash_f32_lsling_001, LM_flash_f32_rsling_001, LM_flash_f32_sw38, LM_flash_f32_sw58, LM_flash_f32_sw61)
-Dim BL_gi_gi001: BL_gi_gi001=Array(LM_gi_gi001_Overlay, LM_gi_gi001_Parts, LM_gi_gi001_Playfield, LM_gi_gi001_RFlip, LM_gi_gi001_Remk, LM_gi_gi001_Wall049, LM_gi_gi001_rsling, LM_gi_gi001_rsling_001, LM_gi_gi001_rsling_002, LM_gi_gi001_sw24, LM_gi_gi001_sw38, LM_gi_gi001_sw46, LM_gi_gi001_sw60, LM_gi_gi001_sw61)
-Dim BL_gi_gi002: BL_gi_gi002=Array(LM_gi_gi002_Overlay, LM_gi_gi002_Parts, LM_gi_gi002_Playfield, LM_gi_gi002_RFlip, LM_gi_gi002_Remk, LM_gi_gi002_rsling, LM_gi_gi002_rsling_001, LM_gi_gi002_rsling_002, LM_gi_gi002_sw61)
-Dim BL_gi_gi003: BL_gi_gi003=Array(LM_gi_gi003_Overlay, LM_gi_gi003_Parts, LM_gi_gi003_Playfield, LM_gi_gi003_Wall049, LM_gi_gi003_sw61)
-Dim BL_gi_gi004: BL_gi_gi004=Array(LM_gi_gi004_Overlay, LM_gi_gi004_Parts, LM_gi_gi004_Playfield, LM_gi_gi004_Wall049, LM_gi_gi004_sw60, LM_gi_gi004_sw61)
-Dim BL_gi_gi005: BL_gi_gi005=Array(LM_gi_gi005_Lemk, LM_gi_gi005_Overlay, LM_gi_gi005_Parts, LM_gi_gi005_Playfield, LM_gi_gi005_Wall91, LM_gi_gi005_rsling_002, LM_gi_gi005_sw58)
-Dim BL_gi_gi006: BL_gi_gi006=Array(LM_gi_gi006_Lemk, LM_gi_gi006_Overlay, LM_gi_gi006_Parts, LM_gi_gi006_Playfield, LM_gi_gi006_Wall91, LM_gi_gi006_rsling_002, LM_gi_gi006_sw57, LM_gi_gi006_sw58)
-Dim BL_gi_gi007: BL_gi_gi007=Array(LM_gi_gi007_LFlip, LM_gi_gi007_Lemk, LM_gi_gi007_Overlay, LM_gi_gi007_Parts, LM_gi_gi007_Playfield, LM_gi_gi007_lsling, LM_gi_gi007_lsling_001, LM_gi_gi007_lsling_002, LM_gi_gi007_rsling_002, LM_gi_gi007_sw57, LM_gi_gi007_sw58)
-Dim BL_gi_gi008: BL_gi_gi008=Array(LM_gi_gi008_LFlip, LM_gi_gi008_Lemk, LM_gi_gi008_Overlay, LM_gi_gi008_Parts, LM_gi_gi008_Playfield, LM_gi_gi008_lsling, LM_gi_gi008_lsling_001, LM_gi_gi008_lsling_002, LM_gi_gi008_sw58)
-Dim BL_gi_gi010: BL_gi_gi010=Array(LM_gi_gi010_Parts, LM_gi_gi010_Playfield)
-Dim BL_gi_gi011: BL_gi_gi011=Array(LM_gi_gi011_Parts, LM_gi_gi011_Playfield, LM_gi_gi011_rrail)
-Dim BL_gi_gi013: BL_gi_gi013=Array(LM_gi_gi013_Parts, LM_gi_gi013_Playfield)
-Dim BL_gi_gi014: BL_gi_gi014=Array(LM_gi_gi014_Parts, LM_gi_gi014_Playfield)
-Dim BL_gi_gi025: BL_gi_gi025=Array(LM_gi_gi025_Parts, LM_gi_gi025_Playfield)
-Dim BL_gi_gi027: BL_gi_gi027=Array(LM_gi_gi027_Bumper002_Ring, LM_gi_gi027_Bumper003_Ring, LM_gi_gi027_Gate001_Wire, LM_gi_gi027_Parts, LM_gi_gi027_Playfield, LM_gi_gi027_Post2, LM_gi_gi027_sw37, LM_gi_gi027_sw38, LM_gi_gi027_sw39)
-Dim BL_gi_gi029: BL_gi_gi029=Array(LM_gi_gi029_Bumper003_Ring, LM_gi_gi029_Gate002_Wire, LM_gi_gi029_Parts, LM_gi_gi029_Playfield, LM_gi_gi029_sw38, LM_gi_gi029_sw39)
-Dim BL_gi_gi031: BL_gi_gi031=Array(LM_gi_gi031_Gate002_Wire, LM_gi_gi031_Parts, LM_gi_gi031_Playfield, LM_gi_gi031_sw39)
-Dim BL_gi_gi034: BL_gi_gi034=Array(LM_gi_gi034_Parts, LM_gi_gi034_Playfield)
-Dim BL_gi_gi1: BL_gi_gi1=Array(LM_gi_gi1_Bumper001_Ring, LM_gi_gi1_Bumper002_Ring, LM_gi_gi1_Bumper003_Ring, LM_gi_gi1_Gate001_Wire, LM_gi_gi1_Gate004_Wire, LM_gi_gi1_Overlay, LM_gi_gi1_Parts, LM_gi_gi1_Playfield, LM_gi_gi1_Post1, LM_gi_gi1_Post2, LM_gi_gi1_sw25, LM_gi_gi1_sw28, LM_gi_gi1_sw29, LM_gi_gi1_sw37, LM_gi_gi1_sw38, LM_gi_gi1_sw39, LM_gi_gi1_sw46)
-Dim BL_gi_gi36: BL_gi_gi36=Array(LM_gi_gi36_Bumper002_Ring, LM_gi_gi36_Gate001_Wire, LM_gi_gi36_Parts, LM_gi_gi36_Playfield, LM_gi_gi36_sw37)
-Dim BL_ins_l1: BL_ins_l1=Array(LM_ins_l1_Playfield)
-Dim BL_ins_l10: BL_ins_l10=Array(LM_ins_l10_Parts, LM_ins_l10_Playfield)
-Dim BL_ins_l11: BL_ins_l11=Array(LM_ins_l11_Parts, LM_ins_l11_Playfield)
-Dim BL_ins_l12: BL_ins_l12=Array(LM_ins_l12_Parts, LM_ins_l12_Playfield)
-Dim BL_ins_l13: BL_ins_l13=Array(LM_ins_l13_Parts, LM_ins_l13_Playfield)
-Dim BL_ins_l14: BL_ins_l14=Array(LM_ins_l14_Parts, LM_ins_l14_Playfield)
-Dim BL_ins_l15: BL_ins_l15=Array(LM_ins_l15_Parts, LM_ins_l15_Playfield)
-Dim BL_ins_l16: BL_ins_l16=Array(LM_ins_l16_Parts, LM_ins_l16_Playfield)
-Dim BL_ins_l17: BL_ins_l17=Array(LM_ins_l17_LFlip, LM_ins_l17_Parts, LM_ins_l17_Playfield)
-Dim BL_ins_l18: BL_ins_l18=Array(LM_ins_l18_Overlay, LM_ins_l18_Parts, LM_ins_l18_Playfield, LM_ins_l18_lsling_001)
-Dim BL_ins_l19: BL_ins_l19=Array(LM_ins_l19_Overlay, LM_ins_l19_Parts, LM_ins_l19_Playfield, LM_ins_l19_sw58)
-Dim BL_ins_l2: BL_ins_l2=Array(LM_ins_l2_Playfield)
-Dim BL_ins_l20: BL_ins_l20=Array(LM_ins_l20_Parts, LM_ins_l20_Playfield)
-Dim BL_ins_l21: BL_ins_l21=Array(LM_ins_l21_Parts, LM_ins_l21_Playfield)
-Dim BL_ins_l22: BL_ins_l22=Array(LM_ins_l22_Parts, LM_ins_l22_Playfield)
-Dim BL_ins_l23: BL_ins_l23=Array(LM_ins_l23_Overlay, LM_ins_l23_Parts, LM_ins_l23_Playfield)
-Dim BL_ins_l24: BL_ins_l24=Array(LM_ins_l24_Parts, LM_ins_l24_Playfield)
-Dim BL_ins_l25: BL_ins_l25=Array(LM_ins_l25_Parts, LM_ins_l25_Playfield, LM_ins_l25_RFlip, LM_ins_l25_rsling_001)
-Dim BL_ins_l26: BL_ins_l26=Array(LM_ins_l26_Overlay, LM_ins_l26_Parts, LM_ins_l26_Playfield, LM_ins_l26_rsling_001, LM_ins_l26_rsling_002, LM_ins_l26_sw61)
-Dim BL_ins_l27: BL_ins_l27=Array(LM_ins_l27_Overlay, LM_ins_l27_Parts, LM_ins_l27_Playfield, LM_ins_l27_rsling, LM_ins_l27_rsling_001, LM_ins_l27_sw61)
-Dim BL_ins_l28: BL_ins_l28=Array(LM_ins_l28_Parts, LM_ins_l28_Playfield)
-Dim BL_ins_l29: BL_ins_l29=Array(LM_ins_l29_Parts, LM_ins_l29_Playfield)
-Dim BL_ins_l3: BL_ins_l3=Array(LM_ins_l3_Playfield)
-Dim BL_ins_l30: BL_ins_l30=Array(LM_ins_l30_Parts, LM_ins_l30_Playfield)
-Dim BL_ins_l31: BL_ins_l31=Array(LM_ins_l31_Parts, LM_ins_l31_Playfield)
-Dim BL_ins_l32: BL_ins_l32=Array(LM_ins_l32_Parts, LM_ins_l32_Playfield)
-Dim BL_ins_l33: BL_ins_l33=Array(LM_ins_l33_Overlay, LM_ins_l33_Parts, LM_ins_l33_Playfield, LM_ins_l33_Wall91)
-Dim BL_ins_l34: BL_ins_l34=Array(LM_ins_l34_Overlay, LM_ins_l34_Parts, LM_ins_l34_Playfield, LM_ins_l34_Wall91, LM_ins_l34_lsling, LM_ins_l34_lsling_001, LM_ins_l34_lsling_002)
-Dim BL_ins_l35: BL_ins_l35=Array(LM_ins_l35_Overlay, LM_ins_l35_Parts, LM_ins_l35_Playfield, LM_ins_l35_Wall049, LM_ins_l35_rsling, LM_ins_l35_rsling_001, LM_ins_l35_rsling_002)
-Dim BL_ins_l36: BL_ins_l36=Array(LM_ins_l36_Parts, LM_ins_l36_Playfield, LM_ins_l36_Wall049)
-Dim BL_ins_l37: BL_ins_l37=Array(LM_ins_l37_Lemk, LM_ins_l37_Overlay, LM_ins_l37_Parts, LM_ins_l37_Playfield, LM_ins_l37_Wall91, LM_ins_l37_sw57, LM_ins_l37_sw58)
-Dim BL_ins_l37a: BL_ins_l37a=Array(LM_ins_l37a_LFlip, LM_ins_l37a_Playfield, LM_ins_l37a_RFlip)
-Dim BL_ins_l37b: BL_ins_l37b=Array(LM_ins_l37b_Playfield, LM_ins_l37b_RFlip)
-Dim BL_ins_l38: BL_ins_l38=Array(LM_ins_l38_Gate001_Wire, LM_ins_l38_Parts, LM_ins_l38_Playfield, LM_ins_l38_Post2, LM_ins_l38_sw37)
-Dim BL_ins_l39: BL_ins_l39=Array(LM_ins_l39_Parts, LM_ins_l39_Playfield, LM_ins_l39_sw38)
-Dim BL_ins_l4: BL_ins_l4=Array(LM_ins_l4_Playfield)
-Dim BL_ins_l40: BL_ins_l40=Array(LM_ins_l40_Parts, LM_ins_l40_Playfield, LM_ins_l40_sw39)
-Dim BL_ins_l41: BL_ins_l41=Array(LM_ins_l41_Overlay, LM_ins_l41_Parts, LM_ins_l41_Playfield)
-Dim BL_ins_l42: BL_ins_l42=Array(LM_ins_l42_Overlay, LM_ins_l42_Parts, LM_ins_l42_Playfield)
-Dim BL_ins_l43: BL_ins_l43=Array(LM_ins_l43_Overlay, LM_ins_l43_Parts, LM_ins_l43_Playfield)
-Dim BL_ins_l44: BL_ins_l44=Array(LM_ins_l44_Overlay, LM_ins_l44_Parts, LM_ins_l44_Playfield)
-Dim BL_ins_l45: BL_ins_l45=Array(LM_ins_l45_Overlay, LM_ins_l45_Parts, LM_ins_l45_Playfield)
-Dim BL_ins_l46: BL_ins_l46=Array(LM_ins_l46_Overlay, LM_ins_l46_Parts, LM_ins_l46_Playfield)
-Dim BL_ins_l47: BL_ins_l47=Array(LM_ins_l47_Overlay, LM_ins_l47_Parts, LM_ins_l47_Playfield, LM_ins_l47_sw25)
-Dim BL_ins_l48: BL_ins_l48=Array(LM_ins_l48_Overlay, LM_ins_l48_Parts, LM_ins_l48_Playfield)
-Dim BL_ins_l49: BL_ins_l49=Array(LM_ins_l49_Overlay, LM_ins_l49_Parts, LM_ins_l49_Playfield)
-Dim BL_ins_l5: BL_ins_l5=Array(LM_ins_l5_Playfield)
-Dim BL_ins_l50: BL_ins_l50=Array(LM_ins_l50_Overlay, LM_ins_l50_Parts, LM_ins_l50_Playfield)
-Dim BL_ins_l51: BL_ins_l51=Array(LM_ins_l51_Overlay, LM_ins_l51_Parts, LM_ins_l51_Playfield)
-Dim BL_ins_l52: BL_ins_l52=Array(LM_ins_l52_Parts, LM_ins_l52_Playfield)
-Dim BL_ins_l53: BL_ins_l53=Array(LM_ins_l53_Parts)
-Dim BL_ins_l54: BL_ins_l54=Array(LM_ins_l54_Parts)
-Dim BL_ins_l55: BL_ins_l55=Array(LM_ins_l55_Parts, LM_ins_l55_Playfield)
-Dim BL_ins_l56: BL_ins_l56=Array(LM_ins_l56_Parts, LM_ins_l56_Playfield)
-Dim BL_ins_l57: BL_ins_l57=Array(LM_ins_l57_Overlay, LM_ins_l57_Parts, LM_ins_l57_Playfield, LM_ins_l57_sw25)
-Dim BL_ins_l58: BL_ins_l58=Array(LM_ins_l58_Overlay, LM_ins_l58_Parts, LM_ins_l58_Playfield)
-Dim BL_ins_l59: BL_ins_l59=Array(LM_ins_l59_Overlay, LM_ins_l59_Parts, LM_ins_l59_Playfield, LM_ins_l59_sw25)
-Dim BL_ins_l6: BL_ins_l6=Array(LM_ins_l6_Parts, LM_ins_l6_Playfield)
-Dim BL_ins_l60: BL_ins_l60=Array(LM_ins_l60_Parts, LM_ins_l60_Playfield)
-Dim BL_ins_l61: BL_ins_l61=Array(LM_ins_l61_Parts, LM_ins_l61_Playfield)
-Dim BL_ins_l62: BL_ins_l62=Array(LM_ins_l62_Parts, LM_ins_l62_Playfield)
-Dim BL_ins_l64: BL_ins_l64=Array(LM_ins_l64_Overlay, LM_ins_l64_Parts)
-Dim BL_ins_l65: BL_ins_l65=Array(LM_ins_l65_Parts, LM_ins_l65_Playfield)
-Dim BL_ins_l66: BL_ins_l66=Array(LM_ins_l66_Parts, LM_ins_l66_Playfield)
-Dim BL_ins_l67: BL_ins_l67=Array(LM_ins_l67_Parts, LM_ins_l67_Playfield)
-Dim BL_ins_l68: BL_ins_l68=Array(LM_ins_l68_Parts, LM_ins_l68_Playfield)
-Dim BL_ins_l69: BL_ins_l69=Array(LM_ins_l69_Parts, LM_ins_l69_Playfield)
-Dim BL_ins_l7: BL_ins_l7=Array(LM_ins_l7_Parts, LM_ins_l7_Playfield)
-Dim BL_ins_l71: BL_ins_l71=Array(LM_ins_l71_Bumper001_Ring, LM_ins_l71_Bumper002_Ring, LM_ins_l71_Bumper003_Ring, LM_ins_l71_Gate004_Wire, LM_ins_l71_Overlay, LM_ins_l71_Parts, LM_ins_l71_Post1, LM_ins_l71_Post2, LM_ins_l71_sw25, LM_ins_l71_sw29, LM_ins_l71_sw37, LM_ins_l71_sw38, LM_ins_l71_sw39, LM_ins_l71_sw46)
-Dim BL_ins_l72: BL_ins_l72=Array(LM_ins_l72_Overlay, LM_ins_l72_Parts, LM_ins_l72_Playfield)
-Dim BL_ins_l73: BL_ins_l73=Array(LM_ins_l73_Playfield)
-Dim BL_ins_l74: BL_ins_l74=Array(LM_ins_l74_LFlip, LM_ins_l74_Playfield)
-Dim BL_ins_l75: BL_ins_l75=Array(LM_ins_l75_Playfield, LM_ins_l75_RFlip)
-Dim BL_ins_l76: BL_ins_l76=Array(LM_ins_l76_LFlip, LM_ins_l76_Parts, LM_ins_l76_Playfield, LM_ins_l76_Wall91)
-Dim BL_ins_l77: BL_ins_l77=Array(LM_ins_l77_Parts, LM_ins_l77_Playfield, LM_ins_l77_RFlip, LM_ins_l77_Wall049)
-Dim BL_ins_l78: BL_ins_l78=Array(LM_ins_l78_Playfield)
-Dim BL_ins_l8: BL_ins_l8=Array(LM_ins_l8_Overlay, LM_ins_l8_Parts, LM_ins_l8_Playfield)
-Dim BL_ins_l80: BL_ins_l80=Array(LM_ins_l80_LFlip, LM_ins_l80_Playfield, LM_ins_l80_RFlip)
-Dim BL_ins_l9: BL_ins_l9=Array(LM_ins_l9_Overlay, LM_ins_l9_Parts, LM_ins_l9_Playfield)
-' Global arrays
-Dim BG_Bakemap: BG_Bakemap=Array(BM_Bumper001_Ring, BM_Bumper002_Ring, BM_Bumper003_Ring, BM_Gate001_Wire, BM_Gate002_Wire, BM_Gate003_Wire, BM_Gate004_Wire, BM_Gate005_Wire, BM_LFlip, BM_Lemk, BM_Overlay, BM_Parts, BM_Playfield, BM_Post1, BM_Post2, BM_RFlip, BM_RPGun, BM_Remk, BM_Wall049, BM_Wall91, BM_lrail, BM_lsling, BM_lsling_001, BM_lsling_002, BM_rrail, BM_rsling, BM_rsling_001, BM_rsling_002, BM_sw24, BM_sw25, BM_sw28, BM_sw29, BM_sw37, BM_sw38, BM_sw39, BM_sw46, BM_sw57, BM_sw58, BM_sw60, BM_sw61)
-Dim BG_Lightmap: BG_Lightmap=Array(LM_flash_F26_Bumper002_Ring, LM_flash_F26_Overlay, LM_flash_F26_Parts, LM_flash_F26_Playfield, LM_flash_F26_Post1, LM_flash_F26_Post2, LM_flash_F26_sw25, LM_flash_F26_sw28, LM_flash_F26_sw29, LM_flash_f27_LFlip, LM_flash_f27_Overlay, LM_flash_f27_Parts, LM_flash_f27_Playfield, LM_flash_f27_RFlip, LM_flash_f27_RPGun, LM_flash_f27_Wall049, LM_flash_f27_rsling_002, LM_flash_f27_sw60, LM_flash_f27_sw61, LM_flash_f28_Parts, LM_flash_f28_Playfield, LM_flash_f29_Parts, LM_flash_f30_Bumper002_Ring, LM_flash_f30_Bumper003_Ring, LM_flash_f30_Gate004_Wire, LM_flash_f30_Overlay, LM_flash_f30_Parts, LM_flash_f30_Playfield, LM_flash_f30_Post1, LM_flash_f30_Post2, LM_flash_f30_sw28, LM_flash_f30_sw29, LM_flash_f30_sw37, LM_flash_f30_sw38, LM_flash_f30_sw39, LM_flash_f31_Gate003_Wire, LM_flash_f31_Overlay, LM_flash_f31_Parts, LM_flash_f31_Playfield, LM_flash_f31_Post2, LM_flash_f31_lsling_001, LM_flash_f31_sw38, LM_flash_f32_LFlip, LM_flash_f32_Overlay, LM_flash_f32_Parts, _
-  LM_flash_f32_Playfield, LM_flash_f32_RFlip, LM_flash_f32_RPGun, LM_flash_f32_lsling_001, LM_flash_f32_rsling_001, LM_flash_f32_sw38, LM_flash_f32_sw58, LM_flash_f32_sw61, LM_gi_gi001_Overlay, LM_gi_gi001_Parts, LM_gi_gi001_Playfield, LM_gi_gi001_RFlip, LM_gi_gi001_Remk, LM_gi_gi001_Wall049, LM_gi_gi001_rsling, LM_gi_gi001_rsling_001, LM_gi_gi001_rsling_002, LM_gi_gi001_sw24, LM_gi_gi001_sw38, LM_gi_gi001_sw46, LM_gi_gi001_sw60, LM_gi_gi001_sw61, LM_gi_gi002_Overlay, LM_gi_gi002_Parts, LM_gi_gi002_Playfield, LM_gi_gi002_RFlip, LM_gi_gi002_Remk, LM_gi_gi002_rsling, LM_gi_gi002_rsling_001, LM_gi_gi002_rsling_002, LM_gi_gi002_sw61, LM_gi_gi003_Overlay, LM_gi_gi003_Parts, LM_gi_gi003_Playfield, LM_gi_gi003_Wall049, LM_gi_gi003_sw61, LM_gi_gi004_Overlay, LM_gi_gi004_Parts, LM_gi_gi004_Playfield, LM_gi_gi004_Wall049, LM_gi_gi004_sw60, LM_gi_gi004_sw61, LM_gi_gi005_Lemk, LM_gi_gi005_Overlay, LM_gi_gi005_Parts, LM_gi_gi005_Playfield, LM_gi_gi005_Wall91, LM_gi_gi005_rsling_002, LM_gi_gi005_sw58, LM_gi_gi006_Lemk, _
-  LM_gi_gi006_Overlay, LM_gi_gi006_Parts, LM_gi_gi006_Playfield, LM_gi_gi006_Wall91, LM_gi_gi006_rsling_002, LM_gi_gi006_sw57, LM_gi_gi006_sw58, LM_gi_gi007_LFlip, LM_gi_gi007_Lemk, LM_gi_gi007_Overlay, LM_gi_gi007_Parts, LM_gi_gi007_Playfield, LM_gi_gi007_lsling, LM_gi_gi007_lsling_001, LM_gi_gi007_lsling_002, LM_gi_gi007_rsling_002, LM_gi_gi007_sw57, LM_gi_gi007_sw58, LM_gi_gi008_LFlip, LM_gi_gi008_Lemk, LM_gi_gi008_Overlay, LM_gi_gi008_Parts, LM_gi_gi008_Playfield, LM_gi_gi008_lsling, LM_gi_gi008_lsling_001, LM_gi_gi008_lsling_002, LM_gi_gi008_sw58, LM_gi_gi010_Parts, LM_gi_gi010_Playfield, LM_gi_gi011_Parts, LM_gi_gi011_Playfield, LM_gi_gi011_rrail, LM_gi_gi013_Parts, LM_gi_gi013_Playfield, LM_gi_gi014_Parts, LM_gi_gi014_Playfield, LM_gi_gi025_Parts, LM_gi_gi025_Playfield, LM_gi_gi027_Bumper002_Ring, LM_gi_gi027_Bumper003_Ring, LM_gi_gi027_Gate001_Wire, LM_gi_gi027_Parts, LM_gi_gi027_Playfield, LM_gi_gi027_Post2, LM_gi_gi027_sw37, LM_gi_gi027_sw38, LM_gi_gi027_sw39, LM_gi_gi029_Bumper003_Ring, _
-  LM_gi_gi029_Gate002_Wire, LM_gi_gi029_Parts, LM_gi_gi029_Playfield, LM_gi_gi029_sw38, LM_gi_gi029_sw39, LM_gi_gi031_Gate002_Wire, LM_gi_gi031_Parts, LM_gi_gi031_Playfield, LM_gi_gi031_sw39, LM_gi_gi034_Parts, LM_gi_gi034_Playfield, LM_gi_gi1_Bumper001_Ring, LM_gi_gi1_Bumper002_Ring, LM_gi_gi1_Bumper003_Ring, LM_gi_gi1_Gate001_Wire, LM_gi_gi1_Gate004_Wire, LM_gi_gi1_Overlay, LM_gi_gi1_Parts, LM_gi_gi1_Playfield, LM_gi_gi1_Post1, LM_gi_gi1_Post2, LM_gi_gi1_sw25, LM_gi_gi1_sw28, LM_gi_gi1_sw29, LM_gi_gi1_sw37, LM_gi_gi1_sw38, LM_gi_gi1_sw39, LM_gi_gi1_sw46, LM_gi_gi36_Bumper002_Ring, LM_gi_gi36_Gate001_Wire, LM_gi_gi36_Parts, LM_gi_gi36_Playfield, LM_gi_gi36_sw37, LM_ins_l1_Playfield, LM_ins_l10_Parts, LM_ins_l10_Playfield, LM_ins_l11_Parts, LM_ins_l11_Playfield, LM_ins_l12_Parts, LM_ins_l12_Playfield, LM_ins_l13_Parts, LM_ins_l13_Playfield, LM_ins_l14_Parts, LM_ins_l14_Playfield, LM_ins_l15_Parts, LM_ins_l15_Playfield, LM_ins_l16_Parts, LM_ins_l16_Playfield, LM_ins_l17_LFlip, LM_ins_l17_Parts, _
-  LM_ins_l17_Playfield, LM_ins_l18_Overlay, LM_ins_l18_Parts, LM_ins_l18_Playfield, LM_ins_l18_lsling_001, LM_ins_l19_Overlay, LM_ins_l19_Parts, LM_ins_l19_Playfield, LM_ins_l19_sw58, LM_ins_l2_Playfield, LM_ins_l20_Parts, LM_ins_l20_Playfield, LM_ins_l21_Parts, LM_ins_l21_Playfield, LM_ins_l22_Parts, LM_ins_l22_Playfield, LM_ins_l23_Overlay, LM_ins_l23_Parts, LM_ins_l23_Playfield, LM_ins_l24_Parts, LM_ins_l24_Playfield, LM_ins_l25_Parts, LM_ins_l25_Playfield, LM_ins_l25_RFlip, LM_ins_l25_rsling_001, LM_ins_l26_Overlay, LM_ins_l26_Parts, LM_ins_l26_Playfield, LM_ins_l26_rsling_001, LM_ins_l26_rsling_002, LM_ins_l26_sw61, LM_ins_l27_Overlay, LM_ins_l27_Parts, LM_ins_l27_Playfield, LM_ins_l27_rsling, LM_ins_l27_rsling_001, LM_ins_l27_sw61, LM_ins_l28_Parts, LM_ins_l28_Playfield, LM_ins_l29_Parts, LM_ins_l29_Playfield, LM_ins_l3_Playfield, LM_ins_l30_Parts, LM_ins_l30_Playfield, LM_ins_l31_Parts, LM_ins_l31_Playfield, LM_ins_l32_Parts, LM_ins_l32_Playfield, LM_ins_l33_Overlay, LM_ins_l33_Parts, _
-  LM_ins_l33_Playfield, LM_ins_l33_Wall91, LM_ins_l34_Overlay, LM_ins_l34_Parts, LM_ins_l34_Playfield, LM_ins_l34_Wall91, LM_ins_l34_lsling, LM_ins_l34_lsling_001, LM_ins_l34_lsling_002, LM_ins_l35_Overlay, LM_ins_l35_Parts, LM_ins_l35_Playfield, LM_ins_l35_Wall049, LM_ins_l35_rsling, LM_ins_l35_rsling_001, LM_ins_l35_rsling_002, LM_ins_l36_Parts, LM_ins_l36_Playfield, LM_ins_l36_Wall049, LM_ins_l37_Lemk, LM_ins_l37_Overlay, LM_ins_l37_Parts, LM_ins_l37_Playfield, LM_ins_l37_Wall91, LM_ins_l37_sw57, LM_ins_l37_sw58, LM_ins_l37a_LFlip, LM_ins_l37a_Playfield, LM_ins_l37a_RFlip, LM_ins_l37b_Playfield, LM_ins_l37b_RFlip, LM_ins_l38_Gate001_Wire, LM_ins_l38_Parts, LM_ins_l38_Playfield, LM_ins_l38_Post2, LM_ins_l38_sw37, LM_ins_l39_Parts, LM_ins_l39_Playfield, LM_ins_l39_sw38, LM_ins_l4_Playfield, LM_ins_l40_Parts, LM_ins_l40_Playfield, LM_ins_l40_sw39, LM_ins_l41_Overlay, LM_ins_l41_Parts, LM_ins_l41_Playfield, LM_ins_l42_Overlay, LM_ins_l42_Parts, LM_ins_l42_Playfield, LM_ins_l43_Overlay, LM_ins_l43_Parts, _
-  LM_ins_l43_Playfield, LM_ins_l44_Overlay, LM_ins_l44_Parts, LM_ins_l44_Playfield, LM_ins_l45_Overlay, LM_ins_l45_Parts, LM_ins_l45_Playfield, LM_ins_l46_Overlay, LM_ins_l46_Parts, LM_ins_l46_Playfield, LM_ins_l47_Overlay, LM_ins_l47_Parts, LM_ins_l47_Playfield, LM_ins_l47_sw25, LM_ins_l48_Overlay, LM_ins_l48_Parts, LM_ins_l48_Playfield, LM_ins_l49_Overlay, LM_ins_l49_Parts, LM_ins_l49_Playfield, LM_ins_l5_Playfield, LM_ins_l50_Overlay, LM_ins_l50_Parts, LM_ins_l50_Playfield, LM_ins_l51_Overlay, LM_ins_l51_Parts, LM_ins_l51_Playfield, LM_ins_l52_Parts, LM_ins_l52_Playfield, LM_ins_l53_Parts, LM_ins_l54_Parts, LM_ins_l55_Parts, LM_ins_l55_Playfield, LM_ins_l56_Parts, LM_ins_l56_Playfield, LM_ins_l57_Overlay, LM_ins_l57_Parts, LM_ins_l57_Playfield, LM_ins_l57_sw25, LM_ins_l58_Overlay, LM_ins_l58_Parts, LM_ins_l58_Playfield, LM_ins_l59_Overlay, LM_ins_l59_Parts, LM_ins_l59_Playfield, LM_ins_l59_sw25, LM_ins_l6_Parts, LM_ins_l6_Playfield, LM_ins_l60_Parts, LM_ins_l60_Playfield, LM_ins_l61_Parts, _
-  LM_ins_l61_Playfield, LM_ins_l62_Parts, LM_ins_l62_Playfield, LM_ins_l64_Overlay, LM_ins_l64_Parts, LM_ins_l65_Parts, LM_ins_l65_Playfield, LM_ins_l66_Parts, LM_ins_l66_Playfield, LM_ins_l67_Parts, LM_ins_l67_Playfield, LM_ins_l68_Parts, LM_ins_l68_Playfield, LM_ins_l69_Parts, LM_ins_l69_Playfield, LM_ins_l7_Parts, LM_ins_l7_Playfield, LM_ins_l71_Bumper001_Ring, LM_ins_l71_Bumper002_Ring, LM_ins_l71_Bumper003_Ring, LM_ins_l71_Gate004_Wire, LM_ins_l71_Overlay, LM_ins_l71_Parts, LM_ins_l71_Post1, LM_ins_l71_Post2, LM_ins_l71_sw25, LM_ins_l71_sw29, LM_ins_l71_sw37, LM_ins_l71_sw38, LM_ins_l71_sw39, LM_ins_l71_sw46, LM_ins_l72_Overlay, LM_ins_l72_Parts, LM_ins_l72_Playfield, LM_ins_l73_Playfield, LM_ins_l74_LFlip, LM_ins_l74_Playfield, LM_ins_l75_Playfield, LM_ins_l75_RFlip, LM_ins_l76_LFlip, LM_ins_l76_Parts, LM_ins_l76_Playfield, LM_ins_l76_Wall91, LM_ins_l77_Parts, LM_ins_l77_Playfield, LM_ins_l77_RFlip, LM_ins_l77_Wall049, LM_ins_l78_Playfield, LM_ins_l8_Overlay, LM_ins_l8_Parts, LM_ins_l8_Playfield, _
-  LM_ins_l80_LFlip, LM_ins_l80_Playfield, LM_ins_l80_RFlip, LM_ins_l9_Overlay, LM_ins_l9_Parts, LM_ins_l9_Playfield)
-Dim BG_All: BG_All=Array(BM_Bumper001_Ring, BM_Bumper002_Ring, BM_Bumper003_Ring, BM_Gate001_Wire, BM_Gate002_Wire, BM_Gate003_Wire, BM_Gate004_Wire, BM_Gate005_Wire, BM_LFlip, BM_Lemk, BM_Overlay, BM_Parts, BM_Playfield, BM_Post1, BM_Post2, BM_RFlip, BM_RPGun, BM_Remk, BM_Wall049, BM_Wall91, BM_lrail, BM_lsling, BM_lsling_001, BM_lsling_002, BM_rrail, BM_rsling, BM_rsling_001, BM_rsling_002, BM_sw24, BM_sw25, BM_sw28, BM_sw29, BM_sw37, BM_sw38, BM_sw39, BM_sw46, BM_sw57, BM_sw58, BM_sw60, BM_sw61, LM_flash_F26_Bumper002_Ring, LM_flash_F26_Overlay, LM_flash_F26_Parts, LM_flash_F26_Playfield, LM_flash_F26_Post1, LM_flash_F26_Post2, LM_flash_F26_sw25, LM_flash_F26_sw28, LM_flash_F26_sw29, LM_flash_f27_LFlip, LM_flash_f27_Overlay, LM_flash_f27_Parts, LM_flash_f27_Playfield, LM_flash_f27_RFlip, LM_flash_f27_RPGun, LM_flash_f27_Wall049, LM_flash_f27_rsling_002, LM_flash_f27_sw60, LM_flash_f27_sw61, LM_flash_f28_Parts, LM_flash_f28_Playfield, LM_flash_f29_Parts, LM_flash_f30_Bumper002_Ring, _
-  LM_flash_f30_Bumper003_Ring, LM_flash_f30_Gate004_Wire, LM_flash_f30_Overlay, LM_flash_f30_Parts, LM_flash_f30_Playfield, LM_flash_f30_Post1, LM_flash_f30_Post2, LM_flash_f30_sw28, LM_flash_f30_sw29, LM_flash_f30_sw37, LM_flash_f30_sw38, LM_flash_f30_sw39, LM_flash_f31_Gate003_Wire, LM_flash_f31_Overlay, LM_flash_f31_Parts, LM_flash_f31_Playfield, LM_flash_f31_Post2, LM_flash_f31_lsling_001, LM_flash_f31_sw38, LM_flash_f32_LFlip, LM_flash_f32_Overlay, LM_flash_f32_Parts, LM_flash_f32_Playfield, LM_flash_f32_RFlip, LM_flash_f32_RPGun, LM_flash_f32_lsling_001, LM_flash_f32_rsling_001, LM_flash_f32_sw38, LM_flash_f32_sw58, LM_flash_f32_sw61, LM_gi_gi001_Overlay, LM_gi_gi001_Parts, LM_gi_gi001_Playfield, LM_gi_gi001_RFlip, LM_gi_gi001_Remk, LM_gi_gi001_Wall049, LM_gi_gi001_rsling, LM_gi_gi001_rsling_001, LM_gi_gi001_rsling_002, LM_gi_gi001_sw24, LM_gi_gi001_sw38, LM_gi_gi001_sw46, LM_gi_gi001_sw60, LM_gi_gi001_sw61, LM_gi_gi002_Overlay, LM_gi_gi002_Parts, LM_gi_gi002_Playfield, LM_gi_gi002_RFlip, _
-  LM_gi_gi002_Remk, LM_gi_gi002_rsling, LM_gi_gi002_rsling_001, LM_gi_gi002_rsling_002, LM_gi_gi002_sw61, LM_gi_gi003_Overlay, LM_gi_gi003_Parts, LM_gi_gi003_Playfield, LM_gi_gi003_Wall049, LM_gi_gi003_sw61, LM_gi_gi004_Overlay, LM_gi_gi004_Parts, LM_gi_gi004_Playfield, LM_gi_gi004_Wall049, LM_gi_gi004_sw60, LM_gi_gi004_sw61, LM_gi_gi005_Lemk, LM_gi_gi005_Overlay, LM_gi_gi005_Parts, LM_gi_gi005_Playfield, LM_gi_gi005_Wall91, LM_gi_gi005_rsling_002, LM_gi_gi005_sw58, LM_gi_gi006_Lemk, LM_gi_gi006_Overlay, LM_gi_gi006_Parts, LM_gi_gi006_Playfield, LM_gi_gi006_Wall91, LM_gi_gi006_rsling_002, LM_gi_gi006_sw57, LM_gi_gi006_sw58, LM_gi_gi007_LFlip, LM_gi_gi007_Lemk, LM_gi_gi007_Overlay, LM_gi_gi007_Parts, LM_gi_gi007_Playfield, LM_gi_gi007_lsling, LM_gi_gi007_lsling_001, LM_gi_gi007_lsling_002, LM_gi_gi007_rsling_002, LM_gi_gi007_sw57, LM_gi_gi007_sw58, LM_gi_gi008_LFlip, LM_gi_gi008_Lemk, LM_gi_gi008_Overlay, LM_gi_gi008_Parts, LM_gi_gi008_Playfield, LM_gi_gi008_lsling, LM_gi_gi008_lsling_001, _
-  LM_gi_gi008_lsling_002, LM_gi_gi008_sw58, LM_gi_gi010_Parts, LM_gi_gi010_Playfield, LM_gi_gi011_Parts, LM_gi_gi011_Playfield, LM_gi_gi011_rrail, LM_gi_gi013_Parts, LM_gi_gi013_Playfield, LM_gi_gi014_Parts, LM_gi_gi014_Playfield, LM_gi_gi025_Parts, LM_gi_gi025_Playfield, LM_gi_gi027_Bumper002_Ring, LM_gi_gi027_Bumper003_Ring, LM_gi_gi027_Gate001_Wire, LM_gi_gi027_Parts, LM_gi_gi027_Playfield, LM_gi_gi027_Post2, LM_gi_gi027_sw37, LM_gi_gi027_sw38, LM_gi_gi027_sw39, LM_gi_gi029_Bumper003_Ring, LM_gi_gi029_Gate002_Wire, LM_gi_gi029_Parts, LM_gi_gi029_Playfield, LM_gi_gi029_sw38, LM_gi_gi029_sw39, LM_gi_gi031_Gate002_Wire, LM_gi_gi031_Parts, LM_gi_gi031_Playfield, LM_gi_gi031_sw39, LM_gi_gi034_Parts, LM_gi_gi034_Playfield, LM_gi_gi1_Bumper001_Ring, LM_gi_gi1_Bumper002_Ring, LM_gi_gi1_Bumper003_Ring, LM_gi_gi1_Gate001_Wire, LM_gi_gi1_Gate004_Wire, LM_gi_gi1_Overlay, LM_gi_gi1_Parts, LM_gi_gi1_Playfield, LM_gi_gi1_Post1, LM_gi_gi1_Post2, LM_gi_gi1_sw25, LM_gi_gi1_sw28, LM_gi_gi1_sw29, LM_gi_gi1_sw37, LM_gi_gi1_sw38, _
-  LM_gi_gi1_sw39, LM_gi_gi1_sw46, LM_gi_gi36_Bumper002_Ring, LM_gi_gi36_Gate001_Wire, LM_gi_gi36_Parts, LM_gi_gi36_Playfield, LM_gi_gi36_sw37, LM_ins_l1_Playfield, LM_ins_l10_Parts, LM_ins_l10_Playfield, LM_ins_l11_Parts, LM_ins_l11_Playfield, LM_ins_l12_Parts, LM_ins_l12_Playfield, LM_ins_l13_Parts, LM_ins_l13_Playfield, LM_ins_l14_Parts, LM_ins_l14_Playfield, LM_ins_l15_Parts, LM_ins_l15_Playfield, LM_ins_l16_Parts, LM_ins_l16_Playfield, LM_ins_l17_LFlip, LM_ins_l17_Parts, LM_ins_l17_Playfield, LM_ins_l18_Overlay, LM_ins_l18_Parts, LM_ins_l18_Playfield, LM_ins_l18_lsling_001, LM_ins_l19_Overlay, LM_ins_l19_Parts, LM_ins_l19_Playfield, LM_ins_l19_sw58, LM_ins_l2_Playfield, LM_ins_l20_Parts, LM_ins_l20_Playfield, LM_ins_l21_Parts, LM_ins_l21_Playfield, LM_ins_l22_Parts, LM_ins_l22_Playfield, LM_ins_l23_Overlay, LM_ins_l23_Parts, LM_ins_l23_Playfield, LM_ins_l24_Parts, LM_ins_l24_Playfield, LM_ins_l25_Parts, LM_ins_l25_Playfield, LM_ins_l25_RFlip, LM_ins_l25_rsling_001, LM_ins_l26_Overlay, LM_ins_l26_Parts, _
-  LM_ins_l26_Playfield, LM_ins_l26_rsling_001, LM_ins_l26_rsling_002, LM_ins_l26_sw61, LM_ins_l27_Overlay, LM_ins_l27_Parts, LM_ins_l27_Playfield, LM_ins_l27_rsling, LM_ins_l27_rsling_001, LM_ins_l27_sw61, LM_ins_l28_Parts, LM_ins_l28_Playfield, LM_ins_l29_Parts, LM_ins_l29_Playfield, LM_ins_l3_Playfield, LM_ins_l30_Parts, LM_ins_l30_Playfield, LM_ins_l31_Parts, LM_ins_l31_Playfield, LM_ins_l32_Parts, LM_ins_l32_Playfield, LM_ins_l33_Overlay, LM_ins_l33_Parts, LM_ins_l33_Playfield, LM_ins_l33_Wall91, LM_ins_l34_Overlay, LM_ins_l34_Parts, LM_ins_l34_Playfield, LM_ins_l34_Wall91, LM_ins_l34_lsling, LM_ins_l34_lsling_001, LM_ins_l34_lsling_002, LM_ins_l35_Overlay, LM_ins_l35_Parts, LM_ins_l35_Playfield, LM_ins_l35_Wall049, LM_ins_l35_rsling, LM_ins_l35_rsling_001, LM_ins_l35_rsling_002, LM_ins_l36_Parts, LM_ins_l36_Playfield, LM_ins_l36_Wall049, LM_ins_l37_Lemk, LM_ins_l37_Overlay, LM_ins_l37_Parts, LM_ins_l37_Playfield, LM_ins_l37_Wall91, LM_ins_l37_sw57, LM_ins_l37_sw58, LM_ins_l37a_LFlip, LM_ins_l37a_Playfield, _
-  LM_ins_l37a_RFlip, LM_ins_l37b_Playfield, LM_ins_l37b_RFlip, LM_ins_l38_Gate001_Wire, LM_ins_l38_Parts, LM_ins_l38_Playfield, LM_ins_l38_Post2, LM_ins_l38_sw37, LM_ins_l39_Parts, LM_ins_l39_Playfield, LM_ins_l39_sw38, LM_ins_l4_Playfield, LM_ins_l40_Parts, LM_ins_l40_Playfield, LM_ins_l40_sw39, LM_ins_l41_Overlay, LM_ins_l41_Parts, LM_ins_l41_Playfield, LM_ins_l42_Overlay, LM_ins_l42_Parts, LM_ins_l42_Playfield, LM_ins_l43_Overlay, LM_ins_l43_Parts, LM_ins_l43_Playfield, LM_ins_l44_Overlay, LM_ins_l44_Parts, LM_ins_l44_Playfield, LM_ins_l45_Overlay, LM_ins_l45_Parts, LM_ins_l45_Playfield, LM_ins_l46_Overlay, LM_ins_l46_Parts, LM_ins_l46_Playfield, LM_ins_l47_Overlay, LM_ins_l47_Parts, LM_ins_l47_Playfield, LM_ins_l47_sw25, LM_ins_l48_Overlay, LM_ins_l48_Parts, LM_ins_l48_Playfield, LM_ins_l49_Overlay, LM_ins_l49_Parts, LM_ins_l49_Playfield, LM_ins_l5_Playfield, LM_ins_l50_Overlay, LM_ins_l50_Parts, LM_ins_l50_Playfield, LM_ins_l51_Overlay, LM_ins_l51_Parts, LM_ins_l51_Playfield, LM_ins_l52_Parts, _
-  LM_ins_l52_Playfield, LM_ins_l53_Parts, LM_ins_l54_Parts, LM_ins_l55_Parts, LM_ins_l55_Playfield, LM_ins_l56_Parts, LM_ins_l56_Playfield, LM_ins_l57_Overlay, LM_ins_l57_Parts, LM_ins_l57_Playfield, LM_ins_l57_sw25, LM_ins_l58_Overlay, LM_ins_l58_Parts, LM_ins_l58_Playfield, LM_ins_l59_Overlay, LM_ins_l59_Parts, LM_ins_l59_Playfield, LM_ins_l59_sw25, LM_ins_l6_Parts, LM_ins_l6_Playfield, LM_ins_l60_Parts, LM_ins_l60_Playfield, LM_ins_l61_Parts, LM_ins_l61_Playfield, LM_ins_l62_Parts, LM_ins_l62_Playfield, LM_ins_l64_Overlay, LM_ins_l64_Parts, LM_ins_l65_Parts, LM_ins_l65_Playfield, LM_ins_l66_Parts, LM_ins_l66_Playfield, LM_ins_l67_Parts, LM_ins_l67_Playfield, LM_ins_l68_Parts, LM_ins_l68_Playfield, LM_ins_l69_Parts, LM_ins_l69_Playfield, LM_ins_l7_Parts, LM_ins_l7_Playfield, LM_ins_l71_Bumper001_Ring, LM_ins_l71_Bumper002_Ring, LM_ins_l71_Bumper003_Ring, LM_ins_l71_Gate004_Wire, LM_ins_l71_Overlay, LM_ins_l71_Parts, LM_ins_l71_Post1, LM_ins_l71_Post2, LM_ins_l71_sw25, LM_ins_l71_sw29, LM_ins_l71_sw37, _
-  LM_ins_l71_sw38, LM_ins_l71_sw39, LM_ins_l71_sw46, LM_ins_l72_Overlay, LM_ins_l72_Parts, LM_ins_l72_Playfield, LM_ins_l73_Playfield, LM_ins_l74_LFlip, LM_ins_l74_Playfield, LM_ins_l75_Playfield, LM_ins_l75_RFlip, LM_ins_l76_LFlip, LM_ins_l76_Parts, LM_ins_l76_Playfield, LM_ins_l76_Wall91, LM_ins_l77_Parts, LM_ins_l77_Playfield, LM_ins_l77_RFlip, LM_ins_l77_Wall049, LM_ins_l78_Playfield, LM_ins_l8_Overlay, LM_ins_l8_Parts, LM_ins_l8_Playfield, LM_ins_l80_LFlip, LM_ins_l80_Playfield, LM_ins_l80_RFlip, LM_ins_l9_Overlay, LM_ins_l9_Parts, LM_ins_l9_Playfield)
-' VLM  Arrays - End
-
-
-
-'************
-' Table init
-'************
-
-Dim bsTrough, cbCaptive, bsTX, bsVuk, dtBank, GunMech, plungerIM
-
-Sub table1_Init
-    vpmInit me
-    With Controller
-        .GameName = cGameName
-        If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description:Exit Sub
-        .SplashInfoLine = "Terminator 3 - Stern 2003" & vbNewLine & "VPX table by JPSalas, Siggi, TastyWasps"
-        .HandleKeyboard = 0
-        .ShowTitle = 0
-        .ShowDMDOnly = 1
-        .ShowFrame = 0
-        .HandleMechanics = 0
-        .Hidden = VarHidden
-        .Games(cGameName).Settings.Value("rol") = 0   '1= rotated display, 0= normal
-        .Games(cGameName).Settings.Value("sound") = 1 '1 enabled rom sound
-        '.SetDisplayPosition 0,0,GetPlayerHWnd 'uncomment if you can't see the dmd
-        On Error Resume Next
-        Controller.SolMask(0) = 0
-        vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the Timer to renable all the solenoids after 2 seconds
-        Controller.Run GetPlayerHWnd
-        On Error Goto 0
-    End With
-
-  vpmMapLights AllLamps
-
-    ' Nudging
-    vpmNudge.TiltSwitch = 56
-    vpmNudge.Sensitivity = 3
-    vpmNudge.TiltObj = Array(Bumper001, Bumper002, Bumper003, LeftSlingshot, RightSlingshot)
-
-    ' Trough
-    Set bsTrough = New cvpmBallStack
-    With bsTrough
-        .InitSw 0, 14, 13, 12, 11, 0, 0, 0
-        .InitKick BallRelease, 90, 4
-        .InitExitSnd SoundFX("fx_ballrel", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
-        .Balls = 4
-        .IsTrough = 1
-    End With
-
-    'Right VUK
-    Set bsVuk = new cvpmballstack
-    With bsVuk
- .KickForceVar = 3
- .KickAngleVar = 3
-        .InitSw 0, 36, 0, 0, 0, 0, 0, 0
-        .InitKick sw36a, 180, 8
-        .InitExitSnd SoundFX("Saucer_Kick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
-    End With
-
-    'TX VUK
-    Set bsTX = new cvpmballstack
-    With bsTX
- .KickForceVar = 3
- .KickAngleVar = 3
-        .InitSw 0, 33, 34, 35, 0, 0, 0, 0
-        .InitKick sw31a, 180, 12
-        .InitExitSnd SoundFX("Saucer_Kick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
-    End With
-
-    'Drop target
-    Set dtBank = New cvpmDropTarget
-    With dtBank
-        .InitDrop sw25, 25
-        .InitSnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
-        .CreateEvents "dtBank"
-    End With
-
-    'Captive Ball
-    Set cbCaptive = New cvpmCaptiveBall
-    With cbCaptive
-        .InitCaptive CapTrigger1, CapWall1, CapKicker1, 358
-        .NailedBalls = 0
-        .ForceTrans = .9
-        .MinForce = 3.5
-        .CreateEvents "cbCaptive"
-        .Start
-    End With
-
-    ' Impulse Plunger
-    Const IMPowerSetting = 60 'Plunger Power
-    Const IMTime = 0.6        ' Time in seconds for Full Plunge
-    Set plungerIM = New cvpmImpulseP
-    With plungerIM
-        .InitImpulseP sw16, IMPowerSetting, IMTime
-        .Random 0.4
-        .switch 16
-        .InitExitSnd SoundFX("fx_plunger", DOFContactors), SoundFX("fx_plunger", DOFContactors)
-        .CreateEvents "plungerIM"
-    End With
-
-    ' Main Timer init
-    PinMAMETimer.Interval = PinMAMEInterval
-    PinMAMETimer.Enabled = 1
-    RealTime.Enabled = 1
-
-    ' Init GPG
-    RPGKicker.Createsizedball(RPGBallSize / 2)
-
-    ' Init Kickback
-    KickBack.Pullback
-
-    Div1.Isdropped = 1
-    Post1.Isdropped = 1
-    Post2.Isdropped = 1
-
-    LoadLUT
-
-  Flasher126 0
-  Flasher127 0
-  Flasher128 0
-  Flasher129 0
-  Flasher130 0
-  Flasher131 0
-  Flasher132 0
-
-End Sub
-
-'******************
-' RealTime Updates
-'******************
-
-Sub RealTime_Timer
-End Sub
-
-Sub LeftFlipper_Animate
-  Dim a : a = LeftFlipper.CurrentAngle
-  Dim BP
-  For Each BP in BP_LFlip: BP.RotZ = a-121: Next
-End Sub
-
-Sub RightFlipper_Animate
-  Dim a : a = RightFlipper.CurrentAngle
-  Dim BP
-  For Each BP in BP_RFlip: BP.RotZ = a+121: Next
-End Sub
-
-
-'******************************************************
-'  ZANI: Misc Animations
-'******************************************************
-
-' Switches
-
-' Rollovers
-
-Sub sw24_Animate
-  Dim z : z = sw24.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw24 : BP.transz = z: Next
-End Sub
-
-Sub sw28_Animate
-  Dim z : z = sw28.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw28 : BP.transz = z: Next
-End Sub
-
-Sub sw29_Animate
-  Dim z : z = sw29.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw29 : BP.transz = z: Next
-End Sub
-
-Sub sw37_Animate
-  Dim z : z = sw37.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw37 : BP.transz = z: Next
-End Sub
-
-Sub sw38_Animate
-  Dim z : z = sw38.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw38 : BP.transz = z: Next
-End Sub
-
-Sub sw39_Animate
-  Dim z : z = sw39.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw39 : BP.transz = z: Next
-End Sub
-
-Sub sw46_Animate
-  Dim z : z = sw46.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw46 : BP.transz = z: Next
-End Sub
-
-Sub sw57_Animate
-  Dim z : z = sw57.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw57 : BP.transz = z: Next
-End Sub
-
-Sub sw58_Animate
-  Dim z : z = sw58.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw58 : BP.transz = z: Next
-End Sub
-
-Sub sw60_Animate
-  Dim z : z = sw60.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw60 : BP.transz = z: Next
-End Sub
-
-Sub sw61_Animate
-  Dim z : z = sw61.CurrentAnimOffset
-  Dim BP : For Each BP in BP_sw61 : BP.transz = z: Next
-End Sub
-
-' Gates_hit
-Sub Gate001_Animate
-  Dim a: a = Gate001.CurrentAngle
-  Dim BP : For Each BP in BP_Gate001_Wire: BP.RotX = a: Next
-End Sub
-
-Sub Gate002_Animate
-  Dim a: a = Gate002.CurrentAngle
-  Dim BP : For Each BP in BP_Gate002_Wire: BP.RotX = a: Next
-End Sub
-
-Sub Gate003_Animate
-  Dim a: a = -Gate003.CurrentAngle
-  Dim BP : For Each BP in BP_Gate003_Wire: BP.RotX = a: Next
-End Sub
-
-Sub Gate004_Animate
-  Dim a: a = Gate004.CurrentAngle
-  Dim BP : For Each BP in BP_Gate004_Wire: BP.RotX = a: Next
-End Sub
-
-Sub Gate005_Animate
-  Dim a: a = Gate005.CurrentAngle
-  Dim BP : For Each BP in BP_Gate005_Wire: BP.RotX = a: Next
-End Sub
-
-
-
-' Bumpers
-Sub bumper001_Animate
-  Dim z, BP
-  z = bumper001.CurrentRingOffset
-  For Each BP in BP_Bumper001_Ring : BP.transz = z: Next
-End Sub
-
-Sub bumper002_Animate
-  Dim z, BP
-  z = bumper002.CurrentRingOffset
-  For Each BP in BP_Bumper002_Ring : BP.transz = z: Next
-End Sub
-
-Sub bumper003_Animate
-  Dim z, BP
-  z = bumper003.CurrentRingOffset
-  For Each BP in BP_Bumper003_Ring : BP.transz = z: Next
-End Sub
-
-
-
-'**********
-' Keys
-'**********
-
-Sub table1_KeyDown(ByVal Keycode)
-
-    If keycode = PlungerKey or keycode = LockBarKey Then
-    PlaySoundat "fx_solenoidOn", sw16
-    controller.switch(55) = True
-  End If
-
-  If keycode = LeftFlipperKey Then
-    FlipperActivate LeftFlipper, LFPress
-    Pincab_LeftFlipperButton.X = Pincab_LeftFlipperButton.X + 8
-  End If
-
-  If keycode = RightFlipperKey Then
-    FlipperActivate RightFlipper, RFPress
-    Pincab_RightFlipperButton.X = Pincab_RightFlipperButton.X - 8
-  End If
-
-    If keycode = LeftTiltKey Then Nudge 90, 3::SoundNudgeLeft()
-    If keycode = RightTiltKey Then Nudge 270, 3::SoundNudgeRight()
-    If keycode = CenterTiltKey Then Nudge 0, 5:SoundNudgeCenter()
-
-    If keycode = RightMagnaSave Then
-        controller.switch(53) = true
-        If bLutActive Then NextLUT:End If
-    End If
-
-  If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCoin3 or keycode = keyInsertCoin4 Then
-    Select Case Int(rnd*3)
-      Case 0: PlaySound ("Coin_In_1"), 0, CoinSoundLevel, 0, 0.25
-      Case 1: PlaySound ("Coin_In_2"), 0, CoinSoundLevel, 0, 0.25
-      Case 2: PlaySound ("Coin_In_3"), 0, CoinSoundLevel, 0, 0.25
-    End Select
-  End If
-
-  If keycode = StartGameKey Then soundStartButton()
-
-    If vpmKeyDown(keycode) Then Exit Sub
-
-End Sub
-
-Sub table1_KeyUp(ByVal Keycode)
-
-    If keycode = PlungerKey or keycode = LockBarKey Then
-    PlaySoundAt "fx_solenoidOff", sw16
-    controller.switch(55) = False
-  End If
-
-  If keycode = LeftFlipperKey Then
-    FlipperDeActivate LeftFlipper, LFPress
-    Pincab_LeftFlipperButton.X = Pincab_LeftFlipperButton.X - 8
-  End If
-
-  If keycode = RightFlipperKey Then
-    FlipperDeActivate RightFlipper, RFPress
-    Pincab_RightFlipperButton.X = Pincab_RightFlipperButton.X + 8
-  End If
-
-    If keycode = RightMagnaSave Then controller.switch(53) = true
-
-    If vpmKeyUp(keycode)Then Exit Sub
-
-End Sub
-
-'***************************
-'   LUT - Darkness control
-'***************************
-
-Dim bLutActive, LUTImage
-
-Sub LoadLUT
-    bLutActive = False
-    x = LoadValue(cGameName, "LUTImage")
-    If(x <> "")Then LUTImage = x Else LUTImage = 0
-    UpdateLUT
-End Sub
-
-Sub SaveLUT
-    SaveValue cGameName, "LUTImage", LUTImage
-End Sub
-
-Sub NextLUT:LUTImage = (LUTImage + 1)MOD 15:UpdateLUT:SaveLUT:Lutbox.text = "level of darkness " & LUTImage + 1:End Sub
-
-Sub UpdateLUT
-    Select Case LutImage
-        Case 0:table1.ColorGradeImage = "LUT0":GiIntensity = 1:ChangeGIIntensity 1
-        Case 1:table1.ColorGradeImage = "LUT1":GiIntensity = 1.05:ChangeGIIntensity 1
-        Case 2:table1.ColorGradeImage = "LUT2":GiIntensity = 1.1:ChangeGIIntensity 1
-        Case 3:table1.ColorGradeImage = "LUT3":GiIntensity = 1.15:ChangeGIIntensity 1
-        Case 4:table1.ColorGradeImage = "LUT4":GiIntensity = 1.2:ChangeGIIntensity 1
-        Case 5:table1.ColorGradeImage = "LUT5":GiIntensity = 1.25:ChangeGIIntensity 1
-        Case 6:table1.ColorGradeImage = "LUT6":GiIntensity = 1.3:ChangeGIIntensity 1
-        Case 7:table1.ColorGradeImage = "LUT7":GiIntensity = 1.35:ChangeGIIntensity 1
-        Case 8:table1.ColorGradeImage = "LUT8":GiIntensity = 1.4:ChangeGIIntensity 1
-        Case 9:table1.ColorGradeImage = "LUT9":GiIntensity = 1.45:ChangeGIIntensity 1
-        Case 10:table1.ColorGradeImage = "LUT10":GiIntensity = 1.5:ChangeGIIntensity 1
-        Case 11:table1.ColorGradeImage = "LUT11":GiIntensity = 1.55:ChangeGIIntensity 1
-        Case 12:table1.ColorGradeImage = "LUT12":GiIntensity = 1.6:ChangeGIIntensity 1
-        Case 13:table1.ColorGradeImage = "LUT13":GiIntensity = 1.65:ChangeGIIntensity 1
-        Case 14:table1.ColorGradeImage = "LUT14":GiIntensity = 1.7:ChangeGIIntensity 1
-    End Select
-End Sub
-
-Dim GiIntensity
-GiIntensity = 1   'used by the LUT changing to increase the GI lights when the table is darker
-
-Sub ChangeGiIntensity(factor) 'changes the intensity scale
-    Dim bulb
-    For each bulb in aGiLights
-        bulb.IntensityScale = GiIntensity * factor
-    Next
-End Sub
-
-'*********
-' Switches
-'*********
-
-' Slings
-Dim LStep, RStep
-
-Sub LeftSlingShot_Slingshot
-  dim BL
-  LS.VelocityCorrect(ActiveBall)
-  RandomSoundSlingshotLeft sw58
-    DOF 101, DOFPulse
-'    LeftSling004.Visible = 1
-    'Lemk.RotX = 26
-    LStep = 0 : LeftSlingShot_Timer ' Initialize Step to 0
-    vpmTimer.PulseSw 59
-  For Each BL in BP_lsling : BL.Visible = False: Next
-  LeftSlingShot.TimerInterval = 17
-    LeftSlingShot.TimerEnabled = 1
-End Sub
-
-'BP_lsling_001
-dim BLinit
-For Each BLinit in BP_lsling_001 : BLinit.Visible = False: Next
-For Each BLinit in BP_lsling_002 : BLinit.Visible = False: Next
-For Each BLinit in BP_rsling_001 : BLinit.Visible = False: Next
-For Each BLinit in BP_rsling_002 : BLinit.Visible = False: Next
-
-Sub LeftSlingShot_Timer
-  Dim BL
-  Dim x1, x2, y
-  x1 = True:x2 = False:y = -22
-
-    Select Case LStep
-    Case 1:y = -22
-        Case 3:x1 = False:x2 = True:y = -10
-        Case 4:x1 = False:x2 = False:y = 0
-         For Each BL in BP_lsling : BL.Visible = True: Next
-         LeftSlingShot.TimerEnabled = 0
-    End Select
-
-  For Each BL in BP_lsling_001 : BL.Visible = x1: Next
-  For Each BL in BP_lsling_002 : BL.Visible = x2: Next
-  For Each BL in BP_LEMK : BL.transy = y: Next
-
-    LStep = LStep + 1
-End Sub
-
-
-Sub RightSlingShot_Slingshot
-  dim BL
-  RS.VelocityCorrect(ActiveBall)
-    RandomSoundSlingshotRight sw61
-    DOF 102, DOFPulse
-'    RightSling004.Visible = 1
-'    Remk.RotX = 26
-    RStep = 0 : RightSlingShot_Timer
-    vpmTimer.PulseSw 62
-  For Each BL in BP_rsling : BL.Visible = False: Next
-  RightSlingShot.TimerInterval = 17
-    RightSlingShot.TimerEnabled = 1
-End Sub
-
-Sub RightSlingShot_Timer
-  Dim BL
-  Dim x1, x2, y
-  x1 = True:x2 = False:y = -22
-
-    Select Case RStep
-    Case 1:y = -22
-        Case 3:x1 = False:x2 = True:y = -10
-        Case 4:x1 = False:x2 = False:y = 0
-         For Each BL in BP_rsling : BL.Visible = True: Next
-         RightSlingShot.TimerEnabled = 0
-    End Select
-
-  For Each BL in BP_rsling_001 : BL.Visible = x1: Next
-  For Each BL in BP_rsling_002 : BL.Visible = x2: Next
-  For Each BL in BP_REMK : BL.transy = y: Next
-
-    RStep = RStep + 1
-End Sub
-
-'Sub RightSlingShot_Timer_old
-'    Select Case RStep
-'        Case 1:RightSLing004.Visible = 0:RightSLing003.Visible = 1:Remk.RotX = 14
-'        Case 2:RightSLing003.Visible = 0:RightSLing002.Visible = 1:Remk.RotX = 2
-'        Case 3:RightSLing002.Visible = 0:Remk.RotX = -10:RightSlingShot.TimerEnabled = 0
-'    End Select
-'    RStep = RStep + 1
-'End Sub
-
-' Bumpers
-Sub Bumper001_Hit:vpmTimer.PulseSw 51:RandomSoundBumperBottom Bumper001:End Sub
-Sub Bumper002_Hit:vpmTimer.PulseSw 49:RandomSoundBumperTop Bumper002:End Sub
-Sub Bumper003_Hit:vpmTimer.PulseSw 50:RandomSoundBumperMiddle Bumper003:End Sub
-
-' Drain & holes
-Sub Drain_Hit
-  RandomSoundDrain Drain
-  bsTrough.AddBall Me
-End Sub
-
-Sub sw31_Hit:SoundSaucerLock:vpmTimer.PulseSw 31:bsTX.AddBall Me:End Sub
-Sub sw31b_Hit:SoundSaucerLock:bsTX.AddBall Me:End Sub
-Sub sw36_Hit:SoundSaucerLock:bsVuk.AddBall Me:End Sub
-
-' Rollovers
-Sub sw24_Hit:Controller.Switch(24) = 1:End Sub
-Sub sw24_UnHit:Controller.Switch(24) = 0:End Sub
-
-Sub sw28_Hit:Controller.Switch(28) = 1:End Sub
-Sub sw28_UnHit:Controller.Switch(28) = 0:End Sub
-
-Sub sw29_Hit:Controller.Switch(29) = 1:End Sub
-Sub sw29_UnHit:Controller.Switch(29) = 0:End Sub
-
-Sub sw30_Hit:Controller.Switch(30) = 1:End Sub
-Sub sw30_UnHit:Controller.Switch(30) = 0:End Sub
-
-Sub sw32_Hit:Controller.Switch(32) = 1:End Sub
-Sub sw32_UnHit:Controller.Switch(32) = 0:End Sub
-
-Sub sw37_Hit:Controller.Switch(37) = 1:End Sub
-Sub sw37_UnHit:Controller.Switch(37) = 0:End Sub
-
-Sub sw38_Hit:Controller.Switch(38) = 1:End Sub
-Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub
-
-Sub sw39_Hit:Controller.Switch(39) = 1:End Sub
-Sub sw39_UnHit:Controller.Switch(39) = 0:End Sub
-
-Sub sw40_Hit:Controller.Switch(40) = 1:End Sub
-Sub sw40_UnHit:Controller.Switch(40) = 0:End Sub
-
-Sub sw46_Hit:Controller.Switch(46) = 1:End Sub
-Sub sw46_UnHit:Controller.Switch(46) = 0:End Sub
-
-Sub sw52_Hit:Controller.Switch(52) = 1:End Sub
-Sub sw52_UnHit:Controller.Switch(52) = 0:End Sub
-
-Sub sw57_Hit:Controller.Switch(57) = 1:End Sub
-Sub sw57_UnHit:Controller.Switch(57) = 0:End Sub
-
-Sub sw58_Hit:Controller.Switch(58) = 1:End Sub
-Sub sw58_UnHit:Controller.Switch(58) = 0:End Sub
-
-Sub sw60_Hit:Controller.Switch(60) = 1:End Sub
-Sub sw60_UnHit:Controller.Switch(60) = 0:End Sub
-
-Sub sw61_Hit:Controller.Switch(61) = 1:End Sub
-Sub sw61_UnHit:Controller.Switch(61) = 0:End Sub
-
-' Targets
-Sub sw10_Hit:STHit 10:End Sub
-Sub sw17_Hit:STHit 17:End Sub
-Sub sw18_Hit:STHit 18:End Sub
-Sub sw19_Hit:STHit 19:End Sub
-Sub sw20_Hit:STHit 20:End Sub
-Sub sw21_Hit:STHit 21:End Sub
-Sub sw22_Hit:STHit 22:End Sub
-Sub sw23_Hit:vpmTimer.PulseSw 23:End Sub
-Sub sw25_Hit:vpmTimer.PulseSw 25:End Sub
-Sub sw41_Hit:vpmTimer.PulseSw 41:End Sub
-Sub sw42_Hit:vpmTimer.PulseSw 42:End Sub
-Sub sw43_Hit:vpmTimer.PulseSw 43:End Sub
-Sub sw44_Hit:vpmTimer.PulseSw 44:End Sub
-Sub sw45_Hit:vpmTimer.PulseSw 45:End Sub
-
-Dim CaptiveBallSoundFlag: CaptiveBallSoundFlag = 0
-
-Sub CaptiveBallTrigger_Hit
-  If CaptiveBallSoundFlag = 0 Then
-    PlaySoundAt "Ball_Collide_1", CaptiveBallTrigger
-    CaptiveBallSoundFlag = 1
-  End If
-End Sub
-
-Sub CaptiveBallTrigger_Timer
-  CaptiveBallSoundFlag = 0
-End Sub
-
-Sub LeftRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub RightRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub MiddleRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub LaunchRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub LockRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub UpperRampStart_Hit
-  WireRampOn False
-End Sub
-
-Sub PipeRampStart_Hit
-  WireRampOn False
-End Sub
-
-'*********
-'Solenoids
-'*********
-Solcallback(1) = "bstrough.solout"
-Solcallback(2) = "Auto_plunger"
-Solcallback(3) = "dtbank.soldropup"
-SolModCallback(4) = "Flasher104" 'RPG Gi
-Solcallback(5) = "RPGKick"      ' backbox kicker
-Solcallback(8) = "dtBank.solhit 1,"
-'9, 10, 11 bumpers
-Solcallback(12) = "Solkickback" 'kickback
-Solcallback(13) = "bsVuk.solout"
-Solcallback(14) = "bsTX.solout"
-'15, 16 flippers
-'17, 18 slingshots
-'19 not used
-Solcallback(20) = "RPGMotor" 'RPG Motor
-Solcallback(21) = "SolDiv"   'backpanel diverter
-Solcallback(22) = "SolPost1" 'Left up post
-Solcallback(23) = "SolPost2" 'Center up post
-'24 optional
-'25 not used
-SolModCallback(26) = "Flasher126" 'TX flashers
-SolModCallback(27) = "Flasher127" 'backbox left
-SolModCallback(28) = "Flasher128" 'backbox right
-SolModCallback(29) = "Flasher129" 'Super JP
-SolModCallback(30) = "Flasher130" 'backpanel flashers
-SolModCallback(31) = "Flasher131" 'middle flashers
-SolModCallback(32) = "Flasher132" 'lower flashers
-
-Sub Auto_Plunger(Enabled)
+Const keyBuyInButton = 3
+
+Dim gilvl:gilvl = 1
+
+Dim bsTrough,bsEscalatorPopper,bsRightPopper,bsLeftPopper,bsLockup,bsLockKickout,mWheelMotor, shadows, onUpperPF
+
+shadows = 1
+
+ExtraKeyHelp = KeyName(keyBuyInButton) & vbTab & "Buy-In Button"
+
+'-----------------------------------
+'------  Solenoid Assignment  ------
+'-----------------------------------
+SolCallback(1)  = "bsRightPopper.SolOut"      'Right Popper
+SolCallback(2)  = "bsLeftPopper.SolOut"       'Left Popper
+SolCallback(3) = "AutoPlunger"            'Ball Shooter           'AutoPlunger
+SolCallback(4)  = "SolAnimalDiverter"       'Animal Diverter
+SolCallback(5)  = "bsTrough.SolOut"         'Trough Coil
+SolCallback(6)  = "bsLockKickout.SolOut"      'Lockup Kicker
+SolCallback(7) = "Solknocker"           'Knocker
+SolCallback(8)  = "bsEscalatorPopper.SolOut"    'Escalator Popper
+'SolCallback(9)  = "vpmSolSound ""Bumper"","      'Left Jet'
+'SolCallback(10) = "vpmSolSound ""Bumper"","      'Right Jet
+'SolCallback(11) = "vpmSolSound ""Bumper"","      'Center Jet
+'SolCallback(12) = "vpmSolSound ""lSling"","      'Left Slingshot
+'SolCallback(13) = "vpmSolSound ""rSling"","      'Right Slingshot
+SolCallback(14) = "LeftGate.open = "        'Left Gate
+SolCallback(15) = "RightGate.open = "           'Right Gate
+SolCallback(16) = "SolLockupRelease"        'Lockup Release
+'SolCallback(17) = 'Wheel Motor - handled elsewhere
+SolCallback(18) = "SolLeftPopperArrowFlasher"   'Upper Playfield left - Flasher LeftPopperArrow
+SolCallback(19) = "SolRightLoopFlasher"       'Right Loop Backbox
+SolCallback(20) = "SolRightPopperArrowFlasher"    'Fight Bluto - Flasher RightPopperArrow
+SolCallback(21) = "SolLeftLoopFlasher"        'Left Loop Backbox
+SolCallback(22) = "SolAnimalRampFlasher"      'Animal Ramp - Flasher - Flupper #1
+SolCallback(23) = "SolSkillWheelFlasher"      'Skill Wheel - Flasher
+SolCallback(24) = "SolRPopperEBFlasher"       'R. Popper Backbox EB
+'SolCallback(25) = 'not used
+SolCallback(26) = "SolRampJackpotFlasher"     'Ramp Jackpot - Flasher
+SolCallback(27) = "SolLockjawArrowFlasher"      'Lockjaw Arrow - Flasher CenterBlutoArrow
+SolCallback(28) = "SolEscalatorFlasher"       'Escalator Backbox Turtle - Flasher
+
+Sub AutoPlunger(Enabled)
     If Enabled Then
-        PlungerIM.AutoFire
-    End If
+       Plunger.Fire
+       SoundPlungerReleaseBall()
+  End If
 End Sub
 
-Sub SolDiv(Enabled)
-  if Enabled then
-    PlaySoundAt "TOM_Diverter_UP_2", sw31
-  Else
-    PlaySoundAt "TOM_Diverter_DOWN_2", sw31
-  end if
-    Div1.IsDropped = Not Enabled
-    Div1a.IsDropped = Enabled
-End Sub
-
-Sub SolPost1(Enabled)
-'    PlaySoundAt "fx_Diverter", sw31
-    If Enabled then
-        Post1.IsDropped = 0
-    PlaySoundAt "TOM_Diverter_UP_2", sw31
-    for each bp2 in BP_Post1
-      bp2.transz = 0
-    Next
-    Else
-        Post1.IsDropped = 1
-    PlaySoundAt "TOM_Diverter_DOWN_2", sw31
-    for each bp2 in BP_Post1
-      bp2.transz = -55
-    Next
-    End If
-End Sub
-
-Sub SolPost2(Enabled)
-    PlaySoundAt "fx_Diverter", sw36
-    If Enabled Then
-        Post2.IsDropped = 0
-    PlaySoundAt "TOM_Diverter_DOWN_2", sw31
-        Post2a.IsDropped = 1
-    for each bp2 in BP_Post2
-      bp2.transz = -55
-    Next
-    Else
-        Post2.IsDropped = 1
-    PlaySoundAt "TOM_Diverter_UP_2", sw31
-        Post2a.IsDropped = 0
-    for each bp2 in BP_Post2
-      bp2.transz = 55
-    Next
-    End If
-End Sub
-
-'RPG
-
-Sub RPGKick(Enabled)
-    PlaySoundAt "Saucer_Kick", RPGKicker
-    RPGKicker.Kick RPGun.Rotz - 182, 41 'values tested that one can actually aim and hit all the shots // iaakki
-End Sub
-
-Sub RPGMotor(Enabled)
-    RPGTimer.Enabled = Enabled
-End Sub
-
-' RPG animation // iaakki
-Dim RPGDir 'Direction and speed
-RPGDir = -1
-
-dim RPGobjrot, RPGMin, RPGMax, RPGPOS
-RPGobjrot = 0
-RPGMin = -275
-RPGMax = -310
-
-dim BP2
-
-RPGPOS = RPGun.rotz
-
-for each bp2 in BP_RPGun
-  bp2.rotz = RPGPOS
-  bp2.z = 35        'gun height
-Next
-
-
-Sub RPGTimer_Timer()
-    RPGPOS = RPGPOS + RPGDir
-  RPGun.Rotz = RPGPOS
-  for each bp2 in BP_RPGun
-    bp2.rotz = RPGPOS
-  Next
-    If RPGun.Rotz < RPGMax Then RPGDir = 1
-    If RPGun.Rotz > RPGMin Then RPGDir = -1
-
-End Sub
-
-Sub Solkickback(Enabled)
-    If Enabled Then
-        PlaySoundAt "fx_plunger", kickback
-        Kickback.Fire
-    Else
-        Kickback.Pullback
-    End If
-End Sub
-
-'*******************
-'  Flipper Subs
-'*******************
-
+' Lower Flippers
 SolCallback(sLLFlipper) = "SolLFlipper"
 SolCallback(sLRFlipper) = "SolRFlipper"
 
@@ -1061,7 +159,7 @@ Const ReflipAngle = 20
 Sub SolLFlipper(Enabled)
   If Enabled Then
     LF.Fire
-        If leftflipper.currentangle < leftflipper.endangle + ReflipAngle Then
+    If leftflipper.currentangle < leftflipper.endangle + ReflipAngle Then
       RandomSoundReflipUpLeft LeftFlipper
     Else
       SoundFlipperUpAttackLeft LeftFlipper
@@ -1090,9 +188,1342 @@ Sub SolRFlipper(Enabled)
     If RightFlipper.currentangle > RightFlipper.startAngle + 5 Then
       RandomSoundFlipperDownRight RightFlipper
     End If
-        FlipperRightHitParm = FlipperUpSoundLevel
+    FlipperRightHitParm = FlipperUpSoundLevel
   End If
 End Sub
+
+' Upper Flippers - Sound routines are different to give a smaller sound from the top tiny flippers.
+SolCallback(sULFlipper) = "SolULFlipper"
+SolCallback(sURFlipper) = "SolURFlipper"
+
+Sub SolULFlipper(Enabled)
+  If onUpperPF = True Then
+    If Enabled Then
+      PlaySound SoundFX("fx_flipperup",DOFFlippers), 0, 1, -0.1, 0.25
+      UpperLeftFlipper.RotateToEnd
+    Else
+      PlaySound SoundFX("fx_flipperdown",DOFFlippers), 0, 1, -0.1, 0.25
+      UpperLeftFlipper.RotateToStart
+    End If
+  End If
+End Sub
+
+Sub SolURFlipper(Enabled)
+  If onUpperPF = True Then
+    If Enabled Then
+      PlaySound SoundFX("fx_flipperup",DOFFlippers), 0, 1, 0.1, 0.25
+      UpperRightFlipper.RotateToEnd
+    Else
+      PlaySound SoundFX("fx_flipperdown",DOFFlippers), 0, 1, 0.1, 0.25
+      UpperRightFlipper.RotateToStart
+    End If
+  End If
+End Sub
+
+' Knocker
+Sub SolKnocker(Enabled)
+  If enabled Then
+    KnockerSolenoid
+  End If
+End Sub
+
+Set GICallBack = GetRef("UpdateGI")
+
+dim ttcentre
+Dim FlashLevel1, FlashLevel2, FlashLevel3, FlashLevel4, FlashLevel5
+FlasherLight1.IntensityScale = 0
+Flasher24.IntensityScale = 0
+Flasher22b.IntensityScale = 0
+Flasher26.IntensityScale = 0
+Flasher1.IntensityScale = 0
+Flasher28.IntensityScale = 0
+
+RainbowTimer.enabled = 1
+
+If LEDLighting = 1 Then
+  LEDLightingOn
+End If
+
+Sub Table1_Init
+
+  realtime.enabled = 1
+  Primitive148.image = "blue0"
+  Primitive149.image = "red01"
+  Primitive153.image = "jaune0"
+  Primitive159.image = "blueh0"
+  Flasher18.state = 0
+  Flasher18b.state = 0
+  Flasher20.state = 0
+  Flasher20b.state = 0
+
+' vpminit me
+
+  With Controller
+    .GameName=cGameName
+    If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description : Exit Sub
+    Controller.SplashInfoLine="Popeye Saves the Earth" & vbNewLine & "Created by mfuegemann - Remastered by Team JPJ, TastyWasps"
+    .HandleMechanics = 0
+    .HandleKeyboard = 0
+    .ShowDMDOnly = 1
+    .ShowFrame = 0
+    .ShowTitle = 0
+  End With
+  Controller.Hidden = 0
+  On Error Resume Next
+
+  Controller.Run
+
+  PinMAMETimer.Interval=PinMAMEInterval
+  PinMAMETimer.Enabled = true
+
+  vpmNudge.TiltSwitch = 14
+  vpmNudge.Sensitivity = 4
+  vpmNudge.TiltObj = Array(Bumper16, Bumper17, Bumper18, LeftSlingshot, RightSlingshot)
+
+  vpmMapLights AllLights
+  vpmMapLights AllLightsz
+
+  ' Disc
+  Set ttcentre = new cvpmTurnTable
+  ttcentre.InitTurnTable trMixMaster,240
+  ttcentre.CreateEvents "ttcentre"
+  ttcentre.SpinUp = 0
+  ttcentre.SpinDown = 0
+  ttcentre.Speed = 5
+  ttcentre.MaxSpeed = 5
+
+    Set bsEscalatorPopper=New cvpmBallStack
+      bsEscalatorPopper.InitSw 0,36,0,0,0,0,0,0
+        bsEscalatorPopper.InitKick EscalatorPopper,0,45
+        bsEscalatorPopper.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+    bsEscalatorPopper.Balls=0
+
+  Set bsRightPopper=New cvpmBallStack
+    bsRightPopper.InitSw 0,32,0,0,0,0,0,0
+    bsRightPopper.InitKick RightPopper,135,2
+    bsRightPopper.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+    bsRightPopper.Balls=0
+
+    ' Thalamus - more randomness to kickers pls
+  Set bsLeftPopper=New cvpmBallStack
+    bsLeftPopper.KickForceVar = 3
+    bsLeftPopper.KickAngleVar = 3
+    bsLeftPopper.InitSw 0,31,0,0,0,0,0,0
+    bsLeftPopper.InitKick LeftPopper,215,2
+    bsLeftPopper.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+    bsLeftPopper.Balls=0
+
+  Set bsLockup=New cvpmBallStack
+    bsLockup.KickForceVar = 3
+    bsLockup.KickAngleVar = 3
+    bsLockup.InitSw 0,45,44,43,0,0,0,0
+    bsLockup.Balls=0
+
+  Set bsLockKickout=New cvpmBallStack
+    bsLockKickout.KickForceVar = 3
+    bsLockKickout.KickAngleVar = 3
+    bsLockKickout.InitSw 0,87,0,0,0,0,0,0
+    bsLockKickout.InitKick Lockup,164,6
+    bsLockKickout.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+    bsLockKickout.Balls=0
+
+  Set bsTrough=New cvpmBallStack
+    bsTrough.InitSw 0,51,52,53,54,55,56,0
+    bsTrough.InitKick BallRelease,90,5
+    bsTrough.InitExitSnd SoundFX("BallRel",DOFContactors),SoundFX("Solenoid",DOFContactors)
+    bsTrough.Balls=6
+
+  Set mWheelMotor=New cvpmMech
+    mWheelMotor.Mtype = vpmMechOneSol + vpmMechCircle + vpmMechLinear
+    mWheelMotor.Sol1 = 17
+    mWheelMotor.length = 200
+    mWheelMotor.Steps = 60
+    mWheelMotor.Callback = GetRef("UpdateWheel")
+    mWheelMotor.start
+
+  Controller.Switch(22) = True            ' Coin Door closed
+  Controller.Switch(24) = True            ' Always closed
+  Controller.Switch(57) = False
+  Controller.Switch(64) = False           ' Animals start Off
+  Controller.Switch(65) = False
+  Controller.Switch(66) = False
+  Controller.Switch(67) = False
+  Controller.Switch(68) = False
+
+  Plunger.PullBack
+  AnimalDiverter.isdropped = True
+  AnimalPush.isdropped = True
+
+  LoadLut
+
+  If BlackAndWhite = 1 Then
+    Table1.ColorGradeImage = "LUT_BW"
+  End If
+
+End Sub
+
+Sub Table1_Paused:Controller.Pause = 1:End Sub
+Sub Table1_unPaused:Controller.Pause = 0:End Sub
+Sub Table1_exit():Controller.Pause = False:Controller.Stop:End Sub
+
+Sub GameTimer_Timer
+  RollingUpdate
+  UpperPlayfieldScan  ' Checks for Z value for upper PF flippers
+End Sub
+
+Sub FrameTimer_Timer()
+  If DynamicBallShadowsOn Or AmbientBallShadowOn Then DynamicBSUpdate ' Update ball shadows
+End Sub
+
+Sub Drain_Hit()
+  bsTrough.AddBall Me
+  gi_alloff 1500
+  RandomSoundDrain Drain
+End Sub
+
+Sub EscalatorPopper_Hit()
+  bsEscalatorPopper.AddBall Me
+  playsound "drain3"
+End Sub
+
+Sub RightPopperHole_Hit()
+  playsound "drain4"
+  Wait2.enabled = 1
+End Sub
+
+Sub LeftPopperHole_Hit()
+  playsound "drain4"
+  Wait.enabled = 1
+End Sub
+
+sub Wait_timer()
+  bsLeftPopper.AddBall LeftPopperHole
+  Me.enabled = 0
+end sub
+
+sub Wait2_timer()
+  bsRightPopper.AddBall RightPopperHole
+  Me.enabled = 0
+end sub
+
+Sub Lockup_Hit()
+  bsLockup.AddBall Me
+  playsound "drain3"
+End Sub
+
+Sub Kicker81Up_Hit
+  Kicker81Up.destroyball
+  vpmtimer.pulsesw 81
+  Kicker81Ramp.createball
+  Kicker81Ramp.kick 180,2
+End Sub
+
+dim u:u=0
+Sub SolAnimalDiverter(enabled)
+  If enabled Then
+    Flipper1.RotateToEnd
+    Flipper2.RotateToEnd
+    Flipper3.RotateToEnd
+    Flipper4.RotateToEnd
+    Flipper5.RotateToEnd
+    maillet.ObjRotY = 8
+  Else
+    Flipper1.RotateToStart
+    Flipper2.RotateToStart
+    Flipper3.RotateToStart
+    Flipper4.RotateToStart
+    Flipper5.RotateToStart
+    diverter.enabled=1
+'   maillet.ObjRotY = 0:div=0:u=1
+  End If
+End Sub
+
+dim div:div = 0
+Sub diverter_timer()
+  select case div
+    case 0:maillet.ObjRotY = 7
+    case 1:maillet.ObjRotY = 6
+    case 2:maillet.ObjRotY = 4
+    case 3:maillet.ObjRotY = 2
+    case 4:maillet.ObjRotY = 0
+  end Select
+  div=div+1
+  if div = 5 then div=0:u=0:me.enabled = 0
+End Sub
+
+dim ani:ani = 0
+Sub SolLockupRelease(enabled)
+  If enabled Then
+    If bsLockup.Balls > 0 Then
+      bsLockup.exitsol_on
+      bsLockKickout.addball 0
+      ani = 1
+      animation.enabled = 1
+    End If
+  End If
+End Sub
+
+Sub JunctionHelperStart_Hit
+  Ramp4.Collidable = False
+End Sub
+
+Sub JunctionHelperEnd_Hit
+  Ramp4.Collidable = True
+End Sub
+
+Sub TriggerBluto_hit()
+  animationIn.enabled = 1
+end sub
+
+dim aaa:aaa=0
+Sub animation_Timer
+    Select Case aaa
+        Case 0:Ramp28.image = "anim03"
+        Case 1:Ramp28.image = "anim02"
+        Case 2:Ramp28.image = "anim00"
+        Case 3:Ramp28.image = "anim02"
+        Case 4:Ramp28.image = "anim01"
+    End Select
+    aaa = aaa + 1
+  ani = 0
+  if aaa = 5 then aaa=0:animation.enabled = 0
+End Sub
+
+dim aaaa:aaaa=0
+Sub animationIn_Timer
+    Select Case aaaa
+        Case 0:Ramp28.image = "anim00"
+        Case 1:Ramp28.image = "anim02"
+        Case 2:Ramp28.image = "anim00"
+        Case 3:Ramp28.image = "anim02"
+        Case 4:Ramp28.image = "anim03"
+        Case 5:Ramp28.image = "anim04"
+        Case 6:Ramp28.image = "anim01"
+    End Select
+    aaaa = aaaa + 1
+  ani = 1
+  if aaaa = 7 then aaaa=0:animationIn.enabled = 0
+End Sub
+
+'------------------
+'------  GI  ------
+'------------------
+
+dim obj
+Sub UpdateGI(gino, status)
+  Select Case gino
+    case 0 :
+      if status then
+        for each obj in GIString1
+          obj.state = 1
+        next
+        for each obj in GIString1Flasher
+          obj.state = 1
+        next
+      else
+        for each obj in GIString1
+          obj.state = 0
+        next
+        for each obj in GIString1Flasher
+          obj.state = 0
+        next
+      end if
+  End Select
+End Sub
+
+Sub GI_AllOff (time) ' Turn GI Off
+    DOF 101, DOFOff
+    'debug.print "GI OFF " & time
+    'UpdateGI 0,0
+    'RampsOff
+    'FlippersOff
+    dim xx
+    for each xx in GILights
+    xx.state = 0
+    Next
+  if shadows = 1 then PFShadows.image = "pf05offs":end if
+  sides.image = "WallSidesOFF"
+    If time > 0 Then
+        GI_AllOnT.Interval = time
+        GI_AllOnT.Enabled = 0
+        GI_AllOnT.Enabled = 1
+    End If
+End Sub
+
+Sub GI_AllOn 'Turn GI On
+    DOF 101, DOFOn
+    'UpdateGI 0,8
+    'RampsOn
+    'FlippersOn
+    dim xx
+    for each xx in GILights
+    xx.state = 1
+    Next
+  if shadows = 1 then PFShadows.image = "pf05ons":end If
+  sides.image = "WallSidesON"
+End Sub
+
+Sub GI_AllOnT_Timer 'Turn GI On timer
+    'UpdateGI 0,8
+    'RampsOn
+    'FlippersOn
+    dim xx
+    for each xx in GILights
+    xx.state = 1
+    Next
+  if shadows = 1 then PFShadows.image = "pf05ons":end If
+  sides.image = "WallSidesON"
+    GI_AllOnT.Enabled = 0
+End Sub
+
+'--------------------------------
+'------  Flasher Handling  ------
+'--------------------------------
+
+Sub SolLeftPopperArrowFlasher(enabled)        '18 - Halo only
+  if enabled then
+    Flasher18.state = 1
+    Flasher18b.state = 1
+  else
+    Flasher18.state = 0
+    Flasher18b.state = 0
+  end if
+End Sub
+
+Sub SolRightLoopFlasher(enabled)          '19 - Halo only
+  if enabled then
+    Flasher19.state = 1
+  else
+    Flasher19.state = 0
+  end if
+End Sub
+
+Sub SolRightPopperArrowFlasher(enabled)       '20 - Halo only
+  if enabled then
+    Flasher20.state = 1
+    Flasher20b.state = 1
+  else
+    Flasher20.state = 0
+    Flasher20b.state = 0
+  end if
+End Sub
+
+Sub SolLeftLoopFlasher(enabled)           '21 - Halo only
+  if enabled then
+    Flasher21.state = 1
+  else
+    Flasher21.state = 0
+  end if
+End Sub
+
+Sub SolAnimalRampFlasher(flstate)         '22 - Flupper #1
+  If flstate Then
+    ObjTargetLevel(1) = 1
+  Else
+    ObjTargetLevel(1) = 0
+  End If
+  FlasherFlash1_Timer
+End Sub
+
+Sub SolSkillWheelFlasher(enabled)         '23 - Halo only
+  if enabled then
+    FlashLevel4 = .75 : FlasherFlash4_Timer
+'   Flasher26.state = 1
+    Flasherred.enabled = 1
+    Flasher26f1.Amount = 40
+    Flasher26f1.IntensityScale = 2
+    Flasher26f2.Amount = 20
+    Flasher26f2.IntensityScale = 1
+  else
+'   Flasher26.state = 0
+    Flasher26f1.Amount = 0
+    Flasher26f1.IntensityScale = 0
+    Flasher26f2.Amount = 0
+    Flasher26f2.IntensityScale = 0
+  end if
+End Sub
+
+Sub SolRPopperEBFlasher(enabled)          '24 - Halo only, below cover
+  if enabled then
+'   Flasher24.state = 1
+    FlashLevel3 = 1 : FlasherFlash3_Timer
+    Flasherblueh.enabled = 1
+    Flasher24f1.Amount = 60
+    Flasher24f1.IntensityScale = 2
+    Flasher24f2.Amount = 40
+    Flasher24f2.IntensityScale = 1
+  else
+'   Flasher24.state = 0
+    Flasher24f1.Amount = 0
+    Flasher24f1.IntensityScale = 0
+    Flasher24f2.Amount = 0
+    Flasher24f2.IntensityScale = 0
+  end if
+End Sub
+
+Sub SolRampJackpotFlasher(enabled)          '26 - Halo only, Ramp issue
+  if enabled then
+    FlashLevel4 = 1 : FlasherFlash4_Timer
+'   Flasher26.state = 1
+    Flasherred.enabled = 1
+    Flasher26f1.Amount = 60
+    Flasher26f1.IntensityScale = 2
+    Flasher26f2.Amount = 40
+    Flasher26f2.IntensityScale = 1
+  else
+'   Flasher26.state = 0
+    Flasher26f1.Amount = 0
+    Flasher26f1.IntensityScale = 0
+    Flasher26f2.Amount = 0
+    Flasher26f2.IntensityScale = 0
+  end if
+End Sub
+
+Sub SolLockjawArrowFlasher(enabled)         '27 - Halo only
+  if enabled then
+    Flasher27b.state = 1
+    Flasher27b1.state = 1
+    bluto.image = "Bluto_On"
+  else
+    Flasher27b.state = 0
+    Flasher27b1.state = 0
+    bluto.image = "Bluto_Off"
+  end if
+End Sub
+
+Sub SolEscalatorFlasher(enabled)          '28
+  if enabled then
+    FlashLevel5 = 1 : FlasherFlash5_Timer
+'   Flasher28.state = 1
+    Flasherjaune.enabled = 1
+    Flasher28f1.Amount = 60
+    Flasher28f1.IntensityScale = 2
+    Flasher28f2.Amount = 40
+    Flasher28f2.IntensityScale = 1
+  else
+'   Flasher28.state = 0
+    Flasher28f1.Amount = 0
+    Flasher28f1.IntensityScale = 0
+    Flasher28f2.Amount = 0
+    Flasher28f2.IntensityScale = 0
+  end if
+End Sub
+
+'-------------------------------
+'------  Wheel Animation  ------
+'-------------------------------
+Sub UpdateWheel(aNewPos, aSpeed, aLastPos)
+  Primitive140.roty = aNewPos * 6
+  Primitive141.roty = aNewPos * 6
+  UpdateWBall
+End Sub
+
+Dim WheelPos
+Sub UpdateWBall
+  if kicker60.ballcntover <> 0 then kicker60.destroyball:kicker1.createball:exit sub:end if
+  if kicker59.ballcntover <> 0 then kicker59.destroyball:kicker60.createball:exit sub:end if
+  if kicker58.ballcntover <> 0 then kicker58.destroyball:kicker59.createball:exit sub:end if
+  if kicker57.ballcntover <> 0 then kicker57.destroyball:kicker58.createball:exit sub:end if
+  if kicker56.ballcntover <> 0 then kicker56.destroyball:kicker57.createball:exit sub:end if
+  if kicker55.ballcntover <> 0 then kicker55.destroyball:kicker56.createball:exit sub:end if
+  if kicker54.ballcntover <> 0 then kicker54.destroyball:kicker55.createball:exit sub:end if
+  if kicker53.ballcntover <> 0 then kicker53.destroyball:kicker54.createball:exit sub:end if
+  if kicker52.ballcntover <> 0 then kicker52.destroyball:kicker53.createball:exit sub:end if
+  if kicker51.ballcntover <> 0 then kicker51.destroyball:kicker52.createball:exit sub:end if
+  if kicker50.ballcntover <> 0 then kicker50.destroyball:kicker51.createball:exit sub:end if
+  if kicker49.ballcntover <> 0 then kicker49.destroyball:kicker50.createball:exit sub:end if
+  if kicker48.ballcntover <> 0 then kicker48.destroyball:kicker49.createball:exit sub:end if
+  if kicker47.ballcntover <> 0 then kicker47.destroyball:kicker48.createball:exit sub:end if
+  if kicker46.ballcntover <> 0 then kicker46.destroyball:kicker47.createball:exit sub:end if
+  if kicker45.ballcntover <> 0 then kicker45.destroyball:kicker46.createball:exit sub:end if
+  if kicker44.ballcntover <> 0 then kicker44.destroyball:kicker45.createball:exit sub:end if
+  if kicker43.ballcntover <> 0 then kicker43.destroyball:kicker44.createball:exit sub:end if
+
+  if kicker36.ballcntover <> 0 then kicker36.destroyball:kicker37.createball:exit sub:end if
+  if kicker35.ballcntover <> 0 then kicker35.destroyball:kicker36.createball:exit sub:end if
+  if kicker34.ballcntover <> 0 then kicker34.destroyball:kicker35.createball:exit sub:end if
+  if kicker33.ballcntover <> 0 then kicker33.destroyball:kicker34.createball:exit sub:end if
+  if kicker32.ballcntover <> 0 then kicker32.destroyball:kicker33.createball:exit sub:end if
+  if kicker31.ballcntover <> 0 then kicker31.destroyball:kicker32.createball:exit sub:end if
+  if kicker30.ballcntover <> 0 then kicker30.destroyball:kicker31.createball:exit sub:end if
+  if kicker29.ballcntover <> 0 then kicker29.destroyball:kicker30.createball:exit sub:end if
+  if kicker28.ballcntover <> 0 then kicker28.destroyball:kicker29.createball:exit sub:end if
+  if kicker27.ballcntover <> 0 then kicker27.destroyball:kicker28.createball:exit sub:end if
+  if kicker26.ballcntover <> 0 then kicker26.destroyball:kicker27.createball:exit sub:end if
+  if kicker25.ballcntover <> 0 then kicker25.destroyball:kicker26.createball:exit sub:end if
+  if kicker24.ballcntover <> 0 then kicker24.destroyball:kicker25.createball:exit sub:end if
+  if kicker23.ballcntover <> 0 then kicker23.destroyball:kicker24.createball:exit sub:end if
+  if kicker22.ballcntover <> 0 then kicker22.destroyball:kicker23.createball:exit sub:end if
+  if kicker21.ballcntover <> 0 then kicker21.destroyball:kicker22.createball:exit sub:end if
+  if kicker20.ballcntover <> 0 then kicker20.destroyball:kicker21.createball:exit sub:end if
+  if kicker19.ballcntover <> 0 then kicker19.destroyball:kicker20.createball:exit sub:end if
+  if kicker18.ballcntover <> 0 then kicker18.destroyball:kicker19.createball:exit sub:end if
+  if kicker17.ballcntover <> 0 then kicker17.destroyball:kicker18.createball:exit sub:end if
+  if kicker16.ballcntover <> 0 then kicker16.destroyball:kicker17.createball:exit sub:end if
+  if kicker15.ballcntover <> 0 then kicker15.destroyball:kicker16.createball:exit sub:end if
+  if kicker14.ballcntover <> 0 then kicker14.destroyball:kicker15.createball:exit sub:end if
+  if kicker13.ballcntover <> 0 then kicker13.destroyball:kicker14.createball:exit sub:end if
+  if kicker12.ballcntover <> 0 then kicker12.destroyball:kicker13.createball:exit sub:end if
+  if kicker11.ballcntover <> 0 then kicker11.destroyball:kicker12.createball:exit sub:end if
+  if kicker10.ballcntover <> 0 then kicker10.destroyball:kicker11.createball:exit sub:end if
+  if kicker9.ballcntover <> 0 then kicker9.destroyball:kicker10.createball:exit sub:end if
+  if kicker8.ballcntover <> 0 then kicker8.destroyball:kicker9.createball:exit sub:end if
+  if kicker7.ballcntover <> 0 then kicker7.destroyball:kicker8.createball:exit sub:end if
+  if kicker6.ballcntover <> 0 then kicker6.destroyball:kicker7.createball:exit sub:end if
+  if kicker5.ballcntover <> 0 then kicker5.destroyball:kicker6.createball:exit sub:end if
+  if kicker4.ballcntover <> 0 then kicker4.destroyball:kicker5.createball:exit sub:end if
+  if kicker3.ballcntover <> 0 then kicker3.destroyball:kicker4.createball:exit sub:end if
+  if kicker2.ballcntover <> 0 then kicker2.destroyball:kicker3.createball:exit sub:end if
+  if kicker1.ballcntover <> 0 then kicker1.destroyball:kicker2.createball:exit sub:end if
+
+  if kicker37.ballcntover <> 0 then   'exit Wheel
+    GI2b38.state = 0:ledbb=0
+    WheelPos = Primitive140.roty
+    kicker37.destroyball
+    playsound "Balldrop"
+
+    if WheelPos>=13 and WheelPos<=54 then '11-54  OYL
+      Controller.switch(46)=0
+      Controller.switch(47)=1
+      Controller.switch(48)=1
+    end if
+    if WheelPos>=55 and WheelPos<=100 then  '55-100 Spinach Can
+      Controller.switch(46)=0
+      Controller.switch(47)=0
+      Controller.switch(48)=1
+    end if
+    if WheelPos>=101 and WheelPos<=146 then '101-146 Lite Lock
+      Controller.switch(46)=0
+      Controller.switch(47)=1
+      Controller.switch(48)=0
+    end if
+    if WheelPos>=147 and WheelPos<=190 then '147-188 10 Mil
+      Controller.switch(46)=0
+      Controller.switch(47)=0
+      Controller.switch(48)=0
+    end if
+    if WheelPos>=191 and WheelPos<=234 then '189-234 100 K
+      Controller.switch(46)=1
+      Controller.switch(47)=1
+      Controller.switch(48)=1
+    end if
+    if WheelPos>=235 and WheelPos<=285 then '235-285 Spot Item
+      Controller.switch(46)=1
+      Controller.switch(47)=0
+      Controller.switch(48)=1
+    end if
+    if WheelPos>=286 and WheelPos<=324 then '286-324 2 Mil
+      Controller.switch(46)=1
+      Controller.switch(47)=1
+      Controller.switch(48)=0
+    end if
+    if (WheelPos>=325 and WheelPos<=360) or (WheelPos>=0 and WheelPos<=12) then '325-360-10 Spot Animal
+      Controller.switch(46)=1
+      Controller.switch(47)=0
+      Controller.switch(48)=0
+    end if
+
+    vpmtimer.pulsesw 37
+    UnderWheelKicker.createball
+    UnderWheelKicker.kick 250,3
+    vpmtimer.addtimer 500,"Controller.switch(46)=0:Controller.switch(47) =0:Controller.switch(48)=0'"
+    exit sub
+  end if
+
+  'not needed but here to be complete
+  if kicker42.ballcntover <> 0 then kicker42.destroyball:kicker43.createball:exit sub:end if
+  if kicker41.ballcntover <> 0 then kicker41.destroyball:kicker42.createball:exit sub:end if
+  if kicker40.ballcntover <> 0 then kicker40.destroyball:kicker41.createball:exit sub:end if
+  if kicker39.ballcntover <> 0 then kicker39.destroyball:kicker40.createball:exit sub:end if
+  if kicker38.ballcntover <> 0 then kicker38.destroyball:kicker39.createball:exit sub:end if
+End Sub
+
+Sub EnterWheel1_Hit           'from Ball launch
+  EnterWheel1Timer.enabled = True
+End Sub
+
+Dim PValue,EnterWheelBool
+Sub EnterWheel1Timer_Timer
+  '36,42    2 Mil
+  '78,84    Spot Animal
+  '126,132  OYL
+  '168,174  Spinache Can
+  '216,222  Lite Lock
+  '258,264  10 Mil
+  '306,312  100 K
+  '348,354  Spot Item
+
+  EnterWheelBool = False
+  PValue = Primitive140.roty
+
+  if  PValue=36 or PValue=78 or PValue=126 or PValue=168 or PValue=216 or PValue=258 or PValue=306 or PValue=348 then
+    EnterWheel1Timer.enabled = False
+    EnterWheel1.destroyball
+    kicker43.createball
+  end if
+
+End Sub
+
+Sub EnterWheel2_Hit           'from Upper Ramp
+  EnterWheel2Timer.enabled = True
+End Sub
+
+Dim PValue2,EnterWheelBool2
+Sub EnterWheel2Timer_Timer
+  '18,24    OYL
+  '60,66    Spinache Can
+  '108,114  Lite Lock
+  '150,156  10 Mil
+  '198,204  100 K
+  '240,246  Spot Item
+  '288,294  2 Mil
+  '330,336  Spot Animal
+  EnterWheelBool2 = False
+  PValue2 = Primitive140.roty
+
+  if  PValue2=18 or PValue2=60 or PValue2=108 or PValue2=150 or PValue2=198 or PValue2=240 or PValue2=288 or PValue2=330 then
+    EnterWheel2Timer.enabled = False
+    EnterWheel2.destroyball
+    kicker25.createball
+  end if
+End Sub
+
+
+' Keys
+Sub Table1_KeyDown(ByVal keycode)
+
+    If keycode = LeftMagnaSave Then bLutActive = True: LUTbox.text = "Dimmer Level: " & LUTImage + 1
+
+    If keycode = RightMagnaSave Then
+        If bLutActive Then
+            NextLUT
+        End If
+    End If
+
+  If keyCode = PlungerKey or keyCode = LockBarKey Then
+    Controller.Switch(23) = 1
+  End If
+
+    If keycode = AddCreditKey Then
+        Controller.Switch(12) = 1
+  End If
+
+  If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCoin3 or keycode = keyInsertCoin4 Then
+    Select Case Int(rnd*3)
+      Case 0: PlaySound ("Coin_In_1"), 0, CoinSoundLevel, 0, 0.25
+      Case 1: PlaySound ("Coin_In_2"), 0, CoinSoundLevel, 0, 0.25
+      Case 2: PlaySound ("Coin_In_3"), 0, CoinSoundLevel, 0, 0.25
+    End Select
+  End If
+
+  If keycode = StartGameKey Then soundStartButton()
+
+  If keycode = LeftTiltKey Then Nudge 90, 1:SoundNudgeLeft()
+  If keycode = RightTiltKey Then Nudge 270, 1:SoundNudgeRight()
+  If keycode = CenterTiltKey Then Nudge 0, 1:SoundNudgeCenter()
+
+  If keycode = LeftFlipperKey Then
+    FlipperActivate LeftFlipper, LFPress
+    Pincab_FlipLeft.X = Pincab_FlipLeft.X + 10
+  End If
+
+  If keycode = RightFlipperKey Then
+    FlipperActivate RightFlipper, RFPress
+    Pincab_FlipRight.X = Pincab_FlipRight.X - 10
+  End If
+
+  If KeyDownHandler(keycode) Then Exit Sub
+
+End Sub
+
+Sub Table1_KeyUp(ByVal keycode)
+
+    If keycode = LeftMagnaSave Then bLutActive = False: LUTBox.text = ""
+
+  If keyCode = PlungerKey or keyCode = LockBarKey Then
+    Controller.Switch(23) = 0:Plunger.Fire:SoundPlungerReleaseBall()
+  End If
+
+    If keycode = AddCreditKey Then
+        Controller.Switch(12) = 0
+  End If
+
+  If keycode = LeftFlipperKey Then
+    FlipperDeActivate LeftFlipper, LFPress
+    Pincab_FlipLeft.X = 2094.795
+  End If
+
+  If keycode = RightFlipperKey Then
+    FlipperDeActivate RightFlipper, RFPress
+    Pincab_FlipRight.X = 2356.34
+  End If
+
+  If KeyUpHandler(keycode) Then Exit Sub
+
+End Sub
+
+'---------------------------------
+'------  Switch Assignment  ------
+'---------------------------------
+
+ 'Left Targets
+Sub SWsqr5_hit():sqr5.transz = 10:sqr6.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 35:End Sub
+Sub SWsqr5_Timer():sqr5.transz = 5:sqr6.transz = 5:SWsqr5a:Me.TimerEnabled = 0:End Sub
+Sub SWsqr5a:sqr5.transZ = 0:sqr6.transz = 0:End Sub
+
+Sub SWror5_hit():ror5.transz = 10:ror6.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 34:End Sub
+Sub SWror5_Timer():ror5.transz = 5:ror6.transz = 5:SWror5a:Me.TimerEnabled = 0:End Sub
+Sub SWror5a:ror5.transZ = 0:ror6.transz = 0:End Sub
+
+Sub swtrr5_hit():trr5.transz = 10:trr6.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 33:End Sub
+Sub swtrr5_Timer():trr5.transz = 5:trr6.transz = 5:SWtrr5a:Me.TimerEnabled = 0:End Sub
+Sub swtrr5a:trr5.transZ = 0:trr6.transz = 0:End Sub
+
+ 'Center Targets
+Sub SWsqr3_hit():sqr3.transz = 10:sqr4.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 43:End Sub
+Sub SWsqr3_Timer():sqr3.transz = 5:sqr4.transz = 5:SWsqr3a:Me.TimerEnabled = 0:End Sub
+Sub SWsqr3a:sqr3.transz = 0:sqr4.transz = 0:End Sub
+
+Sub SWror3_hit():ror3.transz = 10:ror4.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 42:End Sub
+Sub SWror3_Timer():ror3.transz = 5:ror4.transz = 5:SWror3a:Me.TimerEnabled = 0:End Sub
+Sub SWror3a:ror3.transZ = 0:ror4.transz = 0:End Sub
+
+Sub swtrr3_hit():trr3.transz = 10:trr4.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 41:End Sub
+Sub swtrr3_Timer():trr3.transz = 5:trr4.transz = 5:SWtrr3a:Me.TimerEnabled = 0:End Sub
+Sub swtrr3a:trr3.transZ = 0:trr4.transz = 0:End Sub
+
+ 'Right Targets
+Sub SWsqr1_hit():sqr1.transz = 10:sqr2.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 51:End Sub
+Sub SWsqr1_Timer():sqr1.transz = 5:sqr2.transz = 5:SWsqr1a:Me.TimerEnabled = 0:End Sub
+Sub SWsqr1a:sqr1.transZ = 0:sqr2.transz = 0:End Sub
+
+Sub SWror1_hit():ror1.transz = 10:ror2.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 50:End Sub
+Sub SWror1_Timer():ror1.transz = 5:ror2.transz = 5:SWror1a:Me.TimerEnabled = 0:End Sub
+Sub SWror1a:ror1.transZ = 0:ror2.transz = 0:End Sub
+
+Sub swtrr1_hit():trr1.transz = 10:trr2.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 49:End Sub
+Sub swtrr1_Timer():trr1.transz = 5:trr2.transz = 5:SWtrr1a:Me.TimerEnabled = 0:End Sub
+Sub swtrr1a:trr1.transZ = 0:trr2.transz = 0:End Sub
+
+sub trigger11_hit:Controller.Switch(11)=1:End Sub    'left lane
+sub trigger11_unhit:Controller.Switch(11)=0:End Sub
+'12   Buy in - handled elsewhere
+'13   Start Button - handled elsewhere
+'14   Tilt - handled elsewhere
+sub trigger15_hit:Controller.Switch(15)=1:End Sub    'right lane
+sub trigger15_unhit:Controller.Switch(15)=0:End Sub
+
+' Bumpers
+Sub Bumper16_hit:vpmtimer.pulsesw 16:RandomSoundBumperTop Bumper16:End Sub    ' Left Bumper
+Sub Bumper17_hit:vpmtimer.pulsesw 17:RandomSoundBumperMiddle Bumper17:End Sub ' Right Bumper
+Sub Bumper18_hit:vpmtimer.pulsesw 18:RandomSoundBumperBottom Bumper18:End Sub ' Center Bumper
+
+'21   Slam Tilt - handled elsewhere
+'22   Coin Door closed - handled elsewhere
+'23   Ball Launch - handled elsewhere
+'24   Always closed - handled elsewhere
+sub trigger25_hit:Controller.Switch(25)=1:End Sub    'left loop
+sub trigger25_unhit:Controller.Switch(25)=0:End Sub
+
+'Right E Target
+Sub Target26_hit():T26.transz = 10:t26t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 28:End Sub
+Sub Target26_Timer():T26.transz = 5:t26t.transz = 5:Tar26:Me.TimerEnabled = 0:End Sub
+Sub Tar26:t26.transZ = 0:t26t.transz = 0:End Sub
+'Right Y Target
+Sub Target27_hit():T27.transz = 10:t27t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 27:End Sub
+Sub Target27_Timer():T27.transz = 5:t27t.transz = 5:Tar27:Me.TimerEnabled = 0:End Sub
+Sub Tar27:t27.transZ = 0:t27t.transz = 0:End Sub
+'Right lower E Target - Switch 26 & 28 got reversed somehow previously - TastyWasps
+Sub Target28_hit():T28.transz = 10:t28t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 26:End Sub
+Sub Target28_Timer():T28.transz = 5:t28t.transz = 5:Tar28:Me.TimerEnabled = 0:End Sub
+Sub Tar28:t28.transZ = 0:t28t.transz = 0:End Sub
+
+'31   left popper - handled elsewhere
+'32   right popper - handled elsewhere
+sub trigger33_hit:Controller.Switch(33)=1:End Sub    'right loop
+sub trigger33_unhit:Controller.Switch(33)=0:End Sub
+sub trigger34_hit:Controller.Switch(34)=1:End Sub    'ramp entrance
+sub trigger34_unhit:Controller.Switch(34)=0:End Sub
+sub trigger35_hit:Controller.Switch(35)=1:End Sub    'ramp completion
+sub trigger35_unhit:Controller.Switch(35)=0:End Sub
+'36   Escalator Popper - handled elsewhere
+'37     Wheel Exit - handled elsewhere
+
+'Hag Target
+Sub Target38_hit():T38.transz = 10:t38t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 38:End Sub
+Sub Target38_Timer():T38.transz = 5:t38t.transz = 5:Tar38:Me.TimerEnabled = 0:End Sub
+Sub Tar38:t38.transZ = 0:t38t.transz = 0:End Sub
+
+'Upper PF Two Bank (2)
+Sub Target41a_hit():T41a.transz = 10:t41at.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 41:End Sub
+Sub Target41a_Timer():T41a.transz = 5:t41at.transz = 5:Tar41a:Me.TimerEnabled = 0:End Sub
+Sub Tar41a:t41a.transZ = 0:t41at.transz = 0:End Sub
+
+'Upper PF Two Bank (2)
+Sub Target41b_hit():T41b.transz = 10:t41bt.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 41:End Sub
+Sub Target41b_Timer():T41b.transz = 5:t41bt.transz = 5:Tar41b:Me.TimerEnabled = 0:End Sub
+Sub Tar41b:t41b.transZ = 0:t41bt.transz = 0:End Sub
+
+
+sub trigger42_hit:Controller.Switch(42)=1:End Sub    'center lane
+sub trigger42_unhit:Controller.Switch(42)=0:End Sub
+'43   Lockup Upper - handled elsewhere
+'44   Lockup Center - handled elsewhere
+'45   Lockup Lower - handled elsewhere
+'46   Wheel Opto 1 - handled elsewhere
+'47   Wheel Opto 2 - handled elsewhere
+'48   Wheel Opto 3 - handled elsewhere
+
+'51   Right Trough - handled elsewhere
+'52   Trough 2nd - handled elsewhere
+'53   Trough 3rd - handled elsewhere
+'54   Trough 4th - handled elsewhere
+'55   Trough 5th - handled elsewhere
+'56   Left Trough - handled elsewhere
+
+sub trigger57_hit:Controller.Switch(57)=1:GI2b38.state = 1:ledbb = 1:End Sub  'Trough Jam
+sub trigger57_unhit:Controller.Switch(57)=0:End Sub
+
+'Sea Target
+Sub Target58_hit():T58.transz = 10:t58t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 58:End Sub
+Sub Target58_Timer():T58.transz = 5:t58t.transz = 5:Tar58:Me.TimerEnabled = 0:End Sub
+Sub Tar58:t58.transZ = 0:t58t.transz = 0:End Sub
+
+'Left Cheek
+Sub Target61_hit():T61.transz = 10:t61t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 61:End Sub
+Sub Target61_Timer():T61.transz = 5:t61t.transz = 5:Tar61:Me.TimerEnabled = 0:End Sub
+Sub Tar61:t61.transZ = 0:t61t.transz = 0:End Sub
+'Right Cheek
+Sub Target62_hit():T62.transz = 10:t62t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 62:End Sub
+Sub Target62_Timer():T62.transz = 5:t62t.transz = 5:Tar62:Me.TimerEnabled = 0:End Sub
+Sub Tar62:t62.transZ = 0:t62t.transz = 0:End Sub
+
+sub trigger63_hit:Controller.Switch(63)=1:End Sub   'Escalator Exit (upper PF)
+sub trigger63_unhit:Controller.Switch(63)=0:End Sub
+sub trigger64_hit:Controller.Switch(64)=1:End Sub   'Animal Dolphin
+sub trigger64_unhit:Controller.Switch(64)=0:End Sub
+sub trigger65_hit:Controller.Switch(65)=1:End Sub   'Animal Eagle
+sub trigger65_unhit:Controller.Switch(65)=0:End Sub
+sub trigger66_hit:Controller.Switch(66)=1:End Sub   'Animal Tiger
+sub trigger66_unhit:Controller.Switch(66)=0:End Sub
+sub trigger67_hit:Controller.Switch(67)=1:End Sub   'Animal Panda
+sub trigger67_unhit:Controller.Switch(67)=0:End Sub
+sub trigger68_hit:Controller.Switch(68)=1:End Sub   'Animal Rhino
+sub trigger68_unhit:Controller.Switch(68)=0:End Sub
+
+'Right P Target
+Sub Target71_hit():T71.transz = 10:t71t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 71:End Sub
+Sub Target71_Timer():T71.transz = 5:t71t.transz = 5:Tar71:Me.TimerEnabled = 0:End Sub
+Sub Tar71:t71.transZ = 0:t71t.transz = 0:End Sub
+'Right O Target
+Sub Target72_hit():T72.transz = 10:t72t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 72:End Sub
+Sub Target72_Timer():T72.transz = 5:t72t.transz = 5:Tar72:Me.TimerEnabled = 0:End Sub
+Sub Tar72:t72.transZ = 0:t72t.transz = 0:End Sub
+'Right lower P Target
+Sub Target73_hit():T73.transz = 10:t73t.transz = 10:Me.TimerEnabled = 1:vpmTimer.PulseSw 73:End Sub
+Sub Target73_Timer():T73.transz = 5:t73t.transz = 5:Tar73:Me.TimerEnabled = 0:End Sub
+Sub Tar73:t73.transZ = 0:t73t.transz = 0:End Sub
+
+sub LeftOutlane_hit:Controller.Switch(74)=1:End Sub 'Left Outlane
+sub LeftOutlane_unhit:Controller.Switch(74)=0:End Sub
+sub LeftInlane_hit:Controller.Switch(75)=1:End Sub  'Left Inlane
+sub LeftInlane_unhit:Controller.Switch(75)=0:End Sub
+
+' Slingshots
+Dim RStep, Lstep
+
+Sub RightSlingShot_Slingshot
+  RS.VelocityCorrect(ActiveBall)
+  RandomSoundSlingshotRight Sling1
+    RSling.Visible = 0
+    RSling1.Visible = 1
+    sling1.TransZ = -43
+    vpmTimer.PulseSw 77:RStep = 0:RightSlingShot.TimerEnabled = 1
+End Sub
+
+Sub RightSlingShot_Timer
+    Select Case RStep
+        Case 2:RSLing3.Visible = 0:RSLing2.Visible = 1:RSLing1.Visible = 0:sling1.TransZ = -33
+        Case 3:RSLing3.Visible = 1:RSLing2.Visible = 0:RSLing1.Visible = 0:sling1.TransZ = -20
+        Case 4:RSLing3.Visible = 0:RSLing.Visible = 1:sling1.TransZ = 0:RightSlingShot.TimerEnabled = 0
+    End Select
+    RStep = RStep + 1
+End Sub
+
+Sub LeftSlingShot_Slingshot
+  LS.VelocityCorrect(ActiveBall)
+    RandomSoundSlingshotLeft Sling2
+    LSling.Visible = 0
+    LSling1.Visible = 1
+  sling2.TransZ = -43
+    vpmTimer.PulseSw 76:LStep = 0:LeftSlingShot.TimerEnabled = 1
+End Sub
+
+Sub LeftSlingShot_Timer
+    Select Case LStep
+        Case 2:LSLing3.Visible = 0:LSLing2.Visible = 1:LSLing1.Visible = 0:sling2.TransZ = -33
+        Case 3:LSLing3.Visible = 1:LSLing2.Visible = 0:LSLing1.Visible = 0:sling2.TransZ = -20
+        Case 4:LSLing3.Visible = 0:LSLing.Visible = 1:sling2.TransZ = 0:LeftSlingShot.TimerEnabled = 0
+    End Select
+    LStep = LStep + 1
+End Sub
+
+sub RightInlane_hit:Controller.Switch(78)=1:End Sub      'Right Inlane
+sub RightInlane_unhit:Controller.Switch(78)=0:End Sub
+
+'81   Upper Exit to Wheel - handled elsewhere
+sub trigger82_hit:Controller.Switch(82)=1:End Sub  'Upper Ramp Left
+sub trigger82_unhit:Controller.Switch(82)=0:End Sub
+sub trigger83_hit:Controller.Switch(83)=1:End Sub  'Upper Ramp Right
+sub trigger83_unhit:Controller.Switch(83)=0:End Sub
+sub trigger84_hit:Controller.Switch(84)=1:End Sub  'Animal Jackpot
+sub trigger84_unhit:Controller.Switch(84)=0:End Sub
+sub RightOutlane_hit:Controller.Switch(85)=1:End Sub 'Right Outlane
+sub RightOutlane_unhit:Controller.Switch(85)=0:End Sub
+sub trigger86_hit:Controller.Switch(86)=1:End Sub    'Shooter Lane
+sub trigger86_unhit:Controller.Switch(86)=0:End Sub
+'87   Lockup Kicker - handled elsewhere
+sub trigger88_hit:Controller.Switch(88)=1:End Sub  'Upper Shot Exit
+sub trigger88_unhit:Controller.Switch(88)=0:End Sub
+
+Sub SweePeeHelper_Hit
+  ActiveBall.velz = 0
+End Sub
+
+' Helper / Ramp Sound Functions
+Sub Trigger1_Hit
+  If ActiveBall.vely < -40 Then
+    ActiveBall.vely = -40
+  End If
+End Sub
+
+Sub LeftRampStart_Hit
+  WireRampOn True
+End Sub
+
+Sub LeftRampEnd_Hit
+  WireRampOff
+End Sub
+
+Sub AnimalRampStart_Hit
+  WireRampOn True
+End Sub
+
+Sub AnimalRampStart2_Hit
+  WireRampOn True
+End Sub
+
+Sub TopRightRampStart_Hit
+  WireRampOn False
+End Sub
+
+Sub MiddleWireRampStart_Hit
+  WireRampOn False
+End Sub
+
+Sub MiddleRightRampStart_Hit
+  WireRampOn False
+End Sub
+
+'Flipper Primitives and gate primitives and more - reflect lamps
+Sub FlipperTimer_Timer
+  LFPrim.objRotz = LeftFlipper.CurrentAngle
+  RFPrim.objRotz= RightFlipper.CurrentAngle
+  ULFPrim.objRotz = UpperLeftFlipper.CurrentAngle
+  URFPrim.objRotz= UpperRightFlipper.CurrentAngle
+  LeftFlipperSh.RotZ = LeftFlipper.currentangle
+  RightFlipperSh.RotZ = RightFlipper.currentangle
+  If gate01.CurrentAngle >-1 and gate01.CurrentAngle < 50 Then
+    Primitive103.Rotx = gate01.CurrentAngle +90
+  end if
+  If gate02.CurrentAngle >-1 and gate02.CurrentAngle < 50 Then
+    Primitive104.Rotx = gate02.CurrentAngle +90
+  end if
+  If gate03.CurrentAngle >-1 and gate03.CurrentAngle < 50 Then
+    Primitive105.Rotx = gate03.CurrentAngle +90
+  end if
+  If gate04.CurrentAngle >-1 and gate04.CurrentAngle < 50 Then
+    Primitive106.Rotx = gate04.CurrentAngle +90
+  end if
+  If gate05.CurrentAngle >-1 and gate05.CurrentAngle < 50 Then
+    Primitive107.Rotx = gate05.CurrentAngle +90
+  end if
+  if LSLing1.Visible = 1 then sling2.TransZ = -43:end If
+  if LSLing2.Visible = 1 then sling2.TransZ = -33:end If
+  if LSLing3.Visible = 1 then sling2.TransZ = -20:end If
+  if LSLing.Visible = 1 then sling2.TransZ = 0:end If
+
+  if lamp73.state = 1 then lamp73r.state = 1 else lamp73r.state = 0:end If
+  if lamp67.state = 1 then lamp67r.state = 1 else lamp67r.state = 0:end If
+  if lamp68.state = 1 then lamp68r.state = 1 else lamp68r.state = 0:end If
+  if lamp75.state = 1 then lamp75r.state = 1 else lamp75r.state = 0:end If
+  if lamp62.state = 1 then lamp62r.state = 1 else lamp62r.state = 0:end If
+  if lamp83.state = 1 then lamp83r.state = 1 else lamp83r.state = 0:end If
+  if lamp84.state = 1 then lamp84r.state = 1 else lamp84r.state = 0:end If
+End Sub
+
+dim blue
+blue = 0
+sub Flasherblue_timer()
+    select Case Blue
+      case 0 :Primitive148.image = "blue2"
+      case 1 :Primitive148.image = "blue1"
+      case 2 :Primitive148.image = "blue0"
+    End Select
+  blue = blue + 1
+  if blue = 3 then
+    blue = 0
+    Primitive148.image = "blue0"
+    me.enabled = 0
+  end if
+end Sub
+
+dim red
+red = 0
+sub Flasherred_timer()
+    select Case red
+      case 0 :Primitive149.image = "red2"
+      case 1 :Primitive149.image = "red1"
+      case 2 :Primitive149.image = "red01"
+    End Select
+  red = red + 1
+  if red = 3 then
+    red = 0
+    Primitive149.image = "red01"
+    me.enabled = 0
+  end if
+end Sub
+
+dim blueb
+blueb = 0
+sub Flasherblueh_timer()
+    select Case Blueb
+      case 0 :Primitive159.image = "blueh2"
+      case 1 :Primitive159.image = "blueh1"
+      case 2 :Primitive159.image = "blueh0"
+    End Select
+  blueb = blueb + 1
+  if blueb = 3 then
+    blueb = 0
+    Primitive159.image = "blueh0"
+    me.enabled = 0
+  end if
+end Sub
+
+dim jaune
+jaune = 0
+sub Flasherjaune_timer()
+    select Case jaune
+      case 0 :Primitive153.image = "jaune2"
+      case 1 :Primitive153.image = "jaune1"
+      case 2 :Primitive153.image = "jaune0"
+    End Select
+  jaune = jaune + 1
+  if jaune = 3 then
+    jaune = 0
+    Primitive153.image = "jaune0"
+    me.enabled = 0
+  end if
+end Sub
+
+sub realtime_timer()
+  gate1p.Rotx = gate1.CurrentAngle + 90
+end Sub
+
+'********************************************************
+'********    Flupper's subs for his Flashers    *********
+'********************************************************
+
+'*** Blue flasher 2 ***
+Sub FlasherFlash2_Timer()
+  dim flashx3, matdim
+  If not FlasherFlash2.TimerEnabled Then
+    FlasherFlash2.TimerEnabled = True
+    FlasherFlash2.visible = 1
+  End If
+  flashx3 = FlashLevel2 * FlashLevel2 * FlashLevel2
+  Flasherflash2.opacity = 1000 * flashx3
+  Flasher22b.IntensityScale = flashx3
+  'debug.print flashx3
+  matdim = Round(10 * FlashLevel2)
+  FlashLevel2 = FlashLevel2 * 0.85 - 0.01
+  If FlashLevel2 < 0 Then
+    FlasherFlash2.TimerEnabled = False
+    FlasherFlash2.visible = 0
+  End If
+End Sub
+
+'*** Blue flasher 3 upright***
+Sub FlasherFlash3_Timer()
+  dim flashx3, matdim
+  If not FlasherFlash3.TimerEnabled Then
+    FlasherFlash3.TimerEnabled = True
+    FlasherFlash3.visible = 1
+  End If
+  flashx3 = FlashLevel3 * FlashLevel3 * FlashLevel3
+  Flasherflash3.opacity = 1000 * flashx3
+  Flasher24.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel3)
+  FlashLevel3 = FlashLevel3 * 0.85 - 0.01
+  If FlashLevel3 < 0 Then
+    FlasherFlash3.TimerEnabled = False
+    FlasherFlash3.visible = 0
+  End If
+End Sub
+
+'*** Red flasher 4 right***
+Sub FlasherFlash4_Timer()
+  dim flashx3, matdim
+  If not FlasherFlash4.TimerEnabled Then
+    FlasherFlash4.TimerEnabled = True
+    FlasherFlash4.visible = 1
+  End If
+  flashx3 = FlashLevel4 * FlashLevel4 * FlashLevel4
+  Flasherflash4.opacity = 1000 * flashx3
+  Flasher26.IntensityScale = flashx3
+  Flasher1.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel4)
+  FlashLevel4 = FlashLevel4 * 0.85 - 0.01
+  If FlashLevel4 < 0 Then
+    FlasherFlash4.TimerEnabled = False
+    FlasherFlash4.visible = 0
+  End If
+End Sub
+
+'*** Yellow flasher 5 right***
+Sub FlasherFlash5_Timer()
+  dim flashx3, matdim
+  If not FlasherFlash5.TimerEnabled Then
+    FlasherFlash5.TimerEnabled = True
+    FlasherFlash5.visible = 1
+  End If
+  flashx3 = FlashLevel5 * FlashLevel5 * FlashLevel5
+  Flasherflash5.opacity = 1000 * flashx3
+  Flasher28.IntensityScale = flashx3
+  matdim = Round(10 * FlashLevel5)
+  FlashLevel5 = FlashLevel5 * 0.85 - 0.01
+  If FlashLevel5 < 0 Then
+    FlasherFlash5.TimerEnabled = False
+    FlasherFlash5.visible = 0
+  End If
+End Sub
+
+'********************************************
+'* Led detection jpj                        *
+'********************************************
+
+sub Trigger2_Hit()
+  led = led +1
+end sub
+
+sub Trigger2_UnHit()
+  led = led -1
+if led = -1 then led = 0
+end sub
+
+Sub Trigger3_Hit()
+  playsound "Balldrop"
+  Led = led - 1
+  if led = -1 then led = 0
+End Sub
+
+'********************************************
+'*  Led part, adapted from JP Salas script  *
+'********************************************
+
+Dim rGreen, rRed, rBlue, RGBFactor, RGBStep, Led, ledbb
+ledbb = 0
+led = 0
+
+Sub RainbowTimer_Timer 'rainbow led light color changing
+  RGBFactor =20
+  Select Case RGBStep
+    Case 0 'Green
+      rGreen = rGreen + RGBFactor
+      If rGreen > 255 then
+        rGreen = 255
+        RGBStep = 1
+      End If
+    Case 1 'Red
+      rRed = rRed - RGBFactor
+      If rRed < 0 then
+        rRed = 0
+        RGBStep = 2
+      End If
+    Case 2 'Blue
+      rBlue = rBlue + RGBFactor
+      If rBlue > 255 then
+        rBlue = 255
+        RGBStep = 3
+      End If
+    Case 3 'Green
+      rGreen = rGreen - RGBFactor
+      If rGreen < 0 then
+        rGreen = 0
+        RGBStep = 4
+      End If
+    Case 4 'Red
+      rRed = rRed + RGBFactor
+      If rRed > 255 then
+        rRed = 255
+        RGBStep = 5
+      End If
+    Case 5 'Blue
+      rBlue = rBlue - RGBFactor
+      If rBlue < 0 then
+        rBlue = 0
+        RGBStep = 0
+      End If
+    End Select
+
+    if led > 0 then
+      Primitive5.material = "BumpersBlueLed"
+      'Primitive66.material = "BumpersBlue"
+      'Primitive124.material = "BumpersBlue"
+      For each obj in Led3
+        obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+        obj.colorfull = RGB(rRed, rGreen, rBlue)
+      Next
+      For each obj in LedUp
+        obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+        obj.colorfull = RGB(rRed, rGreen, rBlue)
+      Next
+    end if
+
+    if ledbb = 1 then
+      For each obj in Ledb
+        obj.color = RGB(rRed \ 10, rGreen \ 10, rBlue \ 10)
+        obj.colorfull = RGB(rRed, rGreen, rBlue)
+      Next
+    end if
+
+    if ledbb = 0 then
+        GI2b13.color = RGB(254, 109, 67)
+        GI2b13.colorfull = RGB(232, 252, 255)
+    end if
+
+    if led = 0 then
+      Primitive5.material = "BumpersBlue"
+      'Primitive66.material = "BumpersBlue"
+      'Primitive124.material = "BumpersBlue"
+      For each obj in Led1
+        obj.color = RGB(13, 147, 94)
+        obj.colorfull = RGB(109, 248, 165)
+      Next
+      For each obj in Led2
+        obj.color = RGB(210, 251, 255)
+        obj.colorfull = RGB(199, 250, 254)
+      Next
+      For each obj in LedUp
+        obj.color = RGB(255, 255, 0)
+        obj.colorfull = RGB(255, 255, 255)
+      Next
+    end if
+End Sub
+
+'**************
+' Flipper Subs
+'**************
 
 Sub LeftFlipper_Collide(parm)
   CheckLiveCatch Activeball, LeftFlipper, LFCount, parm
@@ -1104,40 +1535,92 @@ Sub RightFlipper_Collide(parm)
   RightFlipperCollide parm
 End Sub
 
-Sub MiddleRampAccelerate_Hit
-  ActiveBall.VelY = ActiveBall.VelY * 1.15
+' Animal Flippers
+Sub Flipper1_Collide(parm)
+  PlaySound "MetalJP"
+End Sub
+Sub Flipper2_Collide(parm)
+  PlaySound "MetalJP"
+End Sub
+Sub Flipper3_Collide(parm)
+  PlaySound "MetalJP"
+End Sub
+Sub Flipper4_Collide(parm)
+  PlaySound "MetalJP"
+End Sub
+Sub Flipper5_Collide(parm)
+    PlaySound "MetalJP"
+End Sub
+
+'*****************
+' Triggers ramps
+'*****************
+Dim tra, traa, trl, trll, trf, trff
+tra = 0:traa = 0:trl = 0:trll = 0:trf=0:trff=0
+
+Sub TRAB_UnHit:
+  playsound "WireRamp2jp"
+End Sub
+Sub TRABS_UnHit:
+  stopsound "WireRamp2jp"
+  playsound "WireRamp_Stop_balldrop"
+End Sub
+
+' Launch Ramp
+Sub TriggerRampL2_Hit:
+  if TRL=0 and TRLL=0 then playsound "WireRamp2jpShort01":TRA=1:exit sub
+  if (TRL=1 and TRLL=1) or (TRL=1 and TRLL=0) then stopsound "WireRamp2jpShort01":TRA=0:TRAA=0
+End Sub
+
+Sub TriggerRampLL_Unhit:
+  TRLL=1
+End Sub
+
+Sub TriggerRampL1_Hit:
+  stopsound "WireRamp2jpShort01":TRL=0:TRLL=0
 End Sub
 
 
-'*******************
-'  Flashers
-'*******************
-
-Sub Flasher104(level):  debug.print "Flasher104 "&level : End Sub
-
-Sub Flasher126(level):  F26.state = level: End Sub
-Sub Flasher127(level):  F27.state = level: End Sub
-Sub Flasher128(level):  F28.state = level: End Sub
-Sub Flasher129(level):  F29.state = level: End Sub
-Sub Flasher130(level):  F30.state = level: End Sub
-Sub Flasher131(level):  F31.state = level: End Sub
-Sub Flasher132(level):  F32.state = level: End Sub
-
-
-'********************
-' GI
-'********************
-
-Set GiCallback2 = GetRef("UpdateGI")
-
-Sub UpdateGI(no, level)
-' debug.print "UpdateGI no="&no&" level="&level
-    For each x in aGiLights
-        x.State = level
-    Next
+Sub TRAF_Hit:
+  if trf=1 and trff=0 then playsound "WireRamp2jpShort01":End If
+  if trf=0 and trff=0 then stopsound "WireRamp2jpShort01":End If
+End Sub
+Sub TRAF1_UnHit:
+  if trf=0 and trff=0 then playsound "WireRamp2jpShort01":End If
+  if trf=1 and trff=0 then stopsound "WireRamp2jpShort01":End If
+End Sub
+Sub TRAF2_Hit:
+  trf=1
+  trff=0
+End Sub
+Sub TRAF3_Hit:
+  trf=0
+  trff=0
 End Sub
 
+Sub UpperPlayfieldScan
+  ' If any ball is on the upper playfield, allow the upper PF flippers to flip.
+  Dim BOT, b
+  BOT = GetBalls
+  For b = 0 to UBound(BOT)
+    If BOT(b).z > 210 Then
+      onUpperPF = True
+      Exit Sub
+    Else
+      onUpperPF = False
+    End If
+  Next
 
+  ' If routine gets this far then nothing is on the upper PF so move the Upper PFs to starting position in case they were rotated up.
+  If UpperLeftFlipper.CurrentAngle < 126 Then
+    UpperLeftFlipper.RotateToStart
+  End If
+
+  If UpperRightFlipper.CurrentAngle > -126 Then
+    UpperRightFlipper.RotateToStart
+  End If
+
+End Sub
 
 '******************************************************
 ' ZNFF:  FLIPPER CORRECTIONS by nFozzy
@@ -1195,6 +1678,20 @@ Sub InitPolarity()
   ' SetObjects arguments: 1: name of object 2: flipper object: 3: Trigger object around flipper
   LF.SetObjects "LF", LeftFlipper, TriggerLF
   RF.SetObjects "RF", RightFlipper, TriggerRF
+End Sub
+
+'' Flipper trigger hit subs
+Sub TriggerLF_Hit()
+  LF.Addball activeball
+End Sub
+Sub TriggerLF_UnHit()
+  LF.PolarityCorrect activeball
+End Sub
+Sub TriggerRF_Hit()
+  RF.Addball activeball
+End Sub
+Sub TriggerRF_UnHit()
+  RF.PolarityCorrect activeball
 End Sub
 
 '******************************************************
@@ -1503,23 +2000,23 @@ Dim LFEOSNudge, RFEOSNudge
 
 Sub FlipperNudge(Flipper1, Endangle1, EOSNudge1, Flipper2, EndAngle2)
   Dim b
-  Dim gBOT
-  gBOT = GetBalls
+  Dim BOT
+  BOT = GetBalls
 
   If Flipper1.currentangle = Endangle1 And EOSNudge1 <> 1 Then
     EOSNudge1 = 1
     '   debug.print Flipper1.currentangle &" = "& Endangle1 &"--"& Flipper2.currentangle &" = "& EndAngle2
     If Flipper2.currentangle = EndAngle2 Then
-      For b = 0 To UBound(gBOT)
-        If FlipperTrigger(gBOT(b).x, gBOT(b).y, Flipper1) Then
+      For b = 0 To UBound(BOT)
+        If FlipperTrigger(BOT(b).x, BOT(b).y, Flipper1) Then
           'Debug.Print "ball in flip1. exit"
           Exit Sub
         End If
       Next
-      For b = 0 To UBound(gBOT)
-        If FlipperTrigger(gBOT(b).x, gBOT(b).y, Flipper2) Then
-          gBOT(b).velx = gBOT(b).velx / 1.3
-          gBOT(b).vely = gBOT(b).vely - 0.5
+      For b = 0 To UBound(BOT)
+        If FlipperTrigger(BOT(b).x, BOT(b).y, Flipper2) Then
+          BOT(b).velx = BOT(b).velx / 1.3
+          BOT(b).vely = BOT(b).vely - 0.5
         End If
       Next
     End If
@@ -1655,8 +2152,8 @@ Const LiveElasticity = 0.45
 Const SOSEM = 0.815
 '   Const EOSReturn = 0.055  'EM's
 '   Const EOSReturn = 0.045  'late 70's to mid 80's
-'Const EOSReturn = 0.035  'mid 80's to early 90's
-Const EOSReturn = 0.025  'mid 90's and later
+Const EOSReturn = 0.035  'mid 80's to early 90's
+'   Const EOSReturn = 0.025  'mid 90's and later
 
 LFEndAngle = Leftflipper.endangle
 RFEndAngle = RightFlipper.endangle
@@ -1675,12 +2172,12 @@ Sub FlipperDeactivate(Flipper, FlipperPress)
   Flipper.eostorque = EOST * EOSReturn / FReturn
 
   If Abs(Flipper.currentangle) <= Abs(Flipper.endangle) + 0.1 Then
-    Dim b, gBOT
-    gBOT = GetBalls
+    Dim b, BOT
+    BOT = GetBalls
 
-    For b = 0 To UBound(gBOT)
-      If Distance(gBOT(b).x, gBOT(b).y, Flipper.x, Flipper.y) < 55 Then 'check for cradle
-        If gBOT(b).vely >= - 0.4 Then gBOT(b).vely =  - 0.4
+    For b = 0 To UBound(BOT)
+      If Distance(BOT(b).x, BOT(b).y, Flipper.x, Flipper.y) < 55 Then 'check for cradle
+        If BOT(b).vely >= - 0.4 Then BOT(b).vely =  - 0.4
       End If
     Next
   End If
@@ -1719,51 +2216,36 @@ Sub FlipperTricks (Flipper, FlipperPress, FCount, FEndAngle, FState)
   End If
 End Sub
 
-Const LiveDistanceMin = 5  'minimum distance In vp units from flipper base live catch dampening will occur
+Const LiveDistanceMin = 30  'minimum distance In vp units from flipper base live catch dampening will occur
 Const LiveDistanceMax = 114 'maximum distance in vp units from flipper base live catch dampening will occur (tip protection)
-Const BaseDampen = 0.55
 
 Sub CheckLiveCatch(ball, Flipper, FCount, parm) 'Experimental new live catch
-    Dim Dir, LiveDist
-    Dir = Flipper.startangle / Abs(Flipper.startangle)    '-1 for Right Flipper
-    Dim LiveCatchBounce   'If live catch is not perfect, it won't freeze ball totally
-    Dim CatchTime
-    CatchTime = GameTime - FCount
-    LiveDist = Abs(Flipper.x - ball.x)
+  Dim Dir
+  Dir = Flipper.startangle / Abs(Flipper.startangle)  '-1 for Right Flipper
+  Dim LiveCatchBounce                                                           'If live catch is not perfect, it won't freeze ball totally
+  Dim CatchTime
+  CatchTime = GameTime - FCount
 
-    If CatchTime <= LiveCatch And parm > 3 And LiveDist > LiveDistanceMin And LiveDist < LiveDistanceMax Then
-        If CatchTime <= LiveCatch * 0.5 Then   'Perfect catch only when catch time happens in the beginning of the window
-            LiveCatchBounce = 0
-        Else
-            LiveCatchBounce = Abs((LiveCatch / 2) - CatchTime)  'Partial catch when catch happens a bit late
-        End If
-
-        If LiveCatchBounce = 0 And ball.velx * Dir > 0 And LiveDist > 30 Then ball.velx = 0
-
-        If ball.velx * Dir > 0 And LiveDist < 30 Then
-            ball.velx = BaseDampen * ball.velx
-            ball.vely = BaseDampen * ball.vely
-            ball.angmomx = BaseDampen * ball.angmomx
-            ball.angmomy = BaseDampen * ball.angmomy
-            ball.angmomz = BaseDampen * ball.angmomz
-        Elseif LiveDist > 30 Then
-            ball.vely = LiveCatchBounce * (32 / LiveCatch) ' Multiplier for inaccuracy bounce
-            ball.angmomx = 0
-            ball.angmomy = 0
-            ball.angmomz = 0
-        End If
+  If CatchTime <= LiveCatch And parm > 6 And Abs(Flipper.x - ball.x) > LiveDistanceMin And Abs(Flipper.x - ball.x) < LiveDistanceMax Then
+    If CatchTime <= LiveCatch * 0.5 Then                        'Perfect catch only when catch time happens in the beginning of the window
+      LiveCatchBounce = 0
     Else
-        If Abs(Flipper.currentangle) <= Abs(Flipper.endangle) + 1 Then FlippersD.Dampenf ActiveBall, parm
+      LiveCatchBounce = Abs((LiveCatch / 2) - CatchTime)    'Partial catch when catch happens a bit late
     End If
+
+    If LiveCatchBounce = 0 And ball.velx * Dir > 0 Then ball.velx = 0
+    ball.vely = LiveCatchBounce * (32 / LiveCatch) ' Multiplier for inaccuracy bounce
+    ball.angmomx = 0
+    ball.angmomy = 0
+    ball.angmomz = 0
+  Else
+    If Abs(Flipper.currentangle) <= Abs(Flipper.endangle) + 1 Then FlippersD.Dampenf ActiveBall, parm
+  End If
 End Sub
 
 '******************************************************
 '****  END FLIPPER CORRECTIONS
 '******************************************************
-
-
-
-
 
 '******************************************************
 '   ZDMP:  RUBBER  DAMPENERS
@@ -1846,7 +2328,6 @@ Class Dampener
 
     aBall.velx = aBall.velx * coef
     aBall.vely = aBall.vely * coef
-    aBall.velz = aBall.velz * coef
     If debugOn Then TBPout.text = str
   End Sub
 
@@ -1927,46 +2408,6 @@ End Sub
 '******************************************************
 '****  END PHYSICS DAMPENERS
 '******************************************************
-
-
-
-'******************************************************
-'   ZBOU: VPW TargetBouncer for targets and posts by Iaakki, Wrd1972, Apophis
-'******************************************************
-
-Sub TargetBouncer(aBall,defvalue)
-  Dim zMultiplier, vel, vratio
-  If TargetBouncerEnabled = 1 And aball.z < 30 Then
-    '   debug.print "velx: " & aball.velx & " vely: " & aball.vely & " velz: " & aball.velz
-    vel = BallSpeed(aBall)
-    If aBall.velx = 0 Then vratio = 1 Else vratio = aBall.vely / aBall.velx
-    Select Case Int(Rnd * 6) + 1
-      Case 1
-        zMultiplier = 0.2 * defvalue
-      Case 2
-        zMultiplier = 0.25 * defvalue
-      Case 3
-        zMultiplier = 0.3 * defvalue
-      Case 4
-        zMultiplier = 0.4 * defvalue
-      Case 5
-        zMultiplier = 0.45 * defvalue
-      Case 6
-        zMultiplier = 0.5 * defvalue
-    End Select
-    aBall.velz = Abs(vel * zMultiplier * TargetBouncerFactor)
-    aBall.velx = Sgn(aBall.velx) * Sqr(Abs((vel ^ 2 - aBall.velz ^ 2) / (1 + vratio ^ 2)))
-    aBall.vely = aBall.velx * vratio
-    '   debug.print "---> velx: " & aball.velx & " vely: " & aball.vely & " velz: " & aball.velz
-    '   debug.print "conservation check: " & BallSpeed(aBall)/vel
-  End If
-End Sub
-
-'Add targets or posts to the TargetBounce collection if you want to activate the targetbouncer code from them
-Sub TargetBounce_Hit(idx)
-  TargetBouncer ActiveBall, 1
-End Sub
-
 
 '******************************************************
 ' ZSSC: SLINGSHOT CORRECTION FUNCTIONS by apophis
@@ -2116,10 +2557,75 @@ Class SlingshotCorrection
   End Sub
 End Class
 
+'******************************************************
+'   ZBOU: VPW TargetBouncer for targets and posts by Iaakki, Wrd1972, Apophis
+'******************************************************
+
+Sub TargetBouncer(aBall,defvalue)
+  Dim zMultiplier, vel, vratio
+  If TargetBouncerEnabled = 1 And aball.z < 30 Then
+    '   debug.print "velx: " & aball.velx & " vely: " & aball.vely & " velz: " & aball.velz
+    vel = BallSpeed(aBall)
+    If aBall.velx = 0 Then vratio = 1 Else vratio = aBall.vely / aBall.velx
+    Select Case Int(Rnd * 6) + 1
+      Case 1
+        zMultiplier = 0.2 * defvalue
+      Case 2
+        zMultiplier = 0.25 * defvalue
+      Case 3
+        zMultiplier = 0.3 * defvalue
+      Case 4
+        zMultiplier = 0.4 * defvalue
+      Case 5
+        zMultiplier = 0.45 * defvalue
+      Case 6
+        zMultiplier = 0.5 * defvalue
+    End Select
+    aBall.velz = Abs(vel * zMultiplier * TargetBouncerFactor)
+    aBall.velx = Sgn(aBall.velx) * Sqr(Abs((vel ^ 2 - aBall.velz ^ 2) / (1 + vratio ^ 2)))
+    aBall.vely = aBall.velx * vratio
+    '   debug.print "---> velx: " & aball.velx & " vely: " & aball.vely & " velz: " & aball.velz
+    '   debug.print "conservation check: " & BallSpeed(aBall)/vel
+  End If
+End Sub
+
+'Add targets or posts to the TargetBounce collection if you want to activate the targetbouncer code from them
+Sub TargetBounce_Hit(idx)
+  TargetBouncer ActiveBall, 1
+End Sub
 
 '******************************************************
 '   ZFLE:  FLEEP MECHANICAL SOUNDS
 '******************************************************
+
+' This part in the script is an entire block that is dedicated to the physics sound system.
+' Various scripts and sounds that may be pretty generic and could suit other WPC systems, but the most are tailored specifically for the TOM table
+
+' Many of the sounds in this package can be added by creating collections and adding the appropriate objects to those collections.
+' Create the following new collections:
+'  Metals (all metal objects, metal walls, metal posts, metal wire guides)
+'  Apron (the apron walls and plunger wall)
+'  Walls (all wood or plastic walls)
+'  Rollovers (wire rollover triggers, star triggers, or button triggers)
+'  Targets (standup or drop targets, these are hit sounds only ... you will want to add separate dropping sounds for drop targets)
+'  Gates (plate gates)
+'  GatesWire (wire gates)
+'  Rubbers (all rubbers including posts, sleeves, pegs, and bands)
+' When creating the collections, make sure "Fire events for this collection" is checked.
+' You'll also need to make sure "Has Hit Event" is checked for each object placed in these collections (not necessary for gates and triggers).
+' Once the collections and objects are added, the save, close, and restart VPX.
+'
+' Many places in the script need to be modified to include the correct sound effect subroutine calls. The tutorial videos linked below demonstrate
+' how to make these updates. But in summary the following needs to be updated:
+' - Nudging, plunger, coin-in, start button sounds will be added to the keydown and keyup subs.
+' - Flipper sounds in the flipper solenoid subs. Flipper collision sounds in the flipper collide subs.
+' - Bumpers, slingshots, drain, ball release, knocker, spinner, and saucers in their respective subs
+' - Ball rolling sounds sub
+'
+' Tutorial vides by Apophis
+' Audio : Adding Fleep Part 1       https://youtu.be/rG35JVHxtx4
+' Audio : Adding Fleep Part 2       https://youtu.be/dk110pWMxGo
+' Audio : Adding Fleep Part 3       https://youtu.be/ESXWGJZY_EI
 
 
 '///////////////////////////////  SOUNDS PARAMETERS  //////////////////////////////
@@ -2159,7 +2665,7 @@ Dim SaucerLockSoundLevel, SaucerKickSoundLevel
 BallWithBallCollisionSoundFactor = 3.2      'volume multiplier; must not be zero
 RubberStrongSoundFactor = 0.055 / 5      'volume multiplier; must not be zero
 RubberWeakSoundFactor = 0.075 / 5        'volume multiplier; must not be zero
-RubberFlipperSoundFactor = 0.375 / 5      'volume multiplier; must not be zero
+RubberFlipperSoundFactor = 0.075 / 5      'volume multiplier; must not be zero
 BallBouncePlayfieldSoftFactor = 0.025      'volume multiplier; must not be zero
 BallBouncePlayfieldHardFactor = 0.025      'volume multiplier; must not be zero
 DelayedBallDropOnPlayfieldSoundLevel = 0.8    'volume level; range [0, 1]
@@ -2276,11 +2782,12 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
     tmp =  - 7000
   End If
 
-  If tmp > 0 Then
-    AudioFade = CSng(tmp ^ 10)
-  Else
-    AudioFade = CSng( - (( - tmp) ^ 10) )
-  End If
+' Thalamus, AudioFade patched
+	If tmp > 0 Then
+		AudioFade = CSng(tmp ^ 5) 'was 10
+	Else
+		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+	End If
 End Function
 
 Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
@@ -2293,11 +2800,12 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
     tmp =  - 7000
   End If
 
-  If tmp > 0 Then
-    AudioPan = CSng(tmp ^ 10)
-  Else
-    AudioPan = CSng( - (( - tmp) ^ 10) )
-  End If
+' Thalamus, AudioPan patched
+	If tmp > 0 Then
+		AudioPan = CSng(tmp ^ 5) 'was 10
+	Else
+		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+	End If
 End Function
 
 Function Vol(ball) ' Calculates the volume of the sound based on the ball speed
@@ -2313,7 +2821,6 @@ Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
 End Function
 
 Function BallVel(ball) 'Calculates the ball speed
-  On Error Resume Next
   BallVel = Int(Sqr((ball.VelX ^ 2) + (ball.VelY ^ 2) ) )
 End Function
 
@@ -2860,20 +3367,19 @@ Sub Sound_Flash_Relay(toggle, obj)
   End Select
 End Sub
 
-'******************************************************
-'****  END FLEEP MECHANICAL SOUNDS
-'******************************************************
+'/////////////////////////////////////////////////////////////////
+'         End Mechanical Sounds
+'/////////////////////////////////////////////////////////////////
 
+'******************************************************
+'****  FLEEP MECHANICAL SOUNDS
+'******************************************************
 
 '******************************************************
 ' ZBRL:  BALL ROLLING AND DROP SOUNDS
 '******************************************************
 
 ' Be sure to call RollingUpdate in a timer with a 10ms interval see the GameTimer_Timer() sub
-Sub GameTimer_Timer
-  RollingUpdate
-  DoSTAnim ' Animate Stand-Up Targets
-End Sub
 
 ReDim rolling(tnob)
 InitRolling
@@ -2890,11 +3396,11 @@ End Sub
 
 Sub RollingUpdate()
   Dim b
-  Dim gBOT
-  gBOT = GetBalls
+  Dim BOT
+  BOT = GetBalls
 
   ' stop the sound of deleted balls
-  For b = UBound(gBOT) + 1 To tnob - 1
+  For b = UBound(BOT) + 1 To tnob - 1
     ' Comment the next line if you are not implementing Dyanmic Ball Shadows
     If AmbientBallShadowOn = 0 Then BallShadowA(b).visible = 0
     rolling(b) = False
@@ -2902,13 +3408,13 @@ Sub RollingUpdate()
   Next
 
   ' exit the sub if no balls on the table
-  If UBound(gBOT) =  - 1 Then Exit Sub
+  If UBound(BOT) =  - 1 Then Exit Sub
 
   ' play the rolling sound for each ball
-  For b = 0 To UBound(gBOT)
-    If BallVel(gBOT(b)) > 1 And gBOT(b).z < 30 Then
+  For b = 0 To UBound(BOT)
+    If BallVel(BOT(b)) > 1 And BOT(b).z < 250 Then
       rolling(b) = True
-      PlaySound ("BallRoll_" & b), - 1, VolPlayfieldRoll(gBOT(b)) * BallRollVolume * VolumeDial, AudioPan(gBOT(b)), 0, PitchPlayfieldRoll(gBOT(b)), 1, 0, AudioFade(gBOT(b))
+      PlaySound ("BallRoll_" & b), - 1, VolPlayfieldRoll(BOT(b)) * BallRollVolume * VolumeDial, AudioPan(BOT(b)), 0, PitchPlayfieldRoll(BOT(b)), 1, 0, AudioFade(BOT(b))
     Else
       If rolling(b) = True Then
         StopSound("BallRoll_" & b)
@@ -2917,13 +3423,13 @@ Sub RollingUpdate()
     End If
 
     ' Ball Drop Sounds
-    If gBOT(b).VelZ <  - 1 And gBOT(b).z < 55 And gBOT(b).z > 27 Then 'height adjust for ball drop sounds
+    If BOT(b).VelZ <  - 1 And BOT(b).z < 55 And BOT(b).z > 27 Then 'height adjust for ball drop sounds
       If DropCount(b) >= 5 Then
         DropCount(b) = 0
-        If gBOT(b).velz >  - 7 Then
-          RandomSoundBallBouncePlayfieldSoft gBOT(b)
+        If BOT(b).velz >  - 7 Then
+          RandomSoundBallBouncePlayfieldSoft BOT(b)
         Else
-          RandomSoundBallBouncePlayfieldHard gBOT(b)
+          RandomSoundBallBouncePlayfieldHard BOT(b)
         End If
       End If
     End If
@@ -2935,13 +3441,13 @@ Sub RollingUpdate()
     ' "Static" Ball Shadows
     ' Comment the next If block, if you are not implementing the Dynamic Ball Shadows
     If AmbientBallShadowOn = 0 Then
-      If gBOT(b).Z > 30 Then
-        BallShadowA(b).height = gBOT(b).z - BallSize / 4    'This is technically 1/4 of the ball "above" the ramp, but it keeps it from clipping the ramp
+      If BOT(b).Z > 30 Then
+        BallShadowA(b).height = BOT(b).z - BallSize / 4   'This is technically 1/4 of the ball "above" the ramp, but it keeps it from clipping the ramp
       Else
         BallShadowA(b).height = 0.1
       End If
-      BallShadowA(b).Y = gBOT(b).Y + offsetY
-      BallShadowA(b).X = gBOT(b).X + offsetX
+      BallShadowA(b).Y = BOT(b).Y + offsetY
+      BallShadowA(b).X = BOT(b).X + offsetX
       BallShadowA(b).visible = 1
     End If
   Next
@@ -2950,6 +3456,7 @@ End Sub
 '******************************************************
 '****  END BALL ROLLING AND DROP SOUNDS
 '******************************************************
+
 
 '******************************************************
 '   ZRRL: RAMP ROLLING SFX
@@ -2973,7 +3480,7 @@ RampMinLoops = 4
 
 ' RampBalls
 ' Setup:  Set the array length of x in RampBalls(x,2) Total Number of Balls on table + 1:  if tnob = 5, then RampBalls(6,2)
-Dim RampBalls(8,2)
+Dim RampBalls(7,2)
 'x,0 = ball x,1 = ID, 2 = Protection against ending early (minimum amount of updates)
 
 '0,0 is boolean on/off, 0,1 unused for now
@@ -2982,7 +3489,7 @@ RampBalls(0,0) = False
 ' RampType
 ' Setup: Set this array to the number Total number of balls that can be tracked at one time + 1.  5 ball multiball then set value to 6
 ' Description: Array type indexed on BallId and a values used to deterimine what type of ramp the ball is on: False = Wire Ramp, True = Plastic Ramp
-Dim RampType(8)
+Dim RampType(7)
 
 Sub WireRampOn(input)
   Waddball ActiveBall, input
@@ -3061,7 +3568,6 @@ End Sub
 
 Sub RampRollUpdate()  'Timer update
   Dim x
-  On Error Resume Next
   For x = 1 To UBound(RampBalls)
     If Not IsEmpty(RampBalls(x,1) ) Then
       If BallVel(RampBalls(x,0) ) > 1 Then ' if ball is moving, play rolling sound
@@ -3116,206 +3622,319 @@ End Function
 
 
 '******************************************************
-' ZRST: STAND-UP TARGETS by Rothbauerw
+'   ZFLD:  FLUPPER DOMES
 '******************************************************
+Dim TestFlashers, TableRef, FlasherLightIntensity, FlasherFlareIntensity, FlasherBloomIntensity, FlasherOffBrightness
 
-'Define a variable for each stand-up target
-Dim ST17, ST18, ST19, ST20, ST21, ST22, ST10
+' *********************************************************************
+TestFlashers = 0        ' *** set this to 1 to check position of flasher object      ***
+Set TableRef = Table1      ' *** change this, if your table has another name           ***
+FlasherLightIntensity = 0.1  ' *** lower this, if the VPX lights are too bright (i.e. 0.1)     ***
+FlasherFlareIntensity = 0.3  ' *** lower this, if the flares are too bright (i.e. 0.1)       ***
+FlasherBloomIntensity = 0.2  ' *** lower this, if the blooms are too bright (i.e. 0.1)       ***
+FlasherOffBrightness = 0.5    ' *** brightness of the flasher dome when switched off (range 0-2)  ***
+' *********************************************************************
 
-'Set array with stand-up target objects
-'
-'StandupTargetvar = Array(primary, prim, swtich)
-'   primary:  vp target to determine target hit
-'   prim:    primitive target used for visuals and animation
-'          IMPORTANT!!!
-'          transy must be used to offset the target animation
-'   switch:  ROM switch number
-'   animate:  Arrary slot for handling the animation instrucitons, set to 0
-'
-'You will also need to add a secondary hit object for each stand up (name sw11o, sw12o, and sw13o on the example Table1)
-'these are inclined primitives to simulate hitting a bent target and should provide so z velocity on high speed impacts
+Dim ObjLevel(20), objbase(20), objlit(20), objflasher(20), objbloom(20), objlight(20), ObjTargetLevel(20)
+'Dim tablewidth, tableheight : tablewidth = TableRef.width : tableheight = TableRef.height
 
-ST17 = Array(sw17, sw17p, 17, 0)
-ST18 = Array(sw18, sw18p, 18, 0)
-ST19 = Array(sw19, sw19p, 19, 0)
-ST20 = Array(sw20, sw20p, 20, 0)
-ST21 = Array(sw21, sw21p, 21, 0)
-ST22 = Array(sw22, sw22p, 22, 0)
-ST10 = Array(sw10, sw10p, 10, 0)
+'initialise the flasher color, you can only choose from "green", "red", "purple", "blue", "white" and "yellow"
+InitFlasher 1, "red"
 
+Sub InitFlasher(nr, col)
+  ' store all objects in an array for use in FlashFlasher subroutine
+  Set objbase(nr) = Eval("Flasherbase" & nr)
+  Set objlit(nr) = Eval("Flasherlit" & nr)
+  Set objflasher(nr) = Eval("Flasherflash" & nr)
+  Set objlight(nr) = Eval("Flasherlight" & nr)
+  Set objbloom(nr) = Eval("Flasherbloom" & nr)
 
-'Add all the Stand-up Target Arrays to Stand-up Target Animation Array
-'   STAnimationArray = Array(ST1, ST2, ....)
-Dim STArray
-STArray = Array(ST17, ST18, ST19, ST20, ST21, ST22, ST10)
-
-Dim STArray0, STArray1, STArray2, STArray3
-ReDim STArray0(UBound(STArray)), STArray1(UBound(STArray)), STArray2(UBound(STArray)), STArray3(UBound(STArray))
-
-Dim STIdx
-For STIdx = 0 To UBound(STArray)
-  Set STArray0(STIdx) = STArray(STIdx)(0)
-  Set STArray1(STIdx) = STArray(STIdx)(1)
-  STArray2(STIdx) = STArray(STIdx)(2)
-  STArray3(STIdx) = STArray(STIdx)(3)
-Next
-
-'Configure the behavior of Stand-up Targets
-Const STAnimStep = 0.5  'vpunits per animation step (control return to Start)
-Const STMaxOffset = 6   'max vp units target moves when hit
-
-Const STMaxRotStep = 0.05 'dont ask... Well never mind.. These were all in parts object. Cannot animate,.,
-Const STMaxRot = -0.6
-
-Const STMass = 0.2    'Mass of the Stand-up Target (between 0 and 1), higher values provide more resistance
-
-'******************************************************
-'       STAND-UP TARGETS FUNCTIONS
-'******************************************************
-
-Sub STHit(switch)
-  Dim i
-  i = STArrayID(switch)
-
-  PlayTargetSound
-  STArray3(i) = STCheckHit(ActiveBall,STArray0(i))
-
-  If STArray3(i) <> 0 Then
-    DTBallPhysics ActiveBall, STArray0(i).orientation, STMass
+  ' If the flasher is parallel to the playfield, rotate the VPX flasher object for POV and place it at the correct height
+  If objbase(nr).RotY = 0 Then
+    objbase(nr).ObjRotZ = Atn( (tablewidth / 2 - objbase(nr).x) / (objbase(nr).y - tableheight * 1.1)) * 180 / 3.14159
+    objflasher(nr).RotZ = objbase(nr).ObjRotZ
+    objflasher(nr).height = objbase(nr).z + 40
   End If
-  DoSTAnim
-End Sub
 
-Function STArrayID(switch)
-  Dim i
-  For i = 0 To UBound(STArray)
-    If STArray2(i) = switch Then
-      STArrayID = i
-      Exit Function
-    End If
-  Next
-End Function
+  ' set all effects to invisible and move the lit primitive at the same position and rotation as the base primitive
+  objlight(nr).IntensityScale = 0
+  objlit(nr).visible = 0
+  objlit(nr).material = "Flashermaterial" & nr
+  objlit(nr).RotX = objbase(nr).RotX
+  objlit(nr).RotY = objbase(nr).RotY
+  objlit(nr).RotZ = objbase(nr).RotZ
+  objlit(nr).ObjRotX = objbase(nr).ObjRotX
+  objlit(nr).ObjRotY = objbase(nr).ObjRotY
+  objlit(nr).ObjRotZ = objbase(nr).ObjRotZ
+  objlit(nr).x = objbase(nr).x
+  objlit(nr).y = objbase(nr).y
+  objlit(nr).z = objbase(nr).z
+  objbase(nr).BlendDisableLighting = FlasherOffBrightness
 
-Function STCheckHit(aBall, target) 'Check if target is hit on it's face
-  Dim bangle, bangleafter, rangle, rangle2, perpvel, perpvelafter, paravel, paravelafter
-  rangle = (target.orientation - 90) * 3.1416 / 180
-  bangle = atn2(cor.ballvely(aball.id),cor.ballvelx(aball.id))
-  bangleafter = Atn2(aBall.vely,aball.velx)
-
-  perpvel = cor.BallVel(aball.id) * Cos(bangle - rangle)
-  paravel = cor.BallVel(aball.id) * Sin(bangle - rangle)
-
-  perpvelafter = BallSpeed(aBall) * Cos(bangleafter - rangle)
-  paravelafter = BallSpeed(aBall) * Sin(bangleafter - rangle)
-
-  If perpvel > 0 And  perpvelafter <= 0 Then
-    STCheckHit = 1
-  ElseIf perpvel > 0 And ((paravel > 0 And paravelafter > 0) Or (paravel < 0 And paravelafter < 0)) Then
-    STCheckHit = 1
+  'rothbauerw
+  'Adjust the position of the flasher object to align with the flasher base.
+  'Comment out these lines if you want to manually adjust the flasher object
+  If objbase(nr).roty > 135 Then
+    objflasher(nr).y = objbase(nr).y + 50
+    objflasher(nr).height = objbase(nr).z + 20
   Else
-    STCheckHit = 0
+    objflasher(nr).y = objbase(nr).y + 20
+    objflasher(nr).height = objbase(nr).z + 50
   End If
-End Function
+  objflasher(nr).x = objbase(nr).x
 
-Sub DoSTAnim()
-  Dim i
-  For i = 0 To UBound(STArray)
-    STArray3(i) = STAnimate(STArray0(i),STArray1(i),STArray2(i),STArray3(i))
-  Next
-End Sub
+  'rothbauerw
+  'Adjust the position of the light object to align with the flasher base.
+  'Comment out these lines if you want to manually adjust the flasher object
+  objlight(nr).x = objbase(nr).x
+  objlight(nr).y = objbase(nr).y
+  objlight(nr).bulbhaloheight = objbase(nr).z - 10
 
-Function STAnimate(primary, prim, switch,  animate)
-  Dim animtime
-
-  STAnimate = animate
-
-  If animate = 0  Then
-    primary.uservalue = 0
-    STAnimate = 0
-    Exit Function
-  ElseIf primary.uservalue = 0 Then
-    primary.uservalue = GameTime
+  'rothbauerw
+  'Assign the appropriate bloom image basked on the location of the flasher base
+  'Comment out these lines if you want to manually assign the bloom images
+  Dim xthird, ythird
+  xthird = tablewidth / 3
+  ythird = tableheight / 3
+  If objbase(nr).x >= xthird And objbase(nr).x <= xthird * 2 Then
+    objbloom(nr).imageA = "flasherbloomCenter"
+    objbloom(nr).imageB = "flasherbloomCenter"
+  ElseIf objbase(nr).x < xthird And objbase(nr).y < ythird Then
+    objbloom(nr).imageA = "flasherbloomUpperLeft"
+    objbloom(nr).imageB = "flasherbloomUpperLeft"
+  ElseIf  objbase(nr).x > xthird * 2 And objbase(nr).y < ythird Then
+    objbloom(nr).imageA = "flasherbloomUpperRight"
+    objbloom(nr).imageB = "flasherbloomUpperRight"
+  ElseIf objbase(nr).x < xthird And objbase(nr).y < ythird * 2 Then
+    objbloom(nr).imageA = "flasherbloomCenterLeft"
+    objbloom(nr).imageB = "flasherbloomCenterLeft"
+  ElseIf  objbase(nr).x > xthird * 2 And objbase(nr).y < ythird * 2 Then
+    objbloom(nr).imageA = "flasherbloomCenterRight"
+    objbloom(nr).imageB = "flasherbloomCenterRight"
+  ElseIf objbase(nr).x < xthird And objbase(nr).y < ythird * 3 Then
+    objbloom(nr).imageA = "flasherbloomLowerLeft"
+    objbloom(nr).imageB = "flasherbloomLowerLeft"
+  ElseIf  objbase(nr).x > xthird * 2 And objbase(nr).y < ythird * 3 Then
+    objbloom(nr).imageA = "flasherbloomLowerRight"
+    objbloom(nr).imageB = "flasherbloomLowerRight"
   End If
 
-  animtime = GameTime - primary.uservalue
+  ' set the texture and color of all objects
+  Select Case objbase(nr).image
+    Case "dome2basewhite"
+      objbase(nr).image = "dome2base" & col
+      objlit(nr).image = "dome2lit" & col
 
-  If animate = 1 Then
-    primary.collidable = 0
-'   debug.print "animate1: " & prim.transy
-    prim.transy = prim.transy - STMaxOffset
-    prim.rotz = prim.rotz - STMaxRot
-    vpmTimer.PulseSw switch
-    STAnimate = 2
-'   debug.print "animate1 ---> " & prim.transy
-    Exit Function
-  ElseIf animate = 2 Then
-'   debug.print "animate2"
-    prim.transy = prim.transy + STAnimStep
-    prim.rotz = prim.rotz + STMaxRotStep
-    If prim.transy >= 0 Then
-      prim.transy = 0
-      prim.rotz = 0
-      primary.collidable = 1
-      STAnimate = 0
-      Exit Function
-    Else
-      STAnimate = 2
-    End If
-  End If
-End Function
+    Case "ronddomebasewhite"
+      objbase(nr).image = "ronddomebase" & col
+      objlit(nr).image = "ronddomelit" & col
 
-
-Sub STAction(Switch)
-  Select Case Switch
-    Case 11
-      Addscore 1000
-      Flash1 True 'Demo of the flasher
-      vpmTimer.AddTimer 150,"Flash1 False'"   'Disable the flash after short time, just like a ROM would do
-
-    Case 12
-      Addscore 1000
-      Flash2 True 'Demo of the flasher
-      vpmTimer.AddTimer 150,"Flash2 False'"   'Disable the flash after short time, just like a ROM would do
-
-    Case 13
-      Addscore 1000
-      Flash3 True 'Demo of the flasher
-      vpmTimer.AddTimer 150,"Flash3 False'"   'Disable the flash after short time, just like a ROM would do
+    Case "domeearbasewhite"
+      objbase(nr).image = "domeearbase" & col
+      objlit(nr).image = "domeearlit" & col
   End Select
+  If TestFlashers = 0 Then
+    objflasher(nr).imageA = "domeflashwhite"
+    objflasher(nr).visible = 0
+  End If
+  Select Case col
+    Case "blue"
+      objlight(nr).color = RGB(4,120,255)
+      objflasher(nr).color = RGB(200,255,255)
+      objbloom(nr).color = RGB(4,120,255)
+      objlight(nr).intensity = 5000
+
+    Case "green"
+      objlight(nr).color = RGB(12,255,4)
+      objflasher(nr).color = RGB(12,255,4)
+      objbloom(nr).color = RGB(12,255,4)
+
+    Case "red"
+      objlight(nr).color = RGB(255,32,4)
+      objflasher(nr).color = RGB(255,32,4)
+      objbloom(nr).color = RGB(255,32,4)
+
+    Case "purple"
+      objlight(nr).color = RGB(230,49,255)
+      objflasher(nr).color = RGB(255,64,255)
+      objbloom(nr).color = RGB(230,49,255)
+
+    Case "yellow"
+      objlight(nr).color = RGB(200,173,25)
+      objflasher(nr).color = RGB(255,200,50)
+      objbloom(nr).color = RGB(200,173,25)
+
+    Case "white"
+      objlight(nr).color = RGB(255,240,150)
+      objflasher(nr).color = RGB(100,86,59)
+      objbloom(nr).color = RGB(255,240,150)
+
+    Case "orange"
+      objlight(nr).color = RGB(255,70,0)
+      objflasher(nr).color = RGB(255,70,0)
+      objbloom(nr).color = RGB(255,70,0)
+  End Select
+  objlight(nr).colorfull = objlight(nr).color
+  If TableRef.ShowDT And ObjFlasher(nr).RotX =  - 45 Then
+    objflasher(nr).height = objflasher(nr).height - 20 * ObjFlasher(nr).y / tableheight
+    ObjFlasher(nr).y = ObjFlasher(nr).y + 10
+  End If
 End Sub
 
-Sub DTBallPhysics(aBall, angle, mass)
-  Dim rangle,bangle,calc1, calc2, calc3
-  rangle = (angle - 90) * 3.1416 / 180
-  bangle = atn2(cor.ballvely(aball.id),cor.ballvelx(aball.id))
-
-  calc1 = cor.BallVel(aball.id) * Cos(bangle - rangle) * (aball.mass - mass) / (aball.mass + mass)
-  calc2 = cor.BallVel(aball.id) * Sin(bangle - rangle) * Cos(rangle + 4 * Atn(1) / 2)
-  calc3 = cor.BallVel(aball.id) * Sin(bangle - rangle) * Sin(rangle + 4 * Atn(1) / 2)
-
-  aBall.velx = calc1 * Cos(rangle) + calc2
-  aBall.vely = calc1 * Sin(rangle) + calc3
+Sub RotateFlasher(nr, angle)
+  angle = ((angle + 360 - objbase(nr).ObjRotZ) Mod 180) / 30
+  objbase(nr).showframe(angle)
+  objlit(nr).showframe(angle)
 End Sub
 
+Sub FlashFlasher(nr)
+  If Not objflasher(nr).TimerEnabled Then
+    objflasher(nr).TimerEnabled = True
+    objflasher(nr).visible = 1
+    objbloom(nr).visible = 1
+    objlit(nr).visible = 1
+  End If
+  objflasher(nr).opacity = 1000 * FlasherFlareIntensity * ObjLevel(nr) ^ 2.5
+  objbloom(nr).opacity = 100 * FlasherBloomIntensity * ObjLevel(nr) ^ 2.5
+  objlight(nr).IntensityScale = 0.5 * FlasherLightIntensity * ObjLevel(nr) ^ 3
+  objbase(nr).BlendDisableLighting = FlasherOffBrightness + 10 * ObjLevel(nr) ^ 3
+  objlit(nr).BlendDisableLighting = 10 * ObjLevel(nr) ^ 2
+  UpdateMaterial "Flashermaterial" & nr,0,0,0,0,0,0,ObjLevel(nr),RGB(255,255,255),0,0,False,True,0,0,0,0
+  If Round(ObjTargetLevel(nr),1) > Round(ObjLevel(nr),1) Then
+    ObjLevel(nr) = ObjLevel(nr) + 0.3
+    If ObjLevel(nr) > 1 Then ObjLevel(nr) = 1
+  ElseIf Round(ObjTargetLevel(nr),1) < Round(ObjLevel(nr),1) Then
+    ObjLevel(nr) = ObjLevel(nr) * 0.85 - 0.01
+    If ObjLevel(nr) < 0 Then ObjLevel(nr) = 0
+  Else
+    ObjLevel(nr) = Round(ObjTargetLevel(nr),1)
+    objflasher(nr).TimerEnabled = False
+  End If
+  '   ObjLevel(nr) = ObjLevel(nr) * 0.9 - 0.01
+  If ObjLevel(nr) < 0 Then
+    objflasher(nr).TimerEnabled = False
+    objflasher(nr).visible = 0
+    objbloom(nr).visible = 0
+    objlit(nr).visible = 0
+  End If
+End Sub
+
+Sub FlasherFlash1_Timer()
+  FlashFlasher(1)
+End Sub
 
 '******************************************************
-'****   END STAND-UP TARGETS
+'******  END FLUPPER DOMES
 '******************************************************
 
 '***************************************************************
 ' ZSHA: VPW DYNAMIC BALL SHADOWS by Iakki, Apophis, and Wylte
 '***************************************************************
 
+'****** INSTRUCTIONS please read ******
+
+'****** Part A:  Table Elements ******
+'
+' Import the "bsrtx8" and "ballshadow" images
+' Import the shadow materials file (3 sets included) (you can also export the 3 sets from this table to create the same file)
+' Copy in the BallShadowA flasher set and the sets of primitives named BallShadow#, RtxBallShadow#, and RtxBall2Shadow#
+' * Count from 0 up, with at least as many objects each as there can be balls, including locked balls.  You'll get an "eval" warning if tnob is higher
+' * Warning:  If merging with another system (JP's ballrolling), you may need to check tnob math and add an extra BallShadowA# flasher (out of range error)
+' Ensure you have a timer with a -1 interval that is always running
+' Set plastic ramps DB to *less* than the ambient shadows (-11000) if you want to see the pf shadow through the ramp
+' Place triggers at the start of each ramp *type* (solid, clear, wire) and one at the end if it doesn't return to the base pf
+' * These can share duties as triggers for RampRolling sounds
+
+' Create a collection called DynamicSources that includes all light sources you want to cast ball shadows
+' It's recommended that you be selective in which lights go in this collection, as there are limitations:
+' 1. The shadows can "pass through" solid objects and other light sources, so be mindful of where the lights would actually able to cast shadows
+' 2. If there are more than two equidistant sources, the shadows can suddenly switch on and off, so places like top and bottom lanes need attention
+' 3. At this time the shadows get the light on/off from tracking gilvl, so if you have lights you want shadows for that are on at different times you will need to either:
+' a) remove this restriction (shadows think lights are always On)
+' b) come up with a custom solution (see TZ example in script)
+' After confirming the shadows work in general, use ball control to move around and look for any weird behavior
+
+'****** End Part A:  Table Elements ******
+
+
+'****** Part B:  Code and Functions ******
+
 ' *** Timer sub
 ' The "DynamicBSUpdate" sub should be called by a timer with an interval of -1 (framerate)
-Sub FrameTimer_Timer()
-  If DynamicBallShadowsOn Or AmbientBallShadowOn Then DynamicBSUpdate 'update ball shadows
-End Sub
+' Example timer sub:
+
+'Sub FrameTimer_Timer()
+' If DynamicBallShadowsOn Or AmbientBallShadowOn Then DynamicBSUpdate 'update ball shadows
+'End Sub
 
 ' *** These are usually defined elsewhere (ballrolling), but activate here if necessary
-Const lob = 0
-Const gilvl = 1
-'Dim tablewidth: tablewidth =
+'Const tnob = 10 ' total number of balls
+'Const lob = 0  'locked balls on start; might need some fiddling depending on how your locked balls are done
+'Dim tablewidth: tablewidth = Table1.width
+'Dim tableheight: tableheight = Table1.height
+
+' *** User Options - Uncomment here or move to top for easy access by players
+'----- Shadow Options -----
+'Const DynamicBallShadowsOn = 1   '0 = no dynamic ball shadow ("triangles" near slings and such), 1 = enable dynamic ball shadow
+'Const AmbientBallShadowOn = 1    '0 = Static shadow under ball ("flasher" image, like JP's)
+'                 '1 = Moving ball shadow ("primitive" object, like ninuzzu's) - This is the only one that shows up on the pf when in ramps and fades when close to lights!
+'                 '2 = flasher image shadow, but it moves like ninuzzu's
+
+' *** The following segment goes within the RollingUpdate sub, so that if Ambient...=0 and Dynamic...=0 the entire DynamicBSUpdate sub can be skipped for max performance
+' ** Change gBOT to BOT if using existing getballs code
+' ** Double commented lines commonly found there included for reference:
+
+''  ' stop the sound of deleted balls
+''  For b = UBound(gBOT) + 1 to tnob
+'   If AmbientBallShadowOn = 0 Then BallShadowA(b).visible = 0
+''    ...rolling(b) = False
+''    ...StopSound("BallRoll_" & b)
+''  Next
+''
+'' ...rolling and drop sounds...
+''
+''    If DropCount(b) < 5 Then
+''      DropCount(b) = DropCount(b) + 1
+''    End If
+''
+'   ' "Static" Ball Shadows
+'   If AmbientBallShadowOn = 0 Then
+'     BallShadowA(b).visible = 1
+'     BallShadowA(b).X = gBOT(b).X + offsetX
+'     If gBOT(b).Z > 30 Then
+'       BallShadowA(b).height=gBOT(b).z - BallSize/4 + b/1000 'This is technically 1/4 of the ball "above" the ramp, but it keeps it from clipping the ramp
+'       BallShadowA(b).Y = gBOT(b).Y + offsetY + BallSize/10
+'     Else
+'       BallShadowA(b).height=gBOT(b).z - BallSize/2 + 1.04 + b/1000
+'       BallShadowA(b).Y = gBOT(b).Y + offsetY
+'     End If
+'   End If
+
+' *** Place this inside the table init, just after trough balls are added to gBOT
+'
+' Add balls to shadow dictionary
+' For Each xx in gBOT
+'   bsDict.Add xx.ID, bsNone
+' Next
+
+' *** Example RampShadow trigger subs:
+
+'Sub ClearRampStart_hit()
+' bsRampOnClear     'Shadow on ramp and pf below
+'End Sub
+
+'Sub SolidRampStart_hit()
+' bsRampOn        'Shadow on ramp only
+'End Sub
+
+'Sub WireRampStart_hit()
+' bsRampOnWire      'Shadow only on pf
+'End Sub
+
+'Sub RampEnd_hit()
+' bsRampOff ActiveBall.ID 'Back to default shadow behavior
+'End Sub
+
 
 ' *** Required Functions, enable these if they are not already present elswhere in your table
 Function max(a,b)
@@ -3377,7 +3996,7 @@ Dim objrtx1(6), objrtx2(6)
 Dim objBallShadow(6)
 Dim OnPF(6)
 Dim BallShadowA
-BallShadowA = Array (BallShadowA0,BallShadowA1,BallShadowA2,BallShadowA3,BallShadowA4, BallShadowA5, BallShadowA6)
+BallShadowA = Array (BallShadowA0,BallShadowA1,BallShadowA2,BallShadowA3,BallShadowA4, BallShadowA5)
 Dim DSSources(30), numberofsources', DSGISide(30) 'Adapted for TZ with GI left / GI right
 
 ' *** The Shadow Dictionary
@@ -3427,8 +4046,10 @@ Sub DynamicBSInit()
 End Sub
 
 Sub BallOnPlayfieldNow(onPlayfield, ballNum)  'Whether a ball is currently on the playfield. Only update certain things once, save some cycles
+
+  Dim gBOT: gBOT=getballs
+
   If onPlayfield Then
-    Dim gBOT: gBOT=getballs
     OnPF(ballNum) = True
     bsRampOff gBOT(ballNum).ID
     '   debug.print "Back on PF"
@@ -3633,8 +4254,121 @@ End Function
 '****  END VPW DYNAMIC BALL SHADOWS by Iakki, Apophis, and Wylte
 '****************************************************************
 
-' Thalamus : Exit in a clean and proper way
-Sub Table1_exit
-  Controller.Pause = False
-  Controller.Stop
+
+'***************************
+'   LUT - Darkness control
+'***************************
+
+Dim bLutActive, LUTImage
+
+Sub LoadLUT
+
+  Dim FileObj, ScoreFile, TextStr, rLine
+    bLutActive = False
+
+  If DesktopMode = True or RenderingMode = 2 Then
+    LUTImage = 0
+  Else
+    LUTImage = 2 ' Cab Mode a touch darker by default
+  End If
+
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+
+  If Not FileObj.FolderExists(UserDirectory) then
+    UpdateLUT
+    Exit Sub
+  End If
+
+  If Not FileObj.FileExists(UserDirectory & "PopeyeLUT.txt") then
+    UpdateLUT
+    Exit Sub
+  End If
+
+  Set ScoreFile=FileObj.GetFile(UserDirectory & "PopeyeLUT.txt")
+  Set TextStr=ScoreFile.OpenAsTextStream(1,0)
+
+  If (TextStr.AtEndOfStream=True) then
+    Exit Sub
+  End If
+
+  LUTImage = TextStr.ReadLine
+
+  If LUTImage = "" then
+    UpdateLUT
+    Exit Sub
+  End If
+
+    UpdateLUT
+
+  Set ScoreFile = Nothing
+  Set FileObj = Nothing
+
+End Sub
+
+Sub SaveLUT
+
+  Dim FileObj
+  Dim ScoreFile
+
+  Set FileObj=CreateObject("Scripting.FileSystemObject")
+  If Not FileObj.FolderExists(UserDirectory) then
+    Exit Sub
+  End If
+
+  If LUTImage = "" Then LUTImage = 4 ' Failsafe
+
+  Set ScoreFile=FileObj.CreateTextFile(UserDirectory & "PopeyeLUT.txt",True)
+  ScoreFile.WriteLine LUTImage
+
+  Set ScoreFile=Nothing
+  Set FileObj=Nothing
+
+End Sub
+
+Sub NextLUT
+  LUTImage = (LUTImage + 1)MOD 15
+  If RenderingMode = 2 or DesktopMode = False Then
+    VRLutdesc.Visible = 1
+  End If
+  UpdateLUT
+  SaveLUT
+  LUTbox.Text = "Dimmer Level: " & LUTImage + 1
+End Sub
+
+Sub LUTBox_Timer
+  LUTBox.TimerEnabled = 0
+  If RenderingMode = 2 or DesktopMode = False Then
+    VRLutdesc.Visible = 0
+  End If
+End Sub
+
+Sub UpdateLUT
+    Select Case LUTImage
+        Case 0:table1.ColorGradeImage = "LUT0":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase0"
+        Case 1:table1.ColorGradeImage = "LUT1":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase1"
+        Case 2:table1.ColorGradeImage = "LUT2":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase2"
+        Case 3:table1.ColorGradeImage = "LUT3":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase3"
+        Case 4:table1.ColorGradeImage = "LUT4":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase4"
+        Case 5:table1.ColorGradeImage = "LUT5":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase5"
+        Case 6:table1.ColorGradeImage = "LUT6":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase6"
+        Case 7:table1.ColorGradeImage = "LUT7":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase7"
+        Case 8:table1.ColorGradeImage = "LUT8":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase8"
+        Case 9:table1.ColorGradeImage = "LUT9":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase9"
+        Case 10:table1.ColorGradeImage = "LUT10":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase10"
+        Case 11:table1.ColorGradeImage = "LUT11":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase11"
+        Case 12:table1.ColorGradeImage = "LUT12":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase12"
+        Case 13:table1.ColorGradeImage = "LUT13":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase13"
+        Case 14:table1.ColorGradeImage = "LUT14":If RenderingMode = 2 or DesktopMode = False Then VRLUTdesc.imageA = "LUTcase14"
+    End Select
+  LUTBox.TimerEnabled = 1
+End Sub
+
+Sub LEDLightingOn
+
+  Dim Light_Obj
+
+  For Each Light_Obj in GILights
+    Light_Obj.Color = RGB(145,224,255)
+  Next
+
 End Sub

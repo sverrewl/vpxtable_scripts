@@ -390,7 +390,7 @@ Sub GoldenEye_KeyDown(ByVal Keycode)
   If keycode = LeftTiltKey Then Nudge 90, 1:SoundNudgeLeft()
   If keycode = RightTiltKey Then Nudge 270, 1:SoundNudgeRight()
   If keycode = CenterTiltKey Then Nudge 0, 1:SoundNudgeCenter()
-  If KeyCode=PlungerKey Then Controller.Switch(9)=1 ': SoundPlungerPull()
+  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=1 ': SoundPlungerPull()
   If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCoin3 or keycode = keyInsertCoin4 Then
     Select Case Int(rnd*3)
       Case 0: PlaySound ("Coin_In_1"), 0, CoinSoundLevel, 0, 0.25
@@ -413,7 +413,7 @@ End Sub
 
 Sub GoldenEye_KeyUp(ByVal KeyCode)
   If KeyCode=KeySlamDoorHit Then Controller.Switch(7)=0
-  If KeyCode=PlungerKey Then Controller.Switch(9)=0 ': SoundPlungerReleaseBall()
+  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=0 ': SoundPlungerReleaseBall()
   If keycode = LeftFlipperKey Then
     FlipperDeActivate LeftFlipper, LFPress
     Primary_flipper_button_left.X = 2112

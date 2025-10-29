@@ -563,7 +563,7 @@ Sub Table1_KeyDown(ByVal Keycode)
   If keycode = RightTiltKey Then Nudge 270, 2:SoundNudgeRight
   If keycode = CenterTiltKey Then Nudge 0, 2:SoundNudgeCenter
   If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCoin3 or keycode = keyInsertCoin4 Then SoundCoinIn
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode = LockBarKey Then
     Plunger.FireSpeed = 95 + 5*rnd
     Controller.Switch(34) = 1
     LaunchBut.Y = LaunchBut.Y - 7
@@ -583,7 +583,7 @@ Sub Table1_KeyUp(ByVal Keycode)
     FlipperDeActivate RightFlipper, RFPress
     RightBut.X = RightBut.X + 10
   End If
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode = LockBarKey Then
     Controller.Switch(34) = 0
     LaunchBut.Y = LaunchBut.Y + 7
     Flasher1.Y = Flasher1.Y + 7

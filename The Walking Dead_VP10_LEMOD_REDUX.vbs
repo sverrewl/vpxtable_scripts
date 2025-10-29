@@ -320,6 +320,7 @@ Sub Table_KeyDown(ByVal Keycode)
     If Keycode = StartGameKey Then Controller.Switch(16) = 1
 '   If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
     If keycode = RightMagnaSave Then Controller.Switch(71) = 1
+    If keycode = LockBarKey Then Controller.Switch(71) = 1
     If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 
@@ -334,6 +335,7 @@ Sub Table_KeyUp(ByVal keycode)
     'End If
   If Keycode = StartGameKey Then Controller.Switch(16) = 0
     If keycode = RightMagnaSave Then Controller.Switch(71) = 0
+    If keycode = LockBarKey Then Controller.Switch(71) = 0
     If keycode = PlungerKey Then
     Plunger.Fire
     PlaySoundAt "plunger", Plunger

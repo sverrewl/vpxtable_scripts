@@ -999,7 +999,7 @@ Sub table1_KeyDown(ByVal Keycode)
   End If
 
 
-  If keycode = PlungerKey And Plungerwait1 < Frame And BallInLane > 0 Then
+  If ( keycode = PlungerKey or keycode = LockBarKey ) And Plungerwait1 < Frame And BallInLane > 0 Then
     DOf 123,2
     If ssREADY < 1 Then plungerwait1 = frame + 70
     If DoOrDieMode = 1 Then Doordiemode = 2 : DOF 133,0

@@ -271,6 +271,7 @@ End Sub
 
 Sub table1_KeyDown(ByVal Keycode)
     If keycode = PlungerKey Then Controller.Switch(11) = 1
+    If keycode = LockbarKey Then Controller.Switch(11) = 1:End If
     If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25:aSaucerShake:a3BankShake2
     If keycode = RightTiltKey Then Nudge 270, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25:aSaucerShake:a3BankShake2
     If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25:aSaucerShake:a3BankShake2
@@ -279,6 +280,7 @@ End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
     If keycode = PlungerKey Then Controller.Switch(11) = 0
+    If keycode = LockbarKey Then Controller.Switch(11) = 0:End If
     If vpmKeyUp(keycode)Then Exit Sub
 End Sub
 

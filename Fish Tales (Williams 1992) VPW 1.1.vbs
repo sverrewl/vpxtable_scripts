@@ -749,7 +749,7 @@ End Sub
 '*******************************************
 
 Sub FishTales_KeyDown(ByVal keycode)
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode = LockBarKey Then
     Controller.Switch(31) = 1
     If VRroom = 1 Then CastButton.y = Castbutton.y -1: CastButton.z = Castbutton.z -2  ' VRroom
   end if
@@ -775,7 +775,7 @@ Sub FishTales_KeyDown(ByVal keycode)
 End Sub
 
 Sub FishTales_KeyUp(ByVal keycode)
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode = LockBarKey Then
     Controller.Switch(31) = 0
     If VRroom = 1 Then CastButton.y = Castbutton.y +1: CastButton.z = Castbutton.z +2  ' VRroom
   end if

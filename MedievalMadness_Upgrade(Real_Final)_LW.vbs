@@ -291,7 +291,7 @@ If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCo
 End Select
         End If
   If keycode = StartGameKey Then Controller.Switch(13) = 1
-  If keycode = PlungerKey Then Controller.Switch(11) = 1
+  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 1
   If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge",0):TwrShake
   If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge",0):TwrShake
   If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge",0):TwrShake
@@ -315,7 +315,7 @@ Sub Table1_KeyUp(ByVal Keycode)
 'LUT controls
 If keycode = LeftMagnaSave Then bLutActive = False
   If keycode = StartGameKey Then Controller.Switch(13) = 0
-  If keycode = PlungerKey Then Controller.Switch(11) = 0
+  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 0
 
 If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress End If
 

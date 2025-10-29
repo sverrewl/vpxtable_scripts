@@ -663,7 +663,7 @@ Sub Table1_KeyDown(ByVal keycode)
   If keycode = RightFlipperKey AND Tilted=0 AND VMOn=1 Then HEADR.ENABLED=1
 
 '*****PLUNGER**************************************************************
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode=LockBarKey Then
     If TeamSelection=1 Then
       StartSkillShot:Schedule.Enabled=1:exit sub
     End If

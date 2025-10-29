@@ -200,7 +200,7 @@ Sub Table_KeyDown(ByVal Keycode)
     Exit Sub
   End If
 
-    If keycode = PlungerKey Then vpmTimer.PulseSw 14
+    If keycode = PlungerKey or keycode = LockBarKey Then vpmTimer.PulseSw 14
     If vpmKeyDown(keycode) Then Exit Sub
 End Sub
 

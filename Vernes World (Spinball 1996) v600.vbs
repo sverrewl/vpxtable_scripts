@@ -176,7 +176,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If Keycode = keyInsertCoin3 then vpmTimer.AddTimer 750, "vpmTimer.PulseSw swCoin1'"
     If keycode = keyFront Then Controller.Switch(75) = 1
     If vpmKeyDown(keycode) Then Exit Sub
-    If keycode = PlungerKey Then Controller.Switch(86) = 1
+    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(86) = 1
 End Sub
 
 Sub table1_KeyUp(ByVal Keycode)
@@ -184,7 +184,7 @@ Sub table1_KeyUp(ByVal Keycode)
     If Keycode = RightFlipperKey then Controller.Switch(131) = 0
     If keycode = keyFront Then Controller.Switch(75) = 0
     If vpmKeyUp(keycode) Then Exit Sub
-    If keycode = PlungerKey Then Controller.Switch(86) = 0
+    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(86) = 0
 End Sub
 
 '*************************

@@ -196,7 +196,7 @@ Sub table1_KeyDown(ByVal Keycode)
     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
     If KeyCode = LeftMagnaSave Then Controller.Switch(47) = 1  'Left magnet & volume down
     If KeyCode = RightMagnaSave Then Controller.Switch(57) = 1 'Right magnet & volume up
-    If KeyCode = PlungerKey Then Controller.Switch(86) = 1
+    If KeyCode = PlungerKey or KeyCode = LockBarKey Then Controller.Switch(86) = 1
     If KeyCode = KeyFront Then Controller.Switch(75) = 1       'Add extra ball, Keyfront is usually the key nr "2"
     If vpmKeyDown(KeyCode) Then Exit Sub
 End Sub
@@ -205,7 +205,7 @@ Sub table1_KeyUp(ByVal Keycode)
     If KeyCode = keyInsertCoin1 Or KeyCode = keyInsertCoin2 or KeyCode = keyInsertCoin3 Then Controller.Switch(30) = 0
     If KeyCode = LeftMagnaSave Then Controller.Switch(47) = 0
     If KeyCode = RightMagnaSave Then Controller.Switch(57) = 0
-    If KeyCode = PlungerKey Then Controller.Switch(86) = 0
+    If KeyCode = PlungerKey or KeyCode = LockBarKey  Then Controller.Switch(86) = 0
     If KeyCode = KeyFront Then Controller.Switch(75) = 0
     If vpmKeyUp(KeyCode) Then Exit Sub
 End Sub

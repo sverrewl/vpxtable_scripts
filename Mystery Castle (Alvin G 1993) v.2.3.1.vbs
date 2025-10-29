@@ -391,7 +391,7 @@ Sub Table1_KeyDown(ByVal keycode)
   If keycode = RightFlipperKey Then
     PinCab_RightFlipperButton.X = PinCab_RightFlipperButton.X - 6
   End If
-  If keycode = PlungerKey Then
+  If keycode = PlungerKey or keycode = LockBarKey Then
     'AutoPlunger.Pullback
     plungerpress = 1
     Controller.Switch(14) = True
@@ -426,7 +426,7 @@ Sub Table1_KeyUp(ByVal keycode)
     'Controller.Switch(16) = 0
     StartButton.Y = StartButton.Y +5
   End If
-  If KeyCode = PlungerKey Then
+  If KeyCode = PlungerKey or KeyCode = LockBarKey Then
     'AutoPlunger.Fire
     plungerpress = 0
     Controller.Switch(14) = False
