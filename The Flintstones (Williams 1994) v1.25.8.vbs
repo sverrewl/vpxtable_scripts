@@ -187,8 +187,7 @@ Sub Table1_Init
     .InitKicker Kicker36, 36, 0, 35, 1.56
     .InitSounds "kicker_enter_center", SoundFX(SKickerOn,DOFContactors), SoundFX(SKickerOn,DOFContactors)
     .CreateEvents "bsKicker36", Kicker36
-    .KickForceVar = 3
-    .KickAngleVar = 3
+    .InitExitVariance 3,4
   End With
 
      ' Left Drop Targets
