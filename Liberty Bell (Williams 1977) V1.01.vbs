@@ -1,3 +1,6 @@
+Option Explicit
+Randomize
+
 '---------------------
 ' Liberty Bell (Williams 1977)
 ' VPX version by Allknowing2012
@@ -37,9 +40,6 @@ Const VolWood   = 1    ' Woods volume.
 Const VolKick   = 1    ' Kicker volume.
 Const VolSpin   = 1.5  ' Spinners volume.
 Const VolFlip   = 1    ' Flipper volume.
-
-Option Explicit
-Randomize
 
 Const cGameName = "libertybell_1977"
 Const PI = 3.14159265359
