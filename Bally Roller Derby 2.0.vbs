@@ -307,7 +307,7 @@ Sub Table1_KeyDown(ByVal keycode)
     Nudge 0, 2
   End If
 
- If keycode = MechanicalTilt
+ If keycode = MechanicalTilt Then
   ' PlaySound "fx_nudge",0,1,1,0,25
   ' CheckTilt
  End If
