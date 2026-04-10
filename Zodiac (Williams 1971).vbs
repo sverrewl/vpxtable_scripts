@@ -684,6 +684,11 @@ Sub Table1_KeyDown(ByVal keycode)
     Nudge 0, 2
     checktilt
   End If
+
+  If keycode = MechanicalTilt and tilt=false Then
+    checktilt
+  End If
+
 End Sub
 
 Sub CheckTilt

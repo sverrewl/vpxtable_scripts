@@ -385,6 +385,8 @@ PlaySound ("Coin_In_1"), 0, CoinSoundLevel, 0, 0.25
         If keycode = LeftTiltKey Then CheckTilt 'only check the tilt during game
         If keycode = RightTiltKey Then CheckTilt
         If keycode = CenterTiltKey Then CheckTilt
+        ' Thalamus - added mechanicaltilt
+        If keycode = MechanicalTilt Then CheckTilt
 
         If keycode = LeftFlipperKey Then SolLFlipper 1 : FlipperActivate LeftFlipper, RFPress:InstantInfoTimer.Enabled = True:RotateLaneLights 1:UpdateGates 1
         If keycode = RightFlipperKey Then SolRFlipper 1 :FlipperActivate RightFlipper, RFPress:InstantInfoTimer.Enabled = True:RotateLaneLights 0
@@ -6555,7 +6557,8 @@ Class Dampener
     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
 
-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
     if debugOn then TBPout.text = str
   End Sub
 
@@ -6565,7 +6568,8 @@ Class Dampener
     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
     coef = desiredcor / realcor
     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
-      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
     End If
   End Sub
 

@@ -810,6 +810,10 @@ END IF
         TiltCheck
     End If
 
+    If keycode = MechanicalTilt Then
+        TiltCheck
+    End If
+
     if (keycode = AddCreditKey) or (keycode = AddCreditKey2) then
           if Credit < 9 then
             Credit = Credit + 1

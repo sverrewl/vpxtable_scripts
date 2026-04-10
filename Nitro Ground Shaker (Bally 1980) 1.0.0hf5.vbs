@@ -133,6 +133,7 @@ Sub table1_Init
     bssaucer2.InitSaucer Kicker2, 32, 190, 15
     bsSaucer2.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
     bssaucer2.KickAngleVar = 10
+    bssaucer2..KickForceVar = 3
 
     ' Drop targets
     set dtbank = new cvpmdroptarget

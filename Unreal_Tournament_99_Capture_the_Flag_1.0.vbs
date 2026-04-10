@@ -5231,6 +5231,7 @@ Sub Table1_KeyDown(ByVal KeyCode)
     If keycode = LeftTiltKey   Then Nudge  90, 5 : SoundNudgeLeft()   : Tilting
     If keycode = RightTiltKey  Then Nudge 270, 5 : SoundNudgeRight()  : Tilting
     If keycode = CenterTiltKey Then Nudge   0, 3 : SoundNudgeCenter() : Tilting
+    If keycode = MechanicalTilt Then Tilting
   End If
 
     If keycode = AddCreditKey or keycode = AddCreditKey2 Then
@@ -6422,7 +6423,8 @@ Class Dampener
     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
 
-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
     if debugOn then TBPout.text = str
   End Sub
 

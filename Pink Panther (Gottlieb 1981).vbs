@@ -205,18 +205,23 @@ Sub Table1_Init
         .InitSaucer sw13,13,255,12
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
         .kickanglevar=2
+        .KickForceVar = 3
     end with
 
     Set bslLock=New cvpmBallStack
     with bslLock
         .InitSaucer sw43,43,-170,10
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+         .KickForceVar = 3
+         .KickAngleVar = 3
     end with
 
     Set bsrLock=New cvpmBallStack
     with bsrLock
         .InitSaucer sw53,53,320,11
         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("fx_solenoid",DOFContactors)
+        .KickForceVar = 3
+        .KickAngleVar = 3
     end with
 
 ' Nudging
@@ -1677,7 +1682,9 @@ Class Dampener
     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
 
-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
     if debugOn then TBPout.text = str
   End Sub

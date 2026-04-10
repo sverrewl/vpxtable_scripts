@@ -877,7 +877,6 @@ Sub table1_Init
   'bsTrough.InitExitSnd SoundFX("BallRel",DOFContactors), SoundFX("Solon",DOFContactors)
   bsTrough.Balls=4
 
-  ' Thalamus, more randomness pls
   Set bsVUK=New cvpmBallStack
   bsVUK.InitSw 0,35,0,0,0,0,0,0
   bsVUK.InitKick Kicker2,270,8

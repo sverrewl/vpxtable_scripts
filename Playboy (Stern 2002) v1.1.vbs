@@ -703,11 +703,15 @@ Sub table1_Init
   Set bsVUK=New cvpmBallStack
   bsVUK.InitSw 0,35,0,0,0,0,0,0
   bsVUK.InitKick Kicker2,270,8
+  bsVUK.KickForceVar = 3
+  bsVUK.KickAngleVar = 3
   bsVUK.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("solon",DOFContactors)
 
   Set bsGrotto=New cvpmBallStack
   bsGrotto.InitSw 0,34,0,0,0,0,0,0
   bsGrotto.InitKick Kicker4,40,6
+  bsGrotto.KickForceVar = 3
+  bsGrotto.KickAngleVar = 3
   bsGrotto.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("solon",DOFContactors)
 
   set dtDrop=new cvpmDropTarget

@@ -9,6 +9,8 @@
 '-  This table stands on the shoulders of giants.
 '---------------------
 
+' Thalamus, this table is broken if tilted. Haven't fixed the issue yet.
+
 Const BallSize = 50 ' 50 is the normal size
 Const BallMass = 1.8  ' 1 is the normal ball mass.
 
@@ -218,6 +220,25 @@ End Sub
        End If
       End If
    End If
+
+   If keycode = MechanicalTilt Then
+      If BallInPlay=1 Then
+       If Tilt<3 Then
+    Renudge=160+(Rnd*40)
+          Tilt2Timer.Enabled=1
+          Nudge -Renudge,1.4
+         If Round>0 Then
+           Tilt=Tilt+1
+           If Tilt>2 Then
+              TiltOn
+           Else
+             TiltTimer.Enabled=1
+           End If
+         End If
+       End If
+      End If
+   End If
+
 End Sub
 
 Sub Table1_KeyUp(ByVal keycode)

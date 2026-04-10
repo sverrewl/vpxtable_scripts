@@ -321,6 +321,11 @@ Sub Wonderland_KeyDown(ByVal keycode)
     TiltSensor=TiltSensor+25
   End If
 
+  If keycode = MechanicalTilt Then
+    TiltSensor=TiltSensor+25
+  End If
+
+
   If GameinProgress=0 Then ' JP's LUT Control
     If keycode = LeftMagnaSave Then bLutActive = True: Lutbox.text = "level of darkness " & LUTImage + 1
     If keycode = RightMagnaSave AND bLutActive Then NextLUT:End If

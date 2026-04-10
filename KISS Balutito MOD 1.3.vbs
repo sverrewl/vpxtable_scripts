@@ -302,6 +302,7 @@ Sub Table1_KeyDown(ByVal Keycode)
     If keycode = LeftTiltKey Then   Nudge 90,  6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
     If keycode = RightTiltKey Then  Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
     If keycode = CenterTiltKey Then Nudge 0,   7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+    If keycode = MechanicalTilt Then CheckTilt
 
 dim xxx,yyy
 if keycode = LeftMagnaSave and 1=2 Then

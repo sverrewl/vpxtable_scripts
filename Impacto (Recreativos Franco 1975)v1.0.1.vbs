@@ -520,6 +520,10 @@ Sub Impacto_KeyDown(ByVal keycode)
         TiltSensor = TiltSensor + 50
     End If
 
+    If keycode = MechanicalTilt and MachineTilt = 0 and BallActive = 1 Then
+        TiltSensor = TiltSensor + 50
+    End If
+
     If keycode = 6 and CreditPause = 0 then
         PlaySound "Coin"
         CreditPause = 60

@@ -786,6 +786,10 @@ Sub Wizard_KeyDown(ByVal keycode)
     CheckTilt
   End If
 
+  If keycode = MechanicalTilt Then
+    CheckTilt
+  End If
+
 End Sub
 
 Sub Wizard_KeyUp(ByVal keycode)

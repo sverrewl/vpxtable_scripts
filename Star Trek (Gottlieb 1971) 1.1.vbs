@@ -307,6 +307,9 @@ Sub StarTrek_KeyDown(ByVal keycode)
     Nudge 0, 2
     checktilt
   End If
+  If keycode = MechanicalTilt Then
+    checktilt
+  End If
   end if
 End Sub
 

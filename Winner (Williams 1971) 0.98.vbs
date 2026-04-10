@@ -130,6 +130,11 @@ Sub Table1_KeyDown(ByVal keycode)
   If keycode = CenterTiltKey Then
     Nudge 0, 2
     checktilt
+
+   If keycode = MechanicalTilt Then
+    checktilt
+  End If
+
   End If
 End Sub
 

@@ -98,18 +98,20 @@ DisplayTimer.Enabled = true
   '**Saucers
            Set bsSaucer = New cvpmBallStack  'Top Suacer
              With bsSaucer
-        .InitSaucer sw4,4, 230, 8
-
-            .InitExitSnd "ballrelease", "Solenoid"
-          .InitAddSnd "kicker_enter"
-
+               .InitSaucer sw4,4, 230, 8
+               .InitExitSnd "ballrelease", "Solenoid"
+               .InitAddSnd "kicker_enter"
+               .KickForceVar = 3
+               .KickAngleVar = 3
              End With
 
       Set bsKicker = New cvpmBallStack  'Top Suacer
              With bsKicker
                .InitSaucer sw24,24, 0, 40
-             .InitExitSnd "FX_Kicker", "Solenoid"
-           .InitAddSnd "Target"
+               .InitExitSnd "FX_Kicker", "Solenoid"
+               .InitAddSnd "Target"
+               .KickForceVar = 3
+               .KickAngleVar = 3
              End With
 
   '**DropTargets

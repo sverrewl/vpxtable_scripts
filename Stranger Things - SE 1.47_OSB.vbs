@@ -857,6 +857,7 @@ End Sub
       If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound SoundFX("fx_nudge",0), 0, 1, -0.1, 0.25:CheckTilt
       If keycode = RightTiltKey Then Nudge 270, 6:PlaySound SoundFX("fx_nudge",0), 0, 1, 0.1, 0.25:CheckTilt
       If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound SoundFX("fx_nudge",0), 0, 1, 1, 0.25:CheckTilt
+      If keycode = MechanicalTilt Then CheckTilt
       End If
       If NOT Tilted Then
       If keycode = LeftFlipperKey Then SolLFlipper 1:SolULFlipper 1:ldown = 1:checkdown
