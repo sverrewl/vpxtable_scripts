@@ -437,7 +437,7 @@ SolCallback(sLLFlipper) = "SolLFlipper"
     End If
    End If
  End Sub
- 
+
 Sub LeftFlipper_Collide(parm)
   PlaySoundAtBallVol "fx_rubber_flipper",  Vol(ActiveBall)*VolumeDial
 End Sub

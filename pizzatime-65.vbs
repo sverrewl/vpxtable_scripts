@@ -4996,7 +4996,7 @@ End Sub
 '\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
 ' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
 '/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
-'\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
+'\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\
 ' X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X  X
 
 
@@ -12688,7 +12688,7 @@ DIM dmdRetro
 
 'labelNew <screen#>, <Labelname>, <fontName>,<size%>,<colour>,<rotation>,<xalign>,<yalign>,<xpos>,<ypos>,<PageNum>,<visible>
 '***********************************************************************'
-'<screen#>, in standard wed set this to pDMD ( or 1)
+'<screen#>, in standard we’d set this to pDMD ( or 1)
 '<Labelname>, your name of the label. keep it short no spaces (like 8 chars) although you can call it anything really. When setting the label you will use this labelname to access the label.
 '<fontName> Windows font name, this must be exact match of OS front name. if you are using custom TTF fonts then double check the name of font names.
 '<size%>, Height as a percent of display height. 20=20% of screen height.
@@ -12696,9 +12696,9 @@ DIM dmdRetro
 '<rotation>, degrees in tenths   (900=90 degrees)
 '<xAlign>, 0= horizontal left align, 1 = center horizontal, 2= right horizontal
 '<yAlign>, 0 = top, 1 = center, 2=bottom vertical alignment
-'<xpos>, this should be 0, but if you want to force a position you can set this. it is a % of horizontal width. 20=20% of screen width.
+'<xpos>, this should be 0, but if you want to ‘force’ a position you can set this. it is a % of horizontal width. 20=20% of screen width.
 '<ypos> same as xpos.
-'<PageNum> IMPORTANT this will assign this label to this page or group.
+'<PageNum> IMPORTANT this will assign this label to this ‘page’ or group.
 '<visible> initial state of label. visible=1 show, 0 = off.
 
 ' Overlay

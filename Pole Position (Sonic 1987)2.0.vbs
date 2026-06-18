@@ -1056,7 +1056,7 @@ End Sub
 '****  FLIPPER CORRECTIONS by nFozzy
 '******************************************************
 '
-' There are several steps for taking advantage of nFozzy's flipper solution.  At a high level well need the following:
+' There are several steps for taking advantage of nFozzy's flipper solution.  At a high level we’ll need the following:
 ' 1. flippers with specific physics settings
 ' 2. custom triggers for each flipper (TriggerLF, TriggerRF)
 ' 3. an object or point to tell the script where the tip of the flipper is at rest (EndPointLp, EndPointRp)

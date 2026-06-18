@@ -2340,7 +2340,7 @@ Sub RollingTimer_Timer()
 End Sub
 
 '*************Hit Sound Routines
-'Eliminated the Hit Subs extra velocity criteria since the PlayFieldSoundAB command already incorporates the balls velocity.
+'Eliminated the Hit Subs extra velocity criteria since the PlayFieldSoundAB command already incorporates the ball’s velocity.
 
 Sub aMetalPins_Hit(idx)
   PlayFieldSoundAB "metalPinHit", 0, 1

@@ -2575,7 +2575,7 @@ Sub RollingTimer_Timer()
 End Sub
 
 '*************Hit Sound Routines
-'The Hit Subs use PlayFieldSoundAB that incorporates the balls velocity.
+'The Hit Subs use PlayFieldSoundAB that incorporates the ball’s velocity.
 
 Sub aRubberPins_Hit(idx)
   PlayFieldSoundAB "pinhit_low", 0, 1

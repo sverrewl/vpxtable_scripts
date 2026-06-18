@@ -2711,7 +2711,7 @@ Sub RollingTimer_Timer()
 End Sub
 
 '*************Hit Sound Routines
-'Eliminated the Hit Subs extra velocity criteria since the PlayFieldSoundAB command already incorporates the ballÂs velocity.
+'Eliminated the Hit Subs extra velocity criteria since the PlayFieldSoundAB command already incorporates the ballÂ’s velocity.
 
 Sub aMetalPins_Hit(idx)
   PlayFieldSoundAB "metalPinHit", 0, 1
@@ -2937,7 +2937,7 @@ End Sub
 '****  FLIPPER CORRECTIONS by nFozzy
 '******************************************************
 '
-' There are several steps for taking advantage of nFozzy's flipper solution.  At a high level well need the following:
+' There are several steps for taking advantage of nFozzy's flipper solution.  At a high level we’ll need the following:
 ' 1. flippers with specific physics settings
 ' 2. custom triggers for each flipper (TriggerLF, TriggerRF)
 ' 3. an object or point to tell the script where the tip of the flipper is at rest (EndPointLp, EndPointRp)

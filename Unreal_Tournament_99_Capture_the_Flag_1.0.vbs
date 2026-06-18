@@ -50,7 +50,7 @@
 '*
 '* OK, OK, OK!
 '* Lethal Weapon 3 table Tune-Up by VPin Workshop.
-'* It all started by again by just thinking about adding nFozzys physics and some missing textures in the original table,
+'* It all started by again by just thinking about adding nFozzy’s physics and some missing textures in the original table,
 '* then we started replacing some primitives and reworking the existing ones, then the apron, cabinet, metal ramp, bats and a few other things were replaced.
 '* Totally new 3d inserts. Then different lamps were added to have a better lighting of all the new baked textures and finally adding a built in VR room...
 '*

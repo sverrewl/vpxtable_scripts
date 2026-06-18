@@ -2921,11 +2921,11 @@ Function AudioFade(tableobj) ' Fades between front and back of the table (for su
   End If
 
 ' Thalamus, AudioFade patched
-	If tmp > 0 Then
-		AudioFade = CSng(tmp ^ 5) 'was 10
-	Else
-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
-	End If
+  If tmp > 0 Then
+    AudioFade = CSng(tmp ^ 5) 'was 10
+  Else
+    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+  End If
 End Function
 
 Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
@@ -2939,11 +2939,11 @@ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X p
   End If
 
 ' Thalamus, AudioPan patched
-	If tmp > 0 Then
-		AudioPan = CSng(tmp ^ 5) 'was 10
-	Else
-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
-	End If
+  If tmp > 0 Then
+    AudioPan = CSng(tmp ^ 5) 'was 10
+  Else
+    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+  End If
 End Function
 
 Function Vol(ball) ' Calculates the volume of the sound based on the ball speed

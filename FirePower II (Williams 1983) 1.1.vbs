@@ -1033,7 +1033,7 @@ End Sub
 '                  Start nFOZZY FLIPPERS'
 '******************************************************
 
-'Flipper Correction Initialization late 80s to early 90s
+'Flipper Correction Initialization late 80’s to early 90’s
 dim LF : Set LF = New FlipperPolarity
 dim RF : Set RF = New FlipperPolarity
 

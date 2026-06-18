@@ -3991,7 +3991,7 @@ Sub RollingTimer_Timer()
 End Sub
 
 '*********************************************************************************
-'   nFozzy Physice  - Flipper Correction Initialization late 70s to early 80s
+'   nFozzy Physice  - Flipper Correction Initialization late 70’s to early 80’s
 '*********************************************************************************
 dim LF : Set LF = New FlipperPolarity
 dim RF : Set RF = New FlipperPolarity

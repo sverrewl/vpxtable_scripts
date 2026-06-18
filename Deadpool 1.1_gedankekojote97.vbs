@@ -3895,7 +3895,7 @@ Sub UpdateLights
        End If
      Else
        BoomLight.State = 0
-       DOF 200, 0: DOF 201, 0	'Fire button off
+       DOF 200, 0: DOF 201, 0 'Fire button off
      End If
     If bNinjaMBSJackpot Then
         SetLightColor li058, teal, 2
