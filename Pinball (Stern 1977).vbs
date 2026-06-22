@@ -581,7 +581,7 @@ Sub Table1_Init
         bsSaucer1.InitSaucer SW13,13,135,18
         bsSaucer1.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
         bsSaucer1.KickAngleVar=10
-        bsSaucer1..KickForceVar = 3
+        bsSaucer1.KickForceVar = 3
 
 End Sub
 
