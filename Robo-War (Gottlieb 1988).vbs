@@ -226,9 +226,9 @@ Sub LeftSlingShot_Timer
 End Sub
 
 ' Bumpers
-Sub Bumper1_Hit:PlaySoundAtVol SoundFX("Bumper", ActiveBall, 1:vpmTimer.PulseSw 53:End Sub
-Sub Bumper2_Hit:PlaySoundAtVol SoundFX("Bumper", ActiveBall, 1:vpmTimer.PulseSw 63:End Sub
-Sub Bumper3_Hit:PlaySoundAtVol SoundFX("Bumper", ActiveBall, 1:vpmTimer.PulseSw 73:End Sub
+Sub Bumper1_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 53:End Sub
+Sub Bumper2_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 63:End Sub
+Sub Bumper3_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 73:End Sub
 ' Drain
 Sub Drain_Hit:PlaySoundAtVol "Drain": Drain, 1:End Sub
 ' Rollovers
