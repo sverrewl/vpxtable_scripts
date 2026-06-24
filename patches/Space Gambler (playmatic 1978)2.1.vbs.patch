@@ -1,0 +1,30 @@
+--- vpxtable_scripts/Space Gambler (playmatic 1978)2.1.vbs
++++ todo_extracted_tables/Space Gambler (playmatic 1978)2.1.vbs
+@@ -3538,11 +3538,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3556,11 +3555,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

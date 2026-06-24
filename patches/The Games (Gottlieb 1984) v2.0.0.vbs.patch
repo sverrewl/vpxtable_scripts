@@ -1,0 +1,30 @@
+--- vpxtable_scripts/The Games (Gottlieb 1984) v2.0.0.vbs
++++ todo_extracted_tables/The Games (Gottlieb 1984) v2.0.0.vbs
+@@ -3000,11 +3000,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3018,11 +3017,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

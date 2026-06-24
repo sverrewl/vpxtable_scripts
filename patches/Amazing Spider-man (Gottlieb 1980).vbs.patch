@@ -1,0 +1,30 @@
+--- vpxtable_scripts/Amazing Spider-man (Gottlieb 1980).vbs
++++ todo_extracted_tables/Amazing Spider-man (Gottlieb 1980).vbs
+@@ -9,7 +9,6 @@
+ 
+ ' Thalamus 2018-07-18
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+-' Changed UseSolenoids=1 to 2
+ ' BorgDog did have a special collition routine on this table, but since it isn't a mb
+ ' table I choose to replace it.
+ 
+@@ -25,7 +24,7 @@
+ 
+   LoadVPM "01000100", "sys80.vbs", 2.31
+ 
+-  Const UseSolenoids  = 2
++  Const UseSolenoids  = 1
+   Const UseLamps      = 1
+   Const UseGI         = 0
+ 
+@@ -37,10 +36,6 @@
+   Dim xx, bsTrough, initContacts, dtRDrop, dtLDrop, bsLSaucer, bsMSaucer, bsRSaucer
+ 
+   Sub AmazingSpiderMan_Init()
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+     On Error Resume Next
+     With Controller
+       .GameName                               = cGameName

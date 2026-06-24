@@ -1,0 +1,16 @@
+--- vpxtable_scripts/JPs Avengers Classic LE (Stern - 2012) v600.vbs
++++ todo_extracted_tables/JPs Avengers Classic LE (Stern - 2012) v600.vbs
+@@ -87,13 +87,11 @@
+         .Balls = 6
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     'Kickers
+     Set bsSaucer = New cvpmBallStack
+     bsSaucer.InitSaucer sw62, 62, 25, 16
+     bsSaucer.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bsSaucer.KickAngleVar = 3
+-    bsSaucer.KickForceVar = 3
+ 
+     'droptargets
+     Set dtBankHulk = New cvpmDropTarget

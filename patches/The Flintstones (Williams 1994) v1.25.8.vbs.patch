@@ -1,0 +1,54 @@
+--- vpxtable_scripts/The Flintstones (Williams 1994) v1.25.8.vbs
++++ todo_extracted_tables/The Flintstones (Williams 1994) v1.25.8.vbs
+@@ -187,7 +187,6 @@
+     .InitKicker Kicker36, 36, 0, 35, 1.56
+     .InitSounds "kicker_enter_center", SoundFX(SKickerOn,DOFContactors), SoundFX(SKickerOn,DOFContactors)
+     .CreateEvents "bsKicker36", Kicker36
+-    .InitExitVariance 3,4
+   End With
+ 
+      ' Left Drop Targets
+@@ -1154,7 +1153,7 @@
+       ShowLUT
+     end if
+   end if
+-    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 1
++    If keycode = PlungerKey Then Controller.Switch(11) = 1
+     If keycode = keyFront Then Controller.Switch(23) = 1
+   If keycode = LeftTiltKey Then
+     Nudge 90, 2
+@@ -1175,7 +1174,7 @@
+ 
+ Sub table1_KeyUp(ByVal Keycode)
+   If vpmKeyUp(keycode) Then Exit Sub
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 0
++  If keycode = PlungerKey Then Controller.Switch(11) = 0
+   If keycode = keyFront Then Controller.Switch(23) = 0
+ End Sub
+ 
+@@ -1693,11 +1692,11 @@
+     ' render the shadow for each ball
+     For b = fakeballs to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -2028,10 +2027,3 @@
+   dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+     PlaySound BumpSnd, 0, Vol(ActiveBall)+voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

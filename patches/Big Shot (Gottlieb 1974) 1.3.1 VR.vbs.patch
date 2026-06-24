@@ -1,0 +1,14 @@
+--- vpxtable_scripts/Big Shot (Gottlieb 1974) 1.3.1 VR.vbs
++++ todo_extracted_tables/Big Shot (Gottlieb 1974) 1.3.1 VR.vbs
+@@ -3763,10 +3763,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

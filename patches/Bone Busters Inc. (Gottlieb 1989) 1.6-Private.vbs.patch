@@ -1,0 +1,65 @@
+--- vpxtable_scripts/Bone Busters Inc. (Gottlieb 1989) 1.6-Private.vbs
++++ todo_extracted_tables/Bone Busters Inc. (Gottlieb 1989) 1.6-Private.vbs
+@@ -279,7 +279,7 @@
+ 
+ 
+ '*******************************************
+-'     FlippersPol  late 80s early 90's
++'     FlippersPol  late 80’s early 90's
+ '*******************************************
+ 
+ dim LF : Set LF = New FlipperPolarity
+@@ -606,14 +606,10 @@
+   Set bsCenterKicker=New cvpmBallStack
+     bsCenterKicker.InitSaucer Kicker26,26,220,11
+     'bsCenterKicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-     bsCenterKicker.KickForceVar = 3
+-     bsCenterKicker.KickAngleVar = 3
+ 
+   Set bsRightKicker=New cvpmBallStack
+     bsRightKicker.InitSaucer Kicker36,36,180,5
+     'bsRightKicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-     bsRightKicker.KickForceVar = 3
+-     bsRightKicker.KickAngleVar = 3
+ 
+ 
+   Set DTLow=New cvpmDropTarget
+@@ -1294,11 +1290,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -1829,10 +1825,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2474,8 +2467,6 @@
+ '         End Mechanical Sounds
+ '/////////////////////////////////////////////////////////////////
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
++
++
++

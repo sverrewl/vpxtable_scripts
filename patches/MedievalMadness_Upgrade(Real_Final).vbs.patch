@@ -1,0 +1,75 @@
+--- vpxtable_scripts/MedievalMadness_Upgrade(Real_Final).vbs
++++ todo_extracted_tables/MedievalMadness_Upgrade(Real_Final).vbs
+@@ -291,7 +291,7 @@
+ End Select
+         End If
+   If keycode = StartGameKey Then Controller.Switch(13) = 1
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 1
++  If keycode = PlungerKey Then Controller.Switch(11) = 1
+   If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge",0):TwrShake
+   If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge",0):TwrShake
+   If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge",0):TwrShake
+@@ -315,7 +315,7 @@
+ 'LUT controls
+ If keycode = LeftMagnaSave Then bLutActive = False
+   If keycode = StartGameKey Then Controller.Switch(13) = 0
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 0
++  If keycode = PlungerKey Then Controller.Switch(11) = 0
+ 
+ If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress End If
+ 
+@@ -1374,18 +1374,15 @@
+ '************************************************************************
+ 
+ Dim dbpos
+-' Keeps track of the bridge position.
+-Dim drawBridgeIsClosed
+-drawBridgeIsClosed = True
+ 
+ Sub SolDrawBridge(enabled)
+-  If Enabled AND drawBridgeIsClosed Then
++  If Enabled AND Controller.GetMech(0)/16 <= 15 then
+     dbpos = 1
+     dbridge.enabled = 1
+     PlaySound SoundFX("Bridge_Move", DOFGear), -1, 0.1, AudioPan(braket) , 0, 0, 1, AudioPan(braket)
+     DOF 104, DOFOn
+   end If
+-  If Enabled AND NOT drawBridgeIsClosed Then
++  If Enabled AND Controller.GetMech(0)/16 > 15 then
+     dbpos = 2
+     dbridge.enabled = 1
+     PlaySound SoundFX("Bridge_Move", DOFGear), -1, 0.1, AudioPan(braket) , 0, 0, 1, AudioPan(braket)
+@@ -1411,7 +1408,6 @@
+         BW1.isdropped = 0
+         BW2.isdropped = 0
+         Me.Enabled = 0
+-        drawBridgeIsClosed = False
+         StopSound "Bridge_Move"
+         PlaySound SoundFX("Bridge_Stop", 0),0, 0.1, AudioPan(braket) , 0, 0, 1, AudioPan(braket)
+       End If
+@@ -1432,7 +1428,6 @@
+         BW1.isdropped = 1
+         BW2.isdropped = 1
+         Me.Enabled = 0
+-        drawBridgeIsClosed = True
+         StopSound "Bridge_Move"
+         PlaySound SoundFX("Bridge_Stop", 0),0, 0.1, AudioPan(braket) , 0, 0, 1, AudioPan(braket)
+       End If
+@@ -2190,11 +2185,7 @@
+ Sub InitLamps
+ On Error Resume Next
+ Dim i
+-For i=0 To 127
+-    If IsObject(eval("L" & i)) Then
+-        Execute "Set Lights(" & i & ")  = L" & i
+-    End If
+-Next
++For i=0 To 127: Execute "Set Lights(" & i & ")  = L" & i: Next
+ Lights(14)=Array(L14,L14a)
+ Lights(64)=Array(L64,L64a)
+ Lights(78)=Array(L78,L78a)
+@@ -3485,4 +3476,3 @@
+ Else
+   table1.BallImage = "ball_HDR"
+ End If
+-

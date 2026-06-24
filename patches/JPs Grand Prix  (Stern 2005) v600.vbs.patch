@@ -1,0 +1,29 @@
+--- vpxtable_scripts/JPs Grand Prix  (Stern 2005) v600.vbs
++++ todo_extracted_tables/JPs Grand Prix  (Stern 2005) v600.vbs
+@@ -119,15 +119,12 @@
+         .CreateEvents "dtR"
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Garage VUK
+     Set bsC = New cvpmBallStack
+     With bsC
+         .InitSw 0, 52, 0, 0, 0, 0, 0, 0
+         .InitKick sw52, 187, 12
+         .InitExitSnd SoundFX("fx_Popper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Track Exit Popper - Drain
+@@ -1356,10 +1353,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

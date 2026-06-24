@@ -1,0 +1,23 @@
+--- vpxtable_scripts/Royal-Flush-Deluxe (Gottlieb 1983) V1.01_Thal.vbs
++++ todo_extracted_tables/Royal-Flush-Deluxe (Gottlieb 1983) V1.01_Thal.vbs
+@@ -167,8 +167,6 @@
+     Set bsHole=New cvpmBallStack
+         bsHole.InitSaucer hole46,46,200,15
+         bsHole.InitExitSnd  SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-        bsHole.KickForceVar = 3
+-        bsHole.KickAngleVar = 3
+ 
+   set DTT = new cvpmDropTarget
+     DTT.InitDrop Array(tga9,tga8,tga7,tga6,tga5,tga4,tga3,tga2,tga1),Array(40,50,60,41,51,61,42,52,62)
+@@ -798,11 +796,3 @@
+   End Select
+ End Sub
+ 
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

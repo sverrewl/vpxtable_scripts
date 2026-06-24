@@ -1,0 +1,33 @@
+--- vpxtable_scripts/Mars God Of War (Gottlieb 1981) cyberpez vpx 1.0.vbs
++++ todo_extracted_tables/Mars God Of War (Gottlieb 1981) cyberpez vpx 1.0.vbs
+@@ -4,7 +4,6 @@
+ ' Thalamus 2018-07-24
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Changed UseSolenoids=1 to 2
+-' Thalamus 2018-12-18 : Added FFv2
+ ' Thalamus 2018-11-01 : Improved directional sounds
+ ' !! NOTE : Table not verified yet !!
+ 
+@@ -104,11 +103,6 @@
+ 
+ LoadVPM "01001100","sys80.vbs",2.33
+ 
+-' Thalamus - for Fast Flip v2
+-NoUpperRightFlipper
+-NoUpperLeftFlipper
+-
+-
+ Set LampCallback=GetRef("UpdateLamps")
+ 
+ SolCallback(sKnocker) = "vpmSolSound SoundFX(""Knocker"",DOFKnocker),"
+@@ -137,10 +131,6 @@
+   End Sub
+ 
+ Sub MGOW_Init()
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+    With Controller
+       .GameName=cGameName
+       .SplashInfoLine="Mars God of War" & vbNewLine & "Gottlieb 1981"

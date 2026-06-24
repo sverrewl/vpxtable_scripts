@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Chance (Playmatic 1978) v600.vbs
++++ todo_extracted_tables/Chance (Playmatic 1978) v600.vbs
+@@ -91,12 +91,9 @@
+     bsTrough.InitNoTrough BallRelease, 3, 90, 8
+     bsTrough.InitExitSnd "fx_ballrelease", "fx_solenoidon"
+ 
+-    ' Thalamus, more randomess pls
+     Set bsTopSaucer = New cvpmBallStack
+     bsTopSaucer.InitSaucer Kicker1, 25, 197, 14
+     bsTopSaucer.InitExitSnd "fx_kicker", "fx_solenoion"
+-    bsTopSaucer.KickForceVar = 3
+-    bsTopSaucer.KickAngleVar = 3
+ 
+     vpmMapLights aLights
+ 
+@@ -915,10 +912,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

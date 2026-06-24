@@ -1,0 +1,44 @@
+--- vpxtable_scripts/Jolly Park (Spinball - 1996) v600.vbs
++++ todo_extracted_tables/Jolly Park (Spinball - 1996) v600.vbs
+@@ -103,14 +103,11 @@
+         .CreateEvents "RightMag"
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     Set bsVUK = New cvpmBallStack
+     With bsVUK
+         .InitSaucer sw50, 50, 0, 55
+         .KickZ = 1.5
+         .InitExitSnd SoundFX("fx_popper", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsLock = New cvpmBallStack
+@@ -118,8 +115,6 @@
+         .InitSw 0, 67, 0, 0, 0, 0, 0, 0
+         .InitKick sw67, 270, 8
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set cbCaptive = New cvpmCaptiveBall
+@@ -196,7 +191,7 @@
+     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
+     If KeyCode = LeftMagnaSave Then Controller.Switch(47) = 1  'Left magnet & volume down
+     If KeyCode = RightMagnaSave Then Controller.Switch(57) = 1 'Right magnet & volume up
+-    If KeyCode = PlungerKey or KeyCode = LockBarKey Then Controller.Switch(86) = 1
++    If KeyCode = PlungerKey Then Controller.Switch(86) = 1
+     If KeyCode = KeyFront Then Controller.Switch(75) = 1       'Add extra ball, Keyfront is usually the key nr "2"
+     If vpmKeyDown(KeyCode) Then Exit Sub
+ End Sub
+@@ -205,7 +200,7 @@
+     If KeyCode = keyInsertCoin1 Or KeyCode = keyInsertCoin2 or KeyCode = keyInsertCoin3 Then Controller.Switch(30) = 0
+     If KeyCode = LeftMagnaSave Then Controller.Switch(47) = 0
+     If KeyCode = RightMagnaSave Then Controller.Switch(57) = 0
+-    If KeyCode = PlungerKey or KeyCode = LockBarKey  Then Controller.Switch(86) = 0
++    If KeyCode = PlungerKey Then Controller.Switch(86) = 0
+     If KeyCode = KeyFront Then Controller.Switch(75) = 0
+     If vpmKeyUp(KeyCode) Then Exit Sub
+ End Sub

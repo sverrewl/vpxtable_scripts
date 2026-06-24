@@ -1,0 +1,256 @@
+--- vpxtable_scripts/Mini Golf (Williams 1964) 1.3.vbs
++++ todo_extracted_tables/Mini Golf (Williams 1964) 1.3.vbs
+@@ -643,7 +643,7 @@
+ 
+ Sub Kicker001_Hit
+   Kicker001.DestroyBall
+-  If Hole1Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole1Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 then
+     Hole1Up = False
+     Hole2Up = True
+@@ -664,7 +664,7 @@
+ 
+ Sub Kicker002_Hit
+   Kicker002.DestroyBall
+-  If Hole2Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole2Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole2Up = False
+     Hole3Up = True
+@@ -675,7 +675,7 @@
+ 
+ Sub Kicker003_Hit
+   Kicker003.DestroyBall
+-  If Hole3Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole3Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole3Up = False
+     Hole4Up = True
+@@ -686,7 +686,7 @@
+ 
+ Sub Kicker004_Hit
+   Kicker004.DestroyBall
+-  If Hole4Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole4Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole4Up = False
+     Hole5Up = True
+@@ -697,7 +697,7 @@
+ 
+ Sub Kicker005_Hit
+   Kicker005.DestroyBall
+-  If Hole5Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole5Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole5Up = False
+     Hole6Up = True
+@@ -708,7 +708,7 @@
+ 
+ Sub Kicker006_Hit
+   Kicker006.DestroyBall
+-  If Hole6Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole6Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole6Up = False
+     Hole7Up = True
+@@ -719,7 +719,7 @@
+ 
+ Sub Kicker007_Hit
+   Kicker007.DestroyBall
+-  If Hole7Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole7Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole7Up = False
+     Hole8Up = True
+@@ -730,7 +730,7 @@
+ 
+ Sub Kicker008_Hit
+   Kicker008.DestroyBall
+-  If Hole8Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole8Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   if Players = 1 or (Players = 2 and Player = 2) or (Players = 2 and Player = 1 and TwoPlayersAlternate = False) then
+     Hole8Up = False
+     Hole9Up = True
+@@ -741,7 +741,7 @@
+ 
+ Sub Kicker009_Hit
+   Kicker009.DestroyBall
+-  If Hole9Up = False then PlaySoundAtVol"fx_ball_drop4", ActiveBall, 1:Exit Sub end if
++  If Hole9Up = False then Playsound"fx_ball_drop4":Exit Sub end if
+   PlaySound"HitItIn"
+   Player1Lights False
+   If Player = 1 Then HolesScored = HolesScored + 1 end if
+@@ -843,172 +843,21 @@
+ 
+ 'End Hole Targeting
+ 
+-' *******************************************************************************************************
+-' Positional Sound Playback Functions by DJRobX, Rothbauerw, Thalamus and Herweh
+-' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' *******************************************************************************************************
+ 
+-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+ 
+-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+-End Sub
+-
+-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+-
+-Sub PlaySoundAt(soundname, tableobj)
+-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-' set position as table object and Vol + RndPitch manually
+-
+-Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed.
+-
+-Sub PlaySoundAtBall(soundname)
+-  PlaySoundAt soundname, ActiveBall
+-End Sub
+-
+-'Set position as table object and Vol manually.
+-
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+ 
+-Sub PlaySoundAtBallVol(sound, VolMult)
+-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+ 
+-Sub PlaySoundAtBallAbsVol(sound, VolMult)
+-  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+ 
+-' requires rampbump1 to 7 in Sound Manager
+ 
+-Sub RandomBump(voladj, freq)
+-  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+-  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+-End Sub
+ 
+-' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
+ 
+-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+-End Sub
+ 
+-Sub PlaySoundAtBOTBallZ(sound, BOT)
+-  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+-End Sub
+ 
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+ 
+-'*********************************************************************
+-'            Supporting Ball, Sound Functions and Math
+-'*********************************************************************
+ 
+-Function RndNum(min, max)
+-  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+-End Function
+ 
+-Const Pi = 3.1415927
+ 
+-Function dSin(degrees)
+-  dsin = sin(degrees * Pi/180)
+-End Function
+ 
+-Function dCos(degrees)
+-  dcos = cos(degrees * Pi/180)
+-End Function
+ 
+-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.y * 2 / table1.height-1
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^10)
+-  Else
+-    AudioFade = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    AudioPan = Csng(tmp ^10)
+-  Else
+-    AudioPan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = ball.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    Pan = Csng(tmp ^10)
+-  Else
+-    Pan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  Vol = Csng(BallVel(ball) ^2 / 2000)
+-End Function
+-
+-Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-End Function
+-
+-Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-  debug.print DVolMulti
+-End Function
+-
+-Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
+-End Function
+-
+-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+-  Pitch = BallVel(ball) * 20
+-End Function
+-
+-Function BallVel(ball) 'Calculates the ball speed
+-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+-End Function
+-
+-Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+-  BallVelZ = INT((ball.VelZ) * -1 )
+-End Function
+-
+-Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+-  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+-End Function
+-
+-'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+-
+-Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+-  Dim AB, BC, CD, DA
+-  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+-  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+-  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+-  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+ 
+-  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+-    InRect = True
+-  Else
+-    InRect = False
+-  End If
+-End Function
+ 

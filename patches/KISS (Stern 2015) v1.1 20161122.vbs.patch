@@ -1,0 +1,11 @@
+--- vpxtable_scripts/KISS (Stern 2015) v1.1 20161122.vbs
++++ todo_extracted_tables/KISS (Stern 2015) v1.1 20161122.vbs
+@@ -318,7 +318,7 @@
+     If keycode = LeftTiltKey Then   Nudge 90,  6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
+     If keycode = RightTiltKey Then  Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
+     If keycode = CenterTiltKey Then Nudge 0,   7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+-    If keycode = MechanicalTilt Then PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
++    If keycode = MechanicalTilt Then Nudge 0, 4:PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
+ 
+ dim xxx,yyy
+ if keycode = LeftMagnaSave and 1=2 Then

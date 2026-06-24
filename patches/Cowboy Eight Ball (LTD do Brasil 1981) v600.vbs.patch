@@ -1,0 +1,16 @@
+--- vpxtable_scripts/Cowboy Eight Ball (LTD do Brasil 1981) v600.vbs
++++ todo_extracted_tables/Cowboy Eight Ball (LTD do Brasil 1981) v600.vbs
+@@ -136,13 +136,10 @@
+     bsTrough.InitExitSnd SoundFX("fx_ballrel", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bsTrough.Balls = 1
+ 
+-    ' Thalamus, more randomness pls
+     'Top Hole
+     set bsTopHole = new cvpmBallStack
+     bsTopHole.InitSaucer TopHole, 25, 300, 15
+     bsTopHole.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoidon", DOFContactors)
+-    bsTopHole.KickForceVar = 3
+-    bsTopHole.KickAngleVar = 3
+ 
+     'droptargets
+     set RightDropTargetBank = new cvpmDropTarget

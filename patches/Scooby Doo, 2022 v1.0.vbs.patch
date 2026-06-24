@@ -1,0 +1,10 @@
+--- vpxtable_scripts/Scooby Doo, 2022 v1.0.vbs
++++ todo_extracted_tables/Scooby Doo, 2022 v1.0.vbs
+@@ -500,7 +500,6 @@
+         If keycode = LeftTiltKey Then CheckTilt 'only check the tilt during game
+         If keycode = RightTiltKey Then CheckTilt
+         If keycode = CenterTiltKey Then CheckTilt
+-        If keycode = MechanicalTilt Then CheckTilt
+ 
+         If keycode = LeftFlipperKey Then SolLFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 1
+         If keycode = RightFlipperKey Then SolRFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 0

@@ -1,0 +1,30 @@
+--- vpxtable_scripts/Judge Dredd (Bally 1993) VPW v1.2.001.vbs
++++ todo_extracted_tables/Judge Dredd (Bally 1993) VPW v1.2.001.vbs
+@@ -354,7 +354,7 @@
+     PinCab_EB.Y = PinCab_EB.Y -3            'Moves Extra Ball Cabinet Button
+     Controller.Switch(31)=1
+   End If
+-  If KeyCode = PlungerKey or KeyCode = LockBarKey Then Controller.Switch(12)=1  'Right Fire Button / Launch Ball
++  If KeyCode = PlungerKey Then Controller.Switch(12)=1  'Right Fire Button / Launch Ball
+   If Keycode = LeftMagnaSave Then             'Left Fire Button
+     PinCab_MagL.TransX = PinCab_MagL.TransX -10
+     Controller.Switch(11)=1
+@@ -471,7 +471,7 @@
+     PinCab_EB.Y = PinCab_EB.Y +3            'Resets Extra Ball Game Cabinet Button Position
+     Controller.Switch(31)=0
+   End If
+-  If KeyCode = PlungerKey or KeyCode = LockBarKey Then Controller.Switch(12)=0  'Release Right Fire Cabinet Button / Launch Ball
++  If KeyCode = PlungerKey Then Controller.Switch(12)=0  'Release Right Fire Cabinet Button / Launch Ball
+   If Keycode = LeftMagnaSave Then
+     PinCab_MagL.TransX = PinCab_MagL.TransX +10
+     Controller.Switch(11)=0
+@@ -1315,8 +1315,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub

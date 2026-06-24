@@ -1,0 +1,44 @@
+--- vpxtable_scripts/Blackout (Williams 1980) v1.0.1 - SBR34.vbs
++++ todo_extracted_tables/Blackout (Williams 1980) v1.0.1 - SBR34.vbs
+@@ -645,9 +645,7 @@
+ 
+  ' Drain hole and kickers
+ Sub Drain_Hit:bsTrough.addball me : RandomSoundDrain drain : End Sub
+-
+-' Thalamus : This sub is used twice - this means ... this one WAS NOT USED
+-' Sub sw40_Hit():bsRKick.AddBall 0:Controller.Switch(40)=1:SoundSaucerLock:End Sub
++Sub sw40_Hit():bsRKick.AddBall 0:Controller.Switch(40)=1:SoundSaucerLock:End Sub
+ 
+ '******************************************************
+ '           Saucer
+@@ -821,9 +819,7 @@
+   me.timerenabled=1
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one WAS NOT USED
+-' Believe it should be sw23 timer
+-sub sw23_timer
++sub sw22_timer
+   bumperskirt003.rotx=0
+   bumperskirt003.roty=0
+   bumperskirt004.rotx=0
+@@ -1725,8 +1721,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -1749,8 +1744,7 @@
+       RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+       coef = desiredcor / realcor
+       If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :         aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++        aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+       End If
+     End If
+   End Sub

@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Supersonic (Bally 1979) v600.vbs
++++ todo_extracted_tables/Supersonic (Bally 1979) v600.vbs
+@@ -1105,10 +1105,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

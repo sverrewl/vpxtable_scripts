@@ -1,0 +1,42 @@
+--- vpxtable_scripts/Beach Bums.vbs
++++ todo_extracted_tables/Beach Bums.vbs
+@@ -4,8 +4,6 @@
+ 'Const cGameName = "hlywoodh"
+ Const cGameName = "beachbms"
+ 
+-' Thalamus 2018-12-18 : Added FFv2
+-
+ On Error Resume Next
+ ExecuteGlobal GetTextFile("controller.vbs")
+ If Err Then MsgBox "Can't open controller.vbs"
+@@ -13,9 +11,6 @@
+ 
+ LoadVPM "01210000", "sys80.VBS", 3.1
+ 
+-' Thalamus - for Fast Flip v2
+-' NoUpperRightFlipper
+-' NoUpperLeftFlipper
+ 
+ '**********************************************************
+ '********       OPTIONS     *******************************
+@@ -31,8 +26,7 @@
+ '************************************************
+ '************************************************
+ '************************************************
+-' Const UseSolenoids = True
+-Const UseSolenoids = 2
++Const UseSolenoids = True
+ Const UseLamps = True
+ Const UseSync = False
+ Const UseGI = False
+@@ -46,10 +40,6 @@
+ Dim bMusicOn, startgamesound, multiballs
+ 
+ Sub BeachBums_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+      With Controller
+          .GameName = cGameName
+          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

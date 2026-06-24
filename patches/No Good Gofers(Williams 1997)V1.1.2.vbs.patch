@@ -1,0 +1,48 @@
+--- vpxtable_scripts/No Good Gofers(Williams 1997)V1.1.2.vbs
++++ todo_extracted_tables/No Good Gofers(Williams 1997)V1.1.2.vbs
+@@ -368,8 +368,6 @@
+     Set bsLeftEject=New cvpmBallStack
+     With bsLeftEject
+       .InitSaucer LeftEject,78,78,25
+-      .KickForceVar = 3
+-      .KickAngleVar = 3
+       .InitExitSnd SoundFX("Saucer_Kick",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+     End With
+ 
+@@ -378,8 +376,6 @@
+     With bsPuttOutPopper
+       .InitSw 0,44,0,0,0,0,0,0
+       .InitKick sw44a,170,12
+-      .KickForceVar = 3
+-      .KickAngleVar = 3
+     End With
+ 
+   'Jet Popper
+@@ -387,8 +383,6 @@
+     With bsJetPopper
+       .InitSw 0,38,25,0,0,0,0,0
+       .InitKick JetPopper,180,10
+-      .KickForceVar = 3
+-      .KickAngleVar = 3
+       .InitExitSnd SoundFX("fx_Popper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+     End With
+ 
+@@ -397,8 +391,6 @@
+     With bsUpperRightEject
+       .InitSw 0,46,0,0,0,0,0,0
+       .InitKick upperrightkicker,120,5
+-      .KickForceVar = 3
+-      .KickAngleVar = 3
+       .InitExitSnd SoundFX("fx_Popper",DOFContactors), SoundFX("fx_Solenoid",DOFContactors)
+     End With
+ 
+@@ -4521,9 +4513,3 @@
+ Sub Plunger_Init()
+ 
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

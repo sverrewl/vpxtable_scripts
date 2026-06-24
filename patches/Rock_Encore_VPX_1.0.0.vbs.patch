@@ -1,0 +1,21 @@
+--- vpxtable_scripts/Rock_Encore_VPX_1.0.0.vbs
++++ todo_extracted_tables/Rock_Encore_VPX_1.0.0.vbs
+@@ -5,7 +5,6 @@
+ ' Thalamus 2018-07-24
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Changed UseSolenoids=1 to 2
+-' Thalamus 2018-12-18 : Added FFv2
+ ' Thalamus 2018-09-28 : Improved directional sounds
+ 
+ Option Explicit
+@@ -45,10 +44,6 @@
+ 
+ LoadVPM "01560000", "sys80.VBS", 3.37
+ 
+-' Thalamus - for Fast Flip v2
+-' NoUpperRightFlipper
+-' NoUpperLeftFlipper
+-
+ 'Variables
+ Dim bsTrough, dtL, dtT, x
+ 

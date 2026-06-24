@@ -1,0 +1,12 @@
+--- vpxtable_scripts/The Walking Dead (Stern 2014)EBMod_Thal112 _10.8.vbs
++++ todo_extracted_tables/The Walking Dead (Stern 2014)EBMod_Thal112 _10.8.vbs
+@@ -2779,8 +2779,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub

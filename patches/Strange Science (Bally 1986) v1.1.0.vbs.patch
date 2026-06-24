@@ -1,0 +1,52 @@
+--- vpxtable_scripts/Strange Science (Bally 1986) v1.1.0.vbs
++++ todo_extracted_tables/Strange Science (Bally 1986) v1.1.0.vbs
+@@ -240,10 +240,8 @@
+   Set bsRSaucer=New cvpmBallStack
+     bsRSaucer.InitSaucer Kicker1,32,250,30
+     bsRSaucer.InitExitSnd "popper","solon"
+- ' bsRSaucer.KickAngleVar = 1.5
+- ' bsRSaucer.KickAngleVar = 1
+-    bsRSaucer.KickForceVar = 3
+-    bsRSaucer.KickAngleVar = 3
++  bsRSaucer.KickAngleVar = 1.5
++  bsRSaucer.KickAngleVar = 1
+ 
+     Controller.Switch(33)=1
+     Controller.Switch(34)=1
+@@ -1413,12 +1411,9 @@
+ ' more realtime sounds
+ ' *********************************************************************
+ ' ball collision sound
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub OnBallBallCollision(ball1, ball2, velocity)
+-'   PlaySound "fx_collide", 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+-' End Sub
++Sub OnBallBallCollision(ball1, ball2, velocity)
++  PlaySound "fx_collide", 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
++End Sub
+ 
+ ' rubber hit sounds
+ Sub RubberWalls_Hit(idx)
+@@ -1750,10 +1745,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -1835,8 +1827,3 @@
+ End Sub
+ 
+ ''''''''''''''''''''''''''
+-' Thalamus : Exit in a clean and proper way
+-Sub Science_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

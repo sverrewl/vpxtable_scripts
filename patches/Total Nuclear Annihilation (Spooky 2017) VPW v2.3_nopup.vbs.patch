@@ -1,0 +1,2002 @@
+--- vpxtable_scripts/Total Nuclear Annihilation (Spooky 2017) VPW v2.3_nopup.vbs
++++ todo_extracted_tables/Total Nuclear Annihilation (Spooky 2017) VPW v2.3_nopup.vbs
+@@ -12,40 +12,40 @@
+ Option Explicit
+ Randomize
+ 
+-'         Total Nuclear Annihilation v2.0 - PUP videos removed
++'         Total Nuclear Annihilation v2.0 - PuP and PUPDMD
+ ' ****************************************************************
+ ' May 2023
+ ' Table Version: 2.3
+-' NO PuP mod: V2.0
++' PuP and PUPDMD mod: V2.0
+ 
+ ' CREDITS:
+ 
+-' GTXJOE:         VPX table lead
++' GTXJOE:     VPX table lead
+ ' Pinballfan2018: PUPDMD
+-' iaakki          Scorbit, lighting, scripting, and more
+-' Fleep           Mechanical sound engineering, processing and scripting, drop target animations
+-' hawkeyez88      Pup help
+-' RetroG33K       Pup help
++' iaakki      Scorbit, lighting, scripting, and more
++' Fleep       Mechanical sound engineering, processing and scripting, drop target animations
++' hawkeyez88    Pup help
++' RetroG33K     Pup help
+ ' daphishbowl     Pup and Gif animations help
+-' leojreimroc     VR room and backglass
+-' apophis         Physics updates, script help
+-' Sixtoe          VR Cab, VPX layout, Acrylics, Playfield Redraw, Apron and More
+-' Astronasty      Graphics help
+-' BorgDog         Apron photos, checking gameplay against his real machine
+-' Stat            DirectB2S backglass
+-' EBisLIt         TNA plastic scans
+-' Arelyel         Pup screen and Scorbit support
+-' redbone         Plastic and Playfield adjustments
+-' WildDogAracde   Mechanical sound effects recordings (https://www.twitch.tv/wilddogarcade)
+-' Morttis         TNA MOD V1.6 update (Graphic updates)
++' leojreimroc   VR room and backglass
++' apophis     Physics updates, script help
++' Sixtoe      VR Cab, VPX layout, Acrylics, Playfield Redraw, Apron and More
++' Astronasty    Graphics help
++' BorgDog     Apron photos, checking gameplay against his real machine
++' Stat        DirectB2S backglass
++' EBisLIt     TNA plastic scans
++' Arelyel       Pup screen and Scorbit support
++' redbone     Plastic and Playfield adjustments
++' WildDogAracde     Mechanical sound effects recordings (https://www.twitch.tv/wilddogarcade)
++' Morttis       TNA MOD V1.6 update (Graphic updates)
+ ' trochjochel     PuP Media Help
+ ' Joey Beaulieu   PuP Media Help
+-' HiRez00         PuP Media Help
+-' NailBuster      Pinup Player, PUPDMD
+-' Thalamus        RBG light data help
++' HiRez00       PuP Media Help
++' NailBuster    Pinup Player, PUPDMD
++' Thalamus      RBG light data help
+ ' VPX Dev Team    Visual Pinball
+ ' SCOTT DANESI    Providing all the genuine DMD media and table sound effects from the
+-'                 amazing Total Nuclear Annihilation "real" Pinball game. And the kick ass music!
++'                   amazing Total Nuclear Annihilation "real" Pinball game. And the kick ass music!
+ 
+ '************************************************************************
+ '************************************************************************
+@@ -64,17 +64,46 @@
+ ' \Visual Pinball\Music\TNA
+ ' then you must set bMusicOn to True in the script:
+ 
+-Const   Disable_TNA_Message   = True   'True - to disable the TNA pop-up message.  False = display TNA pop-up message
+-Const   bMusicOn        = True   'True = enable, False = disable TNA original music
++Const   Disable_TNA_Message   = False   'True - to disable the TNA pop-up message.  False = display TNA pop-up message
++Const   bMusicOn        = False   'True = enable, False = disable TNA original music
+ Const   bMusicVolume      = 0.7   'A volume multiplier for the game's music (Applicable only if bMusicOn=true)
+ 
+ ' Please show Scott Danesi your support and thanks for creating an awesome pinball game and for making the music available for us to buy.
+ ' This release is fully compatible with the old release for anyone who purchased the soundtrack for that.
+ 
+ '************************************************************************
++'************************************************************************
++'************************************************************************
++
++' PinUp Player *Now Required*
++' ===========================
++' Pinup Player 1.44 or higher is required. Install files and setup guide can be found here:
++' http://www.nailbuster.com/wikipinup/doku.php?id=install_guide
++'
++' - PuP-Pack folder "tna" needs to be copied to your PUPVideos folder.
++' - Windows "Text and Scaling" / DPI must be set to 100 for ALL your screens!
++' - Your "PuP Backglass" display needs to be a proper 16:9 ratio (such as 1920x1080)
++' - If you have a dedicated 3rd LCD screen that is 16:9 ratio or full size (similar to the real TNA cabinet),
++'   then your Pup "FullDMD" display must be positioned on that 3rd screen and at 16:9 ratio (1920x1080, 1366x768, 1280x720,etc)
++'   Same goes if using a 2 screen option on the backglass, the pup backglass is used for position reference, etc
++' - It's VERY important to have the PuP Backglass and PuP Music displays at proper 16:9 ratio, or the text will NOT display correctly
++' - The pup displays can be configured with the PinUpPlayerConfigDisplays.bat
++'
++' There are 4 PuP-Pack options (depending on your cabinet / setup):
++' Navigate to the;
++' PinUPSystem\PUPVideos\tna
++' Directory and double click on the option you will be using to set up PuP properly.
++' Option 1 - PUPDMD on the Backglass. For those who don't have a dedicated fullsize 3rd monitor / TV for the PUPDMD text and videos.  Do not install the B2S file if using this option!
++' Option 2 - PUPDMD on the Backglass with B2S. Same as above, but setup to allow the 4 player score from the directb2s to show on the bottom.
++' Option 3 - PUPDMD on a Fullscreen (similar to a modern Stern or TNA cabinet). Display the PUPDMD and Text on a 3rd dedicated 16:9 fullscreen.
++'   This option allows you to also view the entire TNA Backglass at the same time.
++' Option 4 - VR or Desktop. This is to display everything on one screen for both desktop and VR users.
++'
++'
+ ' DOF CONFIG
+ ' ============
+ ' If you use DOF in your cab, be sure to download and update to the latest config files.
++'
+ 
+ '//////////////////////////-----General Options-----//////////////////////////
+ 
+@@ -98,6 +127,7 @@
+ Const EnableLUTSelector = 1   ' 1 - on; 0 - off; if on then the magnasave button let's you rotate all LUT's
+ 
+ '//////////////////////-----Other Options-----///////////////////////
++Const usePuP_GIFS     = False 'True = enable, False = disable the "Last Achievement" PuP gif animations. Depending on your setup, the GIF animations may not scale nicely.
+ Const BallsPerGame      = 3   'Default: 3 balls
+ Const ReactorDifficulty   = 2   'Default: 2 (1-Easy, 2-Med, 3-Hard)
+ Const ReactorLevelMax     = 9   'Default: 9 (1-9 Reactors)
+@@ -251,7 +281,7 @@
+ On Error Goto 0
+ 
+ Const UseApronDMD = 0 'Doesn't actually do anything
+-Const UsePinup = 0 ' Lets diable it here and ... everywhere.
++Const UsePinup = 1 'Don't change this.
+ 
+ if UsePinup = 0 then
+   ScorbitActive = 0
+@@ -532,7 +562,8 @@
+ 
+     Randomize
+   If UsePinup = 1 Then
+-    ' PUPInit
++    PUPInit
++
+   End If
+ 
+     LoadEM
+@@ -896,7 +927,7 @@
+           DMDFlush
+           DMD "", eNone, CenterLine(1, "CREDITS " & Credits), eNone, CenterLine(2, "INSERT COIN"), eBlink, "", eNone, 500, True, ""
+           UDMD "INSERT COIN", "", 500
+-          ' PuPEvent 3
++          PuPEvent 3
+ 
+           PlaySoundGame "TNA_Copyrighted_notLit", 0, 1, -0.05, 0.05, 0, 1
+           ShowTableInfo
+@@ -904,7 +935,34 @@
+       End If
+     End If
+ 
+-  End If ' If (GameInPlay)
++
++'   'ENABLES CO-OP MODES using Right Magnasave:  Replaced with START button long press like real machine
++'   If keycode = RightMagnaSave and RMSEnable = False Then
++'     If CoopMode = 0 Then
++'       CoopMode = 1
++'       DMDFlush
++'       DMD "", eNone, CenterLine(1, "CO-OP MODE"), eNone, CenterLine(2, "ALL VS MACHINE"), eBlink, "", eNone, 10000, True, "TNA_Copyrighted_coOpActivated"
++'       UDMD "CO-OP MODE", "ALL VS MACHINE", 10000
++'       pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^ALL VS MACHINE","",3,0,10
++'       ScorbitBuildGameModes
++'     Elseif CoopMode = 1 Then
++'       CoopMode = 2
++'       DMDFlush
++'       DMD "", eNone, CenterLine(1, "CO-OP MODE"), eNone, CenterLine(2, "P1 P3 VS P2 P4"), eBlink, "", eNone, 10000, True, "TNA_Copyrighted_coOpModeActivatedFX"
++'       UDMD "CO-OP MODE", "P1 P3 VS P2 P4", 10000
++'       pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^P1 P3 VS P2 P4","",3,0,10
++'       ScorbitBuildGameModes
++'     Else
++'       CoopMode = 0
++'       DMDFlush
++'       DMD "", eNone, CenterLine(1, "NORMAL MODE"), eNone, CenterLine(2, "NO CO-OP"), eBlink, "", eNone, 10000, True, "TNA_Copyrighted_coOpModeActivatedFX"
++'       UDMD "NORMAL MODE", "NO CO-OP", 10000
++'       pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","NORMAL MODE^NO CO-OP","",3,0,10
++'       ScorbitBuildGameModes
++'     End If
++'   End If
++
++    End If ' If (GameInPlay)
+ 
+   'LUT Selection
+   If keycode = RightMagnaSave and EnableLUTSelector = 1 and RMSEnable = True then
+@@ -943,7 +1001,7 @@
+     DMDFlush
+     DMD "", eNone, CenterLine(1, "CO-OP MODE"), eNone, CenterLine(2, "ALL VS MACHINE"), eBlink, "", eNone, 10000, True, "TNA_Copyrighted_coOpActivated"
+     UDMD "CO-OP MODE", "ALL VS MACHINE", 10000
+-    ' pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^ALL VS MACHINE","",3,0,10
++    pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^ALL VS MACHINE","",3,0,10
+     ScorbitBuildGameModes
+   Elseif CoopMode = 1 Then
+     CoopMode = 2
+@@ -951,7 +1009,7 @@
+     DMD "", eNone, CenterLine(1, "CO-OP MODE"), eNone, CenterLine(2, "P1 P3 VS P2 P4"), eBlink, "", eNone, 10000, True, "TNA_Copyrighted_coOpModeActivatedFX"
+ '   UDMD "NORMAL MODE", "NO CO-OP", 10000"
+     UDMD "CO-OP MODE", "P1 P3 VS P2 P4", 10000
+-    ' pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^P1 P3 VS P2 P4","",3,0,10
++    pupDMDDisplay "default","|65535^|16777215","",0,0,10:pupDMDDisplay "default","CO-OP MODE^P1 P3 VS P2 P4","",3,0,10
+     ScorbitBuildGameModes
+   End If
+ 
+@@ -1333,7 +1391,7 @@
+ Sub ShowTiltWarning
+   DOF 161, DOFPulse: DMD "", eNone, "_", eNone, CenterLine(2, "DANGER!"), eBlinkFast, "", eNone, 500, True, "TNA_Copyrighted_tilt_warning3_danger"
+   UDMD " DANGER! ", "", 500
+-  ' PUPEVENT 105
++  PUPEVENT 105
+   Tilt = 0
+   TiltWarnings = TiltWarnings-1
+ End Sub
+@@ -1346,7 +1404,7 @@
+ '   DMDFlush
+   DOF 162, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "TILT!"), eBlinkFast, 500000, False, "TNA_Copyrighted_tilt_v2"'"TNA_Copyrighted_tilt"
+   UDMD "  TILT!  ", "", 500000
+-  ' PuPEvent 106
++  PuPEvent 106
+   DisableTable True
+   TiltRecoveryTimer.Enabled = True 'start the Tilt delay to check for all the balls to be drained
+ 
+@@ -1498,13 +1556,13 @@
+     StopMultiballMusic
+     PlaySoundGame "TNA_Copyrighted_Total_Annihilation_Reactor_Critical3_MB", -1, 1, 0 ,0, 0, 1
+     ReactorCriticalMultiBallMusicOn = True
+-    ' PuPEvent 20
++    PuPEvent 20
+     pLastAchievement="REACTOR CRITICAL"
+   ElseIf ReactorCriticalMusicOn = False Then
+     StopBackgroundMusic
+     StopMultiballMusic
+     PlaySoundGame "TNA_Copyrighted_Total_Annihilation_Reactor_Critical3", -1, 1, 0 ,0, 0, 1
+-    ' PuPEvent 20
++    PuPEvent 20
+     pLastAchievement="REACTOR CRITICAL"
+     ReactorCriticalMusicOn = True
+   End If
+@@ -2546,7 +2604,7 @@
+ '
+ Sub EndOfBall2()
+   If debugGeneral Then Debug.print "*****SUB:EndOfBall2()"
+-  ' Pupevent 24
++  Pupevent 24
+   pDMDSetPage(pDMDBlank)
+   'ChangeGi GIcolor, 1
+ 
+@@ -2554,7 +2612,7 @@
+     ' set TiltWarnings back to zero) which is useful if we are changing player LOL
+     Tilted = False
+     Tilt = 0
+- '  puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':65280, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':65280, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   TiltWarnings = 2
+     DisableTable False 'enable again bumpers and slingshots
+ 
+@@ -2743,7 +2801,39 @@
+ End Sub
+ 
+ Sub HighscoreEnds
++' 'If((BallsRemaining(CurrentPlayer) <= 0)) Then
++'    If(PlayersPlayingGame > 1)Then
++'        ' then move to the next player
++'        NextPlayer = CurrentPlayer + 1
++'        ' are we going from the last player back to the first
++'        ' (ie say from player 4 back to player 1)
++'        If(NextPlayer > PlayersPlayingGame)Then
++'            NextPlayer = 1
++'        End If
++'    Else
++'        NextPlayer = CurrentPlayer
++'    End If
++'
++' If((BallsRemaining(CurrentPlayer) <= 0) And (BallsRemaining(NextPlayer) <= 0)) Then
++''    msgbox "high score exit. Balls remaining player " & NextPlayer & ": " & BallsRemaining(NextPlayer)
++'         ' you may wish to do some sort of Point Match free game award here
++'        ' generally only done when not in free play mode
++'   if (bFreePlay = False and CoopMode = 0) Then
++'       CheckForMatch()
++'       Matchgameover.enabled=True
++'       Matchgameover.interval=3900
++'   End If
++' End if
++'
++' If ((BallsRemaining(NextPlayer)>= 0)) Then
++''    msgbox "next player ! "
++'   EndOfBallComplete()
++' End if
++
+   EndOfBallComplete()
++
++
++
+ End Sub
+ 
+ Dim MatchTimerFlag
+@@ -2768,25 +2858,25 @@
+   'Determine which Match Animation to use
+   Select Case MatchValue
+     Case 0:
+-      ' PuPEvent 110  'Match 00
++      PuPEvent 110  'Match 00
+     Case 1:
+-      ' PuPEvent 111  'Match 10
++      PuPEvent 111  'Match 10
+     Case 2:
+-      ' PuPEvent 112  'Match 20
++      PuPEvent 112  'Match 20
+     Case 3:
+-      ' PuPEvent 113  'Match 30
++      PuPEvent 113  'Match 30
+     Case 4:
+-      ' PuPEvent 114  'Match 40
++      PuPEvent 114  'Match 40
+     Case 5:
+-      ' PuPEvent 115  'Match 50
++      PuPEvent 115  'Match 50
+     Case 6:
+-      ' PuPEvent 116  'Match 60
++      PuPEvent 116  'Match 60
+     Case 7:
+-      ' PuPEvent 117  'Match 70
++      PuPEvent 117  'Match 70
+     Case 8:
+-      ' PuPEvent 118  'Match 80
++      PuPEvent 118  'Match 80
+     Case 9:
+-      ' PuPEvent 119  'Match 90
++      PuPEvent 119  'Match 90
+   End Select
+ 
+   'Initial Match Animation and Audio
+@@ -2867,7 +2957,7 @@
+ Sub EndOfGame()
+     If debugGeneral Then debug.print "*****SUB:EndOfGame()"
+   ComReactorsGO
+-  ' Pupevent 908
++  Pupevent 908
+   PlayersPupgo
+   pDMDGameOver
+     bGameInPLay = False
+@@ -2956,7 +3046,7 @@
+ 
+     ' Exit Sub ' only for debugging
+     AddBallsOnPlayfield -1
+-  ' If(bMultiBallMode = false)then PuPEvent 107
++  If(bMultiBallMode = false)then PuPEvent 107
+ 
+   If debugGeneral Then Debug.print "Drain_Hit(), ballcnt=" & BallsOnPlayfield
+ 
+@@ -3036,7 +3126,7 @@
+                 'PlaySong "m_wait", 1
+                 StopEndOfBallModes
+         Endofgamedrain
+-        ' Pupevent 31
++        Pupevent 31
+         pLastAchievement=""
+         pLastAchievementValue="   "
+         pDMDSetPage(8)
+@@ -3483,7 +3573,7 @@
+       SetInsert l4x, "white", 0
+     Case 2:
+       DOF 166, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "BONUS 2X"), eBlinkfast, 1800, True, "TNA_Copyrighted_bonusXIncreasePlusVox"
+-      ' puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 2X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++      puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 2X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+       Bonusrll.enabled=True
+       Bonusrll.interval=2000
+       UDMD "BONUS 2X", "", 1800
+@@ -3497,12 +3587,12 @@
+       SetInsert L2, "yellow", 0
+       SetInsert L3, "yellow", 0
+       SetInsert L4, "yellow", 0
+-      ' PuPEvent 5
++      PuPEvent 5
+       pLastAchievement="2X MULTIPIER INCREASED"
+       pLastAchievementValue="   "
+     Case 3:
+       DOF 166, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "BONUS 3X"), eBlinkfast, 1800, True, "TNA_Copyrighted_bonusXIncreasePlusVox"
+-      ' puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 3X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++      puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 3X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+       Bonusrll.enabled=True
+       Bonusrll.interval=2000
+       UDMD "BONUS 3X", "", 1800
+@@ -3516,12 +3606,12 @@
+       SetInsert L2, "yellow", 0
+       SetInsert L3, "yellow", 0
+       SetInsert L4, "yellow", 0
+-      ' PuPEvent 6
++      PuPEvent 6
+       pLastAchievement="3X MULTIPIER INCREASED"
+       pLastAchievementValue="   "
+     Case 4:
+       DOF 166, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "BONUS 4X"), eBlinkfast, 1800, True, "TNA_Copyrighted_bonusXIncreaseMaxedVox"
+-      ' puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 4X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++      puPlayer.LabelSet pDMD,"BONUSLANES","BONUS 4X",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+       Bonusrll.enabled=True
+       Bonusrll.interval=2000
+       UDMD "BONUS 4X", "", 1800
+@@ -3534,7 +3624,7 @@
+       SetInsert L2, "yellow", 0
+       SetInsert L3, "yellow", 0
+       SetInsert L4, "yellow", 0
+-      ' PuPEvent 7
++      PuPEvent 7
+       pLastAchievement="4X MULTIPIER INCREASED"
+       pLastAchievementValue="   "
+     Case Else:
+@@ -3738,8 +3828,8 @@
+ 
+ 
+ Sub AwardSkillshot()
+-  ' puPlayer.LabelSet pDMD,"UpSktextvalue","SKILLSHOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-  ' puPlayer.LabelSet pDMD,"UpSkillshotnumber","50,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"UpSktextvalue","SKILLSHOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"UpSkillshotnumber","50,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   SkillShottext3.enabled=True
+   SkillShottext3.interval=1500
+   AwardSAVE 1
+@@ -3781,8 +3871,8 @@
+   UDMD "SUPER", "SKILLSHOT", 100000
+   PlaySoundGame "TNA_Copyrighted_startReactor", 0, 1, 0 ,0, 0, 1
+   PlaySoundGame "TNA_Copyrighted_skillshotCompleteDelayed", 0, 1, 0 ,0, 0, 1
+-  ' puPlayer.LabelSet pDMD,"UpSktextvalue","SUPER SKILLSHOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-  ' puPlayer.LabelSet pDMD,"UpSkillshotnumber","100,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"UpSktextvalue","SUPER SKILLSHOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"UpSkillshotnumber","100,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   SkillShottext3.enabled=True
+   SkillShottext3.interval=1500
+     AddScore HFSkillshotValue
+@@ -3911,9 +4001,9 @@
+ 
+   PlaySong "TNA_Copyrighted_High_Score_Loop_0001", 1
+   pDMDSetPage(10)
+-  ' puPlayer.LabelSet pDMD,"HighScore3","ENTER INITIALS" ,1,""
+-  ' puPlayer.LabelSet pDMD,"HighScore2","|16777215^|16777215^|16777215" ,1,""
+-  ' puPlayer.LabelSet pDMD,"HighScore4","" & FormatNumber(Score(CurrentPlayer),0),1,""
++  puPlayer.LabelSet pDMD,"HighScore3","ENTER INITIALS" ,1,""
++  puPlayer.LabelSet pDMD,"HighScore2","|16777215^|16777215^|16777215" ,1,""
++  puPlayer.LabelSet pDMD,"HighScore4","" & FormatNumber(Score(CurrentPlayer),0),1,""
+     hsbModeActive = True
+   hsbStartButtonPresses = 0
+     KnockerSolenoidDOF 129, DOFPulse
+@@ -4022,7 +4112,7 @@
+     dLine(2) = CenterLine(2, TempBotStr)
+     DMDUpdate 2
+ 
+-  ' puPlayer.LabelSet pDMD,"HighScore",""& CenterLine(2, TempBotStr) ,1,""
++  puPlayer.LabelSet pDMD,"HighScore",""& CenterLine(2, TempBotStr) ,1,""
+ 
+ End Sub
+ 
+@@ -4031,7 +4121,7 @@
+     HighScoreFlashTimer.Enabled = False
+     hsLetterFlash = hsLetterFlash + 1
+     if(hsLetterFlash = 2)then hsLetterFlash = 0
+-  ' Pupevent 103
++  Pupevent 103
+   'UDMD "NEW HIGH SCORE", "ENTER INITIALS", 5000
+     'HighScoreFlashTimer.Enabled = True
+ End Sub
+@@ -4051,7 +4141,7 @@
+ 
+     HighScoreName(3) = hsEnteredName
+     SortHighscore
+-  ' pupDMDDisplay "default","","",1,0,11
++  pupDMDDisplay "default","","",1,0,11
+   HighscoreEnds
+ 
+   Savehs  'save highscore
+@@ -5978,7 +6068,7 @@
+   LeftScoopDelay.Enabled = True
+   PlaySoundGame "TNA_Copyrighted_Reactor_Start_4", 0, 1, 0 ,0, 0, 1
+   PlaySoundGame "TNA_Copyrighted_reactorStandBy", 0, 1, 0 ,0, 0, 1
+-  ' PuPEvent 22 'Reactor Standby Start
++  PuPEvent 22 'Reactor Standby Start
+ 
+ 
+   If ReactorLevel(CurrentPlayer) = ExtraBallAward1 Then
+@@ -5999,7 +6089,7 @@
+   StopSound "TNA_Copyrighted_Reactor_Start_4"
+   ResumeBackgroundMusic
+   StopAnimationReactorStandby
+-    ' PuPEvent 23
++    PuPEvent 23
+ End Sub
+ 
+ dim bReactorStandbyCancel:bReactorStandbyCancel=False
+@@ -6007,7 +6097,7 @@
+   bReactorStandbyCancel = True
+   StopSound "TNA_Copyrighted_reactorStandBy"
+   PlaySoundGame "TNA_Copyrighted_Eject_3_Wipes_Eject", 0, 1, 0 ,0, 0, 1
+-  ' PuPEvent 23
++  PuPEvent 23
+   LeftScoopDelay.Enabled = False
+   LeftScoopDelay.Interval = 1000
+   LeftScoopDelay.Enabled = True
+@@ -6182,11 +6272,11 @@
+   UDMD "MULTI-BALL!!", "", 1800
+   StartMultiballMusic
+   MultiballGif
+- '  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+- '  puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+- '  puPlayer.LabelSet pDMD,"Jackpotumber","MULTIBALL!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotumber","MULTIBALL!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   pDMDmode="multi"
+-  ' PuPEvent 93
++  PuPEvent 93
+   pLastAchievement="MULTIBALL ACTIVATED"
+   pLastAchievementValue="  "
+   If VRRoom > 0 Then
+@@ -6477,10 +6567,10 @@
+         DOF 173, DOFPulse: DMD "", eNone, "", eNone, CenterLine(2, FormatScore(BallLockScore*2)), eNone, CenterLine(3, "SKILL LOCK"), eBlinkfast, 1800, True, "TNA_Copyrighted_secretSkillshot"
+         UDMD "SKILL LOCK 1", BallLockScore*2, 1800
+         Addscore BallLockScore*2
+-        ' puPlayer.LabelSet pDMD,"Sktextvalue","secret skillshot",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        puPlayer.LabelSet pDMD,"Sktextvalue","secret skillshot",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+         bSecretSkillShot = False
+         SkillshotAwardGif
+-        ' puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+         SkillShottext.enabled=True
+         SkillShottext.interval=2000
+         pLastAchievement="BALL LOCK 1 SKILLSHOT"
+@@ -6491,7 +6581,7 @@
+         DOF 173, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "BALL LOCK 1"), eBlinkfast, 1800, True, "TNA_Copyrighted_ball1Locked"
+         UDMD "BALL 1", "LOCKED", 1800
+         Addscore BallLockScore
+-        ' PuPEvent 15
++        PuPEvent 15
+         pLastAchievement="BALL LOCK 1"
+         pLastAchievementValue= FormatNumber(BallLockScore,0)
+ 
+@@ -6581,10 +6671,10 @@
+         DOF 173, DOFPulse: DMD "", eNone, "", eNone, CenterLine(2, FormatScore(BallLockScore*2)), eNone, CenterLine(3, "SKILL LOCK"), eBlinkfast, 1800, True, "TNA_Copyrighted_secretSkillshot"
+         UDMD "SKILL LOCK 2", BallLockScore*2, 1800
+         Addscore BallLockScore*2
+-        ' puPlayer.LabelSet pDMD,"Sktextvalue","secret skillshot",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        puPlayer.LabelSet pDMD,"Sktextvalue","secret skillshot",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+         bSecretSkillShot = False
+         SkillshotAwardGif
+-        ' puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+         SkillShottext2.enabled=True
+         SkillShottext2.interval=2000
+         pLastAchievement="BALL LOCK 2 SKILLSHOT"
+@@ -6595,7 +6685,7 @@
+         DOF 173, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "BALL LOCK 2"), eBlinkfast, 1800, True, "TNA_Copyrighted_ball2Locked"
+         UDMD "BALL 2", "LOCKED", 1800
+         Addscore BallLockScore
+-        ' PuPEvent 16
++        PuPEvent 16
+         pLastAchievement="BALL LOCK 2"
+         pLastAchievementValue=FormatNumber(BallLockScore,0)
+ 
+@@ -7529,8 +7619,8 @@
+     If ReactorState(CurrentPlayer) = 0 Then
+       SetReactorReady
+     ElseIf (ReactorState(CurrentPlayer) = 2) or (ReactorState(CurrentPlayer) = 3) Then
+-      ' puPlayer.LabelSet pDMD,"Rcttextvalue",""& FormatNumber (.5*ReactorValue(CurrentPlayer),0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-      ' puPlayer.LabelSet pDMD,"Rctshotnumber","REACTOR JACKPOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++      puPlayer.LabelSet pDMD,"Rcttextvalue",""& FormatNumber (.5*ReactorValue(CurrentPlayer),0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++      puPlayer.LabelSet pDMD,"Rctshotnumber","REACTOR JACKPOT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+       Recjp.enabled=True
+       Recjp.interval=2000
+       ReactorJackpot
+@@ -8126,7 +8216,7 @@
+     SetSpeaker
+   End If
+   DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "REACTOR READY"), eBlinkfast, 1800, True, "TNA_Copyrighted_startReactor"
+-  ' PuPEvent 21
++  PuPEvent 21
+   pLastAchievement="REACTOR READY"
+   pLastAchievementValue="  "
+   UDMD "REACTOR", "READY", 1800
+@@ -8648,10 +8738,10 @@
+       If ReactorLevel(CurrentPlayer) <= ReactorLevelMax Then
+         DOF 179, DOFPulse:DMD "", eNone, Centerline(1, ("DESTROYED!!!")), eNone, "", eNone, CenterLine(3, FormatScore(ReactorValue(CurrentPlayer))), eBlinkFast, 2500, True, "TNA_Copyrighted_reactorDestroyed"
+         PlaySoundGame "Destroy_Reactor_3", 0, 1, 0 ,0, 0, 1
+-        ' PuPEvent 30
+-        ' PupEvent 91
+-        ' puPlayer.LabelSet pDMD,"Skillshotnumber",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-        ' puPlayer.LabelSet pDMD,"Sktextvalue","DESTROY VALUE",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        PuPEvent 30
++        PupEvent 91
++        puPlayer.LabelSet pDMD,"Skillshotnumber",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++        puPlayer.LabelSet pDMD,"Sktextvalue","DESTROY VALUE",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+         pLastAchievement="REACTOR DESTROYED"
+         pLastAchievementValue= FormatNumber( ReactorValue(CurrentPlayer)*BallsOnPlayfield,0)
+         UDMD " REACTOR ", "", 1000
+@@ -8664,10 +8754,10 @@
+         DOF 180, DOFPulse: DMD "", eNone, "", eNone, "", eNone, CenterLine(3, "CONGRATS!!!"), eBlinkfast, 5000, True, "TNA_Copyrighted_TotalAnnihilationExplosion_Vox"
+         StartAnimationSingle show_totalAnnihilation_2, "none"
+ 
+-        ' PuPEvent 102
+-        ' pDMDSetPage(2)
+-        ' Endofgamepup.enabled=True
+-        ' Endofgamepup.interval=1000
++        PuPEvent 102
++        pDMDSetPage(2)
++        Endofgamepup.enabled=True
++        Endofgamepup.interval=1000
+         UDMD "CONGRATULATIONS", ReactorValue(CurrentPlayer) & " x " & BallsOnPlayfield, 5000
+         StopBallSaver
+         ReactorTNAAchieved(CurrentPlayer) = 1 'Total Annihilation Achieved!
+@@ -8704,9 +8794,9 @@
+ Sub Endofgamepup_timer
+   pDMDgamecomplete=1
+   JackpotAwardGif2
+-  ' puPlayer.LabelSet pDMD,"Annendtext",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-  ' puPlayer.LabelSet pDMD,"Annend","DESTROY VALUE",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-  ' Endofgamepup.enabled=False
++  puPlayer.LabelSet pDMD,"Annendtext",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Annend","DESTROY VALUE",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  Endofgamepup.enabled=False
+   JackpotAward.enabled=True
+   JackpotAward.interval= 2000
+ End Sub
+@@ -9535,26 +9625,26 @@
+     Case 0,MaxMysteryItems
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+10,000")), eBlink, duration, True, ""
+       UDMD "  +10000  ", "", duration
+-      ' PuPEvent 43: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","10,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++      PuPEvent 43: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","10,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       pLastAchievement="MYSTERY AWARD "
+       pLastAchievementValue="10,000"
+     Case 1
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+25,000")), eBlink, duration, True, ""
+       UDMD "  +25000  ", "", duration
+-      ' PuPEvent 45: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","25,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++      PuPEvent 45: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","25,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       pLastAchievement="MYSTERY AWARD"
+       pLastAchievementValue= "25,000"
+     Case 2
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+150,000")), eBlink, duration, True, ""
+       UDMD "  +150000  ", "", duration
+-      ' PuPEvent 46: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","150,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++      PuPEvent 46: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","150,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       pLastAchievement="MYSTERY AWARD"
+       pLastAchievementValue="150,000"
+     Case 3
+       If ReactorState(CurrentPlayer) = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("START REACTOR")), eBlink, duration, True, ""
+         UDMD "START REACTOR", "", duration
+-        ' PuPEvent 66:  If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","START REACTOR",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 66:  If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","START REACTOR",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="START REACTOR"
+         pLastAchievementValue="  "
+         'Targeted  0 - targets active checkgrid, grid not complete, gates 2-way
+@@ -9564,29 +9654,29 @@
+       ElseIf giveaward = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("WARP TO LVL 9")), eBlink, duration, True, ""
+         UDMD "WARP TO", "LEVEL 9", duration
+-        ' PuPEvent 47: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","WARP TO LVL 9",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 47: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","WARP TO LVL 9",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD WARP TO REACTOR"
+         pLastAchievementValue="  "
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+50,000")), eBlink, duration, True, ""
+         UDMD "  +50000  ", "", duration
+-        ' PuPEvent 48: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","50,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 48: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","50,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       End If
+     Case 4
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("BALLSAVER")), eBlink, duration, True, ""
+       UDMD "BALL SAVE", "ACTIVATED", duration
+-        ' PuPEvent 49: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","BALLSAVER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 49: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","BALLSAVER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD BALL SAVED"
+         pLastAchievementValue="  "
+     Case 5
+       If bLockIsLit = False and bMultiballMode = False Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("LOCKS ARE LIT")), eBlink, duration, True, ""
+         UDMD "LOCKS ARE LIT", "", duration
+-        ' PuPEvent 50: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LOCKS ARE LIT",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 50: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LOCKS ARE LIT",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       Else    'If giveaward = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("LIONMAN!!!")), eBlink, duration, True, ""
+         UDMD "LIONMAN!!!", "", duration
+-        ' PuPEvent 51: if UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LIONMAN !!!",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 51: if UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LIONMAN !!!",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD LION MAN"
+         pLastAchievementValue="  "
+         PlaySoundGame "TNA_Copyrighted_lionman", 0, 1, 0 ,0, 0, 1
+@@ -9599,18 +9689,18 @@
+     Case 6
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+1 LANESAVE")), eBlink, duration, True, ""
+       UDMD "AWARD LANE SAVE", "", duration
+-        ' PuPEvent 53: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LANE SAVE",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 53: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","LANE SAVE",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD LANE SAVED"
+         pLastAchievementValue="  "
+     Case 7
+       If SuperSpinnerValue = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("SUPER SPINNER")), eBlink, duration, True, ""
+         UDMD "AWARD", "SUPER SPINNER", duration
+-        ' PuPEvent 54: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","SUPER SPINNER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 54: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","SUPER SPINNER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+30,000")), eBlink, duration, True, ""
+         UDMD "  +30000  ", "", duration
+-        ' PuPEvent 55: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","30,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 55: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","30,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD SUPER SPINNER"
+         pLastAchievementValue= "30,000"
+       End If
+@@ -9618,22 +9708,22 @@
+       If BonusMultiplier(CurrentPlayer) < MaxMultiplier Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+1X BONUS")), eBlink, duration, True, ""
+         UDMD "MULTIPLIER", "INCREASED", duration
+-        ' PuPEvent 56: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","MULTIPLIER INCREASED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 56: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","MULTIPLIER INCREASED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+20,000")), eBlink, duration, True, ""
+         UDMD "  +20000  ", "", duration
+-        ' PuPEvent 57: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","20,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 30000
++        PuPEvent 57: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","20,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 30000
+         pLastAchievement="MYSTERY AWARD 1X "
+         pLastAchievementValue= "20,000"
+       End If
+     Case 9
+       If BonusMultiplier(CurrentPlayer) < MaxMultiplier Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("4X MAX BONUS")), eBlink, duration, True, ""
+-        ' PuPEvent 58: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","4X BONUS",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 58: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","4X BONUS",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+35,000")), eBlink, duration, True, ""
+         UDMD "  +35000  ", "", duration
+-        ' PuPEvent 59: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","35,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 59: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","35,000 Points",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD 4X "
+         pLastAchievementValue="35,000"
+       End If
+@@ -9641,27 +9731,27 @@
+       If CoopMode = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("EXTRA BALL")), eBlink, duration, True, ""
+         UDMD "AWARD", "EXTRA BALL", duration
+-        ' PuPEvent 60: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","EXTRA BALL",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 60: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","EXTRA BALL",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD EXTRA BALL"
+         pLastAchievementValue="  "
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+45,000")), eBlink, duration, True, ""
+         UDMD "  +45000  ", "", duration
+-        ' PuPEvent 61: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","40,000",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 61: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","40,000",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD EXTRA BALL"
+         pLastAchievementValue="45,000"
+       End If
+     Case 11
+       DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("MAX REACTOR")), eBlink, duration, True, ""
+       UDMD "REACTOR VALUE", "MAXED", duration
+-        ' PuPEvent 62: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","REACTOR MAXED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 62: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","REACTOR MAXED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD MAX REACTOR VALUE"
+         pLastAchievementValue="  "
+     Case 12
+       If ReactorState(CurrentPlayer) = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("KEYPAD UNLOCK")), eBlink, duration, True, ""
+         UDMD "KEYPAD", "UNLOCKED", duration
+-        ' PuPEvent 63: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","KEYPAD UNLOCKED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 63: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","KEYPAD UNLOCKED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD KEYPAD UNLOCKED"
+         pLastAchievementValue="50,000"
+         'Targeted  0 - targets active checkgrid, grid not complete, gates 2-way
+@@ -9671,13 +9761,13 @@
+       ElseIf giveaward = 0 Then
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("GAME OVER")), eBlink, duration, True, ""
+         UDMD "GAME OVER", "", duration
+-        ' PuPEvent 64: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","GAME OVER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 64: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","GAME OVER",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD GAME OVER"
+         pLastAchievementValue="  "
+       Else
+         DMD "", eNone, "", eNone, "", eNone, CenterLine(3, ("+50,000")), eBlink, duration, True, ""
+         UDMD "  +50000  ", "", duration
+-        ' PuPEvent 65: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","KEYPAD UNLOCKED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
++        PuPEvent 65: If UsePinup = 1 then puPlayer.LabelSet pDMD, "Mystery","KEYPAD UNLOCKED",1,"{'mt':1,'at':1,'fq':100,'len':50000,'fc':0}":pDMD_Sequence.Interval = 3000
+         pLastAchievement="MYSTERY AWARD KEYPAD UNLOCKED"
+         pLastAchievementValue= "50,000"
+       End If
+@@ -11271,8 +11361,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -11282,8 +11371,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 
+@@ -14081,76 +14169,76 @@
+ 
+ 
+ '*************  starts PUP system,  must be called AFTER b2s/controller running so put in last line of table1_init
+-' Sub PuPInit
+-'
+-'   If UsePinup = 0 then Exit Sub
+-'
+-'   If UsePinup = 1 then
+-'     Set PuPlayer = CreateObject("PinUpPlayer.PinDisplay")
+-'     If PuPlayer is Nothing Then hasPUP=false: UsePinup = 0: Exit Sub
+-'     PuPlayer.B2SInit "", pGameName
+-'   End If
+-'
+-'   if (PuPDMDDriverType=pDMDTypeReal) and (useRealDMDScale=1) Then
+-'        PuPlayer.setScreenEx pDMD,0,0,128,32,0  'if hardware set the dmd to 128,32
+-'   End if
+-'
+-'   PuPlayer.LabelInit pDMD
+-'
+-'
+-'
+-'   pSetPageLayouts
+-'
+-'   pDMDSetPage(pDMDBlank)   'set blank text overlay page.
+-'   pDMDStartUP        ' firsttime running for like an startup video..
+-'
+-'   if Scorbitactive then
+-' '   if Scorbit.DoInit(2082, "PupOverlays", myVersion, "GRWvz-MP37P") then   ' Staging
+-'     if Scorbit.DoInit(3925, "PupOverlays", myVersion, "GRD79-M0odk-VPIN") then  ' Prod
+-'       tmrScorbit.Interval=2000
+-'       tmrScorbit.UserValue = 0
+-'       tmrScorbit.Enabled=True
+-'       Scorbit.UploadLog = ScorbitUploadLog
+-'     End if
+-'   End if
+-'
+-' End Sub 'end PUPINIT
++Sub PuPInit
++
++  If UsePinup = 0 then Exit Sub
++
++  If UsePinup = 1 then
++    Set PuPlayer = CreateObject("PinUpPlayer.PinDisplay")
++    If PuPlayer is Nothing Then hasPUP=false: UsePinup = 0: Exit Sub
++    PuPlayer.B2SInit "", pGameName
++  End If
++
++  if (PuPDMDDriverType=pDMDTypeReal) and (useRealDMDScale=1) Then
++       PuPlayer.setScreenEx pDMD,0,0,128,32,0  'if hardware set the dmd to 128,32
++  End if
++
++  PuPlayer.LabelInit pDMD
++
++
++
++  pSetPageLayouts
++
++  pDMDSetPage(pDMDBlank)   'set blank text overlay page.
++  pDMDStartUP        ' firsttime running for like an startup video..
++
++  if Scorbitactive then
++'   if Scorbit.DoInit(2082, "PupOverlays", myVersion, "GRWvz-MP37P") then   ' Staging
++    if Scorbit.DoInit(3925, "PupOverlays", myVersion, "GRD79-M0odk-VPIN") then  ' Prod
++      tmrScorbit.Interval=2000
++      tmrScorbit.UserValue = 0
++      tmrScorbit.Enabled=True
++      Scorbit.UploadLog = ScorbitUploadLog
++    End if
++  End if
++
++End Sub 'end PUPINIT
+ 
+ 
+ 
+ 'PinUP Player DMD Helper Functions
+ 
+-' Sub pDMDLabelHide(labName)
+-' PuPlayer.LabelSet pDMD,labName,"",0,""
+-' end sub
+-'
+-' Sub pDMDScrollBig(msgText,timeSec,mColor)
+-' PuPlayer.LabelShowPage pDMD,2,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':2,'xps':1,'xpe':-1,'len':" & (timeSec*1000000) & ",'mlen':" & (timeSec*1000) & ",'tt':0,'fc':" & mColor & "}"
+-' end sub
+-'
+-' Sub pDMDScrollBigV(msgText,timeSec,mColor)
+-' PuPlayer.LabelShowPage pDMD,2,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':2,'yps':1,'ype':-1,'len':" & (timeSec*1000000) & ",'mlen':" & (timeSec*1000) & ",'tt':0,'fc':" & mColor & "}"
+-' end sub
+-'
+-'
+-' Sub pDMDSplashScore(msgText,timeSec,mColor)
+-' PuPlayer.LabelSet pDMD,"MsgScore",msgText,0,"{'mt':1,'at':1,'fq':250,'len':"& (timeSec*1000) &",'fc':" & mColor & "}"
+-' end Sub
+-'
+-' Sub pDMDSplashScoreScroll(msgText,timeSec,mColor)
+-' PuPlayer.LabelSet pDMD,"MsgScore",msgText,0,"{'mt':1,'at':2,'xps':1,'xpe':-1,'len':"& (timeSec*1000) &", 'mlen':"& (timeSec*1000) &",'tt':0, 'fc':" & mColor & "}"
+-' end Sub
+-'
+-' Sub pDMDZoomBig(msgText,timeSec,mColor)  'new Zoom
+-' PuPlayer.LabelShowPage pDMD,2,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':3,'hstart':5,'hend':80,'len':" & (timeSec*1000) & ",'mlen':" & (timeSec*500) & ",'tt':5,'fc':" & mColor & "}"
+-' end sub
++Sub pDMDLabelHide(labName)
++PuPlayer.LabelSet pDMD,labName,"",0,""
++end sub
++
++Sub pDMDScrollBig(msgText,timeSec,mColor)
++PuPlayer.LabelShowPage pDMD,2,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':2,'xps':1,'xpe':-1,'len':" & (timeSec*1000000) & ",'mlen':" & (timeSec*1000) & ",'tt':0,'fc':" & mColor & "}"
++end sub
++
++Sub pDMDScrollBigV(msgText,timeSec,mColor)
++PuPlayer.LabelShowPage pDMD,2,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':2,'yps':1,'ype':-1,'len':" & (timeSec*1000000) & ",'mlen':" & (timeSec*1000) & ",'tt':0,'fc':" & mColor & "}"
++end sub
++
++
++Sub pDMDSplashScore(msgText,timeSec,mColor)
++PuPlayer.LabelSet pDMD,"MsgScore",msgText,0,"{'mt':1,'at':1,'fq':250,'len':"& (timeSec*1000) &",'fc':" & mColor & "}"
++end Sub
++
++Sub pDMDSplashScoreScroll(msgText,timeSec,mColor)
++PuPlayer.LabelSet pDMD,"MsgScore",msgText,0,"{'mt':1,'at':2,'xps':1,'xpe':-1,'len':"& (timeSec*1000) &", 'mlen':"& (timeSec*1000) &",'tt':0, 'fc':" & mColor & "}"
++end Sub
++
++Sub pDMDZoomBig(msgText,timeSec,mColor)  'new Zoom
++PuPlayer.LabelShowPage pDMD,2,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash",msgText,0,"{'mt':1,'at':3,'hstart':5,'hend':80,'len':" & (timeSec*1000) & ",'mlen':" & (timeSec*500) & ",'tt':5,'fc':" & mColor & "}"
++end sub
+ 
+ Sub pDMDTargetLettersInfo(msgText,msgInfo, timeSec)  'msgInfo = '0211'  0= layer 1, 1=layer 2, 2=top layer3.
+ 'this function is when you want to hilite spelled words.  Like B O N U S but have O S hilited as already hit markers... see example.
+-' PuPlayer.LabelShowPage pDMD,5,timeSec,""  'show page 5
++PuPlayer.LabelShowPage pDMD,5,timeSec,""  'show page 5
+ Dim backText
+ Dim middleText
+ Dim flashText
+@@ -14186,20 +14274,20 @@
+    FlashText=msgText
+ end if
+ 
+-' PuPlayer.LabelSet pDMD,"Back5"  ,backText  ,1,""
+-' PuPlayer.LabelSet pDMD,"Middle5",middleText,1,""
+-' PuPlayer.LabelSet pDMD,"Flash5" ,flashText ,0,"{'mt':1,'at':1,'fq':150,'len':" & (timeSec*1000) & "}"
++PuPlayer.LabelSet pDMD,"Back5"  ,backText  ,1,""
++PuPlayer.LabelSet pDMD,"Middle5",middleText,1,""
++PuPlayer.LabelSet pDMD,"Flash5" ,flashText ,0,"{'mt':1,'at':1,'fq':150,'len':" & (timeSec*1000) & "}"
+ end Sub
+ 
+ 
+ Sub pDMDSetPage(pagenum)
+   If UsePinup = 0 or hasPUP=false then Exit Sub
+-'    PuPlayer.LabelShowPage pDMD,pagenum,0,""   'set page to blank 0 page if want off
++    PuPlayer.LabelShowPage pDMD,pagenum,0,""   'set page to blank 0 page if want off
+     PDMDCurPage=pagenum
+ end Sub
+ 
+ Sub pHideOverlayText(pDisp)
+-'    PuPlayer.SendMSG "{ ""mt"":301, ""SN"": "& pDisp &", ""FN"": 34 }"             'hideoverlay text during next videoplay on DMD auto return
++    PuPlayer.SendMSG "{ ""mt"":301, ""SN"": "& pDisp &", ""FN"": 34 }"             'hideoverlay text during next videoplay on DMD auto return
+ end Sub
+ 
+ 
+@@ -14207,61 +14295,61 @@
+ Sub pDMDShowLines3(msgText,msgText2,msgText3,timeSec)
+ Dim vis:vis=1
+ if pLine1Ani<>"" Then vis=0
+-' PuPlayer.LabelShowPage pDMD,3,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash3a",msgText,vis,pLine1Ani
+-' PuPlayer.LabelSet pDMD,"Splash3b",msgText2,vis,pLine2Ani
+-' PuPlayer.LabelSet pDMD,"Splash3c",msgText3,vis,pLine3Ani
++PuPlayer.LabelShowPage pDMD,3,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash3a",msgText,vis,pLine1Ani
++PuPlayer.LabelSet pDMD,"Splash3b",msgText2,vis,pLine2Ani
++PuPlayer.LabelSet pDMD,"Splash3c",msgText3,vis,pLine3Ani
+ end Sub
+ 
+ 
+ Sub pDMDShowLines2(msgText,msgText2,timeSec)
+ Dim vis:vis=1
+ if pLine1Ani<>"" Then vis=0
+-' PuPlayer.LabelShowPage pDMD,4,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash4a",msgText,vis,pLine1Ani
+-' PuPlayer.LabelSet pDMD,"Splash4b",msgText2,vis,pLine2Ani
++PuPlayer.LabelShowPage pDMD,4,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash4a",msgText,vis,pLine1Ani
++PuPlayer.LabelSet pDMD,"Splash4b",msgText2,vis,pLine2Ani
+ end Sub
+ 
+ Sub pDMDShowCounter(msgText,msgText2,msgText3,timeSec)
+ Dim vis:vis=1
+ if pLine1Ani<>"" Then vis=0
+-' PuPlayer.LabelShowPage pDMD,6,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash6a",msgText,vis, pLine1Ani
+-' PuPlayer.LabelSet pDMD,"Splash6b",msgText2,vis,pLine2Ani
+-' PuPlayer.LabelSet pDMD,"Splash6c",msgText3,vis,pLine3Ani
++PuPlayer.LabelShowPage pDMD,6,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash6a",msgText,vis, pLine1Ani
++PuPlayer.LabelSet pDMD,"Splash6b",msgText2,vis,pLine2Ani
++PuPlayer.LabelSet pDMD,"Splash6c",msgText3,vis,pLine3Ani
+ end Sub
+ 
+ 
+ Sub pDMDShowBig(msgText,timeSec, mColor)
+ Dim vis:vis=1
+ if pLine1Ani<>"" Then vis=0
+-' PuPlayer.LabelShowPage pDMD,2,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash",msgText,vis,pLine1Ani
++PuPlayer.LabelShowPage pDMD,2,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash",msgText,vis,pLine1Ani
+ end sub
+ 
+ 
+ Sub pDMDShowHS(msgText,msgText2,msgText3,timeSec) 'High Score
+ Dim vis:vis=1
+ if pLine1Ani<>"" Then vis=0
+-' PuPlayer.LabelShowPage pDMD,7,timeSec,""
+-' PuPlayer.LabelSet pDMD,"Splash7a",msgText,vis,pLine1Ani
+-' PuPlayer.LabelSet pDMD,"Splash7b",msgText2,vis,pLine2Ani
+-' PuPlayer.LabelSet pDMD,"Splash7c",msgText3,vis,pLine3Ani
++PuPlayer.LabelShowPage pDMD,7,timeSec,""
++PuPlayer.LabelSet pDMD,"Splash7a",msgText,vis,pLine1Ani
++PuPlayer.LabelSet pDMD,"Splash7b",msgText2,vis,pLine2Ani
++PuPlayer.LabelSet pDMD,"Splash7c",msgText3,vis,pLine3Ani
+ end Sub
+ 
+ 
+ Sub pDMDSetBackFrame(fname)
+-'  PuPlayer.playlistplayex pDMD,"PUPFrames",fname,0,1
++  PuPlayer.playlistplayex pDMD,"PUPFrames",fname,0,1
+ end Sub
+ 
+ Sub pDMDStartBackLoop(fPlayList,fname)
+-'  PuPlayer.playlistplayex pDMD,fPlayList,fname,0,1
+-'  PuPlayer.SetBackGround pDMD,1
++  PuPlayer.playlistplayex pDMD,fPlayList,fname,0,1
++  PuPlayer.SetBackGround pDMD,1
+ end Sub
+ 
+ Sub pDMDStopBackLoop
+-'  PuPlayer.SetBackGround pDMD,0
+-'  PuPlayer.playstop pDMD
++  PuPlayer.SetBackGround pDMD,0
++  PuPlayer.playstop pDMD
+ end Sub
+ 
+ 
+@@ -14359,17 +14447,17 @@
+   if pLine2<>"" then pNumLines=pNumlines+1
+   if pLine3<>"" then pNumLines=pNumlines+1
+ 
+-'  if pDMDVideoPlaying and (VideoName="")  Then
+-'        PuPlayer.playstop pDMD
+-'        pDMDVideoPlaying=False
+-'  End if
+-'
+-'
+-'  if (VideoName<>"") and (useDMDVideos) Then  'we are showing a splash video instead of the text.
+-'
+-'    ' PuPlayer.playlistplayex pDMD,"DMDSplash",VideoName,pDMDDefVolume,pPriority  'should be an attract background (no text is displayed)
+-'    pDMDVideoPlaying=true
+-'  end if 'if showing a splash video with no text
++  if pDMDVideoPlaying and (VideoName="")  Then
++        PuPlayer.playstop pDMD
++        pDMDVideoPlaying=False
++  End if
++
++
++  if (VideoName<>"") and (useDMDVideos) Then  'we are showing a splash video instead of the text.
++
++    PuPlayer.playlistplayex pDMD,"DMDSplash",VideoName,pDMDDefVolume,pPriority  'should be an attract background (no text is displayed)
++    pDMDVideoPlaying=true
++  end if 'if showing a splash video with no text
+ 
+ 
+ 
+@@ -14474,147 +14562,147 @@
+   'Page 1 (default score display)                                   Pagenum
+ '               Scrn LblName        Fnt     Size        Color   R AxAy    X Y     Visible
+ 
+-'    PuPlayer.LabelNew pDMD,"MsgScore",dmddef,(35*pDMD_FontScale),33023   ,0,1,0,0,40,1,0
+-'    PuPlayer.LabelSet pDMD,"MsgScore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelSet pDMD,"MsgScore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"CurScore",dmdscr,(10*pDMD_FontScale),8591587   ,0,0,0,0,0,1,0
+-'    PuPlayer.LabelSet pDMD,"Curscore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"Credits"    ,dmdalt,(7*pDMD_FontScale), 65280,    1, 1,2,  0,0, 1,0
+-'    PuPlayer.LabelSet pDMD,"Credits","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"Ball Saved" ,dmddef,(9*pDMD_FontScale), 2292994  ,1,1,0,0,0,1,0
+-'    PuPlayer.LabelSet pDMD,"Ball Saved","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"lanex"      ,dmddef,(5*pDMD_FontScale), 8591587,  1, 1,2,  74,84, 1,0
+-'    PuPlayer.LabelSet pDMD,"lanex","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"RIGHT_GIF" ,dmddef,(6*pDMD_FontScale),65021 ,1,0,2,100,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Status"     ,dmdalt,(5*pDMD_FontScale),65280 ,      1, 2,0,  0,30,  1,0
+-'    PuPlayer.LabelSet pDMD,"Status","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    'PuPlayer.LabelNew pDMD,"StatusB"     ,dmdalt,(5*pDMD_FontScale), 33023,      1, 2,0,  0,30,  1,0
+-'    PuPlayer.LabelNew pDMD,"REACTOR_VALUE"  ,dmdalt,(5*pDMD_FontScale),65280 ,1,2,0,0,36,1,0
+-'    PuPlayer.LabelNew pDMD,"Warnings"     ,dmdalt,(5*pDMD_FontScale), 65280 ,1, 0,0, 4,30,  1,1
+-'    PuPlayer.LabelNew pDMD,"ReactorUptime"    ,dmdalt,(5*pDMD_FontScale), RGB(198,207,59),    1, 0,0, 4,61, 1,1
+-'    PuPlayer.LabelSet pDMD,"ReactorUptime","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"lblAchievement"   ,dmdalt,(5*pDMD_FontScale), 12761345,     1, 0,0, 4,67, 1,1
+-'    PuPlayer.LabelSet pDMD,"lblAchievement","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"LastAchievement"  ,dmdalt,(5*pDMD_FontScale), 12761345,   1, 0,0, 4,73, 1,1
+-'    PuPlayer.LabelSet pDMD,"LastAchievement","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"LastAchievementV"   ,dmdalt,(5*pDMD_FontScale), 12761345,   1, 0,0, 83,73,  1,1
+-'    PuPlayer.LabelSet pDMD,"LastAchievementV","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"Status2Value"   ,dmdalt,(5*pDMD_FontScale), RGB(54,150,156),    1, 2,0, 100,73, 1,1
+-'    PuPlayer.LabelSet pDMD,"Status2Value","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD, "Status2" ,dmdalt,(5*pDMD_FontScale),8591587 ,1,2,0,100,81,1,0
+-'    'PuPlayer.LabelNew pDMD,"Status2" ,dmdalt,(5*pDMD_FontScale),10040319,1,2,0, 100,81,  1,0
+-'    PuPlayer.LabelNew pDMD,"Fullscreengif",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Fullscreengif2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"FullscreengifMystery",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Fullmawardscreengif",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpot",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpot1",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpot2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpot3",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpot4",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Locklit",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"ReactorMaxValue",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Combo",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
+-'    PuPlayer.LabelNew pDMD,"Spinner",dmddef,(15*pDMD_FontScale),16777215,0,1,1,73,83,1,0
+-'    PuPlayer.LabelNew pDMD,"Sktextvalue",dmddef,(10*pDMD_FontScale),8587007 ,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Skillshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"UpSktextvalue",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"UpSkillshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Rcttextvalue",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Rctshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"BONUSLANES",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumberonetext",dmddef,(10*pDMD_FontScale), 8591587,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumberonevalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumbertwotext",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumbertwovalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumberthreetext",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumberthreevalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumbersupertext",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,38,1,0
+-'    PuPlayer.LabelNew pDMD,"Jackpotnumbersupervalue",dmddef,(10*pDMD_FontScale),10040319,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"SHOOTAG",dmddef,10,8591587,0,1,0,0,48,1,0
+-'    PuPlayer.LabelNew pDMD,"Mystery" ,dmdalt,(10*pDMD_FontScale),0,0,1,1,0,48,11,1
+-'    PuPlayer.LabelSet pDMD,"Mystery","",1,"{'mt':2,'shadowcolor':255, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'    puPlayer.LabelNew pDMD,"ScorbitQR2",  dmddef,   1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,1,1
+-'    puPlayer.LabelNew pDMD,"ScorbitQRicon2", dmddef,  1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,1,1
+-'
+-'
+-'
+-'  'Page 2 (default Text Splash 1 Big Line)
+-'    PuPlayer.LabelNew pDMD,"Splash"  ,dmddef,(5*pDMD_FontScale),2292994,0,1,1,0,0,2,0
+-'    PuPlayer.LabelNew pDMD,"Annend",dmddef,10,8591587 ,0,1,0,0,38,2,0
+-'    PuPlayer.LabelNew pDMD,"Annendtext",dmddef,10,8591587,0,1,0,0,48,2,0
+-'    PuPlayer.LabelNew pDMD,"Endgamegif",dmddef,15,16777215,0,1,0,0,0,2,0
+-'
+-'  'Page 3 (default Text 3 Lines)
+-'    PuPlayer.LabelNew pDMD,"Splash3a",dmddef,(5*pDMD_FontScale),2292994,0,1,0,0,20,3,0
+-'    PuPlayer.LabelNew pDMD,"Splash3b",dmddef,(5*pDMD_FontScale),16777215,0,1,0,0,40,3,0
+-'    PuPlayer.LabelNew pDMD,"Splash3c",dmddef,(5*pDMD_FontScale),65021,0,1,0,0,60,3,0
+-'
+-'  'Page 4 (default Text 2 Line)
+-'    PuPlayer.LabelNew pDMD,"Splash4a",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,24,4,0
+-'    PuPlayer.LabelSet pDMD,"Splash4a","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'    PuPlayer.LabelNew pDMD,"Splash4b",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,56,4,0
+-'    PuPlayer.LabelSet pDMD,"Splash4b","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'
+-'  'Page 5 (3 layer large text for overlay targets function,  must you fixed width font!
+-'    PuPlayer.LabelNew pDMD,"Back5"    ,dmdfixed,(50*pDMD_FontScale),8421504,0,1,1,0,0,5,0
+-'    PuPlayer.LabelNew pDMD,"Middle5"  ,dmdfixed,(50*pDMD_FontScale),65535  ,0,1,1,0,0,5,0
+-'    PuPlayer.LabelNew pDMD,"Flash5"   ,dmdfixed,(50*pDMD_FontScale),65535  ,0,1,1,0,0,5,0
+-'
+-'  'Page 6 (3 Lines for big # with two lines,  "19^Orbits^Count")
+-'    PuPlayer.LabelNew pDMD,"Splash6a",dmddef,(70*pDMD_FontScale),65280,0,0,0,15,1,6,0
+-'    PuPlayer.LabelNew pDMD,"Splash6b",dmddef,(50*pDMD_FontScale),33023,0,1,0,60,0,6,0
+-'    PuPlayer.LabelNew pDMD,"Splash6c",dmddef,(40*pDMD_FontScale),33023,0,1,0,60,50,6,0
+-'
+-'  'Page 7 (Show High Scores Fixed Fonts)
+-'    PuPlayer.LabelNew pDMD,"Splash7a",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,15,7,0
+-'    PuPlayer.LabelNew pDMD,"Splash7b",dmdscr,(13*pDMD_FontScale),16777215,0,1,0,0,40,7,0
+-'    PuPlayer.LabelNew pDMD,"Splash7c",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,65,7,0
+-'
+-'
+-'  'Page 8 (Sequence Text 3 Lines)
+-'    'PuPlayer.LabelNew pDMD,"SequenceA",dmddef,(15*pDMD_FontScale),2292994,0,1,0,0,15,8,0
+-'    PuPlayer.LabelNew pDMD,"SequenceB",dmdalt,(13*pDMD_FontScale),8591587,0,1,0,0,56,8,0
+-'    PuPlayer.LabelSet pDMD,"SequenceB","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'    PuPlayer.LabelNew pDMD,"SequenceC",dmdalt,(10*pDMD_FontScale),65021,0,1,0,0,43,8,0
+-'    PuPlayer.LabelSet pDMD,"SequenceC","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"SequenceD",dmdalt,(10*pDMD_FontScale),65021,0,1,0,0,30,8,0
+-'    PuPlayer.LabelSet pDMD,"SequenceD","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
+-'    PuPlayer.LabelNew pDMD,"Sktextvalue",dmddef,10,8591587 ,0,1,0,0,38,8,0
+-'    PuPlayer.LabelNew pDMD,"Skillshotnumber",dmddef,10,8591587,0,1,0,0,48,8,0
+-'  'Page 9 (Attract Text 3 Lines)
+-'    PuPlayer.LabelNew pDMD,"AttractA",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,25,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractB",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,40,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractC",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,55,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractD",dmdscr,(11*pDMD_FontScale),16777215,0,1,0,0,8,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractE",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,28,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractF",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,28,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractG",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,37,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractJ",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,37,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractH",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,42,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractK",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,42,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractI",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,47,9,0
+-'    PuPlayer.LabelNew pDMD,"AttractL",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,47,9,0
+-'    puPlayer.LabelNew pDMD,"ScorbitQR1",  dmddef,   1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,9,1
+-'    puPlayer.LabelNew pDMD,"ScorbitQRicon1", dmddef,  1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,9,1
+-'
+-'  'Page 10 (Reactor Total)
+-'    PuPlayer.LabelNew pDMD,"Reactor_Total",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,48,10,0
+-'    PuPlayer.LabelSet pDMD,"Reactor_Total","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'    PuPlayer.LabelNew pDMD,"ReactorHeader",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,38,10,0
+-'    PuPlayer.LabelSet pDMD,"ReactorHeader","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'    PuPlayer.LabelNew pDMD,"HighScore",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,77,10,0
+-'    PuPlayer.LabelNew pDMD,"HighScore2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,77,10,0
+-'    PuPlayer.LabelNew pDMD,"HighScore3",dmddef,(8*pDMD_FontScale),16777215,0,1,0,0,60,10,0
+-'    PuPlayer.LabelNew pDMD,"HighScore4",dmddef,(8*pDMD_FontScale),16777215,0,1,0,0,35,10,0
+-'
+-'
+-'  'Page 11 (Mystery)
+-'      PuPlayer.LabelNew pDMD,"Mystery" ,dmdalt,(10*pDMD_FontScale),0,0,1,1,0,48,11,1
+-'    PuPlayer.LabelSet pDMD,"Mystery","",1,"{'mt':2,'shadowcolor':255, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-'
+-'  'Page 12 (tna)
++    PuPlayer.LabelNew pDMD,"MsgScore",dmddef,(35*pDMD_FontScale),33023   ,0,1,0,0,40,1,0
++    PuPlayer.LabelSet pDMD,"MsgScore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelSet pDMD,"MsgScore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"CurScore",dmdscr,(10*pDMD_FontScale),8591587   ,0,0,0,0,0,1,0
++    PuPlayer.LabelSet pDMD,"Curscore","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"Credits"    ,dmdalt,(7*pDMD_FontScale), 65280,    1, 1,2,  0,0, 1,0
++    PuPlayer.LabelSet pDMD,"Credits","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"Ball Saved" ,dmddef,(9*pDMD_FontScale), 2292994  ,1,1,0,0,0,1,0
++    PuPlayer.LabelSet pDMD,"Ball Saved","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"lanex"      ,dmddef,(5*pDMD_FontScale), 8591587,  1, 1,2,  74,84, 1,0
++    PuPlayer.LabelSet pDMD,"lanex","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"RIGHT_GIF" ,dmddef,(6*pDMD_FontScale),65021 ,1,0,2,100,0,1,0
++    PuPlayer.LabelNew pDMD,"Status"     ,dmdalt,(5*pDMD_FontScale),65280 ,      1, 2,0,  0,30,  1,0
++    PuPlayer.LabelSet pDMD,"Status","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    'PuPlayer.LabelNew pDMD,"StatusB"     ,dmdalt,(5*pDMD_FontScale), 33023,      1, 2,0,  0,30,  1,0
++    PuPlayer.LabelNew pDMD,"REACTOR_VALUE"  ,dmdalt,(5*pDMD_FontScale),65280 ,1,2,0,0,36,1,0
++    PuPlayer.LabelNew pDMD,"Warnings"     ,dmdalt,(5*pDMD_FontScale), 65280 ,1, 0,0, 4,30,  1,1
++    PuPlayer.LabelNew pDMD,"ReactorUptime"    ,dmdalt,(5*pDMD_FontScale), RGB(198,207,59),    1, 0,0, 4,61, 1,1
++    PuPlayer.LabelSet pDMD,"ReactorUptime","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"lblAchievement"   ,dmdalt,(5*pDMD_FontScale), 12761345,     1, 0,0, 4,67, 1,1
++    PuPlayer.LabelSet pDMD,"lblAchievement","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"LastAchievement"  ,dmdalt,(5*pDMD_FontScale), 12761345,   1, 0,0, 4,73, 1,1
++    PuPlayer.LabelSet pDMD,"LastAchievement","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"LastAchievementV"   ,dmdalt,(5*pDMD_FontScale), 12761345,   1, 0,0, 83,73,  1,1
++    PuPlayer.LabelSet pDMD,"LastAchievementV","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"Status2Value"   ,dmdalt,(5*pDMD_FontScale), RGB(54,150,156),    1, 2,0, 100,73, 1,1
++    PuPlayer.LabelSet pDMD,"Status2Value","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD, "Status2" ,dmdalt,(5*pDMD_FontScale),8591587 ,1,2,0,100,81,1,0
++    'PuPlayer.LabelNew pDMD,"Status2" ,dmdalt,(5*pDMD_FontScale),10040319,1,2,0, 100,81,  1,0
++    PuPlayer.LabelNew pDMD,"Fullscreengif",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Fullscreengif2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"FullscreengifMystery",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Fullmawardscreengif",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Jackpot",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Jackpot1",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Jackpot2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Jackpot3",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Jackpot4",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Locklit",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"ReactorMaxValue",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Combo",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,0,1,0
++    PuPlayer.LabelNew pDMD,"Spinner",dmddef,(15*pDMD_FontScale),16777215,0,1,1,73,83,1,0
++    PuPlayer.LabelNew pDMD,"Sktextvalue",dmddef,(10*pDMD_FontScale),8587007 ,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Skillshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"UpSktextvalue",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"UpSkillshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Rcttextvalue",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Rctshotnumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"BONUSLANES",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotumber",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumberonetext",dmddef,(10*pDMD_FontScale), 8591587,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumberonevalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumbertwotext",dmddef,(10*pDMD_FontScale),8591587 ,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumbertwovalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumberthreetext",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumberthreevalue",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumbersupertext",dmddef,(10*pDMD_FontScale),8591587,0,1,0,0,38,1,0
++    PuPlayer.LabelNew pDMD,"Jackpotnumbersupervalue",dmddef,(10*pDMD_FontScale),10040319,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"SHOOTAG",dmddef,10,8591587,0,1,0,0,48,1,0
++    PuPlayer.LabelNew pDMD,"Mystery" ,dmdalt,(10*pDMD_FontScale),0,0,1,1,0,48,11,1
++    PuPlayer.LabelSet pDMD,"Mystery","",1,"{'mt':2,'shadowcolor':255, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    puPlayer.LabelNew pDMD,"ScorbitQR2",  dmddef,   1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,1,1
++    puPlayer.LabelNew pDMD,"ScorbitQRicon2", dmddef,  1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,1,1
++
++
++
++  'Page 2 (default Text Splash 1 Big Line)
++    PuPlayer.LabelNew pDMD,"Splash"  ,dmddef,(5*pDMD_FontScale),2292994,0,1,1,0,0,2,0
++    PuPlayer.LabelNew pDMD,"Annend",dmddef,10,8591587 ,0,1,0,0,38,2,0
++    PuPlayer.LabelNew pDMD,"Annendtext",dmddef,10,8591587,0,1,0,0,48,2,0
++    PuPlayer.LabelNew pDMD,"Endgamegif",dmddef,15,16777215,0,1,0,0,0,2,0
++
++  'Page 3 (default Text 3 Lines)
++    PuPlayer.LabelNew pDMD,"Splash3a",dmddef,(5*pDMD_FontScale),2292994,0,1,0,0,20,3,0
++    PuPlayer.LabelNew pDMD,"Splash3b",dmddef,(5*pDMD_FontScale),16777215,0,1,0,0,40,3,0
++    PuPlayer.LabelNew pDMD,"Splash3c",dmddef,(5*pDMD_FontScale),65021,0,1,0,0,60,3,0
++
++  'Page 4 (default Text 2 Line)
++    PuPlayer.LabelNew pDMD,"Splash4a",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,24,4,0
++    PuPlayer.LabelSet pDMD,"Splash4a","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    PuPlayer.LabelNew pDMD,"Splash4b",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,56,4,0
++    PuPlayer.LabelSet pDMD,"Splash4b","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++
++  'Page 5 (3 layer large text for overlay targets function,  must you fixed width font!
++    PuPlayer.LabelNew pDMD,"Back5"    ,dmdfixed,(50*pDMD_FontScale),8421504,0,1,1,0,0,5,0
++    PuPlayer.LabelNew pDMD,"Middle5"  ,dmdfixed,(50*pDMD_FontScale),65535  ,0,1,1,0,0,5,0
++    PuPlayer.LabelNew pDMD,"Flash5"   ,dmdfixed,(50*pDMD_FontScale),65535  ,0,1,1,0,0,5,0
++
++  'Page 6 (3 Lines for big # with two lines,  "19^Orbits^Count")
++    PuPlayer.LabelNew pDMD,"Splash6a",dmddef,(70*pDMD_FontScale),65280,0,0,0,15,1,6,0
++    PuPlayer.LabelNew pDMD,"Splash6b",dmddef,(50*pDMD_FontScale),33023,0,1,0,60,0,6,0
++    PuPlayer.LabelNew pDMD,"Splash6c",dmddef,(40*pDMD_FontScale),33023,0,1,0,60,50,6,0
++
++  'Page 7 (Show High Scores Fixed Fonts)
++    PuPlayer.LabelNew pDMD,"Splash7a",dmddef,(10*pDMD_FontScale),2292994,0,1,0,0,15,7,0
++    PuPlayer.LabelNew pDMD,"Splash7b",dmdscr,(13*pDMD_FontScale),16777215,0,1,0,0,40,7,0
++    PuPlayer.LabelNew pDMD,"Splash7c",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,65,7,0
++
++
++  'Page 8 (Sequence Text 3 Lines)
++    'PuPlayer.LabelNew pDMD,"SequenceA",dmddef,(15*pDMD_FontScale),2292994,0,1,0,0,15,8,0
++    PuPlayer.LabelNew pDMD,"SequenceB",dmdalt,(13*pDMD_FontScale),8591587,0,1,0,0,56,8,0
++    PuPlayer.LabelSet pDMD,"SequenceB","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    PuPlayer.LabelNew pDMD,"SequenceC",dmdalt,(10*pDMD_FontScale),65021,0,1,0,0,43,8,0
++    PuPlayer.LabelSet pDMD,"SequenceC","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"SequenceD",dmdalt,(10*pDMD_FontScale),65021,0,1,0,0,30,8,0
++    PuPlayer.LabelSet pDMD,"SequenceD","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': 4, 'outline':5}"
++    PuPlayer.LabelNew pDMD,"Sktextvalue",dmddef,10,8591587 ,0,1,0,0,38,8,0
++    PuPlayer.LabelNew pDMD,"Skillshotnumber",dmddef,10,8591587,0,1,0,0,48,8,0
++  'Page 9 (Attract Text 3 Lines)
++    PuPlayer.LabelNew pDMD,"AttractA",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,25,9,0
++    PuPlayer.LabelNew pDMD,"AttractB",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,40,9,0
++    PuPlayer.LabelNew pDMD,"AttractC",dmdalt,(13*pDMD_FontScale),16711935,0,1,0,0,55,9,0
++    PuPlayer.LabelNew pDMD,"AttractD",dmdscr,(11*pDMD_FontScale),16777215,0,1,0,0,8,9,0
++    PuPlayer.LabelNew pDMD,"AttractE",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,28,9,0
++    PuPlayer.LabelNew pDMD,"AttractF",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,28,9,0
++    PuPlayer.LabelNew pDMD,"AttractG",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,37,9,0
++    PuPlayer.LabelNew pDMD,"AttractJ",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,37,9,0
++    PuPlayer.LabelNew pDMD,"AttractH",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,42,9,0
++    PuPlayer.LabelNew pDMD,"AttractK",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,42,9,0
++    PuPlayer.LabelNew pDMD,"AttractI",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 90,47,9,0
++    PuPlayer.LabelNew pDMD,"AttractL",dmdscr,(6*pDMD_FontScale),16777215,0,1,1, 11,47,9,0
++    puPlayer.LabelNew pDMD,"ScorbitQR1",  dmddef,   1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,9,1
++    puPlayer.LabelNew pDMD,"ScorbitQRicon1", dmddef,  1,RGB(247, 170, 51)     ,0,2,0 ,0,0    ,9,1
++
++  'Page 10 (Reactor Total)
++    PuPlayer.LabelNew pDMD,"Reactor_Total",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,48,10,0
++    PuPlayer.LabelSet pDMD,"Reactor_Total","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    PuPlayer.LabelNew pDMD,"ReactorHeader",dmddef,(10*pDMD_FontScale),65021,0,1,0,0,38,10,0
++    PuPlayer.LabelSet pDMD,"ReactorHeader","",1,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    PuPlayer.LabelNew pDMD,"HighScore",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,77,10,0
++    PuPlayer.LabelNew pDMD,"HighScore2",dmddef,(15*pDMD_FontScale),16777215,0,1,0,0,77,10,0
++    PuPlayer.LabelNew pDMD,"HighScore3",dmddef,(8*pDMD_FontScale),16777215,0,1,0,0,60,10,0
++    PuPlayer.LabelNew pDMD,"HighScore4",dmddef,(8*pDMD_FontScale),16777215,0,1,0,0,35,10,0
++
++
++  'Page 11 (Mystery)
++      PuPlayer.LabelNew pDMD,"Mystery" ,dmdalt,(10*pDMD_FontScale),0,0,1,1,0,48,11,1
++    PuPlayer.LabelSet pDMD,"Mystery","",1,"{'mt':2,'shadowcolor':255, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++
++  'Page 12 (tna)
+ 
+ 
+ 
+@@ -14637,7 +14725,7 @@
+ Sub pDMDStartGame
+   If UsePinup = 0 or hasPUP=false then Exit Sub
+   pInAttract=false
+-  ' PuPEvent 1
++  PuPEvent 1
+   pDMDSetPage(pDMDBlank)
+   DelayIntscore.enabled=True
+   DelayIntscore.interval=200
+@@ -14649,7 +14737,7 @@
+ 
+ Sub pDMDStartBall
+   If UsePinup = 0 or hasPUP=false then Exit Sub
+-  ' PuPEvent 908 'Stop Hi-Score Video
++  PuPEvent 908 'Stop Hi-Score Video
+   'pDMDSetPage(pScores)
+   pDMDmode="default"
+   pDMD_CurSequencePos=0
+@@ -14677,7 +14765,7 @@
+ Sub pDMDStartUP
+   If UsePinup = 0 or hasPUP=false then Exit Sub
+   pDMDSetPage(9)
+-  ' Pupevent 0
++  Pupevent 0
+   pDMDmode="attract"
+   pDMD_CurSequencePos=0
+   pDMD_Sequence.Interval = 2000
+@@ -14688,7 +14776,7 @@
+ Sub DelayIntscore_timer
+   DelayIntscore.enabled=false
+   pDMDSetPage(pScores)
+-  ' PuPEvent 2
++  PuPEvent 2
+   DelayQRClaim.Interval=6000
+   DelayQRClaim.Enabled=True
+ End Sub
+@@ -14725,15 +14813,15 @@
+ 'Tiltlabel
+ Sub LabelTilt
+     If TiltWarnings=2 Then
+-  ' puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+   If TiltWarnings=1 Then
+-  ' puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':65535, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':65535, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+   If TiltWarnings=0 Then
+-  ' puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':255, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Warnings",TiltWarnings & " WARNINGS LEFT",1,"{'mt':2,'shadowcolor':2960640,'color':255, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ End sub
+ 
+@@ -14742,7 +14830,7 @@
+ Sub Balldrainscore2_timer
+   Balldrainscore2.enabled=False
+   pDMDSetPage(pScores)
+-  ' puPlayer.LabelSet pDMD,"SHOOTAG","SHOOT AGAIN",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"SHOOTAG","SHOOT AGAIN",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   BallSavestop8.enabled=True
+   BallSavestop8.interval=2000
+ End sub
+@@ -14750,21 +14838,21 @@
+ 'Gameover complete
+ Sub Endofgamedrain
+ If ReactorTNAAchieved(CurrentPlayer) = 1 Then
+-  ' Pupevent 203
++  Pupevent 203
+   Bowen.enabled= True
+   Bowen.interval= 12700
+   Else
+-  ' Pupevent 100
++  Pupevent 100
+  End If
+ End Sub
+ 
+ Sub ComReactorsGO
+-  ' If pDMDgamecomplete=0 Then
+-  '   PuPEvent 101
+-  ' End If
+-  ' If pDMDgamecomplete=1 Then
+-  '   PuPEvent 104
+-  ' End If
++  If pDMDgamecomplete=0 Then
++  PuPEvent 101
++  End If
++  If pDMDgamecomplete=1 Then
++  PuPEvent 104
++  End If
+ End Sub
+ 
+ 
+@@ -14792,7 +14880,7 @@
+ Sub Bowen_timer
+   Bowen.enabled= False
+   pDMDSetPage(pDMDBlank)
+-  ' PuPEvent 205
++  PuPEvent 205
+ End Sub
+ 
+ '' Match smooth trasition'''
+@@ -14814,7 +14902,7 @@
+ '' Ball save Gif codes''
+ 
+ Sub  Ballsavegif
+-   ' puPlayer.LabelSet pDMD,"Fullscreengif2","Gif\\Ballsave.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 11,}"
++   puPlayer.LabelSet pDMD,"Fullscreengif2","Gif\\Ballsave.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 11,}"
+    BallSavestop2.enabled=True
+    BallSavestop2.interval=3000
+ End Sub
+@@ -14824,67 +14912,67 @@
+ 
+ Sub BallSavestop_timer
+   BallSavestop.enabled=False
+-  ' puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\blank.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130 ,'pagenum': 1,}"
++  puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\blank.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130 ,'pagenum': 1,}"
+ End Sub
+ 
+ Sub BallSavestop2_timer
+   BallSavestop2.enabled=False
+-  ' puPlayer.LabelSet pDMD,"Fullscreengif2","Gif\\blank2.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"Fullscreengif2","Gif\\blank2.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop3_timer
+   BallSavestop3.enabled=False
+-  'puPlayer.LabelSet pDMD,"Spinner","Gif\\blank3.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"Spinner","Gif\\blank3.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop4_timer
+   BallSavestop4.enabled=False
+-  'puPlayer.LabelSet pDMD,"Combo","Gif\\blank4.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"Combo","Gif\\blank4.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop5_timer
+   BallSavestop5.enabled=False
+-  'puPlayer.LabelSet pDMD,"Locklit","Gif\\blank5.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"Locklit","Gif\\blank5.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop6_timer
+   BallSavestop6.enabled=False
+-  'puPlayer.LabelSet pDMD,"Fullmawardscreengif","Gif\\blank8.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"Fullmawardscreengif","Gif\\blank8.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop7_timer
+   BallSavestop7.enabled=False
+-  'puPlayer.LabelSet pDMD,"ReactorMaxValue","Gif\\blank11.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
++  puPlayer.LabelSet pDMD,"ReactorMaxValue","Gif\\blank11.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0., 'anigif': 130,'pagenum': 1 ,}"
+ End Sub
+ 
+ Sub BallSavestop8_timer
+   BallSavestop8.enabled=False
+-  'puPlayer.LabelSet pDMD,"SHOOTAG","SHOOT AGAIN",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"SHOOTAG","SHOOT AGAIN",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub Recjp_timer
+   Recjp.enabled=False
+-  'puPlayer.LabelSet pDMD,"Rcttextvalue",""& FormatNumber (.5*ReactorValue(CurrentPlayer)),0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Rctshotnumber","REACTOR JACKPOT",0,"'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Rcttextvalue",""& FormatNumber (.5*ReactorValue(CurrentPlayer)),0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Rctshotnumber","REACTOR JACKPOT",0,"'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub Bonusrll_timer
+   Bonusrll.enabled=False
+-  'puPlayer.LabelSet pDMD,"BONUSLANES","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"BONUSLANES","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ 
+ '' Super Spinner ''
+ Sub Superspinnergif
+-   'puPlayer.LabelSet pDMD,"Spinner","Gif\\superspinner.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 50, 'height': 6, 'anigif': 130 ,pagenum': 1 }"
++   puPlayer.LabelSet pDMD,"Spinner","Gif\\superspinner.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 50, 'height': 6, 'anigif': 130 ,pagenum': 1 }"
+ End Sub
+ 
+ Sub Spinerlabel
+   If SpinCount<49 Then
+-  'puPlayer.LabelSet pDMD,"Status2","SUPER SPINNER " & SpinCount & "/50",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"Status2","SUPER SPINNER " & SpinCount & "/50",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+     End If
+   If SpinCount>50 then
+-  'puPlayer.LabelSet pDMD,"Status2","SUPER SPINNER " & SpinCount & "/50",0,"'mt':2, 'color':8591587 "
++  puPlayer.LabelSet pDMD,"Status2","SUPER SPINNER " & SpinCount & "/50",0,"'mt':2, 'color':8591587 "
+   Superspinnergif
+  End if
+ End Sub
+@@ -14893,14 +14981,14 @@
+ 
+ ''Combo''
+ Sub Combogif
+-   'puPlayer.LabelSet pDMD,"Combo","Gif\\combo.gif",1,"{'mt':2,'color':111111, 'width':100,'height': 100, 'anigif': 130 ,'pagenum': 2,}"
++   puPlayer.LabelSet pDMD,"Combo","Gif\\combo.gif",1,"{'mt':2,'color':111111, 'width':100,'height': 100, 'anigif': 130 ,'pagenum': 2,}"
+    BallSavestop4.enabled=True
+    BallSavestop4.interval=2000
+ End Sub
+ 
+ ''lock is lit
+ Sub  Lockislitgif
+-   'puPlayer.LabelSet pDMD,"Locklit","Gif\\lockislit.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,}"
++   puPlayer.LabelSet pDMD,"Locklit","Gif\\lockislit.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,}"
+    BallSavestop5.enabled=True
+    BallSavestop5.interval=1500
+ End Sub
+@@ -14908,60 +14996,60 @@
+ ''' Mystery gif codes'''
+ 
+ Sub MysteryAwardgif
+-  'puPlayer.LabelSet pDMD,"Fullmawardscreengif","Gif\\Mysteryawardlit.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 9,}"
++  puPlayer.LabelSet pDMD,"Fullmawardscreengif","Gif\\Mysteryawardlit.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 9,}"
+    BallSavestop6.enabled=True
+    BallSavestop6.interval=3000
+ End Sub
+ 
+ Sub Mysterydoorgif
+   BallSavestop6.enabled=True
+-  'puPlayer.LabelSet pDMD,"FullscreengifMystery","Gif\\test2.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 20,}"
++  puPlayer.LabelSet pDMD,"FullscreengifMystery","Gif\\test2.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 20,}"
+ End Sub
+ 
+ Sub mysterydoor_timer
+   mysterydoor.enabled=False
+-  'puPlayer.LabelSet pDMD,"FullscreengifMystery","Gif\\blank6.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130 ,'pagenum': 1,}"
++  puPlayer.LabelSet pDMD,"FullscreengifMystery","Gif\\blank6.gif",1,"{'mt':2,'color':111111, 'width': 0, 'height': 0, 'anigif': 130 ,'pagenum': 1,}"
+ End Sub
+ 
+ '''SkillShot gif codes''''
+ 
+ 
+ Sub SkillshotAwardGif
+-  'puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':100, 'height': 100., 'anigif': 130 ,}"
++  puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':100, 'height': 100., 'anigif': 130 ,}"
+    BallSavestop.enabled=True
+    BallSavestop.interval=2000
+ End Sub
+ 
+ Sub SkillShottext_timer
+   SkillShottext.enabled=False
+-  'puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",0,""
+-  'puPlayer.LabelSet pDMD,"Sktextvalue","SECRET SKILLSHOT",0,""
+-  ' Pupevent 15
++  puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",0,""
++  puPlayer.LabelSet pDMD,"Sktextvalue","SECRET SKILLSHOT",0,""
++  Pupevent 15
+ End Sub
+ 
+ Sub SkillShottext2_timer
+   SkillShottext2.enabled=False
+-  'puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",0,""
+-  'puPlayer.LabelSet pDMD,"Sktextvalue","SECRET SKILLSHOT",0,""
+-  ' Pupevent 16
++  puPlayer.LabelSet pDMD,"Skillshotnumber","40,000",0,""
++  puPlayer.LabelSet pDMD,"Sktextvalue","SECRET SKILLSHOT",0,""
++  Pupevent 16
+ End Sub
+ 
+ Sub SkillShottext3_timer
+   SkillShottext3.enabled=False
+-  'puPlayer.LabelSet pDMD,"UpSktextvalue","",0,""
+-  'puPlayer.LabelSet pDMD,"UpSkillshotnumber","",0,""
++  puPlayer.LabelSet pDMD,"UpSktextvalue","",0,""
++  puPlayer.LabelSet pDMD,"UpSkillshotnumber","",0,""
+ End Sub
+ 
+ ''''Gif skillshot Jackpot codes''''
+ 
+ Sub JackpotAwardGif
+-  'puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,}"
++  puPlayer.LabelSet pDMD,"Fullscreengif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,}"
+    BallSavestop.enabled=True
+    BallSavestop.interval=2000
+ End Sub
+ 
+ Sub JackpotAwardGif2
+-  'puPlayer.LabelSet pDMD,"Endgamegif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 2,}"
++  puPlayer.LabelSet pDMD,"Endgamegif","Gif\\Textunderlay.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 2,}"
+    BallSavestop.enabled=True
+    BallSavestop.interval=2000
+ End Sub
+@@ -14976,14 +15064,14 @@
+ 
+ Sub JackpotAwardscreenRestore_timer
+   JackpotAwardscreenRestore.enabled=False
+-  'puPlayer.LabelSet pDMD,"Skillshotnumber",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),0,"{'mt':2, 'color':10040319 ,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5,}"
+-  'puPlayer.LabelSet pDMD,"Sktextvalue","DESTROY VALUE",0,"'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Skillshotnumber",""& FormatNumber(ReactorValue(CurrentPlayer)*BallsOnPlayfield,0),0,"{'mt':2, 'color':10040319 ,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5,}"
++  puPlayer.LabelSet pDMD,"Sktextvalue","DESTROY VALUE",0,"'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ ' Reactor Value max
+ 
+ Sub  Reactovaluegif
+-   'puPlayer.LabelSet pDMD,"ReactorMaxValue","Gif\\reactorvaluemax.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 3}"
++   puPlayer.LabelSet pDMD,"ReactorMaxValue","Gif\\reactorvaluemax.gif",1,"{'mt':2,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 3}"
+    BallSavestop7.enabled=True
+    BallSavestop7.interval=2500
+ End Sub
+@@ -14993,55 +15081,55 @@
+ ' multiball
+ 
+ Sub MultiballGif
+-  'puPlayer.LabelSet pDMD,"Jackpot1","Gif\\TextunderlayMB.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 9}"
++  puPlayer.LabelSet pDMD,"Jackpot1","Gif\\TextunderlayMB.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 9}"
+    multiB.enabled=True
+    multiB.interval=2800
+ End Sub
+ 
+ Sub multiB_timer
+   multiB.enabled=True
+-  'puPlayer.LabelSet pDMD,"Jackpot1","Gif\\blank7.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
+-  'puPlayer.LabelSet pDMD,"Jackpotumber","MULTIBALL!",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpot1","Gif\\blank7.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
++  puPlayer.LabelSet pDMD,"Jackpotumber","MULTIBALL!",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub Multiball2Gif
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberonetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberonevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpot2","Gif\\Textunderlaytwo.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 10}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberonevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpot2","Gif\\Textunderlaytwo.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 10}"
+    multiB2.enabled=True
+    multiB2.interval=2800
+ End Sub
+ 
+ Sub multiB2_timer
+   multiB2.enabled=True
+-  'puPlayer.LabelSet pDMD,"Jackpot2","Gif\\blank8.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
++  puPlayer.LabelSet pDMD,"Jackpot2","Gif\\blank8.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
+ End Sub
+ 
+ Sub Multiball3Gif
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpot3","Gif\\Textunderlaythree.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 11}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpot3","Gif\\Textunderlaythree.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 11}"
+    multiB3.enabled=True
+    multiB3.interval=2800
+ End Sub
+ 
+ Sub multiB3_timer
+   multiB3.enabled=True
+-  'puPlayer.LabelSet pDMD,"Jackpot3","Gif\\blank9.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
++  puPlayer.LabelSet pDMD,"Jackpot3","Gif\\blank9.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
+ 
+ End Sub
+ 
+ Sub Multiball4Gif
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpot4","Gif\\Textunderlayfour.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 12}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpot4","Gif\\Textunderlayfour.gif",1,"{'mt':2,'zback':1,'color':111111, 'width': 100, 'height': 100., 'anigif': 130 ,'pagenum': 12}"
+    multiB4.enabled=True
+    multiB4.interval=2800
+ End Sub
+ 
+ Sub multiB4_timer
+   multiB4.enabled=True
+-  'puPlayer.LabelSet pDMD,"Jackpot4","Gif\\blank10.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
++  puPlayer.LabelSet pDMD,"Jackpot4","Gif\\blank10.gif",1,"{'mt':2,'zback':1,'color':111111, 'width':0, 'height': 0, 'anigif': 130 ,'pagenum': 1}"
+ End Sub
+ 
+ Sub MBoneText
+@@ -15069,13 +15157,13 @@
+   jpmoveone=jpmoveone+1
+   if pDMDmode="multi" then
+     Select Case jpmoveone
+-    Case 1 '  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
+-    Case 2 '  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
+-    Case 3 '  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
+-    Case 4 '  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
+-    Case 5 '  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2, 'color':10040319 ,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5,}":MBoneText
++    Case 1  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
++    Case 2  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
++    Case 3  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
++    Case 4  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
++    Case 5  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2, 'color':10040319 ,'shadowcolor':0, 'shadowstate': 5, 'xoffset': 4, 'yoffset': -4, 'outline':5,}":MBoneText
+     Case Else
+-     'puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
++     puPlayer.LabelSet pDMD,"Jackpotnumberonetext","JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberonevalue",""& FormatNumber (Jackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBoneText
+      jpmoveone=0
+      End Select
+   end if
+@@ -15086,13 +15174,13 @@
+   jpmoveoneD=jpmoveoneD+1
+   if pDMDmode="multi" then
+     Select Case jpmoveoneD
+-    Case 1  ' puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+-    Case 2  ' puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+-    Case 3  ' puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+-    Case 4  ' puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+-    Case 5  ' puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++    Case 1  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++    Case 2  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++    Case 3  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++    Case 4  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++    Case 5  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+     Case Else
+-     'puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
++     puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","DOUBLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue",""& FormatNumber (DoubleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonetwoText
+      jpmoveoneD=0
+      End Select
+   end if
+@@ -15103,13 +15191,13 @@
+   jpmoveoneT=jpmoveoneT+1
+   if pDMDmode="multi" then
+     Select Case jpmoveoneT
+-    Case 1 ' puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+-    Case 2 ' puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+-    Case 3 ' puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+-    Case 4 ' puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+-    Case 5 ' puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++    Case 1  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++    Case 2  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++    Case 3  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++    Case 4  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++    Case 5  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+     Case Else
+-     'puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
++     puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","TRIPLE JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue",""& FormatNumber (TripleJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonethreeText
+      jpmoveoneT=0
+      End Select
+   end if
+@@ -15120,13 +15208,13 @@
+   jpmoveoneS=jpmoveoneS+1
+   if pDMDmode="multi" then
+     Select Case jpmoveoneS
+-    Case 1  ' puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+-    Case 2  ' puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+-    Case 3  ' puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+-    Case 4  ' puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+-    Case 5  ' puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++    Case 1  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++    Case 2  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++    Case 3  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++    Case 4  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++    Case 5  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+     Case Else
+-     'puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
++     puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","SUPER JACKPOT!",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue",""& FormatNumber (SuperJackpot*BallsOnPlayfield,0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}":MBonesuperText
+      jpmoveoneS=0
+      End Select
+   end if
+@@ -15134,26 +15222,26 @@
+ 
+ Sub MBJackpotone_timer
+   MBJackpotone.enabled=False
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberonetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberonevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberonetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberonevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub MBJackpottwo_timer
+   MBJackpottwo.enabled=False
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbertwotext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbertwovalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub MBJackpotthree_timer
+   MBJackpotthree.enabled=False
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreetext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumberthreevalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ Sub MBJackpotsuper_timer
+   MBJackpotsuper.enabled=False
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+-  'puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbersupertext","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
++  puPlayer.LabelSet pDMD,"Jackpotnumbersupervalue","",0,"{'mt':2,'shadowcolor':0, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1,}"
+ End Sub
+ 
+ '********************** Sequences (for Attract, Mode Intros, Timed Prompts, etc): called by pDMD_Sequence Timer ************************
+@@ -15167,12 +15255,12 @@
+ Sub pDMD_Sequence_Timer
+   If UsePinup = 0 or hasPUP=false then pDMD_Sequence.Enabled=false: Exit Sub
+   pDMD_CurSequencePos=pDMD_CurSequencePos+1
+-  if pDMDmode="endofballbonus_disabled" then
++  if pDMDmode="endofballbonus" then
+     Select Case pDMD_CurSequencePos
+-    Case 1 ' puPlayer.LabelSet pDMD,"SequenceA","PLAYER BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceB",FormatNumber((AwardPoints1),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate':1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceC","BALLSAVE BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","UNUSED",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":pDMD_Sequence.Interval = 2000
+-    Case 2 ' puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((AwardPoints2),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceB","",0,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","TARGET BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-    Case 3 ' puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((AwardPoints3),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","REACTOR BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+-    Case 4 ' puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((TotalBonus),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","TOTAL BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    Case 1 puPlayer.LabelSet pDMD,"SequenceA","PLAYER BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceB",FormatNumber((AwardPoints1),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate':1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceC","BALLSAVE BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","UNUSED",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":pDMD_Sequence.Interval = 2000
++    Case 2 puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((AwardPoints2),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceB","",0,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","TARGET BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    Case 3 puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((AwardPoints3),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","REACTOR BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
++    Case 4 puPlayer.LabelSet pDMD,"SequenceC",FormatNumber((TotalBonus),0),1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}":puPlayer.LabelSet pDMD,"SequenceD","TOTAL BONUS",1,"{'mt':2,'color':0,'shadowcolor':16711935, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 2, 'outline':1}"
+     Case 5 pDMD_Sequence.interval= 500
+     Case Else
+     pDMD_CurSequencePos=0
+@@ -15180,14 +15268,14 @@
+     pDMDmode="default"
+     end Select
+   end if
+-  if pDMDmode="attract_disabled" then
++  if pDMDmode="attract" then
+     Select Case pDMD_CurSequencePos
+     Case 1 pDMD_Sequence.Interval = 4500
+     Case 2 Pupevent 251:pDMD_Sequence.Interval = 100
+     Case 3 if (Scorbit.bNeedsPairing) then
+           pDMDSetPage(9)
+-          'puPlayer.LabelSet pDMD, "ScorbitQRIcon1", "PuPOverlays\\QRcodeS.png",1, "{'mt':2,'width':39, 'height':80,'xalign':0,'yalign':0,'ypos':3,'xpos':3,'zback':1}"
+-          'puPlayer.LabelSet pDMD, "ScorbitQR1",   "PuPOverlays\\QRcode.png",1,  "{'mt':2,'width':34, 'height':60,'xalign':0,'yalign':0,'ypos':5,'xpos':5}"
++          puPlayer.LabelSet pDMD, "ScorbitQRIcon1", "PuPOverlays\\QRcodeS.png",1, "{'mt':2,'width':39, 'height':80,'xalign':0,'yalign':0,'ypos':3,'xpos':3,'zback':1}"
++          puPlayer.LabelSet pDMD, "ScorbitQR1",   "PuPOverlays\\QRcode.png",1,  "{'mt':2,'width':34, 'height':60,'xalign':0,'yalign':0,'ypos':5,'xpos':5}"
+         end if
+         pDMD_Sequence.Interval = 3900
+     Case 3 Pupevent 252:pDMD_Sequence.Interval = 4000
+@@ -15199,7 +15287,7 @@
+     Case 9 Pupevent 258:pDMD_Sequence.Interval = 3000
+     Case 10 Pupevent 259:pDMD_Sequence.Interval = 2000
+     Case 11 Pupevent 260:pDMD_Sequence.Interval = 10
+-    Case 12 pDMDSetPage(9): ' puPlayer.LabelSet pDMD, "AttractA","GRAND CHAMPION",1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}": puPlayer.LabelSet pDMD, "AttractB", FormatNumber((HighScore(0)),0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":puPlayer.LabelSet pDMD, "AttractC", HighScoreName(0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":pDMD_Sequence.Interval = 2000
++    Case 12 pDMDSetPage(9):puPlayer.LabelSet pDMD, "AttractA","GRAND CHAMPION",1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}": puPlayer.LabelSet pDMD, "AttractB", FormatNumber((HighScore(0)),0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":puPlayer.LabelSet pDMD, "AttractC", HighScoreName(0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":pDMD_Sequence.Interval = 2000
+     Case 13 puPlayer.LabelSet pDMD, "AttractA","HIGH SCORE 1",1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}": puPlayer.LabelSet pDMD, "AttractB", FormatNumber((HighScore(1)),0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":puPlayer.LabelSet pDMD, "AttractC", HighScoreName(1),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":pDMD_Sequence.Interval = 2000
+     Case 14 puPlayer.LabelSet pDMD, "AttractA","HIGH SCORE 2",1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}": puPlayer.LabelSet pDMD, "AttractB", FormatNumber((HighScore(2)),0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":puPlayer.LabelSet pDMD, "AttractC", HighScoreName(2),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":pDMD_Sequence.Interval = 2000
+     Case 15 puPlayer.LabelSet pDMD, "AttractA","HIGH SCORE 3",1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}": puPlayer.LabelSet pDMD, "AttractB", FormatNumber((HighScore(3)),0),1,"{'mt':2,'shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":puPlayer.LabelSet pDMD, "AttractC", HighScoreName(3),1,"{'mt':2,''shadowcolor':15921906, 'shadowstate': 1, 'xoffset': 2, 'yoffset': 4, 'outline':1}":pDMD_Sequence.Interval = 1500
+@@ -15214,7 +15302,7 @@
+     pDMD_CurSequencePos=0
+     end Select
+   end if
+-  if pDMDmode="Go1_disabled" then
++  if pDMDmode="Go1" then
+     pDMDgamecomplete=0
+     Select Case pDMD_CurSequencePos
+     Case 1 Pupevent 262:pDMDSetPage(9):PuPlayer.LabelSet pDMD, "AttractD","LAST GAME FINAL RESULTS",1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractE","PLAYER 1",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractF",""& FormatNumber(Score(1),0),1,"{'mt':2,}":pDMD_Sequence.Interval = 8000
+@@ -15241,7 +15329,7 @@
+     pDMD_CurSequencePos=0
+     end Select
+   end if
+-  if pDMDmode="Go2_disabled" then
++  if pDMDmode="Go2" then
+     pDMDgamecomplete=0
+     Select Case pDMD_CurSequencePos
+     Case 1 Pupevent 262:pDMDSetPage(9):PuPlayer.LabelSet pDMD, "AttractD","LAST GAME FINAL RESULTS",1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractE","PLAYER 1",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractJ","PLAYER 2",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractF",""& FormatNumber(Score(1),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractG",""& FormatNumber(Score(2),0),1,"{'mt':2,}":pDMD_Sequence.Interval = 8000
+@@ -15268,7 +15356,7 @@
+     pDMD_CurSequencePos=0
+     end Select
+   End if
+-  if pDMDmode="Go3_disabled" then
++  if pDMDmode="Go3" then
+     pDMDgamecomplete=0
+     Select Case pDMD_CurSequencePos
+     Case 1 Pupevent 262:pDMDSetPage(9):PuPlayer.LabelSet pDMD, "AttractD","LAST GAME FINAL RESULTS",1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractE","PLAYER 1",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractJ","PLAYER 2",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractK","PLAYER 3",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractF",""& FormatNumber(Score(1),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractG",""& FormatNumber(Score(2),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractH",""& FormatNumber(Score(3),0),1,"{'mt':2,}":pDMD_Sequence.Interval = 8000
+@@ -15295,7 +15383,7 @@
+     pDMD_CurSequencePos=0
+     end Select
+   End if
+-  if pDMDmode="Go4_disabled" then
++  if pDMDmode="Go4" then
+     pDMDgamecomplete=0
+     Select Case pDMD_CurSequencePos
+     Case 1 Pupevent 262:pDMDSetPage(9):PuPlayer.LabelSet pDMD, "AttractD","LAST GAME FINAL RESULTS",1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractE","PLAYER 1",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractJ","PLAYER 2",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractK","PLAYER 3",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractL","PLAYER 4",1,"{'mt':2,'}":puPlayer.LabelSet pDMD, "AttractF",""& FormatNumber(Score(1),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractG",""& FormatNumber(Score(2),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractH",""& FormatNumber(Score(3),0),1,"{'mt':2,}":puPlayer.LabelSet pDMD, "AttractI",""& FormatNumber(Score(4),0),1,"{'mt':2,}":pDMD_Sequence.Interval = 8000
+@@ -15340,10 +15428,10 @@
+   If pDMDCurPage <> pScores then Exit Sub
+   Spinerlabel
+   LabelTilt
+-  'puPlayer.LabelSet pDMD,"CurScore","" & FormatNumber(Score(CurrentPlayer),0),1,""
+-  'puPlayer.LabelSet pDMD,"REACTOR_VALUE","" & FormatNumber(ReactorValue(CurrentPlayer),0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-  'puPlayer.LabelSet pDMD,"RV","REACTOR VALUE: ",1,""
+-  'puPlayer.LabelSet pDMD,"RS","REACTOR STATUS: ",1,""
++  puPlayer.LabelSet pDMD,"CurScore","" & FormatNumber(Score(CurrentPlayer),0),1,""
++  puPlayer.LabelSet pDMD,"REACTOR_VALUE","" & FormatNumber(ReactorValue(CurrentPlayer),0),1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++  puPlayer.LabelSet pDMD,"RV","REACTOR VALUE: ",1,""
++  puPlayer.LabelSet pDMD,"RS","REACTOR STATUS: ",1,""
+ 
+ 
+   if ScorbitActive then
+@@ -15355,37 +15443,37 @@
+         puPlayer.LabelSet pDMD,"Credits","Credits: " & ""& Credits & "./ " & NameStr & " / BALL: " & BallinPlay ,1,""
+       Else
+ '       debug.print "no name"
+-        'puPlayer.LabelSet pDMD,"Credits","Credits: " & ""& Credits & "./ PLAYER: " & CurrentPlayer & " / BALL: " & BallinPlay ,1,""
++        puPlayer.LabelSet pDMD,"Credits","Credits: " & ""& Credits & "./ PLAYER: " & CurrentPlayer & " / BALL: " & BallinPlay ,1,""
+       End if
+     End if
+   Else
+-    'puPlayer.LabelSet pDMD,"Credits","Credits: " & ""& Credits & "./ PLAYER: " & CurrentPlayer & " / BALL: " & BallinPlay ,1,""
++    puPlayer.LabelSet pDMD,"Credits","Credits: " & ""& Credits & "./ PLAYER: " & CurrentPlayer & " / BALL: " & BallinPlay ,1,""
+   End if
+ 
+   if pLastAchievement<> "" then
+-    'puPlayer.LabelSet pDMD,"lblAchievement","LAST ACHIEVEMENT:",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+-    'puPlayer.LabelSet pDMD,"LastAchievement",pLastAchievement,1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"lblAchievement","LAST ACHIEVEMENT:",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"LastAchievement",pLastAchievement,1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+   if pLastAchievementValue <> "" then
+-    'puPlayer.LabelSet pDMD,"LastAchievementV",pLastAchievementValue,1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"LastAchievementV",pLastAchievementValue,1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+ 
+     If ReactorState(CurrentPlayer) = 0 then
+-    'puPlayer.LabelSet pDMD,"Status","REACTOR TARGETED",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"Status","REACTOR TARGETED",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+     If ReactorState(CurrentPlayer) = 1 then
+-    'puPlayer.LabelSet pDMD,"Status","REACTOR READY",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"Status","REACTOR READY",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+     If ReactorState(CurrentPlayer) = 2 then
+-    'puPlayer.LabelSet pDMD,"Status","REACTOR STARTED",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"Status","REACTOR STARTED",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+     If ReactorState(CurrentPlayer) = 3 then
+-    'puPlayer.LabelSet pDMD,"Status","REACTOR CRITICAL",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
++    puPlayer.LabelSet pDMD,"Status","REACTOR CRITICAL",1,"{'mt':2,'shadowcolor':2960640, 'shadowstate': 3, 'xoffset': -5, 'yoffset': -5, 'outline':1}"
+   End if
+ 
+ End Sub

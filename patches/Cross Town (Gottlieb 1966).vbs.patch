@@ -1,0 +1,39 @@
+--- vpxtable_scripts/Cross Town (Gottlieb 1966).vbs
++++ todo_extracted_tables/Cross Town (Gottlieb 1966).vbs
+@@ -947,16 +947,14 @@
+ End Sub
+ 
+ '************Check if Ball Out of Launch Lane
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub ballsInPlay_hit
+-'   If BallREnabled = 1 Then
+-'     BallREnabled = 0
+-'     BallInLane = False
+-'   End If
+-'   FirstBallOut = 1
+-'   DrainGate.collidable = 1
+-' End Sub
++Sub ballsInPlay_hit
++  If BallREnabled = 1 Then
++    BallREnabled = 0
++    BallInLane = False
++  End If
++  FirstBallOut = 1
++  DrainGate.collidable = 1
++End Sub
+ 
+ '************** Reset Lights For New Game
+ Sub resetLights
+@@ -3433,10 +3431,7 @@
+     coef = desiredcor / realcor
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Petaco (Juegos Populares 1984) v600.vbs
++++ todo_extracted_tables/Petaco (Juegos Populares 1984) v600.vbs
+@@ -829,10 +829,3 @@
+         Case 21:Petaco.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Petaco_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

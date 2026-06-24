@@ -1,0 +1,513 @@
+--- vpxtable_scripts/Capt. Card (Gottlieb 1973).vbs
++++ todo_extracted_tables/Capt. Card (Gottlieb 1973).vbs
+@@ -27,22 +27,6 @@
+ ballsize=1
+ ballmass=1
+ 
+-' Thalamus 2020 March : Improved directional sounds
+-' !! NOTE : Table not verified yet !!
+-
+-' Options
+-' Volume devided by - lower gets higher sound
+-
+-Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+-
+-' The rest of the values are multipliers
+-'
+-'  .5 = lower volume
+-' 1.5 = higher volume
+-
+-Const VolFlip   = 1    ' Flipper volume.
+-
+-
+ Dim Controller  ' B2S
+ Dim B2SScore  ' B2S Score Displayed
+ Const HSFileName="CaptCard_73_2VPX.txt"
+@@ -545,15 +529,15 @@
+   If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
+ '   LeftFlipper.RotateToEnd
+     LF.fire 'LeftFlipper.RotateToEnd
+-    PlayLoopSoundAtVol "buzzL",LeftFlipper, VolFlip
+-    PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, VolFlip
++    PlaySound "buzzL",-1
++    PlaySound SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers)
+   End If
+ 
+   If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
+ '   RightFlipper.RotateToEnd
+     RF.fire 'RightFlipper.RotateToEnd
+-    PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), LeftFlipper, VolFlip
+-    PlayLoopSoundAtVol "buzz", LeftFlipper, VolFlip
++    PlaySound SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers)
++    PlaySound "buzz",-1
+   End If
+ 
+   If keycode = LeftTiltKey Then
+@@ -671,7 +655,7 @@
+       exit sub
+     end if
+ 
+-    PlaySoundAtVol "plungerrelease", Plunger, 1
++    PlaySound"plungerrelease"
+     Plunger.Fire
+   End If
+ 
+@@ -683,14 +667,14 @@
+ 
+   If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
+     LeftFlipper.RotateToStart
+-    PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, VolFlip
++    PlaySound SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers)
+     StopSound "buzzL"
+   End If
+ 
+   If keycode = RightFlipperKey and InProgress=true and TableTilted=false Then
+     RightFlipper.RotateToStart
+         StopSound "buzz"
+-    PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, VolFlip
++    PlaySound SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers)
+   End If
+ 
+ End Sub
+@@ -700,7 +684,7 @@
+ Sub Drain_Hit()
+ 
+   Drain.DestroyBall
+-  PlaySoundAtVol "fx_drain", Drain, 1
++  PlaySound "fx_drain"
+   DOF 117, DOFPulse
+   NewBonusHolder.enabled=true
+ 
+@@ -795,7 +779,7 @@
+ '
+ 
+ Sub RightSlingShot_Slingshot
+-  PlaySoundAtVol SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors), sling1, 1
++  PlaySound SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
+     RSling0.Visible = 0
+     RSling1.Visible = 1
+     sling1.Rotx = 30
+@@ -814,7 +798,7 @@
+ End Sub
+ 
+ Sub LeftSlingShot_Slingshot
+-  PlaySoundAtVol SoundFXDOF("left_slingshot",103,DOFPulse,DOFContactors), sling2, 1
++  PlaySound SoundFXDOF("left_slingshot",103,DOFPulse,DOFContactors),0,1,-0.05,0.05
+     LSling0.Visible = 0
+     LSling1.Visible = 1
+     sling2.RotX = -30
+@@ -849,7 +833,7 @@
+ dim llstep, lrstep, rlstep, rrstep
+ 
+ Sub RubberWallSwitch1_Hit
+-  PlaySoundAtVol "target", ActiveBall, 1
++  PlaySound "target"
+     lrubber.Visible = 0
+     lrubber1.Visible = 1
+     llStep = 0
+@@ -866,7 +850,7 @@
+ End Sub
+ 
+ Sub RubberWallSwitch4_Hit
+-  PlaySoundAtVol "target", ActiveBall, 1
++  PlaySound "target"
+     lrrubber.Visible = 0
+     lrrubber1.Visible = 1
+     lrStep = 0
+@@ -883,7 +867,7 @@
+ End Sub
+ 
+ Sub RubberWallSwitch2_Hit
+-  PlaySoundAtVol "target", ActiveBall, 1
++  PlaySound "target"
+     rrrubber.Visible = 0
+     rrrubber1.Visible = 1
+     rrStep = 0
+@@ -900,7 +884,7 @@
+ End Sub
+ 
+ Sub RubberWallSwitch3_Hit
+-  PlaySoundAtVol "target", ActiveBall, 1
++  PlaySound "target"
+     rlrubber.Visible = 0
+     rlrubber1.Visible = 1
+     rlStep = 0
+@@ -927,7 +911,7 @@
+   bumps3.RotY=-5
+   Bump1Step = 0
+   Bumper1.timerenabled = 1
+-  PlaySoundAtVol SoundFXDOF("bumper1",105,DOFPulse,DOFContactors), ActiveBall, 1
++  PlaySound SoundFXDOF("bumper1",105,DOFPulse,DOFContactors)
+     bump1 = 1
+     If Bumper1Light.state=1 then
+       AddScore(1000)
+@@ -1036,7 +1020,7 @@
+ 
+ Sub Spade1_Hit()
+   If (Spade1.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     SpadeTargetsDownCounter=SpadeTargetsDownCounter+1
+     SpadeLight1.state=1
+@@ -1061,7 +1045,7 @@
+ 
+ Sub Spade2_Hit()
+   If (Spade2.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     SpadeTargetsDownCounter=SpadeTargetsDownCounter+1
+     SpadeLight2.state=1
+@@ -1086,7 +1070,7 @@
+ 
+ Sub Spade3_Hit()
+   If (Spade3.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     SpadeTargetsDownCounter=SpadeTargetsDownCounter+1
+     SpadeLight3.state=1
+@@ -1111,7 +1095,7 @@
+ 
+ Sub Spade4_Hit()
+   If (Spade4.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",107,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     SpadeTargetsDownCounter=SpadeTargetsDownCounter+1
+     SpadeLight4.state=1
+@@ -1136,7 +1120,7 @@
+ 
+ Sub Diamond1_Hit()
+   If (Diamond1.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     DiamondTargetsDownCounter=DiamondTargetsDownCounter+1
+     DiamondLight1.state=1
+@@ -1161,7 +1145,7 @@
+ 
+ Sub Diamond2_Hit()
+   If (Diamond2.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     DiamondTargetsDownCounter=DiamondTargetsDownCounter+1
+     DiamondLight2.state=1
+@@ -1186,7 +1170,7 @@
+ 
+ Sub Diamond3_Hit()
+   If (Diamond3.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     DiamondTargetsDownCounter=DiamondTargetsDownCounter+1
+     DiamondLight3.state=1
+@@ -1211,7 +1195,7 @@
+ 
+ Sub Diamond4_Hit()
+   If (Diamond4.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",106,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     DiamondTargetsDownCounter=DiamondTargetsDownCounter+1
+     DiamondLight4.state=1
+@@ -1236,7 +1220,7 @@
+ 
+ Sub Club1_Hit()
+   If (Club1.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     ClubTargetsDownCounter=ClubTargetsDownCounter+1
+     ClubLight1.state=1
+@@ -1261,7 +1245,7 @@
+ 
+ Sub Club2_Hit()
+   If (Club2.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     ClubTargetsDownCounter=ClubTargetsDownCounter+1
+     ClubLight2.state=1
+@@ -1286,7 +1270,7 @@
+ 
+ Sub Club3_Hit()
+   If (Club3.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     ClubTargetsDownCounter=ClubTargetsDownCounter+1
+     ClubLight3.state=1
+@@ -1311,7 +1295,7 @@
+ 
+ Sub Club4_Hit()
+   If (Club4.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",108,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     ClubTargetsDownCounter=ClubTargetsDownCounter+1
+     ClubLight4.state=1
+@@ -1336,7 +1320,7 @@
+ 
+ Sub Heart1_Hit()
+   If (Heart1.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     HeartTargetsDownCounter=HeartTargetsDownCounter+1
+     HeartLight1.state=1
+@@ -1361,7 +1345,7 @@
+ 
+ Sub Heart2_Hit()
+   If (Heart2.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     HeartTargetsDownCounter=HeartTargetsDownCounter+1
+     HeartLight2.state=1
+@@ -1386,7 +1370,7 @@
+ 
+ Sub Heart3_Hit()
+   If (Heart3.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     HeartTargetsDownCounter=HeartTargetsDownCounter+1
+     HeartLight3.state=1
+@@ -1411,7 +1395,7 @@
+ 
+ Sub Heart4_Hit()
+   If (Heart4.IsDropped = False) and (TableTilted=false) then
+-    PlaySoundAtVol SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets), ActiveBall, 1
++    PlaySound SoundFXDOF("droptargetdropped",109,DOFPulse,DOFDropTargets)
+     SetMotor(500)
+     HeartTargetsDownCounter=HeartTargetsDownCounter+1
+     HeartLight4.state=1
+@@ -1545,7 +1529,7 @@
+   case 1:
+ 
+     Pkickarm.rotz=15
+-    PlaysoundAtVol SoundFXDOF("saucer",113,DOFPulse,DOFContactors), Kicker1, 1
++    Playsound SoundFXDOF("saucer",113,DOFPulse,DOFContactors)
+     DOF 114, DOFPulse
+     Kicker1.kick 170,11
+   case 2:
+@@ -1732,7 +1716,7 @@
+     obj.IsDropped=0
+     obj.Collidable=1
+   next
+-  PlaySound SoundFXDOF("dropsup2",110,DOFPulse,DOFContactors) ' TODO
++  PlaySound SoundFXDOF("dropsup2",110,DOFPulse,DOFContactors)
+   SpadeTargetsDownCounter=0
+   DiamondTargetsDownCounter=0
+   CenterLight1.state=0
+@@ -1761,7 +1745,7 @@
+     obj.IsDropped=0
+     obj.Collidable=1
+   next
+-  PlaySound SoundFXDOF("dropsup2",111,DOFPulse,DOFContactors) ' TODO
++  PlaySound SoundFXDOF("dropsup2",111,DOFPulse,DOFContactors)
+   ClubTargetsDownCounter=0
+   HeartTargetsDownCounter=0
+   CenterLight3.state=0
+@@ -3030,154 +3014,69 @@
+ 
+ end sub
+ 
+-' *******************************************************************************************************
+-' Positional Sound Playback Functions by DJRobX, Rothbauerw and Herweh
+-' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' *******************************************************************************************************
++'*********************************************************************
++'                 Positional Sound Playback Functions
++'*********************************************************************
+ 
+ ' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+ ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+ ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+-
+ Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+   PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+ End Sub
+ 
+-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+-
++' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
+ Sub PlaySoundAt(soundname, tableobj)
+-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+ End Sub
+ 
+-' set position as table object and Vol + RndPitch manually
+-
+-Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed.
+-
+ Sub PlaySoundAtBall(soundname)
+-  PlaySoundAt soundname, ActiveBall
++    PlaySoundAt soundname, ActiveBall
+ End Sub
+ 
+-'Set position as table object and Vol manually.
+-
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+-
+-Sub PlaySoundAtBallVol(sound, VolMult)
+-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++Sub PlaySoundAtVolLoops(sound, tableobj, Vol, Loops)
++  PlaySound sound, Loops, Vol, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+ End Sub
+ 
+-Sub PlaySoundAtBallAbsVol(sound, VolMult)
+-  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++Sub PlaySoundAtVol(sound, tableobj, Vol)
++    PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+ End Sub
+ 
+-' requires rampbump1 to 7 in Sound Manager
+-
+-Sub RandomBump(voladj, freq)
+-  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+-  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
+-
+-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+-End Sub
+-
+-Sub PlaySoundAtBOTBallZ(sound, BOT)
+-  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+-End Sub
+-
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+-
+-'*********************************************************************
+-'                     Supporting Ball & Sound Functions
+-'*********************************************************************
++' *********************************************************************
++'                      Supporting Ball & Sound Functions
++' *********************************************************************
+ 
+-Function RndNum(min, max)
+-  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
++Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
++    Vol = Csng(BallVel(ball) ^2 / 2000)
+ End Function
+ 
+-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.y * 2 / table1.height-1
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^10)
+-  Else
+-    AudioFade = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+ 
+-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    AudioPan = Csng(tmp ^10)
+-  Else
+-    AudioPan = Csng(-((- tmp) ^10) )
+-  End If
++Function AudioPan(TableObject) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
++    Dim tmp
++    tmp = TableObject.x * 2 / table1.width-1
++    If tmp > 0 Then
++        AudioPan = Csng(tmp ^4.5)
++    Else
++        AudioPan = Csng(-((- tmp) ^4.5) )
++    End If
+ End Function
+ 
+-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
++Function AudioFade(TableObject) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table.
+   Dim tmp
+-  On Error Resume Next
+-  tmp = ball.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    Pan = Csng(tmp ^10)
+-  Else
+-    Pan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  Vol = Csng(BallVel(ball) ^2 / VolDiv)
+-End Function
+-
+-Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
++    tmp = TableObject.y * 2 / Table1.height-1
++    If tmp > 0 Then
++    AudioFade = Csng(tmp ^4.5)
++    Else
++        AudioFade = Csng(-((- tmp) ^4.5) )
++    End If
+ End Function
+ 
+ Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+-  Pitch = BallVel(ball) * 20
++    Pitch = BallVel(ball) * 20
+ End Function
+ 
+ Function BallVel(ball) 'Calculates the ball speed
+-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+-End Function
+-
+-Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+-  BallVelZ = INT((ball.VelZ) * -1 )
+-End Function
+-
+-Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+-  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+-End Function
+-
+-'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+-
+-Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+-  Dim AB, BC, CD, DA
+-  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+-  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+-  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+-  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+-
+-  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+-    InRect = True
+-  Else
+-    InRect = False
+-  End If
++    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+ End Function
+ 
+ 
+@@ -4253,10 +4152,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

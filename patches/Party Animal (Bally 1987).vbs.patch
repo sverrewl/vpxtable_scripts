@@ -1,0 +1,50 @@
+--- vpxtable_scripts/Party Animal (Bally 1987).vbs
++++ todo_extracted_tables/Party Animal (Bally 1987).vbs
+@@ -123,20 +123,14 @@
+   Set bsR=New cvpmBallStack
+     bsR.InitSaucer sw22,22,302,40
+     bsR.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsR.KickForceVar = 3
+-    bsR.KickAngleVar = 3
+ 
+   Set bsL=New cvpmBallStack
+     bsL.InitSaucer sw23,23,85,40
+     bsL.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsL.KickForceVar = 3
+-    bsL.KickAngleVar = 3
+ 
+   Set bsT=New cvpmBallStack
+     bsT.InitSaucer sw24,24,180,6
+     bsT.InitExitSnd SoundFX("popper_ball",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsT.KickForceVar = 3
+-    bsT.KickAngleVar = 3
+ 
+   Set dtDrop=New cvpmDropTarget
+     dtDrop.InitDrop Array(SW33,SW34,SW35),Array(33,34,35)
+@@ -1332,11 +1326,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -1468,11 +1462,3 @@
+   End Select
+ End Sub
+ 
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

@@ -1,0 +1,34 @@
+--- vpxtable_scripts/Radical (Bally 1990) Prototype _VPWmod_v1.0.1.vbs
++++ todo_extracted_tables/Radical (Bally 1990) Prototype _VPWmod_v1.0.1.vbs
+@@ -22,7 +22,6 @@
+ Option Explicit
+ Randomize
+ 
+-' Thalamus - added more randomness to kickers
+ 
+ 'Disables the upper sling making the table more like the retail version instead of prototype
+ Const DisableUpperSling = 1
+@@ -168,10 +167,8 @@
+     With bsTP
+     .InitSw 0, 16, 0, 0, 0, 0, 0, 0
+     .InitKick sw16, 0, 55
+-    .KickZ = 1.5
++  .KickZ = 1.5
+     .InitExitSnd SoundFX("fx_popper", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+     End With
+ 
+     ' Drop Middle targets
+@@ -2242,10 +2239,7 @@
+         "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+         if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :         aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++        aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+         'playsound "fx_knocker"
+         if debugOn then TBPout.text = str
+     End Sub

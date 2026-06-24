@@ -1,0 +1,45 @@
+--- vpxtable_scripts/Truck Stop (Bally 1988) v1.0.vbs
++++ todo_extracted_tables/Truck Stop (Bally 1988) v1.0.vbs
+@@ -3718,15 +3718,13 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+-
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+   Dim tmp
+   tmp = tableobj.x * 2 / tablewidth - 1
+@@ -3737,11 +3735,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -4780,10 +4777,3 @@
+   LM_L_l37_UnderPF, LM_L_l38_Playfield, LM_L_l38_UnderPF, LM_L_l39_Playfield, LM_L_l39_UnderPF, LM_L_l4_Playfield, LM_L_l4_UnderPF, LM_L_l40_Parts, LM_L_l40_Plastics, LM_L_l40_Playfield, LM_L_l40_UnderPF, LM_L_l40_sw24, LM_L_l41_Playfield, LM_L_l41_UnderPF, LM_L_l42_Parts, LM_L_l42_Playfield, LM_L_l42_UnderPF, LM_L_l47_UnderPF, LM_L_l49_Parts, LM_L_l49_Playfield, LM_L_l49_UnderPF, LM_L_l5_Parts, LM_L_l5_Playfield, LM_L_l5_UnderPF, LM_L_l50_Parts, LM_L_l50_Playfield, LM_L_l50_UnderPF, LM_L_l51_LRSling1, LM_L_l51_LRSling2, LM_L_l51_LRSling3, LM_L_l51_LRSling4, LM_L_l51_Parts, LM_L_l51_Plastics, LM_L_l51_UnderPF, LM_L_l52_Parts, LM_L_l52_UnderPF, LM_L_l53_Parts, LM_L_l53_Playfield, LM_L_l53_UnderPF, LM_L_l54_Parts, LM_L_l54_Playfield, LM_L_l54_UnderPF, LM_L_l55_UnderPF, LM_L_l56_UnderPF, LM_L_l63_Parts, LM_L_l63_UnderPF, LM_L_l65_Parts, LM_L_l65_Playfield, LM_L_l65_UnderPF, LM_L_l66_Parts, LM_L_l66_Playfield, LM_L_l66_UnderPF, LM_L_l67_LLSling1, LM_L_l67_LLSling2, LM_L_l67_LLSling3, LM_L_l67_LLSling4, _
+   LM_L_l67_Parts, LM_L_l67_Plastics, LM_L_l67_Playfield, LM_L_l67_UnderPF, LM_L_l68_Parts, LM_L_l68_UnderPF, LM_L_l69_Parts, LM_L_l69_Playfield, LM_L_l69_UnderPF, LM_L_l7_Playfield, LM_L_l7_UnderPF, LM_L_l70_Parts, LM_L_l70_UnderPF, LM_L_l71_UnderPF, LM_L_l72_UnderPF, LM_L_l8_Parts, LM_L_l8_Playfield, LM_L_l8_UnderPF, LM_L_l81_Playfield, LM_L_l81_UnderPF, LM_L_l82_Parts, LM_L_l82_Playfield, LM_L_l82_UnderPF, LM_L_l83_Parts, LM_L_l83_UnderPF, LM_L_l84_Parts, LM_L_l84_Playfield, LM_L_l84_UnderPF, LM_L_l85_Parts, LM_L_l85_Playfield, LM_L_l85_UnderPF, LM_L_l86_UnderPF, LM_L_l87_Parts, LM_L_l87_Playfield, LM_L_l87_UnderPF, LM_L_l88_UnderPF, LM_L_l9_Parts, LM_L_l9_Playfield, LM_L_l9_UnderPF, LM_L_l90_Parts, LM_L_l90_Plastics, LM_L_l90_UnderPF)
+ ' VLM  Arrays - End
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

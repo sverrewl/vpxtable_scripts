@@ -1,0 +1,133 @@
+--- vpxtable_scripts/Time Machine (Data East 1988) v.2.2.vbs
++++ todo_extracted_tables/Time Machine (Data East 1988) v.2.2.vbs
+@@ -380,10 +380,10 @@
+   End With
+ 
+   With Controller
+-   .GameName = cGameName
+-   If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
++    .GameName = cGameName
++    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+     .SplashInfoLine="Time Machine Data East 1988"
+-   .HandleMechanics = 0
++    .HandleMechanics = 0
+     .HandleKeyboard = 0
+     .ShowDMDOnly = 1
+     .ShowFrame = 0
+@@ -395,7 +395,7 @@
+   Controller.Run
+ 
+   vpmNudge.TiltSwitch = 1
+- vpmNudge.Sensitivity = 5
++  vpmNudge.Sensitivity = 5
+   vpmNudge.TiltObj = Array(Switch46, Switch47, Switch48, LeftSlingshot, RightSlingshot)
+ 
+   '************  Trough **************
+@@ -417,13 +417,11 @@
+   bsVUK.InitKick Switch45, 130, 2
+   'bsVUK.InitEntrySnd "Solenoid", "Solenoidoff"
+   bsVUK.InitExitSnd SoundFX("exitsubway",DOFContactors), SoundFX("popper",DOFContactors)
+-  bsVUK.KickForceVar = 3
+-  bsVUK.KickAngleVar = 3
+ 
+ ' Visible Lock - implements post ball lock
+   Set vLock = New cvpmVLock
+- vLock.InitVLock Array(Switch36, Switch37, Switch38), Array(Switch36Kick, Switch37Kick, Switch38Kick), Array(36, 37, 38)
+- 'vLock.InitSnd "Solenoid", "Solenoidoff"
++  vLock.InitVLock Array(Switch36, Switch37, Switch38), Array(Switch36Kick, Switch37Kick, Switch38Kick), Array(36, 37, 38)
++  'vLock.InitSnd "Solenoid", "Solenoidoff"
+   vLock.CreateEvents "vLock"
+ 
+   kickback.Pullback
+@@ -885,16 +883,16 @@
+ End Sub
+ 
+ Sub SolTroughIn(Enabled)
+- If Enabled Then
+-   bsTrough.EntrySol_On
++  If Enabled Then
++    bsTrough.EntrySol_On
+     Timer2.Enabled = 0
+     Timer2.Enabled = 1
+   End If
+ End Sub
+ 
+ Sub SolVUKOut(Enabled)
+- If Enabled Then
+-   Timer2.Enabled = 0
++  If Enabled Then
++    Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     bsVUK.ExitSol_On
+   End If
+@@ -902,12 +900,12 @@
+ 
+ Sub SolLock(Enabled)
+   If Enabled Then
+-   Timer2.Enabled = 0
++    Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     vLock.SolExit True
+     Solanim.enabled = 1
+     vl = vl - 1
+- Else
++  Else
+     Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     vLock.SolExit False
+@@ -1168,7 +1166,7 @@
+ 
+ Sub SolLockRelease(enabled)
+   solanim.enabled = 1
+- vLock.SolExit enabled
++  vLock.SolExit enabled
+ End Sub
+ 
+ '************************************************************************
+@@ -3509,12 +3507,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+-	If tmp > 0 Then
+-		AudioFade = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioFade = CSng(tmp ^ 10)
++  Else
++    AudioFade = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+@@ -3527,12 +3524,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+-	If tmp > 0 Then
+-		AudioPan = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioPan = CSng(tmp ^ 10)
++  Else
++    AudioPan = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function Vol(ball) ' Calculates the volume of the sound based on the ball speed
+@@ -4764,10 +4760,3 @@
+     End If
+   End If
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

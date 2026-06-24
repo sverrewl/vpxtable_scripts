@@ -1,0 +1,78 @@
+--- vpxtable_scripts/NBA Fastbreak (Bally 1997)_VPWmod_v1.3.7.vbs
++++ todo_extracted_tables/NBA Fastbreak (Bally 1997)_VPWmod_v1.3.7.vbs
+@@ -355,8 +355,6 @@
+         .InitSaucer sw68, 68, 65, 32
+         .Kickz = 1.2
+         .InitExitSnd "fx_popper", "fx_Solenoid"
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsSaucer2 = New cvpmBallStack
+@@ -364,8 +362,6 @@
+         .InitSaucer sw67, 67, 26, 28
+         .Kickz = 1.15
+         .InitExitSnd "fx_popper", "fx_Solenoid"
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsSaucer3 = New cvpmBallStack
+@@ -373,8 +369,6 @@
+         .InitSaucer sw66, 66, 337, 28
+         .Kickz = 1.15
+         .InitExitSnd "fx_popper", "fx_Solenoid"
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsSaucer4 = New cvpmBallStack
+@@ -382,8 +376,6 @@
+         .InitSaucer sw65, 65, 293, 31.5
+         .Kickz = 1.2
+         .InitExitSnd "fx_popper", "fx_Solenoid"
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Defender
+@@ -1231,12 +1223,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+-	If tmp > 0 Then
+-		AudioFade = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioFade = CSng(tmp ^ 10)
++  Else
++    AudioFade = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+@@ -1249,12 +1240,15 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+-	If tmp > 0 Then
+-		AudioPan = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioPan = CSng(tmp ^ 10)
++  Else
++    AudioPan = CSng( - (( - tmp) ^ 10) )
++  End If
++End Function
++
++Function Vol(ball) ' Calculates the volume of the sound based on the ball speed
++  Vol = CSng(BallVel(ball) ^ 2)
+ End Function
+ 
+ Function Volz(ball) ' Calculates the volume of the sound based on the ball speed

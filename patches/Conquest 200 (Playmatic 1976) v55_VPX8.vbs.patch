@@ -1,0 +1,10 @@
+--- vpxtable_scripts/Conquest 200 (Playmatic 1976) v55_VPX8.vbs
++++ todo_extracted_tables/Conquest 200 (Playmatic 1976) v55_VPX8.vbs
+@@ -6,7 +6,6 @@
+ '  Conquest 200 / Playmatic / IPD No. 1672 / October, 1976 / 4 Players
+ '  VPX8 version by JPSalas and pedator. Build in 2024, version 5.5.1
+ ' ***********************************************************************
+-' Thalamus - added proper exit - and regular stuff, seems ok
+ 
+ Option Explicit
+ Randomize

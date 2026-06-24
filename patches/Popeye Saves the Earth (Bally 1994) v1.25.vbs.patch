@@ -1,0 +1,73 @@
+--- vpxtable_scripts/Popeye Saves the Earth (Bally 1994) v1.25.vbs
++++ todo_extracted_tables/Popeye Saves the Earth (Bally 1994) v1.25.vbs
+@@ -304,24 +304,17 @@
+     bsRightPopper.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+     bsRightPopper.Balls=0
+ 
+-    ' Thalamus - more randomness to kickers pls
+   Set bsLeftPopper=New cvpmBallStack
+-    bsLeftPopper.KickForceVar = 3
+-    bsLeftPopper.KickAngleVar = 3
+     bsLeftPopper.InitSw 0,31,0,0,0,0,0,0
+     bsLeftPopper.InitKick LeftPopper,215,2
+     bsLeftPopper.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+     bsLeftPopper.Balls=0
+ 
+   Set bsLockup=New cvpmBallStack
+-    bsLockup.KickForceVar = 3
+-    bsLockup.KickAngleVar = 3
+     bsLockup.InitSw 0,45,44,43,0,0,0,0
+     bsLockup.Balls=0
+ 
+   Set bsLockKickout=New cvpmBallStack
+-    bsLockKickout.KickForceVar = 3
+-    bsLockKickout.KickAngleVar = 3
+     bsLockKickout.InitSw 0,87,0,0,0,0,0,0
+     bsLockKickout.InitKick Lockup,164,6
+     bsLockKickout.InitExitSnd SoundFX("popper",DOFContactors),SoundFX("solon",DOFContactors)
+@@ -900,7 +893,7 @@
+         End If
+     End If
+ 
+-  If keyCode = PlungerKey or keyCode = LockBarKey Then
++  If keyCode = PlungerKey Then
+     Controller.Switch(23) = 1
+   End If
+ 
+@@ -940,7 +933,7 @@
+ 
+     If keycode = LeftMagnaSave Then bLutActive = False: LUTBox.text = ""
+ 
+-  If keyCode = PlungerKey or keyCode = LockBarKey Then
++  If keyCode = PlungerKey Then
+     Controller.Switch(23) = 0:Plunger.Fire:SoundPlungerReleaseBall()
+   End If
+ 
+@@ -2782,11 +2775,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2800,11 +2792,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

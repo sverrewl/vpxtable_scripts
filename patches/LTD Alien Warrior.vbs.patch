@@ -1,0 +1,12 @@
+--- vpxtable_scripts/LTD Alien Warrior.vbs
++++ todo_extracted_tables/LTD Alien Warrior.vbs
+@@ -157,9 +157,6 @@
+ 
+ Sub Table1_Init
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+    vpmMapLights AllLights
+ 
+ 

@@ -1,0 +1,40 @@
+--- vpxtable_scripts/Thunder Man (AppleTime 1987).0.8.6.vbs
++++ todo_extracted_tables/Thunder Man (AppleTime 1987).0.8.6.vbs
+@@ -2920,11 +2920,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2938,11 +2937,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -4563,9 +4561,3 @@
+ '0.8.6:Hauntfreaks
+ '0.8.6:DGrimmReaper: Desktop and VR updates to hauntfreaks backglass resources
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

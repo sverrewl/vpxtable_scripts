@@ -1,0 +1,17 @@
+--- vpxtable_scripts/Frontier (Bally 1980) v2.0.0.vbs
++++ todo_extracted_tables/Frontier (Bally 1980) v2.0.0.vbs
+@@ -332,11 +332,9 @@
+ 
+ End Sub
+ 
+-' Thalamus - should be table1
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-' Thalamus, Table is named Table1 - not Table
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub

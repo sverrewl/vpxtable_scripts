@@ -1,0 +1,11 @@
+--- vpxtable_scripts/24 (Stern 2009) v.2.3.1.vbs
++++ todo_extracted_tables/24 (Stern 2009) v.2.3.1.vbs
+@@ -365,8 +365,6 @@
+   'Kickers
+     Set bsTEject = New cvpmBallStack
+     bsTEject.InitSaucer sw3, 3, 162, 15
+- bsTeject.KickForceVar = 3
+- bsTeject.KickAngleVar = 3
+   bsTEject.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+     ' Impulse Plunger - used as the autoplunger

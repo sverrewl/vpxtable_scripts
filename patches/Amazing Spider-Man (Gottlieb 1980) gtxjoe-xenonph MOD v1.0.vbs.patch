@@ -1,0 +1,73 @@
+--- vpxtable_scripts/Amazing Spider-Man (Gottlieb 1980) gtxjoe-xenonph MOD v1.0.vbs
++++ todo_extracted_tables/Amazing Spider-Man (Gottlieb 1980) gtxjoe-xenonph MOD v1.0.vbs
+@@ -6,7 +6,6 @@
+ 
+ ' Thalamus 2018-07-18
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+-' Changed UseSolenoids=1 to 2
+ ' No special SSF tweaks yet.
+ 
+ Option Explicit
+@@ -21,7 +20,7 @@
+ 
+ LoadVPM "01000100", "sys80.vbs", 2.31
+ 
+-Const UseSolenoids  = 2
++Const UseSolenoids  = 1
+ Const UseLamps      = False
+ Const UseGI         = False
+ 
+@@ -36,9 +35,6 @@
+ 
+   GiLights 0
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   On Error Resume Next
+ 
+   With Controller
+@@ -481,8 +477,8 @@
+   dim finalspeed
+     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+   If finalspeed > 20 then
+-    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-  End if
++    PlaySound "fx_rubber2", 0, Vol(ActiveBall)*3, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End If
+   If finalspeed >= 6 AND finalspeed <= 20 then
+     RandomSoundRubber()
+   End If
+@@ -501,9 +497,9 @@
+ 
+ Sub RandomSoundRubber()
+   Select Case Int(Rnd*3)+1
+-    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*3, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*3, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*3, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+   End Select
+ End Sub
+ 
+@@ -1013,7 +1009,7 @@
+       If BallVel(BOT(b) ) > 1 Then
+         rolling(b) = True
+         if BOT(b).z < 30 Then ' Ball on playfield
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
++          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*6, Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+         Else ' Ball on raised ramp
+           PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+         End If
+@@ -1038,10 +1034,3 @@
+   End if
+ End Sub
+ 
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

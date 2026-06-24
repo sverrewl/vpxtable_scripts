@@ -1,0 +1,17 @@
+--- vpxtable_scripts/X-Men(ICPjuggla)6-27c.vbs
++++ todo_extracted_tables/X-Men(ICPjuggla)6-27c.vbs
+@@ -240,12 +240,10 @@
+ 
+    Sub Table_Paused:Controller.Pause = 1:End Sub
+    Sub Table_unPaused:Controller.Pause = 0:End Sub
++   Sub Table_exit()
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-'   Sub Table_exit()
++ Controller.Stop
+ 
+-Sub Table_exit()
+-  Controller.Stop
+ End sub
+ 
+ 

@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Hurricane (Williams 1991) v.2.4.vbs
++++ todo_extracted_tables/Hurricane (Williams 1991) v.2.4.vbs
+@@ -396,8 +396,6 @@
+   Set bsRightJuggler = new cvpmBallStack
+   bsRightJuggler.InitSaucer RightJuggler, 57, 225, 2
+   bsRightJuggler.InitExitSnd SoundFX("fx_popper_ball",DOFContactors), SoundFX("fx_solenoid",DOFContactors)
+-  bsRightJuggler.KickForceVar = 3
+-  bsRightJuggler.KickAngleVar = 3
+ 
+     ' init timers
+   PinMAMETimer.Interval         = PinMAMEInterval

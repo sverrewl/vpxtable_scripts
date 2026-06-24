@@ -1,0 +1,184 @@
+--- vpxtable_scripts/Capt. Fantastic and The Brown Dirt Cowboy (Bally 1976) 2.0.3.vbs
++++ todo_extracted_tables/Capt. Fantastic and The Brown Dirt Cowboy (Bally 1976) 2.0.3.vbs
+@@ -75,7 +75,6 @@
+  Dim Round
+  Dim BallInPlay
+  Dim Coins
+- Dim CoinsCounter
+  Dim Tilt
+  Dim FreePlayNum
+  Dim DoubleBonusFlag
+@@ -105,7 +104,6 @@
+   HiScore=Cdbl(LoadValue("captfant","DBHiScore"))
+   If HiScore="" Then HiScore=5000
+   Coins=0
+-  CoinsCounter=0
+   GameSeq=0  'Game Over
+   If B2SOn Then Controller.B2SSetGameover 1
+   GameOverBG.State = 1
+@@ -219,7 +217,7 @@
+   End If
+   STATScores(p) = STATScores(p) + s
+     If B2SOn Then
+-  Controller.B2SSetScorePlayer p, STATScores(p)
++    Controller.B2SSetScorePlayer p, STATScores(p)
+     If STATScores(p) >= 100000 then
+       Controller.B2SSetScoreRollover 24+p,1
+     End If
+@@ -292,78 +290,10 @@
+ End Sub
+ 
+ 
+-
+-
+-
+-
+-PlayMusic "Captain\CF_00.mp3",0.2
+-
+-Sub MusicOn5(CoinsCounter)
+-  Select Case CoinsCounter
+-    Case 1: PlaySound "fx_benny1"
+-    Case 2: PlaySound "fx_benny1"
+-    Case 3: PlaySound "fx_benny1"
+-    Case 4: PlaySound "fx_benny1"
+-    Case 5: PlaySound "fx_benny2"
+-
+-  End Select
+-End Sub
+-
+-Dim musicNum
+-Sub NextTrack
+-
+-If musicNum = 0  Then PlayMusic "captain\cf_01.mp3"  End If
+-If musicNum = 1  Then PlayMusic "captain\cf_02.mp3"  End If
+-If musicNum = 2  Then PlayMusic "captain\cf_03.mp3"  End If
+-If musicNum = 3  Then PlayMusic "captain\cf_04.mp3"  End If
+-If musicNum = 4  Then PlayMusic "captain\cf_05.mp3"  End If
+-If musicNum = 5  Then PlayMusic "captain\cf_06.mp3"  End If
+-If musicNum = 6  Then PlayMusic "captain\cf_07.mp3"  End If
+-If musicNum = 7  Then PlayMusic "captain\cf_08.mp3"  End If
+-If musicNum = 8  Then PlayMusic "captain\cf_09.mp3"  End If
+-If musicNum = 9  Then PlayMusic "captain\cf_10.mp3"  End If
+-
+-musicNum = (musicNum + 1) mod 10
+-
+-If musicNum > 10 Then musicNum = 0
+-
+-
+-End Sub
+-
+-Sub captfant_MusicDone
+-        NextTrack
+-
+-End Sub
+-
+-Sub Delay( seconds )
+-  Dim wshShell, strCmd
+-  Set wshShell = CreateObject( "WScript.Shell" )
+-  strCmd = wshShell.ExpandEnvironmentStrings( "%COMSPEC% /C (PING.EXE -n " & ( seconds + 1 ) & " localhost >NUL 2>&1)" )
+-  wshShell.Run strCmd, 0, 1
+-  Set wshShell = Nothing
+-End Sub
+-
+-
+-
+-
+-
+-
+-
+  Sub captfant_KeyDown(ByVal keycode)
+-
+-  If KeyCode = RightMagnaSave Then NextTrack
+-    If KeyCode = LeftMagnaSave Then EndMusic
+-  If keycode = StartGameKey Then EndMusic
+-  If keycode = StartGameKey Then playsound "dx_intro"
+-  If keycode = StartGameKey Then NextTrack
+-
+   If keycode = AddCreditKey Then
+     If Coins < 9 Then
+       Coins=Coins+1
+-  If CoinsCounter < 6 Then
+-       CoinsCounter=CoinsCounter+1
+-     If CoinsCounter > 5 Then CoinsCounter = 1
+-  End If
+       If VRRoom = 1 Then
+         cred =reels(4, 0)
+         reels(4, 0) = 0
+@@ -379,20 +309,10 @@
+       Case 1: PlaySound ("Coin_In_2"), 0, CoinSoundLevel, 0, 0.25
+       Case 2: PlaySound ("Coin_In_3"), 0, CoinSoundLevel, 0, 0.25
+     End Select
+-    Delay 1
+-      MusicOn5(CoinsCounter)
+   End If
+-
+       If keycode = 5 Then
+          If Coins < 9 Then
+        Coins=Coins+1
+-
+-
+-    If CoinsCounter < 6 Then
+-       CoinsCounter=CoinsCounter+1
+-     If CoinsCounter > 5 Then CoinsCounter = 1
+-  End If
+-
+       If VRRoom = 1 Then
+         cred =reels(4, 0)
+         reels(4, 0) = 0
+@@ -408,10 +328,7 @@
+       Case 1: PlaySound ("Coin_In_2"), 0, CoinSoundLevel, 0, 0.25
+       Case 2: PlaySound ("Coin_In_3"), 0, CoinSoundLevel, 0, 0.25
+     End Select
+-    Delay 1
+-      MusicOn5(CoinsCounter)
+   End If
+-
+      If keycode = StartGameKey Then
+     SoundStartButton
+          If MaxPlayers < 4 And Coins>0 And Not HSEnterMode=true Then
+@@ -675,7 +592,6 @@
+     FlTilt.visible = 1
+   End If
+     PlaySound SoundFX("solon",0)
+-  EndMusic
+     For i=1 to 3
+        SetBumperOff i
+     Next
+@@ -850,7 +766,6 @@
+           End If
+           hiscstate = 0
+                     GameOverBG.State = 1
+-          EndMusic
+                     REPA(1) = 0:REPA(2) = 0:REPA(3) = 0:REPA(4) = 0
+           REPB(1) = 0:REPB(2) = 0:REPB(3) = 0:REPB(4) = 0
+           REPC(1) = 0:REPC(2) = 0:REPC(3) = 0:REPC(4) = 0
+@@ -3867,8 +3782,7 @@
+                 "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+                 if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :                 aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++                aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+                 if debugOn then TBPout.text = str
+         End Sub
+ 
+@@ -3878,8 +3792,7 @@
+                 RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+                 coef = desiredcor / realcor
+                 If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :                         aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++                        aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+                 End If
+         End Sub
+ 
+@@ -5642,7 +5555,8 @@
+ '2.0.1          - Fixed DOF
+ '           - Fixed Ball Shadows (Thanks rothbauerw)
+ '           - Tuned down rubber posts
+-'2.0.2  - Wylte     - Changed name of Sub BallShadowUpdate to BallReflectionUpdate (stole the shadows), DBS, adjusted X code to Rothbauerw's new
++'2.0.2  - Wylte     - Implemented Dynamic Ball Shadows
++'           - Changed name of Sub BallShadowUpdate to BallReflectionUpdate (stole the shadows), DBS, adjusted X code to Rothbauerw's new
+ '           - put flipper logos and shadows in FrameTimer (removed duplicate updates in UpdateStuff), lowered bumper and post shadow z's to values below ball shadows
+ '   - Leojreimroc - Fixes to B2S and a few DOFs
+ '           - Added high score tape

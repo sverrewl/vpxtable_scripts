@@ -1,0 +1,27 @@
+--- vpxtable_scripts/Fathom (Bally 1981) Vintage Mod_v1.2.vbs
++++ todo_extracted_tables/Fathom (Bally 1981) Vintage Mod_v1.2.vbs
+@@ -113,12 +113,9 @@
+ For each xx in GI:xx.State = 1: Next
+ 
+ 'Primitive Gate
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Here - I moved this action to the other active sub
+-' Sub FlipperTimer_Timer
+-'   PrimGate2.Rotz = Gate7.Currentangle
+-'  End Sub
++Sub FlipperTimer_Timer
++  PrimGate2.Rotz = Gate7.Currentangle
++ End Sub
+ 
+    Sub SolTimer_Timer
+   Dim ChgSol, tmp, ii, CBoard, solnum
+@@ -859,7 +856,7 @@
+ sub FlipperTimer_Timer()
+   FlipperLSh.RotZ = LeftFlipper.currentangle
+   FlipperRSh.RotZ = RightFlipper.currentangle
+-  PrimGate2.Rotz = Gate7.Currentangle
++
+ End Sub
+ 
+ '*****************************************

@@ -1,0 +1,58 @@
+--- vpxtable_scripts/Big Game (Stern 1980) w VR Room 1.5.1.vbs
++++ todo_extracted_tables/Big Game (Stern 1980) w VR Room 1.5.1.vbs
+@@ -11,10 +11,10 @@
+ '               Table Options
+ '************************************************************************
+ 'redbone options set the way I want them - not OEM - please set options accordingly to your taste
+-Const AmbientSounds     = 0   ' 0=play Nothing 1=ambient jungle sounds 2=ambient jungle sounds with tiger growls
++Const AmbientSounds     = 2   ' 0=play Nothing 1=ambient jungle sounds 2=ambient jungle sounds with tiger growls
+ Const AmbientSoundVolume  = .3
+-Const AccentLighting      = 0   ' 0=none 1=claws and eyes  2=eyes only 3=all
+-Const PlasticStuds        = 0   '  0=white (original)  1=metal black (black shiny looks good and not as obtrusive)
++Const AccentLighting      = 1   ' 0=none 1=claws and eyes  2=eyes only 3=all
++Const PlasticStuds        = 1   '  0=white (original)  1=metal black (black shiny looks good and not as obtrusive)
+ 
+ Const ChooseBall          = 0 ' *** Ball Settings **********
+                           ' *** 0 = Normal Ball no script action
+@@ -251,11 +251,8 @@
+     vpmTimer.AddTimer 2000, "Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
+     Controller.Run
+ 
+-' Thalamus : Was missing 'vpminit me'
+-vpminit me
+-
+-'    PinmameTimer.Interval = PinMameInterval
+-'    PinmameTimer.Enabled = 1
++    PinmameTimer.Interval = PinMameInterval
++    PinmameTimer.Enabled = 1
+ 
+     ' trough def
+     Set bsTrough = New cvpmBallstack
+@@ -2161,11 +2158,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2179,11 +2175,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

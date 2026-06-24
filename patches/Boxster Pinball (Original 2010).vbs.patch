@@ -1,0 +1,12 @@
+--- vpxtable_scripts/Boxster Pinball (Original 2010).vbs
++++ todo_extracted_tables/Boxster Pinball (Original 2010).vbs
+@@ -741,9 +741,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

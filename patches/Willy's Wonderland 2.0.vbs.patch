@@ -1,0 +1,38 @@
+--- vpxtable_scripts/Willy's Wonderland 2.0.vbs
++++ todo_extracted_tables/Willy's Wonderland 2.0.vbs
+@@ -272,14 +272,10 @@
+ 
+     Set bsKicker=New cvpmBallStack
+         bsKicker.InitSaucer Kicker,5,0,22
+-        bsKicker.KickForceVar = 3
+-        bsKicker.KickAngleVar = 3
+ '        bsKicker.InitExitSnd  SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+     Set bsHole=New cvpmBallStack
+         bsHole.InitSaucer Hole,6,180,5
+-        bsHole.KickForceVar = 3
+-        bsHole.KickAngleVar = 3
+ '        bsHole.InitExitSnd  SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+   set DTT = new cvpmDropTarget
+@@ -1198,7 +1194,7 @@
+ '                  Start nFOZZY FLIPPERS'
+ '******************************************************
+ 
+-'Flipper Correction Initialization late 80s to early 90s
++'Flipper Correction Initialization late 80’s to early 90’s
+ dim LF : Set LF = New FlipperPolarity
+ dim RF : Set RF = New FlipperPolarity
+ 
+@@ -1767,10 +1763,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

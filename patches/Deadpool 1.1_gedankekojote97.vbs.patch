@@ -1,0 +1,79 @@
+--- vpxtable_scripts/Deadpool 1.1_gedankekojote97.vbs
++++ todo_extracted_tables/Deadpool 1.1_gedankekojote97.vbs
+@@ -385,8 +385,6 @@
+         If keycode = LeftTiltKey Then CheckTilt 'only check the tilt during game
+         If keycode = RightTiltKey Then CheckTilt
+         If keycode = CenterTiltKey Then CheckTilt
+-        ' Thalamus - added mechanicaltilt
+-        If keycode = MechanicalTilt Then CheckTilt
+ 
+         If keycode = LeftFlipperKey Then SolLFlipper 1 : FlipperActivate LeftFlipper, RFPress:InstantInfoTimer.Enabled = True:RotateLaneLights 1:UpdateGates 1
+         If keycode = RightFlipperKey Then SolRFlipper 1 :FlipperActivate RightFlipper, RFPress:InstantInfoTimer.Enabled = True:RotateLaneLights 0
+@@ -3881,22 +3879,11 @@
+     Else
+         li048.State = 0
+     End If
+-'    If BoomCount> 0 then
+-'        BoomLight.State = 2
+-'    Else
+-'        BoomLight.State = 0
+-'    End If
+-     If BoomCount> 0 then
+-       BoomLight.State = 2
+-       If BoomCount <= 3 then
+-         DOF 200, DOFOn: DOF 201, DOFOff 'White Fire button
+-       Else
+-         DOF 200, DOFOff: DOF 201, DOFOn 'Red Fire button
+-       End If
+-     Else
+-       BoomLight.State = 0
+-       DOF 200, 0: DOF 201, 0 'Fire button off
+-     End If
++    If BoomCount> 0 then
++        BoomLight.State = 2
++    Else
++        BoomLight.State = 0
++    End If
+     If bNinjaMBSJackpot Then
+         SetLightColor li058, teal, 2
+     ElseIf bSkillShotReady Then
+@@ -4362,17 +4349,10 @@
+         PlaySound "vo_boombuttonisready" : pupevent 846
+         BoomCount = BoomCount + 1
+         For i = 1 to 4:Boom(CurrentPlayer, i) = 0:Next
+-'        If BoomCount> 3 Then
+-'            SetLightColor BoomLight, red, 2
+-'        Else
+-'            SetLightColor BoomLight, white, 2
+-'        End If
+         If BoomCount> 3 Then
+-          SetLightColor BoomLight, red, 2
+-          DOF 200, DOFOff: DOF 201, DOFOn
++            SetLightColor BoomLight, red, 2
+         Else
+-          SetLightColor BoomLight, white, 2
+-          DOF 200, DOFOn: DOF 201, DOFOff
++            SetLightColor BoomLight, white, 2
+         End If
+     End If
+ End Sub
+@@ -6557,8 +6537,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -6568,8 +6547,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 

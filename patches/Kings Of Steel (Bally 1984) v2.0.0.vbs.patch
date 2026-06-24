@@ -1,0 +1,43 @@
+--- vpxtable_scripts/Kings Of Steel (Bally 1984) v2.0.0.vbs
++++ todo_extracted_tables/Kings Of Steel (Bally 1984) v2.0.0.vbs
+@@ -324,9 +324,9 @@
+ 
+ End Sub
+ 
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub
+@@ -1433,11 +1433,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -1451,11 +1450,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

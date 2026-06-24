@@ -1,0 +1,73 @@
+--- vpxtable_scripts/Michael Jordan (Data East 1992)2.0.4.vbs
++++ todo_extracted_tables/Michael Jordan (Data East 1992)2.0.4.vbs
+@@ -211,8 +211,6 @@
+       .InitSaucer Sw32, 32, 270, 17
+         .KickZ = 0.33
+         .InitExitSnd "salidadebola", SoundFX("fx_Solenoid",DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+ 
+@@ -222,8 +220,6 @@
+        .InitSaucer Sw40, 40, 172, 17
+         .KickZ = 0.33
+         .InitExitSnd "salidadebola", SoundFX("fx_Solenoid",DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+ 
+@@ -233,8 +229,6 @@
+         .InitSaucer sw31, 31, 0, 75
+         .KickZ = 1.5
+         .InitExitSnd "fx_vukout_LAH", SoundFX("fx_Solenoid",DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+ 
+@@ -545,7 +539,7 @@
+   If keycode = RightFlipperkey then flipperbuttonright.X=flipperbuttonright.X-5
+   If keycode = StartGameKey then startb.Y=startb.Y-5
+ 
+-    If keycode = plungerkey or keycode = LockBarKey then controller.switch(9) = 1
++    If keycode = plungerkey then controller.switch(9) = 1
+   If keycode = plungerkey then NewestLaunchButton.Z=NewestLaunchButton.Z-5:NewestLaunchButton.y=NewestLaunchButton.y-5:NewButtonGlass.y=NewButtonGlass.y-5:NewButtonGlass.z=NewButtonGlass.z-5
+ 
+     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
+@@ -558,7 +552,7 @@
+   If keycode = LeftFlipperKey then flipperbuttonleft.X=flipperbuttonleft.X-5
+   If keycode = RightFlipperkey then flipperbuttonright.X=flipperbuttonright.X+5
+   If keycode = StartGameKey then startb.Y=startb.Y+5
+-    If keycode = plungerkey or keycode = LockBarKey then controller.switch(9) = 0
++    If keycode = plungerkey then controller.switch(9) = 0
+ 
+   If keycode = plungerkey then NewestLaunchButton.Z=NewestLaunchButton.Z+5:NewestLaunchButton.y=NewestLaunchButton.y+5:NewButtonGlass.y=NewButtonGlass.y+5:NewButtonGlass.z=NewButtonGlass.z+5
+ 
+@@ -1375,11 +1369,11 @@
+     pmball(b).Z = BOT(b).Y
+     pmball(b).X = BOT(b).X
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -1579,10 +1573,3 @@
+ Sub StartButtonTimer_Timer()
+   If l33.State = 1 then startb.blenddisableLighting = 2 Else startb.blenddisableLighting = 0
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

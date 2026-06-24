@@ -1,0 +1,52 @@
+--- vpxtable_scripts/Genesis (Premier 1986).vbs
++++ todo_extracted_tables/Genesis (Premier 1986).vbs
+@@ -2419,14 +2419,12 @@
+ Sub LeftFlipper_Collide(parm)
+   CheckDampen Activeball, LeftFlipper, parm
+   CheckLiveCatch Activeball, LeftFlipper, LFCount, parm
+-  RandomSoundFlipper()
+   'LeftFlipperCollide parm
+ End Sub
+ 
+ Sub RightFlipper_Collide(parm)
+   CheckDampen Activeball, RightFlipper, parm
+   CheckLiveCatch Activeball, RightFlipper, RFCount, parm
+-  RandomSoundFlipper()
+   'RightFlipperCollide parm
+ End Sub
+ 
+@@ -3199,15 +3197,13 @@
+     ' End If
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' I moved the sound to the previous sub that seems to be the most advanced one
+-' Sub LeftFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
+-'
+-' Sub RightFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
++Sub LeftFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
++
++Sub RightFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+ Sub RandomSoundFlipper()
+   PlaySound "TOM_Rubber_Flipper_Loud_" & Int(Rnd*7)+1, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+@@ -3590,10 +3586,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub

@@ -1,0 +1,169 @@
+--- vpxtable_scripts/Sinbad (Gottlieb 1978) Designone Mod.vbs
++++ todo_extracted_tables/Sinbad (Gottlieb 1978) Designone Mod.vbs
+@@ -272,11 +272,11 @@
+ 
+ '**************SPINNER************
+ 
+-Sub Spinner1_Spin():vpmTimer.PulseSw 10:PlaySoundAt "fx_spinner", Spinner1 :End Sub
++Sub Spinner1_Spin():vpmTimer.PulseSw 10:PlaySound "fx_spinner" :End Sub
+ 
+ '*******GATES ******************
+ 
+-Sub Gate_Hit(): PlaySoundAt "fx_Gate", ActiveBall : End Sub
++Sub Gate_Hit(): PlaySound "fx_Gate" : End Sub
+ 
+ '********************DROP TARGETS******************
+ 
+@@ -295,14 +295,14 @@
+ 
+ ' Drain &
+ 
+-Sub Drain_Hit:bsTrough.AddBall Me:PlaysoundAt "Drain", ActiveBall:End Sub
++Sub Drain_Hit:bsTrough.AddBall Me:Playsound "Drain":End Sub
+ 
+ 'Pop Bumpers
+-Sub Bumper1_Hit:vpmTimer.PulseSw 14 : playsoundAt SoundFX("fx_bumper",DOFContactors), ActiveBall
++Sub Bumper1_Hit:vpmTimer.PulseSw 14 : playsound SoundFX("fx_bumper",DOFContactors)
+ : B1L1.State = 1:B1L2. State = 1 : Me.TimerEnabled = 1 : End Sub
+ Sub Bumper1_Timer : B1L1.State = 0:B1L2. State = 0 : Me.Timerenabled = 0 : End Sub
+ 
+-Sub Bumper2_Hit:vpmTimer.PulseSw 13 : playsoundAt SoundFX("fx_bumper",DOFContactors), ActiveBall
++Sub Bumper2_Hit:vpmTimer.PulseSw 13 : playsound SoundFX("fx_bumper",DOFContactors)
+ : B2L1.State = 1:B2L2. State = 1 : Me.TimerEnabled = 1 : End Sub
+ Sub Bumper2_Timer : B2L1.State = 0:B2L2. State = 0 : Me.Timerenabled = 0 : End Sub
+ 
+@@ -329,17 +329,17 @@
+ 
+ '****************Target********************
+ 
+-Sub TargetSW41a_hit:vpmTimer.PulseSw(41):PlaysoundAt SoundFXDOF("target",106,DOFPulse,DOFContactors),ActiveBall:GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
++Sub TargetSW41a_hit:vpmTimer.PulseSw(41):Playsound SoundFXDOF("target",106,DOFPulse,DOFContactors):GIPL34.State=0:TargetSW41a.TimerEnabled=True:End Sub
+ Sub TargetSW41a_Timer:TargetSW41a.TimerEnabled=False:GIPL34.State=1:End Sub
+-Sub TargetSW41c_hit:vpmTimer.PulseSw(41):PlaysoundAt SoundFXDOF("target",107,DOFPulse,DOFContactors),ActiveBall:End Sub
++Sub TargetSW41c_hit:vpmTimer.PulseSw(41):Playsound SoundFXDOF("target",107,DOFPulse,DOFContactors):End Sub
+ 
+ '**right lane switch
+ Sub SW44_Hit():Controller.Switch(44)=1:End Sub
+ Sub SW44_UnHit():Controller.Switch(44)=0:Playsound "":End Sub
+ 
+-Sub LeftSlingshot_slingshot():vpmtimer.pulsesw 60:PlaysoundAt SoundFX("slingshot",DOFContactors),ActiveBall:End Sub
+-Sub RightSlingshot_Slingshot():vpmtimer.pulsesw 60:PlaysoundAt SoundFX("slingshot",DOFContactors),ActiveBall:End Sub
+-Sub TargetExtraBall_Hit():vpmtimer.pulsesw 64:playsoundAt SoundFX("spothit",DOFContactors),ActiveBall:TargetExtraBall.Isdropped=1:TargetExtraBall2.Isdropped=0:TargetExtraBall.Timerenabled=1:End Sub
++Sub LeftSlingshot_slingshot():vpmtimer.pulsesw 60:Playsound SoundFX("slingshot",DOFContactors):End Sub
++Sub RightSlingshot_Slingshot():vpmtimer.pulsesw 60:Playsound SoundFX("slingshot",DOFContactors):End Sub
++Sub TargetExtraBall_Hit():vpmtimer.pulsesw 64:playsound SoundFX("spothit",DOFContactors):TargetExtraBall.Isdropped=1:TargetExtraBall2.Isdropped=0:TargetExtraBall.Timerenabled=1:End Sub
+ Sub TargetExtraBall_Timer:TargetExtraBall.TimerEnabled=0:TargetExtraBall.isdropped=0:TargetExtraBall2.isdropped=1:End Sub
+ 
+ '**you hit the left or right outlane, bad luck, try again!
+@@ -365,10 +365,10 @@
+ Sub TP3_Hit():dtDropP.Hit 3:GIPL40.State=1:End Sub
+ 
+ '**triggers for leaf switches linked to switch 54
+-Sub SW54a_Hit():vpmTimer.PulseSw(54): PlaySoundAt "fx_sensor",ActiveBall:End Sub
+-Sub SW54b_Hit():vpmTimer.PulseSw(54): PlaySoundAt "fx_sensor",ActiveBall:End Sub
+-Sub SW54c_Hit():vpmTimer.PulseSw(54): PlaySoundAt "fx_sensor",ActiveBall:End Sub
+-Sub SW54d_Hit():vpmTimer.PulseSw(54): PlaySoundAt "fx_sensor",ActiveBall:End Sub
++Sub SW54a_Hit():vpmTimer.PulseSw(54): PlaySound "fx_sensor":End Sub
++Sub SW54b_Hit():vpmTimer.PulseSw(54): PlaySound "fx_sensor":End Sub
++Sub SW54c_Hit():vpmTimer.PulseSw(54): PlaySound "fx_sensor":End Sub
++Sub SW54d_Hit():vpmTimer.PulseSw(54): PlaySound "fx_sensor":End Sub
+ 'Sub SW54d_Timer:Sw54d.TimerEnabled=False:End Sub
+ Sub SW54e_Hit():vpmTimer.PulseSw(54):End Sub
+ Sub SW54f_Hit():vpmTimer.PulseSw(54):End Sub
+@@ -684,14 +684,14 @@
+ ' Diverse Collection Hit Sounds
+ '******************************
+ 
+-Sub aMetals_Hit(idx):PlaySound "fx_metalhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber_post", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber_pin", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
+-Sub aRubber_Pegs_Hit(idx):PlaySound "fx_rubber_peg", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0,AudioFade(ActiveBall):End Sub
++Sub aMetals_Hit(idx):PlaySound "fx_metalhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Posts_Hit(idx):PlaySound "fx_rubber_post", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber_pin", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aPlastics_Hit(idx):PlaySound "fx_PlasticHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Pegs_Hit(idx):PlaySound "fx_rubber_peg", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
+ 
+ '*********************************************************
+ ' Real Time Flipper adjustments - by JLouLouLou & JPSalas
+@@ -955,7 +955,7 @@
+ 
+ sub DingwallA_hit
+   vpmTimer.PulseSw 54
+-  PlaySoundat "target", ActiveBall
++  PlaySound "target"
+   rdwa.visible=0
+   RDWA1.visible=1
+   rdwAstep=1
+@@ -975,7 +975,7 @@
+ 
+ sub DingwallB_hit
+     vpmTimer.PulseSw 54
+-  PlaySoundat "target", ActiveBall
++  PlaySound "target"
+   rdwB.visible=0
+   RDWB1.visible=1
+   rdwbstep=1
+@@ -994,7 +994,7 @@
+ 
+ sub DingwallC_hit
+     vpmTimer.PulseSw 54
+-  PlaySoundat "target", ActiveBall
++  PlaySound "target"
+   rdwC.visible=0
+   RDWc1.visible=1
+   rdwCstep=1
+@@ -1014,7 +1014,7 @@
+ 
+ sub DingwallD_hit
+     vpmTimer.PulseSw 54
+-  PlaySoundat "target", ActiveBall
++  PlaySound "target"
+   rdwd.visible=0
+   RDWd1.visible=1
+   rdwDstep=1
+@@ -1034,13 +1034,15 @@
+ 
+ sub DingwallE_hit
+     vpmTimer.PulseSw 54
+-  PlaySoundat "target", ActiveBall
++  PlaySound "target"
+   rdwE.visible=0
+   RDWE1.visible=1
+   rdwEstep=1
+   DingwallE.timerenabled=1
++
+ end sub
+ 
++
+ sub DingwallE_timer
+   select case rdwEstep
+     Case 1: RDWE1.visible=0: rdwe.visible=1
+@@ -1050,9 +1052,15 @@
+   rdwEstep=rdwEstep+1
+ end sub
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
++
++
++
++
++
++
++
++
++
++
++
+ 

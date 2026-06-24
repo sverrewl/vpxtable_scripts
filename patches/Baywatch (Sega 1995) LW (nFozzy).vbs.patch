@@ -1,0 +1,35 @@
+--- vpxtable_scripts/Baywatch (Sega 1995) LW (nFozzy).vbs
++++ todo_extracted_tables/Baywatch (Sega 1995) LW (nFozzy).vbs
+@@ -52,7 +52,7 @@
+ 
+ '************************ ROM
+ 
+-Const cGameName = "bay_401"
++Const cGameName = "baywatch"
+ 
+ '************************ Ball
+ 
+@@ -358,7 +358,6 @@
+   If KeyCode = RightFlipperKey Then Controller.Switch(64) = 1 : Pincab_FlipperButtonRight.X = Pincab_FlipperButtonRight.X -6
+   If keycode = PlungerKey Then Controller.Switch(50) = 1 : Pincab_LaunchButton.z = Pincab_LaunchButton.z - 3 : Pincab_LaunchButton.y = Pincab_LaunchButton.y -5
+   If KeyCode = KeyFront Then Controller.Switch(8) = 1
+-  If keycode = LockBarKey Then Controller.Switch(50) = 1
+ ' If KeyCode = LeftFlipperKey And PinPlay=1 Then LeftFlipper.RotateToEnd:LeftFlipper1.RotateToEnd:Controller.Switch(63) = 1
+ ' If KeyCode = RightFlipperKey And PinPlay=1 Then RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd:Controller.Switch(64) = 1
+   If keycode = LeftTiltKey Then Nudge 90, 4:PlaySound SoundFX("fx_nudge",0), 0, NudVol, -0.1, 0.25
+@@ -391,7 +390,6 @@
+   If KeyCode = LeftFlipperKey Then Controller.Switch(63) = 0 : Pincab_FlipperButtonLeft.X = Pincab_FlipperButtonLeft.X -6
+   If KeyCode = RightFlipperKey Then Controller.Switch(64) = 0 : Pincab_FlipperButtonRight.X = Pincab_FlipperButtonRight.X +6
+   If keycode = PlungerKey Then Controller.Switch(50) = 0 : Pincab_LaunchButton.z = Pincab_LaunchButton.z + 3 : Pincab_LaunchButton.y = Pincab_LaunchButton.y +5
+-  If keycode = LockBarKey Then Controller.Switch(50) = 0
+   If KeyCode = KeyFront Then Controller.Switch(8) = 0
+ ' If KeyCode = LeftFlipperKey And PinPlay=1 Then LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart:Controller.Switch(63) = 0
+ ' If KeyCode = RightFlipperKey And PinPlay=1 Then RightFlipper.RotateToStart:RightFlipper1.RotateToStart:Controller.Switch(64) = 0
+@@ -411,6 +409,7 @@
+ End If
+ 
+ End Sub
++
+ '*********
+ ' Switches
+ '*********

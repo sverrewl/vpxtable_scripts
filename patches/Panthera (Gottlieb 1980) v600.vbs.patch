@@ -1,0 +1,29 @@
+--- vpxtable_scripts/Panthera (Gottlieb 1980) v600.vbs
++++ todo_extracted_tables/Panthera (Gottlieb 1980) v600.vbs
+@@ -88,14 +88,12 @@
+         .Balls = 1
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     'Left Saucer
+     Set bsLSaucer = New cvpmBallStack
+     With bsLSaucer
+         .InitSaucer sw35, 35, 60, 9
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
++        .KickAngleVar = 2
+     End With
+ 
+     'Droptargets
+@@ -1173,10 +1171,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

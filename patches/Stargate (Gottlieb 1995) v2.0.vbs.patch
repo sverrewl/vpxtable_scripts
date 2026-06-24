@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Stargate (Gottlieb 1995) v2.0.vbs
++++ todo_extracted_tables/Stargate (Gottlieb 1995) v2.0.vbs
+@@ -5339,10 +5339,3 @@
+ ' RC1 - apophis - Timers cleanup. Comments cleanup. Added desktop DMD and visibility option. Added table info and instruction card.
+ ' RC2 - Sixtoe - Reinforced layout, numerous small physics layout tweaks, removed redundant sw22 things, turned off collidable in vr objects, cleaned up file and removed redundant assets.
+ ' RC3 - apophis - Enabled reflections for BM_Parts. VR control room now default. Converted slingshot sfx from stereo to mono and changed position.
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

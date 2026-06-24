@@ -1,0 +1,18 @@
+--- vpxtable_scripts/Pool Sharks (Midway 1990) v600.vbs
++++ todo_extracted_tables/Pool Sharks (Midway 1990) v600.vbs
+@@ -90,15 +90,11 @@
+     set bsSharkEject = new cvpmBallStack
+     bsSharkEject.InitSaucer sw31, 31, 165, 10
+     bsSharkEject.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-    bsSharkEject.KickForceVar = 3
+-    bsSharkEject.KickAngleVar = 3
+ 
+     ' Top eject
+     set bsTopEject = new cvpmBallStack
+     bsTopEject.InitSaucer sw34, 34, 305, 10
+     bsTopEject.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-    bsTopEject.KickForceVar = 3
+-    bsTopEject.KickAngleVar = 3
+ 
+     ' HOT Targets
+     Set dtHOT = New cvpmDropTarget

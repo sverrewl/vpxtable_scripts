@@ -1,0 +1,41 @@
+--- vpxtable_scripts/Mad Race (Playmatic 1985) v600.vbs
++++ todo_extracted_tables/Mad Race (Playmatic 1985) v600.vbs
+@@ -202,23 +202,22 @@
+ Sub RightFlipper1_Animate: RightFlipperTop1.RotZ = RightFlipper1.CurrentAngle: End Sub
+ 
+ ' flippers hit Sound
+-' Thalamus - double subs
+ 
+-' Sub LeftFlipper_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
+-'
+-' Sub RightFlipper_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
+-'
+-' Sub LeftFlipper1_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
+-'
+-' Sub RightFlipper1_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
++Sub LeftFlipper_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
++
++Sub RightFlipper_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
++
++Sub LeftFlipper1_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
++
++Sub RightFlipper1_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, Vol(ActiveBall), pan(ActiveBall), 0.1, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
+ 
+ '*********************************************************
+ ' Real Time Flipper adjustments - by JLouLouLou & JPSalas

@@ -1,0 +1,1124 @@
+--- vpxtable_scripts/Grand Lizard (Williams 1986) V1.8.5.vbs
++++ todo_extracted_tables/Grand Lizard (Williams 1986) V1.8.5.vbs
+@@ -543,11 +543,11 @@
+ 
+     If keycode = PlungerKey And myPrefs_PlayfieldGlass = 0 Then
+       Plunger1.PullBack
+-      PlaySoundAtVol "Plunger_Pull_1", Plunger1, 1
++      PlaySound "Plunger_Pull_1"
+     End If
+     If keycode = PlungerKey And myPrefs_PlayfieldGlass = 1 Then
+       Plunger1.PullBack
+-      PlaySoundAtVol "Plunger_Pull_1G", Plunger1, 1
++      PlaySound "Plunger_Pull_1G"
+     End If
+     If keycode = 34 Then
+       myPrefs_PlayfieldGlass = myPrefs_PlayfieldGlass + 1
+@@ -573,18 +573,18 @@
+     If keycode = PlungerKey And myPrefs_PlayfieldGlass = 0 Then
+       Plunger1.Fire
+       If controller.switch(11) = True Then
+-        PlaySoundAtVol "Plunger_Release_Ball", Plunger1, 1
++        PlaySound "Plunger_Release_Ball"
+       Else
+-        PlaySoundAtVol "Plunger_Release_No_Ball", Plunger1, 1
++        PlaySound "Plunger_Release_No_Ball"
+       End If
+     End If
+ 
+     If keycode = PlungerKey And myPrefs_PlayfieldGlass = 1 Then
+       Plunger1.Fire
+       If controller.switch(11) = True Then
+-        PlaySoundAtVol "Plunger_Release_BallG", Plunger1, 1
++        PlaySound "Plunger_Release_BallG"
+       Else
+-        PlaySoundAtVol "Plunger_Release_No_BallG", Plunger1, 1
++        PlaySound "Plunger_Release_No_BallG"
+       End If
+     End If
+ 
+@@ -601,7 +601,7 @@
+ 
+   iCounter = 0
+   For iCounter = 1 to 4
+-    myCount = RndNum(1,4)
++    myCount = myCount + ballStatus(iCounter)
+   Next
+     myBallCount = myCount
+ End Function
+@@ -660,10 +660,10 @@
+ Sub RightSlingShot_Slingshot
+   vpmTimer.PulseSw 44
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol SoundFX("right_slingshotNG",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("right_slingshotNG",DOFContactors), 0, 1, 0.05, 0.05
+   End If
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("right_slingshot",DOFContactors), 0, 1, 0.05, 0.05
+   End If
+     RSling.Visible = 0
+     RSling1.Visible = 1
+@@ -692,10 +692,10 @@
+ Sub LeftSlingShot_Slingshot
+   vpmTimer.PulseSw 43
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol SoundFX("left_slingshotNG",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("left_slingshotNG",DOFContactors), 0, 1, 0.05, 0.05
+   End If
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("left_slingshot",DOFContactors), 0, 1, 0.05, 0.05
+   End If
+     LSling.Visible = 0
+     LSling1.Visible = 1
+@@ -734,9 +734,9 @@
+ 
+  Sub SlingHopLTimer_Timer
+     If myPrefs_PlayfieldGlass = 0 Then
+-      PlaySoundAtVol "ball_bounce", SlingHopL, 1
++      Playsound "ball_bounce"
+     Else
+-      PlaySoundAtVol "ball_bounceG", SlingHopL, 1
++      Playsound "ball_bounceG"
+     End If
+      SlingHopLTimer.Enabled = 0
+    End Sub
+@@ -754,9 +754,9 @@
+ 
+  Sub SlingHopRTimer_Timer
+     If myPrefs_PlayfieldGlass = 0 Then
+-      iwPlaySoundAtVollaysound "ball_bounce", SlingHopR, 1
++      Playsound "ball_bounce"
+     Else
+-      PlaySoundAtVol "ball_bounceG", SlingHopR, 1
++      Playsound "ball_bounceG"
+     End If
+      SlingHopRTimer.Enabled = 0
+    End Sub
+@@ -795,10 +795,10 @@
+   myTarget1.playanim 0,.6
+   myTarget2.playanim 0,.6
+   If myPrefs_PlayfieldGlass = 1 Then
+-      PlaySoundAtVol "target", myTarget1, 1
++      Playsound "target"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-      PlaySoundAtVol "targetNG", myTarget1, 1
++      Playsound "targetNG"
+   End If
+ End Sub
+ 
+@@ -811,45 +811,33 @@
+   If myPrefs_PlayfieldGlass = 1 Then
+     Select Case Int(Rnd()*6)
+       Case 0
+-        PlaySoundAtVol"Flipper_L01", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L01", FlipperLeftUpper, 1
++        playsound"Flipper_L01"
+       Case 1
+-        PlaySoundAtVol"Flipper_L02", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L02", FlipperLeftUpper, 1
++        playsound"Flipper_L02"
+       Case 2
+-        PlaySoundAtVol"Flipper_L07", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L07", FlipperLeftUpper, 1
++        playsound"Flipper_L07"
+       Case 3
+-        PlaySoundAtVol"Flipper_L08", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L08", FlipperLeftUpper, 1
++        playsound"Flipper_L08"
+       Case 4
+-        playsoundAtVol"Flipper_L09", FlipperLeft, 1
+-        playsoundAtVol"Flipper_L09", FlipperLeftUpper, 1
++        playsound"Flipper_L09"
+       Case 5
+-        PlaySoundAtVol"Flipper_L10", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L10", FlipperLeftUpper, 1
++        playsound"Flipper_L10"
+     End Select
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+     Select Case Int(Rnd()*6)
+       Case 0
+-        PlaySoundAtVol"Flipper_L01NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L01NG", FlipperLeftUpper, 1
++        playsound"Flipper_L01NG"
+       Case 1
+-        PlaySoundAtVol"Flipper_L02NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L02NG", FlipperLeftUpper, 1
++        playsound"Flipper_L02NG"
+       Case 2
+-        PlaySoundAtVol"Flipper_L07NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L07NG", FlipperLeftUpper, 1
++        playsound"Flipper_L07NG"
+       Case 3
+-        PlaySoundAtVol"Flipper_L08NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L08NG", FlipperLeftUpper, 1
++        playsound"Flipper_L08NG"
+       Case 4
+-        PlaySoundAtVol"Flipper_L09NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L09NG", FlipperLeftUpper, 1
++        playsound"Flipper_L09NG"
+       Case 5
+-        PlaySoundAtVol"Flipper_L10NG", FlipperLeft, 1
+-        PlaySoundAtVol"Flipper_L10NG", FlipperLeftUpper, 1
++        playsound"Flipper_L10NG"
+     End Select
+   End If
+     FlipperLeft.RotateToEnd
+@@ -858,7 +846,7 @@
+                 Call myChangeGIForFlip()
+         'LightIntensityTimer.Enabled = 1
+    Else
+-    PlaySoundAtVol "flipperdown", FlipperLeft, 1
++    PlaySound "flipperdown"
+     FlipperLeft.RotateToStart
+     FlipperLeftUpper.RotateToStart
+    End If
+@@ -869,45 +857,33 @@
+   If myPrefs_PlayfieldGlass = 1 Then
+     Select Case Int(Rnd()*6)
+       Case 0
+-        PlaySoundAtVol"Flipper_R01", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R01", FlipperRightUpper, 1
++        playsound"Flipper_R01"
+       Case 1
+-        PlaySoundAtVol"Flipper_R02", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R02", FlipperRightUpper, 1
++        playsound"Flipper_R02"
+       Case 2
+-        PlaySoundAtVol"Flipper_R03", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R03", FlipperRightUpper, 1
++        playsound"Flipper_R03"
+       Case 3
+-        PlaySoundAtVol"Flipper_R04", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R04", FlipperRightUpper, 1
++        playsound"Flipper_R04"
+       Case 4
+-        PlaySoundAtVol"Flipper_R05", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R05", FlipperRightUpper, 1
++        playsound"Flipper_R05"
+       Case 5
+-        PlaySoundAtVol"Flipper_R06", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R06", FlipperRightUpper, 1
++        playsound"Flipper_R06"
+     End Select
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+     Select Case Int(Rnd()*6)
+       Case 0
+-        PlaySoundAtVol"Flipper_R01NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R01NG", FlipperRightUpper, 1
++        playsound"Flipper_R01NG"
+       Case 1
+-        PlaySoundAtVol"Flipper_R02NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R02NG", FlipperRightUpper, 1
++        playsound"Flipper_R02NG"
+       Case 2
+-        PlaySoundAtVol"Flipper_R03NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R03NG", FlipperRightUpper, 1
++        playsound"Flipper_R03NG"
+       Case 3
+-        PlaySoundAtVol"Flipper_R04NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R04NG", FlipperRightUpper, 1
++        playsound"Flipper_R04NG"
+       Case 4
+-        PlaySoundAtVol"Flipper_R05NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R05NG", FlipperRightUpper, 1
++        playsound"Flipper_R05NG"
+       Case 5
+-        PlaySoundAtVol"Flipper_R06NG", FlipperRight, 1
+-        PlaySoundAtVol"Flipper_R06NG", FlipperRightUpper, 1
++        playsound"Flipper_R06NG"
+     End Select
+   End If
+     FlipperRight.RotateToEnd
+@@ -916,7 +892,7 @@
+                 'LightIntensityTimer.Enabled = 1
+                 Call myChangeGIForFlip()
+    Else
+-    PlaySoundAtVol "flipperdown", FlipperRight, 1
++    PlaySound "flipperdown"
+     FlipperRight.RotateToStart
+     FlipperRightUpper.RotateToStart
+    End If
+@@ -942,37 +918,37 @@
+ 
+  Sub FlipperLeft_Collide(parm)
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "rubber_flipper", ActiveBall, 1
++    PlaySound "rubber_flipper"
+   end if
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "rubber_flipperG", ActiveBall, 1
++    PlaySound "rubber_flipperG"
+   end if
+  End Sub
+ 
+  Sub FlipperRight_Collide(parm)
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "rubber_flipper", ActiveBall, 1
++    PlaySound "rubber_flipper"
+   end if
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "rubber_flipperG", ActiveBall, 1
++    PlaySound "rubber_flipperG"
+   end if
+  End Sub
+ 
+  Sub FlipperUpperLeft_Collide(parm)
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "rubber_flipper", ActiveBall, 1
++    PlaySound "rubber_flipper"
+   end if
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "rubber_flipperG", ActiveBall, 1
++    PlaySound "rubber_flipperG"
+   end if
+  End Sub
+ 
+  Sub FlipperUpperRight_Collide(parm)
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "rubber_flipper", ActiveBall, 1
++    PlaySound "rubber_flipper"
+   end if
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "rubber_flipperG", ActiveBall, 1
++    PlaySound "rubber_flipperG"
+   end if
+  End Sub
+ 
+@@ -1003,64 +979,64 @@
+ 
+ Sub sw20_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw21_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw22_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw23_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw25_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw26_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+ Sub sw27_Hit
+   if myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol"droptarget", ActiveBall, 1
++    Playsound"droptarget"
+   end if
+   if myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol"droptargetNG", ActiveBall, 1
++    Playsound"droptargetNG"
+   end if
+ End Sub
+ 
+@@ -1166,25 +1142,25 @@
+     if enabled then
+        sw34.Kick 100, 15
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "Kickout_0_Balls_Locked", sw34, 1
++    Playsound "Kickout_0_Balls_Locked"
+     End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-      PlaySoundAtVol "Kickout_0_Balls_LockedNG", sw34, 1
++      Playsound "Kickout_0_Balls_LockedNG"
+     End If
+   If myBallCount = 2 Then
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "Kickout_1_Balls_Locked", sw34, 1
++    Playsound "Kickout_1_Balls_Locked"
+     End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "Kickout_1_Balls_LockedNG", sw34, 1
++    Playsound "Kickout_1_Balls_LockedNG"
+     End If
+   End If
+   If myBallCount = 3 Then
+     If myPrefs_PlayfieldGlass = 1 Then
+-      PlaysoundAtVol "Kickout_2_Balls_Locked", sw34, 1
++      Playsound "Kickout_2_Balls_Locked"
+       End If
+     If myPrefs_PlayfieldGlass = 0 Then
+-      PlaySoundAtVol "Kickout_2_Balls_LockedNG", sw34, 1
++      Playsound "Kickout_2_Balls_LockedNG"
+       End If
+   End If
+     end if
+@@ -1353,10 +1329,10 @@
+  Sub sw28_Spin()
+ vpmTimer.PulseSwitch 28, 0, ""
+ If myPrefs_PlayfieldGlass = 0 Then
+-PlaySoundAtVol "spinner", sw28, 1
++PlaySound "spinner"
+ End If
+ If myPrefs_PlayfieldGlass = 1 Then
+-PlaySoundAtVol "spinnerG", sw28, 1
++PlaySound "spinnerG"
+ End If
+ End Sub
+  Sub sw29_Hit(): vpmTimer.PulseSwitch 29, 0, "": End Sub
+@@ -1372,30 +1348,29 @@
+  Sub sw43_Slingshot():vpmTimer.PulseSwitch 43, 0, "":End Sub
+  Sub sw44_Slingshot():vpmTimer.PulseSwitch 44, 0, "":End Sub
+  Sub Drain_Hit()
+-'  ClearBallID
+-   bsTrough.AddBall Me
++  ClearBallID:bsTrough.AddBall Me
+   If myPrefs_PlayfieldGlass = 0 Then
+     Select Case Int(Rnd()*4)
+       Case 0
+-        PlaySoundAtVol "Drain_1", Drain, 1
++        Playsound "Drain_1"
+       Case 1
+-        PlaySoundAtVol "Drain_2", Drain, 1
++        Playsound "Drain_2"
+       Case 2
+-        PlaySoundAtVol "Drain_3", Drain, 1
++        Playsound "Drain_3"
+       Case 3
+-        PlaySoundAtVol "Drain_4", Drain, 1
++        Playsound "Drain_4"
+     End Select
+   End If
+   If myPrefs_PlayfieldGlass = 1 Then
+     Select Case Int(Rnd()*4)
+       Case 0
+-        PlaySoundAtVol "Drain_1NG", Drain, 1
++        Playsound "Drain_1NG"
+       Case 1
+-        PlaySoundAtVol "Drain_2NG", Drain, 1
++        Playsound "Drain_2NG"
+       Case 2
+-        PlaySoundAtVol "Drain_3NG", Drain, 1
++        Playsound "Drain_3NG"
+       Case 3
+-        PlaySoundAtVol "Drain_4NG", Drain, 1
++        Playsound "Drain_4NG"
+     End Select
+   End If
+ End Sub
+@@ -1404,6 +1379,7 @@
+   stopsound("JungleJam2") 'Ending Song
+   stopsound("ConanEnding")
+  myPlayingEndGameSnd = False
++  NewBallid
+ End Sub
+ 
+ 
+@@ -1420,41 +1396,41 @@
+     If myPrefs_PlayfieldGlass = 0 Then
+       Select Case Int(Rnd()*8)
+         Case 0
+-          PlaySound "Rubber_1"
++          Playsound "Rubber_1"
+         Case 1
+-          PlaySound "Rubber_2"
++          Playsound "Rubber_2"
+         Case 2
+-          PlaySound "Rubber_3"
++          Playsound "Rubber_3"
+         Case 3
+-          PlaySound "Rubber_4"
++          Playsound "Rubber_4"
+         Case 4
+-          PlaySound "Rubber_5"
++          Playsound "Rubber_5"
+         Case 5
+-          PlaySound "Rubber_6"
++          Playsound "Rubber_6"
+         Case 6
+-          PlaySound "Rubber_7"
++          Playsound "Rubber_7"
+         Case 7
+-          PlaySound "Rubber_8"
++          Playsound "Rubber_8"
+       End Select
+     end If
+     If myPrefs_PlayfieldGlass = 1 Then
+       Select Case Int(Rnd()*8)
+         Case 0
+-          PlaySound "Rubber_1G"
++          Playsound "Rubber_1G"
+         Case 1
+-          PlaySound "Rubber_2G"
++          Playsound "Rubber_2G"
+         Case 2
+-          PlaySound "Rubber_3G"
++          Playsound "Rubber_3G"
+         Case 3
+-          PlaySound "Rubber_4G"
++          Playsound "Rubber_4G"
+         Case 4
+-          PlaySound "Rubber_5G"
++          Playsound "Rubber_5G"
+         Case 5
+-          PlaySound "Rubber_6G"
++          Playsound "Rubber_6G"
+         Case 6
+-          PlaySound "Rubber_7G"
++          Playsound "Rubber_7G"
+         Case 7
+-          PlaySound "Rubber_8G"
++          Playsound "Rubber_8G"
+       End Select
+     end If
+   end if
+@@ -1463,41 +1439,41 @@
+     If myPrefs_PlayfieldGlass = 0 Then
+       Select Case Int(Rnd()*8)
+         Case 0
+-          PlaySound "Rubber_1"
++          Playsound "Rubber_1" ,0,0.5
+         Case 1
+-          PlaySound "Rubber_2"
++          Playsound "Rubber_2" ,0,0.5
+         Case 2
+-          PlaySound "Rubber_3"
++          Playsound "Rubber_3" ,0,0.5
+         Case 3
+-          PlaySound "Rubber_4"
++          Playsound "Rubber_4" ,0,0.5
+         Case 4
+-          PlaySound "Rubber_5"
++          Playsound "Rubber_5" ,0,0.5
+         Case 5
+-          PlaySound "Rubber_6"
++          Playsound "Rubber_6" ,0,0.5
+         Case 6
+-          PlaySound "Rubber_7"
++          Playsound "Rubber_7" ,0,0.5
+         Case 7
+-          PlaySound "Rubber_8"
++          Playsound "Rubber_8" ,0,0.5
+       End Select
+       end If
+     If myPrefs_PlayfieldGlass = 1 Then
+       Select Case Int(Rnd()*8)
+         Case 0
+-          PlaySound "Rubber_1G"
++          Playsound "Rubber_1G" ,0,0.5
+         Case 1
+-          PlaySound "Rubber_2G"
++          Playsound "Rubber_2G" ,0,0.5
+         Case 2
+-          PlaySound "Rubber_3G"
++          Playsound "Rubber_3G" ,0,0.5
+         Case 3
+-          PlaySound "Rubber_4G"
++          Playsound "Rubber_4G" ,0,0.5
+         Case 4
+-          PlaySound "Rubber_5G"
++          Playsound "Rubber_5G" ,0,0.5
+         Case 5
+-          PlaySound "Rubber_6G"
++          Playsound "Rubber_6G" ,0,0.5
+         Case 6
+-          PlaySound "Rubber_7G"
++          Playsound "Rubber_7G" ,0,0.5
+         Case 7
+-          PlaySound "Rubber_8G"
++          Playsound "Rubber_8G" ,0,0.5
+       End Select
+     end If
+   end if
+@@ -1521,46 +1497,46 @@
+ 
+  Sub M02_Hit
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "FX_metalhit2", ActiveBall, 1
++    PlaySound "FX_metalhit2"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "FX_metalhit2NG", ActiveBall, 1
++    PlaySound "FX_metalhit2NG"
+   End If
+  End Sub
+ 
+  Sub M03_Hit
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "FX_metalhit2", ActiveBall, 1
++    PlaySound "FX_metalhit2"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "FX_metalhit2NG", ActiveBall, 1
++    PlaySound "FX_metalhit2NG"
+   End If
+  End Sub
+ 
+  Sub M06_Hit
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "FX_metalhit2", ActiveBall, 1
++    PlaySound "FX_metalhit2"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "FX_metalhit2NG", ActiveBall, 1
++    PlaySound "FX_metalhit2NG"
+   End If
+  End Sub
+ 
+  Sub Wall860_Hit
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "FX_metalhit2", ActiveBall, 1
++    PlaySound "FX_metalhit2"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "FX_metalhit2NG", ActiveBall, 1
++    PlaySound "FX_metalhit2NG"
+   End If
+  End Sub
+ 
+  Sub Wall862_Hit
+   If myPrefs_PlayfieldGlass = 1 Then
+-    PlaySoundAtVol "FX_metalhit2", ActiveBall, 1
++    PlaySound "FX_metalhit2"
+   End If
+   If myPrefs_PlayfieldGlass = 0 Then
+-    PlaySoundAtVol "FX_metalhit2NG", ActiveBall, 1
++    PlaySound "FX_metalhit2NG"
+   End If
+  End Sub
+ 
+@@ -1569,180 +1545,38 @@
+     Playsound "Lion-Roar"
+  End Sub
+ 
+-' *******************************************************************************************************
+-' Positional Sound Playback Functions by DJRobX, Rothbauerw, Thalamus and Herweh
+-' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' *******************************************************************************************************
+-
+-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+-
+-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+-End Sub
+-
+-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+-
+-Sub PlaySoundAt(soundname, tableobj)
+-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-' set position as table object and Vol + RndPitch manually
+-
+-Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed.
+-
+-Sub PlaySoundAtBall(soundname)
+-  PlaySoundAt soundname, ActiveBall
+-End Sub
+-
+-'Set position as table object and Vol manually.
+-
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+-
+-Sub PlaySoundAtBallVol(sound, VolMult)
+-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-Sub PlaySoundAtBallAbsVol(sound, VolMult)
+-  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+ 
+-' requires rampbump1 to 7 in Sound Manager
+-
+-Sub RandomBump(voladj, freq)
+-  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+-  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
+-
+-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+-End Sub
+-
+-Sub PlaySoundAtBOTBallZ(sound, BOT)
+-  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+-End Sub
+-
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+-
+-'*********************************************************************
+-'            Supporting Ball, Sound Functions and Math
+-'*********************************************************************
+-
+-Function RndNum(min, max)
+-  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+-End Function
+-
+-Const Pi = 3.1415927
+-
+-Function dSin(degrees)
+-  dsin = sin(degrees * Pi/180)
+-End Function
+-
+-Function dCos(degrees)
+-  dcos = cos(degrees * Pi/180)
+-End Function
+-
+-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.y * 2 / table1.height-1
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^10)
+-  Else
+-    AudioFade = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    AudioPan = Csng(tmp ^10)
+-  Else
+-    AudioPan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = ball.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    Pan = Csng(tmp ^10)
+-  Else
+-    Pan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
++' *********************************************************************
++'                      Supporting Ball & Sound Functions
++' *********************************************************************
+ 
+ Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  Vol = Csng(BallVel(ball) ^2 / 2000)
+-End Function
+-
+-Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
++    Vol = Csng(BallVel(ball) ^1 / 2000)
+ End Function
+ 
+-Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-  debug.print DVolMulti
+-End Function
+-
+-Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
++Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
++    Dim tmp
++    tmp = ball.x * 2 / table1.width-1
++    If tmp > 0 Then
++        Pan = Csng(tmp ^10)
++    Else
++        Pan = Csng(-((- tmp) ^10) )
++    End If
+ End Function
+ 
+ Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+-  Pitch = BallVel(ball) * 20
++    Pitch = BallVel(ball) * 20
+ End Function
+ 
+ Function BallVel(ball) 'Calculates the ball speed
+-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+-End Function
+-
+-Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+-  BallVelZ = INT((ball.VelZ) * -1 )
+-End Function
+-
+-Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+-  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+-End Function
+-
+-'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+-
+-Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+-  Dim AB, BC, CD, DA
+-  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+-  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+-  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+-  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+-
+-  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+-    InRect = True
+-  Else
+-    InRect = False
+-  End If
++    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+ End Function
+ 
+ '*****************************************
+ '      JP's VP10 Rolling Sounds
+ '*****************************************
+ 
+-Const tnob = 5 ' total number of balls
++Const tnob = 4
+ ReDim rolling(tnob)
+ InitRolling
+ 
+@@ -1753,46 +1587,257 @@
+     Next
+ End Sub
+ 
+-Sub RollingTimer_Timer()
++Sub RollingUpdate()
+     Dim BOT, b
+     BOT = GetBalls
+ 
+-  ' stop the sound of deleted balls
++'    ' stop the sound of deleted balls
++'    For b = UBound(BOT) + 1 to tnob
++'        rolling(b) = False
++'        StopSound("fx_ballrolling" & b)
++'    Next
++
++'    ' stop the sound of deleted balls
++'    For b = UBound(BOT) + 1 to tnob
++'        rolling(b) = False
++'        If myPrefs_PlayfieldGlass = 0 Then
++'           StopSound("fx_ballrolling" & b)
++'        Else
++'           StopSound("fx_ballrollingG" & b)
++'        End If
++'    Next
++
++    ' stop the sound of deleted balls
+     For b = UBound(BOT) + 1 to tnob
+         rolling(b) = False
+         StopSound("fx_ballrolling" & b)
++        StopSound("fx_ballrollingG" & b)
+     Next
+ 
+-  ' exit the sub if no balls on the table
++    ' exit the sub if no balls on the table
+     If UBound(BOT) = -1 Then Exit Sub
+ 
+-  ' play the rolling sound for each ball
++    ' play the rolling sound for each ball
++    ' in this table we ignore the two captive balls, they are the 0 and the 1
+ 
+-    For b = 0 to UBound(BOT)
+-      If BallVel(BOT(b) ) > 1 Then
+-        rolling(b) = True
+-        if BOT(b).z < 30 Then ' Ball on playfield
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+-          ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.8, AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+-        Else ' Ball on raised ramp
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+-          ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.2, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+-        End If
+-      Else
+-        If rolling(b) = True Then
+-          StopSound("fx_ballrolling" & b)
+-          rolling(b) = False
++
++
++   For b = 0 to UBound(BOT)
++        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 Then
++    rolling(b) = True
++    If myPrefs_PlayfieldGlass = 0 Then 'here
++      PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
++    else
++      PlaySound("fx_ballrollingG" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
++    End If
++        Else
++            If rolling(b) = True Then
++                StopSound("fx_ballrolling" & b)
++                StopSound("fx_ballrollingG" & b)
++                rolling(b) = False
++            End If
+         End If
+-      End If
+     Next
+ End Sub
+ 
+-'**********************
+-' Ball Collision Sound
+-'**********************
++'    For b = 0 to UBound(BOT)
++'        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 and myPrefs_BallRollingSound = 1 Then
++'            rolling(b) = True
++''    If myPrefs_BallRollingSound = 1 Then
++'            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
++'        Else
++'            If rolling(b) = True Then
++'                StopSound("fx_ballrolling" & b)
++'                rolling(b) = False
++'            End If
++'        End If
++''     End If
++'    Next
++'End Sub
++
++
++'******************
++' RealTime Updates
++'******************
++
++'Set MotorCallback = GetRef("RealTimeUpdates")
++
++sub RollingTimer_Timer
++    RollingUpdate
++End Sub
++'***************************************************************************
++
++'======================================================================================
++' This code may be freely distributed, but is not to be included with any profit-making
++' software or product without the express permission from the scripting author, Steely.
++'======================================================================================
++'    /            /              /              /              /              /       '
++'   /           <<<-->>>        /              /              /              /        '
++'  /         <<< ------- >@>   /              /              /              /         '
++' /        <</    Ball --- >@@/              /              /              /          '
++'/        </       - to --- >@@             /              /              /           '
++'        </         - Ball - >@@           /              /              /            '
++'        </        Collision >@@>         /              /              /             '
++'        </        - for ---- @@@        /              /              /              '
++'        <</     Visual ----- @@@       /              /              /              /'
++'       /<<<   Pinball ----- >@@>      /              /              /              / '
++'      /  <<< -------------- @@@> A   /              /              /              /  '
++'     /    <<<< ---------- >@@@> PinballKen         /              /              /   '
++'    /       <<<<< ----- >@@@> & Steely            /              /              /    '
++'   /           <<<<->>@@> Production             /              /  Ver 1.0 beta/     '
++'  /               /              /              /              /              /      '
++'======================================================================================
++' Many thanks go to Randy Davis and to all the multitudes of people who have
++' contributed to VP over the years, keeping it alive!!!  Enjoy, Steely & PK
++'======================================================================================
++
++Dim tnopb, nosf
++
++tnopb = 4 ' <<<<< SET to the "Total Number Of Possible Balls" in play at any one time
++nosf = 10  ' <<<<< SET to the "Number Of Sound Files" used / B2B collision volume levels
++
++Dim currentball(4), ballStatus(4)
++Dim iball, cnt, coff, errMessage
++
++XYdata.interval = 1               ' Timer interval starts at 1 for the highest ball data sample rate
++coff = False                      ' Collision off set to false
++
++For cnt = 0 to ubound(ballStatus) ' Initialize/clear all ball stats, 1 = active, 0 = non-existant
++  ballStatus(cnt) = 0
++Next
++
++
++'======================================================
++' <<<<<<<<<<<<<< Ball Identification >>>>>>>>>>>>>>
++'======================================================
++' Call this sub from every kicker(or plunger) that creates a ball.
++Sub NewBallID                                 ' Assign new ball object and give it ID for tracking
++  For cnt = 1 to ubound(ballStatus)         ' Loop through all possible ball IDs
++    If ballStatus(cnt) = 0 Then           ' If ball ID is available...
++      Set currentball(cnt) = ActiveBall ' Set ball object with the first available ID
++      currentball(cnt).uservalue = cnt  ' Assign the ball's uservalue to it's new ID
++      ballStatus(cnt) = 1               ' Mark this ball status active
++      ballStatus(0) = ballStatus(0) + 1 ' Increment ballStatus(0), the number of active balls
++            If coff = False Then              ' If collision off, overrides auto-turn on collision detection
++        ' If more than one ball active, start collision detection process
++        If ballStatus(0)> 1 and XYdata.enabled = False Then XYdata.enabled = True
++      End If
++      Exit For ' New ball ID assigned, exit loop
++    End If
++  Next
++'   Debugger          ' For demo only, display stats
++End Sub
+ 
+-Sub OnBallBallCollision(ball1, ball2, velocity)
+-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
++' Call this sub from every kicker that destroys a ball, before the ball is destroyed.
++Sub ClearBallID
++  On Error Resume Next              ' Error handling for debugging purposes
++  iball = ActiveBall.uservalue     ' Get the ball ID to be cleared
++  currentball(iball).UserValue = 0 ' Clear the ball ID
++  If Err Then Msgbox Err.description & vbCrLf & iball
++  ballStatus(iBall) = 0            ' Clear the ball status
++  ballStatus(0) = ballStatus(0) -1 ' Subtract 1 ball from the # of balls in play
++  On Error Goto 0
++End Sub
++
++'=====================================================
++' <<<<<<<<<<<<<<<<< XYdata_Timer >>>>>>>>>>>>>>>>>
++'=====================================================
++' Ball data collection and B2B Collision detection.
++ReDim baX(tnopb, 4), baY(tnopb, 4), bVx(tnopb, 4), bVy(tnopb, 4), TotalVel(tnopb, 4)
++Dim cForce, bDistance, xyTime, cFactor, id, id2, id3, B1, B2
++
++Sub XYdata_Timer()
++  ' xyTime... Timers will not loop or start over 'til it's code is finished executing. To maximize
++  ' performance, at the end of this timer, if the timer's interval is shorter than the individual
++  ' computer can handle this timer's interval will increment by 1 millisecond.
++  xyTime = Timer + (XYdata.interval * .001) ' xyTime is the system timer plus the current interval time
++  ' Ball Data... When a collision occurs a ball's velocity is often less than it's velocity before the
++  ' collision, if not zero. So the ball data is sampled and saved for four timer cycles.
++  If id2 >= 4 Then id2 = 0                                        ' Loop four times and start over
++  id2 = id2 + 1                                                   ' Increment the ball sampler ID
++  For id = 1 to ubound(ballStatus)                                ' Loop once for each possible ball
++    If ballStatus(id) = 1 Then                                  ' If ball is active...
++      baX(id, id2) = round(currentball(id).x, 2)              ' Sample x-coord
++      baY(id, id2) = round(currentball(id).y, 2)              ' Sample y-coord
++      bVx(id, id2) = round(currentball(id).velx, 2)           ' Sample x-velocity
++      bVy(id, id2) = round(currentball(id).vely, 2)           ' Sample y-velocity
++      TotalVel(id, id2) = (bVx(id, id2) ^2 + bVy(id, id2) ^2) ' Calculate total velocity
++      If TotalVel(id, id2)> TotalVel(0, 0) Then TotalVel(0, 0) = int(TotalVel(id, id2) )
++    End If
++  Next
++  ' Collision Detection Loop - check all possible ball combinations for a collision.
++  ' bDistance automatically sets the distance between two colliding balls. Zero milimeters between
++  ' balls would be perfect, but because of timing issues with ball velocity, fast-traveling balls
++  ' prevent a low setting from always working, so bDistance becomes more of a sensitivity setting,
++  ' which is automated with calculations using the balls' velocities.
++  ' Ball x/y-coords plus the bDistance determines B2B proximity and triggers a collision.
++  id3 = id2:B2 = 2:B1 = 1                               ' Set up the counters for looping
++  Do
++    If ballStatus(B1) = 1 and ballStatus(B2) = 1 Then ' If both balls are active...
++      bDistance = int((TotalVel(B1, id3) + TotalVel(B2, id3) ) ^1.33)
++      If((baX(B1, id3) - baX(B2, id3) ) ^2 + (baY(B1, id3) - baY(B2, id3) ) ^2) <2800 + bDistance Then collide B1, B2:Exit Sub
++    End If
++    B1 = B1 + 1                                                  ' Increment ball1
++    If B1 >= ballStatus(0) Then Exit Do                           ' Exit loop if all ball combinations checked
++    If B1 >= B2 then B1 = 1:B2 = B2 + 1                          ' If ball1 >= reset ball1 and increment ball2
++  Loop
++
++  If ballStatus(0) <= 1 Then XYdata.enabled = False                ' Turn off timer if one ball or less
++
++  If XYdata.interval >= 40 Then coff = True:XYdata.enabled = False ' Auto-shut off
++  If Timer> xyTime * 3 Then coff = True:XYdata.enabled = False     ' Auto-shut off
++  If Timer> xyTime Then XYdata.interval = XYdata.interval + 1      ' Increment interval if needed
++End Sub
++
++'=========================================================
++' <<<<<<<<<<< Collide(ball id1, ball id2) >>>>>>>>>>>
++'=========================================================
++    'Calculate the collision force and play sound accordingly.
++Dim cTime, cb1, cb2, avgBallx, cAngle, bAngle1, bAngle2
++
++Sub Collide(cb1, cb2)
++    ' The Collision Factor(cFactor) uses the maximum total ball velocity and automates the cForce calculation, maximizing the
++    ' use of all sound files/volume levels. So all the available B2B sound levels are automatically used by adjusting to a
++    ' player's style and the table's characteristics.
++  If TotalVel(0, 0) / 1.8> cFactor Then cFactor = int(TotalVel(0, 0) / 1.8)
++  ' The following six lines limit repeated collisions if the balls are close together for any period of time
++   'avgBallx = (bvX(cb2, 1) + bvX(cb2, 2) + bvX(cb2, 3) + bvX(cb2, 4) ) / 4
++  If avgBallx <bvX(cb2, id2) + .1 and avgBallx> bvX(cb2, id2) -.1 Then
++    If ABS(TotalVel(cb1, id2) - TotalVel(cb2, id2) ) <.000005 Then Exit Sub
++  End If
++  If Timer <cTime Then Exit Sub
++  cTime = Timer + .1 ' Limits collisions to .1 seconds apart
++    ' GetAngle(x-value, y-value, the angle name) calculates any x/y-coords or x/y-velocities and returns named angle in radians
++  GetAngle baX(cb1, id3) - baX(cb2, id3), baY(cb1, id3) - baY(cb2, id3), cAngle ' Collision angle via x/y-coordinates
++  id3 = id3 - 1:If id3 = 0 Then id3 = 4                                         ' Step back one xyData sampling for a good velocity reading
++  GetAngle bVx(cb1, id3), bVy(cb1, id3), bAngle1                                ' ball 1 travel direction, via velocity
++  GetAngle bVx(cb2, id3), bVy(cb2, id3), bAngle2                                ' ball 2 travel direction, via velocity
++  ' The main cForce formula, calculating the strength of a collision
++  cForce = Cint((abs(TotalVel(cb1, id3) * Cos(cAngle-bAngle1) ) + abs(TotalVel(cb2, id3) * Cos(cAngle-bAngle2) ) ) )
++  If cForce <4 Then Exit Sub                   ' Another collision limiter
++  cForce = Cint((cForce) / (cFactor / nosf) ) ' Divides up cForce for the proper sound selection.
++  If cForce> nosf-1 Then cForce = nosf-1      ' First sound file 0(zero) minus one from number of sound files
++  PlaySound("collide" & cForce)               ' Combines "collide" with the calculated sound level and play sound
++End Sub
++
++'=================================================
++' <<<<<<<< GetAngle(X, Y, Anglename) >>>>>>>>
++'=================================================
++' A repeated function which takes any set of coordinates or velocities and calculates an angle in radians.
++Dim Xin, Yin, rAngle, Radit, wAngle, Pi
++Pi = Round(4 * Atn(1), 6) '3.1415926535897932384626433832795
++
++Sub GetAngle(Xin, Yin, wAngle)
++  If Sgn(Xin) = 0 Then
++    If Sgn(Yin) = 1 Then rAngle = 3 * Pi / 2 Else rAngle = Pi / 2
++    If Sgn(Yin) = 0 Then rAngle = 0
++    Else
++      rAngle = atn(- Yin / Xin) ' Calculates angle in radians before quadrant data
++  End If
++  If sgn(Xin) = -1 Then Radit = Pi Else Radit = 0
++  If sgn(Xin) = 1 and sgn(Yin) = 1 Then Radit = 2 * Pi
++  wAngle = round((Radit + rAngle), 4) ' Calculates angle in radians with quadrant data
++'"wAngle = round((180/Pi) * (Radit + rAngle),4)" ' Will convert radian measurements to degrees - to be used in future
+ End Sub
+ 
+ '*****************
+@@ -2161,5 +2206,7 @@
+ '********************************************************
+ 
+ 
+-' Thalamus, table used a very old routine to figure out if ball is colliding.
+-' This is not needed as vp now has a callback for this.
++
++
++
++

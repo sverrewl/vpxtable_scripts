@@ -1,0 +1,49 @@
+--- vpxtable_scripts/Indiana Jones The Pinball Adventure (Williams 1993) VPWmod v1.1.vbs
++++ todo_extracted_tables/Indiana Jones The Pinball Adventure (Williams 1993) VPWmod v1.1.vbs
+@@ -220,8 +220,6 @@
+     Set bsLEject = new cvpmSaucer
+     With bsLEject
+         .InitKicker Sw31, 31, 160, 17, 0
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitSounds "fx_saucerHit", SoundFX("LeftEject",DOFContactors), SoundFX("LeftEject",DOFContactors)
+         .CreateEvents "bsLEject", Sw31
+     End With
+@@ -230,8 +228,6 @@
+     Set bsSubway = new cvpmSaucer
+     With bsSubway
+         .InitKicker sw47, 47, 90, 10, 0
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitSounds "", SoundFX("SubWayRelease",DOFContactors), SoundFX("SubWayRelease",DOFContactors)
+         .CreateEvents "bsSubway", Sw47
+     End With
+@@ -240,8 +236,6 @@
+     Set bsPopper = new cvpmSaucer
+     With bsPopper
+         .InitKicker Sw44, 44, 0, 32, 1.56
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitSounds "", SoundFX("Ball Popper",DOFContactors), SoundFX("Ball Popper",DOFContactors)
+         .CreateEvents "bsPopper", Sw44
+     End With
+@@ -3757,8 +3751,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -3773,8 +3766,7 @@
+             end If
+       coef = desiredcor / realcor
+       If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :         aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++        aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+       End If
+     Elseif ver = 2 Then
+       If parm < 10 And parm > 2 And Abs(aball.angmomz) < 15 And aball.vely < 0 then

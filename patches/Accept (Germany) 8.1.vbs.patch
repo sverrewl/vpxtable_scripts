@@ -1,0 +1,49 @@
+--- vpxtable_scripts/Accept (Germany) 8.1.vbs
++++ todo_extracted_tables/Accept (Germany) 8.1.vbs
+@@ -204,7 +204,6 @@
+     vpmInit Me
+     With Controller
+        .GameName = cGameName
+-        NVOffset(2) ' Trying to prevent it overwriting highscore from Algar which has (1)
+         If Err Then MsgBox"Can't start Game"&cGameName&vbNewLine&Err.Description:Exit Sub
+        .SplashInfoLine = "ACCEPT (Germany) Let there be Heavy Metal"
+         .HandleMechanics=0
+@@ -238,7 +237,6 @@
+     set bshig =new cvpmballstack
+     bshig.initsaucer kicker1,26,175,4
+     bshig.kickanglevar=5
+-    bshig.KickForceVar = 3 ' Thalamus - add some force too
+     bslow.initexitsnd SoundFX("rsling",DOFContactors), ","
+ 
+     set dtbank3=new cvpmdroptarget
+@@ -1380,18 +1378,18 @@
+ ' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+ ' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+ 
+-' Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+-'   PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+-' End Sub
+-'
+-' ' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
+-' Sub PlaySoundAt(soundname, tableobj)
+-'     PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-' End Sub
+-'
+-' Sub PlaySoundAtBall(soundname)
+-'     PlaySoundAt soundname, ActiveBall
+-' End Sub
++Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
++  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
++End Sub
++
++' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
++Sub PlaySoundAt(soundname, tableobj)
++    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++End Sub
++
++Sub PlaySoundAtBall(soundname)
++    PlaySoundAt soundname, ActiveBall
++End Sub
+ 
+ 
+ '*****************************************

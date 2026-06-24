@@ -1,0 +1,82 @@
+--- vpxtable_scripts/Granny and the Gators (Bally 1984) 1.1.vbs
++++ todo_extracted_tables/Granny and the Gators (Bally 1984) 1.1.vbs
+@@ -106,10 +106,6 @@
+ 
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   On Error Resume Next
+     Controller.GameName="granny":If Err Then MsgBox"Can't start Game"&cGameName&vbNewLine&Err.Description:Exit Sub
+     Controller.SplashInfoLine="Granny And The Gators"
+@@ -509,40 +505,38 @@
+   Playsound "flip_hit_2", Vol(ActiveBall)*VolPlast, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub Rubbers_Hit(idx)
+-'   Select Case Int(Rnd*3)+1
+-'     Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'   End Select
+-' End Sub
++Sub Rubbers_Hit(idx)
++  Select Case Int(Rnd*3)+1
++    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End Select
++End Sub
+ 
+-' Sub Metals_Hit(idx)
+-'   Select Case Int(Rnd*3)+1
+-'     Case 1 : PlaySound "metal_hit1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 2 : PlaySound "metal_hit2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 3 : PlaySound "metal_hit3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'   End Select
+-' End Sub
++Sub Metals_Hit(idx)
++  Select Case Int(Rnd*3)+1
++    Case 1 : PlaySound "metal_hit1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 2 : PlaySound "metal_hit2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 3 : PlaySound "metal_hit3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End Select
++End Sub
+ 
+-' Sub LeftFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
+-'
+-' Sub RightFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
++Sub LeftFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
++
++Sub RightFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+ 
+-' Sub Gate_Collide(parm)
+-'   Select Case Int(Rnd*3)+1
+-'     Case 1 : PlaySound "metal_hit1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 2 : PlaySound "metal_hit2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 3 : PlaySound "metal_hit3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'   End Select
+-' End Sub
++Sub Gate_Collide(parm)
++  Select Case Int(Rnd*3)+1
++    Case 1 : PlaySound "metal_hit1", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 2 : PlaySound "metal_hit2", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 3 : PlaySound "metal_hit3", 0, Vol(ActiveBall)*100, Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End Select
++End Sub
+ 
+ Sub RandomSoundFlipper()
+   Select Case Int(Rnd*3)+1

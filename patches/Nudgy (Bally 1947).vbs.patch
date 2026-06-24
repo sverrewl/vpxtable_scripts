@@ -1,0 +1,12 @@
+--- vpxtable_scripts/Nudgy (Bally 1947).vbs
++++ todo_extracted_tables/Nudgy (Bally 1947).vbs
+@@ -2291,8 +2291,7 @@
+     coef = desiredcor / realcor
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

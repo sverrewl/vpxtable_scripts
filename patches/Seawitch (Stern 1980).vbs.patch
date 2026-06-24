@@ -1,0 +1,46 @@
+--- vpxtable_scripts/Seawitch (Stern 1980).vbs
++++ todo_extracted_tables/Seawitch (Stern 1980).vbs
+@@ -336,15 +336,12 @@
+ 
+ End Sub
+ 
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-'
+-'Sub Drain_Hit()
+-'  PlaySoundAt "drain02", Drain
+-'  RF.PolarityCorrect Activeball
+-'  LF.PolarityCorrect Activeball
+-'  bstrough.addball me
+-'End Sub
++Sub Drain_Hit()
++  PlaySoundAt "drain02", Drain
++  RF.PolarityCorrect Activeball
++  LF.PolarityCorrect Activeball
++  bstrough.addball me
++End Sub
+ 
+ '******************************************************
+ '         DRAIN & RELEASE
+@@ -1231,10 +1228,7 @@
+     RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+     coef = desiredcor / realcor
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+   Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef
+@@ -2559,9 +2553,3 @@
+ 
+   PlaySound (snd), 0, Csng(velocity) ^2 / 200 * BallWithBallCollisionSoundFactor * VolumeDial, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

@@ -1,0 +1,49 @@
+--- vpxtable_scripts/24 (Stern 2009) v.2.2.vbs
++++ todo_extracted_tables/24 (Stern 2009) v.2.2.vbs
+@@ -344,9 +344,7 @@
+   'Kickers
+     Set bsTEject = New cvpmBallStack
+     bsTEject.InitSaucer sw3, 3, 162, 15
+-    bsTEject.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsTEject.KickForceVar = 3
+-    bsTEject.KickAngleVar = 3
++  bsTEject.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+     ' Impulse Plunger - used as the autoplunger
+   Const IMPowerSetting = 85 'Plunger Power
+@@ -3122,12 +3120,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+-	If tmp > 0 Then
+-		AudioFade = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioFade = CSng(tmp ^ 10)
++  Else
++    AudioFade = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+@@ -3140,12 +3137,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+-	If tmp > 0 Then
+-		AudioPan = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioPan = CSng(tmp ^ 10)
++  Else
++    AudioPan = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function Vol(ball) ' Calculates the volume of the sound based on the ball speed

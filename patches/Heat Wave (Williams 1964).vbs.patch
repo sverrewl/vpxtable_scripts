@@ -1,0 +1,39 @@
+--- vpxtable_scripts/Heat Wave (Williams 1964).vbs
++++ todo_extracted_tables/Heat Wave (Williams 1964).vbs
+@@ -1128,16 +1128,14 @@
+ 
+ Dim ballInLane
+ '************Check if Ball Out of Launch Lane
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub ballsInPlay_hit
+-'   If ballREnabled = 1 Then
+-'     ballREnabled = 0
+-'     ballInLane = False
+-'   End If
+-'   firstBallOut = 1
+-'   drainGate.collidable = 1
+-' End Sub
++Sub ballsInPlay_hit
++  If ballREnabled = 1 Then
++    ballREnabled = 0
++    ballInLane = False
++  End If
++  firstBallOut = 1
++  drainGate.collidable = 1
++End Sub
+ 
+ '**************Destroy Balls to Start New Game
+ Sub ballKiller_Hit()
+@@ -3230,10 +3228,7 @@
+     coef = desiredcor / realcor
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

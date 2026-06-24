@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Split Second (Stern 1981) v600.vbs
++++ todo_extracted_tables/Split Second (Stern 1981) v600.vbs
+@@ -808,10 +808,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

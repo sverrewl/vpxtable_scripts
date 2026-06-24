@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Freefall (Stern 1981) v600.vbs
++++ todo_extracted_tables/Freefall (Stern 1981) v600.vbs
+@@ -1143,10 +1143,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

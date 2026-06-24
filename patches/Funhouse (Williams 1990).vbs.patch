@@ -1,0 +1,202 @@
+--- vpxtable_scripts/Funhouse (Williams 1990).vbs
++++ todo_extracted_tables/Funhouse (Williams 1990).vbs
+@@ -499,14 +499,10 @@
+   Set bsHideout = New cvpmBallStack
+     bsHideout.InitSaucer sw46,46, 290, 25
+     bsHideout.InitExitSnd SoundFX("solenoid",DOFContactors), SoundFX("none",DOFContactors)
+-    bsHideout.KickForceVar = 3
+-    bsHideout.KickAngleVar = 3
+ 
+   Set bsRudySaucer = New cvpmBallStack
+     bsRudySaucer.InitSaucer sw65,65, 190, 9
+     bsRudySaucer.InitExitSnd SoundFX("solenoid",DOFContactors), SoundFX("none",DOFContactors)
+-    bsRudySaucer.KickForceVar = 3
+-    bsRudySaucer.KickAngleVar = 3
+ 
+   TrapWall.IsDropped = 1
+ 
+@@ -1752,13 +1748,10 @@
+ 
+ Dim zMultiplier
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' I moved the missing to the later sub
+-' Sub sw17_Hit:t:pSW17.TransY = -3:PlaySoundAtVol SoundFx("fx_rubber_hit_2",DOFTargets),Primitive80, VolTarg:End Sub
++Sub sw17_Hit:t:pSW17.TransY = -3:PlaySoundAtVol SoundFx("fx_rubber_hit_2",DOFTargets),Primitive80, VolTarg:End Sub
+ 
+ DIM target17step
+ Sub sw17_Hit
+-    pSW17.TransY = -3:PlaySoundAtVol SoundFx("fx_rubber_hit_2",DOFTargets),Primitive80, VolTarg
+     Select Case Int(Rnd * 4) + 1
+         Case 1: zMultiplier = 1.55
+         Case 2: zMultiplier = 1.2
+@@ -1893,21 +1886,13 @@
+ 
+ 
+ '***Ramp Triggers***
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Moving the sound to the later sub
+-' Sub sw15_Hit:vpmTimer.PulseSw(15):PlaySoundAt "fx_sensor",sw15:End Sub 'Step Lights Frenczy
++Sub sw15_Hit:vpmTimer.PulseSw(15):PlaySoundAt "fx_sensor",sw15:End Sub 'Step Lights Frenczy
+ Sub sw16_Hit:vpmTimer.PulseSw(16):PlaySoundAt "fx_sensor",sw16:End Sub 'Upper Ramp Switch
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Moving the sound to the later sub
+-' Sub sw26_Hit:vpmTimer.PulseSw(26):PlaySoundAt "fx_sensor",sw26:End Sub 'Step Light Exit Ball
+-' Sub sw36_Hit:vpmTimer.PulseSw(36):PlaySoundAt "fx_sensor",sw36:End Sub 'Step 500,000
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not sure if PulseSW should be used in the last sub or not - moving the sound down.
+-' Sub sw35_Hit:vpmTimer.PulseSw(35):PlaySoundAt "fx_sensor",sw35:End Sub 'Step Tracker lower
+-' Sub sw38_Hit:vpmTimer.PulseSw(38):PlaySoundAt "fx_metalrolling",sw38:End Sub 'Step Tracker upper
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not sure if PulseSW should be used in the last sub or not - moving the sound down.
+-' Sub sw48_Hit:vpmTimer.PulseSw(48):PlaySoundAt "fx_metalrolling",sw38:End Sub 'Ramp Exit Track
++Sub sw26_Hit:vpmTimer.PulseSw(26):PlaySoundAt "fx_sensor",sw26:End Sub 'Step Light Exit Ball
++Sub sw36_Hit:vpmTimer.PulseSw(36):PlaySoundAt "fx_sensor",sw36:End Sub 'Step 500,000
++Sub sw35_Hit:vpmTimer.PulseSw(35):PlaySoundAt "fx_sensor",sw35:End Sub 'Step Tracker lower
++Sub sw38_Hit:vpmTimer.PulseSw(38):PlaySoundAt "fx_metalrolling",sw38:End Sub 'Step Tracker upper
++Sub sw48_Hit:vpmTimer.PulseSw(48):PlaySoundAt "fx_metalrolling",sw38:End Sub 'Ramp Exit Track
+ Sub sw45_Hit:vpmTimer.PulseSw(45):PlaySoundAt "fx_sensor",sw45: activeball.color = RGB(255,255,255):End Sub 'Trap door score
+ Sub sw55_Hit:vpmTimer.PulseSw(55):End Sub 'Steps Superdog
+ 
+@@ -1938,7 +1923,7 @@
+ 'Switch animations
+ '*******************
+ 
+-Sub sw35_Hit:Controller.Switch(35) = 1:sw35.timerenabled = true:PlaySoundAt "fx_sensor",sw35:End Sub
++Sub sw35_Hit:Controller.Switch(35) = 1:sw35.timerenabled = true:End Sub
+ Sub sw35_UnHit:Controller.Switch(35) = 0:End Sub
+ 
+ '***switch 35 animation***
+@@ -1961,7 +1946,7 @@
+ End Sub
+ 
+ 
+-Sub sw48_Hit:Controller.Switch(48) = 1:sw48.timerenabled = true:PlaySoundAt "fx_metalrolling",sw38:End Sub
++Sub sw48_Hit:Controller.Switch(48) = 1:sw48.timerenabled = true:End Sub
+ Sub sw48_UnHit:Controller.Switch(48) = 0:End Sub
+ 
+ '***switch 48 animation***
+@@ -1985,7 +1970,7 @@
+   End If
+ End Sub
+ 
+-Sub sw38_Hit:Controller.Switch(38) = 1:sw38.timerenabled = true:PlaySoundAt "fx_metalrolling",sw38:End Sub
++Sub sw38_Hit:Controller.Switch(38) = 1:sw38.timerenabled = true:End Sub
+ Sub sw38_UnHit:Controller.Switch(38) = 0:End Sub
+ 
+ '***switch 38 animation***
+@@ -2008,7 +1993,7 @@
+ End Sub
+ 
+ 
+-Sub sw15_Hit:Controller.Switch(15) = 1:sw15.timerenabled = true:PlaySoundAt "fx_sensor",sw15:End Sub
++Sub sw15_Hit:Controller.Switch(15) = 1:sw15.timerenabled = true:End Sub
+ Sub sw15_UnHit:Controller.Switch(15) = 0:End Sub
+ 
+ '***switch 15 animation***
+@@ -2031,7 +2016,7 @@
+ End Sub
+ 
+ 
+-Sub sw26_Hit:Controller.Switch(26) = 1:sw26.timerenabled = true:PlaySoundAt "fx_sensor",sw26:End Sub
++Sub sw26_Hit:Controller.Switch(26) = 1:sw26.timerenabled = true:End Sub
+ Sub sw26_UnHit:Controller.Switch(26) = 0:End Sub
+ 
+ '***switch 26 animation***
+@@ -2054,7 +2039,7 @@
+ End Sub
+ 
+ 
+-Sub sw36_Hit:Controller.Switch(36) = 1:sw36.timerenabled = true:PlaySoundAt "fx_sensor",sw36:End Sub
++Sub sw36_Hit:Controller.Switch(36) = 1:sw36.timerenabled = true:End Sub
+ Sub sw36_UnHit:Controller.Switch(36) = 0:End Sub
+ 
+ '***switch 36 animation***
+@@ -2612,12 +2597,9 @@
+ ' 04 Center BackGlass   'Case 3
+ ' 05 Lower Playfield    'Case 4
+ 
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Disable this one - it is after all not the one used
+-' Sub SetGI(aNr, aValue)
+-'   ModLampz.SetGI aNr, aValue 'Redundant. Could reassign GI indexes here
+-' End Sub
++Sub SetGI(aNr, aValue)
++  ModLampz.SetGI aNr, aValue 'Redundant. Could reassign GI indexes here
++End Sub
+ 
+ 
+ '***************************************
+@@ -2932,8 +2914,25 @@
+ '                 Positional Sound Playback Functions by DJRobX additions by cp
+ '************************************************************************************
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Deleted 5 subs that was duplicated
++'Set position as table object (Use object or light but NOT wall) and Vol to 1
++
++Sub PlaySoundAt(sound, tableobj)
++    PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++End Sub
++
++
++'Set all as per ball position & speed.
++
++Sub PlaySoundAtBall(sound)
++    PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++End Sub
++
++
++'Set position as table object and Vol manually.
++
++Sub PlaySoundAtVol(sound, tableobj, Vol)
++    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++End Sub
+ 
+ 'Sub PlaySoundAtBOTBallZ(sound, BOT)
+ '   PlaySound sound, 0, VolZ(BOT), Pan(BOT), 0, Pitch(BOT), 1, 1, AudioFade(BOT)
+@@ -2943,6 +2942,20 @@
+     PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+ End Sub
+ 
++'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
++
++Sub PlaySoundAtBallVol(sound, VolMult)
++    PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++End Sub
++
++
++'Set position as bumperX and Vol manually.
++
++Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
++    PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
++End Sub
++
++
+ Sub RandomSoundRubber()
+     Select Case Int(Rnd * 3) + 1
+         Case 1:PlaySound "fx_rubber_hit_1", 0, 2*Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+@@ -3730,9 +3743,7 @@
+     end if
+   end Property
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub SetLamp(aIdx, aOn) : state(aIdx) = aOn : End Sub  'Solenoid Handler
++  Sub SetLamp(aIdx, aOn) : state(aIdx) = aOn : End Sub  'Solenoid Handler
+ 
+   Public Sub TurnOnStates() 'If obj contains any light objects, set their states to 1 (Fading is our job!)
+     dim debugstr
+@@ -4357,10 +4368,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub

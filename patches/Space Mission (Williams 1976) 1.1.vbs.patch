@@ -1,0 +1,27 @@
+--- vpxtable_scripts/Space Mission (Williams 1976) 1.1.vbs
++++ todo_extracted_tables/Space Mission (Williams 1976) 1.1.vbs
+@@ -2815,11 +2815,11 @@
+     ' render the shadow For Each ball
+     For b = 0 To UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -4268,8 +4268,7 @@
+ '   tb.text = "Coef = " & coef
+ 
+ '               Applies the coef To x And y velocities
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values For Sleeves (or any other future objects) To 85% (or whatever is passed In) of Posts

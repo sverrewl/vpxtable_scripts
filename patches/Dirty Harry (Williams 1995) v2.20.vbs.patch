@@ -1,0 +1,49 @@
+--- vpxtable_scripts/Dirty Harry (Williams 1995) v2.20.vbs
++++ todo_extracted_tables/Dirty Harry (Williams 1995) v2.20.vbs
+@@ -664,7 +664,7 @@
+     ' SolRFlipper True - This is being done by the SolCallBacks above
+   End If
+ 
+-  If KeyCode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 1
++  If KeyCode = PlungerKey Then Controller.Switch(11) = 1
+   If KeyCode = keyFront Then Controller.Switch(23) = 1
+ 
+   If keycode = LeftTiltKey Then Nudge 90, 5:SoundNudgeLeft()
+@@ -702,7 +702,7 @@
+ 
+     If vpmKeyUp(keycode) Then Exit Sub
+ 
+-    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 0
++    If keycode = PlungerKey Then Controller.Switch(11) = 0
+     If keycode = keyFront Then Controller.Switch(23) = 0
+ 
+ End Sub
+@@ -2051,8 +2051,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2062,8 +2061,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 
+@@ -3722,8 +3720,3 @@
+   Set FileObj = Nothing
+ End Sub
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

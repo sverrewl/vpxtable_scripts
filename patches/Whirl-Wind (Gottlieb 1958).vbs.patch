@@ -1,0 +1,37 @@
+--- vpxtable_scripts/Whirl-Wind (Gottlieb 1958).vbs
++++ todo_extracted_tables/Whirl-Wind (Gottlieb 1958).vbs
+@@ -2541,16 +2541,13 @@
+   PlayFieldSoundAB "fx_rubber2", 0, 1
+ End Sub
+ 
++Sub LeftFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-'Sub LeftFlipper_Collide(parm)
+-'  RandomSoundFlipper()
+-'End Sub
+-
+-'Sub RightFlipper_Collide(parm)
+-'  RandomSoundFlipper()
+-'End Sub
++Sub RightFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+ Sub LeftFlipper_Collide(parm)
+   RandomSoundFlipper()
+@@ -3094,10 +3091,7 @@
+ '   TB.text = coef
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

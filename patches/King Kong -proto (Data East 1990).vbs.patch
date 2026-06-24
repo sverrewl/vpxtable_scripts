@@ -1,0 +1,98 @@
+--- vpxtable_scripts/King Kong -proto (Data East 1990).vbs
++++ todo_extracted_tables/King Kong -proto (Data East 1990).vbs
+@@ -5481,27 +5481,20 @@
+ 
+ Dim CRBLStep, WPStep, WP2Step, PlasticWobbling
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub sw40_Hit()
+-'   Psw40.rotY = 20
+-'   Controller.Switch(40) = 1
+-' End Sub
++Sub sw40_Hit()
++  Psw40.rotY = 20
++  Controller.Switch(40) = 1
++End Sub
+ Sub sw40_UnHit:Psw40.rotY = 0:Controller.Switch(40) = 0:End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-'
+-' Sub sw39_Hit:Psw39.rotY = 20:Controller.Switch(39) = 1:End Sub
++Sub sw39_Hit:Psw39.rotY = 20:Controller.Switch(39) = 1:End Sub
+ Sub sw39_UnHit:Psw39.rotY = 0:Controller.Switch(39) = 0:End Sub
+ 
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-'
+-' Sub sw38_Hit()
+-'   Psw38.rotY = 20
+-'   Controller.Switch(38) = 1
+-'   PlaySoundAt "metalhit_medium",sw38
+-' End Sub
++Sub sw38_Hit()
++  Psw38.rotY = 20
++  Controller.Switch(38) = 1
++  PlaySoundAt "metalhit_medium",sw38
++End Sub
+ Sub sw38_UnHit:Psw38.rotY = 0:Controller.Switch(38) = 0:End Sub
+ 
+ Sub sw38_Hit()
+@@ -6039,19 +6032,17 @@
+ 
+ ' Lamp & Flasher Updates
+ ' LampFader object (Lampz) updates on two timers: Logic on 1, Game updates on -1
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub LampTimer_Timer()
+-'   dim x, chglamp
+-'   chglamp = Controller.ChangedLamps
+-'   If Not IsEmpty(chglamp) Then
+-'     For x = 0 To UBound(chglamp)      'nmbr = chglamp(x, 0), state = chglamp(x, 1)
+-'       Lampz.state(chglamp(x, 0)) = chglamp(x, 1)
+-'     next
+-'   End If
+-'   'Lampz.Update1  'update (fading logic only)
+-'   Lampz.Update2 'update (Pinmame and Fading (for -1, lower latency)
+-' End Sub
++Sub LampTimer_Timer()
++  dim x, chglamp
++  chglamp = Controller.ChangedLamps
++  If Not IsEmpty(chglamp) Then
++    For x = 0 To UBound(chglamp)      'nmbr = chglamp(x, 0), state = chglamp(x, 1)
++      Lampz.state(chglamp(x, 0)) = chglamp(x, 1)
++    next
++  End If
++  'Lampz.Update1  'update (fading logic only)
++  Lampz.Update2 'update (Pinmame and Fading (for -1, lower latency)
++End Sub
+ 
+ function FlashLevelToIndex(Input, MaxSize)
+   'FlashLevelToIndex = cInt(Input * (MaxSize-1)+.5)+1
+@@ -6078,11 +6069,9 @@
+   'Lamps, for reference:
+   'Pinmame Controller -> UpdateLamps sub -> Lampz Fading Object -> Object Updates / callbacks
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub SetLamp(aNr, aOn)
+-'   Lampz.state(aNr) = abs(aOn)
+-' End Sub
++Sub SetLamp(aNr, aOn)
++  Lampz.state(aNr) = abs(aOn)
++End Sub
+ 
+ Dim NullFader : set NullFader = new NullFadingObject
+ Dim Lampz : Set Lampz = New LampFader
+@@ -7147,10 +7136,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

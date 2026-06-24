@@ -1,0 +1,74 @@
+--- vpxtable_scripts/Cyclopes (Game Plan 1985) 1.1.vbs
++++ todo_extracted_tables/Cyclopes (Game Plan 1985) 1.1.vbs
+@@ -225,7 +225,7 @@
+   If keycode = LeftMagnaSave Then bLutActive = True
+   If keycode = RightMagnaSave Then
+     If bLutActive Then NextLUT: End If
+-  End If
++    End If
+     If KeyCode = PlungerKey Then Plunger.Pullback:SoundPlungerPull()
+ 
+     If keycode = LeftTiltKey Then Nudge 90, 5:SoundNudgeLeft()
+@@ -762,33 +762,33 @@
+ '*************
+ 
+ Dim bLutActive, LUTImage
+-
+ Sub LoadLUT
+-  Dim x
+-  x = LoadValue(cGameName, "LUTImage")
+-  If(x <> "") Then LUTImage = x Else LUTImage = 0
++Dim x
++    x = LoadValue(cGameName, "LUTImage")
++    If(x <> "") Then LUTImage = x Else LUTImage = 0
+   UpdateLUT
+ End Sub
+ 
+ Sub SaveLUT
+-  SaveValue cGameName, "LUTImage", LUTImage
++    SaveValue cGameName, "LUTImage", LUTImage
+ End Sub
+ 
+ Sub NextLUT: LUTImage = (LUTImage +1 ) MOD 10: UpdateLUT: SaveLUT: End Sub
+ 
+ Sub UpdateLUT
+-  Select Case LutImage
+-    Case 0: table1.ColorGradeImage = "LUT0"
+-    Case 1: table1.ColorGradeImage = "LUT1"
+-    Case 2: table1.ColorGradeImage = "LUT2"
+-    Case 3: table1.ColorGradeImage = "LUT3"
+-    Case 4: table1.ColorGradeImage = "LUT4"
+-    Case 5: table1.ColorGradeImage = "LUT5"
+-    Case 6: table1.ColorGradeImage = "LUT6"
+-    Case 7: table1.ColorGradeImage = "LUT7"
+-    Case 8: table1.ColorGradeImage = "LUT8"
+-    Case 9: table1.ColorGradeImage = "LUT9"
+-  End Select
++Select Case LutImage
++Case 0: table1.ColorGradeImage = "LUT0"
++Case 1: table1.ColorGradeImage = "LUT1"
++Case 2: table1.ColorGradeImage = "LUT2"
++Case 3: table1.ColorGradeImage = "LUT3"
++Case 4: table1.ColorGradeImage = "LUT4"
++Case 5: table1.ColorGradeImage = "LUT5"
++Case 6: table1.ColorGradeImage = "LUT6"
++Case 7: table1.ColorGradeImage = "LUT7"
++Case 8: table1.ColorGradeImage = "LUT8"
++Case 9: table1.ColorGradeImage = "LUT9"
++
++End Select
+ End Sub
+ 
+ 
+@@ -1412,10 +1412,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

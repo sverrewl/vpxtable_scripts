@@ -1,0 +1,41 @@
+--- vpxtable_scripts/The Rolling Stones LE (Stern 2011) v1.0.6i.vbs
++++ todo_extracted_tables/The Rolling Stones LE (Stern 2011) v1.0.6i.vbs
+@@ -173,10 +173,6 @@
+ Dim bsTrough, x, xx, Mag1, Mag2, object
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+     Controller.GameName= cGameName
+   Controller.SplashInfoLine="Rolling Stones (Stern 2011)"
+   Controller.Games(cGameName).Settings.Value("rol")=0
+@@ -3939,11 +3935,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3957,11 +3952,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

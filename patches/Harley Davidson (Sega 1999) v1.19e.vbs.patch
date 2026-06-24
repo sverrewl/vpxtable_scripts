@@ -1,0 +1,40 @@
+--- vpxtable_scripts/Harley Davidson (Sega 1999) v1.19e.vbs
++++ todo_extracted_tables/Harley Davidson (Sega 1999) v1.19e.vbs
+@@ -442,7 +442,7 @@
+     FlipperActivate RightFlipper, RFPress
+   End If
+ 
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(53)=1
++  If KeyCode=PlungerKey Then Controller.Switch(53)=1
+   If KeyCode=LeftMagnaSave Then
+     Controller.Switch(8)=1
+     if DisableLUTSelector = 0 then
+@@ -495,7 +495,7 @@
+ '   SolRFlipper False           'This would be called by the solenoid callbacks if using a ROM
+   End If
+ 
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(53)=0
++  If KeyCode=PlungerKey Then Controller.Switch(53)=0
+   If KeyCode=LeftMagnaSave Then
+     Controller.Switch(8)=0
+   End If
+@@ -2491,8 +2491,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2502,8 +2501,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 

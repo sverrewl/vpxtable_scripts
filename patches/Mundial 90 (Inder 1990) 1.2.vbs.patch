@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Mundial 90 (Inder 1990) 1.2.vbs
++++ todo_extracted_tables/Mundial 90 (Inder 1990) 1.2.vbs
+@@ -127,8 +127,6 @@
+     bsSaucer.InitSaucer sw70,70,0,40
+     bsSaucer.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+     bsSaucer.KickZ=0.785398163 '45 degrees
+-    bsSaucer.KickForceVar = 3
+-    bsSaucer.KickAngleVar = 3
+ 
+   Set dtDrop=New cvpmDropTarget
+     dtDrop.InitDrop Array(S51,S52,S53,S54,S55),Array(71,72,73,74,75)
+@@ -729,11 +727,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else

@@ -1,0 +1,444 @@
+--- vpxtable_scripts/Robo-War (Gottlieb 1988).vbs
++++ todo_extracted_tables/Robo-War (Gottlieb 1988).vbs
+@@ -169,7 +169,7 @@
+ Sub Table1_KeyUp(ByVal keycode)
+   If KeyCode = RightFlipperKey Then Controller.Switch(46)=0
+   If KeyCode = PlungerKey Then
+-    Plunger.Fire:PlaySoundAt "Plunger", Plunger, 1
++    Plunger.Fire:PlaySound "Plunger"
+     'PDirection = -1:Plunge.Interval = 6:Plunge.Enabled = 1 ' Plunger release animation
+   End If
+   If vpmKeyUp(KeyCode) Then Exit Sub
+@@ -182,7 +182,7 @@
+ Dim RStep, Lstep
+ 
+ Sub RightSlingShot_Slingshot
+-    PlaySoundAtVol SoundFXDOF("right_slingshot",102,DOFPulse,DOFContactors), ActiveBall, 1
++    PlaySound SoundFXDOF("right_slingshot",102,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
+     RSling.Visible = 0
+     RSling1.Visible = 1
+     sling1.TransZ = -20
+@@ -204,7 +204,7 @@
+ End Sub
+ 
+ Sub LeftSlingShot_Slingshot
+-    PlaySoundAtVol SoundFXDOF("left_slingshot",101,DOFPulse,DOFContactors), ActiveBall, 1
++    PlaySound SoundFXDOF("left_slingshot",101,DOFPulse,DOFContactors),0,1,-0.05,0.05
+     LSling.Visible = 0
+     LSling1.Visible = 1
+     sling2.TransZ = -20
+@@ -226,11 +226,11 @@
+ End Sub
+ 
+ ' Bumpers
+-Sub Bumper1_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 53:End Sub
+-Sub Bumper2_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 63:End Sub
+-Sub Bumper3_Hit:PlaySoundAtVol SoundFX("Bumper", DOFContactors), ActiveBall, 1:vpmTimer.PulseSw 73:End Sub
++Sub Bumper1_Hit:PlaySound SoundFX("Bumper",DOFContactors):vpmTimer.PulseSw 53:End Sub
++Sub Bumper2_Hit:PlaySound SoundFX("Bumper",DOFContactors):vpmTimer.PulseSw 63:End Sub
++Sub Bumper3_Hit:PlaySound SoundFX("Bumper",DOFContactors):vpmTimer.PulseSw 73:End Sub
+ ' Drain
+-Sub Drain_Hit:PlaySoundAtVol "Drain": Drain, 1:End Sub
++Sub Drain_Hit:PlaySound "Drain":bsTrough.AddBall Me:End Sub
+ ' Rollovers
+ Sub LaneR_Hit:Controller.Switch(44) = 1:        End Sub
+ Sub LaneR_UnHit:Controller.Switch(44) = 0:        End Sub
+@@ -257,7 +257,7 @@
+ Sub StargateRollover_Hit:Controller.Switch(71) = 1:   End Sub
+ Sub StargateRollover_UnHit:Controller.Switch(71) = 0: End Sub
+ ' Spinner
+-Sub Spinner_Spin:vpmTimer.PulseSw 30:PlaySoundAtVol "fx_spinner" Spinner, 1:End Sub
++Sub Spinner_Spin:vpmTimer.PulseSw 30:Playsound "fx_spinner":End Sub
+ ' Drop Targets
+ Sub Alpha1_Hit:dtAlpha1.hit 1:End Sub
+ Sub Alpha2A_Hit:dtAlpha2.hit 1:End Sub
+@@ -270,13 +270,13 @@
+ Sub BetaT_Hit:dtBeta.hit 3:End Sub
+ Sub BetaA_Hit:dtBeta.hit 4:End Sub
+ ' Top Saucer
+-Sub Kicker_Hit:bsTop.AddBall 0:PlaySoundAtVol "kicker_enter", ActiveBall, 1:End Sub
++Sub Kicker_Hit:bsTop.AddBall 0:PlaySound "kicker_enter":End Sub
+ Sub Kicker_Unhit:DOF 113, DOFPulse:End Sub
+-Sub Kicker1_Hit():PlaySoundAtVol "Ball_Bounce", ActiveBall, 1:End Sub
+-Sub Trigger1_hit():PlaySoundAtVol "Launch", ActiveBall, 1:End Sub
++Sub Kicker1_Hit():PlaySound "Ball_Bounce":End Sub
++Sub Trigger1_hit():PlaySound "Launch":End Sub
+ ' Targets
+-Sub StargateTarget_Hit:vpmTimer.PulseSw 72:PlaySoundAtVol "Bounce", ActiveBall, 1:End Sub
+-Sub LeftTarget_Hit:vpmTimer.PulseSw 62:PlaySoundAtVol "Bounce", ActiveBall, 1:End Sub
++Sub StargateTarget_Hit:vpmTimer.PulseSw 72:PlaySound "Bounce":End Sub
++Sub LeftTarget_Hit:vpmTimer.PulseSw 62:PlaySound "Bounce":End Sub
+ ' Trapped Ball Untrapper
+ 'Sub Untrapper1_Hit:Me.DestroyBall:Untrapper2.Enabled=1:Untrapper2.CreateBall:Untrapper2.Kick 90,10:Controller.B2SSetData 114,1:Controller.B2SSetData 114,0:End Sub
+ ' Ball Image Changers
+@@ -314,17 +314,17 @@
+ 
+ Sub SolLFlipper(Enabled)
+   If Enabled Then
+-    PlaySoundAtVol  SoundFX("FlipperUp",DOFFlippers), ActiveBall, 1:lf.fire
++    PlaySound SoundFX("FlipperUp",DOFFlippers):lf.fire
+   Else
+-    PlaySoundAtVol  SoundFX("FlipperDown",DOFFlippers), ActiveBall, 1:LeftFlipper.RotateToStart
++    PlaySound SoundFX("FlipperDown",DOFFlippers):LeftFlipper.RotateToStart
+   End If
+ End Sub
+ 
+ Sub SolRFlipper(Enabled)
+   If Enabled Then
+-    PlaySoundAtVol  SoundFX("FlipperUp",DOFFlippers), ActiveBall, 1:rf.fire
++    PlaySound SoundFX("FlipperUp",DOFFlippers):rf.fire
+   Else
+-    PlaySoundAtVol  SoundFX("FlipperDown",DOFFlippers), ActiveBall, 1:RightFlipper.RotateToStart
++    PlaySound SoundFX("FlipperDown",DOFFlippers):RightFlipper.RotateToStart
+   End If
+ End Sub
+ 
+@@ -1488,184 +1488,11 @@
+ Sub Untrapper2_UnHit(): Untrapper2.Enabled = 0 : End Sub
+ '--------- END ADDED by JF
+ 
+-' *******************************************************************************************************
+-' Positional Sound Playback Functions by DJRobX, Rothbauerw, Thalamus and Herweh
+-' PlaySound sound, 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' *******************************************************************************************************
+-
+-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+-
+-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+-End Sub
+-
+-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+-
+-Sub PlaySoundAt(soundname, tableobj)
+-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-' set position as table object and Vol + RndPitch manually
+-
+-Sub PlaySoundAtVolPitch(sound, tableobj, Vol, RndPitch)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), RndPitch, 0, 0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed.
+-
+-Sub PlaySoundAtBall(soundname)
+-  PlaySoundAt soundname, ActiveBall
+-End Sub
+-
+-'Set position as table object and Vol manually.
+-
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+-
+-Sub PlaySoundAtBallVol(sound, VolMult)
+-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-Sub PlaySoundAtBallAbsVol(sound, VolMult)
+-  PlaySound sound, 0, VolMult, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-' requires rampbump1 to 7 in Sound Manager
+-
+-Sub RandomBump(voladj, freq)
+-  Dim BumpSnd:BumpSnd= "rampbump" & CStr(Int(Rnd*7)+1)
+-  PlaySound BumpSnd, 0, Vol(ActiveBall)*voladj, AudioPan(ActiveBall), 0, freq, 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-' set position as bumperX and Vol manually. Allows rapid repetition/overlaying sound
+-
+-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+-  PlaySound sound, 1, Vol, AudioPan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+-End Sub
+-
+-Sub PlaySoundAtBOTBallZ(sound, BOT)
+-  PlaySound sound, 0, ABS(BOT.velz)/17, Pan(BOT), 0, Pitch(BOT), 1, 0, AudioFade(BOT)
+-End Sub
+-
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+-
+-'*********************************************************************
+-'            Supporting Ball, Sound Functions and Math
+-'*********************************************************************
+-
+-Function RndNum(min, max)
+-  RndNum = Int(Rnd() * (max-min + 1) ) + min ' Sets a random number between min and max
+-End Function
+-
+-Const Pi = 3.1415927
+-
+-Function dSin(degrees)
+-  dsin = sin(degrees * Pi/180)
+-End Function
+-
+-Function dCos(degrees)
+-  dcos = cos(degrees * Pi/180)
+-End Function
+-
+-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.y * 2 / table1.height-1
+-' Thalamus, AudioFade - Patched
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^5) 'was 10
+-  Else
+-    AudioFade = Csng(-((- tmp) ^5) ) 'was 10
+-  End If
+-End Function
+-
+-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = tableobj.x * 2 / table1.width-1
+-' Thalamus, AudioPan - Patched
+-  If tmp > 0 Then
+-    AudioPan = Csng(tmp ^5) 'was 10
+-  Else
+-    AudioPan = Csng(-((- tmp) ^5) ) 'was 10
+-  End If
+-End Function
+-
+-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  On Error Resume Next
+-  tmp = ball.x * 2 / table1.width-1
+-' Thalamus, Pan - Patched
+-  If tmp > 0 Then
+-    Pan = Csng(tmp ^5) 'was 10
+-  Else
+-    Pan = Csng(-((- tmp) ^5) ) ' was 10
+-  End If
+-End Function
+-
+-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  Vol = Csng(BallVel(ball) ^2 / 2000)
+-End Function
+-
+-Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-End Function
+-
+-Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-  debug.print DVolMulti
+-End Function
+-
+-Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
+-End Function
+-
+-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+-  Pitch = BallVel(ball) * 20
+-End Function
+-
+-Function BallVel(ball) 'Calculates the ball speed
+-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+-End Function
+-
+-Function BallVelZ(ball) 'Calculates the ball speed in the -Z
+-  BallVelZ = INT((ball.VelZ) * -1 )
+-End Function
+-
+-Function VolZ(ball) ' Calculates the Volume of the sound based on the ball speed in the Z
+-  VolZ = Csng(BallVelZ(ball) ^2 / 200)*1.2
+-End Function
+-
+-'*** Determines if a Points (px,py) is inside a 4 point polygon A-D in Clockwise/CCW order
+-
+-Function InRect(px,py,ax,ay,bx,by,cx,cy,dx,dy)
+-  Dim AB, BC, CD, DA
+-  AB = (bx*py) - (by*px) - (ax*py) + (ay*px) + (ax*by) - (ay*bx)
+-  BC = (cx*py) - (cy*px) - (bx*py) + (by*px) + (bx*cy) - (by*cx)
+-  CD = (dx*py) - (dy*px) - (cx*py) + (cy*px) + (cx*dy) - (cy*dx)
+-  DA = (ax*py) - (ay*px) - (dx*py) + (dy*px) + (dx*ay) - (dy*ax)
+-
+-  If (AB <= 0 AND BC <=0 AND CD <= 0 AND DA <= 0) Or (AB >= 0 AND BC >=0 AND CD >= 0 AND DA >= 0) Then
+-    InRect = True
+-  Else
+-    InRect = False
+-  End If
+-End Function
+-
+-
+ '*****************************************
+ '      JP's VP10 Rolling Sounds
+ '*****************************************
+ 
+-Const tnob = 5 ' total number of balls
++Const tnob = 8 ' total number of balls
+ ReDim rolling(tnob)
+ InitRolling
+ 
+@@ -1690,72 +1517,89 @@
+     If UBound(BOT) = -1 Then Exit Sub
+ 
+   ' play the rolling sound for each ball
+-
+     For b = 0 to UBound(BOT)
+-      If BallVel(BOT(b) ) > 1 Then
+-        rolling(b) = True
+-        if BOT(b).z < 30 Then ' Ball on playfield
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+-          ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.8, AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+-        Else ' Ball on raised ramp
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+-          ' PlaySound("fx_ballrolling" & b), -1, BallRollVol(BOT(b) )*.2, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+-        End If
+-      Else
+-        If rolling(b) = True Then
+-          StopSound("fx_ballrolling" & b)
+-          rolling(b) = False
++        If BallVel(BOT(b) ) > 1 AND BOT(b).z < 30 AND BOT(b).z > 0 Then
++            rolling(b) = True
++            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0
++        Else
++            If rolling(b) = True Then
++                StopSound("fx_ballrolling" & b)
++                rolling(b) = False
++            End If
+         End If
+-      End If
+     Next
+ End Sub
+ 
++Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
++    Vol = Csng(BallVel(ball) ^2 / 1)
++End Function
++
++Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table" is the name of the table
++    Dim tmp
++    tmp = ball.x * 2 / table1.width-1
++    If tmp > 0 Then
++        Pan = Csng(tmp ^10)
++    Else
++        Pan = Csng(-((- tmp) ^10) )
++    End If
++End Function
++
++Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
++    Pitch = BallVel(ball) * 20
++End Function
++
++Function BallVel(ball) 'Calculates the ball speed
++    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
++End Function
++
+ '**********************
+ ' Ball Collision Sound
+ '**********************
+ 
+ Sub OnBallBallCollision(ball1, ball2, velocity)
+-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
++  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+ End Sub
+-
++' *********************************************************************
++'                      Supporting Ball & Sound Functions
++' *********************************************************************
+ 
+ Sub Pins_Hit (idx)
+-  PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
++  PlaySound "pinhit_low", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+ End Sub
+ 
+ Sub Targets_Hit (idx)
+-  PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
++  PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+ End Sub
+ 
+ Sub TargetBankWalls_Hit (idx)
+-  PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
++  PlaySound "target", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0
+ End Sub
+ 
+ Sub Metals_Thin_Hit (idx)
+-  PlaySound "fx_metalhit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  PlaySound "fx_metalhit", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ End Sub
+ 
+ Sub Metals_Medium_Hit (idx)
+-  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  PlaySound "metalhit_medium", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ End Sub
+ 
+ Sub Metals2_Hit (idx)
+-  PlaySound "fx_metalclank", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  PlaySound "fx_metalclank", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ End Sub
+ 
+ Sub Gates_Hit (idx)
+-  PlaySound "gate", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  PlaySound "gate", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ End Sub
+ 
+ Sub Rolls_Hit (idx)
+-  PlaySound "fx_sensor", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  PlaySound "fx_sensor", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+ End Sub
+ 
+ Sub Rubbers_Hit(idx)
+   dim finalspeed
+     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+   If finalspeed > 20 then
+-    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+   End if
+   If finalspeed >= 6 AND finalspeed <= 20 then
+     RandomSoundRubber()
+@@ -1766,7 +1610,7 @@
+   dim finalspeed
+     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+   If finalspeed > 16 then
+-    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    PlaySound "fx_rubber2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+   End if
+   If finalspeed >= 6 AND finalspeed <= 16 then
+     RandomSoundRubber()
+@@ -1775,9 +1619,9 @@
+ 
+ Sub RandomSoundRubber()
+   Select Case Int(Rnd*3)+1
+-    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
++    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
++    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+   End Select
+ End Sub
+ 
+@@ -1791,9 +1635,9 @@
+ 
+ Sub RandomSoundFlipper()
+   Select Case Int(Rnd*3)+1
+-    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
++    Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
++    Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0
+   End Select
+ End Sub
+ 
+@@ -2176,10 +2020,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

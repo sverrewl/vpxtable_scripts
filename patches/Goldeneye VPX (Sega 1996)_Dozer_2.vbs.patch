@@ -1,0 +1,163 @@
+--- vpxtable_scripts/Goldeneye VPX (Sega 1996)_Dozer_2.vbs
++++ todo_extracted_tables/Goldeneye VPX (Sega 1996)_Dozer_2.vbs
+@@ -463,7 +463,7 @@
+ 
+ 'Pulse Switch 15 on trough upkick.
+ Sub SolLockOut(Enabled)
+- If Enabled Then vpmTimer.PulseSw 15
++  If Enabled Then vpmTimer.PulseSw 15
+     PlaySoundAt "fx_solenoid", drain
+ End Sub
+ 
+@@ -495,12 +495,12 @@
+     Controller.Switch(7)=1
+     Exit Sub
+   End If
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=1
+- If vpmKeyDown(KeyCode) Then Exit Sub
++  If KeyCode=PlungerKey Then Controller.Switch(9)=1
++  If vpmKeyDown(KeyCode) Then Exit Sub
+ End Sub
+ 
+ Sub GoldenEye_KeyUp(ByVal KeyCode)
+- If KeyCode=StartGameKey Then
++  If KeyCode=StartGameKey Then
+     Controller.Switch(3)=0
+     Exit Sub
+   End If
+@@ -508,31 +508,31 @@
+     Controller.Switch(7)=0
+     Exit Sub
+   End If
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=0
+- If vpmKeyUp(KeyCode) Then Exit Sub
++  If KeyCode=PlungerKey Then Controller.Switch(9)=0
++  If vpmKeyUp(KeyCode) Then Exit Sub
+ End Sub
+ 
+ Dim bsTrough,bsScoop,bsTank,SatMech,bsPlunger,bsLockOut,BallInSat, SatMag, FlipMag
+ BallInSat=0
+ 
+-Sub GoldenEye
++Sub GoldenEye_Init
+   vpmInit Me
+   On Error Resume Next
+     With Controller
+-     .GameName=cGameName
++      .GameName=cGameName
+              .Games(cGameName).Settings.Value("rol")=0
+        .Games(cGameName).Settings.Value("sound")=1
+       If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+       .SplashInfoLine="007 Goldeneye - Sega, 1996"&vbNewLine&"Initial Table Releace by Pingod & Kid Charlemagne"&vbNewLine&"Mod by UncleReamus & Destruk"&vbNewLine&"Further Modding by The Trout"
+       .HandleMechanics=0
+       .HandleKeyboard=0
+-     .ShowDMDOnly=1
++      .ShowDMDOnly=1
+       .ShowFrame=0
+       .ShowTitle=0
+       '.Run
+-     'End With
+-     'If Err Then MsgBox Err.Description
+-         'On Error Goto 0
++      'End With
++      'If Err Then MsgBox Err.Description
++          'On Error Goto 0
+             On Error Resume Next
+             .Run GetPlayerHWnd
+             If Err Then MsgBox Err.Description
+@@ -541,7 +541,7 @@
+      On Error Goto 0
+ 
+   vpmNudge.TiltSwitch=1
+- vpmNudge.Sensitivity=5
++  vpmNudge.Sensitivity=5
+   vpmNudge.TiltObj=Array(LeftSlingshot,RightSlingshot,LeftTurboBumper,RightTurboBumper)
+ 
+ 
+@@ -557,12 +557,12 @@
+     bsTrough.InitKick BallRelease,40,8
+     'bsTrough.InitExitSnd "BallRelease","Solon"
+         bsTrough.InitExitSnd SoundFX("ballrelease", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-   bsTrough.Balls=5
++    bsTrough.Balls=5
+ 
+   'Set bsScoop=New cvpmBallStack
+   ' bsScoop.InitSw 0,50,0,0,0,0,0,0
+- ' bsScoop.InitKick Scoop,213,10
+- ' bsScoop.InitExitSnd "scoopexit","Solon"
++  ' bsScoop.InitKick Scoop,213,10
++  ' bsScoop.InitExitSnd "scoopexit","Solon"
+     '   bsScoop.InitExitSnd SoundFX("scoopexit", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+ 
+     Set bsScoop = New cvpmBallStack
+@@ -574,16 +574,16 @@
+     bsTank.InitSw 0,56,0,0,0,0,0,0
+     bsTank.InitKick TankKickBig,0,60
+     bsTank.InitExitSnd "popper","fx_solenoid"
+-   bsTank.KickBalls=2
++    bsTank.KickBalls=2
+     bsTank.KickForceVar=4
+ 
+- Set bsPlunger=New cvpmBallStack
+-   bsPlunger.InitSaucer Plunger,16,0,55
++  Set bsPlunger=New cvpmBallStack
++    bsPlunger.InitSaucer Plunger,16,0,55
+     bsPlunger.InitExitSnd "fx_solenoid","SolOff"
+     bsPlunger.KickForceVar=6
+ 
+   vpmCreateEvents AllSwitches
+- vpmMapLights AllLights
++  vpmMapLights AllLights
+ 
+ Sat_Ramp_Wall.isdropped = 1
+ TL_Wall.isdropped = 1
+@@ -653,14 +653,14 @@
+ 
+ 'Satellite Ramp (Add animation when you CBF)
+ Sub SolSatLaunchRamp(Enabled)
+- If Enabled then
++  If Enabled then
+ 'Sat_Ramp.heighttop = 70
+ satrampdir = 2:SatUD.enabled = 1
+ Sat_Ramp001.collidable = 1
+ Sat_Ramp_Wall.isdropped = 0
+ PlaySoundAt "SolOn", MiddleWheel001
+ DOF 131,2
+- Else
++  Else
+ 'Sat_Ramp.heighttop = 0
+ satrampdir = 1:SatUD.enabled = 1
+ Sat_Ramp001.collidable = 0
+@@ -693,7 +693,7 @@
+ 
+ Sub SolUpDownRamp(Enabled)
+ If Enabled Then
+- 'UDRamp.HeightTop = 0
++  'UDRamp.HeightTop = 0
+     udrampdir = 1:RampUD.enabled = 1
+     UDRamp001.Collidable = 1
+     UDRamp.Collidable = 0
+@@ -701,7 +701,7 @@
+     PlaySoundAt "SolOn", Bolt049
+     DOF 130,2
+ Else
+- 'UDRamp.HeightTop = 70
++  'UDRamp.HeightTop = 70
+     udrampdir = 2:RampUD.enabled = 1
+     UDRamp001.Collidable = 0
+   UDRamp.Collidable = 1
+@@ -996,11 +996,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < goldeneye.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (goldeneye.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (goldeneye.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (goldeneye.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (goldeneye.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else

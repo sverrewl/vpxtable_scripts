@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Cyclone (Williams 1988) v.2.3.1.vbs
++++ todo_extracted_tables/Cyclone (Williams 1988) v.2.3.1.vbs
+@@ -3422,9 +3422,9 @@
+     Case 3
+       tmp = tableobj.y * 2 / tableheight-1
+       If tmp > 0 Then
+-        AudioFade = Csng(tmp ^5) 'was 10
++        AudioFade = Csng(tmp ^10)
+       Else
+-        AudioFade = Csng(-((- tmp) ^5) ) ' was 10
++        AudioFade = Csng(-((- tmp) ^10) )
+       End If
+   End Select
+ End Function
+@@ -3438,9 +3438,9 @@
+     Case 2
+       tmp = tableobj.x * 2 / tablewidth-1
+       If tmp > 0 Then
+-        AudioPan = Csng(tmp ^5) ' was 10
++        AudioPan = Csng(tmp ^10)
+       Else
+-        AudioPan = Csng(-((- tmp) ^5) ) ' was 10
++        AudioPan = Csng(-((- tmp) ^10) )
+       End If
+     Case 3
+       tmp = tableobj.x * 2 / tablewidth-1

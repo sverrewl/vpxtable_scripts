@@ -1,0 +1,52 @@
+--- vpxtable_scripts/Stars (Stern 1978).vbs
++++ todo_extracted_tables/Stars (Stern 1978).vbs
+@@ -694,8 +694,8 @@
+ End Sub
+ 
+ Sub UpdateLamps
+-NFadeLm 1, L33
+-NFadeLm 2, L17
++NFadeLm 1, L1
++NFadeLm 2, L2
+ NFadeLm 3, L3
+ NFadeLm 4, L4
+ NFadeLm 5, L5
+@@ -718,7 +718,7 @@
+ NFadeLm 10, L10
+ NFadeLm 11, L11
+ NFadeLm 12, L12
+-NFadeLm 17, L49
++NFadeLm 17, L17
+ NFadeLm 19, L19
+ NFadeLm 20, L20
+ NFadeLm 21, L21
+@@ -731,7 +731,7 @@
+ NFadeLm 25, L25a
+ NFadeLm 26, L26
+ NFadeLm 28, L28
+-NFadeLm 33, L2
++NFadeLm 33, L33
+ NFadeLm 35, L35
+ NFadeLm 36, L36
+ NFadeLm 38, L38
+@@ -739,7 +739,7 @@
+ NFadeLm 42, L42
+ NFadeLm 43, L43
+ NFadeLm 44, L44
+-NFadeLm 49, L1
++NFadeLm 49, L49
+ NFadeLm 51, L51
+ NFadeLm 52, L52
+ NFadeLm 54, L54
+@@ -1478,10 +1478,7 @@
+     RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+     coef = desiredcor / realcor
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+   Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef

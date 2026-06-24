@@ -1,0 +1,24 @@
+--- vpxtable_scripts/Nitro Ground Shaker (Bally 1980) v600.vbs
++++ todo_extracted_tables/Nitro Ground Shaker (Bally 1980) v600.vbs
+@@ -104,21 +104,16 @@
+         .Balls = 1
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     'Kickers
+     Set bsSaucer = New cvpmBallStack
+     bsSaucer.InitSaucer Kicker1, 24, 200, 15
+     bsSaucer.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bsSaucer.KickAngleVar = 10
+-    bsSaucer.KickForceVar = 3
+-    bsSaucer.KickAngleVar = 3
+ 
+     set bsSaucer2 = New cvpmBallStack
+     bssaucer2.InitSaucer Kicker2, 32, 190, 15
+     bsSaucer2.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bssaucer2.KickAngleVar = 10
+-    bssaucer2.KickForceVar = 3
+-    bssaucer2.KickAngleVar = 3
+ 
+     ' Drop targets
+     set dtbank = new cvpmdroptarget

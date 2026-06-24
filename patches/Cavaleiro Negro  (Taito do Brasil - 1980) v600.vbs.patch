@@ -1,0 +1,17 @@
+--- vpxtable_scripts/Cavaleiro Negro  (Taito do Brasil - 1980) v600.vbs
++++ todo_extracted_tables/Cavaleiro Negro  (Taito do Brasil - 1980) v600.vbs
+@@ -99,14 +99,12 @@
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Lower Eject Hole
+     Set bsSaucer = New cvpmBallStack
+     With bsSaucer
+         .InitSaucer sw24, 2, 160, 8
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+         .KickAngleVar = 2.5
+-        .KickForceVar = 3
+     End With
+ 
+     ' Lower Left droptargets

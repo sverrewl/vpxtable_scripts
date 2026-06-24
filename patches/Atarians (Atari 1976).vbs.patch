@@ -1,0 +1,27 @@
+--- vpxtable_scripts/Atarians (Atari 1976).vbs
++++ todo_extracted_tables/Atarians (Atari 1976).vbs
+@@ -653,11 +653,8 @@
+   On Error Goto 0
+   Controller.Hidden=0
+ 
+-' Thalamus : Was missing 'vpminit me'
+-vpminit me
+-
+-'  PinMAMETimer.Interval=PinMAMEInterval
+-'    PinMAMETimer.Enabled=True
++  PinMAMETimer.Interval=PinMAMEInterval
++    PinMAMETimer.Enabled=True
+     ' Nudging
+   vpmNudge.TiltSwitch = 4
+   vpmNudge.Sensitivity = 5
+@@ -1098,7 +1095,6 @@
+     Next
+ End Sub
+ 
+-Sub Atarians_Exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
++
++
++

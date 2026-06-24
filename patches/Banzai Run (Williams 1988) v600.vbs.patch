@@ -1,0 +1,35 @@
+--- vpxtable_scripts/Banzai Run (Williams 1988) v600.vbs
++++ todo_extracted_tables/Banzai Run (Williams 1988) v600.vbs
+@@ -116,21 +116,16 @@
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     End With
+ 
+-    ' Thalamus - more randomness pls
+     Set bsLeftEjectHole = New cvpmBallStack
+     With bsLeftEjectHole
+         .Initsw 0, 13, 0, 0, 0, 0, 0, 0
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set CenterEjectHole = New cvpmBallStack
+     With CenterEjectHole
+         .InitSaucer sw17, 17, 190, 20
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     'Impulse Plunger as autoplunger
+@@ -1423,10 +1418,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

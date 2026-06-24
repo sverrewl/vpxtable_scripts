@@ -1,0 +1,236 @@
+--- vpxtable_scripts/Bad Girls (Gottlieb 1988) v1.6.5 RESKIN Cheese3075.vbs
++++ todo_extracted_tables/Bad Girls (Gottlieb 1988) v1.6.5 RESKIN Cheese3075.vbs
+@@ -118,17 +118,17 @@
+ 
+ Sub SolLFlipper(Enabled)
+      If Enabled Then
+-         PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), LeftFlipper, 1:LeftFlipper.RotateToEnd
++         PlaySound SoundFX("fx_Flipperup",DOFContactors):LeftFlipper.RotateToEnd
+      Else
+-         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), LeftFlipper, 1:LeftFlipper.RotateToStart
++         PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
+      End If
+   End Sub
+ 
+ Sub SolRFlipper(Enabled)
+      If Enabled Then
+-         PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), RightFlipper, 1:RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
++         PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd:RightFlipper1.RotateToEnd
+      Else
+-         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFContactors), RightFlipper, 1:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
++         PlaySound SoundFX("fx_Flipperdown",DOFContactors):RightFlipper.RotateToStart:RightFlipper1.RotateToStart
+      End If
+ End Sub
+ '**********************************************************************************************************
+@@ -157,7 +157,7 @@
+     SetLamp 152, Enabled  ' Flasher Drop Targets X2
+   Else
+     if Controller.switch (45) then
+-      PlaySoundAtVol SoundFX("Popper",DOFContactors), TopVUK, 1
++      playsound SoundFX("Popper",DOFContactors)
+       TopVUK.DestroyBall
+       Set raiseball = TopVUK.CreateBall
+       raiseballsw = True
+@@ -165,7 +165,7 @@
+       TopVUK.Enabled=TRUE
+       Controller.switch (45) = False
+     else
+-      PlaySoundAtVol "Popper", TopVuk, 1
++      PlaySound "Popper"
+     end if
+   End If
+  End Sub
+@@ -202,7 +202,7 @@
+     SetLamp 156,Enabled'Dome Flasher X2
+   Else
+     if Controller.switch (55) then
+-      PlaySoundAtVol SoundFX("Popper",DOFContactors), MidVUKTop, 1
++      playsound SoundFX("Popper",DOFContactors)
+       MidVUKTop.DestroyBall
+       Set dropball = MidVUKTop.CreateBall
+       dropballsw = True
+@@ -210,7 +210,7 @@
+       MidVUKTop.Enabled=TRUE
+       Controller.switch (55) = False
+     else
+-      PlaySoundAtVol "Popper", MidVUKTop, 1
++      PlaySound "Popper"
+     end if
+   End If
+  End Sub
+@@ -345,7 +345,7 @@
+   If keycode = StartGameKey Then
+     PincabStartButton.y = PincabStartButton.y - 1
+   End If
+-  If keycode = PlungerKey Then Plunger.Pullback:PlaySoundAtVol "plungerpull", Plunger ,1
++  If keycode = PlungerKey Then Plunger.Pullback:playsound"plungerpull"
+   If keycode = LeftFlipperkey Then
+     VR_FlipperButtonLeft.x = VR_FlipperButtonLeft.x + 6
+   End If
+@@ -360,7 +360,7 @@
+   If keycode = StartGameKey Then
+     PincabStartButton.y = PincabStartButton.y + 1
+   End If
+-  If keycode = PlungerKey Then Plunger.Fire:PlaySound "plunger", Plunger ,1
++  If keycode = PlungerKey Then Plunger.Fire:PlaySound"plunger"
+   If keycode = LeftFlipperkey Then
+     VR_FlipperButtonLeft.x = VR_FlipperButtonLeft.x - 6
+   End If
+@@ -374,7 +374,7 @@
+ '**********************************************************************************************************
+ 
+  ' Drain hole and kickers
+-Sub Drain_Hit:bsTrough.addball me : playsoundaTVol "drain", Drain, 1: End Sub
++Sub Drain_Hit:bsTrough.addball me : playsound"drain" : End Sub
+ 
+  '***********************************
+  'Top Left Raising VUK
+@@ -384,7 +384,7 @@
+  Sub TopVUK_Hit()
+   TopVUK.Enabled=FALSE
+   Controller.switch (45) = True
+-  PlaySoundAtVol "popper_ball", TopVUK, 1
++  playsound "popper_ball"
+  End Sub
+ 
+  Sub TopVukraiseballtimer_Timer()
+@@ -407,7 +407,7 @@
+ Sub MidVUKTop_Hit()
+   MidVUKTop.Enabled=FALSE
+   Controller.switch (55) = True
+-  PlaySoundAtVol "popper_ball", MidVUKTop, 1
++  playsound "popper_ball"
+ End Sub
+ 
+  Sub MidVukdropballtimer_Timer()
+@@ -416,7 +416,7 @@
+     If dropball.z > 100 then
+       MidVUKTop.Kick 45, 10
+       Set dropball = Nothing
+-      PlaySoundAtVol "fx_ballrampdrop", MidVUKTop
++      PlaySound "fx_ballrampdrop"
+       MidVukdropballtimer.Enabled = False
+       dropballsw = False
+     End If
+@@ -443,44 +443,44 @@
+ Sub sw51_hit:vpmTimer.pulseSw 51 : End Sub
+ 
+ 'Wire Triggers
+- Sub sw3_Hit:Controller.Switch(3)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw3_Hit:Controller.Switch(3)=1 : playsound"rollover" : End Sub
+  Sub sw3_UnHit:Controller.Switch(3)=0:End Sub
+- Sub sw13_Hit:Controller.Switch(13)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw13_Hit:Controller.Switch(13)=1 : playsound"rollover" : End Sub
+  Sub sw13_UnHit:Controller.Switch(13)=0:End Sub
+- Sub sw23_Hit:Controller.Switch(23)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw23_Hit:Controller.Switch(23)=1 : playsound"rollover" : End Sub
+  Sub sw23_UnHit:Controller.Switch(23)=0:End Sub
+- Sub sw33_Hit:Controller.Switch(33)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw33_Hit:Controller.Switch(33)=1 : playsound"rollover" : End Sub
+  Sub sw33_UnHit:Controller.Switch(33)=0:End Sub
+- Sub sw43_Hit:Controller.Switch(43)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw43_Hit:Controller.Switch(43)=1 : playsound"rollover" : End Sub
+  Sub sw43_UnHit:Controller.Switch(43)=0:End Sub
+- Sub sw53_Hit:Controller.Switch(53)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw53_Hit:Controller.Switch(53)=1 : playsound"rollover" : End Sub
+  Sub sw53_UnHit:Controller.Switch(53)=0:End Sub
+- Sub sw63_Hit:Controller.Switch(63)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw63_Hit:Controller.Switch(63)=1 : playsound"rollover" : End Sub
+  Sub sw63_UnHit:Controller.Switch(63)=0:End Sub
+- Sub sw73_Hit:Controller.Switch(73)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw73_Hit:Controller.Switch(73)=1 : playsound"rollover" : End Sub
+  Sub sw73_UnHit:Controller.Switch(73)=0:End Sub
+ 
+ 'Star Rollover
+- Sub sw72a_Hit:Controller.Switch(72)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw72a_Hit:Controller.Switch(72)=1 : playsound"rollover" : End Sub
+  Sub sw72a_UnHit:Controller.Switch(72)=0:End Sub
+- Sub sw72b_Hit:Controller.Switch(72)=1 : PlaySoundAtVol"rollover", ActiveBall, 1 : End Sub
++ Sub sw72b_Hit:Controller.Switch(72)=1 : playsound"rollover" : End Sub
+  Sub sw72b_UnHit:Controller.Switch(72)=0:End Sub
+ 
+ 'Bumpers
+-Sub Bumper1_Hit : vpmTimer.PulseSw(52) : PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), ActiveBall, 1: End Sub
+-Sub Bumper2_Hit : vpmTimer.PulseSw(42) : PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), ActiveBall, 1: End Sub
+-Sub Bumper3_Hit : vpmTimer.PulseSw(62) : PlaySoundAtVol SoundFX("fx_bumper1",DOFContactors), ActiveBall, 1: End Sub
++Sub Bumper1_Hit : vpmTimer.PulseSw(52) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
++Sub Bumper2_Hit : vpmTimer.PulseSw(42) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
++Sub Bumper3_Hit : vpmTimer.PulseSw(62) : playsound SoundFX("fx_bumper1",DOFContactors): End Sub
+ 
+ 'Spinners
+-Sub sw71_Spin:vpmTimer.PulseSw 71 : PlaySoundAtVol"fx_spinner", sw71, 1 : End Sub
+-Sub sw61_Spin:vpmTimer.PulseSw 61 : PlaySoundAtVol"fx_spinner", sw61, 1 : End Sub
++Sub sw71_Spin:vpmTimer.PulseSw 71 : playsound"fx_spinner" : End Sub
++Sub sw61_Spin:vpmTimer.PulseSw 61 : playsound"fx_spinner" : End Sub
+ 
+ 'Generic Sounds
+-Sub Trigger1_Hit:PlaySoundAtVol "fx_ballrampdrop", ActiveBall, 1:End Sub
+-Sub Trigger2_Hit:PlaySoundAtVol "fx_ballrampdrop", ActiveBall, 1:End Sub
++Sub Trigger1_Hit:PlaySound "fx_ballrampdrop":End Sub
++Sub Trigger2_Hit:PlaySound "fx_ballrampdrop":End Sub
+ 
+-Sub Trigger3_Hit:PlaySoundAtVol "Wire Ramp", ActiveBall, 1:End Sub
+-Sub Trigger4_Hit:PlaySoundAtVol "Wire Ramp", ActiveBall, 1:End Sub
++Sub Trigger3_Hit:PlaySound "Wire Ramp":End Sub
++Sub Trigger4_Hit:PlaySound "Wire Ramp":End Sub
+ 
+ '**********************************************************************************************************
+  'VariTarget
+@@ -536,7 +536,7 @@
+         If Vari.rotx > 6 Then
+           Vari.rotx = Vari.rotx - 7
+         ElseIf Vari.rotx > 0 Then
+-          Vari.rotx = 0:PlaySoundAtVol "metalhit2", vari, 1
++          Vari.rotx = 0:PlaySound "metalhit2"
+         End If
+         If Vari.rotx = 0 Then VariDir = 0:me.enabled = 0:Exit Sub
+       End If
+@@ -1003,7 +1003,7 @@
+ 
+ Sub RightSlingShot_Slingshot
+   vpmTimer.PulseSw 35
+-    PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("right_slingshot",DOFContactors), 0,1, 0.05,0.05 '0,1, AudioPan(RightSlingShot), 0.05,0,0,1,AudioFade(RightSlingShot)
+     RSling.Visible = 0
+     RSling1.Visible = 1
+     sling1.TransZ = -20
+@@ -1021,7 +1021,7 @@
+ 
+ Sub LeftSlingShot_Slingshot
+   vpmTimer.PulseSw 25
+-    PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), ActiveBall, 1
++    PlaySound SoundFX("left_slingshot",DOFContactors), 0,1, -0.05,0.05 '0,1, AudioPan(LeftSlingShot), 0.05,0,0,1,AudioFade(LeftSlingShot)
+     LSling.Visible = 0
+     LSling1.Visible = 1
+     sling2.TransZ = -20
+@@ -1058,15 +1058,6 @@
+     PlaySoundAt soundname, ActiveBall
+ End Sub
+ 
+-'Set position as table object and Vol manually.
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+ 
+ '*********************************************************************
+ '                     Supporting Ball & Sound Functions
+@@ -1189,11 +1180,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else

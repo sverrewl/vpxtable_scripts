@@ -1,0 +1,61 @@
+--- vpxtable_scripts/Vector (Bally 1982) 1.2.vbs
++++ todo_extracted_tables/Vector (Bally 1982) 1.2.vbs
+@@ -202,8 +202,6 @@
+   Set bsSaucerL = New cvpmBallStack
+   with bsSaucerL
+     .InitSaucer SaucerL,5,78,22
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+ '   .InitExitSnd SoundFX("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+   end with
+ 
+@@ -211,8 +209,6 @@
+   Set bsSaucerR = New cvpmBallStack
+   with bsSaucerR
+     .InitSaucer SaucerR,4,-87,22
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+ '     .InitExitSnd SoundFX("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+   end with
+ 
+@@ -220,8 +216,6 @@
+   Set bsSaucer1 = New cvpmBallStack
+   with bsSaucer1
+     .InitSaucer Saucer1,17,178,15
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+ '     .InitExitSnd SoundFX("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+   end with
+ 
+@@ -229,8 +223,6 @@
+   Set bsSaucer2 = New cvpmBallStack
+   with bsSaucer2
+     .InitSaucer Saucer2,18,180,20
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+ '     .InitExitSnd SoundFX("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+   end with
+ 
+@@ -238,8 +230,6 @@
+   Set bsSaucer3 = New cvpmBallStack
+   with bsSaucer3
+     .InitSaucer Saucer3,19,340,40
+-    .KickForceVar = 3
+-    .KickAngleVar = 3
+     .InitAltKick 160,13
+ '     .InitExitSnd SoundFX("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+   end with
+@@ -299,10 +289,9 @@
+   end if
+ End Sub
+ 
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub

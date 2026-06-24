@@ -1,0 +1,59 @@
+--- vpxtable_scripts/Centigrade 37 (Gottlieb 1977).vbs
++++ todo_extracted_tables/Centigrade 37 (Gottlieb 1977).vbs
+@@ -1905,27 +1905,23 @@
+   End Select
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they don't look 100% the same, but functionally is
+-' Sub NFadeWi(nr, a)
+-'   Select Case FadingState(nr)
+-'     Case 5:a.IsDropped = 1:FadingState(nr) = 0
+-'     Case 4:a.IsDropped = 0:FadingState(nr) = 1
+-'   End Select
+-' End Sub
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Here it is a small difference in values being set - a misstake ?
+-' Sub FadeL(nr, a, b)
+-'   Select Case FadingState(nr)
+-'     Case 2:b.state = 1:b.state = 0:FadingState(nr) = 0 'OFF
+-'     Case 3:b.state = 1:FadingState(nr) = 2 'fading 33
+-'     Case 4:a.state = 1:a.state = 0:FadingState(nr) = 3 'fading 66
+-'     Case 5:b.state = 1:FadingState(nr) = 6 'turning ON 33
+-'     Case 6:a.state = 1:a.state = 0:FadingState(nr) = 7 'turning ON 66
+-'     Case 7:a.state = 1:FadingState(nr) = 1 'ON
+-'   End Select
+-' End Sub
++Sub NFadeWi(nr, a)
++  Select Case FadingState(nr)
++    Case 5:a.IsDropped = 1:FadingState(nr) = 0
++    Case 4:a.IsDropped = 0:FadingState(nr) = 1
++  End Select
++End Sub
++
++Sub FadeL(nr, a, b)
++  Select Case FadingState(nr)
++    Case 2:b.state = 1:b.state = 0:FadingState(nr) = 0 'OFF
++    Case 3:b.state = 1:FadingState(nr) = 2 'fading 33
++    Case 4:a.state = 1:a.state = 0:FadingState(nr) = 3 'fading 66
++    Case 5:b.state = 1:FadingState(nr) = 6 'turning ON 33
++    Case 6:a.state = 1:a.state = 0:FadingState(nr) = 7 'turning ON 66
++    Case 7:a.state = 1:FadingState(nr) = 1 'ON
++  End Select
++End Sub
+ 
+ Sub FadeL(nr, a, b)
+   Select Case FadingState(nr)
+@@ -3998,10 +3994,7 @@
+     coef = desiredcor / realcor
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

@@ -1,0 +1,28 @@
+--- vpxtable_scripts/Diamond Lady (Gottlieb 1988) v600.vbs
++++ todo_extracted_tables/Diamond Lady (Gottlieb 1988) v600.vbs
+@@ -84,14 +84,11 @@
+         .Balls = 2
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Top saucer
+     Set bsTop = New cvpmBallStack
+     With bsTop
+         .InitSaucer sw74, 74, 300, 28
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Left Drop targets
+@@ -1145,10 +1142,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

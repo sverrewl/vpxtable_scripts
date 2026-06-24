@@ -1,0 +1,43 @@
+--- vpxtable_scripts/Black Pyramid (Bally 1984) v2.0.1.vbs
++++ todo_extracted_tables/Black Pyramid (Bally 1984) v2.0.1.vbs
+@@ -309,9 +309,9 @@
+ 
+ End Sub
+ 
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub
+@@ -1585,11 +1585,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -1603,11 +1602,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

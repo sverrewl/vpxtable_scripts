@@ -1,0 +1,67 @@
+--- vpxtable_scripts/Al's Garage Band Goes On A World Tour (AlvinG 1992) anti(Mod) V2.vbs
++++ todo_extracted_tables/Al's Garage Band Goes On A World Tour (AlvinG 1992) anti(Mod) V2.vbs
+@@ -284,7 +284,6 @@
+     If bLutActive Then NextLUT: End If
+   End If
+   If KeyCode=PlungerKey Then Controller.Switch(37)=1
+-  If KeyCode=LockBarKey Then Controller.Switch(37)=1
+   If KeyDownHandler(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -293,7 +292,6 @@
+   If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress
+   If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress
+   If KeyCode=PlungerKey Then Controller.Switch(37)=0
+-  If KeyCode=LockBarKey Then Controller.Switch(37)=0
+   If KeyUpHandler(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -1469,16 +1467,13 @@
+   End Select
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one WAS NOT ACTIVE
+-' Merge them.
++Sub LeftFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+-' Sub LeftFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
+-'
+-' Sub RightFlipper_Collide(parm)
+-'   RandomSoundFlipper()
+-' End Sub
++Sub RightFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ 
+ Sub RandomSoundFlipper()
+   Select Case Int(Rnd*3)+1
+@@ -1923,13 +1918,11 @@
+ 
+ Sub LeftFlipper_Collide(parm)
+   CheckLiveCatch Activeball, LeftFlipper, LFCount, parm
+-  RandomSoundFlipper()
+   'LeftFlipperCollide parm
+ End Sub
+ 
+ Sub RightFlipper_Collide(parm)
+   CheckLiveCatch Activeball, RightFlipper, RFCount, parm
+-  RandomSoundFlipper()
+   'RightFlipperCollide parm
+ End Sub
+ 
+@@ -1992,10 +1985,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

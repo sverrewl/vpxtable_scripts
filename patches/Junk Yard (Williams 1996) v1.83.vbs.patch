@@ -1,0 +1,21 @@
+--- vpxtable_scripts/Junk Yard (Williams 1996) v1.83.vbs
++++ todo_extracted_tables/Junk Yard (Williams 1996) v1.83.vbs
+@@ -518,8 +518,6 @@
+   bsFridgePopper.InitKick Sol2, 20, 6
+   bsFridgePopper.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solon",DOFContactors)
+   bsFridgePopper.Balls = 1
+-  bsFridgePopper.KickForceVar = 3
+-  bsFridgePopper.KickAngleVar = 3
+ 
+   'Trough
+   Set bsTrough = New cvpmBallStack
+@@ -2427,8 +2425,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

@@ -1,0 +1,75 @@
+--- vpxtable_scripts/TitleFightBeta1.vbs
++++ todo_extracted_tables/TitleFightBeta1.vbs
+@@ -9,7 +9,6 @@
+ 
+ ' Thalamus 2020 February : Improved directional sounds
+ ' !! NOTE : Table not verified yet !!
+-' Please note, there are a few samples that was referred in the table, but, didn't have corresponding samples.
+ 
+ ' Options
+ ' Volume devided by - lower gets higher sound
+@@ -17,6 +16,26 @@
+ Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+ Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+ 
++' The rest of the values are multipliers
++'
++'  .5 = lower volume
++' 1.5 = higher volume
++
++Const VolBump   = 2    ' Bumpers volume.
++Const VolRol    = 1    ' Rollovers volume.
++Const VolGates  = 1    ' Gates volume.
++Const VolMetal  = 1    ' Metals volume.
++Const VolRB     = 1    ' Rubber bands volume.
++Const VolRH     = 1    ' Rubber hits volume.
++Const VolPo     = 1    ' Rubber posts volume.
++Const VolPi     = 1    ' Rubber pins volume.
++Const VolPlast  = 1    ' Plastics volume.
++Const VolTarg   = 1    ' Targets volume.
++Const VolWood   = 1    ' Woods volume.
++Const VolKick   = 1    ' Kicker volume.
++Const VolSpin   = 1.5  ' Spinners volume.
++Const VolFlip   = 1    ' Flipper volume.
++
+ Const BallSize = 50
+ 
+ If Table1.ShowDT = true then
+@@ -1097,18 +1116,15 @@
+   End Select
+ End Sub
+ 
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-'Sub LeftFlipper_Collide(parm)
+-'  RandomSoundFlipper()
+-'End Sub
++Sub LeftFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ Sub LeftFlipper1_Collide(parm)
+   RandomSoundFlipper()
+ End Sub
+-'Sub RightFlipper_Collide(parm)
+-'  RandomSoundFlipper()
+-'End Sub
++Sub RightFlipper_Collide(parm)
++  RandomSoundFlipper()
++End Sub
+ Sub RightFlipper1_Collide(parm)
+   RandomSoundFlipper()
+ End Sub
+@@ -1256,12 +1272,3 @@
+     next
+   end if
+ End Sub
+-
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

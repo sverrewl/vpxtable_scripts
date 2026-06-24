@@ -1,0 +1,12 @@
+--- vpxtable_scripts/Warlok (Williams 1982)_toolkit demo.vbs
++++ todo_extracted_tables/Warlok (Williams 1982)_toolkit demo.vbs
+@@ -1206,8 +1206,7 @@
+     RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+     coef = desiredcor / realcor
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+   Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef

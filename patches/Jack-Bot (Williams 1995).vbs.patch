@@ -1,0 +1,199 @@
+--- vpxtable_scripts/Jack-Bot (Williams 1995).vbs
++++ todo_extracted_tables/Jack-Bot (Williams 1995).vbs
+@@ -1722,18 +1722,18 @@
+ Sub Sw18_Hit:DTHit 18 End Sub
+ 
+ 'Wire Triggers
+-Sub sw25_Hit:Controller.Switch(25) = 1:PlaySoundat"rollover", sw25:End Sub
++Sub sw25_Hit:Controller.Switch(25) = 1:End Sub
+ Sub sw25_UnHit:Controller.Switch(25) = 0:End Sub
+-Sub sw26_Hit:Controller.Switch(26) = 1:PlaySoundat"rollover", sw26:End Sub
++Sub sw26_Hit:Controller.Switch(26) = 1:End Sub
+ Sub sw26_UnHit:Controller.Switch(26) = 0:End Sub
+-Sub sw27_Hit:Controller.Switch(27) = 1:PlaySoundat"rollover", sw27:End Sub
++Sub sw27_Hit:Controller.Switch(27) = 1:End Sub
+ Sub sw27_UnHit:Controller.Switch(27) = 0:End Sub
+-Sub sw28_Hit:Controller.Switch(28) = 1:PlaySoundat"rollover", sw28:End Sub
++Sub sw28_Hit:Controller.Switch(28) = 1:End Sub
+ Sub sw28_UnHit:Controller.Switch(28) = 0:End Sub
+-Sub sw56_Hit:me.TimerInterval=100:me.TimerEnabled = 1:PlaySoundat "rollover", sw56:End Sub  'Debug.Print "sw56":
++Sub sw56_Hit:me.TimerInterval=100:me.TimerEnabled = 1:End Sub  'Debug.Print "sw56":
+ Sub sw56_Timer:vpmTimer.PulseSw 56:me.TimerEnabled = 0:End Sub
+-Sub sw57_Hit:vpmTimer.PulseSw 57:PlaySoundat"rollover", sw57:End Sub  'Debug.Print "sw57":
+-Sub sw58_Hit:Controller.Switch(58) = 1:PlaySoundat"rollover", sw58:End Sub
++Sub sw57_Hit:vpmTimer.PulseSw 57:End Sub  'Debug.Print "sw57":
++Sub sw58_Hit:Controller.Switch(58) = 1:End Sub
+ Sub sw58_UnHit:Controller.Switch(58) = 0:End Sub
+ Sub rampout_Hit:Controller.Switch(36) = 1:End Sub
+ Sub rampout_UnHit:Controller.Switch(36) = 0:End Sub
+@@ -2475,31 +2475,48 @@
+         ' play the rolling sound for each ball
+ 
+         For b = 0 to UBound(BOT)
+-                If BallVel(BOT(b)) > 1 AND BOT(b).z < 30 Then
+-                        rolling(b) = True
+-                        PlaySound ("BallRoll_" & b), -1, VolPlayfieldRoll(BOT(b)) * 1.1 * VolumeDial, AudioPan(BOT(b)), 0, PitchPlayfieldRoll(BOT(b)), 1, 0, AudioFade(BOT(b))
++      If BallVel(BOT(b)) > 1 AND BOT(b).z < 30 Then
++        rolling(b) = True
++        PlaySound ("BallRoll_" & b), -1, VolPlayfieldRoll(BOT(b)) * 1.1 * VolumeDial, AudioPan(BOT(b)), 0, PitchPlayfieldRoll(BOT(b)), 1, 0, AudioFade(BOT(b))
++      Else
++        If rolling(b) = True Then
++          StopSound("BallRoll_" & b)
++          rolling(b) = False
++        End If
++      End If
+ 
+-                Else
+-                        If rolling(b) = True Then
+-                                StopSound("BallRoll_" & b)
+-                                rolling(b) = False
+-                        End If
+-                End If
++      if BOT(b).z > 120 and InRect(BOT(b).x, BOT(b).y, 634,234,690,206,711,247,669,295) Then
++        if BOT(b).vely < 0 and ballvel(BOT(b)) < 1 Then
++          BOT(b).vely = BOT(b).vely * 2
++          if BOT(b).velx > 0 then BOT(b).velx = -0.1
++          'debug.print ballvel(BOT(b))
++        end if
++      elseif BOT(b).z > 120 and InRect(BOT(b).x, BOT(b).y, 645,162,708,172,690,206,634,234) Then
++        if BOT(b).vely < 0 and ballvel(BOT(b)) < 1 Then
++          BOT(b).vely = BOT(b).vely * 2
++          if BOT(b).velx > 0 then BOT(b).velx = -0.1
++        end if
++      elseif BOT(b).z > 120 and InRect(BOT(b).x, BOT(b).y, 697,120,744,164,708,172,645,162) Then
++        if BOT(b).velx > 0 and ballvel(BOT(b)) < 1 Then
++          BOT(b).velx = BOT(b).velx * 2
++          if BOT(b).vely > 0 then BOT(b).vely = -0.1
++        end if
++      end if
+ 
+-                '***Ball Drop Sounds***
+-                If BOT(b).VelZ < -1 and BOT(b).z < 55 and BOT(b).z > 27 Then 'height adjust for ball drop sounds
+-                        If DropCount(b) >= 5 Then
+-                                DropCount(b) = 0
+-                                If BOT(b).velz > -7 Then
+-                                        RandomSoundBallBouncePlayfieldSoft BOT(b)
+-                                Else
+-                                        RandomSoundBallBouncePlayfieldHard BOT(b)
+-                                End If
+-                        End If
+-                End If
+-                If DropCount(b) < 5 Then
+-                        DropCount(b) = DropCount(b) + 1
+-                End If
++      '***Ball Drop Sounds***
++      If BOT(b).VelZ < -1 and BOT(b).z < 55 and BOT(b).z > 27 Then 'height adjust for ball drop sounds
++        If DropCount(b) >= 5 Then
++          DropCount(b) = 0
++          If BOT(b).velz > -7 Then
++              RandomSoundBallBouncePlayfieldSoft BOT(b)
++          Else
++              RandomSoundBallBouncePlayfieldHard BOT(b)
++          End If
++        End If
++      End If
++      If DropCount(b) < 5 Then
++          DropCount(b) = DropCount(b) + 1
++      End If
+         Next
+ End Sub
+ 
+@@ -2821,6 +2838,10 @@
+   End Select
+ End Sub
+ 
++Sub Table1_Exit()
++
++End Sub
++
+ Sub Table1_MusicDone()
+ 
+ End Sub
+@@ -2973,6 +2994,18 @@
+ SleevesD.Print = False                  'debug, reports in debugger (in vel, out cor)
+ SleevesD.CopyCoef RubbersD, 0.85
+ 
++'######################### Add new FlippersD Profile
++'#########################    Adjust these values to increase or lessen the elasticity
++
++dim FlippersD : Set FlippersD = new Dampener
++FlippersD.name = "Flippers"
++FlippersD.debugOn = False
++FlippersD.Print = False
++FlippersD.addpoint 0, 0, 1.1
++FlippersD.addpoint 1, 3.77, 0.99
++FlippersD.addpoint 2, 6, 0.99
++
++
+ Class Dampener
+         Public Print, debugOn       'tbpOut.text
+         public name, Threshold          'Minimum threshold. Useful for Flippers, which don't have a hit threshold.
+@@ -2994,13 +3027,34 @@
+                 "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+                 if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :                 aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++                aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+                 if debugOn then TBPout.text = str
+         End Sub
+ 
++    public sub Dampenf(aBall, parm, ver)
++    if ver = 2 Then
++      If parm < 10 And parm > 2 And Abs(aball.angmomz) < 15 And aball.vely < 0 then
++        aball.angmomz = aball.angmomz * 1.2
++        aball.vely = aball.vely * (1.1 + (parm/50))
++      Elseif parm <= 2 and parm > 0.2 And aball.vely < 0 Then
++        if (aball.velx > 0 And aball.angmomz > 0) Or (aball.velx < 0 And aball.angmomz < 0) then
++                aball.angmomz = aball.angmomz * -0.7
++        Else
++          aball.angmomz = aball.angmomz * 1.2
++        end if
++        aball.vely = aball.vely * (1.2 + (parm/10))
++      End if
++    Else
++      dim RealCOR, DesiredCOR, str, coef
++      DesiredCor = LinearEnvelope(cor.ballvel(aBall.id), ModIn, ModOut )
++      RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
++      coef = desiredcor / realcor
++      If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
++        aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
++      End If
++    End If
++  End Sub
++
+         Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef
+                 dim x : for x = 0 to uBound(aObj.ModIn)
+                         addpoint x, aObj.ModIn(x), aObj.ModOut(x)*aCoef
+@@ -3310,15 +3364,15 @@
+                         Next
+                         For b = 0 to Ubound(BOT)
+                                 If FlipperTrigger(BOT(b).x, BOT(b).y, Flipper2) Then
+-                                        BOT(b).velx = BOT(b).velx / 1.7
+-                                        BOT(b).vely = BOT(b).vely - 1
++                                        BOT(b).velx = BOT(b).velx / 1.5
++                                        BOT(b).vely = BOT(b).vely - 0.5
+                                 end If
+                         Next
+                 End If
+         Else
+-                If Flipper1.currentangle <> EndAngle1 then
+-                        EOSNudge1 = 0
+-                end if
++    If Abs(Flipper1.currentangle) > Abs(EndAngle1) + 30 then
++      EOSNudge1 = 0
++    end if
+         End If
+ End Sub
+ 
+@@ -3500,6 +3554,8 @@
+                 ball.angmomx= 0
+                 ball.angmomy= 0
+                 ball.angmomz= 0
++    Else
++      If Abs(Flipper.currentangle) <= Abs(Flipper.endangle) + 1 Then FlippersD.Dampenf Activeball, parm, 1
+         End If
+ End Sub
+ 

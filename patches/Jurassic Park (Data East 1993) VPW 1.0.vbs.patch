@@ -1,0 +1,20 @@
+--- vpxtable_scripts/Jurassic Park (Data East 1993) VPW 1.0.vbs
++++ todo_extracted_tables/Jurassic Park (Data East 1993) VPW 1.0.vbs
+@@ -478,7 +478,7 @@
+     controller.switch(41) = True
+   End If
+ 
+-  If keycode = RightMagnaSave or keycode = LeftMagnaSave or keycode = 3 or keycode = LockBarKey Then  'Smart Bomb Button
++  If keycode = RightMagnaSave or keycode = LeftMagnaSave or keycode = 3 Then  'Smart Bomb Button
+     controller.switch(42) = True
+   End If
+ 
+@@ -523,7 +523,7 @@
+     controller.switch(41) = False
+   End If
+ 
+-  If keycode = RightMagnaSave or keycode = LeftMagnaSave or keycode = 3 or keycode = LockBarKey  Then  'Smart Bomb Button
++  If keycode = RightMagnaSave or keycode = LeftMagnaSave Then  'Smart Bomb Button
+     controller.switch(42) = False
+   End If
+ 

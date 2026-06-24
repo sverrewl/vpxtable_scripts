@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Nudge-It (Gottlieb 1990).vbs
++++ todo_extracted_tables/Nudge-It (Gottlieb 1990).vbs
+@@ -45,10 +45,6 @@
+ Const cGameName="nudgeit"
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   With Controller
+     .GameName = cGameName
+     .SplashInfoLine = "Nudge-It (Gottlieb 1994)"

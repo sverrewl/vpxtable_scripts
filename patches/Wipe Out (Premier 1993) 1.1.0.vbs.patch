@@ -1,0 +1,22 @@
+--- vpxtable_scripts/Wipe Out (Premier 1993) 1.1.0.vbs
++++ todo_extracted_tables/Wipe Out (Premier 1993) 1.1.0.vbs
+@@ -63,7 +63,7 @@
+ 
+ '************ Slingshot mode : 0 Walls , 1 Flippers
+ 
+-Const SlingM = 1
++Const SlingM = 0
+ 
+ '************ Slingshot hit threshold, with flippers (parm)
+ 
+@@ -155,10 +155,6 @@
+ '**************************************************************
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+     With Controller
+         .GameName = cGameName
+         .SplashInfoLine = "Wipe Out 1.1.0 (Premier 1993)" & vbNewLine & "VPX table by Edizzle & Kiwi"

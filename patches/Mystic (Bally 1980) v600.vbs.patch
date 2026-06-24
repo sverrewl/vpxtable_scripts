@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Mystic (Bally 1980) v600.vbs
++++ todo_extracted_tables/Mystic (Bally 1980) v600.vbs
+@@ -1025,10 +1025,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

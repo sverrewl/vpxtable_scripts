@@ -1,0 +1,51 @@
+--- vpxtable_scripts/Guns N Roses (Data East 1994) VPW 1.2.1.vbs
++++ todo_extracted_tables/Guns N Roses (Data East 1994) VPW 1.2.1.vbs
+@@ -622,7 +622,7 @@
+ Sub Table1_KeyDown(ByVal keycode)
+   If keycode = LeftFlipperKey Then PinCab_LeftFlipperButton.TransX = -10
+   If keycode = RightFlipperKey Then PinCab_RightFlipperButton.TransX = 10
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     if Not BIPL then  'sw16
+       PlungerRose.Pullback
+       SoundPlungerPull 'Pulls gun trigger and pulls rose plunger.
+@@ -640,7 +640,7 @@
+ Sub Table1_KeyUp(ByVal keycode)
+   If keycode = LeftFlipperKey Then PinCab_LeftFlipperButton.TransX = 0
+   If keycode = RightFlipperKey Then PinCab_RightFlipperButton.TransX = 0
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     if Not BIPL then 'sw16
+       PlungerRose.Fire
+       if BIRP then  'sw24
+@@ -3460,8 +3460,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -3471,8 +3470,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 
+@@ -4454,10 +4452,3 @@
+ 'v1.1.2 - Niwak - Adjust for latest VPX change: lightmap opacity, rules, cleanup timers, move option to tweak page, remove custom staged flipper, removed duplicates from core,...
+ 'Release v1.2
+ 'v1.2.1 - apophis - Fixed VR flipper buttons. Added refraction options to the tweak menu. Set PF reflection roughness to 0.
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

@@ -1,0 +1,15 @@
+--- vpxtable_scripts/Scared Stiff (Bally 1996) VPW v1.0.vbs
++++ todo_extracted_tables/Scared Stiff (Bally 1996) VPW v1.0.vbs
+@@ -428,9 +428,9 @@
+ End Sub
+ 
+ 
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub

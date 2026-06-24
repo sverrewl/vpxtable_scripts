@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Count-Down (Gottlieb 1979) VPW v1.2.vbs
++++ todo_extracted_tables/Count-Down (Gottlieb 1979) VPW v1.2.vbs
+@@ -415,7 +415,7 @@
+ 
+ Sub Table_Paused:Controller.Pause = 1:End Sub
+ Sub Table_unPaused:Controller.Pause = 0:End Sub
+-Sub Table1_exit()
++Sub Table_exit()
+   debug.print "Exiting"
+   HighScoreSave
+   Controller.Pause = False

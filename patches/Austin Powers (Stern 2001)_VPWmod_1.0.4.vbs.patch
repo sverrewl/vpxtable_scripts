@@ -1,0 +1,37 @@
+--- vpxtable_scripts/Austin Powers (Stern 2001)_VPWmod_1.0.4.vbs
++++ todo_extracted_tables/Austin Powers (Stern 2001)_VPWmod_1.0.4.vbs
+@@ -1,10 +1,10 @@
+ Option Explicit
+ Randomize
+ 
+-' Thalamus
++' Thalamus 2018-07-19
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Improved directional positions
+-' Changed UseSolenoids=1 to 2 - and reverted
++' Changed UseSolenoids=1 to 2
+ '
+ ' Austin Powers (Stern 2001) VPin Workshop mod
+ ' - nFozzy Physics: Benji, iaakki, Rothbauerw, Javier
+@@ -102,8 +102,7 @@
+ Const BallMass = 1.7
+ Const FlasherIntensity = 20  ' only for flasher27, 100 = Default, intense!   Try 20 or even less for more subdued effects.
+ 
+-' Thalamus - ffv2 should not be used for this table according to nFozzy
+-Const cGameName="austin",UseSolenoids=1,UseLamps=0,UseGI=0,SSolenoidOn="fx_SolOn",SSolenoidOff="", SCoin="fx_coin"
++Const cGameName="austin",UseSolenoids=2,UseLamps=0,UseGI=0,SSolenoidOn="fx_SolOn",SSolenoidOff="", SCoin="fx_coin"
+ 
+ Dim DesktopMode: DesktopMode = Table1.ShowDT
+ 
+@@ -2954,10 +2953,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub

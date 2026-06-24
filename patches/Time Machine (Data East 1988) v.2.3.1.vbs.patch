@@ -1,0 +1,100 @@
+--- vpxtable_scripts/Time Machine (Data East 1988) v.2.3.1.vbs
++++ todo_extracted_tables/Time Machine (Data East 1988) v.2.3.1.vbs
+@@ -404,10 +404,10 @@
+   End With
+ 
+   With Controller
+-   .GameName = cGameName
+-   If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
++    .GameName = cGameName
++    If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+     .SplashInfoLine="Time Machine Data East 1988"
+-   .HandleMechanics = 0
++    .HandleMechanics = 0
+     .HandleKeyboard = 0
+     .ShowDMDOnly = 1
+     .ShowFrame = 0
+@@ -419,7 +419,7 @@
+   Controller.Run
+ 
+   vpmNudge.TiltSwitch = 1
+- vpmNudge.Sensitivity = 5
++  vpmNudge.Sensitivity = 5
+   vpmNudge.TiltObj = Array(Bumper1, Bumper2, Bumper3, LeftSlingshot, RightSlingshot)
+ 
+   '************  Trough **************
+@@ -434,17 +434,14 @@
+ 
+   set bsVUK = new cvpmBallStack
+   bsVUK.InitSw 0, 45, 0, 0, 0, 0, 0, 0
+-  ' Thalamus - added more randomness
+- bsVUK.KickForceVar = 3
+- bsVUK.KickAngleVar = 3
+   bsVUK.InitKick Switch45, 130, 2
+   'bsVUK.InitEntrySnd "Solenoid", "Solenoidoff"
+   bsVUK.InitExitSnd SoundFX("exitsubway",DOFContactors), SoundFX("popper",DOFContactors)
+ 
+ ' Visible Lock - implements post ball lock
+   Set vLock = New cvpmVLock
+- vLock.InitVLock Array(Switch36, Switch37, Switch38), Array(Switch36Kick, Switch37Kick, Switch38Kick), Array(36, 37, 38)
+- 'vLock.InitSnd "Solenoid", "Solenoidoff"
++  vLock.InitVLock Array(Switch36, Switch37, Switch38), Array(Switch36Kick, Switch37Kick, Switch38Kick), Array(36, 37, 38)
++  'vLock.InitSnd "Solenoid", "Solenoidoff"
+   vLock.CreateEvents "vLock"
+ 
+   kickback.Pullback
+@@ -910,16 +907,16 @@
+ End Sub
+ 
+ Sub SolTroughIn(Enabled)
+- If Enabled Then
+-   bsTrough.EntrySol_On
++  If Enabled Then
++    bsTrough.EntrySol_On
+     Timer2.Enabled = 0
+     Timer2.Enabled = 1
+   End If
+ End Sub
+ 
+ Sub SolVUKOut(Enabled)
+- If Enabled Then
+-   Timer2.Enabled = 0
++  If Enabled Then
++    Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     bsVUK.ExitSol_On
+   End If
+@@ -927,12 +924,12 @@
+ 
+ Sub SolLock(Enabled)
+   If Enabled Then
+-   Timer2.Enabled = 0
++    Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     vLock.SolExit True
+     Solanim.enabled = 1
+     vl = vl - 1
+- Else
++  Else
+     Timer2.Enabled = 0
+     Timer2.Enabled = 1
+     vLock.SolExit False
+@@ -1181,7 +1178,7 @@
+ 
+ Sub SolLockRelease(enabled)
+   solanim.enabled = 1
+- vLock.SolExit enabled
++  vLock.SolExit enabled
+ End Sub
+ 
+ '********************************************
+@@ -5072,9 +5069,3 @@
+     End If
+   End If
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

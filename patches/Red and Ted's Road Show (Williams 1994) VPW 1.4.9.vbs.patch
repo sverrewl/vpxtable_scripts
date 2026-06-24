@@ -1,0 +1,15 @@
+--- vpxtable_scripts/Red and Ted's Road Show (Williams 1994) VPW 1.4.9.vbs
++++ todo_extracted_tables/Red and Ted's Road Show (Williams 1994) VPW 1.4.9.vbs
+@@ -266,10 +266,8 @@
+   'Red Kickout
+     Set bsRed = new cvpmBallStack
+     With bsRed
+-      .InitSaucer sw25, 25, 195, 20
+-      .InitExitSnd SoundFX("SafeHouseKick",DOFContactors), SoundFX("solenoid",DOFContactors)
+-      .KickForceVar = 3
+-      .KickAngleVar = 3
++    .InitSaucer sw25, 25, 195, 20
++        .InitExitSnd SoundFX("SafeHouseKick",DOFContactors), SoundFX("solenoid",DOFContactors)
+     End With
+ 
+     Set BulldozerMech = New cvpmMech

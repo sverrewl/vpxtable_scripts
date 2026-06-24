@@ -1,0 +1,334 @@
+--- vpxtable_scripts/Playboy (Stern 2002) v1.1.vbs
++++ todo_extracted_tables/Playboy (Stern 2002) v1.1.vbs
+@@ -26,11 +26,6 @@
+ 
+ Const VolBump   = 2    ' Bumpers volume.
+ Const VolFlip   = 1    ' Flipper volume.
+-Const VolFlipD  = 1    ' Flipper Down volume.
+-Const VolRol    = 1    ' Rollovers volume.
+-Const VolRH     = 1    ' Rubber hits volume.
+-Const VolGates  = .5   ' Gates volume.
+-Const VolSling  = 1    ' Slingshot volume.
+ 
+ On Error Resume Next
+ ExecuteGlobal GetTextFile("controller.vbs")
+@@ -156,24 +151,20 @@
+ 
+ Sub SolLFlipper(Enabled)
+   If Enabled Then
+-    ' PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), LeftFlipper, VolFlip
+-    RandomSoundFlipperUpLeft
++    PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), LeftFlipper, VolFlip
+     LeftFlipper.RotateToEnd
+     Else
+-    'PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), LeftFlipper, VolFlip
+-    RandomSoundFlipperDownLeft
++    PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), LeftFlipper, VolFlip
+     LeftFlipper.RotateToStart
+   End If
+ End Sub
+ 
+ Sub SolRFlipper(Enabled)
+     If Enabled Then
+-    ' PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), RightFlipper, VolFlip
+-    RandomSoundFlipperUpRight
++    PlaySoundAtVol SoundFX("fx_flipperup",DOFFlippers), RightFlipper, VolFlip
+     RightFlipper.RotateToEnd
+   Else
+-    'PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), RightFlipper, VolFlip
+-    RandomSoundFlipperDownRight
++    PlaySoundAtVol SoundFX("fx_flipperdown",DOFFlippers), RightFlipper, VolFlip
+     RightFlipper.RotateToStart
+   End If
+ End Sub
+@@ -630,36 +621,30 @@
+   PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+ End Sub
+ 
++Sub Gates_Hit (idx)
++  PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Different sound
+-' Sub Gates_Hit (idx)
+-'   PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-' End Sub
+-
+-' Sub Rubbers_Hit(idx)
+-'   dim finalspeed
+-'     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+-'   If finalspeed > 20 then
+-'     PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'   End if
+-'   If finalspeed >= 6 AND finalspeed <= 20 then
+-'     RandomSoundRubber()
+-'   End If
+-' End Sub
+-'
+-' Sub RandomSoundRubber()
+-'   Select Case Int(Rnd*3)+1
+-'     Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'     Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+-'   End Select
+-' End Sub
++Sub Rubbers_Hit(idx)
++  dim finalspeed
++    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
++  If finalspeed > 20 then
++    PlaySound "fx_rubber2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End if
++  If finalspeed >= 6 AND finalspeed <= 20 then
++    RandomSoundRubber()
++  End If
++End Sub
+ 
+-Sub table1_Init
++Sub RandomSoundRubber()
++  Select Case Int(Rnd*3)+1
++    Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++    Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
++  End Select
++End Sub
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
++Sub table1_Init
+ 
+  '  SaveValue cRegistryName,cOptionsName,0  ' This will clear your Registry settings if uncommented
+ 
+@@ -703,15 +688,11 @@
+   Set bsVUK=New cvpmBallStack
+   bsVUK.InitSw 0,35,0,0,0,0,0,0
+   bsVUK.InitKick Kicker2,270,8
+-  bsVUK.KickForceVar = 3
+-  bsVUK.KickAngleVar = 3
+   bsVUK.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("solon",DOFContactors)
+ 
+   Set bsGrotto=New cvpmBallStack
+   bsGrotto.InitSw 0,34,0,0,0,0,0,0
+   bsGrotto.InitKick Kicker4,40,6
+-  bsGrotto.KickForceVar = 3
+-  bsGrotto.KickAngleVar = 3
+   bsGrotto.InitExitSnd SoundFX("popper",DOFContactors), SoundFX("solon",DOFContactors)
+ 
+   set dtDrop=new cvpmDropTarget
+@@ -806,9 +787,10 @@
+ Sub Trigger11_unHit:Controller.Switch(42)=0:End Sub
+ '43=Centerfold 1 (Closed)
+ '44=Centerfold 2 (Open)
+-Sub Bumper1_Hit:vpmTimer.PulseSw 49:bumpershake:RandomSoundBumperB:End Sub      '49
+-Sub Bumper2_Hit:vpmTimer.PulseSw 50:bumpershake:RandomSoundBumperB:End Sub      '50
+-Sub Bumper3_Hit:vpmTimer.PulseSw 51:bumpershake:RandomSoundBumperB:End Sub      '51
++Sub Bumper1_Hit:vpmTimer.PulseSw 49:bumpershake:PlaySoundAtVol SoundFX("jet3",DOFContactors), ActiveBall, VolBump:End Sub     '49
++Sub Bumper2_Hit:vpmTimer.PulseSw 50:bumpershake:PlaySoundAtVol SoundFX("jet3",DOFContactors), ActiveBall, VolBump:End Sub     '50
++Sub Bumper3_Hit:vpmTimer.PulseSw 51:bumpershake:PlaySoundAtVol SoundFX("jet3",DOFContactors), ActiveBall, VolBump:End Sub     '51
++
+ Dim chainmovx:chainmovx=1
+ Sub bumpershake()
+   cball.VelY=-.5
+@@ -816,7 +798,7 @@
+ End Sub
+ '52=Tease Screw Limit on backsplash board
+ '53=Tournament Button
+-Sub LeftSlingshot_Slingshot:vpmTimer.PulseSw 59:RandomSoundSlingshotLeft:End Sub      '59
++Sub LeftSlingshot_Slingshot:vpmTimer.PulseSw 59:PlaySoundAtVol SoundFX("sling",DOFContactors), ActiveBall, 1:End Sub      '59
+                                 '56 Tilt
+ Sub LeftOutlane_Hit:Controller.Switch(57)=1:End Sub       '57
+ Sub LeftOutlane_unHit:Controller.Switch(57)=0:End Sub
+@@ -826,8 +808,7 @@
+ Sub RightOutlane_unHit:Controller.Switch(60)=0:End Sub
+ Sub RightInlane_Hit:Controller.Switch(61)=1:End Sub       '61
+ Sub RightInlane_unHit:Controller.Switch(61)=0:End Sub
+-Sub RightSlingshot_Slingshot:vpmTimer.PulseSw 62:RandomSoundSlingshotRight:End Sub    '62
+-
++Sub RightSlingshot_Slingshot:vpmTimer.PulseSw 62:PlaySoundAtVol SoundFX("sling",DOFContactors), ActiveBall, 1:End Sub   '62
+ Sub Kicker7_Hit:Me.DestroyBall:Set mball=Kicker004.CreateBall:Kicker8.TimerEnabled=True:End Sub
+ Sub Kicker8_Timer()
+   Kicker004.DestroyBall
+@@ -954,183 +935,3 @@
+   Controller.Pause = False
+   Controller.Stop
+ End Sub
+-
+-
+-Sub Rubbers_Hit(idx)
+-  dim finalspeed
+-    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+-  If finalspeed > 5 then
+-    RandomSoundRubberStrong()
+-  End if
+-  If finalspeed <= 5 then
+-    RandomSoundRubberWeak()
+-  End If
+-End Sub
+-
+-Sub Posts_Hit(idx)
+-  dim finalspeed
+-    finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+-  If finalspeed > 5 then
+-    RandomSoundRubberStrong()
+-  End if
+-  If finalspeed <= 5 then
+-    RandomSoundRubberWeak()
+-  End If
+-End Sub
+-
+-Sub Rollovers_Hit(idx)
+-  RandomSoundRollover
+-End Sub
+-
+-Sub Gates_Hit(idx)
+-  PlaySoundAtVol "GateWire", ActiveBall, VolGates
+-End Sub
+-
+-Sub RandomSoundRubberStrong()
+-debug.print "rubber strong ok"
+-  Select Case Int(Rnd*10)+1
+-    Case 1 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_1", ActiveBall, VolRH
+-    Case 2 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_2", ActiveBall, VolRH
+-    Case 3 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_3", ActiveBall, VolRH
+-    Case 4 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_4", ActiveBall, VolRH
+-    Case 5 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_5", ActiveBall, VolRH
+-    Case 6 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_6", ActiveBall, VolRH
+-    Case 7 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_7", ActiveBall, VolRH
+-    Case 8 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_8", ActiveBall, VolRH
+-    Case 9 : PlaySoundAtVol "TOM_Rubber_Flipper_Slingshot_Strong_9", ActiveBall, VolRH
+-    Case 10 : PlaySoundAtVol "TOM_Rubber_1_Hard", ActiveBall, VolRH
+-  End Select
+-End Sub
+-
+-Sub RandomSoundRubberWeak()
+-debug.print "rubber weak ok"
+-  Select Case Int(Rnd*9)+1
+-    Case 1 : PlaySoundAtVol "TOM_Rubber_1", ActiveBall, VolRH * 0.5
+-    Case 2 : PlaySoundAtVol "TOM_Rubber_2", ActiveBall, VolRH * 0.5
+-    Case 3 : PlaySoundAtVol "TOM_Rubber_3", ActiveBall, VolRH * 0.5
+-    Case 4 : PlaySoundAtVol "TOM_Rubber_3", ActiveBall, VolRH * 0.5
+-    Case 5 : PlaySoundAtVol "TOM_Rubber_5", ActiveBall, VolRH * 0.5
+-    Case 6 : PlaySoundAtVol "TOM_Rubber_6", ActiveBall, VolRH * 0.5
+-    Case 7 : PlaySoundAtVol "TOM_Rubber_7", ActiveBall, VolRH * 0.5
+-    Case 8 : PlaySoundAtVol "TOM_Rubber_8", ActiveBall, VolRH * 0.5
+-    Case 9 : PlaySoundAtVol "TOM_Rubber_9", ActiveBall, VolRH * 0.5
+-  End Select
+-End Sub
+-
+-Sub RandomSoundRollover()
+-debug.print "rollover ok"
+-  Select Case Int(Rnd*4)+1
+-    Case 1 : PlaySoundAtVol "TOM_Rollover_1", ActiveBall, VolRol
+-    Case 2 : PlaySoundAtVol "TOM_Rollover_2", ActiveBall, VolRol
+-    Case 3 : PlaySoundAtVol "TOM_Rollover_3", ActiveBall, VolRol
+-    Case 4 : PlaySoundAtVol "TOM_Rollover_4", ActiveBall, VolRol
+-  End Select
+-End Sub
+-
+-'********** FLIPPER - UP - LEFT - DOF
+-
+-Sub RandomSoundFlipperUpLeft()
+-  Select Case Int(Rnd*11)+1
+-    Case 1 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L01",DOFFlippers), LeftFlipper, VolFlip
+-    Case 2 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L02",DOFFlippers), LeftFlipper, VolFlip
+-    Case 3 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L07",DOFFlippers), LeftFlipper, VolFlip
+-    Case 4 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L08",DOFFlippers), LeftFlipper, VolFlip
+-    Case 5 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L09",DOFFlippers), LeftFlipper, VolFlip
+-    Case 6 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L10",DOFFlippers), LeftFlipper, VolFlip
+-    Case 7 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L12",DOFFlippers), LeftFlipper, VolFlip
+-    Case 8 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L14",DOFFlippers), LeftFlipper, VolFlip
+-    Case 9 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L18",DOFFlippers), LeftFlipper, VolFlip
+-    Case 10 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L20",DOFFlippers), LeftFlipper, VolFlip
+-    Case 11 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_L26",DOFFlippers), LeftFlipper, VolFlip
+-  End Select
+-End Sub
+-
+-'********** FLIPPER - DOWN - LEFT - DOF
+-
+-Sub RandomSoundFlipperDownLeft()
+-  Select Case Int(Rnd*7)+1
+-    Case 1 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_1_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 2 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_2_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 3 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_3_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 4 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_4_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 5 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_5_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 6 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_6_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-    Case 7 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Left_Down_7_Bass",DOFFlippers), LeftFlipper, VolFlipD
+-  End Select
+-End Sub
+-
+-'********** FLIPPER - UP - RIGHT - DOF
+-
+-Sub RandomSoundFlipperUpRight()
+-  Select Case Int(Rnd*11)+1
+-    Case 1 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R01",DOFFlippers), RightFlipper, VolFlip
+-    Case 2 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R02",DOFFlippers), RightFlipper, VolFlip
+-    Case 3 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R03",DOFFlippers), RightFlipper, VolFlip
+-    Case 4 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R04",DOFFlippers), RightFlipper, VolFlip
+-    Case 5 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R05",DOFFlippers), RightFlipper, VolFlip
+-    Case 6 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R06",DOFFlippers), RightFlipper, VolFlip
+-    Case 7 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R07",DOFFlippers), RightFlipper, VolFlip
+-    Case 8 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R08",DOFFlippers), RightFlipper, VolFlip
+-    Case 9 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R09",DOFFlippers), RightFlipper, VolFlip
+-    Case 10 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R10",DOFFlippers), RightFlipper, VolFlip
+-    Case 11 : PlaySoundAtVol SoundFX("TOM_Calle_Flipper_R11",DOFFlippers), RightFlipper, VolFlip
+-  End Select
+-End Sub
+-
+-'********** FLIPPER - DOWN - RIGHT - DOF
+-
+-Sub RandomSoundFlipperDownRight()
+-  Select Case Int(Rnd*8)+1
+-    Case 1 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_1_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 2 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_2_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 3 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_3_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 4 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_4_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 5 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_5_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 6 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_6_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 7 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_7_Bass",DOFFlippers), RightFlipper, VolFlipD
+-    Case 8 : PlaySoundAtVol SoundFX("WD_TOM_Flipper_Right_Down_8_Bass",DOFFlippers), RightFlipper, VolFlipD
+-  End Select
+-End Sub
+-
+-'********* SLINGSHOT - LEFT
+-
+-Sub RandomSoundSlingshotLeft()
+-  Select Case Int(Rnd*10)+1
+-    Case 1 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L1_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 2 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L2_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 3 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L3_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 4 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L4_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 5 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L5_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 6 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L6_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 7 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L7_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 8 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L8_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 9 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L9_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 10 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_L10_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-  End Select
+-End Sub
+-
+-'********* SLINGSHOT - RIGHT
+-
+-Sub RandomSoundSlingshotRight()
+-  Select Case Int(Rnd*8)+1
+-    Case 1 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R1_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 2 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R2_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 3 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R3_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 4 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R4_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 5 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R5_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 6 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R6_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 7 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R7_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-    Case 8 : PlaySoundAtVol SoundFX("TOM_Calle_Sling_Rework_R9_Strong_Layered",DOFContactors), ActiveBall, VolSling
+-  End Select
+-End Sub
+-
+-Sub RandomSoundBumperB()
+-  Select Case Int(Rnd*5)+1
+-    Case 1 : PlaySoundAtVol SoundFX("TOM_Bumpers_Reworked_v2_Middle_1",DOFContactors), ActiveBall, VolBump
+-    Case 2 : PlaySoundAtVol SoundFX("TOM_Bumpers_Reworked_v2_Middle_2",DOFContactors), ActiveBall, VolBump
+-    Case 3 : PlaySoundAtVol SoundFX("TOM_Bumpers_Reworked_v2_Middle_3",DOFContactors), ActiveBall, VolBump
+-    Case 4 : PlaySoundAtVol SoundFX("TOM_Bumpers_Reworked_v2_Middle_4",DOFContactors), ActiveBall, VolBump
+-    Case 5 : PlaySoundAtVol SoundFX("TOM_Bumpers_Reworked_v2_Middle_5",DOFContactors), ActiveBall, VolBump
+-  End Select
+-End Sub
+-

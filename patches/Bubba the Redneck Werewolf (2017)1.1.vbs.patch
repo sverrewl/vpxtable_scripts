@@ -1,0 +1,24 @@
+--- vpxtable_scripts/Bubba the Redneck Werewolf (2017)1.1.vbs
++++ todo_extracted_tables/Bubba the Redneck Werewolf (2017)1.1.vbs
+@@ -82,9 +82,6 @@
+          On Error Goto 0
+      End With
+ 
+-' Thalamus : Was missing 'vpminit me'
+-vpminit me
+-
+   stat=0
+   ALlights.uservalue=1
+ 
+@@ -111,11 +108,8 @@
+         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+     end with
+ 
+-    ' Thalamus - more randomness to kickers pls
+     Set bsrLock=New cvpmBallStack
+     with bsrLock
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitSaucer sw56,56,120,11
+         .InitExitSnd Soundfx("fx_ballrel",DOFContactors), Soundfx("HoleKick",DOFContactors)
+     end with

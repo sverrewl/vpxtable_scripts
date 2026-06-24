@@ -1,0 +1,26 @@
+--- vpxtable_scripts/24 (Stern 2009)_Thal.vbs
++++ todo_extracted_tables/24 (Stern 2009)_Thal.vbs
+@@ -208,8 +208,6 @@
+ 
+   Set bsTEject = new cvpmBallStack
+   bsTEject.InitSaucer sw3, 3, 162, 15
+-  bsTEject.KickForceVar = 3
+-  bsTEject.KickAngleVar = 3
+   bsTEject.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+   Set visibleLock = New cvpmVLock
+@@ -954,11 +952,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+       If BOT(b).X < Table1.Width/2 Then
+-        BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++        BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+       Else
+-        BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++        BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+       End If
+-      ballShadow(b).Y = BOT(b).Y + 4
++      ballShadow(b).Y = BOT(b).Y + 12
+       If BOT(b).Z > 20 Then
+         BallShadow(b).visible = 1
+       Else

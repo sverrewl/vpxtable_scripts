@@ -1,0 +1,59 @@
+--- vpxtable_scripts/Fish Tales (Williams 1992) VPW 1.1.vbs
++++ todo_extracted_tables/Fish Tales (Williams 1992) VPW 1.1.vbs
+@@ -749,7 +749,7 @@
+ '*******************************************
+ 
+ Sub FishTales_KeyDown(ByVal keycode)
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     Controller.Switch(31) = 1
+     If VRroom = 1 Then CastButton.y = Castbutton.y -1: CastButton.z = Castbutton.z -2  ' VRroom
+   end if
+@@ -775,7 +775,7 @@
+ End Sub
+ 
+ Sub FishTales_KeyUp(ByVal keycode)
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     Controller.Switch(31) = 0
+     If VRroom = 1 Then CastButton.y = Castbutton.y +1: CastButton.z = Castbutton.z +2  ' VRroom
+   end if
+@@ -3904,11 +3904,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3922,11 +3921,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -5550,10 +5548,3 @@
+ ' 1.0.7 - apophis - Updated DisableStaticPreRendering functionality to be compatible with VPX 10.8.1 API
+ ' 1.0.8 - apophis - Added desktop DMD visibility option
+ ' 1.1 Release
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub FishTales_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

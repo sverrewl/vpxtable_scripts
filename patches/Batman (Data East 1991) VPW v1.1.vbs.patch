@@ -1,0 +1,79 @@
+--- vpxtable_scripts/Batman (Data East 1991) VPW v1.1.vbs
++++ todo_extracted_tables/Batman (Data East 1991) VPW v1.1.vbs
+@@ -73,8 +73,6 @@
+ ' 060 Leojreimroc - Implemented VR Backglass Flashers and GI.  Raised apron wall for VR.  Fixed VR plunger.
+ ' 061 Leojreimroc - Backglass Flashers are now a separate option.  LUT Filename changed. Added LUT sounds.
+ ' 062 Sixtoe - Added cabinet mode, other tweaks
+-' 1.1 Release
+-' 1.1.1 Retro27  Added VR Auto Rendering mode and Rule Card, VR Topper.
+ 
+ Option Explicit
+ Randomize
+@@ -100,13 +98,13 @@
+ Const BallRollAmpFactor = 2   '0 = no amplification, 1 = 2.5db amplification, 2 = 5db amplification, 3 = 7.5db amplification, 4 = 9db amplification (aka: Tie Fighter)
+ 
+ '///////////////////////-----VR Room-----///////////////////////
+-Const VRRoom  = 1       '1 - Minimal Room, 2 - Ultra Minimal
++Const VRRoom  = 0       '0 - VR Room off, 1 - Minimal Room, 2 - Ultra Minimal
+ 
+ '///////////////////////-----Cabinet Mode-----///////////////////////
+ Const CabinetMode  = 0      '0 - Rails On, 1 - Rails Off
+ 
+ '///////////////////////-----VR Flashing Backglass-----///////////////////////
+-Const BackglassFlash = 1    '0 - Static Backglass  1- Flashing Backglass
++Const BackglassFlash = 0    '0 - Static Backglass  1- Flashing Backglass
+ 
+ 
+ ''''''''''''''''''''''''
+@@ -416,7 +414,7 @@
+   end if
+ 
+   If keycode = PlungerKey Then
+-    If renderingmode = 2 and VRRoom = 1 Then
++    If VRRoom = 1 Then
+       TimerVRPlunger.Enabled = True
+       TimerVRPlunger2.Enabled = False
+     End If
+@@ -447,7 +445,7 @@
+ 
+   If KeyCode = PlungerKey Then
+     Plunger.Fire
+-    If renderingmode = 2 and VRRoom = 1 Then
++    If VRRoom = 1 Then
+       TimerVRPlunger.Enabled = False
+       TimerVRPlunger2.Enabled = True
+     End If
+@@ -3853,8 +3851,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -4506,12 +4503,12 @@
+ 'VR Mode
+ '*********************
+ DIM VRThings
+-If renderingmode > 0 Then
++If VRRoom > 0 Then
+   Scoretext.visible = 0
+   museumflash1.visible = 1
+   museumflash2.visible = 0
+   for each VRThings in VR_Pegs:VRThings.EnableStaticRendering = 0:Next
+-  If renderingmode = 2 and VRRoom = 1 Then
++  If VRRoom = 1 Then
+     for each VRThings in VR_Stuff:VRThings.visible = 1:Next
+     for each VRThings in VR_Cab:VRThings.visible = 1:Next
+     If BackglassFlash = 1 Then
+@@ -4522,7 +4519,7 @@
+       BGFlashers.enabled = 1
+     End If
+   End If
+-  If renderingmode = 2 and VRRoom = 2 Then
++  If VRRoom = 2 Then
+     for each VRThings in VR_Stuff:VRThings.visible = 0:Next
+     for each VRThings in VR_Cab:VRThings.visible = 0:Next
+ '   for each VRThings in VRBGFlashers:VRThings.visible = 0:Next

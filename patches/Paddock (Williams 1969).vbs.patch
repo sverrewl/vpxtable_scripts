@@ -1,0 +1,41 @@
+--- vpxtable_scripts/Paddock (Williams 1969).vbs
++++ todo_extracted_tables/Paddock (Williams 1969).vbs
+@@ -1105,7 +1105,7 @@
+     ebReel.setValue(extraBalls)
+   Else
+     ballInPlay = ballInPlay + 1
+-    If B2SOn then controller.setBallInPlay ballInPlay
++    If B2SOn then Controller.B2SSetBallinPlay 32, ballInPlay
+     BIPReel.setValue(ballInPlay)
+   End If
+ End Sub
+@@ -2695,7 +2695,7 @@
+   AddPt "Polarity", 10, 0.88, 0
+ 
+   '"Velocity" Profile
+-  addpt "Velocity", 0, 0,   1
++  addpt "Velocity", 0, 0,   1.1
+   addpt "Velocity", 1, 0.16, 1.06
+   addpt "Velocity", 2, 0.41,  1.05
+   addpt "Velocity", 3, 0.53,  1'0.982
+@@ -2944,7 +2944,7 @@
+ 
+ 'cor bounce curve (linear)
+ 'for best results, try to match in-game velocity as closely as possible to the desired curve
+-RubbersD.addpoint 0, 0, 0.935 '0.96 'point# (keep sequential), ballspeed, CoR (elasticity)
++RubbersD.addpoint 0, 0, 1.1 '0.96 'point# (keep sequential), ballspeed, CoR (elasticity)
+ RubbersD.addpoint 1, 3.77, 0.935 '0.96
+ RubbersD.addpoint 2, 5.76, 0.942 '0.967 'dont take this as gospel. if you can data mine rubber elasticitiy, please help!
+ RubbersD.addpoint 3, 15.84, 0.874
+@@ -2983,10 +2983,7 @@
+ '   TB.text = coef
+ 
+ '               Applies the coef to x and y velocities
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+ '***********This Sub sets the values for Sleeves (or any other future objects) to 85% (or whatever is passed in) of Posts

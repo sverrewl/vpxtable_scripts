@@ -1,0 +1,1120 @@
+--- vpxtable_scripts/Metal Slug_1.05.vbs
++++ todo_extracted_tables/Metal Slug_1.05.vbs
+@@ -11,6 +11,7 @@
+ ' *********************************************************************
+ 
+ 
++
+ ' *** WHAT'S NEW IN 2.0 BETA ? ***
+ '
+ ' - Some textures are now correct (for FP 1.9), using TGA with alpha channel for transparency (instead of BMP), resized to "power of 2".
+@@ -47,39 +48,11 @@
+ ' **                                                                 **
+ ' *********************************************************************
+ 
+-Option Explicit
+-Randomize
+ 
+ 
+-' Thalamus - converted from wmv to mp4 - Converted to FlexDMD
+-' Thalamus 2018-07-24
+-' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+-' Its a original - move sounds not directional referenced to backglass !
+-' Thalamus 2018-11-01 : Improved directional sounds
+-' !! NOTE : Table not verified yet !!
+-
+-' Options
+-' Volume devided by - lower gets higher sound
+-
+-Const VolDiv = 2000    ' Lower number, louder ballrolling/collition sound
+-Const VolCol = 10      ' Ball collition divider ( voldiv/volcol )
+-
+-' The rest of the values are multipliers
+-'
+-'  .5 = lower volume
+-' 1.5 = higher volume
+-
+-Const VolBump   = 2    ' Bumpers volume.
+-Const VolGates  = 1    ' Gates volume.
+-Const VolMetal  = 1    ' Metals volume.
+-Const VolRB     = 1    ' Rubber bands volume.
+-Const VolPo     = 1    ' Rubber posts volume.
+-Const VolPi     = 1    ' Rubber pins volume.
+-Const VolPlast  = 1    ' Plastics volume.
+-Const VolWood   = 1    ' Woods volume.
+-Const VolKick   = 1    ' Kicker volume.
+-Const VolFlip   = 1    ' Flipper volume.
+ 
++Option Explicit
++Randomize
+ 
+ '---------- UltraDMD Unique Table Color preference -------------
+ Dim DMDColor, DMDColorSelect, UseFullColor
+@@ -553,7 +526,7 @@
+         Credits = Credits + 1
+     DOF 136, DOFOn
+         If(Tilted = False) Then
+-            PlaySoundAtVol "fx_coin", drain, 1
++            PlaySound "fx_coin"
+             DisplayB2SText " CREDITS " &credits
+             D1.Text = " CREDITS " &credits
+             PlaySound "go"
+@@ -561,7 +534,7 @@
+         End If
+     End If
+ 
+-    If keycode = PlungerKey or keycode = LockBarKey Then
++    If keycode = PlungerKey Then
+     if bBallInPlungerLane Then
+       DOF 125, DOFPulse
+       DOF 114, DOFPulse
+@@ -582,7 +555,7 @@
+         If keycode = LeftTiltKey Then Nudge 90, 6:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
+         If keycode = RightTiltKey Then Nudge 270, 6:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
+         If keycode = CenterTiltKey Then Nudge 0, 7:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+-        If keycode = MechanicalTilt Then PlaySound "fx_nudge",0,1,1,0,25:CheckTilt
++
+         If keycode = LeftFlipperKey Then SolLFlipper 1
+         If keycode = RightFlipperKey Then SolRFlipper 1
+ 
+@@ -673,18 +646,8 @@
+ Sub table1_unPaused
+ End Sub
+ 
+-Sub Table1_Exit():
+-' Thalamus : Exit in a clean and proper way
+-  savehs
+-  Controller.Pause = False
+-  Controller.Stop
+-  If Not UltraDMD is Nothing Then
+-    If UltraDMD.IsRendering Then
+-      UltraDMD.CancelRendering
+-    End If
+-    UltraDMD.Uninit
+-    UltraDMD = NULL
+-  End If
++Sub table1_Exit
++    Savehs
+ End Sub
+ 
+ '********************
+@@ -694,12 +657,12 @@
+ Sub SolLFlipper(Enabled)
+   startB2S(4)
+     If Enabled Then
+-        PlaySoundAtVol SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), LeftFlipper, VolFlip
++        PlaySound SoundFXDOF("fx_flipperup", 101, DOFOn, DOFFlippers), 0, 1, -0.05, 0.15
+         LeftFlipper.RotateToEnd
+             RotateLaneLightsLeft
+ 
+     Else
+-        PlaySoundAtVol SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), LeftFlipper, VolFlip
++        PlaySound SoundFXDOF("fx_flipperdown", 101, DOFOff, DOFFlippers), 0, 1, -0.05, 0.15
+         LeftFlipper.RotateToStart
+     End If
+ End Sub
+@@ -707,13 +670,13 @@
+ Sub SolRFlipper(Enabled)
+   startB2S(4)
+     If Enabled Then
+-        PlaySoundAtVol SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), RightFlipper, VolFlip
++        PlaySound SoundFXDOF("fx_flipperup", 102, DOFOn, DOFFlippers), 0, 1, 0.05, 0.15
+         RightFlipper.RotateToEnd
+         RightFlipper1.RotateToEnd
+             RotateLaneLightsRight
+ 
+     Else
+-        PlaySoundAtVol SoundFXDOF("fx_flipperdown", 102, DOFOff, DOFFlippers), RightFlipper, VolFlip
++        PlaySound SoundFXDOF("fx_flipperdown", 102, DOFOff, DOFFlippers), 0, 1, 0.05, 0.15
+         RightFlipper.RotateToStart
+         RightFlipper1.RotateToStart
+     End If
+@@ -722,11 +685,11 @@
+ ' flippers hit Sound
+ 
+ Sub LeftFlipper_Collide(parm)
+-    PlaySoundAtBallVol "fx_rubber_flipper", VolFlip
++    PlaySound "fx_rubber_flipper", 0, parm / 10, -0.05, 0.25
+ End Sub
+ 
+ Sub RightFlipper_Collide(parm)
+-    PlaySoundAtBallVol "fx_rubber_flipper", VolFlip
++    PlaySound "fx_rubber_flipper", 0, parm / 10, 0.05, 0.25
+ End Sub
+ 
+ Sub RotateLaneLightsLeft
+@@ -803,17 +766,15 @@
+     End If
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-'
+-' Sub TiltRecoveryTimer_Timer()
+-'     ' if all the balls have been drained then..
+-'     If(BallsOnPlayfield = 0) Then
+-'         ' do the normal end of ball thing (this doesn't give a bonus if the table is tilted)
+-'         EndOfBall()
+-'         TiltRecoveryTimer.Enabled = False
+-'     End If
+-' ' else retry (checks again in another second or so)
+-' End Sub
++Sub TiltRecoveryTimer_Timer()
++    ' if all the balls have been drained then..
++    If(BallsOnPlayfield = 0) Then
++        ' do the normal end of ball thing (this doesn't give a bonus if the table is tilted)
++        EndOfBall()
++        TiltRecoveryTimer.Enabled = False
++    End If
++' else retry (checks again in another second or so)
++End Sub
+ 
+ '********************
+ ' Music as wav sounds
+@@ -828,9 +789,9 @@
+             StopSound Song
+             Song = name
+             If Song = "mu_end" Then
+-                PlaySound Song, 0, 0.1  'this last number is the volume, from 0 to 1
++                PlaySound Song, 0, 0.5  'this last number is the volume, from 0 to 1
+             Else
+-                PlaySound Song, -1, 0.1 'this last number is the volume, from 0 to 1
++                PlaySound Song, -1, 0.9 'this last number is the volume, from 0 to 1
+             End If
+         End If
+     End If
+@@ -960,6 +921,92 @@
+     End Select
+ End Sub
+ 
++' *********************************************************************
++'                      Supporting Ball & Sound Functions
++' *********************************************************************
++
++Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
++    Vol = Csng(BallVel(ball) ^2 / 1500)
++End Function
++
++Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
++    Dim tmp
++    tmp = ball.x * 2 / table1.width-1
++    If tmp> 0 Then
++        Pan = Csng(tmp ^10)
++    Else
++        Pan = Csng(-((- tmp) ^10) )
++    End If
++End Function
++
++Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
++    Pitch = BallVel(ball) * 20
++End Function
++
++Function BallVel(ball) 'Calculates the ball speed
++    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
++End Function
++
++'*****************************************
++'      JP's VP10 Rolling Sounds
++'*****************************************
++
++Const tnob = 20 ' total number of balls
++Const lob = 1   'number of locked balls
++ReDim rolling(tnob)
++InitRolling
++
++Sub InitRolling
++    Dim i
++    For i = 0 to tnob
++        rolling(i) = False
++    Next
++End Sub
++
++Sub RollingUpdate()
++    Dim BOT, b, ballpitch
++    BOT = GetBalls
++
++    ' stop the sound of deleted balls
++    For b = UBound(BOT) + 1 to tnob
++        rolling(b) = False
++        StopSound("fx_ballrolling" & b)
++    Next
++
++    ' exit the sub if no balls on the table
++    If UBound(BOT) = -1 Then Exit Sub 'there no extra balls on this table
++
++    ' play the rolling sound for each ball
++    For b = lob to UBound(BOT)
++        If BallVel(BOT(b) )> 1 Then
++            If BOT(b).z <30 Then
++                ballpitch = Pitch(BOT(b) )
++            Else
++                ballpitch = Pitch(BOT(b) ) * 50
++            End If
++            rolling(b) = True
++            PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, ballpitch, 1, 0
++        Else
++            If rolling(b) = True Then
++                StopSound("fx_ballrolling" & b)
++                rolling(b) = False
++            End If
++        End If
++    Next
++End Sub
++
++'**********************
++' Ball Collision Sound
++'**********************
++
++Sub OnBallBallCollision(ball1, ball2, velocity)
++    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
++End Sub
++
++
++
++
++
+ '*********** BALL SHADOW *********************************
+ Dim BallShadow
+ BallShadow = Array (BallShadow1, BallShadow2, BallShadow3, BallShadow4, BallShadow5, BallShadow6)
+@@ -983,17 +1030,21 @@
+   Next
+ End Sub
+ 
++
++
+ '******************************
+ ' Diverse Collection Hit Sounds
+ '******************************
+ 
+-Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall)*VolMetal, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall)*VolRB, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall)*VolPo, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall)*VolPi, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aPlastics_Hit(idx):PlaySound "fx_plastichit", 0, Vol(ActiveBall)*VolPlast, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall)*VolGates, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+-Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall)*VolWood, pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
++Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Bands_Hit(idx):PlaySound "fx_rubber_band", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Posts_Hit(idx):PlaySound "fx_postrubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aRubber_Pins_Hit(idx):PlaySound "fx_rubber", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aPlastics_Hit(idx):PlaySound "fx_plastichit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++Sub aWoods_Hit(idx):PlaySound "fx_Woodhit", 0, Vol(ActiveBall), pan(ActiveBall), 0, Pitch(ActiveBall), 0, 0:End Sub
++
++
+ 
+ ' *********************************************************************
+ '                        User Defined Script Events
+@@ -1114,7 +1165,7 @@
+     BallsOnPlayfield = BallsOnPlayfield + 1
+ 
+     ' kick it out..
+-    PlaySoundAtVol SoundFXDOF("fx_Ballrel", 121, DOFPulse, DOFContactors), Ballrelease, 1
++    PlaySound SoundFXDOF("fx_Ballrel", 121, DOFPulse, DOFContactors), 0, 1, 0.1, 0.1
+     BallRelease.Kick 95, 4
+   DOF 109, DOFPulse
+ 
+@@ -1206,7 +1257,7 @@
+         End If
+ 
+         ' You may wish to do a bit of a song AND dance at this point
+-        'DMD "extra-ball.mp4", "", "", 5000
++        'DMD "extra-ball.wmv", "", "", 5000
+ 
+         ' In this table an extra ball will have the skillshot and ball saver, so we reset the playfield for the new ball
+         ResetForNewPlayerBall()
+@@ -1325,7 +1376,7 @@
+     ' most of the Mode/timers terminate at the end of the ball
+     'PlayQuote.Enabled = 0
+     ' show game over on the DMD
+-    'DMD "game-over.mp4", "", "", 11000
++    'DMD "game-over.wmv", "", "", 11000
+ 
+     ' set any lights for the attract mode
+     GiOff
+@@ -1407,7 +1458,7 @@
+ Sub swPlungerRest_Hit()
+   'debug.print "ball in plunger lane"
+     ' some sound according to the ball position
+-    PlaySoundAtVol "fx_sensor", Primitive34, 1
++    PlaySound "fx_sensor", 0, 1, 0.15, 0.25
+     bBallInPlungerLane = TRUE
+     ' turn on Launch light is there is one
+     'LaunchLight.State = 2
+@@ -1496,19 +1547,16 @@
+ 
+ ' Add points to the score AND update the score board
+ ' In this table we use SecondRound variable to double the score points in the second round after killing Malthael
++Sub AddScore(points)
++    If(Tilted = False) Then
++        ' add the points to the current players score variable
++        Score(CurrentPlayer) = Score(CurrentPlayer) + points * SecondRound
++        ' update the score displays
++        'DMDScore
++    End if
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub AddScore(points)
+-'     If(Tilted = False) Then
+-'         ' add the points to the current players score variable
+-'         Score(CurrentPlayer) = Score(CurrentPlayer) + points * SecondRound
+-'         ' update the score displays
+-'         'DMDScore
+-'     End if
+-'
+-' ' you may wish to check to see if the player has gotten a replay
+-' End Sub
++' you may wish to check to see if the player has gotten a replay
++End Sub
+ 
+ ' Add bonus to the bonuspoints AND update the score board
+ 
+@@ -1563,7 +1611,7 @@
+ Sub AwardExtraBall()
+     If NOT bExtraBallWonThisBall Then
+        ' DMDBlink "", " ", "EXTRA BALL WON", 100, 10
+-        'DMD "extra-ball.mp4", "", "", 5000
++        'DMD "extra-ball.wmv", "", "", 5000
+         ExtraBallsAwards(CurrentPlayer) = ExtraBallsAwards(CurrentPlayer) + 1
+         bExtraBallWonThisBall = True
+         GiEffect 1
+@@ -1621,22 +1669,22 @@
+     DMDFlush
+     Select case SkillShotValue(CurrentPlayer)
+         case 1000000
+-           ' DMD "skillshot1.mp4", " ", " ", 5000
++           ' DMD "skillshot1.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+         case 2000000
+-           ' DMD "skillshot2.mp4", " ", " ", 5000
++           ' DMD "skillshot2.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+         case 3000000
+-           ' DMD "skillshot3.mp4", " ", " ", 5000
++           ' DMD "skillshot3.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+         case 4000000
+-          '  DMD "skillshot4.mp4", " ", " ", 5000
++          '  DMD "skillshot4.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+         case 5000000
+-          '  DMD "skillshot5.mp4", " ", " ", 5000
++          '  DMD "skillshot5.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+         case ELSE
+-          '  DMD "skillshot.mp4", " ", " ", 5000
++          '  DMD "skillshot.wmv", " ", " ", 5000
+             AddScore SkillshotValue(CurrentPLayer)
+     End Select
+     ' increment the skillshot value with 1 million
+@@ -2130,18 +2178,13 @@
+ 
+ 
+ Sub DMD_Init
+-    'Set UltraDMD = CreateObject("UltraDMD.DMDObject")
+-  Dim FlexDMD
+-    Set FlexDMD = CreateObject("FlexDMD.FlexDMD")
+-    If FlexDMD is Nothing Then
++    Set UltraDMD = CreateObject("UltraDMD.DMDObject")
++    If UltraDMD is Nothing Then
+         MsgBox "No UltraDMD found.  This table will NOT run without it."
+         Exit Sub
+     End If
+-    FlexDMD.GameName = cGameName
+-  FlexDMD.RenderMode = 2
+-  Set UltraDMD = FlexDMD.NewUltraDMD()
+-    UltraDMD.Init
+ 
++    UltraDMD.Init
+     If Not UltraDMD.GetMajorVersion = 1 Then
+         MsgBox "Incompatible Version of UltraDMD found."
+         Exit Sub
+@@ -2163,8 +2206,8 @@
+     UltraDMD.SetProjectFolder DirName
+ 
+     ' wait for the animation to end
+-    ' While UltraDMD.IsRendering = True
+-    ' WEnd
++    While UltraDMD.IsRendering = True
++    WEnd
+ 
+     ' Show ROM version number
+     DMD "", "Metal Slug", "ROM VERS " &myVersion, 2000
+@@ -2195,14 +2238,14 @@
+     'coins or freeplay
+     If bFreePlay Then
+         DMD " ", "FREE PLAY", 2000
+-        DMD "IntroMS.mp4", "", "", 24500
++        DMD "IntroMS.wmv", "", "", 24500
+     Else
+         If Credits> 0 Then
+             DMD "", "CREDITS " &credits, "PRESS START", 2000
+         Else
+             DMD "", "CREDITS " &credits, "INSERT COIN", 2000
+         End If
+-        DMD "IntroMS.mp4", "", "", 24500
++        DMD "IntroMS.wmv", "", "", 24500
+     End If
+     ' some info about the table
+     DMD "", "Javier And Pinwizkid", "PRESENTS", 3000
+@@ -2546,7 +2589,7 @@
+   DOF 127, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(100)
+-  PlaySoundAtVol "Lane1", ActiveBall, 1
++  PlaySound "Lane1"
+   ' Turn on "P" letter light.
+   POWLaneLight1.State = 1
+   ' Check if all POW letters are completed.
+@@ -2564,7 +2607,7 @@
+   DOF 128, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(100)
+-  PlaySoundAtVol "Lane1", ActiveBall, 1
++  PlaySound "Lane1"
+   ' Turn on "O" letter light.
+   POWLaneLight2.State = 1
+   ' Check if all POW letters are completed.
+@@ -2582,7 +2625,7 @@
+   DOF 129, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(100)
+-  PlaySoundAtVol "Lane1", ActiveBall, 1
++  PlaySound "Lane1"
+   ' Turn on "W" letter light.
+   POWLaneLight3.State = 1
+   ' Check if all POW letters are completed.
+@@ -2605,7 +2648,7 @@
+   startB2S(6)
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   ResetWEAPONTargets()
+-  PlaySoundAtVol "explode3", ActiveBall, 1
++  PlaySound "explode3"
+   AddScore(2500)
+ End Sub
+ 
+@@ -2628,7 +2671,7 @@
+   ' Add 1000 points.
+   AddScore(1000)
+   ' Play specific sound.
+-   PlaySoundAtVol "go", ActiveBall, 1
++   PlaySound "go"
+   ' Lit the left inlane light.
+    LeftInLaneLight.State = 1
+    bLeftInLaneIsLit = TRUE
+@@ -2653,7 +2696,7 @@
+   ' Add 1000 points.
+   AddScore(1000)
+   ' Play specific sound.
+-   PlaySoundAtVol "go", ActiveBall, 1
++   PlaySound "go"
+   ' Lit the right inlane light.
+    RightInLaneLight.State = 1
+    bRightInLaneIsLit = TRUE
+@@ -2763,7 +2806,7 @@
+   startB2S(4)
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+ 
+-    PlaySoundAtVol SoundFXDOF("LeftSlingShot", 103, DOFPulse, DOFContactors), lemk, 1
++    PlaySound SoundFXDOF("LeftSlingShot", 103, DOFPulse, DOFContactors), 0, 1, -0.05, 0.05
+     LeftSling4.Visible = 1
+     Lemk.RotX = 26
+     LStep = 0
+@@ -2798,9 +2841,9 @@
+   startB2S(4)
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+ 
+-    PlaySoundAtVol SoundFXDOF("RightSlingShot", 104, DOFPulse, DOFContactors), remk, 1
+-
+-    RightSling4.Visible = 1
++    PlaySound SoundFXDOF("RightSlingShot", 104, DOFPulse, DOFContactors), 0, 1, 0.05, 0.05
++    DOF 121, DOFPulse
++  RightSling4.Visible = 1
+     Remk.RotX = 26
+     RStep = 0
+     RightSlingShotRubber.TimerEnabled = True
+@@ -2833,7 +2876,7 @@
+ Sub Rubber6_Hit()
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(10)
+-  PlaysoundAtVol "go", ActiveBall, 1
++  Playsound "go"
+ End Sub
+ 
+ 
+@@ -2860,7 +2903,7 @@
+   Slug1Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun8", ActiveBall, 1
++  Playsound "gun8"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2882,7 +2925,7 @@
+   Slug2Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun9", ActiveBall, 1
++  Playsound "gun9"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2904,7 +2947,7 @@
+   Slug3Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun8", ActiveBall, 1
++  Playsound "gun8"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2926,7 +2969,7 @@
+   Slug4Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun9", ActiveBall, 1
++  Playsound "gun9"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2948,7 +2991,7 @@
+   Slug5Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun8", ActiveBall, 1
++  Playsound "gun8"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2970,7 +3013,7 @@
+   Slug6Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun9", ActiveBall, 1
++  Playsound "gun9"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -2992,7 +3035,7 @@
+   Slug7Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun8", ActiveBall, 1
++  Playsound "gun8"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -3014,7 +3057,7 @@
+   Slug8Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun9", ActiveBall, 1
++  Playsound "gun9"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -3036,7 +3079,7 @@
+   Slug9Light.State = 1
+   CheckSLUGTimer.Enabled = TRUE
+   PlaySlugSound()
+-  PlaysoundAtVol "gun8", ActiveBall, 1
++  Playsound "gun8"
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+ 
+@@ -3070,14 +3113,14 @@
+         FlashForMs W1Light, 500, 100, 0
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W1Light.State = 1
+         bW1TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W1Light.State = 1
+       bW1TargetIsDown = TRUE
+@@ -3110,14 +3153,14 @@
+         FlashForMs W2Light, 500, 100, 0
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W2Light.State = 1
+         bW2TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W2Light.State = 1
+       bW2TargetIsDown = TRUE
+@@ -3150,14 +3193,14 @@
+         FlashForMs W3Light, 500, 100, BulbOff
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W3Light.State = 1
+         bW3TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W3Light.State = 1
+       bW3TargetIsDown = TRUE
+@@ -3190,14 +3233,14 @@
+         FlashForMs W4Light, 500, 100, 0
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W4Light.State = 1
+         bW4TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W4Light.State = 1
+       bW4TargetIsDown = TRUE
+@@ -3230,14 +3273,14 @@
+         FlashForMs W5Light, 500, 100, 0
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W5Light.State = 1
+         bW5TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W5Light.State = 1
+       bW5TargetIsDown = TRUE
+@@ -3270,14 +3313,14 @@
+         FlashForMs W6Light, 500, 100, 0
+         ScoreMission5()
+       ElseIf bPlayingMission3 Or bPlayingMission4 Or bPlayingFinalMission Then
+-        PlaysoundAtVol "steel", ActiveBall, 1
++        Playsound "steel"
+         W6Light.State = 1
+         bW6TargetIsDown = TRUE
+         CheckWeapon()
+         AddScore(500)
+       End If
+     Else
+-      PlaysoundAtVol "steel", ActiveBall, 1
++      Playsound "steel"
+       AddScore(500)
+       W6Light.State = 1
+       bW6TargetIsDown = TRUE
+@@ -3303,7 +3346,7 @@
+   DOF 118, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(1000)
+-  PlaysoundAtVol "explode4", ActiveBall, 1
++  Playsound "explode4"
+   S1Light.State = 1
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+@@ -3319,7 +3362,7 @@
+   DOF 118, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(2000)
+-  PlaysoundAtVol "explode4", ActiveBall, 1
++  Playsound "explode4"
+   S2Light.State = 1
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+@@ -3335,7 +3378,7 @@
+   DOF 118, DOFPulse
+   If Tilted Then Exit Sub ' Ignore this _Hit() event if the table is tilted.
+   AddScore(3000)
+-  PlaysoundAtVol "explode4", ActiveBall, 1
++  Playsound "explode4"
+   S3Light.State = 1
+   If bPlayingMission1 Then ScoreMission1()
+ End Sub
+@@ -3364,7 +3407,7 @@
+       If bPlayingMission4 Then ScoreMission4()
+     Else
+       LightMission()
+-      PlaysoundAtVol "Thankyou", ActiveBall, 1
++      Playsound "Thankyou"
+     End If
+   End If
+ End Sub
+@@ -3387,7 +3430,7 @@
+       If bPlayingMission4 Then ScoreMission4()
+     Else
+       LightMission()
+-      PlaysoundAtVol "Thankyou", ActiveBall, 1
++      Playsound "Thankyou"
+     End If
+   End If
+ End Sub
+@@ -3412,7 +3455,7 @@
+       If bPlayingMission4 Then ScoreMission4()
+     Else
+       LightMission()
+-      PlaysoundAtVol "Thankyou", ActiveBall, 1
++      Playsound "Thankyou"
+     End If
+   End If
+ End Sub
+@@ -3447,7 +3490,7 @@
+     S1.isdropped = 1
+     S1Light.State = 1
+   End If
+-  PlaysoundAtVol "Ok", ActiveBall, 1
++  Playsound "Ok"
+   AdvancePOW()
+   AddScore(8000)
+   If Not(bPlayingMission) And Not(bMissionSuspended) Then LightMission()
+@@ -3486,7 +3529,7 @@
+   Drain.DestroyBall()
+   BallsOnPlayfield = BallsOnPlayfield - 1
+   ' Pretend to knock the ball into the ball storage mechanism.
+-  PlaySoundAtVol "Drain", drain, 1
++  PlaySound "Drain"
+    If fpTilted Then FixWeapon()
+   ' If there is a game in progress and not tilted.
+   If bGameInPlay And Not(fpTilted) Then
+@@ -3515,9 +3558,9 @@
+         If (BallsOnPlayfield = 2) And (BallsLocked = 2) Then EndOfBall()
+         If (BallsOnPlayfield = 3) And (BallsLocked = 3) Then EndOfBall()
+         If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then EndMultiBall()
+-        If (BallsOnPlayfield = 3) And (BallsLocked = 0) Then PlaysoundAtVol "Fiodie", ActiveBall, 1
+-        If (BallsOnPlayfield = 2) And (BallsLocked = 0) Then PlaysoundAtVol "Eridie", ActiveBall, 1
+-        If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then PlaysoundAtVol "Tarmadie", ActiveBall, 1
++        If (BallsOnPlayfield = 3) And (BallsLocked = 0) Then Playsound "Fiodie"
++        If (BallsOnPlayfield = 2) And (BallsLocked = 0) Then Playsound "Eridie"
++        If (BallsOnPlayfield = 1) And (BallsLocked = 0) Then Playsound "Tarmadie"
+       End If
+     Else
+       If Not(FiveBallOverTimer.Enabled) Then
+@@ -3592,7 +3635,8 @@
+ 
+ Sub Kicker1SolenoidPulse()
+     Kicker1.kick 170, 15
+-    PlaysoundAtVol "fx_kicker", kicker1, VolKick
++    Playsound SoundFXDOF("fx_kicker",108,DOFPulse,DOFContactors)
++  DOF 114, DOFPulse
+ End Sub
+ 
+ 
+@@ -3634,7 +3678,8 @@
+ 
+ Sub Kicker2SolenoidPulse()
+     Kicker2.kick 220, 15
+-    PlaysoundAtVol "fx_kicker", kicker2, VolKick
++    Playsound SoundFXDOF("fx_kicker",115,DOFPulse,DOFContactors)
++  DOF 114, DOFPulse
+ End Sub
+ 
+ ' The kicker 3 (center) has been hit.
+@@ -3674,7 +3719,8 @@
+ 
+ Sub Kicker3SolenoidPulse()
+     Kicker3.kick 165, 15
+-    PlaysoundAtVol "fx_kicker", kicker3, VolKick
++    Playsound SoundFXDOF("fx_kicker",116,DOFPulse,DOFContactors)
++  DOF 114, DOFPulse
+ End Sub
+ 
+ ' The kicker 4 (top of the table) has been hit.
+@@ -3726,7 +3772,7 @@
+ 
+ Sub Kicker4SolenoidPulse()
+     Kicker4.kick 270, 25
+-    PlaysoundAtVol "fx_kicker", kicker4, VolKick
++    Playsound SoundFXDOF("fx_kicker",117,DOFPulse,DOFContactors)
+ End Sub
+ 
+ ' *********************************************************************
+@@ -3751,13 +3797,13 @@
+       CheckJets()
+     Else
+       'Playsound "gun9"
+-       playsoundAtVol SoundFXDOF("gun9",106,DOFPulse,DOFContactors), Bumper1, VolBump
++            playsound SoundFXDOF("gun9",106,DOFPulse,DOFContactors)
+     End If
+    Else
+     FlashForMs F9, 100, 50, 0
+     DOF 144, DOFPulse
+     'Playsound "gun9"
+-     playsound SoundFXDOF("gun9",106,DOFPulse,DOFContactors)
++        playsound SoundFXDOF("gun9",106,DOFPulse,DOFContactors)
+    End If
+   If bPlayingFinalMission Then AddScore(5000)
+ End Sub
+@@ -3780,13 +3826,13 @@
+       CheckJets()
+     Else
+       'Playsound "gun8"
+-       playsoundAtVol SoundFXDOF("gun8",105,DOFPulse,DOFContactors), Bumper2, VolBump
++            playsound SoundFXDOF("gun8",105,DOFPulse,DOFContactors)
+     End If
+    Else
+     FlashForMs F10, 100, 50, 0
+     DOF 142, DOFPulse
+     'Playsound "gun8"
+-     playsoundAtVol SoundFXDOF("gun8",105,DOFPulse,DOFContactors), Bumper2, VolBump
++        playsound SoundFXDOF("gun8",105,DOFPulse,DOFContactors)
+    End If
+   If bPlayingFinalMission Then AddScore(5000)
+ End Sub
+@@ -3809,13 +3855,13 @@
+       CheckJets()
+     Else
+       'Playsound "gun9"
+-       playsoundAtVol SoundFXDOF("gun9",107,DOFPulse,DOFContactors), Bumper3, VolBump
++            playsound SoundFXDOF("gun9",107,DOFPulse,DOFContactors)
+     End If
+    Else
+     FlashForMs F6, 100, 50, 0
+     DOF 143, DOFPulse
+     'Playsound "gun9"
+-     playsoundAtVol SoundFXDOF("gun9",107,DOFPulse,DOFContactors), Bumper3, VolBump
++        playsound SoundFXDOF("gun9",107,DOFPulse,DOFContactors)
+    End If
+   If bPlayingFinalMission Then AddScore(5000)
+ End Sub
+@@ -4111,7 +4157,7 @@
+     LeftOutLaneTrigger.kick 0, 40
+     LaserKickP1.TransY = 90
+     vpmtimer.addtimer 800, "LaserKickP1.TransY = 0 '"
+-    Playsound "bumper_retro"
++    Playsound "rocket2"
+ End sub
+ 
+ ' This timer handles the regular ball saver mechanism.
+@@ -5892,7 +5938,7 @@
+         StopSound Song:Song = "": PlaySong "mu_MSMode1"'Playsound "MSMode1"
+         'Playsound "Mission1"
+                 DMDFLush
+-                DMD "Mision1Start.mp4", "", "", 3950
++                DMD "Mision1Start.wmv", "", "", 3950
+         'StopMusic 4
+         KickOutBallTimer.Enabled = TRUE
+         CaptiveLight.state = 0
+@@ -5910,7 +5956,7 @@
+         StopSound Song:Song = "": PlaySong "mu_MSMode2"'Playsound "MSMode2"
+         'Playsound "Mission2"
+                 DMDFLush
+-                DMD "Mision2Start.mp4", "", "", 3950
++                DMD "Mision2Start.wmv", "", "", 3950
+         'StopMusic 4
+         FlashAnimate5()
+         MissionTimerUserData = 35
+@@ -5929,7 +5975,7 @@
+         StopSound Song:Song = "": PlaySong "mu_MSMode3"'Playsound "MSMode3"
+         'Playsound "Mission3"
+                 DMDFLush
+-                DMD "Mision3Start.mp4", "", "", 3950
++                DMD "Mision3Start.wmv", "", "", 3950
+         FlashAnimate5()
+         Bumper1l.State = 2
+         Bumper2l.State = 2
+@@ -5946,7 +5992,7 @@
+         StopSound Song:Song = "": PlaySong "mu_MSMode2"'Playsound "MSMode2"
+         'Playsound "Mission4"
+                 DMDFLush
+-                DMD "Mision4Start.mp4", "", "", 3950
++                DMD "Mision4Start.wmv", "", "", 3950
+         FlashAnimate5()
+         CaptiveLight.State = 2
+                 DisplayB2SText "         MISSION 4 START        "
+@@ -5983,7 +6029,7 @@
+       ' LookAtBackbox()
+         FinalMissionShowTimer.Interval 1300
+                 DMDFLush
+-                DMD "FinalMision.mp4", "", "", 3950
++                DMD "FinalMision.wmv", "", "", 3950
+         NextMessage = 10
+         bCanDisplayMessage = TRUE
+         StopSound Song:Song = "": PlaySong "mu_MSWizard"'Playsound "MSWizard"
+@@ -7380,166 +7426,15 @@
+   end if
+ End Sub
+ 
+-' *******************************************************************************************************
+-' Positional Sound Playback Functions by DJRobX
+-' PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' *******************************************************************************************************
+ 
+-' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+-' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+-' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+ 
+-Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+-  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+-End Sub
+ 
+-' Set position as table object (Use object or light but NOT wall) and Vol to 1
+ 
+-Sub PlaySoundAt(soundname, tableobj)
+-  PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+ 
+-'Set all as per ball position & speed.
+ 
+-Sub PlaySoundAtBall(soundname)
+-  PlaySoundAt soundname, ActiveBall
+-End Sub
+ 
+-'Set position as table object and Vol manually.
+ 
+-Sub PlaySoundAtVol(sound, tableobj, Volum)
+-  PlaySound sound, 1, Volum, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+-
+-Sub PlaySoundAtBallVol(sound, VolMult)
+-  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-End Sub
+-
+-'Set position as bumperX and Vol manually.
+-
+-Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+-  PlaySound sound, 1, Vol, Pan(tableobj), 0,0,1, 1, AudioFade(tableobj)
+-End Sub
+-
+-'*********************************************************************
+-'                     Supporting Ball & Sound Functions
+-'*********************************************************************
+ 
+-Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+-  Dim tmp
+-  tmp = tableobj.y * 2 / table1.height-1
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^10)
+-  Else
+-    AudioFade = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+ 
+-Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+-  Dim tmp
+-  tmp = tableobj.x * 2 / table1.width-1
+-  If tmp > 0 Then
+-    AudioPan = Csng(tmp ^10)
+-  Else
+-    AudioPan = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+-    Dim tmp
+-    tmp = ball.x * 2 / table1.width-1
+-    If tmp > 0 Then
+-        Pan = Csng(tmp ^10)
+-    Else
+-        Pan = Csng(-((- tmp) ^10) )
+-    End If
+-End Function
+-
+-Function AudioFade(ball) ' Can this be together with the above function ?
+-  Dim tmp
+-  tmp = ball.y * 2 / Table1.height-1
+-  If tmp > 0 Then
+-    AudioFade = Csng(tmp ^10)
+-  Else
+-    AudioFade = Csng(-((- tmp) ^10) )
+-  End If
+-End Function
+-
+-Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-  Vol = Csng(BallVel(ball) ^2 / VolDiv)
+-End Function
+-
+-Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+-  Pitch = BallVel(ball) * 20
+-End Function
+-
+-Function BallVel(ball) 'Calculates the ball speed
+-  BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+-End Function
+ 
+ 
+-'*****************************************
+-'      JP's VP10 Rolling Sounds
+-'*****************************************
+-
+-Const tnob = 20 ' total number of balls
+-Const lob = 1   'number of locked balls
+-ReDim rolling(tnob)
+-InitRolling
+-
+-Sub InitRolling
+-    Dim i
+-    For i = 0 to tnob
+-        rolling(i) = False
+-    Next
+-End Sub
+-
+-Sub RollingUpdate()
+-    Dim BOT, b, ballpitch
+-    BOT = GetBalls
+-
+-    ' stop the sound of deleted balls
+-    For b = UBound(BOT) + 1 to tnob
+-        rolling(b) = False
+-        StopSound("fx_ballrolling" & b)
+-    Next
+-
+-    ' exit the sub if no balls on the table
+-    If UBound(BOT) = -1 Then Exit Sub 'there no extra balls on this table
+-
+-    ' play the rolling sound for each ball
+-
+-    For b = 0 to UBound(BOT)
+-      If BallVel(BOT(b) ) > 1 Then
+-        rolling(b) = True
+-        if BOT(b).z < 30 Then ' Ball on playfield
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) ), Pan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
+-        Else ' Ball on raised ramp
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )*.5, Pan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
+-        End If
+-      Else
+-        If rolling(b) = True Then
+-          StopSound("fx_ballrolling" & b)
+-          rolling(b) = False
+-        End If
+-      End If
+-    Next
+-End Sub
+-
+-'**********************
+-' Ball Collision Sound
+-'**********************
+-
+-Sub OnBallBallCollision(ball1, ball2, velocity)
+-    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+-End Sub
+-
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

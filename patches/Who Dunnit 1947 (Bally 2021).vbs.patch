@@ -1,0 +1,90 @@
+--- vpxtable_scripts/Who Dunnit 1947 (Bally 2021).vbs
++++ todo_extracted_tables/Who Dunnit 1947 (Bally 2021).vbs
+@@ -969,10 +969,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     'playsound "fx_knocker"
+     if debugOn then TBPout.text = str
+   End Sub
+@@ -1722,31 +1719,28 @@
+ End Function
+ 
+ 'Set position as table object (Use object or light but NOT wall) and Vol to 1
++Sub PlaySoundAt(sound, tableobj)
++  PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++End Sub
++
++'Set all as per ball position & speed.
++Sub PlaySoundAtBall(sound)
++  PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++End Sub
++
++'Set position as table object and Vol manually.
++Sub PlaySoundAtVol(sound, tableobj, Vol)
++  PlaySound sound, 1, Vol, Pan(tableobj), 0, 0, 0, 1, AudioFade(tableobj)
++End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub PlaySoundAt(sound, tableobj)
+-'   PlaySound sound, 1, 1, Pan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-' End Sub
+-'
+-' 'Set all as per ball position & speed.
+-' Sub PlaySoundAtBall(sound)
+-'   PlaySound sound, 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' End Sub
+-'
+-' 'Set position as table object and Vol manually.
+-' Sub PlaySoundAtVol(sound, tableobj, Vol)
+-'   PlaySound sound, 1, Vol, Pan(tableobj), 0, 0, 0, 1, AudioFade(tableobj)
+-' End Sub
+-'
+-' Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-'   PlaySound sound, -1, Vol, Pan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-' End Sub
+-'
+-' 'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
+-' Sub PlaySoundAtBallVol(sound, VolMult)
+-'   PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
+-' End Sub
++Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
++  PlaySound sound, -1, Vol, Pan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
++End Sub
++
++'Set all as per ball position & speed, but Vol Multiplier may be used eg; PlaySoundAtBallVol "sound",3
++Sub PlaySoundAtBallVol(sound, VolMult)
++  PlaySound sound, 0, Vol(ActiveBall) * VolMult, Pan(ActiveBall), 0, Pitch(ActiveBall), 0, 1, AudioFade(ActiveBall)
++End Sub
+ 
+ 'Set position as bumperX and Vol manually.
+ Sub PlaySoundAtBumperVol(sound, tableobj, Vol)
+@@ -1773,15 +1767,13 @@
+ '             Other Sound FX
+ ' *********************************************************************
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub OnBallBallCollision(ball1, ball2, velocity)
+-'   if ball1.z >= 0 then
+-'     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 500, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+-'   Else ' in playfield tunnel, muffled!
+-'     PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 1000, Pan(ball1), 0, -20000, 0, 0, AudioFade(ball1)
+-'   end if
+-' End Sub
++Sub OnBallBallCollision(ball1, ball2, velocity)
++  if ball1.z >= 0 then
++    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 500, Pan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
++  Else ' in playfield tunnel, muffled!
++    PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 1000, Pan(ball1), 0, -20000, 0, 0, AudioFade(ball1)
++  end if
++End Sub
+ 
+ 'Sub LeftFlipper_Collide(parm)
+  ''   RandomSoundFlipper

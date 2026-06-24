@@ -1,0 +1,53 @@
+--- vpxtable_scripts/Transformers Pro (Stern 2011) v.2.2.vbs
++++ todo_extracted_tables/Transformers Pro (Stern 2011) v.2.2.vbs
+@@ -364,14 +364,12 @@
+     Set bsSaucer = New cvpmBallStack
+     bsSaucer.InitSaucer sw3, 3, 168 + rnd * 6, 10
+     bsSaucer.KickAngleVar = 5
+-    bsSaucer.KickForceVar = 3
+ 
+     set bsKickerMegaTron = New cvpmBallStack
+     bsKickerMegaTron.InitSw 0, 41, 40, 39, 38, 0, 0, 0
+     bsKickerMegaTron.InitKick KickerMegaTron, 148 + rnd * 6, 38
+     bsKickerMegaTron.KickAngleVar = 3
+     bsKickerMegaTron.Balls = 0
+-    bskickerMegaTron.KickForceVar = 3
+ 
+     ' Impulse Plunger - used as the autoplunger
+   Const IMPowerSetting = 90 'Plunger Power
+@@ -2961,12 +2959,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+-	If tmp > 0 Then
+-		AudioFade = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioFade = CSng(tmp ^ 10)
++  Else
++    AudioFade = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+@@ -2979,12 +2976,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+-	If tmp > 0 Then
+-		AudioPan = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioPan = CSng(tmp ^ 10)
++  Else
++    AudioPan = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function Vol(ball) ' Calculates the volume of the sound based on the ball speed

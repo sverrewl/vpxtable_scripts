@@ -1,0 +1,41 @@
+--- vpxtable_scripts/House of Diamonds (Zaccaria 1978).vbs
++++ todo_extracted_tables/House of Diamonds (Zaccaria 1978).vbs
+@@ -89,10 +89,6 @@
+ Dim bsTrough,bsSaucer,dtR
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   If Table1.ShowDT = False then
+     For each obj in Backdropstuff
+       obj.visible=False
+@@ -426,11 +422,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -621,12 +617,3 @@
+     Next
+   End IF
+ End Sub
+-
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

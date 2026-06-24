@@ -1,0 +1,10 @@
+--- vpxtable_scripts/Avengers (Stern 2012)4k1.3.1.vbs
++++ todo_extracted_tables/Avengers (Stern 2012)4k1.3.1.vbs
+@@ -376,7 +376,6 @@
+     ' Hulk Eject
+     Set bsHole = New cvpmSaucer
+         bsHole.InitKicker HulkEject, 62, 25, 20, 2
+-        bsHole.InitExitVariance 3,4
+         bsHole.InitSounds "kicker_enter_left","fx_solenoid","popper_ball"
+ 
+   Set mHulkMag= New cvpmMagnet

@@ -1,0 +1,65 @@
+--- vpxtable_scripts/Car Hop (Gottlieb 1991) 1.0b.vbs
++++ todo_extracted_tables/Car Hop (Gottlieb 1991) 1.0b.vbs
+@@ -269,14 +269,12 @@
+      Set bsRKicker = New cvpmBallStack
+          bsRKicker.InitSaucer sw40, 40, 165, 65
+ '         bsRKicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-         bsRKicker.KickAngleVar = 3
+-         bsRKicker.KickForceVar = 3
++         bsRKicker.KickAngleVar = 2
+ 
+      Set bsLKicker = New cvpmBallStack
+          bsLKicker.InitSaucer sw41, 41, 165, 85
+ '         bsLKicker.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-         bsLKicker.KickAngleVar = 3
+-         bsLKicker.KickForceVar = 3
++         bsLKicker.KickAngleVar = 2
+ 
+      set dtLBank = new cvpmdroptarget
+          dtLBank.initdrop array(sw16, sw26, sw36, sw46, sw56), array(16, 26, 36, 46, 56)
+@@ -364,15 +362,13 @@
+ '**********************************************************************************************************
+ Dim BIPL : BIPL=0
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Monkey patched the BIPL into the other sub
+-' Sub sw44_Hit
+-'   BIPL = 1
+-' End Sub
+-'
+-' Sub sw44_UnHit
+-'   BIPL = 0
+-' End Sub
++Sub sw44_Hit
++  BIPL = 1
++End Sub
++
++Sub sw44_UnHit
++  BIPL = 0
++End Sub
+ 
+ '**********************************************************************************************************
+ 
+@@ -465,8 +461,8 @@
+   Sub sw34_UnHit:Controller.Switch(34) = 0:End Sub
+   Sub sw42_Hit:Controller.Switch(42) = 1 : End Sub
+   Sub sw42_UnHit:Controller.Switch(42) = 0:End Sub
+-  Sub sw44_Hit:Controller.Switch(44) = 1 : BIPL = 1 : End Sub
+-  Sub sw44_UnHit:Controller.Switch(44) = 0: BIPL = 0 : End Sub
++  Sub sw44_Hit:Controller.Switch(44) = 1 : End Sub
++  Sub sw44_UnHit:Controller.Switch(44) = 0:End Sub
+   Sub sw55_Hit:Controller.Switch(55) = 1 : End Sub
+   Sub sw55_UnHit:Controller.Switch(55) = 0:End Sub
+ 
+@@ -1673,10 +1669,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

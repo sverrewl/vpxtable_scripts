@@ -1,0 +1,34 @@
+--- vpxtable_scripts/High Roller Casino (Stern 2001) 1.1.vbs
++++ todo_extracted_tables/High Roller Casino (Stern 2001) 1.1.vbs
+@@ -116,8 +116,7 @@
+ 
+ LoadVPM "02000000", "Sega.VBS", 3.43
+ 
+-' Thalamus - ffv2 should not be used for this table according to nFozzy
+-Const UseSolenoids = 1
++Const UseSolenoids = 2
+ Const UseLamps = False
+ Const UseSync = False
+ Const MaxLut = 3
+@@ -136,10 +135,6 @@
+ NoUpperRightFlipper
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   if not DesktopMode then ScoreText.Y = -500
+     if table1.VersionMinor < 6 AND table1.VersionMajor = 10 then MsgBox "This table requires VPX 10.6, you have " & table1.VersionMajor & "." & table.VersionMinor
+   if VPinMAMEDriverVer < 3.57 then MsgBox "This table requires core.vbs 3.57 or higher, which is included with VPX 10.6.  You have " & VPinMAMEDriverVer & ". Be sure scripts folder is up to date, and that there are no old .vbs files in your table folder."
+@@ -965,9 +960,7 @@
+ '******************************
+ 
+ Sub aBumpers_Hit (idx): PlaySound SoundFX("fx_bumper", DOFContactors), 0, 1, Audiopan(ActiveBall), 0, 0, 0, 0, AudioFade(ActiveBall): End Sub
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
++Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+ Sub aRollovers_Hit(idx):PlaySound "fx_sensor", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+ Sub aGates_Hit(idx):PlaySound "fx_Gate", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub
+ Sub aMetals_Hit(idx):PlaySound "fx_MetalHit", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall):End Sub

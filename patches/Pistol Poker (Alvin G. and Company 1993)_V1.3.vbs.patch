@@ -1,0 +1,56 @@
+--- vpxtable_scripts/Pistol Poker (Alvin G. and Company 1993)_V1.3.vbs
++++ todo_extracted_tables/Pistol Poker (Alvin G. and Company 1993)_V1.3.vbs
+@@ -358,8 +358,6 @@
+ Sub sw21_Hit:Controller.Switch(21)=1 : RandomSoundRollover:BIPL = 1: End Sub
+ Sub sw21_unHit:Controller.Switch(21)=0 : RandomSoundRollover:BIPL = 0:End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' This one has sound event - keeping it
+ Sub sw47_Hit:Controller.Switch(47)=1 : RandomSoundRollover: End Sub
+ Sub sw47_unHit:Controller.Switch(47)=0:End Sub
+ 
+@@ -394,10 +392,8 @@
+ Sub sw28_Hit:Controller.Switch(28)=1 : RandomSoundRollover : End Sub
+ Sub sw28_unHit:Controller.Switch(28)=0:End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub sw70_Hit:Controller.Switch(70)=1 : RandomSoundRollover : End Sub
+-' Sub sw70_unHit:Controller.Switch(70)=0:End Sub
++Sub sw70_Hit:Controller.Switch(70)=1 : RandomSoundRollover : End Sub
++Sub sw70_unHit:Controller.Switch(70)=0:End Sub
+ 
+ Sub sw70_Hit:Controller.Switch(70)=1 : RandomSoundRollover : End Sub
+ Sub sw70_unHit:Controller.Switch(70)=0:End Sub
+@@ -421,7 +417,7 @@
+ Sub sw53_unHit:Controller.Switch(53)=0:End Sub
+ 
+ Sub sw46_Hit:vpmTimer.PulseSw 46:End Sub
+-'Sub sw47_Hit:vpmTimer.PulseSw 47:End Sub
++Sub sw47_Hit:vpmTimer.PulseSw 47:End Sub
+ 
+ 'Targets
+ Sub sw73_Hit:vpmTimer.PulseSw 73:End Sub
+@@ -2769,10 +2765,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2827,10 +2820,3 @@
+ Sub RDampen_Timer()
+   Cor.Update
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  On Error Resume Next
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

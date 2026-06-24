@@ -1,0 +1,28 @@
+--- vpxtable_scripts/Future Spa (Bally 1979) v600.vbs
++++ todo_extracted_tables/Future Spa (Bally 1979) v600.vbs
+@@ -95,14 +95,11 @@
+         .CreateEvents "dtbank1"
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Saucer
+     Set bsSaucer = New cvpmBallStack
+     With bsSaucer
+         .InitSaucer sw24, 24, 223, 20
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Impulse Plunger - used in the kickback
+@@ -1046,10 +1043,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

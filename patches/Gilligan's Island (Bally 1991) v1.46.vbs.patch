@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Gilligan's Island (Bally 1991) v1.46.vbs
++++ todo_extracted_tables/Gilligan's Island (Bally 1991) v1.46.vbs
+@@ -2180,8 +2180,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2480,12 +2479,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+-	If tmp > 0 Then
+-		AudioFade = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioFade = CSng(tmp ^ 10)
++  Else
++    AudioFade = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+@@ -2498,12 +2496,11 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+-	If tmp > 0 Then
+-		AudioPan = CSng(tmp ^ 5) 'was 10
+-	Else
+-		AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
+-	End If
++  If tmp > 0 Then
++    AudioPan = CSng(tmp ^ 10)
++  Else
++    AudioPan = CSng( - (( - tmp) ^ 10) )
++  End If
+ End Function
+ 
+ Function Vol(ball) ' Calculates the volume of the sound based on the ball speed

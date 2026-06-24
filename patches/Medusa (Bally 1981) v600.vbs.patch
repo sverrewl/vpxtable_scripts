@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Medusa (Bally 1981) v600.vbs
++++ todo_extracted_tables/Medusa (Bally 1981) v600.vbs
+@@ -1190,10 +1190,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

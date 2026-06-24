@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Bounty Hunter (Gottlieb 1985).vbs
++++ todo_extracted_tables/Bounty Hunter (Gottlieb 1985).vbs
+@@ -473,6 +473,7 @@
+ 'Bumpers
+ Sub Bumper1_Hit
+   vpmTimer.PulseSw 43
++  DOF 103, DOFPulse
+   RandomSoundBumperMiddle Bumper1
+   bumpskirt1.roty=skirtAY(me,Activeball)
+   bumpskirt1.rotx=skirtAX(me,Activeball)
+@@ -488,7 +489,8 @@
+ 
+ Sub Bumper2_Hit
+   vpmTimer.PulseSw 43
+-  RandomSoundBumperMiddle Bumper1
++  DOF 104, DOFPulse
++  RandomSoundBumperMiddle Bumper2
+   bumpskirt2.roty=skirtAY(me,Activeball)
+   bumpskirt2.rotx=skirtAX(me,Activeball)
+   me.timerinterval = 150
+@@ -858,6 +860,7 @@
+ 
+ Sub RightSlingShot_Slingshot
+   vpmTimer.PulseSw 44
++  DOF 102, DOFPulse
+   RandomSoundSlingshotRight slingr
+   RSling.Visible = 0
+   RSling1.Visible = 1
+@@ -876,6 +879,7 @@
+ 
+ Sub LeftSlingShot_Slingshot
+   vpmTimer.PulseSw 44
++  DOF 101, DOFPulse
+   RandomSoundSlingshotLeft slingl
+   LSling.Visible = 0
+   LSling1.Visible = 1
+@@ -1366,10 +1370,7 @@
+     RealCOR = BallSpeed(aBall) / cor.ballvel(aBall.id)
+     coef = desiredcor / realcor
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+   End Sub
+ 
+   Public Sub CopyCoef(aObj, aCoef) 'alternative addpoints, copy with coef

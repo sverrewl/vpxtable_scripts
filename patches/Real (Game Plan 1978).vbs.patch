@@ -1,0 +1,40 @@
+--- vpxtable_scripts/Real (Game Plan 1978).vbs
++++ todo_extracted_tables/Real (Game Plan 1978).vbs
+@@ -122,8 +122,6 @@
+     With bsSaucer
+         .InitSaucer Kicker1, 24, 174, 12
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Saucer Left
+@@ -131,8 +129,6 @@
+     With bsSaucer2
+         .InitSaucer Kicker2, 12, 120, 12
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Saucer Right
+@@ -140,8 +136,6 @@
+     With bsSaucer3
+         .InitSaucer Kicker3, 10, 250, 12
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     vpmMapLights aLights
+@@ -783,10 +777,3 @@
+         End Select
+     End If
+ End Sub
+-
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

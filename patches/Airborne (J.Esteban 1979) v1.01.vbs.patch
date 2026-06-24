@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Airborne (J.Esteban 1979) v1.01.vbs
++++ todo_extracted_tables/Airborne (J.Esteban 1979) v1.01.vbs
+@@ -560,9 +560,9 @@
+     Dim tmp
+     tmp = ball.x * 2 / TableWidth-1
+     If tmp> 0 Then
+-        Pan = Csng(tmp ^5) ' was 10
++        Pan = Csng(tmp ^10)
+     Else
+-        Pan = Csng(-((- tmp) ^5) ) ' was 10
++        Pan = Csng(-((- tmp) ^10) )
+     End If
+ End Function
+ 
+@@ -578,9 +578,9 @@
+     Dim tmp
+     tmp = ball.y * 2 / TableHeight-1
+     If tmp> 0 Then
+-        AudioFade = Csng(tmp ^5) 'was 10
++        AudioFade = Csng(tmp ^10)
+     Else
+-        AudioFade = Csng(-((- tmp) ^5) ) 'was 10
++        AudioFade = Csng(-((- tmp) ^10) )
+     End If
+ End Function
+ 

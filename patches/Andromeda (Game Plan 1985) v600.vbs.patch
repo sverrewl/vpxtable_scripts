@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Andromeda (Game Plan 1985) v600.vbs
++++ todo_extracted_tables/Andromeda (Game Plan 1985) v600.vbs
+@@ -86,12 +86,9 @@
+     dtR.InitSnd SoundFX("", DOFContactors), SoundFX("fx_resetdrop", DOFContactors)
+     dtR.CreateEvents "dtR"
+ 
+-    ' Thalamus - more randomness pls
+     Set bsLeft = New cvpmBallStack
+     bsLeft.InitSaucer sw24, 24, 50, 10
+     bsLeft.InitExitSnd SoundFX("fx_Solenoidon", DOFContactors), SoundFX("fx_Solenoidon", DOFContactors)
+-    bsLeft.KickForceVar = 3
+-    bsLeft.KickAngleVar = 3
+ 
+     PinMAMETimer.Interval = PinMAMEInterval
+     PinMAMETimer.Enabled = 1
+@@ -1026,10 +1023,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

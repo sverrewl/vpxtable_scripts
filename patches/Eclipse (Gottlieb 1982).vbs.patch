@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Eclipse (Gottlieb 1982).vbs
++++ todo_extracted_tables/Eclipse (Gottlieb 1982).vbs
+@@ -40,8 +40,6 @@
+ Dim xx, objekt
+ Sub Eclipse_Init()
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+ 
+     On Error Resume Next
+       With Controller

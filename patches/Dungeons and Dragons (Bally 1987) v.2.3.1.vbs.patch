@@ -1,0 +1,46 @@
+--- vpxtable_scripts/Dungeons and Dragons (Bally 1987) v.2.3.1.vbs
++++ todo_extracted_tables/Dungeons and Dragons (Bally 1987) v.2.3.1.vbs
+@@ -3534,9 +3534,9 @@
+     Case 3
+       tmp = tableobj.y * 2 / tableheight-1
+       If tmp > 0 Then
+-        AudioFade = Csng(tmp ^5) 'was 10
++        AudioFade = Csng(tmp ^10)
+       Else
+-        AudioFade = Csng(-((- tmp) ^5) ) 'was 10
++        AudioFade = Csng(-((- tmp) ^10) )
+       End If
+   End Select
+ End Function
+@@ -3550,17 +3550,17 @@
+     Case 2
+       tmp = tableobj.x * 2 / tablewidth-1
+       If tmp > 0 Then
+-        AudioPan = Csng(tmp ^5) 'was 10
++        AudioPan = Csng(tmp ^10)
+       Else
+-        AudioPan = Csng(-((- tmp) ^5) ) ' was 10
++        AudioPan = Csng(-((- tmp) ^10) )
+       End If
+     Case 3
+       tmp = tableobj.x * 2 / tablewidth-1
+ 
+       If tmp > 0 Then
+-        AudioPan = Csng(tmp ^5) ' was 10
++        AudioPan = Csng(tmp ^10)
+       Else
+-        AudioPan = Csng(-((- tmp) ^5) ) 'was 10
++        AudioPan = Csng(-((- tmp) ^10) )
+       End If
+   End Select
+ End Function
+@@ -5336,9 +5336,3 @@
+     End If
+   End If
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

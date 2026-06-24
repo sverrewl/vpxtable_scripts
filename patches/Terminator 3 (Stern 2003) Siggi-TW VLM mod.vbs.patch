@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Terminator 3 (Stern 2003) Siggi-TW VLM mod.vbs
++++ todo_extracted_tables/Terminator 3 (Stern 2003) Siggi-TW VLM mod.vbs
+@@ -384,8 +384,6 @@
+     'Right VUK
+     Set bsVuk = new cvpmballstack
+     With bsVuk
+- .KickForceVar = 3
+- .KickAngleVar = 3
+         .InitSw 0, 36, 0, 0, 0, 0, 0, 0
+         .InitKick sw36a, 180, 8
+         .InitExitSnd SoundFX("Saucer_Kick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+@@ -394,8 +392,6 @@
+     'TX VUK
+     Set bsTX = new cvpmballstack
+     With bsTX
+- .KickForceVar = 3
+- .KickAngleVar = 3
+         .InitSw 0, 33, 34, 35, 0, 0, 0, 0
+         .InitKick sw31a, 180, 12
+         .InitExitSnd SoundFX("Saucer_Kick", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+@@ -597,7 +593,7 @@
+ 
+ Sub table1_KeyDown(ByVal Keycode)
+ 
+-    If keycode = PlungerKey or keycode = LockBarKey Then
++    If keycode = PlungerKey Then
+     PlaySoundat "fx_solenoidOn", sw16
+     controller.switch(55) = True
+   End If
+@@ -637,7 +633,7 @@
+ 
+ Sub table1_KeyUp(ByVal Keycode)
+ 
+-    If keycode = PlungerKey or keycode = LockBarKey Then
++    If keycode = PlungerKey Then
+     PlaySoundAt "fx_solenoidOff", sw16
+     controller.switch(55) = False
+   End If
+@@ -3632,9 +3628,3 @@
+ '****************************************************************
+ '****  END VPW DYNAMIC BALL SHADOWS by Iakki, Apophis, and Wylte
+ '****************************************************************
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

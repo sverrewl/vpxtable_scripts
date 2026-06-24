@@ -1,0 +1,46 @@
+--- vpxtable_scripts/Black Velvet (Game Plan 1978) v600.vbs
++++ todo_extracted_tables/Black Velvet (Game Plan 1978) v600.vbs
+@@ -103,14 +103,11 @@
+         .Balls = 1
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Saucer Top center
+     Set bsSaucer = New cvpmBallStack
+     With bsSaucer
+         .InitSaucer Kicker1, 24, 174, 16
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Saucer Left
+@@ -118,8 +115,6 @@
+     With bsSaucer2
+         .InitSaucer Kicker2, 12, 120, 16
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Saucer Right
+@@ -127,8 +122,6 @@
+     With bsSaucer3
+         .InitSaucer Kicker3, 10, 240, 16
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     vpmMapLights aLights
+@@ -744,10 +737,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

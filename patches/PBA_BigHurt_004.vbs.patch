@@ -1,0 +1,13 @@
+--- vpxtable_scripts/PBA_BigHurt_004.vbs
++++ todo_extracted_tables/PBA_BigHurt_004.vbs
+@@ -125,10 +125,6 @@
+ Dim bsTrough,bsTroughEnt, bsUpSaucer,bsLVUK, bsRVUK, dtDrop, plungerIM, xx
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+     With Controller
+     .GameName = cGameName
+     If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

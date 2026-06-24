@@ -1,0 +1,45 @@
+--- vpxtable_scripts/The Walking Dead LE Premium (Stern 2014) day 1.1.vbs
++++ todo_extracted_tables/The Walking Dead LE Premium (Stern 2014) day 1.1.vbs
+@@ -3396,11 +3396,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3414,15 +3413,13 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+-
+ Function Vol(ball) ' Calculates the volume of the sound based on the ball speed
+   Vol = CSng(BallVel(ball) ^ 2)
+ End Function
+@@ -4884,10 +4881,3 @@
+     TextBox.x = -500
+   End If
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

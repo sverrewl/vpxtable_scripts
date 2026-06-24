@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Cenobite (Uncle Willy 2023).vbs
++++ todo_extracted_tables/Cenobite (Uncle Willy 2023).vbs
+@@ -487,8 +487,6 @@
+         If keycode = LeftTiltKey Then CheckTilt 'only check the tilt during game
+         If keycode = RightTiltKey Then CheckTilt
+         If keycode = CenterTiltKey Then CheckTilt
+-        ' Thalamus - added mechanical tilt
+-        If keycode = MechanicalTilt Then CheckTilt
+ 
+         If keycode = LeftFlipperKey Then SolLFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 1:UpdateGates 1
+         If keycode = RightFlipperKey Then SolRFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 0

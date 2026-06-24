@@ -1,0 +1,45 @@
+--- vpxtable_scripts/Pinball (Stern 1977).vbs
++++ todo_extracted_tables/Pinball (Stern 1977).vbs
+@@ -2,13 +2,12 @@
+ Randomize
+ setlocale(1033)
+ 
+-
+ On Error Resume Next
+ ExecuteGlobal GetTextFile("controller.vbs")
+ If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
+ On Error Goto 0
+ 
+-'Pinball Stern 1977 V1.0
++'Pinball Stern 1977 V1.2
+ ' Thalamus 2019 July : Improved directional sounds
+ ' !! NOTE : Table not verified yet !!
+ 
+@@ -575,13 +574,11 @@
+         bsSaucer.InitSaucer SW12,12,177,18
+         bsSaucer.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+         bsSaucer.KickAngleVar=10
+-        bsSaucer.KickForceVar = 3
+ 
+   Set bsSaucer1=New cvpmBallStack
+         bsSaucer1.InitSaucer SW13,13,135,18
+         bsSaucer1.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+         bsSaucer1.KickAngleVar=10
+-        bsSaucer1.KickForceVar = 3
+ 
+ End Sub
+ 
+@@ -1499,13 +1496,3 @@
+     Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall), Pan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+   End Select
+ End Sub
+-
+-
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

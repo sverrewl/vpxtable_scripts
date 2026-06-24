@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Indianapolis 500 (Bally 1995) v1.36.vbs
++++ todo_extracted_tables/Indianapolis 500 (Bally 1995) v1.36.vbs
+@@ -410,7 +410,7 @@
+     End Select
+   End If
+ 
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     Controller.Switch(11) = 1
+     If BallInShooterLane = 1 Then
+       SoundPlungerReleaseBall()
+@@ -430,7 +430,7 @@
+   If keycode = StartGameKey Then Controller.Switch(13) = 0
+   If keycode = keyFront Then Controller.Switch(23) = 0
+ 
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     Controller.Switch(11) = 0
+     LaunchButton.Y = 759.8526
+     Flasher1.Y = 2446.821
+@@ -2848,11 +2848,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2866,11 +2865,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

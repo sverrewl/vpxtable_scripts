@@ -1,0 +1,59 @@
+--- vpxtable_scripts/Disco Fever (Williams 1979) 2.0.3.vbs
++++ todo_extracted_tables/Disco Fever (Williams 1979) 2.0.3.vbs
+@@ -344,9 +344,9 @@
+ '******************************************************
+ 
+ SolCallback(1)  = "bsTrough.SolOut"
+-SolCallback(3) = "dt2Target.SolDropUp"
+-SolCallback(2) = "dt3Target.SolDropUp"
+-SolCallback(14)  = "vpmSolSound SoundFX(""knocker"",DOFKnocker),"
++SolCallback(3)  = "dt2Target.SolDropUp"
++SolCallback(2)  = "dt3Target.SolDropUp"
++SolCallback(14) = "vpmSolSound SoundFX(""knocker"",DOFKnocker),"
+ 
+ 
+ Solcallback(9) = "Chime10Sound"
+@@ -395,8 +395,8 @@
+ SolCallback(sLLFlipper) = "SolLFlipper"
+ 
+  Sub SolLFlipper(Enabled)
+- If Enabled Then
+-   PlaySoundAt SoundFX("LeftFlipperUp",DOFContactors), LeftFlipper
++  If Enabled Then
++    PlaySoundAt SoundFX("LeftFlipperUp",DOFContactors), LeftFlipper
+     If FlipperType = 1 Then
+       LF.Fire 'LeftFlipper.RotateToEnd
+     Else
+@@ -417,9 +417,9 @@
+  End Sub
+ 
+  Sub SolRFlipper(Enabled)
+-  If Enabled Then
++   If Enabled Then
+     PlaySoundAt SoundFX("RightFlipperUp",DOFContactors), RightFlipper
+-   If FlipperType = 1 Then
++    If FlipperType = 1 Then
+       RF.Fire 'RightFlipper.RotateToEnd
+     Else
+       RightFlipper1.RotateToEnd
+@@ -428,7 +428,7 @@
+     End If
+    Else
+     PlaySoundAt SoundFX("RightFlipperDown",DOFContactors), RightFlipper
+-   If FlipperType = 1 Then
++    If FlipperType = 1 Then
+       RightFlipper.RotateToStart
+     Else
+       RightFlipper1.RotateToStart
+@@ -1151,10 +1151,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+     'playsound "knocker"
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

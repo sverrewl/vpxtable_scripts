@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Pabst Can Crusher (Stern 2016) v2.5.5_c.vbs
++++ todo_extracted_tables/Pabst Can Crusher (Stern 2016) v2.5.5_c.vbs
+@@ -810,10 +810,6 @@
+         TiltCheck
+     End If
+ 
+-    If keycode = MechanicalTilt Then
+-        TiltCheck
+-    End If
+-
+     if (keycode = AddCreditKey) or (keycode = AddCreditKey2) then
+           if Credit < 9 then
+             Credit = Credit + 1

@@ -1,0 +1,55 @@
+--- vpxtable_scripts/Punk (Gottlieb 1982)_Thal.vbs
++++ todo_extracted_tables/Punk (Gottlieb 1982)_Thal.vbs
+@@ -133,9 +133,6 @@
+      End With
+      On Error Goto 0
+ 
+-  Controller.SolMask(0)=0
+-    vpmTimer.AddTimer 2000,"Controller.SolMask(0)=&Hffffffff'" 'ignore all solenoids - then add the timer to renable all the solenoids after 2 s
+-
+   PinMAMETimer.Interval=PinMAMEInterval
+   PinMAMETimer.Enabled=1
+ 
+@@ -146,14 +143,10 @@
+   Set bsSaucer=New cvpmBallStack
+     bsSaucer.InitSaucer sw5,5,180,5
+     bsSaucer.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsSaucer.KickForceVar = 3
+-    bsSaucer.KickAngleVar = 3
+ 
+   Set bsSaucer2=New cvpmBallStack
+     bsSaucer2.InitSaucer sw6,6,180,5
+     bsSaucer2.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsSaucer2.KickForceVar = 3
+-    bsSaucer2.KickAngleVar = 3
+ 
+   set dtT=New cvpmDropTarget
+     dtT.InitDrop Array(sw0,sw10,sw20),Array(0,10,20)
+@@ -819,11 +812,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -943,12 +936,3 @@
+     Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*VolRH, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+   End Select
+ End Sub
+-
+-' Thalamus - 2021-04-30 : added proper exit
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

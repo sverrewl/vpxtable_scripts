@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Cobra (Playbar 1987).vbs
++++ todo_extracted_tables/Cobra (Playbar 1987).vbs
+@@ -90,8 +90,6 @@
+    With bsSaucer
+         .InitSw 0, 15, 16, 0, 0, 0, 0, 0
+         .InitKick sw15, 192, 14
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitExitSnd SoundFX("fx_ballrel", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+         .Balls = 0
+         .IsTrough = 1

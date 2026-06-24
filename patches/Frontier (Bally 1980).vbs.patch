@@ -1,0 +1,33 @@
+--- vpxtable_scripts/Frontier (Bally 1980).vbs
++++ todo_extracted_tables/Frontier (Bally 1980).vbs
+@@ -7,7 +7,6 @@
+ ' Thalamus 2018-07-23
+ ' Added/Updated "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Changed UseSolenoids=1 to 2
+-' Thalamus 2018-12-18 : Added FFv2
+ ' Moved solenoids above table1_init
+ ' Thalamus 2018-08-11 : Improved directional sounds
+ ' Options
+@@ -38,11 +37,6 @@
+ On Error Goto 0
+ 
+ LoadVPM "01000100", "Bally.VBS", 3.02  'Frontier
+-
+-' Thalamus - for Fast Flip v2
+-NoUpperRightFlipper
+-NoUpperLeftFlipper
+-
+ Dim DesktopMode: DesktopMode = table1.ShowDT
+ 
+ '************************************************
+@@ -128,10 +122,6 @@
+ SolCallback(sLLFlipper) = "SolLFlipper"
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+      With Controller
+          .GameName = cGameName
+          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub

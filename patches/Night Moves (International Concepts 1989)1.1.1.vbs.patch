@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Night Moves (International Concepts 1989)1.1.1.vbs
++++ todo_extracted_tables/Night Moves (International Concepts 1989)1.1.1.vbs
+@@ -102,10 +102,6 @@
+ '************
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   With Controller
+     .GameName = cGameName
+     .SplashInfoLine = "Night Moves (International Concepts 1989)" & vbNewLine & "VPX table by Kiwi 1.1.0"

@@ -1,0 +1,31 @@
+--- vpxtable_scripts/Riverboat Gambler (Williams 1990) 1.0.vbs
++++ todo_extracted_tables/Riverboat Gambler (Williams 1990) 1.0.vbs
+@@ -139,13 +139,9 @@
+     bsSlot.InitSw 0, 44, 0, 0, 0, 0, 0, 0
+     bsSlot.InitKick sw44, 0, 30
+     bsSlot.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsSlot.KickForceVar = 3
+-    bsSlot.KickAngleVar = 3
+ 
+     Set bsDiv = New cvpmBallStack
+     bsDiv.InitSaucer sw48, 48, 205, 1
+-    bsDiv.KickForceVar = 3
+-    bsDiv.KickAngleVar = 3
+ 
+     Set dtL = New cvpmDropTarget
+     dtL.InitDrop Array(sw49, sw50, sw51, sw52, sw53), Array(49, 50, 51, 52, 53)
+@@ -957,11 +953,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else

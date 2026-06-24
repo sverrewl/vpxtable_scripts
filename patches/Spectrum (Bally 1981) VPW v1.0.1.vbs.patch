@@ -1,0 +1,41 @@
+--- vpxtable_scripts/Spectrum (Bally 1981) VPW v1.0.1.vbs
++++ todo_extracted_tables/Spectrum (Bally 1981) VPW v1.0.1.vbs
+@@ -1288,11 +1288,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -1306,11 +1305,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3951,10 +3949,3 @@
+ ' 012 - Sixtoe - New 4k bake, added instruction cards, updated some physics objects, slowed down lower inlane kickers fractionally, tuned drain kicker, hooked up VR room auto code and animated buttons, hooked up room brightness, fixed coin door cabinet decal.
+ ' 013 - leojreimroc - VRBackglass
+ ' 014 - Sixtoe - Tweaks to VR cab and room, updated rubber physics, reinforced layout, added rules
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

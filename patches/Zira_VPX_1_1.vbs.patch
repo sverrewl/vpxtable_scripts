@@ -1,0 +1,61 @@
+--- vpxtable_scripts/Zira_VPX_1_1.vbs
++++ todo_extracted_tables/Zira_VPX_1_1.vbs
+@@ -39,7 +39,7 @@
+ Const VolRH     = 1    ' Rubber hits volume.
+ Const VolPo     = 1    ' Rubber posts volume.
+ Const VolPi     = 1    ' Rubber pins volume.
+-Const VolTarg   = 3    ' Targets volume.
++Const VolTarg   = 1    ' Targets volume.
+ Const VolSpin   = 3    ' Spinners volume.
+ Const VolFlip   = 1    ' Flipper volume.
+ 
+@@ -540,15 +540,10 @@
+ 
+ Function VolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+   VolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-End Function
+-
+-Function DVolMulti(ball,Multiplier) ' Calculates the Volume of the sound based on the ball speed
+-  DVolMulti = Csng(BallVel(ball) ^2 / 150 ) * Multiplier
+-  debug.print DVolMulti
++   debug.print VolMulti
+   'debug.print Multiplier
+ End Function
+ 
+-
+ Function BallRollVol(ball) ' Calculates the Volume of the sound based on the ball speed
+   BallRollVol = Csng(BallVel(ball) ^2 / (80000 - (79900 * Log(RollVol) / Log(100))))
+ End Function
+@@ -672,11 +667,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Zira.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Zira.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Zira.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Zira.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Zira.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -734,7 +729,7 @@
+ End Sub
+ 
+ Sub Targets_Hit (idx)
+-  PlaySound "target", 0, DVolMulti(ActiveBall,VolTarg), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
++  PlaySound "target", 0, VolMulti(ActiveBall,VolTarg), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+ End Sub
+ 
+ Sub Metals_Thin_Hit (idx)
+@@ -761,6 +756,8 @@
+ Sub Rubbers_Hit(idx)
+   dim finalspeed
+     finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
++  debug.print "finalspeed"
++  debug.print finalspeed
+   If finalspeed > 20 then
+     PlaySound "fx_rubber2", 0, VolMulti(ActiveBall,VolRH), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+   End if

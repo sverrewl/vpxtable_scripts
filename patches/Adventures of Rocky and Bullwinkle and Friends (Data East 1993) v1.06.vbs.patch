@@ -1,0 +1,57 @@
+--- vpxtable_scripts/Adventures of Rocky and Bullwinkle and Friends (Data East 1993) v1.06.vbs
++++ todo_extracted_tables/Adventures of Rocky and Bullwinkle and Friends (Data East 1993) v1.06.vbs
+@@ -349,8 +349,6 @@
+      'SuperVuk
+      Set bsLEjet =new cvpmBallStack
+      With  bsLEjet
+-           .KickForceVar = 3
+-           .KickAngleVar = 3
+            .InitSw 0,29,0,0,0,0,0,0
+            .InitKick Sw29,182,20
+            .KickZ = 0.4
+@@ -421,7 +419,7 @@
+     FlipperActivate RightFlipper, RFPress
+   End If
+ 
+-  If keyCode=PlungerKey or keyCode=LockBarKey Then
++  If keyCode=PlungerKey Then
+     Controller.Switch(9)=True
+   End If
+ 
+@@ -479,7 +477,7 @@
+     FlipperDeActivate RightFlipper, RFPress
+   End If
+ 
+-  If keyCode=PlungerKey or keyCode=LockBarKey Then
++  If keyCode=PlungerKey Then
+     Controller.Switch(9)=False
+   End If
+ 
+@@ -4756,11 +4754,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -4774,11 +4771,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

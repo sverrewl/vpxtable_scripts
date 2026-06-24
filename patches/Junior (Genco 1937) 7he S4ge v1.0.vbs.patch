@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Junior (Genco 1937) 7he S4ge v1.0.vbs
++++ todo_extracted_tables/Junior (Genco 1937) 7he S4ge v1.0.vbs
+@@ -181,10 +181,6 @@
+     CheckTilt
+   End If
+ 
+-  If keycode = MechanicalTilt Then
+-    CheckTilt
+-  End If
+-
+     ' Manual Ball Control
+   If keycode = 46 Then          ' C Key
+     If EnableBallControl = 1 Then

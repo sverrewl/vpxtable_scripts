@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Solar Wars (Sonic 1986) v600.vbs
++++ todo_extracted_tables/Solar Wars (Sonic 1986) v600.vbs
+@@ -967,10 +967,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

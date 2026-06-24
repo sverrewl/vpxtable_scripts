@@ -1,0 +1,43 @@
+--- vpxtable_scripts/The Walking Dead_VP10_LEMOD_REDUX.vbs
++++ todo_extracted_tables/The Walking Dead_VP10_LEMOD_REDUX.vbs
+@@ -320,7 +320,6 @@
+     If Keycode = StartGameKey Then Controller.Switch(16) = 1
+ '   If keycode = CenterTiltKey Then CenterNudge 0, 1, 25 End If
+     If keycode = RightMagnaSave Then Controller.Switch(71) = 1
+-    If keycode = LockBarKey Then Controller.Switch(71) = 1
+     If vpmKeyDown(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -335,7 +334,6 @@
+     'End If
+   If Keycode = StartGameKey Then Controller.Switch(16) = 0
+     If keycode = RightMagnaSave Then Controller.Switch(71) = 0
+-    If keycode = LockBarKey Then Controller.Switch(71) = 0
+     If keycode = PlungerKey Then
+     Plunger.Fire
+     PlaySoundAt "plunger", Plunger
+@@ -1412,7 +1410,7 @@
+ Sub sw70_UnHit: Controller.Switch(70) = 0: End Sub
+ Sub sw23_Hit: Controller.Switch(23) = 1:PlaySoundAt "rollover", sw23: GI_TroughCheck: End Sub ' shooter lane
+ Sub sw23_UnHit: Controller.Switch(23) = 0: End Sub
+-Sub sw24_Hit: Controller.Switch(24) = 1:PlaySoundAt "rollover", sw24: End Sub ' left outlane
++Sub sw24_Hit: Controller.Switch(24) = 1:PlaySoundAt "rollover", sw24: debug.print "sw24 hit": End Sub ' left outlane
+ Sub sw24_UnHit: Controller.Switch(24) = 0: End Sub
+ Sub sw25_Hit: Controller.Switch(25) = 1:PlaySoundAt "rollover", sw25: End Sub ' left inlane
+ Sub sw25_UnHit: Controller.Switch(25) = 0: End Sub
+@@ -1924,12 +1922,9 @@
+ ' Ball Collision Sound
+ '**********************
+ 
+-
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though, they are the same
+-' Sub OnBallBallCollision(ball1, ball2, velocity)
+-'   PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
+-' End Sub
++Sub OnBallBallCollision(ball1, ball2, velocity)
++  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, Pan(ball1), 0, Pitch(ball1), 0, 0
++End Sub
+ 
+ Sub Table_exit()
+   Controller.Pause = False

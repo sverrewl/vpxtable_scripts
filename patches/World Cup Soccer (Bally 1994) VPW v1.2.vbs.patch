@@ -1,0 +1,15 @@
+--- vpxtable_scripts/World Cup Soccer (Bally 1994) VPW v1.2.vbs
++++ todo_extracted_tables/World Cup Soccer (Bally 1994) VPW v1.2.vbs
+@@ -468,9 +468,9 @@
+ 
+ End Sub
+ 
+-Sub Table1_Paused:Controller.Pause = 1:End Sub
+-Sub Table1_unPaused:Controller.Pause = 0:End Sub
+-Sub Table1_exit()
++Sub Table_Paused:Controller.Pause = 1:End Sub
++Sub Table_unPaused:Controller.Pause = 0:End Sub
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub

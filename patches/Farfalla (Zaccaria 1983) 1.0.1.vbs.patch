@@ -1,0 +1,28 @@
+--- vpxtable_scripts/Farfalla (Zaccaria 1983) 1.0.1.vbs
++++ todo_extracted_tables/Farfalla (Zaccaria 1983) 1.0.1.vbs
+@@ -157,10 +157,6 @@
+ '************
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   With Controller
+     .GameName = cGameName
+     .SplashInfoLine = "Farfalla Zaccaria 1983" & vbNewLine & "VPX table by Kiwi 1.0.1"
+@@ -271,7 +267,7 @@
+ 
+ Sub Table1_KeyUp(ByVal Keycode)
+   If KeyCode = LeftFlipperKey Then Controller.Switch(17) = 0:LeftFlipper.RotateToStart:LeftFlipper1.RotateToStart
+- If KeyCode = RightFlipperKey Then Controller.Switch(23) = 0:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
++  If KeyCode = RightFlipperKey Then Controller.Switch(23) = 0:RightFlipper.RotateToStart:RightFlipper1.RotateToStart
+   If keycode = LeftMagnaSave Then bLutActive = False:TextLUT.Visible = 0
+   If vpmKeyUp(keycode) Then Exit Sub
+   If keycode = PlungerKey Then Plunger.Fire:PlaySoundAtVol "plunger2", Plunger, PlfVol * (Plunger.Position/25)
+@@ -1611,5 +1607,3 @@
+ '16/10 a 16/9
+ 'FSS X Offset da 940 a 955
+ 'FSS X Y Scale da 1,68 a 1,89
+-
+-

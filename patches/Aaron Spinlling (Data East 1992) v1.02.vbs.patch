@@ -1,0 +1,34 @@
+--- vpxtable_scripts/Aaron Spinlling (Data East 1992) v1.02.vbs
++++ todo_extracted_tables/Aaron Spinlling (Data East 1992) v1.02.vbs
+@@ -409,7 +409,6 @@
+ 
+ Sub Table1_KeyDown(ByVal Keycode)
+     If keycode = plungerkey then controller.switch(9) = 1
+-    If keycode = LockBarKey then controller.switch(9) = 1
+     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, -0.1, 0.25
+     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0.1, 0.25
+     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge", 0), 0, 1, 0, 0.25
+@@ -418,7 +417,6 @@
+ 
+ Sub Table1_KeyUp(ByVal Keycode)
+     If keycode = plungerkey then controller.switch(9) = 0
+-    If keycode = LockBarKey then controller.switch(9) = 0
+     If vpmKeyUp(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -1151,12 +1149,10 @@
+     ' PlaySoundAtVol "balldrop", ActiveBall, 1
+ End Sub
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Not a issue though
+ 
+-' Sub Ramp_fx_Hit
+-' '    Playsound "fx_railShort"
+-' End Sub
++Sub Ramp_fx_Hit
++'    Playsound "fx_railShort"
++End Sub
+ 
+ Sub BallHitSound()
+     StopSound "fx_railShort"

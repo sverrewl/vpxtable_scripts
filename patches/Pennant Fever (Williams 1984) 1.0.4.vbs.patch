@@ -1,0 +1,41 @@
+--- vpxtable_scripts/Pennant Fever (Williams 1984) 1.0.4.vbs
++++ todo_extracted_tables/Pennant Fever (Williams 1984) 1.0.4.vbs
+@@ -877,11 +877,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -895,11 +894,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -1750,10 +1748,3 @@
+   LM_L_Light21_Insert___Circle___, LM_L_Light21_Insert___Circle___, LM_L_Light21_Insert___Circle___, LM_L_Light22_Insert___Circle___, LM_L_Light22_Insert___Circle___, LM_L_Light23_Insert___Circle___, LM_L_Light23_Insert___Circle___, LM_L_Light23_Insert___Circle___, LM_L_Light23_Parts, LM_L_Light25_Insert___Circle___, LM_L_Light25_Insert___Circle___, LM_L_Light25_Insert___Circle___, LM_L_Light25_Parts, LM_L_Light26_Insert___Circle___, LM_L_Light26_Insert___Circle___, LM_L_Light26_Insert___Circle___, LM_L_Light27_Insert___Circle___, LM_L_Light27_Insert___Circle___, LM_L_Light27_Insert___Circle___, LM_L_Light28_Insert___Circle___, LM_L_Light28_Insert___Circle___, LM_L_Light28_Insert___Circle___, LM_L_Light33_Insert___Circle___, LM_L_Light33_Insert___Circle___, LM_L_Light34_Insert___Circle___, LM_L_Light34_Insert___Circle___, LM_L_Light35_Insert___Circle___, LM_L_Light36_Insert___Circle___, LM_L_Light36_Insert___Circle___, LM_L_Light37_Insert___Circle___, LM_L_Light37_Insert___Circle___, _
+   LM_L_Light37_Insert___Circle___, LM_L_Light38_Insert___Circle___, LM_L_Light38_Insert___Circle___, LM_L_Light39_BatFlipper, LM_L_Light39_BatFlipperU, LM_L_Light39_Insert___Circle___, LM_L_Light39_Insert___Circle___, LM_L_Light9_BatFlipperU, LM_L_Light9_Insert___Circle___S, LM_L_Light9_Parts)
+ ' VLM  Arrays - End
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

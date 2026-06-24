@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Alien Star (Gottlieb 1984) 2.0_Thal.vbs
++++ todo_extracted_tables/Alien Star (Gottlieb 1984) 2.0_Thal.vbs
+@@ -68,8 +68,8 @@
+ 
+   Intensity 'sets GI brightness depending on day/night slider settings
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
++
++
+ 
+     PinMAMETimer.Interval = PinMAMEInterval
+     PinMAMETimer.Enabled = 1

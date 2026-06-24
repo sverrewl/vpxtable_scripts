@@ -1,0 +1,42 @@
+--- vpxtable_scripts/Medieval Madness Reloaded 1.0_PMDv3.1.vbs
++++ todo_extracted_tables/Medieval Madness Reloaded 1.0_PMDv3.1.vbs
+@@ -9,9 +9,8 @@
+ 
+ 
+ ' Thalamus 2018-07-24
++' Table has its own "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Changed UseSolenoids=1 to 2
+-' Thalamus 2018-12-17 : Added FFv2
+-' Thalamus, table uses its own SSF routines.
+ 
+ Option Explicit
+ Randomize
+@@ -31,10 +30,6 @@
+ 
+ LoadVPM "01560000", "WPC.VBS", 3.50
+ 
+-' Thalamus - for Fast Flip v2
+-NoUpperRightFlipper
+-NoUpperLeftFlipper
+-
+ '********************
+ 'Standard definitions
+ '********************
+@@ -168,7 +163,7 @@
+ 
+ Sub Table1_KeyDown(ByVal Keycode)
+     If keycode = StartGameKey Then Controller.Switch(13) = 1
+-    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 1
++    If keycode = PlungerKey Then Controller.Switch(11) = 1
+     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge",0)
+     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge",0)
+     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge",0)
+@@ -177,7 +172,7 @@
+ 
+ Sub Table1_KeyUp(ByVal Keycode)
+     If keycode = StartGameKey Then Controller.Switch(13) = 0
+-    If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(11) = 0
++    If keycode = PlungerKey Then Controller.Switch(11) = 0
+     If vpmKeyUp(keycode) Then Exit Sub
+ End Sub
+ 

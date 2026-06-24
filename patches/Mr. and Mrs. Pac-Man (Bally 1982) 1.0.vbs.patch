@@ -1,0 +1,30 @@
+--- vpxtable_scripts/Mr. and Mrs. Pac-Man (Bally 1982) 1.0.vbs
++++ todo_extracted_tables/Mr. and Mrs. Pac-Man (Bally 1982) 1.0.vbs
+@@ -219,15 +219,11 @@
+   Set bsSaucer=New cvpmBallStack
+     bsSaucer.InitSaucer sw7,7,44,22
+     bsSaucer.InitAltKick 260,22
+-    bsSaucer.KickForceVar = 3
+-    bsSaucer.KickAngleVar = 3
+ '   bsSaucer.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+ 
+   Set bsSaucer2=New cvpmBallStack
+     bsSaucer2.InitSaucer sw8,8,174,22
+ '   bsSaucer2.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-    bsSaucer2.KickForceVar = 3
+-    bsSaucer2.KickAngleVar = 3
+ 
+   Set dtL=New cvpmDropTarget
+     dtL.InitDrop Array(sw1,sw2,sw3,sw4),Array(1,2,3,4)
+@@ -1637,10 +1633,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched : ' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 

@@ -1,0 +1,26 @@
+--- vpxtable_scripts/Ripley's Believe It or Not! (Stern 2004) VPWmod v1.3.vbs
++++ todo_extracted_tables/Ripley's Believe It or Not! (Stern 2004) VPWmod v1.3.vbs
+@@ -4449,9 +4449,9 @@
+   Dim tmp
+     tmp = tableobj.y * 2 / tableheight-1
+     If tmp > 0 Then
+-    AudioFade = Csng(tmp ^5) 'was 10
++    AudioFade = Csng(tmp ^10)
+     Else
+-        AudioFade = Csng(-((- tmp) ^5) ) 'was 10
++        AudioFade = Csng(-((- tmp) ^10) )
+     End If
+ End Function
+ 
+@@ -4459,9 +4459,9 @@
+     Dim tmp
+     tmp = tableobj.x * 2 / tablewidth-1
+     If tmp > 0 Then
+-        AudioPan = Csng(tmp ^5) 'was 10
++        AudioPan = Csng(tmp ^10)
+     Else
+-        AudioPan = Csng(-((- tmp) ^5) ) 'was 10
++        AudioPan = Csng(-((- tmp) ^10) )
+     End If
+ End Function
+ 

@@ -1,0 +1,51 @@
+--- vpxtable_scripts/Getaway_(Williams 1992)_mod_1.05.vbs
++++ todo_extracted_tables/Getaway_(Williams 1992)_mod_1.05.vbs
+@@ -448,8 +448,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -459,8 +458,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 
+@@ -1404,7 +1402,7 @@
+     End Select
+   End If
+   if keycode=StartGameKey then soundStartButton()
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(34) = True
++  If keycode = PlungerKey Then Controller.Switch(34) = True
+   if KeyCode = LeftTiltKey Then Nudge 90, 5:SoundNudgeLeft()
+   if KeyCode = RightTiltKey Then Nudge 270, 5:SoundNudgeRight()
+   if KeyCode = CenterTiltKey Then Nudge 0, 5:SoundNudgeCenter()
+@@ -1424,7 +1422,7 @@
+ End Sub
+ 
+ Sub Table1_KeyUp(ByVal KeyCode)
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(34) = False
++  If keycode = PlungerKey Then Controller.Switch(34) = False
+   If keycode = LeftMagnaSave Then:Controller.Switch(33) = False:End If
+   'for vr..
+   If keycode = PlungerKey and VRroom > 0 Then VRshifter.objrotX = VRShifter.ObjrotX +20
+@@ -3277,10 +3275,3 @@
+     obj.rotx=-86.5
+   Next
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

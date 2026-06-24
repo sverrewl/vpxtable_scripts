@@ -1,0 +1,20 @@
+--- vpxtable_scripts/Doctor Who (Bally 1992) VPW Mod v1.1.3.vbs
++++ todo_extracted_tables/Doctor Who (Bally 1992) VPW Mod v1.1.3.vbs
+@@ -537,7 +537,7 @@
+ '******************************************************
+ 
+ Sub Table1_KeyDown(ByVal Keycode)
+-  if keycode = plungerkey or keycode = LockBarKey then controller.switch(34)=True
++  if keycode = plungerkey then controller.switch(34)=True
+ 
+   If keycode = PlungerKey Then
+     LaunchButton.Y = 642.4715 - 4
+@@ -578,7 +578,7 @@
+ End Sub
+ 
+ Sub Table1_KeyUp(ByVal Keycode)
+-  If keycode = plungerkey or keycode = LockBarKey then controller.switch(34)=false
++  If keycode = plungerkey then controller.switch(34)=false
+ 
+   If keycode = PlungerKey Then
+     LaunchButton.Y = 642.4715

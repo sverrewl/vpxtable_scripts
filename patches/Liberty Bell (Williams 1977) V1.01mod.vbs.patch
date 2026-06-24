@@ -1,0 +1,124 @@
+--- vpxtable_scripts/Liberty Bell (Williams 1977) V1.01mod.vbs
++++ todo_extracted_tables/Liberty Bell (Williams 1977) V1.01mod.vbs
+@@ -218,7 +218,7 @@
+            DOF 127, DOFOn
+            CreditLight.state=LightStateOn
+          End If
+-        PlaySoundAtVOl "fx_coin", drain, 1
++        PlaySound "fx_coin", drain, 1
+ debug.print "2:" & Credit
+       If B2SOn Then Controller.B2ssetCredits Credit
+         CreditTxt.text=credit
+@@ -245,7 +245,7 @@
+ 
+   If keycode = PlungerKey Then
+     Plunger.PullBack
+-         PlaySoundAtVol "fx_plungerpull", plunger, 1
++         PlaySound "fx_plungerpull", plunger, 1
+   End If
+ 
+   If keycode=LeftFlipperKey and State = false and OperatorMenu=0 then
+@@ -305,12 +305,12 @@
+ 
+   If keycode = LeftFlipperKey and Round > 0 and not tilt Then
+     LeftFlipper.RotateToEnd
+-        PlaySoundAtVol SoundFXDOF("fx_flipperup",101,DOFOn,DOFContactors), LeftFlipper, VolFlip
++        PlaySoundAtVol SoundFXDOF("LeftflipperupH",101,DOFOn,DOFContactors), LeftFlipper, VolFlip
+   End If
+ 
+   If keycode = RightFlipperKey and Round > 0 and not tilt Then
+     RightFlipper.RotateToEnd
+-    PlaySoundAtVol SoundFXDOF("fx_flipperup",102,DOFOn,DOFContactors), RightFlipper, VolFlip
++    PlaySound SoundFXDOF("RightflipperupH",102,DOFOn,DOFContactors), RightFlipper, VolFlip
+   End If
+ 
+   If keycode = LeftTiltKey Then
+@@ -328,11 +328,6 @@
+     checktilt
+   End If
+ 
+-  If keycode = MechanicalTilt Then
+-    checktilt
+-  End If
+-
+-
+ If (KeyCode =22) Then 'U Chr
+ AddBonus (1)
+   end if
+@@ -382,7 +377,7 @@
+        LeftFlipper.TimerEnabled = 1    ' nFozzy Flipper Code
+        LeftFlipper.TimerInterval = 16
+        LeftFlipper.return = returnspeed * 0.5
+-     PlaySoundAtVol SoundFXDOF("fx_flipperdown",101,DOFOff,DOFContactors), LeftFlipper, VolFlip
++     PlaySoundAtVol SoundFXDOF("LeftflipperdownH",101,DOFOff,DOFContactors), LeftFlipper, VolFlip
+   End If
+ 
+   If keycode = RightFlipperKey Then
+@@ -390,7 +385,7 @@
+        Rightflipper.TimerEnabled = 1  ' nFozzy Flipper Code
+        Rightflipper.TimerInterval = 16
+        Rightflipper.return = returnspeed * 0.5
+-     PlaySoundAtVol SoundFXDOF("fx_flipperdown",102,DOFOff,DOFContactors), RightFlipper, VolFlip
++     PlaySoundAtVol SoundFXDOF("RightflipperdownH",102,DOFOff,DOFContactors), RightFlipper, VolFlip
+   End If
+   End If
+ End Sub
+@@ -670,7 +665,7 @@
+    'B
+    If Tilt Then Exit Sub
+    TARGET1.IsDropped=True
+-  PlaysoundAtVol"fx_droptarget", ActiveBall, 1
++  PlaysoundAtVol"Drop_Down_left", ActiveBall, 1
+    AddScore (1000)
+    AB=AB+1
+    CheckAB
+@@ -681,7 +676,7 @@
+    'E
+    If Tilt Then Exit Sub
+    TARGET2.IsDropped=True
+-  PlaysoundAtVol"fx_droptarget", ActiveBall, 1
++  PlaysoundAtVol"Drop_Down_right", ActiveBall, 1
+    AddScore (1000)
+    AB=AB+1
+    CheckAB
+@@ -692,7 +687,7 @@
+    'L
+    If Tilt Then Exit Sub
+    TARGET3.IsDropped=True
+-  PlaysoundAtVol"fx_droptarget", ActiveBall, 1
++  PlaysoundAtVol"Drop_Down_middle", ActiveBall, 1
+    if Center_Light.state=LightStateOff Then AddScore (1000)
+    CD=CD+1
+    CheckCD
+@@ -703,7 +698,7 @@
+    'L
+    If Tilt Then Exit Sub
+    TARGET4.IsDropped=True
+-  PlaysoundAtVol"fx_droptarget", ActiveBall, 1
++  PlaysoundAtVol"Drop_Down_middle", ActiveBall, 1
+    if Center_Light.state=LightStateOff Then AddScore (1000)
+    CD=CD+1
+    CheckCD
+@@ -933,7 +928,7 @@
+ 
+ Sub RightSlingShot_Slingshot
+   addscore (10)
+-  playsoundAtVol SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors), sling1, 1
++  playsound SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors), sling1, 1
+     RSling.Visible = 0
+     RSling1.Visible = 1
+     sling1.TransZ = -10
+@@ -1076,7 +1071,7 @@
+  End Sub
+ 
+  Sub Kicker4_Hit()
+-  Playsoundatvol "holein", Kicker4, VolKick
++  Playsound"MiddleKickerHoleRec", Kicker4, VolKick
+   kickstep=1
+   Kicker4.TimerEnabled = 1
+   if Light_500.state=LightStateOn then
+@@ -1671,4 +1666,3 @@
+     Controller.B2SSetData 23,0
+   end Select
+ End Sub
+-

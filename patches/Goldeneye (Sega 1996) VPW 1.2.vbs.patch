@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Goldeneye (Sega 1996) VPW 1.2.vbs
++++ todo_extracted_tables/Goldeneye (Sega 1996) VPW 1.2.vbs
+@@ -390,7 +390,7 @@
+   If keycode = LeftTiltKey Then Nudge 90, 1:SoundNudgeLeft()
+   If keycode = RightTiltKey Then Nudge 270, 1:SoundNudgeRight()
+   If keycode = CenterTiltKey Then Nudge 0, 1:SoundNudgeCenter()
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=1 ': SoundPlungerPull()
++  If KeyCode=PlungerKey Then Controller.Switch(9)=1 ': SoundPlungerPull()
+   If keycode = keyInsertCoin1 or keycode = keyInsertCoin2 or keycode = keyInsertCoin3 or keycode = keyInsertCoin4 Then
+     Select Case Int(rnd*3)
+       Case 0: PlaySound ("Coin_In_1"), 0, CoinSoundLevel, 0, 0.25
+@@ -413,7 +413,7 @@
+ 
+ Sub GoldenEye_KeyUp(ByVal KeyCode)
+   If KeyCode=KeySlamDoorHit Then Controller.Switch(7)=0
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(9)=0 ': SoundPlungerReleaseBall()
++  If KeyCode=PlungerKey Then Controller.Switch(9)=0 ': SoundPlungerReleaseBall()
+   If keycode = LeftFlipperKey Then
+     FlipperDeActivate LeftFlipper, LFPress
+     Primary_flipper_button_left.X = 2112
+@@ -3228,11 +3228,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -3246,11 +3245,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

@@ -1,0 +1,12 @@
+--- vpxtable_scripts/Spring Break (Gottlieb 1987) v1.03.vbs
++++ todo_extracted_tables/Spring Break (Gottlieb 1987) v1.03.vbs
+@@ -204,9 +204,6 @@
+ 
+ Sub Table1_Init
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   On Error Resume Next
+     With Controller
+     .GameName = cGameName

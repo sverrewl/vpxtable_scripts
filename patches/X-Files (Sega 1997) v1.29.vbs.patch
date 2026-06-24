@@ -1,0 +1,57 @@
+--- vpxtable_scripts/X-Files (Sega 1997) v1.29.vbs
++++ todo_extracted_tables/X-Files (Sega 1997) v1.29.vbs
+@@ -52,7 +52,7 @@
+ '********************
+ ' Standard definitions
+ '********************
+-Const cGameName = "xfiles304"
++Const cGameName = "xfiles"
+ Const UseSolenoids = 2
+ Const UseGI = 0
+ Const UseSync = 0
+@@ -219,7 +219,7 @@
+ 
+   If keycode = LeftFlipperKey Then FlipperActivate LeftFlipper, LFPress:PinCab_LeftFlipperButton.X = PinCab_LeftFlipperButton.X + 10
+   If keycode = RightFlipperKey Then FlipperActivate RightFlipper, RFPress:PinCab_RightFlipperButton.X = PinCab_RightFlipperButton.X - 10
+-  If keycode = PlungerKey or keycode = LockBarKey Then controller.switch(53) = true:LaunchButton.Y = 752:LaunchButtonFlasher.Y = 2442:LaunchButton.BlendDisableLighting = 0
++    If keycode = PlungerKey Then controller.switch(53) = true:LaunchButton.Y = 752:LaunchButtonFlasher.Y = 2442:LaunchButton.BlendDisableLighting = 0
+   If keycode = LeftTiltKey Then Nudge 90, 1:SoundNudgeLeft()
+   If keycode = RightTiltKey Then Nudge 270, 1:SoundNudgeRight()
+   If keycode = CenterTiltKey Then Nudge 0, 2:SoundNudgeCenter()
+@@ -269,7 +269,7 @@
+ 
+   If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress:PinCab_LeftFlipperButton.X = PinCab_LeftFlipperButton.X - 10
+   If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress:PinCab_RightFlipperButton.X = PinCab_RightFlipperButton.X + 10
+-  If keycode = PlungerKey or keycode = LockBarKey Then controller.switch(53) = false:LaunchButton.Y = 755:LaunchButtonFlasher.Y = 2445:LaunchButton.BlendDisableLighting = 0.25
++    If keycode = PlungerKey Then controller.switch(53) = false:LaunchButton.Y = 755:LaunchButtonFlasher.Y = 2445:LaunchButton.BlendDisableLighting = 0.25
+ 
+   ' Left Magna has to be held down with Right Magna to cycle through LUTs.
+   If keycode = LeftMagnaSave Then bLutActive = False
+@@ -2097,11 +2097,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2115,11 +2114,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

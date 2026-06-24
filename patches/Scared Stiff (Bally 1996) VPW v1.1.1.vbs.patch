@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Scared Stiff (Bally 1996) VPW v1.1.1.vbs
++++ todo_extracted_tables/Scared Stiff (Bally 1996) VPW v1.1.1.vbs
+@@ -432,9 +432,7 @@
+ 
+ Sub Table_Paused:Controller.Pause = 1:End Sub
+ Sub Table_unPaused:Controller.Pause = 0:End Sub
+-
+-' Thalamus - table is named Table1 - not Table
+-Sub Table1_exit()
++Sub Table_exit()
+   Controller.Pause = False
+   Controller.Stop
+ End Sub

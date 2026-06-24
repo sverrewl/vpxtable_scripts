@@ -1,0 +1,21 @@
+--- vpxtable_scripts/Camel Lights (Game Plan 1978).vbs
++++ todo_extracted_tables/Camel Lights (Game Plan 1978).vbs
+@@ -143,8 +143,6 @@
+     Set bsSaucer3 = New cvpmBallStack
+     With bsSaucer3
+         .InitSaucer Kicker3, 10, 250, 12
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     End With
+ 
+@@ -787,9 +785,3 @@
+         End Select
+     End If
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub

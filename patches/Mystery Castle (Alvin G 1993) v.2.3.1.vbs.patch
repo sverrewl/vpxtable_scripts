@@ -1,0 +1,20 @@
+--- vpxtable_scripts/Mystery Castle (Alvin G 1993) v.2.3.1.vbs
++++ todo_extracted_tables/Mystery Castle (Alvin G 1993) v.2.3.1.vbs
+@@ -391,7 +391,7 @@
+   If keycode = RightFlipperKey Then
+     PinCab_RightFlipperButton.X = PinCab_RightFlipperButton.X - 6
+   End If
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     'AutoPlunger.Pullback
+     plungerpress = 1
+     Controller.Switch(14) = True
+@@ -426,7 +426,7 @@
+     'Controller.Switch(16) = 0
+     StartButton.Y = StartButton.Y +5
+   End If
+-  If KeyCode = PlungerKey or KeyCode = LockBarKey Then
++  If KeyCode = PlungerKey Then
+     'AutoPlunger.Fire
+     plungerpress = 0
+     Controller.Switch(14) = False

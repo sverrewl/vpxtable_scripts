@@ -1,0 +1,82 @@
+--- vpxtable_scripts/Monster Bash X - NZ&TT 1.3.vbs
++++ todo_extracted_tables/Monster Bash X - NZ&TT 1.3.vbs
+@@ -12,7 +12,6 @@
+ ' Added "Positional Sound Playback Functions" and "Supporting Ball & Sound Functions"
+ ' Changed UseSolenoids=1 to 2
+ ' Table doesn't use JP ball rolling standars
+-' Thalamus 2018-12-17 : Added FFv2
+ ' Thalamus 2018-09-09 : Improved directional sounds
+ 
+ ' !! NOTE : Table not verified yet !!
+@@ -25,11 +24,20 @@
+ '  .5 = lower volume
+ ' 1.5 = higher volume
+ 
++Const VolBump   = 2    ' Bumpers volume.
++Const VolRol    = 1    ' Rollovers volume.
+ Const VolGates  = 1    ' Gates volume.
++Const VolMetal  = 1    ' Metals volume.
++Const VolRB     = 1    ' Rubber bands volume.
++Const VolRH     = 1    ' Rubber hits volume.
++Const VolPo     = 1    ' Rubber posts volume.
++Const VolPi     = 1    ' Rubber pins volume.
++Const VolPlast  = 1    ' Plastics volume.
+ Const VolTarg   = 1    ' Targets volume.
++Const VolWood   = 1    ' Woods volume.
+ Const VolKick   = 1    ' Kicker volume.
+ Const VolSpin   = 1.5  ' Spinners volume.
+-Const VolFlip   = 0.5  ' Flipper volume.
++Const VolFlip   = 1    ' Flipper volume.
+ 
+ 
+ Const BallSize = 51
+@@ -49,15 +57,8 @@
+ 
+ LoadVPM "02000000", "WPC.VBS", 3.50
+ 
+-' Thalamus - for Fast Flip v2
+-' NoUpperRightFlipper
+-NoUpperLeftFlipper
+-
+ ' Standard Options
+ Const UseSolenoids = 2
+-' Thal : Added because of useSolenoid=2
+-Const cSingleLFlip = 0
+-Const cSingleRFlip = 0
+ Const UseLamps = 0
+ Const UseSync = 1
+ Const HandleMech = 0
+@@ -135,7 +136,6 @@
+ 
+ Sub Table1_KeyDown(ByVal Keycode)
+     If keycode = PlungerKey Then Controller.Switch(11) = 1
+-    If keycode = LockBarKey then controller.switch(11) = 1
+     If keycode = LeftTiltKey Then Nudge 90, 5:PlaySound SoundFX("fx_nudge",0)
+     If keycode = RightTiltKey Then Nudge 270, 5:PlaySound SoundFX("fx_nudge",0)
+     If keycode = CenterTiltKey Then Nudge 0, 6:PlaySound SoundFX("fx_nudge",0)
+@@ -144,7 +144,6 @@
+ 
+ Sub Table1_KeyUp(ByVal Keycode)
+     If keycode = PlungerKey Then Controller.Switch(11) = 0
+-    If keycode = LockBarKey then controller.switch(11) = 0
+     If vpmKeyUp(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -1116,7 +1115,7 @@
+ ' *********************************************************************
+ 
+ Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+-    Vol = Csng(BallVel(ball) ^2 / VolDiv)
++    Vol = Csng(BallVel(ball) ^2 / 2000)
+ End Function
+ 
+ Function Pan(ball) ' Calculates the pan for a ball based on the X position on the table. "table1" is the name of the table
+@@ -1159,7 +1158,7 @@
+ ' *********************************************************************
+ 
+ Sub OnBallBallCollision(ball1, ball2, velocity)
+-  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / (VolDiv/VolCol), Pan(ball1), 0, Pitch(ball1), 0, 0
++  PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 200, Pan(ball1), 0, Pitch(ball1), 0, 0
+ End Sub
+ 
+ Sub LeftFlipper_Collide(parm)

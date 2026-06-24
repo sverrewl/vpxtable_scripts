@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Harley Davidson (Bally - 1991) v601.vbs
++++ todo_extracted_tables/Harley Davidson (Bally - 1991) v601.vbs
+@@ -878,10 +878,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

@@ -1,0 +1,10 @@
+--- vpxtable_scripts/Black Fever (Playmatic 1980).vbs
++++ todo_extracted_tables/Black Fever (Playmatic 1980).vbs
+@@ -2,7 +2,6 @@
+ 'Playmatic, of Barcelona, Spain (1968-1987)
+ 'a VPX10 table by pedator & jpsalas & akiles50000
+ 'graphics by pedator
+-' Thalamus - seems ok
+ 
+ Option Explicit
+ Randomize

@@ -1,0 +1,35 @@
+--- vpxtable_scripts/Black Belt (Bally 1986) v600.vbs
++++ todo_extracted_tables/Black Belt (Bally 1986) v600.vbs
+@@ -86,12 +86,9 @@
+     dtR.InitSnd SoundFX("", DOFContactors), SoundFX("fx_resetdrop", DOFContactors)
+     dtR.CreateEvents "dtR"
+ 
+-    ' Thalamus - more randomness pls - tempted to add to bsMiddle too - might be a reason why it is commented out.
+     Set bsLeft = New cvpmBallStack
+     bsLeft.InitSaucer Kicker1, 4, 140, 16
+     bsLeft.InitExitSnd SoundFX("fx_Solenoidon", DOFContactors), SoundFX("fx_Solenoidon", DOFContactors)
+-    bsLeft.KickForceVar = 3
+-    bsLeft.KickAngleVar = 3
+ 
+     Set bsMiddle = New cvpmBallStack
+     bsMiddle.InitSaucer Kicker2, 2, 185, 17
+@@ -101,8 +98,6 @@
+     Set bsRight = New cvpmBallStack
+     bsRight.InitSaucer Kicker3, 3, 5, 37
+     bsRight.InitExitSnd SoundFX("fx_Solenoidon", DOFContactors), SoundFX("fx_Solenoidon", DOFContactors)
+-    bsRight.KickForceVar = 3
+-    bsRight.KickAngleVar = 3
+ 
+     Set bsTrough = New cvpmBallStack
+     bsTrough.InitSw 0, 8, 0, 0, 0, 0, 0, 0
+@@ -1142,10 +1137,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

@@ -1,0 +1,20 @@
+--- vpxtable_scripts/Ice Fever (Gottlieb 1985)Original GI.vbs
++++ todo_extracted_tables/Ice Fever (Gottlieb 1985)Original GI.vbs
+@@ -1,7 +1,6 @@
+ Option Explicit
+ Randomize
+ 
+-' Thalamus - added vpminit me to _init for cvpmflips / Fastflip
+ Const cGameName="icefever"
+ 
+ On Error Resume Next
+@@ -141,8 +140,8 @@
+ Dim bsTrough,dtL, objekt, Light
+ 
+ Sub Table1_Init
+-  vpmInit Me
+   On Error Resume Next
++
+   With Controller
+     .GameName=cGameName
+     If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub

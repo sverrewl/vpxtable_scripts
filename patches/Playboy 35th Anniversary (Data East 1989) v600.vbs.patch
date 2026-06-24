@@ -1,0 +1,38 @@
+--- vpxtable_scripts/Playboy 35th Anniversary (Data East 1989) v600.vbs
++++ todo_extracted_tables/Playboy 35th Anniversary (Data East 1989) v600.vbs
+@@ -97,24 +97,18 @@
+         .InitSaucer VUK, 45, 0, 40
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+         .KickZ = 1.5
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsGrotto = New cvpmBallStack
+     With bsGrotto
+         .InitSaucer Grotto1, 31, 0, 24
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     Set bsCK = New cvpmBallStack
+     With bsCK
+         .InitSaucer Kicker2, 23, 0, 40
+         .InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Drop targets
+@@ -1047,10 +1041,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

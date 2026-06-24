@@ -1,0 +1,11 @@
+--- vpxtable_scripts/Faeton (Juegos Populares 1985) v600.vbs
++++ todo_extracted_tables/Faeton (Juegos Populares 1985) v600.vbs
+@@ -90,8 +90,6 @@
+     Set bsSaucer = New cvpmBallStack
+     bsSaucer.InitSaucer sw9, 9, 60, 20
+     bsSaucer.InitExitSnd SoundFX("fx_popper", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-    bsSaucer.KickForceVar = 3
+-    bsSaucer.KickAngleVar = 3
+ 
+     ' Captive Ball
+     Set cbCaptive = New cvpmCaptiveBall

@@ -1,0 +1,21 @@
+--- vpxtable_scripts/Iron Maiden (Stern 1982) v600.vbs
++++ todo_extracted_tables/Iron Maiden (Stern 1982) v600.vbs
+@@ -91,18 +91,13 @@
+   dtC.InitSnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+   dtC.CreateEvents "dtC"
+ 
+-  ' Thalamus, more randomness pls
+   Set bsSaucer=New cvpmBallStack
+   bsSaucer.InitSaucer Kicker1, 36, 0, 40
+   bsSaucer.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-  bsSaucer.KickForceVar = 3
+-  bsSaucer.KickAngleVar = 3
+ 
+   Set bsSaucer2=New cvpmBallStack
+   bsSaucer2.InitSaucer Kicker2, 37, 0, 40
+   bsSaucer2.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-  bsSaucer2.KickForceVar = 3
+-  bsSaucer2.KickAngleVar = 3
+ 
+   vpmNudge.TiltSwitch=7
+   vpmNudge.Sensitivity=5

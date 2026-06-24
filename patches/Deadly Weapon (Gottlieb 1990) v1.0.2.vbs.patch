@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Deadly Weapon (Gottlieb 1990) v1.0.2.vbs
++++ todo_extracted_tables/Deadly Weapon (Gottlieb 1990) v1.0.2.vbs
+@@ -126,10 +126,6 @@
+ ' table init
+ ' ****************************************************
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   With Controller
+     On Error Resume Next
+         .GameName = cGameName

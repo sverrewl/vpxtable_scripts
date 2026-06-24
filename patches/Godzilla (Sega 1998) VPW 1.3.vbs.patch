@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Godzilla (Sega 1998) VPW 1.3.vbs
++++ todo_extracted_tables/Godzilla (Sega 1998) VPW 1.3.vbs
+@@ -980,7 +980,7 @@
+ 
+   If keycode = LeftFlipperKey Then FlipperActivate LeftFlipper, LFPress
+   If keycode = RightFlipperKey Then FlipperActivate RightFlipper, RFPress
+-  If keycode = PlungerKey or keycode = LockBarKey Then
++  If keycode = PlungerKey Then
+     Controller.Switch(53)=1
+     TimerPlunger.Enabled = True
+     TimerPlunger2.Enabled = False
+@@ -1011,7 +1011,7 @@
+   If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress
+   If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress
+ 
+-  If KeyCode = PlungerKey or Keycode = LockBarKey Then
++  If KeyCode = PlungerKey Then
+     Controller.Switch(53)=0
+   End If
+ 
+@@ -2610,11 +2610,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioFade patched
+   If tmp > 0 Then
+-    AudioFade = CSng(tmp ^ 5) 'was 10
++    AudioFade = CSng(tmp ^ 10)
+   Else
+-    AudioFade = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioFade = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 
+@@ -2628,11 +2627,10 @@
+     tmp =  - 7000
+   End If
+ 
+-' Thalamus, AudioPan patched
+   If tmp > 0 Then
+-    AudioPan = CSng(tmp ^ 5) 'was 10
++    AudioPan = CSng(tmp ^ 10)
+   Else
+-    AudioPan = CSng( - (( - tmp) ^ 5) ) 'was 10
++    AudioPan = CSng( - (( - tmp) ^ 10) )
+   End If
+ End Function
+ 

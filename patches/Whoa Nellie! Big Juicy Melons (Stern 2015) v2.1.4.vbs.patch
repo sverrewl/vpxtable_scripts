@@ -1,0 +1,23 @@
+--- vpxtable_scripts/Whoa Nellie! Big Juicy Melons (Stern 2015) v2.1.4.vbs
++++ todo_extracted_tables/Whoa Nellie! Big Juicy Melons (Stern 2015) v2.1.4.vbs
+@@ -209,10 +209,6 @@
+         TiltCheck
+     End If
+ 
+-    If keycode = MechanicalTilt Then
+-        TiltCheck
+-    End If
+-
+     if keycode = 6 then   ' Add coin
+           if Credit < 9 then
+             Credit = Credit + 1
+@@ -2198,9 +2194,4 @@
+         End If
+     Next
+ End Sub
+-' Thalamus : Exit in a clean and proper way
+-Sub table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+ 

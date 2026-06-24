@@ -1,0 +1,48 @@
+--- vpxtable_scripts/Amazon Hunt 8.0.vbs
++++ todo_extracted_tables/Amazon Hunt 8.0.vbs
+@@ -8,7 +8,6 @@
+ Option Explicit
+ Randomize
+ 
+-' Thalamus - added more randomness to kickers
+ 
+ 'Change cGameName to desired rom
+ 'Change LoadVPM to desired system VBS file
+@@ -123,14 +122,13 @@
+     End If
+ End Sub
+ 
+-' Thalamus - used twice  - last will be used anyway
+-' Sub LeftFlipper_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.2, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
+-'
+-' Sub RightFlipper_Collide(parm)
+-'     PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.2, 0, 0, 0, AudioFade(ActiveBall)
+-' End Sub
++Sub LeftFlipper_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.2, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
++
++Sub RightFlipper_Collide(parm)
++    PlaySound "fx_rubber_flipper", 0, parm / 60, pan(ActiveBall), 0.2, 0, 0, 0, AudioFade(ActiveBall)
++End Sub
+ 
+ 
+ Sub UpdateFlipperLogo_Timer
+@@ -374,15 +372,11 @@
+    Set bsLHole = New cvpmBallStack
+        bsLHole.InitSaucer sw3, 3, 43+int(rnd(1))*4, 16+int(rnd(1))*4
+        bsLHole.InitExitSnd SoundFX("Popper",DOFContactors), SoundFX("Solenoid",DOFContactors)
+-       bsLHole.KickForceVar = 3
+-       bsLHole.KickAngleVar = 3
+ 
+     ' Right Eject Hole
+    Set bsRHole = New cvpmBallStack
+        bsRHole.InitSaucer sw23, 23, 313+int(rnd(1))*4, 16+int(rnd(1))*4
+        bsRHole.InitExitSnd SoundFX("Popper2",DOFContactors), SoundFX("Solenoid2",DOFContactors)
+-       bsRHole.KickForceVar = 3
+-       bsRHole.KickAngleVar = 3
+ 
+ end sub
+ 

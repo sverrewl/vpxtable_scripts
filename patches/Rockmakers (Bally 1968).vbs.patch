@@ -1,0 +1,40 @@
+--- vpxtable_scripts/Rockmakers (Bally 1968).vbs
++++ todo_extracted_tables/Rockmakers (Bally 1968).vbs
+@@ -4059,8 +4059,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ '                 Applies the coef to x and y velocities
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -4070,8 +4069,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 
+@@ -4622,12 +4620,6 @@
+   lightmap.Opacity = intensity_scale * light.IntensityScale * t
+ End Sub
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-
+ ' VLM Arrays - Start
+ ' Arrays per baked part
+ Dim BP_Circle_019: BP_Circle_019=Array(BM_Circle_019, LM_gi_gi3_Circle_019)
+@@ -4719,4 +4711,3 @@
+   LM_gi_gi5_non_movable, LM_gi_gi5_plastics_layer2, LM_gi_gi5_playfield, LM_gi_gi5_plywood, LM_gi_gi5_sw_009, LM_gi_gi5_wire_002, LM_ins_L100a_playfield, LM_ins_L100b_playfield, LM_ins_L200_playfield, LM_ins_L200_plywood, LM_ins_Lgate1a_DifficultyA, LM_ins_Lgate1a_DifficultyB, LM_ins_Lgate1a_non_movable, LM_ins_Lgate1a_playfield, LM_ins_Lgate1b_DifficultyA, LM_ins_Lgate1b_DifficultyB, LM_ins_Lgate1b_non_movable, LM_ins_Lgate1b_plastics_layer2, LM_ins_Lgate1b_playfield, LM_ins_Lgate1b_plywood, LM_ins_Lgate1b_sw_009, LM_ins_Lgate1b_wire_002, LM_ins_Lopen_playfield, LM_ins_Lopen_plywood, LM_ins_Lopen_sw_009, LM_ins_Lrar001_playfield, LM_ins_Lrar001_swr_001, LM_ins_Lrar001_swr_002, LM_ins_Lrar0010_non_movable, LM_ins_Lrar0010_playfield, LM_ins_Lrar0010_plywood, LM_ins_Lrar0010_swr_009, LM_ins_Lrar0010_swr_010, LM_ins_Lrar002_playfield, LM_ins_Lrar002_swr_001, LM_ins_Lrar002_swr_002, LM_ins_Lrar002_swr_003, LM_ins_Lrar003_playfield, LM_ins_Lrar003_swr_002, LM_ins_Lrar003_swr_003, LM_ins_Lrar003_swr_004, _
+   LM_ins_Lrar004_playfield, LM_ins_Lrar004_sw_008, LM_ins_Lrar004_swr_003, LM_ins_Lrar004_swr_004, LM_ins_Lrar004_swr_005, LM_ins_Lrar005_playfield, LM_ins_Lrar005_plywood, LM_ins_Lrar005_sw_008, LM_ins_Lrar005_swr_005, LM_ins_Lrar005_swr_006, LM_ins_Lrar006_playfield, LM_ins_Lrar006_plywood, LM_ins_Lrar006_sw_008, LM_ins_Lrar006_swr_005, LM_ins_Lrar006_swr_006, LM_ins_Lrar006_swr_007, LM_ins_Lrar007_playfield, LM_ins_Lrar007_sw_008, LM_ins_Lrar007_swr_006, LM_ins_Lrar007_swr_007, LM_ins_Lrar007_swr_008, LM_ins_Lrar008_playfield, LM_ins_Lrar008_swr_007, LM_ins_Lrar008_swr_008, LM_ins_Lrar008_swr_009, LM_ins_Lrar009_playfield, LM_ins_Lrar009_swr_008, LM_ins_Lrar009_swr_009, LM_ins_Lshootagain_playfield)
+ ' VLM Arrays - End
+-

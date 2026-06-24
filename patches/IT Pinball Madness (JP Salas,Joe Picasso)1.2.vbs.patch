@@ -1,0 +1,31 @@
+--- vpxtable_scripts/IT Pinball Madness (JP Salas,Joe Picasso)1.2.vbs
++++ todo_extracted_tables/IT Pinball Madness (JP Salas,Joe Picasso)1.2.vbs
+@@ -583,8 +583,6 @@
+       If keycode = LeftTiltKey Then CheckTilt 'only check the tilt during game
+         If keycode = RightTiltKey Then CheckTilt
+         If keycode = CenterTiltKey Then CheckTilt
+-        ' Thalamus - added mechanicaltilt
+-        If keycode = MechanicalTilt Then CheckTilt
+ 
+         If keycode = LeftFlipperKey Then FlipperActivate LeftFlipper, LFPress :SolLFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 1: DOF 101, DOFon
+         If keycode = RightFlipperKey Then FlipperActivate RightFlipper, RFPress :SolRFlipper 1:InstantInfoTimer.Enabled = True:RotateLaneLights 0: DOF 102, DOFon
+@@ -2033,8 +2031,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -2044,8 +2041,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 

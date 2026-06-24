@@ -1,0 +1,322 @@
+--- vpxtable_scripts/Independence Day (SEGA 1996)  2.0.vbs
++++ todo_extracted_tables/Independence Day (SEGA 1996)  2.0.vbs
+@@ -1,8 +1,6 @@
+ Option Explicit
+ Randomize
+ 
+-' Thalamus - added vpminit me to _init for cvpmflips / Fastflip
+-
+ On Error Resume Next
+ ExecuteGlobal GetTextFile("controller.vbs")
+ If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
+@@ -13,10 +11,9 @@
+ '**     Game Specific Code Starts Here     **
+ '********************************************
+ 
+-' Thalamus - ffv2 should not be used for this table according to nFozzy
+-Const cGameName="id4",UseSolenoids=1,UseLamps=0,UseGI=0, SCoin="coin"
+-' Const cSingleLFlip = 0
+-' Const cSingleRFlip = 0
++Const cGameName="id4",UseSolenoids=2,UseLamps=0,UseGI=0, SCoin="coin"
++Const cSingleLFlip = 0
++Const cSingleRFlip = 0
+ 
+ '**************************************
+ '**     Bind Events To Solenoids     **
+@@ -58,17 +55,17 @@
+ 
+ Sub SolLFlipper(Enabled)
+      If Enabled Then
+-         PlaySoundAtVol SoundFX("fx_Flipperup",DOFFlippers), LeftFlipper, 1:LeftFlipper.RotateToEnd
++         PlaySound SoundFX("fx_Flipperup",DOFContactors):LeftFlipper.RotateToEnd
+      Else
+-         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFFlippers), LeftFlipper, 1:LeftFlipper.RotateToStart
++         PlaySound SoundFX("fx_Flipperdown",DOFContactors):LeftFlipper.RotateToStart
+      End If
+   End Sub
+ 
+ Sub SolRFlipper(Enabled)
+      If Enabled Then
+-         PlaySoundAtVol SoundFX("fx_Flipperup",DOFFlippers), RightFlipper, 1:RightFlipper.RotateToEnd:UpperRightFlipper.RotateToEnd
++         PlaySound SoundFX("fx_Flipperup",DOFContactors):RightFlipper.RotateToEnd:UpperRightFlipper.RotateToEnd
+      Else
+-         PlaySoundAtVol SoundFX("fx_Flipperdown",DOFFlippers), RightFlipper, 1:RightFlipper.RotateToStart:UpperRightFlipper.RotateToStart
++         PlaySound SoundFX("fx_Flipperdown",DOFContactors):RightFlipper.RotateToStart:UpperRightFlipper.RotateToStart
+      End If
+ End Sub
+ 
+@@ -76,14 +73,14 @@
+ Sub AutoPlunger(Enabled)
+   if enabled then
+   Plunger.Kick 0,55
+-    PlaySoundAtVol SoundFX("Popper",DOFContactors), Plunger, 1
++    PlaySound SoundFX("Popper",DOFContactors)
+   end if
+ End Sub
+ 
+ Sub LGate(Enabled)
+   if enabled then
+   LeftGate.Open = 1
+-    PlaySoundAtVol SoundFX("Popper",DOFContactors), LeftGate, 1
++    PlaySound SoundFX("Popper",DOFContactors)
+   Else
+   LeftGate.Open = 0
+   end if
+@@ -93,7 +90,7 @@
+ Sub RGate(Enabled)
+   if enabled then
+   RightGate.Open = 1
+-    PlaySoundAtVol SoundFX("Popper",DOFContactors), RightGate, 1
++    PlaySound SoundFX("Popper",DOFContactors)
+   Else
+   RightGate.Open = 0
+   end if
+@@ -107,11 +104,9 @@
+     Dim xx
+     For each xx in GI:xx.State = 1:Next
+     PlaySound "fx_relay"
+-    DOF 101, DOFOn
+   Else
+     For each xx in GI:xx.State = 0:Next
+     PlaySound "fx_relay"
+-    DOF 101, DOFOff
+   End If
+ End Sub
+ 
+@@ -121,12 +116,12 @@
+ '*******************************
+ 
+ Sub Table1_KeyDown(ByVal KeyCode)
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(53)=1
++  If KeyCode=PlungerKey Then Controller.Switch(53)=1
+   If vpmKeyDown(KeyCode) Then Exit Sub
+ End Sub
+ 
+ Sub Table1_KeyUp(ByVal KeyCode)
+-  If KeyCode=PlungerKey or KeyCode=LockBarKey Then Controller.Switch(53)=0
++  If KeyCode=PlungerKey Then Controller.Switch(53)=0
+   If vpmKeyUp(KeyCode) Then Exit Sub
+ End Sub
+ 
+@@ -201,7 +196,7 @@
+ Sub  FrontVuk_Hit
+      vpmTimer.PulseSw 45
+      FrontVuk.DestroyBall
+-   playsoundAtVol "popper_ball", FrontVuk, 1
++   playsound "popper_ball"
+      bsvuk.AddBall 0
+ End Sub
+ 
+@@ -213,7 +208,7 @@
+      vpmTimer.PulseSw 46
+      vpmTimer.PulseSw 41
+      SideVuk.DestroyBall
+-   playsoundAtVol "popper_ball", SideVuk, 1
++   playsound "popper_ball"
+      bsvuk.AddBall 0
+ End Sub
+ 
+@@ -225,25 +220,25 @@
+      vpmTimer.PulseSw 43
+      vpmTimer.PulseSw 41
+      RearVuk.DestroyBall
+-   playsoundAtVol "popper_ball", RearVuk, 1
++   playsound "popper_ball"
+      bsvuk.AddBall 0
+ End Sub
+ 
+ '*****************************
+ '**          HitFX          **
+ '*****************************
+-Sub AlienHeadWall_Hit:PlaysoundAtVol "fx_rubber2", ActiveBall, 1:End Sub
+-Sub Gate001_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate002_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate003_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate004_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate005_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate006_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate007_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate008_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate009_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate010_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
+-Sub Gate011_Hit:PlaySoundAtVol "gate", ActiveBall, 1:End Sub
++Sub AlienHeadWall_Hit:Playsound "fx_rubber2":End Sub
++Sub Gate001_Hit:PlaySound "gate":End Sub
++Sub Gate002_Hit:PlaySound "gate":End Sub
++Sub Gate003_Hit:PlaySound "gate":End Sub
++Sub Gate004_Hit:PlaySound "gate":End Sub
++Sub Gate005_Hit:PlaySound "gate":End Sub
++Sub Gate006_Hit:PlaySound "gate":End Sub
++Sub Gate007_Hit:PlaySound "gate":End Sub
++Sub Gate008_Hit:PlaySound "gate":End Sub
++Sub Gate009_Hit:PlaySound "gate":End Sub
++Sub Gate010_Hit:PlaySound "gate":End Sub
++Sub Gate011_Hit:PlaySound "gate":End Sub
+ '*****************************
+ '**        AlienHead        **
+ '*****************************
+@@ -258,7 +253,7 @@
+     LeftHeadPrim.RotZ = +25
+     RightHeadPrim.TransX = -25
+     RightHeadPrim.RotZ = -25
+-  PlaySoundAtVol SoundFX("fx_Flipperup",DOFContactors), LeftHeadPrim, 1
++  PlaySound SoundFX("fx_Flipperup",DOFContactors)
+     Else
+     Controller.Switch(52)=False
+     AlienHeadWall.IsDropped=False
+@@ -273,25 +268,25 @@
+ '**        Targets          **
+ '*****************************
+ 
+-Sub MiniLoopSU_Hit:vpmTimer.PulseSw 25:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub CenterRampSU_Hit:vpmTimer.PulseSw 27:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub RightRampLeftSU_Hit:vpmTimer.PulseSw 28:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub RightRampRightSU_Hit:vpmTimer.PulseSw 29:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub superjackpotSU_Hit:vpmTimer.PulseSw 24:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub Area51Bot_Hit:vpmTimer.PulseSw 47:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub Area51Mid_Hit:vpmTimer.PulseSw 34:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub Area51Top_Hit:vpmTimer.PulseSw 33:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub HurryUpBot_hit:vpmTimer.PulseSw 48:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub HurryUpMid_Hit:vpmTimer.PulseSw 36:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
+-Sub HurryUpTop_Hit:vpmTimer.PulseSw 35:PlaysoundAtVol SoundFX("target",DOFTargets), ActiveBall, 1:End Sub
++Sub MiniLoopSU_Hit:vpmTimer.PulseSw 25:Playsound "target":End Sub
++Sub CenterRampSU_Hit:vpmTimer.PulseSw 27:Playsound "target":End Sub
++Sub RightRampLeftSU_Hit:vpmTimer.PulseSw 28:Playsound "target":End Sub
++Sub RightRampRightSU_Hit:vpmTimer.PulseSw 29:Playsound "target":End Sub
++Sub superjackpotSU_Hit:vpmTimer.PulseSw 24:Playsound "target":End Sub
++Sub Area51Bot_Hit:vpmTimer.PulseSw 47:Playsound "target":End Sub
++Sub Area51Mid_Hit:vpmTimer.PulseSw 34:Playsound "target":End Sub
++Sub Area51Top_Hit:vpmTimer.PulseSw 33:Playsound "target":End Sub
++Sub HurryUpBot_hit:vpmTimer.PulseSw 48:Playsound "target":End Sub
++Sub HurryUpMid_Hit:vpmTimer.PulseSw 36:Playsound "target":End Sub
++Sub HurryUpTop_Hit:vpmTimer.PulseSw 35:Playsound "target":End Sub
+ 
+ '*****************************
+ '**     TurboBumpers        **
+ '*****************************
+ 
+-Sub LeftBumper_Hit:vpmTimer.PulseSw 49:PlaysoundAtVol SoundFX("fx_bumper1",DOFContactors), ActiveBall, 1:End Sub
+-Sub BotBumper_Hit:vpmTimer.PulseSw 50:PlaysoundAtVol SoundFX("fx_bumper3",DOFContactors), ActiveBall, 1:End Sub
+-Sub RightBumper_Hit:vpmTimer.PulseSw 51:PlaysoundAtVol SoundFX("fx_bumper2",DOFContactors), ActiveBall, 1:End Sub
++Sub LeftBumper_Hit:vpmTimer.PulseSw 49:Playsound "fx_bumper1":End Sub
++Sub BotBumper_Hit:vpmTimer.PulseSw 50:Playsound "fx_bumper3":End Sub
++Sub RightBumper_Hit:vpmTimer.PulseSw 51:Playsound "fx_bumper2":End Sub
+ 
+ 
+ 
+@@ -299,44 +294,44 @@
+ '**     Switch Handling     **
+ '*****************************
+ 
+-Sub Drain_Hit:bsTrough.AddBall Me:PlaysoundAtVol "drain", Drain, 1:End Sub
+-Sub Trigger16_Hit:Controller.switch(16) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Drain_Hit:bsTrough.AddBall Me:Playsound "drain":End Sub
++Sub Trigger16_Hit:Controller.switch(16) = True : playsound"rollover" : End Sub
+ Sub Trigger16_Unhit:Controller.switch(16) = False:end sub
+-Sub Trigger18_Hit:Controller.switch(18) = True : playsoundAtVol"RampUp" , ActiveBall, 1: End Sub
++Sub Trigger18_Hit:Controller.switch(18) = True : playsound"RampUp" : End Sub
+ Sub Trigger18_Unhit:Controller.switch(18) = False:end sub
+-Sub Trigger19_Hit:Controller.switch(19) = True : playsoundAtVol"fx_metalrolling" , ActiveBall, 1: End Sub
++Sub Trigger19_Hit:Controller.switch(19) = True : playsound"fx_metalrolling" : End Sub
+ Sub Trigger19_Unhit:Controller.switch(19) = False:end sub
+-Sub Trigger20_Hit:Controller.switch(20) = True : playsoundAtVol"RampUp" , ActiveBall, 1: End Sub
++Sub Trigger20_Hit:Controller.switch(20) = True : playsound"RampUp" : End Sub
+ Sub Trigger20_Unhit:Controller.switch(20) = False:end sub
+-Sub Trigger21_Hit:Controller.switch(21) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger21_Hit:Controller.switch(21) = True : playsound"rollover" : End Sub
+ Sub Trigger21_Unhit:Controller.switch(21) = False:end sub
+-Sub Trigger22_Hit:Controller.switch(22) = True : playsoundAtVol"RampUp" , ActiveBall, 1: End Sub
++Sub Trigger22_Hit:Controller.switch(22) = True : playsound"RampUp" : End Sub
+ Sub Trigger22_Unhit:Controller.switch(22) = False:end sub
+-Sub Trigger23_Hit:Controller.switch(23) = True : playsoundAtVol"fx_metalrolling" , ActiveBall, 1: End Sub
++Sub Trigger23_Hit:Controller.switch(23) = True : playsound"fx_metalrolling" : End Sub
+ Sub Trigger23_Unhit:Controller.switch(23) = False:end sub
+-Sub Trigger57_Hit:Controller.switch(57) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger57_Hit:Controller.switch(57) = True : playsound"rollover" : End Sub
+ Sub Trigger57_Unhit:Controller.switch(57) = False:end sub
+-Sub Trigger58_Hit:Controller.switch(58) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger58_Hit:Controller.switch(58) = True : playsound"rollover" : End Sub
+ Sub Trigger58_Unhit:Controller.switch(58) = False:end sub
+-Sub Trigger60_Hit:Controller.switch(60) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger60_Hit:Controller.switch(60) = True : playsound"rollover" : End Sub
+ Sub Trigger60_Unhit:Controller.switch(60) = False:end sub
+-Sub Trigger61_Hit:Controller.switch(61) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger61_Hit:Controller.switch(61) = True : playsound"rollover" : End Sub
+ Sub Trigger61_Unhit:Controller.switch(61) = False:end sub
+-Sub Trigger37_Hit:Controller.switch(37) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger37_Hit:Controller.switch(37) = True : playsound"rollover" : End Sub
+ Sub Trigger37_Unhit:Controller.switch(37) = False:end sub
+-Sub Trigger38_Hit:Controller.switch(38) = True : playsoundAtVol"RampMidway" , ActiveBall, 1: End Sub
++Sub Trigger38_Hit:Controller.switch(38) = True : playsound"RampMidway" : End Sub
+ Sub Trigger38_Unhit:Controller.switch(38) = False:end sub
+-Sub Trigger39_Hit:Controller.switch(39) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger39_Hit:Controller.switch(39) = True : playsound"rollover" : End Sub
+ Sub Trigger39_Unhit:Controller.switch(39) = False:end sub
+-Sub Trigger40_Hit:Controller.switch(40) = True : playsoundAtVol"RampEnd" , ActiveBall, 1: End Sub
++Sub Trigger40_Hit:Controller.switch(40) = True : playsound"RampEnd" : End Sub
+ Sub Trigger40_Unhit:Controller.switch(40) = False:end sub
+-Sub Trigger30_Hit:Controller.switch(30) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger30_Hit:Controller.switch(30) = True : playsound"rollover" : End Sub
+ Sub Trigger30_Unhit:Controller.switch(30) = False:end sub
+-Sub Trigger31_Hit:Controller.switch(31) = True : playsoundAtVol"RampMidway" , ActiveBall, 1: End Sub
++Sub Trigger31_Hit:Controller.switch(31) = True : playsound"RampMidway" : End Sub
+ Sub Trigger31_Unhit:Controller.switch(31) = False:end sub
+-Sub Trigger32_Hit:Controller.switch(32) = True : playsoundAtVol"RampEnd" , ActiveBall, 1: End Sub
++Sub Trigger32_Hit:Controller.switch(32) = True : playsound"RampEnd" : End Sub
+ Sub Trigger32_Unhit:Controller.switch(32) = False:end sub
+-Sub Trigger9_Hit:Controller.switch(9) = True : playsoundAtVol"rollover" , ActiveBall, 1: End Sub
++Sub Trigger9_Hit:Controller.switch(9) = True : playsound"rollover" : End Sub
+ Sub Trigger9_Unhit:Controller.switch(9) = False:end sub
+ '*****************************
+ '**      Support Code       **
+@@ -609,7 +604,7 @@
+ 
+ Sub RightSlingShot_Slingshot
+   vpmTimer.PulseSw 62
+-    PlaySoundAtVol SoundFX("right_slingshot",DOFContactors), sling1, 1
++    PlaySound SoundFX("right_slingshot",DOFContactors), 0,1, 0.05,0.05 '0,1, AudioPan(RightSlingShot), 0.05,0,0,1,AudioFade(RightSlingShot)
+     RSling.Visible = 0
+     RSling1.Visible = 1
+     sling1.rotx = 20
+@@ -629,7 +624,7 @@
+ 
+ Sub LeftSlingShot_Slingshot
+   vpmTimer.PulseSw 59
+-    PlaySoundAtVol SoundFX("left_slingshot",DOFContactors), sling2, 1
++    PlaySound SoundFX("left_slingshot",DOFContactors), 0,1, -0.05,0.05 '0,1, AudioPan(LeftSlingShot), 0.05,0,0,1,AudioFade(LeftSlingShot)
+     LSling.Visible = 0
+     LSling1.Visible = 1
+     sling2.rotx = 20
+@@ -893,11 +888,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else
+@@ -1042,11 +1037,11 @@
+   LogoDx.RotZ = RightFlipper.CurrentAngle + 90
+ End Sub
+ 
+-' Thalamus - 2021-04-30 : added proper exit
+ 
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit()
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
++
++
++
++
++
++
+ 

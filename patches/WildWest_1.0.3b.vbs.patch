@@ -1,0 +1,10 @@
+--- vpxtable_scripts/WildWest_1.0.3b.vbs
++++ todo_extracted_tables/WildWest_1.0.3b.vbs
+@@ -407,7 +407,6 @@
+         If keycode = LeftTiltKey Then Nudge 90, 8:PlaySound "fx_nudge", 0, 1, -0.1, 0.25:CheckTilt
+         If keycode = RightTiltKey Then Nudge 270, 8:PlaySound "fx_nudge", 0, 1, 0.1, 0.25:CheckTilt
+         If keycode = CenterTiltKey Then Nudge 0, 9:PlaySound "fx_nudge", 0, 1, 1, 0.25:CheckTilt
+-        If keycode = MechanicalTilt Then CheckTilt
+ 
+ '   If keycode = RightMagnaSave Then UpMusic
+ '   If keycode = LeftMagnasave Then DownMusic 'ShowTriche

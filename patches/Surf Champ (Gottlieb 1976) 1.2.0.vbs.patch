@@ -1,0 +1,274 @@
+--- vpxtable_scripts/Surf Champ (Gottlieb 1976) 1.2.0.vbs
++++ todo_extracted_tables/Surf Champ (Gottlieb 1976) 1.2.0.vbs
+@@ -346,8 +346,8 @@
+   end if
+ 
+ 
+-If keycode = PlungerKey Then
+-  Plunger.PullBack
++  If keycode = PlungerKey Then
++    Plunger.PullBack
+     PlungerPulled = 1
+   End If
+ 
+@@ -366,14 +366,14 @@
+ 
+   If keycode = LeftFlipperKey and InProgress=true and TableTilted=false Then
+     LeftFlipper.RotateToEnd
+-    PlaySoundAtVol SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers), LeftFlipper, 1
+-    PlayLoopSoundAtVol "buzzL", LeftFlipper, 1
++    PlaySound SoundFXDOF("FlipperUp",101,DOFOn,DOFFlippers)
++    PlaySound "buzzL",-1
+   End If
+ 
+   If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
+     RightFlipper.RotateToEnd
+-    PlaySoundAtVol SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers), RightFlipper, 1
+-    PlayLoopSoundAtVol "buzz", RightFlipper, 1
++    PlaySound SoundFXDOF("FlipperUp",102,DOFOn,DOFFlippers)
++    PlaySound "buzz",-1
+   End If
+ 
+   If keycode = LeftTiltKey Then
+@@ -402,12 +402,12 @@
+ 
+     End If
+ 
+-    PlaySoundAtVol "coinin", Drain, 1
++    playsound "coinin"
+     AddSpecial2
+   end if
+ 
+    if keycode = 5 then
+-    PlaySoundAtVol "coinin", Drain, 1
++    playsound "coinin"
+     AddSpecial2
+     keycode= StartGameKey
+   end if
+@@ -510,7 +510,7 @@
+       exit sub
+     end if
+ 
+-    PlaySoundAtVol "plungerrelease", Plunger, 1
++    PlaySound"plungerrelease"
+     Plunger.Fire
+   End If
+ 
+@@ -524,13 +524,13 @@
+   If keycode = LeftFlipperKey  and InProgress=true and TableTilted=false Then
+ 
+     LeftFlipper.RotateToStart
+-    PlaySoundAtVol SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers), LeftFlipper, 1
++    PlaySound SoundFXDOF("FlipperDown",101,DOFOff,DOFFlippers)
+     StopSound "buzzL"
+   End If
+ 
+   If keycode = RightFlipperKey  and InProgress=true and TableTilted=false Then
+     RightFlipper.RotateToStart
+-    PlaySoundAtVol SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers), RightFlipper, 1
++    PlaySound SoundFXDOF("FlipperDown",102,DOFOff,DOFFlippers)
+     StopSound "buzz"
+   End If
+ 
+@@ -540,7 +540,7 @@
+ 
+ Sub Drain_Hit()
+   Drain.DestroyBall
+-  PlaySoundAtVol "fx_drain", Drain, 1
++  PlaySound "fx_drain"
+   DOF 114, DOFPulse
+   Pause4Bonustimer.enabled=1
+ 
+@@ -573,7 +573,7 @@
+ '
+ 
+ Sub RightSlingShot_Slingshot
+-    PlaySoundAtVol SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors),  ActiveBall, 1
++    PlaySound SoundFXDOF("right_slingshot",104,DOFPulse,DOFContactors), 0, 1, 0.05, 0.05
+   DOF 111, DOFPulse
+     RSling0.Visible = 0
+     RSling1.Visible = 1
+@@ -592,7 +592,7 @@
+ End Sub
+ 
+ Sub LeftSlingShot_Slingshot
+-    PlaySoundAtVol SoundFXDOF("left_slingshot",103,DOFPulse,DOFContactors), ActiveBall, 1
++    PlaySound SoundFXDOF("left_slingshot",103,DOFPulse,DOFContactors),0,1,-0.05,0.05
+   DOF 110, DOFPulse
+     LSling0.Visible = 0
+     LSling1.Visible = 1
+@@ -645,7 +645,7 @@
+ '***********************************
+ Sub Bumper1_Hit
+   If TableTilted=false then
+-    PlaySoundAtVol SoundFXDOF("bumper1",106,DOFPulse,DOFContactors), ActiveBall, 1
++    PlaySound SoundFXDOF("bumper1",106,DOFPulse,DOFContactors)
+     DOF 107, DOFPulse
+     bump1 = 1
+     If BallsPerGame=3 then
+@@ -659,7 +659,7 @@
+ 
+ Sub Bumper2_Hit
+   If TableTilted=false then
+-    PlaySoundAtVol SoundFXDOF("bumper1",109,DOFPulse,DOFContactors), ActiveBall, 1
++    PlaySound SoundFXDOF("bumper1",109,DOFPulse,DOFContactors)
+     DOF 108, DOFPulse
+     bump1 = 1
+     If BallsPerGame=3 then
+@@ -675,7 +675,7 @@
+ '***********************************
+ Sub TriggerTop1_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     If Number1.state=1 then
+       IncreaseBonus
+     DOF 200, DOFPulse
+@@ -687,7 +687,7 @@
+ 
+ Sub TriggerTop2_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     If Number2.state=1 then
+       IncreaseBonus
+     DOF 201, DOFPulse
+@@ -699,7 +699,7 @@
+ 
+ Sub TriggerTop3_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     If Number3.state=1 then
+       IncreaseBonus
+     DOF 202, DOFPulse
+@@ -711,7 +711,7 @@
+ 
+ Sub TriggerTop4_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     If Number4.state=1 then
+       IncreaseBonus
+     DOF 203, DOFPulse
+@@ -723,7 +723,7 @@
+ 
+ Sub TriggerTop5_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     If Number5.state=1 then
+       IncreaseBonus
+     DOF 204, DOFPulse
+@@ -735,7 +735,7 @@
+ 
+ Sub TriggerTop6_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 206, DOFPulse
+     SetMotor(500)
+     if Number6.state=1 then
+@@ -755,7 +755,7 @@
+ 
+ Sub TriggerTop7_Hit()
+   if TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 205, DOFPulse
+     SetMotor(500)
+     if Number7.state=1 then
+@@ -776,7 +776,7 @@
+ 
+ Sub TriggerLeftInlane_Hit()
+   If TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 208, DOFPulse
+     SetMotor(500)
+   End If
+@@ -784,7 +784,7 @@
+ 
+ Sub TriggerRightInlane_Hit()
+   If TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 209, DOFPulse
+     SetMotor(500)
+   End If
+@@ -792,7 +792,7 @@
+ 
+ Sub TriggerLeftOutlane_Hit()
+   If TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 207, DOFPulse
+     SetMotor(500)
+     IncreaseBonus
+@@ -804,7 +804,7 @@
+ 
+ Sub TriggerRightOutlane_Hit()
+   If TableTilted=false then
+-    PlaySoundAtVol "sensor", ActiveBall, 1
++    PlaySound "sensor"
+     DOF 210, DOFPulse
+     SetMotor(500)
+     IncreaseBonus
+@@ -982,7 +982,7 @@
+   for each obj in TopDropTargets
+     obj.IsDropped=0
+   next
+-  PlaySoundAtVol SoundFXDOF("dropsup",112,DOFPulse,DOFContactors), DropTarget3, 1
++  PlaySound SoundFXDOF("dropsup",112,DOFPulse,DOFContactors)
+   SequenceCompleteTargets=false
+   DropTargetDownCounter=0
+   CheckAllDropsTimer.enabled=true
+@@ -993,7 +993,7 @@
+   for each obj in TopDropTargets
+     obj.IsDropped=0
+   next
+-  PlaySoundAtVol SoundFXDOF("dropsup",112,DOFPulse,DOFContactors), DropTarget3, 1
++  PlaySound SoundFXDOF("dropsup",112,DOFPulse,DOFContactors)
+   SequenceCompleteTargets=false
+   DropTargetDownCounter=0
+   CheckAllDropsTimer.enabled=true
+@@ -1086,7 +1086,7 @@
+   case 1:
+     LeftKickArm.rotz=15
+     LeftKicker.Kick 235,12
+-    PlaySoundAtVol SoundFXDOF("saucer",116,DOFPulse,DOFContactors), LeftKickArm, 1
++    PlaySound SoundFXDOF("saucer",116,DOFPulse,DOFContactors)
+     DOF 117, DOFPulse
+ 
+   case 2:
+@@ -2745,15 +2745,6 @@
+     PlaySoundAt soundname, ActiveBall
+ End Sub
+ 
+-'Set position as table object and Vol manually.
+-Sub PlaySoundAtVol(sound, tableobj, Volume)
+-  PlaySound sound, 1, Volume, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+-End Sub
+-
+-' play a looping sound at a location with volume
+-Sub PlayLoopSoundAtVol(sound, tableobj, Vol)
+-  PlaySound sound, -1, Vol, AudioPan(tableobj), 0, 0, 1, 0, AudioFade(tableobj)
+-End Sub
+ 
+ '*********************************************************************
+ '                     Supporting Ball & Sound Functions
+@@ -2863,11 +2854,11 @@
+     ' render the shadow for each ball
+     For b = 0 to UBound(BOT)
+         If BOT(b).X < Table1.Width/2 Then
+-            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) + 6
++            BallShadow(b).X = ((BOT(b).X) - (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) + 6
+         Else
+-            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/21)) - 6
++            BallShadow(b).X = ((BOT(b).X) + (Ballsize/6) + ((BOT(b).X - (Table1.Width/2))/7)) - 6
+         End If
+-        ballShadow(b).Y = BOT(b).Y + 4
++        ballShadow(b).Y = BOT(b).Y + 12
+         If BOT(b).Z > 20 Then
+             BallShadow(b).visible = 1
+         Else

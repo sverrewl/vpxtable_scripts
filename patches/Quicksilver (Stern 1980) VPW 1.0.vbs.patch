@@ -1,0 +1,13 @@
+--- vpxtable_scripts/Quicksilver (Stern 1980) VPW 1.0.vbs
++++ todo_extracted_tables/Quicksilver (Stern 1980) VPW 1.0.vbs
+@@ -4478,10 +4478,3 @@
+ Dim BGDT_Lightmap: BGDT_Lightmap=Array(DTLM_GIS_gi008_sw32, DTLM_GIS_gi009_sw30, DTLM_GIS_gi009_sw31, DTLM_GIS_gi009_sw32, DTLM_GIS_gi010_sw30, DTLM_GIS_gi010_sw31, DTLM_GIS_gi010_sw32, DTLM_GIS_gi011_sw30, DTLM_GIS_gi011_sw31, DTLM_GIS_gi011_sw32, DTLM_GIS_gi017_sw30, DTLM_GIS_gi018_sw30, DTLM_GIS_gi018_sw31, DTLM_GIS_gi019_sw30, DTLM_GIS_gi019_sw31, DTLM_GIS_gi019_sw32, DTLM_GIS_gi020_sw30, DTLM_GIS_gi020_sw31, DTLM_GIS_gi020_sw32, DTLM_GIS_gi021_sw30, DTLM_GIS_gi021_sw31, DTLM_GIS_gi021_sw32)
+ Dim BGDT_All: BGDT_All=Array(DTBM_sw30, DTBM_sw31, DTBM_sw32, DTLM_GIS_gi008_sw32, DTLM_GIS_gi009_sw30, DTLM_GIS_gi009_sw31, DTLM_GIS_gi009_sw32, DTLM_GIS_gi010_sw30, DTLM_GIS_gi010_sw31, DTLM_GIS_gi010_sw32, DTLM_GIS_gi011_sw30, DTLM_GIS_gi011_sw31, DTLM_GIS_gi011_sw32, DTLM_GIS_gi017_sw30, DTLM_GIS_gi018_sw30, DTLM_GIS_gi018_sw31, DTLM_GIS_gi019_sw30, DTLM_GIS_gi019_sw31, DTLM_GIS_gi019_sw32, DTLM_GIS_gi020_sw30, DTLM_GIS_gi020_sw31, DTLM_GIS_gi020_sw32, DTLM_GIS_gi021_sw30, DTLM_GIS_gi021_sw31, DTLM_GIS_gi021_sw32)
+ ' VLM DT Arrays - End
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

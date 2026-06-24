@@ -1,0 +1,44 @@
+--- vpxtable_scripts/Hot Shots (Gottlieb 1989).vbs
++++ todo_extracted_tables/Hot Shots (Gottlieb 1989).vbs
+@@ -52,10 +52,6 @@
+ Dim bsTrough,dtBlue1,dtRed1,dtYellow1,dtGreen1,dtTop,dtBottom
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+   On Error Resume Next
+   With Controller
+     .GameName=cGameName
+@@ -735,8 +731,28 @@
+ End Sub
+ 
+ 
+-' Thalamus : This sub is used twice - this means ... this one IS NOT USED
+-' Deleted obsoleted subs
++
++
++
++'*********************************************************************
++'                 Positional Sound Playback Functions
++'*********************************************************************
++
++' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
++' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
++' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
++Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
++  PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
++End Sub
++
++' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
++Sub PlaySoundAt(soundname, tableobj)
++    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
++End Sub
++
++Sub PlaySoundAtBall(soundname)
++    PlaySoundAt soundname, ActiveBall
++End Sub
+ 
+ '*********************************************************************
+ '                 Positional Sound Playback Functions

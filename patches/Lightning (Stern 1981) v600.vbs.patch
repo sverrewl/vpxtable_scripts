@@ -1,0 +1,24 @@
+--- vpxtable_scripts/Lightning (Stern 1981) v600.vbs
++++ todo_extracted_tables/Lightning (Stern 1981) v600.vbs
+@@ -88,21 +88,16 @@
+     dtT.InitSnd SoundFX("fx_droptarget", DOFDropTargets), SoundFX("fx_resetdrop", DOFContactors)
+     dtT.CreateEvents("dtT")
+ 
+-    ' Thalamus, more randomness pls
+     ' Saucers
+     Set bsSaucer2 = New cvpmBallStack
+     bsSaucer2.InitSaucer Kicker2, 36, 170, 14
+     bsSaucer2.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bsSaucer2.KickAngleVar = 30
+-    bsSaucer2.KickForceVar = 3
+-    bsSaucer2.KickAngleVar = 3
+ 
+     Set bsSaucer1 = New cvpmBallStack
+     bsSaucer1.InitSaucer Kicker1, 37, 330, 14
+     bsSaucer1.InitExitSnd SoundFX("fx_kicker", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+     bsSaucer1.KickAngleVar = 30
+-    bsSaucer1.KickForceVar = 3
+-    bsSaucer1.KickAngleVar = 3
+ 
+     ' Nudging
+     vpmNudge.TiltSwitch = 7

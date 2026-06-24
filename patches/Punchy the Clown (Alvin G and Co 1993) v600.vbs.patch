@@ -1,0 +1,28 @@
+--- vpxtable_scripts/Punchy the Clown (Alvin G and Co 1993) v600.vbs
++++ todo_extracted_tables/Punchy the Clown (Alvin G and Co 1993) v600.vbs
+@@ -94,14 +94,11 @@
+         .AddBall 0
+     End With
+ 
+-    ' Thalamus, more randomness pls
+     ' Cannon
+     Set bscannon = New cvpmBallStack
+     With bscannon
+         .InitSaucer cannon, 39, 3, 35
+         .InitExitSnd SoundFX("fx_ballrel", DOFContactors), SoundFX("fx_Solenoid", DOFContactors)
+-        .KickForceVar = 3
+-        .KickAngleVar = 3
+     End With
+ 
+     ' Drop targets
+@@ -1011,10 +1008,3 @@
+         Case 21:table1.ColorGradeImage = "LUT Warm 10"
+     End Select
+ End Sub
+-
+-' Thalamus : Exit in a clean and proper way
+-Sub Table1_exit
+-  Controller.Pause = False
+-  Controller.Stop
+-End Sub
+-

@@ -1,0 +1,21 @@
+--- vpxtable_scripts/Transformers Pro (Stern 2011) v.2.3.1.vbs
++++ todo_extracted_tables/Transformers Pro (Stern 2011) v.2.3.1.vbs
+@@ -434,18 +434,15 @@
+     .Balls = 4
+     End With
+ 
+-    ' Thalamus - added more randomness
+     'Kickers
+     Set bsSaucer = New cvpmBallStack
+     bsSaucer.InitSaucer sw3, 3, 168 + rnd * 6, 10
+     bsSaucer.KickAngleVar = 5
+-    bsSaucer.KickForceVar = 3
+ 
+     set bsKickerMegaTron = New cvpmBallStack
+     bsKickerMegaTron.InitSw 0, 41, 40, 39, 38, 0, 0, 0
+     bsKickerMegaTron.InitKick KickerMegaTron, 148 + rnd * 6, 38
+     bsKickerMegaTron.KickAngleVar = 3
+-    bsKickerMegaTron.KickForceVar = 3
+     bsKickerMegaTron.Balls = 0
+ 
+     ' Impulse Plunger - used as the autoplunger

@@ -1,0 +1,51 @@
+--- vpxtable_scripts/Super_Mario_Bros (Gottlieb 1992).vbs
++++ todo_extracted_tables/Super_Mario_Bros (Gottlieb 1992).vbs
+@@ -69,10 +69,6 @@
+ Dim dtDrop
+ 
+ Sub Table1_Init
+-
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+ LoadLut
+     With Controller
+         .GameName = cGameName
+@@ -279,7 +275,7 @@
+   If keycode = LeftTiltKey Then Nudge 90, 3:PlaySound SoundFX("fx_nudge", 0)
+     If keycode = RightTiltKey Then Nudge 270, 3:PlaySound SoundFX("fx_nudge", 0)
+     If keycode = CenterTiltKey Then Nudge 0, 3:PlaySound SoundFX("fx_nudge", 0)
+-  If keycode = PlungerKey or keycode = LockBarKey Then Controller.Switch(5)=1
++  If keycode = PlungerKey Then Controller.Switch(5)=1
+   If vpmKeyDown(keycode) Then Exit Sub
+ End Sub
+ 
+@@ -289,7 +285,7 @@
+   If keycode = StartGameKey Then Controller.Switch(4) = 0
+   If keycode = LeftFlipperKey Then Controller.Switch(45) = 0
+   If keycode = RightFlipperKey Then : Controller.Switch(47) = 0
+-  If keycode = PlungerKey or keycode = LockBarKey Then : SoundPlungerReleaseBall() : Controller.Switch(5)=0
++  If keycode = PlungerKey Then : SoundPlungerReleaseBall() : Controller.Switch(5)=0
+ If keycode = RightFlipperKey Then FlipperDeActivate RightFlipper, RFPress End If
+ If keycode = LeftFlipperKey Then FlipperDeActivate LeftFlipper, LFPress End If
+     If vpmKeyUp(keycode) Then Exit Sub
+@@ -1812,8 +1808,7 @@
+     "actual cor: " & round(realCOR,4) & vbnewline & "ballspeed coef: " & round(coef, 3) & vbnewline
+     if Print then debug.print Round(cor.ballvel(aBall.id),2) & ", " & round(desiredcor,3)
+ 
+-' Thalamus - patched :     aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     if debugOn then TBPout.text = str
+   End Sub
+ 
+@@ -1823,8 +1818,7 @@
+     RealCOR = BallSpeed(aBall) / (cor.ballvel(aBall.id)+0.0001)
+     coef = desiredcor / realcor
+     If abs(aball.velx) < 2 and aball.vely < 0 and aball.vely > -3.75 then
+-' Thalamus - patched :       aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+-    aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef : aBall.velz = aBall.velz * coef
++      aBall.velx = aBall.velx * coef : aBall.vely = aBall.vely * coef
+     End If
+   End Sub
+ 

@@ -1,0 +1,12 @@
+--- vpxtable_scripts/Silver Slugger (Gottlieb 1990) VT v3.vbs
++++ todo_extracted_tables/Silver Slugger (Gottlieb 1990) VT v3.vbs
+@@ -52,9 +52,6 @@
+ 
+ Sub SilverSlugger_Init
+ 
+-' Thalamus : Was missing 'vpminit me'
+-  vpminit me
+-
+      With Controller
+          .GameName = cGameName
+          If Err Then MsgBox "Can't start Game " & cGameName & vbNewLine & Err.Description:Exit Sub
