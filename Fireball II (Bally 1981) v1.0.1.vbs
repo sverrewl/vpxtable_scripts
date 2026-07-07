@@ -55,7 +55,7 @@ LoadVPM "01550000", "Bally.vbs", 3.42
 
 ' using table width and height in script slows down the performance
 Const UseSolenoids = 2
-Const UseLamps = 1
+Const UseLamps = 0
 Const UseGI = 1
 Const UseSync = 0
 Const HandleMech = 0
