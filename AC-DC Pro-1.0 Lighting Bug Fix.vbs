@@ -105,8 +105,8 @@ LoadVPM "03060000", "Sam.VBS", 3.54
 '********************
 
 Const UseSolenoids = 1
-Const UseLamps = 1
-Const UseGI = 1
+Const UseLamps = 0
+Const UseGI = 0
 Const UseSync = 0
 Const HandleMech = 0
 

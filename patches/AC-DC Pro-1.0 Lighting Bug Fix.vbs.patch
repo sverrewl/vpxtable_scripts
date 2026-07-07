@@ -108,8 +108,8 @@
 -'********************
 -
 -Const UseSolenoids = 1
--Const UseLamps = 1
--Const UseGI = 1
+-Const UseLamps = 0
+-Const UseGI = 0
 -Const UseSync = 0
 -Const HandleMech = 0
 -
