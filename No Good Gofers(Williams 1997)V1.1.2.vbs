@@ -320,6 +320,10 @@ Sub UpdateSideFlashers()
     White_Pumper.visible = visState
 
     ' Objects WITH spaces - use square brackets
+    ' Thalamus comment :
+    ' According to https://github.com/Suburban-Vampire - if you are running linux, the three next lines
+    ' might need to be commented out - I expect that this is because the square brackets isn't supported
+    ' in libwinevbs ... yet ?
     [L178 Side Flasher].visible = visState
     [L180 Side Flasher].visible = visState
     [L179 Side Flasher].visible = visState
